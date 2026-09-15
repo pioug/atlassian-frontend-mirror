@@ -7,10 +7,11 @@ import { useCallback, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment, {
+import {
 	UFOThirdPartySegment,
 	type IframeSegmentEvent,
-} from '@atlaskit/react-ufo/segment';
+} from '@atlaskit/react-ufo/third-party-segment';
+import UFOSegment from '@atlaskit/react-ufo/segment';
 
 const containerStyle = css({
 	display: 'flex',

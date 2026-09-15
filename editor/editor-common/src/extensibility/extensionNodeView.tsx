@@ -24,6 +24,7 @@ import type { EditorAppearance } from '../types';
 
 import { Extension } from './Extension';
 import { ExtensionNodeWrapper } from './ExtensionNodeWrapper';
+import { isNativeEmbedExtension } from './nativeEmbedExtension';
 import type {
 	ExtensionsPluginInjectionAPI,
 	MacroInteractionDesignFeatureFlags,
@@ -31,6 +32,8 @@ import type {
 } from './types';
 
 interface ExtensionNodeViewOptions {
+	/** See `allowAIGeneratedContentMotion` on the extension plugin's options. */
+	allowAIGeneratedContentMotion?: boolean;
 	appearance?: EditorAppearance;
 	getExtensionHeight?: GetPMNodeHeight;
 }
@@ -360,6 +363,11 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 				intl={props.intl}
 				nodeType={this.node.type.name}
 				macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
+				// Only native embeds animate in; the reveal waits on the embed's own loading state.
+				generatedContentMotion={
+					!!props.extensionNodeViewOptions?.allowAIGeneratedContentMotion &&
+					isNativeEmbedExtension(this.node)
+				}
 			>
 				<Extension
 					editorView={this.view}

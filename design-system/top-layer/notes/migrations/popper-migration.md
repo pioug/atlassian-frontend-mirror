@@ -20,7 +20,7 @@ in top-layer)"_.
 
 That adapter is a **transitional bridge**, not the end state. Retiring the package still happens in
 the **consumer** packages (popup, tooltip, etc.): each consumer's top-layer branch stops importing
-`@atlaskit/popper` and adopts `@atlaskit/top-layer` primitives (`Popover`, `useAnchorPosition`)
+`@atlaskit/popper` and adopts `@atlaskit/top-layer` primitives (`Popover`, `useAnchoredPopover`)
 directly. Once every consumer's legacy branch is removed, `@atlaskit/popper` can be deprecated and
 retired.
 
@@ -48,7 +48,7 @@ caveats that make it a **transitional bridge** rather than a true migration:
   consumers that read individual `style` keys.
 - The new world replaces the **architecture** (anchor positioning + top layer + light dismiss), not
   just the implementation. To actually retire popper, consumers must adopt the new component API
-  (`Popover`, `useAnchorPosition`) directly, not lean on the popper-shaped facade.
+  (`Popover`, `useAnchoredPopover`) directly, not lean on the popper-shaped facade.
 
 So the work is two-pronged: the in-package adapter gives existing popper consumers top-layer
 rendering under the flag today, while the longer-term retire-the-package work (the inventory, gap
@@ -89,26 +89,61 @@ Two values are **real**, not inert:
   them as constant `false` and capped `shouldFitViewport` with a blanket `calc(100vw - 10px)`; both
   gaps broke real consumers (see
   [PR 378908](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/378908)), so
-  per-placement caps and live visibility were promoted into the FF-on path.
+  per-placement caps and live visibility were promoted into the FF-on path. `isReferenceHidden` is
+  at parity; `hasPopperEscaped` is **not** — see "Known gap: `hasPopperEscaped` is viewport-escape,
+  not boundary-escape" below.
+
+### Known gap: `hasPopperEscaped` is viewport-escape, not boundary-escape
+
+**Date:** 2026-08-25. **Status:** known divergence, deliberately deferred.
+
+Of the two synthesised visibility values, only one is at parity:
+
+- `isReferenceHidden` — **at parity.** Legacy hides the popper once the anchor is clipped out of
+  view, and `useReferenceVisibility` reproduces that: the anchor's rect is fully outside the visual
+  viewport OR clipped to zero area by any scrollable ancestor (`isClippedByAncestors(anchor)`).
+- `hasPopperEscaped` — **diverges.** Legacy popper.js means "the popper escaped its **clipping
+  boundary**". The hook computes "the popover's rect is fully outside the **viewport**", which is
+  exactly what its own docblock documents — the code is self-consistent, it is the parity that is
+  missing. A popover pushed outside a small `overflow: hidden` ancestor but still on screen
+  therefore reports `false` where legacy reports `true`.
+
+**What a fix takes.** Find the **anchor's** clipping ancestor and test the popover's rect against
+that ancestor's rect. The obvious `isClippedByAncestors(popoverElement)` is the wrong instrument and
+is always `false`: under the flag the popover renders in the browser top layer, so it is not a
+descendant of the clipper and has no clipping ancestor of its own to walk up to.
+
+**Why deferred.** `hasPopperEscaped` has **zero** product consumers. An AFM-wide search (jira,
+confluence, townsquare, post-office, adminhub, help-center, and all of `platform/packages`) finds it
+only in popper's own `examples/08-flag-popper-escaped.tsx`, that fixture's Playwright spec, and
+these notes. `isReferenceHidden`, by contrast, has 10+ real consumers. So this is a parity gap in a
+render-prop surface nobody reads, and building clipping-ancestor detection for it is speculative.
+
+**Coverage.** `src/__tests__/playwright/top-layer-popper-escaped.spec.tsx` is `test.fixme`. Its
+assertion is left intact rather than weakened, so it fails again the moment the legacy semantics are
+implemented. It had been green only because the flag was spelled `'platform-dst-top-layer=true'` —
+nothing in `prepareParams` splits on `=`, so that registered a flag literally named
+`platform-dst-top-layer=true`, `checkGate('platform-dst-top-layer')` missed, and the spec ran the
+legacy path it exists not to test. Correcting the spelling to a bare key is what surfaced the gap.
 
 ### Prop handling — three tiers
 
-| Tier      | Props                                                                                                                                                                                                                            | Behaviour under the flag                                                                                                                                                                                                                                                                                                                                                                               |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Keep**  | `placement`, `offset`, `shouldFitViewport`, `referenceElement` (incl. `VirtualElement`), `<Manager>` / `<Reference>` anchor context                                                                                              | Semantics preserved. `offset` maps to top-layer's offset input; `shouldFitViewport` maps to a CSS `max-inline-size` / `max-block-size` recipe with per-placement caps (legacy `viewportPadding = 5` preserved); `VirtualElement` is bridged via `useAnchorPositionAtPoint`; the `<Manager>` anchor is read through popper's own context.                                                               |
-| **No-op** | `modifiers`, `strategy`, consumer mutation of returned `style` / `arrowProps.style`                                                                                                                                              | Accepted at the type level for source compatibility; **no runtime effect** and **no dev warning**. `modifiers` is replaced by CSS `position-try-fallbacks`; `strategy` is irrelevant because top-layer rendering is always browser-fixed. A warning would fire on every render of a wrapping library (e.g. `@atlaskit/popup`) that forwards these props unconditionally, so it is deliberately silent. |
-| **Drop**  | `react-popper` engine, `@popperjs/core` modifier pipeline, `getMaxSizeModifiers` / `max-size.tsx`, the `flip` / `hide` / `preventOverflow` / `offset` / `maxSize` modifier wiring, scroll-parent traversal, reposition-on-update | Not present in the FF-on tree. The browser owns reflow; `shouldFitViewport` is the CSS recipe above.                                                                                                                                                                                                                                                                                                   |
+| Tier      | Props                                                                                                                                                                                                                            | Behaviour under the flag                                                                                                                                                                                                                                                                                                                                                                                      |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Keep**  | `placement`, `offset`, `shouldFitViewport`, `referenceElement` (incl. `VirtualElement`), `<Manager>` / `<Reference>` anchor context                                                                                              | Semantics preserved. `offset` maps to top-layer's offset input; `shouldFitViewport` maps to `useAnchoredPopover`'s `inlineSize` / `blockSize: 'max-available'`, a CSS `max-inline-size` / `max-block-size` recipe with per-placement caps (legacy `viewportPadding = 5` preserved); `VirtualElement` is bridged via `useAnchoredPopoverAtPoint`; the `<Manager>` anchor is read through popper's own context. |
+| **No-op** | `modifiers`, `strategy`, consumer mutation of returned `style` / `arrowProps.style`                                                                                                                                              | Accepted at the type level for source compatibility; **no runtime effect** and **no dev warning**. `modifiers` is replaced by CSS `position-try-fallbacks`; `strategy` is irrelevant because top-layer rendering is always browser-fixed. A warning would fire on every render of a wrapping library (e.g. `@atlaskit/popup`) that forwards these props unconditionally, so it is deliberately silent.        |
+| **Drop**  | `react-popper` engine, `@popperjs/core` modifier pipeline, `getMaxSizeModifiers` / `max-size.tsx`, the `flip` / `hide` / `preventOverflow` / `offset` / `maxSize` modifier wiring, scroll-parent traversal, reposition-on-update | Not present in the FF-on tree. The browser owns reflow; `shouldFitViewport` is the CSS recipe above.                                                                                                                                                                                                                                                                                                          |
 
 Consumers that rely on custom modifier behaviour are not served by the no-op tier — they are covered
-by the gap analysis below and must migrate to `useAnchorPosition` directly.
+by the gap analysis below and must migrate to `useAnchoredPopover` directly.
 
 ### Decision: drop popper's `preventOverflow` viewport-edge clamp from top-layer
 
 **Date:** 2026-06-23. **Status:** decided and implemented (2026-06-23).
 
 **Context.** top-layer builds the popover's `position-try-fallbacks` value in
-`src/internal/placement-to-try-fallbacks.tsx`. That value contains two distinct families of
-fallback:
+`src/internal/anchor-positioning/placement-to-try-fallbacks.tsx`. That value contains two distinct
+families of fallback:
 
 1. **Flip and shift-near-trigger fallbacks**: same-edge `position-area` spans, `flip-block` /
    `flip-inline`, the diagonal flip, and opposite-edge spans. These are built-in CSS values written
@@ -125,8 +160,8 @@ fallback:
 **Decision.** Remove the viewport-edge clamp from top-layer and keep family 1. This deletes
 `ensureShiftFallbackStyles`, `SHIFT_RULE_CSS`, `shiftRule`, `shiftRuleName`, `viewportShiftNames`,
 `PRIMARY_EDGES`, `VIEWPORT_PADDING_PX`, the `shiftNear` / `shiftFar` entries in
-`placementToTryFallbacks`, the `ensureShiftFallbackStyles()` call in
-`src/internal/use-anchor-position.tsx`, and the `no-multiple-exports` eslint-disable that only
+`placementToTryFallbacks`, the `ensureShiftFallbackStyles()` call in the positioning hook (now
+`src/internal/use-anchored-popover.tsx`), and the `no-multiple-exports` eslint-disable that only
 existed to pair the injector with the generator.
 
 **Why.**
@@ -171,17 +206,29 @@ logic to detect a fully off-screen trigger and only then skip the clamp. Neither
 edge case (trigger scrolled fully out of view while the popover is still open) on the legacy-browser
 path, so the small divergence is accepted.
 
-**Status update (implemented 2026-06-23).** The clamp was removed. `placement-to-try-fallbacks.tsx`
-no longer injects any styles (`ensureShiftFallbackStyles` and the `--ds-tl-shift-*` machinery are
-gone); `placementToTryFallbacks` now emits only the family-1 fallbacks. The clamp-specific VR
-fixtures, tests, and snapshots were deleted (popper `examples/80-vr-css-fallbacks.tsx` and its VR
-test; the offscreen-anchor fixtures in top-layer `examples/81-vr-popover-css-fallbacks.tsx` and
-their snapshots). The family-1 flip fixtures and their snapshots are unchanged, because removing the
-clamp does not alter how the popover behaves while its anchor is on screen.
+**Status update (implemented 2026-06-23).** The clamp was removed.
+`anchor-positioning/placement-to-try-fallbacks.tsx` no longer injects any styles
+(`ensureShiftFallbackStyles` and the `--ds-tl-shift-*` machinery are gone);
+`placementToTryFallbacks` now emits only the family-1 fallbacks. The clamp-specific VR fixtures,
+tests, and snapshots were deleted (popper `examples/80-vr-css-fallbacks.tsx` and its VR test; the
+offscreen-anchor fixtures in top-layer `examples/81-vr-popover-css-fallbacks.tsx` and their
+snapshots). The family-1 flip fixtures and their snapshots are unchanged, because removing the clamp
+does not alter how the popover behaves while its anchor is on screen.
 
 **Gating.** The clamp executes only on the CSS Anchor Positioning path, which today is reached only
 behind `platform-dst-top-layer` (and the analogous per-consumer flags), so the removal does not
 alter any flag-off production behavior. Confirm the gating approach at implementation time.
+
+### `shouldFitViewport` under the merged size recipe; VR baselines unchanged
+
+**Date:** 2026-09-10. **Status:** resolved by measurement, nothing to do.
+
+`useAnchoredPopover` now writes `shouldFitViewport` as per-axis caps plus a flip floor of up to
+150px on the placement axis (see [fit-available-space.md](../decisions/fit-available-space.md)).
+That was originally listed as a reason to regenerate popper's VR baselines. Measured instead: all
+181 baselines across the five affected packages pass unchanged on both runners, because the floor
+never binds in those fixtures, whose content is `110vw` / `110vh` / `9999px` and so sits at the cap
+either way.
 
 ---
 
@@ -202,8 +249,9 @@ consumer (and the entry point's `Instance` contract) across the flag — not to 
 
 **Date:** 2026-08-04. **Status:** decided and implemented.
 
-**Context.** top-layer's positioning primitives (`useAnchorPosition`, `useAnchorPositionAtPoint`)
-are React hooks. `createPopper` is imperative, so there is a shape mismatch to bridge somewhere.
+**Context.** top-layer's positioning primitive (`useAnchoredPopover`; at the time, the two separate
+hooks `useAnchorPosition` and `useAnchorPositionAtPoint`) is a React hook. `createPopper` is
+imperative, so there is a shape mismatch to bridge somewhere.
 
 **Rejected: add imperative entry points to top-layer.** The first implementation extracted the DOM
 work out of both hooks into `applyAnchorPosition` / `applyAnchorPositionAtPoint` and exported them
@@ -215,13 +263,18 @@ for the `preventOverflow` clamp (see that decision above): do not grow a primiti
 surface for a behaviour no other consumer wants.
 
 **Decision.** The bridge lives entirely in `@atlaskit/popper`. `create-popper-top-layer.tsx` owns a
-detached React root rendering one of two components that render `null` and exist only to run a
-positioning hook against the DOM nodes the caller already owns: `AnchorBridge` (`useAnchorPosition`,
-for a real DOM anchor) or `PointBridge` (`useAnchorPositionAtPoint`, for everything else). Which one
-is decided when the instance is created and never changes, so each calls exactly one hook
-unconditionally — no `isEnabled` pairing, and no hook-order constraint to defend. The root's
-container element is never appended to the document: the bridges render `null`, so React only needs
+detached React root rendering **one** component, `PositioningBridge`, which renders `null` and
+exists only to run `useAnchoredPopover` against the DOM nodes the caller already owns. The root's
+container element is never appended to the document: the bridge renders `null`, so React only needs
 an element to own.
+
+> Originally **two** components — `AnchorBridge` (`useAnchorPosition`, for a real DOM anchor) and
+> `PointBridge` (`useAnchorPositionAtPoint`, for everything else) — chosen when the instance was
+> created and never changing, so each called exactly one hook unconditionally. That was the whole
+> reason for the split: it avoided an `isEnabled` pairing and a hook-order constraint. Since the two
+> hooks became one `useAnchoredPopover` with a discriminated `anchor` union, both cases are one
+> unconditional call and the split has nothing left to buy, so the two bridges are one. The
+> remount-on-`key` mechanism below is unchanged, and still load-bearing for both anchor kinds.
 
 **Why this is better.**
 
@@ -253,10 +306,9 @@ an element to own.
 The async commit above is a choice, not a hard constraint, and it is worth recording why sync was
 rejected — it looks like an easy win.
 
-- **It would work mechanically.** Both positioning hooks apply their styles in `useLayoutEffect`
-  (`use-anchor-position.tsx`, `use-anchor-position-at-point.tsx`), and
-  `flushSync(() => root.render(...))` flushes layout effects before returning — so the anchor CSS
-  would land before `createPopper()` / `update()` returns.
+- **It would work mechanically.** The positioning hook applies its styles in `useLayoutEffect`
+  (`use-anchored-popover.tsx`), and `flushSync(() => root.render(...))` flushes layout effects
+  before returning — so the anchor CSS would land before `createPopper()` / `update()` returns.
 - **But it is not needed.** The one real caller (`VanillaTooltip`) keeps its element
   `visibility: hidden` for ~300ms after each `show()` before revealing it, so positioning that lands
   a tick later is invisible. And async is Popper.js parity — its own first update is async — so
@@ -305,17 +357,18 @@ bridge, and the `Instance` lifecycle.
    When the element **is** already a popover (the `VanillaTooltip` case: `popover="hint"`,
    caller-driven `showPopover()` / `hidePopover()`), the adapter touches neither the attribute nor
    visibility nor styling, and only positions.
-2. **Positioning.** `AnchorBridge` calls `useAnchorPosition` with refs to the caller's anchor and
-   popper elements. Promotion happens _before_ the first render, so the popover is already open when
-   the hook's layout effect runs — which matters on the JS fallback path, where the hook detects an
-   already-open popover and measures immediately instead of waiting for a `toggle` event it would
-   otherwise have missed.
+2. **Positioning.** `PositioningBridge` renders `ElementBridge`, which calls `useAnchoredPopover`
+   with `anchorRef` pointing at the caller's anchor. Promotion happens _before_ the first render, so
+   the popover is already open when the hook's layout effect runs — which matters on the JS fallback
+   path, where the hook detects an already-open popover and measures immediately instead of waiting
+   for a `toggle` event it would otherwise have missed.
 3. **Non-`HTMLElement` references.** A Popper.js `VirtualElement` (or an SVG / cross-realm element)
-   cannot carry `anchor-name`. `PointBridge` reduces its rect to the geometrically-equivalent point
-   for the requested placement with popper's existing `rectPointForPlacement` (the same helper the
-   React `<Popper>` adapter uses for `referenceElement`) and feeds `useAnchorPositionAtPoint`, which
-   owns the synthetic anchor. `update()` / `forceUpdate()` / `setOptions()` bump the bridge's `key`,
-   so it remounts and the point is re-read.
+   cannot carry `anchor-name`. `PositioningBridge` renders `PointBridge` instead, which calls
+   `useAnchoredPopoverAtPoint`, reducing the rect to the geometrically-equivalent point for the
+   requested placement with popper's existing `rectPointForPlacement` (the same helper the React
+   `<Popper>` adapter uses for `referenceElement`). The hook owns the synthetic anchor. `update()` /
+   `forceUpdate()` / `setOptions()` bump the bridge's `key`, so it remounts and the point is
+   re-read.
 
 ### Option handling — three tiers
 
@@ -333,20 +386,21 @@ none.
 ### Instance surface
 
 `Instance` is preserved in shape. `update` / `forceUpdate` / `setOptions` remount the bridge by
-bumping its `key`, and that remount is load-bearing on **both** bridges:
+bumping its `key`, and that remount is load-bearing for **both** bridges:
 
-- `PointBridge` — `useAnchorPositionAtPoint` latches its point once per activation, so nothing else
-  re-reads a virtual reference's rect.
-- `AnchorBridge` — on the JS fallback the hook only measures when its effect runs (plus its own
+- **`PointBridge`** — the hook latches `getPoint` per activation, deliberately (see
+  `notes/architecture/positioning.md`), so nothing else re-reads a virtual reference's rect. The
+  remount is the re-latch.
+- **`ElementBridge`** — on the JS fallback the hook only measures when its effect runs (plus its own
   scroll / resize listeners), so the remount is how `update()` honours its "re-measure now" contract
   for an anchor that moved for some other reason. `editor-plugin-block-controls` relies on exactly
   this: one `VanillaTooltip` instance follows a quick-insert button that is repositioned as the user
   hovers different blocks. On the CSS path the browser tracks the anchor, so the remount is a no-op
   rewrite of the same properties.
 
-An earlier revision narrowed the `key` to `PointBridge` only, on the reasoning that a real DOM
+An earlier revision narrowed the `key` to the point case only, on the reasoning that a real DOM
 anchor never needs re-running. That is true only on the CSS path; it silently removed the JS
-fallback's re-measure. Keep the `key` on both.
+fallback's re-measure. Keep the `key` for both.
 
 `setOptions` accepts both the updater-function and plain-object forms. `onFirstUpdate` resolves in a
 microtask, matching Popper.js' async first update, and is skipped if the instance was destroyed
@@ -399,7 +453,8 @@ promoted, and nothing about its rendering changes.
 
 ### Fix in top-layer: the JS fallback does not own the popover's inline styles
 
-**Date:** 2026-08-05. **Status:** implemented in `use-anchor-position.tsx`.
+**Date:** 2026-08-05. **Status:** implemented in the positioning hook (now
+`use-anchored-popover.tsx`).
 
 The one top-layer change this adapter required — a bug fix in shared code, not new API. The JS
 fallback wrote `top` / `left` / `opacity` with bare `setProperty` and dropped them with
@@ -416,8 +471,30 @@ after mouseleave. Browsers without CSS Anchor Positioning only.
 All three properties now go through the existing `setStyle` (snapshot the prior inline value,
 restore it), with a `hideUntilPositioned` / `reveal` pair for the hide-until-measured step so a
 repeated hide cannot snapshot our own `opacity: 0`. Behaviour is identical for consumers with no
-prior inline value. Guarded by `use-anchor-position.test.tsx` -> "restores a consumer's own inline
+prior inline value. Guarded by `use-anchored-popover.test.tsx` -> "restores a consumer's own inline
 top / left / opacity rather than removing them".
+
+### Anchor names across React roots: `useId()`, with `identifierPrefix` as the host's job
+
+**Date:** 2026-09-10, reversed 2026-09-11. **Status:** `use-anchored-popover.tsx` mints
+`--anchor-{useId()}`.
+
+The hook's minted `anchor-name` is `--anchor-{useId()}`. A 2026-08-25 review note flagged this
+adapter as the reachable collision, since it creates a React root per instance and `useId()` is
+root-scoped. Measured: not for this adapter. A client-rendered root draws `useId()` from a counter
+global to the `react-dom` module, so two `createPopper` instances never share a name. Roots that
+HYDRATE the same markup do (a hydrated `useId()` is derived from tree position), and so would a
+second copy of `react-dom`.
+
+For one day the name came from a module-scope counter instead. Reversed, because the counter
+hardened one of two ids in the same component: the popover's own `id` is `popover-{useId()}`, and
+`aria-controls` and `popovertarget` point at it, so two hydrated roots sharing a `useId()` already
+open the wrong popover before the anchor name matters. Every other id the design system mints has
+the same exposure, and React's remedy for all of them is one per-root `identifierPrefix`. The hook's
+JSDoc now says so; the hydrated-roots test in `use-anchored-popover.test.tsx` pins that the name
+honours the prefix and stays a valid `<dashed-ident>` whatever characters the prefix carries.
+Nothing in this adapter changes; the `key`-driven remount mounts a new hook instance and so draws a
+new `useId()`, and the old name stays on the anchor per `anchor-name-lifetime.md`.
 
 ### Coverage
 
@@ -473,13 +550,13 @@ These are asserted by the Playwright specs under `src/__tests__/playwright/` (`t
 | --------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | `<Popper placement="bottom-start">`                 | `<Popover>` (or `Popup.Content`) + `placement` prop using the placement-map object         |
 | Popper.js placement string (`'bottom-start'`)       | `fromLegacyPlacement({ legacy: 'bottom-start' })` from `@atlaskit/top-layer/placement-map` |
-| `Manager` / `Reference` (raw react-popper)          | `useAnchorPosition` hook from `@atlaskit/top-layer/use-anchor-position`                    |
+| `Manager` / `Reference` (raw react-popper)          | `useAnchoredPopover` hook from `@atlaskit/top-layer/use-anchored-popover`                  |
 | `offset={[along, away]}`                            | `offset` prop on `Popover` / `Popup.Content` (CSS `--anchor-offset`)                       |
 | `modifiers` (`flip`, `preventOverflow`, ...)        | CSS `position-try-fallbacks` — handled automatically                                       |
 | `boundary` / `rootBoundary`                         | Viewport is the natural boundary in the browser top layer                                  |
 | `strategy` (`'absolute'` / `'fixed'`)               | Always rendered in the browser top layer; no consumer choice needed                        |
-| `shouldFitViewport` + `getMaxSizeModifiers`         | CSS Anchor Positioning sizing fallbacks (`max-block-size`, `max-inline-size`)              |
-| `VirtualElement` (anchoring to a non-DOM rect)      | `useAnchorPosition` accepts a virtual anchor; see `architecture/positioning.md`            |
+| `shouldFitViewport` + `getMaxSizeModifiers`         | `useAnchoredPopover`'s `inlineSize` / `blockSize: 'max-available'`                         |
+| `VirtualElement` (anchoring to a non-DOM rect)      | `useAnchoredPopoverAtPoint`; see `architecture/positioning.md`                             |
 | `PopperChildrenProps` (`ref`, `style`, `placement`) | No equivalent — the surface is positioned by the browser; consumers no longer wire styles  |
 | `Popper`'s render-prop API                          | Compound `<Popup>` / `<Popover>` with `Trigger` + `Content` slots                          |
 
@@ -641,7 +718,7 @@ grep -rln "@atlaskit/popper" <product>/ --include="*.ts" --include="*.tsx"
 
 | Package                                                  | Files                                                                                                                                                                                            | Imports                                               | Confidence                                                                  |
 | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- | --------------------------------------------------------------------------- |
-| `ai-mate/conversation-assistant-blank-object-experience` | `src/ui/conversation-assistant-blank-object-experience/smart-prompts-row/smart-prompt-button/template-preview/index.tsx`, `.../smart-prompt-button/test.tsx`                                     | `Popper`                                              | 🟡 Medium (single overlay; swap to `Popover` + `useAnchorPosition`)         |
+| `ai-mate/conversation-assistant-blank-object-experience` | `src/ui/conversation-assistant-blank-object-experience/smart-prompts-row/smart-prompt-button/template-preview/index.tsx`, `.../smart-prompt-button/test.tsx`                                     | `Popper`                                              | 🟡 Medium (single overlay; swap to `Popover` + `useAnchoredPopover`)        |
 | `cmdb/cmdb-aql-builder`                                  | `src/common/types/index.tsx`, `src/common/ui/multi-value/index.tsx`, `src/common/ui/single-value/index.tsx`, `src/ui/basic-aql-builder/attribute-value/index.tsx`                                | `PopperChildrenProps` (type only)                     | 🟢 High (type-only)                                                         |
 | `company-hub/company-hub-common`                         | `src/ui/media-components/media-picker/ui/content/index.tsx`, `src/ui/media-components/unsplash/search-bar/index.tsx`, `src/ui/media-components/unsplash/search/index.tsx`                        | `Placement` (type)                                    | 🟢 High (type-only)                                                         |
 | `confluence/project-pages`                               | `src/ui/hover-preview/index.tsx`, `src/ui/templates-panel-hover-preview/index.tsx`                                                                                                               | `Popper`                                              | 🟡 Medium                                                                   |
@@ -773,30 +850,48 @@ pattern) before the runtime exports can be removed.
 ## Gap analysis: `@atlaskit/popper` API vs. `@atlaskit/top-layer` today
 
 The tables below compare every public export of `@atlaskit/popper` against what
-`@atlaskit/top-layer` ships today (`Popover`, `Dialog`, `useAnchorPosition`, `placement-map`).
+`@atlaskit/top-layer` ships today (`Popover`, `Dialog`, `useAnchoredPopover`, `placement-map`).
 
 > Two prior public surfaces are no longer in `@atlaskit/top-layer`: the `Popup` compound has been
 > deleted in favor of `Popover` + `useAnchorPosition` (+ `PopoverSurface` / `getAriaForTrigger` /
 > `usePopoverId`), and the `arrow` primitive has moved into `@atlaskit/spotlight` (its only adopter
 > and the source of its specific visual / `@position-try` experience). The tables below have been
 > rewritten to reflect those moves; the recommendations are unchanged.
+>
+> **Two entries below are now settled, and the tables are otherwise dated to before 2026-08-24.**
+> Read the names as `useAnchoredPopover` throughout (`useAnchorPosition`,
+> `useAnchorPositionAtPoint`, `useWidthFromAnchor` and `useFitAvailableSpace` are one hook):
+>
+> - **`getMaxSizeModifiers` is no longer a gap.** It was recorded here as "the only behavioural
+>   feature that does not have a clean migration path", with a recommended `shouldFitViewport` prop
+>   on `Popover`. That was **rejected on measurement** — `display` cannot be an inline style and the
+>   prop-based design had a worse failure mode than no prop at all. The shipped answer is
+>   `useAnchoredPopover`'s `inlineSize` / `blockSize: 'max-available'`, with `Popover` taking **no**
+>   prop. See [../decisions/fit-available-space.md](../decisions/fit-available-space.md).
+> - **`VirtualElement` is no longer "works, but undocumented".** The recommended `TVirtualAnchor`
+>   type shipped as `useAnchoredPopoverAtPoint({ getPoint: () => TAnchorPoint | null })`, a sibling
+>   hook that delegates to `useAnchoredPopover` rather than a separate anchor type, and is
+>   documented in [../architecture/positioning.md](../architecture/positioning.md).
+>
+> The remaining recommendations (`onPosition`, the `Modifier` authoring path, `PopperChildrenProps`)
+> are untouched and still open.
 
 ### Components and hooks (runtime values)
 
 | popper export                                | popper signature                                                                                                                                                                                                                                                           | top-layer equivalent                                                                                                                                                                                                                                                                                                | Status today                                                    | Used by                                                                                                                                 | Recommendation                                                                                                                                                                                                                                                 |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Popper`                                     | `<Popper placement offset modifiers strategy referenceElement shouldFitViewport>{({ ref, style, placement, arrowProps }) => ...}</Popper>` — render-prop wrapper around `react-popper` with built-in `flip` / `preventOverflow` / `offset` / optional `maxSize` modifiers. | `Popover` (+ `useAnchorPosition` for the headless case). The render-prop ↔ `popovertarget` model is fundamentally different: top-layer mounts the popover into the browser top layer; consumers do not wire `ref`/`style` themselves.                                                                               | ✅ Covered conceptually, ❌ not API-compatible                  | ~30 callsites use `<Popper>` directly                                                                                                   | **Do not add.** Document the rewrite pattern (`<Popover open><Surface/></Popover>` + `useAnchorPosition`) and migrate callsites. A drop-in render-prop facade would re-introduce the legacy mental model.                                                      |
-| `Manager`, `Reference` (from `react-popper`) | Top-level `<Manager>` + `<Reference>{({ ref }) => <Anchor ref={ref}/>}</Reference>` to provide an anchor without rendering a popper                                                                                                                                        | `useAnchorPosition({ anchorRef, popoverRef, placement })` (entry point `@atlaskit/top-layer/use-anchor-position`).                                                                                                                                                                                                  | ✅ Covered                                                      | ~25 callsites use `Manager`/`Reference`                                                                                                 | **Do not add.** Recommend `useAnchorPosition`. The `Reference` render-prop has no top-layer equivalent because the new world uses normal refs/`anchorRef`.                                                                                                     |
+| `Popper`                                     | `<Popper placement offset modifiers strategy referenceElement shouldFitViewport>{({ ref, style, placement, arrowProps }) => ...}</Popper>` — render-prop wrapper around `react-popper` with built-in `flip` / `preventOverflow` / `offset` / optional `maxSize` modifiers. | `Popover` (+ `useAnchoredPopover` for the headless case). The render-prop ↔ `popovertarget` model is fundamentally different: top-layer mounts the popover into the browser top layer; consumers do not wire `ref`/`style` themselves.                                                                              | ✅ Covered conceptually, ❌ not API-compatible                  | ~30 callsites use `<Popper>` directly                                                                                                   | **Do not add.** Document the rewrite pattern (`<Popover isOpen><PopoverSurface/></Popover>` + `useAnchoredPopover`) and migrate callsites. A drop-in render-prop facade would re-introduce the legacy mental model.                                            |
+| `Manager`, `Reference` (from `react-popper`) | Top-level `<Manager>` + `<Reference>{({ ref }) => <Anchor ref={ref}/>}</Reference>` to provide an anchor without rendering a popper                                                                                                                                        | `useAnchoredPopover({ anchorRef, popoverRef, placement, isOpen })` (entry point `@atlaskit/top-layer/use-anchored-popover`).                                                                                                                                                                                        | ✅ Covered                                                      | ~25 callsites use `Manager`/`Reference`                                                                                                 | **Do not add.** Recommend `useAnchoredPopover`. The `Reference` render-prop has no top-layer equivalent because the new world passes a normal ref through `anchorRef`.                                                                                         |
 | `placements`                                 | Array of every Popper.js placement string (`['top', 'top-start', 'top-end', 'bottom', ...]`)                                                                                                                                                                               | No equivalent constant. `TLegacyPlacement` is a type union; no exported runtime array.                                                                                                                                                                                                                              | ⚠️ Not covered (runtime value missing)                          | Examples / tooling that iterate over placements (Popper docs/examples). Search shows no production callsites use `placements` directly. | **Add a tiny `legacyPlacements` constant** to `@atlaskit/top-layer/placement-map` if any consumer is found. Otherwise leave it out and let consumers inline the array.                                                                                         |
-| `getMaxSizeModifiers`                        | Internal helper exposing the `maxSize` / `maxSizeData` Popper.js modifiers; only consumed by popper's own `Popper` component when `shouldFitViewport={true}`.                                                                                                              | `useAnchorPosition` JS fallback already enforces viewport bounds; CSS Anchor Positioning + `position-try-fallbacks` handles it for modern browsers. There is no first-class `shouldFitViewport` knob on `Popover` yet — the equivalent is to set `max-block-size: anchor-size(...)` / `max-inline-size` via `xcss`. | ⚠️ Partial (no first-class API for "fit viewport with padding") | Internal to popper only; not re-exported.                                                                                               | **Add a `shouldFitViewport` (or `maxSize`) prop to `Popover`** that emits the appropriate `max-block-size` / `max-inline-size` declarations + matching JS-fallback math. This is the only behavioural feature that does not have a clean migration path today. |
+| `getMaxSizeModifiers`                        | Internal helper exposing the `maxSize` / `maxSizeData` Popper.js modifiers; only consumed by popper's own `Popper` component when `shouldFitViewport={true}`.                                                                                                              | `useAnchoredPopover`'s `inlineSize` / `blockSize: 'max-available'`, capping `max-{axis}-size` to the `position-area` cell on the placement axis and the viewport on the cross axis (legacy `viewportPadding = 5`), plus a `placement.minSize` floor (150px default) so a too-small cell flips instead of shrinking. | ✅ Covered — per-axis `'max-available'`, with no `Popover` prop | Internal to popper only; not re-exported.                                                                                               | **Done, differently.** The prop was rejected on measurement (`display` cannot be an inline style), so `Popover` supplies the flex context unconditionally. `@atlaskit/popper` delegates to it and `@atlaskit/popup` maps its `shouldFitViewport` prop onto it. |
 
 ### Types
 
 | popper export                    | Top-layer equivalent                                                                                                                                                         | Status today                         | Used by (callsites that import the symbol)                                                                                                                                                                                                                                        | Recommendation                                                                                                                                                                                                                                                                              |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Placement`                      | `TLegacyPlacement` (union) + `TPlacementOptions` (object) in `placement-map`                                                                                                 | ✅ Covered                           | **Heavily used (~30+ packages re-export it as `PopupPlacement` / `Position`).** Examples: `inline-message`, `tooltip`, `inline-dialog`, `dlp/data-classification-level`, `share`, `user-picker`, `nudge-tooltip`, all jira `field-*` packages, confluence `data-classification`.  | **Already added (`TLegacyPlacement`).** Keep it as the migration shim. Once consumers stop re-exporting `Placement`, the union itself can move into a `@deprecated` legacy module.                                                                                                          |
-| `PopperChildrenProps`            | None — render-prop arg is gone in the top-layer model                                                                                                                        | ❌ Not covered                       | `cmdb/cmdb-aql-builder`, `editor-plugin-mentions`, `jira/issue/field-status`, `jira/servicedesk/insight-object-schema-filter`, `jira/servicedesk/invite-team-service`, `confluence/object-sidebar-components`. Used as the type of a function-as-child in custom popper wrappers. | **Do not add.** Document the rewrite (replace render-prop with `useAnchorPosition` returning normal refs). Type only exists because of the legacy render-prop API.                                                                                                                          |
-| `Modifier`, `StrictModifier`     | None — Popper.js modifier authoring has no top-layer equivalent                                                                                                              | ❌ Not covered                       | `popup` (internal), `jira/board`, `jira/issue/field-inline-edit-lite`, `jira/platform/ui/issue-table/issue-table` (`get-inline-edit-modifiers`). Used to author custom popper modifiers (e.g. `topLeftBoundary`).                                                                 | **Add an imperative escape hatch on `useAnchorPosition`**: `onPosition({ anchorRect, popoverRect }) => Partial<{ top, left }>` callback so callsites that need bespoke math can run after the CSS / fallback path. Do **not** port the Popper.js modifier pipeline — keep it imperative.    |
+| `PopperChildrenProps`            | None — render-prop arg is gone in the top-layer model                                                                                                                        | ❌ Not covered                       | `cmdb/cmdb-aql-builder`, `editor-plugin-mentions`, `jira/issue/field-status`, `jira/servicedesk/insight-object-schema-filter`, `jira/servicedesk/invite-team-service`, `confluence/object-sidebar-components`. Used as the type of a function-as-child in custom popper wrappers. | **Do not add.** Document the rewrite (replace the render-prop with `useAnchoredPopover` and consumer-owned refs). Type only exists because of the legacy render-prop API.                                                                                                                   |
+| `Modifier`, `StrictModifier`     | None — Popper.js modifier authoring has no top-layer equivalent                                                                                                              | ❌ Not covered                       | `popup` (internal), `jira/board`, `jira/issue/field-inline-edit-lite`, `jira/platform/ui/issue-table/issue-table` (`get-inline-edit-modifiers`). Used to author custom popper modifiers (e.g. `topLeftBoundary`).                                                                 | **Add an imperative escape hatch on `useAnchoredPopover`**: `onPosition({ anchorRect, popoverRect }) => Partial<{ top, left }>` callback so callsites that need bespoke math can run after the CSS / fallback path. Do **not** port the Popper.js modifier pipeline — keep it imperative.   |
 | `PopperProps`                    | Internal to `react-popper`. No equivalent.                                                                                                                                   | ❌ Not covered                       | None directly outside popper itself.                                                                                                                                                                                                                                              | **Do not add.** Drop with popper.                                                                                                                                                                                                                                                           |
 | `ManagerProps`, `ReferenceProps` | Internal to `react-popper`. No equivalent.                                                                                                                                   | ❌ Not covered                       | None directly outside popper itself.                                                                                                                                                                                                                                              | **Do not add.** Drop with popper.                                                                                                                                                                                                                                                           |
 | `PopperArrowProps`               | `@atlaskit/spotlight` arrow primitive (component-side; no `arrowProps` render-prop arg). Spotlight is the only adopter; the arrow lives there, not in `@atlaskit/top-layer`. | ❌ Not covered (different model)     | None directly outside popper itself.                                                                                                                                                                                                                                              | **Do not add.** The arrow is positioned by `useAnchorPosition` + Spotlight's arrow primitive, not handed back as `arrowProps`. The arrow was deliberately moved out of `@atlaskit/top-layer` because Spotlight was its only consumer and it shipped a Spotlight-specific visual experience. |
@@ -807,18 +902,18 @@ The tables below compare every public export of `@atlaskit/popper` against what
 
 | Action                                                                                                      | Rationale                                                                                                                                                                   |
 | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ✅ **Add a `shouldFitViewport` (or `maxSize`) prop to `Popover`**                                           | Only behavioural feature with no clean migration path; popper's `getMaxSizeModifiers` is a real product capability used by `Popper({ shouldFitViewport: true })`.           |
-| ✅ **Add an `onPosition` callback to `useAnchorPosition`** (imperative override hook)                       | Unblocks the four 🟠 Low jira packages that author custom Popper.js modifiers; keeps the API surface small (one callback, no modifier pipeline).                            |
-| ✅ **Add `TVirtualAnchor` type + document virtual-anchor pattern on `useAnchorPosition`**                   | Required for `editor-plugin-mentions`, autocomplete dropdowns, cursor-anchored tooltips. The capability exists; only docs/types are missing.                                |
+| ✅ **Shipped, differently:** per-axis `'max-available'` on `useAnchoredPopover`, no `Popover` prop          | Was the only behavioural feature with no clean migration path; popper's `getMaxSizeModifiers` is a real product capability used by `Popper({ shouldFitViewport: true })`.   |
+| ✅ **Add an `onPosition` callback to `useAnchoredPopover`** (imperative override hook)                      | Unblocks the four 🟠 Low jira packages that author custom Popper.js modifiers; keeps the API surface small (one callback, no modifier pipeline).                            |
+| ✅ **Shipped as `useAnchoredPopoverAtPoint({ getPoint })`** — a sibling hook that delegates                 | Required for `editor-plugin-mentions`, autocomplete dropdowns, cursor-anchored tooltips. Documented in `architecture/positioning.md`.                                       |
 | 🟡 **Maybe add a `legacyPlacements` runtime constant** to `placement-map`                                   | Only if the audit finds production callsites using `placements` (currently appears examples-only). Tiny addition; can be added on demand.                                   |
 | ❌ **Do not** ship a `<Popper>`-shaped render-prop facade                                                   | Re-introduces the legacy mental model; defeats the point of moving to anchor positioning. Migrate callsites instead.                                                        |
 | ❌ **Do not** re-export `Modifier` / `PopperProps` / `ManagerProps` / `ReferenceProps` / `PopperArrowProps` | These types only exist because of `react-popper`. The top-layer model does not have modifiers or render-prop args.                                                          |
 | ❌ **Do not** ship `PopperChildrenProps` shim                                                               | The render-prop is the thing being replaced; the type only makes sense in the old world.                                                                                    |
 | ❌ **Do not** ship `CustomPopperProps` shim                                                                 | Library wrappers (post-office `ipm-choreographer`, jira `platform/ui/popper`) should be rewritten to surface top-layer's prop shape; shimming here just postpones the work. |
 
-The net new top-layer surface required to retire popper is therefore **three small additions**:
-`Popover`'s `shouldFitViewport` prop, `useAnchorPosition`'s `onPosition` callback, and the
-`TVirtualAnchor` type with documented virtual-anchor support. Everything else is already there.
+The net new top-layer surface required to retire popper is therefore **one small addition**:
+`useAnchoredPopover`'s `onPosition` callback. Fitting and virtual anchors have since shipped — see
+the note above the tables. Everything else is already there.
 
 ---
 
@@ -829,16 +924,15 @@ the popper module's internals. There is no like-for-like top-layer drop-in for t
 so the strategy is:
 
 1. **Add the missing primitives in `@atlaskit/top-layer` first.** Today top-layer offers `Popover`,
-   `Popup`, `Dialog`, `useAnchorPosition`, and the `placement-map`. Before consumer migrations can
-   begin we need:
-   - `useAnchorPosition` to be a documented public hook that covers everything `Manager` /
+   `Dialog`, `useAnchoredPopover`, and the `placement-map`. Before consumer migrations can begin we
+   need:
+   - `useAnchoredPopover` to be a documented public hook that covers everything `Manager` /
      `Reference` is used for, including **virtual anchors** (cursor / range-based, used by editor
      mentions and tooltip).
    - A documented mapping for each Popper.js modifier we still need (`flip`, `preventOverflow`,
      `offset`, `maxSize`) onto CSS Anchor Positioning (`position-try-fallbacks`, `--anchor-offset`,
      `max-block-size` / `max-inline-size` fallbacks). Most of this exists; the viewport-fit /
-     `shouldFitViewport` story should be made first-class (currently only available through
-     `Popover` props).
+     `shouldFitViewport` story shipped as `useAnchoredPopover`'s per-axis `'max-available'`.
    - A public `TLegacyPlacement` re-export so consumers that re-export `Placement` can keep a stable
      type during the transition window.
 2. **Migrate consumers in waves**, starting with the simplest (type-only imports), then `<Popper>`
@@ -857,13 +951,13 @@ The hardest open questions:
   `field-inline-edit-lite`, `field-status` `Modifier` typings, board `InteractionLayer` `Modifier`)
   author Popper.js modifiers directly. CSS Anchor Positioning has no equivalent to arbitrary user
   modifiers; these need to be expressed as `position-try-fallbacks` or as imperative DOM math via a
-  `useAnchorPosition` `onPosition` callback. The exact callback surface needs designing.
+  `useAnchoredPopover` `onPosition` callback. The exact callback surface needs designing.
 - **`CustomPopperProps` library wrappers.** `jira/src/packages/platform/ui/popper` and
   `post-office/ipm-choreographer/src/ui/popper` wrap popper to expose a product-specific API. These
   need their own internal migrations and may continue to exist as wrappers around `Popover` /
-  `useAnchorPosition`.
+  `useAnchoredPopover`.
 - **`@popperjs/core` virtual elements.** Editor plugin mentions, inline-dialog, and a few jira
-  callsites pass a custom `referenceElement`. `useAnchorPosition` supports this but the pattern
+  callsites pass a custom `referenceElement`. `useAnchoredPopover` supports this but the pattern
   needs explicit documentation and tests.
 
 ### Confidence rating rubric
@@ -875,7 +969,7 @@ does.
 | Rating        | Meaning                                                                                                                                                                                               |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 🟢 **High**   | Type-only import (`Placement`, `PopperChildrenProps`, `Modifier` as a type). Swap the import for `TLegacyPlacement` (or remove). Mechanical, low risk, no behavioural change.                         |
-| 🟡 **Medium** | Uses `<Popper>` component, `Manager`/`Reference`, or imports `Placement` runtime-side. Can be ported to `Popover` / `Popup` / `useAnchorPosition`. Needs per-callsite VR + behavioural review.        |
+| 🟡 **Medium** | Uses `<Popper>` component, `Manager`/`Reference`, or imports `Placement` runtime-side. Can be ported to `Popover` / `Popup` / `useAnchoredPopover`. Needs per-callsite VR + behavioural review.       |
 | 🟠 **Low**    | Authors custom Popper.js modifiers, wraps popper as a library (`CustomPopperProps`), uses `VirtualElement`, or composes popper with bespoke plumbing. Needs new top-layer API or substantial rewrite. |
 
 The per-package confidence shown below is the **worst case across the package's files** (so a
@@ -936,7 +1030,7 @@ Once internal usage is zero and external consumers have been given a deprecation
 - **External consumers** (editor, search, jira, confluence, elements, post-office). These are not
   gated by `platform-dst-top-layer` for popper specifically — they will need their own migration
   plan during Phase 2/3.
-- **`VirtualElement` users.** Confirm `useAnchorPosition` covers every existing virtual-anchor use
+- **`VirtualElement` users.** Confirm `useAnchoredPopover` covers every existing virtual-anchor use
   case (e.g. context menus that anchor to the cursor) before deprecating.
 - **`Manager` / `Reference` consumers** that compose popper into bespoke patterns — audit during
   Phase 2 and either offer a hook-based replacement or document the recommended top-layer pattern.

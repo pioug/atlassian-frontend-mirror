@@ -1,5 +1,22 @@
 # @atlaskit/popper
 
+## 9.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.2
+
+### Patch Changes
+
+- [`a7ec100f7d560`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7ec100f7d560) -
+  `shouldFitViewport` now delegates to `@atlaskit/top-layer` on the top-layer code path, fixing a
+  dropped along-axis `offset`, a fitting popper that shrank in place instead of flipping, and a
+  start / end-aligned popper rendered 5px in from the reference edge. Behind the
+  `platform-dst-top-layer` gate; legacy (flag-off) behaviour is unchanged.
+- Updated dependencies
+
 ## 9.4.1
 
 ### Patch Changes

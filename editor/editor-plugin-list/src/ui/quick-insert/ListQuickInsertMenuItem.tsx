@@ -25,6 +25,17 @@ type Props = {
 	type: 'ordered' | 'unordered';
 };
 
+const previewImageUrls: Record<Props['type'], { dark: string; light: string }> = {
+	ordered: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/t6kvxk43n148uxh5508fp4bc738h12v0.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/stnx6ko1175s31d3tt18v002dh7311er.png',
+	},
+	unordered: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/m5evq1ihk0f86o3g3fp6pu47hnof4b5n.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1ow7gsp0uxjngbxx7n7gg5h3047w6vbk.png',
+	},
+};
+
 export const ListQuickInsertMenuItem = ({ api, type }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const isOrdered = type === 'ordered';
@@ -57,6 +68,7 @@ export const ListQuickInsertMenuItem = ({ api, type }: Props): React.JSX.Element
 		<QuickInsertMenuItem
 			iconBefore={isOrdered ? <ListNumberedIcon label="" /> : <ListBulletedIcon label="" />}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls[type]}
 			shortcut={tooltip(isOrdered ? toggleOrderedList : toggleBulletList)}
 			title={formatMessage(isOrdered ? messages.orderedList : messages.unorderedList)}
 		/>

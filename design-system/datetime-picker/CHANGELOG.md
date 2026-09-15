@@ -1,5 +1,36 @@
 # @atlaskit/datetime-picker
 
+## 18.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.7.1
+
+### Patch Changes
+
+- [`a7ec100f7d560`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7ec100f7d560) -
+  The top-layer code path now uses `@atlaskit/top-layer`'s `useAnchoredPopover`, so these popovers
+  are capped to the viewport and one too wide for the space beside its trigger moves to a roomier
+  side rather than wrapping into it. No public API change. Behind the `platform-dst-top-layer` gate
+  (`platform-dst-top-layer-tooltip` for `@atlaskit/tooltip`, `platform-dst-top-layer-spotlight` for
+  `@atlaskit/spotlight`); legacy (flag-off) behaviour is unchanged.
+- Updated dependencies
+
+## 18.7.0
+
+### Minor Changes
+
+- [`22469cd6605a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22469cd6605a3) -
+  When platform-dst-locale-week-start-day is enabled, Calendar and DatePicker default the first day
+  of the week from the locale via Intl.Locale.getWeekInfo(). @atlaskit/locale adds
+  getFirstDayOfWeek() for that lookup. Pass weekStartDay to keep Sunday or any other start day.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.6.0
 
 ### Minor Changes

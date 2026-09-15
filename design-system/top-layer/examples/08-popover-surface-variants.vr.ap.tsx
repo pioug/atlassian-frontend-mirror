@@ -14,7 +14,7 @@ import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
@@ -68,7 +68,7 @@ function CustomStyledPopoverDemo({
 
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
@@ -112,7 +112,7 @@ function WithSurfacePopoverDemo({
 
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },

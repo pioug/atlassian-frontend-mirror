@@ -109,7 +109,7 @@ export interface SpotlightContextProviderProps {
 	/**
 	 * Optional caller-supplied anchor ref. When provided, this ref is used as
 	 * the target ref in the spotlight context — `PopoverContent` reads it via
-	 * `target.ref` for `useAnchorPosition`. The ref's element identity may
+	 * `target.ref` for `useAnchoredPopover`. The ref's element identity may
 	 * change over time (e.g. as a target resolves asynchronously); each new
 	 * ref object is propagated through the context value.
 	 *
@@ -148,7 +148,7 @@ export const SpotlightContextProvider = ({
 		useState<RefObject<HTMLElement | null>>(defaultTargetRef);
 	// `targetRef` (the prop) takes precedence when provided. Its identity is
 	// allowed to change over time; downstream consumers that depend on
-	// `target.ref` identity (e.g. `useAnchorPosition`'s effect deps) will
+	// `target.ref` identity (e.g. `useAnchoredPopover`'s effect deps) will
 	// re-run accordingly.
 	const effectiveTargetRef = targetRef ?? internalTargetRef;
 

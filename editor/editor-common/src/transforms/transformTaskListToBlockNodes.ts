@@ -2,8 +2,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import type { TransformContext } from './list-types';
 
 export const transformTaskListToBlockNodes = (context: TransformContext): Transaction | null => {
@@ -12,10 +10,7 @@ export const transformTaskListToBlockNodes = (context: TransformContext): Transa
 	const schema = selection.$from.doc.type.schema;
 	const { blockTaskItem } = schema.nodes;
 
-	// gating behind platform_editor_small_font_size to support task lists with font size applied,
-	// but keep this solution general
-	const isBlockTaskItemEnabled =
-		!!blockTaskItem && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+	const isBlockTaskItemEnabled = !!blockTaskItem;
 
 	if (isBlockTaskItemEnabled) {
 		const blockTaskItemsResult = findChildrenByType(sourceNode, blockTaskItem);

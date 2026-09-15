@@ -5,8 +5,6 @@ import { createBlockTaskItem, isTaskList } from '@atlaskit/editor-common/transfo
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 /**
  * Transforms a paste slice to handle blockTaskItem nodes when pasting into task items.
  *
@@ -160,18 +158,6 @@ const transformSliceContent = (slice: Slice, transformNode: (node: PMNode) => PM
 	return slice;
 };
 
-const transformSliceToRemoveBlockTaskItemLegacy = (slice: Slice, view: EditorView): Slice => {
-	const { schema } = view.state;
-	const { taskItem, blockTaskItem } = schema.nodes;
-	const isInTaskItem = view.state.selection.$from.node().type === taskItem;
-
-	if (!isInTaskItem || !blockTaskItem) {
-		return slice;
-	}
-
-	return transformSliceContent(slice, (node) => normalizeBlockTaskItemToTaskItems(node, schema));
-};
-
 export const normalizeNodeForTaskTextSize = (
 	node: PMNode,
 	schema: Schema,
@@ -217,16 +203,6 @@ const normalizeNodeForTaskPaste = (
 };
 
 export const tempTransformSliceToRemoveBlockTaskItem = (slice: Slice, view: EditorView): Slice => {
-	const fontSizeExperimentEnabled = expValEquals(
-		'platform_editor_small_font_size',
-		'isEnabled',
-		true,
-	);
-
-	if (!fontSizeExperimentEnabled) {
-		return transformSliceToRemoveBlockTaskItemLegacy(slice, view);
-	}
-
 	const { blockTaskItem } = view.state.schema.nodes;
 	const { isInTaskContext, smallTextAttrs } = getTaskPasteContext(view);
 

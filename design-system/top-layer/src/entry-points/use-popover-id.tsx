@@ -1,17 +1,13 @@
 import { useId } from '@atlaskit/ds-lib/use-id';
+
 /**
- * Returns a stable HTML `id` used to wire a trigger element to its popover
- * via ARIA (`aria-controls`) and the Popover API (`popovertarget`).
+ * A stable `id` for wiring a trigger to its popover: the popover's `id`, and the
+ * trigger's matching `aria-controls` / `popovertarget`.
  *
- * The returned value is intended for the `id` attribute on the popover and
- * for the matching `aria-controls` / `popovertarget` references on the
- * trigger. It is NOT a CSS `anchor-name` value: CSS anchor positioning is
- * handled internally by `useAnchorPosition`, which mints and applies its
- * own `anchor-name` on the trigger element.
+ * NOT a CSS `anchor-name` - `useAnchoredPopover` mints and writes its own.
  */
 export function usePopoverId(): string {
-	// `@atlaskit/ds-lib/use-id` already strips characters that React's
-	// `useId` produces (`:`, `«`, `»`) which are invalid in HTML ID
-	// tokens. The `popover-` prefix is purely for DOM debug clarity.
+	// `@atlaskit/ds-lib/use-id`, not React's `useId`: React's output contains
+	// `:`, `«` and `»`, which are invalid in an HTML id token.
 	return `popover-${useId()}`;
 }

@@ -47,6 +47,29 @@ const HASHED_PARTICIPANT_COLOR_SCHEMES = [
 	'magenta',
 ] as const satisfies readonly AdsAccentColor[];
 
+/**
+ * Red means "deleted" in both public schemes, so it never identifies an actor. Reserving it here
+ * covers every path into an attribution colour; `createAttributionColorMap` is the only caller, and
+ * it is gated on `confluence_ncs_step_diffing_version_history` plus
+ * `platform_editor_show_diff_color_scheme_refactor`.
+ */
+const RESERVED_ATTRIBUTION_COLORS: ReadonlySet<AdsAccentColor> = new Set(['red']);
+
+const isAssignable = (color: AdsAccentColor): boolean => !RESERVED_ATTRIBUTION_COLORS.has(color);
+
+/** Projects a telepointer slot onto its diff hue, advancing past a hue reserved for deletion. */
+const getSlotColor = (index: number): AdsAccentColor | undefined => {
+	for (let offset = 0; offset < HASHED_PARTICIPANT_COLOR_SCHEMES.length; offset++) {
+		const color =
+			HASHED_PARTICIPANT_COLOR_SCHEMES[(index + offset) % HASHED_PARTICIPANT_COLOR_SCHEMES.length];
+		if (color && isAssignable(color)) {
+			return color;
+		}
+	}
+
+	return undefined;
+};
+
 const getAvailableColor = (
 	hashedColor: AdsAccentColor,
 	allocatedColors: Set<AdsAccentColor>,
@@ -56,12 +79,15 @@ const getAvailableColor = (
 	for (let offset = 0; offset < PARTICIPANT_COLOR_SCHEMES.length; offset++) {
 		const color =
 			PARTICIPANT_COLOR_SCHEMES[(startIndex + offset) % PARTICIPANT_COLOR_SCHEMES.length];
-		if (color && !allocatedColors.has(color)) {
+		if (color && isAssignable(color) && !allocatedColors.has(color)) {
 			return color;
 		}
 	}
 
-	return hashedColor;
+	// Every assignable hue is taken, so a duplicate is unavoidable — but never the reserved hue.
+	return isAssignable(hashedColor)
+		? hashedColor
+		: (PARTICIPANT_COLOR_SCHEMES.find(isAssignable) ?? hashedColor);
 };
 
 /**
@@ -167,7 +193,8 @@ export const createAttributionColorMap = (
 	const colors = new Map<string, AdsAccentColor>();
 	const allocatedColors = new Set<AdsAccentColor>();
 
-	// Reserve shared brand colours before hashing other actors, regardless of step order.
+	// Reserve shared brand colours before hashing other actors, regardless of step order. A brand
+	// slot is pinned deliberately, so it is taken verbatim rather than through `getSlotColor`.
 	for (const attribution of stepAttributions) {
 		const identity = getAttributionIdentity(attribution);
 		if (!identity) {
@@ -189,7 +216,7 @@ export const createAttributionColorMap = (
 		}
 
 		const { index } = getParticipantColor(identity.colorSeed, attribution?.agentType);
-		const hashedColor = HASHED_PARTICIPANT_COLOR_SCHEMES[index];
+		const hashedColor = getSlotColor(index);
 		if (!hashedColor) {
 			continue;
 		}

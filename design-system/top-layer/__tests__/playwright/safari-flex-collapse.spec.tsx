@@ -12,7 +12,14 @@ import { expect, test } from '@af/integration-testing';
  * See `notes/decisions/safari-popover-flex-collapse.md`.
  */
 test.describe('Safari top-layer flex collapse', () => {
-	test('popover scroll body does not collapse', async ({ page }) => {
+	test('popover scroll body does not collapse', async ({ page, skipAxeCheck }) => {
+		// The unconditional viewport cap means this fixture's `<ol>` genuinely scrolls,
+		// so axe's `scrollable-region-focusable` fires on its filler rows. A focusable
+		// control is not free here: this is a `role="dialog"` popover, so it would take
+		// initial focus and draw a ring into the WebKit VR baselines this fixture
+		// exists to produce.
+		skipAxeCheck();
+
 		await page.visitExample<
 			typeof import('../../examples/154-testing-safari-flex-collapse-max-height.vr.ap.tsx')
 		>('design-system', 'top-layer', 'testing-safari-flex-collapse-max-height');

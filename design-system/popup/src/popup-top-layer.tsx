@@ -18,7 +18,7 @@ import {
 	useRef,
 } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
@@ -28,10 +28,10 @@ import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-clos
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
+import { getPopupAxisSizes } from './internal/get-popup-axis-sizes';
 import { useRoleProps } from './internal/top-layer-bridge';
 import {
 	type ContentProps,
@@ -39,11 +39,6 @@ import {
 	type PopupProps,
 	type TriggerProps,
 } from './types';
-
-const contentOverflowStyles = cssMap({
-	fitViewport: { overflow: 'auto' },
-	default: {},
-});
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
 const EMPTY_STYLE: CSSProperties = {};
@@ -108,8 +103,14 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	// top-layer: focus trapping is role-based. shouldDisableFocusLock is a no-op.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	shouldDisableFocusLock: _shouldDisableFocusLock,
-	// top-layer: shouldFitViewport is handled via overflow on content wrapper.
-	shouldFitViewport,
+	// top-layer: maps onto `'max-available'`, capping the popup to the space
+	// between the trigger and the viewport edge. `PopoverSurface` already owns
+	// `overflow: auto`, so the capped surface scrolls.
+	//
+	// Keep the explicit `false`: `undefined` previously reached an
+	// `isEnabled = true` default and silently enabled fitting for every popup
+	// that omitted the prop.
+	shouldFitViewport = false,
 	// top-layer: appearance is accepted but UNSAFE_modal-below-sm is not yet implemented.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	appearance: _appearance,
@@ -188,18 +189,12 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 		[placement, offsetProp],
 	);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,
 		isOpen,
-	});
-
-	useWidthFromAnchor({
-		mode: shouldFitContainer ? 'match-anchor' : 'none',
-		popoverRef,
-		anchorRef: triggerRef,
-		isOpen,
+		...getPopupAxisSizes({ shouldFitContainer, shouldFitViewport }),
 	});
 
 	// onClose bridge.
@@ -289,12 +284,24 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 						data-testid={testId}
 						tabIndex={autoFocus ? -1 : undefined}
 						xcss={xcss as PopupComponentProps['xcss']}
+						// Forwarded because several in-tree containers key their own
+						// `overflow: auto` branch off it.
+						shouldFitViewport={shouldFitViewport}
 					>
 						{content(contentProps)}
 					</Container>
 				) : (
+					// `PopoverSurface` owns `overflow: auto` and the `box-shadow` on the
+					// same element, so it is the scroll container. The wrapper exists only
+					// to carry the consumer's `xcss`: `PopoverSurface` exposes no
+					// `className` or `xcss` by design, so `xcss` lands on a CHILD of the
+					// surface. `width` works there; surface-level declarations apply one
+					// level in. Same shape as `compositional/popup-content-top-layer.tsx`.
 					<PopoverSurface>
-						<div css={contentOverflowStyles[shouldFitViewport ? 'fitViewport' : 'default']}>
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+							className={xcss}
+						>
 							{content(contentProps)}
 						</div>
 					</PopoverSurface>

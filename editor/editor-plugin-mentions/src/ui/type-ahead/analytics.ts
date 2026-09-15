@@ -2,8 +2,7 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/anal
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { UserRole } from '@atlaskit/mention';
-import type { MentionDescription } from '@atlaskit/mention/resource';
+import type { UserRole, MentionDescription } from '@atlaskit/mention/types';
 import { isSpecialMention } from '@atlaskit/mention/resource';
 
 import type { TeamInfoAttrAnalytics } from '../../types';

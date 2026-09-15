@@ -112,6 +112,15 @@ const grabAreaStyles = cssMap({
 			transition: 'none',
 		},
 	},
+	// platform-dst-tokens-finesse cleanup: merge into root after rollout.
+	rootFinesse: {
+		'&:hover, &:focus-within': {
+			color: token('color.border.bold'),
+		},
+		'&:active': {
+			color: token('color.border.selected'),
+		},
+	},
 	fullHeightSidebar: {
 		'&:hover': {
 			cursor: 'col-resize',
@@ -526,7 +535,11 @@ const PortaledPanelSplitter = ({
 				is provided via a dedicated keyboard shortcut elsewhere in the application. */}
 				<div
 					ref={splitterRef}
-					css={[grabAreaStyles.root, isFhsEnabled && grabAreaStyles.fullHeightSidebar]}
+					css={[
+						grabAreaStyles.root,
+						fg('platform-dst-tokens-finesse') && grabAreaStyles.rootFinesse,
+						isFhsEnabled && grabAreaStyles.fullHeightSidebar,
+					]}
 					data-testid={testId}
 					onDoubleClick={onDoubleClick}
 				>

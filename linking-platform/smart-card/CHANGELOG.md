@@ -1,5 +1,47 @@
 # @atlaskit/smart-card
 
+## 45.23.3
+
+### Patch Changes
+
+- [`76cb6eaf691bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76cb6eaf691bb) -
+  Remove the retired rovogrowth-635-pre-auth-cta-preview-exp experiment and feature gate, preserving
+  the shipped control CTA.
+- Updated dependencies
+
+## 45.23.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.23.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.23.0
+
+### Minor Changes
+
+- [`67e2f90d073f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67e2f90d073f8) -
+  Refactor hover card entry points and mark its internal props that were expose unintentionally
+  durng volt migration as deprecated
+
+### Patch Changes
+
+- [`ec5808c03c48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec5808c03c48f) -
+  Avoid redundant full block resolves and preserve concurrent appearance payloads for
+  platform_smartlink_inline_resolve_optimization.
+- Updated dependencies
+
+## 45.22.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.22.5
 
 ### Patch Changes

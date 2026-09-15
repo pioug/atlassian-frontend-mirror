@@ -1,18 +1,23 @@
 import React from 'react';
 import { render, screen } from '@atlassian/testing-library';
+import { IntlProvider } from 'react-intl';
 
 import { CardLoading } from '../../lightCards/cardLoading';
 import { CardError } from '../../lightCards/cardError';
 import { getDimensionsWithDefault } from '../../lightCards/getDimensionsWithDefault';
 
+// `CardLoading` renders `LoadingBar`, which localises its aria-label via `useIntl`.
+const renderWithIntl = (ui: React.ReactElement) =>
+	render(<IntlProvider locale="en">{ui}</IntlProvider>);
+
 describe('<CardLoading />', () => {
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<CardLoading />);
+		const { container } = renderWithIntl(<CardLoading />);
 		await expect(container).toBeAccessible();
 	});
 
-	it('should render spinner', () => {
-		render(<CardLoading />);
+	it('should render loading indicator', () => {
+		renderWithIntl(<CardLoading />);
 		expect(screen.getByTestId('media-card-loading')).toBeInTheDocument();
 	});
 

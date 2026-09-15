@@ -1,5 +1,6 @@
 import { slicesEqualIgnoringLocalId } from '@atlaskit/editor-common/collab-agent-review-slice-compare';
 import type { AgentEditShimmerNotShownReason } from '@atlaskit/editor-common/analytics/types/agent-edit-shimmer-events';
+import { getAgentEditChangedRanges } from '@atlaskit/editor-common/collab-agent-edit-changed-ranges';
 import type { AgentEditChromeRange } from '@atlaskit/editor-common/collab-agent-edit-chrome';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -288,12 +289,37 @@ export const getAgentEditChromeRanges = (
 	view: EditorView,
 	onNotShown?: (reason: AgentEditShimmerNotShownReason, agentType?: string, error?: Error) => void,
 ): AgentEditChromeRange[] => {
-	// Reuse legacy range derivation with skeleton and telepointer output disabled. A non-zero
-	// highlight duration keeps capture enabled; the returned legacy phase and duration are discarded.
-	return deriveAgentShimmerRanges(json, steps, tr, view, 0, 1, false, onNotShown).map(
-		({ from, to }) => ({
-			from,
-			to,
-		}),
-	);
+	const agentType = json.find((step) => typeof step?.agentType === 'string')?.agentType;
+	if (agentType === undefined) {
+		return [];
+	}
+	const rebasedSteps = Number(tr.getMeta('rebased')) || 0;
+	if (rebasedSteps > 0) {
+		const unconfirmed = getCollabState(view.state)?.unconfirmed ?? [];
+		if (unconfirmed.some((entry) => !isPositionNeutralStep(entry.step))) {
+			onNotShown?.('rebasedConcurrentEdit', agentType);
+			return [];
+		}
+	}
+
+	try {
+		// The caller removes the acknowledged local prefix. receiveTransaction then
+		// rolls back unconfirmed local steps before applying these remote steps, and
+		// replays the local steps afterwards. Select the actual applied remote indexes;
+		// the shared extractor maps them through every later step into tr.doc.
+		const includedStepIndexes: number[] = [];
+		json.forEach((rawStep, index) => {
+			if (typeof rawStep?.agentType === 'string' && steps[index]) {
+				includedStepIndexes.push(rebasedSteps + index);
+			}
+		});
+		const ranges = getAgentEditChangedRanges(tr, includedStepIndexes);
+		if (!ranges.length) {
+			onNotShown?.('nothingToShow', agentType);
+		}
+		return ranges;
+	} catch (error) {
+		onNotShown?.('captureThrew', agentType, error as Error);
+		return [];
+	}
 };

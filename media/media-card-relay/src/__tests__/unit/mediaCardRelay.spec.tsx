@@ -11,8 +11,8 @@ import React from 'react';
 
 import { useFragment } from 'react-relay';
 
-import { Card } from '@atlaskit/media-card';
-import { MediaInlineCard } from '@atlaskit/media-card';
+import Card from '@atlaskit/media-card/cardLoader';
+import MediaInlineCard from '@atlaskit/media-card/loader';
 import { mapSsrMediaItemToFileState } from '@atlaskit/media-client/ssr-media-item';
 import { render } from '@atlassian/testing-library';
 
@@ -28,9 +28,17 @@ jest.mock('react-relay', () => ({
 }));
 
 // ─── Mock @atlaskit/media-card ───────────────────────────────────────────────
-jest.mock('@atlaskit/media-card', () => ({
-	Card: jest.fn(({ testId }: { testId?: string }) => <div data-testid={testId ?? 'mock-card'} />),
-	MediaInlineCard: jest.fn(({ testId }: { testId?: string }) => (
+jest.mock('@atlaskit/media-card/cardLoader', () => ({
+	...jest.requireActual('@atlaskit/media-card/cardLoader'),
+	__esModule: true,
+	default: jest.fn(({ testId }: { testId?: string }) => (
+		<div data-testid={testId ?? 'mock-card'} />
+	)),
+}));
+jest.mock('@atlaskit/media-card/loader', () => ({
+	...jest.requireActual('@atlaskit/media-card/loader'),
+	__esModule: true,
+	default: jest.fn(({ testId }: { testId?: string }) => (
 		<div data-testid={testId ?? 'mock-inline-card'} />
 	)),
 }));

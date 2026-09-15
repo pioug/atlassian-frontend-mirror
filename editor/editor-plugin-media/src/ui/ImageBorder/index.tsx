@@ -31,6 +31,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
 import StrokeWeightMediumIcon from '@atlaskit/icon/core/stroke-weight-medium';
 import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -242,6 +243,11 @@ const ImageBorder = ({
 									disableCloseOnArrowClick={true}
 								>
 									<ColorPalette
+										ariaLabel={
+											fg('platform_editor_a11y_border_radiogroup_label')
+												? formatMessage(messages.borderColorRadioGroupAriaLabel)
+												: undefined
+										}
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										onClick={(color: string) => {
 											setBorder({ color });
@@ -333,8 +339,19 @@ const ImageBorder = ({
 								}}
 								disableCloseOnArrowClick={true}
 							>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<div css={contextualSubMenu(1)} ref={handleSubMenuRef}>
+								<div
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+									css={contextualSubMenu(1)}
+									ref={handleSubMenuRef}
+									role={
+										fg('platform_editor_a11y_border_radiogroup_label') ? 'radiogroup' : undefined
+									}
+									aria-label={
+										fg('platform_editor_a11y_border_radiogroup_label')
+											? formatMessage(messages.borderSizeRadioGroupAriaLabel)
+											: undefined
+									}
+								>
 									{borderSizeOptions.map(({ name, value, icon }, idx) => {
 										// Ignored via go/ees005
 										// eslint-disable-next-line @typescript-eslint/no-explicit-any

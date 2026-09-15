@@ -11,16 +11,16 @@ test.describe('JQL Editor validations', () => {
 		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
 			'basic-editor',
 		);
-		await jqlEditor.input.clear();
-		await jqlEditor.appendInputValue('somefield == somevalue');
-		await jqlEditor.errorToken.hover();
+		await jqlEditor.setInputValue('somefield == somevalue');
+		// The invalid query has been parsed, so the highlighted error token belongs to it.
+		await expect(jqlEditor.errorToken).toHaveCount(1);
+		await jqlEditor.hoverErrorToken();
 		const expectedMessage = mockIntl.formatMessage(
 			errorMessages.expectingValueOrFunctionButReceived,
 			{
 				received: '=',
 			},
 		);
-		await expect(jqlEditor.validationTooltip).toBeVisible();
 		await expect(jqlEditor.validationTooltip).toHaveText(expectedMessage);
 	});
 
@@ -29,8 +29,10 @@ test.describe('JQL Editor validations', () => {
 		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
 			'basic-editor',
 		);
-		await jqlEditor.input.clear();
-		await jqlEditor.appendInputValue('ORDER BY created des');
+		await jqlEditor.setInputValue('ORDER BY created des');
+		// The invalid query has been parsed, so submitting it validates the query under test rather
+		// than the one it replaced.
+		await expect(jqlEditor.errorToken).toHaveCount(1);
 		// Submit the invalid query
 		await jqlEditor.searchButton.click();
 		const expectedMessage = mockIntl.formatMessage(
@@ -44,8 +46,10 @@ test.describe('JQL Editor validations', () => {
 		// Check if validation message exists and includes the expected message
 		await expect(jqlEditor.validation).toBeVisible();
 		await expect(jqlEditor.validation).toContainText(expectedMessage);
-		// Our invalid token will be selected so lets type the correct sort direction
+		// Append to the error token to correct the sort direction ('des' → 'desc')
 		await jqlEditor.appendInputValue('c');
+		// The corrected query has been parsed and no longer has an error to highlight.
+		await expect(jqlEditor.errorToken).toHaveCount(0);
 		// Submit the valid query
 		await jqlEditor.searchButton.click();
 		// Validation message should disappear

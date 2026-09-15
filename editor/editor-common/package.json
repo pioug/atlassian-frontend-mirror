@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "122.3.2",
+	"version": "122.8.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
 		"./code-block": "./src/code-block/index.ts",
 		"./collab": "./src/collab/index.ts",
 		"./collab-agent-edit-chrome": "./src/collab/agent-edit-chrome.ts",
+		"./collab-agent-edit-changed-ranges": "./src/collab/agent-edit-changed-ranges.ts",
 		"./collab-agent-remote-edit-review": "./src/collab/agent-remote-edit-review.ts",
 		"./collab-agent-review-slice-compare": "./src/collab/agent-review-slice-compare.ts",
 		"./commands": "./src/commands/index.ts",
@@ -318,6 +319,7 @@
 		"./experiences/ExperienceCheckPopupMutation": "./src/experiences/ExperienceCheckPopupMutation.ts",
 		"./experiences/ExperienceCheckTimeout": "./src/experiences/ExperienceCheckTimeout.ts",
 		"./experiences/consts": "./src/experiences/consts.ts",
+		"./extensibility/native-embed": "./src/extensibility/nativeEmbedExtension.ts",
 		"./extensibility/types": "./src/extensibility/types.ts",
 		"./styles/extension": "./src/styles/shared/extension.ts",
 		"./Extension": "./src/extensibility/Extension.tsx",
@@ -688,6 +690,7 @@
 		"./utils/create-adf-from-html": "./src/utils/create-adf-from-html.ts",
 		"./utils/document": "./src/utils/document.ts",
 		"./utils/find-node-by-local-id": "./src/utils/find-node-by-local-id.ts",
+		"./utils/isSingleEmoji": "./src/utils/isSingleEmoji.ts",
 		"./utils": "./src/utils/index.ts",
 		"./validator": "./src/validator.ts",
 		"./vanilla-tooltip": "./src/vanilla-tooltip/index.ts",
@@ -881,9 +884,6 @@
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
-		"platform_editor_fix_mixed_types_column_sort": {
-			"type": "boolean"
-		},
 		"jim-lower-ranking-in-jira-macro-search": {
 			"type": "boolean"
 		},
@@ -909,6 +909,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_embed_height_only_fallback": {
+			"type": "boolean"
+		},
+		"platform_editor_custom_emoji_unicode_fallback": {
 			"type": "boolean"
 		}
 	},

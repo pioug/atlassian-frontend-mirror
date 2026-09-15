@@ -27,16 +27,13 @@ import {
 describe('ContextPanel migration parity', () => {
 	const DEFAULT_CONTEXT_PANEL_WIDTHS = ['320px', '20pc'];
 	const parityCases = [
-		{ customWidth: undefined, visible: true, disableAnimation: false },
-		{ customWidth: 280, visible: true, disableAnimation: false },
-		{ customWidth: 280, visible: true, disableAnimation: true },
-		{ customWidth: undefined, visible: false, disableAnimation: false },
-		{ customWidth: undefined, visible: false, disableAnimation: true },
+		{ customWidth: undefined, visible: true },
+		{ customWidth: 280, visible: true },
+		{ customWidth: undefined, visible: false },
 	];
 
 	type ParityCase = {
 		customWidth?: number;
-		disableAnimation: boolean;
 		visible: boolean;
 	};
 
@@ -108,12 +105,9 @@ describe('ContextPanel migration parity', () => {
 		expect(normalizeWidth(compiledWidth)).toBe(normalizeWidth(emotionWidth));
 	};
 
-	const expectSharedAnimationStyles = (
-		compiled: WrapperStyles | ContentStyles,
-		emotion: WrapperStyles | ContentStyles,
-	) => {
-		expect(compiled.transitionProperty).toBe(emotion.transitionProperty);
-		expect(compiled.transitionDuration).toBe(emotion.transitionDuration);
+	const expectNoAnimationStyles = (styles: WrapperStyles | ContentStyles) => {
+		expect(styles.transitionProperty).toBe('');
+		expect(styles.transitionDuration).toBe('');
 	};
 
 	const expectWrapperBehavior = (element: HTMLElement, { customWidth, visible }: ParityCase) => {
@@ -141,8 +135,8 @@ describe('ContextPanel migration parity', () => {
 		emotion: HTMLElement,
 		{ customWidth, visible }: ParityCase,
 	) => {
-		expectWrapperBehavior(compiled, { customWidth, visible, disableAnimation: false });
-		expectWrapperBehavior(emotion, { customWidth, visible, disableAnimation: false });
+		expectWrapperBehavior(compiled, { customWidth, visible });
+		expectWrapperBehavior(emotion, { customWidth, visible });
 
 		const compiledStyles = getWrapperStyles(compiled);
 		const emotionStyles = getWrapperStyles(emotion);
@@ -166,8 +160,8 @@ describe('ContextPanel migration parity', () => {
 		emotion: HTMLElement,
 		{ customWidth, visible }: ParityCase,
 	) => {
-		expectContentBehavior(compiled, { customWidth, visible, disableAnimation: false });
-		expectContentBehavior(emotion, { customWidth, visible, disableAnimation: false });
+		expectContentBehavior(compiled, { customWidth, visible });
+		expectContentBehavior(emotion, { customWidth, visible });
 
 		const compiledStyles = getContentStyles(compiled);
 		const emotionStyles = getContentStyles(emotion);
@@ -192,33 +186,29 @@ describe('ContextPanel migration parity', () => {
 		}
 	};
 
-	const renderParityCase = ({ customWidth, visible, disableAnimation }: ParityCase) => {
+	const renderParityCase = ({ customWidth, visible }: ParityCase) => {
 		renderWithIntl(
 			<>
 				<ContextPanelWrapperCompiled
 					data-testid="wrapper-compiled"
 					customWidth={customWidth}
 					visible={visible}
-					disableAnimation={disableAnimation}
 				/>
 				<ContextPanelWrapperEmotion
 					data-testid="wrapper-emotion"
 					customWidth={customWidth}
 					visible={visible}
-					disableAnimation={disableAnimation}
 				/>
 				<ContextPanelContentCompiled
 					data-testid="content-compiled"
 					customWidth={customWidth}
 					visible={visible}
-					disableAnimation={disableAnimation}
 					hasPadding={false}
 				/>
 				<ContextPanelContentEmotion
 					data-testid="content-emotion"
 					customWidth={customWidth}
 					visible={visible}
-					disableAnimation={disableAnimation}
 					hasPadding={false}
 				/>
 			</>,
@@ -233,21 +223,17 @@ describe('ContextPanel migration parity', () => {
 	};
 
 	it.each(parityCases)(
-		'matches wrapper and content CSS parity for customWidth=$customWidth visible=$visible disableAnimation=$disableAnimation',
+		'matches wrapper and content CSS parity for customWidth=$customWidth visible=$visible',
 		(testCase) => {
 			const { wrapperCompiled, wrapperEmotion, contentCompiled, contentEmotion } =
 				renderParityCase(testCase);
 
 			expectWrapperParity(wrapperCompiled, wrapperEmotion, testCase);
 			expectContentParity(contentCompiled, contentEmotion, testCase);
-			expectSharedAnimationStyles(
-				getWrapperStyles(wrapperCompiled),
-				getWrapperStyles(wrapperEmotion),
-			);
-			expectSharedAnimationStyles(
-				getContentStyles(contentCompiled),
-				getContentStyles(contentEmotion),
-			);
+			expectNoAnimationStyles(getWrapperStyles(wrapperCompiled));
+			expectNoAnimationStyles(getWrapperStyles(wrapperEmotion));
+			expectNoAnimationStyles(getContentStyles(contentCompiled));
+			expectNoAnimationStyles(getContentStyles(contentEmotion));
 		},
 	);
 });
@@ -263,9 +249,6 @@ describe('SwappableContentArea', () => {
 		expect(screen.getByLabelText('Context panel')).toBeInTheDocument();
 	});
 
-	// ContextPanel animates by doing a CSS transition on the container's width,
-	// and inside the container, sliding the content off screen.
-	//
 	// The container clips content to avoid scroll and overlaying with any elements
 	// that might be on the right.
 

@@ -31,9 +31,9 @@ snapshot(VrPositionRtlExample, {
 });
 
 /**
- * In RTL, `position="mouse"` + `mousePosition="right"` should land the
- * tooltip on the physical-left of the cursor. Exercises both the synthetic
- * anchor (`useAnchorPositionAtPoint`, writes physical `top`/`left` from
+ * In RTL, `position="mouse"` + `mousePosition="right"` should land the tooltip on
+ * the physical-left of the cursor. Exercises both the synthetic anchor
+ * (`useAnchoredPopoverAtPoint`, which writes physical `top`/`left` from
  * `clientX`/`Y`) and the popover library's RTL-aware placement on top.
  */
 snapshot(VrPositionRtlExample, {

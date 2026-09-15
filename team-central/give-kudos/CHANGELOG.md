@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 6.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.15.0
 
 ### Minor Changes

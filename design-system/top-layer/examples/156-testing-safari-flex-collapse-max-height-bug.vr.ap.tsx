@@ -10,7 +10,7 @@ import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { Dialog } from '@atlaskit/top-layer/dialog-content';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 /**
@@ -182,7 +182,7 @@ function PopoverVariant(): ReactNode {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },

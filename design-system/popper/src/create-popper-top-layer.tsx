@@ -5,9 +5,9 @@
  * `@atlaskit/top-layer`'s positioning primitives are React hooks, and this
  * entry point is imperative. Rather than growing an imperative positioning API
  * on top-layer for a frozen escape hatch, this file brings its own React: it
- * owns a detached root rendering `AnchorBridge` / `PointBridge`, components that
- * render nothing and exist only to run `useAnchorPosition` /
- * `useAnchorPositionAtPoint` against the DOM nodes the caller already owns.
+ * owns a detached root rendering `PositioningBridge`, a component that renders
+ * nothing and exists only to run top-layer's positioning hooks against the DOM
+ * nodes the caller already owns.
  *
  * The upside is that the imperative path consumes exactly the same public
  * top-layer API as the React `<Popper>` adapter in `popper-top-layer.tsx`, so
@@ -41,8 +41,8 @@ import { createRoot } from 'react-dom/client';
 import { getDocument } from '@atlaskit/browser-apis';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-import { useAnchorPositionAtPoint } from '@atlaskit/top-layer/use-anchor-position-at-point';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { useAnchoredPopoverAtPoint } from '@atlaskit/top-layer/use-anchored-popover-at-point';
 
 import { isPageRtl } from './internal/is-page-rtl';
 import { rectPointForPlacement } from './internal/rect-point-for-placement';
@@ -106,11 +106,9 @@ function getOffset(modifiers: TResolvedOptions['modifiers']): [along: number, aw
 /**
  * Maps resolved Popper.js options onto top-layer's placement input.
  *
- * Called from the bridge components' render, not memoized: the bridge remounts
- * on every option change (see `createPopperTopLayer`), so a `useMemo` cache
- * could never be read, and `useAnchorPosition` already re-derives a stable
- * placement from the primitive fields so a fresh object identity per render
- * costs nothing downstream.
+ * Not memoized: the bridge remounts on every option change, so a `useMemo` cache
+ * could never be read, and `useAnchoredPopover` already re-derives a stable
+ * placement from the primitive fields.
  */
 function toTopLayerPlacement(options: TResolvedOptions): TPlacementOptions {
 	return fromLegacyPlacement({
@@ -205,22 +203,36 @@ function toRect(rect: { width: number; height: number; left: number; top: number
 	return { width: rect.width, height: rect.height, x: rect.left, y: rect.top };
 }
 
-// Both bridges below render nothing. They exist purely so top-layer's
-// positioning hooks can run against elements that live outside any React tree,
-// and they mirror the anchor resolution in `popper-top-layer.tsx`. Which one is
-// used is decided when the instance is created and never changes, so each calls
-// exactly one hook unconditionally.
-//
-// Every prop is constant for the lifetime of a mount: the elements are fixed at
-// creation, and an option change remounts the bridge (see
-// `createPopperTopLayer`). So props go straight into refs with no re-assignment,
-// and closures over them cannot go stale.
-
 /**
- * Real DOM anchor: `useAnchorPosition` gives it `anchor-name` on the CSS Anchor
- * Positioning path, and measures it on the JS fallback.
+ * Renders nothing; it exists purely so top-layer's positioning hooks can run
+ * against elements that live outside any React tree.
+ *
+ * `shouldPreserveInlineSize` on both bridges, because the positioned element is
+ * the CALLER's: it was `position: absolute` under Popper.js, so its own
+ * stylesheet `width` was its width, and the hook's inline
+ * `inline-size: max-content` would override it.
+ *
+ * Anything that is not a real DOM element (a `VirtualElement`, an SVG element, an
+ * element from another realm) cannot carry `anchor-name`, so its rect is reduced
+ * to the geometrically-equivalent point for the requested placement.
  */
-function AnchorBridge({
+function PositioningBridge({
+	reference,
+	popover,
+	options,
+}: {
+	reference: Element | VirtualElement;
+	popover: HTMLElement;
+	options: TResolvedOptions;
+}): React.JSX.Element {
+	return reference instanceof HTMLElement ? (
+		<ElementBridge anchor={reference} popover={popover} options={options} />
+	) : (
+		<PointBridge reference={reference} popover={popover} options={options} />
+	);
+}
+
+function ElementBridge({
 	anchor,
 	popover,
 	options,
@@ -232,23 +244,17 @@ function AnchorBridge({
 	const anchorRef = useRef<HTMLElement | null>(anchor);
 	const popoverRef = useRef<HTMLElement | null>(popover);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef,
 		popoverRef,
 		placement: toTopLayerPlacement(options),
 		isOpen: true,
+		shouldPreserveInlineSize: true,
 	});
 
 	return null;
 }
 
-/**
- * Anything that is not a real DOM element (a Popper.js `VirtualElement`, an SVG
- * element, an element from another realm) cannot carry `anchor-name`, so its
- * rect is reduced to the geometrically-equivalent point for the requested
- * placement and handed to `useAnchorPositionAtPoint`, which owns the synthetic
- * anchor.
- */
 function PointBridge({
 	reference,
 	popover,
@@ -261,10 +267,11 @@ function PointBridge({
 	const popoverRef = useRef<HTMLElement | null>(popover);
 	const placement = toTopLayerPlacement(options);
 
-	useAnchorPositionAtPoint({
+	useAnchoredPopoverAtPoint({
 		popoverRef,
 		placement,
 		isOpen: true,
+		shouldPreserveInlineSize: true,
 		getPoint: () =>
 			rectPointForPlacement({
 				rect: reference.getBoundingClientRect() as DOMRect,
@@ -297,15 +304,14 @@ function PointBridge({
  *
  * `update` / `forceUpdate` / `setOptions` remount the bridge by bumping its
  * `key`, which is what re-runs the positioning hook from scratch. The remount is
- * load-bearing on both bridges:
+ * load-bearing for both anchor kinds:
  *
- * - `PointBridge` — `useAnchorPositionAtPoint` latches its point once per
- *   activation, so nothing else re-reads a virtual reference's rect.
- * - `AnchorBridge` — on the JS fallback, the hook only measures when its effect
- *   runs (plus its own scroll / resize listeners), so a remount is how
- *   `update()` honours its "re-measure now" contract for an anchor that moved
- *   for some other reason. On the CSS path the browser tracks the anchor and the
- *   remount is a no-op rewrite of the same properties.
+ * - point — `useAnchoredPopoverAtPoint` latches `getPoint` once per activation,
+ *   so nothing else re-reads a virtual reference's rect.
+ * - element — on the JS fallback the hook only measures when its effect runs
+ *   (plus its own scroll / resize listeners), so a remount is how `update()`
+ *   honours its "re-measure now" contract for an anchor that moved for some
+ *   other reason. On the CSS path the remount is a no-op rewrite.
  *
  * `state` carries live `elements`, `options`, `placement`, `strategy` and
  * `rects`; the modifier-pipeline fields (`styles`, `attributes`,
@@ -337,11 +343,8 @@ export function createPopperTopLayer(
 	// surface" above for why that is load-bearing on both bridges.
 	let generation = 0;
 
-	// Which bridge to render is fixed here, for the instance's lifetime.
-	const anchor: HTMLElement | null = reference instanceof HTMLElement ? reference : null;
-
 	// Promote BEFORE the first render so the popover is already open when the
-	// hooks' layout effects run - `useAnchorPosition`'s JS fallback detects an
+	// hook's layout effect runs - `useAnchoredPopover`'s JS fallback detects an
 	// already-open popover and measures immediately instead of waiting for a
 	// `toggle` event it would otherwise have missed.
 	const undoPromotion = promoteToTopLayer(popper);
@@ -380,16 +383,12 @@ export function createPopperTopLayer(
 		// downgrades to an async commit anyway — so the flush buys a console
 		// error and nothing else.
 		root.render(
-			anchor ? (
-				<AnchorBridge key={generation} anchor={anchor} popover={popper} options={currentOptions} />
-			) : (
-				<PointBridge
-					key={generation}
-					reference={reference}
-					popover={popper}
-					options={currentOptions}
-				/>
-			),
+			<PositioningBridge
+				key={generation}
+				reference={reference}
+				popover={popper}
+				options={currentOptions}
+			/>,
 		);
 
 		// Measured at call time, so `rects.popper` reflects the position before

@@ -22,6 +22,21 @@ and then only at equal-or-higher specificity. Every declaration below that the d
 writes as a normal declaration therefore loses. All paths surveyed are the `platform-dst-top-layer`
 gate-on paths. Verified 2026-08-10.
 
+> **Dated survey — the file paths and line numbers below are as of 2026-08-10 and are not
+> maintained.** On 2026-08-24 the four positioning/sizing hooks became one `useAnchoredPopover`
+> ([../one-anchored-popover-hook.md](../one-anchored-popover-hook.md)), so read
+> `use-anchor-position.tsx`, `use-anchor-position-at-point.tsx` and `use-width-from-anchor.tsx` as
+> `src/internal/use-anchored-popover.tsx`, with every SIZE declaration (rows 8–10, 23, 32, 34, 35)
+> now emitted from `src/internal/anchored-popover-size.tsx`. The blast radius is unchanged in kind:
+> one hook still writes every geometry property as a non-`!important` inline style through the same
+> `set-style.tsx`, so fact 1 and the mitigation site it names hold verbatim — there is now one
+> writer to change instead of three. Two rows moved in substance: **row 10's
+> `min-inline-size: max-content` floor no longer exists** (removed with the merge, see
+> [../../decisions/width-from-anchor-floors.md](../../decisions/width-from-anchor-floors.md)), so
+> the "losing it changes _flipping_" hazard is gone and is replaced by the placement-axis
+> `min-{axis}-size` flip floor, which is in the same `min-*` group and carries the same hazard; and
+> row 23's `useWidthFromAnchor('none')` call in popper no longer exists for the same reason.
+
 Four structural facts drive most of the table:
 
 1. **Every internal geometry write is a non-`!important` inline style.** `useAnchorPosition`,

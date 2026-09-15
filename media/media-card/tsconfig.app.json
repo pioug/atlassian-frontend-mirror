@@ -82,9 +82,6 @@
 			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/spinner/tsconfig.app.json"
-		},
-		{
 			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
 		},
 		{

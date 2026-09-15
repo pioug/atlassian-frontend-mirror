@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9dda6e5201f9fe362a82bb0b6b929368>>
+ * @codegen <<SignedSource::1cbc44f4b2a9b5d1f649eb00556c8dee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const VideoRecordIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "VideoRecordIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1.084 8.068a7 7 0 1 1 14 0 7 7 0 0 1-14 0" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1.084 8.07a7 7 0 1 1 14 0 7 7 0 0 1-14 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 VideoRecordIcon.displayName = 'VideoRecordIcon';

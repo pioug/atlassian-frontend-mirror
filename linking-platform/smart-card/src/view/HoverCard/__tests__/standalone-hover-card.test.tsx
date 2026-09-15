@@ -8,16 +8,12 @@ import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import '@atlaskit/link-test-helpers/jest';
 import type { CardStore } from '@atlaskit/linking-common/store';
-import { CardAction } from '@atlaskit/smart-card';
-import {
-	type HoverCardProps,
-	HoverCard as StandaloneHoverCard,
-} from '@atlaskit/smart-card/hover-card';
 
+import { CardAction } from '../../../constants';
+import { HoverCard as StandaloneHoverCard } from '../../../entry-points/hover';
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/fake-factory';
-import { HoverCard } from '../HoverCard';
-import { type HoverCardInternalProps } from '../types';
+import { HoverCard } from '../index';
 import { mockConfluenceResponse } from './__mocks__/mocks';
 import { analyticsTests } from './common/analytics.test-utils';
 import {
@@ -92,7 +88,7 @@ describe('standalone hover card', () => {
 
 	const standaloneSetUp = async (
 		setUpParams?: SetUpParams,
-		props?: Partial<HoverCardProps & HoverCardInternalProps>,
+		props?: Partial<React.ComponentProps<typeof StandaloneHoverCard>>,
 	) => {
 		const hoverCardComponent = (
 			<StandaloneHoverCard url={mockUrl} {...setUpParams?.extraCardProps} {...props}>

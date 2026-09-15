@@ -1,7 +1,5 @@
 import { createBlockTaskItem } from '@atlaskit/editor-common/transforms';
 import { type Schema, Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { isListWithIndentation } from '../nodeChecks';
 import type { TransformStep, TransformStepContext } from '../types';
 
@@ -124,11 +122,7 @@ const transformList = (
 
 			const { blockTaskItem } = schema.nodes;
 
-			if (
-				blockTaskItem &&
-				blockMarks.length > 0 &&
-				expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-			) {
+			if (blockTaskItem && blockMarks.length > 0) {
 				return createBlockTaskItem({
 					content: inlineContent,
 					marks: blockMarks,

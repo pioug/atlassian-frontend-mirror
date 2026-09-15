@@ -5,8 +5,7 @@ import type {
 	MentionNodeDataProvider as MentionNodeDataProviderContract,
 } from '@atlaskit/editor-common/mention';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
-import type { MentionProvider } from '@atlaskit/mention/resource';
-import type { MentionDescription, MentionNodeData } from '@atlaskit/mention/types';
+import type { MentionDescription, MentionNodeData, MentionProvider } from '@atlaskit/mention/types';
 import { NodeDataProvider } from '@atlaskit/node-data-provider/node-data-provider';
 
 export type FetchMentionNodeData = (

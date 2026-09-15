@@ -17,7 +17,7 @@ import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
@@ -110,7 +110,7 @@ export default function PlacementExample(): React.ReactNode {
 
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement,

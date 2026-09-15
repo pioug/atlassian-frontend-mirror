@@ -49,7 +49,7 @@ Key findings:
   `<dialog>`). A plain in-flow `fit-content` `<div>` does not trigger it.
 - It is **not** fixed in current Safari (26.5) — the reset is genuinely required.
 - `height: auto` alone fixes it; `width: auto` is **not** needed and is deliberately avoided so
-  anchor-width matching (`useWidthFromAnchor`) is unaffected. Confirmed the popover width is
+  anchor-width matching (`inlineSize: 'match-anchor'`) is unaffected. Confirmed the popover width is
   identical with and without the fix.
 
 ---

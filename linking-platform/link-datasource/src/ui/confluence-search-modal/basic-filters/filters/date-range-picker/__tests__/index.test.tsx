@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { DatePicker } from '@atlaskit/datetime-picker';
+import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { EVENT_CHANNEL } from '../../../../../../analytics/constants';
@@ -23,8 +23,10 @@ const lastModifiedValues = [
 	'Custom',
 ];
 
-jest.mock('@atlaskit/datetime-picker', () => ({
-	DatePicker: jest.fn().mockReturnValue(<div data-testid={'mocked-date-picker'}></div>),
+jest.mock('@atlaskit/datetime-picker/date-picker', () => ({
+	...jest.requireActual('@atlaskit/datetime-picker/date-picker'),
+	__esModule: true,
+	default: jest.fn().mockReturnValue(<div data-testid={'mocked-date-picker'}></div>),
 }));
 
 const onAnalyticFireEvent = jest.fn();

@@ -21,7 +21,6 @@ import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -212,10 +211,7 @@ export const FullPageToolbarNext = ({
 	const isMarkdownMode = markdownModeState?.isMarkdownMode;
 	const markdownModeView = markdownModeState?.view;
 	const isConvertedMarkdownPreview =
-		isMarkdownMode === true &&
-		isLivePage === true &&
-		markdownModeView === 'preview' &&
-		fg('platform_editor_markdown_patch_m3');
+		isMarkdownMode === true && isLivePage === true && markdownModeView === 'preview';
 	const intl = useIntl();
 	const toolbar = components?.find((component) => component.key === TOOLBARS.PRIMARY_TOOLBAR);
 	const visibleToolbarComponents = useMemo(

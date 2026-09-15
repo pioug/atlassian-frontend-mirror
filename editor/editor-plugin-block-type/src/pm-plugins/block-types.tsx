@@ -33,7 +33,6 @@ import TextHeadingThreeIcon from '@atlaskit/icon-lab/core/text-heading-three';
 import TextHeadingTwoIcon from '@atlaskit/icon-lab/core/text-heading-two';
 import TextIcon from '@atlaskit/icon/core/text';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockType, BlockTypeWithRank } from './types';
 import { Text, H1, H2, H3, H4, H5, H6 } from './ui/ToolbarBlockType/icons';
@@ -161,7 +160,6 @@ export const toolbarBlockTypesWithRank = ({
 		...NORMAL_TEXT,
 		icon:
 			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-			expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
 			fg('platform_editor_change_normal_text_icon') ? (
 				<TextNormalIcon size="small" label="" />
 			) : (
@@ -170,15 +168,14 @@ export const toolbarBlockTypesWithRank = ({
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[NORMAL_TEXT_MENU_ITEM.key],
 		toolbarKey: NORMAL_TEXT_MENU_ITEM.key,
 	},
-	...(allowFontSize &&
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && {
-			smallText: {
-				...SMALL_TEXT,
-				icon: <TextSmallIcon size="small" label="" />,
-				toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[SMALL_TEXT_MENU_ITEM.key],
-				toolbarKey: SMALL_TEXT_MENU_ITEM.key,
-			},
-		}),
+	...(allowFontSize && {
+		smallText: {
+			...SMALL_TEXT,
+			icon: <TextSmallIcon size="small" label="" />,
+			toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[SMALL_TEXT_MENU_ITEM.key],
+			toolbarKey: SMALL_TEXT_MENU_ITEM.key,
+		},
+	}),
 	heading1: {
 		...HEADING_1,
 		icon: <HeadingOneIcon size="small" label="" />,

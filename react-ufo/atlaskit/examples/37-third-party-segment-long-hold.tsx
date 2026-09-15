@@ -8,7 +8,8 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment, { UFOThirdPartySegment } from '@atlaskit/react-ufo/segment';
+import { UFOThirdPartySegment } from '@atlaskit/react-ufo/third-party-segment';
+import UFOSegment from '@atlaskit/react-ufo/segment';
 
 const sectionOneStyle = css({
 	backgroundColor: '#FFB3BA', // Pastel Red

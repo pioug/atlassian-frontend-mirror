@@ -101,6 +101,10 @@ interface BasePopoverContentProps {
 
 	/**
 	 * The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.
+	 *
+	 * Pass ONE element. On the top-layer code path it is rendered into a flex-row
+	 * host so the viewport cap can reach it, and a fragment's children would become
+	 * side-by-side flex items. See `children` on `Popover` in `@atlaskit/top-layer`.
 	 */
 	children: ReactNode;
 

@@ -1,8 +1,6 @@
 import type { Mark, NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { convertBlockToInlineContent } from './convertBlockToInlineContent';
 import { createBlockTaskItem } from './createBlockTaskItem';
 import { isBulletOrOrderedList } from './isBulletOrOrderedList';
@@ -49,10 +47,7 @@ export const transformListRecursively = (
 	} = props;
 	const { taskList, listItem, taskItem, paragraph, blockTaskItem } = schema.nodes;
 
-	// gating behind platform_editor_small_font_size to support task lists with font size applied,
-	// but keep this solution general
-	const isBlockTaskEnabled =
-		!!blockTaskItem && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+	const isBlockTaskEnabled = !!blockTaskItem;
 
 	/**
 	 * Extracts paragraph children from a blockTaskItem, preserving their marks.
@@ -249,10 +244,7 @@ export const transformToTaskList = (
 ): Transaction | null => {
 	try {
 		const { taskItem, paragraph, blockTaskItem } = nodes;
-		// gating behind platform_editor_small_font_size to support task lists with font size applied,
-		// but keep this solution general
-		const isBlockTaskItemEnabled =
-			!!blockTaskItem && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+		const isBlockTaskItemEnabled = !!blockTaskItem;
 
 		const listItems: PMNode[] = [];
 

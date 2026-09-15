@@ -259,57 +259,79 @@ const DatasourceTableViewWithoutAnalytics = ({
 		);
 	}
 
+	let loadingError;
 	if (status === 'rejected') {
-		return <LoadingError onRefresh={handleErrorRefresh} url={url} />;
+		loadingError = <LoadingError onRefresh={handleErrorRefresh} url={url} />;
+		if (!fg('platform_datasource_missing_columns_error')) {
+			return loadingError;
+		}
+	} else if (
+		fg('platform_datasource_missing_columns_error') &&
+		status === 'resolved' &&
+		!hasColumns
+	) {
+		loadingError = (
+			<LoadingError
+				errorType="missing-columns"
+				unavailableColumnKeys={
+					visibleColumnKeys?.length ? visibleColumnKeys : defaultVisibleColumnKeys
+				}
+				url={url}
+			/>
+		);
 	}
 
 	return (
 		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
-			{/* datasource-table classname is to exclude all children from being commentable - exclude list is in CFE*/}
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-			<div css={containerStyles} className="datasource-table">
-				{hasColumns ? (
-					<IssueLikeDataTableView
-						testId={'datasource-table-view'}
-						hasNextPage={hasNextPage}
-						items={responseItems}
-						itemIds={responseItemIds}
-						onNextPage={onNextPage}
-						onLoadDatasourceDetails={loadDatasourceDetails}
-						status={status}
-						columns={columns}
-						visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-						onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-						columnCustomSizes={columnCustomSizes}
-						onColumnResize={onColumnResize}
-						{...(shouldEnableColumnSort && fg('platform_lp_jira_sllv_renderer_column_sorting')
-							? { onColumnSort, sortState }
-							: {})}
-						wrappedColumnKeys={wrappedColumnKeys}
-						onWrappedColumnChange={onWrappedColumnChange}
-						{...(onWrappedColumnsChange && fg('platform_lp_sllv_table_settings_menu')
-							? { onWrappedColumnsChange }
-							: {})}
-						scrollableContainerHeight={
-							isInPDFRender
-								? undefined
-								: fg('lp_enable_datasource-table-view_height_override')
-									? scrollableContainerHeight
-									: DefaultScrollableContainerHeight
+			{loadingError || (
+				// datasource-table classname is to exclude all children from being commentable - exclude list is in CFE
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				<div css={containerStyles} className="datasource-table">
+					{hasColumns ? (
+						<IssueLikeDataTableView
+							testId={'datasource-table-view'}
+							hasNextPage={hasNextPage}
+							items={responseItems}
+							itemIds={responseItemIds}
+							onNextPage={onNextPage}
+							onLoadDatasourceDetails={loadDatasourceDetails}
+							status={status}
+							columns={columns}
+							visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
+							onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+							columnCustomSizes={columnCustomSizes}
+							onColumnResize={onColumnResize}
+							{...(shouldEnableColumnSort && fg('platform_lp_jira_sllv_renderer_column_sorting')
+								? { onColumnSort, sortState }
+								: {})}
+							wrappedColumnKeys={wrappedColumnKeys}
+							onWrappedColumnChange={onWrappedColumnChange}
+							{...(onWrappedColumnsChange && fg('platform_lp_sllv_table_settings_menu')
+								? { onWrappedColumnsChange }
+								: {})}
+							scrollableContainerHeight={
+								isInPDFRender
+									? undefined
+									: fg('lp_enable_datasource-table-view_height_override')
+										? scrollableContainerHeight
+										: DefaultScrollableContainerHeight
+							}
+							extensionKey={extensionKey}
+						/>
+					) : (
+						<EmptyState testId="datasource-table-view-skeleton" isCompact />
+					)}
+					<TableFooter
+						datasourceId={datasourceId}
+						itemCount={isDataReady ? totalCount : shouldRenderTableWithNoResults ? 0 : undefined}
+						onRefresh={onRefresh}
+						isLoading={
+							shouldRenderTableWithNoResults ? false : !isDataReady || status === 'loading'
 						}
-						extensionKey={extensionKey}
+						url={url}
 					/>
-				) : (
-					<EmptyState testId="datasource-table-view-skeleton" isCompact />
-				)}
-				<TableFooter
-					datasourceId={datasourceId}
-					itemCount={isDataReady ? totalCount : shouldRenderTableWithNoResults ? 0 : undefined}
-					onRefresh={onRefresh}
-					isLoading={shouldRenderTableWithNoResults ? false : !isDataReady || status === 'loading'}
-					url={url}
-				/>
-			</div>
+				</div>
+			)}
 		</IntlMessagesProvider>
 	);
 };

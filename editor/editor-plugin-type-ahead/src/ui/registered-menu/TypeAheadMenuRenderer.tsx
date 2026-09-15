@@ -15,7 +15,7 @@ import { PassThrough } from './PassThrough';
 import { TypeAheadMenuFooter } from './TypeAheadMenuFooter';
 import type { TypeAheadItemComponent } from './typeAheadMenuTypes';
 
-const LIST_WIDTH = 340;
+const LIST_WIDTH = 320;
 const ESTIMATED_ROW_HEIGHT = 56;
 const MENU_FOOTER_HEIGHT = 48;
 

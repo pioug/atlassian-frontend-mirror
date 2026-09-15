@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, type MouseEventHandler } from 'react';
 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next/useAnalyticsEvents';
@@ -8,9 +8,10 @@ import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/c
 import { functionUnionWithCondition } from '@atlaskit/platform-feature-flags-react/function-union-with-condition';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
-import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
+import { type ActionName, CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
 import { getClickUrl } from '../../../state/getClickUrl';
 import { getDefinitionId } from '../../../state/getDefinitionId';
 import { getExtensionKey } from '../../../state/getExtensionKey';
@@ -24,10 +25,11 @@ import { fireLinkClickedEvent } from '../../../utils/analytics/fireLinkClickedEv
 import { getAnchorAttributesFromEvent } from '../../../utils/get-anchor-attributes-from-event';
 import { getIsAISummaryEnabled } from '../../../utils/get-is-ai-summary-enabled';
 import { updateAnchorHref } from '../../../utils/update-anchor-href';
+import type { InternalCardActionOptions } from '../../Card/types.ts';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import { type FlexibleCardProps } from '../../FlexibleCard/types';
 import { flexibleUiOptions } from '../styled';
-import { type HoverCardContentProps } from '../types';
+import { type HoverPreviewOptions } from '../types';
 import { getMetadata } from '../utils';
 import ContentContainer from './ContentContainer';
 import HoverCardForbiddenView from './views/forbidden';
@@ -73,6 +75,23 @@ const useIsShowPreauthBetterHovercard = (
 		rovoConfig?.isRovoEnabled &&
 		expValEquals('platform_sl_3p_preauth_better_hovercard', 'isEnabled', true),
 	);
+};
+
+type HoverCardContentProps = {
+	actionOptions?: InternalCardActionOptions;
+	cardState: CardState;
+	hoverPreviewOptions?: HoverPreviewOptions;
+	id?: string;
+	onActionClick: (actionId: string | ActionName) => void;
+	/**
+	 * Closes the hover card popup (e.g. secondary actions like "Maybe later").
+	 */
+	onDismiss?: () => void;
+	onMouseEnter?: MouseEventHandler;
+	onMouseLeave?: MouseEventHandler;
+	onResolve: () => void;
+	renderers?: CardProviderRenderers;
+	url: string;
 };
 
 const HoverCardContent = ({

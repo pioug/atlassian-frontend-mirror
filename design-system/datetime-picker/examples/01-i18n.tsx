@@ -7,12 +7,10 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import {
-	DatePicker,
-	type DatePickerProps,
-	DateTimePicker,
-	TimePicker,
-} from '@atlaskit/datetime-picker';
+import DatePicker from '@atlaskit/datetime-picker/date-picker';
+import type { DatePickerBaseProps as DatePickerProps } from '@atlaskit/datetime-picker/types';
+import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
+import TimePicker from '@atlaskit/datetime-picker/time-picker';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';

@@ -1,5 +1,64 @@
 # @atlaskit/icon-lab
 
+## 7.9.0
+
+### Minor Changes
+
+- [`93685755a235e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93685755a235e) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `ai-filter`
+  - `end-call`
+  - `enterprise-certified`
+  - `guitar`
+  - `hand-wave`
+  - `headset`
+  - `piano`
+  - `rovo-digest`
+  - `sine-wave`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `assets-graph`
+  - `capability`
+  - `diagram-arrowhead-aggregation-up-right`
+  - `diagram-arrowhead-association-left`
+  - `diagram-arrowhead-association-right`
+  - `diagram-arrowhead-association-up-right`
+  - `diagram-arrowhead-circle-up-right`
+  - `diagram-symbol-decision`
+  - `diagram-symbol-manual-input`
+  - `diagram-symbol-sort`
+  - `hardware-ship`
+  - `hardware-transfer`
+  - `if-else`
+  - `incognito`
+  - `link-restricted-access`
+  - `milestone-complete`
+  - `milestone-incomplete`
+  - `milestone-multiple`
+  - `milestone-overdue`
+  - `randomize`
+  - `repeat`
+  - `skip-unskip`
+  - `spaces`
+  - `step-through`
+  - `stroke-curvature-straight`
+  - `studio`
+  - `tab`
+  - `video-record`
+  - `video-skip-backward-five`
+  - `video-skip-forward-five`
+  - `video-watch-later-saved`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.8.0
 
 ### Minor Changes

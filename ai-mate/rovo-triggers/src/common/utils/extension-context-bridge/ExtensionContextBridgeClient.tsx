@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 
 import { usePublish, useSubscribeAll } from '../../../main';
 
@@ -74,8 +74,10 @@ const isChatFocused = (): boolean => {
  * Headless.
  */
 export const ExtensionContextBridgeClient = ({ transport, allowedOrigins }: Props): null => {
-	// Self-gated. Matches `BRIDGE_FEATURE_GATE` in `./constants`.
-	const active = fg('rovo-ext_context_bridge');
+	// Self-gated. Matches `EXT_CONTEXT_BRIDGE_EXPERIMENT` in `./constants`. No-exposure read: the
+	// extension decides whether to mount this and owns the exposure call.
+	const active =
+		UNSAFE_expValNoExposure('rovo-ext_context_bridge_exp', 'isEnabled', false) === true;
 	const publish = usePublish('ai-mate');
 	const lastKnownSelectionRef = useRef<PreservedSelection | null>(null);
 
@@ -187,15 +189,15 @@ export const ExtensionContextBridgeClient = ({ transport, allowedOrigins }: Prop
 		if (!shouldRelayToProduct(payload.type)) {
 			return;
 		}
-		const serialized = serializePayload(payload);
-		if (!serialized) {
+		const result = serializePayload(payload);
+		if (!result.ok) {
 			return;
 		}
 		try {
 			activeTransport.send({
 				[BRIDGE_MESSAGE_MARKER]: true,
 				direction: BRIDGE_TO_PRODUCT,
-				payload: serialized,
+				payload: result.payload,
 			});
 		} catch {
 			// Never let bridging break the chat iframe.

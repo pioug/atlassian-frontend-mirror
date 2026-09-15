@@ -16,13 +16,13 @@ import { PopoverContent } from '../index';
 // `var` (rather than `let`) so the mock factory below — which Jest hoists
 // above this declaration — can still resolve the binding.
 // eslint-disable-next-line no-var
-var mockUseAnchorPositionArgs: jest.Mock;
+var mockUseAnchoredPopoverArgs: jest.Mock;
 
-jest.mock('@atlaskit/top-layer/use-anchor-position', () => {
-	mockUseAnchorPositionArgs = jest.fn();
+jest.mock('@atlaskit/top-layer/use-anchored-popover', () => {
+	mockUseAnchoredPopoverArgs = jest.fn();
 	return {
-		useAnchorPosition: (args: unknown) => {
-			mockUseAnchorPositionArgs(args);
+		useAnchoredPopover: (args: unknown) => {
+			mockUseAnchoredPopoverArgs(args);
 		},
 	};
 });
@@ -115,7 +115,7 @@ const TargetRefSeededProvider = ({
 
 describe('SpotlightContextProvider — targetRef', () => {
 	beforeEach(() => {
-		mockUseAnchorPositionArgs?.mockClear();
+		mockUseAnchoredPopoverArgs?.mockClear();
 	});
 
 	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer positioning enabled', () => {
@@ -129,11 +129,11 @@ describe('SpotlightContextProvider — targetRef', () => {
 			);
 		});
 
-		it('forwards the supplied targetRef into useAnchorPosition via the context', () => {
+		it('forwards the supplied targetRef into useAnchoredPopover via the context', () => {
 			render(<TargetRefSeededProvider dismiss={() => undefined} />);
 
 			const externalTarget = screen.getByTestId('external-target');
-			const lastCall = mockUseAnchorPositionArgs.mock.calls.at(-1)?.[0];
+			const lastCall = mockUseAnchoredPopoverArgs.mock.calls.at(-1)?.[0];
 
 			expect(lastCall).toBeDefined();
 			expect(lastCall.anchorRef).toBeDefined();
@@ -142,10 +142,10 @@ describe('SpotlightContextProvider — targetRef', () => {
 			expect(lastCall.placement).toBeDefined();
 		});
 
-		it('passes the merged top-layer placement into useAnchorPosition', () => {
+		it('passes the merged top-layer placement into useAnchoredPopover', () => {
 			render(<TargetRefSeededProvider dismiss={() => undefined} offset={[6, 8]} />);
 
-			const lastCall = mockUseAnchorPositionArgs.mock.calls.at(-1)?.[0];
+			const lastCall = mockUseAnchoredPopoverArgs.mock.calls.at(-1)?.[0];
 
 			expect(lastCall.placement).toEqual(
 				expect.objectContaining({

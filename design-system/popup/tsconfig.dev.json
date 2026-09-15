@@ -62,6 +62,9 @@
 			"path": "../css/tsconfig.app.json"
 		},
 		{
+			"path": "../datetime-picker/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{

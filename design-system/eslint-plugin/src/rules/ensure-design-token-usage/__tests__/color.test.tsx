@@ -45,6 +45,11 @@ const colorTests: Tests = {
 			code: `css({ boxShadow: token('shadow.card') })`,
 		},
 		{
+			// Token calls are represented as template fragments by the evaluator.
+			// Composing one into a binary expression must not crash the rule.
+			code: `css({ color: token('color.background.blanket') + '-suffix' })`,
+		},
+		{
 			code: `
             css\`
               box-shadow: \${token('shadow.card')};
@@ -485,6 +490,13 @@ const colorTests: Tests = {
 					],
 				},
 			],
+		},
+		{
+			// A zero operand is still a resolved binary value and can be tokenized.
+			options: [{ domains: ['spacing'], applyImport: false }],
+			code: `css({ padding: (gridSize() - gridSize()) + gridSize() })`,
+			output: `css({ padding: token('space.100', '8px') })`,
+			errors: [{ messageId: 'noRawSpacingValues' }],
 		},
 		{
 			code: `

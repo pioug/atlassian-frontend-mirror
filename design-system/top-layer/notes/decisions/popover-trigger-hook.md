@@ -14,7 +14,7 @@ the low-level trigger wiring helpers.
 The `Popup` compound deletion leaves adopters composing lower-level primitives:
 
 - `Popover` for top-layer lifecycle, animation, focus, and light dismiss.
-- `useAnchorPosition` for geometry.
+- `useAnchoredPopover` for geometry and anchor-relative size.
 - `usePopoverId` for CSS-safe id generation.
 - `getAriaForTrigger` for trigger ARIA.
 
@@ -40,10 +40,11 @@ Keep the documented composition as:
 const popoverId = usePopoverId();
 const triggerAria = getAriaForTrigger({ role: 'menu', isOpen, popoverId });
 
-useAnchorPosition({
+useAnchoredPopover({
 	anchorRef: triggerRef,
 	popoverRef,
 	placement,
+	isOpen,
 });
 ```
 
@@ -99,8 +100,7 @@ It should still leave these concerns outside the hook:
 
 - open/close state transitions,
 - trigger event handlers such as `onClick`,
-- positioning via `useAnchorPosition`,
-- width behavior via `useWidthFromAnchor`,
+- positioning and anchor-relative sizing via `useAnchoredPopover`,
 - tooltip `aria-describedby` wiring,
 - manual or triggerless popover lifecycles.
 

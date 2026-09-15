@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6ff83641f32a02834d9365d09894e93e>>
+ * @codegen <<SignedSource::741ed75d058ff17f016d860e949d3d5e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const MilestoneOverdueIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "MilestoneOverdueIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.585 2.603a2 2 0 0 1 2.829 0l3.982 3.982a2 2 0 0 1 .138 2.677l-.138.152-3.982 3.982a2 2 0 0 1-2.829 0L2.603 9.414a2 2 0 0 1 0-2.829zM8 10a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-.75-6v5h1.5V4z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.585 2.601a2 2 0 0 1 2.829 0l3.982 3.983a2 2 0 0 1 .138 2.676l-.138.152-3.982 3.982a2 2 0 0 1-2.829 0L2.603 9.412a2 2 0 0 1 0-2.829zM8 9.998a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-.75-6v5h1.5v-5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 MilestoneOverdueIcon.displayName = 'MilestoneOverdueIcon';

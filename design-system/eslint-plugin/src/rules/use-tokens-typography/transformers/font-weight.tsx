@@ -35,7 +35,13 @@ export const FontWeight: {
 			return context.report({
 				node,
 				messageId: 'noRawFontWeightValues',
-				fix: FontWeight._fix(node, context),
+				...(config.enableUnsafeAutofix
+					? { fix: FontWeight._fix(node, context) }
+					: {
+							suggest: [
+								{ desc: 'Convert to font weight token', fix: FontWeight._fix(node, context) },
+							],
+						}),
 			});
 		}
 	},

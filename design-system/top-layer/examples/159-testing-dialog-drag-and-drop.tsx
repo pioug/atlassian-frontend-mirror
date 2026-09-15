@@ -14,7 +14,7 @@ import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import {
@@ -97,7 +97,7 @@ export default function TestingDialogDragAndDrop(): ReactNode {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: popoverTriggerRef,
 		popoverRef,
 		placement: {

@@ -93,16 +93,21 @@ tester.run('ensure-design-token-usage', rule, {
           Children
         </MenuItem>
       `,
-			output: `
+			errors: [
+				{
+					messageId: 'unneededLabelPropContents',
+					suggestions: [
+						{
+							desc: 'Remove duplicate label contents',
+							output: `
         import ActivityIcon from '@atlaskit/icon/glyph/activity';
 
         <MenuItem iconBefore={<ActivityIcon label="" />}>
           Children
         </MenuItem>
       `,
-			errors: [
-				{
-					messageId: 'unneededLabelPropContents',
+						},
+					],
 				},
 			],
 		},
@@ -111,13 +116,6 @@ tester.run('ensure-design-token-usage', rule, {
         import ActivityIcon from '@atlaskit/icon/glyph/activity';
 
         <Button iconBefore={<ActivityIcon label="More label" />}>
-          Children
-        </Button>
-      `,
-			output: `
-        import ActivityIcon from '@atlaskit/icon/glyph/activity';
-
-        <Button iconBefore={<ActivityIcon label="" />}>
           Children
         </Button>
       `,

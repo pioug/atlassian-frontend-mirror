@@ -32,7 +32,6 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockTypePlugin } from './blockTypePluginType';
@@ -223,10 +222,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		},
 
 		marks() {
-			if (
-				options?.allowFontSize &&
-				expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-			) {
+			if (options?.allowFontSize) {
 				return [{ name: 'fontSize', mark: fontSize }];
 			}
 			return [];

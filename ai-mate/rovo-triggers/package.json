@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-triggers",
-	"version": "10.37.0",
+	"version": "11.0.0",
 	"description": "Provides various trigger events to drive Rovo Chat functionality, such as a publish-subscribe and URL parameter hooks",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -32,6 +32,7 @@
 		"./chat-context/types": "./src/common/utils/chat-context/types.tsx",
 		"./chat-context": "./src/common/utils/chat-context/index.tsx",
 		"./chat-entry-point": "./src/chat-entry-point.ts",
+		"./extension-context-bridge/analytics": "./src/common/utils/extension-context-bridge/analytics.ts",
 		"./extension-context-bridge/client": "./src/common/utils/extension-context-bridge/ExtensionContextBridgeClient.tsx",
 		"./extension-context-bridge/constants": "./src/common/utils/extension-context-bridge/constants.ts",
 		"./extension-context-bridge/host": "./src/common/utils/extension-context-bridge/ExtensionContextBridgeHost.tsx",
@@ -46,6 +47,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -62,6 +64,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/conversation-assistant-service-api": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
@@ -71,9 +74,6 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
-		"rovo-ext_context_bridge": {
-			"type": "boolean"
-		},
 		"rovo_chat_replace_url_param_history": {
 			"type": "boolean"
 		}

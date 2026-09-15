@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-mentions
 
+## 20.1.2
+
+### Patch Changes
+
+- [`b827702a00ecc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b827702a00ecc) -
+  Correct the direct Mention default import and consolidate mention type imports after consumer
+  migration.
+- Updated dependencies
+
+## 20.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.0
+
+### Minor Changes
+
+- [`276b5526e198a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/276b5526e198a) -
+  Show the user profile card on hover in the mentions typeahead, behind the
+  `platform_editor_mention_typeahead_user_profilecard` experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.4
 
 ### Patch Changes

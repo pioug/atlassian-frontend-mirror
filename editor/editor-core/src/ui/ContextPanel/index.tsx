@@ -14,7 +14,6 @@ import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel'
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -28,8 +27,6 @@ export type Props = {
 	hasPadding?: boolean;
 	visible: boolean;
 };
-
-const ANIM_SPEED_MS = 500;
 
 const ContextPanelWrapperMigration = componentWithCondition(
 	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
@@ -51,14 +48,12 @@ type SwappableContentAreaProps = {
 
 type State = {
 	currentPluginContent?: React.ReactNode;
-	mounted: boolean;
 };
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class SwappableContentAreaInner extends React.PureComponent<SwappableContentAreaProps, State> {
 	state = {
-		mounted: false,
 		currentPluginContent: undefined,
 	};
 
@@ -117,13 +112,6 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 		editorAPI?.core?.actions.focus({ scrollIntoView: false });
 	};
 
-	componentDidMount() {
-		// use this to trigger an animation
-		this.setState({
-			mounted: true,
-		});
-	}
-
 	showPluginContent = () => {
 		const { pluginContent } = this.props;
 		const { currentPluginContent } = this.state;
@@ -132,20 +120,12 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 			return;
 		}
 
-		const animSpeedMs = fg('platform_editor_disable_context_panel_animation') ? 0 : ANIM_SPEED_MS;
-
 		const onExited = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 			? this.handleTransitionExited
 			: () => this.unsetPluginContent();
 
 		return (
-			<Transition
-				timeout={this.state.mounted ? animSpeedMs : 0}
-				in={!!pluginContent}
-				mountOnEnter
-				unmountOnExit
-				onExited={onExited}
-			>
+			<Transition timeout={0} in={!!pluginContent} mountOnEnter unmountOnExit onExited={onExited}>
 				{currentPluginContent}
 			</Transition>
 		);
@@ -158,11 +138,9 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 			return;
 		}
 
-		const animSpeedMs = fg('platform_editor_disable_context_panel_animation') ? 0 : ANIM_SPEED_MS;
-
 		return (
 			<Transition
-				timeout={this.state.mounted ? animSpeedMs : 0}
+				timeout={0}
 				in={isVisible}
 				mountOnEnter
 				unmountOnExit
@@ -178,7 +156,6 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 		const userVisible = !!this.props.visible;
 		const visible = userVisible || !!this.state.currentPluginContent;
 		const hasPadding = this.props.hasPadding === undefined ? true : this.props.hasPadding;
-		const disableAnimation = fg('platform_editor_disable_context_panel_animation');
 
 		return (
 			<ContextPanelConsumer>
@@ -190,7 +167,6 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 						<ContextPanelWrapperMigration
 							customWidth={this.props.customWidth}
 							visible={visible}
-							disableAnimation={disableAnimation}
 							data-testid="context-panel-panel"
 							// eslint-disable-next-line @atlassian/a11y/no-empty-aria-label -- Pre-existing; intl should always resolve a label here
 							aria-label={this.props.intl?.formatMessage(contextPanelMessages.panelLabel) || ''}
@@ -200,7 +176,6 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 							<ContextPanelContentMigration
 								customWidth={this.props.customWidth}
 								visible={visible}
-								disableAnimation={disableAnimation}
 								hasPadding={hasPadding}
 								data-testid="context-panel-content"
 								// Adding tabIndex=0 here to make content focusable as it is a scrollable region

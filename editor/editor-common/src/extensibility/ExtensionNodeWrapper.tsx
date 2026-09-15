@@ -15,6 +15,7 @@ import { token } from '@atlaskit/tokens';
 import { ZERO_WIDTH_SPACE } from '../whitespace';
 
 import { ExtensionSSRReactContextsProvider } from './ExtensionSSRReactContextsProvider';
+import { GeneratedContentReveal } from './GeneratedContentReveal';
 import type { MacroInteractionDesignFeatureFlags } from './types';
 
 const styles = css({
@@ -28,6 +29,7 @@ const styles = css({
 	},
 });
 
+// Mirrored by the reveal span in `GeneratedContentReveal`; keep the two in step.
 const hoverStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':has(.extension-label:hover) .extension-container, :has(.extension-edit-toggle-container:hover) .extension-container':
@@ -71,6 +73,12 @@ const hoverStyles = css({
 
 type Props = {
 	children: React.ReactNode;
+	/**
+	 * Renders the node through `GeneratedContentReveal`, which holds it closed while its embed loads
+	 * and then animates it in. Set by the node view for native embeds only; see
+	 * `allowAIGeneratedContentMotion` on the extension plugin's options.
+	 */
+	generatedContentMotion?: boolean;
 	intl: IntlShape | undefined;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	nodeType: string;
@@ -88,9 +96,22 @@ export const ExtensionNodeWrapper = ({
 	children,
 	nodeType,
 	macroInteractionDesignFeatureFlags,
+	generatedContentMotion = false,
 	intl,
 }: Props): jsx.JSX.Element => {
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
+
+	// Fixed for the node view's lifetime: switching would remount the subtree and reload the embed.
+	if (generatedContentMotion) {
+		return (
+			<GeneratedContentReveal
+				intl={intl}
+				showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+			>
+				{children}
+			</GeneratedContentReveal>
+		);
+	}
 
 	const wrapperClassNames = classnames({
 		'inline-extension': nodeType === 'inlineExtension' && showMacroInteractionDesignUpdates,

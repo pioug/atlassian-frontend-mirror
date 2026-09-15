@@ -7,13 +7,15 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { getAccentBorderColor } from '../../pm-plugins/decorations/colorSchemes/factory';
+import { colorSchemeRegistry } from '../../pm-plugins/decorations/colorSchemes/schemes';
+import type { ColorScheme } from '../../pm-plugins/decorations/colorSchemes/types';
 import { AnchorDocMarginKey } from '../../pm-plugins/decorations/decorationKeys';
 
 const barStyles = css({
 	position: 'absolute',
 	width: '3px',
 	borderRadius: token('radius.full'),
-	backgroundColor: token('color.border.information'),
 	pointerEvents: 'none',
 	marginLeft: token('space.negative.200'),
 	// Hide the bar if either anchor is not in the DOM (e.g. filtered out)
@@ -26,16 +28,38 @@ const barStyles = css({
 	marginBottom: token('space.negative.075'),
 });
 
+const getIndicatorColor = (
+	colorScheme: ColorScheme | undefined,
+	isInserted: boolean | undefined,
+) => {
+	if (
+		colorScheme === undefined ||
+		colorScheme === 'standard' ||
+		colorScheme === 'traditional' ||
+		isInserted === undefined
+	) {
+		return token('color.border.information');
+	}
+
+	return getAccentBorderColor(
+		colorSchemeRegistry[colorScheme][isInserted ? 'insertColor' : 'deleteColor'],
+	);
+};
+
 export function IndicatorBar({
 	anchorTop,
 	anchorBottom,
 	anchorLeft,
 	anchorLeftFallback,
+	colorScheme,
+	isInserted,
 }: {
 	anchorBottom: string;
 	anchorLeft: string;
 	anchorLeftFallback?: string;
 	anchorTop: string;
+	colorScheme?: ColorScheme;
+	isInserted?: boolean;
 }): JSX.Element {
 	const leftAnchors = [anchorLeft, anchorLeftFallback, AnchorDocMarginKey]
 		.filter(Boolean)
@@ -46,6 +70,7 @@ export function IndicatorBar({
 			data-testid="diff-indicator-bar"
 			css={barStyles}
 			style={{
+				backgroundColor: getIndicatorColor(colorScheme, isInserted),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				left: `min(${leftAnchors})`,
 				top: `anchor(--${anchorTop} top)`,

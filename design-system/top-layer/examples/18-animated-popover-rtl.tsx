@@ -16,7 +16,7 @@ import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
 
@@ -184,7 +184,7 @@ function AnimatedPopoverDemo({
 		setIsOpen(false);
 	}, []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement,

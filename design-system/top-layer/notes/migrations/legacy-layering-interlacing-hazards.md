@@ -256,7 +256,7 @@ usePopper(   <Popper>   <Manager>   <Reference>
 **signature of a hand-rolled base-layer overlay**. It will interlace exactly like Rule 1, and its
 positioning assumes a base-layer containing block that CSS anchor positioning changes.
 
-**Fix** Migrate to `useAnchorPosition` + `Popover`; the positioning and stacking move together.
+**Fix** Migrate to `useAnchoredPopover` + `Popover`; the positioning and stacking move together.
 
 ---
 
@@ -372,7 +372,7 @@ portal container or reading DS internals.
 
 ### Rule 11 — Stacking-context traps on ancestors of an anchored surface 🟡 (positioning, not stacking)
 
-**Clue** (on ancestors of a trigger that will become a `useAnchorPosition` anchor)
+**Clue** (on ancestors of a trigger that will become a `useAnchoredPopover` anchor)
 
 ```
 transform:   filter:   perspective:   will-change: transform   contain: paint|layout|strict
@@ -384,8 +384,8 @@ they **do** change the containing block used by CSS Anchor Positioning, which ca
 anchored popover mis-positioned. Flagged here because auditors will hit it while looking at layering
 ancestors.
 
-**Fix** Verify anchored placement after migration; the JS fallback in `useAnchorPosition` covers the
-worst cases but check ancestors with these properties.
+**Fix** Verify anchored placement after migration; the JS fallback in `useAnchoredPopover` covers
+the worst cases but check ancestors with these properties.
 
 ---
 

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 3.0.2
+
+### Patch Changes
+
+- [`d9ff5475c7537`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9ff5475c7537) -
+  Drop interactions the user started before the session from the `editor interactivity` event. Event
+  Timing produces the entry for an event after the paint that presented it, so the click on Edit
+  whose handler mounts the editor is reported to an observer that only subscribed while that handler
+  ran, and `buffered: false` does not keep it out. Nothing of the session saw that event, so it was
+  counted in `page` with no group and no target, and it set `page.maxMs` of half of the classic edit
+  sessions to the time the editor took to mount rather than to an interaction of the session.
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

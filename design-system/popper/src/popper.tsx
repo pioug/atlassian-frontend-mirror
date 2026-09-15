@@ -32,6 +32,11 @@ type Offset = [number | null | undefined, number | null | undefined];
 export interface CustomPopperProps<Modifiers> {
 	/**
 	 * Returns the element to be positioned.
+	 *
+	 * On the top-layer code path this must be ONE element: it is rendered into a
+	 * flex-row host so the viewport cap can reach it, and a fragment's children
+	 * would become side-by-side flex items. See `children` on `Popover` in
+	 * `@atlaskit/top-layer`.
 	 */
 	children?: (childrenProps: PopperChildrenProps) => React.ReactNode;
 

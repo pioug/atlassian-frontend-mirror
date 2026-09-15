@@ -33,7 +33,7 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 			const isOptimizedBlockRequest =
 				appearance === 'block' && fg('platform_smartlink_inline_resolve_optimization');
 
-			const { details } =
+			const { details, metadataStatus: currentMetadataStatus } =
 				getState()[url] ||
 				({
 					status: SmartLinkStatus.Pending,
@@ -41,11 +41,14 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 				} as CardState);
 
 			const hasData = !!((details && details.data) || isEntityPresent(details));
+			const needsOptimizedBlockData =
+				isOptimizedBlockRequest && currentMetadataStatus !== 'resolved';
 
-			if (isReloading || !hasData || isMetadataRequest || isOptimizedBlockRequest) {
+			if (isReloading || !hasData || isMetadataRequest || needsOptimizedBlockData) {
 				// A reduced inline response can populate the shared resolver cache before an initial
-				// block request completes, so every optimized block request must bypass that cache.
-				const shouldForceFetch = isReloading || isOptimizedBlockRequest;
+				// block request completes. Bypass that cache until full metadata has been resolved,
+				// then reuse the full block response for subsequent block cards with the same URL.
+				const shouldForceFetch = isReloading || needsOptimizedBlockData;
 				const metadataStatus =
 					appearance === 'inline' &&
 					!isMetadataRequest &&

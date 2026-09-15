@@ -35,7 +35,13 @@ export const FontFamily: {
 			return context.report({
 				node,
 				messageId: 'noRawFontFamilyValues',
-				fix: FontFamily._fix(node, context),
+				...(config.enableUnsafeAutofix
+					? { fix: FontFamily._fix(node, context) }
+					: {
+							suggest: [
+								{ desc: 'Convert to font family token', fix: FontFamily._fix(node, context) },
+							],
+						}),
 			});
 		}
 	},

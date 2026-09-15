@@ -1,6 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
+	VrContentWidthRowActionSlides,
 	VrMatchAnchorNarrowSpan,
 	VrMinAnchorNarrowAnchorLongContent,
 	VrMinAnchorNarrowSpan,
@@ -15,11 +16,17 @@ const opts = { drawsOutsideBounds: true } as const;
 // width only, so it wraps down to it.
 snapshot(VrMinAnchorNarrowSpan, { ...opts, description: 'min-anchor-narrow-span' });
 
-// `'none'` is the mode the content floor belongs to, so it cannot wrap: it
-// overflows and `position-try-fallbacks` repositions it. This is the contrast that
-// pins the content floor as a `'none'` concern and deliberately not a
-// `'min-anchor'` one. See `notes/decisions/width-from-anchor-floors.md`.
+// `'content'` is its natural width, so it overflows the span and slides to the
+// inline-end-aligned cell on one line. See
+// `notes/decisions/fit-available-space.md` -> Update (2026-09-04).
 snapshot(VrNoneNarrowSpan, { ...opts, description: 'none-narrow-span' });
+
+// The same slide in the consumer shape it exists for: a row-action menu near the
+// inline-end edge with `inlineSize` left on `'content'`.
+snapshot(VrContentWidthRowActionSlides, {
+	...opts,
+	description: 'content-width-row-action-slides',
+});
 
 // `'match-anchor'` has no floor: exactly the anchor width, so it wraps to that
 // width and leaves the span's slack unused.

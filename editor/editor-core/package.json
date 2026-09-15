@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "228.1.3",
+	"version": "228.1.8",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -208,9 +208,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_markdown_patch_m3": {
-			"type": "boolean"
-		},
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
 		},
@@ -223,10 +220,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_media_block_default": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_disable_context_panel_animation": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

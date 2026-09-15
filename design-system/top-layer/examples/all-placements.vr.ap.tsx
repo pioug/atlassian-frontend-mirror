@@ -11,7 +11,7 @@ import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 type TAxis = NonNullable<TPlacementOptions['axis']>;
@@ -128,7 +128,7 @@ const styles = cssMap({
 	// "fixed-position popover" recipe documented in
 	// `notes/decisions/fixed-position-popover.md`: a `<Popover mode="manual">`
 	// with a `position: fixed` child and logical `inset-*` tokens. No anchor
-	// element, no `useAnchorPosition`.
+	// element, no `useAnchoredPopover`.
 	controlPanelPin: {
 		position: 'fixed',
 		insetBlockStart: token('space.300'),
@@ -455,7 +455,7 @@ function PlacementCell({
 		offset,
 	};
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement,

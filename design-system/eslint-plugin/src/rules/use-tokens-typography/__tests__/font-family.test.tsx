@@ -56,11 +56,6 @@ export const typographyTests: Tests = {
 					fontFamily: 'Charlie Display, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif',
 				})`,
 			errors: [{ messageId: 'noRawFontFamilyValues' }],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontFamily: token('font.family.brand.heading'),
-				})`,
 		},
 		{
 			options: [{ patterns: ['font-family'] }],
@@ -69,11 +64,6 @@ export const typographyTests: Tests = {
 					fontFamily: 'Charlie Text, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif',
 				})`,
 			errors: [{ messageId: 'noRawFontFamilyValues' }],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontFamily: token('font.family.brand.body'),
-				})`,
 		},
 		{
 			options: [{ patterns: ['font-family'] }],
@@ -82,11 +72,6 @@ export const typographyTests: Tests = {
 					fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,'Fira Sans','Droid Sans','Helvetica Neue',sans-serif",
 				})`,
 			errors: [{ messageId: 'noRawFontFamilyValues' }],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = xcss({
-					fontFamily: token('font.family.body'),
-				})`,
 		},
 		{
 			options: [{ patterns: ['font-family'] }],
@@ -95,11 +80,6 @@ export const typographyTests: Tests = {
 					fontFamily: 'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
 				})`,
 			errors: [{ messageId: 'noRawFontFamilyValues' }],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = styled.code({
-					fontFamily: token('font.family.code'),
-				})`,
 		},
 		// Font family uses raw value that doesn't match with a token
 		{

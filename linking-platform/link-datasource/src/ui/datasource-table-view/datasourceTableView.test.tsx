@@ -24,6 +24,7 @@ import {
 	useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
 import { Store } from '../../state';
+import { LoadingError } from '../common/error-state/loading-error';
 import * as issueLikeModule from '../issue-like-table/issue-like-data-table-view';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
@@ -850,6 +851,38 @@ describe('DatasourceTableView', () => {
 			}
 		},
 	);
+
+	describe('resolved results with unavailable columns', () => {
+		it('shows column recovery instructions without refresh when the gate is enabled', () => {
+			passGate('platform_datasource_missing_columns_error');
+			const { queryByTestId } = setup({ columns: [] });
+
+			expect(asMock(LoadingError).mock.calls[0][0]).toEqual(
+				expect.objectContaining({
+					errorType: 'missing-columns',
+					unavailableColumnKeys: ['visible-column-1', 'visible-column-2'],
+				}),
+			);
+			expect(queryByTestId('datasource-table-view-skeleton')).not.toBeInTheDocument();
+			expect(asMock(LoadingError).mock.calls[0][0].onRefresh).toBeUndefined();
+		});
+
+		it('preserves the skeleton when the gate is disabled', () => {
+			failGate('platform_datasource_missing_columns_error');
+			const { getByTestId } = setup({ columns: [] });
+			expect(getByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
+		});
+
+		it.each<DatasourceTableStatusType>(['empty', 'loading'])(
+			'keeps loading while status is %s',
+			(status) => {
+				passGate('platform_datasource_missing_columns_error');
+				const { getByTestId, queryByText } = setup({ columns: [], status });
+				expect(getByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
+				expect(queryByText('Unable to load items')).not.toBeInTheDocument();
+			},
+		);
+	});
 
 	describe('when an error on /data request occurs', () => {
 		it('should show an error message on request failure', () => {

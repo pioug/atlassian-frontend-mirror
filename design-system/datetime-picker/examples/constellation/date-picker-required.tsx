@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DatePicker } from '@atlaskit/datetime-picker';
+import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import Field from '@atlaskit/form/field';
 
 const DatePickerRequiredExample = (): React.JSX.Element => (

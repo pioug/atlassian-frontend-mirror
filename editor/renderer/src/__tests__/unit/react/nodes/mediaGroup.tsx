@@ -12,28 +12,29 @@ jest.mock('../../../../react/nodes/media', () => {
 });
 
 const mockCard = jest.fn();
-jest.mock('@atlaskit/media-card', () => {
-	const actual = jest.requireActual('@atlaskit/media-card');
+jest.mock('@atlaskit/media-card/cardLoader', () => {
+	const actual = jest.requireActual('@atlaskit/media-card/cardLoader');
 	const react = jest.requireActual('react');
 	return {
-		...actual,
-		Card: (props: Record<string, unknown>) => {
+		...jest.requireActual('@atlaskit/media-card/cardLoader'),
+		__esModule: true,
+		default: (props: Record<string, unknown>) => {
 			mockCard(props);
-			return react.createElement(actual.Card, props);
+			return react.createElement(actual.default, props);
 		},
 	};
 });
 
 import React from 'react';
-import { act, render } from '@testing-library/react';
+import { act } from '@testing-library/react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import * as sinon from 'sinon';
 import { imageFileId, genericFileId, nextTick } from '@atlaskit/media-test-helpers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import type { CardEvent } from '@atlaskit/media-card';
-import { defaultImageCardDimensions } from '@atlaskit/media-card';
+import type { CardEvent } from '@atlaskit/media-card/types';
+import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
@@ -57,7 +58,7 @@ describe('MediaGroup', () => {
 	});
 
 	it('should render media card with the right dimention if is a file', () => {
-		render(
+		renderWithIntl(
 			<MediaGroup>
 				<Media
 					id={genericFileId.id}
@@ -77,7 +78,7 @@ describe('MediaGroup', () => {
 	});
 
 	it('should not render a FilmstripView component if it has only one media node', () => {
-		const { container } = render(
+		const { container } = renderWithIntl(
 			<MediaGroup>
 				<Media
 					id={imageFileId.id}
@@ -95,7 +96,7 @@ describe('MediaGroup', () => {
 	});
 
 	it('should render a FilmstripView component if it has more than one media node', () => {
-		const { container } = render(
+		const { container } = renderWithIntl(
 			<MediaGroup>
 				<Media
 					id={imageFileId.id}
@@ -126,7 +127,7 @@ describe('MediaGroup', () => {
 		const eventHandlers = {
 			media: { onClick },
 		} as EventHandlers;
-		const { container } = render(
+		const { container } = renderWithIntl(
 			<MediaClientContext.Provider value={mocks.mockMediaClient}>
 				<MediaGroup eventHandlers={eventHandlers}>
 					<Media
@@ -179,7 +180,7 @@ describe('MediaGroup', () => {
 	});
 
 	it('should send useInlinePlayer: false to the Media', () => {
-		render(
+		renderWithIntl(
 			<MediaGroup>
 				<Media
 					id={imageFileId.id}
@@ -197,7 +198,7 @@ describe('MediaGroup', () => {
 	});
 
 	it('should pass onClick callback only if eventHandlers.media.onClick its defined', () => {
-		render(
+		renderWithIntl(
 			<MediaGroup>
 				<Media
 					id={imageFileId.id}
@@ -227,7 +228,7 @@ describe('MediaGroup', () => {
 
 		mockMedia.mockClear();
 
-		render(
+		renderWithIntl(
 			<MediaGroup eventHandlers={{ media: { onClick: jest.fn() } }}>
 				<Media
 					id={imageFileId.id}
@@ -258,7 +259,7 @@ describe('MediaGroup', () => {
 
 	it('should pass feature flags to MediaCardInternal', () => {
 		const featureFlags: MediaFeatureFlags = {};
-		render(
+		renderWithIntl(
 			<MediaGroup featureFlags={featureFlags}>
 				<Media
 					id={imageFileId.id}
@@ -287,7 +288,7 @@ describe('MediaGroup', () => {
 
 	describe('enableDownloadButton', () => {
 		const renderMediaGroup = (enableDownloadButton: boolean) =>
-			render(
+			renderWithIntl(
 				<MediaGroup enableDownloadButton={enableDownloadButton}>
 					<Media
 						id={imageFileId.id}

@@ -3,7 +3,7 @@ import React from 'react';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { parseISO } from 'date-fns';
 
-import { DateTimePicker } from '@atlaskit/datetime-picker';
+import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import { Label } from '@atlaskit/form/label/default';
 
 const weekendFilter = (date: string) => {

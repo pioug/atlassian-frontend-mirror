@@ -16,15 +16,18 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import type { MentionStats } from '@atlaskit/mention';
+import type {
+	MentionStats,
+	MentionDescription,
+	MentionProvider,
+	TeamMember,
+} from '@atlaskit/mention/types';
 import {
 	MENTION_ITEM_HEIGHT,
 	MENTION_ITEM_HEIGHT_REFRESHED,
-	MentionItem,
-} from '@atlaskit/mention/item';
-import type { MentionDescription, MentionProvider } from '@atlaskit/mention/resource';
+} from '@atlaskit/mention/mention-item/styles';
+import MentionItem from '@atlaskit/mention/mention-item';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
-import type { TeamMember } from '@atlaskit/mention/team-resource';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

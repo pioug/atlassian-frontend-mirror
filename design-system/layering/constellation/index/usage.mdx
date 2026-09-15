@@ -30,12 +30,12 @@ We need to manually mock the layering by adding `Layering` . See the usage for d
 
 ## Usage
 
-The layering is replied on React context. `Layering` can provide two context with the same API, one
-is the global context(ie. out-most `Layering` This context is to track the level of the top-most
-layered component), the other is component based context(ie. any `Layering` inside the out-most
-`Layering` This context provides level of the given component). This means to use component based
-context, we will have to make sure there is already a global context as the out-most parent wrapper.
-See the usage below.
+Layering relies on React context. `Layering` can provide two context with the same API, one is the
+global context(ie. out-most `Layering` This context is to track the level of the top-most layered
+component), the other is component based context(ie. any `Layering` inside the out-most `Layering`
+This context provides level of the given component). This means to use component based context, we
+will have to make sure there is already a global context as the out-most parent wrapper. See the
+usage below.
 
 ```ts
 <Layering>

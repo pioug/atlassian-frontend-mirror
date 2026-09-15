@@ -5,7 +5,6 @@ import { isTaskList } from '@atlaskit/editor-common/transforms';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	getBlockRange,
@@ -163,7 +162,7 @@ export const joinAtCut =
 			// see https://prosemirror.net/docs/ref/#transform.ReplaceAroundStep.constructor
 			let tr = state.tr.step(new ReplaceAroundStep(from, to, gapFrom, gapTo, slice, insert, true));
 
-			if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+			if (fontSize) {
 				const targetTaskListSmallTextAttrs = getFirstParagraphBlockMarkAttrs<FontSizeMarkAttrs>(
 					$cut.nodeBefore,
 					fontSize,

@@ -15,11 +15,9 @@ import {
 	akEditorSelectedNodeClassName,
 	akEditorWrappedNodeZIndex,
 } from '@atlaskit/editor-shared-styles';
-import {
-	fileCardImageViewSelector,
-	inlinePlayerClassName,
-	newFileExperienceClassName,
-} from '@atlaskit/media-card';
+import { fileCardImageViewSelector } from '@atlaskit/media-card/card/classnames';
+import { inlinePlayerClassName } from '@atlaskit/media-card/inlinePlayerWrapperStyles';
+import { newFileExperienceClassName } from '@atlaskit/media-card/cardConstants';
 import { token } from '@atlaskit/tokens';
 
 import { dangerBorderStyles } from './selectionStyles';

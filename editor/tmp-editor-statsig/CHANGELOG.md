@@ -1,5 +1,49 @@
 # @atlaskit/editor-statsig-tmp
 
+## 196.0.0
+
+### Major Changes
+
+- [`76cb6eaf691bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76cb6eaf691bb) -
+  Remove the retired rovogrowth-635-pre-auth-cta-preview-exp experiment and feature gate, preserving
+  the shipped control CTA.
+
+## 195.0.0
+
+### Major Changes
+
+- [`85ad3990bac78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85ad3990bac78) -
+  Clean up experiment `platform_editor_appearance_shared_state`
+
+## 194.0.0
+
+### Major Changes
+
+- [`9e6211ceb4ceb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6211ceb4ceb) -
+  Clean up the fully rolled-out `platform_editor_small_font_size` experiment and make its permanent
+  `true` behavior unconditional across editor formatting, task and list handling, paste behavior,
+  controls, and rendering.
+
+## 193.0.0
+
+### Major Changes
+
+- [`2a1e8245a006e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a1e8245a006e) -
+  Clean up experiment `cc-maui-ai-edit-loading-experiment`. The enabled behaviour is now permanent:
+  media cards and MAUI embeds always render the simple loading bar instead of the spinner/icon
+  carousel, and the AI-edit blanket overlay is always applied when a MAUI app is replaced from the
+  toolbar.
+
+  `@atlaskit/tmp-editor-statsig` removes the `cc-maui-ai-edit-loading-experiment` key from
+  `editorExperimentsConfig`, so reading it via `expValEquals`/`expValEqualsNoExposure` is now a type
+  error — remove those call sites.
+
+  `@atlaskit/media-card` drops its now-unused `@atlaskit/spinner` dependency, and
+  `@atlassian/native-embeds-maui-experience` drops its now-unused `@atlaskit/icon-lab` dependency.
+
+- [`55b2a2034275e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55b2a2034275e) -
+  Clean up experiment `platform_editor_disable_lazy_load_media`
+
 ## 192.0.0
 
 ### Major Changes

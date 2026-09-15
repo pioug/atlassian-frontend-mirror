@@ -222,7 +222,6 @@ import {
 	tableCommentEditorStyles,
 	tableContainerStyles,
 	tableEmptyRowStyles,
-	tableLayoutFixes,
 	tableRoundedCornerStyles,
 	tableScrollInlineShadowStyles,
 	tableLayoutFixesWithFontSize,
@@ -571,7 +570,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				indentationStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && fontSizeStyles,
+				fontSizeStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				shadowStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -599,7 +598,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				editorUGCTokensRefreshed,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && editorUGCSmallText,
+				editorUGCSmallText,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				blocktypeStyles,
 				isFloatingTocEnabled &&
@@ -982,11 +981,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				mediaGroupStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				mediaAlignmentStyles,
-				expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						tableLayoutFixesWithFontSize
-					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						tableLayoutFixes,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				tableLayoutFixesWithFontSize,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				tableContainerStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

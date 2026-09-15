@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5759bbe63508f5d93eebc8f88495210e>>
+ * @codegen <<SignedSource::a85ff88f5408466f779fd254ec70428a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const DiagramArrowheadAssociationLeftIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramArrowheadAssociationLeftIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M6.235 4.321 2.79 7.25H16v1.5H2.79l3.445 2.929-.97 1.142-5-4.25a.75.75 0 0 1 0-1.142l5-4.25z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M6.235 4.322 2.79 7.251H16v1.5H2.79l3.445 2.929-.97 1.142-5-4.25a.75.75 0 0 1 0-1.142l5-4.25z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DiagramArrowheadAssociationLeftIcon.displayName = 'DiagramArrowheadAssociationLeftIcon';

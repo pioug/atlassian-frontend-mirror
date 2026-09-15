@@ -667,10 +667,6 @@ const getCurrentBlockTaskFontSizeAttrs = (
 	state: EditorState,
 	$from: ResolvedPos,
 ): FontSizeMarkAttrs | false => {
-	if (!expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
-		return false;
-	}
-
 	const { fontSize } = state.schema.marks;
 	if (!fontSize) {
 		return false;

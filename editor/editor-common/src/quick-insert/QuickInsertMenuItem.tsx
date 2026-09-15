@@ -26,6 +26,8 @@ export type QuickInsertMenuItemProps = {
 	iconBefore?: React.ReactNode;
 	isDisabled?: boolean;
 	onSelect: (context: OnSelectContext) => Transaction | false | void;
+	/** Approved preview images, loaded only while this slash-command item is selected. */
+	previewImageUrls?: { dark?: string; light: string } | null;
 	shortcut?: string;
 	shouldWrapIcon?: boolean;
 	title: string;
@@ -37,6 +39,7 @@ export const QuickInsertMenuItem = ({
 	iconBefore,
 	isDisabled,
 	onSelect,
+	previewImageUrls,
 	shortcut,
 	shouldWrapIcon,
 	title,
@@ -61,6 +64,7 @@ export const QuickInsertMenuItem = ({
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			shortcut={shortcut}
 			shouldWrapIcon={shouldWrapIcon}
 			title={title}

@@ -4,16 +4,9 @@ import { expect, test } from '@af/integration-testing';
  * Popper: FF-on virtual-element anchor branch.
  *
  * The flag-on adapter bridges `VirtualElement` references through
- * `useAnchorPositionAtPoint`, which owns a synthetic anchor and
- * latches `getPoint` per `isEnabled` activation. This spec asserts
- * the surface mounts at all for a virtual anchor (the FF-off path
- * is covered separately by `unit/index.tsx`).
- *
- * Note: the FF-on adapter does NOT re-read the virtual rect while the
- * popper stays open; the latch only re-fires when `isEnabled` toggles
- * (the anchor becomes null and then non-null again). Reposition on
- * rect change is therefore covered by `top-layer-anchor-toggle`, not
- * here.
+ * `useAnchoredPopoverAtPoint`, which latches `getPoint` once per activation. This
+ * spec asserts the surface mounts at all for a virtual anchor; reposition on
+ * anchor change is covered by `top-layer-anchor-toggle`.
  */
 const featureFlag = 'platform-dst-top-layer';
 

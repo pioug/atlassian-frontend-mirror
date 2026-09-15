@@ -3056,8 +3056,80 @@ describe('no-barrel-entry-imports', () => {
 						code: `import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';`,
 						filename: ROVO_CONSUMER,
 					},
+					{
+						code: `import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';`,
+						filename: ROVO_CONSUMER,
+						options: [{ migratePendingConsumers: false }],
+					},
+					{
+						code: `const Menu = require('@atlaskit/rovo-agent-components/ui/AgentDropdownMenu').AgentDropdownMenu;`,
+						filename: ROVO_CONSUMER,
+					},
+					{
+						code: `const { AgentDropdownMenu } = require('@atlaskit/rovo-agent-components/ui/AgentDropdownMenu');`,
+						filename: ROVO_CONSUMER,
+					},
+					{
+						code: `import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';`,
+						filename: ROVO_CONSUMER,
+						options: [{ migratePendingConsumers: true, applyToImportsFrom: [] }],
+					},
+					{
+						code: `import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';`,
+						filename: ROVO_CONSUMER,
+						options: [
+							{ migratePendingConsumers: true, applyToImportsFrom: ['platform/packages/search'] },
+						],
+					},
+					{
+						code: `import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/agent-dropdown-menu/agent-dropdown-menu';`,
+						filename: ROVO_CONSUMER,
+						options: [
+							{
+								migratePendingConsumers: true,
+								applyToImportsFrom: ['platform/packages/ai-mate/rovo-agent-components'],
+							},
+						],
+					},
 				],
-				invalid: [],
+				invalid: [
+					{
+						code: `import { AgentDropdownMenu as Menu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';`,
+						filename: ROVO_CONSUMER,
+						options: [
+							{
+								migratePendingConsumers: true,
+								applyToImportsFrom: ['platform/packages/ai-mate/rovo-agent-components'],
+							},
+						],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { AgentDropdownMenu as Menu } from '@atlaskit/rovo-agent-components/ui/agent-dropdown-menu/agent-dropdown-menu';`,
+					},
+					{
+						code: `const Menu = require('@atlaskit/rovo-agent-components/ui/AgentDropdownMenu').AgentDropdownMenu;`,
+						filename: ROVO_CONSUMER,
+						options: [
+							{
+								migratePendingConsumers: true,
+								applyToImportsFrom: ['platform/packages/ai-mate/rovo-agent-components'],
+							},
+						],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `const Menu = require('@atlaskit/rovo-agent-components/ui/agent-dropdown-menu/agent-dropdown-menu').AgentDropdownMenu;`,
+					},
+					{
+						code: `const { AgentDropdownMenu } = require('@atlaskit/rovo-agent-components/ui/AgentDropdownMenu');`,
+						filename: ROVO_CONSUMER,
+						options: [
+							{
+								migratePendingConsumers: true,
+								applyToImportsFrom: ['platform/packages/ai-mate/rovo-agent-components'],
+							},
+						],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `const { AgentDropdownMenu } = require('@atlaskit/rovo-agent-components/ui/agent-dropdown-menu/agent-dropdown-menu');`,
+					},
+				],
 			},
 		);
 	});

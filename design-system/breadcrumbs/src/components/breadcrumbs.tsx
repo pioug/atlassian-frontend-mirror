@@ -64,7 +64,7 @@ const breadcrumbStylesOld = css({
 const breadcrumbStylesNew = css({
 	display: 'flex',
 	minWidth: '0',
-	alignItems: 'baseline',
+	alignItems: 'center',
 	flexWrap: 'nowrap',
 	listStyleType: 'none',
 	marginBlockEnd: '0',

@@ -1,5 +1,5 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
-import * as traceInfo from '@atlaskit/react-ufo/experience-trace-id-context';
+import * as traceInfo from '@atlaskit/react-ufo/get-active-trace-http-request-headers';
 
 jest.mock('../../channel', () => {
 	class MockChannel {

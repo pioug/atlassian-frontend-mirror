@@ -6,6 +6,14 @@
 > Remove the `Popup` compound from `@atlaskit/top-layer`. Replace with `Popover`, `PopoverSurface`,
 > and the existing `useAnchorPosition` / `useWidthFromAnchor` hooks.
 
+> **Hook renamed since (2026-08-24).** `useAnchorPosition` and `useWidthFromAnchor`, named
+> throughout this record, are one `useAnchoredPopover` — see
+> [../plans/one-anchored-popover-hook.md](../plans/one-anchored-popover-hook.md). The argument here
+> is unaffected and in fact strengthened: the composition a second `AnchoredPopover` component would
+> wrap is now **one** call rather than two, so it earns its keep even less. The two "consumer shape
+> going forward" samples are updated to the current API; the rest of the record keeps the names it
+> was written with.
+
 ## Status
 
 - Proposed: 2026-06-01
@@ -180,18 +188,23 @@ fix today, which is a latent a11y bug.
 
 ## Why a second public component does not earn its keep
 
-`AnchoredPopover` would be six lines:
+`AnchoredPopover` would be six lines — five, since the hooks merged:
 
 ```tsx
-function AnchoredPopover({ triggerRef, placement, widthFromAnchor, ...rest }) {
+function AnchoredPopover({ triggerRef, placement, inlineSize, isOpen, ...rest }) {
 	const popoverRef = useRef(null);
-	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement });
-	useWidthFromAnchor({ mode: widthFromAnchor, popoverRef, anchorRef: triggerRef });
-	return <Popover ref={popoverRef} {...rest} />;
+	useAnchoredPopover({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement,
+		isOpen,
+		inlineSize,
+	});
+	return <Popover ref={popoverRef} isOpen={isOpen} {...rest} />;
 }
 ```
 
-Publishing a second component for six lines of composition of two already-public hooks reintroduces
+Publishing a second component for a few lines of composition of an already-public hook reintroduces
 the "two ways to do almost the same thing" tax. The bar for a second component is non-trivial owned
 behaviour. The only candidate (nested-focus restoration) belongs in `Popover`.
 
@@ -229,16 +242,17 @@ import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 function MyPopup({ isOpen, onClose }) {
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'block', edge: 'end', align: 'start' },
+		isOpen,
 	});
 
 	return (

@@ -1,16 +1,11 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 export const getFormattedNode = (tr: Transaction): { node: PMNode; pos: number } => {
 	const { selection } = tr;
 	const { nodes } = tr.doc.type.schema;
 
-	// gating behind platform_editor_small_font_size to support task lists with font size applied,
-	// but keep this solution general
-	const isBlockTaskItemEnabled =
-		!!nodes.blockTaskItem && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+	const isBlockTaskItemEnabled = !!nodes.blockTaskItem;
 
 	// Find the node to format from the current selection
 	let nodeToFormat;

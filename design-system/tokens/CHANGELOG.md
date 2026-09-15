@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 17.0.0
+
+### Major Changes
+
+- [`98fa516d85430`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98fa516d85430) -
+  The `shape` theme is now enabled by default and is no longer behind a feature gate. The
+  `ThemeState` type now requires a value for the `shape` property to be provided.
+
 ## 16.12.0
 
 ### Minor Changes

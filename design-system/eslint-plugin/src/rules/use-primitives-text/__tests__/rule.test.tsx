@@ -391,12 +391,12 @@ ruleTester.run('use-primitives-text', rule, {
 				{ messageId: 'preferPrimitivesText' },
 			],
 			output: outdent`
-				import { Text, Stack } from '@atlaskit/primitives';
-				<div><Stack space='space.150'>
-					<Text as='p'>text 1</Text>
-					<Text testId='contentTestId' as='p'>text 2</Text>
-					<Text as='p'>text 3</Text>
-				</Stack></div>`,
+					import { Text, Stack } from '@atlaskit/primitives';
+					<div><Stack space='space.150'>
+						<Text as='p'>text 1</Text>
+						<Text testId='contentTestId' as='p'>text 2</Text>
+						<Text as='p'>text 3</Text>
+					</Stack></div>`,
 		},
 		// Report all elements when unsafe report option is enabled
 		{

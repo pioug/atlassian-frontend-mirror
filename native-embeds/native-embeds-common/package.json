@@ -63,7 +63,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/native-embeds-common",
-	"version": "2.4.2",
+	"version": "2.4.3",
 	"description": "A shared package for native embeds to be used across experiences and plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

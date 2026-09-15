@@ -3,7 +3,7 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import { DateTimePicker } from '@atlaskit/datetime-picker';
+import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import noop from '@atlaskit/ds-lib/noop';
 import Form from '@atlaskit/form/form';
 import { CheckboxField } from '@atlaskit/form/checkbox-field';

@@ -1,12 +1,13 @@
 const mockMediaInlineCard = jest.fn();
-jest.mock('@atlaskit/media-card', () => {
-	const actual = jest.requireActual('@atlaskit/media-card');
+jest.mock('@atlaskit/media-card/loader', () => {
+	const actual = jest.requireActual('@atlaskit/media-card/loader');
 	const react = jest.requireActual('react');
 	return {
-		...actual,
-		MediaInlineCard: (props: Record<string, unknown>) => {
+		...jest.requireActual('@atlaskit/media-card/loader'),
+		__esModule: true,
+		default: (props: Record<string, unknown>) => {
 			mockMediaInlineCard(props);
-			return react.createElement(actual.MediaInlineCard, props);
+			return react.createElement(actual.default, props);
 		},
 	};
 });
@@ -17,7 +18,7 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import type { InlineCardEvent } from '@atlaskit/media-card';
+import type { InlineCardEvent } from '@atlaskit/media-card/types';
 import type { FileDetails } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';

@@ -567,6 +567,10 @@ describe('<InlinePlayer />', () => {
 	});
 
 	describe('ProgressBar for video player', () => {
+		// The card's loading bar is also a `progressbar`, so match the upload bar by its
+		// accessible name to avoid picking up whichever one happens to be mounted.
+		const UPLOAD_PROGRESS_LABEL = 'Loading progress';
+
 		it('should render ProgressBar for а video that is being played when status is uploading', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 			const { MockedMediaClientProvider, uploadItem } = createMockedMediaClientProvider({
@@ -582,7 +586,9 @@ describe('<InlinePlayer />', () => {
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
-			expect(await screen.findByRole('progressbar')).toBeInTheDocument();
+			expect(
+				await screen.findByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+			).toBeInTheDocument();
 		});
 
 		it('should not render ProgressBar for а video that is being played when status is error', async () => {
@@ -600,7 +606,9 @@ describe('<InlinePlayer />', () => {
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
-			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+			).not.toBeInTheDocument();
 		});
 
 		it('should not render ProgressBar for а video that is being played when status is failed-processing', async () => {
@@ -614,7 +622,9 @@ describe('<InlinePlayer />', () => {
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
-			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+			).not.toBeInTheDocument();
 		});
 
 		it('should not render ProgressBar for а video that is being played when status is processing', async () => {
@@ -629,7 +639,9 @@ describe('<InlinePlayer />', () => {
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
-			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+			).not.toBeInTheDocument();
 		});
 
 		it('should not render ProgressBar for а video that is being played when status is processed', async () => {
@@ -643,7 +655,9 @@ describe('<InlinePlayer />', () => {
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
-			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+			).not.toBeInTheDocument();
 		});
 	});
 });

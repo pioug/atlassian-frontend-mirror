@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import ButtonItem from '@atlaskit/menu/button-item';
@@ -9,6 +9,7 @@ import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
+import { QuickInsertHoverPreview } from './QuickInsertHoverPreview';
 import { useQuickInsertMenuItemSelection } from './quickInsertMenuItemUtils';
 import { useQuickInsertContext } from './useQuickInsertContext';
 
@@ -124,6 +125,7 @@ export const CompactQuickInsertMenuItem = ({
 	iconBefore,
 	isDisabled,
 	onSelect,
+	previewImageUrls,
 	shortcut,
 	shouldWrapIcon = true,
 	title,
@@ -131,6 +133,7 @@ export const CompactQuickInsertMenuItem = ({
 	const { item } = useQuickInsertContext();
 	const { id, isSelected } = item ?? { id: undefined, isSelected: false };
 	const handleClick = useQuickInsertMenuItemSelection(onSelect);
+	const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
 	if (!isExperimentEnabled('platform_editor_slash_command')) {
 		const wrappedIcon =
 			iconBefore && shouldWrapIcon ? <Box xcss={styles.icon}>{iconBefore}</Box> : iconBefore;
@@ -161,24 +164,34 @@ export const CompactQuickInsertMenuItem = ({
 		iconBefore && shouldWrapIcon ? <Box xcss={styles.iconLarge}>{iconBefore}</Box> : iconBefore;
 
 	return (
-		<Pressable
-			aria-label={ariaLabel}
-			aria-selected={isSelected}
-			id={id}
-			isDisabled={isDisabled}
-			onClick={handleClick}
-			role="option"
-			xcss={isDisabled ? disabledItemStyles : isSelected ? selectedItemStyles : itemStyles}
-		>
-			{wrappedIcon && <Box xcss={styles.iconContainer}>{wrappedIcon}</Box>}
-			<Inline alignBlock="center" spread="space-between" xcss={styles.content}>
-				<Text>{title}</Text>
-				{shortcut && (
-					<Box as="span" xcss={styles.shortcut}>
-						{shortcut}
-					</Box>
-				)}
-			</Inline>
-		</Pressable>
+		<>
+			<Pressable
+				ref={setReferenceElement}
+				aria-label={ariaLabel}
+				aria-selected={isSelected}
+				id={id}
+				isDisabled={isDisabled}
+				onClick={handleClick}
+				role="option"
+				xcss={isDisabled ? disabledItemStyles : isSelected ? selectedItemStyles : itemStyles}
+			>
+				{wrappedIcon && <Box xcss={styles.iconContainer}>{wrappedIcon}</Box>}
+				<Inline alignBlock="center" spread="space-between" xcss={styles.content}>
+					<Text>{title}</Text>
+					{shortcut && (
+						<Box as="span" xcss={styles.shortcut}>
+							{shortcut}
+						</Box>
+					)}
+				</Inline>
+			</Pressable>
+			{isSelected && !isDisabled && previewImageUrls?.light && referenceElement && (
+				<QuickInsertHoverPreview
+					key={previewImageUrls.light}
+					previewImageUrls={previewImageUrls}
+					referenceElement={referenceElement}
+				/>
+			)}
+		</>
 	);
 };

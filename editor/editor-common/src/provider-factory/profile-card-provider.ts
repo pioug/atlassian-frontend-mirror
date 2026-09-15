@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import type { Placement } from '@atlaskit/popper/main';
 import type { ProfileCardAction } from '@atlaskit/profilecard/types';
 import type ProfileClient from '@atlaskit/profilecard/profile-card-client';
 
@@ -18,8 +19,12 @@ import type ProfileClient from '@atlaskit/profilecard/profile-card-client';
 export type RenderUserMentionCard = (props: {
 	children: ReactNode;
 	cloudId: string;
+	/** Renders a reduced, non-interactive card with the header + manager section only */
+	isReduced?: boolean;
 	/** Optional mention-local marker supplied by the renderer. */
 	localId?: string;
+	/** Popper placement for the card relative to the `referenceElement`. */
+	placement?: Placement;
 	/** Known identity to prefill the card with, giving its trigger a concrete accessible name. */
 	prefilledProfileData?: { accountId: string; name: string };
 	referenceElement?: HTMLElement;

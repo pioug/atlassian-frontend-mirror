@@ -134,3 +134,29 @@ await trigger.focus();
 await page.keyboard.press('Enter');
 // now `:focus-visible` is eligible inside the dialog
 ```
+
+## `afm test:integration` is broken in `platform/`; use `afm run`
+
+`afm test:integration <path>` fails with
+`Could not determine the product from your working directory … Expected: confluence`, because
+`afm`'s implicit `run` fallback resolves a confluence-only script. The platform root `package.json`
+defines the script as `test:integration`; call it explicitly:
+
+```bash
+afm run test:integration packages/design-system/<pkg>/__tests__/playwright/<spec>.spec.tsx -- --workers=2 --retries=0
+```
+
+It accepts a single spec path, rebuilds only that package's examples first (~15s), and passes
+Playwright flags through after `--` (`--project=desktop-webkit`, `-g "<title regex>"`).
+
+## New examples and specs: "Integration test not found in resolved facts"
+
+`afm run test:integration` resolves examples through `@atlassian/facts-map`'s on-disk cache, which
+does not know about files created since it was built, and refuses a new spec with
+`Integration test not found in resolved facts: …`. Rebuild the cache from the repo root:
+
+```bash
+./bin/facts_map_interactive build-cache   # ~2 min, ~1.6 GB into the gitignored .afm-cache/facts-map/
+```
+
+Extending an existing example and spec avoids the rebuild entirely.

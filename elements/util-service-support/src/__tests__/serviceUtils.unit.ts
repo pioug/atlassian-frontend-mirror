@@ -1,4 +1,4 @@
-import * as traceInfo from '@atlaskit/react-ufo/experience-trace-id-context';
+import * as traceInfo from '@atlaskit/react-ufo/get-active-trace-http-request-headers';
 
 import { extractTracingHeaders } from '../extractTracingHeaders';
 import { requestService } from '../requestService';

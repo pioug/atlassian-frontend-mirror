@@ -11,7 +11,7 @@ import type { MenuProps, OptionType } from '@atlaskit/select/types';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 /**
  * Bottom-start placement: time options menu appears below and aligned to the
@@ -22,7 +22,7 @@ const popupPlacement = fromLegacyPlacement({ legacy: 'bottom-start' });
 /**
  * Top-layer version of the fixed layer menu used in the time picker.
  *
- * Uses `Popover` + `useAnchorPosition` so the time options list renders
+ * Uses `Popover` + `useAnchoredPopover` so the time options list renders
  * in the browser's top layer via the native Popover API and is positioned
  * via CSS Anchor Positioning. This avoids overflow clipping, z-index wars,
  * and portal-based layering.
@@ -84,7 +84,7 @@ export const FixedLayerMenuTopLayer: ({
 
 	const popoverRef = useRef<HTMLDivElement>(null);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: popupPlacement,

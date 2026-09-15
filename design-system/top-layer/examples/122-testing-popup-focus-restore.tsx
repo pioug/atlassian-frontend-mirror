@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 /**
@@ -39,7 +39,7 @@ function DialogPopup() {
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
@@ -84,7 +84,7 @@ function MenuPopup() {
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
@@ -129,7 +129,7 @@ function ListboxPopup() {
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
@@ -172,7 +172,7 @@ function TooltipPopup() {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },

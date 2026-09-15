@@ -110,13 +110,23 @@ const getValueFromBinaryExpression = (
 
 	const leftValue = getValue(left, context);
 	const rightValue = getValue(right, context);
-	const final =
-		rightValue && leftValue
-			? // eslint-disable-next-line no-eval
-				eval(`${leftValue}${operator}${rightValue}`)
-			: null;
+	if (
+		rightValue === null ||
+		rightValue === undefined ||
+		leftValue === null ||
+		leftValue === undefined
+	) {
+		return null;
+	}
 
-	return final;
+	try {
+		// Token calls are represented as template fragments, which cannot always be
+		// evaluated as JavaScript when composed into a binary expression.
+		// eslint-disable-next-line no-eval
+		return eval(`${leftValue}${operator}${rightValue}`);
+	} catch {
+		return null;
+	}
 };
 
 const getValueFromIdentifier = (

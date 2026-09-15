@@ -17,8 +17,7 @@ import {
 	useRef,
 } from 'react';
 
-import { css, jsx } from '@compiled/react';
-import { ax } from '@compiled/react/runtime';
+import { jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
@@ -27,15 +26,13 @@ import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-clos
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
+import { getPopupAxisSizes } from '../internal/get-popup-axis-sizes';
 import { useRoleProps } from '../internal/top-layer-bridge';
 import { type ContentProps, type PopupComponentProps, type PopupProps } from '../types';
 
 import { TriggerRefObjectContext } from './trigger-ref-object-context';
-
-const overflowAutoStyles = css({ overflow: 'auto' });
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
 const EMPTY_STYLE: CSSProperties = {};
@@ -58,8 +55,9 @@ export function PopupContentTopLayer({
 	fallbackPlacements: _fallbackPlacements,
 	popupComponent: PopupContainer,
 	autoFocus = true,
-	shouldFitContainer,
-	shouldFitViewport,
+	shouldFitContainer = false,
+	// Keep the explicit `false`. See the note in `popup-top-layer.tsx`.
+	shouldFitViewport = false,
 	role,
 	label,
 	titleId,
@@ -206,18 +204,12 @@ export function PopupContentTopLayer({
 
 	// `isOpen` is included so the anchor positioning effect re-runs when
 	// the Popover host element is unmounted/remounted across open cycles.
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef,
 		popoverRef,
 		placement: topLayerPlacement,
 		isOpen,
-	});
-
-	useWidthFromAnchor({
-		mode: shouldFitContainer ? 'match-anchor' : 'none',
-		popoverRef,
-		anchorRef,
-		isOpen,
+		...getPopupAxisSizes({ shouldFitContainer, shouldFitViewport }),
 	});
 
 	// Narrow to ForwardRefExoticComponent so JSX accepts the ref prop.
@@ -246,15 +238,23 @@ export function PopupContentTopLayer({
 					data-testid={testId}
 					tabIndex={autoFocus ? -1 : undefined}
 					xcss={xcss as PopupComponentProps['xcss']}
+					// Forwarded because several in-tree containers key their own
+					// `overflow: auto` branch off it.
+					shouldFitViewport={shouldFitViewport}
 				>
 					{children(contentProps)}
 				</Container>
 			) : (
+				// `PopoverSurface` owns `overflow: auto` and the `box-shadow` on the
+				// same element, so it is the scroll container. The wrapper exists only
+				// to carry the consumer's `xcss`: `PopoverSurface` exposes no
+				// `className` or `xcss` by design, so `xcss` lands on a CHILD of the
+				// surface. `width` works there; surface-level declarations apply one
+				// level in. Same shape as `../popup-top-layer.tsx`.
 				<PopoverSurface>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-						className={ax([xcss as string])}
-						css={[shouldFitViewport && overflowAutoStyles]}
+						className={xcss}
 					>
 						{children(contentProps)}
 					</div>

@@ -58,9 +58,8 @@ Stated in `TPopoverBaseProps` / `TDialogBaseProps`:
 - Internal hooks that bind to the host element need to react to host remount across open cycles.
   Hooks that already depended on `isOpen` re-run automatically. Hooks that only had ref-object deps
   gained an `isOpen` option:
-  - `useAnchorPosition`
-  - `useAnchorPositionAtPoint`
-  - `useWidthFromAnchor`
+  - `useAnchoredPopover` (then three separate hooks: `useAnchorPosition`,
+    `useAnchorPositionAtPoint`, `useWidthFromAnchor`)
   - `useFocusWrap`
 
   The new option is optional for backwards compatibility, but consumers that compose with `Popover`

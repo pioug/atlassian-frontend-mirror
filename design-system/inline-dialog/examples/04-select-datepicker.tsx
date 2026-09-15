@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { DatePicker } from '@atlaskit/datetime-picker';
+import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 import Select from '@atlaskit/select/default';
 

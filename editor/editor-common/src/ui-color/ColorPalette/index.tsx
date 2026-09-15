@@ -24,6 +24,10 @@ import {
 } from './utils';
 
 interface Props {
+	/**
+	 * Accessible name for the radio group each row of colors is rendered as.
+	 */
+	ariaLabel?: string;
 	className?: string;
 	cols?: number;
 	onClick: (value: string, label: string) => void;
@@ -92,6 +96,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 		className,
 		intl: { formatMessage },
 		paletteOptions,
+		ariaLabel,
 	} = props;
 	const { palette, hexToPaletteColor, paletteColorTooltipMessages } = paletteOptions;
 
@@ -112,6 +117,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 					className={className}
 					key={`row-first-color-${row[0].value}`}
 					role="radiogroup"
+					aria-label={ariaLabel}
 				>
 					{row.map(({ value, label, border, message, decorator }) => {
 						if (paletteColorTooltipMessages) {

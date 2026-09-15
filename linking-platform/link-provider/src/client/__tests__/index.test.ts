@@ -9,7 +9,8 @@ import { isSuccessfulResponse } from '../types/isSuccessfulResponse';
 import type { ErrorResponseBody, SuccessResponse } from '../types/responses';
 import type { ErrorType } from '@atlaskit/linking-common/api/errors';
 import { APIError, InvalidUrlError, NetworkError } from '@atlaskit/linking-common';
-import { flushPromises } from '@atlaskit/media-test-helpers';
+import { flushPromises } from '@atlaskit/media-test-helpers/flushPromises';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 // Mock response quick-references:
@@ -532,6 +533,150 @@ describe('Smart Card: Client', () => {
 				await client.fetchData(resourceUrl, false, 'inline');
 				expect(mockRequest).toHaveBeenCalledTimes(2);
 			});
+		});
+
+		ffTest.off('platform_smartlink_inline_resolve_optimization', '', () => {
+			it('should preserve legacy caching and payloads when appearance is provided', async () => {
+				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+				const client = new SmartCardClient();
+				const resourceUrl = 'https://i.love.cheese/legacy-appearance';
+
+				const inlineResponse = await client.fetchData(resourceUrl, false, 'inline');
+				const blockResponse = await client.fetchData(resourceUrl, false, 'block');
+
+				expect(mockRequest).toHaveBeenCalledTimes(1);
+				expect(mockRequest).toHaveBeenCalledWith(
+					'post',
+					expectedDefaultResolveBatchUrl,
+					[
+						{
+							resourceUrl,
+							ignoreCachedValue: undefined,
+						},
+					],
+					expect.anything(),
+				);
+				expect(inlineResponse).toBe(mocks.success);
+				expect(blockResponse).toBe(mocks.success);
+			});
+		});
+
+		it.each([
+			['inline before block', ['inline', 'block'] as const],
+			['block before inline', ['block', 'inline'] as const],
+		])('should preserve concurrent appearance payloads when batching %s', async (_name, order) => {
+			passGate('platform_smartlink_inline_resolve_optimization');
+			const inlineBody = {
+				...mocks.success,
+				data: { ...mocks.success.data, name: 'Inline response' },
+			};
+			const blockBody = {
+				...mocks.success,
+				data: { ...mocks.success.data, name: 'Block response' },
+			};
+			mockRequest.mockImplementationOnce(async (_method, _url, resources) =>
+				resources.map(({ appearance }: { appearance: 'block' | 'inline' }) => ({
+					status: 200,
+					body: appearance === 'inline' ? inlineBody : blockBody,
+				})),
+			);
+			const client = new SmartCardClient();
+			const resourceUrl = 'https://i.love.cheese/concurrent';
+
+			const responses = await Promise.all(
+				order.map((appearance) =>
+					client.fetchData(resourceUrl, appearance === 'block', appearance),
+				),
+			);
+			const responsesByAppearance = Object.fromEntries(
+				order.map((appearance, index) => [appearance, responses[index]]),
+			);
+
+			expect(mockRequest).toHaveBeenCalledTimes(1);
+			expect(mockRequest).toHaveBeenCalledWith(
+				'post',
+				expectedDefaultResolveBatchUrl,
+				expect.arrayContaining([
+					{
+						resourceUrl,
+						ignoreCachedValue: undefined,
+						appearance: 'inline',
+					},
+					{
+						resourceUrl,
+						ignoreCachedValue: true,
+						appearance: 'block',
+					},
+				]),
+				expect.anything(),
+			);
+			expect(mockRequest.mock.calls[0][2]).toHaveLength(2);
+			expect(responsesByAppearance.inline).toBe(inlineBody);
+			expect(responsesByAppearance.block).toBe(blockBody);
+		});
+
+		it('should reuse an optimized block request that is already in progress', async () => {
+			passGate('platform_smartlink_inline_resolve_optimization');
+			let resolveRequest: (responses: SuccessResponse[]) => void = () => {};
+			let markRequestStarted: () => void = () => {};
+			const requestStarted = new Promise<void>((resolve) => {
+				markRequestStarted = resolve;
+			});
+			mockRequest.mockImplementationOnce(() => {
+				markRequestStarted();
+				return new Promise((resolve) => {
+					resolveRequest = resolve;
+				});
+			});
+			const client = new SmartCardClient();
+			const resourceUrl = 'https://i.love.cheese/in-flight-block';
+
+			const firstResponse = client.fetchData(resourceUrl, true, 'block');
+			const secondResponse = client.fetchData(resourceUrl, true, 'block');
+
+			await requestStarted;
+			expect(mockRequest).toHaveBeenCalledTimes(1);
+			resolveRequest([successfulResponse]);
+			await expect(Promise.all([firstResponse, secondResponse])).resolves.toEqual([
+				mocks.success,
+				mocks.success,
+			]);
+		});
+
+		it('should not reuse a non-forced optimized block request for a forced request', async () => {
+			passGate('platform_smartlink_inline_resolve_optimization');
+			mockRequest.mockImplementationOnce(async (_method, _url, resources) =>
+				resources.map(() => successfulResponse),
+			);
+			const client = new SmartCardClient();
+			const resourceUrl = 'https://i.love.cheese/in-flight-block-force';
+
+			const cachedResponse = client.fetchData(resourceUrl, false, 'block');
+			const forcedResponse = client.fetchData(resourceUrl, true, 'block');
+
+			await expect(Promise.all([cachedResponse, forcedResponse])).resolves.toEqual([
+				mocks.success,
+				mocks.success,
+			]);
+			expect(mockRequest).toHaveBeenCalledTimes(1);
+			expect(mockRequest).toHaveBeenCalledWith(
+				'post',
+				expectedDefaultResolveBatchUrl,
+				expect.arrayContaining([
+					{
+						resourceUrl,
+						ignoreCachedValue: undefined,
+						appearance: 'block',
+					},
+					{
+						resourceUrl,
+						ignoreCachedValue: true,
+						appearance: 'block',
+					},
+				]),
+				expect.anything(),
+			);
+			expect(mockRequest.mock.calls[0][2]).toHaveLength(2);
 		});
 
 		it('should support setting custom headers to the request', async () => {

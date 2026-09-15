@@ -13,18 +13,18 @@ here), see **[migration-roadmap.md](./decisions/migration-roadmap.md)**.
 **Packages with a feature-flagged top-layer rendering path in source** (non-exhaustive; see
 roadmap):
 
-| Package                     | Role                                                      |
-| --------------------------- | --------------------------------------------------------- |
-| `@atlaskit/popup`           | `Popup` compound                                          |
-| `@atlaskit/dropdown-menu`   | `Popup` + `useArrowNavigation`                            |
-| `@atlaskit/tooltip`         | `Popover` + `useAnchorPosition`                           |
-| `@atlaskit/modal-dialog`    | `Dialog` + `DialogScrollLock` + `createCloseEvent`        |
-| `@atlaskit/flag`            | `Popover` (`manual`) for stacking                         |
-| `@atlaskit/spotlight`       | `Popover` + `useAnchorPosition` + `useSimpleLightDismiss` |
-| `@atlaskit/select`          | `Popup` for `PopupSelect`                                 |
-| `@atlaskit/datetime-picker` | `Popup` for calendar / menu surfaces                      |
-| `@atlaskit/inline-dialog`   | `Popup` compound                                          |
-| `@atlaskit/avatar-group`    | `Popup` + `useArrowNavigation` (overflow menu)            |
+| Package                     | Role                                                       |
+| --------------------------- | ---------------------------------------------------------- |
+| `@atlaskit/popup`           | `Popup` compound                                           |
+| `@atlaskit/dropdown-menu`   | `Popup` + `useArrowNavigation`                             |
+| `@atlaskit/tooltip`         | `Popover` + `useAnchoredPopover`                           |
+| `@atlaskit/modal-dialog`    | `Dialog` + `DialogScrollLock` + `createCloseEvent`         |
+| `@atlaskit/flag`            | `Popover` (`manual`) for stacking                          |
+| `@atlaskit/spotlight`       | `Popover` + `useAnchoredPopover` + `useSimpleLightDismiss` |
+| `@atlaskit/select`          | `Popup` for `PopupSelect`                                  |
+| `@atlaskit/datetime-picker` | `Popup` for calendar / menu surfaces                       |
+| `@atlaskit/inline-dialog`   | `Popup` compound                                           |
+| `@atlaskit/avatar-group`    | `Popup` + `useArrowNavigation` (overflow menu)             |
 
 Some packages run **Playwright / VR examples with the flag** for regression coverage without owning
 `@atlaskit/top-layer` directly (e.g. `@atlaskit/menu`, `@atlaskit/inline-message`).
@@ -77,9 +77,13 @@ Architectural decisions, design rationale, and decision logs.
   hover-driven surface
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
-- **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why
-  `useWidthFromAnchor` declares one width floor per mode, and why `mode: 'min-anchor'` gets the
-  anchor floor but deliberately not the content floor
+- **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why an
+  anchor-relative axis gets at most one floor, why `'min-anchor'` gets the anchor floor but
+  deliberately not the content floor, and (2026-08-24 update) why the content floor was removed
+  outright
+- **[fit-available-space.md](./decisions/fit-available-space.md)** — Decision: the size recipe. Cell
+  vs viewport caps, the floor that keeps `position-try-fallbacks` working, why `display` has to live
+  in `Popover`'s stylesheet, and the measured alternatives that failed
 - **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Current matrix: which packages ship
   a top-layer code path, partial migrations, test-only coverage, and skipped packages
 - **[top-layer-unsafe-selectors.md](./decisions/top-layer-unsafe-selectors.md)** — **The single
@@ -122,14 +126,26 @@ Per-component migration records (what changed, how, and why).
 - **[popper-migration.md](./migrations/popper-migration.md)** — deprecation plan for the positioning
   primitive itself (no in-package code path)
 
-### [`follow-ups/`](./follow-ups/)
+### [`plans/`](./plans/) and [`follow-ups/`](./follow-ups/)
 
-Known gaps deliberately left open, with the reasoning and a suggested implementation.
+Work that is planned, in flight, or done-with-loose-ends, plus known gaps deliberately left open
+with the reasoning and a suggested implementation. A plan that has shipped is marked **executed**
+and keeps a corrections block rather than being deleted, so the reasoning survives next to what
+actually happened.
 
-- **[tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** — `useInitialFocus` is
-  unimplemented for `role="tree"` and `role="grid"`
-- **[popovertarget-exploration.md](./follow-ups/popovertarget-exploration.md)** — declarative
-  `popovertarget` invoker attribute vs. the current JS toggle
-- **[tooltip-triggers-discarding-render-prop-props.md](./follow-ups/tooltip-triggers-discarding-render-prop-props.md)**
+- **[plans/one-anchored-popover-hook.md](./plans/one-anchored-popover-hook.md)** — **executed.** Why
+  positioning and anchor-relative sizing became one `useAnchoredPopover` instead of three hooks, the
+  four problems the split caused, and where the shipped API diverged from the plan
+- **[plans/should-fit-viewport.md](./plans/should-fit-viewport.md)** — **executed.** The original
+  `shouldFitViewport` investigation and its measurements
+- **[follow-ups/custom-popup-component-contract.md](./follow-ups/custom-popup-component-contract.md)**
+  — the six-point contract a custom `popupComponent` has to meet for a size cap to reach its
+  content: stated in the `PopupComponentProps` docblock, unenforced, and broken by six in-tree
+  containers
+- **[follow-ups/tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** —
+  `useInitialFocus` is unimplemented for `role="tree"` and `role="grid"`
+- **[follow-ups/popovertarget-exploration.md](./follow-ups/popovertarget-exploration.md)** —
+  declarative `popovertarget` invoker attribute vs. the current JS toggle
+- **[follow-ups/tooltip-triggers-discarding-render-prop-props.md](./follow-ups/tooltip-triggers-discarding-render-prop-props.md)**
   — 14 consumer call sites whose trigger drops the whole tooltip render-prop object, so the tooltip
   never renders on either side of the flag (as distinct from the ref-only drops, which were fixed)

@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 /**
@@ -22,7 +22,7 @@ function InnerManualPopover(): React.ReactNode {
 	const popoverId = usePopoverId();
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
@@ -70,7 +70,7 @@ export default function TestingNestedFocusScope(): React.ReactNode {
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },

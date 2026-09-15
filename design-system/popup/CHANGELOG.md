@@ -1,5 +1,22 @@
 # @atlaskit/popup
 
+## 6.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.5
+
+### Patch Changes
+
+- [`a7ec100f7d560`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7ec100f7d560) -
+  Fixed `shouldFitViewport` doing nothing on the top-layer code path, and forwarded it to a custom
+  `popupComponent` as on the legacy path. `xcss` on `<Popup>` is now applied on the top-layer path
+  without a custom `popupComponent`; it was silently dropped there. Behind the
+  `platform-dst-top-layer` gate; legacy (flag-off) behaviour is unchanged.
+- Updated dependencies
+
 ## 6.3.4
 
 ### Patch Changes

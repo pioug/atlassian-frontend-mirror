@@ -3,7 +3,6 @@ import { filterCommand as filter, isSelectionEndOfParagraph } from '@atlaskit/ed
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Command } from '../types/command';
 
@@ -42,9 +41,10 @@ export default (): SafePlugin =>
 		key: newlinePreserveMarksKey,
 		props: {
 			handleKeyDown: keydownHandler({
-				Enter: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-					? filter([isSelectionEndOfParagraph, hasBlockMarksToPreserve], splitBlockPreservingMarks)
-					: filter([isSelectionEndOfParagraph, isSelectionAligned], splitBlockPreservingMarks),
+				Enter: filter(
+					[isSelectionEndOfParagraph, hasBlockMarksToPreserve],
+					splitBlockPreservingMarks,
+				),
 			}),
 		},
 	});

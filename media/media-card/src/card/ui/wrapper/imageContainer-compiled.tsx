@@ -24,6 +24,28 @@ const imageContainerCenterStyles = css({
 	alignItems: 'center',
 });
 
+// Holds the preview back until it has decoded, so it can be faded in rather than appearing the
+// instant it becomes displayable. Nothing is drawn in the meantime — consumers using this
+// motion keep the node out of the layout until the preview is ready.
+const mediaMotionHiddenStyles = css({
+	opacity: 0,
+});
+
+const mediaMotionEnteringStyles = css({
+	animationName: token('motion.keyframe.fade.in'),
+	animationDuration: token('motion.duration.medium'),
+	animationTimingFunction: token('motion.easing.out.practical'),
+	// Held back until the consumer has finished opening the space. Assumes that takes
+	// `motion.duration.xlong`; promote to a prop if that stops holding.
+	animationDelay: token('motion.duration.xlong'),
+	// Keeps the preview invisible through the delay and visible after the last frame, so there
+	// is no flash at either end.
+	animationFillMode: 'both',
+	'@media (prefers-reduced-motion: reduce)': {
+		animation: 'none',
+	},
+});
+
 type ImageContainerProps = {
 	children: React.ReactNode;
 	centerElements?: boolean;
@@ -34,6 +56,11 @@ type ImageContainerProps = {
 	progress?: number;
 	selected?: boolean;
 	source?: string;
+	/**
+	 * Entering motion for the media preview: `hidden` while it is still loading, `entering`
+	 * once it has rendered. Undefined opts out entirely.
+	 */
+	mediaMotion?: 'hidden' | 'entering';
 };
 
 export const ImageContainer = ({
@@ -45,9 +72,15 @@ export const ImageContainer = ({
 	source,
 	centerElements,
 	mediaCardCursor,
+	mediaMotion,
 }: ImageContainerProps): JSX.Element => (
 	<div
-		css={[imageContainerStyles, centerElements && imageContainerCenterStyles]}
+		css={[
+			imageContainerStyles,
+			centerElements && imageContainerCenterStyles,
+			mediaMotion === 'hidden' && mediaMotionHiddenStyles,
+			mediaMotion === 'entering' && mediaMotionEnteringStyles,
+		]}
 		data-testid={fileCardImageViewSelector}
 		/**
 		 * This wrapper MUST add the classname in order to allow the editor to prevent bubbling up the click event.

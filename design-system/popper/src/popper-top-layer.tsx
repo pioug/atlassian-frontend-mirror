@@ -1,21 +1,18 @@
 import React, { type CSSProperties, type ReactNode, useMemo, useRef, useState } from 'react';
 
-import type { Placement, VirtualElement } from '@popperjs/core';
+import type { VirtualElement } from '@popperjs/core';
 import type { PopperChildrenProps } from 'react-popper';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { token } from '@atlaskit/tokens';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-import { useAnchorPositionAtPoint } from '@atlaskit/top-layer/use-anchor-position-at-point';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { useAnchoredPopoverAtPoint } from '@atlaskit/top-layer/use-anchored-popover-at-point';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
 import { isPageRtl } from './internal/is-page-rtl';
 import { rectPointForPlacement } from './internal/rect-point-for-placement';
 import { toLegacyPlacement } from './internal/to-legacy-placement';
-import { useFitViewportMaxSize } from './internal/use-fit-viewport-max-size';
 import { useManagerAnchor } from './internal/use-manager-anchor';
 import { useReferenceVisibility } from './internal/use-reference-visibility';
 import type { CustomPopperProps } from './popper';
@@ -43,29 +40,6 @@ const noopArrowProps: TArrowPropsInert = {
 	style: noopStyle,
 	'data-popper-arrow': true,
 };
-
-/**
- * Returns the primary axis (`top` / `bottom` / `left` / `right`) of a popper
- * placement, used to pick which axis `useFitViewportMaxSize` caps to the
- * anchor edge.
- */
-function getPlacementAxis(placement: Placement): 'top' | 'bottom' | 'left' | 'right' {
-	if (placement.startsWith('top')) {
-		return 'top';
-	}
-	if (placement.startsWith('bottom')) {
-		return 'bottom';
-	}
-	if (placement.startsWith('left')) {
-		return 'left';
-	}
-	if (placement.startsWith('right')) {
-		return 'right';
-	}
-	// `auto*` placements have no fixed axis. Default to `bottom` to match the
-	// `auto -> block-end` mapping in `fromLegacyPlacement`.
-	return 'bottom';
-}
 
 /**
  * Normalises popper's `[along, away]` offset (which may include `null` or
@@ -114,9 +88,9 @@ export function PopperTopLayer<CustomModifiers>({
 	const effectiveReference: HTMLElement | VirtualElement | undefined =
 		referenceElement ?? managerAnchor ?? undefined;
 
-	// Real DOM nodes go to `useAnchorPosition`; popper `VirtualElement`s are
-	// bridged through `useAnchorPositionAtPoint`, which owns its own synthetic
-	// anchor.
+	// Real DOM nodes are anchored by `useAnchoredPopover`; popper
+	// `VirtualElement`s go to `useAnchoredPopoverAtPoint`, which owns a synthetic
+	// anchor element in `document.body`.
 	const htmlAnchor: HTMLElement | null =
 		effectiveReference instanceof HTMLElement ? effectiveReference : null;
 	const virtualReference: VirtualElement | null =
@@ -130,9 +104,9 @@ export function PopperTopLayer<CustomModifiers>({
 	const popoverRef = useRef<HTMLDivElement | null>(null);
 	const popoverId = usePopoverId();
 
-	// Track the resolved DOM anchor in state so visibility / max-size hooks
-	// re-run when its identity changes. Virtual anchors do not feed these
-	// hooks because their probe is outside the consumer's DOM.
+	// Track the resolved DOM anchor in state so the visibility hook re-runs when
+	// its identity changes. Virtual anchors do not feed that hook, because their
+	// probe is outside the consumer's DOM.
 	//
 	// Adjust state during render by comparing against the state itself: the
 	// conditional guard means `setResolvedAnchor` is skipped once they match,
@@ -152,32 +126,37 @@ export function PopperTopLayer<CustomModifiers>({
 
 	const isOpen = effectiveReference != null;
 
-	// HTML-element path. No-op when the reference is virtual or absent.
-	useAnchorPosition({
-		anchorRef: htmlAnchorRef,
-		popoverRef,
-		placement: topLayerPlacement,
-		isEnabled: htmlAnchor != null,
-		isOpen,
-	});
-
-	// Virtual-element path. `useAnchorPositionAtPoint` owns a synthetic
-	// anchor in `document.body` and latches `getPoint` once per
-	// `isEnabled` activation. Reading the latest `virtualReference` and
-	// `topLayerPlacement` via refs ensures the latched closure always
-	// sees the current values rather than the ones captured at first
-	// activation, which would otherwise go stale if either prop changes
-	// while the popper stays open.
+	// Refs, because `getPoint` is LATCHED: called once per activation, so a
+	// closed-over value would go stale if either prop changed while it stayed open.
 	const virtualReferenceRef = useRef<VirtualElement | null>(virtualReference);
 	virtualReferenceRef.current = virtualReference;
 	const topLayerPlacementRef = useRef(topLayerPlacement);
 	topLayerPlacementRef.current = topLayerPlacement;
-	const isVirtualEnabled = virtualReference != null;
-	useAnchorPositionAtPoint({
+
+	// Two positioning hooks, at most one enabled: `htmlAnchor` and
+	// `virtualReference` both derive from `effectiveReference`, so they are never
+	// both set, and when neither is the popover is closed.
+	const isElementAnchored = htmlAnchor !== null;
+	const isPointAnchored = virtualReference !== null;
+
+	// Passed as one object so the element and point calls cannot drift.
+	const sharedPositioning = {
 		popoverRef,
 		placement: topLayerPlacement,
-		isEnabled: isVirtualEnabled,
 		isOpen,
+		inlineSize: shouldFitViewport ? ('max-available' as const) : ('content' as const),
+		blockSize: shouldFitViewport ? ('max-available' as const) : ('content' as const),
+	};
+
+	useAnchoredPopover({
+		...sharedPositioning,
+		anchorRef: htmlAnchorRef,
+		isEnabled: isElementAnchored,
+	});
+
+	useAnchoredPopoverAtPoint({
+		...sharedPositioning,
+		isEnabled: isPointAnchored,
 		getPoint: () => {
 			const current = virtualReferenceRef.current;
 			if (!current) {
@@ -194,36 +173,6 @@ export function PopperTopLayer<CustomModifiers>({
 	const { isReferenceHidden, hasPopperEscaped } = useReferenceVisibility({
 		anchor: resolvedAnchor,
 		popoverRef,
-	});
-
-	// Restore legacy `react-popper`'s natural-width behaviour. Under CSS
-	// Anchor Positioning the `position-area` grid cell becomes the popover
-	// host's containing block, so an auto-width host shrinks to that cell.
-	// When the anchor sits near a viewport edge the cell is narrow, so the
-	// content wraps far more than it did under `react-popper` (which kept the
-	// content's natural width and shifted/flipped to stay on screen).
-	// `min-inline-size: max-content` (mode `'none'`) floors the host at its
-	// content's intrinsic width, so a too-narrow span overflows the viewport
-	// (driving `position-try-fallbacks`) instead of wrapping. This is safe
-	// alongside `shouldFitViewport`: the fit caps clamp the host on both axes,
-	// so the host never exceeds the viewport / anchor-edge cap.
-	useWidthFromAnchor({ mode: 'none', popoverRef, anchorRef: htmlAnchorRef, isOpen });
-
-	// `shouldFitViewport` caps are applied directly to the `position-area`
-	// host, whose containing block is the cell between the anchor edge and the
-	// viewport edge — so a pure-CSS `calc(100% - 5px - gap)` reproduces the
-	// legacy per-placement anchor-edge cap with no measurement. The gap mirrors
-	// `getPlacement`: an omitted offset resolves to `space.100`, otherwise the
-	// consumer's `away` value.
-	const resolvedOffset = popperToTopLayerOffset(offset);
-	const fitGap = resolvedOffset ? `${resolvedOffset[1]}px` : token('space.100', '8px');
-	const placementAxis = getPlacementAxis(placement);
-	useFitViewportMaxSize({
-		target: popoverRef,
-		placementAxis,
-		gap: fitGap,
-		isEnabled: shouldFitViewport,
-		isOpen,
 	});
 
 	const renderChildren = children;
@@ -244,9 +193,9 @@ export function PopperTopLayer<CustomModifiers>({
 
 	const content: ReactNode = renderChildren(renderPropArg);
 
-	// The `shouldFitViewport` size caps live on the `<Popover>` host itself
-	// (applied by `useFitViewportMaxSize` above), so the consumer's content is
-	// rendered directly with no intermediate wrapper.
+	// Rendered directly into the `<Popover>` host, which supplies the flex
+	// formatting context the size caps need — so the render prop must return ONE
+	// element. See `children` in `@atlaskit/top-layer`'s `popover/types.tsx`.
 	return (
 		<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} mode="manual" shouldAnimate={false}>
 			{content}

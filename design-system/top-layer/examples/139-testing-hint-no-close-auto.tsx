@@ -10,7 +10,7 @@ import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 const styles = cssMap({
@@ -45,7 +45,7 @@ function HintPopover(): ReactNode {
 
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
@@ -95,7 +95,7 @@ export default function TestingHintNoCloseAuto(): ReactNode {
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },

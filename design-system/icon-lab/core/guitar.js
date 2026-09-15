@@ -1,0 +1,30 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::f059e27b8c5df0b2ee89ba242980cbec>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Icon: "Guitar".
+ * Category: multi-purpose
+ * Location: @atlaskit/icon-lab/core/guitar
+ * Usage guidance:
+ * Known uses: Guitar based music in CSM hold music options.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const GuitarIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
+  name: "GuitarIcon",
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M4.25 9.422a.5.5 0 0 0 .166.372l1.42 1.276a2 2 0 0 1 .664 1.488v.193h3.019v-.193a2 2 0 0 1 .665-1.49l1.4-1.254a.5.5 0 0 0 .166-.372v-7.81L8.823 3.82a1.375 1.375 0 0 1-1.646 0L4.25 1.63zM16 4.375a.875.875 0 0 1-1.74.125h-1.01v3h1.01a.874.874 0 0 1 .865-.75l.09.004a.876.876 0 0 1 .785.871v1.25A.875.875 0 0 1 14.26 9h-1.01v.442a2 2 0 0 1-.665 1.49l-1.4 1.254a.5.5 0 0 0-.166.372V16h-1.5v-1.75H6.5V16H5v-3.442a.5.5 0 0 0-.166-.372l-1.42-1.275a2 2 0 0 1-.664-1.489V9H1.74A.875.875 0 0 1 0 8.875v-1.25c0-.483.392-.875.875-.875l.09.004c.4.041.719.351.775.746h1.01v-3H1.74A.875.875 0 0 1 0 4.375v-1.25c0-.483.392-.875.875-.875l.09.004c.4.041.719.351.775.746h1.01V1.381C2.75.32 3.885-.315 4.774.168l.174.113L8 2.563 11.052.281l.174-.113c.888-.483 2.024.152 2.024 1.213v1.62h1.01a.874.874 0 0 1 .865-.75l.09.003a.876.876 0 0 1 .785.871z"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+GuitarIcon.displayName = 'GuitarIcon';
+var _default = exports.default = GuitarIcon;

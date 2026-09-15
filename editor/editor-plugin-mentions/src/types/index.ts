@@ -4,7 +4,7 @@ import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
 import type { Providers, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import type { MentionDescription, MentionProvider } from '@atlaskit/mention';
+import type { MentionDescription, MentionProvider } from '@atlaskit/mention/types';
 
 export const MENTION_PROVIDER_REJECTED = 'REJECTED';
 export const MENTION_PROVIDER_UNDEFINED = 'UNDEFINED';

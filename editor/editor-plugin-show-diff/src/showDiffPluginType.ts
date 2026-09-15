@@ -128,7 +128,9 @@ export type DeletedDiffWidget = {
 export type SmartDiffThresholds = SmartDiffThresholdsInternal;
 
 export type DiffDescriptor = {
+	colorScheme?: ColorScheme;
 	id: string;
+	isInserted?: boolean;
 	type: 'inline' | 'block' | 'widget';
 };
 

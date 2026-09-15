@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1bd7c1b2a0d8b27e7f16d30c0c3dfc52>>
+ * @codegen <<SignedSource::4d93f492be74820c4988c1446f137dcd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const MilestoneMultipleIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "MilestoneMultipleIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M4.585 2.603a2 2 0 0 1 2.432-.304L5.682 3.634q-.019.014-.036.03L1.664 7.646a.5.5 0 0 0 0 .707l3.982 3.983.026.021 1.344 1.344a2 2 0 0 1-2.43-.305L.602 9.414a2 2 0 0 1 0-2.828z"/><path fill="currentcolor" d="M8.586 2.604a2 2 0 0 1 2.828 0l3.983 3.982a2 2 0 0 1 0 2.828l-3.983 3.983a2 2 0 0 1-2.828 0L4.604 9.414a2 2 0 0 1 0-2.828zm1.768 1.06a.5.5 0 0 0-.708 0L5.664 7.646a.5.5 0 0 0 0 .708l3.982 3.982a.5.5 0 0 0 .707 0l3.983-3.982a.5.5 0 0 0 0-.708z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M4.585 2.601c.66-.66 1.665-.76 2.432-.304L5.682 3.632q-.019.014-.036.03L1.664 7.644a.5.5 0 0 0 0 .707l3.982 3.983.026.021L7.016 13.7a2 2 0 0 1-2.43-.305L.602 9.412a2 2 0 0 1 0-2.828z"/><path fill="currentcolor" d="M8.586 2.601a2 2 0 0 1 2.828 0l3.983 3.983a2 2 0 0 1 0 2.828l-3.983 3.982a2 2 0 0 1-2.828 0L4.604 9.412a2 2 0 0 1 0-2.828zm1.768 1.06a.5.5 0 0 0-.708 0L5.664 7.645a.5.5 0 0 0 0 .707l3.982 3.983a.5.5 0 0 0 .707 0l3.983-3.983a.5.5 0 0 0 0-.707z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 MilestoneMultipleIcon.displayName = 'MilestoneMultipleIcon';

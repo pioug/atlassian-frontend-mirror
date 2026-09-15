@@ -172,6 +172,11 @@ export function getAccentTokens(color: AdsAccentColor): {
 	};
 }
 
+/** Border token for a contributor accent, used by the diff indicator. */
+export function getAccentBorderColor(color: AdsAccentColor): string {
+	return borderAccent(color);
+}
+
 /** Ring colour for an active (scroll-target) deleted block outline. */
 function deletedBlockOutlineActiveRing(colors: DiffColorScheme): string {
 	return colors.deletedBlockOutlineActiveEmphasis === 'border'

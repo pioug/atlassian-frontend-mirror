@@ -10,7 +10,7 @@ import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 const styles = cssMap({
 	// A coloured ancestor region (for example a danger banner). Inline top-layer
@@ -51,7 +51,7 @@ export function VrSurfaceColourInheritance(): ReactNode {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(true);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },

@@ -66,8 +66,8 @@ Two pieces:
 
 ❌ **Do not use this pattern for:**
 
-- Click- or hover-triggered popovers anchored to a DOM element. Use `useAnchorPosition` from
-  `@atlaskit/top-layer/use-anchor-position` instead.
+- Click- or hover-triggered popovers anchored to a DOM element. Use `useAnchoredPopover` from
+  `@atlaskit/top-layer/use-anchored-popover` instead.
 - Popovers that need to follow scroll relative to a DOM trigger.
 - Popovers that flip across viewport edges. The placement model (`block-end-align-start`, etc.) does
   not apply here — you choose a fixed region directly via CSS.
@@ -100,7 +100,7 @@ only when a real consumer arrives.
 ## References
 
 - `notes/migrations/flag-migration.md` — first consumer of this pattern.
-- `notes/architecture/positioning.md` — `useAnchorPosition` (the anchored positioning primitive).
+- `notes/architecture/positioning.md` — `useAnchoredPopover` (the anchored positioning primitive).
 - `examples/all-placements.tsx` — demonstrates the pattern across the nine viewport regions
   (corners, edges, centre).
 - `packages/design-system/flag/src/flag-group.tsx` — production usage.

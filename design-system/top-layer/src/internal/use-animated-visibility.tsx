@@ -1,5 +1,6 @@
 import { type RefObject, useCallback, useEffect, useLayoutEffect, useReducer, useRef } from 'react';
 
+import { isNativeElementOpen } from './is-native-element-open';
 import { prefersReducedMotion } from './reduced-motion';
 
 type TRunOnAnimationsSettledArgs = {
@@ -44,19 +45,6 @@ function runOnAnimationsSettled({ element, onSettled }: TRunOnAnimationsSettledA
 			Promise.allSettled(animations.map((animation) => animation.finished)).then(settle);
 		},
 	});
-}
-
-function isNativeElementOpen({ element }: { element: HTMLElement }): boolean {
-	if (element instanceof HTMLDialogElement) {
-		return element.open;
-	}
-
-	// Some DOM implementations throw for unsupported pseudo-classes.
-	try {
-		return element.matches(':popover-open');
-	} catch {
-		return false;
-	}
 }
 
 type TUseAnimatedVisibilityArgs = {

@@ -3,15 +3,15 @@ import { Search } from 'js-search';
 import {
 	type MentionDescription,
 	type MentionsResult,
-	AbstractMentionResource,
 	type MentionNameResolver,
-	type ResolvingMentionProvider,
 	type MentionNameDetails,
 	MentionNameStatus,
-	SLI_EVENT_TYPE,
 	type MentionProvider,
-} from '@atlaskit/mention/resource';
-import { type InviteFlow, type UserRole } from '@atlaskit/mention';
+} from '@atlaskit/mention/types';
+import type { ResolvingMentionProvider } from '@atlaskit/mention/mention-resource';
+import { SLI_EVENT_TYPE } from '@atlaskit/mention/analytics';
+import { AbstractMentionResource } from '@atlaskit/mention/resource';
+import type { InviteFlow, UserRole } from '@atlaskit/mention/types';
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
 import { HttpError } from './utils';

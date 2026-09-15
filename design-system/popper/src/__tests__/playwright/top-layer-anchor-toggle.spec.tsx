@@ -3,12 +3,11 @@ import { expect, type Locator, test } from '@af/integration-testing';
 /**
  * Popper: FF-on anchor toggle.
  *
- * The flag-on adapter derives `isOpen = effectiveReference != null` and
- * feeds it to both anchor-position hooks. The latched `getPoint` in
- * `useAnchorPositionAtPoint` only re-evaluates when `isEnabled`
- * re-activates. Toggling `referenceElement` from anchor-A → null →
- * anchor-B must reposition the surface over anchor-B; a stale latch
- * would keep it pinned to anchor-A's former position.
+ * The flag-on adapter derives `isOpen = effectiveReference != null` and calls
+ * `useAnchoredPopover` and `useAnchoredPopoverAtPoint` with complementary
+ * `isEnabled` flags. Going through `null` toggles both, so `referenceElement`
+ * from anchor-A → null → anchor-B must reposition over anchor-B rather than
+ * staying pinned to anchor-A.
  */
 const featureFlag = 'platform-dst-top-layer';
 

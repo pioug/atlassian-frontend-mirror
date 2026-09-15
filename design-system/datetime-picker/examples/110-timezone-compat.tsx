@@ -2,7 +2,7 @@ import React from 'react';
 
 import moment from 'moment';
 
-import { DateTimePicker } from '@atlaskit/datetime-picker';
+import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import { Label } from '@atlaskit/form/label/default';
 import { Box } from '@atlaskit/primitives/compiled';
 

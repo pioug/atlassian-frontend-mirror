@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useInlineTailoredAction from '../../../state/hooks/use-inline-tailored-actions';
-import { HoverCard } from '../../HoverCard/HoverCard';
+import { HoverCard } from '../../HoverCard';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { InlineRovoActionButton } from '../common/rovo-actions-cta';

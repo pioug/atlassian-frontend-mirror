@@ -1,5 +1,17 @@
 # @af/frontend-utilities
 
+## 4.5.0
+
+### Minor Changes
+
+- [`4632768e25dd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4632768e25dd6) -
+  Add dedicated entry-point imports for `StorageClient`
+  (`@atlaskit/frontend-utilities/StorageClient`), `convertToError`
+  (`@atlaskit/frontend-utilities/convertToError`), `useInterval`
+  (`@atlaskit/frontend-utilities/useInterval`), and `usePrevious`
+  (`@atlaskit/frontend-utilities/usePrevious`). Root and previously published entrypoint imports
+  remain supported for existing consumers.
+
 ## 4.4.0
 
 ### Minor Changes

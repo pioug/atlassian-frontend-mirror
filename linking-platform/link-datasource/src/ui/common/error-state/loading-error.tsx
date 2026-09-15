@@ -5,17 +5,18 @@
 import { useEffect } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedList, FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
 import AKLink from '@atlaskit/link/link';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
 
-import { loadingErrorMessages } from './messages';
+import { loadingErrorMessages, missingColumnsMessages } from './messages';
 
 const styles = cssMap({
 	errorContainerStyles: {
@@ -39,7 +40,9 @@ const styles = cssMap({
 });
 
 interface LoadingErrorProps {
+	errorType?: 'network' | 'missing-columns';
 	onRefresh?: () => void;
+	unavailableColumnKeys?: string[];
 	url?: string;
 }
 
@@ -47,21 +50,44 @@ const isConfluenceSearch = (url: string) => !!url.match(/https:\/\/.*\/wiki\/sea
 
 const isJiraIssuesList = (url: string) => !!url.match(/https:\/\/.*\/issues\/?\?jql=/);
 
-export const LoadingError = ({ onRefresh, url }: LoadingErrorProps): JSX.Element => {
+export const LoadingError = ({
+	onRefresh,
+	url,
+	errorType = 'network',
+	unavailableColumnKeys = [],
+}: LoadingErrorProps): JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
+	const effectiveErrorType = fg('platform_datasource_missing_columns_error')
+		? errorType
+		: 'network';
 
 	useEffect(() => {
-		fireEvent('ui.error.shown', {
-			reason: 'network',
-		});
-	}, [fireEvent]);
+		if (effectiveErrorType !== 'missing-columns') {
+			fireEvent('ui.error.shown', {
+				reason: 'network',
+			});
+		}
+	}, [fireEvent, effectiveErrorType]);
 
-	let connectionErrorMessage = loadingErrorMessages.checkConnection;
-	if (url && isConfluenceSearch(url)) {
-		connectionErrorMessage = loadingErrorMessages.checkConnectionConfluence;
-	}
-	if (url && isJiraIssuesList(url)) {
-		connectionErrorMessage = loadingErrorMessages.checkConnectionJira;
+	let title = loadingErrorMessages.unableToLoadResults;
+	let description = loadingErrorMessages.checkConnection;
+
+	switch (effectiveErrorType) {
+		case 'missing-columns':
+			title = missingColumnsMessages.missingColumnsTitle;
+			description = unavailableColumnKeys.length
+				? missingColumnsMessages.missingColumnsDescriptionWithNames
+				: missingColumnsMessages.missingColumnsDescription;
+			break;
+		case 'network':
+		default:
+			if (url && isConfluenceSearch(url)) {
+				description = loadingErrorMessages.checkConnectionConfluence;
+			}
+			if (url && isJiraIssuesList(url)) {
+				description = loadingErrorMessages.checkConnectionJira;
+			}
+			break;
 	}
 
 	return (
@@ -70,12 +96,15 @@ export const LoadingError = ({ onRefresh, url }: LoadingErrorProps): JSX.Element
 				<SpotErrorSearch size={'xlarge'} alt="" />
 				<Box xcss={styles.errorMessageContainerStyles}>
 					<Inline as="span" xcss={styles.errorMessageStyles}>
-						<FormattedMessage {...loadingErrorMessages.unableToLoadResults} />
+						<FormattedMessage {...title} />
 					</Inline>
 					<Text as="p">
 						<FormattedMessage
-							{...connectionErrorMessage}
+							{...description}
 							values={{
+								...(effectiveErrorType === 'missing-columns'
+									? { columns: <FormattedList value={unavailableColumnKeys} /> }
+									: {}),
 								a: (chunks: React.ReactNode) => (
 									<AKLink href={url || ''} target="blank">
 										{chunks}
@@ -84,7 +113,7 @@ export const LoadingError = ({ onRefresh, url }: LoadingErrorProps): JSX.Element
 							}}
 						/>
 					</Text>
-					{onRefresh && (
+					{effectiveErrorType !== 'missing-columns' && onRefresh && (
 						<Button appearance="primary" onClick={onRefresh}>
 							<FormattedMessage {...loadingErrorMessages.refresh} />
 						</Button>

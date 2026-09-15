@@ -59,7 +59,7 @@ const OUTBOUND_ACTIONS = new Set<Payload['type']>([
 ] satisfies Payload['type'][]);
 
 /** Why a product-bus payload was or was not relayed. */
-type InboundDecision = 'allow' | 'not-allowlisted' | 'denylisted';
+export type InboundDecision = 'allow' | 'not-allowlisted' | 'denylisted';
 
 /** Classify a product-bus payload. Relay iff `allow`. */
 export const getInboundDecision = (type: Payload['type']): InboundDecision => {

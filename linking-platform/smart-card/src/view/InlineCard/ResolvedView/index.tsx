@@ -5,7 +5,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type LozengeProps } from '../../../types';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
-import { HoverCard } from '../../HoverCard/HoverCard';
+import { HoverCard } from '../../HoverCard';
 import { type HoverPreviewOptions } from '../../HoverCard/types';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';

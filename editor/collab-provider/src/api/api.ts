@@ -2,7 +2,7 @@ import type { Config } from '../types';
 import { getProduct, getSubProduct, createLogger } from '../helpers/utils';
 import type { Channel } from '../channel';
 import type { DocumentService } from '../document/document-service';
-import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience-trace-id-context';
+import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/get-active-trace-http-request-headers';
 
 const logger = createLogger('Api', 'blue');
 

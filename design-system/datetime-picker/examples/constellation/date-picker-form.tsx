@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { DatePicker } from '@atlaskit/datetime-picker';
+import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
 import { FormFooter } from '@atlaskit/form/form-footer';

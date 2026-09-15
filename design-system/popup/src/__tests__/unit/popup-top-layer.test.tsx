@@ -3,6 +3,7 @@ import React, { forwardRef } from 'react';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen } from '@atlassian/testing-library';
+import { cssMap } from '@atlaskit/css';
 
 import { Popup } from '../../popup';
 import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';
@@ -35,6 +36,12 @@ const defaultTrigger = ({
 );
 
 const defaultContent = () => <div data-testid="popup-content">Popup content</div>;
+
+const styles = cssMap({
+	fixedWidth: {
+		width: '280px',
+	},
+});
 
 // ── Tests ──
 
@@ -159,6 +166,27 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: testId forwarding', () => 
 		);
 
 		expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+	});
+});
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+ffTest.on('platform-dst-top-layer', 'Popup top-layer: xcss', () => {
+	it('applies xcss to the element wrapping the content', () => {
+		render(
+			<Popup
+				isOpen={true}
+				content={defaultContent}
+				trigger={defaultTrigger}
+				testId={testId}
+				xcss={styles.fixedWidth}
+			/>,
+		);
+
+		// `xcss` lands on a wrapper inside `PopoverSurface`, so it is the content's
+		// parent and not the `--content` popover host.
+		const wrapper = screen.getByTestId('popup-content').parentElement;
+		expect(wrapper).not.toBe(screen.getByTestId(`${testId}--content`));
+		expect(wrapper).toHaveCompiledCss('width', '280px');
 	});
 });
 

@@ -1,7 +1,7 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/get-resolved-attributes';
-import { type CardState } from '@atlaskit/linking-common';
-import type { CardType } from '@atlaskit/linking-common';
+import type { CardState } from '@atlaskit/linking-common/store';
+import type { CardType } from '@atlaskit/linking-common/types';
 
 import { context } from './analytics';
 

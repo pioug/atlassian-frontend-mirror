@@ -316,7 +316,7 @@ export const TypeAheadControl = ({
 					? `calc(${anchorStart} + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + -${QUICK_INSERT_LEFT_OFFSET}px)`
 					: `calc(${anchorStart} - ${QUICK_INSERT_DIMENSIONS.width}px - ${rootElementGap(rootNodeType)}px + -${QUICK_INSERT_LEFT_OFFSET}px)`,
 				// small text requires further tweaking to positioning, re-using existing methods to calculate to keep it unified with drag handle
-				top: `calc(${anchorStart} + ${topPositionAdjustment(node && node.type.name === 'paragraph' && expValEquals('platform_editor_small_font_size', 'isEnabled', true) ? getNodeTypeWithLevel(node) : rootNodeType)}px)`,
+				top: `calc(${anchorStart} + ${topPositionAdjustment(node && node.type.name === 'paragraph' ? getNodeTypeWithLevel(node) : rootNodeType)}px)`,
 				...bottom,
 			} as CSSProperties;
 		}

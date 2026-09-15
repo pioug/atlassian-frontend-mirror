@@ -135,6 +135,12 @@ export interface SharedCardProps {
 	// Marks the card as part of the CWR (create-with-Rovo) infographics flow, which uses a
 	// distinct AI-generating loading treatment.
 	readonly isCWR?: boolean;
+	// Expresses loading through motion rather than an indicator: no spinner or loading bar is
+	// drawn, and the preview fades in over the card's surface once it has rendered. For media
+	// that appears mid-flight, e.g. an AI-generated image in the Create with Rovo preview.
+	//
+	// Also behind `aifc_page_create_defer_generated_visuals`.
+	readonly hasLoadingMotion?: boolean;
 	// Callback fired when the media card's image preview has rendered (i.e. the <img> onload event).
 	// Receives the file identifier ID.
 	readonly onPreviewRender?: (fileId: string) => void;

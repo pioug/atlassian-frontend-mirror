@@ -1,0 +1,30 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::e7ac356e962e78bc3163f06523d19e28>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Icon: "EnterpriseCertified".
+ * Category: single-purpose
+ * Location: @atlaskit/icon-lab/core/enterprise-certified
+ * Usage guidance:
+ * Reserved for representing Atlassian enterprise certified apps on Marketplace.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const EnterpriseCertifiedIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
+  name: "EnterpriseCertifiedIcon",
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M.32 11.44a1.06 1.06 0 0 0 .53 1.79l1.56.34.37 1.61a1.06 1.06 0 0 0 1.79.52l2.78-2.78-1.06-1.06-2.22 2.22-.3-1.3-.11-.47-1.71-.37 2.21-2.22L3.1 8.66zm15.36 0a1.06 1.06 0 0 1-.53 1.79l-1.56.34-.36 1.61a1.06 1.06 0 0 1-1.79.52l-2.78-2.8 1.06-1.06 2.22 2.22.3-1.3.11-.47 1.71-.37-2.21-2.21 1.06-1.06z"/><path fill="currentcolor" d="M7.494.201a.75.75 0 0 1 .996 0c1.246 1.106 2.587 1.886 3.66 2.401a17 17 0 0 0 1.506.638l.001.001.004.001.08.026a.75.75 0 0 1 .497.734c-.134 3.765-1.628 6.253-3.126 7.763a10.5 10.5 0 0 1-2.151 1.668 9 9 0 0 1-.648.342.75.75 0 0 1-.641 0 9 9 0 0 1-.649-.342 10.5 10.5 0 0 1-2.15-1.668c-1.499-1.51-2.993-3.998-3.128-7.763a.75.75 0 0 1 .498-.734l.069-.022.017-.006c.37-.135.894-.344 1.505-.638 1.073-.515 2.415-1.295 3.66-2.401m.498 1.544a17.8 17.8 0 0 1-3.508 2.21c-.452.217-.862.391-1.208.528.233 3.05 1.474 5.028 2.662 6.226a9 9 0 0 0 1.84 1.428q.114.065.214.118.101-.053.215-.118a9 9 0 0 0 1.84-1.428c1.187-1.197 2.427-3.175 2.66-6.226a19 19 0 0 1-1.207-.528 17.8 17.8 0 0 1-3.508-2.21"/><path fill="currentcolor" d="M10.977 5.842 8.073 9.453A.75.75 0 0 1 6.9 9.447L5.52 7.694l1.177-.927.797 1.011 2.314-2.876z"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+EnterpriseCertifiedIcon.displayName = 'EnterpriseCertifiedIcon';
+var _default = exports.default = EnterpriseCertifiedIcon;

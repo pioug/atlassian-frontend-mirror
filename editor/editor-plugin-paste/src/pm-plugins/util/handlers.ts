@@ -99,7 +99,7 @@ import {
 	isSelectionInsidePanel,
 } from './index';
 
-const insideExpand = (state: EditorState): Boolean => {
+const insideExpand = (state: EditorState): boolean => {
 	const { expand, nestedExpand } = state.schema.nodes;
 
 	return hasParentNodeOfType([expand, nestedExpand])(state.selection);
@@ -1677,13 +1677,12 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 	const { bulletList, orderedList, blockTaskItem, taskItem, paragraph, heading } = schema.nodes;
 	const { fontSize } = schema.marks;
 
-	const isSmallFontSizeEnabled =
-		!!fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+	const hasFontSize = !!fontSize;
 
 	// When copying from inside a container (e.g. panel, expand), ProseMirror wraps the
 	// content back in the container via addContext(), increasing openStart/openEnd. Unwrap
 	// so the paragraph (with its fontSize mark) becomes top-level.
-	if (isSmallFontSizeEnabled) {
+	if (hasFontSize) {
 		slice = unwrapContainerNodesWithBlockMarks(slice, schema, fontSize);
 	}
 
@@ -1699,7 +1698,7 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 				$from.depth > 0 &&
 				$from.node($from.depth - 1).type === blockTaskItem));
 
-	const destinationBlockMarkAttrs = isSmallFontSizeEnabled
+	const destinationBlockMarkAttrs = hasFontSize
 		? getDestinationFontSizeAttrs(
 				destinationListNode,
 				isInSmallTaskContext,
@@ -1719,7 +1718,7 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 	}
 
 	const shouldNormalizeFontSizeForTarget =
-		isSmallFontSizeEnabled &&
+		hasFontSize &&
 		(!!destinationListNode || isInNormalTaskContext || isInSmallTaskContext || isInHeadingContext);
 
 	// If pasting a single paragraph into pre-existing content, match destination formatting.
@@ -1866,12 +1865,11 @@ export function handleRichText(
 		const firstChildOfSlice = slice.content?.firstChild;
 		const lastChildOfSlice = slice.content?.lastChild;
 		const listContainerNodeTypes = [bulletList, orderedList];
-		const isSmallFontSizeEnabled =
-			!!fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
-		const destinationListNode = isSmallFontSizeEnabled
+		const hasFontSize = !!fontSize;
+		const destinationListNode = hasFontSize
 			? findParentNodeOfType(listContainerNodeTypes)(selection)?.node
 			: undefined;
-		const destinationListFontSizeAttrs = isSmallFontSizeEnabled
+		const destinationListFontSizeAttrs = hasFontSize
 			? getFirstParagraphBlockMarkAttrs(destinationListNode, fontSize)
 			: false;
 
@@ -1902,12 +1900,10 @@ export function handleRichText(
 		);
 
 		// Compute once and reuse below to avoid traversing the slice twice.
-		const sliceMarkTypes = isSmallFontSizeEnabled
-			? getTopLevelMarkTypesInSlice(slice)
-			: new Set<MarkType>();
+		const sliceMarkTypes = hasFontSize ? getTopLevelMarkTypesInSlice(slice) : new Set<MarkType>();
 
 		const destinationIsEmpty =
-			isSmallFontSizeEnabled &&
+			hasFontSize &&
 			selection.$from.parent.type === paragraph &&
 			selection.$from.parent.textContent.length === 0;
 
@@ -1915,9 +1911,7 @@ export function handleRichText(
 		// before the paste so they can be restored if the paste replaces the paragraph entirely
 		// (which happens when small text is pasted with openStart=0).
 		const destinationNonFontSizeBlockMarks =
-			isSmallFontSizeEnabled &&
-			selection.$from.parent.type === paragraph &&
-			sliceMarkTypes.has(fontSize)
+			hasFontSize && selection.$from.parent.type === paragraph && sliceMarkTypes.has(fontSize)
 				? selection.$from.parent.marks.filter((m) => m.type !== fontSize)
 				: [];
 
@@ -2028,7 +2022,7 @@ export function handleRichText(
 		}
 
 		// font size handling for pasting into lists or blockquotes
-		if (isSmallFontSizeEnabled && (isSliceContentListNodes || sliceContentBlockquoteListNodes)) {
+		if (hasFontSize && (isSliceContentListNodes || sliceContentBlockquoteListNodes)) {
 			const containingList = findParentNodeOfTypeClosestToPos(
 				tr.selection.$from,
 				listContainerNodeTypes,
@@ -2045,7 +2039,7 @@ export function handleRichText(
 
 		// font size handling for pasting into paragraphs (normal text) - preserve source style
 		if (
-			isSmallFontSizeEnabled &&
+			hasFontSize &&
 			destinationIsEmpty &&
 			!sliceMarkTypes.has(fontSize) &&
 			!destinationListNode &&
@@ -2057,7 +2051,7 @@ export function handleRichText(
 
 		// Restore destination block marks (e.g. alignment) that were lost when pasting small text
 		// replaced the paragraph entirely (openStart=0 from container unwrap).
-		if (isSmallFontSizeEnabled && destinationNonFontSizeBlockMarks.length > 0) {
+		if (hasFontSize && destinationNonFontSizeBlockMarks.length > 0) {
 			const pastedFrom = tr.mapping.map(selection.from, -1);
 			const pastedTo = tr.mapping.map(selection.to, 1);
 			for (const mark of destinationNonFontSizeBlockMarks) {
@@ -2080,7 +2074,7 @@ export function handleRichText(
 	};
 }
 
-function isUrlString(text: string): Boolean {
+function isUrlString(text: string): boolean {
 	try {
 		new URL(text);
 
@@ -2090,7 +2084,7 @@ function isUrlString(text: string): Boolean {
 	}
 }
 
-function isLinkOrUrlString(slice: Slice, schema: Schema): Boolean {
+function isLinkOrUrlString(slice: Slice, schema: Schema): boolean {
 	if (slice.content.childCount !== 1 || !isParagraph(slice.content.child(0), schema)) {
 		return false;
 	}

@@ -19,19 +19,17 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type {
-	CardDimensions,
-	CardEvent,
-	CardOnClickCallback,
-	NumericalCardDimensions,
-} from '@atlaskit/media-card';
-import { Card, CardLoading } from '@atlaskit/media-card';
+import type { CardDimensions, CardEvent, CardOnClickCallback } from '@atlaskit/media-card/types';
+import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
+import Card from '@atlaskit/media-card/cardLoader';
+import { CardLoading } from '@atlaskit/media-card/cardLoading';
 import type { Identifier } from '@atlaskit/media-client';
 import type { SSR } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
@@ -42,6 +40,8 @@ import type {
 	getPosHandler as ProsemirrorGetPosHandler,
 	ReactNodeProps,
 } from '../../types';
+import { GeneratedMediaReveal } from '../../ui/GeneratedMediaReveal';
+import { createMediaNodeUpdater } from '../mediaNodeUpdater';
 import { MediaCardWrapper } from '../styles';
 
 // This is being used by DropPlaceholder now
@@ -70,6 +70,13 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 
 interface MediaNodeState {
 	contextIdentifierProvider?: ContextIdentifierProvider;
+	/** File the card reported a terminal error for. Keyed by id, as `previewRenderedFileId`. */
+	failedFileId?: string;
+	/**
+	 * File the card last reported a rendered preview for. Keyed by id rather than a boolean,
+	 * because the node's media can be replaced without remounting this component.
+	 */
+	previewRenderedFileId?: string;
 	viewAndUploadMediaClientConfig?: MediaClientConfig;
 	viewMediaClientConfig?: MediaClientConfig;
 }
@@ -108,6 +115,9 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.selected !== nextProps.selected ||
 			this.props.node.attrs.id !== nextProps.node.attrs.id ||
 			this.props.node.attrs.collection !== nextProps.node.attrs.collection ||
+			// Patched in asynchronously once media services report the real size.
+			this.props.node.attrs.width !== nextProps.node.attrs.width ||
+			this.props.node.attrs.height !== nextProps.node.attrs.height ||
 			this.props.isAIGenerating !== nextProps.isAIGenerating ||
 			this.props.isCwrAIGenerating !== nextProps.isCwrAIGenerating ||
 			this.props.maxDimensions.height !== nextProps.maxDimensions.height ||
@@ -119,6 +129,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.syncProvider !== nextProps.syncProvider ||
 			this.getDataConsumerSource() !== this.getDataConsumerSource(nextProps) ||
 			this.props.mediaOptions?.onMediaRenderEvent !== nextProps.mediaOptions?.onMediaRenderEvent ||
+			this.state.previewRenderedFileId !== nextState.previewRenderedFileId ||
+			this.state.failedFileId !== nextState.failedFileId ||
 			hasNewViewMediaClientConfig ||
 			hasNewViewAndUploadMediaClientConfig
 		) {
@@ -328,8 +340,76 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		},
 	);
 
+	/**
+	 * Surface opt-in first, so surfaces that never ask for the motion are not exposed to the
+	 * gate. The node type is checked after it, so every node on an opted-in surface counts
+	 * towards the same exposure population.
+	 */
+	private get hasGeneratedMediaMotion(): boolean {
+		return (
+			!!this.props.mediaOptions?.allowAIGeneratedMediaMotion &&
+			fg('aifc_page_create_defer_generated_visuals') &&
+			// File-backed only: `ExternalImageCard` reports neither its rendered preview nor its
+			// dimensions, so an external node could only ever open on the reveal's timeout.
+			this.props.node.attrs.type !== 'external'
+		);
+	}
+
+	/**
+	 * Media written straight into the document arrives without intrinsic dimensions, and the
+	 * fetch that would supply them resolves `false` while the file is still processing. Only
+	 * editor-driven uploads get a second attempt, from the plugin's media-state listener, so
+	 * otherwise the card would keep its placeholder ratio forever. The preview rendering is the
+	 * one moment the file is guaranteed ready, so the fetch is retried there.
+	 */
+	private fetchMissingDimensions = async (): Promise<void> => {
+		const {
+			node,
+			view,
+			mediaProvider,
+			contextIdentifierProvider,
+			mediaOptions,
+			pluginInjectionApi,
+		} = this.props;
+		if (
+			node.attrs.type === 'external' ||
+			!node.attrs.id ||
+			(node.attrs.width && node.attrs.height)
+		) {
+			return;
+		}
+
+		const updater = createMediaNodeUpdater({
+			view,
+			mediaProvider,
+			contextIdentifierProvider,
+			node,
+			// Carries `allowRemoteDimensionsFetch`, so surfaces that cannot reach the media
+			// APIs get the default dimensions back instead of a request.
+			mediaOptions,
+			isMediaSingle: true,
+			lineLength: pluginInjectionApi?.width?.sharedState.currentState()?.lineLength,
+		});
+
+		try {
+			const dimensions = await updater.getRemoteDimensions();
+			if (dimensions) {
+				updater.updateDimensions(dimensions);
+			}
+		} catch {
+			// Leaves the card at its placeholder ratio, which the reveal's own timeout covers.
+		}
+	};
+
 	private onPreviewRender = (fileId: string) => {
 		this.emitMediaRenderEvent({ renderedMediaId: fileId, type: 'preview-rendered' });
+		// Only tracked where the reveal uses it. Every media card in every editor calls this,
+		// and the extra render it would otherwise trigger is not free.
+		if (this.hasGeneratedMediaMotion && this.state.previewRenderedFileId !== fileId) {
+			this.setState({ previewRenderedFileId: fileId });
+			this.fetchMissingDimensions();
+		}
+
 		if (isExperimentEnabled('aifc_page_create_with_rovo_include_infographics')) {
 			this.props.pluginInjectionApi?.core?.actions.execute(({ tr }) =>
 				tr.setMeta(mediaStateKey, { type: 'PREVIEW_RENDERED', fileId }),
@@ -338,7 +418,19 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	};
 
 	private onError = (reason: string) => {
+		// The card is already showing its error treatment, so let the reveal open onto
+		// that instead of waiting out its timeout.
+		this.setState({ failedFileId: this.props.node.attrs.id });
+
 		this.emitMediaRenderEvent({ reason, type: 'error' });
+
+		// `getMediaRenderErrorHandler` also wires this for surfaces the analytics
+		// experiment does not cover, so re-read without exposure — the render-time read
+		// owns that — to keep the dispatch inside the experiment's own cohort.
+		if (!expValEqualsNoExposure('platform_editor_media_error_analytics', 'isEnabled', true)) {
+			return;
+		}
+
 		const nestedUnder = this.getNestedUnder();
 		this.props.api?.media.actions.handleMediaNodeRenderError(this.props.node, reason, nestedUnder);
 	};
@@ -349,6 +441,12 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
 	private getMediaRenderErrorHandler = () => {
 		if (expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)) {
+			return this.onError;
+		}
+		// The reveal needs terminal errors too, so it can open onto the card's error treatment
+		// rather than waiting out its timeout. `onError` keeps the analytics dispatch itself
+		// inside the experiment's cohort.
+		if (this.hasGeneratedMediaMotion) {
 			return this.onError;
 		}
 		return this.props.mediaOptions?.onMediaRenderEvent ? this.onRemixRenderError : undefined;
@@ -397,15 +495,32 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			!viewMediaClientConfig &&
 			(fg('platform_media_video_captions') ? !viewAndUploadMediaClientConfig : true);
 
+		const hasGeneratedMediaMotion = this.hasGeneratedMediaMotion;
+
+		// Opening before the real dimensions land would animate to the wrong height and snap
+		// when they correct. Nodes that never get them fall through to the reveal's timeout.
+		//
+		// A terminal error is readiness too: the card is already showing its error treatment,
+		// so the space opens onto that rather than hiding it until the timeout.
+		const isRevealReady =
+			this.state.failedFileId === id ||
+			(this.state.previewRenderedFileId === id && !!node.attrs.width && !!node.attrs.height);
+
 		if (isLoading || (type !== 'external' && hasNoMediaClientConfig)) {
 			return (
-				<MediaCardWrapper
-					dimensions={originalDimensions}
-					borderWidth={borderMark?.attrs.size}
-					selected={selected}
+				<GeneratedMediaReveal
+					isEnabled={hasGeneratedMediaMotion}
+					isReady={isRevealReady}
+					mediaKey={id}
 				>
-					<CardLoading interactionName="editor-media-card-loading" />
-				</MediaCardWrapper>
+					<MediaCardWrapper
+						dimensions={originalDimensions}
+						borderWidth={borderMark?.attrs.size}
+						selected={selected}
+					>
+						<CardLoading interactionName="editor-media-card-loading" />
+					</MediaCardWrapper>
+				</GeneratedMediaReveal>
 			);
 		}
 
@@ -450,53 +565,60 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			isExperimentEnabled('aifc_page_create_with_rovo_include_infographics');
 
 		return (
-			<MediaCardWrapper
-				dimensions={originalDimensions}
-				onContextMenu={this.selectMediaSingle}
-				borderWidth={borderMark?.attrs.size}
-				selected={selected}
+			<GeneratedMediaReveal
+				isEnabled={hasGeneratedMediaMotion}
+				isReady={isRevealReady}
+				mediaKey={id}
 			>
-				<AnalyticsContext
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					data={{
-						[MEDIA_CONTEXT]: {
-							border: !!borderMark,
-							// Only defined for remix-generated media (i.e. media nodes with a dataConsumer mark).
-							// Format: "remix:{type}:{subtype}" e.g. "remix:infographic:corporate-doodle"
-							remixSource: dataConsumerMark?.attrs.sources?.[0],
-						},
-					}}
+				<MediaCardWrapper
+					dimensions={originalDimensions}
+					onContextMenu={this.selectMediaSingle}
+					borderWidth={borderMark?.attrs.size}
+					selected={selected}
 				>
-					<Card
-						mediaClientConfig={mediaClientConfig}
-						resizeMode="stretchy-fit"
-						dimensions={maxDimensions}
-						originalDimensions={originalDimensions}
-						identifier={identifier}
-						selectable={true}
-						selected={selected}
-						disableOverlay={true}
-						onFullscreenChange={this.onFullscreenChange}
-						onClick={this.selectMediaSingleFromCard}
-						useInlinePlayer={mediaOptions && mediaOptions.allowLazyLoading}
-						isLazy={mediaOptions && mediaOptions.allowLazyLoading}
-						featureFlags={mediaOptions && mediaOptions.featureFlags}
-						contextId={contextId}
-						alt={alt}
-						videoControlsWrapperRef={this.videoControlsWrapperRef}
-						ssr={ssr}
-						mediaSettings={this.getMediaSettings(
-							viewAndUploadMediaClientConfig,
-							this.props.isViewOnly,
-						)}
-						isAIGenerating={!!this.props.isAIGenerating}
-						isCWR={isCWR}
-						onPreviewRender={this.onPreviewRender}
-						fallbackMediaNameFetcher={mediaOptions?.fallbackMediaNameFetcher}
-						onError={this.getMediaRenderErrorHandler()}
-					/>
-				</AnalyticsContext>
-			</MediaCardWrapper>
+					<AnalyticsContext
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+						data={{
+							[MEDIA_CONTEXT]: {
+								border: !!borderMark,
+								// Only defined for remix-generated media (i.e. media nodes with a dataConsumer mark).
+								// Format: "remix:{type}:{subtype}" e.g. "remix:infographic:corporate-doodle"
+								remixSource: dataConsumerMark?.attrs.sources?.[0],
+							},
+						}}
+					>
+						<Card
+							mediaClientConfig={mediaClientConfig}
+							resizeMode="stretchy-fit"
+							dimensions={maxDimensions}
+							originalDimensions={originalDimensions}
+							identifier={identifier}
+							selectable={true}
+							selected={selected}
+							disableOverlay={true}
+							onFullscreenChange={this.onFullscreenChange}
+							onClick={this.selectMediaSingleFromCard}
+							useInlinePlayer={mediaOptions && mediaOptions.allowLazyLoading}
+							isLazy={mediaOptions && mediaOptions.allowLazyLoading}
+							featureFlags={mediaOptions && mediaOptions.featureFlags}
+							contextId={contextId}
+							alt={alt}
+							videoControlsWrapperRef={this.videoControlsWrapperRef}
+							ssr={ssr}
+							mediaSettings={this.getMediaSettings(
+								viewAndUploadMediaClientConfig,
+								this.props.isViewOnly,
+							)}
+							isAIGenerating={!!this.props.isAIGenerating}
+							isCWR={isCWR}
+							hasLoadingMotion={hasGeneratedMediaMotion}
+							onPreviewRender={this.onPreviewRender}
+							fallbackMediaNameFetcher={mediaOptions?.fallbackMediaNameFetcher}
+							onError={this.getMediaRenderErrorHandler()}
+						/>
+					</AnalyticsContext>
+				</MediaCardWrapper>
+			</GeneratedMediaReveal>
 		);
 	}
 

@@ -10,7 +10,7 @@ import { jsx, css } from '@compiled/react';
 import { isFileIdentifier } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
-import { useInteractionContext } from '@atlaskit/react-ufo/interaction-context';
+import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
 
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
 import { calculateDimensions } from './calculateDimensions';

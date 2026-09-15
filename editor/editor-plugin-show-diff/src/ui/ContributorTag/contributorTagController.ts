@@ -27,6 +27,8 @@ import { contributorAvatarRenderer, type ContributorAvatar } from './contributor
 import { formatContributorLabel } from './contributorLabel';
 
 export type ContributorTagControllerOptions = {
+	/** The `anchor-name` of the block this tag captions, when it has one. */
+	anchorName?: string;
 	api?: ExtractInjectionAPI<ShowDiffPlugin>;
 	diffId: string;
 	/**
@@ -79,6 +81,16 @@ const FOCUS_SOURCE = Symbol('contributor-tag-focus');
 const setRevealed = (tag: HTMLElement, isVisible: boolean): void => {
 	tag.toggleAttribute(CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE, isVisible);
 };
+
+/**
+ * Whether the browser is showing this focus, which is the same question its focus ring answers — see
+ * the `:focus-visible` rule in `contributorTagStyles`.
+ *
+ * Clicking the tag focuses it, so a tag held up by focus alone stayed on screen after the pointer had
+ * left, until something else took focus (EDITOR-9046). Measured in Chromium: a click leaves this
+ * `false` and `Tab` leaves it `true`, so the keyboard focus stop is unaffected.
+ */
+const isFocusVisible = (tag: HTMLElement): boolean => tag.matches(':focus-visible');
 
 /**
  * Whether flipping the tag's state will actually run a transition on it.
@@ -226,7 +238,7 @@ export class ContributorTagController {
 		}
 
 		if (!this.dom) {
-			this.dom = buildContributorTagDom(host.ownerDocument);
+			this.dom = buildContributorTagDom(host.ownerDocument, this.options.anchorName);
 			this.bindTag(this.dom);
 			host.appendChild(this.dom.root);
 		}
@@ -296,21 +308,24 @@ export class ContributorTagController {
 		this.unbindTag = bindAll(tag, [
 			{ type: 'mouseover', listener: this.trackRevealSource(tag, true) },
 			{ type: 'mouseout', listener: this.trackRevealSource(tag, false) },
-			{ type: 'focus', listener: this.trackRevealSource(FOCUS_SOURCE, true) },
+			// Only a focus the browser is showing holds the tag up — see `isFocusVisible`.
+			{ type: 'focus', listener: () => this.setRevealSource(FOCUS_SOURCE, isFocusVisible(tag)) },
 			{ type: 'blur', listener: this.trackRevealSource(FOCUS_SOURCE, false) },
 		]);
 	}
 
 	/** One listener shape for every reveal source, so all of them land in the same set. */
 	private trackRevealSource(source: EventTarget | symbol, isRevealing: boolean) {
-		return () => {
-			if (isRevealing) {
-				this.revealSources.add(source);
-			} else {
-				this.revealSources.delete(source);
-			}
-			this.applyVisibility();
-		};
+		return () => this.setRevealSource(source, isRevealing);
+	}
+
+	private setRevealSource(source: EventTarget | symbol, isRevealing: boolean): void {
+		if (isRevealing) {
+			this.revealSources.add(source);
+		} else {
+			this.revealSources.delete(source);
+		}
+		this.applyVisibility();
 	}
 
 	private renderAvatars(model: ContributorTagModel): void {

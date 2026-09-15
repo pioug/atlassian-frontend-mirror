@@ -1,6 +1,4 @@
 import React from 'react';
-import SpinnerIcon from '@atlaskit/spinner/spinner';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { LoadingBar } from '../../card/ui/loadingBar/loadingBar';
 import { getDimensionsWithDefault } from './getDimensionsWithDefault';
 import { Wrapper } from './lightCardWrappers';
@@ -20,11 +18,7 @@ export const CardLoading = ({
 			dimensions={dimensions}
 			data-vc="media-card-loading"
 		>
-			{expValEquals('cc-maui-ai-edit-loading-experiment', 'isEnabled', true) ? (
-				<LoadingBar interactionName={interactionName || 'media-card-loading'} />
-			) : (
-				<SpinnerIcon interactionName={interactionName || 'media-card-loading'} />
-			)}
+			<LoadingBar interactionName={interactionName || 'media-card-loading'} />
 		</Wrapper>
 	);
 };

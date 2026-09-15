@@ -24,7 +24,7 @@ import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import type { InlineDialogProps } from './types';
@@ -159,7 +159,7 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 
 	// `isOpen` is included so the anchor positioning effect re-runs when
 	// the Popover host element is unmounted/remounted across open cycles.
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,

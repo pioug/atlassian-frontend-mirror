@@ -28,7 +28,7 @@ import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import Select from '../select';
@@ -144,7 +144,7 @@ function PopupSelectTopLayerInner<
 		[legacyPlacement, legacyOffset],
 	);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,

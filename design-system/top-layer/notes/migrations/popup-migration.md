@@ -89,44 +89,43 @@ Converts Popper.js placement strings (e.g. `'bottom-start'`) to the top-layer ob
 
 ### Fully supported props
 
-| Prop                 | Behavior in top-layer path                                                                 |
-| -------------------- | ------------------------------------------------------------------------------------------ |
-| `isOpen`             | Passed directly to `Popup.Content isOpen`                                                  |
-| `trigger`            | Rendered via `Popup.TriggerFunction` render prop                                           |
-| `content`            | Called with `{ isOpen, update: noop, onClose, setInitialFocusRef }` inside `Popup.Content` |
-| `onClose`            | Bridged via `onClose({ reason })` → synthesized DOM events (see below)                     |
-| `placement`          | Converted via `fromLegacyPlacement()` to CSS Anchor Positioning placement                  |
-| `testId`             | Forwarded to `Popup` and `Popup.Content` (content gets `${testId}--content`)               |
-| `id`                 | Forwarded to `aria-controls` on trigger                                                    |
-| `popupComponent`     | Rendered as child inside `<div popover>` with empty `style={}`                             |
-| `autoFocus`          | Passed through (native popover handles initial focus)                                      |
-| `shouldFitContainer` | Mapped to `width="trigger"` on `Popup.Content` (CSS `anchor-size(width)`)                  |
-| `shouldReturnFocus`  | Focus returned to trigger on Escape when true                                              |
-| `role`               | Mapped to `Popup.Content` role prop (dialog, menu, listbox, etc.)                          |
-
-> Note: `alertdialog` is intentionally unsupported in top-layer; migrate to `dialog` instead. |
-> `label` | Mapped to `aria-label` on `Popup.Content` | | `titleId` | Mapped to `labelledBy` on
-> `Popup.Content` (overrides `label`) | | `shouldFitViewport` | Adds `overflow: auto` wrapper on
-> content | | `xcss` | Forwarded to `popupComponent` (when used) | | `fallbackPlacements` | Accepted
-> but not yet wired (CSS `position-try-fallbacks` handles flipping) | | `shouldFlip` | Accepted but
-> CSS Anchor Positioning handles flipping natively |
+| Prop                 | Behavior in top-layer path                                                                                                                                                                                                                                                                                     |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isOpen`             | Passed directly to `Popup.Content isOpen`                                                                                                                                                                                                                                                                      |
+| `trigger`            | Rendered via `Popup.TriggerFunction` render prop                                                                                                                                                                                                                                                               |
+| `content`            | Called with `{ isOpen, update: noop, onClose, setInitialFocusRef }` inside `Popup.Content`                                                                                                                                                                                                                     |
+| `onClose`            | Bridged via `onClose({ reason })` → synthesized DOM events (see below)                                                                                                                                                                                                                                         |
+| `placement`          | Converted via `fromLegacyPlacement()` to CSS Anchor Positioning placement                                                                                                                                                                                                                                      |
+| `testId`             | Forwarded to `Popup` and `Popup.Content` (content gets `${testId}--content`)                                                                                                                                                                                                                                   |
+| `id`                 | Forwarded to `aria-controls` on trigger                                                                                                                                                                                                                                                                        |
+| `popupComponent`     | Rendered as child inside `<div popover>` with empty `style={}`                                                                                                                                                                                                                                                 |
+| `autoFocus`          | Passed through (native popover handles initial focus)                                                                                                                                                                                                                                                          |
+| `shouldFitContainer` | Mapped to `width="trigger"` on `Popup.Content` (CSS `anchor-size(width)`)                                                                                                                                                                                                                                      |
+| `shouldReturnFocus`  | Focus returned to trigger on Escape when true                                                                                                                                                                                                                                                                  |
+| `role`               | Mapped to `Popup.Content` role prop (dialog, menu, listbox, etc.). `alertdialog` is intentionally unsupported in top-layer; migrate to `dialog` instead                                                                                                                                                        |
+| `label`              | Mapped to `aria-label` on `Popup.Content`                                                                                                                                                                                                                                                                      |
+| `titleId`            | Mapped to `labelledBy` on `Popup.Content` (overrides `label`)                                                                                                                                                                                                                                                  |
+| `shouldFitViewport`  | Maps to `blockSize` / `inlineSize: 'max-available'` via `get-popup-axis-sizes.tsx`, and is forwarded to a custom `popupComponent`                                                                                                                                                                              |
+| `xcss`               | Forwarded to `popupComponent`; otherwise applied to a wrapper `<div>` inside `PopoverSurface` (since 2026-09-10; the standard adapter dropped it before). Unlike legacy, that is a child of the elevated scroll container, so `width` works but `background`, `border-radius` and `overflow` land one level in |
+| `fallbackPlacements` | Accepted but not yet wired (CSS `position-try-fallbacks` handles flipping)                                                                                                                                                                                                                                     |
+| `shouldFlip`         | Accepted but CSS Anchor Positioning handles flipping natively                                                                                                                                                                                                                                                  |
 
 **Test IDs:** Full contract (popover root vs inner container, RTL expectations) —
 **[architecture/test-ids.md](../architecture/test-ids.md)**.
 
 ### No-op props (accepted for API compat, no effect)
 
-| Prop                             | Why unnecessary                                                        |
-| -------------------------------- | ---------------------------------------------------------------------- |
-| `zIndex`                         | Top layer manages stacking — z-index is irrelevant                     |
-| `shouldRenderToParent`           | `popover="auto"` always renders in top layer, regardless               |
-| `strategy`                       | CSS Anchor Positioning replaces Popper strategy                        |
-| `modifiers`                      | Popper.js modifiers not applicable                                     |
-| `boundary`                       | Viewport is the natural boundary                                       |
-| `rootBoundary`                   | Viewport is the natural boundary                                       |
-| `shouldUseCaptureOnOutsideClick` | Native light dismiss (`popover="auto"`) handles this                   |
-| `shouldDisableFocusLock`         | Focus behavior is role-based in top layer (dialog traps, others don't) |
-| `appearance`                     | Accepted but `UNSAFE_modal-below-sm` is not implemented                |
+| Prop                             | Why unnecessary                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `zIndex`                         | Top layer manages stacking — z-index is irrelevant                                                                                                                                                                                                                                                                                                                                                                                                |
+| `shouldRenderToParent`           | `popover="auto"` always renders in top layer, regardless. Deliberately NOT forwarded to a custom `popupComponent` either, where legacy forwards it. The four in-tree containers that read it key on `(!shouldRenderToParent \|\| shouldFitViewport)`, so `undefined` reads as "fitting applies", which is the intended reading on this path. Forwarding `false` would preserve that branch too; revisit only once those containers own their caps |
+| `strategy`                       | CSS Anchor Positioning replaces Popper strategy                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `modifiers`                      | Popper.js modifiers not applicable                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `boundary`                       | Viewport is the natural boundary                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `rootBoundary`                   | Viewport is the natural boundary                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `shouldUseCaptureOnOutsideClick` | Native light dismiss (`popover="auto"`) handles this                                                                                                                                                                                                                                                                                                                                                                                              |
+| `shouldDisableFocusLock`         | Focus behavior is role-based in top layer (dialog traps, others don't)                                                                                                                                                                                                                                                                                                                                                                            |
+| `appearance`                     | Accepted but `UNSAFE_modal-below-sm` is not implemented                                                                                                                                                                                                                                                                                                                                                                                           |
 
 ### Offset conversion
 
@@ -259,12 +258,12 @@ owns its own styling.
    layer.
 
 5. **Cross-axis shift preserved**: The legacy first element of the popper `[along, away]` tuple is
-   now restored via `placement.offset.crossAxisShift`. The CSS path uses four explicit custom
-   properties (`--ds-cross-axis-shift-margin-*`) to apply cross-axis margin; the JS fallback
-   resolves CSS length strings to pixels via a hidden DOM probe (`resolveCssLengthToPixels`) and
-   applies a signed cross-axis coordinate delta with the same per-`align` and per-`direction` sign
-   rules as the CSS path. This restores full parity with popper-era APIs on both runtime paths. See
-   `placement-offset.md`.
+   now restored via `placement.offset.crossAxisShift`. The CSS path writes antisymmetric cross-axis
+   margins (the mirroring `--ds-cross-axis-shift-margin-*` custom properties were removed unread on
+   2026-09-03); the JS fallback resolves CSS length strings to pixels via a hidden DOM probe
+   (`resolveCssLengthToPixels`) and applies a signed cross-axis coordinate delta with the same
+   per-`align` and per-`direction` sign rules as the CSS path. This restores full parity with
+   popper-era APIs on both runtime paths. See `placement-offset.md`.
 
 6. **Synthetic events for `onClose`**: Top-layer's `onClose({ reason })` is bridged to legacy
    `onClose(event)` by synthesizing DOM events. This preserves backward compatibility for consumers
@@ -274,12 +273,12 @@ owns its own styling.
 
 ## Known gaps
 
-| Gap                     | Impact                                                                    |
-| ----------------------- | ------------------------------------------------------------------------- |
-| `UNSAFE_modal-below-sm` | Appearance-based responsive behavior not implemented                      |
-| `fallbackPlacements`    | Accepted but not yet wired to CSS `position-try-fallbacks`                |
-| Screen reader testing   | JAWS/NVDA/VoiceOver matrix not conducted                                  |
-| `onClose` event type    | Synthesized events may not match the original event that caused the close |
+| Gap                     | Impact                                                                                                                                                                                 |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `UNSAFE_modal-below-sm` | Not implemented. Legacy applies `max-height: calc(100vh - 2 * space.050)` plus a fixed full-width layout below `sm`, independent of `shouldFitViewport`; top-layer consumers lose both |
+| `fallbackPlacements`    | Accepted but not yet wired to CSS `position-try-fallbacks`                                                                                                                             |
+| Screen reader testing   | JAWS/NVDA/VoiceOver matrix not conducted                                                                                                                                               |
+| `onClose` event type    | Synthesized events may not match the original event that caused the close                                                                                                              |
 
 ---
 
@@ -332,6 +331,46 @@ When rolling out `platform-dst-top-layer=true`, expect these breaking changes:
 3. **Synthetic `onClose` events** may not match the original DOM event type (e.g., `MouseEvent` vs
    `KeyboardEvent`)
 4. **`aria-haspopup` default changed** from `'true'` to `'dialog'` (affects semantic meaning)
+
+The fit work (2026-08 to 2026-09) added these rollout checks:
+
+5. **`scrollable-region-focusable`.** A fitting popup's surface now genuinely scrolls, so axe
+   requires it to have keyboard-accessible content. Real popup content does; a fitting popup whose
+   content is entirely non-interactive newly fails the rule. Scan the ~53 `@atlaskit/popup` enabler
+   sites before 100%.
+6. **The four jira DeepLink containers** re-implement the original bug, an inert `overflow: auto`
+   toggle with no cap: `jira/src/packages/issue/deeplink/src/DeepLinkPopup.tsx`,
+   `.../DeepLinkPopupStorageInit.tsx`,
+   `jira/src/packages/development/deeplink/src/DeepLinkPopup.tsx` and
+   `jira/src/packages/development/summary-connect-dev-tools/src/ConnectDevToolsPopup.tsx`. They now
+   get a real cap from the host and `shouldFitViewport` forwarded, so they should work; check them
+   explicitly, and their hand-rolled overflow wrappers can be deleted.
+7. **jql-builder's `FixedWidthPopupComponent`**
+   (`jira/src/packages/jql-builder/basic-picker/src/ui/popup-container/`) declares
+   `overflow: visible` deliberately and carries the elevation shadow. It is why `shouldFitViewport`
+   is forwarded rather than `overflow` being owned by the host. Confirm the picker still behaves.
+8. **Six custom containers break the container contract** stated in the `PopupComponentProps`
+   docblock: the container above, avp `NonScrollingPopupContainer`, `RoutingHistoryTriggerFilter`,
+   mercury `AIPopup` / `Glow.tsx`, `SurveyInsightsPopup`, and both `HelpSpotlightPopup` twins. Their
+   box is capped but their content spills. Treat as a checklist; see
+   [../follow-ups/custom-popup-component-contract.md](../follow-ups/custom-popup-component-contract.md).
+9. **Mercury's ~25 "+N" / "more items" popups** are small, short-content popovers, exactly the shape
+   the 150px flip floor pads out, and their open-popup baselines live in informational (non-gating)
+   VR suites, so a regression there does not fail a build.
+10. **jira `horizontal-nav-tabs/AppTabMenu.tsx` sets `shouldFlip={false}`**, which is inert on this
+    path, and reaches it through `JiraPopup`. The flip floor makes the inertness visible: a fitting
+    popover now flips at `floor + gap + padding` where before it stayed put and shrank. See
+    [../decisions/migration-roadmap.md](../decisions/migration-roadmap.md) → _Open API decisions_.
+11. **`platform/packages/people-and-teams/teams/src/common/no-background-popup-component/index.tsx`**
+    spreads `...props` straight onto a `<Box>`, so `shouldFitViewport` leaks to the DOM (it already
+    did on the legacy path). Destructure it out.
+12. **Nested anchored overlays inside a now-scrolling surface.** Nothing in `@atlaskit/top-layer`
+    sets `position-visibility`, so a popover anchored to something inside a scrolled-away region of
+    a fitting popup stays visible, detached from its anchor. Not new, but far more reachable now
+    that the surface actually scrolls.
+13. **Delete `popup/src/__tests__/playwright/should-fit-viewport.spec.tsx` at 100%.** It asserts
+    `toHaveCSS('overflow', 'auto')` on the legacy path only, the declaration-shaped assertion this
+    work replaced. Accurate for legacy, so left until the legacy path goes.
 
 ## Adoption findings — what was a real bug vs. wrong test
 

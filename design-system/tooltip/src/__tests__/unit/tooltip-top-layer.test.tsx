@@ -547,7 +547,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('Content with update: function');
 	});
 
-	it('should inherit the default 8px gap from useAnchorPosition', async () => {
+	it('should inherit the default 8px gap from useAnchoredPopover', async () => {
 		const user = createUser();
 
 		render(
@@ -562,7 +562,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		await runAllTimers();
 
 		// The popover should be in the document. The gap is applied internally
-		// by useAnchorPosition (defaults to `token('space.100', '8px')` when no
+		// by useAnchoredPopover (defaults to `token('space.100', '8px')` when no
 		// offset is provided), but we verify the tooltip renders at all.
 		expect(screen.getByTestId('tooltip--popover')).toBeInTheDocument();
 	});

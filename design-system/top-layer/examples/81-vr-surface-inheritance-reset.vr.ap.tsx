@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 const LONG_TEXT = 'Another done with a long name that will be truncated';
 
@@ -59,7 +59,7 @@ export default function VrSurfaceInheritanceReset(): ReactNode {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(true);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'inline', edge: 'end' },

@@ -3,8 +3,8 @@ import React, { useMemo } from 'react';
 import Loadable from 'react-loadable';
 
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
-import type { MentionProvider } from '@atlaskit/mention';
-import { ResourcedMention } from '@atlaskit/mention';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import ResourcedMention from '@atlaskit/mention/resourced-mention';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled

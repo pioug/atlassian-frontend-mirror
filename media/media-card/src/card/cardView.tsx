@@ -25,7 +25,6 @@ import type { MediaFilePreview } from '@atlaskit/media-file-preview/types';
 import { messages } from '@atlaskit/media-ui/messages';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import SpinnerIcon from '@atlaskit/spinner/spinner';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -55,6 +54,7 @@ import { PreviewUnavailable } from './ui/iconMessage/PreviewUnavailable';
 import { IconWrapper } from './ui/iconWrapper/iconWrapper';
 import { ImageRenderer } from './ui/imageRenderer';
 import { LoadingBar } from './ui/loadingBar/loadingBar';
+import { LoadingHold } from './ui/loadingHold/loadingHold';
 import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
 import { PlayButton } from './ui/playButton/playButton';
 import { ProgressBar } from './ui/progressBar/progressBar';
@@ -126,6 +126,10 @@ export interface CardViewProps {
 	readonly isAIGenerating?: boolean;
 	// Marks the card as part of the CWR (create-with-Rovo) infographics flow.
 	readonly isCWR?: boolean;
+	// When true, no loading indicator is drawn — the card's own surface acts as the
+	// placeholder and the media preview fades in over it once it has rendered. Also behind
+	// `aifc_page_create_defer_generated_visuals`.
+	readonly hasLoadingMotion?: boolean;
 }
 
 export type CardViewBaseProps = CardViewProps & WithAnalyticsEventsProps;
@@ -143,7 +147,7 @@ export interface RenderConfigByStatus {
 	isFixedBlanket?: boolean;
 	renderProgressBar?: boolean;
 	renderAIBorder?: boolean;
-	renderSpinner?: boolean;
+	renderLoading?: boolean;
 	renderFailedTitleBox?: boolean;
 	renderTickBox?: boolean;
 	customTitleMessage?: MessageDescriptor;
@@ -189,6 +193,7 @@ export const CardViewBase = ({
 
 	isAIGenerating,
 	isCWR,
+	hasLoadingMotion,
 	backgroundColor,
 }: CardViewBaseProps): React.JSX.Element => {
 	const intl = useIntl();
@@ -197,6 +202,20 @@ export const CardViewBase = ({
 	const divRef = useRef<HTMLDivElement>(null);
 	const prevCardPreviewRef = useRef<MediaFilePreview | undefined>();
 	const breakpoint = useBreakpoint(dimensions?.width, divRef);
+
+	const isErrorStatus = status === 'error' || status === 'failed-processing';
+	// While the motion owns the loading presentation the card draws nothing of its own — no
+	// indicator, progress bar, type icon or background — so the consumer can open space into
+	// emptiness and fade the preview in over it. Errors keep their normal treatment, or a
+	// failure would be indistinguishable from empty space.
+	//
+	// Every consumer below derives from this, so gating it here enforces the gate at the
+	// component boundary rather than trusting callers to do it. The prop is the left operand
+	// because every media card in every product renders this component — reading the gate
+	// unconditionally would put all of them in its exposure population. `isErrorStatus` is
+	// checked after it, so cards that opted in still count towards that population.
+	const suppressLoadingUI =
+		!!hasLoadingMotion && fg('aifc_page_create_defer_generated_visuals') && !isErrorStatus;
 
 	useEffect(() => {
 		// We should only switch didImageRender to false when cardPreview goes undefined, not when it is changed. as this method could be triggered after onImageLoad callback, falling on a race condition
@@ -256,22 +275,24 @@ export const CardViewBase = ({
 			...defaultConfig,
 			renderPlayButton: false,
 			renderTypeIcon: false,
-			renderSpinner: !didImageRender && !didSvgRender,
+			renderLoading: !didImageRender && !didSvgRender,
 		};
 
 		switch (status) {
 			case 'uploading':
 				return {
 					...defaultConfig,
-					renderBlanket: !disableOverlay || mediaType !== 'video',
+					renderBlanket: !suppressLoadingUI && (!disableOverlay || mediaType !== 'video'),
 					isFixedBlanket: true,
-					renderProgressBar: !isAIGenerating,
+					renderProgressBar: !isAIGenerating && !suppressLoadingUI,
+					renderTypeIcon: !suppressLoadingUI && defaultConfig.renderTypeIcon,
 				};
 			case 'processing':
 				return {
 					...defaultConfig,
+					renderTypeIcon: !suppressLoadingUI && defaultConfig.renderTypeIcon,
 					iconMessage:
-						!didImageRender && !isZeroSize ? (
+						!didImageRender && !isZeroSize && !suppressLoadingUI ? (
 							<CreatingPreview disableAnimation={disableAnimation} />
 						) : undefined,
 				};
@@ -337,7 +358,7 @@ export const CardViewBase = ({
 		iconMessage,
 		renderImageRenderer,
 		renderSvgView,
-		renderSpinner,
+		renderLoading,
 		renderPlayButton,
 		renderBlanket,
 		renderProgressBar,
@@ -354,10 +375,15 @@ export const CardViewBase = ({
 	const renderAIBorderOverride =
 		!!isAIGenerating &&
 		fg('cc-maui-phase-2') &&
-		expValEquals('cc-maui-experiment', 'isEnabled', true);
+		expValEquals('cc-maui-experiment', 'isEnabled', true) &&
+		// Last so the gates above are still evaluated, and their exposures still fire, on
+		// surfaces that suppress the overlay.
+		!suppressLoadingUI;
 	/* eslint-enable @atlaskit/platform/no-preconditioning */
 	const shouldDisplayBackground =
-		!cardPreview || !disableOverlay || status === 'error' || status === 'failed-processing';
+		status === 'error' ||
+		status === 'failed-processing' ||
+		(!suppressLoadingUI && (!cardPreview || !disableOverlay));
 	const isPlayButtonClickable = shouldRenderPlayButton() && !!disableOverlay;
 	const isTickBoxSelectable = !disableOverlay && !!selectable && !selected;
 
@@ -396,6 +422,20 @@ export const CardViewBase = ({
 		onSvgLoad?.();
 	};
 
+	// Held back until the preview has rendered, then faded in over the card's surface.
+	let mediaMotion: 'hidden' | 'entering' | undefined;
+	if (suppressLoadingUI) {
+		mediaMotion = didImageRender || didSvgRender ? 'entering' : 'hidden';
+	}
+
+	const renderLoadingPlaceholder = () => (
+		<LoadingBar
+			animationDisabled={disableAnimation}
+			testId="media-card-loading"
+			interactionName="media-card-loading"
+		/>
+	);
+
 	const contents = (
 		<React.Fragment>
 			<ImageContainer
@@ -407,6 +447,7 @@ export const CardViewBase = ({
 				mediaCardCursor={mediaCardCursor}
 				selected={selected}
 				source={cardPreview?.source}
+				mediaMotion={mediaMotion}
 			>
 				{renderTypeIcon && (
 					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
@@ -419,17 +460,13 @@ export const CardViewBase = ({
 						{iconMessage}
 					</IconWrapper>
 				)}
-				{renderSpinner &&
-					(expValEquals('cc-maui-ai-edit-loading-experiment', 'isEnabled', true) ? (
-						<LoadingBar
-							animationDisabled={disableAnimation}
-							testId="media-card-loading"
-							interactionName="media-card-loading"
-						/>
+				{renderLoading &&
+					(suppressLoadingUI ? (
+						// Nothing is drawn, but the interaction still has to be held for the
+						// same window as the indicator it replaces.
+						<LoadingHold interactionName="media-card-loading" />
 					) : (
-						<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
-							<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
-						</IconWrapper>
+						renderLoadingPlaceholder()
 					))}
 				{renderSvgView && identifier && isFileIdentifier(identifier) && (
 					<SvgView

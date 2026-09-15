@@ -71,6 +71,58 @@ export class JQLEditorPage {
 		await expect(this.input).toHaveText('');
 	};
 
+	/**
+	 * Waits until the editor has parsed and rendered the given query.
+	 *
+	 * Typing into the editor only mutates the contenteditable DOM: ProseMirror picks that mutation
+	 * up, reparses the query and reapplies syntax highlighting in a later transaction, and the React
+	 * store is updated from that transaction. Until that round trip completes the editor still holds
+	 * the previous query, so an action taken straight after typing — submitting a search, hovering a
+	 * token — can be handled against the query the test has just replaced.
+	 *
+	 * @param text Query text expected to be rendered by the editor.
+	 */
+	waitForInputText = async (text: string): Promise<void> => {
+		await expect(this.input).toHaveText(text);
+	};
+
+	/**
+	 * Replaces the entire query with the given text and waits for the editor to apply it.
+	 *
+	 * Prefer this over `clear()` plus {@link appendInputValue} when the test needs the editor to hold
+	 * an exact query. Those build the new query from whatever the editor is rendering at that moment,
+	 * which is only known once the editor has applied the query it was mounted with — before that,
+	 * the query under test is silently appended to the initial one instead of replacing it. Filling
+	 * the whole value is independent of the current content, so it is unaffected by that timing.
+	 *
+	 * @param text Query text to replace the editor content with.
+	 */
+	setInputValue = async (text: string): Promise<void> => {
+		await this.input.fill(text);
+		await this.waitForInputText(text);
+	};
+
+	/**
+	 * Hovers the invalid token until the validation tooltip is shown.
+	 *
+	 * The tooltip is driven directly by the editor's `mouseover`/`mouseleave` handlers rather than by
+	 * editor state, so it is only shown while the pointer is genuinely over an error token. Anything
+	 * that moves the token out from under a stationary pointer after the hover — the autocomplete
+	 * dropdown opening once its suggestions have been fetched, or the token being re-rendered when
+	 * syntax highlighting is reapplied — dispatches a boundary event that hides it again. Retrying
+	 * the hover keeps this resilient to that churn instead of depending on the first hover landing
+	 * after the editor has settled.
+	 *
+	 * The pointer is parked away from the editor before each attempt so that every attempt produces a
+	 * fresh `mouseover`; hovering an element the pointer already sits on dispatches nothing.
+	 */
+	hoverErrorToken = async (): Promise<void> => {
+		await expect(async () => {
+			await this.page.mouse.move(0, 0);
+			await this.errorToken.hover();
+			await expect(this.validationTooltip).toBeVisible();
+		}).toPass();
+	};
 	appendInputValue = async (text: string): Promise<void> => {
 		let currentText = await this.input.textContent();
 		await this.input.fill(currentText + text);

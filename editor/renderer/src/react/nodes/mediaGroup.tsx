@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import React, { PureComponent } from 'react';
-import type { CardEvent } from '@atlaskit/media-card';
-import { defaultImageCardDimensions } from '@atlaskit/media-card';
+import type { CardEvent } from '@atlaskit/media-card/types';
+import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
 import type { SizeEvent, ScrollEvent } from '@atlaskit/media-filmstrip';
 import { FilmstripView } from '@atlaskit/media-filmstrip';
 import type {

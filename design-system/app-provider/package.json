@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "5.5.1",
+	"version": "6.0.0",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		"./app-provider": "./src/app-provider.tsx",
 		"./scrollbar-harmonisation": "./src/scrollbar-harmonisation/scrollbar-harmonisation.tsx",
 		"./use-scrollbar-harmonisation": "./src/scrollbar-harmonisation/use-scrollbar-harmonisation.tsx",
+		"./get-scrollbar-harmonisation-html-attrs": "./src/scrollbar-harmonisation/get-scrollbar-harmonisation-html-attrs.tsx",
 		"./use-color-mode-for-migration": "./src/theme-provider/hooks/use-color-mode-for-migration.tsx",
 		"./use-color-mode": "./src/theme-provider/hooks/use-color-mode.tsx",
 		"./use-is-inside-theme-provider": "./src/theme-provider/hooks/use-is-inside-theme-provider.tsx",

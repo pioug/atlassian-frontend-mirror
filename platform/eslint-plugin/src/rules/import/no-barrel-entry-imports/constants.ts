@@ -39,7 +39,6 @@ export const debarrelPackageFolders = [
 	'platform/packages/atlassian-studio/virtual-service-agent-linear-onboarding',
 	'platform/packages/audit-logs/audit-log-events-query-controller',
 	'platform/packages/audit-logs/audit-log-export',
-	'platform/packages/audit-logs/audit-log-section-message-catalog',
 	'platform/packages/audit-logs/audit-logs-common',
 	'platform/packages/audit-logs/audit-logs-filters',
 	'platform/packages/audit-logs/audit-logs-table',

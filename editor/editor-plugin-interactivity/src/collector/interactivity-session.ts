@@ -69,6 +69,6 @@ export class InteractivitySession {
 		this.objectId = start.objectId;
 		this.mode = start.mode;
 		this.hiddenSince = start.hidden ? this.startedAt : undefined;
-		this.tracker = new InteractionTracker(start.startsAfterInteractionId);
+		this.tracker = new InteractionTracker(start.startsAfterInteractionId, this.startedAt);
 	}
 }

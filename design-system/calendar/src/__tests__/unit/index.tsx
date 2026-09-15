@@ -750,4 +750,37 @@ describe('Calendar', () => {
 			},
 		},
 	);
+
+	cases(
+		"should use locale's starting weekday if not provided",
+		({ locale, expected }: { locale: string; expected: string }) => {
+			passGate('platform-dst-locale-week-start-day');
+			setup({
+				locale,
+			});
+			const headerElements = screen.getAllByTestId(`${testId}--column-headers`)?.[0];
+			expect(headerElements).toHaveTextContent(expected);
+		},
+		{
+			enUS: {
+				locale: 'en-US',
+				expected: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].join(''),
+			},
+			esES: {
+				locale: 'es-ES',
+				expected: ['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'].join(''),
+			},
+		},
+	);
+
+	it("should keep an explicit weekStartDay even when it differs from the locale's default", () => {
+		setup({
+			locale: 'es-ES',
+			weekStartDay: 0,
+		});
+		const headerElements = screen.getAllByTestId(`${testId}--column-headers`)?.[0];
+		expect(headerElements).toHaveTextContent(
+			['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'].join(''),
+		);
+	});
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TimePicker } from '@atlaskit/datetime-picker';
+import TimePicker from '@atlaskit/datetime-picker/time-picker';
 import Field from '@atlaskit/form/field';
 
 const TimePickerRequiredExample = (): React.JSX.Element => (

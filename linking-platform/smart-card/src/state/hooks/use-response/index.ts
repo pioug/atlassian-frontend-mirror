@@ -109,12 +109,30 @@ const useResponse = (): {
 			isMetadataRequest?: boolean,
 			metadataStatus: MetadataStatus = 'resolved',
 		) => {
-			// Some optimized resolves intentionally leave metadata pending so hover can fetch it.
-			// Check response status before evaluating the feature gate so non-resolved responses
-			// do not fire a gate exposure when the gate result would be ignored.
+			/**
+			 * Metadata status scenarios:
+			 * - Gate off, or a non-resolved response: use `resolved`, preserving legacy behavior and
+			 *   avoiding a gate exposure when the result would not affect the status.
+			 * - Gate on with full metadata: use the provided/default `resolved` status.
+			 * - Gate on with reduced inline metadata: use the provided `pending` status so block or
+			 *   hover rendering knows to request the full metadata later.
+			 * - Reduced inline metadata arriving after full metadata: keep the existing `resolved`
+			 *   status so an out-of-order response cannot trigger another full request.
+			 * - Explicit reload: allow `pending` even after full metadata, because the caller is
+			 *   intentionally replacing the existing data.
+			 */
 			const shouldUseProvidedMetadataStatus =
 				getStatus(response) === 'resolved' && fg('platform_smartlink_inline_resolve_optimization');
-			setMetadataStatus(resourceUrl, shouldUseProvidedMetadataStatus ? metadataStatus : 'resolved');
+			const shouldPreserveResolvedMetadata =
+				shouldUseProvidedMetadataStatus &&
+				metadataStatus === 'pending' &&
+				!isReloading &&
+				getState()[resourceUrl]?.metadataStatus === 'resolved';
+			const nextMetadataStatus =
+				shouldUseProvidedMetadataStatus && !shouldPreserveResolvedMetadata
+					? metadataStatus
+					: 'resolved';
+			setMetadataStatus(resourceUrl, nextMetadataStatus);
 			// Dispatch Analytics and resolved card action - including unauthorized states.
 			if (isReloading) {
 				dispatch(cardAction(ACTION_RELOADING, { url: resourceUrl }, response));
@@ -131,7 +149,7 @@ const useResponse = (): {
 				);
 			}
 		},
-		[setMetadataStatus, dispatch],
+		[getState, setMetadataStatus, dispatch],
 	);
 
 	const handleResolvedLinkResponse = useCallback(

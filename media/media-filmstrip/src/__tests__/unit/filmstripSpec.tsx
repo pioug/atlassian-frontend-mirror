@@ -5,27 +5,28 @@ import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { type Identifier } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
-jest.mock('@atlaskit/media-card', () => {
-	const original = jest.requireActual('@atlaskit/media-card');
-	return {
-		...original,
-		Card: (props: any) => (
-			<div
-				data-testid={`media-card-${props.identifier?.id || 'unknown'}`}
-				data-selectable={props.selectable}
-				data-selected={props.selected}
-				data-should-open-media-viewer={props.shouldOpenMediaViewer}
-				data-has-media-client-config={props.mediaClientConfig ? 'true' : undefined}
-				data-media-viewer-items={
-					props.mediaViewerItems ? JSON.stringify(props.mediaViewerItems) : undefined
-				}
-			>
-				Card
-			</div>
-		),
-		CardLoading: (props: any) => <div data-testid="card-loading">CardLoading</div>,
-	};
-});
+jest.mock('@atlaskit/media-card/cardLoader', () => ({
+	...jest.requireActual('@atlaskit/media-card/cardLoader'),
+	__esModule: true,
+	default: (props: any) => (
+		<div
+			data-testid={`media-card-${props.identifier?.id || 'unknown'}`}
+			data-selectable={props.selectable}
+			data-selected={props.selected}
+			data-should-open-media-viewer={props.shouldOpenMediaViewer}
+			data-has-media-client-config={props.mediaClientConfig ? 'true' : undefined}
+			data-media-viewer-items={
+				props.mediaViewerItems ? JSON.stringify(props.mediaViewerItems) : undefined
+			}
+		>
+			Card
+		</div>
+	),
+}));
+jest.mock('@atlaskit/media-card/cardLoading', () => ({
+	...jest.requireActual('@atlaskit/media-card/cardLoading'),
+	CardLoading: (props: any) => <div data-testid="card-loading">CardLoading</div>,
+}));
 
 describe('<Filmstrip />', () => {
 	const firstIdentifier: Identifier = {

@@ -11,7 +11,7 @@ import { Popper } from '@atlaskit/popper/main';
 import { token } from '@atlaskit/tokens';
 
 /**
- * FF-on virtual-element example. Drives the `useAnchorPositionAtPoint`
+ * FF-on virtual-element example. Drives the `useAnchoredPopoverAtPoint` path
  * branch of `popper-top-layer.tsx`. The button mutates a stable
  * `VirtualElement` instance (so the prop identity does not change), and
  * the latched `getPoint` must re-read the current rect on the next

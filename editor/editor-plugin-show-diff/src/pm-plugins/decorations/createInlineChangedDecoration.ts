@@ -6,7 +6,7 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import type { DiffType, RevealOptions } from '../../showDiffPluginType';
 import { CONTRIBUTOR_TAG_Z_INDEX } from '../../ui/ContributorTag/buildContributorTagDom';
 import { isExtendedEnabled } from '../isExtendedEnabled';
-import { hasVisibleContent } from '../utils/hasVisibleContent';
+import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 
 import {
 	buildAtomicInlineChangedCSSVariables,
@@ -234,16 +234,14 @@ export const createInlineChangedDecoration = ({
 	// tag host's key, remounting every tag mid-step. Random ids are kept when tags are off.
 	const diffId = showContributorTags ? `inline-${change.fromB}-${change.toB}` : crypto.randomUUID();
 
-	// Whether this highlight hosts a tag. A range of nothing but whitespace has nothing to caption,
-	// so it stays unattributed: the spec is the only route attribution takes to
-	// `extractContributorTags`, so dropping the key there is what keeps a tag from being resolved for
-	// a host that is never emitted (EDITOR-8855).
+	// Match the rendered shape: whitespace text is eligible, while an empty paragraph is structural
+	// content with no tag host.
 	const canTagChange =
 		showContributorTags &&
 		!!doc &&
 		isExtendedEnabled(diffType) &&
 		isContributorTagWidgetEnabled() &&
-		hasVisibleContent(doc.slice(change.fromB, change.toB).content);
+		!isEmptyParagraphSlice(doc.slice(change.fromB, change.toB));
 
 	if (shouldHideDeleted) {
 		return [

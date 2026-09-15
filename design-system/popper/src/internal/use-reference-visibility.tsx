@@ -83,7 +83,10 @@ function isClippedByAncestors(element: HTMLElement): boolean {
  *   visual viewport OR is clipped to zero area by any scrollable
  *   ancestor.
  * - `hasPopperEscaped`: the popover surface's rect is fully outside the
- *   visual viewport.
+ *   visual viewport. A known divergence from legacy, which means
+ *   "escaped its clipping boundary", not the viewport. Deferred because
+ *   the value has zero product consumers — see top-layer's
+ *   `notes/migrations/popper-migration.md`.
  *
  * Measurement runs in a `useLayoutEffect` so the first paint already
  * reflects the correct values, preventing consumers from animating

@@ -9,6 +9,13 @@ import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import * as componentModule from '../../component';
 import { LazyIntersectionObserverCard } from '../LazyIntersectionObserverCard';
 
+type CardAppearance = React.ComponentProps<typeof LazyIntersectionObserverCard>['appearance'];
+
+const mockUsePrefetch = jest.fn((_url: string, _appearance: CardAppearance) => jest.fn());
+jest.mock('../../../../state/hooks/usePrefetch', () => ({
+	usePrefetch: (url: string, appearance: CardAppearance) => mockUsePrefetch(url, appearance),
+}));
+
 describe('LazyIntersectionObserverCard', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
@@ -62,6 +69,12 @@ describe('LazyIntersectionObserverCard', () => {
 			unmount();
 
 			expect(disconnect).toHaveBeenCalledTimes(1);
+		});
+
+		it('should prefetch data for the card appearance', () => {
+			setup({ appearance: 'inline' });
+
+			expect(mockUsePrefetch).toHaveBeenCalledWith('http://example.com', 'inline');
 		});
 	});
 

@@ -24,6 +24,12 @@ parity with popper-era APIs and reversing the 2026-03-17 decision to drop along-
 > lockstep (`--ds-shift-margin-*` → `--ds-cross-axis-shift-margin-*`). The `fromLegacyPlacement`
 > adapter still accepts the popper-era `[along, away]` tuple unchanged.
 
+> Update (2026-09-03): the four `--ds-cross-axis-shift-margin-*` custom properties are **removed**.
+> Nothing ever read them: they were written for the named arrow `@position-try` rules described
+> below, which were never built (there is no `src/arrow/`), and the antisymmetric margins carry the
+> shift on their own. Whoever builds the arrow rules should reintroduce them then, or read the
+> margins directly. The shift behaviour itself is unchanged.
+
 ---
 
 ## Context
@@ -96,7 +102,7 @@ type TPlacement = {
 
 - `TPlacementOptions.offset` is a deep-partial type; consumers may omit parts and get defaults.
 - `resolvePlacement()` returns a resolved `TPlacement` with all parts filled.
-- `useAnchorPosition()` and fallback code paths receive a fully-resolved `TPlacement`.
+- `useAnchoredPopover()` and fallback code paths receive a fully-resolved `TPlacement`.
 
 ---
 
@@ -177,34 +183,29 @@ same-axis flip.
 This behaviour is unchanged from the single-margin implementation and currently has no test
 coverage.
 
-Four custom properties mirror the margins, two of which are non-zero at a time (the two on the
-active cross axis):
+Four custom properties used to mirror the margins (`--ds-cross-axis-shift-margin-start` / `-end` /
+`-block-start` / `-block-end`). **Removed 2026-09-03**, unread: they existed for the arrow rules
+below, which were never built, and the antisymmetric margins survive a cross-axis slide on their
+own.
 
-- `--ds-cross-axis-shift-margin-start`: block-axis cross (inline) START margin
-- `--ds-cross-axis-shift-margin-end`: block-axis cross (inline) END margin
-- `--ds-cross-axis-shift-margin-block-start`: inline-axis cross (block) START margin
-- `--ds-cross-axis-shift-margin-block-end`: inline-axis cross (block) END margin
+**Arrow handling (planned, not built):**
 
-Nothing reads these yet. They are written for the planned named arrow `@position-try` rules
-described below, and the shift itself no longer depends on them, because the antisymmetric margins
-survive a cross-axis slide on their own.
+The design was: 12 named `@position-try` rules (one per `axis` × `edge` × `align` combination), each
+reading the relevant signed custom property and setting only the cross-axis START margin for its
+primary axis — never both, never the END margin, never the primary-axis shift margin, which is what
+avoided the margin conflicts that caused ghost arrows. Flipping the edge does not change the
+cross-axis side, so the same property would still carry the offset.
 
-**Arrow handling:**
-
-All 12 named `@position-try` rules (one per `axis` × `edge` × `align` combination) read the relevant
-signed custom property. Each rule sets only the cross-axis START margin for its primary axis — never
-both, never the END margin, never the primary-axis shift margin. This avoids margin conflicts that
-previously caused ghost arrows. When CSS flips the edge (e.g., from below to above), the cross-axis
-side does not change, so the same custom property still carries the offset. The `useAnchorPosition`
-hook only updates the custom properties when the resolved placement itself changes; flipping inside
-the browser's anchor positioning engine does not require a JS recomputation.
+None of this was built, and as of 2026-09-03 the custom properties it depended on are gone. Anyone
+picking it up needs to reintroduce them (or have the rules read the margins directly).
 
 ---
 
 ## JS Fallback Path
 
-The JS fallback path (`computeFallbackPosition` in `internal/anchor-positioning-fallback.tsx`)
-honours both `offset.gap` and `offset.crossAxisShift`. It computes a final position by:
+The JS fallback path (`computeFallbackPosition` in
+`internal/javascript-fallback/anchor-positioning-fallback.tsx`) honours both `offset.gap` and
+`offset.crossAxisShift`. It computes a final position by:
 
 1. Placing the popup at the trigger edge.
 2. Adding the consumer-supplied `gap` (default 8px, which matches the historical
@@ -223,19 +224,20 @@ honours both `offset.gap` and `offset.crossAxisShift`. It computes a final posit
 
 `gap` and `shift.value` may be plain numbers, `${n}px` strings, or any other CSS length (tokens like
 `token('space.100')` which expand to `var(--ds-space-100, 8px)`, `calc()` expressions, `rem`,
-viewport units, etc). `useAnchorPosition` resolves them per measurement using
-`resolveCssLengthToPixels` (`internal/resolve-css-length-to-pixels.tsx`):
+viewport units, etc). `useAnchoredPopover` resolves them per measurement using
+`resolveCssLengthToPixels` (`internal/javascript-fallback/resolve-css-length-to-pixels.tsx`):
 
 1. Numbers are returned as-is.
 2. `${n}px` strings hit a fast regex path (no DOM mutation) — this catches the common case produced
    by `resolvePlacement`'s number normalisation.
-3. Everything else: mount a hidden `<div>` next to the popover, set `margin-left: <value>` on it (we
+3. Everything else: mount a hidden `<div>` inside the popover, set `margin-left: <value>` on it (we
    use `margin-left` rather than `width` so signed values are preserved — `width` clamps to 0), read
    `parseFloat(getComputedStyle(probe).marginLeft)`, then remove the probe.
 
-The probe is mounted inside the popover's parent so it inherits the same containing block, font
-size, and custom-property scope — `var(--ds-space-100, 8px)` resolves the same way it would for the
-popover itself.
+The probe is mounted inside the popover ITSELF, so `var(--ds-space-100, 8px)` resolves against the
+scope a token would resolve against from inside the popover content. Not the popover's parent: the
+popover lives in the top layer, not the anchor's DOM tree, so probing there resolves against a
+different scope than the consumer authored against.
 
 The cost is one synchronous reflow per consumer offset value per measurement. The fallback only
 resolves on placement/offset changes, not on every scroll or resize update, so this is not a hot
@@ -257,14 +259,19 @@ invisible to users — which is what unlocked offset honouring on the JS path.
 Some browsers (Firefox) fire the `toggle` event synchronously during `showPopover()` before laying
 the popover out, so we cannot measure it inside that listener — we have to defer to a
 `ResizeObserver` callback that fires after the browser has computed real dimensions for the popover.
-`useAnchorPosition` synchronously sets `opacity: 0` inside the `toggle: open` listener, runs the
-resolver and the position math, writes `top` and `left`, then removes the opacity property. The
-popover is therefore never visibly painted at the wrong position. This is the same
-hide-until-positioned pattern Floating UI uses for popper-style libraries.
+The fallback sets `opacity: 0` inside the `toggle: open` listener, runs the resolver and the
+position math, writes `top` and `left`, then removes the opacity property. The popover is therefore
+never visibly painted at the wrong position. This is the same hide-until-positioned pattern Floating
+UI uses for popper-style libraries.
+
+Two deliberate exceptions, both added 2026-09-03 to keep the fallback best-effort: the hide is
+skipped entirely when `ResizeObserver` is missing (no measurement is coming, so hiding would be
+permanent), and the reveal runs in a `finally`, so a throw while measuring reveals an unpositioned
+popover instead of leaving an invisible one.
 
 If the JS-fallback effect runs _after_ the popover is already open (e.g. a popover mounted with
 `isOpen={true}` — child effects run before parent effects in React, so the `Popover` component's
-`showPopover()` has already fired the `toggle` event before the parent `useAnchorPosition` effect
+`showPopover()` has already fired the `toggle` event before the parent `useAnchoredPopover` effect
 attaches its listener), the hook detects this via `popover.matches(':popover-open')` and starts the
 same hide-and-observe flow immediately, so the first measurement still happens.
 
@@ -358,16 +365,19 @@ breaking changes:
    so callers can omit it, but `resolvePlacement()` always returns a fully-resolved offset with both
    `gap` and `crossAxisShift`.
 
-3. **`useAnchorPosition` no longer accepts an `offset` parameter.** The hook signature is now:
+3. **The positioning hook no longer accepts an `offset` parameter.** Offset is sourced entirely from
+   `placement.offset`. The hook is now `useAnchoredPopover`, whose signature is
    ```ts
-   function useAnchorPosition({
-   	placement,
-   	triggerRef,
+   function useAnchoredPopover({
+   	anchor,
    	popoverRef,
-   	zIndex,
-   }: TUseAnchorPositionOptions): void;
+   	placement,
+   	isOpen,
+   	inlineSize,
+   	blockSize,
+   	forceFallbackPositioning,
+   }: TUseAnchoredPopoverOptions): void;
    ```
-   Offset is sourced entirely from `placement.offset`.
 
 ---
 
@@ -428,13 +438,13 @@ to ensure they explicitly reset arrow geometry not relevant to that fallback.
    `gap: token('space.100')`. No consumers use this yet. Should we document it as an escape hatch
    for consumers who want to avoid hardcoding pixels? Or is the number form sufficient?
 
-2. **Exposed CSS custom properties**: The four `--ds-cross-axis-shift-margin-*` properties are
-   currently implementation-private. Should we document them as a stable contract for advanced
-   consumers who want to manipulate them directly (e.g., animating offset via CSS)?
+2. ~~**Exposed CSS custom properties**~~: moot. The four `--ds-cross-axis-shift-margin-*` properties
+   were removed on 2026-09-03 without ever being read, so there is nothing to document as a
+   contract. Reopen if the arrow `@position-try` rules get built.
 
 3. **Offset animation**: Does the platform need built-in support for animating offset transitions
    (e.g., smooth expansion of a dropdown)? Currently, only the initial offset can be set. Changing
-   it requires a new `useAnchorPosition` setup.
+   it requires a new `useAnchoredPopover` setup.
 
 ---
 
@@ -452,15 +462,12 @@ to ensure they explicitly reset arrow geometry not relevant to that fallback.
     `resolvePlacement()` defaults.
   - `packages/design-system/top-layer/src/internal/resolve-css-length.tsx` — `toCssLengthString`
     helper that normalizes number offsets to `${n}px` strings at the API boundary.
-  - `packages/design-system/top-layer/src/internal/use-anchor-position.tsx` — custom property
-    writes; JS fallback offset resolution.
-  - `packages/design-system/top-layer/src/internal/anchor-positioning-fallback.tsx` — JS fallback
-    math; takes pre-resolved pixel `gap` and `crossAxisShift`.
-  - `packages/design-system/top-layer/src/internal/resolve-css-length-to-pixels.tsx` — DOM-probe
-    resolver used by the JS fallback to convert CSS length strings (tokens, `calc`, `var`, etc) to
-    pixels.
-  - `packages/design-system/top-layer/src/arrow/index.tsx` — 12 `@position-try` rules with four
-    custom property reads.
+  - `packages/design-system/top-layer/src/internal/use-anchored-popover.tsx` — the shift margins.
+  - `packages/design-system/top-layer/src/internal/javascript-fallback/anchor-positioning-fallback.tsx`
+    — JS fallback math; takes pre-resolved pixel `gap` and `crossAxisShift`.
+  - `packages/design-system/top-layer/src/internal/javascript-fallback/resolve-css-length-to-pixels.tsx`
+    — DOM-probe resolver used by the JS fallback to convert CSS length strings (tokens, `calc`,
+    `var`, etc) to pixels.
   - `packages/design-system/top-layer/src/placement-map/index.tsx` — `fromLegacyPlacement` legacy
     offset adapter.
   - Adapter files updated to forward the legacy tuple:

@@ -15,7 +15,8 @@ import {
 	externalImageIdentifier,
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { type CardEvent, type CardAction } from '@atlaskit/media-card';
+import type { CardEvent } from '@atlaskit/media-card/types';
+import type { CardAction } from '@atlaskit/media-card/actions';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
 import {
 	type FileItem,

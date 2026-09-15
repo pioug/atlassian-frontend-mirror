@@ -544,7 +544,7 @@ const styles = cssMap({
 
 ### Anchor positioning inline styles
 
-`use-anchor-position.tsx` uses `el.style.setProperty()` for properties like `anchor-name`,
+`use-anchored-popover.tsx` uses `el.style.setProperty()` for properties like `anchor-name`,
 `position-anchor`, `position-area`, and `position-try-fallbacks`. These are:
 
 - **Dynamic:** values depend on runtime props (`placement`, `anchorName`, `offset`)
@@ -556,9 +556,9 @@ This is a legitimate use of imperative style manipulation, not a Compiled gap.
 
 ### JS fallback positioning
 
-The JS fallback path in `useAnchorPositioning` sets `top`/`left` via `el.style.setProperty()` on
-every scroll/resize event. This is inherently imperative and measurement-dependent — no static
-styling system can express it.
+The JS fallback path in `useAnchoredPopover` sets `top`/`left` via `el.style.setProperty()` on every
+scroll/resize event. This is inherently imperative and measurement-dependent — no static styling
+system can express it.
 
 ### Animation `getStyles` (per-placement CSS custom properties)
 

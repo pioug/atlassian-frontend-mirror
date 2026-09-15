@@ -10,7 +10,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -90,12 +89,10 @@ export const quickInsertButtonDecoration = ({
 				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
 
-				marks: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-					? getMatchingBlockMarks(editorState, rootPos, [
-							editorState.schema.marks.alignment,
-							editorState.schema.marks.fontSize,
-						])
-					: [],
+				marks: getMatchingBlockMarks(editorState, rootPos, [
+					editorState.schema.marks.alignment,
+					editorState.schema.marks.fontSize,
+				]),
 				destroy: (_: Node) => {
 					nodeViewPortalProviderAPI.remove(key);
 					cleanupCallbacks.forEach((cb) => {

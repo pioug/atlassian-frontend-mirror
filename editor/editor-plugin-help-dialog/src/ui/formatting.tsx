@@ -285,15 +285,11 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		type: 'paragraph',
 		keymap: () => setNormalText,
 	},
-	...(expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-		? [
-				{
-					name: formatMessage(blockTypeMessages.smallText),
-					type: 'fontSize',
-					keymap: () => toggleSmallText,
-				},
-			]
-		: []),
+	{
+		name: formatMessage(blockTypeMessages.smallText),
+		type: 'fontSize',
+		keymap: () => toggleSmallText,
+	},
 	{
 		name: formatMessage(listMessages.orderedList),
 		type: 'orderedList',

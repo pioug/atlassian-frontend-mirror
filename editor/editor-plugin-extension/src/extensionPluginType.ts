@@ -74,6 +74,13 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 		rendererExtensionHandlers?: ExtensionHandlers;
 		showUpdated1PBodiedExtensionUI: (node: ADFEntity) => boolean;
 	};
+	/**
+	 * Animates native embed nodes in: held closed while the embed loads, then opened out with the
+	 * embed fading in. For surfaces where extensions arrive after the surrounding content, such as
+	 * AI-generated MAUI apps in the Create with Rovo preview. Only native embed nodes animate; the
+	 * reveal waits on the embed's own loading state, and other extension types are unaffected.
+	 */
+	allowAIGeneratedContentMotion?: boolean;
 	appearance?: EditorAppearance;
 	breakoutEnabled?: boolean;
 	/**

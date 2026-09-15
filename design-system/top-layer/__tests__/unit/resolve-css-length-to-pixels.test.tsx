@@ -1,4 +1,4 @@
-import { resolveCssLengthToPixels } from '../../src/internal/resolve-css-length-to-pixels';
+import { resolveCssLengthToPixels } from '../../src/internal/javascript-fallback/resolve-css-length-to-pixels';
 
 describe('resolveCssLengthToPixels', () => {
 	it('returns numbers as-is', () => {
@@ -79,56 +79,6 @@ describe('resolveCssLengthToPixels', () => {
 			expect(probe).toHaveAttribute('inert');
 
 			document.body.removeChild(container);
-		});
-	});
-
-	describe('memoisation', () => {
-		it('reuses the cached resolution for the same (container, value) pair', () => {
-			const container = document.createElement('div');
-			document.body.appendChild(container);
-			const appendSpy = jest.spyOn(container, 'appendChild');
-
-			const first = resolveCssLengthToPixels({ value: '1rem', container });
-			const second = resolveCssLengthToPixels({ value: '1rem', container });
-
-			expect(second).toBe(first);
-			// Probe ran once; the second call hit the cache.
-			expect(appendSpy).toHaveBeenCalledTimes(1);
-
-			document.body.removeChild(container);
-		});
-
-		it('does not cache values containing var() because custom-property scope can drift', () => {
-			const container = document.createElement('div');
-			document.body.appendChild(container);
-			const appendSpy = jest.spyOn(container, 'appendChild');
-
-			resolveCssLengthToPixels({ value: 'var(--ds-space-100, 8px)', container });
-			resolveCssLengthToPixels({ value: 'var(--ds-space-100, 8px)', container });
-
-			// Probe ran on every call - no cache hit.
-			expect(appendSpy).toHaveBeenCalledTimes(2);
-
-			document.body.removeChild(container);
-		});
-
-		it('caches per container, not globally', () => {
-			const containerA = document.createElement('div');
-			const containerB = document.createElement('div');
-			document.body.appendChild(containerA);
-			document.body.appendChild(containerB);
-			const appendSpyA = jest.spyOn(containerA, 'appendChild');
-			const appendSpyB = jest.spyOn(containerB, 'appendChild');
-
-			resolveCssLengthToPixels({ value: '1rem', container: containerA });
-			resolveCssLengthToPixels({ value: '1rem', container: containerB });
-
-			// Each container probed exactly once - caches are independent.
-			expect(appendSpyA).toHaveBeenCalledTimes(1);
-			expect(appendSpyB).toHaveBeenCalledTimes(1);
-
-			document.body.removeChild(containerA);
-			document.body.removeChild(containerB);
 		});
 	});
 });

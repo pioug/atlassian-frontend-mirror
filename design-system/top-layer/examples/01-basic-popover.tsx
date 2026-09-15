@@ -7,7 +7,7 @@ import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
@@ -21,7 +21,7 @@ import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
  * - **Programmatic close**: Call `hidePopover()` on the underlying element via a ref
  */
 type TBasicPopoverProps = {
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention -- Mirrors the `forceFallbackPositioning` option name from `useAnchorPosition`.
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention -- Mirrors the `forceFallbackPositioning` option name from `useAnchoredPopover`.
 	forceFallbackPositioning: boolean;
 };
 
@@ -44,7 +44,7 @@ function BasicPopover({ forceFallbackPositioning }: TBasicPopoverProps): React.R
 		popoverRef.current?.hidePopover();
 	}
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },

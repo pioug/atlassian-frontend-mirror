@@ -8,7 +8,7 @@
 > **Which component to use:** Use `Popup` when you have a trigger button (browser manages
 > visibility). Use `Popover` directly when you have a custom trigger lifecycle (hover, timers,
 > external state) — `Popover` is unopinionated (visibility + animation only), so compose it with the
-> `useAnchorPosition` hook when you need anchor positioning. See [overview.md](./overview.md) for
+> `useAnchoredPopover` hook when you need anchor positioning. See [overview.md](./overview.md) for
 > full examples.
 
 ## The CSS mechanism
@@ -153,11 +153,11 @@ visibility declaratively via `isOpen` — no glue code needed.
 
 `isOpen` is **required** on `Popover` and `Dialog`. `Popup.Content` receives it from context:
 
-| Component       | `isOpen`         | Rationale                                                                                                                                                                                                                                                                                                              |
-| --------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Popover`       | **Required**     | Core building block — consumers always have open/close state. Unopinionated: handles visibility and animation only. For anchor positioning, compose with the `useAnchorPosition` hook. Has ARIA role enforcement and hint mode fallback. Making `isOpen` required eliminates mount-to-show / unmount-to-hide entirely. |
-| `Popup.Content` | **From context** | Thin wrapper over `Popover` that reads `isOpen` and positioning from the `<Popup>` compound's context — the consumer doesn't pass it. Inside the compound, the browser is the source of truth via `togglePopover()`. For standalone usage (e.g. tooltip, spotlight), use `Popover` directly.                           |
-| `Dialog`        | **Required**     | Same as `Popover`. Every consumer already controls dialog visibility; `isOpen` makes it declarative.                                                                                                                                                                                                                   |
+| Component       | `isOpen`         | Rationale                                                                                                                                                                                                                                                                                                               |
+| --------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Popover`       | **Required**     | Core building block — consumers always have open/close state. Unopinionated: handles visibility and animation only. For anchor positioning, compose with the `useAnchoredPopover` hook. Has ARIA role enforcement and hint mode fallback. Making `isOpen` required eliminates mount-to-show / unmount-to-hide entirely. |
+| `Popup.Content` | **From context** | Thin wrapper over `Popover` that reads `isOpen` and positioning from the `<Popup>` compound's context — the consumer doesn't pass it. Inside the compound, the browser is the source of truth via `togglePopover()`. For standalone usage (e.g. tooltip, spotlight), use `Popover` directly.                            |
+| `Dialog`        | **Required**     | Same as `Popover`. Every consumer already controls dialog visibility; `isOpen` makes it declarative.                                                                                                                                                                                                                    |
 
 ### Required (`Popover` / `Dialog`)
 
@@ -337,7 +337,7 @@ cost of snapshotting `getAnimations()` and awaiting every animation's `finished`
 ### Why `isOpen` is required on `Popover` / `Dialog`
 
 - `Popover` is the core building block (unopinionated — visibility + animation only, with ARIA role
-  enforcement and hint mode fallback). For anchor positioning, compose with the `useAnchorPosition`
+  enforcement and hint mode fallback). For anchor positioning, compose with the `useAnchoredPopover`
   hook. `Popup.Content` is a thin context wrapper over it. `Dialog` is the modal equivalent.
 - Every consumer already has open/close state — `isOpen` makes it declarative
 - Eliminates the mount-to-show / unmount-to-hide pattern entirely
@@ -588,7 +588,7 @@ DOM, so it doesn't solve the exit animation constraint.
 ## Why animation stays on `Popover`
 
 During the design of `Popover`, we considered splitting animation into a separate hook (like
-`useAnchorPosition`). We kept it on `Popover` because animation and visibility are one concern.
+`useAnchoredPopover`). We kept it on `Popover` because animation and visibility are one concern.
 
 ### The constraint
 
@@ -633,9 +633,9 @@ const { ref, isVisible } = usePopoverAnimation({
 ### The clean split
 
 ```
-Popover           = top layer + visibility (isOpen) + animation (shouldAnimate)
-useAnchorPosition = positioning (separate concern)
-Popup             = Popover + trigger + positioning (compound)
+Popover            = top layer + visibility (isOpen) + animation (shouldAnimate)
+useAnchoredPopover = positioning and anchor-relative sizing (separate concern)
+Popup              = Popover + trigger + positioning (compound)
 ```
 
 Animation and visibility are **one concern** — the exit animation is triggered _by_ the visibility

@@ -28,17 +28,17 @@ prop.
 
 <Section titleId>
          ^^^^^^^ `titleId` prop is missing reference value.
-  <h1 id="section-title">Section content title</hi>
+  <h1 id="section-title">Section content title</h1>
 </Section>
 
 <Section titleId="">
          ^^^^^^^ `titleId` prop is missing reference value.
-  <h1 id="section-title">Section content title</hi>
+  <h1 id="section-title">Section content title</h1>
 </Section>
 
 <Section titleId="section-title" title="Accessible title">
          ^^^^^^^                 ^^^^^ Do not include both `titleId` and `title` properties. Use `titleId` if the label text is available in the DOM to reference it, otherwise use `title` to provide accessible name explicitly.
-  <h1 id="section-title">Section content title</hi>
+  <h1 id="section-title">Section content title</h1>
 </Section>
 ```
 
@@ -50,6 +50,6 @@ prop.
 </Section>
 
 <Section titleId="section-title">
-  <h1 id="section-title">Section content title</hi>
+  <h1 id="section-title">Section content title</h1>
 </Section>
 ```

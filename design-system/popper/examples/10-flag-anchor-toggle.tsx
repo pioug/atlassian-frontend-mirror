@@ -11,10 +11,12 @@ import { token } from '@atlaskit/tokens';
 
 /**
  * FF-on anchor toggle example. The popper's `referenceElement` cycles
- * `anchorA` → `null` → `anchorB`, exercising the `isOpen` derivation
- * and the per-activation latch in `useAnchorPositionAtPoint` /
- * `useAnchorPosition`. The surface must reposition over `anchorB`
- * after the cycle, not stay at `anchorA`'s former position.
+ * `anchorA` → `null` → `anchorB`, exercising the `isOpen` derivation and
+ * the adapter's two positioning hooks, whose `isEnabled` flags both derive
+ * from the reference (`useAnchoredPopover` for an element,
+ * `useAnchoredPopoverAtPoint` for a virtual element). The surface must
+ * reposition over `anchorB` after the cycle, not stay at `anchorA`'s
+ * former position.
  */
 const styles = cssMap({
 	root: {

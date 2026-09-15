@@ -21,7 +21,6 @@ const elementsIconProps = ['iconBefore', 'iconAfter', 'icon'];
 const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'icon-label',
-		fixable: 'code',
 		type: 'suggestion',
 		docs: {
 			description:
@@ -29,6 +28,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 			recommended: true,
 			severity: 'warn',
 		},
+		hasSuggestions: true,
 		messages: {
 			unneededLabelPropContents:
 				'Label prop should be an empty string to prevent duplicate screen reader announcements. Learn more here: http://go/adsc/icon/usage#accessibility-guidelines.',
@@ -115,9 +115,12 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 										context.report({
 											node: labelProp as any,
 											messageId: 'unneededLabelPropContents',
-											fix: (fixer) => {
-												return fixer.replaceText(labelProp.value as any, '""');
-											},
+											suggest: [
+												{
+													desc: 'Remove duplicate label contents',
+													fix: (fixer) => fixer.replaceText(labelProp.value as any, '""'),
+												},
+											],
 										});
 									} else if (!hasOtherDefinedLabel && isEmptyStringLabel) {
 										context.report({

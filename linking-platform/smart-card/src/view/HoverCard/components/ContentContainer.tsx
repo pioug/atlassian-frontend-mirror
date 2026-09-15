@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import useAISummaryAction from '../../../state/hooks/use-ai-summary-action';
 import AIPrism from '../../common/ai-prism';
-import type { ContentContainerProps } from '../types';
 
 import { hoverCardClassName } from './HoverCardContent';
 
@@ -41,6 +40,18 @@ const popupContainerStyles = css({
 	backgroundColor: token('elevation.surface.overlay'),
 	boxShadow: token('elevation.shadow.overlay'),
 });
+
+type ContentContainerWidthAppearance = 'default' | 'slim';
+
+type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {
+	isAIEnabled?: boolean;
+	testId?: string;
+	url: string;
+	/**
+	 * Visual width preset for the hover card shell. Omit or `undefined` uses `'default'`.
+	 */
+	widthAppearance?: ContentContainerWidthAppearance;
+};
 
 const ConnectedAIPrismContainer = ({
 	children,

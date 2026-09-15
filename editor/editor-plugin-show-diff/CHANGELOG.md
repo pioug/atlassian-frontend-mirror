@@ -1,5 +1,81 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 16.0.14
+
+### Patch Changes
+
+- [`6667b6ae8e77c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6667b6ae8e77c) -
+  Ensure contributor tags are rendered for shown attributed diff content, including whitespace-only
+  changes and deletion widgets, without tagging structurally empty paragraphs.
+
+## 16.0.13
+
+### Patch Changes
+
+- [`7d1a41f1575e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d1a41f1575e5) -
+  Reserve red for deletions in show-diff attribution: an actor hashing to a red palette slot now
+  takes the next colour instead. Gated on confluence_ncs_step_diffing_version_history and
+  platform_editor_show_diff_color_scheme_refactor.
+- [`19e336d422584`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19e336d422584) -
+  Fix whole-row table replacements rendering no diff for the new content.
+  `createChangedRowDecorationWidgets` only handled row deletions, so a `replaceNode` on a `tableRow`
+  (as AI suggested edits emits) left the reviewer with just the removed side — or an empty row in
+  the clean view.
+
+  Also give the changed-row widget an indicator anchor, so the indicator bar spans both the proposed
+  and replaced rows instead of only the row being changed. This affects row deletions too, whose
+  deleted-row bar previously had no anchor to resolve against.
+
+  Both behind `platform_editor_ai_show_diff_patch_1`.
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- [`c3d0cc90fb8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3d0cc90fb8a8) -
+  [ux] A contributor tag that has been clicked no longer stays visible after the pointer has left
+  the change it captions. Behind `confluence_ncs_step_diffing_version_history`.
+- [`e6656f3612782`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6656f3612782) -
+  Use the shared agent icon for external diff contributors.
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- [`c00ea38023074`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c00ea38023074) -
+  [ux] Contributor tags on changed block nodes now sit on the block's own top-left corner, instead
+  of drifting by that node type's margin. Behind `confluence_ncs_step_diffing_version_history`.
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- [`7c955f7988148`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c955f7988148) -
+  Match show-diff indicator bars to contributor colors using theme-aware ADS border tokens.
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.6
 
 ### Patch Changes

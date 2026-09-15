@@ -5,17 +5,17 @@ import Heading from '@atlaskit/heading/heading';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
 
 /**
- * Standalone `Popover` + `useAnchorPosition` example.
+ * Standalone `Popover` + `useAnchoredPopover` example.
  *
  * This pattern is used by `@atlaskit/tooltip` which has its own trigger
  * lifecycle (hover/focus/timers). Composes:
  *
- * 1. `useAnchorPosition` for CSS anchor positioning
+ * 1. `useAnchoredPopover` for CSS anchor positioning
  * 2. `Popover` for top-layer visibility and animation
  * 3. Conditional rendering to keep the DOM lean (element only exists when open)
  */
@@ -38,7 +38,7 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 		setIsOpen(false);
 	}, []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
@@ -50,7 +50,7 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 		<Box padding="space.400">
 			<Stack space="space.200">
 				<Text>
-					This example composes <code>Popover</code> + <code>useAnchorPosition</code>, like{' '}
+					This example composes <code>Popover</code> + <code>useAnchoredPopover</code>, like{' '}
 					<code>@atlaskit/tooltip</code> does internally.
 				</Text>
 				<Box>

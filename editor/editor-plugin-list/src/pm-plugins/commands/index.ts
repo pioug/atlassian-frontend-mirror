@@ -35,7 +35,6 @@ import {
 	findPositionOfNodeBefore,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -332,8 +331,7 @@ function splitListItem(itemType: NodeType): Command {
 		const tr = state.tr.delete($from.pos, $to.pos);
 		const types = nextType && [null, { type: nextType }];
 		const fontSize = state.schema.marks.fontSize;
-		const isFontSizeSupported =
-			fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+		const isFontSizeSupported = fontSize;
 
 		const currentFontSizeAttrs = isFontSizeSupported
 			? getBlockMarkAttrs($from.parent, fontSize)
@@ -481,7 +479,7 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
 				tr = tr.join($postCut.pos);
 			}
 
-			if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+			if (fontSize) {
 				const prevListFontSizeAttrs = getFirstParagraphBlockMarkAttrs($cut.nodeBefore, fontSize);
 
 				const containingList = findParentNodeOfTypeClosestToPos(

@@ -131,7 +131,10 @@ export const contributorAvatarRenderer = ({
 		}
 
 		shape.appendChild(
-			getContributorTagIcon(AGENT_KIND_ICONS[contributor.agentKind ?? 'external'] ?? 'aiBot', doc),
+			getContributorTagIcon(
+				AGENT_KIND_ICONS[contributor.agentKind ?? 'external'] ?? 'aiAgent',
+				doc,
+			),
 		);
 	};
 

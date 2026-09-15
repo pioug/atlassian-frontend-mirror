@@ -1,18 +1,27 @@
 const mockCard = jest.fn();
 const mockCardSync = jest.fn();
 
-jest.mock('@atlaskit/media-card', () => {
-	const actual = jest.requireActual('@atlaskit/media-card');
+jest.mock('@atlaskit/media-card/cardLoader', () => {
+	const actual = jest.requireActual('@atlaskit/media-card/cardLoader');
 	const react = jest.requireActual('react');
 	return {
-		...actual,
-		Card: (props: Record<string, unknown>) => {
+		...jest.requireActual('@atlaskit/media-card/cardLoader'),
+		__esModule: true,
+		default: (props: Record<string, unknown>) => {
 			mockCard(props);
-			return react.createElement(actual.Card, props);
+			return react.createElement(actual.default, props);
 		},
-		CardSync: (props: Record<string, unknown>) => {
+	};
+});
+jest.mock('@atlaskit/media-card/cardSync', () => {
+	const actual = jest.requireActual('@atlaskit/media-card/cardSync');
+	const react = jest.requireActual('react');
+	return {
+		...jest.requireActual('@atlaskit/media-card/cardSync'),
+		__esModule: true,
+		default: (props: Record<string, unknown>) => {
 			mockCardSync(props);
-			return react.createElement(actual.CardSync, props);
+			return react.createElement(actual.default, props);
 		},
 	};
 });
@@ -26,7 +35,7 @@ import Loadable from 'react-loadable';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { MediaType } from '@atlaskit/adf-schema/media';
-import type { CardEvent } from '@atlaskit/media-card';
+import type { CardEvent } from '@atlaskit/media-card/types';
 import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -195,7 +204,7 @@ describe('Media', () => {
 	});
 
 	it('should render a media component with the proper props', async () => {
-		const { container } = render(
+		const { container } = renderWithIntl(
 			<MediaClientProvider clientConfig={mediaClientConfig}>
 				<Media
 					type={mediaNode.attrs.type as MediaType}
@@ -248,7 +257,7 @@ describe('Media', () => {
 
 	it('event handlers are not called when media is linked', async () => {
 		const mediaOnClick = jest.fn();
-		render(
+		renderWithIntl(
 			<Media
 				type={mediaNode.attrs.type as MediaType}
 				id={mediaNode.attrs.id}
@@ -263,14 +272,14 @@ describe('Media', () => {
 			/>,
 		);
 
-		await userEvent.click(screen.getByRole('link', { name: '' }));
+		await userEvent.click(screen.getByRole('link'));
 
 		expect(mediaOnClick).not.toHaveBeenCalled();
 	});
 
 	it('calls the link handlers when linked media is clicked', async () => {
 		const linkOnClick = jest.fn();
-		render(
+		renderWithIntl(
 			<Media
 				type={mediaNode.attrs.type as MediaType}
 				id={mediaNode.attrs.id}
@@ -285,7 +294,7 @@ describe('Media', () => {
 			/>,
 		);
 
-		await userEvent.click(screen.getByRole('link', { name: '' }));
+		await userEvent.click(screen.getByRole('link'));
 
 		expect(linkOnClick).toHaveBeenCalledTimes(1);
 		expect(linkOnClick).toHaveBeenCalledWith(expect.anything(), 'http://atlassian.com');
@@ -322,7 +331,7 @@ describe('Media', () => {
 	it('fires analytics on linked media', async () => {
 		const mediaOnClick = jest.fn();
 		const fireAnalyticsEvent = jest.fn();
-		render(
+		renderWithIntl(
 			<Media
 				type={mediaNode.attrs.type as MediaType}
 				id={mediaNode.attrs.id}
@@ -338,7 +347,7 @@ describe('Media', () => {
 			/>,
 		);
 
-		await userEvent.click(screen.getByRole('link', { name: '' }));
+		await userEvent.click(screen.getByRole('link'));
 
 		expect(fireAnalyticsEvent).toHaveBeenCalledTimes(1);
 		expect(fireAnalyticsEvent).toHaveBeenCalledWith({
@@ -918,11 +927,9 @@ describe('Media', () => {
 		});
 
 		describe('disable lazy loading for Confluence PDF export pages', () => {
-			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 			const originalLocation = window.location;
 
 			beforeEach(() => {
-				expValEquals.mockReturnValue(false);
 				Object.defineProperty(window, 'location', {
 					value: {
 						...originalLocation,
@@ -939,8 +946,7 @@ describe('Media', () => {
 				});
 			});
 
-			it('should disable lazy loading when expValEquals returns true and URL includes /wiki/pdf/spaces/', () => {
-				expValEquals.mockReturnValue(true);
+			it('should disable lazy loading when URL includes /wiki/pdf/spaces/', () => {
 				window.location.href = 'https://example.atlassian.net/wiki/pdf/spaces/SPACE/pages/123456';
 
 				render(
@@ -952,21 +958,7 @@ describe('Media', () => {
 				expect(mockCard).toHaveBeenLastCalledWith(expect.objectContaining({ isLazy: false }));
 			});
 
-			it('should enable lazy loading when expValEquals returns false', () => {
-				expValEquals.mockReturnValue(false);
-				window.location.href = 'https://example.atlassian.net/wiki/pdf/spaces/SPACE/pages/123456';
-
-				render(
-					<MediaClientProvider clientConfig={mediaClientConfig}>
-						<MediaCard type="file" id="1" />
-					</MediaClientProvider>,
-				);
-
-				expect(mockCard).toHaveBeenLastCalledWith(expect.objectContaining({ isLazy: true }));
-			});
-
-			it('should enable lazy loading when expValEquals returns true but URL does not include /wiki/pdf/spaces/', () => {
-				expValEquals.mockReturnValue(true);
+			it('should enable lazy loading when URL does not include /wiki/pdf/spaces/', () => {
 				window.location.href = 'https://example.atlassian.net/wiki/spaces/SPACE/pages/123456';
 
 				render(
@@ -976,23 +968,6 @@ describe('Media', () => {
 				);
 
 				expect(mockCard).toHaveBeenLastCalledWith(expect.objectContaining({ isLazy: true }));
-			});
-
-			it('should call expValEquals with correct parameters', () => {
-				expValEquals.mockReturnValue(false);
-				window.location.href = 'https://example.atlassian.net/wiki/pdf/spaces/SPACE/pages/123456';
-
-				render(
-					<MediaClientProvider clientConfig={mediaClientConfig}>
-						<MediaCard type="file" id="1" />
-					</MediaClientProvider>,
-				);
-
-				expect(expValEquals).toHaveBeenCalledWith(
-					'platform_editor_disable_lazy_load_media',
-					'isEnabled',
-					true,
-				);
 			});
 		});
 	});
@@ -1268,7 +1243,7 @@ describe('Media', () => {
 	describe('Media Border Mark', () => {
 		it('should render border mark with right color and size (old behavior) - should use borderWidth as borderRadius', () => {
 			failGate('platform_editor_media_border_radius_fix');
-			const { container } = render(
+			const { container } = renderWithIntl(
 				<Media
 					type={mediaNode.attrs.type as MediaType}
 					id={mediaNode.attrs.id}
@@ -1298,7 +1273,7 @@ describe('Media', () => {
 
 		it('should render border mark with right color and size (new behavior) - should use 8px as borderRadius', () => {
 			passGate('platform_editor_media_border_radius_fix');
-			const { container } = render(
+			const { container } = renderWithIntl(
 				<Media
 					type={mediaNode.attrs.type as MediaType}
 					id={mediaNode.attrs.id}

@@ -269,17 +269,6 @@ snapshot(InlineCardUnauthorisedSocialProofLoaded, {
 	mockRequests: [...mockEdgeTenantInfoRequests],
 });
 
-snapshot(InlineCardUnauthorisedSocialProofLoaded, {
-	description: 'inline card unauthorised with social proof and preview CTA',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: true,
-		'rovogrowth-635-pre-auth-cta-preview-fg': true,
-		'rovogrowth-635-pre-auth-cta-preview-exp': true,
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
-});
-
 snapshot(InlineCardUnauthorisedSocialProofNarrow, {
 	description: 'inline card unauthorised with social proof in narrow container',
 	featureFlags: {
@@ -459,28 +448,5 @@ snapshot(VRInlineCardResolvedRovoActions, {
 	description: 'inline card resolved view with Rovo actions CTA (treatment)',
 	featureFlags: {
 		'smart-card-inline-resolved-view-refactor': true,
-	},
-});
-
-snapshot(InlineCardUnauthorised, {
-	description: 'inline card unauthorised view with preview CTA FG off',
-	featureFlags: {
-		'rovogrowth-635-pre-auth-cta-preview-fg': false,
-	},
-});
-
-snapshot(InlineCardUnauthorised, {
-	description: 'inline card unauthorised view with preview CTA FG on - treatment',
-	featureFlags: {
-		'rovogrowth-635-pre-auth-cta-preview-fg': true,
-		'rovogrowth-635-pre-auth-cta-preview-exp': true,
-	},
-});
-
-snapshot(InlineCardUnauthorised, {
-	description: 'inline card unauthorised view with preview CTA FG on - control',
-	featureFlags: {
-		'rovogrowth-635-pre-auth-cta-preview-fg': true,
-		'rovogrowth-635-pre-auth-cta-preview-exp': false,
 	},
 });

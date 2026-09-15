@@ -75,11 +75,13 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 	fireAnalyticsEvent: jest.fn(),
 }));
 
-jest.mock('@atlaskit/react-ufo/interaction-id-context', () => ({
+jest.mock('@atlaskit/react-ufo/get-interaction-id', () => ({
+	...jest.requireActual('@atlaskit/react-ufo/get-interaction-id'),
 	getInteractionId: jest.fn(() => ({ current: 'test-interaction-id' })),
 }));
 
-jest.mock('@atlaskit/react-ufo/custom-data', () => ({
+jest.mock('@atlaskit/react-ufo/add-ufo-custom-data', () => ({
+	...jest.requireActual('@atlaskit/react-ufo/add-ufo-custom-data'),
 	addUFOCustomData: jest.fn(),
 }));
 
@@ -124,8 +126,8 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import type { MentionProvider } from '@atlaskit/mention/resource';
-import { addUFOCustomData } from '@atlaskit/react-ufo/custom-data';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import { addUFOCustomData } from '@atlaskit/react-ufo/add-ufo-custom-data';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

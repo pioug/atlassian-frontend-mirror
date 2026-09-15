@@ -185,10 +185,8 @@ describe('Popper FF-on top-layer adapter', () => {
 		warn.mockRestore();
 	});
 
-	// Virtual-element anchor branch (`useAnchorPositionAtPoint`). The
-	// legacy branch is covered by `unit/index.tsx`; this asserts the
-	// FF-on adapter accepts a `VirtualElement` and renders the popover
-	// surface (i.e. `isOpen` is derived from a non-null virtual ref).
+	// The `useAnchoredPopoverAtPoint` branch. The legacy one is covered by
+	// `unit/index.tsx`.
 	it('renders the popover surface when referenceElement is a VirtualElement', () => {
 		passGate('platform-dst-top-layer');
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6d9d96d154eb920c24766a658bf4faef>>
+ * @codegen <<SignedSource::453a28ed8cadeac917b8d4375b254654>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const TabIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "TabIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m7.28 3.47 4 4a.75.75 0 0 1 0 1.06l-4 4-1.06-1.06 2.72-2.72H1v-1.5h7.94L6.22 4.53zM15 3.5v9h-1.5v-9z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m7.28 3.469 4 4a.75.75 0 0 1 0 1.06l-4 4-1.06-1.06 2.72-2.72H1v-1.5h7.94L6.22 4.53zm7.72.03v9h-1.5v-9z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TabIcon.displayName = 'TabIcon';

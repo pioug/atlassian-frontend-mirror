@@ -1,5 +1,55 @@
 # @atlaskit/top-layer
 
+## 5.0.1
+
+### Patch Changes
+
+- [`7ab1bd8a22db7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ab1bd8a22db7) -
+  Preserve focus moved outside a popover before or during closing. Restore focus based on whether
+  the popover held focus, rather than its role.
+- Updated dependencies
+
+## 5.0.0
+
+### Major Changes
+
+- [`a7ec100f7d560`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7ec100f7d560) -
+  **Breaking:** `useAnchorPosition`, `useAnchorPositionAtPoint` and `useWidthFromAnchor` are
+  replaced by `useAnchoredPopover` and `useAnchoredPopoverAtPoint`, which own positioning and
+  anchor-relative sizing together. The `./use-anchor-position`, `./use-anchor-position-at-point` and
+  `./use-width-from-anchor` entry points are removed with no aliases; `./use-anchored-popover` and
+  `./use-anchored-popover-at-point` are added. Every consumer in the monorepo is migrated: the
+  `platform/packages/design-system` components, and kitsune's idea-select menu portal.
+
+  ```tsx
+  import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+
+  useAnchoredPopover({
+  	anchorRef: triggerRef,
+  	popoverRef,
+  	placement,
+  	isOpen,
+  	// `useWidthFromAnchor`'s `mode`, now per axis:
+  	// 'content' | 'match-anchor' | 'min-anchor' | 'max-available'
+  	inlineSize: 'match-anchor',
+  	blockSize: 'max-available',
+  });
+  ```
+
+  `useAnchoredPopoverAtPoint` takes `getPoint: () => { x, y } | null` in place of `anchorRef`. Both
+  axes are now always capped to the viewport, and asking either axis to fit also applies a minimum
+  size of up to 150px along the placement axis, so the popover flips to a roomier side rather than
+  shrinking in place. Rationale and rejected alternatives: `notes/decisions/fit-available-space.md`.
+
+  The `anchor-name` the hook mints is still `--anchor-{useId()}`. A host that hydrates several React
+  roots from the same markup must give each a distinct `identifierPrefix`, as it already must for
+  every other id the design system mints; the hook's JSDoc now says so.
+
+### Patch Changes
+
+- [`50733a142e6d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50733a142e6d4) -
+  Narrow the `aria-haspopup` type returned by `getAriaForTrigger` to the supplied popover role.
+
 ## 4.4.5
 
 ### Patch Changes

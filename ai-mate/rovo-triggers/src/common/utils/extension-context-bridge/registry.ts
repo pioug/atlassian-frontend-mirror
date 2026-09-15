@@ -1,9 +1,21 @@
 import { type Payload } from '../../../types';
 import { type ChatContextPayload } from '../chat-context/types';
 
+import { type SerializationDropReason } from './analytics';
 import { BRIDGE_SOURCE } from './constants';
 import { isRelayableContextKey } from './policy';
 import { type SerializedPayload } from './transport';
+
+/**
+ * Outcome of serialising a payload for the wire. A bare `| null` would collapse five distinct
+ * refusals into one, notably a non-allowlisted context key versus a merge-style publisher, which
+ * need different fixes. `reason` is reported as analytics (see `./analytics`).
+ */
+export type SerializationResult =
+	| { ok: true; payload: SerializedPayload }
+	| { ok: false; reason: SerializationDropReason };
+
+const dropped = (reason: SerializationDropReason): SerializationResult => ({ ok: false, reason });
 
 const base = (payload: Payload): Omit<SerializedPayload, 'data'> => ({
 	type: payload.type,
@@ -25,7 +37,7 @@ const toPayload = (value: Record<string, unknown>): Payload =>
  * uses the generic JSON (de)serializer.
  */
 type Shim = {
-	serialize: (payload: Payload) => SerializedPayload | null;
+	serialize: (payload: Payload) => SerializationResult;
 	deserialize: (serialized: SerializedPayload) => Payload | null;
 };
 
@@ -43,28 +55,31 @@ const SHIMS = {
 		serialize: (payload) => {
 			const data = (payload as { data?: ChatContextPayload }).data;
 			if (!data || typeof data.setContext !== 'function') {
-				return null;
+				return dropped('missing-set-context');
 			}
 			// Checked before `setContext` runs, so a non-allowlisted key never invokes product code.
 			if (!isRelayableContextKey(data.contextKey)) {
-				return null;
+				return dropped('context-key-not-allowlisted');
 			}
 			let value: unknown;
 			try {
 				value = data.setContext({ [MERGE_PROBE_KEY]: true } as never);
 			} catch {
-				return null;
+				return dropped('set-context-threw');
 			}
 			// Sentinel survived: merge-style, cannot be resolved to a standalone value.
 			if (typeof value === 'object' && value !== null && MERGE_PROBE_KEY in value) {
-				return null;
+				return dropped('merge-style-publisher');
 			}
 			try {
 				JSON.stringify(value);
 			} catch {
-				return null;
+				return dropped('not-serializable');
 			}
-			return { ...base(payload), data: { contextKey: data.contextKey, value } };
+			return {
+				ok: true,
+				payload: { ...base(payload), data: { contextKey: data.contextKey, value } },
+			};
 		},
 		deserialize: (serialized) => {
 			const data = serialized.data as { contextKey: string; value: unknown } | undefined;
@@ -90,7 +105,7 @@ const getShim = (type: Payload['type']): Shim | undefined =>
 	(SHIMS as Partial<Record<Payload['type'], Shim>>)[type];
 
 /** Serialise a payload for the wire, using a shim if one exists, else a generic JSON round-trip. */
-export const serializePayload = (payload: Payload): SerializedPayload | null => {
+export const serializePayload = (payload: Payload): SerializationResult => {
 	const shim = getShim(payload.type);
 	if (shim) {
 		return shim.serialize(payload);
@@ -100,9 +115,9 @@ export const serializePayload = (payload: Payload): SerializedPayload | null => 
 	try {
 		data = rawData === undefined ? undefined : JSON.parse(JSON.stringify(rawData));
 	} catch {
-		return null;
+		return dropped('not-serializable');
 	}
-	return { ...base(payload), data };
+	return { ok: true, payload: { ...base(payload), data } };
 };
 
 /** Reconstruct a payload from the wire, stamping the loop-guard sentinel. */

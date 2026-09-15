@@ -1,5 +1,5 @@
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
-import type { TAnchorPoint } from '@atlaskit/top-layer/use-anchor-position-at-point';
+import type { TAnchorPoint } from '@atlaskit/top-layer/use-anchored-popover-at-point';
 
 import { type PositionMouseOptions } from '../types';
 

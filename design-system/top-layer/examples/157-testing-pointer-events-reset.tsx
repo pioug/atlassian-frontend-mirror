@@ -16,7 +16,7 @@ import { Dialog } from '@atlaskit/top-layer/dialog-content';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 const styles = cssMap({
@@ -128,7 +128,7 @@ function PopoverCard(): ReactNode {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'inline', edge: 'end' },

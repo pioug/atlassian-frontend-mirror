@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.4.0
+
+### Minor Changes
+
+- [`213dfa8ef5b57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/213dfa8ef5b57) -
+  Add an opt-in migratePendingConsumers option for scoped consumer codemods while preserving normal
+  lint behavior for Stage 1 packages.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

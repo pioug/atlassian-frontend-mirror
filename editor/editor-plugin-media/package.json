@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "20.0.4",
+	"version": "20.1.5",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,6 +32,7 @@
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
@@ -71,6 +72,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
 		"bind-event-listener": "root:*",
 		"classnames": "root:*",
@@ -86,6 +88,9 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
+		"platform_editor_a11y_border_radiogroup_label": {
+			"type": "boolean"
+		},
 		"platform_media_cross_client_copy": {
 			"type": "boolean"
 		},
@@ -118,6 +123,10 @@
 		},
 		"platform_editor_media_border_radius_fix": {
 			"type": "boolean"
+		},
+		"aifc_page_create_defer_generated_visuals": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"cc-maui-phase-2": {
 			"type": "boolean"

@@ -3,7 +3,6 @@ import type { DateDefinition } from '@atlaskit/adf-schema/date';
 import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
 import type { StatusDefinition } from '@atlaskit/adf-schema/status';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SortOrder } from '../types';
 
@@ -293,13 +292,11 @@ function compareMetaFromNode(metaNodeA: NodeMeta | null, metaNodeB: NodeMeta | n
 		return metaNodeB === null ? -1 : 1;
 	}
 
-	if (fg('platform_editor_fix_mixed_types_column_sort')) {
-		if (
-			(metaNodeA.type === ContentType.TEXT && metaNodeB.type === ContentType.NUMBER) ||
-			(metaNodeA.type === ContentType.NUMBER && metaNodeB.type === ContentType.TEXT)
-		) {
-			return compareValue(String(metaNodeA.value), String(metaNodeB.value));
-		}
+	if (
+		(metaNodeA.type === ContentType.TEXT && metaNodeB.type === ContentType.NUMBER) ||
+		(metaNodeA.type === ContentType.NUMBER && metaNodeB.type === ContentType.TEXT)
+	) {
+		return compareValue(String(metaNodeA.value), String(metaNodeB.value));
 	}
 
 	if (metaNodeA.type !== metaNodeB.type) {

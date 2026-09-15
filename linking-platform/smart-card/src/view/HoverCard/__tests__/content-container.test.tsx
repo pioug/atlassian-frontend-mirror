@@ -7,7 +7,6 @@ import { render, screen } from '@atlassian/testing-library';
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
 import ContentContainer from '../components/ContentContainer';
 import { hoverCardClassName } from '../components/HoverCardContent';
-import type { ContentContainerProps } from '../types';
 
 jest.mock('../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
@@ -20,7 +19,7 @@ describe('ContentContainer', () => {
 
 	const setup = (
 		props: Partial<
-			ContentContainerProps & {
+			React.ComponentProps<typeof ContentContainer> & {
 				product: ProductType | undefined;
 			}
 		> = {},

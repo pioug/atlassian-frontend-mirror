@@ -1,5 +1,49 @@
 # @atlaskit/editor-core
 
+## 228.1.8
+
+### Patch Changes
+
+- [`557e60e1bf38b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/557e60e1bf38b) -
+  [ux] [EDITOR-8980] update the sketch stroke for the new divider styles behind
+  `platform_editor_lovability_dividers`
+- Updated dependencies
+
+## 228.1.7
+
+### Patch Changes
+
+- [`b78306efe5c75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b78306efe5c75) -
+  Clean up feature gate `platform_editor_markdown_patch_m3`
+- Updated dependencies
+
+## 228.1.6
+
+### Patch Changes
+
+- [`85ad3990bac78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85ad3990bac78) -
+  Clean up experiment `platform_editor_appearance_shared_state`
+- Updated dependencies
+
+## 228.1.5
+
+### Patch Changes
+
+- [`9e6211ceb4ceb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6211ceb4ceb) -
+  Clean up the fully rolled-out `platform_editor_small_font_size` experiment and make its permanent
+  `true` behavior unconditional across editor formatting, task and list handling, paste behavior,
+  controls, and rendering.
+- [`fd4d98f953d15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd4d98f953d15) -
+  Clean up `platform_editor_disable_context_panel_animation`; context-panel transitions are now
+  permanently disabled.
+- Updated dependencies
+
+## 228.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 228.1.3
 
 ### Patch Changes

@@ -9,7 +9,7 @@ import { css, jsx } from '@compiled/react';
 import UFOLabel from '@atlaskit/react-ufo/label';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/segment';
-import { updatePageloadName } from '@atlaskit/react-ufo/trace-pageload';
+import { updatePageloadName } from '@atlaskit/react-ufo/update-pageload-name';
 
 const topLevelStyle = css({
 	backgroundColor: '#FFB3BA', // Pastel Red

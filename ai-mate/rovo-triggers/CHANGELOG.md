@@ -1,5 +1,58 @@
 # @atlaskit/rovo-triggers
 
+## 11.0.0
+
+### Major Changes
+
+- [`de8897276a43e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de8897276a43e) -
+  Replace the `rovo-ext_context_bridge` feature gate with the `rovo-ext_context_bridge_exp`
+  experiment, read through its boolean `isEnabled` parameter.
+
+  **Breaking:** `@atlaskit/rovo-triggers/extension-context-bridge/constants` no longer exports
+  `BRIDGE_FEATURE_GATE`. Use `EXT_CONTEXT_BRIDGE_EXPERIMENT` instead, which holds the experiment key
+  rather than the gate key:
+
+  ```diff
+  - import { BRIDGE_FEATURE_GATE } from '@atlaskit/rovo-triggers/extension-context-bridge/constants';
+  + import { EXT_CONTEXT_BRIDGE_EXPERIMENT } from '@atlaskit/rovo-triggers/extension-context-bridge/constants';
+  ```
+
+  `ExtensionContextBridgeHost`, `ExtensionContextBridgeClient` and `ChatOpenerSubscriber` read the
+  experiment through `UNSAFE_expValNoExposure`, so none of them log exposure: the Host mounts at the
+  root of every page of an opted-in product, and exposure there would count product page loads
+  rather than extension users. The Rovo browser extension owns the single exposure call.
+
+  No behaviour change for consumers beyond the assignment source. The
+  `extensionContextBridgeEnabled` prop on `ChatOpenerSubscriber` is unchanged and still required to
+  opt in.
+
+### Minor Changes
+
+- [`487372cfb38b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/487372cfb38b7) -
+  Send the `remix_custom_edit` experience, source page ID, and required editor context for editor
+  Custom Remix requests behind the `aifc_remix_custom_page_edit` gate.
+
+## 10.38.0
+
+### Minor Changes
+
+- [`2124250692aba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2124250692aba) -
+  ASIMO-5048: report what the extension context bridge's inbound relay policy decided for each
+  payload a product publishes, so a refusal is observable instead of silent.
+
+  `ExtensionContextBridgeHost` takes a new optional `onRelayDecision` callback, with its contract on
+  a new `./extension-context-bridge/analytics` entrypoint, and the serializer now returns a
+  discriminated result so a refusal names its reason. `ChatOpenerSubscriber` wires the callback to
+  the analytics client it already holds, emitting a `rovoExtensionBridgePayload evaluated`
+  operational event into the host product's stream.
+
+  Product to extension direction only. Deduplicated to one report per distinct outcome per mount,
+  and only active while `rovo-ext_context_bridge` is on.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.37.0
 
 ### Minor Changes

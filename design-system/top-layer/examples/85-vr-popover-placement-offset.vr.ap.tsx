@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 const styles = cssMap({
 	center: {
@@ -76,7 +76,12 @@ function VrPopover({ placement }: { placement: TPlacementOptions }) {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(true);
 
-	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement, isOpen });
+	useAnchoredPopover({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement,
+		isOpen,
+	});
 
 	return (
 		<div css={styles.center}>
@@ -109,7 +114,7 @@ function VrPopoverJsFallback({ placement }: { placement: TPlacementOptions }) {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(true);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement,
@@ -149,7 +154,12 @@ function PopupAtEdge({ placement }: { placement: TPlacementOptions }) {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(true);
 
-	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement, isOpen });
+	useAnchoredPopover({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement,
+		isOpen,
+	});
 
 	return (
 		<Fragment>

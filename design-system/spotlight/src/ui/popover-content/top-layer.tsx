@@ -9,7 +9,7 @@ import Motion from '@atlaskit/motion/entering/motion';
 import { token } from '@atlaskit/tokens';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dismiss';
 
 import { SpotlightContext } from '../../controllers/context';
@@ -68,7 +68,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 	const { heading, popoverContent, card, primaryAction, secondaryAction, target } =
 		useContext(SpotlightContext);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: target.ref,
 		popoverRef,
 		placement: getPlacementWithOffset({ placement, offset }),

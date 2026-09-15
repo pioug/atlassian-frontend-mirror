@@ -11,7 +11,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
-import type { MentionProvider } from '@atlaskit/mention/resource';
+import type { MentionProvider } from '@atlaskit/mention/types';
 
 import type { InsertMentionParameters } from './editor-commands';
 import type {

@@ -6,7 +6,6 @@ interface Props {
 
 export function blockTypePluginOptions({}: Props): BlockTypePluginOptions {
 	return {
-		// rolling out under platform_editor_small_font_size experiment
 		allowFontSize: true,
 		includeBlockQuoteAsTextstyleOption: true,
 		lastNodeMustBeParagraph: false,

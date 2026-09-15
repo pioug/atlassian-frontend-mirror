@@ -2,7 +2,7 @@ import React, { type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 // Fixture for nested-popover focus restoration tests.
@@ -86,7 +86,7 @@ function FocusCapturingNestedScenario({
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'inline', edge: 'end' },
@@ -126,7 +126,7 @@ function TooltipNestedScenario({ testIdPrefix }: { testIdPrefix: string }): Reac
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'inline', edge: 'end' },
@@ -171,7 +171,7 @@ function OuterDialog({
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },

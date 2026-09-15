@@ -24,7 +24,6 @@ import {
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
 
@@ -92,7 +91,7 @@ const listBackspaceCase2: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 		[[beforeListItemE, afterListItemE]],
 	);
 
-	if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+	if (fontSize) {
 		const targetParagraphFontSizeAttrs = getBlockMarkAttrs($prev.parent.lastChild, fontSize);
 		reconcileBlockMarkForParagraphAtPos(
 			tr,
@@ -194,7 +193,7 @@ const listBackspaceCase3: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 		[shouldRemoveListE ? [beforeListE, afterListE] : [beforeListItemF, afterListItemF]],
 	);
 
-	if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+	if (fontSize) {
 		const targetParagraphFontSizeAttrs = getBlockMarkAttrs($prev.parent, fontSize);
 
 		reconcileBlockMarkForParagraphAtPos(
@@ -314,7 +313,7 @@ const listBackspaceCase4: BackspaceCommand = (tr, dispatch, $prev, $head, $last)
 		[[beforeListItemK, afterListItemK]],
 	);
 
-	if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+	if (fontSize) {
 		const targetParagraphFontSizeAttrs = getBlockMarkAttrs($last.parent, fontSize);
 		reconcileBlockMarkForParagraphAtPos(
 			tr,

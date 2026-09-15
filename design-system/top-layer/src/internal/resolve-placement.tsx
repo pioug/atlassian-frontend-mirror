@@ -31,13 +31,15 @@ export type TPlacementAlign = 'start' | 'center' | 'end';
 
 /**
  * Fully-resolved placement (internal). Use `resolvePlacement` for partial input.
- * `offset.gap` and `offset.crossAxisShift.value` are always CSS
- * length strings.
+ * `offset.gap`, `offset.crossAxisShift.value` and `minSize` are always CSS length
+ * strings. `minSize` stays `undefined` when unset, so "not specified" and an
+ * explicit `0` remain distinguishable.
  */
 export type TPlacement = {
 	axis: TPlacementAxis;
 	edge: TPlacementEdge;
 	align: TPlacementAlign;
+	minSize?: string;
 	offset: {
 		gap: string;
 		crossAxisShift: TCrossAxisShiftOffset;
@@ -57,6 +59,17 @@ export type TPlacementOptions = {
 	axis?: TPlacementAxis;
 	edge?: TPlacementEdge;
 	align?: TPlacementAlign;
+	/**
+	 * The minimum size the popover keeps along the PLACEMENT axis. A number is
+	 * pixels; a string is any CSS length.
+	 *
+	 * Once EITHER axis asks for `'max-available'` the placement axis is floored
+	 * whether this is set or not, because a cap with no floor stops the popover
+	 * flipping to a roomier side. This always beats that default floor, and
+	 * composes with an anchor floor as `max(minSize, anchorSize)` - so `0` caps the
+	 * popover without letting it move, but does not remove an anchor floor.
+	 */
+	minSize?: number | string;
 	offset?: {
 		gap?: number | string;
 		crossAxisShift?: {
@@ -73,15 +86,21 @@ export type TPlacementOptions = {
  * Defaults: `axis: 'block'`, `edge: 'end'`, `align: 'center'`,
  * `offset.gap: token('space.100', '8px')`,
  * `offset.crossAxisShift: { value: '0px', direction: 'forwards' }`.
+ *
+ * `minSize` has no default here: whether it needs one depends on how the popover
+ * is sized, which only `useAnchoredPopover` knows.
  */
 export function resolvePlacement({ placement }: { placement: TPlacementOptions }): TPlacement {
-	const consumerGap = placement.offset?.gap;
 	return {
 		axis: placement.axis ?? 'block',
 		edge: placement.edge ?? 'end',
 		align: placement.align ?? 'center',
+		// Not `??`: `undefined` must survive, so "not specified" stays
+		// distinguishable from an explicit `0`.
+		minSize:
+			placement.minSize === undefined ? undefined : toCssLengthString({ value: placement.minSize }),
 		offset: {
-			gap: consumerGap === undefined ? DEFAULT_GAP : toCssLengthString({ value: consumerGap }),
+			gap: toCssLengthString({ value: placement.offset?.gap ?? DEFAULT_GAP }),
 			crossAxisShift: {
 				value: toCssLengthString({
 					value: placement.offset?.crossAxisShift?.value ?? 0,

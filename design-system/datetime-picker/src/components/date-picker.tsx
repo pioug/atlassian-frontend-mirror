@@ -524,7 +524,9 @@ const DatePicker: React.ForwardRefExoticComponent<
 		onCalendarChange,
 		onCalendarSelect,
 		calendarLocale: locale,
-		calendarWeekStartDay: weekStartDay,
+		calendarWeekStartDay:
+			weekStartDay ??
+			(fg('platform-dst-locale-week-start-day') ? l10n.getFirstDayOfWeek() : undefined),
 		shouldSetFocusOnCurrentDay,
 		/**
 		 * This overrides the inner wrapper the Calendar.

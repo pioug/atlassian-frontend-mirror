@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 /**
@@ -27,10 +27,10 @@ function ComboboxMenuPopup() {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: inputRef,
 		popoverRef,
-		placement: {},
+		placement: { axis: 'block', edge: 'end' },
 		isOpen,
 	});
 
@@ -79,10 +79,10 @@ function ComboboxListboxPopup() {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: inputRef,
 		popoverRef,
-		placement: {},
+		placement: { axis: 'block', edge: 'end' },
 		isOpen,
 	});
 
@@ -141,10 +141,10 @@ function PlainButtonMenuPopup() {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
-		placement: {},
+		placement: { axis: 'block', edge: 'end' },
 		isOpen,
 	});
 

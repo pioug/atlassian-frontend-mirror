@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::826b19bde1c54b700e1ce0d7245d4619>>
+ * @codegen <<SignedSource::1b717676a1ce1d821e09c6ebab9ae69f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const CapabilityIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "CapabilityIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M7.33.24c.39-.32.95-.32 1.34 0l.08.07 2.31 2.31a1.06 1.06 0 0 1 0 1.5L8.75 6.43a1.06 1.06 0 0 1-1.5 0l-2.31-2.3a1.06 1.06 0 0 1 0-1.5L7.25.32zM6.31 3.38 8 5.07l1.69-1.69L8 1.69zm1.02 6.11c.39-.32.95-.32 1.34 0l.08.07 2.31 2.31a1.06 1.06 0 0 1 0 1.5l-2.31 2.31a1.06 1.06 0 0 1-1.5 0l-2.31-2.3a1.06 1.06 0 0 1 0-1.5l2.31-2.31zm-1.02 3.13L8 14.32l1.69-1.69L8 10.94zm5.64-7.75c.39-.32.95-.32 1.34 0l.08.07 2.31 2.31a1.06 1.06 0 0 1 0 1.5l-2.31 2.31a1.06 1.06 0 0 1-1.5 0l-2.3-2.31a1.06 1.06 0 0 1 0-1.5l2.31-2.31zM10.94 8l1.69 1.69L14.32 8l-1.69-1.69zM2.7 4.87c.39-.32.95-.32 1.34 0l.08.07 2.32 2.31a1.06 1.06 0 0 1 0 1.5l-2.31 2.31a1.06 1.06 0 0 1-1.5 0L.32 8.75a1.06 1.06 0 0 1 0-1.5l2.3-2.31zM1.69 8l1.69 1.69L5.07 8 3.38 6.31z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M7.33.24c.39-.32.95-.32 1.34 0l.08.07 2.31 2.31a1.06 1.06 0 0 1 0 1.5L8.75 6.43a1.06 1.06 0 0 1-1.5 0l-2.31-2.3a1.06 1.06 0 0 1 0-1.5L7.25.32zM6.31 3.37 8 5.06l1.69-1.69L8 1.68zm1.02 6.12c.39-.32.95-.32 1.34 0l.08.07 2.31 2.31a1.06 1.06 0 0 1 0 1.5l-2.31 2.31a1.06 1.06 0 0 1-1.5 0l-2.31-2.3a1.06 1.06 0 0 1 0-1.5l2.31-2.31zm-1.02 3.13L8 14.31l1.69-1.69L8 10.93zm5.64-7.75c.39-.32.95-.32 1.34 0l.08.07 2.31 2.31a1.06 1.06 0 0 1 0 1.5l-2.31 2.31a1.06 1.06 0 0 1-1.5 0l-2.3-2.31a1.06 1.06 0 0 1 0-1.5l2.31-2.31zM10.93 8l1.69 1.69L14.31 8l-1.69-1.69zM2.7 4.87c.39-.32.95-.32 1.34 0l.08.07 2.31 2.31a1.06 1.06 0 0 1 0 1.5l-2.3 2.31a1.06 1.06 0 0 1-1.5 0L.32 8.75a1.06 1.06 0 0 1 0-1.5l2.3-2.31zM1.69 8l1.69 1.69L5.07 8 3.38 6.31z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CapabilityIcon.displayName = 'CapabilityIcon';

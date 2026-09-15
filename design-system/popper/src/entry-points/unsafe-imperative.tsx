@@ -4,7 +4,7 @@
  * `@atlaskit/popper`.
  *
  * Do not use this for new code. New overlays should build on
- * `@atlaskit/top-layer` directly: `Popover` + `useAnchorPosition`. top-layer
+ * `@atlaskit/top-layer` directly: `Popover` + `useAnchoredPopover`. top-layer
  * has no imperative positioning API and is not getting one — see
  * `top-layer/notes/migrations/popper-migration.md` -> "Decision: popper brings
  * its own React".
@@ -30,7 +30,7 @@ import { createPopperTopLayer } from '../create-popper-top-layer';
  * the element hidden until a later frame. See `createPopperTopLayer` for option handling.
  *
  * @deprecated Escape hatch for existing imperative Popper.js callers only. Do not use for new
- * code — build on `@atlaskit/top-layer` (`Popover` + `useAnchorPosition`) instead. Tracked by
+ * code — build on `@atlaskit/top-layer` (`Popover` + `useAnchoredPopover`) instead. Tracked by
  * TIERS-3.
  */
 export const createPopper: typeof createLegacyPopper = (reference, popper, options) => {

@@ -60,6 +60,20 @@ option with folder paths relative to the workspace root:
 	},
 ```
 
+### Migrating pending consumers with `migratePendingConsumers`
+
+By default, packages in the Volt readiness configuration with `consumersMigrated: false`
+are skipped so normal lint continues to allow Stage 1 compatibility shims.
+
+Explicit migration tooling can set `migratePendingConsumers: true` alongside
+`applyToImportsFrom` to process those packages without changing their readiness status.
+The provider scope still applies, and imports already targeting a direct definition
+remain unchanged. This applies to static imports and the rule's supported `require`
+forms; it does not add support for other import syntax.
+
+`@atlassian/barrel-removal-autofix` enables this option automatically for its cross-package
+import phase. Do not enable it globally merely to run a migration.
+
 ### Preferring imported-package subpaths with `preferImportedPackageSubpath`
 
 When a barrel re-exports symbols from another package, both rules **default to** rewriting to a

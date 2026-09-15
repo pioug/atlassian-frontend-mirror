@@ -10,6 +10,7 @@ import { act } from 'react';
 import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
 import { type FileIdentifier } from '@atlaskit/media-client';
 import CardLoader from '../../cardLoader';
+import { IntlProvider } from 'react-intl';
 
 const mediaClient = fakeMediaClient();
 
@@ -32,13 +33,17 @@ const props = {
 	identifier,
 };
 
+// The loading state renders `LoadingBar`, which localises its aria-label via `useIntl`.
+const renderWithIntl = (ui: React.ReactElement) =>
+	render(<IntlProvider locale="en">{ui}</IntlProvider>);
+
 describe('Async Card Loader', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<CardLoader {...props} />);
+		const { container } = renderWithIntl(<CardLoader {...props} />);
 		await expect(container).toBeAccessible();
 	});
 
@@ -52,7 +57,7 @@ describe('Async Card Loader', () => {
 		});
 
 		it('should pass dimensions to the loading component if the async components were NOT resolved', async () => {
-			render(<CardLoader {...props} />);
+			renderWithIntl(<CardLoader {...props} />);
 			await act(async () => {
 				await nextTick();
 			});
@@ -61,7 +66,7 @@ describe('Async Card Loader', () => {
 		});
 
 		it('should NOT render MediaCard component', async () => {
-			render(<CardLoader {...props} />);
+			renderWithIntl(<CardLoader {...props} />);
 			await act(async () => {
 				await nextTick();
 			});
@@ -71,7 +76,7 @@ describe('Async Card Loader', () => {
 
 	describe('When the async import returns with success', () => {
 		it('should render Card component', async () => {
-			render(<CardLoader {...props} />);
+			renderWithIntl(<CardLoader {...props} />);
 			await act(async () => {
 				await nextTick();
 				await nextTick();
@@ -82,7 +87,7 @@ describe('Async Card Loader', () => {
 		});
 
 		it('should render Error boundary component', async () => {
-			render(<CardLoader {...props} />);
+			renderWithIntl(<CardLoader {...props} />);
 			await act(async () => {
 				await nextTick();
 			});
@@ -106,7 +111,7 @@ describe('Async Card Loader', () => {
 		});
 
 		it('should render CardLoading component', async () => {
-			render(<CardLoader {...props} />);
+			renderWithIntl(<CardLoader {...props} />);
 			await act(async () => {
 				await nextTick();
 			});

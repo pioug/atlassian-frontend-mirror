@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-emoji
 
+## 19.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.0
+
+### Minor Changes
+
+- [`f1c1a544bd1a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c1a544bd1a9) -
+  Add unicode fallback to emojis in custom panels and renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.4
 
 ### Patch Changes

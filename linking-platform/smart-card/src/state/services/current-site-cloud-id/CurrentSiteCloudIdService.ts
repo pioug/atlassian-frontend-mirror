@@ -1,5 +1,5 @@
 import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
-import { request } from '@atlaskit/linking-common';
+import { request } from '@atlaskit/linking-common/api';
 
 import { cloudIdStorageItemKey } from './cloudIdStorageItemKey';
 import { currentSiteCloudIdConstants } from './constants';

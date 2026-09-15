@@ -26,7 +26,7 @@ import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { MediaInlineCard } from '@atlaskit/media-card';
+import MediaInlineCard from '@atlaskit/media-card/loader';
 import type { FileIdentifier } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';

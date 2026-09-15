@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8f979db03c65c3ad33f476ee818db363>>
+ * @codegen <<SignedSource::b1c369a3b81670ef1b0e6626d87bc86b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const DiagramArrowheadAggregationUpRightIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramArrowheadAggregationUpRightIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M13.173 2.02a.75.75 0 0 1 .808.807l-.53 6.54a.75.75 0 0 1-.687.687l-6.267.508L2.98 14.08l-1.06-1.06L5.436 9.5l.51-6.265.023-.134a.75.75 0 0 1 .663-.553zM7.388 3.992l-.407 5.024 5.026-.407.408-5.025z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M13.173 2.018a.75.75 0 0 1 .808.808l-.53 6.54a.75.75 0 0 1-.687.687l-6.267.508L2.98 14.08l-1.06-1.06L5.436 9.5l.51-6.266.023-.134a.75.75 0 0 1 .663-.553zM7.388 3.992l-.407 5.024 5.026-.407.408-5.025z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DiagramArrowheadAggregationUpRightIcon.displayName = 'DiagramArrowheadAggregationUpRightIcon';

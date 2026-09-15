@@ -11,13 +11,10 @@ import {
 // Nested-popover focus restoration coverage.
 //
 // The native HTML Popover API only restores focus for the OUTERMOST
-// `popover="auto"`. Nested popovers close with `shouldRestoreFocus: false`,
-// so for focus-capturing roles (dialog, menu, listbox, alertdialog, tree,
-// grid) Popover must run an internal fallback: snapshot `document.activeElement`
-// in `beforetoggle` (newState='open') and restore it on close.
+// `popover="auto"`. Popover provides a fallback for nested popovers that
+// held focus when closing began, unless focus has since moved elsewhere.
 //
-// Passive roles (tooltip) do not move focus on open, so no restoration is
-// required and the snapshot is a no-op.
+// These tooltip fixtures never receive focus, so closing them must preserve focus outside.
 //
 // Every focus-return test is generated for both modalities (`focusInteractionScenarios`);
 // the mouse variant is skipped on WebKit. See notes/decisions/safari-escape-nested-popover-in-dialog.md
@@ -79,7 +76,7 @@ test.describe('Nested popover focus restoration - focus-capturing roles', () => 
 				await expect(page.getByTestId('outer-popover')).toBeVisible();
 			});
 
-			test(`role="${role}" nested in dialog: programmatic close restores focus to nested trigger (${scenario.method})`, async ({
+			test(`role="${role}" nested in dialog: closing via the trigger preserves trigger focus (${scenario.method})`, async ({
 				page,
 				browserName,
 			}) => {
@@ -145,9 +142,7 @@ test.describe('Nested popover focus restoration - focus-capturing roles', () => 
 });
 
 test.describe('Nested popover focus restoration - passive roles', () => {
-	// Tooltip never moves focus on open, so the three-guard check
-	// (`shouldFocusIntoPopover({ role: 'tooltip' })` returns false) short-circuits
-	// before any restoration is attempted. Focus must remain on the trigger.
+	// Focus never enters the tooltip, so closing it must leave focus on the trigger.
 	// Generated for both modalities; mouse open skipped on WebKit.
 	for (const scenario of focusInteractionScenarios) {
 		test(`role="tooltip" nested in dialog: tooltip open and close do not steal or move focus (${scenario.method})`, async ({

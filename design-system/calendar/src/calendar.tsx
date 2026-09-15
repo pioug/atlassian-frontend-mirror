@@ -62,7 +62,7 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 		locale = 'en-US',
 		year,
 		analyticsContext,
-		weekStartDay = 0,
+		weekStartDay,
 		testId,
 		className,
 		style,
@@ -135,7 +135,12 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 		onBlur,
 	});
 
-	const { monthsLong, daysShort, daysLong } = useLocale({
+	const {
+		monthsLong,
+		daysShort,
+		daysLong,
+		weekStartDay: resolvedWeekStartDay,
+	} = useLocale({
 		locale,
 		weekStartDay,
 	});
@@ -152,7 +157,7 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 		minDate,
 		maxDate,
 		daysLong,
-		weekStartDay,
+		weekStartDay: resolvedWeekStartDay,
 	});
 
 	const getNextMonthHeading = () => {

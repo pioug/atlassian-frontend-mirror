@@ -18,11 +18,11 @@ Consumers using non-zero `offset[0]` values should find alternative layouts.
 
 **Reversed 2026-04-21**
 
-The `placement.offset` redesign restores full cross-axis (`shift`) offset support via custom
-properties in CSS (four explicit `--ds-cross-axis-shift-margin-*` properties to sidestep the
-inability to interpolate variables in property names) and a signed cross-axis delta in the JS
-fallback path. This provides full parity with popper-era APIs without requiring consumers to find
-alternative layouts. See `placement-offset.md` for the complete rationale and implementation.
+The `placement.offset` redesign restores full cross-axis (`shift`) offset support via antisymmetric
+cross-axis margins on the CSS path and a signed cross-axis delta in the JS fallback path. (The four
+mirroring `--ds-cross-axis-shift-margin-*` custom properties were removed unread on 2026-09-03.)
+This provides full parity with popper-era APIs without requiring consumers to find alternative
+layouts. See `placement-offset.md` for the complete rationale and implementation.
 
 #### 2. DialogScrollLock stacking — Innermost modal only
 
@@ -161,7 +161,7 @@ functionality, dedicated unit tests for the top-layer path are not required.
 
 #### 21a. `anchor-name` lifetime - confirmed; no action
 
-**Decision:** `useAnchorPosition` deliberately does not clear the trigger's `anchor-name` on
+**Decision:** `useAnchoredPopover` deliberately does not clear the trigger's `anchor-name` on
 cleanup. The leak is intentional and benign - see `notes/decisions/anchor-name-lifetime.md` for the
 full rationale (we preserve the anchor name so a re-mounted popover can rebind without flicker, and
 the cost is one short string per trigger). No action.

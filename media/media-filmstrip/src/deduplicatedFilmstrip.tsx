@@ -5,7 +5,9 @@ import {
 	MediaClientProvider,
 } from '@atlaskit/media-client-react/media-client-provider';
 import { useFileHashes } from '@atlaskit/media-client-react/use-file-hashes';
-import { Card, defaultImageCardDimensions, CardLoading } from '@atlaskit/media-card';
+import Card from '@atlaskit/media-card/cardLoader';
+import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
+import { CardLoading } from '@atlaskit/media-card/cardLoading';
 import { FilmstripView, type SizeEvent, type ScrollEvent } from './filmstripView';
 import { generateIdentifierKey } from './utils/generateIdentifierKey';
 import { type FilmstripProps } from './types';

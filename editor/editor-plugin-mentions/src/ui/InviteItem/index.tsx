@@ -11,8 +11,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { css, jsx } from '@atlaskit/css';
 import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
 import AddIcon from '@atlaskit/icon/core/add';
-import type { UserRole } from '@atlaskit/mention';
-import type { MentionDescription } from '@atlaskit/mention/resource';
+import type { UserRole, MentionDescription } from '@atlaskit/mention/types';
 import { token } from '@atlaskit/tokens';
 
 const mentionItemStyle = css({

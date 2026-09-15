@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed972dcbb38854728e85a08e6bdcde0d>>
+ * @codegen <<SignedSource::b7be751fc1449ee2d09c7bcaa0a853aa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const StrokeCurvatureStraightIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "StrokeCurvatureStraightIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m14.53 2.53-12 12-1.06-1.06 12-12z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m14.53 2.53-12 12-1.06-1.061 12-12z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 StrokeCurvatureStraightIcon.displayName = 'StrokeCurvatureStraightIcon';

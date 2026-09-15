@@ -8,10 +8,15 @@
 		"10-popup.vr.ap.tsx",
 		"11-asynchronous-popup.tsx",
 		"13-setting-focus.tsx",
+		"24-fit-viewport.vr.ap.tsx",
+		"97-testing-initial-focus-matrix.tsx",
+		"98-testing-fit-viewport.tsx",
+		"should-fit-viewport.tsx",
 		"popup-disable-autofocus.tsx",
 		"surface-detection.vr.ap.tsx",
 		"should-not-return-focus.tsx",
-		"testing-popup-with-dropdown-escape.tsx"
+		"testing-popup-with-dropdown-escape.tsx",
+		"testing-popup-with-datetime-picker-escape.tsx"
 	],
 	"exampleDependencies": [],
 }

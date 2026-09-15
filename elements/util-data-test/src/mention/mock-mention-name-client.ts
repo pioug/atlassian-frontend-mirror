@@ -1,8 +1,5 @@
-import {
-	type MentionNameClient,
-	type MentionNameDetails,
-	MentionNameStatus,
-} from '@atlaskit/mention/resource';
+import type { MentionNameClient } from '@atlaskit/mention/mention-name-client';
+import { type MentionNameDetails, MentionNameStatus } from '@atlaskit/mention/types';
 import debug from '../logger';
 
 export class MockMentionNameClient implements MentionNameClient {

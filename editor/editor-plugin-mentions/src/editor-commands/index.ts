@@ -7,7 +7,7 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
-import type { MentionProvider, MentionDescription } from '@atlaskit/mention/resource';
+import type { MentionProvider, MentionDescription } from '@atlaskit/mention/types';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { MentionsPlugin } from '../mentionsPluginType';

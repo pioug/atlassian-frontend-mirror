@@ -571,6 +571,8 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer coverage gaps', (
 
 		await user.click(screen.getByTestId('trigger'));
 		runAllTimers();
+		// The non-animated exit unmounts on a microtask after the closed `toggle`.
+		await settleAnimationLifecycle();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});

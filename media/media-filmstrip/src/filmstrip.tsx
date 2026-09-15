@@ -1,6 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
-import { Card, defaultImageCardDimensions, CardLoading } from '@atlaskit/media-card';
+import Card from '@atlaskit/media-card/cardLoader';
+import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
+import { CardLoading } from '@atlaskit/media-card/cardLoading';
 import { FilmstripView } from './filmstripView';
 import { generateIdentifierKey } from './utils/generateIdentifierKey';
 import { type FilmstripProps } from './types';

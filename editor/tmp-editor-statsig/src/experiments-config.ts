@@ -458,13 +458,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-04
-	platform_editor_disable_lazy_load_media: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_toolbar_hide_overflow_menu: {
 		defaultValue: boolean;
 		param: string;
@@ -494,13 +487,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-08-18
 	platform_editor_locale_datepicker: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-05
-	platform_editor_appearance_shared_state: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -659,13 +645,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open (boolean: isEnabled)
 	platform_sl_3p_post_auth_chat_open_exp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-11 — Pre-auth inline CTA 'Preview' experiment for unauthorised 3P inline smart links (boolean: isEnabled)
-	'rovogrowth-635-pre-auth-cta-preview-exp': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -847,13 +826,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-07-13
 	confluence_native_tabs_experiment: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-26
-	'cc-maui-ai-edit-loading-experiment': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1051,12 +1023,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-04
 	confluence_fe_renderer_inline_node_mark_color_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	platform_editor_small_font_size: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2074,14 +2040,6 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test_with_overflow', 'test_without_overflow'],
 		defaultValue: 'control',
 	}),
-	// Added 2025-11-04
-	platform_editor_disable_lazy_load_media: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_disable_lazy_load_media',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-10-29
 	platform_editor_lovability_inline_code: createBooleanExperiment({
 		productKeys: {
@@ -2130,15 +2088,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_sl_3p_post_auth_chat_open_exp',
 			jira: 'platform_sl_3p_post_auth_chat_open_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-11 — Pre-auth inline CTA 'Preview' experiment for unauthorised 3P inline smart links
-	'rovogrowth-635-pre-auth-cta-preview-exp': createBooleanExperiment({
-		productKeys: {
-			confluence: 'rovogrowth-635-pre-auth-cta-preview-exp',
-			jira: 'rovogrowth-635-pre-auth-cta-preview-exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2276,14 +2225,6 @@ export const editorExperimentsConfig: {
 	confluence_native_tabs_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_native_tabs_experiment',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-26
-	'cc-maui-ai-edit-loading-experiment': createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc-maui-ai-edit-loading-experiment',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2455,14 +2396,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-05
-	platform_editor_appearance_shared_state: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_appearance_shared_state',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	platform_editor_ai_blockmenu_integration: createBooleanExperiment({
 		productKeys: {
@@ -2507,14 +2440,6 @@ export const editorExperimentsConfig: {
 	confluence_fe_renderer_inline_node_mark_color_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_fe_renderer_inline_node_mark_color_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_small_font_size: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_small_font_size',
-			jira: 'platform_editor_small_font_size',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -82,8 +82,8 @@ function Button({ children }) {
 
 ### Correct
 
-**Using the css() function to create a style object and passing it as a variable into the css={...}
-JSX attribute.**
+**Using the css() function to create a style object and passing it as a variable into the
+`css={...}` JSX attribute.**
 
 With the following options turned on:
 

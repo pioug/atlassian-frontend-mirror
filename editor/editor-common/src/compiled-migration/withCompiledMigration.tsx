@@ -1,11 +1,13 @@
 /**
- * @jsxRuntime classic
- * @jsx jsx
- *
- * IMPORTANT: This file MUST keep the emotion JSX pragma (@jsx jsx from @emotion/react).
+ * IMPORTANT: This file MUST keep using emotion's `jsx` factory (from @emotion/react).
  * This is intentional — it allows the HOC to apply emotion styles via the css prop
- * at the call site (where emotion's JSX runtime intercepts it), without requiring
- * the wrapped component to use the emotion pragma itself.
+ * without requiring the wrapped component to use the emotion pragma itself.
+ *
+ * Note: `jsx` is called directly rather than via the `@jsx jsx` pragma. The two are
+ * equivalent (the pragma just compiles JSX down to these calls), but the direct form
+ * avoids emotion's `EmotionJSX.LibraryManagedAttributes`, which since @emotion/react
+ * 11.13 is a distributive conditional type that TypeScript cannot resolve when the
+ * element's props are an uninstantiated generic parameter such as `P` below.
  *
  * This file is part of the Emotion → Compiled CSS-in-JS migration infrastructure.
  * It is temporary and should be removed once the migration is complete.
@@ -14,7 +16,7 @@
  */
 import type { ComponentType } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- intentional: this file must use emotion's JSX pragma to apply emotion styles via the css prop
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- intentional: this file must use emotion's element factory to apply emotion styles via the css prop
 import { jsx, type SerializedStyles } from '@emotion/react';
 
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
@@ -69,7 +71,7 @@ export function withCompiledMigration<P extends { className?: string }>(
 	(props: P): JSX.Element;
 	displayName: string;
 } {
-	// The cast is required because emotion's `css` prop is injected by the JSX pragma
+	// The cast is required because emotion's `css` prop is handled by the `jsx` factory
 	// and is not part of the component's declared props type. We widen to P & { css? }
 	// so TypeScript accepts the css prop in the emotion branch while preserving P.
 	const Comp = WrappedComponent as ComponentType<P & { css?: SerializedStyles }>;
@@ -80,16 +82,14 @@ export function withCompiledMigration<P extends { className?: string }>(
 		if (compiledEnabled) {
 			// Experiment ON — render directly. Compiled's statically-extracted CSS classes
 			// are applied inside the component via its own css prop. No Emotion code runs.
-			// eslint-disable-next-line react/jsx-props-no-spreading -- HOC must forward all props
-			return <Comp {...props} />;
+			return jsx(Comp, props);
 		}
 
-		// Experiment OFF — render with Emotion css prop. Because this file has
-		// the emotion JSX pragma, Emotion's JSX runtime intercepts the css prop
-		// here, converts it to a className, and passes it through to the component.
-		// No wrapper div needed.
-		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/ui-styling-standard/use-compiled -- HOC must forward all props; intentional emotion usage for migration
-		return <Comp {...props} css={emotionStyles} />;
+		// Experiment OFF — render with Emotion css prop. `jsx` is Emotion's element
+		// factory, so it intercepts the css prop here, converts it to a className, and
+		// passes it through to the component. No wrapper div needed.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- intentional emotion usage for migration
+		return jsx(Comp, { ...props, css: emotionStyles });
 	}
 
 	const name = WrappedComponent.displayName ?? WrappedComponent.name ?? 'Component';

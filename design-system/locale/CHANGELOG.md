@@ -1,5 +1,14 @@
 # @atlaskit/locale
 
+## 5.3.0
+
+### Minor Changes
+
+- [`22469cd6605a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22469cd6605a3) -
+  When platform-dst-locale-week-start-day is enabled, Calendar and DatePicker default the first day
+  of the week from the locale via Intl.Locale.getWeekInfo(). @atlaskit/locale adds
+  getFirstDayOfWeek() for that lookup. Pass weekStartDay to keep Sunday or any other start day.
+
 ## 5.2.0
 
 ### Minor Changes

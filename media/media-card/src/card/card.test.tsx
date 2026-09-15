@@ -55,7 +55,8 @@ jest.mock('../utils/ufoExperiences', () => {
 	};
 });
 
-jest.mock('@atlaskit/react-ufo/experience-trace-id-context', () => ({
+jest.mock('@atlaskit/react-ufo/get-active-trace', () => ({
+	...jest.requireActual('@atlaskit/react-ufo/get-active-trace'),
 	getActiveTrace: jest.fn(() => {
 		return { traceId: 'traceid', spanId: 'spanid' };
 	}),
@@ -138,6 +139,10 @@ const setGlobalSSRData = (id: string, data: any) => {
 const HTMLMediaElement_play = HTMLMediaElement.prototype.play;
 const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
 
+// The card's loading bar is also a `progressbar`, so match the upload bar by its accessible
+// name to avoid picking up whichever one happens to be mounted.
+const UPLOAD_PROGRESS_LABEL = 'Loading progress';
+
 describe('Card ', () => {
 	let currentObserver: any;
 	const intersectionObserver = new MockIntersectionObserver();
@@ -194,9 +199,13 @@ describe('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 			const { container } = render(
-				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<CardLoader mediaClientConfig={dummyMediaClientConfig} identifier={identifier} />
-				</MockedMediaClientProvider>,
+				// `CardLoader` renders the loading bar while the async import resolves, and the
+				// loading bar localises its aria-label via `useIntl`.
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader mediaClientConfig={dummyMediaClientConfig} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
 			);
 
 			await expect(container).toBeAccessible();
@@ -1286,7 +1295,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when fetching the remote preview errors out (RemotePreviewError: remote-preview-fetch)', async () => {
@@ -1333,7 +1344,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when loading the remote preview errors out (ImageLoadError: remote-uri)', async () => {
@@ -1388,7 +1401,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when a serverRateLimited error occurs (RequestError: serverRateLimited)', async () => {
@@ -1433,7 +1448,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when a pollingMaxAttemptsExceeded error occurs (PollingError: pollingMaxAttemptsExceeded)', async () => {
@@ -1478,7 +1495,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when there is an empty items error (emptyItems, metadata-fetch)', async () => {
@@ -1519,7 +1538,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when file id is invalid (invalidFileId, metadata-fetch)', async () => {
@@ -1561,7 +1582,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when backend fails to process the file (status: failed-processing) ', async () => {
@@ -1605,7 +1628,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when loading', async () => {
@@ -1630,7 +1655,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when backend is processing the file (status: processing)', async () => {
@@ -1670,7 +1697,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when uploading with a progress of 0', async () => {
@@ -1717,7 +1746,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).toBeInTheDocument();
 				expect(document.querySelector('[aria-valuenow="0"]')).toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="0"]')).toBeInTheDocument();
 			});
@@ -1766,7 +1797,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).toBeInTheDocument();
 				expect(document.querySelector('[aria-valuenow="50"]')).toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="0.5"]')).toBeInTheDocument();
 			});
@@ -1830,7 +1863,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="1"]')).toBeInTheDocument();
 			});
 
@@ -1870,7 +1905,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).toBeInTheDocument();
 				expect(document.querySelector('[aria-valuenow="80"]')).toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="0.8"]')).toBeInTheDocument();
 			});
@@ -1936,7 +1973,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="1"]')).toBeInTheDocument();
 			});
 
@@ -1968,7 +2007,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when there is an upload error', async () => {
@@ -2019,7 +2060,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when an error occurs after the card is complete', async () => {
@@ -2078,7 +2121,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when DateOverride is provided', async () => {
@@ -2157,7 +2202,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when fetching the remote preview errors out (RemotePreviewError: remote-preview-fetch)', async () => {
@@ -2206,7 +2253,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when loading the remote preview errors out (ImageLoadError: remote-uri)', async () => {
@@ -2261,7 +2310,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when a serverRateLimited error occurs (RequestError: serverRateLimited)', async () => {
@@ -2307,7 +2358,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when a pollingMaxAttemptsExceeded error occurs (PollingError: pollingMaxAttemptsExceeded)', async () => {
@@ -2353,7 +2406,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when there is an empty items error (emptyItems, metadata-fetch)', async () => {
@@ -2395,7 +2450,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when file id is invalid (invalidFileId, metadata-fetch)', async () => {
@@ -2438,7 +2495,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when backend fails to process the file (status: failed-processing) ', async () => {
@@ -2483,7 +2542,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when loading', async () => {
@@ -2513,7 +2574,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when backend is processing the file (status: processing)', async () => {
@@ -2554,7 +2617,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when uploading with a progress of 0', async () => {
@@ -2602,7 +2667,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).toBeInTheDocument();
 				expect(document.querySelector('[aria-valuenow="0"]')).toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="0"]')).toBeInTheDocument();
 			});
@@ -2652,7 +2719,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).toBeInTheDocument();
 				expect(document.querySelector('[aria-valuenow="50"]')).toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="0.5"]')).toBeInTheDocument();
 			});
@@ -2717,7 +2786,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="1"]')).toBeInTheDocument();
 			});
 
@@ -2758,7 +2829,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).toBeInTheDocument();
 				expect(document.querySelector('[aria-valuenow="80"]')).toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="0.8"]')).toBeInTheDocument();
 			});
@@ -2823,7 +2896,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar correctly
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 				expect(document.querySelector('[data-test-progress="1"]')).toBeInTheDocument();
 			});
 
@@ -2860,7 +2935,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			it('when there is an upload error', async () => {
@@ -2912,7 +2989,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 
 			// TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
@@ -2977,7 +3056,9 @@ describe('Card ', () => {
 				expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
 				// should not render a progress bar
-				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('progressbar', { name: UPLOAD_PROGRESS_LABEL }),
+				).not.toBeInTheDocument();
 			});
 		});
 	});

@@ -6,8 +6,8 @@
 
 The primary public surface. A `<div>` with the `popover` attribute, plus a small lifecycle:
 animations, role-based focus management, light-dismiss, and nested-popover focus restoration. It
-does **not** know about positioning — compose with `useAnchorPosition` when anchor positioning is
-needed.
+does **not** know about positioning or size — compose with `useAnchoredPopover` when anchor
+positioning is needed.
 
 The shared visibility terminology and state machine are defined by the
 [canonical visibility lifecycle contract](./animations.md#canonical-visibility-lifecycle-contract).
@@ -16,7 +16,7 @@ host mounting.
 
 `Popover` covers three usage patterns:
 
-1. **Button opens anchored content** — pair with `useAnchorPosition` and own the trigger yourself.
+1. **Button opens anchored content** — pair with `useAnchoredPopover` and own the trigger yourself.
 2. **Custom trigger lifecycle** — hover, timers, external state (e.g. tooltip).
 3. **No anchor at all** — flags, toasts, fixed-position layers.
 
@@ -26,7 +26,7 @@ import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 function MyDropdown() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -34,10 +34,11 @@ function MyDropdown() {
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'block', edge: 'end', align: 'start' },
+		isOpen,
 	});
 
 	return (
@@ -74,8 +75,8 @@ Notes:
   with focus-capturing roles (dialog, menu, listbox, tree, grid, alertdialog), `Popover` snapshots
   `document.activeElement` on open (via `beforetoggle`) and restores it on close. Consumers do not
   need to wire a ref or call `.focus()` themselves.
-- For trigger-less or custom-positioned UI, skip `useAnchorPosition` and write the trigger lifecycle
-  directly. Example:
+- For trigger-less or custom-positioned UI, skip `useAnchoredPopover` and write the trigger
+  lifecycle directly. Example:
 
 ```tsx
 <Popover ref={popoverRef} role="tooltip" isOpen={isVisible} mode="hint">
@@ -110,12 +111,26 @@ function MyModal() {
 
 ## Hooks
 
-### `useAnchorPosition`
+### `useAnchoredPopover`
 
-CSS anchor positioning hook. Positions a popover relative to an anchor element. Includes a
-JavaScript fallback for browsers without CSS Anchor Positioning support (~6% of users). For the full
-positioning model (placement, offset, fallbacks) see
-[architecture/positioning.md](./positioning.md).
+The one hook for anchored popovers: it positions and sizes a popover relative to its anchor, and
+owns every inline style on the popover host. Includes a JavaScript fallback for browsers without CSS
+Anchor Positioning support. It replaced four hooks (`useAnchorPosition`, `useAnchorPositionAtPoint`,
+`useWidthFromAnchor`, `useFitAvailableSpace`), because `anchor-size()` is part of the same CSS spec
+as `position-area` — splitting "where the box goes" from "how big it is relative to its anchor" was
+our line, not the platform's.
+
+- **`anchorRef`** — the element to position against. For a viewport coordinate instead, use the
+  sibling `useAnchoredPopoverAtPoint({ getPoint })`, which creates a synthetic anchor and delegates
+  here. See [../decisions/anchored-popover-at-point.md](../decisions/anchored-popover-at-point.md).
+- **`isEnabled`** — `false` for "do not position". Defaults to `true`.
+- **`placement`** — required. Carries the axis, edge, alignment, offsets, and `minSize`.
+- **`inlineSize` / `blockSize`** — `'content'` (default), `'match-anchor'`, `'min-anchor'` or
+  `'max-available'`.
+
+For the full positioning model (anchor kinds, placement, offset, fallbacks) see
+[architecture/positioning.md](./positioning.md); for the size recipe and the measurements behind it,
+[decisions/fit-available-space.md](../decisions/fit-available-space.md).
 
 ### `useArrowNavigation`
 
@@ -161,14 +176,14 @@ a modal dialog is open.
 
 ## When to use what
 
-| Scenario                                               | Component                       | `isOpen`?              | Focus Management                            |
-| ------------------------------------------------------ | ------------------------------- | ---------------------- | ------------------------------------------- |
-| Button opens dropdown/menu                             | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (role-based, browser Popover API) |
-| Hover/focus shows tooltip                              | `Popover` + `useAnchorPosition` | Yes — consumer manages | No focus changes (`tooltip`)                |
-| Toast/flag notification                                | `Popover`                       | Yes — `mode="manual"`  | No focus changes                            |
-| Modal dialog                                           | `Dialog`                        | Yes — on `Dialog`      | Native `<dialog>` focus trap                |
-| Custom trigger (timer, external)                       | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (browser Popover API)             |
-| Button opens anchored content with no custom lifecycle | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (role-based, browser Popover API) |
+| Scenario                                               | Component                        | `isOpen`?              | Focus Management                            |
+| ------------------------------------------------------ | -------------------------------- | ---------------------- | ------------------------------------------- |
+| Button opens dropdown/menu                             | `Popover` + `useAnchoredPopover` | Yes — consumer manages | Automatic (role-based, browser Popover API) |
+| Hover/focus shows tooltip                              | `Popover` + `useAnchoredPopover` | Yes — consumer manages | No focus changes (`tooltip`)                |
+| Toast/flag notification                                | `Popover`                        | Yes — `mode="manual"`  | No focus changes                            |
+| Modal dialog                                           | `Dialog`                         | Yes — on `Dialog`      | Native `<dialog>` focus trap                |
+| Custom trigger (timer, external)                       | `Popover` + `useAnchoredPopover` | Yes — consumer manages | Automatic (browser Popover API)             |
+| Button opens anchored content with no custom lifecycle | `Popover` + `useAnchoredPopover` | Yes — consumer manages | Automatic (role-based, browser Popover API) |
 
 ---
 
@@ -177,8 +192,7 @@ a modal dialog is open.
 ```
 Popover               = top layer + isOpen + shouldAnimate + mode + ARIA + (optional) nested-focus restoration
 PopoverSurface        = presentational surface (background, radius, shadow)
-useAnchorPosition     = CSS anchor positioning (separate hook)
-useWidthFromAnchor    = anchor-width sizing helper
+useAnchoredPopover    = anchor positioning AND anchor-relative sizing (one hook, one writer per property)
 Dialog                = <dialog> element + isOpen + shouldAnimate + onExitFinish
 ```
 
@@ -189,8 +203,8 @@ Dialog                = <dialog> element + isOpen + shouldAnimate + onExitFinish
 | `@atlaskit/top-layer/popover`                  | Top-layer primitive and legacy `onClose` bridge     |
 | `@atlaskit/top-layer/popover-surface`          | Presentational surface (background, radius, shadow) |
 | `@atlaskit/top-layer/dialog`                   | Modal dialog and legacy `onClose` bridge            |
-| `@atlaskit/top-layer/use-anchor-position`      | CSS anchor positioning hook                         |
-| `@atlaskit/top-layer/use-width-from-anchor`    | Match popover width to anchor                       |
+| `@atlaskit/top-layer/use-anchored-popover`     | Anchor positioning and anchor-relative sizing       |
+| `@atlaskit/top-layer/resolve-placement`        | `TPlacementOptions` and `resolvePlacement`          |
 | `@atlaskit/top-layer/use-arrow-navigation`     | Arrow key navigation hook for composite widgets     |
 | `@atlaskit/top-layer/use-simple-light-dismiss` | Light dismiss for manual popovers                   |
 | `@atlaskit/top-layer/placement-map`            | Legacy placement string conversion                  |

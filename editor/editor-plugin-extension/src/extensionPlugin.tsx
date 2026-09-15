@@ -104,6 +104,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 							{
 								appearance: options.appearance,
 								getExtensionHeight: options.getExtensionHeight,
+								allowAIGeneratedContentMotion: options.allowAIGeneratedContentMotion,
 							},
 							featureFlags,
 							options?.__rendererExtensionOptions,

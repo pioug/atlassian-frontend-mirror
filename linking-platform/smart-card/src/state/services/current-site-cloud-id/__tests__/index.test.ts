@@ -1,4 +1,4 @@
-import * as linkingCommon from '@atlaskit/linking-common';
+import * as linkingCommon from '@atlaskit/linking-common/api';
 
 import { getCurrentSiteCloudId } from '../getCurrentSiteCloudId';
 import { getCurrentSiteCloudIdLocalStorageKey } from '../getCurrentSiteCloudIdLocalStorageKey';

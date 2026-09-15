@@ -344,6 +344,36 @@ describe('DatePicker', () => {
 					},
 				],
 			);
+
+			cases(
+				"should use locale's starting weekday if not provided",
+				({ locale, result }: { locale: string; result: string }) => {
+					passGate('platform-dst-locale-week-start-day');
+					render(
+						createDatePicker({
+							value: exampleDate.iso,
+							locale: locale,
+						}),
+					);
+
+					fireEvent.focus(getInput());
+
+					// Weekday column headers are aria-hidden; query them explicitly.
+					expect(screen.getAllByRole('columnheader', { hidden: true })[0]).toHaveAccessibleName(
+						result,
+					);
+				},
+				[
+					{
+						locale: 'en-US',
+						result: 'Sun',
+					},
+					{
+						locale: 'es-ES',
+						result: 'lun',
+					},
+				],
+			);
 		});
 
 		describe('parseInputValue', () => {

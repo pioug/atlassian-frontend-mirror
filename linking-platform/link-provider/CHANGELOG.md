@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 5.6.1
+
+### Patch Changes
+
+- [`ec5808c03c48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec5808c03c48f) -
+  Avoid redundant full block resolves and preserve concurrent appearance payloads for
+  platform_smartlink_inline_resolve_optimization.
+
 ## 5.6.0
 
 ### Minor Changes

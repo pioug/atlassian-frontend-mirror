@@ -145,6 +145,7 @@ export type ChatCreationContextParams = {
 		| 'remix_edit'
 		| 'remix_object'
 		| 'remix_custom'
+		| 'remix_custom_edit'
 		| 'chat_edit'
 		| 'chat_view'
 		| 'keep_existing_page_structure';

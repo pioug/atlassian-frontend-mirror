@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-rule
 
+## 18.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.1.0
 
 ### Minor Changes

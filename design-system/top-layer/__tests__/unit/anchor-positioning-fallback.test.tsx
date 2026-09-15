@@ -1,4 +1,4 @@
-import { computeFallbackPosition } from '../../src/internal/anchor-positioning-fallback';
+import { computeFallbackPosition } from '../../src/internal/javascript-fallback/anchor-positioning-fallback';
 import { resolvePlacement } from '../../src/internal/resolve-placement';
 
 // Tests use the default 8px gap (matches `space.100`) when not overridden.
@@ -360,8 +360,7 @@ describe('anchor positioning fallback', () => {
 
 			// `forwards` means "toward the cross-axis end" for EVERY align value
 			// (see notes/decisions/placement-offset.md), so this moves the same
-			// direction as the `align: 'start'` case above. The popover's end edge
-			// starts at the trigger's end edge, then shifts 10px toward the end.
+			// direction as the `align: 'start'` case above.
 			expect(position.left).toBe(triggerRect.right - 40 + 10);
 		});
 

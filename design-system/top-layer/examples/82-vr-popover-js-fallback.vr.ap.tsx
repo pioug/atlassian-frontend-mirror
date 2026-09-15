@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 const styles = cssMap({
 	center: {
@@ -41,11 +41,11 @@ function VrPopupFallback({ placement }: { placement: TPlacementOptions }) {
 	// Start open so the VR snapshot captures the positioned popover.
 	// The Popover primitive does not render its host element while
 	// `isOpen=false`, so an effect-based open would race the snapshot:
-	// the snapshot would land before `useAnchorPosition` has a populated
+	// the snapshot would land before `useAnchoredPopover` has a populated
 	// `popoverRef.current` and the popover would render at (0, 0).
 	const [isOpen, setIsOpen] = useState(true);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement,

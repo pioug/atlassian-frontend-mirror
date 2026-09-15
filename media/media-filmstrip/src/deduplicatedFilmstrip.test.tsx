@@ -5,6 +5,7 @@ import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { IntlProvider } from 'react-intl';
 import { DeduplicatedFilmStrip } from './deduplicatedFilmstrip';
 
 const imgTestId = 'media-image';
@@ -33,13 +34,16 @@ describe('DeduplicatedFilmstrip', () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 		const { mediaApi } = createMockedMediaApi(fileItem);
 		const { container } = render(
-			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-				<DeduplicatedFilmStrip
-					mediaClientConfig={dummyMediaClientConfig}
-					items={[{ identifier }]}
-					isLazy={false}
-				/>
-			</MockedMediaClientProvider>,
+			// The card's loading bar localises its aria-label via `useIntl`.
+			<IntlProvider locale="en">
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<DeduplicatedFilmStrip
+						mediaClientConfig={dummyMediaClientConfig}
+						items={[{ identifier }]}
+						isLazy={false}
+					/>
+				</MockedMediaClientProvider>
+			</IntlProvider>,
 		);
 
 		await expect(container).toBeAccessible();
@@ -78,17 +82,20 @@ describe('DeduplicatedFilmstrip', () => {
 
 	it('should render loaidng card when no client config is provided and not wrapped in Provider', async () => {
 		render(
-			<DeduplicatedFilmStrip
-				items={[
-					{
-						identifier: {
-							mediaItemType: 'file',
-							id: 'some-id',
+			// The card's loading bar localises its aria-label via `useIntl`.
+			<IntlProvider locale="en">
+				<DeduplicatedFilmStrip
+					items={[
+						{
+							identifier: {
+								mediaItemType: 'file',
+								id: 'some-id',
+							},
 						},
-					},
-				]}
-				isLazy={false}
-			/>,
+					]}
+					isLazy={false}
+				/>
+			</IntlProvider>,
 		);
 
 		// simulate that the file has been fully loaded by the browser

@@ -1,55 +1,65 @@
 import { defineMessages } from 'react-intl';
 
 export const imageBorderMessages: {
-	borderColor: {
-		id: string;
+	addBorder: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	borderColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	borderColorDropdownAriaLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	borderSize: {
-		id: string;
+	borderColorRadioGroupAriaLabel: {
 		defaultMessage: string;
 		description: string;
-	};
-	borderSizeDropdownAriaLabel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	addBorder: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	removeBorder: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	borderOptions: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	borderSizeSubtle: {
-		id: string;
+	borderSize: {
 		defaultMessage: string;
 		description: string;
-	};
-	borderSizeMedium: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	borderSizeBold: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	borderSizeDropdownAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	borderSizeMedium: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	borderSizeRadioGroupAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	borderSizeSubtle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	removeBorder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	borderColor: {
@@ -63,6 +73,12 @@ export const imageBorderMessages: {
 		defaultMessage: 'Image border options Color dropdown',
 		description: 'ARIA label for the dropdown to change the border color of an image.',
 	},
+	borderColorRadioGroupAriaLabel: {
+		id: 'fabric.editor.imageBorderColor.radioGroupAriaLabel',
+		defaultMessage: 'Color options',
+		description:
+			'ARIA label for the group of selectable border colors in the image border options panel.',
+	},
 	borderSize: {
 		id: 'fabric.editor.imageBorderSize',
 		defaultMessage: 'Size',
@@ -73,6 +89,12 @@ export const imageBorderMessages: {
 		id: 'fabric.editor.imageBorderSize.dropdownAriaLabel',
 		defaultMessage: 'Image border options Size dropdown',
 		description: 'ARIA label for the dropdown to change the border size of an image.',
+	},
+	borderSizeRadioGroupAriaLabel: {
+		id: 'fabric.editor.imageBorderSize.radioGroupAriaLabel',
+		defaultMessage: 'Size options',
+		description:
+			'ARIA label for the group of selectable border sizes in the image border options panel.',
 	},
 	addBorder: {
 		id: 'fabric.editor.addImageBorder',

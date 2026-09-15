@@ -10,9 +10,8 @@ import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
 const styles = cssMap({
 	wrapper: {
@@ -26,7 +25,7 @@ const styles = cssMap({
 });
 
 /**
- * Test fixture for `useWidthFromAnchor` with mode `'match-anchor'`.
+ * Test fixture for `useAnchoredPopover` with `inlineSize: 'match-anchor'`.
  * The trigger is an element with a known width so we can verify the
  * popover matches it.
  */
@@ -38,18 +37,12 @@ export default function TestingPopoverWidthTrigger(): ReactNode {
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
 		isOpen,
-	});
-
-	useWidthFromAnchor({
-		anchorRef: triggerRef,
-		popoverRef,
-		mode: 'match-anchor',
-		isOpen,
+		inlineSize: 'match-anchor',
 	});
 
 	return (

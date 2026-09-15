@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // @ts-ignore
-import uid from 'uid';
+import uid from 'uid/index.js';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, type BoxProps } from '@atlaskit/primitives/compiled';

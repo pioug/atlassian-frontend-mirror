@@ -1,6 +1,5 @@
 import type { Mark, Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type NodesSanitized = Array<{
 	marksRemoved: Mark[];
@@ -15,11 +14,7 @@ const listContainerTypes = new Set(['bulletList', 'orderedList']);
  * so mark compatibility is checked against the actual parent.
  */
 const resolveEffectiveParentType = (newParentType?: NodeType): NodeType | undefined => {
-	if (
-		newParentType &&
-		listContainerTypes.has(newParentType.name) &&
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-	) {
+	if (newParentType && listContainerTypes.has(newParentType.name)) {
 		return newParentType.schema.nodes.listItem;
 	}
 	return newParentType;

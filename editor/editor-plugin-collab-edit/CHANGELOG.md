@@ -1,5 +1,48 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 19.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- [`b9d1af39046dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9d1af39046dc) -
+  Add a shared applied-step range detector for AI activity. Connect local streaming under
+  platform_editor_ai_streaming_ux_experience_m1 and incoming agent edits under the existing backend
+  streaming rollout to this detector. Refine shared chrome highlights to affected nested textblock
+  content for all existing shared-chrome consumers.
+
+  Preserve node attribute activity through cumulative replacements that retain its markup while
+  changing descendant content. Reuse existing highlight styles and the grouped cursor.
+
+  Expose a transaction-only AI activity action and connect direct orchestrator attribute, move, wrap
+  and remove mutations under platform_editor_ai_streaming_ux_experience_m1. Keep review segments and
+  existing streaming cadence unchanged.
+
+  Reuse lazily built node-identity indexes per transaction snapshot to avoid repeated full-document
+  lookups when changed blocks survive cumulative replacements.
+
+  Let the chrome plugin map and accumulate existing highlights without restamping stale positions
+  from before direct orchestrator mutations.
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.4
 
 ### Patch Changes

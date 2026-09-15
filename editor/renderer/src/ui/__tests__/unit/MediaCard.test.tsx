@@ -3,10 +3,22 @@ import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disab
 import type { MediaCardProps } from '../../MediaCard';
 import { MediaCardView } from '../../MediaCard';
 
-jest.mock('@atlaskit/media-card', () => ({
-	Card: jest.fn(() => null),
-	CardSync: jest.fn(() => null),
+jest.mock('@atlaskit/media-card/cardLoader', () => ({
+	...jest.requireActual('@atlaskit/media-card/cardLoader'),
+	__esModule: true,
+	default: jest.fn(() => null),
+}));
+jest.mock('@atlaskit/media-card/cardSync', () => ({
+	...jest.requireActual('@atlaskit/media-card/cardSync'),
+	__esModule: true,
+	default: jest.fn(() => null),
+}));
+jest.mock('@atlaskit/media-card/cardLoading', () => ({
+	...jest.requireActual('@atlaskit/media-card/cardLoading'),
 	CardLoading: () => null,
+}));
+jest.mock('@atlaskit/media-card/cardError', () => ({
+	...jest.requireActual('@atlaskit/media-card/cardError'),
 	CardError: () => null,
 }));
 

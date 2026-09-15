@@ -1,5 +1,52 @@
 # @atlaskit/editor-plugin-media
 
+## 20.1.5
+
+### Patch Changes
+
+- [`c942b90687404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c942b90687404) -
+  Label the image border color and size radio groups for screen readers behind
+  platform_editor_a11y_border_radiogroup_label
+- Updated dependencies
+
+## 20.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.0
+
+### Minor Changes
+
+- [`2d026706450c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d026706450c6) -
+  Add the `allowAIGeneratedMediaMotion` media plugin option and the `hasLoadingMotion` card prop, so
+  media that arrives mid-flight opens the document out to make room for itself and then fades its
+  preview in, instead of drawing a loading indicator and snapping into place. Behind
+  `aifc_page_create_defer_generated_visuals`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.4
 
 ### Patch Changes

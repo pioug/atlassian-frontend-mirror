@@ -1,5 +1,119 @@
 # @atlaskit/editor-common
 
+## 122.8.0
+
+### Minor Changes
+
+- [`c942b90687404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c942b90687404) -
+  Add an optional `ariaLabel` prop to `ColorPalette` so consumers can give its radio group an
+  accessible name, and add image border color and size radio group labels to the image border
+  messages. Consumed behind `platform_editor_a11y_border_radiogroup_label`.
+
+## 122.7.0
+
+### Minor Changes
+
+- [`a6ea70b003713`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6ea70b003713) -
+  Improve the slash-command menu behind `platform_editor_slash_command`: add optional light and dark
+  preview image URLs, show theme-aware previews for headings, quote, and list commands, and set the
+  registered menu to 320px wide and up to 480px tall while allowing short menus to hug their
+  contents. Previews fall back to the light image when no dark image is supplied and are not shown
+  when no URLs are supplied.
+
+### Patch Changes
+
+- [`588770a1c455e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/588770a1c455e) -
+  [FFCLEANUP-82019] clean up FG `platform_editor_fix_mixed_types_column_sort`
+- Updated dependencies
+
+## 122.6.1
+
+### Patch Changes
+
+- [`85ad3990bac78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85ad3990bac78) -
+  Clean up experiment `platform_editor_appearance_shared_state`
+- Updated dependencies
+
+## 122.6.0
+
+### Minor Changes
+
+- [`b9d1af39046dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9d1af39046dc) -
+  Add a shared applied-step range detector for AI activity. Connect local streaming under
+  platform_editor_ai_streaming_ux_experience_m1 and incoming agent edits under the existing backend
+  streaming rollout to this detector. Refine shared chrome highlights to affected nested textblock
+  content for all existing shared-chrome consumers.
+
+  Preserve node attribute activity through cumulative replacements that retain its markup while
+  changing descendant content. Reuse existing highlight styles and the grouped cursor.
+
+  Expose a transaction-only AI activity action and connect direct orchestrator attribute, move, wrap
+  and remove mutations under platform_editor_ai_streaming_ux_experience_m1. Keep review segments and
+  existing streaming cadence unchanged.
+
+  Reuse lazily built node-identity indexes per transaction snapshot to avoid repeated full-document
+  lookups when changed blocks survive cumulative replacements.
+
+  Let the chrome plugin map and accumulate existing highlights without restamping stale positions
+  from before direct orchestrator mutations.
+
+- [`276b5526e198a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/276b5526e198a) -
+  Show the user profile card on hover in the mentions typeahead, behind the
+  `platform_editor_mention_typeahead_user_profilecard` experiment
+
+### Patch Changes
+
+- [`9e6211ceb4ceb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6211ceb4ceb) -
+  Clean up the fully rolled-out `platform_editor_small_font_size` experiment and make its permanent
+  `true` behavior unconditional across editor formatting, task and list handling, paste behavior,
+  controls, and rendering.
+- Updated dependencies
+
+## 122.5.0
+
+### Minor Changes
+
+- [`f1c1a544bd1a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c1a544bd1a9) -
+  Add unicode fallback to emojis in custom panels and renderer
+
+### Patch Changes
+
+- [`c9cf3acc6d231`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9cf3acc6d231) -
+  Preserve mention local IDs through renderer validation, and add
+  `renderContext: 'rovo_chat_entity_annotation'` to existing person profile-card analytics for
+  `rovo_chat_people_entity_hover_cards`.
+- Updated dependencies
+
+## 122.4.0
+
+### Minor Changes
+
+- [`eded6b2abb218`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eded6b2abb218) -
+  Add the `allowAIGeneratedContentMotion` extension plugin option, for surfaces where native embeds
+  arrive mid-flight such as AI-generated MAUI apps in the Create with Rovo preview. A native embed
+  extension is held closed while it loads, then the document opens out to make room for it and the
+  embed fades in, so nothing stands in for the content while it loads. Only native embeds are
+  animated, since the reveal waits on an embed reporting itself loaded. The referentiality plugin
+  registers extension node views of its own, so it takes the same option.
+
+  The option defaults off and its rollout is the consumer's to gate; Confluence's Create with Rovo
+  preview enables it behind `aifc_page_create_defer_generated_visuals`. MAUI's new
+  `waitForContentReady` is behind that same gate, so the reveal opens onto the rendered app rather
+  than a still-loading frame.
+
+- [`15dfafecc55f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15dfafecc55f0) -
+  Add the tooltip "Get AI suggestions to improve content" to the Editor toolbar Review button.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 122.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 122.3.2
 
 ### Patch Changes

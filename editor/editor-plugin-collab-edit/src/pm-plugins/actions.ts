@@ -164,8 +164,9 @@ export const applyRemoteSteps = (
 					acknowledgedSteps++;
 				}
 			}
-			// Slice both visual inputs so remote steps stay aligned with tr.docs. The
-			// full batch still participates in collaboration, presence and attribution.
+			// Keep both remote inputs aligned after removing the acknowledged prefix.
+			// Unified chrome accounts for local rollback steps in the applied transaction;
+			// the full batch still participates in collaboration, presence and attribution.
 			visualJson = json.slice(acknowledgedSteps);
 			visualSteps = steps.slice(acknowledgedSteps);
 		}

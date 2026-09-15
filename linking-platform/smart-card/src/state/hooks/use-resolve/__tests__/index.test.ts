@@ -206,6 +206,23 @@ describe('useResolve', () => {
 		);
 	});
 
+	it('should reuse optimized block data when full metadata is already resolved', async () => {
+		passGate('platform_smartlink_inline_resolve_optimization');
+		mockState({
+			status: 'resolved',
+			details: mocks.success,
+			metadataStatus: 'resolved',
+		});
+
+		const resolve = renderHook(() => useResolve()).current;
+		await resolve({
+			url,
+			appearance: 'block',
+		});
+
+		expect(mockContext.connections.client.fetchData).not.toHaveBeenCalled();
+	});
+
 	it('should not force initial block requests when inline optimization is disabled', async () => {
 		failGate('platform_smartlink_inline_resolve_optimization');
 		mockFetchData(Promise.resolve(mocks.success));

@@ -9,7 +9,7 @@ import React from 'react';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import Range from '@atlaskit/range/range';
 import Button from '@atlaskit/button/default/button';
-import { Card } from '@atlaskit/media-card';
+import Card from '@atlaskit/media-card/cardLoader';
 import {
 	createStorybookMediaClientConfig,
 	genericFileId,

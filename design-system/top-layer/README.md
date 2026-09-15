@@ -8,7 +8,8 @@ Low-level top-layer primitives using the native
 
 The primary primitive: a `<div>` with the `popover` attribute, plus a small lifecycle (animations,
 role-based focus management, light-dismiss, nested-focus restoration). It does **not** know about
-placement — compose it with the `useAnchorPosition` hook when you need anchor-positioned content.
+placement or size — compose it with the `useAnchoredPopover` hook when you need anchor-positioned
+content.
 
 ```tsx
 import { useRef } from 'react';
@@ -16,17 +17,18 @@ import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'block', edge: 'end', align: 'start' },
+		isOpen,
 	});
 
 	return (
@@ -59,7 +61,14 @@ function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
 - For default overlay styling (background, shadow, border-radius), wrap content in `PopoverSurface`
   from `@atlaskit/top-layer/popover-surface`.
 - For trigger-less or custom-positioned UI (flag, tooltip, react-select menu portal), use `Popover`
-  on its own without `useAnchorPosition`.
+  on its own without `useAnchoredPopover`, or pass `isEnabled: false` to turn positioning off.
+- `useAnchoredPopover` also owns anchor-relative sizing via `inlineSize` / `blockSize`
+  (`'content' | 'match-anchor' | 'min-anchor' | 'max-available'`, both defaulting to `'content'`). A
+  viewport cap is written on both axes whatever you pass, and only a placement-axis minimum can beat
+  it. A `'content'` inline axis is the content's natural width, so a popover too wide for the space
+  beside its anchor slides to a roomier side rather than wrapping; `shouldPreserveInlineSize` opts
+  an element you own and have styled out of that write. See the hook's JSDoc and
+  [`notes/decisions/fit-available-space.md`](notes/decisions/fit-available-space.md).
 
 ## Dialog
 

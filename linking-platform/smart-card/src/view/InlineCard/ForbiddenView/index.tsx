@@ -13,7 +13,7 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-import { HoverCard } from '../../HoverCard/HoverCard';
+import { HoverCard } from '../../HoverCard';
 import { type RequestAccessContextProps } from '../../types';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';

@@ -12,6 +12,7 @@ type ImageContainerProps = {
 	progress?: number;
 	selected?: boolean;
 	source?: string;
+	mediaMotion?: 'hidden' | 'entering';
 };
 
 export const ImageContainer = (props: ImageContainerProps): React.JSX.Element => (

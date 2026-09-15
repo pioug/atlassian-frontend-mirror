@@ -425,6 +425,42 @@ test.describe('Popup top-layer — Nested popups', () => {
 		// Should exit popup to button after trigger
 		await expect(button1).toBeFocused();
 	});
+
+	// Documents DSP-25859. This is not a fix.
+	// Current behavior: Escape on the open date calendar also closes the enclosing
+	// popup and returns focus to the popup trigger.
+	// Once fixed: Escape should close only the datetime picker, return focus to the
+	// datetime trigger, and leave the popup open.
+	test('Escape on nested datetime picker currently closes the enclosing popup', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../../examples/testing-popup-with-datetime-picker-escape.tsx')
+		>('design-system', 'popup', 'testing-popup-with-datetime-picker-escape', {
+			featureFlag: 'platform-dst-top-layer',
+			'react-18-mode': 'modern',
+		});
+
+		const popupTrigger = page.getByTestId('popup-trigger');
+		const popupContent = page.getByTestId('popup-content');
+		const dateTrigger = page.getByTestId('datetime-picker-inside-popup--datepicker--container');
+		const calendar = page.getByLabel('calendar');
+
+		await popupTrigger.click();
+		await expect(popupContent).toBeVisible();
+
+		await dateTrigger.click();
+		await expect(calendar).toBeVisible();
+
+		await page.keyboard.press('Escape');
+		// Current bug: the enclosing popup closes as well.
+		await expect(popupContent).toBeHidden();
+		await expect(popupTrigger).toBeFocused();
+		// Once DSP-25859 is fixed, this should instead be:
+		// await expect(calendar).toBeHidden();
+		// await expect(dateTrigger.getByRole('combobox')).toBeFocused();
+		// await expect(popupContent).toBeVisible();
+	});
 });
 
 test.describe('Popup top-layer — Content positioning', () => {

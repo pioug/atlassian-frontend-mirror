@@ -119,13 +119,16 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
 	analyticsContext?: Record<string, any>;
 	/**
 	 * Start day of the week for the calendar. The mapping between numbers and days of the week is as follows:
-	 * - `0` Sunday (default value)
+	 * - `0` Sunday
 	 * - `1` Monday
 	 * - `2` Tuesday
 	 * - `3` Wednesday
 	 * - `4` Thursday
 	 * - `5` Friday
 	 * - `6` Saturday
+	 *
+	 * Defaults to the first day of the week for the given `locale` when
+	 * `platform-dst-locale-week-start-day` is enabled. Otherwise defaults to Sunday (`0`).
 	 */
 	weekStartDay?: WeekDay;
 	/**

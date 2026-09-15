@@ -18,7 +18,7 @@ import { token } from '@atlaskit/tokens';
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
 import { getCachedProviderPctMapAndRefresh } from '../../../state/services/personalization/getCachedProviderPctMapAndRefresh';
-import { HoverCard } from '../../HoverCard/HoverCard';
+import { HoverCard } from '../../HoverCard';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { ActionButton } from '../common/action-button';
@@ -125,11 +125,9 @@ const UnauthorisedConnectWithSocialProof = ({
 	extensionKey,
 	testId,
 	onConnectClick,
-	isPreviewCTATreatment,
 }: {
 	context?: string;
 	extensionKey?: string;
-	isPreviewCTATreatment: boolean;
 	onConnectClick: React.MouseEventHandler<HTMLElement>;
 	testId: string;
 }): JSX.Element => {
@@ -208,9 +206,7 @@ const UnauthorisedConnectWithSocialProof = ({
 				testId="button-connect-account"
 				isSlimDesign={showSocialProofPill}
 			>
-				{isPreviewCTATreatment ? (
-					<FormattedMessage {...messages.connect_link_account_preview} />
-				) : showSocialProofPill ? (
+				{showSocialProofPill ? (
 					<FormattedMessage {...messages.connect_inline_social_proof} />
 				) : (
 					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
@@ -263,21 +259,13 @@ export const InlineCardUnauthorizedView = ({
 	);
 
 	const renderActionButton = React.useCallback(() => {
-		const isPreviewCTATreatment =
-			fg('rovogrowth-635-pre-auth-cta-preview-fg') &&
-			expValEquals('rovogrowth-635-pre-auth-cta-preview-exp', 'isEnabled', true);
-
 		return (
 			<ActionButton
 				onClick={handleConnectAccount}
 				viewType={'unauthorised'}
 				testId="button-connect-account"
 			>
-				{isPreviewCTATreatment ? (
-					<FormattedMessage {...messages.connect_link_account_preview} />
-				) : (
-					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
-				)}
+				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
 			</ActionButton>
 		);
 	}, [handleConnectAccount, context]);
@@ -304,10 +292,6 @@ export const InlineCardUnauthorizedView = ({
 						extensionKey={extensionKey}
 						testId={testId}
 						onConnectClick={handleConnectAccount}
-						isPreviewCTATreatment={
-							fg('rovogrowth-635-pre-auth-cta-preview-fg') &&
-							expValEquals('rovogrowth-635-pre-auth-cta-preview-exp', 'isEnabled', true)
-						}
 					/>
 				) : (
 					renderActionButton()

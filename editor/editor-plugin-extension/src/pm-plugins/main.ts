@@ -203,6 +203,7 @@ export const createPlugin = (
 	pluginInjectionApi: ExtractInjectionAPI<ExtensionPlugin> | undefined,
 	useLongPressSelection: boolean = false,
 	options: {
+		allowAIGeneratedContentMotion?: boolean;
 		appearance?: EditorAppearance;
 		getExtensionHeight?: GetPMNodeHeight;
 	} = {},
@@ -219,6 +220,7 @@ export const createPlugin = (
 	const extensionNodeViewOptions = {
 		appearance: options.appearance,
 		getExtensionHeight: options.getExtensionHeight,
+		allowAIGeneratedContentMotion: options.allowAIGeneratedContentMotion,
 	};
 
 	const macroInteractionDesignFeatureFlags = {

@@ -1,13 +1,13 @@
 # @atlaskit/top-layer — Complete Rebuild Guide
 
-> **⚠️ Historical snapshot:** This document captures the package as it stood before three structural
+> **⚠️ Historical snapshot:** This document captures the package as it stood before four structural
 > cleanups. It is preserved verbatim because most lower-level mechanics it describes (anchor
-> positioning, animation lifecycle, focus, ARIA) are still accurate. Three top-level concerns have
+> positioning, animation lifecycle, focus, ARIA) are still accurate. Four top-level concerns have
 > since moved:
 >
 > 1. **`Popup` compound removed.** Sections 3 (`./popup`, `./popup-surface` entry points), 6 (Popup
 >    compound component), and 11 (the `Popup.Trigger` ARIA wiring discussion) no longer reflect the
->    public API. Use `Popover` + `useAnchorPosition` (+ `PopoverSurface` / `getAriaForTrigger` /
+>    public API. Use `Popover` + `useAnchoredPopover` (+ `PopoverSurface` / `getAriaForTrigger` /
 >    `usePopoverId`) directly. See `notes/decisions/delete-popup-compound.md` (status: **Executed**)
 >    and the package `README.md` for the current story.
 > 2. **Arrow moved to `@atlaskit/spotlight`.** Section 12 (Arrow System) and the `./arrow` entry
@@ -21,6 +21,19 @@
 >    provide built-in CSS animations through `shouldAnimate`, with phase-specific xcss props for
 >    custom animation styles. The visibility lifecycle, reduced-motion behavior, and default motion
 >    details remain accurate.
+> 4. **Four positioning/sizing hooks became one `useAnchoredPopover`.** `useAnchorPosition`,
+>    `useAnchorPositionAtPoint`, `useWidthFromAnchor` and `useFitAvailableSpace` were removed along
+>    with their entry points; `./use-anchored-popover` replaced all four. Every `useAnchorPosition`
+>    in the body below — the component diagram and file tree in section 2, and the composition
+>    walkthrough in section 6 — reads as `useAnchoredPopover`, at
+>    `src/internal/use-anchored-popover.tsx`. The **mechanics** this guide describes are unchanged —
+>    same `anchor-name` / `position-area` / `position-try-fallbacks` writes, same JS-fallback
+>    measure-and-position flow, same `setStyle` composition. What changed is the signature:
+>    `anchorRef` became an `anchor` union (`{kind:'element'|'point'}` or `null`, replacing
+>    `isEnabled`), `placement` is required rather than defaulted, and sizing is two per-axis values
+>    (`inlineSize` / `blockSize`). The hook also now writes every SIZE property on the host, which
+>    this guide does not cover at all. See `notes/decisions/fit-available-space.md`,
+>    `notes/architecture/positioning.md` and `notes/plans/one-anchored-popover-hook.md`.
 >
 > Treat sections covering still-shipping primitives (Popover, Dialog, built-in animation lifecycle,
 > focus, anchor positioning, light dismiss, scroll lock, placement) as authoritative, except for the
@@ -170,13 +183,27 @@ src/
 │   ├── focus.tsx                      # getFirstFocusable, getLastFocusable, getNextFocusable
 │   └── index.tsx                      # Re-exports
 ├── internal/
-│   ├── anchor-positioning-fallback.tsx # JS fallback: computeFallbackPosition()
+│   ├── anchor-positioning/            # everything the CSS Anchor Positioning path owns
+│   │   ├── apply-anchor-positioning.tsx # entry point the hook calls
+│   │   ├── cross-axis-shift-margins.tsx # antisymmetric shift margin pair
+│   │   ├── edge-margin.tsx            # the gap margin, on the anchor-facing side
+│   │   ├── fit-margins.tsx            # reserved viewport padding, composed onto the shift
+│   │   ├── get-existing-anchor-name.tsx # reuse a consumer's `anchor-name`
+│   │   ├── placement-to-position-area.tsx # TPlacement → `position-area`
+│   │   └── placement-to-try-fallbacks.tsx # TPlacement → `position-try-fallbacks`
+│   ├── javascript-fallback/           # everything the JS fallback owns
+│   │   ├── apply-javascript-fallback-positioning.tsx # entry point the hook calls
+│   │   ├── anchor-positioning-fallback.tsx # computeFallbackPosition()
+│   │   ├── resolve-css-length-to-pixels.tsx # DOM-probe length resolver
+│   │   └── warn-fallback-failure.tsx  # dev-only degraded-path warning
+│   ├── anchored-popover-size.tsx      # the whole size recipe (caps + floors)
 │   ├── combine.tsx                    # combine() — merge cleanup functions
 │   ├── reduced-motion.tsx             # prefersReducedMotion() — SSR-safe check
 │   ├── resolve-placement.tsx          # TPlacement type, resolvePlacement()
 │   ├── role-types.tsx                 # ARIA role types with compile-time enforcement
 │   ├── set-style.tsx                  # setStyle() — apply inline styles, return cleanup
-│   ├── use-anchor-position.tsx        # useAnchorPosition() hook
+│   ├── use-anchored-popover.tsx       # useAnchoredPopover() — position + size
+│   ├── use-anchored-popover-at-point.tsx # the point-anchored sibling
 │   ├── use-animated-visibility.tsx    # useAnimatedVisibility() hook
 │   ├── (deleted: use-focus-restore.tsx — now native browser behavior)
 │   ├── use-focus-wrap.tsx             # useFocusWrap() hook
@@ -210,7 +237,6 @@ src/
     ├── popover.tsx
     ├── popup.tsx
     ├── popup-surface.tsx
-    ├── use-anchor-position.tsx
     └── use-simple-light-dismiss.tsx
 ```
 
@@ -233,7 +259,8 @@ consumers always import from sub-paths:
 	"./animations": "./src/entry-points/animations.tsx",
 	"./arrow": "./src/entry-points/arrow.tsx",
 	"./focus": "./src/entry-points/focus.tsx",
-	"./use-anchor-position": "./src/entry-points/use-anchor-position.tsx",
+	"./use-anchored-popover": "./src/internal/use-anchored-popover.tsx",
+	"./use-anchored-popover-at-point": "./src/internal/use-anchored-popover-at-point.tsx",
 	"./use-simple-light-dismiss": "./src/entry-points/use-simple-light-dismiss.tsx"
 }
 ```
@@ -256,7 +283,7 @@ manages:
 - Initial focus (role-based)
 - Close reason detection (escape vs light-dismiss)
 
-It has **no knowledge of positioning** — compose with `useAnchorPosition` for that.
+It has **no knowledge of positioning** — compose with `useAnchoredPopover` for that.
 
 ### HTML Element
 
@@ -532,7 +559,7 @@ Usage:
 
 #### `Popup.Content` (`PopupContent`)
 
-The core content wrapper. Composes `Popover` + `useAnchorPosition`. Can be used standalone (outside
+The core content wrapper. Composes `Popover` + `useAnchoredPopover`. Can be used standalone (outside
 `<Popup>`) or within the compound. Focus restoration is handled natively by the browser's Popover
 API.
 
@@ -650,7 +677,7 @@ Popper.js `'bottom'`).
 
 ## 8. Anchor Positioning
 
-### `useAnchorPosition` Hook
+### `useAnchoredPopover` Hook
 
 The positioning primitive. No knowledge of popovers or visibility — just positions one element
 relative to another.
@@ -771,7 +798,7 @@ Exit animations require calling `hidePopover()` to START the CSS transition, the
 also know whether to wait for an animation. Visibility and animation are one concern — they cannot
 be separated without one side reaching into the other's internals.
 
-The clean split is: `Popover` = top layer + visibility + animation. `useAnchorPosition` =
+The clean split is: `Popover` = top layer + visibility + animation. `useAnchoredPopover` =
 positioning (separate concern).
 
 ### Animation config
@@ -1091,14 +1118,14 @@ type TArrowPreset = {
 import { arrow } from '@atlaskit/top-layer/arrow';
 
 const myArrow = arrow();
-<Popup.Content arrow={myArrow} />
+<Popup.Content arrow={myArrow} />;
 ```
 
 Created via `once()` — returns the same object on every call (singleton).
 
 ### CSS Variables
 
-- `--ds-arrow-size` — Arrow size in pixels (defaults to `8px`). Set by `useAnchorPosition` to match
+- `--ds-arrow-size` — Arrow size in pixels (defaults to `8px`). Set by `useAnchoredPopover` to match
   the `offset` value.
 - `--ds-arrow-offset` — Clip inset (defaults to `1px`).
 
@@ -1285,7 +1312,8 @@ function combine(...fns: Array<() => void>): () => void {
 }
 ```
 
-Used extensively in `useAnchorPosition` to compose multiple `setStyle` cleanups and event unbinders.
+Used extensively in `useAnchoredPopover` to compose multiple `setStyle` cleanups and event
+unbinders.
 
 ### `setStyle({ el, styles })`
 
@@ -1416,10 +1444,9 @@ If building green-field with no need to support existing `@atlaskit/popup`,
    where only the front dialog shows a backdrop. A green-field API might handle this differently
    (e.g. a `<DialogStack>` that manages backdrop visibility).
 
-6. **JavaScript positioning fallback** — The entire `anchor-positioning-fallback.tsx` and the JS
-   branch in `useAnchorPosition` exist for browsers without CSS Anchor Positioning. With ~94%
-   support and growing, a green-field product might accept content appearing at the default position
-   in older browsers.
+6. **JavaScript positioning fallback** — The entire `internal/javascript-fallback/` folder exists
+   for browsers without CSS Anchor Positioning. With ~94% support and growing, a green-field product
+   might accept content appearing at the default position in older browsers.
 
 7. **`PopupSurface`** — Exists to provide the same visual treatment as legacy `@atlaskit/popup`. A
    green-field API might let consumers style content directly with design tokens.

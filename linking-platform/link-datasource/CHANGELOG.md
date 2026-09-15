@@ -1,5 +1,29 @@
 # @atlaskit/link-datasource
 
+## 6.13.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.13.6
+
+### Patch Changes
+
+- [`808ffc3b50fc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/808ffc3b50fc9) -
+  Show an error with column recovery instructions instead of indefinite loading when results have no
+  available columns, behind platform_datasource_missing_columns_error.
+- Updated dependencies
+
+## 6.13.5
+
+### Patch Changes
+
+- [`d096b1c221885`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d096b1c221885) -
+  Reduce datasource sync timestamp updates by scheduling the next minute, hour, or day boundary
+  behind a feature gate.
+- Updated dependencies
+
 ## 6.13.4
 
 ### Patch Changes

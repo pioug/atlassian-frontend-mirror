@@ -27,7 +27,7 @@ import {
 	type SSR,
 } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { useInteractionContext } from '@atlaskit/react-ufo/interaction-context';
+import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
 
 import { ImageLoadError } from './ImageLoadError';
 import { MediaFilePreviewError } from './MediaFilePreviewError';

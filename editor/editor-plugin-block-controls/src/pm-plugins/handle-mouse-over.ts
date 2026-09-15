@@ -90,7 +90,6 @@ const isPanelNodeTypeName = (nodeTypeName: string | null | undefined): boolean =
 // the index relative to the panel content so the first-child check stays accurate.
 const getBlockMarkPanelIndexAdjustment = (parentRootElement: HTMLElement, index: number) => {
 	if (
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
 		parentRootElement.classList.contains('fabric-editor-block-mark') &&
 		parentRootElement.parentElement
 	) {

@@ -13,7 +13,6 @@ import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
 
@@ -59,10 +58,7 @@ const blockTypeForNode = (node: Node, schema: Schema): BlockType => {
 		if (maybeNode) {
 			return maybeNode;
 		}
-	} else if (
-		node.marks.some((m) => m.type.name === 'fontSize' && m.attrs.fontSize === 'small') &&
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-	) {
+	} else if (node.marks.some((m) => m.type.name === 'fontSize' && m.attrs.fontSize === 'small')) {
 		return SMALL_TEXT;
 	} else if (node.type === schema.nodes.paragraph) {
 		return NORMAL_TEXT;
@@ -84,10 +80,7 @@ const isBlockTypeSchemaSupported = (blockType: BlockType, state: EditorState) =>
 		case HEADING_6:
 			return !!state.schema.nodes.heading;
 		case SMALL_TEXT:
-			return (
-				!!state.schema.marks.fontSize &&
-				expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-			);
+			return !!state.schema.marks.fontSize;
 		case BLOCK_QUOTE:
 			return !!state.schema.nodes.blockquote;
 		case CODE_BLOCK:
@@ -255,11 +248,7 @@ export const createPlugin = (
 							) ?? false
 						);
 					}
-				} else if (
-					event.keyCode === KEY_7 &&
-					event.altKey &&
-					expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-				) {
+				} else if (event.keyCode === KEY_7 && event.altKey) {
 					if (browser.mac && event.metaKey) {
 						return (
 							editorAPI?.core?.actions.execute(

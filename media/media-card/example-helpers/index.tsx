@@ -1,6 +1,7 @@
 // eslint-disable-line no-console
 
 import React, { type PropsWithChildren } from 'react';
+import { IntlProvider } from 'react-intl';
 
 import { payloadPublisher } from '@atlassian/ufo/publisher';
 
@@ -149,14 +150,16 @@ export const MainWrapper = ({
 }: MainWrapperProps): React.JSX.Element => {
 	enableMediaUfoLogger(payloadPublisher);
 	return (
-		<>
+		// `react-intl` is a peer dependency of this package — the card's loading bar localises its
+		// aria-label via `useIntl`, so examples need a provider in the ancestry.
+		<IntlProvider locale="en">
 			{developmentOnly && <DevelopmentUseMessage />}
 			{!disableFeatureFlagWrapper ? (
 				<FeatureFlagsWrapper>{children}</FeatureFlagsWrapper>
 			) : (
 				<>{children}</>
 			)}
-		</>
+		</IntlProvider>
 	);
 };
 

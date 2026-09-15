@@ -44,10 +44,12 @@ export type ContributorTagMount = {
  * (EDITOR-8702).
  */
 export const mountContributorTag = ({
+	anchorName,
 	diffId,
 	host,
 	mountContext,
 }: {
+	anchorName?: string;
 	diffId: string;
 	host: HTMLElement;
 	mountContext: ContributorTagMountContext | undefined;
@@ -56,7 +58,7 @@ export const mountContributorTag = ({
 		return undefined;
 	}
 
-	const controller = new ContributorTagController({ ...mountContext, diffId });
+	const controller = new ContributorTagController({ ...mountContext, anchorName, diffId });
 	controller.mount(host);
 
 	/**
@@ -85,13 +87,25 @@ export const unmountContributorTag = (mount: ContributorTagMount | undefined): v
 /**
  * A zero-size inline host for one contributor tag. `position: relative` makes it the containing
  * block of the absolutely positioned tag, so the tag sits on the change with no measurement.
+ *
+ * An anchored tag takes a static host instead: an anchor is only acceptable when it sits inside the
+ * tag's containing block, and the block node is not inside this host. Measured in Chrome 153 — a
+ * relative host makes the `anchor()` insets resolve to `auto`.
  */
-const buildContributorTagHost = (diffId: string): HTMLSpanElement => {
+const buildContributorTagHost = (diffId: string, anchorName?: string): HTMLSpanElement => {
 	const host = document.createElement('span');
 	host.setAttribute(CONTRIBUTOR_TAG_HOST_ATTRIBUTE, diffId);
-	host.style.setProperty('position', 'relative');
+	if (!anchorName) {
+		host.style.setProperty('position', 'relative');
+	}
 	return host;
 };
+
+/** Without anchor positioning the tag keeps its host-relative placement. */
+const supportsAnchorPositioning = (): boolean =>
+	typeof CSS !== 'undefined' &&
+	typeof CSS.supports === 'function' &&
+	CSS.supports('bottom', 'anchor(--a top)');
 
 /**
  * The host for a tag on deleted content, which renders inside its own widget decoration rather than
@@ -193,6 +207,7 @@ const resolveCodeBlockStart = (doc: PMNode, pos: number): number | undefined => 
  */
 export const createContributorTagWidget = ({
 	anchorAtRangeStart = false,
+	anchorName,
 	doc,
 	from,
 	to,
@@ -204,6 +219,12 @@ export const createContributorTagWidget = ({
 	 * its tag outside the node rather than inside its content DOM.
 	 */
 	anchorAtRangeStart?: boolean;
+	/**
+	 * The `anchor-name` the block's own decoration carries, so the tag positions against that box
+	 * rather than against its host — the block's margin and padding are then the browser's to
+	 * resolve, and the tag sits on the same corner for every node type (EDITOR-8933).
+	 */
+	anchorName?: string;
 	diffId: string;
 	doc: PMNode;
 	from: number;
@@ -213,6 +234,8 @@ export const createContributorTagWidget = ({
 	if (!isContributorTagWidgetEnabled()) {
 		return undefined;
 	}
+
+	const tagAnchorName = anchorName && supportsAnchorPositioning() ? anchorName : undefined;
 
 	// Reassigned when ProseMirror redraws this decoration, which it may do more than once for the
 	// same `Decoration` instance.
@@ -226,8 +249,8 @@ export const createContributorTagWidget = ({
 		// Keep the host out of the table row's grid (EDITOR-8442).
 		clampAnchorPosIntoCell(doc, codeBlockPos ?? anchorPos, 1),
 		() => {
-			const host = buildContributorTagHost(diffId);
-			mount = mountContributorTag({ diffId, host, mountContext });
+			const host = buildContributorTagHost(diffId, tagAnchorName);
+			mount = mountContributorTag({ anchorName: tagAnchorName, diffId, host, mountContext });
 			return host;
 		},
 		{

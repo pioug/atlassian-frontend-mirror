@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card } from '@atlaskit/media-card';
+import Card from '@atlaskit/media-card/cardLoader';
 import { mapSsrMediaItemToFileState } from '@atlaskit/media-client/ssr-media-item';
 
 import type { mediaCardFragment_mediaItem$key } from './__generated__/mediaCardFragment_mediaItem.graphql';

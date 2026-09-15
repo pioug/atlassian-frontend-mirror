@@ -27,6 +27,81 @@ out "You are now in an arrange section" in your comments.
 `@atlaskit/popup` **`--content`**, Tooltip suffixes, render-prop footguns) — see
 **[../architecture/test-ids.md](../architecture/test-ids.md)**.
 
+### Assert observable geometry, not CSS declarations
+
+For anything about **size or position**, assert what the box actually does — its rect, whether it is
+on screen, whether it scrolls — and not the declaration that was written to produce it. A
+declaration can be present, correct, and constrain nothing.
+
+This rule was written for the `shouldFitViewport` bug, which shipped for months behind a prop whose
+whole implementation was `overflow: auto` on a wrapper nested inside a `PopoverSurface` that already
+set it. Every test covering it asserted a declaration — `toHaveCSS('overflow', 'auto')` on that
+wrapper, and `getComputedStyle().maxInlineSize !== 'none'` on an element the cap was no longer
+written to — and both passed the whole time.
+
+Two corollaries:
+
+- **A reachability assertion is not enough either.** A popover clamped to a 53px letterbox is
+  scrollable, so "the content can be reached by scrolling" is true of the broken state too. Assert
+  the SIZE and the SIDE.
+- **Read a declaration only when the contract has no geometry.** "Not capped" is the usual case: an
+  uncapped box and a box capped wider than its content render identically. Even then, prefer the raw
+  serialisation over a parsed number — a percentage cap never resolves to pixels, so `parseFloat`
+  yields `NaN` and any lenient handling of it satisfies a numeric bound.
+
+### A VR fixture about SIZE needs ink
+
+The screenshot comparison counts pixels whose colour changed, so a white surface on a white page can
+change size and still pass. Measured three times over while adding the fit fixtures:
+
+| fixture                             | mutation                          | white on white            | rendered solid |
+| ----------------------------------- | --------------------------------- | ------------------------- | -------------- |
+| `js-fallback-fit-floor-roomy`       | flip floor written on the JS path | **passed** (62px → 150px) | 10,612px       |
+| `js-fallback-fit-floor-modest-cell` | same                              | 506px                     | 25,442px       |
+| `fit-floor-cramped-min-size-zero`   | both caps dropped                 | 1,045px                   | 19,156px       |
+| `fit-floor-short-viewport`          | same                              | 250px                     | 15,806px       |
+| `xcss width and padding` (popup)    | `className={xcss}` dropped        | 1,081px                   | 13,835px       |
+
+The first row is the one to remember: the popover grew by 88px and the comparison passed, because
+only its shadow moved.
+
+So for a fixture whose subject is a size or a side:
+
+- Render the popover as a **solid block**, or put a solid marker at the edge under review
+  (`84-vr-popover-fit-alignment.vr.ap.tsx` uses a ruler; `89-vr-popover-fit-scroll.vr.ap.tsx` a
+  sticky footer bar and a content-top bar).
+- **Do not rely on a scrollbar.** The runner's Chromium draws overlay scrollbars, so a scrolled
+  surface is pixel-identical to an unscrolled one except for where its content sits.
+- **Check the frame, not just the geometry.** A cell cap is always bounded by a viewport edge, so
+  anything that overflows a cap leaves the frame and the whole difference collapses to a 5px strip.
+  If that is the only signal available, the contract belongs in a Playwright geometry test instead.
+- **Verify by mutation, and record the pixel count.** A fixture that cannot fail is decoration.
+- **A twin renders what its counterpart renders.** A `js-fallback-*` twin beside a CSS fixture only
+  guards the two paths against each other for whatever both of them draw. If the twin is a solid
+  block and its counterpart is a `PopoverSurface`, the pair guards size and side and says nothing
+  about the surface — so either match the rendering (`89-vr-popover-fit-floor.vr.ap.tsx` makes both
+  solid) or say which of the two the pair actually covers.
+
+### Two fixture hazards that make a flag pair differ for the wrong reason
+
+Both were hit while photographing `<Popup shouldFitViewport>` on both code paths:
+
+- **Initial focus scrolls.** Focusing into the popup calls `scrollIntoView`, which scrolls the
+  nearest scroll container — including an `overflow: hidden` one. On the legacy path that moved the
+  whole page, so the pair differed by scroll position rather than by geometry. Pass
+  `autoFocus={false}`, or keep the content free of focusable elements.
+- **`shouldFitContainer` changes the page.** Legacy wraps the trigger and the popup in a
+  `position: relative` div and renders the popup as the trigger's sibling in flow, which moves an
+  absolutely-positioned trigger and grows the page. It also fits the popup to that PARENT, while the
+  top-layer path maps the prop to the trigger, so a parent wider than its trigger makes the pair
+  differ by the mapping rather than by the behaviour under test.
+
+And nothing on the page may clip at the viewport edge: the cap's signature is the popover's far edge
+landing 5px inside it, which an `overflow: hidden` ancestor erases by clipping at the same place.
+
+See `popper/src/__tests__/playwright/max-size.spec.tsx` and
+`top-layer/__tests__/playwright/anchored-popover-geometry.tsx` for worked examples.
+
 ---
 
 > A checklist of high-value browser (Playwright) tests beyond accessibility. Accessibility testing
@@ -267,3 +342,30 @@ Not every behavior needs a browser test. Use this framework to decide:
 - For positioning tests, use `page.evaluate(() => window.scrollTo(...))` to control the viewport
 - For animation tests, avoid `page.waitForTimeout` — use `transitionend` event listeners or poll
   element visibility
+
+### Known pre-existing failures in this package's own Playwright suite
+
+A large WebKit / Firefox failure set predates the fit work. Baselined on a clean tree in 2026-08: 15
+failures across `positioning`, `dialog`, `animation-lifecycle`, `click-outside-passthrough` and
+`rapid-toggle`, almost all WebKit focus / close / settle behaviour. `positioning.spec.tsx`'s flip
+test is among them, which makes it unusable as a regression signal for placement work; use
+`anchored-popover-size.spec.tsx` and `fit-available-space.spec.tsx`, which pass on all three
+engines. Do not attribute these to a branch until you have reproduced them on the merge base.
+
+### `examples/config.jsonc` registration drift fails silently
+
+Every example a spec visits must be listed in the package's `examples/config.jsonc`
+(`testExamples`), which the test-scaling project hashes for result caching. An omission does not
+fail anything; it silently breaks caching, so a stale cached result can stand in for a run. Three
+were found missing in 2026-08 (`top-layer` `154-testing-safari-flex-collapse-max-height.vr.ap.tsx`,
+`popup` `97-testing-initial-focus-matrix.tsx` and `should-fit-viewport.tsx`) and added. Register a
+new example in the same change that adds the spec. A lint rule that cross-checks `visitExample`
+calls against the config is worth adding.
+
+A VR example is IMPORTED by its spec rather than visited by URL, and the two packages disagree about
+whether that counts: `popup` registers `10-popup.vr.ap.tsx` and `surface-detection.vr.ap.tsx`, while
+`top-layer` registered none of its 80-89 VR band. Registering is the safer half of the disagreement,
+since the hash can only become more conservative, so all three fixtures this change adds to that
+band are listed: `84-vr-popover-fit-alignment.vr.ap.tsx`, `89-vr-popover-fit-floor.vr.ap.tsx` and
+`89-vr-popover-fit-scroll.vr.ap.tsx`. The other nine are a pre-existing gap worth closing in one
+pass.

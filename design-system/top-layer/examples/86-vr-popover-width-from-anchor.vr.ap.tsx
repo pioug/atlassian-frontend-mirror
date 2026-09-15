@@ -11,8 +11,7 @@ import { Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 const styles = cssMap({
 	buttonWrapper: {
@@ -35,24 +34,26 @@ const styles = cssMap({
 
 /**
  * Renders a native-popover fixture composed from `<Popover>` +
- * `useAnchorPosition` + `useWidthFromAnchor`. Auto-opens on mount so the VR
- * snapshot captures the open popover in each width mode.
+ * `useAnchoredPopover`. Auto-opens on mount so the VR snapshot captures the open
+ * popover in each width mode.
  */
 function PopoverWidthFromAnchor({ mode }: { mode: 'none' | 'match-anchor' | 'min-anchor' }) {
 	const anchorRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(true);
 
-	// Position the popover below the anchor (block-end).
-	useAnchorPosition({
-		anchorRef,
+	// `mode` is rendered as label text in these snapshots, so it keeps the width
+	// modes' original spelling. `'none'` is now `inlineSize: 'content'`.
+	const inlineSize = mode === 'none' ? 'content' : mode;
+
+	// Position the popover below the anchor (block-end), sized from the anchor.
+	useAnchoredPopover({
+		anchorRef: anchorRef,
 		popoverRef,
 		placement: { edge: 'end' },
 		isOpen,
+		inlineSize,
 	});
-
-	// Apply the width mode relative to the anchor.
-	useWidthFromAnchor({ mode, popoverRef, anchorRef, isOpen });
 
 	// Auto-open on mount so the VR snapshot captures the open state.
 	return (

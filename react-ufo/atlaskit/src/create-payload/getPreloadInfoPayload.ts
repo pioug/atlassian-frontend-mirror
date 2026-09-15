@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InteractionMetrics } from '../common';
 import type { OptimizedPreloadInfo } from '../common/react-ufo-payload-schema';

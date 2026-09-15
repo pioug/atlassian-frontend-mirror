@@ -1,5 +1,27 @@
 # @atlaskit/app-provider
 
+## 6.0.0
+
+### Major Changes
+
+- [`98fa516d85430`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98fa516d85430) -
+  The `shape` tokens theme is now enabled by default.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.0
+
+### Minor Changes
+
+- [`01a6951a834fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01a6951a834fe) -
+  Adds getScrollbarHarmonisationHtmlAttrs, a pure SSR helper that a product's server can spread onto
+  the server-rendered <html> element to avoid a flash of un-harmonised scrollbars while the
+  client-only useScrollbarHarmonisation effect has not yet run. Gated by the existing
+  platform_dst_scrollbar_harmonisation and platform_dst_scrollbar_harmonisation_transparent feature
+  gates.
+
 ## 5.5.1
 
 ### Patch Changes

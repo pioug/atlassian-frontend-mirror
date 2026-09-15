@@ -14,9 +14,12 @@ import type {
 	DatasourceDataResponseItem,
 	DatasourceDataSchema,
 } from '@atlaskit/linking-types/datasource';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { ActionsStore } from '../../state/actions';
+import * as localeMessages from '../../common/utils/locale/fetch-messages-for-locale';
+import { loadingErrorMessages, missingColumnsMessages } from '../common/error-state/messages';
 
 import {
 	mockActionKey,
@@ -125,7 +128,10 @@ describe('2-way sync', () => {
 		mockActionsDiscovery(items, integrationKey);
 	};
 
-	const renderTable = (props: Partial<React.ComponentProps<typeof DatasourceTableView>> = {}) => {
+	const renderTable = (
+		props: Partial<React.ComponentProps<typeof DatasourceTableView>> = {},
+		locale = 'en',
+	) => {
 		return render(
 			<DatasourceTableView
 				datasourceId="datasource"
@@ -140,7 +146,7 @@ describe('2-way sync', () => {
 				wrapper: ({ children }) => (
 					<DatasourceExperienceIdProvider>
 						<SmartCardProvider>
-							<IntlProvider locale="en">{children}</IntlProvider>
+							<IntlProvider locale={locale}>{children}</IntlProvider>
 						</SmartCardProvider>
 					</DatasourceExperienceIdProvider>
 				),
@@ -154,6 +160,74 @@ describe('2-way sync', () => {
 	beforeEach(() => {
 		actionsStore.storeState.resetState();
 		fetchMock.reset();
+	});
+
+	it('replaces a successful response with no columns with recovery instructions and no refresh action', async () => {
+		passGate('platform_datasource_missing_columns_error');
+		mockFetchDatasourceDataEndpoint({
+			meta: {},
+			data: {
+				items: [{ ari: { data: ari }, id: { data: 'TEST-1' } }],
+				schema: { properties: [] },
+				totalCount: 1,
+			},
+		});
+		renderTable({ visibleColumnKeys: ['unavailable-column'] });
+
+		await screen.findByText("We can't display these columns");
+		expect(screen.getByTestId('datasource--loading-error')).toHaveTextContent(
+			"These columns aren't available: unavailable-column. Edit this table to select different columns.",
+		);
+		expect(screen.queryByTestId('datasource-table-view-skeleton')).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Refresh' })).not.toBeInTheDocument();
+	});
+
+	it('loads translated messages for the unavailable-columns error', async () => {
+		passGate('platform_datasource_missing_columns_error');
+		const loader = jest.spyOn(localeMessages, 'fetchMessagesForLocale').mockResolvedValue({
+			[missingColumnsMessages.missingColumnsTitle.id]: 'Colonnes indisponibles',
+			[missingColumnsMessages.missingColumnsDescriptionWithNames.id]:
+				'Colonnes indisponibles : {columns}. Modifiez les colonnes du tableau.',
+		});
+		try {
+			mockFetchDatasourceDataEndpoint({
+				meta: {},
+				data: {
+					items: [{ ari: { data: ari }, id: { data: 'TEST-1' } }],
+					schema: { properties: [] },
+					totalCount: 1,
+				},
+			});
+			renderTable({ visibleColumnKeys: ['column-one', 'column-two'] }, 'fr');
+
+			await screen.findByText('Colonnes indisponibles');
+			expect(loader).toHaveBeenCalledWith('fr');
+			expect(screen.getByTestId('datasource--loading-error')).toHaveTextContent(
+				'Colonnes indisponibles : column-one et column-two. Modifiez les colonnes du tableau.',
+			);
+		} finally {
+			loader.mockRestore();
+		}
+	});
+
+	it('loads translated messages and preserves refresh for network errors', async () => {
+		passGate('platform_datasource_missing_columns_error');
+		const loader = jest.spyOn(localeMessages, 'fetchMessagesForLocale').mockResolvedValue({
+			[loadingErrorMessages.unableToLoadResults.id]: 'Chargement impossible',
+			[loadingErrorMessages.checkConnection.id]: 'Vérifiez votre connexion.',
+			[loadingErrorMessages.refresh.id]: 'Actualiser',
+		});
+		try {
+			fetchMock.post('/gateway/api/object-resolver/datasource/datasource/fetch/data', 500);
+			renderTable({}, 'fr');
+
+			await screen.findByText('Chargement impossible');
+			expect(screen.getByText('Vérifiez votre connexion.')).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Actualiser' })).toBeEnabled();
+			expect(loader).toHaveBeenCalledWith('fr');
+		} finally {
+			loader.mockRestore();
+		}
 	});
 
 	describe('when jaws enabled', () => {

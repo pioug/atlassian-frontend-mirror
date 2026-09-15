@@ -39,6 +39,7 @@ export const urlResponsePromiseCache: LRUMap<
 	string,
 	Promise<SuccessResponse | ErrorResponse>
 > = new LRUMap<string, Promise<SuccessResponse | ErrorResponse>>(URL_RESPONSE_CACHE_SIZE);
+const urlResponseInFlightCache = new Map<string, Promise<SuccessResponse | ErrorResponse>>();
 
 export default class CardClient implements CardClientInterface {
 	private resolverUrl: string;
@@ -220,7 +221,23 @@ export default class CardClient implements CardClientInterface {
 	private batchResolveUrl = async (
 		urls: ReadonlyArray<ResourcePayload<'URL'>>,
 	): Promise<BatchResponse> => {
-		return this.postBatchResolveNew(urls, 'URL', (resource) => resource.resourceUrl);
+		return this.postBatchResolveNew(urls, 'URL', (resource) => {
+			// Appearance is only added to the payload when the inline resolve optimization gate is on.
+			// Preserve differently shaped requests for the same URL so a reduced inline response cannot
+			// be returned to a block request from the same batch.
+			if (
+				resource.appearance !== undefined &&
+				fg('platform_smartlink_inline_resolve_optimization')
+			) {
+				return JSON.stringify([
+					resource.resourceUrl,
+					resource.appearance,
+					resource.ignoreCachedValue === true,
+				]);
+			}
+
+			return resource.resourceUrl;
+		});
 	};
 
 	// Endpoint for batch resolve ari
@@ -273,26 +290,15 @@ export default class CardClient implements CardClientInterface {
 		}
 	}
 
-	private async resolveUrl(url: string, force: boolean = false, appearance?: CardAppearance) {
-		const hostname = this.getHostName(url);
-		const isInlineOptEnabled =
-			appearance !== undefined && fg('platform_smartlink_inline_resolve_optimization');
-
-		// Include appearance in cache key when feature flag is enabled and appearance is specified
-		const cacheKey = isInlineOptEnabled ? `${url}|${appearance}` : url;
-
-		let responsePromise: Promise<SuccessResponse | ErrorResponse> | undefined;
-
-		responsePromise = urlResponsePromiseCache.get(cacheKey);
+	private async resolveUrlWithoutInlineOptimization(url: string, hostname: string, force: boolean) {
+		let responsePromise = urlResponsePromiseCache.get(url);
 		if (!responsePromise || force) {
 			const urlLoader = this.getUrlLoader(hostname);
 			responsePromise = urlLoader.load({
 				resourceUrl: url,
 				ignoreCachedValue: force || undefined,
-				// Pass appearance to ORS when feature flag is enabled
-				...(isInlineOptEnabled ? { appearance } : {}),
 			});
-			urlResponsePromiseCache.set(cacheKey, responsePromise);
+			urlResponsePromiseCache.set(url, responsePromise);
 		}
 
 		let response: SuccessResponse | ErrorResponse;
@@ -309,10 +315,68 @@ export default class CardClient implements CardClientInterface {
 			!isSuccessfulResponse(response) || getStatus(response.body) !== 'resolved';
 		if (isUnresolvedLink) {
 			// We want consequent calls for fetchData() to cause actual http call
+			urlResponsePromiseCache.delete(url);
+		}
+
+		return response;
+	}
+
+	private async resolveUrlWithInlineOptimization(
+		url: string,
+		hostname: string,
+		force: boolean,
+		appearance: CardAppearance,
+	) {
+		const cacheKey = `${url}|${appearance}`;
+		const inFlightCacheKey = JSON.stringify([url, appearance, force]);
+
+		let responsePromise = urlResponseInFlightCache.get(inFlightCacheKey);
+		if (!responsePromise) {
+			responsePromise = urlResponsePromiseCache.get(cacheKey);
+			if (!responsePromise || force) {
+				const urlLoader = this.getUrlLoader(hostname);
+				responsePromise = urlLoader.load({
+					resourceUrl: url,
+					ignoreCachedValue: force || undefined,
+					appearance,
+				});
+				urlResponsePromiseCache.set(cacheKey, responsePromise);
+				urlResponseInFlightCache.set(inFlightCacheKey, responsePromise);
+			}
+		}
+
+		let response: SuccessResponse | ErrorResponse;
+		try {
+			response = await responsePromise;
+		} catch (e) {
+			// Technically this never happens, since batchResolve handles errors and doesn't throw,
+			// But just in case.
+			urlResponsePromiseCache.delete(cacheKey);
+			throw e;
+		} finally {
+			if (urlResponseInFlightCache.get(inFlightCacheKey) === responsePromise) {
+				urlResponseInFlightCache.delete(inFlightCacheKey);
+			}
+		}
+
+		const isUnresolvedLink =
+			!isSuccessfulResponse(response) || getStatus(response.body) !== 'resolved';
+		if (isUnresolvedLink) {
+			// We want consequent calls for fetchData() to cause actual http call
 			urlResponsePromiseCache.delete(cacheKey);
 		}
 
 		return response;
+	}
+
+	private async resolveUrl(url: string, force: boolean = false, appearance?: CardAppearance) {
+		const hostname = this.getHostName(url);
+
+		if (appearance !== undefined && fg('platform_smartlink_inline_resolve_optimization')) {
+			return this.resolveUrlWithInlineOptimization(url, hostname, force, appearance);
+		}
+
+		return this.resolveUrlWithoutInlineOptimization(url, hostname, force);
 	}
 
 	public async prefetchData(

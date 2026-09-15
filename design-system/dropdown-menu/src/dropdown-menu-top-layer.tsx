@@ -21,11 +21,10 @@ import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { isAtCurrentMenuLevel } from '@atlaskit/top-layer/is-at-current-menu-level';
 import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
 import SelectionStore from './internal/context/selection-store';
 import type { DropdownMenuProps } from './types';
@@ -122,18 +121,15 @@ function DropdownMenuTopLayer({
 		[placement],
 	);
 
-	useAnchorPosition({
+	// DropdownMenu has no `shouldFitViewport` equivalent, so neither axis ever
+	// fits and `blockSize` stays `'content'` - `MenuGroup`'s `maxHeight` owns the
+	// block axis.
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,
 		isOpen: isLocalOpen,
-	});
-
-	useWidthFromAnchor({
-		mode: shouldFitContainer ? 'min-anchor' : 'none',
-		popoverRef,
-		anchorRef: triggerRef,
-		isOpen: isLocalOpen,
+		inlineSize: shouldFitContainer ? 'min-anchor' : 'content',
 	});
 
 	// Close handling.
@@ -247,7 +243,13 @@ function DropdownMenuTopLayer({
 		[setLocalIsOpen, onOpenChange],
 	);
 
-	const ariaAttributes = getAriaForTrigger({ role: 'menu', isOpen: isLocalOpen, popoverId });
+	const ariaAttributes = getAriaForTrigger({
+		// Intentionally fudging the type here to allow the fudged aria-haspopup cast below,
+		// without having to use `as unknown as ...` which would lose even more type safety.
+		role: 'menu' as 'menu' | 'dialog',
+		isOpen: isLocalOpen,
+		popoverId,
+	});
 
 	// FUDGE(top-layer-api): cast `aria-haspopup` to the narrow shape that adopter
 	// public types expect. `@atlaskit/top-layer` types `aria-haspopup` as the wider

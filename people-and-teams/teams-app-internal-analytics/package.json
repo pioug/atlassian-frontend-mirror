@@ -53,6 +53,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@atlassian/teams-app-internal-playground": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react": "^19.2.0",

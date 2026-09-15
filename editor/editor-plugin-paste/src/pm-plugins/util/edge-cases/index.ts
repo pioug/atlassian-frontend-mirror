@@ -86,7 +86,7 @@ const stripFontSizeInsideBlockquoteLists = (tr: Transaction, blockquotePos: numb
 	} = tr.doc.type.schema;
 	const listItemParentNodeTypes = [listItem, taskItem, blockTaskItem];
 
-	if (!fontSize || !expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+	if (!fontSize) {
 		return;
 	}
 
@@ -120,14 +120,12 @@ export function insertSliceInsideBlockquote({
 	tr.replaceSelection(new Slice(Fragment.from(schema.nodes.blockquote.createAndFill()), 0, 0));
 	updateSelectionAfterReplace({ tr });
 	tr.replaceSelection(slice);
-	if (expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
-		const insertedBlockquotePos = findParentNodeOfType(schema.nodes.blockquote)(tr.selection);
-		if (!insertedBlockquotePos) {
-			return;
-		}
-
-		stripFontSizeInsideBlockquoteLists(tr, insertedBlockquotePos.pos);
+	const insertedBlockquotePos = findParentNodeOfType(schema.nodes.blockquote)(tr.selection);
+	if (!insertedBlockquotePos) {
+		return;
 	}
+
+	stripFontSizeInsideBlockquoteLists(tr, insertedBlockquotePos.pos);
 }
 
 export function updateSelectionAfterReplace({ tr }: { tr: Transaction }): Transaction | undefined {

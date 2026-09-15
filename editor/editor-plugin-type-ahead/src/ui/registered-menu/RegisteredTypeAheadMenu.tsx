@@ -35,13 +35,16 @@ const styles = cssMap({
 	menu: {
 		backgroundColor: token('elevation.surface.overlay'),
 		borderRadius: token('radius.small'),
+		boxSizing: 'border-box',
 		boxShadow: token('elevation.shadow.overlay'),
 		overflow: 'hidden',
 		paddingBlock: token('space.050'),
-		width: '340px',
+		width: '320px',
 	},
 });
-const DEFAULT_MENU_MAX_HEIGHT = 520;
+const DEFAULT_MENU_MAX_HEIGHT = 480;
+const MENU_VERTICAL_PADDING = 8;
+const MENU_WIDTH = 320;
 const POPUP_OFFSET = [0, 8];
 const SECTION_OVERFLOW_LIMIT = 30;
 
@@ -228,7 +231,7 @@ export const RegisteredTypeAheadMenu = ({
 				ariaLabel={null}
 				boundariesElement={popupsBoundariesElement}
 				fitHeight={maxHeight}
-				fitWidth={340}
+				fitWidth={MENU_WIDTH}
 				mountTo={popupsMountPoint}
 				offset={POPUP_OFFSET}
 				preventOverflow={true}
@@ -236,14 +239,19 @@ export const RegisteredTypeAheadMenu = ({
 				target={anchorElement}
 				zIndex={akEditorFloatingDialogZIndex}
 			>
-				<Box ref={menuRef} data-registered-type-ahead-menu="" xcss={styles.menu}>
+				<Box
+					ref={menuRef}
+					data-registered-type-ahead-menu=""
+					testId="registered-type-ahead-menu"
+					xcss={styles.menu}
+				>
 					<TypeAheadProvider value={typeAheadContextValue}>
 						<SurfaceProvider>
 							<TypeAheadMenuRenderer
 								Item={surface.Item}
 								listLabel={surface.listLabel}
 								listId={listId}
-								maxHeight={maxHeight}
+								maxHeight={Math.max(0, maxHeight - MENU_VERTICAL_PADDING)}
 								model={menuModel}
 								onItemHover={setSelectedItemIndex}
 								selectedItemIndex={selectedItemIndex}

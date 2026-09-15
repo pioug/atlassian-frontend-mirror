@@ -1,6 +1,10 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+import { mediaEmoji, mediaEmojiId } from '@atlaskit/util-data-test/media-emoji';
 
 import RendererEmoji from '../../../../react/nodes/emoji';
 
@@ -146,6 +150,58 @@ describe('Emoji', () => {
 				expect(span).toHaveAttribute('data-emoji-text', '👋🏽');
 				expect(span).toHaveTextContent('👋🏽');
 			});
+		});
+	});
+
+	describe('with an emojiProvider and platform_editor_custom_emoji_unicode_fallback', () => {
+		// With a provider the renderer delegates to ResourcedEmoji, which only
+		// surfaces `customFallback` once it has tried and failed to resolve the
+		// emoji — hence the deliberately unknown `does-not-exist` id.
+		const providers = () => ProviderFactory.create({ emojiProvider: getTestEmojiResource() });
+
+		it('should render the custom emoji fallback text as-is when the gate is OFF', async () => {
+			failGate('platform_editor_custom_emoji_unicode_fallback');
+
+			render(
+				<RendererEmoji
+					id="does-not-exist"
+					shortName=":does-not-exist:"
+					text=":does-not-exist:"
+					providers={providers()}
+				/>,
+			);
+
+			expect(await screen.findByText(':does-not-exist:')).toBeVisible();
+		});
+
+		it('should render U+FFFD for an unresolvable custom emoji when the gate is ON', async () => {
+			passGate('platform_editor_custom_emoji_unicode_fallback');
+
+			render(
+				<RendererEmoji
+					id="does-not-exist"
+					shortName=":does-not-exist:"
+					text=":does-not-exist:"
+					providers={providers()}
+				/>,
+			);
+
+			expect(await screen.findByText('�')).toBeVisible();
+		});
+
+		it('should still render a resolvable emoji as an image when the gate is ON', async () => {
+			passGate('platform_editor_custom_emoji_unicode_fallback');
+
+			render(
+				<RendererEmoji
+					id={mediaEmojiId.id}
+					shortName={mediaEmojiId.shortName}
+					text={mediaEmojiId.fallback}
+					providers={providers()}
+				/>,
+			);
+
+			expect(await screen.findByRole('img', { name: mediaEmoji.name })).toBeVisible();
 		});
 	});
 });

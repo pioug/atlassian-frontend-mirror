@@ -146,5 +146,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "29.1.2"
+	"version": "29.1.6"
 }

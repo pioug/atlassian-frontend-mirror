@@ -39,12 +39,12 @@ on the shipping support matrix. See
 | Legacy mechanism                      | Native replacement                                                   |
 | ------------------------------------- | -------------------------------------------------------------------- |
 | `@atlaskit/portal` (zIndex=tooltip)   | `popover="hint"` renders in the browser's top layer                  |
-| `@atlaskit/popper` (Popper.js)        | CSS Anchor Positioning via `useAnchorPosition`                       |
+| `@atlaskit/popper` (Popper.js)        | CSS Anchor Positioning via `useAnchoredPopover`                      |
 | z-index stacking (`layers.tooltip()`) | Top layer insertion order                                            |
 | `useCloseOnEscapePress`               | Native `popover="hint"` light dismiss                                |
 | `hideTooltipOnClick`                  | Native `popover="hint"` light dismiss on pointerup                   |
 | `ExitingPersistence` + `FadeIn`       | CSS `@starting-style` + `allow-discrete` via `Popover shouldAnimate` |
-| `VirtualElement` (mouse positioning)  | `useAnchorPositionAtPoint` (synthetic anchor at the cursor)          |
+| `VirtualElement` (mouse positioning)  | `useAnchoredPopoverAtPoint` (synthetic anchor at the cursor)         |
 
 ### Standalone `Popover` approach
 
@@ -61,9 +61,9 @@ existing state machine control visibility through `Popover`'s `isOpen` prop. `Po
 
 VR testing revealed that centered tooltips (the default alignment) near a viewport edge were clipped
 in the top-layer path, whereas the legacy Popper.js path would shift them to stay in view. The root
-cause was that `placementToTryFallbacks()` in `use-anchor-position.tsx` only generated a simple
-primary-axis flip keyword (e.g. `flip-block`) for centered placements, providing no cross-axis shift
-fallbacks.
+cause was that `placementToTryFallbacks()` (then in `use-anchor-position.tsx`, now
+`internal/anchor-positioning/placement-to-try-fallbacks.tsx`) only generated a simple primary-axis
+flip keyword (e.g. `flip-block`) for centered placements, providing no cross-axis shift fallbacks.
 
 The fix expanded centered-placement fallbacks to include cross-axis aligned `position-area` values:
 
@@ -152,7 +152,7 @@ consumer needing to trigger updates.
 
 ### Offset
 
-The top-layer call site doesn't pass an `offset` to `fromLegacyPlacement`, so `useAnchorPosition`'s
+The top-layer call site doesn't pass an `offset` to `fromLegacyPlacement`, so `useAnchoredPopover`'s
 default `gap` of `token('space.100', '8px')` applies. This matches the legacy popper rendering,
 which also didn't pass an `offset` and therefore picked up popper's `[0, 8]` default.
 
@@ -163,13 +163,16 @@ and exit transitions using `@starting-style` and `allow-discrete` for progressiv
 
 ---
 
-## Positioning: two strategies
+## Positioning: two strategies, one hook
+
+Both strategies are branches of `useAnchoredPopover`'s `anchor` union, selected in one call. They
+used to be two hooks called with complementary `isEnabled` values (see the note below the list).
 
 ### Non-mouse positions
 
 `top`, `bottom`, `left`, `right`, and their `-start`/`-end` variants use CSS Anchor Positioning via
-`useAnchorPosition`, with a JS fallback for browsers that do not support it. The trigger ref is
-passed to `useAnchorPosition` as `anchorRef` so it can set up the anchor relationship.
+`useAnchoredPopover`, with a JS fallback for browsers that do not support it. The trigger ref is
+passed as `anchorRef: targetRef` so the hook can set up the anchor relationship.
 
 ### Mouse-tracking positions (`mouse`, `mouse-x`, `mouse-y`)
 
@@ -183,16 +186,28 @@ center would place the tooltip far from the cursor. Instead, the tooltip follows
 The tooltip still renders as `<div popover="hint">` in the browser's top layer. The difference is
 only in positioning:
 
-1. `useAnchorPosition` is disabled (`isEnabled: false`) so the two strategies do not fight over
-   ownership of the same popover.
-2. `useAnchorPositionAtPoint` latches the cursor coordinate once per activation and positions the
-   popover against a synthetic anchor at that point, rendered as a sibling of the popover.
+1. `useAnchoredPopoverAtPoint` becomes the enabled hook and `useAnchoredPopover` the disabled one.
+   Both take a single `sharedPositioning` object and derive `isEnabled` from ONE boolean, one of
+   them negated, so they cannot both be live and cannot drift on placement or `isOpen`.
+2. The hook calls `getPoint()` **once per activation** and latches the coordinate, positioning the
+   popover against a synthetic anchor at that point, appended to `document.body`. The latch is
+   per-show because `TopLayerTooltipPopup` mounts fresh on every show; the hook keys its effect on
+   `isEnabled`, never on the inline `getPoint` arrow, so a re-render does not re-latch.
 3. Mouse-positioned tooltips override the default directional motion with a fade-only
    `animationName` because there is no meaningful entrance direction when following a mouse.
 
-A keyboard-activated tooltip has no cursor to track, so `getPoint()` returns `null` and the direct
-anchor strategy keeps ownership. CSS Anchor Positioning cannot anchor to a cursor, because a cursor
-is not a DOM element.
+A keyboard-activated tooltip has no cursor to track, so no `mousePos` is recorded and the element
+hook is the enabled one. And if `getPoint()` returns `null` (the trigger has not mounted yet),
+nothing is positioned at all — the same outcome as the "neither hook is enabled" state. CSS Anchor
+Positioning cannot anchor to a cursor, because a cursor is not a DOM element.
+
+> **History.** Before 2026-08-24 this was two hooks (`useAnchorPosition` /
+> `useAnchorPositionAtPoint`) with complementary `isEnabled` flags. That merged into one
+> `useAnchoredPopover` with an `anchor` discriminated union, where `anchor: null` replaced
+> `isEnabled`. On 2026-08-25 the point anchor split back out as `useAnchoredPopoverAtPoint` and
+> `isEnabled` returned, briefly with a dev-only guard on the mutual-exclusion invariant; the guard
+> was removed on 2026-09-04 (both in-tree flippers derive the two flags from one boolean). See
+> [../decisions/anchored-popover-at-point.md](../decisions/anchored-popover-at-point.md).
 
 ---
 
@@ -367,9 +382,9 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 ### `@atlaskit/top-layer`
 
-| File                                   | Change                                                                                                 |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `src/internal/use-anchor-position.tsx` | `placementToTryFallbacks()` expanded with cross-axis `position-area` fallbacks for centered placements |
+| File                                   | Change                                                                                                                                                                                                                             |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/internal/use-anchor-position.tsx` | `placementToTryFallbacks()` expanded with cross-axis `position-area` fallbacks for centered placements (the hook is now `use-anchored-popover.tsx`, the function now `internal/anchor-positioning/placement-to-try-fallbacks.tsx`) |
 
 ---
 

@@ -63,6 +63,36 @@ export interface ContentProps {
 	setInitialFocusRef: Dispatch<SetStateAction<HTMLElement | null>>;
 }
 
+/**
+ * Props passed to a custom `popupComponent`, which renders as the popup container in
+ * place of the default surface.
+ *
+ * **Contract on the top-layer path (`platform-dst-top-layer`).** The container is
+ * the first child of a `display: flex` popover host whose `& > *` rule sets
+ * `flex-grow: 1`, `min-inline-size: 0` and `min-block-size: 0`. A size cap
+ * (`shouldFitViewport`, or the always-on viewport backstop) reaches the content only
+ * through that first child, so a container has to:
+ *
+ * 1. Render exactly one in-flow root. A second in-flow root becomes a second flex
+ *    item, laid out in a row beside the first.
+ * 2. Keep that root in flow, not `position: absolute` or `fixed`. An out-of-flow root
+ *    is not a flex item, so `flex-grow` and cross-axis stretch never reach it.
+ * 3. Give the root ITSELF a non-`visible` computed `overflow`, so it is the scroll
+ *    container. The `min-*-size: 0` reset caps the root's box whatever its
+ *    `overflow` is; a `visible` root's content spills out of a correctly-sized box
+ *    instead of scrolling.
+ * 4. Leave the block size `auto`, so cross-axis stretch can size it.
+ * 5. Not pin the inline size above the cap, and not set `flex-shrink: 0`.
+ * 6. Put the `overflow` on the root, not on a descendant. `& > *` reaches one level.
+ *
+ * `shouldFitViewport` is forwarded on both paths, so the container can own its
+ * `overflow` (several in-tree containers key an `overflow: auto` branch off it).
+ *
+ * `shouldRenderToParent` is NOT forwarded on the top-layer path, by decision:
+ * everything renders in the top layer, so the container receives `undefined`, and a
+ * `(!shouldRenderToParent || shouldFitViewport)` branch reads as "fitting applies",
+ * which is the intended reading there.
+ */
 export interface PopupComponentProps {
 	/**
 	 * Children passed through by the parent popup.

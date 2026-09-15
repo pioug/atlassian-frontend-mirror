@@ -4,7 +4,6 @@ import {
 } from '@atlaskit/editor-common/lists';
 import { isListNode } from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type MergeNextListAtPositionProps = {
 	listPosition: number;
@@ -33,10 +32,7 @@ export function mergeNextListAtPosition({ tr, listPosition }: MergeNextListAtPos
 
 	tr.join(pos);
 
-	if (
-		tr.doc.type.schema.marks.fontSize &&
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-	) {
+	if (tr.doc.type.schema.marks.fontSize) {
 		const upperListFontSizeAttrs = getFirstParagraphBlockMarkAttrs(
 			nodeBefore,
 			tr.doc.type.schema.marks.fontSize,

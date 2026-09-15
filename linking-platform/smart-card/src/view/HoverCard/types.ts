@@ -54,6 +54,11 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	label?: string;
 
 	/**
+	 * @deprecated To be removed - Suspend hover card UI delays (fade-in, fade-out) for VR testing purposes.
+	 */
+	noFadeDelay?: boolean;
+
+	/**
 	 * Callback function that is called when the hover card is visible or hidden.
 	 */
 	onVisibilityChange?: (isVisible: boolean) => void;
@@ -89,25 +94,28 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 }
 
 /**
- * An internal props that internal smart-card components can use to configure
- * hover preview behaviour. The prop contains here are suitable for unsafe
- * or experiment props that will not be or are yet ready to be available on
- * standalone hover card.
+ * @deprecated To be removed - internal component prop
  */
 export interface HoverCardInternalProps extends HoverCardProps {
-	actionOptions?: InternalCardActionOptions;
+	actionOptions?: CardActionOptions;
 	/**
 	 * Suspend hover card UI delays (fade-in, fade-out) for VR testing purposes.
 	 */
 	noFadeDelay?: boolean;
 }
 
-export interface HoverCardComponentProps extends HoverCardInternalProps {
+/**
+ * @deprecated To be removed - internal component prop
+ */
+export interface HoverCardComponentProps extends HoverCardProps {
 	analyticsHandler?: AnalyticsHandler;
 	canOpen?: boolean;
 	closeOnChildClick?: boolean;
 }
 
+/**
+ * @deprecated To be removed - internal component prop
+ */
 export type HoverCardContentProps = {
 	actionOptions?: InternalCardActionOptions;
 	cardState: CardState;
@@ -125,8 +133,14 @@ export type HoverCardContentProps = {
 	url: string;
 };
 
+/**
+ * @deprecated To be removed - internal component type
+ */
 export type ContentContainerWidthAppearance = 'default' | 'slim';
 
+/**
+ * @deprecated To be removed - internal component prop
+ */
 export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {
 	isAIEnabled?: boolean;
 	testId?: string;
@@ -137,15 +151,20 @@ export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {
 	widthAppearance?: ContentContainerWidthAppearance;
 };
 
+/**
+ * @deprecated To be removed - internal component prop
+ */
 export type ImagePreviewProps = {
 	fallbackElementHeight: number;
 	response?: SmartLinkResponse;
 };
+
 export interface HoverPreviewOptions {
 	/**
 	 * Delay (in milliseconds) between hovering over the trigger element and the hover card opening. Defaults to 500ms.
 	 */
 	fadeInDelay?: number;
+
 	/**
 	 * Render a custom component instead of the default hover card.
 	 */

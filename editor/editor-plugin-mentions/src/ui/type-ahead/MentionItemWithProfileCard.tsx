@@ -3,8 +3,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { MentionAttributes, MentionUserType } from '@atlaskit/adf-schema/mention';
 import { cssMap } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import { MentionItem } from '@atlaskit/mention/item';
-import type { MentionDescription } from '@atlaskit/mention/resource';
+import MentionItem from '@atlaskit/mention/mention-item';
+import type { MentionDescription } from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -43,6 +43,54 @@ function getScrollbarWidth(row: HTMLElement): number {
 	return 0;
 }
 
+/**
+ * Renders the new (relay) user profile card for a mention typeahead row, anchored to the row and
+ * flipped left when there's no room on the right
+ */
+function UserTypeaheadProfileCard({
+	profilecardProvider,
+	userId,
+	referenceElement,
+}: {
+	profilecardProvider: Promise<ProfilecardProvider>;
+	referenceElement: HTMLElement;
+	userId: string | undefined;
+}): JSX.Element | null {
+	const [provider, setProvider] = useState<ProfilecardProvider | undefined>(undefined);
+	useEffect(() => {
+		let active = true;
+		void profilecardProvider
+			.then((resolved) => {
+				if (active) {
+					setProvider(resolved);
+				}
+			})
+			.catch(() => {
+				// provider failed to resolve, card stays hidden
+			});
+		return () => {
+			active = false;
+		};
+	}, [profilecardProvider]);
+
+	if (!userId || !provider?.renderUserMentionCard) {
+		return null;
+	}
+
+	return (
+		<>
+			{provider.renderUserMentionCard({
+				userId,
+				cloudId: provider.cloudId,
+				children: null,
+				referenceElement,
+				placement: 'right',
+				isReduced: true,
+			})}
+		</>
+	);
+}
+
 type Props = {
 	height?: number;
 	mention: MentionDescription;
@@ -77,8 +125,11 @@ export function MentionItemWithProfileCard({
 
 	const handleMouseEnter = useCallback(
 		(_mention: MentionDescription, event?: React.SyntheticEvent) => {
-			// Currently showing profile cards for agents only
-			if (mention.isPlaceholder || !mention.id || !profilecardProvider || !isAgent) {
+			if (mention.isPlaceholder || !mention.id || !profilecardProvider) {
+				return;
+			}
+
+			if (!isAgent && !isExperimentEnabled('platform_editor_mention_typeahead_user_profilecard')) {
 				return;
 			}
 
@@ -168,18 +219,26 @@ export function MentionItemWithProfileCard({
 				onSelection={onSelection}
 				height={height}
 			/>
-			{referenceElement && profilecardProvider && (
-				<ProfileCardComponent
-					activeMention={activeMention}
-					profilecardProvider={profilecardProvider}
-					dom={referenceElement}
-					closeComponent={closeCard}
-					placement="right"
-					offset={offset}
-					disableFocusTrap
-					hideActions
-				/>
-			)}
+			{referenceElement &&
+				profilecardProvider &&
+				(isAgent ? (
+					<ProfileCardComponent
+						activeMention={activeMention}
+						profilecardProvider={profilecardProvider}
+						dom={referenceElement}
+						closeComponent={closeCard}
+						placement="right"
+						offset={offset}
+						disableFocusTrap
+						hideActions
+					/>
+				) : (
+					<UserTypeaheadProfileCard
+						profilecardProvider={profilecardProvider}
+						userId={mention.id}
+						referenceElement={referenceElement}
+					/>
+				))}
 		</Box>
 	);
 }

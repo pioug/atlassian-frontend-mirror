@@ -8,7 +8,7 @@ import IconButton from '@atlaskit/button/icon/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import Code from '@atlaskit/code/code';
 import { cssMap } from '@atlaskit/css';
-import { DatePicker } from '@atlaskit/datetime-picker';
+import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';

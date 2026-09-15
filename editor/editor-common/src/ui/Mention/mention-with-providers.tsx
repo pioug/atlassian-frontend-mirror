@@ -1,9 +1,8 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
-import { ResourcedMention } from '@atlaskit/mention/element';
-import type { MentionProvider } from '@atlaskit/mention/resource';
-import type { MentionNodeData } from '@atlaskit/mention/types';
+import ResourcedMention from '@atlaskit/mention/resourced-mention';
+import type { MentionNodeData, MentionProvider } from '@atlaskit/mention/types';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';

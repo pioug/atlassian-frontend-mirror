@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::f684429b80698bea74a05df27864a509>>
+ * @codegen <<SignedSource::6c07d01b427b6369803ccfae25ec6949>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -110,6 +110,16 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for representing AI compute and memory.',
 		team: 'Design System Team',
 		status: 'published',
+	},
+	'ai-filter': {
+		keywords: ['ai-filter', 'aifilter', 'icon', 'icon-lab', 'filter', 'ai'],
+		componentName: 'AiFilterIcon',
+		package: '@atlaskit/icon-lab/core/ai-filter',
+		categorization: 'single-purpose',
+		usage: 'Reserved for AI filter search prompt.',
+		team: 'Jira',
+		status: 'published',
+		slackChannel: '@Cohen Gum',
 	},
 	'ai-generative-audio-briefing': {
 		keywords: [
@@ -4146,6 +4156,36 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#jsm-phoenix',
 	},
+	'end-call': {
+		keywords: ['end-call', 'endcall', 'icon', 'icon-lab', 'hang-up', 'end call', 'phone', 'call'],
+		componentName: 'EndCallIcon',
+		package: '@atlaskit/icon-lab/core/end-call',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Hanging up voice call in CSM',
+		team: 'CSM',
+		status: 'published',
+		slackChannel: '@Dan Hoolahan',
+	},
+	'enterprise-certified': {
+		keywords: [
+			'enterprise-certified',
+			'enterprisecertified',
+			'icon',
+			'icon-lab',
+			'check',
+			'certified',
+			'marketplace',
+			'badge',
+			'AEC',
+		],
+		componentName: 'EnterpriseCertifiedIcon',
+		package: '@atlaskit/icon-lab/core/enterprise-certified',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Atlassian enterprise certified apps on Marketplace.',
+		team: 'Ecosystem Design',
+		status: 'published',
+		slackChannel: '@Hannah Ashby',
+	},
 	'expand-element': {
 		keywords: ['expand-element', 'expandelement', 'icon', 'icon-lab', 'expand', 'editor object'],
 		componentName: 'ExpandElementIcon',
@@ -4385,6 +4425,16 @@ const metadata: Record<string, metadata> = {
 		team: 'Whiteboards',
 		status: 'published',
 	},
+	guitar: {
+		keywords: ['guitar', 'icon', 'icon-lab', 'music', 'rock and roll', 'sound', 'hold-music'],
+		componentName: 'GuitarIcon',
+		package: '@atlaskit/icon-lab/core/guitar',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Guitar based music in CSM hold music options.',
+		team: 'CSM',
+		status: 'published',
+		slackChannel: '@Dan Hoolahan',
+	},
 	'hand-closed': {
 		keywords: [
 			'hand-closed',
@@ -4420,6 +4470,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Used for farewell feed in Atlassian Home.',
 		team: 'Whiteboards',
 		status: 'published',
+	},
+	'hand-wave': {
+		keywords: [
+			'hand-wave',
+			'handwave',
+			'icon',
+			'icon-lab',
+			'wave',
+			'hand',
+			'greeting',
+			'welcome',
+			'hi',
+		],
+		componentName: 'HandWaveIcon',
+		package: '@atlaskit/icon-lab/core/hand-wave',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Welcome message in CSM voice configuration.',
+		team: 'CSM',
+		status: 'published',
+		slackChannel: '@Dan Hoolahan',
 	},
 	'hardware-assignment': {
 		keywords: [
@@ -4723,6 +4793,16 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for representing transferred hardware.',
 		team: 'JSM',
 		status: 'published',
+	},
+	headset: {
+		keywords: ['headset', 'icon', 'icon-lab', 'voice', 'support', 'microphone', 'headphone'],
+		componentName: 'HeadsetIcon',
+		package: '@atlaskit/icon-lab/core/headset',
+		categorization: 'multi-purpose',
+		usage: 'Known usages: Depicting customer support on the phone, e.g. Voice support in CSM',
+		team: 'CSM',
+		status: 'published',
+		slackChannel: '@Dan Hoolahan',
 	},
 	hierarchy: {
 		keywords: [
@@ -5489,6 +5569,26 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#feedback-loom-vizrefresh',
 	},
+	piano: {
+		keywords: [
+			'piano',
+			'icon',
+			'icon-lab',
+			'music',
+			'classical',
+			'orchestra',
+			'grand',
+			'hold-music',
+			'sound',
+		],
+		componentName: 'PianoIcon',
+		package: '@atlaskit/icon-lab/core/piano',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Classical piano music in CSM hold music options.',
+		team: 'CSM',
+		status: 'published',
+		slackChannel: '@Dan hoolahan',
+	},
 	'pin-strikethrough': {
 		keywords: [
 			'pin-strikethrough',
@@ -5847,6 +5947,26 @@ const metadata: Record<string, metadata> = {
 		team: 'Rovo chat',
 		status: 'published',
 	},
+	'rovo-digest': {
+		keywords: [
+			'rovo-digest',
+			'rovodigest',
+			'icon',
+			'icon-lab',
+			'Digest',
+			'Your digest',
+			'newspaper',
+			'insights',
+			'brief',
+		],
+		componentName: 'RovoDigestIcon',
+		package: '@atlaskit/icon-lab/core/rovo-digest',
+		categorization: 'single-purpose',
+		usage: 'Reserved to represent Rovo digest.',
+		team: 'Rovo Growth',
+		status: 'published',
+		slackChannel: '@Naomi Kite',
+	},
 	'rss-feed': {
 		keywords: [
 			'rss-feed',
@@ -6076,6 +6196,26 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		team: 'Design System Team',
 		status: 'published',
+	},
+	'sine-wave': {
+		keywords: [
+			'sine-wave',
+			'sinewave',
+			'icon',
+			'icon-lab',
+			'audio',
+			'ambient',
+			'hold-music',
+			'sound',
+			'music',
+		],
+		componentName: 'SineWaveIcon',
+		package: '@atlaskit/icon-lab/core/sine-wave',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Audio sound wave depicting ambient music in CSM hold music.',
+		team: 'CSM',
+		status: 'published',
+		slackChannel: '@Dan Hoolahan',
 	},
 	skill: {
 		keywords: ['skill', 'icon', 'icon-lab', 'skill', 'skills', 'agent', 'agentic', 'tools', 'tool'],

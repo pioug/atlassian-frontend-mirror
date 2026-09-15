@@ -15,7 +15,7 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { MentionsPlugin } from '@atlaskit/editor-plugins/mentions';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import type { EmojiProvider } from '@atlaskit/emoji';
-import type { MentionProvider } from '@atlaskit/mention/resource';
+import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 interface UseProvidersProps {

@@ -41,7 +41,7 @@ PopoverContent → Popover (popover="manual", role="dialog", triggerRef, placeme
 
 | Legacy mechanism                                                | Native replacement                                                          |
 | --------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `@atlaskit/popper` (Manager, Reference, Popper)                 | `popover="manual"` + CSS Anchor Positioning via `useAnchorPositioning`      |
+| `@atlaskit/popper` (Manager, Reference, Popper)                 | `popover="manual"` + CSS Anchor Positioning via `useAnchoredPopover`        |
 | z-index (`zIndex: 700`)                                         | Top layer insertion order                                                   |
 | `useOnEscape` / `useOnClickOutside`                             | `useSimpleLightDismiss` from `@atlaskit/top-layer/use-simple-light-dismiss` |
 | Popper placement map (Spotlight → Popper top/right/bottom/left) | `fromLegacyPlacement(placement)` from `@atlaskit/top-layer/placement-map`   |
@@ -51,9 +51,9 @@ PopoverContent → Popover (popover="manual", role="dialog", triggerRef, placeme
 Spotlight controls visibility via `isVisible` and owns dismiss (Escape, click-outside, dismiss
 control). It could not use the full `Popup` compound because `Popup.Trigger` binds click-to-toggle,
 which would conflict with spotlight's programmatic show/hide. So `PopoverContent` uses `Popover`
-directly with `mode="manual"` and `useAnchorPositioning`: it passes `triggerRef` (from context, set
-by `PopoverTarget`), `placement` (from `fromLegacyPlacement(placement)`), `role="dialog"`,
-`labelledBy={heading.id}`. Light dismiss (Escape and click-outside) is handled by
+directly with `mode="manual"` and `useAnchoredPopover`: it passes the trigger ref from context (set
+by `PopoverTarget`) as `anchorRef`, `placement` (from `fromLegacyPlacement(placement)`),
+`role="dialog"`, `labelledBy={heading.id}`. Light dismiss (Escape and click-outside) is handled by
 `useSimpleLightDismiss` from `@atlaskit/top-layer/use-simple-light-dismiss`, which provides
 standalone dismiss behavior without participating in the browser's `popover="auto"` stack. This
 allows multiple spotlights to coexist without mutual exclusion.

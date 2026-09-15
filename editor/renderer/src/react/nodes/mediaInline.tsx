@@ -6,8 +6,8 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import { useProvider } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import type { InlineCardEvent } from '@atlaskit/media-card';
-import { MediaInlineCard } from '@atlaskit/media-card';
+import type { InlineCardEvent } from '@atlaskit/media-card/types';
+import MediaInlineCard from '@atlaskit/media-card/loader';
 import type { FileIdentifier, FileState } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';

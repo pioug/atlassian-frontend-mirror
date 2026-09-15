@@ -1,5 +1,27 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.12.7
+
+### Patch Changes
+
+- [`db3d1d131101f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db3d1d131101f) -
+  Keep unsafe autofixes opt-in for rules that expose `enableUnsafeAutofix`; recommended warning
+  rules use suggestions unless a consumer explicitly enables the unsafe option.
+
+## 16.12.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.12.5
+
+### Patch Changes
+
+- [`172807d4dcd96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/172807d4dcd96) -
+  Avoid crashing while inspecting styles that compose a token call in a binary expression.
+- Updated dependencies
+
 ## 16.12.4
 
 ### Patch Changes

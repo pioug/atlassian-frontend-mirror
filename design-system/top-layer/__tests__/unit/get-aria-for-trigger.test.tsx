@@ -15,9 +15,12 @@ describe('getAriaForTrigger', () => {
 		});
 
 		it('returns "menu" for menu role', () => {
-			expect(
-				getAriaForTrigger({ role: 'menu', isOpen: false, popoverId: 'x' })['aria-haspopup'],
-			).toBe('menu');
+			const aria = getAriaForTrigger({
+				role: 'menu',
+				isOpen: false,
+				popoverId: 'x',
+			});
+			expect(aria).toHaveProperty('aria-haspopup', 'menu');
 		});
 
 		it('returns "listbox" for listbox role', () => {

@@ -49,7 +49,7 @@ import {
 	type MediaViewerExtensions,
 } from '@atlaskit/media-viewer';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';
+import { getActiveTrace } from '@atlaskit/react-ufo/get-active-trace';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -125,6 +125,11 @@ export interface FileCardProps extends CardEventProps {
 	readonly isAIGenerating?: boolean;
 	/** Marks the card as part of the CWR (create-with-Rovo) infographics flow. */
 	readonly isCWR?: boolean;
+	/**
+	 * Drops the loading indicator and fades the preview in over the card's surface instead.
+	 * Also behind `aifc_page_create_defer_generated_visuals`.
+	 */
+	readonly hasLoadingMotion?: boolean;
 	/** Callback fired when the media card's image preview has rendered. */
 	readonly onPreviewRender?: (fileId: string) => void;
 	/** Instance of file identifier. */
@@ -218,6 +223,7 @@ export const FileCard = ({
 	backgroundColor,
 	isAIGenerating,
 	isCWR,
+	hasLoadingMotion,
 	onPreviewRender,
 	shouldHideTooltip,
 	mediaViewerItems,
@@ -1089,6 +1095,7 @@ export const FileCard = ({
 				overriddenCreationDate={overridenDate}
 				isAIGenerating={isAIGenerating}
 				isCWR={isCWR}
+				hasLoadingMotion={hasLoadingMotion}
 			/>
 		);
 

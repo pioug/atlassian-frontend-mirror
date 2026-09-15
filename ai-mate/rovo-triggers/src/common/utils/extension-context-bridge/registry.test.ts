@@ -2,8 +2,16 @@ import { type Payload } from '../../../types';
 
 import { BRIDGE_MESSAGE_MARKER, BRIDGE_SOURCE, BRIDGE_TO_EXTENSION } from './constants';
 import { getInboundDecision, isRelayableContextKey, shouldRelayToProduct } from './policy';
-import { deserializePayload, serializePayload } from './registry';
-import { isBridgeMessage } from './transport';
+import { deserializePayload, serializePayload, type SerializationResult } from './registry';
+import { isBridgeMessage, type SerializedPayload } from './transport';
+
+/** Narrow a success, failing loudly on a drop rather than as an `undefined` deep in an assertion. */
+const expectSerialized = (result: SerializationResult): SerializedPayload => {
+	if (!result.ok) {
+		throw new Error(`expected serialization to succeed, got drop reason: ${result.reason}`);
+	}
+	return result.payload;
+};
 
 describe('inbound (product → extension) policy', () => {
 	it('allows the seeded Confluence-first context types', () => {
@@ -56,7 +64,10 @@ describe('inbound set-message-context contextKey policy', () => {
 			data: { contextKey: 'not_opted_in', setContext: () => ({ secret: 'value' }) },
 		} as unknown as Payload;
 
-		expect(serializePayload(payload)).toBeNull();
+		expect(serializePayload(payload)).toEqual({
+			ok: false,
+			reason: 'context-key-not-allowlisted',
+		});
 	});
 
 	it('never invokes setContext for a key that is not allowlisted', () => {
@@ -94,14 +105,17 @@ describe('serializePayload', () => {
 			data: { document: { type: 'text/adf', content: '{}' } },
 		} as unknown as Payload;
 
-		const serialized = serializePayload(payload);
+		const result = serializePayload(payload);
 
-		expect(serialized).toEqual({
-			type: 'editor-context-payload',
-			source: 'confluence',
-			product: 'confluence',
-			openChat: undefined,
-			data: { document: { type: 'text/adf', content: '{}' } },
+		expect(result).toEqual({
+			ok: true,
+			payload: {
+				type: 'editor-context-payload',
+				source: 'confluence',
+				product: 'confluence',
+				openChat: undefined,
+				data: { document: { type: 'text/adf', content: '{}' } },
+			},
 		});
 	});
 
@@ -112,7 +126,7 @@ describe('serializePayload', () => {
 			data: { keep: 'yes', drop: () => 'no' },
 		} as unknown as Payload;
 
-		expect(serializePayload(payload)?.data).toEqual({ keep: 'yes' });
+		expect(expectSerialized(serializePayload(payload)).data).toEqual({ keep: 'yes' });
 	});
 
 	it('drops payloads whose data cannot be cloned', () => {
@@ -124,7 +138,7 @@ describe('serializePayload', () => {
 			data: circular,
 		} as unknown as Payload;
 
-		expect(serializePayload(payload)).toBeNull();
+		expect(serializePayload(payload)).toEqual({ ok: false, reason: 'not-serializable' });
 	});
 
 	it('resolves replace-style set-message-context into a cloneable value', () => {
@@ -134,7 +148,7 @@ describe('serializePayload', () => {
 			data: { contextKey: 'jira_view_context', setContext: () => ({ issueKey: 'ABC-1' }) },
 		} as unknown as Payload;
 
-		expect(serializePayload(payload)?.data).toEqual({
+		expect(expectSerialized(serializePayload(payload)).data).toEqual({
 			contextKey: 'jira_view_context',
 			value: { issueKey: 'ABC-1' },
 		});
@@ -152,7 +166,7 @@ describe('serializePayload', () => {
 			},
 		} as unknown as Payload;
 
-		expect(serializePayload(payload)).toBeNull();
+		expect(serializePayload(payload)).toEqual({ ok: false, reason: 'merge-style-publisher' });
 	});
 
 	it('drops a pure pass-through setContext', () => {
@@ -165,7 +179,7 @@ describe('serializePayload', () => {
 			},
 		} as unknown as Payload;
 
-		expect(serializePayload(payload)).toBeNull();
+		expect(serializePayload(payload)).toEqual({ ok: false, reason: 'merge-style-publisher' });
 	});
 
 	it('does not leak the merge probe into a resolved replace-style value', () => {
@@ -175,7 +189,9 @@ describe('serializePayload', () => {
 			data: { contextKey: 'jira_view_context', setContext: () => ({ issueKey: 'ABC-1' }) },
 		} as unknown as Payload;
 
-		expect(JSON.stringify(serializePayload(payload)?.data)).not.toContain('MergeProbe');
+		expect(JSON.stringify(expectSerialized(serializePayload(payload)).data)).not.toContain(
+			'MergeProbe',
+		);
 	});
 
 	it('drops set-message-context whose setContext throws', () => {
@@ -190,7 +206,17 @@ describe('serializePayload', () => {
 			},
 		} as unknown as Payload;
 
-		expect(serializePayload(payload)).toBeNull();
+		expect(serializePayload(payload)).toEqual({ ok: false, reason: 'set-context-threw' });
+	});
+
+	it('reports a set-message-context payload that carries no setContext at all', () => {
+		const payload = {
+			type: 'set-message-context',
+			source: 'confluence',
+			data: { contextKey: 'jira_view_context' },
+		} as unknown as Payload;
+
+		expect(serializePayload(payload)).toEqual({ ok: false, reason: 'missing-set-context' });
 	});
 });
 
@@ -229,8 +255,8 @@ describe('deserializePayload', () => {
 			data: { contextKey: 'jira_view_context', setContext: () => ({ issueKey: 'ABC-1' }) },
 		} as unknown as Payload;
 
-		const serialized = serializePayload(payload);
-		const restored = deserializePayload(serialized!) as unknown as {
+		const serialized = expectSerialized(serializePayload(payload));
+		const restored = deserializePayload(serialized) as unknown as {
 			data: { setContext: (ctx: unknown) => unknown };
 		};
 

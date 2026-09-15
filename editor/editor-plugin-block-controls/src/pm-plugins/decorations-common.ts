@@ -30,11 +30,7 @@ const getSubType = (node: PMNode): string => {
 };
 
 export const getNodeTypeWithLevel = (node: PMNode): string => {
-	const subType = expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-		? getSubType(node)
-		: node.attrs.level
-			? `-${node.attrs.level}`
-			: '';
+	const subType = getSubType(node);
 
 	const typeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
 		? getBaseNodeTypeName(node.type)

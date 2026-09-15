@@ -13,7 +13,7 @@ const rule: Rule.RuleModule = createLintRule({
 			recommended: true,
 			severity: 'warn',
 		},
-		fixable: 'code',
+		hasSuggestions: true,
 		type: 'problem',
 		messages: {
 			tokenDeprecated:
@@ -61,7 +61,12 @@ const rule: Rule.RuleModule = createLintRule({
 							name: tokenKey,
 							replacement,
 						},
-						fix: (fixer) => fixer.replaceText(node.arguments[0], `'${replacement}'`),
+						suggest: [
+							{
+								desc: `Replace with '${replacement}'`,
+								fix: (fixer) => fixer.replaceText(node.arguments[0], `'${replacement}'`),
+							},
+						],
 					});
 					return;
 				}

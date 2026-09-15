@@ -135,6 +135,7 @@ const PRESENTATION_ROUNDING_MS = 8;
  */
 export class InteractionTracker {
 	private readonly startsAfterInteractionId: number;
+	private readonly startedAt: number;
 
 	private readonly interactions = new BoundedMap<number, TrackedInteraction>(MAX_TRACKED);
 	private readonly groupByEvent = new BoundedMap<string, EditorInteractionGroupName>(MAX_TRACKED);
@@ -148,9 +149,17 @@ export class InteractionTracker {
 	 * a session opening mid-page passes the highest id the one before it saw; without that, an
 	 * entry still arriving for an interaction from the previous session would look new here and
 	 * be counted in both.
+	 * @param startedAt when the session opened. An interaction the user started before that is
+	 * ignored, which no id can do for the first session of a page: `buffered: false` does not keep
+	 * such an entry out, because Event Timing produces it after the paint that presented the event,
+	 * so the click on Edit whose handler mounts the editor is reported to an observer that only
+	 * subscribed while that handler ran. Nothing of this session saw the event, leaving the
+	 * interaction without a group and without a target, and the page interaction count the session
+	 * started from has already counted it.
 	 */
-	constructor(startsAfterInteractionId = 0) {
+	constructor(startsAfterInteractionId = 0, startedAt = 0) {
 		this.startsAfterInteractionId = startsAfterInteractionId;
+		this.startedAt = startedAt;
 	}
 
 	/** The highest `interactionId` this tracker has seen. */
@@ -189,9 +198,13 @@ export class InteractionTracker {
 			return remeasuredOthers;
 		}
 
-		if (interactionId <= this.startsAfterInteractionId) {
-			// The entry belongs to the session before this one, but its handlers still ran before a
-			// paint of this one.
+		// No interaction of this session: the session before it counted this one already, or the user
+		// started it before this session opened. Neither condition covers the other, because an entry
+		// is dated by its own event rather than by the interaction — the `keyup` of a press that
+		// rotated the session is dated after the rotation, and the click that mounted the editor has
+		// no id to recognise it by. The entry's handlers still ran before a paint of this session
+		// either way, so the interactions that paint presented are reported regardless.
+		if (interactionId <= this.startsAfterInteractionId || entry.startTime < this.startedAt) {
 			return remeasuredOthers;
 		}
 

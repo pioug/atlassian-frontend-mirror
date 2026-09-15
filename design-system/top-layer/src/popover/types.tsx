@@ -39,6 +39,18 @@ export type TPopoverForwardedProps = TPopoverBaseProps & {
 export type { TPlacementOptions };
 
 type TPopoverBaseProps = {
+	/**
+	 * Pass ONE element. The host is a flex row while open, so that a size cap can
+	 * reach it (see `useAnchoredPopover`); two element children become two flex
+	 * items SIDE BY SIDE at half width each. A fragment does not help - its children
+	 * are the flex items - which is why this is not expressible as a type. It
+	 * matters most where a consumer's render prop is handed through unwrapped, as
+	 * `@atlaskit/popper` and `@atlaskit/spotlight` do.
+	 *
+	 * The host zeroes that element's `min-inline-size` and `min-block-size` so the
+	 * cap can shrink a non-scrolling child, at zero specificity, so a minimum the
+	 * element sets itself wins. See the host styles in `popover.tsx`.
+	 */
 	children: ReactNode;
 	/**
 	 * Animation styles applied while the popover is entering.
@@ -115,7 +127,7 @@ type TPopoverBaseProps = {
 	 * properties (like `--ds-popover-tx`, `--ds-popover-ty`) that control the
 	 * slide direction. Has no effect without `shouldAnimate`.
 	 *
-	 * This does NOT control positioning. Use `useAnchorPosition` for that.
+	 * This does NOT control positioning. Use `useAnchoredPopover` for that.
 	 */
 	placement?: TPlacementOptions;
 	/**
@@ -141,8 +153,8 @@ type TPopoverBaseProps = {
  * Unopinionated top-layer primitive.
  *
  * `Popover` manages only top-layer visibility and animation. It has no
- * knowledge of positioning. For anchor positioning, compose with the
- * `useAnchorPosition` hook separately.
+ * knowledge of positioning. For anchor positioning and sizing, compose with the
+ * `useAnchoredPopover` hook separately.
  *
  * Use `Popover` directly for custom trigger lifecycles (hover, timers,
  * external state) or trigger-less UI (flags, toasts). For the common
@@ -183,18 +195,3 @@ export type TPopoverProps = TPopoverBaseProps &
 				onClose?: never;
 		  }
 	);
-
-/**
- * The width mode of the popover relative to its anchor element.
- *
- * - `'none'` (default): popover sizes to its content, ignoring the anchor width.
- * - `'match-anchor'`: popover matches the anchor element's width exactly
- *   via CSS `inline-size: anchor-size(self-inline)`. Falls back to a
- *   one-off measurement of `anchorRef.current.offsetWidth` when CSS
- *   Anchor Positioning is not supported.
- * - `'min-anchor'`: popover is at least as wide as the anchor, but
- *   can grow wider if content requires it. Uses
- *   `min-inline-size: anchor-size(self-inline)`. Falls back to a one-off
- *   measurement of the anchor's width.
- */
-export type TWidthFromAnchorMode = 'none' | 'match-anchor' | 'min-anchor';

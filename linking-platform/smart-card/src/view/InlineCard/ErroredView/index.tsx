@@ -12,7 +12,7 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-import { HoverCard } from '../../HoverCard/HoverCard';
+import { HoverCard } from '../../HoverCard';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { ActionButton } from '../common/action-button';

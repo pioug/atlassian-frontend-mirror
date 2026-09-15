@@ -5,7 +5,6 @@ import { createRule, createWrappingJoinRule } from '@atlaskit/editor-common/util
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { WRAPPER_BLOCK_TYPES, FORMATTING_NODE_TYPES, FORMATTING_MARK_TYPES } from './block-types';
 import type { BlockType } from './types';
@@ -99,7 +98,7 @@ function getSelectedWrapperNodes(state: EditorState): NodeType[] {
 
 		wrapperNodes.push(caption);
 
-		if (empty && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		if (empty) {
 			for (let depth = 0; depth <= $from.depth; depth++) {
 				const node = $from.node(depth);
 				if (node.isBlock && wrapperNodes.indexOf(node.type) >= 0) {
@@ -126,8 +125,7 @@ export function areBlockTypesDisabled(state: EditorState, allowFontSize = false)
 	const { panel, blockquote, bulletList, orderedList, listItem, taskList, taskItem } =
 		state.schema.nodes;
 
-	const isSmallFontSizeEnabled =
-		allowFontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+	const isSmallFontSizeEnabled = allowFontSize;
 	const excludedTypes: NodeType[] = isSmallFontSizeEnabled
 		? [panel, bulletList, orderedList, listItem, taskList, taskItem]
 		: [panel];

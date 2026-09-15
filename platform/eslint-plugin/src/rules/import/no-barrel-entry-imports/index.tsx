@@ -22,6 +22,8 @@ import { type ExportInfo, type FileSystem, realFileSystem } from '../shared/type
 interface RuleOptions {
 	applyToImportsFrom?: string[];
 	includeDebarrelPackages?: boolean;
+	/** Allow explicit migration runs to process packages whose consumers are not yet migrated. */
+	migratePendingConsumers?: boolean;
 	/**
 	 * When a barrel re-exports from another package, prefer `@scope/barrel/subpath` if that
 	 * subpath's entry file directly re-exports from the dependency, instead of importing the
@@ -94,6 +96,12 @@ const ruleMeta: Rule.RuleMetaData = {
 					type: 'boolean',
 					description:
 						'When true, include all folders from debarrelPackageFolders in addition to applyToImportsFrom.',
+				},
+				migratePendingConsumers: {
+					type: 'boolean',
+					default: false,
+					description:
+						'Process pending consumer migrations within applyToImportsFrom. Intended for explicit codemod runs; normal lint preserves Stage 1 compatibility shims.',
 				},
 				preferImportedPackageSubpath: {
 					type: 'boolean',
@@ -273,11 +281,13 @@ function resolveImportContextFromModulePath({
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
+	migratePendingConsumers,
 }: {
 	importPath: string;
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
+	migratePendingConsumers: boolean;
 }): ImportContext | null {
 	// Skip relative imports - this rule is for cross-package imports
 	if (isRelativeImport(importPath)) {
@@ -297,7 +307,7 @@ function resolveImportContextFromModulePath({
 	const subPath = importPath.slice(packageName.length); // e.g., "" or "/controllers/analytics"
 
 	// Stage 1 preserves deprecated shims. Enforce direct consumer imports only after Stage 2.
-	if (isAwaitingConsumerMigration(packageName)) {
+	if (!migratePendingConsumers && isAwaitingConsumerMigration(packageName)) {
 		return null;
 	}
 
@@ -357,11 +367,13 @@ function resolveImportContext({
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
+	migratePendingConsumers,
 }: {
 	node: ImportDeclarationNode;
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
+	migratePendingConsumers: boolean;
 }): ImportContext | null {
 	if (!node.source || typeof node.source.value !== 'string') {
 		return null;
@@ -372,6 +384,7 @@ function resolveImportContext({
 		workspaceRoot,
 		fs,
 		applyToImportsFrom,
+		migratePendingConsumers,
 	});
 }
 
@@ -1098,6 +1111,7 @@ function handleRequireMemberExpression({
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
+	migratePendingConsumers,
 	preferImportedPackageSubpath,
 }: {
 	node: TSESTree.MemberExpression;
@@ -1105,6 +1119,7 @@ function handleRequireMemberExpression({
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
+	migratePendingConsumers: boolean;
 	preferImportedPackageSubpath: boolean;
 }): void {
 	if (node.computed || node.property.type !== 'Identifier') {
@@ -1118,6 +1133,7 @@ function handleRequireMemberExpression({
 
 	const modulePath = (reqCall.arguments[0] as TSESTree.StringLiteral).value;
 	const importContext = resolveImportContextFromModulePath({
+		migratePendingConsumers,
 		importPath: modulePath,
 		workspaceRoot,
 		fs,
@@ -1204,6 +1220,7 @@ function handleRequireDestructuringDeclarator({
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
+	migratePendingConsumers,
 	preferImportedPackageSubpath,
 }: {
 	node: TSESTree.VariableDeclarator;
@@ -1211,6 +1228,7 @@ function handleRequireDestructuringDeclarator({
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
+	migratePendingConsumers: boolean;
 	preferImportedPackageSubpath: boolean;
 }): void {
 	if (node.id.type !== 'ObjectPattern' || !node.init || node.init.type !== 'CallExpression') {
@@ -1223,6 +1241,7 @@ function handleRequireDestructuringDeclarator({
 
 	const modulePath = (initCall.arguments[0] as TSESTree.StringLiteral).value;
 	const importContext = resolveImportContextFromModulePath({
+		migratePendingConsumers,
 		importPath: modulePath,
 		workspaceRoot,
 		fs,
@@ -1361,6 +1380,7 @@ function handleImportDeclaration({
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
+	migratePendingConsumers,
 	preferImportedPackageSubpath,
 }: {
 	node: ImportDeclarationNode;
@@ -1368,11 +1388,18 @@ function handleImportDeclaration({
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
+	migratePendingConsumers: boolean;
 	preferImportedPackageSubpath: boolean;
 }): void {
 	// Resolve import context (validates and extracts package/export info)
 	// applyToImportsFrom is used here to filter which packages the rule applies to
-	const importContext = resolveImportContext({ node, workspaceRoot, fs, applyToImportsFrom });
+	const importContext = resolveImportContext({
+		node,
+		workspaceRoot,
+		fs,
+		applyToImportsFrom,
+		migratePendingConsumers,
+	});
 	if (!importContext) {
 		return;
 	}
@@ -1446,6 +1473,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 			const options = (context.options[0] || {}) as RuleOptions;
 			const applyToImportsFrom = resolveApplyToImportsFromOptions(options);
 			const preferImportedPackageSubpath = options.preferImportedPackageSubpath ?? true;
+			const migratePendingConsumers = options.migratePendingConsumers ?? false;
 			const workspaceRoot = findWorkspaceRoot({
 				startPath: dirname(context.filename),
 				fs,
@@ -1457,6 +1485,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 					const node = rawNode as ImportDeclarationNode;
 
 					handleImportDeclaration({
+						migratePendingConsumers,
 						node,
 						context,
 						workspaceRoot,
@@ -1467,6 +1496,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 				},
 				MemberExpression(rawNode) {
 					handleRequireMemberExpression({
+						migratePendingConsumers,
 						node: rawNode as TSESTree.MemberExpression,
 						context,
 						workspaceRoot,
@@ -1477,6 +1507,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 				},
 				VariableDeclarator(rawNode) {
 					handleRequireDestructuringDeclarator({
+						migratePendingConsumers,
 						node: rawNode as TSESTree.VariableDeclarator,
 						context,
 						workspaceRoot,

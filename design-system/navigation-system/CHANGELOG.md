@@ -1,5 +1,20 @@
 # @atlassian/navigation-system
 
+## 10.16.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.16.10
+
+### Patch Changes
+
+- [`e890c4bb5e772`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e890c4bb5e772) -
+  Updated panel splitter interaction colors to use semantic border tokens behind the
+  `platform-dst-tokens-finesse` feature gate.
+- Updated dependencies
+
 ## 10.16.9
 
 ### Patch Changes

@@ -14,7 +14,7 @@ import { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import type { CardAction } from '@atlaskit/media-card';
+import type { CardAction } from '@atlaskit/media-card/actions';
 import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { imageFileId } from '@atlaskit/media-test-helpers';

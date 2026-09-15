@@ -5,8 +5,8 @@ import type { CardContext } from '@atlaskit/link-provider/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { APIError } from '@atlaskit/linking-common';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../../utils/mocks';
@@ -90,6 +90,44 @@ describe('useResponse', () => {
 				it('should use provided metadata status on link success', () => {
 					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 					handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+
+					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+						expect.objectContaining({
+							type: 'metadata',
+							url: 'https://some/url',
+							metadataStatus: 'pending',
+						}),
+					);
+				});
+
+				it('should preserve resolved metadata when an inline response settles after block metadata', () => {
+					mockState({
+						status: 'resolved',
+						details: mocks.success,
+						metadataStatus: 'resolved',
+					});
+					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
+
+					handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+
+					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+						expect.objectContaining({
+							type: 'metadata',
+							url: 'https://some/url',
+							metadataStatus: 'resolved',
+						}),
+					);
+				});
+
+				it('should allow an explicit reload to mark resolved metadata as pending', () => {
+					mockState({
+						status: 'resolved',
+						details: mocks.success,
+						metadataStatus: 'resolved',
+					});
+					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
+
+					handleResolvedLinkResponse(url, mocks.success, true, false, 'pending');
 
 					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 						expect.objectContaining({

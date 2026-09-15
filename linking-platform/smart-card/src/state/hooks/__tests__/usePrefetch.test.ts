@@ -1,4 +1,4 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../utils/mocks';

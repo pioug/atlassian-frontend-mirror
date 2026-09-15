@@ -10,29 +10,30 @@ import { type TRoleRequiringAccessibleName } from './role-types';
  */
 type TAriaForTriggerRole = TRoleRequiringAccessibleName | 'listbox' | 'tree' | 'grid';
 
+type TAriaHasPopupByRole = {
+	dialog: 'dialog';
+	alertdialog: 'dialog';
+	menu: 'menu';
+	listbox: 'listbox';
+	tree: 'tree';
+	grid: 'grid';
+};
+
 /**
- * Valid values for the `aria-haspopup` attribute.
+ * Maps each supported popover role to its `aria-haspopup` value.
  *
  * Derived from the HTML spec - maps popover roles to what the trigger
- * announces. `undefined` means the attribute is omitted entirely (used for
+ * announces. Roles that do not produce a popup use `undefined` instead (for
  * non-popup roles like `tooltip`/`status`/`alert`/`note`/`log` where
- * `aria-haspopup` would be misleading).
+ * `aria-haspopup` would be misleading), so they are intentionally excluded
+ * from this mapping and from `getAriaForTrigger`.
  *
- * `true` is intentionally NOT in the union - the runtime only ever produces
- * the explicit string forms, so widening the type would invite consumers to
- * pass `true` and get an `aria-haspopup="true"` serialisation that the
+ * `true` is intentionally not a value in this mapping. The runtime only ever
+ * produces the explicit string forms, so allowing it would invite consumers
+ * to pass `true` and get an `aria-haspopup="true"` serialisation that the
  * runtime no longer emits.
  */
-type TAriaHasPopupValue = 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
-
-/**
- * Non-undefined subset of `TAriaHasPopupValue`. Every role accepted by
- * `getAriaForTrigger` maps to a concrete `aria-haspopup` string, so the
- * trigger always receives a defined attribute value.
- */
-type TAriaHasPopupForTrigger = Exclude<TAriaHasPopupValue, undefined>;
-
-const roleToAriaHasPopup: Record<TAriaForTriggerRole, TAriaHasPopupForTrigger> = {
+const roleToAriaHasPopup: TAriaHasPopupByRole = {
 	dialog: 'dialog',
 	alertdialog: 'dialog',
 	menu: 'menu',
@@ -41,12 +42,12 @@ const roleToAriaHasPopup: Record<TAriaForTriggerRole, TAriaHasPopupForTrigger> =
 	grid: 'grid',
 };
 
-type TGetAriaForTriggerOptions = {
+type TGetAriaForTriggerOptions<TRole extends TAriaForTriggerRole> = {
 	/**
 	 * The `role` that will be set on the `<Popover>` element. Used to derive
 	 * the correct `aria-haspopup` value for the trigger.
 	 */
-	role: TAriaForTriggerRole;
+	role: TRole;
 	/**
 	 * Whether the popover is currently open. Drives `aria-expanded`.
 	 */
@@ -58,8 +59,8 @@ type TGetAriaForTriggerOptions = {
 	popoverId: string;
 };
 
-type TAriaForTrigger = {
-	'aria-haspopup': TAriaHasPopupForTrigger;
+type TAriaForTrigger<TRole extends TAriaForTriggerRole> = {
+	'aria-haspopup': TAriaHasPopupByRole[TRole];
 	'aria-expanded': boolean;
 	/**
 	 * `aria-controls` is `undefined` while the popover is closed, because
@@ -117,11 +118,11 @@ type TAriaForTrigger = {
  * );
  * ```
  */
-export function getAriaForTrigger({
+export function getAriaForTrigger<TRole extends TAriaForTriggerRole>({
 	role,
 	isOpen,
 	popoverId,
-}: TGetAriaForTriggerOptions): TAriaForTrigger {
+}: TGetAriaForTriggerOptions<TRole>): TAriaForTrigger<TRole> {
 	// `aria-controls` is set to `undefined` while closed. The `Popover` /
 	// `Dialog` primitives unmount their host element after the exit
 	// animation finishes, so a closed-state `aria-controls` would point

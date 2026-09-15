@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 15.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.4.1
 
 ### Patch Changes

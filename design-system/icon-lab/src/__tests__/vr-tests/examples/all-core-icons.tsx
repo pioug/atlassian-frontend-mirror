@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::ff64daf5bbcb7016d2ace4f92b3fd8a0>>
+ * @codegen <<SignedSource::a35058b0789ef662fdf725b5b597f36c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -20,6 +20,7 @@ import { Inline } from '@atlaskit/primitives/compiled';
 import AiAgentAddIcon from '../../../../core/ai-agent-add';
 import AiBotIcon from '../../../../core/ai-bot';
 import AiComputeIcon from '../../../../core/ai-compute';
+import AiFilterIcon from '../../../../core/ai-filter';
 import AiGenerativeAudioBriefingIcon from '../../../../core/ai-generative-audio-briefing';
 import AiGenerativeChaptersIcon from '../../../../core/ai-generative-chapters';
 import AiGenerativeCleanupIcon from '../../../../core/ai-generative-cleanup';
@@ -260,6 +261,8 @@ import DropShadowIcon from '../../../../core/drop-shadow';
 import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
 import EmojiSadIcon from '../../../../core/emoji-sad';
+import EndCallIcon from '../../../../core/end-call';
+import EnterpriseCertifiedIcon from '../../../../core/enterprise-certified';
 import ExpandElementIcon from '../../../../core/expand-element';
 import EyedropperIcon from '../../../../core/eyedropper';
 import FieldSelectIcon from '../../../../core/field-select';
@@ -278,9 +281,11 @@ import GlobeStrikethroughIcon from '../../../../core/globe-strikethrough';
 import GroupIcon from '../../../../core/group';
 import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
+import GuitarIcon from '../../../../core/guitar';
 import HandClosedIcon from '../../../../core/hand-closed';
 import HandOpenIcon from '../../../../core/hand-open';
 import HandRaisedIcon from '../../../../core/hand-raised';
+import HandWaveIcon from '../../../../core/hand-wave';
 import HardwareAssignmentIcon from '../../../../core/hardware-assignment';
 import HardwareAuditIcon from '../../../../core/hardware-audit';
 import HardwareCleanseIcon from '../../../../core/hardware-cleanse';
@@ -296,6 +301,7 @@ import HardwareRepairIcon from '../../../../core/hardware-repair';
 import HardwareReturnIcon from '../../../../core/hardware-return';
 import HardwareShipIcon from '../../../../core/hardware-ship';
 import HardwareTransferIcon from '../../../../core/hardware-transfer';
+import HeadsetIcon from '../../../../core/headset';
 import HierarchyIcon from '../../../../core/hierarchy';
 import HistoryIcon from '../../../../core/history';
 import HourglassIcon from '../../../../core/hourglass';
@@ -348,6 +354,7 @@ import PersonAssigneeIcon from '../../../../core/person-assignee';
 import PersonLockLockedIcon from '../../../../core/person-lock-locked';
 import PersonLockUnlockedIcon from '../../../../core/person-lock-unlocked';
 import PersonVoiceoverIcon from '../../../../core/person-voiceover';
+import PianoIcon from '../../../../core/piano';
 import PinStrikethroughIcon from '../../../../core/pin-strikethrough';
 import PipelineIcon from '../../../../core/pipeline';
 import PlanIcon from '../../../../core/plan';
@@ -374,6 +381,7 @@ import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
 import RovoIcon from '../../../../core/rovo';
 import RovoChatDashedIcon from '../../../../core/rovo-chat-dashed';
+import RovoDigestIcon from '../../../../core/rovo-digest';
 import RssFeedIcon from '../../../../core/rss-feed';
 import SaveIcon from '../../../../core/save';
 import ScreenRecordIcon from '../../../../core/screen-record';
@@ -389,6 +397,7 @@ import ShapeTriangleIcon from '../../../../core/shape-triangle';
 import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted';
 import SignatureIcon from '../../../../core/signature';
 import SignpostIcon from '../../../../core/signpost';
+import SineWaveIcon from '../../../../core/sine-wave';
 import SkillIcon from '../../../../core/skill';
 import SkipIcon from '../../../../core/skip';
 import SkipUnskipIcon from '../../../../core/skip-unskip';
@@ -1026,6 +1035,15 @@ const Icons = [
 	StepThroughIcon,
 	HardwareInsightsIcon,
 	QuestionCircleFilledIcon,
+	AiFilterIcon,
+	EndCallIcon,
+	EnterpriseCertifiedIcon,
+	GuitarIcon,
+	HandWaveIcon,
+	HeadsetIcon,
+	PianoIcon,
+	RovoDigestIcon,
+	SineWaveIcon,
 ];
 
 const groupSize = 50;

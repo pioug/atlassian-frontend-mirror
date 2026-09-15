@@ -6,6 +6,7 @@ import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DiffType } from '../../showDiffPluginType';
@@ -21,11 +22,12 @@ import {
 } from './colorSchemes/factory';
 import { colorSchemeRegistry, getLegacyColorScheme } from './colorSchemes/schemes';
 import type { ColorScheme } from './colorSchemes/types';
+import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
 import {
 	resolveCellOverlayStyleLegacy,
 	resolveDeletedRowStyleLegacy,
 } from './createChangedRowDecorationWidgets.styles.legacy';
-import { buildDiffDecorationSpec } from './decorationKeys';
+import { buildAnchorDecorationKey, buildDiffDecorationSpec } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import {
 	applyCellEdgeAttrs,
@@ -80,9 +82,16 @@ const extractChangedRows = ({
 	}
 
 	const newTableMap = TableMap.get(tableNew.node);
+	// A row DELETION makes the table shorter. An in-place whole-row REPLACEMENT (`replaceNode` on a
+	// `tableRow`, which AI suggested edits emits) leaves the row count untouched — and this helper
+	// was written for deletions only, so it used to discard every replacement and the changed row's
+	// content was never rendered anywhere. The reviewer was left with just the removed side.
+	const isRowDeletion = oldTableMap.height > newTableMap.height;
+	const handleRowReplacement =
+		oldTableMap.height === newTableMap.height && fg('platform_editor_ai_show_diff_patch_1');
 	// If no rows were changed, return empty
 	if (
-		oldTableMap.height <= newTableMap.height ||
+		!(isRowDeletion || handleRowReplacement) ||
 		// For now ignore if there are column deletions as well
 		oldTableMap.width !== newTableMap.width
 	) {
@@ -147,6 +156,15 @@ const extractChangedRows = ({
 
 	// Filter changes that never truly got deleted
 	return changedRows.filter((changedRow) => {
+		// A replacement leaves every sibling row in place, so asking "does this row still exist
+		// ANYWHERE in the new table?" can drop a genuinely rewritten row that happens to match a
+		// sibling. Compare it against the row at the same index instead. Deletions must keep the
+		// whole-table `some()`: their indices shift, so an index comparison would let every
+		// surviving row through and draw a widget for each one.
+		if (handleRowReplacement) {
+			const counterpart = tableNew.node.maybeChild(changedRow.rowIndex);
+			return !counterpart || !areNodesEqualIgnoreAttrs(counterpart, changedRow.rowNode);
+		}
 		return !tableNew.node.children.some((newRow) =>
 			areNodesEqualIgnoreAttrs(newRow, changedRow.rowNode),
 		);
@@ -205,7 +223,15 @@ const createChangedRowDOM = (
 				: resolveDeletedRowStyleLegacy(getLegacyColorScheme(colorScheme)),
 		);
 	}
-	tr.setAttribute('data-testid', 'show-diff-deleted-row');
+	// Mirrors the strikethrough condition above: under the extended experience an `isInserted` row
+	// is ADDED content, so it must not claim the "deleted" testid — page models match that as
+	// removed content (same reasoning as `createTableCellContentWidgets`).
+	tr.setAttribute(
+		'data-testid',
+		isExtendedEnabled(diffType) && isInserted && fg('platform_editor_ai_show_diff_patch_1')
+			? 'show-diff-changed-row'
+			: 'show-diff-deleted-row',
+	);
 
 	// Serialize each cell in the row
 	let cellIndex = 0;
@@ -300,6 +326,7 @@ export const createChangedRowDecorationWidgets = ({
 	colorScheme,
 	isInserted = false,
 	diffType,
+	showIndicators = false,
 }: {
 	changes: SimpleChange[];
 	colorScheme?: ColorScheme;
@@ -308,6 +335,7 @@ export const createChangedRowDecorationWidgets = ({
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 	originalDoc: PMNode;
+	showIndicators?: boolean;
 }): Decoration[] => {
 	// First, expand the changes to include complete deleted rows
 	const changedRows = expandDiffForChangedRows({
@@ -317,7 +345,7 @@ export const createChangedRowDecorationWidgets = ({
 		diffType,
 	});
 
-	return changedRows.map((changedRow) => {
+	return changedRows.flatMap((changedRow) => {
 		const rowDOM = createChangedRowDOM(
 			changedRow.rowNode,
 			changedRow.cellEdgeAttrs,
@@ -335,8 +363,41 @@ export const createChangedRowDecorationWidgets = ({
 		);
 
 		const diffId = crypto.randomUUID();
-		return Decoration.widget(safeInsertPos, rowDOM, {
-			...buildDiffDecorationSpec({ decorationType: 'widget', diffId, isActive: false, diffType }),
-		});
+		const decorations: Decoration[] = [];
+
+		// `IndicatorBarContentComponent` renders a bar for every widget descriptor and anchors its
+		// top and bottom to `anchor-<diffId>`. Without an element carrying that anchor name the bar
+		// is still created but can never resolve a position, so it silently does not render and the
+		// bar covers only the row being changed. `createNodeChangedDecorationWidget` sets the same
+		// property on its own widget DOM for non-table content; this path returns before reaching it.
+		if (
+			showIndicators &&
+			isExtendedEnabled(diffType) &&
+			fg('platform_editor_ai_show_diff_patch_1')
+		) {
+			rowDOM.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
+
+			// A table's content can extend past the doc margin, so the bar also needs a left anchor
+			// measured against the table itself or it is clipped once the table is resized.
+			const leftAnchor = createLeftAnchorWidget({ doc: newDoc, from: safeInsertPos, diffId });
+			if (leftAnchor) {
+				decorations.push(leftAnchor);
+			}
+		}
+
+		decorations.push(
+			Decoration.widget(safeInsertPos, rowDOM, {
+				...buildDiffDecorationSpec({
+					colorScheme,
+					decorationType: 'widget',
+					diffId,
+					isActive: false,
+					isInserted,
+					diffType,
+				}),
+			}),
+		);
+
+		return decorations;
 	});
 };

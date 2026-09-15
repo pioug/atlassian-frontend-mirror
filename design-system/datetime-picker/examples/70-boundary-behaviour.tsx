@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/default/button';
-import { DateTimePicker } from '@atlaskit/datetime-picker';
+import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import { Label } from '@atlaskit/form/label/default';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';

@@ -19,9 +19,6 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	platform_sl_embed_preauth_teaser_exp: {
 		isEnabled: true,
 	},
-	'rovogrowth-635-pre-auth-cta-preview-exp': {
-		isEnabled: true,
-	},
 };
 
 const enabledGates = [
@@ -29,7 +26,6 @@ const enabledGates = [
 	'smart-card-inline-resolved-view-refactor',
 	'platform_sl_3p_preauth_soc_proof_inline_killswitch',
 	'social-proof-3p-unauth-block-fg',
-	'rovogrowth-635-pre-auth-cta-preview-fg',
 ];
 
 const emptyConfig = {};

@@ -11,7 +11,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
@@ -68,9 +67,7 @@ export const QuoteButton = ({ blockType, api }: QuoteButtonProps): React.JSX.Ele
 
 	const isDisabled = isMarkdownBridgeActive
 		? Boolean(sourceBlockFormatState?.inCodeBlock)
-		: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-			? shouldDisableQuoteButton(editorView?.state)
-			: false;
+		: shouldDisableQuoteButton(editorView?.state);
 
 	const onClick = () => {
 		if (isDisabled) {

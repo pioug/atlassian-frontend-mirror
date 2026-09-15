@@ -12,9 +12,13 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import type { MentionDescription, MentionsResult } from '@atlaskit/mention/resource';
 import { AbstractMentionResource } from '@atlaskit/mention/resource';
-import type { InlineInvitePopupResult, UserRole } from '@atlaskit/mention/types';
+import type {
+	InlineInvitePopupResult,
+	UserRole,
+	MentionDescription,
+	MentionsResult,
+} from '@atlaskit/mention/types';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import { Popup } from '@atlaskit/popup/popup';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';

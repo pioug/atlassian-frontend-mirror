@@ -1,5 +1,50 @@
 # @atlaskit/editor-plugin-extension
 
+## 21.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.0
+
+### Minor Changes
+
+- [`eded6b2abb218`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eded6b2abb218) -
+  Add the `allowAIGeneratedContentMotion` extension plugin option, for surfaces where native embeds
+  arrive mid-flight such as AI-generated MAUI apps in the Create with Rovo preview. A native embed
+  extension is held closed while it loads, then the document opens out to make room for it and the
+  embed fades in, so nothing stands in for the content while it loads. Only native embeds are
+  animated, since the reveal waits on an embed reporting itself loaded. The referentiality plugin
+  registers extension node views of its own, so it takes the same option.
+
+  The option defaults off and its rollout is the consumer's to gate; Confluence's Create with Rovo
+  preview enables it behind `aifc_page_create_defer_generated_visuals`. MAUI's new
+  `waitForContentReady` is behind that same gate, so the reveal opens onto the rendered app rather
+  than a still-loading frame.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.4
 
 ### Patch Changes

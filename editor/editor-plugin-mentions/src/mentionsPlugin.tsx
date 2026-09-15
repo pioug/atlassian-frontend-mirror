@@ -17,8 +17,12 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
-import type { MentionNameDetails, MentionProvider } from '@atlaskit/mention/resource';
-import { MentionNameStatus, isPromise } from '@atlaskit/mention/types';
+import {
+	MentionNameStatus,
+	isPromise,
+	type MentionNameDetails,
+	type MentionProvider,
+} from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

@@ -25,6 +25,8 @@ const renderIndicatorBar = (descriptor: DiffDescriptor) => {
 			return (
 				<IndicatorBar
 					key={descriptor.id}
+					colorScheme={descriptor.colorScheme}
+					isInserted={descriptor.isInserted}
 					anchorTop={buildAnchorDecorationKey({
 						diffId: descriptor.id,
 						anchorType: AnchorTypeKey.from,
@@ -50,6 +52,8 @@ const renderIndicatorBar = (descriptor: DiffDescriptor) => {
 			return (
 				<IndicatorBar
 					key={descriptor.id}
+					colorScheme={descriptor.colorScheme}
+					isInserted={descriptor.isInserted}
 					anchorTop={blockAnchor}
 					anchorBottom={blockAnchor}
 					anchorLeft={buildAnchorDecorationKey({
@@ -63,6 +67,8 @@ const renderIndicatorBar = (descriptor: DiffDescriptor) => {
 			return (
 				<IndicatorBar
 					key={descriptor.id}
+					colorScheme={descriptor.colorScheme}
+					isInserted={descriptor.isInserted}
 					anchorTop={buildAnchorDecorationKey({
 						diffId: descriptor.id,
 					})}

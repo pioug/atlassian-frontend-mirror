@@ -1132,10 +1132,10 @@ describe('popover="auto" stack and light-dismiss', () => {
 	});
 });
 
-// Polyfill-only behaviour: jsdom does not deliver ResizeObserver callbacks, so
-// callers using a ResizeObserver-driven reveal (e.g. `use-anchor-position`)
-// would leave the popover at `opacity: 0`. The polyfill clears any inline
-// `opacity` set before its own toggle listener runs.
+// Polyfill-only behaviour: jsdom reports zero layout, so the reveal guard in the
+// JavaScript positioning fallback never passes and the popover would stay at
+// `opacity: 0`. The polyfill clears any inline `opacity` set before its own
+// toggle listener runs.
 describe('popover opacity guard cleanup', () => {
 	it('clears inline opacity:0 set before showPopover after the open toggle fires', () => {
 		jest.useFakeTimers();

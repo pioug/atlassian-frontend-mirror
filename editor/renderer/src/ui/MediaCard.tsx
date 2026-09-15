@@ -7,9 +7,12 @@ import type {
 	CardDimensions,
 	CardOnClickCallback,
 	CardProps as AtlaskitMediaCardProps,
-	NumericalCardDimensions,
-} from '@atlaskit/media-card';
-import { Card as CardAsync, CardSync, CardLoading, CardError } from '@atlaskit/media-card';
+} from '@atlaskit/media-card/types';
+import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
+import CardAsync from '@atlaskit/media-card/cardLoader';
+import CardSync from '@atlaskit/media-card/cardSync';
+import { CardLoading } from '@atlaskit/media-card/cardLoading';
+import { CardError } from '@atlaskit/media-card/cardError';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type {
 	ImageResizeMode,
@@ -400,9 +403,7 @@ export class MediaCardView extends Component<
 		// Quick solution to disable lazy loading of images on PDF export pages in Confluence to remedy an issue with images never loading
 		// More robust solution will be implemented as part of CCPDF-233 - Link: https://hello.jira.atlassian.cloud/browse/CCPDF-233
 		const currentUrl = window.location.href;
-		const shouldDisableLazyLoading =
-			expValEquals('platform_editor_disable_lazy_load_media', 'isEnabled', true) &&
-			currentUrl.includes('/wiki/pdf/spaces/');
+		const shouldDisableLazyLoading = currentUrl.includes('/wiki/pdf/spaces/');
 
 		const ssrMediaItem = ssr?.ssrMediaItems?.find((item) => item.id === id);
 

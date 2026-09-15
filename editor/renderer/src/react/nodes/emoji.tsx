@@ -4,34 +4,19 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { PureComponent, memo } from 'react';
+import type { FC, NamedExoticComponent } from 'react';
+import type { EmojiAttributes } from '@atlaskit/adf-schema/emoji';
 import { messages } from '@atlaskit/editor-common/emoji';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { PureComponent, memo } from 'react';
-import type { FC, NamedExoticComponent } from 'react';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import { isSingleEmoji } from '@atlaskit/editor-common/utils/isSingleEmoji';
 import type { EmojiId, EmojiProviderLookupOrder } from '@atlaskit/emoji/types';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
-import type { EmojiAttributes } from '@atlaskit/adf-schema/emoji';
-
-/**
- * Check if the supplied fallback text is a single standard Unicode emoji.
- *
- * Mirrors `isSingleEmoji` from `@atlaskit/editor-plugin-emoji` so the renderer
- * can apply the same custom-emoji fallback heuristic without depending on a
- * plugin package.
- */
-
-function isSingleEmoji(fallbackText: string): boolean {
-	const emojiRegex =
-		// Ignored via go/ees019
-		// eslint-disable-next-line e18e/prefer-static-regex
-		/^(\p{Emoji_Presentation}(?:[\u{1F3FB}-\u{1F3FF}])?|\p{Extended_Pictographic}\u{FE0F}(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)*|\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
-	return emojiRegex.test(fallbackText);
-}
 
 export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes {
 	allowTextFallback?: boolean;
@@ -106,6 +91,11 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 			return null;
 		}
 
+		const customFallback =
+			fg('platform_editor_custom_emoji_unicode_fallback') && !isSingleEmoji(fallback || shortName)
+				? '\uFFFD'
+				: undefined;
+
 		return (
 			<ResourcedEmoji
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
@@ -115,6 +105,7 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 				showTooltip={showTooltip}
 				fitToHeight={fitToHeight}
 				optimistic
+				customFallback={customFallback}
 				optimisticImageURL={resourceConfig?.optimisticImageApi?.getUrl({
 					id,
 					fallback,

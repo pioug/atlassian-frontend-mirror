@@ -1,5 +1,54 @@
 # @atlaskit/media-card
 
+## 81.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.12.0
+
+### Minor Changes
+
+- [`2a1e8245a006e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a1e8245a006e) -
+  Clean up experiment `cc-maui-ai-edit-loading-experiment`. The enabled behaviour is now permanent:
+  media cards and MAUI embeds always render the simple loading bar instead of the spinner/icon
+  carousel, and the AI-edit blanket overlay is always applied when a MAUI app is replaced from the
+  toolbar.
+
+  `@atlaskit/tmp-editor-statsig` removes the `cc-maui-ai-edit-loading-experiment` key from
+  `editorExperimentsConfig`, so reading it via `expValEquals`/`expValEqualsNoExposure` is now a type
+  error — remove those call sites.
+
+  `@atlaskit/media-card` drops its now-unused `@atlaskit/spinner` dependency, and
+  `@atlassian/native-embeds-maui-experience` drops its now-unused `@atlaskit/icon-lab` dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.11.0
+
+### Minor Changes
+
+- [`2d026706450c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d026706450c6) -
+  Add the `allowAIGeneratedMediaMotion` media plugin option and the `hasLoadingMotion` card prop, so
+  media that arrives mid-flight opens the document out to make room for itself and then fades its
+  preview in, instead of drawing a loading indicator and snapping into place. Behind
+  `aifc_page_create_defer_generated_visuals`.
+
 ## 81.10.19
 
 ### Patch Changes

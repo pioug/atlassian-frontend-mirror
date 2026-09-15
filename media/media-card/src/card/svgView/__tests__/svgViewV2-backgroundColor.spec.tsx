@@ -29,7 +29,8 @@ jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 	fg: jest.fn().mockReturnValue(true),
 }));
 
-jest.mock('@atlaskit/react-ufo/interaction-context', () => ({
+jest.mock('@atlaskit/react-ufo/use-interaction-context', () => ({
+	...jest.requireActual('@atlaskit/react-ufo/use-interaction-context'),
 	useInteractionContext: jest.fn().mockReturnValue(null),
 }));
 

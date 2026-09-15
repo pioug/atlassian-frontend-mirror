@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-context
 
+## 1.2.0
+
+### Minor Changes
+
+- [`50b7110d4923c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50b7110d4923c) -
+  Add discovery deep links, expose the Admin Hub connector URL helper for TWC onboarding, and allow
+  Atlassian context URLs to resolve against an explicitly provided environment.
+
 ## 1.1.1
 
 ### Patch Changes

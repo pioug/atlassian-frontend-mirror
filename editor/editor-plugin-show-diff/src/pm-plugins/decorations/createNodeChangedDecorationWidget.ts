@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import type { DiffType, RevealOptions } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
-import { hasVisibleContent } from '../utils/hasVisibleContent';
+import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 
 import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
@@ -109,8 +109,10 @@ const createTableCellContentWidgets = ({
 		decorations.push(
 			Decoration.widget(targetPos, dom, {
 				...buildDiffDecorationSpec({
+					colorScheme,
 					decorationType: 'widget',
 					diffId: crypto.randomUUID(),
+					isInserted,
 					diffType,
 					...(isExtendedEnabled(diffType) && { side: -1 }),
 				}),
@@ -165,11 +167,7 @@ export const createNodeChangedDecorationWidget = ({
 	tagMountContext?: ContributorTagMountContext;
 }): Decoration[] => {
 	const slice = doc.slice(change.fromA, change.toA);
-	const shouldSkipDeletedEmptyParagraphDecoration =
-		!isInserted &&
-		slice?.content?.childCount === 1 &&
-		slice?.content?.firstChild?.type.name === 'paragraph' &&
-		slice?.content?.firstChild?.content.size === 0;
+	const shouldSkipDeletedEmptyParagraphDecoration = !isInserted && isEmptyParagraphSlice(slice);
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
 	// For `placeBelow`, anchor at the END of the new content (change.toB) so the deleted
@@ -222,6 +220,9 @@ export const createNodeChangedDecorationWidget = ({
 			colorScheme,
 			isInserted,
 			diffType,
+			// Needed for the row's own indicator anchor; this path returns before the
+			// `anchor-name` assignment further down.
+			showIndicators,
 		});
 	}
 
@@ -279,10 +280,9 @@ export const createNodeChangedDecorationWidget = ({
 	// Derived from the deleted range so it survives a recalculation — see the same reasoning in
 	// `createInlineChangedDecoration`.
 	const diffId = showContributorTags ? `widget-${change.fromA}-${change.toA}` : crypto.randomUUID();
-	// Whether this widget hosts a tag. Removing nothing but whitespace leaves no visible deleted
-	// content to caption, so the change stays unattributed — matching the inline half's rule in
-	// `createInlineChangedDecoration` (EDITOR-8855).
-	const canTagWidget = showContributorTags && hasVisibleContent(slice.content);
+	// Match the rendering predicate above: an empty paragraph has no widget to tag, while whitespace
+	// text in a rendered widget remains eligible.
+	const canTagWidget = showContributorTags && !shouldSkipDeletedEmptyParagraphDecoration;
 	const decorations: Decoration[] = [];
 	const replacementNode = newDoc.nodeAt(change.fromB);
 	const firstReplacedNode = slice.content.firstChild;
@@ -520,8 +520,10 @@ export const createNodeChangedDecorationWidget = ({
 			decorations.push(
 				Decoration.widget(safeInsertPos, defaultSpacer, {
 					...buildDiffDecorationSpec({
+						colorScheme,
 						decorationType: 'widget',
 						diffId: crypto.randomUUID(),
+						isInserted,
 						diffType,
 					}),
 				}),

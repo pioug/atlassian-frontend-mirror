@@ -1,9 +1,15 @@
 /**
- * Feature gate for the extension context bridge; both Host and Client self-gate on it.
- * `fg()` requires a static literal, so call sites inline this value rather than importing it;
- * tests resolve the gate through this constant so the two cannot drift apart.
+ * Statsig experiment for the extension context bridge; both Host and Client self-gate on its
+ * boolean `isEnabled` parameter. Call sites inline this value rather than importing it, since the
+ * experiment runtime takes a static literal; tests resolve the experiment through this constant so
+ * the two cannot drift apart.
+ *
+ * Read here **without** logging exposure. Host mounts at the root of every page of an opted-in
+ * product, so an exposure-firing read would count product page loads rather than extension users.
+ * The extension owns the single exposure call, at the point the user is on a page the bridge can
+ * act on.
  */
-export const BRIDGE_FEATURE_GATE = 'rovo-ext_context_bridge';
+export const EXT_CONTEXT_BRIDGE_EXPERIMENT = 'rovo-ext_context_bridge_exp';
 
 /** Marker on every bridge `postMessage`, so listeners can ignore unrelated messages. */
 export const BRIDGE_MESSAGE_MARKER = '__rovoExtContextBridge' as const;

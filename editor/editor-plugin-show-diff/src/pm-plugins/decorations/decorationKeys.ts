@@ -54,6 +54,8 @@ export const AnchorTypeKey = {
 	to: 'to',
 	left: 'left',
 	docMargin: 'doc-margin',
+	/** The decorated block itself, which its contributor tag positions against. */
+	tag: 'tag',
 } as const;
 
 export type InlineAnchorType = Exclude<
@@ -167,10 +169,10 @@ export const buildDiffDecorationSpec = ({
 		diffType,
 	}),
 	...(attributionKey ? { attributionKey } : {}),
-	// Only alongside an attribution key, so the spec shape is unchanged when the gate is off.
+	// Active state is only needed by contributor tags, so keep it alongside an attribution key.
 	...(attributionKey && isActive !== undefined ? { isActive } : {}),
-	...(attributionKey && isInserted !== undefined ? { isInserted } : {}),
-	...(attributionKey && colorScheme ? { colorScheme } : {}),
+	...(isInserted !== undefined ? { isInserted } : {}),
+	...(colorScheme ? { colorScheme } : {}),
 	...(nodeName ? { nodeName } : {}),
 	...(side !== undefined ? { side } : {}),
 });
@@ -250,7 +252,9 @@ export const extractDiffDescriptors = (decorations: DecorationSet): DiffDescript
 		.filter(isDiffDecoration)
 		.map(({ spec }) => {
 			return {
+				...(spec.colorScheme ? { colorScheme: spec.colorScheme } : {}),
 				id: spec.diffId,
+				...(spec.isInserted !== undefined ? { isInserted: spec.isInserted } : {}),
 				type: spec.decorationType,
 			};
 		});

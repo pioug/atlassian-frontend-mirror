@@ -10,7 +10,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
@@ -109,24 +108,20 @@ export const dragHandleDecoration = ({
 				 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
 				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
-				marks: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-					? getMatchingBlockMarks(editorState, pos, [
-							editorState.schema.marks.alignment,
-							editorState.schema.marks.fontSize,
-						])
-					: [],
+				marks: getMatchingBlockMarks(editorState, pos, [
+					editorState.schema.marks.alignment,
+					editorState.schema.marks.fontSize,
+				]),
 			}
 		: {
 				side: -1,
 				type: TYPE_HANDLE_DEC,
 				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-				marks: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-					? getMatchingBlockMarks(editorState, pos, [
-							editorState.schema.marks.alignment,
-							editorState.schema.marks.fontSize,
-						])
-					: [],
+				marks: getMatchingBlockMarks(editorState, pos, [
+					editorState.schema.marks.alignment,
+					editorState.schema.marks.fontSize,
+				]),
 			};
 
 	return Decoration.widget(

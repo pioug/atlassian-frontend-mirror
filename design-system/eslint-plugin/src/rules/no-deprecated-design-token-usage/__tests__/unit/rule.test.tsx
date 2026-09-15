@@ -61,8 +61,17 @@ tester.run('no-deprecated-design-token-usage', rule, {
 	invalid: [
 		{
 			code: `token('${oldTokenName}');`,
-			output: `token('${newTokenName}');`,
-			errors: [{ messageId: 'tokenRenamed' }],
+			errors: [
+				{
+					messageId: 'tokenRenamed',
+					suggestions: [
+						{
+							desc: `Replace with '${newTokenName}'`,
+							output: `token('${newTokenName}');`,
+						},
+					],
+				},
+			],
 		},
 		// Warnings are triggered for deprecated tokens with no replacement
 		{
@@ -72,7 +81,6 @@ tester.run('no-deprecated-design-token-usage', rule, {
 		// Ensures that [defaults] are correctly omitted in user-facing messages
 		{
 			code: `token('tokenName.test.defaults');`,
-			output: `token('tokenName.foo');`,
 			errors: [
 				{
 					message:
@@ -83,7 +91,6 @@ tester.run('no-deprecated-design-token-usage', rule, {
 		// Ensures that [defaults] are correctly omitted from the middle of a token name in user-facing messages
 		{
 			code: `token('tokenName.test.middle.defaults');`,
-			output: `token('tokenName.foo');`,
 			errors: [
 				{
 					message:
@@ -93,38 +100,31 @@ tester.run('no-deprecated-design-token-usage', rule, {
 		},
 		{
 			code: `token('${oldTokenName}', N800);`,
-			output: `token('${newTokenName}', N800);`,
 			errors: [{ messageId: 'tokenRenamed' }],
 		},
 		{
 			code: `css\` color: \${token('${oldTokenName}')}; \``,
-			output: `css\` color: \${token('${newTokenName}')}; \``,
 			errors: [{ messageId: 'tokenRenamed' }],
 		},
 		{
 			code: `css({ color: token('${oldTokenName}', N800) });`,
-			output: `css({ color: token('${newTokenName}', N800) });`,
 			errors: [{ messageId: 'tokenRenamed' }],
 		},
 		{
 			code: `css({ color: token('${oldTokenName}', fallback) })`,
-			output: `css({ color: token('${newTokenName}', fallback) })`,
 			errors: [{ messageId: 'tokenRenamed' }],
 		},
 		{
 			code: `css({ color: token('${oldTokenName}', getColor()) })`,
-			output: `css({ color: token('${newTokenName}', getColor()) })`,
 			errors: [{ messageId: 'tokenRenamed' }],
 		},
 		{
 			code: `css({ color: token('${oldTokenName}', 'blue') })`,
-			output: `css({ color: token('${newTokenName}', 'blue') })`,
 			errors: [{ messageId: 'tokenRenamed' }],
 		},
 		// Ensures that [default] is correctly omitted from token names
 		{
 			code: `token('tokenName.color');`,
-			output: `token('tokenName.color.foo');`,
 			errors: [
 				{
 					message: 'The token "tokenName.color" is deprecated in favour of "tokenName.color.foo".',

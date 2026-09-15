@@ -53,7 +53,7 @@
 		"react-dom": "root:*"
 	},
 	"name": "@atlaskit/media-document-viewer",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Modern and fast document viewer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

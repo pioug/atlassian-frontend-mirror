@@ -12,6 +12,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
+import type { TSurfaceResetCheck } from '../internal/surface-reset';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useSafariEscapeFix } from '../internal/use-safari-escape-fix';
@@ -27,6 +28,7 @@ import { type TDialogCloseReason, type TDialogProps } from './types';
 //
 // KEEP IN SYNC with the identical `surfaceResetStyles` in `popover/popover.tsx`
 // (ADS forbids sharing styles across files, so it is co-located and duplicated).
+// The `satisfies` check below fails the build if either copy drifts.
 const surfaceResetStyles = cssMap({
 	root: {
 		pointerEvents: 'auto',
@@ -38,6 +40,8 @@ const surfaceResetStyles = cssMap({
 		textTransform: 'none',
 	},
 });
+
+true satisfies TSurfaceResetCheck<typeof surfaceResetStyles.root>;
 
 const dialogStyles = cssMap({
 	root: {

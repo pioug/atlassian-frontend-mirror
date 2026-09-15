@@ -66,8 +66,8 @@ import { createSSREditorState } from '@atlaskit/editor-ssr-renderer/create-ssr-e
 import { createSSRPMPlugins } from '@atlaskit/editor-ssr-renderer/create-ssr-pm-plugins';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { addUFOCustomData } from '@atlaskit/react-ufo/custom-data';
-import { getInteractionId } from '@atlaskit/react-ufo/interaction-id-context';
+import { addUFOCustomData } from '@atlaskit/react-ufo/add-ufo-custom-data';
+import { getInteractionId } from '@atlaskit/react-ufo/get-interaction-id';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -333,9 +333,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 						pluginInjectionAPI.current,
 					),
 				);
-				if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
-					config.current.pmPlugins.push(...pluginInjectionAPI.current.getInternalPMPlugins());
-				}
+				config.current.pmPlugins.push(...pluginInjectionAPI.current.getInternalPMPlugins());
 
 				schema = createSchema(config.current);
 			}
@@ -598,9 +596,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			// so it has to be computed up-front.
 			const buildConfig = (plugins: typeof editorPlugins) => {
 				const c = processPluginsList(plugins);
-				if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
-					c.pmPlugins.push(...pluginInjectionAPI.current.getInternalPMPlugins());
-				}
+				c.pmPlugins.push(...pluginInjectionAPI.current.getInternalPMPlugins());
 				return c;
 			};
 
@@ -1305,9 +1301,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	}, [disabled, shouldFocus, previousDisabledState, __livePage]);
 
 	useLayoutEffect(() => {
-		if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
-			pluginInjectionAPI.current.api()?.core?.actions?.updateAppearance(nextAppearance);
-		}
+		pluginInjectionAPI.current.api()?.core?.actions?.updateAppearance(nextAppearance);
 	}, [nextAppearance]);
 
 	useFireFullWidthEvent(nextAppearance, dispatchAnalyticsEvent);

@@ -1,5 +1,18 @@
 # @atlaskit/breadcrumbs
 
+## 17.7.3
+
+### Patch Changes
+
+- [`cc77fe2eec3a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc77fe2eec3a7) -
+  Update styling of custom children under refreshed path.
+
+## 17.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.7.1
 
 ### Patch Changes

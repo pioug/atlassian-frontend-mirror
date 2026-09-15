@@ -9,7 +9,7 @@ import { jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 const styles = cssMap({
 	// Center the trigger horizontally and vertically so the four popovers
@@ -42,7 +42,7 @@ const styles = cssMap({
  * four are open at the same time so the VR snapshot proves anchor
  * positioning resolves correctly for every popover sharing the trigger.
  *
- * Regression coverage for the bug where the second `useAnchorPosition`
+ * Regression coverage for the bug where the second `useAnchoredPopover`
  * call on the same trigger would overwrite the first call's
  * `anchor-name` style, leaving subsequent popovers unpositioned.
  */
@@ -53,28 +53,28 @@ export default function VrMultiplePopoversOnSameAnchor(): ReactNode {
 	const popoverLeftRef = useRef<HTMLDivElement | null>(null);
 	const popoverRightRef = useRef<HTMLDivElement | null>(null);
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef: popoverAboveRef,
 		placement: { axis: 'block', edge: 'start' },
 		isOpen: true,
 	});
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef: popoverBelowRef,
 		placement: { axis: 'block', edge: 'end' },
 		isOpen: true,
 	});
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef: popoverLeftRef,
 		placement: { axis: 'inline', edge: 'start' },
 		isOpen: true,
 	});
 
-	useAnchorPosition({
+	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef: popoverRightRef,
 		placement: { axis: 'inline', edge: 'end' },

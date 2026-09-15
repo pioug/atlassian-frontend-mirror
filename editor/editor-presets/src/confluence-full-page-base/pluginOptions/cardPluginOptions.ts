@@ -3,7 +3,7 @@ import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import type { CardPluginOptions } from '@atlaskit/editor-plugin-card';
-import type { CardContext } from '@atlaskit/link-provider';
+import type { CardContext } from '@atlaskit/link-provider/types';
 
 import type { FullPageEditorAppearance } from '../types';
 

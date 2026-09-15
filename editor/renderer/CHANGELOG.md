@@ -1,5 +1,46 @@
 # @atlaskit/renderer
 
+## 140.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 140.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 140.2.1
+
+### Patch Changes
+
+- [`9e6211ceb4ceb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6211ceb4ceb) -
+  Clean up the fully rolled-out `platform_editor_small_font_size` experiment and make its permanent
+  `true` behavior unconditional across editor formatting, task and list handling, paste behavior,
+  controls, and rendering.
+- Updated dependencies
+
+## 140.2.0
+
+### Minor Changes
+
+- [`f1c1a544bd1a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c1a544bd1a9) -
+  Add unicode fallback to emojis in custom panels and renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 140.1.3
+
+### Patch Changes
+
+- [`55b2a2034275e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55b2a2034275e) -
+  Clean up experiment `platform_editor_disable_lazy_load_media`
+- Updated dependencies
+
 ## 140.1.2
 
 ### Patch Changes

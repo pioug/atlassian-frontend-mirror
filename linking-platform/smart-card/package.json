@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.22.5",
+	"version": "45.23.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -229,7 +229,7 @@
 		"./hook/use-smart-link-reload": "./src/state/hooks-external/useSmartLinkReload.ts",
 		"./hooks": "./src/hooks.ts",
 		"./hover/types": "./src/view/HoverCard/types.ts",
-		"./hover": "./src/view/HoverCard/index.tsx",
+		"./hover": "./src/entry-points/hover.tsx",
 		"./hover-card": "./src/hoverCard.ts",
 		"./i18n/*": {
 			"publish": null,
@@ -278,13 +278,6 @@
 		},
 		"platform_smartlink_3pclick_analytics": {
 			"type": "boolean"
-		},
-		"rovogrowth-635-pre-auth-cta-preview-fg": {
-			"type": "boolean"
-		},
-		"rovogrowth-635-pre-auth-cta-preview-exp": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"jfp-magma-platform-lozenge-jump-fix": {
 			"type": "boolean"

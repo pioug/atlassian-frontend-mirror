@@ -1,10 +1,13 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { LoadingError } from './loading-error';
-import { loadingErrorMessages } from './messages';
+import { loadingErrorMessages, missingColumnsMessages } from './messages';
 
 const fireEventMock = jest.fn();
 jest.mock('../../../analytics/index', () => ({
@@ -72,5 +75,60 @@ describe('LoadingError', () => {
 		expect(
 			screen.getByText(loadingErrorMessages.checkConnection.defaultMessage),
 		).toBeInTheDocument();
+	});
+	it('shows column recovery instructions without a refresh action', async () => {
+		passGate('platform_datasource_missing_columns_error');
+		fireEventMock.mockClear();
+		const { container } = setup({
+			errorType: 'missing-columns',
+			url: 'https://example.atlassian.net/issues/?jql=key%3DTEST-1',
+		});
+
+		expect(
+			screen.getByText(missingColumnsMessages.missingColumnsTitle.defaultMessage),
+		).toBeInTheDocument();
+		expect(screen.getByTestId('datasource--loading-error')).toHaveTextContent(
+			"The selected columns aren't available. Edit this table to select different columns.",
+		);
+		expect(screen.queryByText(/Check your connection/)).not.toBeInTheDocument();
+		expect(fireEventMock).not.toHaveBeenCalled();
+		expect(screen.queryByRole('button', { name: 'Refresh' })).not.toBeInTheDocument();
+		await expect(container).toBeAccessible();
+	});
+	it('preserves network messages, analytics and refresh when the gate is disabled', () => {
+		fireEventMock.mockClear();
+		failGate('platform_datasource_missing_columns_error');
+		setup({
+			errorType: 'missing-columns',
+			url: 'https://example.atlassian.net/issues/?jql=key%3DTEST-1',
+		});
+
+		expect(
+			screen.getByText(loadingErrorMessages.unableToLoadResults.defaultMessage),
+		).toBeInTheDocument();
+		expect(screen.getByRole('link', { name: 'open this search in Jira' })).toBeInTheDocument();
+		expect(fireEventMock).toHaveBeenCalledWith('ui.error.shown', { reason: 'network' });
+
+		expect(screen.getByRole('button', { name: 'Refresh' })).toBeEnabled();
+	});
+	it('keeps refresh available for network errors', async () => {
+		mockRefresh.mockClear();
+		setup();
+
+		const refresh = screen.getByRole('button', { name: 'Refresh' });
+		expect(refresh).toBeEnabled();
+		await userEvent.click(refresh);
+		expect(mockRefresh).toHaveBeenCalledTimes(1);
+	});
+	it('lists all unavailable saved column keys', () => {
+		passGate('platform_datasource_missing_columns_error');
+		setup({
+			errorType: 'missing-columns',
+			unavailableColumnKeys: ['release blocker tickets', 'customfield_12345'],
+		});
+
+		expect(screen.getByTestId('datasource--loading-error')).toHaveTextContent(
+			"These columns aren't available: release blocker tickets and customfield_12345. Edit this table to select different columns.",
+		);
 	});
 });

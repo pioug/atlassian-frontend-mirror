@@ -51,6 +51,15 @@ export type MediaRenderEvent = {
 export interface MediaPluginOptions {
 	alignLeftOnInsert?: boolean;
 	allowAdvancedToolBarOptions?: boolean;
+	/**
+	 * Animates media nodes into the document: the content opens out to make room for the node
+	 * once its preview is ready, then the preview fades in. For surfaces where media arrives
+	 * mid-flight, e.g. AI-generated images inserted into the Create with Rovo preview after the
+	 * surrounding content has streamed in.
+	 *
+	 * Also behind `aifc_page_create_defer_generated_visuals`.
+	 */
+	allowAIGeneratedMediaMotion?: boolean;
 	// This enables the option to add an alt-text attribute to images contained in the Editor.
 	allowAltTextOnImages?: boolean;
 	allowBreakoutSnapPoints?: boolean;

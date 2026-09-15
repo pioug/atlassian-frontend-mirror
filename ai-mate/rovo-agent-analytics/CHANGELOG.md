@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.4.0
+
+### Minor Changes
+
+- [`4886507c54435`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4886507c54435) -
+  Add typed legacy profile analytics and a configurable touchPoint for the new agent profile.
+
 ## 6.3.0
 
 ### Minor Changes

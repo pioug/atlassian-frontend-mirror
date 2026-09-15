@@ -28,8 +28,8 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import Link from '@atlaskit/link/link';
-import { MentionResource } from '@atlaskit/mention/resource';
-import { TeamMentionResource } from '@atlaskit/mention/team-resource';
+import { MentionResource } from '@atlaskit/mention/mention-resource';
+import TeamMentionResource from '@atlaskit/mention/team-mention-resource';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';

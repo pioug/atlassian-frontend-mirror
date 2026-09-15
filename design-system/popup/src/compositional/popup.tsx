@@ -49,7 +49,7 @@ export const Popup = ({
 	// When the top-layer flag is on, we maintain a stable RefObject for the
 	// trigger element, provided through TriggerRefObjectContext. Unlike the
 	// state-based triggerRef (which causes a re-render when the trigger mounts),
-	// this ref has a stable identity so useAnchorPosition's useLayoutEffect dep
+	// this ref has a stable identity so useAnchoredPopover's useLayoutEffect dep
 	// array never changes — the effect runs once on mount when the trigger element
 	// is already populated. PopupTrigger sets this ref directly instead of calling
 	// the state setter, avoiding an unnecessary re-render.

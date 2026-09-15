@@ -32,11 +32,14 @@
 	},
 	"references": [
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../react-select/tsconfig.app.json"
 		},
 		{
 			"path": "../select/tsconfig.app.json"
 		}
 	],
-	"files": []
+	"files": ["../../../typings/esnext.intl.d.ts"]
 }

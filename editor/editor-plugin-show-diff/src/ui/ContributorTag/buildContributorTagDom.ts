@@ -201,10 +201,19 @@ export type ContributorTagDom = {
  *
  * Built element by element rather than through `DOMSerializer.renderSpec`, which returns `Node` and
  * would need a cast per reference below.
+ *
+ * `anchorName` is the `anchor-name` its block carries — see `createContributorTagWidget`.
  */
-export const buildContributorTagDom = (doc: Document): ContributorTagDom => {
+export const buildContributorTagDom = (doc: Document, anchorName?: string): ContributorTagDom => {
 	const labelId = generateLabelId();
 	const root = createSpan(doc, constraintStyle);
+	if (anchorName) {
+		// Anchored to the block's own box, so the tag clears whatever margin its node type has — the
+		// same `anchor()` insets the `IndicatorBar` uses. A browser without anchor positioning rejects
+		// these values and keeps the `bottom: 100%` fallback above.
+		root.style.setProperty('bottom', `anchor(--${anchorName} top)`);
+		root.style.setProperty('inset-inline-start', `anchor(--${anchorName} left)`);
+	}
 	const tag = createSpan(doc, tagStyle, {
 		class: CONTRIBUTOR_TAG_CLASS,
 		'data-testid': CONTRIBUTOR_TAG_TESTID,

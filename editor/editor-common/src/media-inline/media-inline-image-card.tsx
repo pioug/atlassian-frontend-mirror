@@ -11,11 +11,9 @@ import type { WrappedComponentProps } from 'react-intl';
 import { createIntl, injectIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import {
-	fireFailedMediaInlineEvent,
-	fireSucceededMediaInlineEvent,
-	MediaCardError,
-} from '@atlaskit/media-card';
+import { fireFailedOperationalEvent as fireFailedMediaInlineEvent } from '@atlaskit/media-card/inline/fire-failed-operational-event';
+import { fireSucceededOperationalEvent as fireSucceededMediaInlineEvent } from '@atlaskit/media-card/inline/fire-succeeded-operational-event';
+import { MediaCardError } from '@atlaskit/media-card/media-card-error';
 import type { FileIdentifier, FileState, MediaClient } from '@atlaskit/media-client';
 import { FileFetcherError } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';

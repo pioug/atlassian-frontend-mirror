@@ -16,8 +16,7 @@ function fireEscapeKeydown(element: HTMLElement) {
 
 /**
  * Fires a synthetic `toggle` event simulating a browser light-dismiss.
- * JSDOM does not implement the native Popover API, so toggle events must be
- * dispatched manually to exercise the handleToggle path.
+ * Dispatch directly when a test needs to control the close-event ordering.
  */
 function fireLightDismissToggle(element: HTMLElement) {
 	const event = new Event('toggle', { bubbles: false }) as ToggleEvent;
@@ -28,19 +27,10 @@ function fireLightDismissToggle(element: HTMLElement) {
 
 /**
  * Fires a synthetic `beforetoggle` event simulating a browser open.
+ * Replaces the mount-time focus snapshot after the test focuses its trigger.
  */
 function fireOpenBeforeToggle(element: HTMLElement) {
 	const event = new Event('beforetoggle', { bubbles: false }) as ToggleEvent;
-	Object.defineProperty(event, 'newState', { value: 'open', configurable: true });
-	Object.defineProperty(event, 'oldState', { value: 'closed', configurable: true });
-	element.dispatchEvent(event);
-}
-
-/**
- * Fires a synthetic `toggle` event simulating a browser open.
- */
-function fireOpenToggle(element: HTMLElement) {
-	const event = new Event('toggle', { bubbles: false }) as ToggleEvent;
 	Object.defineProperty(event, 'newState', { value: 'open', configurable: true });
 	Object.defineProperty(event, 'oldState', { value: 'closed', configurable: true });
 	element.dispatchEvent(event);
@@ -97,7 +87,77 @@ describe('Popover native lifecycle listener stability', () => {
 	});
 });
 
+describe('Popover focus transfer before the closed toggle', () => {
+	it.each(['parent', 'outside'] as const)(
+		'preserves focus transferred to a %s button after beforetoggle',
+		async (destination) => {
+			function content(isOpen: boolean) {
+				return (
+					<>
+						<Popover isOpen mode="manual" role="dialog" label="parent">
+							<div>
+								<button data-testid="submenu-trigger">Open submenu</button>
+								<button data-testid="parent-destination">Parent action</button>
+								<Popover isOpen={isOpen} mode="manual" role="dialog" label="child">
+									<button data-testid="child-action">Child action</button>
+								</Popover>
+							</div>
+						</Popover>
+						<button data-testid="outside-destination">Outside action</button>
+					</>
+				);
+			}
+
+			const { rerender } = render(content(true));
+			const child = screen.getByRole('dialog', { name: 'child' });
+			const trigger = screen.getByTestId('submenu-trigger');
+			const target = screen.getByTestId(`${destination}-destination`);
+			act(() => {
+				trigger.focus();
+				fireOpenBeforeToggle(child);
+				screen.getByTestId('child-action').focus();
+			});
+
+			// Controlled close fires beforetoggle synchronously, but queues toggle.
+			rerender(content(false));
+			target.focus();
+			expect(target).toHaveFocus();
+
+			// Unmounting confirms closed-toggle handling has finished before checking focus.
+			await waitFor(() => {
+				expect(child).not.toBeInTheDocument();
+			});
+
+			expect(target).toHaveFocus();
+		},
+	);
+});
+
 describe('Popover closeReasonRef - race condition between Escape keydown and programmatic close', () => {
+	it('suppresses onClose when synthetic Escape follows a programmatic close', () => {
+		const onClose = jest.fn();
+		const { rerender } = render(
+			<Popover isOpen={true} onClose={onClose} role="dialog" label="synthetic-escape-test">
+				content
+			</Popover>,
+		);
+		const popover = screen.getByRole('dialog', { name: 'synthetic-escape-test' });
+
+		// hidePopover() queues its toggle event. A synthetic event can run before that task.
+		rerender(
+			<Popover isOpen={false} onClose={onClose} role="dialog" label="synthetic-escape-test">
+				content
+			</Popover>,
+		);
+
+		act(() => {
+			fireEscapeKeydown(popover);
+			fireLightDismissToggle(popover);
+		});
+
+		expect(onClose).not.toHaveBeenCalled();
+	});
+
 	it('reports reason "light-dismiss" after a prior Escape+programmatic-close race', () => {
 		// Arrange
 		const onClose = jest.fn();
@@ -114,9 +174,7 @@ describe('Popover closeReasonRef - race condition between Escape keydown and pro
 		});
 
 		// Simulate: programmatic close wins the race - rerender with isOpen=false
-		// This calls hidePopover() with programmaticCloseRef=true, then the toggle
-		// handler fires with programmaticCloseRef.current===true and returns early.
-		// Before the fix, closeReasonRef stayed 'escape' after this early return.
+		// The controlled close must suppress onClose and clear the prior Escape reason.
 		rerender(
 			<Popover isOpen={false} onClose={onClose} role="dialog" label="race-test">
 				content
@@ -138,10 +196,6 @@ describe('Popover closeReasonRef - race condition between Escape keydown and pro
 			</Popover>,
 		);
 		const reopenedPopover = screen.getByRole('dialog', { name: 'race-test' });
-
-		act(() => {
-			fireOpenToggle(reopenedPopover);
-		});
 
 		// Now trigger a genuine light-dismiss (no Escape keydown this time)
 		act(() => {
@@ -186,13 +240,13 @@ describe('Popover closeReasonRef - race condition between Escape keydown and pro
 		);
 
 		expect(triggerFocus).not.toHaveBeenCalled();
-		await act(async () => {
-			await new Promise((resolve) => setTimeout(resolve, 0));
+		await waitFor(() => {
+			expect(popover).not.toBeInTheDocument();
 		});
 		expect(triggerFocus).toHaveBeenCalledWith({ preventScroll: true });
 	});
 
-	it('reports reason "escape" when Escape keydown causes the close (no programmatic race)', () => {
+	it('reports reason "escape" when Escape keydown causes the close (no programmatic race)', async () => {
 		const onClose = jest.fn();
 		render(
 			<Popover isOpen={true} onClose={onClose} role="dialog" label="escape-test">
@@ -201,17 +255,19 @@ describe('Popover closeReasonRef - race condition between Escape keydown and pro
 		);
 		const popover = screen.getByRole('dialog', { name: 'escape-test' });
 
-		act(() => {
-			fireOpenToggle(popover);
-		});
-
-		// Escape keydown sets closeReasonRef to 'escape', then light-dismiss toggle fires
+		// The polyfill hides during document capture, before our keydown listener.
+		// Defer that hide to reproduce native ordering: keydown first, dismissal second.
+		const hidePopover = jest.spyOn(popover, 'hidePopover').mockImplementationOnce(() => {});
 		act(() => {
 			fireEscapeKeydown(popover);
 		});
+		hidePopover.mockRestore();
 
 		act(() => {
-			fireLightDismissToggle(popover);
+			popover.hidePopover();
+		});
+		await waitFor(() => {
+			expect(popover).not.toBeInTheDocument();
 		});
 
 		expect(onClose).toHaveBeenCalledTimes(1);
@@ -226,10 +282,6 @@ describe('Popover closeReasonRef - race condition between Escape keydown and pro
 			</Popover>,
 		);
 		const popover = screen.getByRole('dialog', { name: 'light-dismiss-test' });
-
-		act(() => {
-			fireOpenToggle(popover);
-		});
 
 		act(() => {
 			fireLightDismissToggle(popover);

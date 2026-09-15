@@ -17,7 +17,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
@@ -52,10 +51,7 @@ export function setBlockType(name: TextBlockTypes): EditorCommand {
 			return setNormalText()({ tr });
 		}
 
-		if (
-			name === 'smallText' &&
-			expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-		) {
+		if (name === 'smallText') {
 			return setSmallText()({ tr });
 		}
 
@@ -111,7 +107,7 @@ export function setHeading(
 		// List content stays as paragraphs (headings aren't allowed in list items),
 		// but non-list content has been converted to headings by setBlockType above.
 		const { fontSize } = schema.marks;
-		if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		if (fontSize) {
 			const allowedBlocks = [schema.nodes.paragraph, schema.nodes.heading];
 			if (selection instanceof CellSelection) {
 				selection.forEachCell((cell, pos) => {
@@ -147,11 +143,7 @@ export function setBlockTypeWithAnalytics(
 			return setNormalTextWithAnalytics(inputMethod, editorAnalyticsApi, fromBlockQuote)({ tr });
 		}
 
-		if (
-			name === 'smallText' &&
-			marks.fontSize &&
-			expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-		) {
+		if (name === 'smallText' && marks.fontSize) {
 			return setSmallTextWithAnalytics(inputMethod, editorAnalyticsApi, fromBlockQuote)({ tr });
 		}
 
@@ -281,7 +273,7 @@ export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
 
 		// Remove fontSize mark from any lists the selection touches
 		const { fontSize } = schema.marks;
-		if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		if (fontSize) {
 			if (selection instanceof CellSelection) {
 				selection.forEachCell((cell, pos) => {
 					createToggleBlockMarkOnRangeNext(fontSize, () => false, [schema.nodes.paragraph])(

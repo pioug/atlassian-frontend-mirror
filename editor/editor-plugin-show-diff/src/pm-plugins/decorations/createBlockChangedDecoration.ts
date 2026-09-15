@@ -23,8 +23,9 @@ import { createBlockIndicatorAnchorWidgets } from './createAnchorDecorationWidge
 import {
 	type ContributorTagMountContext,
 	createContributorTagWidget,
+	isContributorTagWidgetEnabled,
 } from './createContributorTagWidget';
-import { buildDiffDecorationSpec } from './decorationKeys';
+import { AnchorTypeKey, buildAnchorDecorationKey, buildDiffDecorationSpec } from './decorationKeys';
 import {
 	getBlockNodeStyleLegacy,
 	resolveCellOverlayStyleLegacy,
@@ -261,6 +262,11 @@ export const createBlockChangedDecoration = ({
 	const diffId = showContributorTags ? `block-${change.from}-${change.to}` : crypto.randomUUID();
 	const shouldTagBlock =
 		showContributorTags && canTagBlock({ diffType, doc, from: change.from, name: change.name });
+	// Named so this block's own tag can position against it; see `createContributorTagWidget`.
+	const tagAnchorName =
+		shouldTagBlock && isContributorTagWidgetEnabled()
+			? buildAnchorDecorationKey({ diffId, anchorType: AnchorTypeKey.tag })
+			: undefined;
 
 	if (shouldHideDeleted) {
 		return [
@@ -269,9 +275,11 @@ export const createBlockChangedDecoration = ({
 				change.to,
 				{ style: displayNoneStyle },
 				buildDiffDecorationSpec({
+					colorScheme,
 					decorationType: 'block',
 					diffId,
 					isActive,
+					isInserted,
 					nodeName: change.name,
 					diffType,
 				}),
@@ -315,13 +323,18 @@ export const createBlockChangedDecoration = ({
 		);
 	}
 	// isInserted is only read under the extended experience, so pass it unconditionally.
-	const style = getBlockNodeStyle({
+	const nodeStyle = getBlockNodeStyle({
 		nodeName: change.name,
 		colorScheme,
 		isInserted,
 		isActive,
 		diffType,
 	});
+	const style = tagAnchorName
+		? [nodeStyle, convertToInlineCss({ anchorName: `--${tagAnchorName}` })]
+				.filter(Boolean)
+				.join(' ')
+		: nodeStyle;
 
 	const className = getNodeClass(change.name);
 	if (style || className) {
@@ -366,6 +379,7 @@ export const createBlockChangedDecoration = ({
 	if (shouldTagBlock && doc) {
 		const tagWidget = createContributorTagWidget({
 			anchorAtRangeStart: true,
+			anchorName: tagAnchorName,
 			doc,
 			from: change.from,
 			to: change.to,

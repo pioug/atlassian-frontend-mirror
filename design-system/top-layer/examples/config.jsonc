@@ -54,9 +54,20 @@
 		"150-testing-native-api-timing.tsx",
 		"152-testing-nested-dialog-escape.tsx",
 		"153-testing-safari-flex-collapse.vr.ap.tsx",
+		"154-testing-safari-flex-collapse-max-height.vr.ap.tsx",
 		"157-testing-pointer-events-reset.tsx",
 		"158-testing-popover-drag-and-drop.tsx",
 		"159-testing-dialog-drag-and-drop.tsx",
+		"160-testing-popover-fit-available-space.tsx",
+		"161-testing-popover-anchored-size.tsx",
+		// The VR examples in the 80-89 band are imported by their spec rather than
+		// visited by URL, and the other nine are unregistered. The three this change
+		// added are listed anyway: a missing entry cannot fail anything, it only lets
+		// a stale cached result stand in for a run. See `notes/rules/testing.md`.
+		"84-vr-popover-fit-alignment.vr.ap.tsx",
+		"89-vr-popover-fit-floor.vr.ap.tsx",
+		"89-vr-popover-fit-scroll.vr.ap.tsx",
+		"165-testing-popover-focus-handoff.tsx",
 	],
 	// Entries here are excluded from the test cache hash, so
 	// `@atlaskit/pragmatic-drag-and-drop` is deliberately absent: it is what the

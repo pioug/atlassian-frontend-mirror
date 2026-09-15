@@ -235,6 +235,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	suggestEditsButtonTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	suggestEditsPromptPrefix: {
 		defaultMessage: string;
 		description: string;
@@ -395,6 +400,11 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.suggestEditsButtonLabel',
 		defaultMessage: 'Review',
 		description: 'Label for the Suggest edits button in the editor toolbar',
+	},
+	suggestEditsButtonTooltip: {
+		id: 'fabric.editor.ai.suggestions.suggestEditsButtonTooltip',
+		defaultMessage: 'Get AI suggestions to improve content',
+		description: 'Tooltip for the Review button in the editor toolbar',
 	},
 	suggestEditsPromptPrefix: {
 		id: 'fabric.editor.ai.suggestions.suggestEditsPromptPrefix.non-final',

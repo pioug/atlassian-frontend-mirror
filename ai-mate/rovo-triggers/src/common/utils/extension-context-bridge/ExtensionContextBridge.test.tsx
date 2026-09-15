@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
+import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { usePublish, useSubscribeAll } from '../../../main';
 import { type Payload } from '../../../types';
 
 import {
-	BRIDGE_FEATURE_GATE,
+	EXT_CONTEXT_BRIDGE_EXPERIMENT,
 	BRIDGE_MESSAGE_MARKER,
 	BRIDGE_SOURCE,
 	BRIDGE_TO_EXTENSION,
@@ -84,16 +87,19 @@ const editorContext = (overrides: Record<string, unknown> = {}) =>
 		},
 	}) as unknown as Payload;
 
-// Default gate state is ON; gate-off cases opt out explicitly.
-const disableBridgeGate = () => setBooleanFeatureFlagResolver(() => false);
+// Default experiment state is ON; control cases opt out explicitly. The mock helpers allow one mock
+// per experiment per test and `beforeEach` has already opted in, so clear it before re-mocking.
+const disableBridgeExperiment = () => {
+	resetAllExperiments();
+	mockExpDisabled(EXT_CONTEXT_BRIDGE_EXPERIMENT);
+};
 
 beforeEach(() => {
-	setBooleanFeatureFlagResolver((key) => key === BRIDGE_FEATURE_GATE);
+	mockExpEnabled(EXT_CONTEXT_BRIDGE_EXPERIMENT);
 	jest.spyOn(console, 'log').mockImplementation(() => {});
 });
 
 afterEach(() => {
-	disableBridgeGate();
 	jest.restoreAllMocks();
 });
 
@@ -117,8 +123,8 @@ describe('ExtensionContextBridgeHost', () => {
 		expect(message.payload.type).toBe('editor-context-payload');
 	});
 
-	it('sends nothing when the gate is off', () => {
-		disableBridgeGate();
+	it('sends nothing in the control cohort', () => {
+		disableBridgeExperiment();
 		const { transport, sent } = createFakeTransport();
 
 		render(
@@ -129,6 +135,21 @@ describe('ExtensionContextBridgeHost', () => {
 		);
 
 		expect(sent).toHaveLength(0);
+	});
+
+	// The Host mounts on every page of an opted-in product, so exposure from here would count
+	// product page loads rather than extension users. The extension logs the one exposure.
+	it('does not log experiment exposure', () => {
+		const { transport } = createFakeTransport();
+
+		render(
+			<>
+				<ExtensionContextBridgeHost transport={transport} />
+				<Publisher payload={editorContext()} />
+			</>,
+		);
+
+		expect(wasExperimentExposed(EXT_CONTEXT_BRIDGE_EXPERIMENT)).toBe(false);
 	});
 
 	it('does not relay a denylisted control event', () => {
@@ -447,8 +468,8 @@ describe('ExtensionContextBridgeClient', () => {
 		expect((sent as BridgeMessage[]).filter((m) => 'payload' in m)).toHaveLength(0);
 	});
 
-	it('is inert when the gate is off', () => {
-		disableBridgeGate();
+	it('is inert in the control cohort', () => {
+		disableBridgeExperiment();
 		const { transport, sent } = createFakeTransport();
 		const suggestion = {
 			type: 'editor-suggestion',
@@ -775,12 +796,314 @@ describe('context handshake', () => {
 		]);
 	});
 
-	it('does not ask when the gate is off', () => {
-		disableBridgeGate();
+	it('does not ask in the control cohort', () => {
+		disableBridgeExperiment();
 		const { transport, sent } = createFakeTransport();
 
 		render(<ExtensionContextBridgeClient transport={transport} />);
 
 		expect(sent).toHaveLength(0);
+	});
+});
+
+/**
+ * What the Host reports about its own decisions. Relay behaviour itself is covered above. Only the
+ * product → extension direction is reported, so there is nothing here for the Client.
+ */
+describe('relay decision reporting', () => {
+	const setMessageContext = (contextKey: string, setContext: () => unknown) =>
+		({
+			type: 'set-message-context',
+			source: 'jira',
+			product: 'jira',
+			data: { contextKey, setContext },
+		}) as unknown as Payload;
+
+	describe('what the product published', () => {
+		it('reports an allowlisted payload as relayed', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={editorContext()} />
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledTimes(1);
+			expect(onRelayDecision).toHaveBeenCalledWith({
+				payloadType: 'editor-context-payload',
+				contextKey: undefined,
+				relayed: true,
+				decision: 'allow',
+				publisherSource: 'confluence',
+				payloadProduct: undefined,
+			});
+		});
+
+		it('reports a type that is merely absent from the allowlist', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+			const browserContext = {
+				type: 'browser-context-payload',
+				source: 'confluence',
+				data: {},
+			} as unknown as Payload;
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={browserContext} />
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payloadType: 'browser-context-payload',
+					relayed: false,
+					decision: 'not-allowlisted',
+				}),
+			);
+		});
+
+		it('distinguishes a denylisted control event from an unlisted one', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+			const chatOpen = {
+				type: 'chat-open',
+				source: 'confluence',
+				data: { channelId: 'c1' },
+			} as unknown as Payload;
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={chatOpen} />
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledWith(
+				expect.objectContaining({ relayed: false, decision: 'denylisted' }),
+			);
+		});
+
+		it('carries the contextKey, which is the rest of a set-message-context payload’s identity', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher
+						payload={setMessageContext('jira_view_context', () => ({ issueKey: 'ABC-1' }))}
+					/>
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payloadType: 'set-message-context',
+					contextKey: 'jira_view_context',
+					relayed: true,
+					decision: 'allow',
+					payloadProduct: 'jira',
+				}),
+			);
+		});
+
+		// The split this exists for: a non-allowlisted key is a list we can widen, a merge-style
+		// publisher is not. Both looked identical before.
+		it('reports a context key that is not allowlisted', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={setMessageContext('not_opted_in', () => ({ secret: 'value' }))} />
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledWith(
+				expect.objectContaining({
+					contextKey: 'not_opted_in',
+					relayed: false,
+					decision: 'context-key-not-allowlisted',
+				}),
+			);
+		});
+
+		it('reports a merge-style publisher separately from an allowlist gap', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher
+						payload={setMessageContext('jira_view_context', ((ctx: object) => ({
+							...ctx,
+							b: 2,
+						})) as () => unknown)}
+					/>
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledWith(
+				expect.objectContaining({
+					contextKey: 'jira_view_context',
+					relayed: false,
+					decision: 'merge-style-publisher',
+				}),
+			);
+		});
+
+		it('says nothing about the bridge’s own echo, which is not a decision about the product', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+			const mirrored = {
+				...editorContext(),
+				interactionSource: BRIDGE_SOURCE,
+			} as unknown as Payload;
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={mirrored} />
+				</>,
+			);
+
+			expect(onRelayDecision).not.toHaveBeenCalled();
+		});
+
+		// Would otherwise emit on every page of every non-entitled tenant, and the entitlement signal
+		// already explains the absence.
+		it('says nothing when the viewer is not entitled to AI', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost
+						transport={transport}
+						isAiEnabled={false}
+						onRelayDecision={onRelayDecision}
+					/>
+					<Publisher payload={editorContext()} />
+				</>,
+			);
+
+			expect(onRelayDecision).not.toHaveBeenCalled();
+		});
+
+		it('says nothing in the control cohort', () => {
+			disableBridgeExperiment();
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={editorContext()} />
+				</>,
+			);
+
+			expect(onRelayDecision).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('volume', () => {
+		// `editor-context-payload` recurs on roughly every keystroke. Which keys exist is the
+		// question; recurrence within a page is not.
+		it('reports a repeated outcome once', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={editorContext()} />
+					<Publisher payload={editorContext({ selection: undefined })} />
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledTimes(1);
+		});
+
+		it('still reports a second context key, which is a distinct outcome', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={setMessageContext('not_opted_in', () => ({ a: 1 }))} />
+					<Publisher payload={setMessageContext('also_not_opted_in', () => ({ a: 1 }))} />
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledTimes(2);
+			expect(onRelayDecision.mock.calls.map(([decision]) => decision.contextKey)).toEqual([
+				'not_opted_in',
+				'also_not_opted_in',
+			]);
+		});
+
+		// A publisher generating keys would otherwise grow the set for the life of the page. The keys
+		// reported before the cap still identify it.
+		it('stops reporting once a publisher generates more distinct keys than the cap allows', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					{Array.from({ length: 60 }, (_unused, index) => (
+						<Publisher
+							key={index}
+							payload={setMessageContext(`generated_key_${index}`, () => ({ a: 1 }))}
+						/>
+					))}
+				</>,
+			);
+
+			expect(onRelayDecision).toHaveBeenCalledTimes(50);
+		});
+
+		it('still reports the same type reaching a different decision', () => {
+			const { transport } = createFakeTransport();
+			const onRelayDecision = jest.fn();
+
+			render(
+				<>
+					<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+					<Publisher payload={setMessageContext('jira_view_context', () => ({ a: 1 }))} />
+					<Publisher payload={setMessageContext('not_opted_in', () => ({ a: 1 }))} />
+				</>,
+			);
+
+			expect(onRelayDecision.mock.calls.map(([decision]) => decision.decision)).toEqual([
+				'allow',
+				'context-key-not-allowlisted',
+			]);
+		});
+	});
+
+	it('relays anyway when the consumer’s reporter throws, because telemetry must not break the page', () => {
+		const { transport, sent } = createFakeTransport();
+		const onRelayDecision = jest.fn(() => {
+			throw new Error('analytics client exploded');
+		});
+
+		render(
+			<>
+				<ExtensionContextBridgeHost transport={transport} onRelayDecision={onRelayDecision} />
+				<Publisher payload={editorContext()} />
+			</>,
+		);
+
+		expect(onRelayDecision).toHaveBeenCalledTimes(1);
+		expect(sent).toHaveLength(1);
 	});
 });

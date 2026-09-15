@@ -23,7 +23,7 @@ This rule marks code as violations when it finds native HTML radio elements.
 	<input type="radio" id="contact-method--phone" name="contact" value="phone" />
 	^^^^^ Using a native radio input
 	<label for="contact-method--phone">Phone</label>
-</label>
+</fieldset>
 ```
 
 ### Correct
@@ -40,5 +40,5 @@ const options: OptionsPropType = [
 
 <Field label="Preferred contact method" name="contact" defaultValue="email">
 	{({ fieldProps }) => <RadioGroup {...fieldProps} options={options} />}
-</Field>
+</Field>;
 ```

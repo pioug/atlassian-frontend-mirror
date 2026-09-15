@@ -3348,10 +3348,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					'--ak-renderer-editor-font-heading-h6': `${editorUGCTokensRefreshed['editor.font.heading.h6']}`,
 					'--ak-renderer-editor-font-normal-text': `${editorUGCTokensRefreshed['editor.font.body']}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- CSS custom properties for UGC font tokens
-					...(expValEquals('platform_editor_small_font_size', 'isEnabled', true) && {
-						'--ak-renderer-editor-font-small-text':
-							editorUGCTokensRefreshed['editor.font.body.small'],
-					}),
+					'--ak-renderer-editor-font-small-text':
+						editorUGCTokensRefreshed['editor.font.body.small'],
 				} as React.CSSProperties
 			}
 			css={[
@@ -3359,7 +3357,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					? baseFontStyle
 					: originalBaseFontLineHeight,
 				baseStyles,
-				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && fontSizeStyles,
+				fontSizeStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? headingAnchorStyles
 					: headingAnchorStylesDuplicateAnchor,

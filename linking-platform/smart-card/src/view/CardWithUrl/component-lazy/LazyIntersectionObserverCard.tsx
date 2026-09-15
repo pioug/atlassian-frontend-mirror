@@ -18,7 +18,7 @@ export const LazyIntersectionObserverCard: React.FC<CardWithUrlContentProps> = (
 	const [isIntersected, setIsIntersected] = useState(false);
 	const [shouldSendRenderedUFOEvent] = useState(shouldSample());
 	const { appearance, children, id, onError: onErrorCallback, ui, url } = props;
-	const prefetch = usePrefetch(url);
+	const prefetch = usePrefetch(url, appearance);
 	const ComponentObserver = appearance === 'inline' ? 'span' : 'div';
 
 	const { onIntersecting: onSeenIntersecting, onStatusSettled } = useSmartLinkSeenEvent({

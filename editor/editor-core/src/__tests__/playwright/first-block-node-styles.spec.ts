@@ -81,9 +81,6 @@ test.describe('first block node styles', () => {
 		test.use({
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: panelWithSmallFontSizeAdf,
-			editorExperiments: {
-				platform_editor_small_font_size: true,
-			},
 		});
 
 		test('should preserve top margin on the second paragraph with small font size applied within a panel', async ({

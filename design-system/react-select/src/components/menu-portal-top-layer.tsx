@@ -8,8 +8,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 import { getStyleProps } from '../get-style-props';
 import { MenuPortalCloseContext } from '../internal/menu-portal-close-context';
@@ -63,11 +62,15 @@ export function MenuPortalTopLayer<
 	// reads or registering an unpositioned popover.
 	const isAnchored = controlElement !== null;
 
-	// `gap: 0` matches the legacy MenuPortal (no trigger-to-menu gap; the
-	// menu root already declares its own `marginBlockStart`). Without this
-	// override `useAnchorPosition`'s default 8px gap would diverge visually
-	// from the legacy path.
-	useAnchorPosition({
+	// `'match-anchor'` is what react-select has always done. The block axis is left
+	// on `'content'`; `menuPortalStyles.root` caps it at the viewport.
+	//
+	// `gap: 0` matches the legacy MenuPortal, whose menu root already declares its
+	// own `marginBlockStart`.
+	//
+	// Inline rather than memoised: `useAnchoredPopover` re-derives a stable
+	// placement from the primitive fields.
+	useAnchoredPopover({
 		anchorRef,
 		popoverRef,
 		placement: {
@@ -76,13 +79,7 @@ export function MenuPortalTopLayer<
 			offset: { gap: 0 },
 		},
 		isOpen: isAnchored,
-	});
-
-	useWidthFromAnchor({
-		anchorRef,
-		popoverRef,
-		mode: 'match-anchor',
-		isOpen: isAnchored,
+		inlineSize: 'match-anchor',
 	});
 
 	const handlePopoverClose = useCallback(() => {

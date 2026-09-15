@@ -1,17 +1,14 @@
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
-import type { TAnchorPoint } from '@atlaskit/top-layer/use-anchor-position-at-point';
+import type { TAnchorPoint } from '@atlaskit/top-layer/use-anchored-popover-at-point';
 
 /**
- * Reduces an anchor rect to the single viewport point that, wrapped in a
- * zero-size synthetic anchor, produces the same popover position
- * `useAnchorPosition` would for the given placement. This works because
- * `useAnchorPosition` only reads the edge / alignment corner of the rect,
- * so a coincident zero-size point is geometrically equivalent.
+ * Reduces an anchor rect to the one viewport point that positions a popover
+ * where a real element anchor with that rect would. Positioning only reads the
+ * edge / alignment corner, so a coincident zero-size point is equivalent.
  *
  * RTL is resolved here so the downstream synthetic anchor only sees physical
  * coordinates. Defaults mirror `getPlacement` in
- * `@atlaskit/top-layer/placement-map` (`axis: 'block'`, `edge: 'end'`,
- * `align: 'center'`).
+ * `@atlaskit/top-layer/placement-map`.
  */
 export function rectPointForPlacement({
 	rect,

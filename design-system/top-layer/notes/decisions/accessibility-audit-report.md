@@ -187,7 +187,7 @@ matching. Playwright covers Escape, focus return, inertness.
 
 ### 2.3 `@atlaskit/tooltip`
 
-**Entry points used:** `Popover`, `useAnchorPosition`, `slideAndFade`, `fromLegacyPlacement`
+**Entry points used:** `Popover`, `useAnchoredPopover`, `slideAndFade`, `fromLegacyPlacement`
 
 | Criterion                       | Status | Details                                                              |
 | ------------------------------- | ------ | -------------------------------------------------------------------- |
@@ -269,7 +269,7 @@ rendering, dismissal, ARIA role, focus-visible, DOM order.
 
 ### 2.6 `@atlaskit/spotlight`
 
-**Entry points used:** `Popover`, `useAnchorPosition`, `fromLegacyPlacement`
+**Entry points used:** `Popover`, `useAnchoredPopover`, `fromLegacyPlacement`
 
 | Criterion            | Status           | Details                                              |
 | -------------------- | ---------------- | ---------------------------------------------------- |

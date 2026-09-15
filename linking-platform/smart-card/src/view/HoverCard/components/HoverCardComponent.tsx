@@ -9,9 +9,10 @@ import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import { noop } from '../../../utils/noop';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
+import type { AnalyticsHandler } from '../../../utils/types.ts';
 import HoverCardContent from '../components/HoverCardContent';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
-import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
+import { type HoverCardProps } from '../types';
 import { createCustomPopupContainer } from './createCustomPopupContainer';
 
 export const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
@@ -20,6 +21,12 @@ const HOVER_CARD_TRIGGER_WRAPPER = 'hover-card-trigger-wrapper';
 const FADE_IN_DELAY = 500;
 const FADE_OUT_DELAY = 300;
 const RESOLVE_DELAY = 100;
+
+interface HoverCardComponentProps extends HoverCardProps {
+	analyticsHandler?: AnalyticsHandler;
+	canOpen?: boolean;
+	closeOnChildClick?: boolean;
+}
 
 export const HoverCardComponent = ({
 	children,
@@ -227,7 +234,7 @@ export const HoverCardComponent = ({
 
 	const content = useCallback(
 		({ update }: { update: () => void }) => {
-			const hoverCardContentProps: HoverCardContentProps = {
+			const hoverCardContentProps: React.ComponentProps<typeof HoverCardContent> = {
 				onMouseEnter: initShowCard,
 				onMouseLeave: initHideCard,
 				cardState: linkState,

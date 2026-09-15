@@ -528,11 +528,13 @@ export const getValidNode = (
 				let mentionText = '';
 				let mentionId;
 				let mentionAccess;
+				let localId: string | undefined;
 				if (attrs) {
 					const { text, displayName, id, accessLevel } = attrs;
 					mentionText = text || displayName;
 					mentionId = id;
 					mentionAccess = accessLevel;
+					localId = attrs.localId;
 				}
 
 				if (!mentionText) {
@@ -546,6 +548,7 @@ export const getValidNode = (
 							id: mentionId,
 							text: mentionText,
 							accessLevel: '',
+							...(localId ? { localId } : {}),
 						},
 						...(fg('editor_inline_comments_on_inline_nodes') ? { marks } : {}),
 					};

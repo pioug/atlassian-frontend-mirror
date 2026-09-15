@@ -1,121 +1,121 @@
 import { defineMessages } from 'react-intl';
 
 export const loadingErrorMessages: {
-	accessInstructionsDuplicate: {
-		id: string;
-		description: string;
-		defaultMessage: string;
-	};
 	//delete and remove duplicate from title above
 	accessInstructions: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	accessRequiredDuplicate: {
-		id: string;
-		description: string;
+	accessInstructionsDuplicate: {
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	//delete and remove duplicate from title above
 	accessRequired: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	accessRequiredDuplicate: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	accessRequiredWithSite: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	checkConnectionDuplicate: {
-		id: string;
-		description: string;
+	authConnectButtonText: {
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	checkConnectionConfluence: {
-		id: string;
-		description: string;
+	authScreenDescriptionText: {
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	checkConnectionJira: {
-		id: string;
-		description: string;
+	authScreenDescriptionTextAppify: {
 		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	authScreenHeaderText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	//delete and remove duplicate from title above
 	checkConnection: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	noResultsFound: {
-		id: string;
-		description: string;
+	checkConnectionConfluence: {
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	noResultsFoundDescription: {
-		id: string;
-		description: string;
+	checkConnectionDuplicate: {
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	refreshDuplicate: {
-		id: string;
-		description: string;
+	checkConnectionJira: {
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	//delete and remove duplicate from title above
-	refresh: {
-		id: string;
-		description: string;
+	learnMoreAboutSmartLinks: {
 		defaultMessage: string;
-	};
-	unableToLoadItemsDuplicate: {
-		id: string;
 		description: string;
-		defaultMessage: string;
-	};
-	unableToLoadResults: {
 		id: string;
-		description: string;
-		defaultMessage: string;
-	};
-	// delete once EDM-9407 is merged
-	noAccessToJiraSitesTitle: {
-		id: string;
-		description: string;
-		defaultMessage: string;
 	};
 	// delete once EDM-9407 is merged
 	noAccessToJiraSitesDescription: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
-	authScreenHeaderText: {
-		id: string;
+	// delete once EDM-9407 is merged
+	noAccessToJiraSitesTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	authScreenDescriptionText: {
-		id: string;
+	noResultsFound: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	learnMoreAboutSmartLinks: {
-		id: string;
+	noResultsFoundDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	authConnectButtonText: {
-		id: string;
+	//delete and remove duplicate from title above
+	refresh: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	authScreenDescriptionTextAppify: {
-		id: string;
+	refreshDuplicate: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	unableToLoadItemsDuplicate: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unableToLoadResults: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	accessInstructionsDuplicate: {
@@ -246,5 +246,29 @@ export const loadingErrorMessages: {
 		defaultMessage:
 			'Connect your {providerName} account to collaborate on work across Atlassian apps.',
 		description: 'Description text to be displayed in the auth screen UI.',
+	},
+});
+
+export const missingColumnsMessages: Record<
+	'missingColumnsDescription' | 'missingColumnsDescriptionWithNames' | 'missingColumnsTitle',
+	{ defaultMessage: string; description: string; id: string }
+> = defineMessages({
+	missingColumnsTitle: {
+		id: 'link-datasource.common.error-state.missingColumnsTitle',
+		description: 'Error title when results have loaded but no selected columns are available',
+		defaultMessage: "We can't display these columns",
+	},
+	missingColumnsDescription: {
+		id: 'link-datasource.common.error-state.missingColumnsDescription',
+		description: 'Instructions for recovering a table with no available selected columns',
+		defaultMessage:
+			"The selected columns aren't available. Edit this table to select different columns.",
+	},
+	missingColumnsDescriptionWithNames: {
+		id: 'link-datasource.common.error-state.missingColumnsDescriptionWithNames',
+		description:
+			'Instructions for recovering a table, with columns listing the unavailable saved column names or keys',
+		defaultMessage:
+			"These columns aren't available: {columns}. Edit this table to select different columns.",
 	},
 });

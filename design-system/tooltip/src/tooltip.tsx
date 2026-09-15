@@ -24,8 +24,8 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-import { useAnchorPositionAtPoint } from '@atlaskit/top-layer/use-anchor-position-at-point';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { useAnchoredPopoverAtPoint } from '@atlaskit/top-layer/use-anchored-popover-at-point';
 
 import { register } from './internal/drag-manager';
 import { getAnchorPoint } from './internal/get-anchor-point';
@@ -778,27 +778,15 @@ const tooltipMouseAnimationStyles = cssMap({
 /**
  * Top-layer tooltip popup component.
  *
- * Composes `Popover` (top-layer visibility + animation) with one of two
- * positioning hooks:
+ * Composes `Popover` (top-layer visibility + animation) with two positioning
+ * hooks, of which EXACTLY ONE is enabled - two writing to the same popover would
+ * fight for ownership, so `isEnabled` is derived from one boolean and negated:
  *
- *   - `useAnchorPositionAtPoint` — for cursor-tracking positions
- *     (`mouse`, `mouse-x`, `mouse-y`) when a cursor position is
- *     available (i.e. the popup was activated by a pointer). Positions
- *     the popover relative to a hidden synthetic anchor that follows
- *     the cursor according to the `position` / `mousePosition`
- *     semantics. The synthetic anchor element is rendered as a sibling
- *     of the popover.
- *   - `useAnchorPosition` directly — for non-cursor positions, AND
- *     for cursor positions activated via keyboard focus (where there
- *     is no cursor to track). Anchoring directly to the trigger keeps
- *     keyboard-activated tooltips correctly placed next to the target
- *     instead of rendering in the top-left of the viewport.
- *
- * Exactly one positioning strategy is active at a time: `useAnchorPosition`
- * is wired to the trigger only when the mouse strategy is inactive, and
- * `useAnchorPositionAtPoint` is told `isActive: false` when the direct
- * anchor strategy is active. The other hook is still called (Rules of
- * Hooks) but does no work.
+ *   - `useAnchoredPopoverAtPoint` for cursor-tracking positions (`mouse`,
+ *     `mouse-x`, `mouse-y`) activated by a pointer.
+ *   - `useAnchoredPopover` for everything else, including a cursor position
+ *     activated via keyboard focus, where there is no cursor to track and
+ *     anchoring to the trigger is what keeps the tooltip beside the target.
  *
  * Exit animation is handled by `Popover`'s `isOpen` prop. When `isOpen`
  * transitions to `false`, the primitive calls `hidePopover()` internally and
@@ -840,40 +828,28 @@ function TopLayerTooltipPopup({
 	const popoverRef = useRef<HTMLDivElement>(null);
 
 	// Translate the legacy Popper-style placement string ("right",
-	// "bottom-start", etc.) once and pass the same object to both hooks.
+	// "bottom-start", etc.) once and pass the same object to the hook and
+	// to `Popover`.
 	const placement = fromLegacyPlacement({ legacy: tooltipPosition });
 
 	const isMousePosition = position === 'mouse' || position === 'mouse-x' || position === 'mouse-y';
 	const isMouseStrategyActive = isMousePosition && Boolean(mousePos);
 
-	// Direct anchor strategy: anchors to the trigger element.
-	// Disabled when the mouse strategy is active — both hooks writing
-	// to the same popover would fight for positioning ownership.
-	useAnchorPosition({
+	// One object so the two calls cannot drift on `placement` or `isOpen`.
+	const sharedPositioning = { popoverRef, placement, isOpen };
+
+	useAnchoredPopover({
+		...sharedPositioning,
 		anchorRef: targetRef,
-		popoverRef,
-		placement,
 		isEnabled: !isMouseStrategyActive,
-		isOpen,
 	});
 
-	// Mouse anchor strategy: the hook calls `getPoint()` exactly once
-	// per activation and latches the resulting coordinate. The latch is
-	// per-show because `TopLayerTooltipPopup` mounts fresh on every
-	// show.
-	//
-	// `getPoint()` returns `null` for keyboard-activated shows (where
-	// `mousePos` is undefined) or before the trigger has mounted —
-	// leaving the direct strategy above to own positioning.
-	//
-	// SSR note: `getBoundingClientRect()` is only called here because
-	// `TopLayerTooltipPopup` is gated behind client-only state
-	// transitions.
-	useAnchorPositionAtPoint({
-		popoverRef,
-		placement,
+	// `getPoint()` is latched once per activation, which is per-show here because
+	// `TopLayerTooltipPopup` mounts fresh on every show. `null` before the trigger
+	// has mounted applies no positioning at all.
+	useAnchoredPopoverAtPoint({
+		...sharedPositioning,
 		isEnabled: isMouseStrategyActive,
-		isOpen,
 		getPoint: () => {
 			if (!mousePos || !targetRef.current || !isMousePosition) {
 				return null;

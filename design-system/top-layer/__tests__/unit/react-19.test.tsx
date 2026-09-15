@@ -14,7 +14,7 @@ import { isAtCurrentMenuLevel } from '../../src/use-arrow-navigation/is-at-curre
 import { useArrowNavigation } from '../../src/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '../../src/entry-points/use-popover-id';
 import { getAriaForTrigger } from '../../src/internal/get-aria-for-trigger';
-import { useAnchorPosition } from '../../src/internal/use-anchor-position';
+import { useAnchoredPopover } from '../../src/internal/use-anchored-popover';
 import { createPopoverCloseEvent } from '../../src/popover/create-close-event';
 import { Popover } from '../../src/popover/popover';
 import { PopoverSurface } from '../../src/popover-surface/popover-surface';
@@ -153,8 +153,8 @@ describe('React 19 readiness (top-layer)', () => {
 		function AnchorStrictHarness() {
 			const anchorRef = useRef<HTMLButtonElement>(null);
 			const popoverRef = useRef<HTMLDivElement>(null);
-			useAnchorPosition({
-				anchorRef,
+			useAnchoredPopover({
+				anchorRef: anchorRef,
 				popoverRef,
 				placement: { edge: 'end' },
 				forceFallbackPositioning: true,
@@ -181,7 +181,7 @@ describe('React 19 readiness (top-layer)', () => {
 			return <div ref={popoverRef}>manual content</div>;
 		}
 
-		it('runs useAnchorPosition in StrictMode', () => {
+		it('runs useAnchoredPopover in StrictMode', () => {
 			expect(() =>
 				render(
 					<React.StrictMode>
@@ -300,12 +300,12 @@ describe('React 19 readiness (top-layer)', () => {
 			await expect(() => <SimpleDismissStrictHarness />).toPassStrictMode();
 		});
 
-		it('useAnchorPosition passes strict mode', async () => {
+		it('useAnchoredPopover passes strict mode', async () => {
 			function AnchorStrictHarness() {
 				const anchorRef = useRef<HTMLButtonElement>(null);
 				const popoverRef = useRef<HTMLDivElement>(null);
-				useAnchorPosition({
-					anchorRef,
+				useAnchoredPopover({
+					anchorRef: anchorRef,
 					popoverRef,
 					placement: { edge: 'end' },
 					forceFallbackPositioning: true,

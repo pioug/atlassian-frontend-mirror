@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "10.16.9",
+	"version": "10.16.11",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -155,6 +155,9 @@
 		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform-dst-tokens-finesse": {
+			"type": "boolean"
+		},
 		"platform-dst-main-print-styles": {
 			"type": "boolean"
 		},
@@ -191,9 +194,6 @@
 		"platform-dst-motion-uplift-panel": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform-dst-tokens-finesse": {
-			"type": "boolean"
 		},
 		"platform_dst_ads_appswitcher_improvements": {
 			"type": "boolean",

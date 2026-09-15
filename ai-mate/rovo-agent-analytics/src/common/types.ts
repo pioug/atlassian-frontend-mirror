@@ -1,4 +1,5 @@
 import type { AgentInteractionsEventPayload } from '../actions/groups/agent-interactions';
+import type { AgentProfileEventPayload } from '../actions/groups/agent-profile';
 import type { BrowseAgentsEventPayload } from '../actions/groups/browse-agents';
 import type { CreateFlowEventPayload } from '../actions/groups/create-flow';
 import type { DebugEventPayload } from '../actions/groups/debug';
@@ -62,6 +63,7 @@ export type ErrorEventPayload = {
 export type EventPayload =
 	| EditingEventPayload
 	| AgentInteractionsEventPayload
+	| AgentProfileEventPayload
 	| BrowseAgentsEventPayload
 	| SubagentInteractionsEventPayload
 	| DebugEventPayload

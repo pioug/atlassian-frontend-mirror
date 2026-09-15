@@ -16,12 +16,16 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import type { MentionProvider } from '@atlaskit/mention';
 import { UNKNOWN_USER_ID } from '@atlaskit/mention/constants';
-import { isResolvingMentionProvider, MentionNameStatus } from '@atlaskit/mention/resource';
-import type { MentionNameDetails } from '@atlaskit/mention/resource';
-import type { MentionDisabledState, MentionDisabledStateInput } from '@atlaskit/mention/types';
-import { isRestricted } from '@atlaskit/mention/types';
+import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
+import {
+	type MentionDisabledState,
+	type MentionDisabledStateInput,
+	type MentionProvider,
+	MentionNameStatus,
+	type MentionNameDetails,
+	isRestricted,
+} from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';

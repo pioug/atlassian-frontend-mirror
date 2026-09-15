@@ -10,11 +10,11 @@ import { jsx } from '@compiled/react';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { MentionProvider } from '@atlaskit/mention/resource';
 import type {
 	InlineInvitePopupResult,
 	MentionDisabledState,
 	MentionDisabledStateInput,
+	MentionProvider,
 } from '@atlaskit/mention/types';
 
 import type { MentionsPlugin } from '../mentionsPluginType';

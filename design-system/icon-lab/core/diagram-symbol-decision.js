@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::658515a9ad9d7b884654891b4b06eaa0>>
+ * @codegen <<SignedSource::e4274b59e490151d61636d93b3ea63d1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const DiagramSymbolDecisionIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramSymbolDecisionIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M7.132.317a1.376 1.376 0 0 1 1.736 0l.105.094 6.616 6.616.094.105a1.376 1.376 0 0 1 0 1.736l-.094.105-6.616 6.616a1.377 1.377 0 0 1-1.841.094l-.105-.094L.411 8.973a1.376 1.376 0 0 1 0-1.946L7.027.411zM1.562 8 8 14.438 14.438 8 8 1.561z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M7.132.316a1.376 1.376 0 0 1 1.736 0l.105.094 6.616 6.616.094.105a1.376 1.376 0 0 1 0 1.736l-.094.105-6.616 6.616a1.377 1.377 0 0 1-1.841.094l-.105-.094L.411 8.972a1.376 1.376 0 0 1 0-1.946L7.027.41zM1.562 8 8 14.438l6.438-6.439L8 1.561z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DiagramSymbolDecisionIcon.displayName = 'DiagramSymbolDecisionIcon';

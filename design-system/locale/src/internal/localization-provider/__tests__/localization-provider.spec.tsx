@@ -1,5 +1,7 @@
 jest.mock('../to-formatted-parts');
 jest.mock('../../date-parser');
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { createDateParser } from '../../date-parser';
 import { createLocalizationProvider, type LocalizationProvider } from '../localization-provider';
 import { toFormattedParts } from '../to-formatted-parts';
@@ -22,13 +24,19 @@ expect.extend({
 });
 
 const origDateTimeFormat = Intl.DateTimeFormat;
+const origLocale = Intl.Locale;
+const writableIntl = Intl as unknown as { Locale: typeof Intl.Locale };
 const mockIntlDateTimeFormat = (mockedReturn: any) => {
 	Intl.DateTimeFormat = jest.fn(() => mockedReturn) as unknown as typeof Intl.DateTimeFormat;
+};
+const mockIntlLocale = (mockedReturn: any) => {
+	writableIntl.Locale = jest.fn(() => mockedReturn) as unknown as typeof Intl.Locale;
 };
 
 describe('LocalizationProvider', () => {
 	afterEach(() => {
 		Intl.DateTimeFormat = origDateTimeFormat;
+		writableIntl.Locale = origLocale;
 	});
 
 	it('formats date with Intl.DateTimeFormat.format', () => {
@@ -146,5 +154,73 @@ describe('LocalizationProvider', () => {
 		provider.formatToParts(date);
 
 		expect(mockedIntl.formatToParts).toHaveBeenCalledWith(expect.toBeDateWithYear(2020));
+	});
+
+	// smoke test for Locale to have the method we need, see https://github.com/microsoft/TypeScript/issues/61713#issuecomment-5569377698
+	it('should make a Locale that has getWeekInfo (smoke test)', () => {
+		const locale = new Intl.Locale('en');
+		const weekInfo = locale.getWeekInfo();
+		expect(weekInfo).toBeDefined();
+	});
+
+	it.each([
+		// Intl.Locale.getWeekInfo() uses ISO weekdays (1 = Monday … 7 = Sunday).
+		// getFirstDayOfWeek maps that onto JS weekdays (0 = Sunday … 6 = Saturday).
+		[1, 1],
+		[7, 0],
+	])(
+		'should return first day of week using `Intl.Locale.getWeekInfo`',
+		(isoFirstDay, expectedWeekStartDay) => {
+			passGate('platform-dst-locale-week-start-day');
+			const mockedLocale = {
+				getWeekInfo: jest.fn().mockReturnValue({ firstDay: isoFirstDay }),
+			};
+			mockIntlLocale(mockedLocale);
+
+			const provider = createLocalizationProvider('en');
+			const result = provider.getFirstDayOfWeek();
+
+			expect(Intl.Locale).toHaveBeenCalledWith('en');
+			expect(mockedLocale.getWeekInfo).toHaveBeenCalled();
+			expect(result).toBe(expectedWeekStartDay);
+		},
+	);
+
+	it('should not construct Intl.Locale until getFirstDayOfWeek is called', () => {
+		const mockedLocale = {
+			getWeekInfo: jest.fn().mockReturnValue({ firstDay: 1 }),
+		};
+		mockIntlLocale(mockedLocale);
+
+		createLocalizationProvider('en');
+		expect(Intl.Locale).not.toHaveBeenCalled();
+	});
+
+	it('should reuse the same Intl.Locale across getFirstDayOfWeek calls', () => {
+		passGate('platform-dst-locale-week-start-day');
+		const mockedLocale = {
+			getWeekInfo: jest.fn().mockReturnValue({ firstDay: 1 }),
+		};
+		mockIntlLocale(mockedLocale);
+
+		const provider = createLocalizationProvider('en');
+		provider.getFirstDayOfWeek();
+		provider.getFirstDayOfWeek();
+
+		expect(Intl.Locale).toHaveBeenCalledTimes(1);
+		expect(mockedLocale.getWeekInfo).toHaveBeenCalledTimes(2);
+	});
+
+	it('should return Sunday when `platform-dst-locale-week-start-day` is off', () => {
+		failGate('platform-dst-locale-week-start-day');
+		const mockedLocale = {
+			getWeekInfo: jest.fn().mockReturnValue({ firstDay: 1 }),
+		};
+		mockIntlLocale(mockedLocale);
+
+		const provider = createLocalizationProvider('en');
+		expect(provider.getFirstDayOfWeek()).toBe(0);
+		expect(Intl.Locale).not.toHaveBeenCalled();
+		expect(mockedLocale.getWeekInfo).not.toHaveBeenCalled();
 	});
 });

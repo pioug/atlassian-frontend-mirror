@@ -13,10 +13,13 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
 import { insm } from '@atlaskit/insm';
-import type { MentionProvider } from '@atlaskit/mention/resource';
-import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
-import { ComponentNames } from '@atlaskit/mention/types';
-import type { Actions as MentionActions, SliNames } from '@atlaskit/mention/types';
+import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/analytics';
+import {
+	ComponentNames,
+	type MentionProvider,
+	type Actions as MentionActions,
+	type SliNames,
+} from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MentionsPlugin } from '../mentionsPluginType';

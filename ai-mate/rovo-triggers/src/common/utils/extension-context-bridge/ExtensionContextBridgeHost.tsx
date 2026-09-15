@@ -1,9 +1,15 @@
 import { useEffect, useMemo, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 
 import { useSubscribeAll } from '../../../main';
 
+import {
+	getContextKey,
+	reportRelayDecision,
+	type OnBridgeRelayDecision,
+	type RelayDecision,
+} from './analytics';
 import {
 	BRIDGE_CONTROL_REQUEST_CONTEXT,
 	BRIDGE_MESSAGE_MARKER,
@@ -50,17 +56,8 @@ const stampProductContentId = (
  * else is keyed by payload type, of which there is one live instance at a time.
  */
 const getContextSlotKey = (payload: { type: string; data?: unknown }): string => {
-	if (payload.type === 'set-message-context') {
-		const data = payload.data;
-		const contextKey =
-			typeof data === 'object' && data !== null && 'contextKey' in data
-				? (data as { contextKey?: unknown }).contextKey
-				: undefined;
-		if (typeof contextKey === 'string') {
-			return `${payload.type}:${contextKey}`;
-		}
-	}
-	return payload.type;
+	const contextKey = getContextKey(payload);
+	return contextKey === undefined ? payload.type : `${payload.type}:${contextKey}`;
 };
 
 type Props = {
@@ -78,6 +75,12 @@ type Props = {
 	 * mount passes it explicitly, so that only covers bespoke embeddings.
 	 */
 	isAiEnabled?: boolean;
+	/**
+	 * Called with what the relay policy decided for each payload this product published, at most once
+	 * per distinct outcome per mount. Consumer-supplied because the analytics client lives outside
+	 * this package. Omitted, nothing is reported. See `./analytics`.
+	 */
+	onRelayDecision?: OnBridgeRelayDecision;
 };
 
 /**
@@ -91,10 +94,16 @@ export const ExtensionContextBridgeHost = ({
 	transport,
 	getContentId,
 	isAiEnabled,
+	onRelayDecision,
 }: Props): null => {
 	// Self-gated (not taken from the consumer) so this cannot mount by mistake wherever
-	// `ChatOpenerSubscriber` renders. Matches `BRIDGE_FEATURE_GATE` in `./constants`.
-	const active = fg('rovo-ext_context_bridge');
+	// `ChatOpenerSubscriber` renders. Matches `EXT_CONTEXT_BRIDGE_EXPERIMENT` in `./constants`.
+	//
+	// No-exposure read on purpose: this component mounts on every page of an opted-in product, so
+	// firing exposure here would measure product page loads instead of extension users. The
+	// extension logs the one exposure. See `./constants`.
+	const active =
+		UNSAFE_expValNoExposure('rovo-ext_context_bridge_exp', 'isEnabled', false) === true;
 
 	const activeTransport = useMemo<Transport | undefined>(() => {
 		if (!active) {
@@ -117,6 +126,9 @@ export const ExtensionContextBridgeHost = ({
 	 * creates no copy that outlives the page, and a chat that is never opened is never sent anything.
 	 */
 	const lastRelayedRef = useRef<Map<string, BridgeMessage>>(new Map());
+
+	/** Reported decisions, so a per-keystroke payload yields one event rather than thousands. */
+	const reportedDecisionsRef = useRef<Set<string>>(new Set());
 
 	// Answers `request-context` from the chat, which cannot observe context published before it
 	// mounted. Products such as Jira publish once per navigation, so without this a chat opened after
@@ -156,17 +168,34 @@ export const ExtensionContextBridgeHost = ({
 		if (isAiEnabled === false) {
 			return;
 		}
-		// Loop guard.
+		// Loop guard. Not reported: our own echo, not a decision about the product.
 		if (payload.interactionSource === BRIDGE_SOURCE) {
 			return;
 		}
-		if (getInboundDecision(payload.type) !== 'allow') {
+
+		const report = (decision: RelayDecision): void => {
+			reportRelayDecision(reportedDecisionsRef.current, onRelayDecision, {
+				payloadType: payload.type,
+				contextKey: getContextKey(payload),
+				relayed: decision === 'allow',
+				decision,
+				publisherSource: payload.source,
+				payloadProduct: payload.product,
+			});
+		};
+
+		const inboundDecision = getInboundDecision(payload.type);
+		if (inboundDecision !== 'allow') {
+			report(inboundDecision);
 			return;
 		}
-		const serialized = serializePayload(payload);
-		if (!serialized) {
+		const result = serializePayload(payload);
+		if (!result.ok) {
+			report(result.reason);
 			return;
 		}
+		report('allow');
+		const serialized = result.payload;
 		stampProductContentId(serialized, getContentId?.());
 		const message: BridgeMessage = {
 			[BRIDGE_MESSAGE_MARKER]: true,

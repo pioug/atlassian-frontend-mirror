@@ -1,6 +1,6 @@
 import { meros } from 'meros/browser';
 
-import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience-trace-id-context';
+import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/get-active-trace-http-request-headers';
 
 import { buildHeaders } from './buildHeaders';
 import { buildUrl } from './buildUrl';

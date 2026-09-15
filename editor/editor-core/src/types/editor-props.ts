@@ -44,7 +44,7 @@ import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
-import type { MentionProvider } from '@atlaskit/mention/resource';
+import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 
 import type EditorActions from '../actions';

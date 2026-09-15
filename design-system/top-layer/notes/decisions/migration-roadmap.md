@@ -16,7 +16,7 @@ and branches on the flag). It is not the same as “every example in the package
 | `modal-dialog`      | `@atlaskit/modal-dialog`      | Messaging  | ✅ Yes         | Native `<dialog>` via `Dialog`                                                                                                                                                                                                                                                                     |
 | `dropdown-menu`     | `@atlaskit/dropdown-menu`     | Forms      | ✅ Yes         | `Popup` + menu keyboard via `useArrowNavigation`                                                                                                                                                                                                                                                   |
 | `flag`              | `@atlaskit/flag`              | Messaging  | ✅ Yes         | `Popover` `manual` for stacking; motion unchanged                                                                                                                                                                                                                                                  |
-| `spotlight`         | `@atlaskit/spotlight`         | Messaging  | ✅ Yes         | `Popover` + `useAnchorPosition` + `useSimpleLightDismiss`                                                                                                                                                                                                                                          |
+| `spotlight`         | `@atlaskit/spotlight`         | Messaging  | ✅ Yes         | `Popover` + `useAnchoredPopover` + `useSimpleLightDismiss`                                                                                                                                                                                                                                         |
 | `select`            | `@atlaskit/select`            | Forms      | ✅ Yes         | `PopupSelect` via `popup-select-top-layer.tsx`                                                                                                                                                                                                                                                     |
 | `datetime-picker`   | `@atlaskit/datetime-picker`   | Forms      | ✅ Yes         | Calendar menu: `menu-top-layer.tsx`, `fixed-layer-menu-top-layer.tsx`                                                                                                                                                                                                                              |
 | `inline-dialog`     | `@atlaskit/inline-dialog`     | Overlays   | ✅ Yes         | `inline-dialog-top-layer.tsx` — deprecate-in-favor-of-popup still applies to product direction                                                                                                                                                                                                     |
@@ -68,6 +68,28 @@ To find every fudge before the follow-up PR:
 ```bash
 git grep -n "FUDGE(top-layer-api)" platform/packages/design-system
 ```
+
+### Sizing API decisions deferred (`useAnchoredPopover`, 2026-09-10)
+
+- **`shouldFlip={false}` is inert on the top-layer path**, documented as such since the adapters
+  landed: the fallback chain comes from `position-try-fallbacks` and there is no per-consumer
+  switch. The flip floor makes that more visible, not less: a fitting popover now flips at a
+  well-defined threshold (`floor + gap + padding`) where before it stayed put and shrank. jira
+  `horizontal-nav-tabs/AppTabMenu.tsx` is the site to watch; it sets the prop and reaches this path
+  through `JiraPopup`.
+- **`placement.minSize: 0` is the expressible answer**, and did not exist before: it caps the
+  popover without giving it a reason to move. Consider exposing it on `Popup`, or wiring
+  `shouldFlip={false}` to it, rather than leaving the prop inert. One limit before promising it: on
+  a placement axis that is `'min-anchor'` or `'match-anchor'` while something is fitting,
+  `minSize: 0` composes as `max(0px, anchor)` and leaves the anchor floor, and therefore the flip,
+  standing. See [width-from-anchor-floors.md](./width-from-anchor-floors.md) → _Update (2026-08-25,
+  later)_.
+- **`TPopoverAxisSize`, `VIEWPORT_PADDING` and `FALLBACK_MINIMUM_MAIN_AXIS_SIZE` have no `exports`
+  subpath.** `anchored-popover-size.tsx` is internal and `use-anchored-popover.tsx` does not
+  re-export them. `TAnchoredPopoverOptions['inlineSize']` is the only way to name the axis-size type
+  from outside the package (`@atlaskit/popup` does so in `src/internal/get-popup-axis-sizes.tsx`); a
+  consumer that wants the padding constant still cannot have it. Not a regression, since the old
+  `fit-axis-cap.tsx` had no subpath either.
 
 ### Tooltip `TriggerProps.testId` (kept on the public surface — not deferred)
 

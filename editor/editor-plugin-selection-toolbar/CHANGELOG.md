@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 19.0.8
+
+### Patch Changes
+
+- [`b78306efe5c75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b78306efe5c75) -
+  Clean up feature gate `platform_editor_markdown_patch_m3`
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.4
 
 ### Patch Changes

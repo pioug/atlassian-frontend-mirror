@@ -18,6 +18,9 @@
 		"team": "Navigation Experiences - Linking Platform",
 		"i18n": true,
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Link Picker"
 		}
 	},

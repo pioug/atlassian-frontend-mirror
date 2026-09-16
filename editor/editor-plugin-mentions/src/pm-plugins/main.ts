@@ -22,6 +22,7 @@ import {
 } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { isMentionTypeAheadEnabled } from '../isMentionTypeAheadEnabled';
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mentionNodeView';
 import { MENTION_PROVIDER_REJECTED, MENTION_PROVIDER_UNDEFINED } from '../types';
@@ -86,6 +87,10 @@ export function createMentionPlugin({
 }: CreateMentionPlugin): SafePlugin<MentionPluginState> {
 	let mentionProvider: MentionProvider;
 
+	const isMentionInsertionEnabled = (state: EditorState): boolean =>
+		isMentionTypeAheadEnabled(options?.canOpenTypeAhead) &&
+		canMentionBeCreatedInRange(state.selection.from, state.selection.to)(state);
+
 	const sendAnalytics = (
 		event: string,
 		actionSubject: string,
@@ -116,12 +121,8 @@ export function createMentionPlugin({
 		key: mentionPluginKey,
 		state: {
 			init(_, state: EditorState): MentionPluginState {
-				const canInsertMention = canMentionBeCreatedInRange(
-					state.selection.from,
-					state.selection.to,
-				)(state);
 				return {
-					canInsertMention,
+					canInsertMention: isMentionInsertionEnabled(state),
 				};
 			},
 			apply(tr, pluginState: MentionPluginState, oldState, newState): MentionPluginState {
@@ -138,10 +139,7 @@ export function createMentionPlugin({
 				if (tr.docChanged || (tr.selectionSet && hasPositionChanged)) {
 					newPluginState = {
 						...pluginState,
-						canInsertMention: canMentionBeCreatedInRange(
-							newState.selection.from,
-							newState.selection.to,
-						)(newState),
+						canInsertMention: isMentionInsertionEnabled(newState),
 					};
 					hasPublicPluginStateChanged = true;
 				}

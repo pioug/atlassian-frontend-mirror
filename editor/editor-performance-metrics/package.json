@@ -9,6 +9,9 @@
 		},
 		"team": "Editor: Lego",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "EditorPerformanceMetrics",
 			"category": "Components"
 		}

@@ -1,5 +1,23 @@
 # @atlaskit/mention
 
+## 29.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.2.0
+
+### Minor Changes
+
+- [`2bbc1c84de468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bbc1c84de468) -
+  Expose direct entry points for existing mention resources and predicates, linking errors, site
+  hooks, URL helpers, Pulse, and preview-panel detection. Existing entry points remain compatible.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.1.6
 
 ### Patch Changes

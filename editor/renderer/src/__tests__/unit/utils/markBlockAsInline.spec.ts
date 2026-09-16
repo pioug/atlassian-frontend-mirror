@@ -1,10 +1,67 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { doc, p, bodiedExtension, h1 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { markBlockAsInline } from '../../../react/utils/markBlockAsInline';
 
 const schema = defaultSchema;
+
+describe('Custom UI inline-bodied paragraph composition', () => {
+	const document = doc(
+		p('Before'),
+		bodiedExtension({
+			extensionType: 'com.atlassian.ecosystem',
+			extensionKey: 'custom-ui',
+			parameters: { layout: 'inline-bodied' },
+		})(p('Inline')),
+		p('after'),
+	)(schema);
+
+	it('marks both neighbouring paragraphs at the top level', () => {
+		const onMark = jest.fn();
+		markBlockAsInline({
+			nodes: getChildNodes(document),
+			onMark,
+			parentPos: 1,
+			shouldDisplayExtensionAsInline: (node) => node.parameters?.layout === 'inline-bodied',
+		});
+		expect(onMark).toHaveBeenCalledWith({ pos: 1 });
+		expect(onMark).toHaveBeenCalledWith({
+			pos: 1 + document.child(0).nodeSize + document.child(1).nodeSize,
+		});
+		expect(onMark).toHaveBeenCalledTimes(2);
+	});
+
+	it('does not join neighbours of nested Custom UI macros', () => {
+		passGate('platform_forge_inline_bodied_layout_switch');
+		passGate('platform_forge_inline_bodied_macro');
+		const onMark = jest.fn();
+		const shouldDisplayExtensionAsInline = jest.fn().mockReturnValue(true);
+		markBlockAsInline({
+			nodes: getChildNodes(document),
+			onMark,
+			parentPos: 1,
+			isTopLevel: false,
+			shouldDisplayExtensionAsInline,
+		});
+		expect(onMark).not.toHaveBeenCalled();
+		expect(shouldDisplayExtensionAsInline).not.toHaveBeenCalled();
+	});
+
+	it('preserves existing nested composition when the layout gate is off', () => {
+		failGate('platform_forge_inline_bodied_layout_switch');
+		const onMark = jest.fn();
+		markBlockAsInline({
+			nodes: getChildNodes(document),
+			onMark,
+			parentPos: 1,
+			isTopLevel: false,
+			shouldDisplayExtensionAsInline: () => true,
+		});
+		expect(onMark).toHaveBeenCalledTimes(2);
+	});
+});
 
 // Helper to extract child nodes from a document
 function getChildNodes(document: PMNode): PMNode[] {

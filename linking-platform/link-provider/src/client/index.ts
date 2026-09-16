@@ -14,7 +14,10 @@ import type {
 } from '@atlaskit/linking-common/types';
 import { request } from '@atlaskit/linking-common/api';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
-import { APIError, InvalidUrlError, getResolverUrl, NetworkError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
+import { InvalidUrlError } from '@atlaskit/linking-common/invalid-url-error';
+import { getResolverUrl } from '@atlaskit/linking-common/get-resolver-url';
+import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type CardClient as CardClientInterface } from './types';

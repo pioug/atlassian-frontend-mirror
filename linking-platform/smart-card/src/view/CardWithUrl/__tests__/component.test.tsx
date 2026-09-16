@@ -13,9 +13,10 @@ import { UnAuthClient } from '@atlaskit/link-test-helpers';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { fireEvent, render } from '@atlassian/testing-library';
+import { fireEvent, render, userEvent } from '@atlassian/testing-library';
 
 import { useSmartLink } from '../../../state/hooks/useSmartLink';
+import { getClickUrl } from '../../../state/getClickUrl';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';
 import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
 import * as Fire3PWorkflowsClickEventModule from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';
@@ -414,5 +415,189 @@ describe('CardWithUrl', () => {
 				});
 			});
 		});
+	});
+});
+
+describe('embedded Flexible Card destinations', () => {
+	const original = 'https://example.com';
+	const destination = 'https://example.com/portal/article/123';
+	type Navigation = NonNullable<React.ComponentProps<typeof SmartCardProvider>['linkNavigation']>;
+	const policy = jest.fn<ReturnType<Navigation>, Parameters<Navigation>>();
+	const onEvent = jest.fn();
+	let open: jest.SpyInstance;
+	beforeEach(() => {
+		policy.mockReset().mockReturnValue({ url: destination, target: '_top' });
+		onEvent.mockClear();
+		jest.mocked(getClickUrl).mockImplementation((url) => url);
+		open = jest.spyOn(window, 'open').mockImplementation(() => null);
+		(useSmartLink as jest.Mock).mockReturnValue(createUseSmartLinkResult());
+		jest.mocked(useCrossProductUrlWrapper).mockReturnValue((url) => url);
+	});
+	afterEach(() => open.mockRestore());
+
+	const setup = (
+		props: Partial<React.ComponentProps<typeof CardWithUrl>> = {},
+		enabled = true,
+		linkNavigation: Navigation | null = policy,
+	) => {
+		if (enabled) passGate('confluence_ep_shim_macro_links_v2');
+		else failGate('confluence_ep_shim_macro_links_v2');
+		const client = new CardClient();
+		const renderCard = () => (
+			<IntlProvider locale="en">
+				<SmartCardProvider
+					client={client}
+					product="CONFLUENCE"
+					linkNavigation={linkNavigation ?? undefined}
+				>
+					<SmartCardProvider>
+						<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+							<CardWithUrl
+								appearance="block"
+								id="embedded"
+								url={original}
+								ui={{ clickableContainer: true }}
+								children={<TitleBlock />}
+								{...props}
+							/>
+						</AnalyticsListener>
+					</SmartCardProvider>
+				</SmartCardProvider>
+			</IntlProvider>
+		);
+		const view = render(renderCard());
+		return {
+			...view,
+			links: view.getAllByRole('link'),
+			refresh: () => view.rerender(renderCard()),
+		};
+	};
+
+	it.each([
+		['background', 0],
+		['title', 1],
+	] as const)('uses inherited navigation for the %s link', (_, index) => {
+		const onClick = jest.fn();
+		const { links } = setup({ onClick });
+		expect(links).toHaveLength(2);
+		expect(links[index]).toHaveAttribute('href', destination);
+		expect(links[index]).toHaveAttribute('target', '_top');
+		expect(useSmartLink).toHaveBeenCalledWith('embedded', original, 'block');
+		fireEvent.click(links[index]);
+		expect(policy).toHaveBeenCalledWith(original);
+		expect(onClick).toHaveBeenCalledTimes(1);
+		expect(onClick.mock.calls[0][1]).toEqual({ url: original, destinationUrl: destination });
+		expect(open).toHaveBeenCalledTimes(1);
+		expect(open).toHaveBeenCalledWith(destination, '_top');
+		expect(
+			onEvent.mock.calls.filter(
+				([event]) => event.payload.action === 'clicked' && event.payload.actionSubject === 'link',
+			),
+		).toHaveLength(1);
+	});
+
+	it.each(['gate disabled', 'no callback', 'inline', 'block'] as const)(
+		'keeps existing behavior: %s',
+		(mode) => {
+			const props =
+				mode === 'inline' || mode === 'block'
+					? { appearance: mode, ui: undefined, children: undefined }
+					: {};
+			const { links } = setup(
+				props,
+				mode !== 'gate disabled',
+				mode === 'no callback' ? null : policy,
+			);
+			links.forEach((link) => expect(link).toHaveAttribute('href', original));
+			fireEvent.click(links[0]);
+			expect(open).toHaveBeenCalledWith(original, '_self');
+			expect(policy).not.toHaveBeenCalled();
+		},
+	);
+
+	it.each(['_blank', '_self', '_top', '_parent'] as const)(
+		'preserves the explicit target %s',
+		(target) => {
+			const { links } = setup({ children: <TitleBlock anchorTarget={target} /> });
+			links.forEach((link) => expect(link.getAttribute('target') || '_self').toBe(target));
+			fireEvent.click(links[0]);
+			expect(open).toHaveBeenCalledWith(destination, target);
+		},
+	);
+
+	it('uses the anchor destination and frame target supplied by the policy', () => {
+		policy.mockReturnValue({ url: '#heading', target: '_self' });
+		const { links } = setup();
+		links.forEach((link) => expect(link).toHaveAttribute('href', '#heading'));
+		fireEvent.click(links[0]);
+		expect(open).toHaveBeenCalledWith('#heading', '_self');
+	});
+
+	it('supports accessible keyboard activation and focus for both links', async () => {
+		const user = userEvent.setup();
+		const { container, links } = setup();
+		await expect(container).toBeAccessible();
+		for (const link of links) {
+			await user.tab();
+			expect(link).toHaveFocus();
+			await user.keyboard('{Enter}');
+			expect(open).toHaveBeenLastCalledWith(destination, '_top');
+			expect(link).toHaveFocus();
+		}
+		expect(open).toHaveBeenCalledTimes(2);
+		await user.tab({ shift: true });
+		expect(links[0]).toHaveFocus();
+	});
+
+	it.each([0, 1])('honors cancellation for link %s', (index) => {
+		const { links } = setup({ onClick: (event) => event.preventDefault() });
+		fireEvent.click(links[index]);
+		expect(open).not.toHaveBeenCalled();
+	});
+
+	it.each([{ metaKey: true }, { ctrlKey: true }, { shiftKey: true }])(
+		'preserves modified clicks: %j',
+		(keys) => {
+			const { links } = setup();
+			fireEvent.click(links[0], keys);
+			expect(open).toHaveBeenCalledTimes(1);
+			expect(open).toHaveBeenCalledWith(destination, '_blank');
+		},
+	);
+
+	it.each(['auxclick', 'contextmenu'])('refreshes the native destination on %s', (type) => {
+		const { links } = setup();
+		const updated = `${destination}?updated`;
+		policy.mockReturnValue({ url: updated, target: '_top' });
+		fireEvent(
+			links[0],
+			new MouseEvent(type, { button: type === 'auxclick' ? 1 : 2, bubbles: true }),
+		);
+		expect(links[0]).toHaveAttribute('href', updated);
+		expect(open).not.toHaveBeenCalled();
+	});
+
+	it('updates destinations when pending metadata resolves and changes again', () => {
+		const initial = createUseSmartLinkResult();
+		initial.state.status = 'pending';
+		(useSmartLink as jest.Mock).mockReturnValue(initial);
+		jest.mocked(useCrossProductUrlWrapper).mockReturnValue((url) => `${url}?tracking=retained`);
+		policy.mockImplementation((url) => ({
+			url: url.replace('example.com', 'portal.example.com'),
+			target: '_top',
+		}));
+		const { getAllByRole, refresh } = setup();
+		expect(getAllByRole('link')[0]).toHaveAttribute('href', 'https://portal.example.com');
+		for (const suffix of ['/resolved', '/updated']) {
+			(useSmartLink as jest.Mock).mockReturnValue(
+				createUseSmartLinkResult(createSmartLinkDetails(true)),
+			);
+			jest.mocked(getClickUrl).mockReturnValue(original + suffix);
+			refresh();
+			const expected = `https://portal.example.com${suffix}?tracking=retained`;
+			getAllByRole('link').forEach((link) => expect(link).toHaveAttribute('href', expected));
+			fireEvent.click(getAllByRole('link')[0]);
+			expect(open).toHaveBeenLastCalledWith(expected, '_top');
+		}
 	});
 });

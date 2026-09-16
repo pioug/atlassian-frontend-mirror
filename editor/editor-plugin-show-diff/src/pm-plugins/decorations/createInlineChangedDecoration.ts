@@ -2,6 +2,7 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DiffType, RevealOptions } from '../../showDiffPluginType';
 import { CONTRIBUTOR_TAG_Z_INDEX } from '../../ui/ContributorTag/buildContributorTagDom';
@@ -32,7 +33,7 @@ import {
 	getAtomicInlineNodeClassNameLegacy,
 	resolveInlineChangedStyleLegacy,
 } from './createInlineChangedDecoration.styles.legacy';
-import { buildDiffDecorationSpec } from './decorationKeys';
+import { buildDiffDecorationSpec, scrollMarginTopStyle } from './decorationKeys';
 import { REVEAL_ATTR, resolveRevealStyle } from './revealStyles';
 import type { InlineAttrChangeNodeName } from './utils/getAttrChangeRanges';
 
@@ -308,6 +309,7 @@ export const createInlineChangedDecoration = ({
 		style,
 		atomicInlineAttrs?.styleSuffix,
 		tagWidget ? stackBelowContributorTagStyle : undefined,
+		fg('platform_editor_ai_show_diff_patch_1') ? scrollMarginTopStyle : undefined,
 	]
 		.filter(Boolean)
 		.join('');

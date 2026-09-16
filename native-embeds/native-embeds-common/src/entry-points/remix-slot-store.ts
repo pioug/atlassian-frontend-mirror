@@ -1,5 +1,6 @@
 export {
 	getRemixSlotValues,
+	getRemixSlotValuesForRevision,
 	getRemixVersionForRevision,
 	recordRemixRevisionEdit,
 	recordRemixSlotValues,

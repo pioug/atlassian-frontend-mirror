@@ -10,12 +10,7 @@ import type {
 	TagContributor,
 } from '../../../showDiffPluginType';
 
-import {
-	PARTICIPANT_COLOR_SCHEMES,
-	type AdsAccentColor,
-	type ColorScheme,
-	type PublicColorScheme,
-} from './types';
+import { PARTICIPANT_COLOR_SCHEMES, type AdsAccentColor, type ColorScheme } from './types';
 
 export type DiffAttributionSpanData = DiffStepAttribution & {
 	stepIndex: number;
@@ -286,7 +281,10 @@ export const getColorSchemeForChange = (
 	change: Change,
 	attributedChanges: Change[],
 	attributionColors: Map<string, AdsAccentColor>,
-	fallback: PublicColorScheme | undefined,
+	// Widened from `PublicColorScheme` so a caller of the imperative `showDiff` command (see
+	// `PMDiffParams.colorScheme`) can also request a specific accent as the base for unattributed
+	// changes — an attributed change still wins via `attributionColors`.
+	fallback: ColorScheme | undefined,
 ): ColorScheme | undefined => {
 	const key = getAttributionKeyForChange(change, attributedChanges);
 	return key ? (attributionColors.get(key) ?? fallback) : fallback;

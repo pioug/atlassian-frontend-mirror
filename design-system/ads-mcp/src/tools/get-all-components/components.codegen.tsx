@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::590b36be3f260295a7a348390a365a0a>>
+ * @codegen <<SignedSource::15d361614c34990f3a43c9b3eb89cc76>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -264,7 +264,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'presence',
-				type: 'Presence | Omit<ReactNode, string> | (string & {})',
+				type: '(string & {}) | Presence | Omit<ReactNode, string>',
 				description:
 					"Indicates a user's online status by showing a small icon on the avatar.\nRefer to presence values on the presence component.\nAlternatively accepts any React element. For best results, it is recommended to\nuse square content with height and width of 100%.",
 			},
@@ -284,7 +284,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'status',
-				type: 'Omit<ReactNode, string> | (string & {}) | Status',
+				type: '(string & {}) | Omit<ReactNode, string> | Status',
 				description:
 					'Indicates contextual information by showing a small icon on the avatar.\nRefer to status values on the Status component.',
 			},
@@ -1313,7 +1313,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'weekStartDay',
 				type: '0 | 1 | 2 | 3 | 4 | 5 | 6',
 				description:
-					'Start day of the week for the calendar. The mapping between numbers and days of the week is as follows:\n- `0` Sunday (default value)\n- `1` Monday\n- `2` Tuesday\n- `3` Wednesday\n- `4` Thursday\n- `5` Friday\n- `6` Saturday',
+					'Start day of the week for the calendar. The mapping between numbers and days of the week is as follows:\n- `0` Sunday\n- `1` Monday\n- `2` Tuesday\n- `3` Wednesday\n- `4` Thursday\n- `5` Friday\n- `6` Saturday\n\nDefaults to the first day of the week for the given `locale` when\n`platform-dst-locale-week-start-day` is enabled. Otherwise defaults to Sunday (`0`).',
 			},
 			{
 				name: 'year',
@@ -7031,7 +7031,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "translate" | "content" | "color" | "grid" | "flex" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7088,7 +7088,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"all" | "flex" | "grid" | "fill" | "stroke" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7119,7 +7119,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'as',
-				type: '"object" | "style" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | "center" | ... 98 more ... | "set"',
+				type: '"object" | "sub" | "progress" | "ruby" | "table" | "small" | "embed" | "pre" | "caption" | "menu" | "center" | "meter" | "textarea" | "style" | "data" | "abbr" | "address" | "area" | ... 99 more ... | "set"',
 				description:
 					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)",
 				defaultValue: "'div'",
@@ -7131,7 +7131,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "height" | "width" | "translate" | "content" | "color" | "border" | "alignmentBaseline" | "baselineShift" | "clip" | ... 487 more ... | "viewTimeline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					"Apply a subset of permitted styles powered by Atlassian Design System design tokens.\nIt's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.",
 			},
@@ -7161,7 +7161,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignItems',
-				type: '"center" | "start" | "stretch" | "end" | "baseline"',
+				type: '"baseline" | "end" | "start" | "center" | "stretch"',
 				description: 'Used to align children along the cross axis.',
 			},
 			{
@@ -7177,22 +7177,22 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'columnGap',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description: 'Represents the space between each child.',
 			},
 			{
 				name: 'direction',
-				type: '"column" | "row"',
+				type: '"row" | "column"',
 				description: 'Represents the flex direction property of CSS flexbox.',
 			},
 			{
 				name: 'gap',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description: 'Represents the space between each child.',
 			},
 			{
 				name: 'justifyContent',
-				type: '"center" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch" | "end"',
+				type: '"end" | "start" | "center" | "space-around" | "space-between" | "space-evenly" | "stretch"',
 				description: 'Used to align children along the main axis.',
 			},
 			{
@@ -7202,17 +7202,17 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'rowGap',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description: 'Represents the space between each child.',
 			},
 			{
 				name: 'wrap',
-				type: '"wrap" | "nowrap"',
+				type: '"nowrap" | "wrap"',
 				description: 'Represents the flex wrap property of CSS flexbox.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "justifyContent" | "alignItems" | "columnGap" | "gap" | "rowGap" | "direction" | "flex" | "grid" | "fill" | "stroke" | ... 487 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7258,7 +7258,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'as',
-				type: '"symbol" | "object" | "style" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | ... 156 more ... | "view"',
+				type: '"symbol" | "object" | "sub" | "progress" | "text" | "ruby" | "table" | "small" | "embed" | "pre" | "caption" | "menu" | "center" | "clipPath" | "filter" | "marker" | "mask" | "meter" | ... 157 more ... | "view"',
 				description: 'The DOM element to render as the Focusable element.',
 				defaultValue: "'button'",
 			},
@@ -7274,7 +7274,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "color" | "height" | "width" | "alignmentBaseline" | "baselineShift" | "clip" | "clipRule" | "colorInterpolation" | ... 489 more ... | "viewTimeline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7304,12 +7304,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignContent',
-				type: '"center" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch" | "end"',
+				type: '"end" | "start" | "center" | "space-around" | "space-between" | "space-evenly" | "stretch"',
 				description: 'Used to align the grid along the block axis.',
 			},
 			{
 				name: 'alignItems',
-				type: '"center" | "start" | "stretch" | "end" | "baseline"',
+				type: '"baseline" | "end" | "start" | "center" | "stretch"',
 				description: 'Used to align children along the block axis.',
 			},
 			{
@@ -7319,7 +7319,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'autoFlow',
-				type: '"column" | "row" | "dense" | "row dense" | "column dense"',
+				type: '"row" | "column" | "dense" | "row dense" | "column dense"',
 				description:
 					'Specifies how auto-placed items get flowed into the grid. CSS `grid-auto-flow`.',
 			},
@@ -7332,12 +7332,12 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'columnGap',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description: 'Represents the space between each column.',
 			},
 			{
 				name: 'gap',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description: 'Represents the space between each child across both axes.',
 			},
 			{
@@ -7347,7 +7347,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'justifyContent',
-				type: '"center" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch" | "end"',
+				type: '"end" | "start" | "center" | "space-around" | "space-between" | "space-evenly" | "stretch"',
 				description: 'Used to align children along the inline axis.',
 			},
 			{
@@ -7357,12 +7357,12 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'rowGap',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description: 'Represents the space between each row.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "justifyContent" | "justifyItems" | "alignItems" | "alignContent" | "columnGap" | "gap" | "rowGap" | "flex" | "grid" | ... 488 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -11733,122 +11733,6 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'Tag',
-		package: '@atlaskit/tag',
-		description: 'A tag is a subtle, compact label used to categorize and organize content.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use for descriptive or contextual metadata such as categories, attributes, topics, and groupings; for people, teams, projects, spaces use AvatarTag.',
-			"Don't use for meaningful attributes like status, state, priority, or permissions—use lozenge instead.",
-			'Use the trailingMetric prop to show a count or metric that supports the label (e.g. a roll-up of sub-tags).',
-			'Use TagGroup to control layout of multiple tags.',
-			"Don't use tags within user-generated text (e.g. editor).",
-			'Tags can be non-interactive, links, or removable (isRemovable).',
-		],
-		contentGuidelines: [
-			'Use clear, descriptive tag labels',
-			'Keep tag text concise; max 200px causes truncation',
-			'Use color intentionally to organize related content',
-			'For people, teams, spaces, or projects use avatar tag',
-		],
-		accessibilityGuidelines: [
-			'Provide appropriate labels for tags',
-			'Ensure sufficient color contrast for text readability',
-			'Use clear, descriptive tag text',
-			'Consider keyboard navigation for interactive tags',
-			'Provide alternative text for tag removal actions',
-		],
-		designSource: {
-			figmaUrl: 'https://go.atlassian.com/figma-library-ads-121350-11129',
-		},
-		keywords: ['tag', 'label', 'category', 'filter', 'chip', 'badge'],
-		category: 'data-display',
-		examples: [
-			'import Tag from \'@atlaskit/tag/removable-tag\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Tag text="Basic tag" />\n\t\t<Tag text="Bug" color="red" />\n\t\t<Tag text="Removable tag" removeButtonLabel="Remove" />\n\t</>\n);\nexport default Examples;',
-		],
-		props: [
-			{
-				name: 'appearance',
-				type: '"default" | "rounded"',
-				description: 'Set whether tags are rounded.',
-			},
-			{
-				name: 'color',
-				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "gray" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
-				description: 'The color theme to apply. This sets both the background and text color.',
-			},
-			{
-				name: 'elemBefore',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
-				description: 'The component to be rendered before the tag.',
-			},
-			{
-				name: 'hasMargin',
-				type: 'boolean',
-				description:
-					"When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.",
-			},
-			{
-				name: 'href',
-				type: 'string',
-				description: 'URI or path. If provided, the tag will be a link.',
-			},
-			{
-				name: 'isRemovable',
-				type: 'boolean',
-				description: 'Flag to indicate if a tag is removable.',
-			},
-			{
-				name: 'linkComponent',
-				type: 'ComponentClass<any, any> | FunctionComponent<any>',
-				description:
-					'A link component to be used instead of our standard anchor.\nThe styling of our link item will be applied to the link that is passed in.',
-			},
-			{
-				name: 'maxWidth',
-				type: 'string | number',
-				description:
-					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
-			},
-			{
-				name: 'onAfterRemoveAction',
-				type: '(text: string) => void',
-				description:
-					"Handler to be called after tag is removed. Called with the string 'Post\nRemoval Hook'.",
-			},
-			{
-				name: 'onBeforeRemoveAction',
-				type: '() => boolean',
-				description:
-					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
-			},
-			{
-				name: 'removeButtonLabel',
-				type: 'string',
-				description: 'Text rendered as the aria-label for remove button.',
-			},
-			{
-				name: 'swatchBeforeLabel',
-				type: 'string',
-				description:
-					'Accessible label for the tag\'s leading color swatch.\nPaired with `role="img"` to convey the visual meaning of the swatch\n(e.g. `swatchBeforeLabel="Epic"` for an epic color swatch).',
-			},
-			{
-				name: 'swatchBeforeRole',
-				type: '"alert" | "alertdialog" | "application" | "article" | "banner" | "button" | "cell" | "checkbox" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | ... 56 more ... | (string & {})',
-				description:
-					'The WAI-ARIA role applied to the tag\'s color swatch element.\nUse when the swatch conveys meaning through color alone (e.g. `role="img"`).',
-			},
-			{
-				name: 'text',
-				type: 'string | string[]',
-				description:
-					'Text to be displayed in the tag.\nAccepts a string or an ordered array of string chunks for migration use cases.',
-				isRequired: true,
-			},
-		],
-	},
-	{
 		name: 'TagGroup',
 		package: '@atlaskit/tag-group',
 		description: 'A component for managing multiple tags.',
@@ -12037,6 +11921,122 @@ export const components: ComponentMcpPayload[] = [
 		category: 'data-display',
 		examples: [
 			'import Tag from \'@atlaskit/tag/removable-tag\';\nexport default (): React.JSX.Element => <Tag text="Design" isRemovable={false} />;',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"default" | "rounded"',
+				description: 'Set whether tags are rounded.',
+			},
+			{
+				name: 'color',
+				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "gray" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
+				description: 'The color theme to apply. This sets both the background and text color.',
+			},
+			{
+				name: 'elemBefore',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'The component to be rendered before the tag.',
+			},
+			{
+				name: 'hasMargin',
+				type: 'boolean',
+				description:
+					"When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.",
+			},
+			{
+				name: 'href',
+				type: 'string',
+				description: 'URI or path. If provided, the tag will be a link.',
+			},
+			{
+				name: 'isRemovable',
+				type: 'boolean',
+				description: 'Flag to indicate if a tag is removable.',
+			},
+			{
+				name: 'linkComponent',
+				type: 'ComponentClass<any, any> | FunctionComponent<any>',
+				description:
+					'A link component to be used instead of our standard anchor.\nThe styling of our link item will be applied to the link that is passed in.',
+			},
+			{
+				name: 'maxWidth',
+				type: 'string | number',
+				description:
+					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
+			},
+			{
+				name: 'onAfterRemoveAction',
+				type: '(text: string) => void',
+				description:
+					"Handler to be called after tag is removed. Called with the string 'Post\nRemoval Hook'.",
+			},
+			{
+				name: 'onBeforeRemoveAction',
+				type: '() => boolean',
+				description:
+					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
+			},
+			{
+				name: 'removeButtonLabel',
+				type: 'string',
+				description: 'Text rendered as the aria-label for remove button.',
+			},
+			{
+				name: 'swatchBeforeLabel',
+				type: 'string',
+				description:
+					'Accessible label for the tag\'s leading color swatch.\nPaired with `role="img"` to convey the visual meaning of the swatch\n(e.g. `swatchBeforeLabel="Epic"` for an epic color swatch).',
+			},
+			{
+				name: 'swatchBeforeRole',
+				type: '"alert" | "alertdialog" | "application" | "article" | "banner" | "button" | "cell" | "checkbox" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | ... 56 more ... | (string & {})',
+				description:
+					'The WAI-ARIA role applied to the tag\'s color swatch element.\nUse when the swatch conveys meaning through color alone (e.g. `role="img"`).',
+			},
+			{
+				name: 'text',
+				type: 'string | string[]',
+				description:
+					'Text to be displayed in the tag.\nAccepts a string or an ordered array of string chunks for migration use cases.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'Tag',
+		package: '@atlaskit/tag',
+		description: 'A tag is a subtle, compact label used to categorize and organize content.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for descriptive or contextual metadata such as categories, attributes, topics, and groupings; for people, teams, projects, spaces use AvatarTag.',
+			"Don't use for meaningful attributes like status, state, priority, or permissions—use lozenge instead.",
+			'Use the trailingMetric prop to show a count or metric that supports the label (e.g. a roll-up of sub-tags).',
+			'Use TagGroup to control layout of multiple tags.',
+			"Don't use tags within user-generated text (e.g. editor).",
+			'Tags can be non-interactive, links, or removable (isRemovable).',
+		],
+		contentGuidelines: [
+			'Use clear, descriptive tag labels',
+			'Keep tag text concise; max 200px causes truncation',
+			'Use color intentionally to organize related content',
+			'For people, teams, spaces, or projects use avatar tag',
+		],
+		accessibilityGuidelines: [
+			'Provide appropriate labels for tags',
+			'Ensure sufficient color contrast for text readability',
+			'Use clear, descriptive tag text',
+			'Consider keyboard navigation for interactive tags',
+			'Provide alternative text for tag removal actions',
+		],
+		designSource: {
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-121350-11129',
+		},
+		keywords: ['tag', 'label', 'category', 'filter', 'chip', 'badge'],
+		category: 'data-display',
+		examples: [
+			'import Tag from \'@atlaskit/tag/removable-tag\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Tag text="Basic tag" />\n\t\t<Tag text="Bug" color="red" />\n\t\t<Tag text="Removable tag" removeButtonLabel="Remove" />\n\t</>\n);\nexport default Examples;',
 		],
 		props: [
 			{

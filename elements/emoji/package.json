@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "72.4.6",
+	"version": "72.4.8",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,6 +19,9 @@
 	"atlassian": {
 		"team": "Editor: Collaboration",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Emoji"
 		},
 		"react-compiler": {
@@ -167,8 +170,7 @@
 			"type": "boolean"
 		},
 		"platform_bitbucket_fix_shortname_and_ordering": {
-			"type": "boolean",
-			"referenceOnly": true
+			"type": "boolean"
 		},
 		"use-elements-stargate-emoji-path": {
 			"type": "boolean"

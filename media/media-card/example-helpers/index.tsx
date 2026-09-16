@@ -20,9 +20,10 @@ import {
 	FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 
-import { Card, type CardAppearance, type CardEvent, type CardAction } from '../src';
+import Card from '../src/card/cardLoader';
+import { type CardAction } from '../src/card/actions';
 import { MediaCardError } from '../src/MediaCardError';
-import { type CardFocusEvent } from '../src/types';
+import type { CardFocusEvent, CardAppearance, CardEvent } from '../src/types';
 import DevelopmentUseMessage from './developmentUseMessage';
 import { SelectableCard } from './selectableCard';
 

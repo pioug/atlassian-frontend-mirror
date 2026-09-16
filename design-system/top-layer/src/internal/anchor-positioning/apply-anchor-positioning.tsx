@@ -64,6 +64,35 @@ export function applyAnchorPositioning({
 			property: 'position-try-fallbacks',
 			value: placementToTryFallbacks({ placement }),
 		},
+		/**
+		 * **`position-visibility: always`**
+		 *
+		 * `position-visibility` is used to control the visibility of an anchored
+		 * popover based on the visibility of the element being anchored to (the target).
+		 *
+		 * Default `position-visibility` value: `anchors-visible` → hide the anchored
+		 * popover when the target is fully clipped by an ancestor (eg a scroll container)
+		 * or is `visibility:hidden`.
+		 * Sadly this "automatic hiding" does not actually "close" the popover,
+		 * so things like `:popover-open` are still active, even though the popover
+		 * is no longer painted and no longer receives pointer input. Chrome keeps it
+		 * focusable and in the accessibility tree, so keyboard and screen reader users
+		 * can still land inside a surface that is not painted.
+		 * Per-engine behaviour: `notes/decisions/position-visibility-always.md`.
+		 *
+		 * Generally we have not run into issues with the default (`anchors-visible`)
+		 *
+		 * Exceptions:
+		 *  - Target is intentionally not visible (eg `position:absolute` moving it outside of
+		 *    its parent's "clipped boundary", or a `visibility:hidden` trigger)
+		 *  - A trigger is scrolled out of its scroll container while the popover is open.
+		 *
+		 * We are switching from `anchors-visible` → `always` _for now_ to force no
+		 * automatic hiding of the popover. There seems to be no compelling reason to use
+		 * the default value. If one arises in the future, we could look towards making
+		 *  this behaviour configurable.
+		 */
+		{ property: 'position-visibility', value: 'always' },
 		// Reset browser default popover positioning that conflicts
 		// with anchor positioning (UA: `inset: 0; margin: auto;`)
 		{ property: 'margin', value: '0' },

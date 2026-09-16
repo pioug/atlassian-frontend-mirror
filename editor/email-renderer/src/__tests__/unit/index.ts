@@ -8,6 +8,7 @@
 
 import type { EmailSerializerOpts, MetaDataContext } from '../../interfaces';
 import EmailSerializer from '../..';
+import { ALLOWED_COLORS, styles as statusStyles } from '../../nodes/status';
 import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import MockDate from 'mockdate';
 
@@ -503,10 +504,51 @@ describe('Renderer - EmailSerializer', () => {
 		expect(result).not.toContain('<script>');
 	});
 
-	it('should render status correctly', () => {
-		const { result } = render(status);
-		expect(result).toContain('In progress');
-		expect(result).toContain('background-color');
+	describe('status', () => {
+		// `defaultTestOpts` inlines the stylesheet, so the class is only observable with it off.
+		const classNameFor = (text: string) => {
+			const { result } = render(status, { isInlineCSSEnabled: false }, undefined, 'stage0');
+			const container = document.createElement('div');
+			container.innerHTML = result;
+			return Array.from(container.querySelectorAll('span'))
+				.find((span) => span.textContent === text)
+				?.getAttribute('class');
+		};
+
+		const classFor = (color: string) => `csg-status-${color.replace('#', '').toLowerCase()}`;
+
+		const ruledClasses = () =>
+			new Set(
+				Array.from(statusStyles.matchAll(/\.(csg-status-[\w-]+)\s*\{/gu), (match) => match[1]),
+			);
+
+		it.each([
+			['In progress', 'csg-status-blue'],
+			['Neutral', 'csg-status-neutral'],
+			['Overdue', 'csg-status-red'],
+			['Yellow', 'csg-status-yellow'],
+			['Purple', 'csg-status-purple'],
+			['Green', 'csg-status-green'],
+			['Teal', 'csg-status-b3f5ff'],
+			['Accent green', 'csg-status-abf5d1'],
+			['Lime', 'csg-status-d3f1a7'],
+			['Accent yellow', 'csg-status-fff0b3'],
+			['Orange', 'csg-status-fce4a6'],
+			['Magenta', 'csg-status-fdd0ec'],
+			['Lowercase teal', 'csg-status-b3f5ff'],
+			['Unregistered', 'csg-status-neutral'],
+			['No colour', 'csg-status-neutral'],
+		])('should render the %s status as .%s', (text, className) => {
+			expect(classNameFor(text)).toBe(className);
+		});
+
+		it('should back every allowed colour with a rule in the stylesheet', () => {
+			const ruled = ruledClasses();
+			const expected = Array.from(ALLOWED_COLORS, classFor);
+
+			expect(expected.filter((className) => !ruled.has(className))).toEqual([]);
+			expect(ruled.size).toBe(expected.length);
+		});
 	});
 
 	it('should render numbered column for table', () => {

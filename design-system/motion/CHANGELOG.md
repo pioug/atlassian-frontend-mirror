@@ -1,5 +1,17 @@
 # @atlaskit/motion
 
+## 8.7.0
+
+### Minor Changes
+
+- [`c7333edc6dfa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7333edc6dfa2) -
+  Update `useMotion` so exiting state is available during render and consistently drives exit
+  styles, duration measurement, and completion handling.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.6.1
 
 ### Patch Changes

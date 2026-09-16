@@ -15,7 +15,7 @@ jest.mock('@atlaskit/util-data-test/get-emoji-resource', () => ({
 }));
 
 jest.mock('@atlaskit/link-provider/client', () => {
-	const { APIError: MockAPIError } = jest.requireActual('@atlaskit/linking-common');
+	const { APIError: MockAPIError } = jest.requireActual('@atlaskit/linking-common/api-error');
 	return {
 		...jest.requireActual('@atlaskit/link-provider/client'),
 		__esModule: true,

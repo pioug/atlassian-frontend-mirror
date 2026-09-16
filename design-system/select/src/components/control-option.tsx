@@ -37,6 +37,12 @@ const optionStyles = cssMap({
 			borderInlineStart: `${token('border.width.selected')} solid transparent`,
 		},
 	},
+	finesseFocused: {
+		boxShadow: 'none',
+		'@media screen and (-ms-high-contrast: active)': {
+			borderInlineStart: 'none',
+		},
+	},
 	disabled: {
 		color: token('color.text.disabled'),
 	},
@@ -157,6 +163,7 @@ export const ControlOption = <Option, IsMulti extends boolean = false>(
 				optionStyles.default,
 				!isDisabled && fg('platform-dst-motion-uplift-list-item') && optionStyles.motion,
 				isFocused && optionStyles.focused,
+				isFocused && fg('platform-dst-tokens-finesse') && optionStyles.finesseFocused,
 				isDisabled && optionStyles.disabled,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

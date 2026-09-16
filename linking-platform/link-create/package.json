@@ -17,6 +17,9 @@
 		},
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "LinkCreate"
 		},
 		"i18n": true

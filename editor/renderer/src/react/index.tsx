@@ -381,7 +381,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			props,
 			key,
 			mergeExpandBodyText(
-				this.getChildNodes(fragment).map((node, index) => {
+				this.getChildNodes(fragment, !parentInfo?.path.length).map((node, index) => {
 					if (isTextWrapper(node)) {
 						return this.serializeTextWrapper(node.content, { index, parentInfo });
 					}
@@ -1006,7 +1006,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return props;
 	};
 
-	private getChildNodes(fragment: Fragment): (Node | TextWrapper)[] {
+	private getChildNodes(fragment: Fragment, isTopLevel = true): (Node | TextWrapper)[] {
 		let children: Node[] = [];
 		fragment.forEach((node) => {
 			children.push(node);
@@ -1022,6 +1022,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 					this.inlinePositions.add(pos);
 				},
 				parentPos: this.startPos,
+				isTopLevel,
 				shouldDisplayExtensionAsInline: this.shouldDisplayExtensionAsInline,
 			});
 		}

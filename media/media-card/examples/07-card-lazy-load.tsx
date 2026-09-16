@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { createStorybookMediaClientConfig, genericFileId } from '@atlaskit/media-test-helpers';
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 import { MainWrapper } from '../example-helpers';
 
 const dimensions = { width: 500, height: 400 };

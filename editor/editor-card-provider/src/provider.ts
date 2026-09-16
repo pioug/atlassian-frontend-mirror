@@ -7,7 +7,8 @@ import type { CallbackPayload } from '@atlaskit/node-data-provider';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
-import { getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
+import { getBaseUrl } from '@atlaskit/linking-common/get-base-url';
+import { getResolverUrl } from '@atlaskit/linking-common/get-resolver-url';
 import type {
 	BlockCardAdf,
 	EmbedCardAdf,

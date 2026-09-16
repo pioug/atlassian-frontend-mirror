@@ -14,7 +14,7 @@ import {
 import type { CardState } from '@atlaskit/linking-common/store';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
 import type { MetadataStatus } from '@atlaskit/linking-common/types';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SmartLinkStatus } from '../../../constants';

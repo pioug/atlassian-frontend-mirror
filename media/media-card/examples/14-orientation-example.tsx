@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 import { mediaPickerAuthProvider, defaultCollectionName } from '@atlaskit/media-test-helpers';

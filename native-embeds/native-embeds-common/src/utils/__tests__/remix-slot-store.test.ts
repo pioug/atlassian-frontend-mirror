@@ -1,5 +1,6 @@
 import {
 	getRemixSlotValues,
+	getRemixSlotValuesForRevision,
 	getRemixVersionForRevision,
 	recordRemixRevisionEdit,
 	recordRemixRevisionVersion,
@@ -31,6 +32,24 @@ describe('remix-slot-store (MAUI reload-free undo/redo session map)', () => {
 
 		expect(getRemixVersionForRevision('embed-1', 'revision-1')).toBe('v2');
 		expect(getRemixVersionForRevision('embed-2', 'revision-1')).toBeUndefined();
+	});
+
+	it('returns a revision snapshot before its version is minted', () => {
+		recordRemixRevisionEdit({
+			currentVersionId: 'v1',
+			localId: 'embed-1',
+			previousValue: 'Title A',
+			revisionId: 'revision-1',
+			slot: 'chart.title',
+			value: 'Title B',
+		});
+
+		expect(getRemixSlotValuesForRevision('embed-1', 'revision-1')).toEqual([
+			{ slot: 'chart.title', value: 'Title B' },
+		]);
+		expect(getRemixSlotValuesForRevision('embed-1', 'unknown-revision')).toBeUndefined();
+		expect(getRemixSlotValuesForRevision(undefined, 'revision-1')).toBeUndefined();
+		expect(getRemixSlotValuesForRevision('embed-1', undefined)).toBeUndefined();
 	});
 
 	it('copies each revision snapshot when version mints finish out of order', () => {

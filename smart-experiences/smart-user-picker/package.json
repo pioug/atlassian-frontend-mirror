@@ -28,6 +28,11 @@
 		"./user-picker": "./src/userPicker.ts"
 	},
 	"atlassian": {
+		"website": {
+			"tags": [
+				"platform-labs"
+			]
+		},
 		"team": "Search Platform: Search Experience",
 		"slack": {
 			"channel": "#search-plex-prs",

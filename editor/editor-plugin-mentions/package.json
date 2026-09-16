@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "20.1.2",
+	"version": "20.2.0",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -84,6 +84,10 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
+		"editor-disable-feature": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"team-mention-inline-smartlink": {
 			"type": "boolean"
 		},

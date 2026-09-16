@@ -1,5 +1,14 @@
 # @atlaskit/link-client-extension
 
+## 7.3.1
+
+### Patch Changes
+
+- [`2bbc1c84de468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bbc1c84de468) -
+  Migrate Volt consumer imports to existing definitions and align affected test mocks without
+  changing runtime behavior.
+- Updated dependencies
+
 ## 7.3.0
 
 ### Minor Changes

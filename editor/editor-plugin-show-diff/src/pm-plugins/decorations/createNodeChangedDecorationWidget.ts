@@ -20,7 +20,11 @@ import {
 	unmountContributorTag,
 } from './createContributorTagWidget';
 import type { ColorScheme } from './colorSchemes/types';
-import { buildDiffDecorationSpec, buildAnchorDecorationKey } from './decorationKeys';
+import {
+	buildDiffDecorationSpec,
+	buildAnchorDecorationKey,
+	scrollMarginTopValue,
+} from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import {
 	wrapBlockNodeView,
@@ -103,6 +107,9 @@ const createTableCellContentWidgets = ({
 		// This helper only runs for added content, so use the "changed" testid — not
 		// "deleted", which page models match as removed content.
 		dom.setAttribute('data-testid', 'show-diff-changed-decoration');
+		if (fg('platform_editor_ai_show_diff_patch_1')) {
+			dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
+		}
 
 		// Skip findSafeInsertPos: it walks forward to a schema-valid cell-insert point
 		// and pushes the widget into the next cell. `targetPos` is the correct spot.
@@ -213,16 +220,20 @@ export const createNodeChangedDecorationWidget = ({
 	}
 	if (isTableRowContent) {
 		return createChangedRowDecorationWidgets({
+			attributionKey,
 			changes: [change],
 			originalDoc: doc,
 			newDoc,
 			nodeViewSerializer,
 			colorScheme,
+			isActive,
 			isInserted,
 			diffType,
 			// Needed for the row's own indicator anchor; this path returns before the
 			// `anchor-name` assignment further down.
 			showIndicators,
+			showContributorTags,
+			tagMountContext,
 		});
 	}
 
@@ -423,6 +434,9 @@ export const createNodeChangedDecorationWidget = ({
 	});
 
 	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
+	if (fg('platform_editor_ai_show_diff_patch_1')) {
+		dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
+	}
 
 	// Needed even when the indicator bar is off, because a contributor tag also anchors against the
 	// widget.
@@ -516,6 +530,9 @@ export const createNodeChangedDecorationWidget = ({
 			defaultSpacer.dataset.testid = 'show-diff-default-margin-spacer';
 			defaultSpacer.style.display = 'block';
 			defaultSpacer.style.marginTop = token('space.100');
+			if (fg('platform_editor_ai_show_diff_patch_1')) {
+				defaultSpacer.style.setProperty('scroll-margin-top', scrollMarginTopValue);
+			}
 
 			decorations.push(
 				Decoration.widget(safeInsertPos, defaultSpacer, {

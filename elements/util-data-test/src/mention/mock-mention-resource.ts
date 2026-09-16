@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/mention/types';
 import type { ResolvingMentionProvider } from '@atlaskit/mention/mention-resource';
 import { SLI_EVENT_TYPE } from '@atlaskit/mention/analytics';
-import { AbstractMentionResource } from '@atlaskit/mention/resource';
+import { AbstractMentionResource } from '@atlaskit/mention/abstract-mention-resource';
 import type { InviteFlow, UserRole } from '@atlaskit/mention/types';
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';

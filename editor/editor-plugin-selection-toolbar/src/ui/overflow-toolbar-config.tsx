@@ -13,7 +13,6 @@ import DockToolbarTopIcon from '@atlaskit/icon-lab/core/dock-toolbar-top';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import MinusIcon from '@atlaskit/icon/core/minus';
 import HeadingItem from '@atlaskit/menu/heading-item';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -44,18 +43,14 @@ export const getOverflowPrimaryToolbarConfig = ({
 					name: 'contextual',
 				},
 				onClick: () => {
-					if (fg('platform_editor_use_preferences_plugin')) {
-						return (
-							api?.core.actions.execute(
-								api?.userPreferences?.actions?.updateUserPreference?.(
-									'toolbarDockingPosition',
-									'none',
-								),
-							) ?? false
-						);
-					}
-
-					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
+					return (
+						api?.core.actions.execute(
+							api?.userPreferences?.actions?.updateUserPreference?.(
+								'toolbarDockingPosition',
+								'none',
+							),
+						) ?? false
+					);
 				},
 				elemBefore: MinusIcon({ label: '' }),
 			},
@@ -65,18 +60,14 @@ export const getOverflowPrimaryToolbarConfig = ({
 					name: 'fixed',
 				},
 				onClick: () => {
-					if (fg('platform_editor_use_preferences_plugin')) {
-						return (
-							api?.core.actions.execute(
-								api?.userPreferences?.actions?.updateUserPreference?.(
-									'toolbarDockingPosition',
-									'top',
-								),
-							) ?? false
-						);
-					}
-
-					return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
+					return (
+						api?.core.actions.execute(
+							api?.userPreferences?.actions?.updateUserPreference?.(
+								'toolbarDockingPosition',
+								'top',
+							),
+						) ?? false
+					);
 				},
 				isActive: true,
 				elemBefore: DockToolbarTopIcon({ label: '' }),

@@ -1,7 +1,7 @@
 /**
  * Session-bound store for MAUI (remix) editable-text values, keyed by embed,
- * revision, and version. Part of the MAUI reload-free undo/redo (gate
- * `platform_editor_maui_remix_app_id`).
+ * revision, and version. Part of the MAUI reload-free undo/redo
+ * (`cc_maui_editing_experience` experiment).
  *
  * Why this lives in `native-embeds-common` rather than the editor plugin: the
  * store is managed by the native-embeds editor plugin from edit and version
@@ -187,6 +187,25 @@ export const getRemixSlotValues = (
 		return undefined;
 	}
 	const snapshot = slotValuesByEmbed.get(localId)?.get(versionId);
+	if (!snapshot) {
+		return undefined;
+	}
+	return Object.entries(snapshot).map(([slot, value]) => ({ slot, value }));
+};
+
+/**
+ * Return the full slot snapshot for a local edit revision. Unlike a version
+ * snapshot, this is available immediately, before the server has minted and
+ * linked a durable version for the revision.
+ */
+export const getRemixSlotValuesForRevision = (
+	localId: string | undefined,
+	revisionId: string | undefined,
+): RemixSlotValue[] | undefined => {
+	if (!localId || !revisionId) {
+		return undefined;
+	}
+	const snapshot = slotValuesByRevisionByEmbed.get(localId)?.get(revisionId);
 	if (!snapshot) {
 		return undefined;
 	}

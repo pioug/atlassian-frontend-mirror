@@ -14,7 +14,7 @@ import {
 	createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();

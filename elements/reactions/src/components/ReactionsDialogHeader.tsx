@@ -9,6 +9,8 @@ import { jsx, css, cssMap } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
@@ -241,19 +243,29 @@ export const ReactionsDialogHeader = ({
 
 	return (
 		<Stack>
-			<Flex
-				direction="row"
-				justifyContent="space-between"
-				alignItems="center"
-				xcss={styles.fullWidthStyle}
-			>
-				<Heading size="medium" id={titleId}>
-					{intl.formatMessage(messages.reactionsCount, {
-						count: totalReactionsCount,
-					})}
-				</Heading>
-				<CloseButton onClick={handleCloseReactionsDialog} />
-			</Flex>
+			{fg('platform_dst_modal-dialog-use-modal-title') ? (
+				<ModalHeader hasCloseButton>
+					<ModalTitle>
+						{intl.formatMessage(messages.reactionsCount, {
+							count: totalReactionsCount,
+						})}
+					</ModalTitle>
+				</ModalHeader>
+			) : (
+				<Flex
+					direction="row"
+					justifyContent="space-between"
+					alignItems="center"
+					xcss={styles.fullWidthStyle}
+				>
+					<Heading size="medium" id={titleId}>
+						{intl.formatMessage(messages.reactionsCount, {
+							count: totalReactionsCount,
+						})}
+					</Heading>
+					<CloseButton onClick={handleCloseReactionsDialog} />
+				</Flex>
+			)}
 			<Inline>
 				<div css={customTabListStyles} id="reactions-dialog-tabs-list">
 					{!isSinglePage && !isOnFirstPage && (

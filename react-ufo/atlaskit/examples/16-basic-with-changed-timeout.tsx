@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 const sectionOneStyle = css({
 	backgroundColor: '#FFB3BA', // Pastel Red

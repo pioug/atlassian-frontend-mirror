@@ -1,4 +1,4 @@
-import { DefaultInteractionID } from '../interaction-id-context';
+import DefaultInteractionID from '../interaction-id-context/defaultInteractionId';
 import { addRedirect } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 

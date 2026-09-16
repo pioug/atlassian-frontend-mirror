@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 19.0.11
+
+### Patch Changes
+
+- [`0920715a6b9fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0920715a6b9fc) -
+  Clean up feature gate `platform_editor_use_preferences_plugin`
+- Updated dependencies
+
+## 19.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.8
 
 ### Patch Changes

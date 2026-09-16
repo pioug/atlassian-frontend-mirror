@@ -1,5 +1,27 @@
 # @atlaskit/editor-toolbar
 
+## 2.6.43
+
+### Patch Changes
+
+- [`9f67d7a39831c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f67d7a39831c) -
+  Clean up experiment `editor_a11y__primary-toolbar-aria-label_fy27`
+- Updated dependencies
+
+## 2.6.42
+
+### Patch Changes
+
+- [`3dd0c115a3c95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dd0c115a3c95) -
+  Gate absolute positioning of inline toolbar dropdowns behind
+  platform_editor_return_focus_after_text_styles_2.
+
+## 2.6.41
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.40
 
 ### Patch Changes
@@ -296,7 +318,7 @@
   The Text styles dropdown now renders inline via `shouldRenderToParent`, which stops the popup
   focus-trap from returning focus to the trigger on close. `ToolbarDropdownMenu` gains an opt-in
   `shouldRenderToParent` prop so only the Text styles menu is affected. Gated behind the
-  `platform_editor_return_focus_after_text_styles` feature flag.
+  `platform_editor_return_focus_after_text_styles_2` feature flag.
 
 ## 2.4.17
 

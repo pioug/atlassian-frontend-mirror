@@ -44,13 +44,13 @@ export type FlexibleUiDataContext = {
 	 * @see AvatarGroup
 	 */
 	assignedToGroup?: LinkPerson[];
-
 	/**
 	 * Contains the number of attachments on the linked resource.
 	 * @type number
 	 * @see AttachmentCount
 	 */
 	attachmentCount?: number;
+
 	/**
 	 * An array containing data used to populate the AuthorGroup element.
 	 * @see AvatarGroup
@@ -117,7 +117,6 @@ export type FlexibleUiDataContext = {
 	 * @see Location
 	 */
 	location?: LinkLocation;
-
 	/**
 	 * Contains metadata about the linked resource.
 	 */
@@ -134,6 +133,7 @@ export type FlexibleUiDataContext = {
 	 * @see ModifiedBy
 	 */
 	modifiedBy?: string;
+
 	/**
 	 * Contains the ISO timestamp of when the resource was last modified.
 	 * @type string - ISO Timestamp

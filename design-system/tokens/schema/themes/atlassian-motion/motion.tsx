@@ -277,7 +277,6 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				enter: {
 					value: {
 						duration: 'Duration150',
-						delay: 'Duration100',
 						curve: 'EasePracticalOut',
 						keyframes: ['FadeIn0to100'],
 						fill: 'AnimationFillModeBackwards',

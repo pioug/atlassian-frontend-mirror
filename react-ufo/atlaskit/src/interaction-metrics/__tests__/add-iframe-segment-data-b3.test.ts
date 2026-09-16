@@ -6,7 +6,7 @@
  * fetch/XHR resource timings include segment scope so independent iframe requests are retained.
  */
 import { setUFOConfig } from '../../config';
-import { DefaultInteractionID } from '../../interaction-id-context';
+import DefaultInteractionID from '../../interaction-id-context/defaultInteractionId';
 import { interactions } from '../common/constants';
 import { addIframeSegmentData, addNewInteraction } from '../index';
 

@@ -2396,12 +2396,7 @@ export const ruleWithAttrsStage0: PMNodeSpecFactoryInstance<RuleWithAttrsStage0N
 export interface StatusDefinition {
   type: 'status';
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-  attrs: {
-    text: string;
-    color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
-    localId?: string;
-    style?: string;
-  };
+  attrs: { text: string; color: string; localId?: string; style?: string };
 }
 
 export type StatusNode = PMNode & StatusDefinition;

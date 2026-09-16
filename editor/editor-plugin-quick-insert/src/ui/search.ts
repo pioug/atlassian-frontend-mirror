@@ -81,6 +81,7 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	const dedupeFn = (item: QuickInsertItem) => `${item.title}-${item.description ?? ''}`;
 
 	let items = providedItems ? dedupe([...defaultItems, ...providedItems], dedupeFn) : defaultItems;
+	items = items.filter((item) => item.isHidden?.() !== true);
 
 	// EDITOR-6558: apply consumer-supplied filter (e.g. Markdown Mode allowlist).
 	if (itemFilter) {

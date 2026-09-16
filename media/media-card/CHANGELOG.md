@@ -1,5 +1,26 @@
 # @atlaskit/media-card
 
+## 81.12.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.12.5
+
+### Patch Changes
+
+- [`5bb049fcdba7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bb049fcdba7e) -
+  Use the direct React UFO segment entry point, preserving the existing component implementation and
+  instrumentation behavior.
+- Updated dependencies
+
+## 81.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 81.12.3
 
 ### Patch Changes

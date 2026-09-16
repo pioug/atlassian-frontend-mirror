@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/linking-common/actions';
 import type { CardStore } from '@atlaskit/linking-common/store';
 import type { CardAction, MetadataStatus } from '@atlaskit/linking-common/types';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 import { type Reducer } from 'react';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { cardReducer } from '../..';

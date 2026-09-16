@@ -17,6 +17,9 @@
 		},
 		"team": "People and Teams Collective",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "TeamsAvatar",
 			"category": "Components"
 		}

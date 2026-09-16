@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-mentions
 
+## 20.2.0
+
+### Minor Changes
+
+- [`b51cc398d7701`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b51cc398d7701) -
+  Add the opt-in @mention availability predicate used by the gated Home Search mode, so Search
+  preserves existing Chat mentions as inactive content while preventing new mention typeahead and
+  `/mention` slash-menu insertion. The `editor-disable-feature` feature gate enables that predicate
+  for Home Search.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.3
+
+### Patch Changes
+
+- [`2bbc1c84de468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bbc1c84de468) -
+  Migrate Volt consumer imports to existing definitions and align affected test mocks without
+  changing runtime behavior.
+- Updated dependencies
+
 ## 20.1.2
 
 ### Patch Changes

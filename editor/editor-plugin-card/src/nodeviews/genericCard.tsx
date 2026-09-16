@@ -19,7 +19,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Link from '@atlaskit/link/link';
 import type { CardContext } from '@atlaskit/link-provider/types';
-import type { APIError } from '@atlaskit/linking-common';
+import type { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';
 
 import type { CardPlugin } from '../cardPluginType';

@@ -1,5 +1,28 @@
 # @atlaskit/adf-utils
 
+## 20.9.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.9.25
+
+### Patch Changes
+
+- [`08cc5b3a5abad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08cc5b3a5abad) -
+  EDITOR-8471 Fix the validation override that relaxes INVALID_CONTENT for container children inside
+  a panel on load. `processRawValue` passed `allowContainerInPanel` while `validateADFEntity` still
+  read `allowExpandInPanel`, so with the `platform_editor_nest_container_in_panel` experiment
+  enabled an `expand` inside a `panel` was wrapped as `unsupportedBlock`. The option is now named
+  `allowContainerInPanel` on both sides, including `ErrorCallbackOptions` in `@atlaskit/adf-utils`.
+
+## 20.9.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.9.23
 
 ### Patch Changes

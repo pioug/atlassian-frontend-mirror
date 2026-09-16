@@ -12,7 +12,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import type { KeyboardOrMouseEvent, OnCloseHandler } from '@atlaskit/modal-dialog/types';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import type { Placement } from '@atlaskit/popper/main';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

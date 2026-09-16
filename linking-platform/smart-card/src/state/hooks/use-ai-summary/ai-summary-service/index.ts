@@ -2,7 +2,7 @@
 import { v4 as uuid } from 'uuid';
 
 import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
-import { getBaseUrl } from '@atlaskit/linking-common';
+import { getBaseUrl } from '@atlaskit/linking-common/get-base-url';
 
 import { readStream } from './readStream';
 import {

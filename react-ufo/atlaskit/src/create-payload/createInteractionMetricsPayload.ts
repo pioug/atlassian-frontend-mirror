@@ -9,7 +9,7 @@ import {
 	isOpenedInBackground,
 	isTabThrottled,
 } from '../hidden-timing';
-import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
+import { getTimings } from '../initial-page-load-extra-timing/getTimings';
 import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
 import { createMemoryStateReport, createPressureStateReport } from '../machine-utilisation';
 import type { ResourceTimings } from '../resource-timing';
@@ -268,7 +268,7 @@ export async function createInteractionMetricsPayload(
 			return {};
 		}
 
-		const initialPageLoadExtraTimings = objectToArray(initialPageLoadExtraTiming.getTimings());
+		const initialPageLoadExtraTimings = objectToArray(getTimings());
 		const config = getConfig();
 
 		const defaultSSRTimings = objectToArray(ssr.getSSRTimings());

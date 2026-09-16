@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-type
 
+## 22.0.11
+
+### Patch Changes
+
+- [`0920715a6b9fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0920715a6b9fc) -
+  Clean up feature gate `platform_editor_use_preferences_plugin`
+- Updated dependencies
+
+## 22.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.8
 
 ### Patch Changes
@@ -143,7 +163,7 @@
 ### Patch Changes
 
 - [`2b9ae0b463256`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b9ae0b463256) -
-  Clean up feature gate `platform_editor_return_focus_after_text_styles`
+  Clean up feature gate `platform_editor_return_focus_after_text_styles_2`
 - Updated dependencies
 
 ## 21.0.0
@@ -372,7 +392,7 @@
   The Text styles dropdown now renders inline via `shouldRenderToParent`, which stops the popup
   focus-trap from returning focus to the trigger on close. `ToolbarDropdownMenu` gains an opt-in
   `shouldRenderToParent` prop so only the Text styles menu is affected. Gated behind the
-  `platform_editor_return_focus_after_text_styles` feature flag.
+  `platform_editor_return_focus_after_text_styles_2` feature flag.
 - Updated dependencies
 
 ## 19.0.7

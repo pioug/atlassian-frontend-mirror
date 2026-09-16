@@ -262,6 +262,13 @@ const JiraTaskPlannerAgentAvatar = lazy(
 		),
 );
 
+const ContentReviewerAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-ContentReviewerAvatar"*/ './assets/content-reviewer'
+		),
+);
+
 const JiraCodingAgentAvatar = lazy(
 	() =>
 		import(
@@ -457,6 +464,12 @@ const outOfTheBoxAgentAvatar: {
 				primaryColor={blueColor.primary}
 				secondaryColor={blueColor.secondary}
 			/>
+		),
+		color: blueColor,
+	},
+	content_reviewer_agent: {
+		getRender: (size: SizeType) => (
+			<ContentReviewerAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: blueColor,
 	},

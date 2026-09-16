@@ -7,6 +7,8 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { SmartLinkStatus } from '../../../../../constants';
 import { useMouseDownEvent } from '../../../../../state/analytics/useMouseDownEvent';
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context/useFlexibleCardContext';
@@ -104,7 +106,11 @@ export const TitleBlock = ({
 			hideTooltip={hideTitleTooltip}
 			maxLines={maxLines}
 			onMouseDown={onMouseDown}
-			target={anchorTarget}
+			target={
+				fg('confluence_ep_shim_macro_links_v2')
+					? (anchorTarget ?? cardContext?.navigation?.target)
+					: anchorTarget
+			}
 			theme={ui?.theme}
 			anchorRef={anchorRef}
 			{...overrideText}

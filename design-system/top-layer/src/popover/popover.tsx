@@ -38,6 +38,32 @@ import { useInitialFocus } from '../internal/use-initial-focus';
 import { type TPopoverCloseReason, type TPopoverForwardedProps } from './types';
 
 /**
+ * Native restoration only covers the first popover in an auto/hint stack, not each nested popover.
+ * This fallback also supports manual popovers, which have no native restoration target.
+ * See https://html.spec.whatwg.org/multipage/popover.html#show-popover (step 15.8).
+ */
+function restoreFocus({
+	popover,
+	focusRestorationTarget,
+}: {
+	popover: HTMLElement;
+	focusRestorationTarget: HTMLElement | null;
+}) {
+	if (!focusRestorationTarget) {
+		return;
+	}
+
+	const { ownerDocument } = popover;
+	// Native restoration has finished. Preserve focus moved outside the popover.
+	const activeElementAfterClose = ownerDocument.activeElement;
+	// Before close, we checked that focus was inside. Body can now mean focus was lost during close.
+	if (activeElementAfterClose === ownerDocument.body || popover.contains(activeElementAfterClose)) {
+		// Match native popover restoration, which does not scroll the viewport.
+		focusRestorationTarget.focus({ preventScroll: true });
+	}
+}
+
+/**
  * Detects `popover="hint"` support via DOM reflection. SSR-safe, cached.
  */
 const supportsPopoverHint = once((): boolean => {
@@ -296,8 +322,7 @@ export const Popover: React.ForwardRefExoticComponent<
 	// Tracks the close reason, including our own hidePopover() calls.
 	const closeReasonRef = useRef<TPopoverCloseReason>('light-dismiss');
 
-	// Snapshot of pre-open focus, used to restore focus for nested popovers
-	// because the browser only restores the outermost.
+	// Pre-open focus target, cleared before close when restoration is not eligible.
 	const focusRestorationTargetRef = useRef<HTMLElement | null>(null);
 
 	const handleBeforeToggle = useCallback((event: ToggleEvent) => {
@@ -314,7 +339,11 @@ export const Popover: React.ForwardRefExoticComponent<
 			return;
 		}
 
-		// Check before closing so focus already on body is not mistaken for focus lost during close.
+		/**
+		 * Like native restoration, leave external focus alone and skip light dismiss.
+		 * Check before closing so focus already on body is not mistaken for focus lost during close.
+		 * See https://html.spec.whatwg.org/multipage/popover.html#hide-popover-algorithm (step 20.2).
+		 */
 		if (closeReasonRef.current === 'light-dismiss' || !popover.contains(activeElement)) {
 			focusRestorationTargetRef.current = null;
 		}
@@ -333,18 +362,8 @@ export const Popover: React.ForwardRefExoticComponent<
 		// does not corrupt the next browser-dismiss cycle.
 		closeReasonRef.current = 'light-dismiss';
 
-		if (focusRestorationTarget) {
-			const { ownerDocument } = popover;
-			// Native restoration has finished. Preserve focus moved outside the popover.
-			const activeElementAfterClose = ownerDocument.activeElement;
-			if (
-				activeElementAfterClose === ownerDocument.body ||
-				popover.contains(activeElementAfterClose)
-			) {
-				// Match native popover restoration, which does not scroll the viewport.
-				focusRestorationTarget.focus({ preventScroll: true });
-			}
-		}
+		// Run after native restoration, before notifying the consumer, which may move focus itself.
+		restoreFocus({ popover, focusRestorationTarget });
 
 		// Programmatic closes are already known to the consumer.
 		if (reason !== 'programmatic') {

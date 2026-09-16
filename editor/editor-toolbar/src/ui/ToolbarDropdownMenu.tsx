@@ -9,6 +9,7 @@ import { jsx, cssMap, cx } from '@compiled/react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -134,6 +135,11 @@ const ToolbarDropdownMenuContent = ({
 			onOpenChange={handleOpenChange}
 			isOpen={menuContext?.isOpen}
 			shouldRenderToParent={shouldRenderToParent ? true : undefined}
+			strategy={
+				shouldRenderToParent && fg('platform_editor_return_focus_after_text_styles_2')
+					? 'absolute'
+					: undefined
+			}
 		>
 			{children}
 		</DropdownMenu>

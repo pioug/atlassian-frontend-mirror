@@ -14,9 +14,11 @@ import { MentionQuickInsertMenuItem } from './MentionQuickInsertMenuItem';
 
 export const getMentionQuickInsertComponents = ({
 	api,
+	canOpenMentionTypeAhead,
 	typeAhead,
 }: {
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	canOpenMentionTypeAhead?: () => boolean;
 	typeAhead: TypeAheadHandler;
 }): RegisterMenuItem[] => [
 	{
@@ -29,6 +31,9 @@ export const getMentionQuickInsertComponents = ({
 				rank: STRUCTURE_SECTION_RANK[MENTION_MENU_ITEM.key],
 			},
 		],
+		isHidden: () =>
+			canOpenMentionTypeAhead?.() === false ||
+			api?.mention.sharedState.currentState()?.canInsertMention === false,
 		match: createQuickInsertMatcher(({ formatMessage }) => ({
 			description: formatMessage(messages.mentionDescription),
 			keywords: ['team', 'user'],

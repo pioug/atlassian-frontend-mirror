@@ -1,5 +1,46 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 16.1.0
+
+### Minor Changes
+
+- [`8c4837792f18f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c4837792f18f) -
+  Add a per-call colorScheme override to the showDiff command, so callers can paint a diff in a
+  specific colour scheme without changing the plugin's configured default.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.17
+
+### Patch Changes
+
+- [`bac902441a512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bac902441a512) -
+  Keep layout column diff indicators aligned with their content instead of appearing beside the
+  comments footer, behind `platform_editor_ai_show_diff_patch_1`.
+- [`20d41af8d6f4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d41af8d6f4c) -
+  EDITOR-9000 Fixes scroll to suggestion when it is in table with sticky header
+- Updated dependencies
+
+## 16.0.16
+
+### Patch Changes
+
+- [`b56b3a7dbfb5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b56b3a7dbfb5a) -
+  [ux] Show contributor tags at the top-left of removed table rows and above table interaction
+  overlays and sticky header rows. Behind `confluence_ncs_step_diffing_version_history`.
+- Updated dependencies
+
+## 16.0.15
+
+### Patch Changes
+
+- [`442abbe2a88e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/442abbe2a88e0) -
+  Normalize documents before relaxed show-diff comparisons when Confluence version-history diffing
+  is enabled.
+- Updated dependencies
+
 ## 16.0.14
 
 ### Patch Changes

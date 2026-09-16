@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import * as InteractionContextModule from '../interaction-context';
+import * as InteractionContextModule from '../interaction-context/useInteractionContext';
 import * as InteractionMetricsModule from '../interaction-metrics';
 
 import { useUFOReportError } from './index';

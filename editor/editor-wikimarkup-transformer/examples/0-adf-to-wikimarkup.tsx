@@ -123,6 +123,7 @@ export default function EditorWithFeedback(props: Props): React.JSX.Element {
 											permittedLayouts: 'all',
 										}}
 										allowDate={true}
+										allowStatus={true}
 										media={{
 											provider: mediaProvider,
 											allowMediaSingle: true,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "12.2.1",
+	"version": "12.3.0",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,6 +19,9 @@
 	"atlassian": {
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "LinkingCommon"
 		}
 	},
@@ -61,6 +64,15 @@
 		"./actions": "./src/actions.ts",
 		"./api": "./src/api.ts",
 		"./api/errors": "./src/errors.ts",
+		"./api-error": "./src/APIError.ts",
+		"./invalid-url-error": "./src/InvalidUrlError.ts",
+		"./network-error": "./src/NetworkError.ts",
+		"./get-base-url": "./src/getBaseUrl.ts",
+		"./get-resolver-url": "./src/getResolverUrl.ts",
+		"./use-available-sites": "./src/hooks/useAvailableSites/useAvailableSites.ts",
+		"./use-available-sites-v2": "./src/hooks/useAvailableSites/useAvailableSitesV2.ts",
+		"./map-accessible-products-to-available-sites": "./src/hooks/useAvailableSites/mapAccessibleProductsToAvailableSites.ts",
+		"./pulse/pulse": "./src/components/Pulse/Pulse.tsx",
 		"./available-sites-result": "./src/common/mocks/available-sites-result.ts",
 		"./browser": "./src/user-agent/index.ts",
 		"./client": "./src/environments.ts",
@@ -88,6 +100,7 @@
 		"./utils/get-status": "./src/utils/get-status.ts",
 		"./utils/get-trace-id": "./src/utils/get-trace-id.ts",
 		"./utils/preview-panel": "./src/utils/preview-panel-utils.ts",
+		"./utils/is-within-preview-panel-iframe": "./src/utils/is-within-preview-panel-i-frame.ts",
 		"./utils/promise-debounce": "./src/utils/promise-debounce.ts",
 		"./utils/with-feature-flagged-component": "./src/utils/with-feature-flagged-component.tsx"
 	},

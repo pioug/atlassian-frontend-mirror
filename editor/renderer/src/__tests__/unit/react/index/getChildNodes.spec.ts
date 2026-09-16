@@ -1,8 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { doc, p, bodiedExtension, panel } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+	doc,
+	p,
+	panel,
+	bodiedExtension,
+	layoutColumn,
+	layoutSection,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import ReactSerializer from '../../../../react';
 
@@ -60,6 +68,34 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 	eeTest
 		.describe('platform_editor_render_bodied_extension_as_inline', 'experiment enabled')
 		.variant(true, () => {
+			it('joins top-level Custom UI neighbours without marking nested neighbours', () => {
+				passGate('platform_forge_inline_bodied_layout_switch');
+				passGate('platform_forge_inline_bodied_macro');
+				const macro = () =>
+					bodiedExtension({
+						extensionType: 'com.atlassian.ecosystem',
+						extensionKey: 'custom-ui',
+						parameters: { layout: 'inline-bodied' },
+					})(p('Inline'));
+				const document = doc(
+					p('Before'),
+					macro(),
+					p('After'),
+					layoutSection(
+						layoutColumn({ width: 50 })(p('Nested before'), macro(), p('Nested after')),
+						layoutColumn({ width: 50 })(p('Other column')),
+					),
+				)(schema);
+				const serializer = new ReactSerializer({ shouldDisplayExtensionAsInline: () => true });
+				const onMark = jest.spyOn((serializer as any).inlinePositions as Set<number>, 'add');
+				serializer.serializeFragment(document.content);
+				expect(onMark).toHaveBeenCalledTimes(2);
+				expect(onMark).toHaveBeenCalledWith(1);
+				expect(onMark).toHaveBeenCalledWith(
+					1 + document.child(0).nodeSize + document.child(1).nodeSize,
+				);
+				onMark.mockRestore();
+			});
 			it('should not mark positions when shouldDisplayExtensionAsInline is not provided', () => {
 				const document = doc(
 					p('Hello'),

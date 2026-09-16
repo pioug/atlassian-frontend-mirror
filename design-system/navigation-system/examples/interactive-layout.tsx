@@ -184,6 +184,7 @@ function Example() {
 
 	const [isPanelLongPlaceholderContentVisible, setIsPanelLongPlaceholderContentVisible] =
 		useState(false);
+	const [panelContentKey, setPanelContentKey] = useState<'first' | 'second'>('first');
 
 	const [isCardGridVisible, setIsCardGridVisible] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -363,6 +364,14 @@ function Example() {
 								Toggle panel
 							</Button>
 							<Button
+								isDisabled={!isPanelVisible}
+								onClick={() =>
+									setPanelContentKey((current) => (current === 'first' ? 'second' : 'first'))
+								}
+							>
+								Change panel content
+							</Button>
+							<Button
 								isSelected={isMainLongPlaceholderContentVisible}
 								onClick={() => setIsMainLongPlaceholderContentVisible((current) => !current)}
 							>
@@ -430,10 +439,12 @@ function Example() {
 				)}
 				<ExitingPersistence>
 					{isPanelVisible && (
-						<Panel defaultWidth={persistedPanelWidth}>
+						<Panel contentKey={panelContentKey} defaultWidth={persistedPanelWidth}>
 							<Stack space="space.100" xcss={panelStyles.content}>
 								<Heading size="medium">Panel layout area</Heading>
-								<Text>This element is rendered in the panel layout area.</Text>
+								<Text>
+									{panelContentKey === 'first' ? 'First panel content.' : 'Second panel content.'}
+								</Text>
 								<Text>Panel becomes an overlay on small-medium viewports.</Text>
 
 								{/* Wrapping div added to prevent Button from taking full width */}

@@ -10,11 +10,13 @@ import React from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../../constants';
+import type { FlexibleCardContextType } from '../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
-import { useFlexibleUiContext } from '../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { useFlexibleCardContext } from '../../../../state/flexible-ui-context/useFlexibleCardContext';
 import { isFlexibleUiBlock } from '../../../../utils/is-flexible-ui-block';
 import { type TitleBlockProps } from '../blocks/title-block/types';
 import { getChildrenOptions } from './getChildrenOptions';
@@ -51,6 +53,7 @@ const getLayeredLink = (
 	onAuxClick?: React.EventHandler<React.MouseEvent>,
 	onContextMenu?: React.EventHandler<React.MouseEvent>,
 	title?: string,
+	navigation?: FlexibleCardContextType['navigation'],
 ): React.ReactNode => {
 	const { linkTitle, url = '' } = context || {};
 	// SSR cannot reliably extract TitleBlock props from children, so `title` is
@@ -62,10 +65,10 @@ const getLayeredLink = (
 			onClick={onClick}
 			onAuxClick={onAuxClick}
 			onContextMenu={onContextMenu}
-			target={target}
+			target={fg('confluence_ep_shim_macro_links_v2') ? (target ?? navigation?.target) : target}
 			testId={testId}
 			text={title || text || linkTitle?.text}
-			url={url}
+			url={fg('confluence_ep_shim_macro_links_v2') ? (navigation?.url ?? url) : url}
 		/>
 	);
 };
@@ -225,7 +228,8 @@ const Container = ({
 	const padding = hidePadding ? '0px' : getPadding(size);
 	const gap = getGap(size);
 
-	const context = useFlexibleUiContext();
+	const cardContext = useFlexibleCardContext();
+	const context = cardContext?.data;
 
 	const { previewOnLeft, previewOnRight } = getChildrenOptions(children, context);
 
@@ -259,7 +263,16 @@ const Container = ({
 			data-testid={testId}
 		>
 			{clickableContainer
-				? getLayeredLink(testId, context, children, onClick, onAuxClick, onContextMenu, title)
+				? getLayeredLink(
+						testId,
+						context,
+						children,
+						onClick,
+						onAuxClick,
+						onContextMenu,
+						title,
+						cardContext?.navigation,
+					)
 				: null}
 			{filterChildren(children, removeBlockRestriction)}
 		</div>

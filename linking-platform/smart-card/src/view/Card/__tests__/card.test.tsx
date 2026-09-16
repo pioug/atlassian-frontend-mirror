@@ -9,7 +9,7 @@ import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { fakeFactory } from '../../../utils/fake-factory';

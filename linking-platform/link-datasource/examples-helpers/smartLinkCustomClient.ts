@@ -1,6 +1,6 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 
 import { mockJqlSmartLinkData } from './mockJqlSmartLinkData';
 import { mocks } from './mockSmartLinkData';

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 import { setInteractionError } from '@atlaskit/react-ufo/set-interaction-error';
 
 const sectionOneStyle = css({

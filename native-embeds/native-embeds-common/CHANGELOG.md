@@ -1,5 +1,17 @@
 # @atlaskit/native-embeds-common
 
+## 2.5.0
+
+### Minor Changes
+
+- [`dc4692834dd9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc4692834dd9f) -
+  Apply local Remix revision snapshots during pre-mint undo and redo without echoing local edits
+  under cc_maui_editing_experience.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.3
 
 ### Patch Changes

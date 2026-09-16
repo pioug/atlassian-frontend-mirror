@@ -10,6 +10,9 @@ const NEWLINE_REGEX = /\n/u;
  */
 export interface StatusDefinition {
 	attrs: {
+		/**
+		 * @pattern "^(neutral|purple|blue|red|yellow|green|#[0-9a-fA-F]{6})$"
+		 */
 		color: string;
 		localId?: string;
 		/**

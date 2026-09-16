@@ -35,12 +35,6 @@
 :root[data-scrollbar-harmonisation]::-webkit-scrollbar-thumb,
 :root[data-scrollbar-harmonisation] *::-webkit-scrollbar-thumb {
 	background-color: var(--ds-border-input, #8c8f97);
-	border-radius: var(--ds-radius-full, 9999px);
-}
-
-:root[data-scrollbar-harmonisation]::-webkit-scrollbar-thumb:hover,
-:root[data-scrollbar-harmonisation] *::-webkit-scrollbar-thumb:hover {
-	background-color: var(--ds-border-bold, #7d818a);
 }
 
 @media (forced-colors: active) {

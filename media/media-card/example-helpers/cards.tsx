@@ -15,7 +15,9 @@ import {
 import { type FileIdentifier } from '@atlaskit/media-client';
 
 import { createApiCards, actions } from '.';
-import { CardLoading, CardError, Card } from '../src';
+import { CardLoading } from '../src/utils/lightCards/cardLoading';
+import { CardError } from '../src/utils/lightCards/cardError';
+import Card from '../src/card/cardLoader';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 // standard

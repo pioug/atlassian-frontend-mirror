@@ -35,6 +35,7 @@ export type CardContext = {
 } & Pick<
 	// Most of the values are coming directly from Props given to CardProvider
 	CardProviderProps,
+	| 'linkNavigation'
 	| 'bridgeProduct'
 	| 'rovoOptions'
 	| 'isAdminHubAIEnabled'
@@ -93,6 +94,11 @@ export type CardProviderProps = {
 	 * (neither a preview panel nor a fallback preview modal is shown).
 	 */
 	isPreviewRestricted?: (props: { ari: string }) => boolean;
+	/** Resolve a Flexible Card destination without changing its metadata address. */
+	linkNavigation?: (url: string) => {
+		target?: '_blank' | '_self' | '_top' | '_parent';
+		url: string;
+	};
 	/**
 	 * Optional callback enabling the host application to open a preview panel for compatible links.
 	 * Required to be defined to add support for preview panel handling.

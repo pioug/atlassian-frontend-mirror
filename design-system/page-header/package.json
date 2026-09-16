@@ -26,6 +26,9 @@
 		},
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Page header",
 			"category": "Layout and structure"
 		}

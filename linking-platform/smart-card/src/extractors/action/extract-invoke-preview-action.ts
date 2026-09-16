@@ -5,7 +5,7 @@ import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-l
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { extractSmartLinkTitle } from '@atlaskit/link-extractors/extract-smart-link-title';
 import { extractSmartLinkUrl } from '@atlaskit/link-extractors/extract-smart-link-url';
-import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
+import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils/is-within-preview-panel-iframe';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

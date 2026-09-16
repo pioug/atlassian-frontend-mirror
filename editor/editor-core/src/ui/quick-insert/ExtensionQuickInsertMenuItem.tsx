@@ -13,6 +13,7 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type EditorActions from '../../actions';
 import { executeExtensionQuickInsertItem } from './executeExtensionQuickInsertItem';
 import { ExtensionQuickInsertIcon } from './ExtensionQuickInsertIcon';
+import { getExtensionQuickInsertPreviewImageUrls } from './getExtensionQuickInsertPreviewImageUrls';
 
 export const ExtensionQuickInsertMenuItem = ({
 	apiRef,
@@ -49,9 +50,17 @@ export const ExtensionQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
-			iconBefore={<ExtensionQuickInsertIcon getIcon={item.icon} itemKey={item.key} label="" />}
+			iconBefore={
+				<ExtensionQuickInsertIcon
+					getIcon={item.icon}
+					itemKey={item.key}
+					itemTitle={item.title}
+					label=""
+				/>
+			}
 			isDisabled={isOffline}
 			onSelect={onSelect}
+			previewImageUrls={getExtensionQuickInsertPreviewImageUrls(item)}
 			title={item.title}
 		/>
 	);

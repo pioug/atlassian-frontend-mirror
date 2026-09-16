@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 17.0.1
+
+### Patch Changes
+
+- [`c7333edc6dfa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7333edc6dfa2) -
+  Align panel content motion token timing and easing with the design specification by removing the
+  built-in enter delay. Panel open applies its 100ms content-enter delay separately, while panel
+  content replacement starts the enter motion after the preceding 50ms exit motion completes.
+
 ## 17.0.0
 
 ### Major Changes

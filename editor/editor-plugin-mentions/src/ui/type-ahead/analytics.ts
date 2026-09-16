@@ -3,7 +3,7 @@ import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { UserRole, MentionDescription } from '@atlaskit/mention/types';
-import { isSpecialMention } from '@atlaskit/mention/resource';
+import { isSpecialMention } from '@atlaskit/mention/is-special-mention';
 
 import type { TeamInfoAttrAnalytics } from '../../types';
 

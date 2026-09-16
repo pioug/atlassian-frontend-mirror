@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.4.2
+
+### Patch Changes
+
+- [`3b78768eefc81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b78768eefc81) -
+  Only enforce specific entry-point imports for Volt packages after their consumers have been
+  migrated in Stage 2.
+- Updated dependencies
+
+## 4.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.0
 
 ### Minor Changes

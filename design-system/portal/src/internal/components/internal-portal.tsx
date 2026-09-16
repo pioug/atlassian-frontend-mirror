@@ -5,7 +5,6 @@ import { createPortal } from 'react-dom';
 import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
 import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import { useIsInsideThemeProvider } from '@atlaskit/app-provider/use-is-inside-theme-provider';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { appendPortalContainerIfNotAppended } from '../utils/append-portal-container-if-not-appended';
 import { createContainer } from '../utils/create-container';
@@ -14,11 +13,10 @@ import { removePortalContainer } from '../utils/remove-portal-container';
 interface InternalPortalProps {
 	children: React.ReactNode;
 	zIndex: number | string;
-	isClosed?: boolean;
 }
 
 export default function InternalPortal(props: InternalPortalProps): ReactPortal {
-	const { zIndex, children, isClosed = false } = props;
+	const { zIndex, children } = props;
 	const container = useMemo(() => createContainer(zIndex), [zIndex]);
 
 	const colorMode = useColorMode();
@@ -29,14 +27,6 @@ export default function InternalPortal(props: InternalPortalProps): ReactPortal 
 	// For any further changes, ensure that the container does not have a
 	// parent besides the portal parent.
 	appendPortalContainerIfNotAppended(container);
-
-	useEffect(() => {
-		if (fg('import_into_jsm_in_template_gallery_killswitch')) {
-			if (isClosed) {
-				removePortalContainer(container);
-			}
-		}
-	}, [isClosed, container]);
 
 	useEffect(() => {
 		return () => {

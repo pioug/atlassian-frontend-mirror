@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-user-preferences",
-	"version": "16.0.8",
+	"version": "16.0.11",
 	"description": "UserPreferences plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,11 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"website": {
+			"tags": [
+				"platform-labs"
+			]
+		},
 		"team": "Editor: Lego",
 		"releaseModel": "continuous",
 		"singleton": true
@@ -34,11 +39,6 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0 || ^19.2.0"
-	},
-	"platform-feature-flags": {
-		"platform_editor_use_preferences_plugin": {
-			"type": "boolean"
-		}
 	},
 	"devDependencies": {
 		"@atlassian/structured-docs-types": "workspace:^",

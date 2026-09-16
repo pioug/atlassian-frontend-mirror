@@ -47,13 +47,7 @@ import { ContentComponent } from './ui/ContentComponent';
 const createOpenAtTransaction =
 	(props: OpenTypeAheadProps) =>
 	(tr: Transaction): boolean => {
-		const { triggerHandler, inputMethod, query, removePrefixTriggerOnCancel } = props;
-
-		openTypeAheadAtCursor({ triggerHandler, inputMethod, query, removePrefixTriggerOnCancel })({
-			tr,
-		});
-
-		return true;
+		return openTypeAheadAtCursor(props)({ tr }) !== null;
 	};
 
 type EditorViewRef = Record<'current', EditorView | null>;
@@ -68,7 +62,9 @@ const createOpenTypeAhead =
 		const { current: view } = editorViewRef;
 		const { tr } = view.state;
 
-		createOpenAtTransaction(props)(tr);
+		if (!createOpenAtTransaction(props)(tr)) {
+			return false;
+		}
 
 		view.dispatch(tr);
 

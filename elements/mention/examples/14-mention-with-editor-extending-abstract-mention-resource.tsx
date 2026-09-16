@@ -6,13 +6,13 @@ import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { AbstractMentionResource } from '../src/api/AbstractMentionResource';
+import type { ResolvingMentionProvider } from '../src/api/MentionResource';
 import {
 	type MentionResourceConfig,
-	AbstractMentionResource,
-	type ResolvingMentionProvider,
 	type MentionNameDetails,
 	MentionNameStatus,
-} from '../src/resource';
+} from '../src/types';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';

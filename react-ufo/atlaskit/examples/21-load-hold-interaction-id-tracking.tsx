@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import DefaultInteractionID from '@atlaskit/react-ufo/default-interaction-id';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 import traceUFOInteraction from '@atlaskit/react-ufo/trace-interaction';
 
 const containerStyle = css({

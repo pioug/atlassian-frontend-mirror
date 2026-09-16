@@ -1,4 +1,4 @@
-import { mapAccessibleProductsToAvailableSites } from '@atlaskit/linking-common/hooks';
+import { mapAccessibleProductsToAvailableSites } from '@atlaskit/linking-common/map-accessible-products-to-available-sites';
 import { shouldUseUnitCompliantApi } from '@atlaskit/linking-common/units-rollout';
 
 import type { Site } from '../common/types';

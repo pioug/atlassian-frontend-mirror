@@ -1,11 +1,15 @@
 import { createContext, type Context } from 'react';
 
 import { type SmartLinkStatus } from '../../constants';
-import { type InternalFlexibleUiOptions } from '../../view/FlexibleCard/types';
+import {
+	type FlexibleCardProps,
+	type InternalFlexibleUiOptions,
+} from '../../view/FlexibleCard/types';
 import { type FlexibleUiDataContext } from './types';
 
 export type FlexibleCardContextType = {
 	data?: FlexibleUiDataContext;
+	navigation?: FlexibleCardProps['navigation'];
 	status?: SmartLinkStatus;
 	ui?: InternalFlexibleUiOptions;
 };

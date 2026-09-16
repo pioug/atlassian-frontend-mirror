@@ -1,4 +1,4 @@
-import { filterUniqueItems } from '.';
+import { filterUniqueItems } from './filter-unique-items';
 
 describe('filter unique items', () => {
 	it('can filter out duplicates based on predicate', () => {

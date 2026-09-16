@@ -33,6 +33,9 @@
 		},
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Progress bar",
 			"category": "Loading"
 		}

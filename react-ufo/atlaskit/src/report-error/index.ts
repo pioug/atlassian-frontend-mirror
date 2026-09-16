@@ -1,4 +1,4 @@
-import { useInteractionContext } from '../interaction-context';
+import { useInteractionContext } from '../interaction-context/useInteractionContext';
 import {
 	addError,
 	addErrorToAll,

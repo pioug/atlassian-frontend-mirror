@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { MetricsPlugin } from './metricsPluginType';
@@ -50,10 +49,8 @@ export const metricsPlugin: MetricsPlugin = ({ config, api }) => ({
 				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
 					let toolbarDocking;
 					if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
-						toolbarDocking = toolbarDocking = fg('platform_editor_use_preferences_plugin')
-							? api?.userPreferences?.sharedState.currentState()?.preferences
-									?.toolbarDockingPosition
-							: config?.userPreferencesProvider?.getPreference('toolbarDockingInitialPosition');
+						toolbarDocking =
+							api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 					}
 
 					const payloadToSend = getAnalyticsPayload({

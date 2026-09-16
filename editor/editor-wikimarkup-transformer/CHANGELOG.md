@@ -1,5 +1,18 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 12.2.1
+
+### Patch Changes
+
+- [`44b753b05a3ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44b753b05a3ce) -
+  Resolve the new hexadecimal status color identifiers (teal `#B3F5FF`, green `#ABF5D1`, lime
+  `#D3F1A7`, yellow `#FFF0B3`, orange `#FCE4A6`, magenta `#FDD0EC`), so a status keeps its color
+  when content is delivered as an email notification or exported to wiki markup. Each identifier
+  resolves to its own hue; where a package already rendered that hue for one of the six legacy named
+  colors, the existing value is reused rather than adding a second near-identical one, so twelve
+  identifiers resolve to ten colors. The six legacy named colors are unchanged, and an unregistered
+  identifier still falls back to neutral in email and grey in wiki markup.
+
 ## 12.2.0
 
 ### Minor Changes

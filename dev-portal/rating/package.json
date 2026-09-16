@@ -19,6 +19,9 @@
 	"atlassian": {
 		"team": "Ecosystem - Discover",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Rating"
 		}
 	},

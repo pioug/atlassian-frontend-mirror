@@ -5,7 +5,7 @@ import { v4 as createUUID } from 'uuid';
 import coinflip from '../coinflip';
 import { getInteractionRate, isUFOEnabled } from '../config';
 import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
-import { DefaultInteractionID } from '../interaction-id-context';
+import DefaultInteractionID from '../interaction-id-context/defaultInteractionId';
 import {
 	abort,
 	addHoldByID,

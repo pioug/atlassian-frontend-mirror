@@ -221,6 +221,7 @@ function areFragmentsEqual(
 	});
 	return childrenEqual;
 }
+
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { getStepRange } from './getStepRange';
 // eslint-disable-next-line @atlaskit/editor/no-re-export

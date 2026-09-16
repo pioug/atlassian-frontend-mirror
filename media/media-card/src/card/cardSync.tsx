@@ -1,6 +1,6 @@
 import React from 'react';
 import { type CardWithMediaClientConfigProps } from './types';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 import { CardWithMediaClient } from './cardWithMediaClient';
 
 type CardSyncComponent = React.FC<CardWithMediaClientConfigProps>;

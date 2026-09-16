@@ -1,4 +1,5 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 export const CONTRIBUTOR_TAG_TESTID = 'diff-contributor-tag';
@@ -14,15 +15,15 @@ export const MAX_TAG_WIDTH = '200px';
 /**
  * The tag sits on the line above the change, so it has to paint over that line to be readable —
  * including any diff highlight already on it, which would otherwise slice straight through the tag.
- * Hence one level above `akEditorUnitZIndex`, where the highlights sit; exported because the
- * change's own highlight is stacked one level below it — see `stackBelowContributorTagStyle` in
- * `createInlineChangedDecoration`.
+ * It also has to paint above table interaction overlays and sticky-capable header rows, which use
+ * `akEditorSmallZIndex`. The change's own highlight is stacked one level below it — see
+ * `stackBelowContributorTagStyle` in `createInlineChangedDecoration`.
  *
  * Painting above its own highlight is only safe because the tag can never reach it: `bottom: 100%`
  * puts the root's bottom edge exactly on the highlight's top edge, and the root's `overflow: clip`
  * keeps every pixel the tag paints inside it.
  */
-export const CONTRIBUTOR_TAG_Z_INDEX = 2;
+export const CONTRIBUTOR_TAG_Z_INDEX: number = akEditorSmallZIndex + 1;
 
 /**
  * The plugin's whole side of the tag's motion: the fade and the hidden state are

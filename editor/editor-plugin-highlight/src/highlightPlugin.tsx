@@ -7,7 +7,6 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -111,10 +110,8 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 		pluginsOptions: !isToolbarAIFCEnabled
 			? {
 					selectionToolbar() {
-						const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-							? api?.userPreferences?.sharedState.currentState()?.preferences
-									?.toolbarDockingPosition
-							: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+						const toolbarDocking =
+							api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 
 						if (
 							toolbarDocking === 'none' &&

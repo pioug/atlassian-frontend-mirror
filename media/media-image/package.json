@@ -31,6 +31,9 @@
 		},
 		"team": "Media Exif",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Media Image"
 		}
 	},

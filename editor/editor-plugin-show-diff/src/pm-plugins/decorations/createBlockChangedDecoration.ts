@@ -3,6 +3,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
@@ -25,7 +26,12 @@ import {
 	createContributorTagWidget,
 	isContributorTagWidgetEnabled,
 } from './createContributorTagWidget';
-import { AnchorTypeKey, buildAnchorDecorationKey, buildDiffDecorationSpec } from './decorationKeys';
+import {
+	AnchorTypeKey,
+	buildDiffDecorationSpec,
+	buildAnchorDecorationKey,
+	scrollMarginTopStyle,
+} from './decorationKeys';
 import {
 	getBlockNodeStyleLegacy,
 	resolveCellOverlayStyleLegacy,
@@ -331,7 +337,11 @@ export const createBlockChangedDecoration = ({
 		diffType,
 	});
 	const style = tagAnchorName
-		? [nodeStyle, convertToInlineCss({ anchorName: `--${tagAnchorName}` })]
+		? [
+				nodeStyle,
+				convertToInlineCss({ anchorName: `--${tagAnchorName}` }),
+				fg('platform_editor_ai_show_diff_patch_1') ? scrollMarginTopStyle : undefined,
+			]
 				.filter(Boolean)
 				.join(' ')
 		: nodeStyle;
@@ -343,7 +353,7 @@ export const createBlockChangedDecoration = ({
 				change.from,
 				change.to,
 				{
-					style: style,
+					style,
 					'data-testid': 'show-diff-changed-decoration-node',
 					class: className,
 					// Lets the contributor tag find the block it captions on hover.

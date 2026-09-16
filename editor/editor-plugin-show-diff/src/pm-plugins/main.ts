@@ -15,6 +15,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type {
+	ColorScheme,
 	ContributorTagModel,
 	DeletedDiffPlacement,
 	DiffDescriptor,
@@ -46,6 +47,12 @@ export const showDiffPluginKey: PluginKey<ShowDiffPluginState> = new PluginKey<S
 export type ShowDiffPluginState = {
 	activeIndex?: number;
 	activeIndexPos?: { from: number; to: number };
+	/**
+	 * Per-call override, set via SHOW_DIFF meta. Falls back to the plugin's configured
+	 * `DiffParams.colorScheme` (see `createPlugin`'s `config` argument) when unset, and persists
+	 * across `SCROLL_TO_NEXT`/`SCROLL_TO_PREVIOUS` repaints of the same diff. Reset on HIDE_DIFF.
+	 */
+	colorScheme?: ColorScheme;
 	/** Set via SHOW_DIFF meta, after `normalizeShowDiffParams` has keyed the public list. */
 	contributors?: ResolvedDiffContributors;
 	/** Resolved per calculation, never set via meta. */
@@ -207,7 +214,7 @@ export const createPlugin = (
 							state: newState,
 							pluginState: newPluginState,
 							nodeViewSerializer,
-							colorScheme: config?.colorScheme,
+							colorScheme: newPluginState?.colorScheme ?? config?.colorScheme,
 							intl: getIntl(),
 							activeIndexPos: newPluginState.activeIndexPos,
 							api,
@@ -243,6 +250,8 @@ export const createPlugin = (
 							activeIndex: undefined,
 							contributorTags: [],
 							reveal: undefined,
+							// Per-call override — do not let it leak into the next, unrelated `showDiff` call.
+							colorScheme: undefined,
 							/**
 							 * Reset isInverted & diffType state when hiding diffs
 							 * Otherwise this should persist for the diff-showing session
@@ -297,7 +306,7 @@ export const createPlugin = (
 								state: newState,
 								pluginState: newPluginState,
 								nodeViewSerializer,
-								colorScheme: config?.colorScheme,
+								colorScheme: newPluginState?.colorScheme ?? config?.colorScheme,
 								intl: getIntl(),
 								activeIndexPos: newPluginState.activeIndexPos,
 								api,
@@ -385,6 +394,8 @@ export const createPlugin = (
 								view.state.doc,
 								pluginState?.diffType,
 							),
+							undefined,
+							api,
 						);
 
 						// Reset the flag so we don't scroll again on subsequent updates
@@ -420,6 +431,7 @@ export const createPlugin = (
 							view,
 							scrollableDecorations,
 							pluginState.activeIndex,
+							api,
 						);
 
 						// Stepping only scrolls — no focus moves and no content changes — so without this a

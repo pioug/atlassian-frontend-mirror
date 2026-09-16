@@ -2,12 +2,6 @@ import React from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
@@ -25,19 +19,12 @@ import {
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
-import {
-	setToolbarDocking,
-	toggleToolbar,
-	updateToolbarDocking,
-	forceToolbarDockingWithoutAnalytics,
-} from './pm-plugins/commands';
+import { toggleToolbar, updateToolbarDocking } from './pm-plugins/commands';
 import { selectionToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
 import type { ToolbarDocking } from './types';
-import { PageVisibilityWatcher } from './ui/PageVisibilityWatcher';
 import { getPinOptionToolbarConfig } from './ui/pin-toolbar-config';
 import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 import { getToolbarComponents } from './ui/toolbar-components';
@@ -98,7 +85,6 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 	let previousToolbarDocking: ToolbarDocking | null =
 		userPreferencesProvider?.getPreference('toolbarDockingInitialPosition') || null;
-	let isPreferenceInitialized = false;
 
 	return {
 		name: 'selectionToolbar',
@@ -136,45 +122,22 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				return api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
 			},
 			setToolbarDocking: (toolbarDocking: ToolbarDocking) => {
-				if (fg('platform_editor_use_preferences_plugin')) {
-					return (
-						api?.core.actions.execute(
-							api?.userPreferences?.actions.updateUserPreference(
-								'toolbarDockingPosition',
-								toolbarDocking,
-							),
-						) ?? false
-					);
-				}
-
 				return (
 					api?.core.actions.execute(
-						setToolbarDocking({
+						api?.userPreferences?.actions.updateUserPreference(
+							'toolbarDockingPosition',
 							toolbarDocking,
-							userPreferencesProvider,
-							editorAnalyticsApi: api?.analytics?.actions,
-						}),
+						),
 					) ?? false
 				);
 			},
 			forceToolbarDockingWithoutAnalytics: (toolbarDocking: ToolbarDocking) => {
-				if (fg('platform_editor_use_preferences_plugin')) {
-					return (
-						api?.core.actions.execute(
-							api?.userPreferences?.actions.updateUserPreference(
-								'toolbarDockingPosition',
-								toolbarDocking,
-							),
-						) ?? false
-					);
-				}
-
 				return (
 					api?.core.actions.execute(
-						forceToolbarDockingWithoutAnalytics({
+						api?.userPreferences?.actions.updateUserPreference(
+							'toolbarDockingPosition',
 							toolbarDocking,
-							userPreferencesProvider,
-						}),
+						),
 					) ?? false
 				);
 			},
@@ -207,12 +170,10 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				__selectionToolbarHandlers.push(...selectionToolbarHandlers);
 			}
 
-			const initialToolbarDocking = fg('platform_editor_use_preferences_plugin')
-				? getToolbarDockingV2(
-						contextualFormattingEnabled,
-						api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition,
-					)
-				: getToolbarDocking(contextualFormattingEnabled, userPreferencesProvider);
+			const initialToolbarDocking = getToolbarDockingV2(
+				contextualFormattingEnabled,
+				api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition,
+			);
 
 			return [
 				{
@@ -327,43 +288,6 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 									},
 								};
 							},
-							appendTransaction(_transactions, _oldState, newState) {
-								if (fg('platform_editor_use_preferences_plugin')) {
-									return null;
-								}
-
-								if (
-									!isPreferenceInitialized &&
-									editorExperiment('platform_editor_controls', 'variant1')
-								) {
-									const toolbarDockingPreference = userPreferencesProvider?.getPreference(
-										'toolbarDockingInitialPosition',
-									);
-
-									if (toolbarDockingPreference !== undefined) {
-										isPreferenceInitialized = true;
-
-										const userToolbarDockingPref = getToolbarDocking(
-											contextualFormattingEnabled,
-											userPreferencesProvider,
-										);
-
-										const tr = newState.tr;
-
-										api?.analytics?.actions.attachAnalyticsEvent({
-											action: ACTION.INITIALISED,
-											actionSubject: ACTION_SUBJECT.USER_PREFERENCES,
-											actionSubjectId: ACTION_SUBJECT_ID.SELECTION_TOOLBAR_PREFERENCES,
-											attributes: { toolbarDocking: userToolbarDockingPref },
-											eventType: EVENT_TYPE.OPERATIONAL,
-										})(tr);
-
-										return tr;
-									}
-								}
-
-								return null;
-							},
 							props: {
 								handleDOMEvents: {
 									mousedown: (view) => {
@@ -467,11 +391,10 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 						}
 
 						if (items.length > 0 && contextualFormattingEnabled && isEditorControlsEnabled) {
-							const toolbarDockingPref =
-								api?.userPreferences && fg('platform_editor_use_preferences_plugin')
-									? api?.userPreferences?.sharedState.currentState()?.preferences
-											?.toolbarDockingPosition
-									: toolbarDocking;
+							const toolbarDockingPref = api?.userPreferences
+								? api?.userPreferences?.sharedState.currentState()?.preferences
+										?.toolbarDockingPosition
+								: toolbarDocking;
 
 							items.push(
 								...getPinOptionToolbarConfig({ api, toolbarDocking: toolbarDockingPref, intl }),
@@ -502,14 +425,6 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 						};
 					},
 				},
-
-		contentComponent:
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			!fg('platform_editor_use_preferences_plugin')
-				? () => (
-						<PageVisibilityWatcher api={api} userPreferencesProvider={userPreferencesProvider} />
-					)
-				: undefined,
 
 		primaryToolbarComponent:
 			!api?.primaryToolbar &&

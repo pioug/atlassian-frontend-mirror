@@ -43,6 +43,68 @@
         "text": "Green",
         "color": "green"
       }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Teal",
+        "color": "#B3F5FF"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Accent green",
+        "color": "#ABF5D1"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Lime",
+        "color": "#D3F1A7"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Accent yellow",
+        "color": "#FFF0B3"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Orange",
+        "color": "#FCE4A6"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Magenta",
+        "color": "#FDD0EC"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Unregistered",
+        "color": "#123ABC"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Lowercase teal",
+        "color": "#b3f5ff"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "No colour"
+      }
     }
   ]
 }

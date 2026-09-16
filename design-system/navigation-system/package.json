@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "10.16.11",
+	"version": "10.17.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -55,6 +55,9 @@
 		},
 		"team": "ADS: nav4",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Navigation system",
 			"category": "Navigation",
 			"subPages": [
@@ -149,6 +152,7 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@axe-core/playwright": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",

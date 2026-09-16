@@ -264,6 +264,11 @@ export type EditorContentContainerProps = {
 	viewMode?: 'view' | 'edit';
 };
 
+const syncBlockSelectedStyles: SerializedStyles = css({
+	'--ak-editor-sync-block-selected-border-color': token('color.border.selected'),
+	'--ak-editor-sync-block-selected-label-background-color': token('elevation.surface.hovered'),
+});
+
 const alignMultipleWrappedImageInLayoutStyles = {
 	'.ProseMirror [data-layout-section] [data-layout-column] > div': {
 		// apply marginTop to wrapped mediaSingle that has preceding wrapped mediaSingle (even when there's gap cursor in between them)
@@ -803,6 +808,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				alignMultipleWrappedImageInLayoutStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				syncBlockStylesBase,
+				fg('platform-dst-tokens-finesse') && syncBlockSelectedStyles,
 				// Apply sync block delta styles conditionally based on useStandardNodeWidth (negative margins or not)
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				!useStandardNodeWidth &&

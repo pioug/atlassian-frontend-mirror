@@ -43,12 +43,6 @@ const scrollbarStyles: string = evaluateInner`/*
 :root[data-scrollbar-harmonisation]::-webkit-scrollbar-thumb,
 :root[data-scrollbar-harmonisation] *::-webkit-scrollbar-thumb {
   background-color: ${token('color.border.input', '#8C8F97')};
-  border-radius: ${token('radius.full', '9999px')};
-}
-
-:root[data-scrollbar-harmonisation]::-webkit-scrollbar-thumb:hover,
-:root[data-scrollbar-harmonisation] *::-webkit-scrollbar-thumb:hover {
-  background-color: ${token('color.border.bold', '#7D818A')};
 }
 
 @media (forced-colors: active) {

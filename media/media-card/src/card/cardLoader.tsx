@@ -3,7 +3,7 @@ import Loadable from 'react-loadable';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { CardLoading } from '../utils/lightCards/cardLoading';
 import { type CardWithMediaClientConfigProps } from './types';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 const MediaCardContext = React.createContext({});
 

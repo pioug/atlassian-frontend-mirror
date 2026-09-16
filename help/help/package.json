@@ -40,6 +40,9 @@
 			"channel": "#pace-ps2"
 		},
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Help"
 		}
 	},

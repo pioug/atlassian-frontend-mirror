@@ -19,13 +19,13 @@ import {
 } from '../Card/types';
 import { type HoverPreviewOptions } from '../HoverCard/types';
 import { type OnErrorCallback } from '../types';
+import type { AnchorTarget } from './components/types';
 
 export type FlexibleCardProps = {
 	/**
 	 * Configure visibility of server and client actions
 	 */
 	actionOptions?: CardActionOptions;
-
 	/**
 	 * Determines the appearance of the Smart Link.
 	 * @internal
@@ -63,6 +63,8 @@ export type FlexibleCardProps = {
 	 * @internal A unique ID for a Smart Link.
 	 */
 	id?: string;
+
+	navigation?: { target?: AnchorTarget; url: string };
 
 	/**
 	 * An additional action that can be performed when link is not resolved, e.g.

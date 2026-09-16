@@ -1,5 +1,23 @@
 # @atlaskit/portal
 
+## 7.0.0
+
+### Major Changes
+
+- [`7195b37b51df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7195b37b51df4) -
+  Removed the `isClosed` prop from `Portal`.
+
+  The prop was added for a JSM CSV-import onboarding flow that has since been removed, and it has no
+  remaining consumers. `Portal` now always uses its baseline lifecycle: the portal container is
+  removed when the component unmounts, rather than when a prop flips.
+
+  Consumers that previously passed `isClosed={true}` to tear down portalled content should stop
+  rendering the `Portal` instead, which removes the container through the same cleanup path.
+
+  The `import_into_jsm_in_template_gallery_killswitch` feature flag that gated this behaviour has
+  also been removed, along with the internal `removePortalParent` utility that only the gated path
+  used.
+
 ## 6.4.1
 
 ### Patch Changes

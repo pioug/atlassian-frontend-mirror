@@ -3,7 +3,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import type { InteractionMetrics } from '../../common';
 import type { PreloadInfo } from '../../common/common/types';
 import { setUFOConfig } from '../../config';
-import { createPayloads } from '../index';
+import { createPayloads } from '../createPayloads';
 
 Object.defineProperty(global, 'window', {
 	value: {

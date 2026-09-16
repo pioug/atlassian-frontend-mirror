@@ -38,6 +38,9 @@
 		},
 		"team": "Admin Hub: Nexus",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Focused Task Close Account"
 		}
 	},

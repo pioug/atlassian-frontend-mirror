@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "8.10.5",
+	"version": "8.12.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -13,6 +13,9 @@
 		},
 		"team": "Rovo Agents",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "RovoAgentComponents",
 			"category": "Components"
 		}
@@ -32,6 +35,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./agent-conversation-starters": "./src/ui/agent-conversation-starters/AgentConversationStarters.tsx",
 		"./agent-name-side-nav": "./src/ui/agent-name-side-nav/index.tsx",
 		"./agent-verification-dropdown-item": "./src/ui/agent-verification-dropdown-item/index.tsx",
 		"./agent-verified": "./src/ui/agent-verified/index.tsx",
@@ -44,9 +48,16 @@
 		"./common/ui/StarIconButton": "./src/common/ui/star-icon-button/index.tsx",
 		"./common/utils/is-agent-creator-type": "./src/common/utils/is-agent-creator-type.ts",
 		"./common/utils/is-forge-agent": "./src/common/utils/is-forge-agent.ts",
+		"./conversation-starters": "./src/ui/agent-conversation-starters/ConversationStarters.tsx",
+		"./get-conversation-starters": "./src/ui/agent-conversation-starters/getConversationStarters.tsx",
 		"./ui/agent-avatar/GeneratedAvatar": "./src/ui/agent-avatar/generated-avatars/index.tsx",
+		"./ui/agent-avatar/ResolvedAgentAvatar": "./src/ui/agent-avatar/resolved-agent-avatar/ResolvedAgentAvatar.tsx",
+		"./ui/agent-dropdown-menu/agent-dropdown-menu": "./src/ui/agent-dropdown-menu/AgentDropdownMenu.tsx",
+		"./ui/agent-dropdown-menu/chat-to-agent-button": "./src/ui/agent-dropdown-menu/ChatToAgentButton.tsx",
 		"./ui/agent-identity/derive-agent-identity": "./src/ui/agent-identity/derive-agent-identity.ts",
 		"./ui/agent-profile-info/AgentStarCount": "./src/ui/agent-profile-info/agent-star-count/index.tsx",
+		"./ui/agent-verified/agent-verified": "./src/ui/agent-verified/agent-verified.tsx",
+		"./ui/agent-verified/agent-verified-icon": "./src/ui/agent-verified/agent-verified-icon.tsx",
 		"./ui/AgentAvatar": "./src/ui/agent-avatar/index.tsx",
 		"./ui/AgentConversationStarters": "./src/ui/agent-conversation-starters/index.tsx",
 		"./ui/AgentDropdownMenu": "./src/ui/agent-dropdown-menu/index.tsx",
@@ -78,6 +89,7 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"react-dom": "root:*",
+		"react-error-boundary": "root:*",
 		"react-magnetic-di": "root:*",
 		"react-relay": "root:*"
 	},

@@ -25,6 +25,9 @@
 	"atlassian": {
 		"team": "Editor: Collaboration",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Editor Jira Transformer"
 		}
 	},

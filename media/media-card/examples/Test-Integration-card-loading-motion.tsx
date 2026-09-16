@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 
 import { MainWrapper } from '../example-helpers';
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 
 // `hasLoadingMotion` is inert unless `aifc_page_create_defer_generated_visuals` is on. The test
 // that drives this fixture passes it as the harness's `featureFlag` query param — setting a

@@ -1,7 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { RendererCssClassName } from '../../../../consts';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import TableRow from '../../../../react/nodes/tableRow';
 
 type FakeCellProps = {
@@ -41,7 +43,14 @@ const renderInTable = (row: React.ReactNode) =>
 const cellAttributes = (attribute: string) =>
 	screen.getAllByRole('columnheader').map((cell) => cell.getAttribute(attribute));
 
-describe('Renderer - React/Nodes/TableRow', () => {
+describe.each([false, true])('Renderer - React/Nodes/TableRow (functional gate: %s)', (enabled) => {
+	beforeEach(() => {
+		if (enabled) {
+			passGate('platform_renderer_table_row_functional');
+		} else {
+			failGate('platform_renderer_table_row_functional');
+		}
+	});
 	it('should create a <tr>-tag', () => {
 		renderInTable(<TableRow />);
 
@@ -133,6 +142,46 @@ describe('Renderer - React/Nodes/TableRow', () => {
 				expect(sortOrders[2]).toBe(SortOrder.NO_ORDER);
 			});
 		});
+	});
+
+	it('forwards the row ref and preserves numbered row edge attributes', () => {
+		const innerRef = React.createRef<HTMLTableRowElement>();
+		renderInTable(
+			<TableRow innerRef={innerRef} index={3} isNumberColumnEnabled={1} isFirstRow isLastRow>
+				<td>Content</td>
+			</TableRow>,
+		);
+		expect(innerRef.current).toBe(screen.getByRole('row'));
+		const numberCell = screen.getByRole('cell', { name: '3' });
+		expect(numberCell).toHaveClass(RendererCssClassName.NUMBER_COLUMN);
+		expect(numberCell).toHaveAttribute('data-reaches-left', 'true');
+		expect(numberCell).toHaveAttribute('data-reaches-top', 'true');
+		expect(numberCell).toHaveAttribute('data-reaches-bottom', 'true');
+	});
+
+	it('updates sorting props and callbacks when rerendered', async () => {
+		const initialSort = jest.fn();
+		const nextSort = jest.fn();
+		const row = (onSorting: typeof initialSort, columnIndex: number) => (
+			<table>
+				<tbody>
+					<TableRow
+						allowColumnSorting
+						onSorting={onSorting}
+						tableOrderStatus={{ columnIndex, order: SortOrder.DESC }}
+					>
+						<FakeCell />
+						<FakeCell />
+					</TableRow>
+				</tbody>
+			</table>
+		);
+		const { rerender } = render(row(initialSort, 0));
+		rerender(row(nextSort, 1));
+		expect(cellAttributes('data-sort-ordered')).toEqual([SortOrder.NO_ORDER, SortOrder.DESC]);
+		await userEvent.click(screen.getAllByRole('button', { name: 'sort' })[1]);
+		expect(nextSort).toHaveBeenCalledWith(1);
+		expect(initialSort).not.toHaveBeenCalled();
 	});
 
 	describe('colGroupWidths', () => {

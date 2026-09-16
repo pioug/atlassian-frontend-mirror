@@ -1,5 +1,31 @@
 # @atlaskit/editor-statsig-tmp
 
+## 198.0.0
+
+### Major Changes
+
+- [`9f67d7a39831c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f67d7a39831c) -
+  Clean up experiment `editor_a11y__primary-toolbar-aria-label_fy27`
+
+## 197.0.0
+
+### Major Changes
+
+- [`cd25a56e957e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd25a56e957e5) -
+  Clean up experiment `cc-maui-overlay-by-localid`. The enabled behaviour is now permanent: the
+  inline-Rovo streaming target for a media node is always the node's `localId`, so the AI-generating
+  overlay only lights up the node the user acted on instead of every copy/pasted duplicate sharing
+  the same media file id.
+
+  `@atlaskit/tmp-editor-statsig` removes the `cc-maui-overlay-by-localid` key from
+  `editorExperimentsConfig`, so reading it via `expValEquals`/`expValEqualsNoExposure` is now a type
+  error - remove those call sites.
+
+  `@atlassian/editor-rovo-bridge` removes `onPrepareImageUpdate` and `onClearAIGenerating` from the
+  `PassThroughCommandProps` type. The ACTION_PREPARE overlay path they drove is dead now that the
+  overlay is keyed on `localId`, and the payload only ever carried a media file id. Consumers
+  passing either callback should drop it; no replacement is needed.
+
 ## 196.0.0
 
 ### Major Changes

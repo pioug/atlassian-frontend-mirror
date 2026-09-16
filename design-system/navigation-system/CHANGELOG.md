@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 10.17.0
+
+### Minor Changes
+
+- [`c7333edc6dfa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7333edc6dfa2) -
+  Add content change motion to Panel behind the `platform-dst-motion-uplift-panel` feature flag.
+  Consumers can provide a contentKey to exit the previous content before entering the next while
+  preserving the panel shell.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.16.11
 
 ### Patch Changes

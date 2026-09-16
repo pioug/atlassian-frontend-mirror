@@ -37,6 +37,11 @@ export type MentionsChangedHandler = (changes: MentionChange[]) => void;
 export interface MentionsPluginOptions extends MentionPluginConfig {
 	allowZeroWidthSpaceAfter?: boolean;
 	/**
+	 * Optional predicate evaluated before opening the @mention typeahead. When
+	 * false, a typed @ remains plain editor text.
+	 */
+	canOpenTypeAhead?: () => boolean;
+	/**
 	 * User ID to highlight as a self-mention (typically the current user).
 	 *
 	 * When provided, mentions matching this ID will be highlighted immediately,

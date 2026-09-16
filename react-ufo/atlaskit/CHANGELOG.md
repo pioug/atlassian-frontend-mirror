@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.11.0
+
+### Minor Changes
+
+- [`5bb049fcdba7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bb049fcdba7e) -
+  Add a direct ufo-segment entry point for the existing UFOSegment implementation, and migrate
+  internal consumers to existing direct bindings while preserving shared interaction state.
+
 ## 7.10.0
 
 ### Minor Changes

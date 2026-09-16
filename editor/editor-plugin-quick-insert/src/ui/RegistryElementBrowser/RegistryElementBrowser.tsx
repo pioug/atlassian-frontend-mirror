@@ -22,7 +22,9 @@ import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
@@ -247,12 +249,21 @@ export const RegistryElementBrowser = ({
 				>
 					<ModalHeader>
 						<div css={headerContentStyles}>
-							<Heading size="medium">
-								{formatMessage({
-									defaultMessage: 'Insert elements',
-									id: 'editor.quick-insert.title',
-								})}
-							</Heading>
+							{fg('platform_dst_modal-dialog-use-modal-title') ? (
+								<ModalTitle>
+									{formatMessage({
+										defaultMessage: 'Insert elements',
+										id: 'editor.quick-insert.title',
+									})}
+								</ModalTitle>
+							) : (
+								<Heading size="medium">
+									{formatMessage({
+										defaultMessage: 'Insert elements',
+										id: 'editor.quick-insert.title',
+									})}
+								</Heading>
+							)}
 							<div css={headerSearchStyles}>
 								<Textfield
 									autoFocus

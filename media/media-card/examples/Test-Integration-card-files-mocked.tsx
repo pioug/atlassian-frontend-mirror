@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { type FileIdentifier } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 import { DelayedRender } from '../example-helpers/DelayedRender';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MainWrapper } from '../example-helpers';

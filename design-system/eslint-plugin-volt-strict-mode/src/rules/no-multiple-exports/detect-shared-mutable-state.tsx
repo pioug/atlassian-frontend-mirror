@@ -3,16 +3,19 @@ import { AST_NODE_TYPES, type TSESLint, type TSESTree } from '@typescript-eslint
 import { classifyMutableSharing } from './utils/classify-mutable-sharing';
 import { type ExportedUnitRange } from './utils/exported-unit-range';
 import { expandTransitiveReaders } from './utils/expand-transitive-readers';
+import { isContainedBy } from './utils/is-contained-by';
 
 /**
  * Collect the declaration subtree range for every module-level binding
  * (`const`/`let`/`var`, whether or not it is exported). Used to trace which
  * helper references the shared mutable state so indirect readers can be resolved.
  */
-function collectModuleBindingRanges(
-	program: TSESTree.Program,
-): Map<string, readonly [number, number]> {
-	const ranges = new Map<string, readonly [number, number]>();
+function collectModuleBindingRanges(program: TSESTree.Program): {
+	bindingRanges: Map<string, readonly [number, number]>;
+	helperRanges: Map<string, readonly [number, number]>;
+} {
+	const bindingRanges = new Map<string, readonly [number, number]>();
+	const helperRanges = new Map<string, readonly [number, number]>();
 	for (const stmt of program.body) {
 		let decl: TSESTree.VariableDeclaration | undefined;
 		if (stmt.type === AST_NODE_TYPES.VariableDeclaration) {
@@ -28,18 +31,24 @@ function collectModuleBindingRanges(
 		}
 		for (const declarator of decl.declarations) {
 			if (declarator.id.type === AST_NODE_TYPES.Identifier) {
-				ranges.set(declarator.id.name, declarator.range);
+				bindingRanges.set(declarator.id.name, declarator.range);
+				if (
+					declarator.init?.type === AST_NODE_TYPES.ArrowFunctionExpression ||
+					declarator.init?.type === AST_NODE_TYPES.FunctionExpression
+				) {
+					helperRanges.set(declarator.id.name, declarator.range);
+				}
 			}
 		}
 	}
-	return ranges;
+	return { bindingRanges, helperRanges };
 }
 
 /**
  * Detects the B2 shape: shared mutable module state (TS2632).
  *
  * A file exhibits B2 when a module-level `let`/`var` binding is a singleton that
- * is reassigned by at least one export and depended on by 2+ of the file's
+ * is reassigned by at least one export (or a helper it reaches) and depended on by 2+ of the file's
  * runtime exports (directly, or transitively via non-exported module-level
  * helpers). Splitting such a file forks the singleton across the new modules, and
  * reassigning an imported binding is a TypeScript error (TS2632), so the
@@ -87,7 +96,7 @@ export function hasSharedMutableModuleState(
 		return false;
 	}
 
-	const bindingRanges = collectModuleBindingRanges(program);
+	const { bindingRanges, helperRanges } = collectModuleBindingRanges(program);
 
 	for (const name of mutableNames) {
 		const variable = moduleScope.variables.find((v) => v.name === name);
@@ -100,13 +109,30 @@ export function hasSharedMutableModuleState(
 		// var itself — depends on the shared mutable state.
 		const reacherNames = expandTransitiveReaders(new Set([name]), moduleScope, bindingRanges);
 
+		// A private writer only qualifies if an export reaches it. An unused writer
+		// must not exempt otherwise read-only exports; the binding's own initializer
+		// is not a helper write either.
+		const writerNames = new Set<string>();
+		for (const [helperName, range] of helperRanges) {
+			if (
+				helperName !== name &&
+				variable.references.some(
+					(ref) => ref.isWrite() && isContainedBy(ref.identifier.range, range),
+				)
+			) {
+				writerNames.add(helperName);
+			}
+		}
+		const writerReacherNames = expandTransitiveReaders(writerNames, moduleScope, helperRanges);
+
 		const { unitsReferencing, hasWriteInsideExport } = classifyMutableSharing(
 			variable,
 			exportedUnits,
 			moduleScope,
 			reacherNames,
+			writerReacherNames,
 		);
-		// Shared across 2+ exports AND reassigned inside at least one of them → TS2632
+		// Shared across 2+ exports AND reassigned by at least one (possibly via a helper) → TS2632
 		// on split. This is the codemod-unsplittable B2 shape.
 		if (unitsReferencing >= 2 && hasWriteInsideExport) {
 			return true;

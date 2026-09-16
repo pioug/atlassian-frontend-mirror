@@ -6,7 +6,7 @@ import type { CardContext } from '@atlaskit/link-provider/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { ACTION_RESOLVING } from '@atlaskit/linking-common/actions';
-import { APIError, type APIErrorKind } from '@atlaskit/linking-common';
+import { APIError, type APIErrorKind } from '@atlaskit/linking-common/api-error';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';

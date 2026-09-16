@@ -17,6 +17,9 @@
 		},
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Link",
 			"category": "Navigation"
 		}

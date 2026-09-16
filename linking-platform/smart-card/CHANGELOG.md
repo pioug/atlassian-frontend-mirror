@@ -1,5 +1,39 @@
 # @atlaskit/smart-card
 
+## 45.24.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.24.0
+
+### Minor Changes
+
+- [`a8d86fe6554c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8d86fe6554c5) -
+  Add an optional Flexible Card navigation policy. Embedded Confluence enables converted
+  destinations with confluence_ep_shim_macro_links_v2.
+
+  The confluence_ep_shim_macro_links_v2 gate controls callback inheritance, link destinations, and
+  target overrides.
+
+  Keep navigation separate from card metadata. Apply destinations directly to the rendered links.
+
+### Patch Changes
+
+- [`c7ac8f1cd5f6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7ac8f1cd5f6b) -
+  Migrate modal titles to ModalTitle behind platform_dst_modal-dialog-use-modal-title.
+- Updated dependencies
+
+## 45.23.4
+
+### Patch Changes
+
+- [`2bbc1c84de468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bbc1c84de468) -
+  Migrate Volt consumer imports to existing definitions and align affected test mocks without
+  changing runtime behavior.
+- Updated dependencies
+
 ## 45.23.3
 
 ### Patch Changes

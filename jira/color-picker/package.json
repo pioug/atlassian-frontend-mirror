@@ -16,6 +16,9 @@
 	"atlassian": {
 		"team": "Jira Chronos",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Color Picker"
 		}
 	},

@@ -22,8 +22,7 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 }));
 
 // Mock the isWithinPreviewPanelIFrame function
-jest.mock('@atlaskit/linking-common/utils', () => ({
-	...jest.requireActual('@atlaskit/linking-common/utils'),
+jest.mock('@atlaskit/linking-common/utils/is-within-preview-panel-iframe', () => ({
 	isWithinPreviewPanelIFrame: jest.fn(),
 }));
 
@@ -76,7 +75,9 @@ describe('extractors.downloadAction', () => {
 describe('extractors.previewAction', () => {
 	describe('extractPreviewClientAction', () => {
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
+		const {
+			isWithinPreviewPanelIFrame,
+		} = require('@atlaskit/linking-common/utils/is-within-preview-panel-iframe');
 
 		beforeEach(() => {
 			// Reset mocks before each test

@@ -87,6 +87,8 @@ export type QuickInsertItem = TypeAheadItem & {
 	featured?: boolean;
 	/** optional identifier */
 	id?: QuickInsertItemId;
+	/** Returns true when the item should not be shown in Quick Insert results. */
+	isHidden?: () => boolean;
 	/** other names used to find the item */
 	keywords?: Array<string>;
 };

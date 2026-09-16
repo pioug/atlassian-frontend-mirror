@@ -9,7 +9,7 @@ jest.mock('../coinflip');
 jest.mock('../config');
 jest.mock('../experience-trace-id-context/get-active-trace');
 jest.mock('../experience-trace-id-context/set-interaction-active-trace');
-jest.mock('../interaction-id-context');
+jest.mock('../interaction-id-context/defaultInteractionId');
 jest.mock('../interaction-metrics');
 jest.mock('../route-name-context');
 
@@ -22,7 +22,7 @@ import {
 } from '../config';
 import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
 import { setInteractionActiveTrace } from '../experience-trace-id-context/set-interaction-active-trace';
-import { DefaultInteractionID } from '../interaction-id-context';
+import DefaultInteractionID from '../interaction-id-context/defaultInteractionId';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 

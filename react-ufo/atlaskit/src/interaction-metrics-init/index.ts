@@ -2,7 +2,7 @@ import { context } from '@opentelemetry/api';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { startLighthouseObserver } from '../additional-payload';
+import { startLighthouseObserver } from '../additional-payload/utils/lighthouse-metrics/startLighthouseObserver';
 import { type PostInteractionLogOutput } from '../common';
 import { type Config, getSelectorConfig, isUFOEnabled, setUFOConfig } from '../config';
 import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload/sink-extra-search-page-interaction-handler';
@@ -211,7 +211,10 @@ export function init(
 
 	Promise.all([
 		analyticsWebClientAsync,
-		import(/* webpackChunkName: "create-payloads" */ '../create-payload'),
+		import(/* webpackChunkName: "react-ufo-create-payloads" */ '../create-payload/createPayloads'),
+		import(
+			/* webpackChunkName: "react-ufo-create-extra-search-page-interaction-payload" */ '../create-payload/createExtraSearchPageInteractionPayload'
+		),
 		import(
 			/* webpackChunkName: "create-post-interaction-log-payload" */ '../create-post-interaction-log-payload'
 		),
@@ -222,6 +225,7 @@ export function init(
 		([
 			awc,
 			payloadPackage,
+			extraPayloadPackage,
 			createPostInteractionLogPayloadPackage,
 			createTerminalErrorPayloadPackage,
 		]) => {
@@ -236,7 +240,7 @@ export function init(
 						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
 					}
 					if (config?.extraSearchPageInteraction?.enabled) {
-						sinkExtraSearchPageInteraction(instance, payloadPackage);
+						sinkExtraSearchPageInteraction(instance, extraPayloadPackage);
 					}
 				});
 			} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
@@ -254,7 +258,10 @@ export function init(
 					);
 				}
 				if (config?.extraSearchPageInteraction?.enabled) {
-					sinkExtraSearchPageInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
+					sinkExtraSearchPageInteraction(
+						awc as GenericAnalyticWebClientInstance,
+						extraPayloadPackage,
+					);
 				}
 			}
 		},

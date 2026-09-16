@@ -1,5 +1,54 @@
 # @atlaskit/editor-core
 
+## 228.1.13
+
+### Patch Changes
+
+- [`0920715a6b9fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0920715a6b9fc) -
+  Clean up feature gate `platform_editor_use_preferences_plugin`
+- [`df3b4a62decdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df3b4a62decdd) -
+  Replace the `fix_editor_blur_issue` feature gate with the `fix_editor_blur_issue_exp` experiment
+  for blur selection clearing, including updated experiment-based unit test coverage.
+- Updated dependencies
+
+## 228.1.12
+
+### Patch Changes
+
+- [`470aa65623e0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/470aa65623e0d) -
+  Use an opaque surface background for selected editor extension floating and synced-block labels
+  when `platform-dst-tokens-finesse` is enabled, preventing the selection outline from showing
+  through the labels. Synced blocks also use the semantic selected border colour. Flag-off styling
+  is unchanged.
+- [`574a167c9c3d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/574a167c9c3d6) -
+  Gate editor blur selection clearing behind `fix_editor_blur_issue` and scope the gated behavior to
+  editor-local selections to avoid clearing user selections outside the editor.
+- Updated dependencies
+
+## 228.1.11
+
+### Patch Changes
+
+- [`c6ccc768a6f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6ccc768a6f7a) -
+  [ux] [EDITOR-8979] apply divider weight to dividers in editor behind
+  `platform_editor_lovability_dividers_attributes`
+- Updated dependencies
+
+## 228.1.10
+
+### Patch Changes
+
+- [`1ed24b2754939`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ed24b2754939) -
+  Show theme-aware previews for supported Embed app slash commands and branded Figma and Amplitude
+  icons behind the `platform_editor_slash_command` experiment.
+- Updated dependencies
+
+## 228.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 228.1.8
 
 ### Patch Changes

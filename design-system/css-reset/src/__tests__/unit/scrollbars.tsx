@@ -37,8 +37,8 @@ describe('standalone scrollbar styles', () => {
     border: revert;
   }`,
 		);
-		expect(scrollbarStyles).toContain('::-webkit-scrollbar-thumb:hover');
-		expect(scrollbarStyles).toContain('border-radius:');
+		expect(scrollbarStyles).not.toContain('::-webkit-scrollbar-thumb:hover');
+		expect(scrollbarStyles).not.toContain('border-radius');
 		expect(scrollbarStyles).not.toContain('button {');
 	});
 });

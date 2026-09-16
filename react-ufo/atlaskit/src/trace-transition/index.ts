@@ -9,7 +9,7 @@ import {
 	isUFOEnabled,
 } from '../config';
 import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
-import { DefaultInteractionID } from '../interaction-id-context';
+import DefaultInteractionID from '../interaction-id-context/defaultInteractionId';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 

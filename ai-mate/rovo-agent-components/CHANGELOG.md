@@ -1,5 +1,39 @@
 # @atlaskit/rovo-agent-components
 
+## 8.12.0
+
+### Minor Changes
+
+- [`441bd218eede9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/441bd218eede9) -
+  Fetch the real account picture for the default Rovo agent, the same way any other agent's avatar
+  resolves, in the agent-mention nudge, the agent profile card, and the editor streaming
+  telepointer. Adds a shared `ResolvedAgentAvatar` to `@atlaskit/rovo-agent-components` (real
+  picture with a caller-supplied fallback) and uses it from the telepointer and the profile card
+  instead of each carrying its own avatar logic. Falls back to the same specialist avatar or
+  generated illustration every other agent gets when there's no picture to fetch, rather than a
+  Rovo-specific fallback.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.11.0
+
+### Minor Changes
+
+- [`3b78768eefc81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b78768eefc81) -
+  Add dedicated public entrypoint imports for `@atlaskit/rovo-agent-components`:
+  `agent-conversation-starters`, `conversation-starters-2`, `get-conversation-starters`,
+  `ui/agent-dropdown-menu/agent-dropdown-menu`, `ui/agent-dropdown-menu/chat-to-agent-button`,
+  `ui/agent-verified/agent-verified`, and `ui/agent-verified/agent-verified-icon`. Root and
+  deprecated compatibility imports remain supported for existing consumers.
+
+## 8.10.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.10.5
 
 ### Patch Changes

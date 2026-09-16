@@ -30,10 +30,13 @@ export const MentionQuickInsertMenuItem = ({ api, typeAhead }: Props): React.JSX
 
 			const tr = insert(undefined);
 
-			api?.typeAhead?.actions.openAtTransaction({
+			const didOpen = api?.typeAhead?.actions.openAtTransaction({
 				triggerHandler: typeAhead,
 				inputMethod: INPUT_METHOD.QUICK_INSERT,
 			})(tr);
+			if (didOpen === false) {
+				return false;
+			}
 			return tr;
 		},
 		[api, typeAhead],

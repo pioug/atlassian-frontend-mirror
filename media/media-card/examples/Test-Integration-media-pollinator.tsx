@@ -10,7 +10,7 @@ import { defaultCollectionName, createUploadMediaClientConfig } from '@atlaskit/
 import { BrowserLoader as Browser } from '@atlaskit/media-picker/browser';
 import type { BrowserConfig, UploadsStartEventPayload } from '@atlaskit/media-picker/types';
 import Button from '@atlaskit/button/default/button';
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
 import { cardFlowHeaderStyles } from '../example-helpers/styles';

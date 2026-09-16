@@ -4,6 +4,7 @@
  */
 import {
 	type CSSProperties,
+	type Key,
 	useCallback,
 	useContext,
 	useEffect,
@@ -16,6 +17,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { Reanimate } from '@atlaskit/motion/reanimate';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -161,7 +163,27 @@ const styles = cssMap({
 	contentExiting: {
 		animation: token('motion.panel.content.exit'),
 	},
+	contentChangeContainer: {
+		height: '100%',
+	},
 });
+
+const PanelContentMotion = ({ children }: { children: React.ReactNode }): JSX.Element => {
+	const { state, ref } = useMotion<HTMLDivElement>();
+
+	return (
+		<div
+			css={[
+				styles.contentChangeContainer,
+				state === 'entering' && styles.contentEntering,
+				state === 'exiting' && styles.contentExiting,
+			]}
+			ref={ref}
+		>
+			{children}
+		</div>
+	);
+};
 
 /**
  * The Panel layout area is rendered to the right (inline end) of the Main area, or the Aside area if it is present.
@@ -180,6 +202,7 @@ export function Panel({
 	xcss,
 	hasBorder = true,
 	maxWidth,
+	contentKey,
 }: CommonSlotProps & {
 	/**
 	 * The content of the layout area.
@@ -211,6 +234,12 @@ export function Panel({
 	 */
 	maxWidth?: ResizeBound;
 	/**
+	 * Identifies the content currently displayed in the panel. Changing this value animates the
+	 * previous content out before animating the next content in. When omitted, content updates
+	 * immediately.
+	 */
+	contentKey?: Key;
+	/**
 	 * Bounded style overrides.
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
@@ -229,7 +258,6 @@ export function Panel({
 	const id = useLayoutId({ providedId });
 
 	const isMotionUpliftEnabled = fg('platform-dst-motion-uplift-panel');
-
 	const defaultWidth = useSafeDefaultWidth({
 		defaultWidthProp,
 		fallbackDefaultWidth,
@@ -412,7 +440,13 @@ export function Panel({
 						isMotionUpliftEnabled && state === 'exiting' && styles.contentExiting,
 					]}
 				>
-					{children}
+					{isMotionUpliftEnabled && contentKey !== undefined ? (
+						<ExitingPersistence exitThenEnter>
+							<PanelContentMotion key={contentKey}>{children}</PanelContentMotion>
+						</ExitingPersistence>
+					) : (
+						children
+					)}
 				</div>
 			</PanelSplitterProvider>
 		</section>

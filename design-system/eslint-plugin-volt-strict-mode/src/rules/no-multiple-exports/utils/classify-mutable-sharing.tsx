@@ -4,7 +4,8 @@ import { type ExportedUnitRange } from './exported-unit-range';
 import { isContainedBy } from './is-contained-by';
 
 /**
- * Count how many distinct exported units REASSIGN (write to) `variable`, plus how
+ * Count how many distinct exported units REASSIGN (write to) `variable`, directly
+ * or through reachable private helpers, plus how
  * many READ it — directly, or transitively through the module-level helpers named
  * in `reacherNames`. A shared mutable module state (B2 / TS2632) requires at least
  * one exported unit to reassign the binding and 2+ distinct exported units to
@@ -16,6 +17,7 @@ export function classifyMutableSharing(
 	exportedUnits: ExportedUnitRange[],
 	moduleScope: TSESLint.Scope.Scope,
 	reacherNames: Set<string>,
+	writerReacherNames: Set<string>,
 ): { unitsReferencing: number; hasWriteInsideExport: boolean } {
 	// Build a flat list of every reference to a module-level binding, tagged with
 	// the referenced name, range, and whether it is a write. Each binding's own
@@ -51,6 +53,9 @@ export function classifyMutableSharing(
 				// Indirect: the export references a module-level helper that
 				// (transitively) touches the shared mutable binding.
 				referencedHere = true;
+				if (writerReacherNames.has(ref.name)) {
+					hasWriteInsideExport = true;
+				}
 			}
 		}
 

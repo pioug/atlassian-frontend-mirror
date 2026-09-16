@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6c6afad44dad4a15bfdda2234abba05>>
+ * @codegen <<SignedSource::58deba1974375dc94777a3d8374bffb6>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1189,7 +1189,6 @@ var tokens = [{
     "duration": 150,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
     "keyframes": ["FadeIn0to100"],
-    "delay": 100,
     "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1203,7 +1202,6 @@ var tokens = [{
     },
     "value": {
       "duration": "Duration150",
-      "delay": "Duration100",
       "curve": "EasePracticalOut",
       "keyframes": ["FadeIn0to100"],
       "fill": "AnimationFillModeBackwards"

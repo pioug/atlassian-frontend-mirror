@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e9235c3269bc4d22a7ede9ece6d5a6e1>>
+ * @codegen <<SignedSource::047ab1ebaa362071b6be8f6dafc7ff4f>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -239,7 +239,7 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-listitem-selected: background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-modal-enter: 250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards;
   --ds-modal-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards;
-  --ds-panel-content-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 100ms backwards;
+  --ds-panel-content-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
   --ds-panel-content-exit: 50ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-panel-enter: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards;
   --ds-panel-enter-left: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards;

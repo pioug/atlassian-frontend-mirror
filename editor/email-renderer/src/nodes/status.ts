@@ -14,6 +14,10 @@ import {
 	P500,
 	N40,
 	N500,
+	T200,
+	M200,
+	L200,
+	Orange200,
 } from '@atlaskit/adf-schema/colors';
 
 const commonStyle = `
@@ -62,11 +66,69 @@ export const styles: string = `
   background-color: ${N40};
   color: ${N500};
 }
+/* Teal — color.background.accent.teal.subtler on color.text.accent.teal.bolder */
+.${createClassName('status-b3f5ff')} {
+  ${commonStyle}
+  background-color: ${T200};
+  color: #164555;
+}
+/* Green — reuses the legacy \`green\` declarations rather than introducing a second, near-identical
+   green, so the two render identically */
+.${createClassName('status-abf5d1')} {
+  ${commonStyle}
+  background-color: ${G50};
+  color: ${G500};
+}
+/* Lime — a hue with no legacy name, so it takes its own tokens:
+   color.background.accent.lime.subtler on color.text.accent.lime.bolder */
+.${createClassName('status-d3f1a7')} {
+  ${commonStyle}
+  background-color: ${L200};
+  color: #37471F;
+}
+/* Yellow — reuses the legacy \`yellow\` declarations rather than introducing a second,
+   near-identical yellow, so the two render identically */
+.${createClassName('status-fff0b3')} {
+  ${commonStyle}
+  background-color: ${Y75};
+  color: ${N800};
+}
+/* Orange — a hue with no legacy name, so it takes its own tokens:
+   color.background.accent.orange.subtler on color.text.accent.orange.bolder */
+.${createClassName('status-fce4a6')} {
+  ${commonStyle}
+  background-color: ${Orange200};
+  color: #693200;
+}
+/* Magenta — color.background.accent.magenta.subtler on color.text.accent.magenta.bolder */
+.${createClassName('status-fdd0ec')} {
+  ${commonStyle}
+  background-color: ${M200};
+  color: #50253F;
+}
 `;
 
-const ALLOWED_COLORS = new Set(['blue', 'red', 'yellow', 'green', 'purple', 'neutral']);
+/** Exported for tests: lets them cross-check every allowed colour against the stylesheet. */
+export const ALLOWED_COLORS: ReadonlySet<string> = new Set([
+	'neutral',
+	'blue',
+	'red',
+	'yellow',
+	'green',
+	'purple',
+	'#B3F5FF',
+	'#ABF5D1',
+	'#D3F1A7',
+	'#FFF0B3',
+	'#FCE4A6',
+	'#FDD0EC',
+]);
+
+const normalizeColor = (color: string): string =>
+	color.startsWith('#') ? color.toUpperCase() : color;
 
 export default function status({ attrs, text }: NodeSerializerOpts): string {
-	const color = ALLOWED_COLORS.has(attrs.color) ? attrs.color : 'neutral';
-	return createTag('span', { class: createClassName(`status-${color}`) }, text);
+	const color = normalizeColor(attrs.color ?? '');
+	const slug = ALLOWED_COLORS.has(color) ? color.replace('#', '').toLowerCase() : 'neutral';
+	return createTag('span', { class: createClassName(`status-${slug}`) }, text);
 }

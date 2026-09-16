@@ -296,9 +296,8 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		pluginsOptions: {
 			...(!isToolbarAIFCEnabled && {
 				selectionToolbar: () => {
-					const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-						? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition
-						: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+					const toolbarDocking =
+						api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 
 					if (
 						toolbarDocking === 'none' &&

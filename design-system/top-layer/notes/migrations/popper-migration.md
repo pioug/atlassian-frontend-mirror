@@ -219,6 +219,149 @@ does not alter how the popover behaves while its anchor is on screen.
 behind `platform-dst-top-layer` (and the analogous per-consumer flags), so the removal does not
 alter any flag-off production behavior. Confirm the gating approach at implementation time.
 
+**Correction (2026-09-10).** The "Why" above describes hiding "via
+`position-visibility: anchors-visible`" as something a consumer would opt into. It is not an opt-in:
+`anchors-visible` is the property's **initial** value, so that behavior was already on for every
+anchor-positioned popover. See the next decision, which turns it off in top-layer for every adapter.
+
+### Decision: top-layer never lets the browser hide an anchored surface
+
+**Date:** 2026-09-10. **Status:** decided and implemented, in `@atlaskit/top-layer`'s CSS Anchor
+Positioning path (`src/internal/anchor-positioning/apply-anchor-positioning.tsx`). The full
+decision, with the per-engine initial values, the measured trigger table and the accessibility
+argument, is `top-layer/notes/decisions/position-visibility-always.md`. This section records the
+popper-facing half.
+
+**Context.** `position-visibility` initially computes to `anchors-visible` in every engine (spec,
+Blink, WebKit, Gecko), so the moment either popper adapter anchor-positions a surface the browser
+gets a vote on whether that surface is shown, and **strongly hides** it whenever it judges the
+anchor not visible: fully clipped out of an `overflow` or `contain: paint` ancestor, or
+`visibility: hidden`. A strongly hidden popover stops painting and stops taking pointer input while
+still reporting `:popover-open`, `display: block`, `opacity: 1`, `visibility: visible`,
+`checkVisibility() === true` and a **correct `getBoundingClientRect()`**, which is why this class of
+bug is invisible to geometry-based debugging, and why a Playwright `boundingBox()` or
+`toBeVisible()` assertion cannot see it either. A hit-test can, but **only on Chromium**: Safari 26
+stops painting yet still answers `elementsFromPoint` with the popover, and Firefox 153 does not
+implement the hiding at all. Paint is the only observable that works everywhere, so VR is the
+portable guard. Per-engine table: `notes/decisions/position-visibility-always.md`.
+
+**Motivating consumers.** Reproduced end to end in a real browser with `capacity-planning-core`'s
+drag handle
+(`platform/packages/capacity-planning/capacity-planning-core/.../table/common/drag-handle-button/DragHandleButton.tsx`),
+which renders its button as the `<Popper>`'s positioned content. Flag-off the button paints; flag-on
+its rect is byte-identical but `document.elementsFromPoint()` at the button's own centre returns the
+`<td>` and the pixels are empty. Setting `position-visibility: always` on the popover host was the
+**only** mutation that restored it: growing the anchor from 0x0 to 4x4 and giving it a background
+made no difference.
+
+The mechanism: the anchor is a bare `<div />` positioned at `left: -8px` inside a clipped cell, so
+it is **fully** outside the clip edge. That is why growing it from 0x0 to 4x4 changed nothing (4px
+still does not reach the edge 8px away), and why the anchor's own size and background were never the
+variable. Full clipping, not zero area and not occlusion. `DragHandleButton.tsx` is the "satellite
+anchor" shape only popper's API permits: `styles.container` is
+`position: absolute; left: token('space.negative.100'); top: 50%`, and the bare `<div ref={ref} />`
+is an in-flow child of it, so the anchor's rect sits 8px to the left of the cell's content box,
+permanently outside it however the table is scrolled.
+
+Jira's `jira/src/packages/issue-table/primitive-row-popup-button/src/RowPopupButton.tsx` was
+reported with the same symptom and is the same **class** of consumer (a row affordance rendered as
+the `<Popper>`'s positioned content), but it has **not** been reproduced in a browser, and its
+geometry is not the same: its anchor is `position: absolute` at
+`inset-inline-start: 0; inset-block-start: 0`, i.e. at the top-left _inside_ its containing block
+rather than outside it like the drag handle's `left: -8px`. Nothing about that anchor alone should
+fire, so either its clipping ancestor differs from what the source suggests or the report has
+another cause. **Treat the Jira half as unconfirmed** until someone measures it.
+
+**Why popper needed this.** Legacy Popper.js' `hide` modifier only stamped
+`data-popper-reference-hidden` / `data-popper-escaped` attributes. It never hid the surface. The
+FF-on adapter synthesises `isReferenceHidden` / `hasPopperEscaped` in
+`popper/src/internal/use-reference-visibility.tsx` and hands them to the render prop precisely so
+the _consumer_ decides whether to hide. **Two competing hiding mechanisms was the defect.** Where
+they agree (a clipped anchor: `isReferenceHidden` is `true` and the browser hides), a consumer that
+wants to keep painting has no way to say so: `04-flag-reference-hidden.tsx` fades out on
+`isReferenceHidden` and `13-flag-clipped-anchor.tsx` deliberately does not, and both have to stay
+possible. Where they disagree (an anchor clipped by `contain: paint`, or hidden by `visibility`,
+neither of which `isClippedByAncestors` looks at), the surface vanishes with
+`isReferenceHidden: false`, and there is then no value a consumer could branch on to recover.
+
+**Why the fix lives in top-layer, not popper.** The first cut was popper-local: `<Popper>` wrote the
+property from a `useLayoutEffect` on its own host, and `createPopper` stamped
+`data-ds--popper-anchored` and injected a zero-specificity `:where()` rule for the caller-owned
+element. Its notes argued the eight compound adapters should keep `anchors-visible` because a fully
+clipped trigger "means the user genuinely cannot see it, so hiding the surface is the correct
+outcome", and set the bar for reversing that at "a concrete case where a compound component's
+trigger is fully clipped and its surface should still paint". That was replaced the same day:
+
+- top-layer's own `popover.spec.tsx` ("scroll does not close popover") already scrolled a trigger
+  fully out of its scroller and asserted the content visible, so the primitive's stated contract was
+  `always` and Chromium was violating it, invisibly to the assertion;
+- none of the eight ever hid flag-off (none reads `isReferenceHidden`; `popup` only forwards it to a
+  custom `popupComponent`), so the legacy-contract argument was never popper-specific;
+- the concrete case exists: Confluence `space-shortcuts`' `DraggableShortcutsItem.tsx` renders a
+  controlled `<Popup>` whose trigger is `visibility: hidden`, zero-sized and `overflow: hidden`;
+- the CSS path already writes `margin`, `inset` and `position-anchor` inline on the caller-owned
+  `createPopper` element, so "inline styles are the wrong tool here" did not hold and the attribute
+  rule and its shared injector were unnecessary;
+- spotlight's strong-hide deadlock (`mode="manual"`, `shouldDismissOnClickOutside={false}`, target
+  inside a modal scroll body) is fixed at the root rather than as a follow-up.
+
+**What this means for popper.** No popper source changes. `use-reference-visibility.tsx` is
+unchanged: an anchor clipped by `contain: paint` or hidden by `visibility` still reports
+`isReferenceHidden: false`, which is exactly what flag-off reports, because Popper.js' `hide`
+modifier also ignored `visibility` and containment. The render-prop values stay byte-compatible
+across the gate; only the browser's independent hiding is removed. On the imperative path
+`position-visibility: always` is part of what "only positions" means (see "What it does" below): it
+is written inline by `applyAnchorPositioning`, through the same `setStyle` call as
+`position-anchor`, `margin` and `inset`, on the promoted and the caller-owned path alike, and
+restored on `destroy()`. Both motivating consumers need no change once the browser stops hiding
+them. The VR risk is nil for the same reason as before: full clipping is required for the browser to
+hide, so no fixture whose anchor is on screen can change appearance.
+
+**Point-anchored popovers were never affected.** `useAnchoredPopoverAtPoint`'s synthetic anchor is
+`position: fixed; width: 0; height: 0` on `document.body`. A zero-area anchor is not treated as
+invisible, and a `position: fixed` node on `<body>` has nothing above it that could clip it, so
+tooltip's mouse-follow mode and every other point-anchored surface painted throughout. It delegates
+to `useAnchoredPopover`, so it now writes `always` too, which costs nothing and keeps one code path.
+
+**Guarded by**
+
+- What the property DOES is photographed in top-layer, at the one place it is written:
+  `top-layer/__tests__/vr-tests/popover-position-visibility.vr.tsx`, over the two triggers (a
+  clipped anchor and a `visibility: hidden` one). Paint is the only observable, so a screenshot is
+  the direct assertion; each fixture renders the popover as a solid block and dropping the
+  declaration fails both at ~42,600 pixels. Popper has no code of its own here, so this covers both
+  of its adapters by construction.
+- `popper/src/__tests__/playwright/top-layer-position-visibility.spec.tsx`, against
+  `popper/examples/13-flag-clipped-anchor.tsx`: the anchor is clipped out of a short
+  `overflow: auto` scroller and the surface must still be returned by `elementFromPoint` at its own
+  centre, in **both gate states** — which is the bit VR cannot do, and what makes it a parity test
+  rather than "the new path paints". The spec also asserts `data-is-reference-hidden="true"`, so the
+  fixture cannot silently drift into an unclipped anchor and go vacuous. Confirmed non-vacuous:
+  removing the write fails the flag-on test while flag-off still passes.
+
+### Two declaration-level tests were written here and then deleted
+
+A jsdom unit test in `use-anchored-popover.test.tsx` ("browser-driven hiding"), and
+`toHaveCSS('position-visibility', 'always')` on both `createPopper` paths in the popper spec — the
+latter taking `examples/14-flag-imperative-caller-owned.tsx` with it, a re-export that existed only
+to give the caller-owned fixture an `exampleId` for `page.visitExample`. Both asserted that a
+declaration had been written, which `notes/rules/testing.md` is explicit about after
+`shouldFitViewport`: a declaration can be present, correct, and constrain nothing. jsdom made the
+unit test worse still — its `cssstyle` backend drops the property, so the test could not read the
+value back and had to record `setProperty` calls off `CSSStyleDeclaration.prototype`, i.e. assert
+that a line of code ran.
+
+Nothing replaced the imperative pair. It shares the one `applyAnchorPositioning` call the VR
+fixtures photograph, the caller-owned fixture is already in
+`popper/src/__tests__/vr-tests/index.vr.tsx` in both gate states, and the promotion contract is in
+`popper/src/__tests__/unit/create-popper-top-layer.test.tsx`.
+
+**Note on new examples.** Any new example must also be registered in
+`popper/examples/popper.wb.ap.tsx` (`13-flag-clipped-anchor.tsx` is). The AP-bundler integration
+path resolves an `exampleId` by PascalCasing it into a **named export of that module**
+(`build/test-tooling/integration-testing/src/utils/get-example-url.ts`), so an unregistered example
+works on the rspack path and 404s on the AP path.
+
 ### `shouldFitViewport` under the merged size recipe; VR baselines unchanged
 
 **Date:** 2026-09-10. **Status:** resolved by measurement, nothing to do.
@@ -356,7 +499,10 @@ bridge, and the `Instance` lifecycle.
    decision below), so promotion changes paint order and nothing else. `destroy()` reverses both.
    When the element **is** already a popover (the `VanillaTooltip` case: `popover="hint"`,
    caller-driven `showPopover()` / `hidePopover()`), the adapter touches neither the attribute nor
-   visibility nor styling, and only positions.
+   the caller's visibility control nor its styling, and only positions. "Only positions" includes
+   `position-visibility: always`, which `applyAnchorPositioning` writes inline alongside
+   `position-anchor`, `margin` and `inset` on both paths and restores on `destroy()` — see
+   "Decision: top-layer never lets the browser hide an anchored surface" above.
 2. **Positioning.** `PositioningBridge` renders `ElementBridge`, which calls `useAnchoredPopover`
    with `anchorRef` pointing at the caller's anchor. Promotion happens _before_ the first render, so
    the popover is already open when the hook's layout effect runs — which matters on the JS fallback

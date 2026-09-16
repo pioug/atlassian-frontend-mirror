@@ -1,5 +1,5 @@
-import * as resourceTiming from '../resource-timing';
+import { getResourceTimings as getBufferedResourceTimings } from '../resource-timing/main';
 
 export function getResourceTimings(start: number, end: number): any {
-	return resourceTiming.getResourceTimings(start, end) ?? undefined;
+	return getBufferedResourceTimings(start, end) ?? undefined;
 }

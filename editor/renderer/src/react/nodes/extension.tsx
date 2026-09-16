@@ -193,7 +193,7 @@ export const renderExtension = (
 	const viewportSize = getViewportSize(extensionId, extensionViewportSizes);
 	const extensionHeight = nodeHeight || viewportSize;
 	/**
-	 * Scoped to nodes inserted by an app declaring `outputType: inline`, which is what writes
+	 * Scoped to nodes inserted by an app declaring `layout: inline-bodied`, which is what writes
 	 * `atlassianForgeInlineBodied`. The output-type marker alone would also match migrated Connect
 	 * content — it carries the same marker, and after an upgrade plus a storage round trip in the
 	 * same shape — so keying on it would change how existing content renders. The renderer only
@@ -211,6 +211,12 @@ export const renderExtension = (
 	);
 	const isForgeInlineBodiedEnabled =
 		hasForgeInlineBodiedMarker && fg('platform_forge_inline_bodied_macro');
+	const isInlineBodiedLayoutEnabled =
+		node?.extensionType === FORGE_EXTENSION_TYPE &&
+		node?.type === 'bodiedExtension' &&
+		node?.parameters?.layout === 'inline-bodied' &&
+		fg('platform_forge_inline_bodied_layout_switch') &&
+		fg('platform_forge_inline_bodied_macro');
 	/**
 	 * The pass that marks the sibling textblocks around an inline extension resolves their
 	 * positions without a depth term, so it only ever matches at the top level. Inlining a nested
@@ -218,7 +224,8 @@ export const renderExtension = (
 	 * which is worse than leaving it a block — so keep nested inline-bodied Forge macros as
 	 * blocks until the sibling marking works at depth.
 	 */
-	const isNestedForgeInlineBodied = !isTopLevel && isForgeInlineBodiedEnabled;
+	const isNestedForgeInlineBodied =
+		!isTopLevel && (isForgeInlineBodiedEnabled || isInlineBodiedLayoutEnabled);
 	const isInline =
 		shouldDisplayExtensionAsInline?.(node) &&
 		expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
@@ -235,6 +242,7 @@ export const renderExtension = (
 	 * Migrated inline-bodied macros intentionally do not receive the native Forge marker. Mark the
 	 * rendered wrapper instead so the stylesheet can fix only the surrounding text flow without
 	 * applying the native nested-renderer, overflow or sizing rules to migrated content.
+	 * Custom UI also uses this outer text-flow treatment, without styling inside its iframe.
 	 */
 	const isMigratedInlineBodied = Boolean(
 		isInline &&

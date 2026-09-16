@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/eslint-plugin-volt-strict-mode",
-	"version": "1.5.4",
+	"version": "1.5.6",
 	"author": "Atlassian Pty Ltd",
 	"description": "The eslint plugin to enforce and educate on Atlassian's Volt Strict Mode",
 	"license": "Apache-2.0",

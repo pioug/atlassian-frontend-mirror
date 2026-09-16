@@ -27,6 +27,9 @@
 		},
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Text area",
 			"category": "Forms and input"
 		}

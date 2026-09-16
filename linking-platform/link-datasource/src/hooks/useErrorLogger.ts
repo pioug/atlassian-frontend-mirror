@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { NetworkError } from '@atlaskit/linking-common';
+import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { getTraceId } from '@atlaskit/linking-common/utils/get-trace-id';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';

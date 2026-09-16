@@ -32,6 +32,7 @@
 	"devDependencies": {
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"

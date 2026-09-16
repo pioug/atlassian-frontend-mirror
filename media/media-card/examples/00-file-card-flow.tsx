@@ -25,7 +25,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 
 import Button from '@atlaskit/button/default/button';
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 import {
 	UploadController,
 	type FileIdentifier,

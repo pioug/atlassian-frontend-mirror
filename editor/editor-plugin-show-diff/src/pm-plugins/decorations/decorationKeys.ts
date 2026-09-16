@@ -1,4 +1,5 @@
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { token } from '@atlaskit/tokens';
 
 import type { DiffDescriptor, DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
@@ -14,6 +15,16 @@ export const DecorationFamily = {
 	anchor: 'anchor',
 	contributorTag: 'contributor-tag',
 } as const;
+
+/**
+ * Navigation measures the target table header and writes this variable on the
+ * editor root immediately before scrolling. Diff decorations inherit it, so
+ * native scrolling leaves room for the header without DOM mutation on the
+ * ProseMirror-rendered suggestion.
+ */
+export const SCROLL_TARGET_MARGIN_CSS_PROPERTY = '--ak-editor-diff-additional-margin';
+export const scrollMarginTopValue: string = `calc(${token('space.400')} + var(${SCROLL_TARGET_MARGIN_CSS_PROPERTY}, 0px))`;
+export const scrollMarginTopStyle: string = `scroll-margin-top: ${scrollMarginTopValue};`;
 
 type DecorationFamilyValue = (typeof DecorationFamily)[keyof typeof DecorationFamily];
 

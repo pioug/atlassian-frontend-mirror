@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "21.0.8",
+	"version": "21.0.10",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,11 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"website": {
+			"tags": [
+				"platform-labs"
+			]
+		},
 		"team": "Editor: AI",
 		"singleton": true
 	},

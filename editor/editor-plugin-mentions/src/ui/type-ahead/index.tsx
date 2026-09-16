@@ -27,7 +27,7 @@ import {
 	MENTION_ITEM_HEIGHT_REFRESHED,
 } from '@atlaskit/mention/mention-item/styles';
 import MentionItem from '@atlaskit/mention/mention-item';
-import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
+import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -404,6 +404,7 @@ const buildNodesForTeamMention = (
 
 type Props = {
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	canOpenTypeAhead?: () => boolean;
 	enableAgentSectioning?: boolean;
 	fireEvent: FireElementsChannelEvent;
 	handleMentionsChanged?: (mentionChanges: MentionChange[]) => void;
@@ -524,6 +525,7 @@ const makeTransformMentionsToTypeAheadItems = ({
 };
 
 export const createTypeAheadConfig = ({
+	canOpenTypeAhead,
 	sanitizePrivateContent,
 	mentionInsertDisplayName,
 	fireEvent,
@@ -561,6 +563,7 @@ export const createTypeAheadConfig = ({
 	});
 
 	const typeAhead: TypeAheadHandler = {
+		canOpen: canOpenTypeAhead,
 		id: TypeAheadAvailableNodes.MENTION,
 		trigger: '@',
 		// Custom regex must have a capture group around trigger

@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getCapabilityRate, getConfig } from '../../config';
-import { DefaultInteractionID } from '../../interaction-id-context';
+import DefaultInteractionID from '../../interaction-id-context/defaultInteractionId';
 import { getVCObserver } from '../../vc/getVCObserver';
 import { newVCObserver } from '../../vc/newVCObserver';
 import { addNewInteraction, getActiveInteraction, remove } from '../index';

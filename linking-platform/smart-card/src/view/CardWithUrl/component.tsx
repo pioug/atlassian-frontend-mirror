@@ -1,5 +1,7 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
+import { useSmartLinkContext } from '@atlaskit/link-provider/context';
+
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -88,6 +90,9 @@ function Component({
 	// simply consumes whatever appearance it receives.
 	const { state, actions, config, renderers, error, isPreviewPanelAvailable, openPreviewPanel } =
 		useSmartLink(id, url, appearance);
+	const { linkNavigation } = useSmartLinkContext();
+	const resolveNavigation =
+		fg('confluence_ep_shim_macro_links_v2') && isFlexibleUi ? linkNavigation : undefined;
 	const ari = getObjectAri(state.details);
 	const name = getObjectName(state.details);
 	const definitionId = getDefinitionId(state.details);
@@ -126,6 +131,11 @@ function Component({
 		const preferredUrl = getClickUrl(url, state.details) ?? url;
 		return appendCrossProductAnalyticsParams(preferredUrl) ?? preferredUrl;
 	}, [appendCrossProductAnalyticsParams, state.details, url]);
+
+	const navigation = useMemo(
+		() => resolveNavigation?.(getDestinationUrl()),
+		[getDestinationUrl, resolveNavigation],
+	);
 
 	// Setup UI handlers.
 	const handleClickWrapper = useCallback(
@@ -186,13 +196,16 @@ function Component({
 				return;
 			}
 
-			const destinationUrl = getDestinationUrl();
+			const destinationUrl = resolveNavigation?.(getDestinationUrl()).url ?? getDestinationUrl();
 			updateAnchorHref(event, destinationUrl);
 
 			// For FlexibleCard, read target from the clicked anchor element (e.g. _blank for links
 			// rendered with explicit target). For classic cards, default to _self
 			const { target: anchorTarget } = getAnchorAttributesFromEvent(event);
-			const target = isSpecialEvent(event) ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
+			const openInNewTab = resolveNavigation
+				? event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1
+				: isSpecialEvent(event);
+			const target = openInNewTab ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
 
 			onClick?.(event, { url, destinationUrl });
 
@@ -230,6 +243,7 @@ function Component({
 			appearance,
 			definitionId,
 			getDestinationUrl,
+			resolveNavigation,
 			onClick,
 			url,
 			state.details,
@@ -248,7 +262,7 @@ function Component({
 	// Scope is limited to 3P click analytics.
 	const handleFrameAuxClick = useCallback(
 		(event: MouseEvent) => {
-			const destinationUrl = getDestinationUrl();
+			const destinationUrl = resolveNavigation?.(getDestinationUrl()).url ?? getDestinationUrl();
 			updateAnchorHref(event, destinationUrl);
 
 			// isAuxClick filters Windows right-clicks (button === 2) that also fire onAuxClick.
@@ -256,21 +270,21 @@ function Component({
 				fire3PClickEvent?.({ isAuxClick: true });
 			}
 		},
-		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent],
+		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent, resolveNavigation],
 	);
 
 	// Right-click handler to trigger fire3PClickEvent on right-clicks.
 	// Scope is limited to 3P click analytics.
 	const handleFrameContextMenu = useCallback(
 		(event: MouseEvent) => {
-			const destinationUrl = getDestinationUrl();
+			const destinationUrl = resolveNavigation?.(getDestinationUrl()).url ?? getDestinationUrl();
 			updateAnchorHref(event, destinationUrl);
 
 			if (shouldFire3PClickEvent) {
 				fire3PClickEvent?.({ isContextMenu: true });
 			}
 		},
-		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent],
+		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent, resolveNavigation],
 	);
 
 	const { reload } = actions;
@@ -441,6 +455,7 @@ function Component({
 			<FlexibleCard
 				id={id}
 				cardState={cardState}
+				navigation={navigation}
 				placeholderData={placeholderData}
 				onAuthorize={(services.length && handleAuthorize) || undefined}
 				onClick={handleClickWrapper}

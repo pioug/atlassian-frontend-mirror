@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
-import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
+import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils/is-within-preview-panel-iframe';
 import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';

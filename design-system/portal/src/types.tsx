@@ -15,10 +15,6 @@ export interface PortalProps {
 	 * Note: UseLayoutEffect can lead to performance issues and is discouraged.
 	 */
 	mountStrategy?: MountStrategy;
-	/**
-	 * Whether the portal is closed.
-	 */
-	isClosed?: boolean;
 }
 
 /**

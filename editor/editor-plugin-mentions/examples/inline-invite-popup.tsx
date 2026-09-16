@@ -12,7 +12,7 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { AbstractMentionResource } from '@atlaskit/mention/resource';
+import { AbstractMentionResource } from '@atlaskit/mention/abstract-mention-resource';
 import type {
 	InlineInvitePopupResult,
 	UserRole,

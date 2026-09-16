@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "140.2.3",
+	"version": "140.2.7",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,6 +26,9 @@
 		},
 		"team": "Editor",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Renderer"
 		}
 	},
@@ -144,6 +147,9 @@
 		"worker-plugin": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform_renderer_table_row_functional": {
+			"type": "boolean"
+		},
 		"platform_renderer_expand_ssr_margin_fix": {
 			"type": "boolean"
 		},
@@ -243,6 +249,10 @@
 			"referenceOnly": true
 		},
 		"platform_forge_inline_bodied_macro": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_forge_inline_bodied_layout_switch": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

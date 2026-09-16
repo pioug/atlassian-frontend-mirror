@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/insm",
-	"version": "3.0.35",
+	"version": "3.0.37",
 	"description": "INSM tooling measures user-perceived interactivity of a page",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,11 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"website": {
+			"tags": [
+				"platform-labs"
+			]
+		},
 		"team": "Editor: Lego"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",

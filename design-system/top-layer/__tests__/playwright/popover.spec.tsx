@@ -74,7 +74,7 @@ test.describe('Popup - open and close', () => {
 		await expect(page.getByTestId('close-indicator')).toHaveText('closed');
 	});
 
-	test('scroll does not close popover', async ({ page }) => {
+	test('scroll does not close or hide popover', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/117-testing-popover-scroll.tsx')>(
 			'design-system',
 			'top-layer',
@@ -82,14 +82,49 @@ test.describe('Popup - open and close', () => {
 		);
 
 		const trigger = page.getByTestId('popover-trigger');
+		const content = page.getByTestId('popover-content');
 		await trigger.click();
-		await expect(page.getByTestId('popover-content')).toBeVisible();
+		await expect(content).toBeVisible();
 
-		await page.getByTestId('scroll-container').evaluate((el) => {
-			el.scrollTop = 200;
+		// Scrolls the trigger fully out of its container.
+		await page.getByTestId('scroll-container').evaluate((element) => {
+			element.scrollTop = 200;
 		});
 
-		await expect(page.getByTestId('popover-content')).toBeVisible();
+		await expect(content).toBeVisible();
+
+		// Guards the fixture: a trigger that stops being clipped makes the
+		// hit-test below vacuous.
+		const isTriggerClippedOut = await page.evaluate(() => {
+			const triggerElement = document.querySelector('[data-testid="popover-trigger"]');
+			const container = document.querySelector('[data-testid="scroll-container"]');
+			if (!triggerElement || !container) {
+				return false;
+			}
+			return triggerElement.getBoundingClientRect().bottom <= container.getBoundingClientRect().top;
+		});
+		expect(isTriggerClippedOut).toBe(true);
+
+		// `toBeVisible()` cannot see a strongly hidden popover: it keeps
+		// `:popover-open`, `opacity` and its rect, and only stops painting. The
+		// clipping settles a frame late, hence the retry.
+		//
+		// This bites on chromium only. The spec also runs on desktop-firefox and
+		// desktop-webkit, where it passes even with `position-visibility: always`
+		// removed: Firefox 153 does not implement the hiding, and Safari 26 stops
+		// painting but still answers `elementsFromPoint` with the popover. WebKit is
+		// covered by the VR snapshots instead.
+		await expect(async () => {
+			const isPainted = await content.evaluate((element) => {
+				const rect = element.getBoundingClientRect();
+				const hit = document.elementFromPoint(
+					rect.left + rect.width / 2,
+					rect.top + rect.height / 2,
+				);
+				return element.contains(hit);
+			});
+			expect(isPainted).toBe(true);
+		}).toPass({ timeout: 5_000 });
 	});
 });
 

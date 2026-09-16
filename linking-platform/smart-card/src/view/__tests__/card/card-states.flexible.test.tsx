@@ -10,7 +10,7 @@ import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import '@atlaskit/link-test-helpers/jest';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 
 import { fakeFactory } from '../../../utils/fake-factory';

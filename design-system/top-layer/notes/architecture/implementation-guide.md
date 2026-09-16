@@ -702,6 +702,8 @@ When `CSS.supports('anchor-name', '--a')` returns `true`:
    - `position-anchor: --anchor-{id}`
    - `position-area: {computed from placement}` (e.g. `block-end`, `block-end span-inline-end`)
    - `position-try-fallbacks: {computed fallback list}`
+   - `position-visibility: always` (the browser never hides the popover on the anchor's behalf; see
+     `notes/decisions/position-visibility-always.md`)
    - `margin: 0` (reset UA default)
    - `inset: auto` (reset UA default)
    - `margin-{anchor-facing-side}: {offset}px` (gap between elements)

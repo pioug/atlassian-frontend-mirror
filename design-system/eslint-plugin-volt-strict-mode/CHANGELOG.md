@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-volt-strict-mode
 
+## 1.5.6
+
+### Patch Changes
+
+- [`45502b0e2ce3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45502b0e2ce3b) -
+  Recognize shared mutable module state written through reachable private function helpers without
+  exempting unused writers or initialization-only writes.
+- Updated dependencies
+
+## 1.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.4
 
 ### Patch Changes

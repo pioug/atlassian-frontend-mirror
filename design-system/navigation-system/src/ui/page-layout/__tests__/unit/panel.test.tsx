@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
@@ -95,5 +97,58 @@ it('should use the provided `maxWidth` as the rendered width clamp maximum', () 
 
 	expect(screen.getByTestId('panel')).toHaveStyle({
 		'--n_pnlW': `clamp(365px, 365px, 70vw)`,
+	});
+});
+
+describe('content change motion', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		act(() => {
+			jest.runOnlyPendingTimers();
+		});
+		jest.useRealTimers();
+	});
+
+	it('updates content immediately when the motion gate is disabled', () => {
+		failGate('platform-dst-motion-uplift-panel');
+		const { rerender } = render(<Panel contentKey="first">First content</Panel>);
+
+		rerender(<Panel contentKey="second">Second content</Panel>);
+
+		expect(screen.queryByText('First content')).not.toBeInTheDocument();
+		expect(screen.getByText('Second content')).toBeInTheDocument();
+	});
+
+	it('exits the previous content before entering the next content when the gate is enabled', () => {
+		passGate('platform-dst-motion-uplift-panel');
+		const { rerender } = render(<Panel contentKey="first">First content</Panel>);
+
+		rerender(<Panel contentKey="second">Second content</Panel>);
+
+		expect(screen.getByText('First content')).toHaveCompiledCss(
+			'animation',
+			'var(--ds-panel-content-exit,50ms cubic-bezier(.6,0,.8,.6) FadeOut100to0)',
+		);
+		expect(screen.queryByText('Second content')).not.toBeInTheDocument();
+
+		act(() => {
+			jest.runAllTimers();
+		});
+
+		expect(screen.queryByText('First content')).not.toBeInTheDocument();
+		expect(screen.getByText('Second content')).toBeInTheDocument();
+	});
+
+	it('updates unkeyed content immediately when the motion gate is enabled', () => {
+		passGate('platform-dst-motion-uplift-panel');
+		const { rerender } = render(<Panel>First content</Panel>);
+
+		rerender(<Panel>Second content</Panel>);
+
+		expect(screen.queryByText('First content')).not.toBeInTheDocument();
+		expect(screen.getByText('Second content')).toBeInTheDocument();
 	});
 });

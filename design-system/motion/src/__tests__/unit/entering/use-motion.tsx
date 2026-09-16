@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 
 import { token } from '@atlaskit/tokens';
 import { act } from '@atlassian/testing-library/act';
@@ -117,6 +117,16 @@ const ComputedStyleMotionSection = ({ onFinish }: Pick<UseMotionProps, 'onFinish
 	return <section data-motion-state={state} data-testid="computed-target" ref={ref} />;
 };
 
+const LayoutStateObserver = ({ onState }: { onState: (state: string) => void }) => {
+	const { state, ref } = useMotion<HTMLElement>();
+
+	useLayoutEffect(() => {
+		onState(state);
+	}, [onState, state]);
+
+	return <section data-testid="layout-state-target" ref={ref} />;
+};
+
 beforeEach(() => {
 	(isReducedMotion as jest.Mock).mockReturnValue(false);
 });
@@ -155,6 +165,23 @@ describe('useMotion()', () => {
 		// No descendant wrapper elements were added.
 		// eslint-disable-next-line testing-library/no-node-access
 		expect(section.children).toHaveLength(0);
+	});
+
+	it('returns the exiting state before layout effects run', () => {
+		const onState = jest.fn();
+		const { rerender } = renderWithMotionStyles(
+			<ExitingPersistence>
+				<LayoutStateObserver onState={onState} />
+			</ExitingPersistence>,
+		);
+		onState.mockClear();
+
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+
+		// Consumers can apply exit styles during the same commit in which
+		// ExitingPersistence marks the outgoing child.
+		expect(onState.mock.calls[0][0]).toBe('exiting');
+		expect(screen.getByTestId('layout-state-target')).toBeInTheDocument();
 	});
 
 	it('should apply the entering animation to the host element', () => {

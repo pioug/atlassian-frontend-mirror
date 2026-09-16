@@ -30,6 +30,9 @@
 	"atlassian": {
 		"team": "Cloud Readiness: Otter",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Feedback Collector"
 		}
 	},
@@ -64,6 +67,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"buffer": "root:*",
 		"react": "root:*",

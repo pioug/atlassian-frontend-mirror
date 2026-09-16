@@ -3,9 +3,9 @@
  *
  * Volt component entry-point migration map for linting, ratcheting, and codemods.
  *
- * @codegen <<SignedSource::c9ab0387f919cb7ae9bad1a86c049420>>
+ * @codegen <<SignedSource::6c3ec8fa660aa2327ecfb92dd9a29c94>>
  * @codegenCommand yarn workspace @atlaskit/volt-components-entry-point-config codegen
- * @codegenDependency package-names.codegen.tsx <<SignedSource::b878aa4076e99ff691a27b3d29375c9a>>
+ * @codegenDependency package-names.codegen.tsx <<SignedSource::330f9698f53fbc67a842203d4f72e04c>>
  */
 import type { EntryPointConfig } from './types';
 
@@ -16,2478 +16,2478 @@ export const config: EntryPointConfig = {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "PanelType",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationTypes": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "AnnotationTypes",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"alignment": {
 				"entry-point": "/alignment",
 				"name": "alignment",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"alignmentPositionMap": {
 				"entry-point": "/alignment",
 				"name": "alignmentPositionMap",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"annotation": {
 				"entry-point": "/annotation",
 				"name": "annotation",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"blockCard": {
 				"entry-point": "/block-card",
 				"name": "blockCard",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"blockCardWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "blockCardWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"blockquote": {
 				"entry-point": "/blockquote",
 				"name": "blockquote",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedBlockquote": {
 				"entry-point": "/blockquote",
 				"name": "extendedBlockquote",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedBlockquoteWithLocalId": {
 				"entry-point": "/blockquote",
 				"name": "extendedBlockquoteWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bodiedExtension": {
 				"entry-point": "/bodied-extension",
 				"name": "bodiedExtension",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"fontSize": {
 				"entry-point": "/font-size",
 				"name": "fontSize",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"breakout": {
 				"entry-point": "/breakout",
 				"name": "breakout",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bulletList": {
 				"entry-point": "/bullet-list",
 				"name": "bulletList",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bulletListSelector": {
 				"entry-point": "/bullet-list",
 				"name": "bulletListSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bulletListWithLocalId": {
 				"entry-point": "/bullet-list",
 				"name": "bulletListWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"caption": {
 				"entry-point": "/caption",
 				"name": "caption",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"captionWithLocalId": {
 				"entry-point": "/caption",
 				"name": "captionWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"code": {
 				"entry-point": "/code",
 				"name": "code",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"codeBlock": {
 				"entry-point": "/code-block",
 				"name": "codeBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"codeBlockWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "codeBlockWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"codeBlockToJSON": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "codeBlockToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"colorPalette": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "colorPalette",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"colorPaletteExtended": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "colorPaletteExtended",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"confluenceInlineComment": {
 				"entry-point": "/confluence-inline-comment",
 				"name": "confluenceInlineComment",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"confluenceJiraIssue": {
 				"entry-point": "/confluence-jira-issue",
 				"name": "confluenceJiraIssue",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"confluenceUnsupportedBlock": {
 				"entry-point": "/confluence-unsupported-block",
 				"name": "confluenceUnsupportedBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"confluenceUnsupportedInline": {
 				"entry-point": "/confluence-unsupported-inline",
 				"name": "confluenceUnsupportedInline",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"copyPrivateMediaAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "copyPrivateMediaAttributes",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"createSchema": {
 				"entry-point": "/create-schema",
 				"name": "createSchema",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"dataConsumer": {
 				"entry-point": "/data-consumer",
 				"name": "dataConsumer",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"dataConsumerToJSON": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "dataConsumerToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"date": {
 				"entry-point": "/date",
 				"name": "date",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"dateWithLocalId": {
 				"entry-point": "/date",
 				"name": "dateWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"decisionItem": {
 				"entry-point": "/decision-item",
 				"name": "decisionItem",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"decisionList": {
 				"entry-point": "/decision-list",
 				"name": "decisionList",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"decisionListSelector": {
 				"entry-point": "/decision-list",
 				"name": "decisionListSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"doc": {
 				"entry-point": "/doc",
 				"name": "doc",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"em": {
 				"entry-point": "/em",
 				"name": "em",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"embedCard": {
 				"entry-point": "/embed-card",
 				"name": "embedCard",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"embedCardWithLocalId": {
 				"entry-point": "/embed-card",
 				"name": "embedCardWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"emoji": {
 				"entry-point": "/emoji",
 				"name": "emoji",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"emojiWithLocalId": {
 				"entry-point": "/emoji",
 				"name": "emojiWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"expandWithNestedExpand": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "expandWithNestedExpand",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"expandWithNestedExpandLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "expandWithNestedExpandLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"expandToJSON": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "expandToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extension": {
 				"entry-point": "/extension",
 				"name": "extension",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"fragment": {
 				"entry-point": "/fragment",
 				"name": "fragment",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"fragmentToJSON": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "fragmentToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"hardBreak": {
 				"entry-point": "/hard-break",
 				"name": "hardBreak",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"heading": {
 				"entry-point": "/heading",
 				"name": "heading",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"image": {
 				"entry-point": "/image",
 				"name": "image",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"indentation": {
 				"entry-point": "/indentation",
 				"name": "indentation",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"inlineCard": {
 				"entry-point": "/inline-card",
 				"name": "inlineCard",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"inlineCardWithLocalId": {
 				"entry-point": "/inline-card",
 				"name": "inlineCardWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"inlineExtension": {
 				"entry-point": "/inline-extension",
 				"name": "inlineExtension",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"inlineNodes": {
 				"entry-point": "/inline-nodes",
 				"name": "inlineNodes",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutColumn": {
 				"entry-point": "/nodes/layout-column",
 				"name": "layoutColumn",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutColumnStage0": {
 				"entry-point": "/nodes/layout-column",
 				"name": "layoutColumnStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutColumnWithLocalId": {
 				"entry-point": "/nodes/layout-column",
 				"name": "layoutColumnWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutSection": {
 				"entry-point": "/layout-section",
 				"name": "layoutSection",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutSectionWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "layoutSectionWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutSectionWithSingleColumn": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "layoutSectionWithSingleColumn",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutSectionWithSingleColumnLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "layoutSectionWithSingleColumnLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"link": {
 				"entry-point": "/link",
 				"name": "link",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"linkToJSON": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "linkToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"listItem": {
 				"entry-point": "/list-item",
 				"name": "listItem",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"listItemWithLocalId": {
 				"entry-point": "/list-item",
 				"name": "listItemWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"media": {
 				"entry-point": "/media",
 				"name": "media",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaGroup": {
 				"entry-point": "/media-group",
 				"name": "mediaGroup",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingle": {
 				"entry-point": "/media-single",
 				"name": "mediaSingle",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleWithCaption": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "mediaSingleWithCaption",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleWithWidthType": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "mediaSingleWithWidthType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleFull": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "mediaSingleFull",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleFullWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "mediaSingleFullWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleSpec": {
 				"entry-point": "/media-single-spec",
 				"name": "mediaSingleSpec",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaInline": {
 				"entry-point": "/media-inline",
 				"name": "mediaInline",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleToJSON": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "mediaSingleToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaToJSON": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "mediaToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mention": {
 				"entry-point": "/mention",
 				"name": "mention",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mentionToJSON": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "mentionToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"nestedExpand": {
 				"entry-point": "/nested-expand",
 				"name": "nestedExpand",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"nestedExpandWithLocalId": {
 				"entry-point": "/nested-expand",
 				"name": "nestedExpandWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedList": {
 				"entry-point": "/ordered-list",
 				"name": "orderedList",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedListSelector": {
 				"entry-point": "/ordered-list",
 				"name": "orderedListSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedListWithLocalId": {
 				"entry-point": "/ordered-list",
 				"name": "orderedListWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedListWithOrder": {
 				"entry-point": "/ordered-list",
 				"name": "orderedListWithOrder",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedListWithOrderAndLocalId": {
 				"entry-point": "/ordered-list",
 				"name": "orderedListWithOrderAndLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanel": {
 				"entry-point": "/extended-panel",
 				"name": "extendedPanel",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanelC1": {
 				"entry-point": "/extended-panel-c1",
 				"name": "extendedPanelC1",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanelC1WithLocalId": {
 				"entry-point": "/extended-panel-c1-with-local-id",
 				"name": "extendedPanelC1WithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanelWithLocalId": {
 				"entry-point": "/extended-panel-with-local-id",
 				"name": "extendedPanelWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"paragraph": {
 				"entry-point": "/paragraph",
 				"name": "paragraph",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"placeholder": {
 				"entry-point": "/placeholder",
 				"name": "placeholder",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"placeholderWithLocalId": {
 				"entry-point": "/placeholder",
 				"name": "placeholderWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"rule": {
 				"entry-point": "/rule",
 				"name": "rule",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ruleWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ruleWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"sanitizeNodes": {
 				"entry-point": "/sanitizeNodes",
 				"name": "sanitizeNodes",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"getCellAttrs": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "getCellAttrs",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"getCellDomAttrs": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "getCellDomAttrs",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"status": {
 				"entry-point": "/status",
 				"name": "status",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"strike": {
 				"entry-point": "/strike",
 				"name": "strike",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"strong": {
 				"entry-point": "/strong",
 				"name": "strong",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"subsup": {
 				"entry-point": "/subsup",
 				"name": "subsup",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"table": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "table",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableStage0": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableWithCustomWidth": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableWithCustomWidth",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableBackgroundBorderColor": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableBackgroundBorderColor",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableBackgroundColorNames": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableBackgroundColorNames",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableBackgroundColorPalette": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableBackgroundColorPalette",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableBackgroundColorPaletteNew": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableBackgroundColorPaletteNew",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCell": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCell",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellContentDomSelector": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCellContentDomSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellContentWrapperSelector": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCellContentWrapperSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellSelector": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCellSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeader": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableHeader",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderSelector": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableHeaderSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tablePrefixSelector": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tablePrefixSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableRow": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableRow",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableToJSON": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"taskItem": {
 				"entry-point": "/task-item",
 				"name": "taskItem",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"blockTaskItem": {
 				"entry-point": "/task-item",
 				"name": "blockTaskItem",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"taskList": {
 				"entry-point": "/task-list",
 				"name": "taskList",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"taskListSelector": {
 				"entry-point": "/task-list",
 				"name": "taskListSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"text": {
 				"entry-point": "/text",
 				"name": "text",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"textColor": {
 				"entry-point": "/text-color",
 				"name": "textColor",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"toJSONTableCell": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "toJSONTableCell",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"toJSONTableHeader": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "toJSONTableHeader",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"typeAheadQuery": {
 				"entry-point": "/type-ahead-query",
 				"name": "typeAheadQuery",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"underline": {
 				"entry-point": "/underline",
 				"name": "underline",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unknownBlock": {
 				"entry-point": "/unknown-block",
 				"name": "unknownBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedBlock": {
 				"entry-point": "/unsupported-block",
 				"name": "unsupportedBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedInline": {
 				"entry-point": "/unsupported-inline",
 				"name": "unsupportedInline",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedNodeTypesForMediaCards": {
 				"entry-point": "/unsupported",
 				"name": "unsupportedNodeTypesForMediaCards",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"buildAnnotationMarkDataAttributes": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "buildAnnotationMarkDataAttributes",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationMarkStates": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "AnnotationMarkStates",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedMark": {
 				"entry-point": "/unsupported-mark",
 				"name": "unsupportedMark",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedNodeAttribute": {
 				"entry-point": "/unsupported-node-attributes",
 				"name": "unsupportedNodeAttribute",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"border": {
 				"entry-point": "/border",
 				"name": "border",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"borderColorPalette": {
 				"entry-point": "/border",
 				"name": "borderColorPalette",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extensionFrame": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "extensionFrame",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"multiBodiedExtension": {
 				"entry-point": "/multi-bodied-extension",
 				"name": "multiBodiedExtension",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"backgroundColor": {
 				"entry-point": "/background-color",
 				"name": "backgroundColor",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"backgroundColorPalette": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "backgroundColorPalette",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"syncBlock": {
 				"entry-point": "/sync-block",
 				"name": "syncBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bodiedSyncBlock": {
 				"entry-point": "/bodied-sync-block",
 				"name": "bodiedSyncBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableWithNestedTable": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableWithNestedTable",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableRowWithNestedTable": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableRowWithNestedTable",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellWithNestedTable": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCellWithNestedTable",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderWithNestedTable": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableHeaderWithNestedTable",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellStage0": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCellStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderStage0": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableHeaderStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellWithNestedTableStage0": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCellWithNestedTableStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderWithNestedTableStage0": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableHeaderWithNestedTableStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableRowWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableRowWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCellWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableHeaderWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableRowWithNestedTableWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableRowWithNestedTableWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellWithNestedTableWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableCellWithNestedTableWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderWithNestedTableWithLocalId": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "tableHeaderWithNestedTableWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AlignmentAttributes": {
 				"entry-point": "/alignment",
 				"name": "AlignmentAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AlignmentMarkDefinition": {
 				"entry-point": "/alignment",
 				"name": "AlignmentMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationMarkAttributes": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "AnnotationMarkAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationMarkDefinition": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "AnnotationMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BlockCardDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "BlockCardDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BlockContent": {
 				"entry-point": "/block-content",
 				"name": "BlockContent",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BlockQuoteDefinition": {
 				"entry-point": "/blockquote",
 				"name": "BlockQuoteDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BodiedExtensionDefinition": {
 				"entry-point": "/bodied-extension",
 				"name": "BodiedExtensionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BreakoutMarkAttrs": {
 				"entry-point": "/breakout",
 				"name": "BreakoutMarkAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BreakoutMarkDefinition": {
 				"entry-point": "/breakout",
 				"name": "BreakoutMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BulletListDefinition": {
 				"entry-point": "/list",
 				"name": "BulletListDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CaptionDefinition": {
 				"entry-point": "/caption",
 				"name": "CaptionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CardAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "CardAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CellAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "CellAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeBlockAttrs": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "CodeBlockAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeBlockBaseDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "CodeBlockBaseDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeBlockDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "CodeBlockDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeBlockWithMarksDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "CodeBlockWithMarksDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeDefinition": {
 				"entry-point": "/code",
 				"name": "CodeDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DatasourceAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "DatasourceAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DatasourceAttributeProperties": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "DatasourceAttributeProperties",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DataConsumerAttributes": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "DataConsumerAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DataConsumerDefinition": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "DataConsumerDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DataType": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "DataType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DateDefinition": {
 				"entry-point": "/date",
 				"name": "DateDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DecisionItemDefinition": {
 				"entry-point": "/decision-item",
 				"name": "DecisionItemDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DecisionListDefinition": {
 				"entry-point": "/decision-list",
 				"name": "DecisionListDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DocNode": {
 				"entry-point": "/doc",
 				"name": "DocNode",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmbedCardDefinition": {
 				"entry-point": "/embed-card",
 				"name": "EmbedCardDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmbedCardAttributes": {
 				"entry-point": "/embed-card",
 				"name": "EmbedCardAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmDefinition": {
 				"entry-point": "/em",
 				"name": "EmDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmojiAttributes": {
 				"entry-point": "/emoji",
 				"name": "EmojiAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmojiDefinition": {
 				"entry-point": "/emoji",
 				"name": "EmojiDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExpandDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ExpandDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtensionDefinition": {
 				"entry-point": "/extension",
 				"name": "ExtensionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtensionLayout": {
 				"entry-point": "/extensions",
 				"name": "ExtensionLayout",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExternalMediaAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ExternalMediaAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"FontSizeMarkAttrs": {
 				"entry-point": "/font-size",
 				"name": "FontSizeMarkAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"FontSizeMarkDefinition": {
 				"entry-point": "/font-size",
 				"name": "FontSizeMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"FragmentAttributes": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "FragmentAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"FragmentDefinition": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "FragmentDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HardBreakDefinition": {
 				"entry-point": "/hard-break",
 				"name": "HardBreakDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingBaseDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "HeadingBaseDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "HeadingDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingWithAlignmentDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "HeadingWithAlignmentDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingWithIndentationDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "HeadingWithIndentationDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingWithMarksDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "HeadingWithMarksDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"IndentationMarkAttributes": {
 				"entry-point": "/indentation",
 				"name": "IndentationMarkAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"IndentationMarkDefinition": {
 				"entry-point": "/indentation",
 				"name": "IndentationMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Inline": {
 				"entry-point": "/inline-content",
 				"name": "Inline",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineCardDefinition": {
 				"entry-point": "/inline-card",
 				"name": "InlineCardDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineCode": {
 				"entry-point": "/inline-content",
 				"name": "InlineCode",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineExtensionDefinition": {
 				"entry-point": "/inline-extension",
 				"name": "InlineExtensionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineFormattedText": {
 				"entry-point": "/inline-content",
 				"name": "InlineFormattedText",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineLinkText": {
 				"entry-point": "/inline-content",
 				"name": "InlineLinkText",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutColumnDefinition": {
 				"entry-point": "/nodes/layout-column",
 				"name": "LayoutColumnDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutSectionDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "LayoutSectionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutSectionFullDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "LayoutSectionFullDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutSectionWithSingleColumnDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "LayoutSectionWithSingleColumnDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LinkAttributes": {
 				"entry-point": "/link",
 				"name": "LinkAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LinkDefinition": {
 				"entry-point": "/link",
 				"name": "LinkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ListItemArray": {
 				"entry-point": "/list",
 				"name": "ListItemArray",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ListItemDefinition": {
 				"entry-point": "/list",
 				"name": "ListItemDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MarksObject": {
 				"entry-point": "/mark",
 				"name": "MarksObject",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaADFAttrs": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MediaADFAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MediaAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaInlineAttributes": {
 				"entry-point": "/media-inline",
 				"name": "MediaInlineAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaInlineDefinition": {
 				"entry-point": "/media-inline",
 				"name": "MediaInlineDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaBaseAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MediaBaseAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MediaDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaDisplayType": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MediaDisplayType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaGroupDefinition": {
 				"entry-point": "/media-group",
 				"name": "MediaGroupDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaSingleDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MediaSingleDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaType": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MediaType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MentionAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MentionAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MentionDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MentionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MentionUserType": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MentionUserType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NestedExpandContent": {
 				"entry-point": "/nested-expand",
 				"name": "NestedExpandContent",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NestedExpandDefinition": {
 				"entry-point": "/nested-expand",
 				"name": "NestedExpandDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NoMark": {
 				"entry-point": "/mark",
 				"name": "NoMark",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NonNestableBlockContent": {
 				"entry-point": "/non-nestable-block-content",
 				"name": "NonNestableBlockContent",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"OrderedListDefinition": {
 				"entry-point": "/list",
 				"name": "OrderedListDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"PanelAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "PanelAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"PanelDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "PanelDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphBaseDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ParagraphBaseDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ParagraphDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphWithAlignmentDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ParagraphWithAlignmentDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphWithIndentationDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ParagraphWithIndentationDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphWithMarksDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ParagraphWithMarksDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"PlaceholderDefinition": {
 				"entry-point": "/placeholder",
 				"name": "PlaceholderDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"RuleDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "RuleDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"StatusDefinition": {
 				"entry-point": "/status",
 				"name": "StatusDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"StrikeDefinition": {
 				"entry-point": "/strike",
 				"name": "StrikeDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"StrongDefinition": {
 				"entry-point": "/strong",
 				"name": "StrongDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SyncBlockDefinition": {
 				"entry-point": "/sync-block",
 				"name": "SyncBlockDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BodiedSyncBlockDefinition": {
 				"entry-point": "/bodied-sync-block",
 				"name": "BodiedSyncBlockDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SubSupAttributes": {
 				"entry-point": "/subsup",
 				"name": "SubSupAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SubSupDefinition": {
 				"entry-point": "/subsup",
 				"name": "SubSupDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "TableAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableCellDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "TableCellDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "TableDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableDisplayMode": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "TableDisplayMode",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableHeaderDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "TableHeaderDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableLayout": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "TableLayout",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableRowDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "TableRowDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TaskItemDefinition": {
 				"entry-point": "/task-item",
 				"name": "TaskItemDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BlockTaskItemDefinition": {
 				"entry-point": "/task-item",
 				"name": "BlockTaskItemDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TaskListContent": {
 				"entry-point": "/task-list",
 				"name": "TaskListContent",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TaskListDefinition": {
 				"entry-point": "/task-list",
 				"name": "TaskListDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TextColorAttributes": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "TextColorAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TextColorDefinition": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "TextColorDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TextDefinition": {
 				"entry-point": "/text",
 				"name": "TextDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"UnderlineDefinition": {
 				"entry-point": "/underline",
 				"name": "UnderlineDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"UrlType": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "UrlType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationId": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "AnnotationId",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"RichMediaAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "RichMediaAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtendedMediaAttributes": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ExtendedMediaAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"RichMediaLayout": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "RichMediaLayout",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationDataAttributes": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "AnnotationDataAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CellDomAttrs": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "CellDomAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BorderMarkAttributes": {
 				"entry-point": "/border",
 				"name": "BorderMarkAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BorderMarkDefinition": {
 				"entry-point": "/border",
 				"name": "BorderMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MultiBodiedExtensionDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "MultiBodiedExtensionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtensionFrameDefinition": {
 				"entry-point": "/src/schema/nodes/index",
 				"name": "ExtensionFrameDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BackgroundColorDefinition": {
 				"entry-point": "/src/schema/marks/index",
 				"name": "BackgroundColorDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"isHex": {
 				"entry-point": "/is-hex",
 				"name": "isHex",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"acShortcutToEmoji": {
 				"entry-point": "/ac-shortcut-to-emoji",
 				"name": "acShortcutToEmoji",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"generateUuid": {
 				"entry-point": "/uuid",
 				"name": "generateUuid",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"uuid": {
 				"entry-point": "/uuid",
 				"name": "uuid",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"getLinkMatch": {
 				"entry-point": "/get-link-match",
 				"name": "getLinkMatch",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"B100": {
 				"entry-point": "/colors",
 				"name": "B100",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"B400": {
 				"entry-point": "/colors",
 				"name": "B400",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"B50": {
 				"entry-point": "/colors",
 				"name": "B50",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"B500": {
 				"entry-point": "/colors",
 				"name": "B500",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"B75": {
 				"entry-point": "/colors",
 				"name": "B75",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"G200": {
 				"entry-point": "/colors",
 				"name": "G200",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"G300": {
 				"entry-point": "/colors",
 				"name": "G300",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"G400": {
 				"entry-point": "/colors",
 				"name": "G400",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"G50": {
 				"entry-point": "/colors",
 				"name": "G50",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"G500": {
 				"entry-point": "/colors",
 				"name": "G500",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"G75": {
 				"entry-point": "/colors",
 				"name": "G75",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N0": {
 				"entry-point": "/colors",
 				"name": "N0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N20": {
 				"entry-point": "/colors",
 				"name": "N20",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N200": {
 				"entry-point": "/colors",
 				"name": "N200",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N30": {
 				"entry-point": "/colors",
 				"name": "N30",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N300": {
 				"entry-point": "/colors",
 				"name": "N300",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N40": {
 				"entry-point": "/colors",
 				"name": "N40",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N50": {
 				"entry-point": "/colors",
 				"name": "N50",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N500": {
 				"entry-point": "/colors",
 				"name": "N500",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N60": {
 				"entry-point": "/colors",
 				"name": "N60",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N80": {
 				"entry-point": "/colors",
 				"name": "N80",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N800": {
 				"entry-point": "/colors",
 				"name": "N800",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"N90": {
 				"entry-point": "/colors",
 				"name": "N90",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"P100": {
 				"entry-point": "/colors",
 				"name": "P100",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"P300": {
 				"entry-point": "/colors",
 				"name": "P300",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"P400": {
 				"entry-point": "/colors",
 				"name": "P400",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"P50": {
 				"entry-point": "/colors",
 				"name": "P50",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"P500": {
 				"entry-point": "/colors",
 				"name": "P500",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"P75": {
 				"entry-point": "/colors",
 				"name": "P75",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"R100": {
 				"entry-point": "/colors",
 				"name": "R100",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"R300": {
 				"entry-point": "/colors",
 				"name": "R300",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"R400": {
 				"entry-point": "/colors",
 				"name": "R400",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"R50": {
 				"entry-point": "/colors",
 				"name": "R50",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"R500": {
 				"entry-point": "/colors",
 				"name": "R500",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"R75": {
 				"entry-point": "/colors",
 				"name": "R75",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"T100": {
 				"entry-point": "/colors",
 				"name": "T100",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"T300": {
 				"entry-point": "/colors",
 				"name": "T300",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"T50": {
 				"entry-point": "/colors",
 				"name": "T50",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"T500": {
 				"entry-point": "/colors",
 				"name": "T500",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"T75": {
 				"entry-point": "/colors",
 				"name": "T75",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Y200": {
 				"entry-point": "/colors",
 				"name": "Y200",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Y400": {
 				"entry-point": "/colors",
 				"name": "Y400",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Y50": {
 				"entry-point": "/colors",
 				"name": "Y50",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Y500": {
 				"entry-point": "/colors",
 				"name": "Y500",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Y75": {
 				"entry-point": "/colors",
 				"name": "Y75",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"acNameToEmoji": {
 				"entry-point": "/ac-name-to-emoji",
 				"name": "acNameToEmoji",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"getDarkModeLCHColor": {
 				"entry-point": "/get-dark-mode-lch-color",
 				"name": "getDarkModeLCHColor",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"hexToRgba": {
 				"entry-point": "/hex-to-rgba",
 				"name": "hexToRgba",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"isRgb": {
 				"entry-point": "/is-rgb",
 				"name": "isRgb",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"linkify": {
 				"entry-point": "/url",
 				"name": "linkify",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"isSafeUrl": {
 				"entry-point": "/is-safe-url",
 				"name": "isSafeUrl",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"normalizeUrl": {
 				"entry-point": "/normalize-url",
 				"name": "normalizeUrl",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"rgbToHex": {
 				"entry-point": "/rgb-to-hex",
 				"name": "rgbToHex",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"normalizeHexColor": {
 				"entry-point": "/normalize-hex-color",
 				"name": "normalizeHexColor",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"linkifyMatch": {
 				"entry-point": "/linkify-match",
 				"name": "linkifyMatch",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"emojiIdToAcName": {
 				"entry-point": "/emoji-id-to-ac-name",
 				"name": "emojiIdToAcName",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"hexToRgb": {
 				"entry-point": "/hex-to-rgb",
 				"name": "hexToRgb",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"getEmojiAcName": {
 				"entry-point": "/get-emoji-ac-name",
 				"name": "getEmojiAcName",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Match": {
 				"entry-point": "/url",
 				"name": "Match",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NameToEmoji": {
 				"entry-point": "/confluence/emoji",
 				"name": "NameToEmoji",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NodeSpecOptions": {
 				"entry-point": "/createPMSpecFactory",
 				"name": "NodeSpecOptions",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MarkSpecOptions": {
 				"entry-point": "/createPMSpecFactory",
 				"name": "MarkSpecOptions",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"createPMNodeSpecFactory": {
 				"entry-point": "/create-pm-node-spec-factory",
 				"name": "createPMNodeSpecFactory",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"createPMMarkSpecFactory": {
 				"entry-point": "/create-pm-mark-spec-factory",
 				"name": "createPMMarkSpecFactory",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			}
 		},
@@ -2496,91 +2496,91 @@ export const config: EntryPointConfig = {
 				"entry-point": "/steps/type-ahead",
 				"name": "InsertTypeAheadStages",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InsertTypeAheadStep": {
 				"entry-point": "/steps/type-ahead",
 				"name": "InsertTypeAheadStep",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SetAttrsStep": {
 				"entry-point": "/steps/set-attrs",
 				"name": "SetAttrsStep",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnalyticsStep": {
 				"entry-point": "/steps/analytics",
 				"name": "AnalyticsStep",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnalyticsInvertStep": {
 				"entry-point": "/steps/analytics",
 				"name": "AnalyticsInvertStep",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnalyticsWithChannel": {
 				"entry-point": "/steps/analytics",
 				"name": "AnalyticsWithChannel",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnalyticsPayload": {
 				"entry-point": "/steps/analytics",
 				"name": "AnalyticsPayload",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LinkMetaStep": {
 				"entry-point": "/steps/link-meta-step",
 				"name": "LinkMetaStep",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LinkStepMetadata": {
 				"entry-point": "/steps/link-meta-step",
 				"name": "LinkStepMetadata",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"OverrideDocumentStep": {
 				"entry-point": "/steps/override-document-step",
 				"name": "OverrideDocumentStep",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"OverrideDocumentStepJSON": {
 				"entry-point": "/steps/override-document-step",
 				"name": "OverrideDocumentStepJSON",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BatchAttrsStep": {
 				"entry-point": "/steps/batch-attrs-step",
 				"name": "BatchAttrsStep",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BatchAttrsStepData": {
 				"entry-point": "/steps/batch-attrs-step",
 				"name": "BatchAttrsStepData",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			}
 		},
@@ -2589,2119 +2589,2119 @@ export const config: EntryPointConfig = {
 				"entry-point": "/schema/panel",
 				"name": "PanelType",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"blockCard": {
 				"entry-point": "/schema/block-card",
 				"name": "blockCard",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"blockCardWithLocalId": {
 				"entry-point": "/schema/block-card",
 				"name": "blockCardWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"blockquote": {
 				"entry-point": "/schema/blockquote",
 				"name": "blockquote",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedBlockquote": {
 				"entry-point": "/schema/blockquote",
 				"name": "extendedBlockquote",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedBlockquoteWithLocalId": {
 				"entry-point": "/schema/blockquote",
 				"name": "extendedBlockquoteWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bodiedExtension": {
 				"entry-point": "/schema/bodied-extension",
 				"name": "bodiedExtension",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bodiedExtensionRootOnlyStage0": {
 				"entry-point": "/schema/bodied-extension",
 				"name": "bodiedExtensionRootOnlyStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bulletList": {
 				"entry-point": "/schema/bullet-list",
 				"name": "bulletList",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bulletListSelector": {
 				"entry-point": "/schema/bullet-list",
 				"name": "bulletListSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bulletListWithLocalId": {
 				"entry-point": "/schema/bullet-list",
 				"name": "bulletListWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"caption": {
 				"entry-point": "/schema/caption",
 				"name": "caption",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"captionWithLocalId": {
 				"entry-point": "/schema/caption",
 				"name": "captionWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"codeBlock": {
 				"entry-point": "/schema/code-block",
 				"name": "codeBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"codeBlockWithLocalId": {
 				"entry-point": "/schema/code-block",
 				"name": "codeBlockWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"codeBlockToJSON": {
 				"entry-point": "/schema/code-block",
 				"name": "codeBlockToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"confluenceJiraIssue": {
 				"entry-point": "/schema/confluence-jira-issue",
 				"name": "confluenceJiraIssue",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"confluenceUnsupportedBlock": {
 				"entry-point": "/schema/confluence-unsupported-block",
 				"name": "confluenceUnsupportedBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"confluenceUnsupportedInline": {
 				"entry-point": "/schema/confluence-unsupported-inline",
 				"name": "confluenceUnsupportedInline",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"copyPrivateMediaAttributes": {
 				"name": "copyPrivateMediaAttributes",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"date": {
 				"entry-point": "/schema/date",
 				"name": "date",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"dateWithLocalId": {
 				"entry-point": "/schema/date",
 				"name": "dateWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"decisionItem": {
 				"entry-point": "/schema/decision-item",
 				"name": "decisionItem",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"decisionList": {
 				"entry-point": "/schema/decision-list",
 				"name": "decisionList",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"decisionListSelector": {
 				"entry-point": "/schema/decision-list",
 				"name": "decisionListSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"doc": {
 				"entry-point": "/schema/doc",
 				"name": "doc",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"embedCard": {
 				"entry-point": "/schema/embed-card",
 				"name": "embedCard",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"embedCardWithLocalId": {
 				"entry-point": "/schema/embed-card",
 				"name": "embedCardWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"emoji": {
 				"entry-point": "/schema/emoji",
 				"name": "emoji",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"emojiWithLocalId": {
 				"entry-point": "/schema/emoji",
 				"name": "emojiWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"expandWithNestedExpand": {
 				"entry-point": "/schema/expand",
 				"name": "expandWithNestedExpand",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"expandWithNestedExpandLocalId": {
 				"entry-point": "/schema/expand",
 				"name": "expandWithNestedExpandLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"expandToJSON": {
 				"entry-point": "/schema/expand",
 				"name": "expandToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extension": {
 				"entry-point": "/schema/extension",
 				"name": "extension",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extensionRootOnlyStage0": {
 				"entry-point": "/schema/extension",
 				"name": "extensionRootOnlyStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"hardBreak": {
 				"entry-point": "/schema/hard-break",
 				"name": "hardBreak",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"heading": {
 				"entry-point": "/schema/heading",
 				"name": "heading",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"image": {
 				"entry-point": "/schema/image",
 				"name": "image",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"inlineCard": {
 				"entry-point": "/schema/inline-card",
 				"name": "inlineCard",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"inlineCardWithLocalId": {
 				"entry-point": "/schema/inline-card",
 				"name": "inlineCardWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"inlineExtension": {
 				"entry-point": "/schema/inline-extension",
 				"name": "inlineExtension",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutColumn": {
 				"name": "layoutColumn",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutColumnStage0": {
 				"name": "layoutColumnStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutColumnWithLocalId": {
 				"name": "layoutColumnWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutSection": {
 				"entry-point": "/schema/layout-section",
 				"name": "layoutSection",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutSectionWithLocalId": {
 				"entry-point": "/schema/layout-section",
 				"name": "layoutSectionWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutSectionWithSingleColumn": {
 				"entry-point": "/schema/layout-section",
 				"name": "layoutSectionWithSingleColumn",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"layoutSectionWithSingleColumnLocalId": {
 				"entry-point": "/schema/layout-section",
 				"name": "layoutSectionWithSingleColumnLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"listItem": {
 				"entry-point": "/schema/list-item",
 				"name": "listItem",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"listItemWithLocalId": {
 				"entry-point": "/schema/list-item",
 				"name": "listItemWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"media": {
 				"entry-point": "/schema/media",
 				"name": "media",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaGroup": {
 				"entry-point": "/schema/media-group",
 				"name": "mediaGroup",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingle": {
 				"entry-point": "/schema/media-single",
 				"name": "mediaSingle",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleSpec": {
 				"entry-point": "/schema/media-single",
 				"name": "mediaSingleSpec",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaInline": {
 				"entry-point": "/schema/media-inline",
 				"name": "mediaInline",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleWithCaption": {
 				"entry-point": "/schema/media-single",
 				"name": "mediaSingleWithCaption",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleWithWidthType": {
 				"entry-point": "/schema/media-single",
 				"name": "mediaSingleWithWidthType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleFull": {
 				"entry-point": "/schema/media-single",
 				"name": "mediaSingleFull",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleFullWithLocalId": {
 				"entry-point": "/schema/media-single",
 				"name": "mediaSingleFullWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaSingleToJSON": {
 				"name": "mediaSingleToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mediaToJSON": {
 				"name": "mediaToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mention": {
 				"entry-point": "/schema/mention",
 				"name": "mention",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"mentionToJSON": {
 				"entry-point": "/schema/mention",
 				"name": "mentionToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"nestedExpand": {
 				"entry-point": "/schema/nested-expand",
 				"name": "nestedExpand",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"nestedExpandWithLocalId": {
 				"entry-point": "/schema/nested-expand",
 				"name": "nestedExpandWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedList": {
 				"entry-point": "/schema/ordered-list",
 				"name": "orderedList",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedListSelector": {
 				"entry-point": "/schema/ordered-list",
 				"name": "orderedListSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedListWithLocalId": {
 				"entry-point": "/schema/ordered-list",
 				"name": "orderedListWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedListWithOrder": {
 				"entry-point": "/schema/ordered-list",
 				"name": "orderedListWithOrder",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"orderedListWithOrderAndLocalId": {
 				"entry-point": "/schema/ordered-list",
 				"name": "orderedListWithOrderAndLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanel": {
 				"entry-point": "/schema/panel",
 				"name": "extendedPanel",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanelC1": {
 				"entry-point": "/schema/panel",
 				"name": "extendedPanelC1",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanelC1WithLocalId": {
 				"entry-point": "/schema/panel",
 				"name": "extendedPanelC1WithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanelRootOnlyStage0": {
 				"entry-point": "/schema/panel",
 				"name": "extendedPanelRootOnlyStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanelC1RootOnlyStage0": {
 				"entry-point": "/schema/panel",
 				"name": "extendedPanelC1RootOnlyStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extendedPanelWithLocalId": {
 				"entry-point": "/schema/panel",
 				"name": "extendedPanelWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"paragraph": {
 				"entry-point": "/schema/paragraph",
 				"name": "paragraph",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"placeholder": {
 				"entry-point": "/schema/placeholder",
 				"name": "placeholder",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"placeholderWithLocalId": {
 				"entry-point": "/schema/placeholder",
 				"name": "placeholderWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"rule": {
 				"entry-point": "/schema/rule",
 				"name": "rule",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ruleWithLocalId": {
 				"entry-point": "/schema/rule",
 				"name": "ruleWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"getCellAttrs": {
 				"entry-point": "/schema/tableNodes",
 				"name": "getCellAttrs",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"getCellDomAttrs": {
 				"entry-point": "/schema/tableNodes",
 				"name": "getCellDomAttrs",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"status": {
 				"entry-point": "/schema/status",
 				"name": "status",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"table": {
 				"entry-point": "/schema/tableNodes",
 				"name": "table",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableStage0": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableWithCustomWidth": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableWithCustomWidth",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableBackgroundBorderColor": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableBackgroundBorderColor",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableBackgroundColorNames": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableBackgroundColorNames",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableBackgroundColorPalette": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableBackgroundColorPalette",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableBackgroundColorPaletteNew": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableBackgroundColorPaletteNew",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCell": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCell",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellContentDomSelector": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCellContentDomSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellContentWrapperSelector": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCellContentWrapperSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellSelector": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCellSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeader": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableHeader",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderSelector": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableHeaderSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tablePrefixSelector": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tablePrefixSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableRow": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableRow",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableToJSON": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"taskItem": {
 				"entry-point": "/schema/task-item",
 				"name": "taskItem",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"blockTaskItem": {
 				"entry-point": "/schema/task-item",
 				"name": "blockTaskItem",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"taskList": {
 				"entry-point": "/schema/task-list",
 				"name": "taskList",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"taskListSelector": {
 				"entry-point": "/schema/task-list",
 				"name": "taskListSelector",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"text": {
 				"entry-point": "/schema/text",
 				"name": "text",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"toJSONTableCell": {
 				"entry-point": "/schema/tableNodes",
 				"name": "toJSONTableCell",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"toJSONTableHeader": {
 				"entry-point": "/schema/tableNodes",
 				"name": "toJSONTableHeader",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unknownBlock": {
 				"entry-point": "/schema/unknown-block",
 				"name": "unknownBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedBlock": {
 				"entry-point": "/schema/unsupported-block",
 				"name": "unsupportedBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedInline": {
 				"entry-point": "/schema/unsupported-inline",
 				"name": "unsupportedInline",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"extensionFrame": {
 				"entry-point": "/schema/multi-bodied-extension",
 				"name": "extensionFrame",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"multiBodiedExtension": {
 				"entry-point": "/schema/multi-bodied-extension",
 				"name": "multiBodiedExtension",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"multiBodiedExtensionRootOnlyStage0": {
 				"entry-point": "/schema/multi-bodied-extension",
 				"name": "multiBodiedExtensionRootOnlyStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"syncBlock": {
 				"entry-point": "/schema/sync-block",
 				"name": "syncBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"bodiedSyncBlock": {
 				"entry-point": "/schema/bodied-sync-block",
 				"name": "bodiedSyncBlock",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableWithNestedTable": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableWithNestedTable",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableRowWithNestedTable": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableRowWithNestedTable",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellWithNestedTable": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCellWithNestedTable",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderWithNestedTable": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableHeaderWithNestedTable",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellStage0": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCellStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderStage0": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableHeaderStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellWithNestedTableStage0": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCellWithNestedTableStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderWithNestedTableStage0": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableHeaderWithNestedTableStage0",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableRowWithLocalId": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableRowWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellWithLocalId": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCellWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderWithLocalId": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableHeaderWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableRowWithNestedTableWithLocalId": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableRowWithNestedTableWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableCellWithNestedTableWithLocalId": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableCellWithNestedTableWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tableHeaderWithNestedTableWithLocalId": {
 				"entry-point": "/schema/tableNodes",
 				"name": "tableHeaderWithNestedTableWithLocalId",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BlockCardDefinition": {
 				"entry-point": "/schema/block-card",
 				"name": "BlockCardDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BlockContent": {
 				"entry-point": "/schema/block-content",
 				"name": "BlockContent",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BlockQuoteDefinition": {
 				"entry-point": "/schema/blockquote",
 				"name": "BlockQuoteDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BodiedExtensionDefinition": {
 				"entry-point": "/schema/bodied-extension",
 				"name": "BodiedExtensionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BodiedExtensionRootOnlyDefinition": {
 				"entry-point": "/schema/bodied-extension",
 				"name": "BodiedExtensionRootOnlyDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BulletListDefinition": {
 				"entry-point": "/schema/list",
 				"name": "BulletListDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CaptionDefinition": {
 				"entry-point": "/schema/caption",
 				"name": "CaptionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CardAttributes": {
 				"entry-point": "/schema/block-card",
 				"name": "CardAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CellAttributes": {
 				"entry-point": "/schema/tableNodes",
 				"name": "CellAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeBlockAttrs": {
 				"entry-point": "/schema/code-block",
 				"name": "CodeBlockAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeBlockBaseDefinition": {
 				"entry-point": "/schema/code-block",
 				"name": "CodeBlockBaseDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeBlockDefinition": {
 				"entry-point": "/schema/code-block",
 				"name": "CodeBlockDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeBlockWithMarksDefinition": {
 				"entry-point": "/schema/code-block",
 				"name": "CodeBlockWithMarksDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DatasourceAttributes": {
 				"entry-point": "/schema/block-card",
 				"name": "DatasourceAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DatasourceAttributeProperties": {
 				"entry-point": "/schema/block-card",
 				"name": "DatasourceAttributeProperties",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DataType": {
 				"entry-point": "/schema/block-card",
 				"name": "DataType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DateDefinition": {
 				"entry-point": "/schema/date",
 				"name": "DateDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DecisionItemDefinition": {
 				"entry-point": "/schema/decision-item",
 				"name": "DecisionItemDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DecisionListDefinition": {
 				"entry-point": "/schema/decision-list",
 				"name": "DecisionListDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DocNode": {
 				"entry-point": "/schema/doc",
 				"name": "DocNode",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmbedCardDefinition": {
 				"entry-point": "/schema/embed-card",
 				"name": "EmbedCardDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmbedCardAttributes": {
 				"entry-point": "/schema/embed-card",
 				"name": "EmbedCardAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmojiAttributes": {
 				"entry-point": "/schema/emoji",
 				"name": "EmojiAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmojiDefinition": {
 				"entry-point": "/schema/emoji",
 				"name": "EmojiDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExpandDefinition": {
 				"entry-point": "/schema/expand",
 				"name": "ExpandDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtensionDefinition": {
 				"entry-point": "/schema/extension",
 				"name": "ExtensionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtensionRootOnlyDefinition": {
 				"entry-point": "/schema/extension",
 				"name": "ExtensionRootOnlyDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtensionLayout": {
 				"entry-point": "/schema/extensions",
 				"name": "ExtensionLayout",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExternalMediaAttributes": {
 				"entry-point": "/schema/media",
 				"name": "ExternalMediaAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HardBreakDefinition": {
 				"entry-point": "/schema/hard-break",
 				"name": "HardBreakDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingBaseDefinition": {
 				"entry-point": "/schema/heading",
 				"name": "HeadingBaseDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingDefinition": {
 				"entry-point": "/schema/heading",
 				"name": "HeadingDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingWithAlignmentDefinition": {
 				"entry-point": "/schema/heading",
 				"name": "HeadingWithAlignmentDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingWithIndentationDefinition": {
 				"entry-point": "/schema/heading",
 				"name": "HeadingWithIndentationDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingWithMarksDefinition": {
 				"entry-point": "/schema/heading",
 				"name": "HeadingWithMarksDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Inline": {
 				"entry-point": "/schema/inline-content",
 				"name": "Inline",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineCardDefinition": {
 				"entry-point": "/schema/inline-card",
 				"name": "InlineCardDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineCode": {
 				"entry-point": "/schema/inline-content",
 				"name": "InlineCode",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineExtensionDefinition": {
 				"entry-point": "/schema/inline-extension",
 				"name": "InlineExtensionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineFormattedText": {
 				"entry-point": "/schema/inline-content",
 				"name": "InlineFormattedText",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"InlineLinkText": {
 				"entry-point": "/schema/inline-content",
 				"name": "InlineLinkText",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutColumnDefinition": {
 				"name": "LayoutColumnDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutSectionDefinition": {
 				"entry-point": "/schema/layout-section",
 				"name": "LayoutSectionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutSectionBaseDefinition": {
 				"entry-point": "/schema/layout-section",
 				"name": "LayoutSectionBaseDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutSectionFullDefinition": {
 				"entry-point": "/schema/layout-section",
 				"name": "LayoutSectionFullDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LayoutSectionWithSingleColumnDefinition": {
 				"entry-point": "/schema/layout-section",
 				"name": "LayoutSectionWithSingleColumnDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ListItemArray": {
 				"entry-point": "/schema/list",
 				"name": "ListItemArray",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ListItemDefinition": {
 				"entry-point": "/schema/list",
 				"name": "ListItemDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MarksObject": {
 				"entry-point": "/schema/mark",
 				"name": "MarksObject",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaADFAttrs": {
 				"entry-point": "/schema/media",
 				"name": "MediaADFAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaAttributes": {
 				"entry-point": "/schema/media",
 				"name": "MediaAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaInlineAttributes": {
 				"entry-point": "/schema/media-inline",
 				"name": "MediaInlineAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaInlineDefinition": {
 				"entry-point": "/schema/media-inline",
 				"name": "MediaInlineDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaBaseAttributes": {
 				"entry-point": "/schema/media",
 				"name": "MediaBaseAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaDefinition": {
 				"entry-point": "/schema/media",
 				"name": "MediaDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaDisplayType": {
 				"name": "MediaDisplayType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaGroupDefinition": {
 				"entry-point": "/schema/media-group",
 				"name": "MediaGroupDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaSingleDefinition": {
 				"entry-point": "/schema/media-single",
 				"name": "MediaSingleDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MediaType": {
 				"entry-point": "/schema/media",
 				"name": "MediaType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MentionAttributes": {
 				"entry-point": "/schema/mention",
 				"name": "MentionAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MentionDefinition": {
 				"entry-point": "/schema/mention",
 				"name": "MentionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MentionUserType": {
 				"entry-point": "/schema/mention",
 				"name": "MentionUserType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NestedExpandContent": {
 				"entry-point": "/schema/nested-expand",
 				"name": "NestedExpandContent",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NestedExpandDefinition": {
 				"entry-point": "/schema/nested-expand",
 				"name": "NestedExpandDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NoMark": {
 				"entry-point": "/schema/mark",
 				"name": "NoMark",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NonNestableBlockContent": {
 				"entry-point": "/schema/non-nestable-block-content",
 				"name": "NonNestableBlockContent",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"OrderedListDefinition": {
 				"entry-point": "/schema/list",
 				"name": "OrderedListDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"PanelAttributes": {
 				"entry-point": "/schema/panel",
 				"name": "PanelAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"PanelDefinition": {
 				"entry-point": "/schema/panel",
 				"name": "PanelDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphBaseDefinition": {
 				"entry-point": "/schema/paragraph",
 				"name": "ParagraphBaseDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphDefinition": {
 				"entry-point": "/schema/paragraph",
 				"name": "ParagraphDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphWithAlignmentDefinition": {
 				"entry-point": "/schema/paragraph",
 				"name": "ParagraphWithAlignmentDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphWithIndentationDefinition": {
 				"entry-point": "/schema/paragraph",
 				"name": "ParagraphWithIndentationDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ParagraphWithMarksDefinition": {
 				"entry-point": "/schema/paragraph",
 				"name": "ParagraphWithMarksDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"PlaceholderDefinition": {
 				"entry-point": "/schema/placeholder",
 				"name": "PlaceholderDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"RuleDefinition": {
 				"entry-point": "/schema/rule",
 				"name": "RuleDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"StatusDefinition": {
 				"entry-point": "/schema/status",
 				"name": "StatusDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableAttributes": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableCellDefinition": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableCellDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableDefinition": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableWithNestedTableDefinition": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableWithNestedTableDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableRowWithNestedTableDefinition": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableRowWithNestedTableDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableCellWithNestedTableDefinition": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableCellWithNestedTableDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableHeaderWithNestedTableDefinition": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableHeaderWithNestedTableDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableDisplayMode": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableDisplayMode",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableHeaderDefinition": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableHeaderDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableLayout": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableLayout",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TableRowDefinition": {
 				"entry-point": "/schema/tableNodes",
 				"name": "TableRowDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TaskItemDefinition": {
 				"entry-point": "/schema/task-item",
 				"name": "TaskItemDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BlockTaskItemDefinition": {
 				"entry-point": "/schema/task-item",
 				"name": "BlockTaskItemDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TaskListContent": {
 				"entry-point": "/schema/task-list",
 				"name": "TaskListContent",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TaskListDefinition": {
 				"entry-point": "/schema/task-list",
 				"name": "TaskListDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TextDefinition": {
 				"entry-point": "/schema/text",
 				"name": "TextDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"UrlType": {
 				"entry-point": "/schema/block-card",
 				"name": "UrlType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"RichMediaAttributes": {
 				"entry-point": "/schema/rich-media-common",
 				"name": "RichMediaAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtendedMediaAttributes": {
 				"entry-point": "/schema/rich-media-common",
 				"name": "ExtendedMediaAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"RichMediaLayout": {
 				"entry-point": "/schema/rich-media-common",
 				"name": "RichMediaLayout",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CellDomAttrs": {
 				"entry-point": "/schema/tableNodes",
 				"name": "CellDomAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ExtensionFrameDefinition": {
 				"entry-point": "/schema/multi-bodied-extension",
 				"name": "ExtensionFrameDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MultiBodiedExtensionDefinition": {
 				"entry-point": "/schema/multi-bodied-extension",
 				"name": "MultiBodiedExtensionDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MultiBodiedExtensionRootOnlyDefinition": {
 				"entry-point": "/schema/multi-bodied-extension",
 				"name": "MultiBodiedExtensionRootOnlyDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SyncBlockDefinition": {
 				"entry-point": "/schema/sync-block",
 				"name": "SyncBlockDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BodiedSyncBlockDefinition": {
 				"entry-point": "/schema/bodied-sync-block",
 				"name": "BodiedSyncBlockDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationTypes": {
 				"entry-point": "/schema/annotation",
 				"name": "AnnotationTypes",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"alignment": {
 				"entry-point": "/schema/alignment",
 				"name": "alignment",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"alignmentPositionMap": {
 				"entry-point": "/schema/alignment",
 				"name": "alignmentPositionMap",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"annotation": {
 				"entry-point": "/schema/annotation",
 				"name": "annotation",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"fontSize": {
 				"entry-point": "/schema/font-size",
 				"name": "fontSize",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"breakout": {
 				"entry-point": "/schema/breakout",
 				"name": "breakout",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"code": {
 				"entry-point": "/schema/code",
 				"name": "code",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"colorPalette": {
 				"entry-point": "/schema/text-color",
 				"name": "colorPalette",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"colorPaletteNew": {
 				"entry-point": "/schema/text-color",
 				"name": "colorPaletteNew",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"colorPaletteExtended": {
 				"entry-point": "/schema/text-color",
 				"name": "colorPaletteExtended",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"confluenceInlineComment": {
 				"entry-point": "/schema/confluence-inline-comment",
 				"name": "confluenceInlineComment",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"dataConsumer": {
 				"entry-point": "/schema/data-consumer",
 				"name": "dataConsumer",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"dataConsumerToJSON": {
 				"entry-point": "/schema/data-consumer",
 				"name": "dataConsumerToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"em": {
 				"entry-point": "/schema/em",
 				"name": "em",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"fragment": {
 				"entry-point": "/schema/fragment",
 				"name": "fragment",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"fragmentToJSON": {
 				"entry-point": "/schema/fragment",
 				"name": "fragmentToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"indentation": {
 				"entry-point": "/schema/indentation",
 				"name": "indentation",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"link": {
 				"entry-point": "/schema/link",
 				"name": "link",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"linkToJSON": {
 				"name": "linkToJSON",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"strike": {
 				"entry-point": "/schema/strike",
 				"name": "strike",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"strong": {
 				"entry-point": "/schema/strong",
 				"name": "strong",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"subsup": {
 				"entry-point": "/schema/subsup",
 				"name": "subsup",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"textColor": {
 				"entry-point": "/schema/text-color",
 				"name": "textColor",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"typeAheadQuery": {
 				"entry-point": "/schema/type-ahead-query",
 				"name": "typeAheadQuery",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"underline": {
 				"entry-point": "/schema/underline",
 				"name": "underline",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"buildAnnotationMarkDataAttributes": {
 				"entry-point": "/schema/annotation",
 				"name": "buildAnnotationMarkDataAttributes",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationMarkStates": {
 				"entry-point": "/schema/annotation",
 				"name": "AnnotationMarkStates",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedMark": {
 				"entry-point": "/schema/unsupported-mark",
 				"name": "unsupportedMark",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedNodeAttribute": {
 				"entry-point": "/schema/unsupported-node-attributes",
 				"name": "unsupportedNodeAttribute",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"border": {
 				"entry-point": "/schema/border",
 				"name": "border",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"borderColorPalette": {
 				"entry-point": "/schema/border",
 				"name": "borderColorPalette",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"backgroundColor": {
 				"entry-point": "/schema/background-color",
 				"name": "backgroundColor",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"backgroundColorPalette": {
 				"entry-point": "/schema/background-color",
 				"name": "backgroundColorPalette",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"backgroundColorPaletteNew": {
 				"entry-point": "/schema/background-color",
 				"name": "backgroundColorPaletteNew",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AlignmentAttributes": {
 				"entry-point": "/schema/alignment",
 				"name": "AlignmentAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AlignmentMarkDefinition": {
 				"entry-point": "/schema/alignment",
 				"name": "AlignmentMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationMarkAttributes": {
 				"entry-point": "/schema/annotation",
 				"name": "AnnotationMarkAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationMarkDefinition": {
 				"entry-point": "/schema/annotation",
 				"name": "AnnotationMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BreakoutMarkAttrs": {
 				"entry-point": "/schema/breakout",
 				"name": "BreakoutMarkAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BreakoutMarkDefinition": {
 				"entry-point": "/schema/breakout",
 				"name": "BreakoutMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CodeDefinition": {
 				"entry-point": "/schema/code",
 				"name": "CodeDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"EmDefinition": {
 				"entry-point": "/schema/em",
 				"name": "EmDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"FontSizeMarkAttrs": {
 				"entry-point": "/schema/font-size",
 				"name": "FontSizeMarkAttrs",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"FontSizeMarkDefinition": {
 				"entry-point": "/schema/font-size",
 				"name": "FontSizeMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"FragmentAttributes": {
 				"entry-point": "/schema/fragment",
 				"name": "FragmentAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"FragmentDefinition": {
 				"entry-point": "/schema/fragment",
 				"name": "FragmentDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"IndentationMarkAttributes": {
 				"entry-point": "/schema/indentation",
 				"name": "IndentationMarkAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"IndentationMarkDefinition": {
 				"entry-point": "/schema/indentation",
 				"name": "IndentationMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LinkAttributes": {
 				"entry-point": "/schema/link",
 				"name": "LinkAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LinkDefinition": {
 				"entry-point": "/schema/link",
 				"name": "LinkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"StrikeDefinition": {
 				"entry-point": "/schema/strike",
 				"name": "StrikeDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"StrongDefinition": {
 				"entry-point": "/schema/strong",
 				"name": "StrongDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SubSupAttributes": {
 				"entry-point": "/schema/subsup",
 				"name": "SubSupAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SubSupDefinition": {
 				"entry-point": "/schema/subsup",
 				"name": "SubSupDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TextColorAttributes": {
 				"entry-point": "/schema/text-color",
 				"name": "TextColorAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TextColorDefinition": {
 				"entry-point": "/schema/text-color",
 				"name": "TextColorDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"UnderlineDefinition": {
 				"entry-point": "/schema/underline",
 				"name": "UnderlineDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationId": {
 				"entry-point": "/schema/annotation",
 				"name": "AnnotationId",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"AnnotationDataAttributes": {
 				"entry-point": "/schema/annotation",
 				"name": "AnnotationDataAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DataConsumerAttributes": {
 				"entry-point": "/schema/data-consumer",
 				"name": "DataConsumerAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DataConsumerDefinition": {
 				"entry-point": "/schema/data-consumer",
 				"name": "DataConsumerDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BorderMarkAttributes": {
 				"entry-point": "/schema/border",
 				"name": "BorderMarkAttributes",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BorderMarkDefinition": {
 				"entry-point": "/schema/border",
 				"name": "BorderMarkDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BackgroundColorDefinition": {
 				"entry-point": "/schema/background-color",
 				"name": "BackgroundColorDefinition",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"unsupportedNodeTypesForMediaCards": {
 				"entry-point": "/schema/unsupported",
 				"name": "unsupportedNodeTypesForMediaCards",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"inlineNodes": {
 				"entry-point": "/schema/inline-nodes",
 				"name": "inlineNodes",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"createSchema": {
 				"entry-point": "/schema/create-schema",
 				"name": "createSchema",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"sanitizeNodes": {
 				"entry-point": "/schema/sanitizeNodes",
 				"name": "sanitizeNodes",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"NodeSpecOptions": {
 				"entry-point": "/schema/createPMSpecFactory",
 				"name": "NodeSpecOptions",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MarkSpecOptions": {
 				"entry-point": "/schema/createPMSpecFactory",
 				"name": "MarkSpecOptions",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"createPMMarkSpecFactory": {
 				"entry-point": "/schema/createPMSpecFactory",
 				"name": "createPMMarkSpecFactory",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"createPMNodeSpecFactory": {
 				"entry-point": "/schema/createPMSpecFactory",
 				"name": "createPMNodeSpecFactory",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			}
 		},
@@ -12432,385 +12432,385 @@ export const config: EntryPointConfig = {
 				"entry-point": "/JQLLexer",
 				"name": "JQLLexer",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JQLParser": {
 				"entry-point": "/JQLParser",
 				"name": "JQLParser",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlQueryContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlQueryContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlWhereContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlWhereContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlOrClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlOrClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlAndClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlAndClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlNotClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlNotClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlSubClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlSubClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlTerminalClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlTerminalClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlTerminalClauseRhsContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlTerminalClauseRhsContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlEqualsClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlEqualsClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlLikeClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlLikeClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlComparisonClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlComparisonClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlInClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlInClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlIsClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlIsClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlWasClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlWasClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlWasInClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlWasInClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlChangedClauseContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlChangedClauseContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlEqualsOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlEqualsOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlLikeOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlLikeOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlComparisonOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlComparisonOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlInOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlInOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlIsOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlIsOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlWasOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlWasOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlWasInOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlWasInOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlChangedOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlChangedOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlFieldContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlFieldContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlNumberFieldContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlNumberFieldContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlNonNumberFieldContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlNonNumberFieldContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlFieldPropertyContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlFieldPropertyContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlCustomFieldContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlCustomFieldContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlOperandContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlOperandContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlEmptyContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlEmptyContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlValueContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlValueContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlStringContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlStringContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlNumberContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlNumberContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlListContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlListContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlListStartContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlListStartContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlListEndContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlListEndContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlFunctionContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlFunctionContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlFunctionNameContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlFunctionNameContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlArgumentListContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlArgumentListContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlPropertyArgumentContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlPropertyArgumentContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlArgumentContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlArgumentContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlWasPredicateContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlWasPredicateContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlChangedPredicateContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlChangedPredicateContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlDatePredicateOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlDatePredicateOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlDateRangePredicateOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlDateRangePredicateOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlUserPredicateOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlUserPredicateOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlValuePredicateOperatorContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlValuePredicateOperatorContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlPredicateOperandContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlPredicateOperandContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlOrderByContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlOrderByContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JqlSearchSortContext": {
 				"entry-point": "/JQLParser",
 				"name": "JqlSearchSortContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JQLParserListener": {
 				"entry-point": "/JQLParserListener",
 				"name": "JQLParserListener",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"JQLParserVisitor": {
 				"entry-point": "/JQLParserVisitor",
 				"name": "JQLParserVisitor",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			}
 		}
@@ -14544,24 +14544,28 @@ export const config: EntryPointConfig = {
 				"consumersMigrated": false
 			},
 			"APIError": {
+				"entry-point": "/api-error",
 				"name": "APIError",
 				"type": "component",
 				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"InvalidUrlError": {
+				"entry-point": "/invalid-url-error",
 				"name": "InvalidUrlError",
 				"type": "component",
 				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"NetworkError": {
+				"entry-point": "/network-error",
 				"name": "NetworkError",
 				"type": "component",
 				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"APIErrorKind": {
+				"entry-point": "/api-error",
 				"name": "APIErrorKind",
 				"type": "type",
 				"voltCompliant": true,
@@ -14632,14 +14636,14 @@ export const config: EntryPointConfig = {
 				"consumersMigrated": false
 			},
 			"getBaseUrl": {
-				"entry-point": "/client",
+				"entry-point": "/get-base-url",
 				"name": "getBaseUrl",
 				"type": "value",
 				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"getResolverUrl": {
-				"entry-point": "/client",
+				"entry-point": "/get-resolver-url",
 				"name": "getResolverUrl",
 				"type": "value",
 				"voltCompliant": true,
@@ -14652,7 +14656,6 @@ export const config: EntryPointConfig = {
 				"consumersMigrated": false
 			},
 			"Pulse": {
-				"entry-point": "/pulse",
 				"name": "Pulse",
 				"type": "component",
 				"voltCompliant": true,
@@ -14683,6 +14686,29 @@ export const config: EntryPointConfig = {
 			"request": {
 				"name": "request",
 				"type": "value",
+				"voltCompliant": true,
+				"consumersMigrated": false
+			}
+		},
+		"/pulse": {
+			"default": {
+				"entry-point": "/pulse/pulse",
+				"name": "Pulse",
+				"type": "component",
+				"voltCompliant": true,
+				"consumersMigrated": false
+			},
+			"Pulse": {
+				"entry-point": "/pulse/pulse",
+				"name": "Pulse",
+				"type": "component",
+				"voltCompliant": true,
+				"consumersMigrated": false
+			},
+			"PulseProps": {
+				"entry-point": "/pulse/pulse",
+				"name": "PulseProps",
+				"type": "type",
 				"voltCompliant": true,
 				"consumersMigrated": false
 			}
@@ -14747,7 +14773,7 @@ export const config: EntryPointConfig = {
 				"consumersMigrated": false
 			},
 			"isWithinPreviewPanelIFrame": {
-				"entry-point": "/utils/preview-panel",
+				"entry-point": "/utils/is-within-preview-panel-iframe",
 				"name": "isWithinPreviewPanelIFrame",
 				"type": "value",
 				"voltCompliant": true,
@@ -15227,6 +15253,705 @@ export const config: EntryPointConfig = {
 	},
 	"@atlaskit/logo": {
 		"": {
+			"LogoProps": {
+				"entry-point": "/types",
+				"name": "LogoProps",
+				"type": "type",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AdminIcon": {
+				"entry-point": "/admin/icon",
+				"name": "AdminIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AtlassianAdminIcon": {
+				"entry-point": "/admin/icon",
+				"entryPointName": "AdminIcon",
+				"name": "AtlassianAdminIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AtlassianAdministrationIcon": {
+				"entry-point": "/admin/icon",
+				"entryPointName": "AdminIcon",
+				"name": "AtlassianAdministrationIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AdminLogo": {
+				"entry-point": "/admin/logo",
+				"entryPointName": "AdminLogoCS",
+				"name": "AdminLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AtlassianAdminLogo": {
+				"entry-point": "/admin/logo",
+				"entryPointName": "AdminLogoCS",
+				"name": "AtlassianAdminLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AtlassianAdministrationLogo": {
+				"entry-point": "/admin/logo",
+				"entryPointName": "AdminLogoCS",
+				"name": "AtlassianAdministrationLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AlignIcon": {
+				"entry-point": "/align/icon",
+				"name": "AlignIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraAlignIcon": {
+				"entry-point": "/align/icon",
+				"entryPointName": "AlignIcon",
+				"name": "JiraAlignIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AlignLogo": {
+				"entry-point": "/align/logo",
+				"entryPointName": "AlignLogoCS",
+				"name": "AlignLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraAlignLogo": {
+				"entry-point": "/align/logo",
+				"entryPointName": "AlignLogoCS",
+				"name": "JiraAlignLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AnalyticsIcon": {
+				"entry-point": "/analytics/icon",
+				"name": "AnalyticsIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AtlassianAnalyticsIcon": {
+				"entry-point": "/analytics/icon",
+				"entryPointName": "AnalyticsIcon",
+				"name": "AtlassianAnalyticsIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AnalyticsLogo": {
+				"entry-point": "/analytics/logo",
+				"entryPointName": "AnalyticsLogoCS",
+				"name": "AnalyticsLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AtlassianAnalyticsLogo": {
+				"entry-point": "/analytics/logo",
+				"entryPointName": "AnalyticsLogoCS",
+				"name": "AtlassianAnalyticsLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AssetsIcon": {
+				"entry-point": "/assets/icon",
+				"name": "AssetsIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"AssetsLogo": {
+				"entry-point": "/assets/logo",
+				"entryPointName": "AssetsLogoCS",
+				"name": "AssetsLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"BambooIcon": {
+				"entry-point": "/bamboo/icon",
+				"name": "BambooIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"BambooLogo": {
+				"entry-point": "/bamboo/logo",
+				"entryPointName": "BambooLogoCS",
+				"name": "BambooLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"BitbucketIcon": {
+				"entry-point": "/bitbucket-icon",
+				"name": "BitbucketIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"BitbucketLogo": {
+				"entry-point": "/bitbucket/logo",
+				"entryPointName": "BitbucketLogoCS",
+				"name": "BitbucketLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"BitbucketDataCenterIcon": {
+				"entry-point": "/bitbucket-data-center/icon",
+				"name": "BitbucketDataCenterIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"BitbucketDataCenterLogo": {
+				"entry-point": "/bitbucket-data-center/logo",
+				"entryPointName": "BitbucketDataCenterLogoCS",
+				"name": "BitbucketDataCenterLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"ChatIcon": {
+				"entry-point": "/chat/icon",
+				"name": "ChatIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"ChatLogo": {
+				"entry-point": "/chat/logo",
+				"entryPointName": "ChatLogoCS",
+				"name": "ChatLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CompanyHubIcon": {
+				"entry-point": "/company-hub/icon",
+				"name": "CompanyHubIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CompanyHubLogo": {
+				"entry-point": "/company-hub/logo",
+				"name": "CompanyHubLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CompassIcon": {
+				"entry-point": "/compass/icon",
+				"name": "CompassIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CompassLogo": {
+				"entry-point": "/compass/logo",
+				"entryPointName": "CompassLogoCS",
+				"name": "CompassLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"ConfluenceIcon": {
+				"entry-point": "/confluence-icon",
+				"name": "ConfluenceIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"ConfluenceLogo": {
+				"entry-point": "/confluence/logo",
+				"entryPointName": "ConfluenceLogoCS",
+				"name": "ConfluenceLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"ConfluenceDataCenterIcon": {
+				"entry-point": "/confluence-data-center/icon",
+				"name": "ConfluenceDataCenterIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"ConfluenceDataCenterLogo": {
+				"entry-point": "/confluence-data-center/logo",
+				"entryPointName": "ConfluenceDataCenterLogoCS",
+				"name": "ConfluenceDataCenterLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CrowdIcon": {
+				"entry-point": "/crowd/icon",
+				"name": "CrowdIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CrowdLogo": {
+				"entry-point": "/crowd/logo",
+				"entryPointName": "CrowdLogoCS",
+				"name": "CrowdLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CustomLinkIcon": {
+				"entry-point": "/custom-link/icon",
+				"name": "CustomLinkIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CustomerServiceManagementIcon": {
+				"entry-point": "/customer-service-management/icon",
+				"name": "CustomerServiceManagementIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"CustomerServiceManagementLogo": {
+				"entry-point": "/customer-service-management/logo",
+				"entryPointName": "CustomerServiceManagementLogoCS",
+				"name": "CustomerServiceManagementLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"DxIcon": {
+				"entry-point": "/dx/icon",
+				"name": "DxIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"FeedbackIcon": {
+				"entry-point": "/feedback/icon",
+				"name": "FeedbackIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"FeedbackLogo": {
+				"entry-point": "/feedback/logo",
+				"entryPointName": "FeedbackLogoCS",
+				"name": "FeedbackLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"FocusIcon": {
+				"entry-point": "/focus/icon",
+				"name": "FocusIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"FocusLogo": {
+				"entry-point": "/focus/logo",
+				"entryPointName": "FocusLogoCS",
+				"name": "FocusLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"GoalsIcon": {
+				"entry-point": "/goals/icon",
+				"name": "GoalsIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"GoalsLogo": {
+				"entry-point": "/goals/logo",
+				"entryPointName": "GoalsLogoCS",
+				"name": "GoalsLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"GuardIcon": {
+				"entry-point": "/guard/icon",
+				"name": "GuardIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"GuardLogo": {
+				"entry-point": "/guard/logo",
+				"entryPointName": "GuardLogoCS",
+				"name": "GuardLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"GuardDetectIcon": {
+				"entry-point": "/guard-detect/icon",
+				"name": "GuardDetectIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"GuardDetectLogo": {
+				"entry-point": "/guard-detect/logo",
+				"name": "GuardDetectLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"HomeIcon": {
+				"entry-point": "/home/icon",
+				"name": "HomeIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"HomeLogo": {
+				"entry-point": "/home/logo",
+				"entryPointName": "HomeLogoCS",
+				"name": "HomeLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"HubIcon": {
+				"entry-point": "/hub/icon",
+				"name": "HubIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"HubLogo": {
+				"entry-point": "/hub/logo",
+				"entryPointName": "HubLogoCS",
+				"name": "HubLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraIcon": {
+				"entry-point": "/jira-icon",
+				"name": "JiraIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraLogo": {
+				"entry-point": "/jira/logo",
+				"entryPointName": "JiraLogoCS",
+				"name": "JiraLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraCodingAgentIcon": {
+				"entry-point": "/jira-coding-agent/icon",
+				"name": "JiraCodingAgentIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraDataCenterIcon": {
+				"entry-point": "/jira-data-center/icon",
+				"name": "JiraDataCenterIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraDataCenterLogo": {
+				"entry-point": "/jira-data-center/logo",
+				"entryPointName": "JiraDataCenterLogoCS",
+				"name": "JiraDataCenterLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraProductDiscoveryIcon": {
+				"entry-point": "/jira-product-discovery/icon",
+				"name": "JiraProductDiscoveryIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraProductDiscoveryLogo": {
+				"entry-point": "/jira-product-discovery/logo",
+				"entryPointName": "JiraProductDiscoveryLogoCS",
+				"name": "JiraProductDiscoveryLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraServiceManagementIcon": {
+				"entry-point": "/jira-service-management-icon",
+				"name": "JiraServiceManagementIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraServiceManagementLogo": {
+				"entry-point": "/jira-service-management/logo",
+				"entryPointName": "JiraServiceManagementLogoCS",
+				"name": "JiraServiceManagementLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraServiceManagementDataCenterIcon": {
+				"entry-point": "/jira-service-management-data-center/icon",
+				"name": "JiraServiceManagementDataCenterIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"JiraServiceManagementDataCenterLogo": {
+				"entry-point": "/jira-service-management-data-center/logo",
+				"entryPointName": "JiraServiceManagementDataCenterLogoCS",
+				"name": "JiraServiceManagementDataCenterLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"LoomIcon": {
+				"entry-point": "/loom/icon",
+				"name": "LoomIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"LoomAttributionIcon": {
+				"entry-point": "/loom/icon",
+				"entryPointName": "LoomIcon",
+				"name": "LoomAttributionIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"LoomLogo": {
+				"entry-point": "/loom/logo",
+				"entryPointName": "LoomLogoCS",
+				"name": "LoomLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"LoomAttributionLogo": {
+				"entry-point": "/loom-attribution/logo",
+				"entryPointName": "LoomAttributionLogoCS",
+				"name": "LoomAttributionLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"LoomBlurpleIcon": {
+				"entry-point": "/loom-internal/icon",
+				"entryPointName": "LoomInternalIcon",
+				"name": "LoomBlurpleIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"LoomBlurpleLogo": {
+				"entry-point": "/loom-internal/logo",
+				"entryPointName": "LoomInternalLogoCS",
+				"name": "LoomBlurpleLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"MoreAtlassianAppsIcon": {
+				"entry-point": "/more-atlassian-apps/icon",
+				"name": "MoreAtlassianAppsIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"OpsgenieIcon": {
+				"entry-point": "/opsgenie-icon",
+				"name": "OpsgenieIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"OpsgenieLogo": {
+				"entry-point": "/opsgenie/logo",
+				"entryPointName": "OpsgenieLogoCS",
+				"name": "OpsgenieLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"ProjectsIcon": {
+				"entry-point": "/projects/icon",
+				"name": "ProjectsIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"ProjectsLogo": {
+				"entry-point": "/projects/logo",
+				"entryPointName": "ProjectsLogoCS",
+				"name": "ProjectsLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"RovoIcon": {
+				"entry-point": "/rovo/icon",
+				"name": "RovoIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"RovoLogo": {
+				"entry-point": "/rovo/logo",
+				"entryPointName": "RovoLogoCS",
+				"name": "RovoLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"RovoDevIcon": {
+				"entry-point": "/rovo-dev/icon",
+				"name": "RovoDevIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"RovoDevLogo": {
+				"entry-point": "/rovo-dev/logo",
+				"entryPointName": "RovoDevLogoCS",
+				"name": "RovoDevLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"RovoDevAgentIcon": {
+				"entry-point": "/rovo-dev-agent/icon",
+				"name": "RovoDevAgentIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"RovoDevAgentLogo": {
+				"entry-point": "/rovo-dev-agent/logo",
+				"entryPointName": "RovoDevAgentLogoCS",
+				"name": "RovoDevAgentLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"SearchIcon": {
+				"entry-point": "/search/icon",
+				"name": "SearchIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"SearchLogo": {
+				"entry-point": "/search/logo",
+				"entryPointName": "SearchLogoCS",
+				"name": "SearchLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"StatuspageIcon": {
+				"entry-point": "/statuspage-icon",
+				"name": "StatuspageIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"StatuspageLogo": {
+				"entry-point": "/statuspage/logo",
+				"entryPointName": "StatuspageLogoCS",
+				"name": "StatuspageLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"StudioIcon": {
+				"entry-point": "/studio/icon",
+				"name": "StudioIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"StudioLogo": {
+				"entry-point": "/studio/logo",
+				"entryPointName": "StudioLogoCS",
+				"name": "StudioLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"TalentIcon": {
+				"entry-point": "/talent/icon",
+				"name": "TalentIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"TalentLogo": {
+				"entry-point": "/talent/logo",
+				"entryPointName": "TalentLogoCS",
+				"name": "TalentLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"TeamsIcon": {
+				"entry-point": "/teams/icon",
+				"name": "TeamsIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"TeamsLogo": {
+				"entry-point": "/teams/logo",
+				"entryPointName": "TeamsLogoCS",
+				"name": "TeamsLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"TrelloIcon": {
+				"entry-point": "/trello-icon",
+				"name": "TrelloIcon",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
+			"TrelloLogo": {
+				"entry-point": "/trello/logo",
+				"entryPointName": "TrelloLogoCS",
+				"name": "TrelloLogo",
+				"type": "component",
+				"voltCompliant": false,
+				"consumersMigrated": false
+			},
 			"AtlasIcon": {
 				"entry-point": "/atlas-icon",
 				"name": "AtlasIcon",
@@ -15237,20 +15962,6 @@ export const config: EntryPointConfig = {
 			"AtlasLogo": {
 				"entry-point": "/logo",
 				"name": "AtlasLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AtlassianMarketplaceLogo": {
-				"entry-point": "/atlassian-marketplace/logo",
-				"name": "AtlassianMarketplaceLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AtlassianMarketplaceIcon": {
-				"entry-point": "/atlassian-marketplace/icon",
-				"name": "AtlassianMarketplaceIcon",
 				"type": "component",
 				"voltCompliant": false,
 				"consumersMigrated": false
@@ -15269,16 +15980,16 @@ export const config: EntryPointConfig = {
 				"voltCompliant": false,
 				"consumersMigrated": false
 			},
-			"JiraWorkManagementLogo": {
-				"entry-point": "/jira-work-management/logo",
-				"name": "JiraWorkManagementLogo",
+			"AtlassianMarketplaceIcon": {
+				"entry-point": "/atlassian-marketplace/icon",
+				"name": "AtlassianMarketplaceIcon",
 				"type": "component",
 				"voltCompliant": false,
 				"consumersMigrated": false
 			},
-			"JiraWorkManagementIcon": {
-				"entry-point": "/jira-work-management/icon",
-				"name": "JiraWorkManagementIcon",
+			"AtlassianMarketplaceLogo": {
+				"entry-point": "/atlassian-marketplace/logo",
+				"name": "AtlassianMarketplaceLogo",
 				"type": "component",
 				"voltCompliant": false,
 				"consumersMigrated": false
@@ -15311,606 +16022,17 @@ export const config: EntryPointConfig = {
 				"voltCompliant": false,
 				"consumersMigrated": false
 			},
-			"AdminIcon": {
-				"entry-point": "/admin/icon",
-				"name": "AdminIcon",
+			"JiraWorkManagementIcon": {
+				"entry-point": "/jira-work-management/icon",
+				"name": "JiraWorkManagementIcon",
 				"type": "component",
 				"voltCompliant": false,
 				"consumersMigrated": false
 			},
-			"AdminLogo": {
-				"name": "AdminLogo",
+			"JiraWorkManagementLogo": {
+				"entry-point": "/jira-work-management/logo",
+				"name": "JiraWorkManagementLogo",
 				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AnalyticsIcon": {
-				"entry-point": "/analytics/icon",
-				"name": "AnalyticsIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AnalyticsLogo": {
-				"name": "AnalyticsLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AssetsIcon": {
-				"entry-point": "/assets/icon",
-				"name": "AssetsIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AssetsLogo": {
-				"name": "AssetsLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ChatIcon": {
-				"entry-point": "/chat/icon",
-				"name": "ChatIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ChatLogo": {
-				"name": "ChatLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CustomerServiceManagementIcon": {
-				"entry-point": "/customer-service-management/icon",
-				"name": "CustomerServiceManagementIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CustomerServiceManagementLogo": {
-				"name": "CustomerServiceManagementLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"FeedbackIcon": {
-				"entry-point": "/feedback/icon",
-				"name": "FeedbackIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"FeedbackLogo": {
-				"name": "FeedbackLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"GoalsIcon": {
-				"entry-point": "/goals/icon",
-				"name": "GoalsIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"GoalsLogo": {
-				"name": "GoalsLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"HomeIcon": {
-				"entry-point": "/home/icon",
-				"name": "HomeIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"HomeLogo": {
-				"name": "HomeLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"HubIcon": {
-				"entry-point": "/hub/icon",
-				"name": "HubIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"HubLogo": {
-				"name": "HubLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ProjectsIcon": {
-				"entry-point": "/projects/icon",
-				"name": "ProjectsIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ProjectsLogo": {
-				"name": "ProjectsLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"RovoDevIcon": {
-				"entry-point": "/rovo-dev/icon",
-				"name": "RovoDevIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"RovoDevLogo": {
-				"name": "RovoDevLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"RovoDevAgentIcon": {
-				"entry-point": "/rovo-dev-agent/icon",
-				"name": "RovoDevAgentIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"RovoDevAgentLogo": {
-				"name": "RovoDevAgentLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraCodingAgentIcon": {
-				"entry-point": "/jira-coding-agent/icon",
-				"name": "JiraCodingAgentIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"SearchIcon": {
-				"entry-point": "/search/icon",
-				"name": "SearchIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"SearchLogo": {
-				"name": "SearchLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"StudioIcon": {
-				"entry-point": "/studio/icon",
-				"name": "StudioIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"StudioLogo": {
-				"name": "StudioLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"TalentIcon": {
-				"entry-point": "/talent/icon",
-				"name": "TalentIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"TalentLogo": {
-				"name": "TalentLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"TeamsIcon": {
-				"entry-point": "/teams/icon",
-				"name": "TeamsIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"TeamsLogo": {
-				"name": "TeamsLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"BambooIcon": {
-				"entry-point": "/bamboo/icon",
-				"name": "BambooIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"BambooLogo": {
-				"name": "BambooLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"BitbucketDataCenterIcon": {
-				"entry-point": "/bitbucket-data-center/icon",
-				"name": "BitbucketDataCenterIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"BitbucketDataCenterLogo": {
-				"name": "BitbucketDataCenterLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ConfluenceDataCenterIcon": {
-				"entry-point": "/confluence-data-center/icon",
-				"name": "ConfluenceDataCenterIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ConfluenceDataCenterLogo": {
-				"name": "ConfluenceDataCenterLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CrowdIcon": {
-				"entry-point": "/crowd/icon",
-				"name": "CrowdIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CrowdLogo": {
-				"name": "CrowdLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraDataCenterIcon": {
-				"entry-point": "/jira-data-center/icon",
-				"name": "JiraDataCenterIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraDataCenterLogo": {
-				"name": "JiraDataCenterLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraServiceManagementDataCenterIcon": {
-				"entry-point": "/jira-service-management-data-center/icon",
-				"name": "JiraServiceManagementDataCenterIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraServiceManagementDataCenterLogo": {
-				"name": "JiraServiceManagementDataCenterLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AtlassianAdministrationIcon": {
-				"name": "AtlassianAdministrationIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AtlassianAdministrationLogo": {
-				"name": "AtlassianAdministrationLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AtlassianAdminIcon": {
-				"name": "AtlassianAdminIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AtlassianAdminLogo": {
-				"name": "AtlassianAdminLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AtlassianAnalyticsIcon": {
-				"name": "AtlassianAnalyticsIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AtlassianAnalyticsLogo": {
-				"name": "AtlassianAnalyticsLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"BitbucketIcon": {
-				"entry-point": "/bitbucket-icon",
-				"name": "BitbucketIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"BitbucketLogo": {
-				"name": "BitbucketLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CompassIcon": {
-				"entry-point": "/compass/icon",
-				"name": "CompassIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CompassLogo": {
-				"name": "CompassLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"DxIcon": {
-				"entry-point": "/dx/icon",
-				"name": "DxIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ConfluenceIcon": {
-				"entry-point": "/confluence-icon",
-				"name": "ConfluenceIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ConfluenceLogo": {
-				"name": "ConfluenceLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AlignIcon": {
-				"entry-point": "/align/icon",
-				"name": "AlignIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"AlignLogo": {
-				"name": "AlignLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraAlignIcon": {
-				"name": "JiraAlignIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraAlignLogo": {
-				"name": "JiraAlignLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraIcon": {
-				"entry-point": "/jira-icon",
-				"name": "JiraIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraLogo": {
-				"name": "JiraLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraProductDiscoveryIcon": {
-				"entry-point": "/jira-product-discovery/icon",
-				"name": "JiraProductDiscoveryIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraProductDiscoveryLogo": {
-				"name": "JiraProductDiscoveryLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraServiceManagementIcon": {
-				"entry-point": "/jira-service-management-icon",
-				"name": "JiraServiceManagementIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"JiraServiceManagementLogo": {
-				"name": "JiraServiceManagementLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"LoomIcon": {
-				"entry-point": "/loom/icon",
-				"name": "LoomIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"LoomLogo": {
-				"name": "LoomLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"LoomAttributionIcon": {
-				"name": "LoomAttributionIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"LoomAttributionLogo": {
-				"name": "LoomAttributionLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"LoomBlurpleLogo": {
-				"name": "LoomBlurpleLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"LoomBlurpleIcon": {
-				"name": "LoomBlurpleIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"OpsgenieIcon": {
-				"entry-point": "/opsgenie-icon",
-				"name": "OpsgenieIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"OpsgenieLogo": {
-				"name": "OpsgenieLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"StatuspageIcon": {
-				"entry-point": "/statuspage-icon",
-				"name": "StatuspageIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"StatuspageLogo": {
-				"name": "StatuspageLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"TrelloIcon": {
-				"entry-point": "/trello-icon",
-				"name": "TrelloIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"TrelloLogo": {
-				"name": "TrelloLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"RovoIcon": {
-				"entry-point": "/rovo/icon",
-				"name": "RovoIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"RovoLogo": {
-				"name": "RovoLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"GuardIcon": {
-				"entry-point": "/guard/icon",
-				"name": "GuardIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"GuardLogo": {
-				"name": "GuardLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"FocusIcon": {
-				"entry-point": "/focus/icon",
-				"name": "FocusIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"FocusLogo": {
-				"name": "FocusLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CompanyHubIcon": {
-				"entry-point": "/company-hub/icon",
-				"name": "CompanyHubIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CompanyHubLogo": {
-				"entry-point": "/company-hub/logo",
-				"name": "CompanyHubLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"CustomLinkIcon": {
-				"entry-point": "/custom-link/icon",
-				"name": "CustomLinkIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"GuardDetectIcon": {
-				"entry-point": "/guard-detect/icon",
-				"name": "GuardDetectIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"GuardDetectLogo": {
-				"entry-point": "/guard-detect/logo",
-				"name": "GuardDetectLogo",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"MoreAtlassianAppsIcon": {
-				"entry-point": "/more-atlassian-apps/icon",
-				"name": "MoreAtlassianAppsIcon",
-				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"LogoProps": {
-				"entry-point": "/types",
-				"name": "LogoProps",
-				"type": "type",
 				"voltCompliant": false,
 				"consumersMigrated": false
 			}
@@ -18955,14 +19077,14 @@ export const config: EntryPointConfig = {
 				"entry-point": "/document-viewer",
 				"name": "DocumentViewer",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DOCUMENT_SCROLL_ROOT_ID": {
 				"entry-point": "/get-document-root",
 				"name": "DOCUMENT_SCROLL_ROOT_ID",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			}
 		}
@@ -20207,14 +20329,14 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "ContextMentionResource",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionResource": {
 				"entry-point": "/mention-resource",
 				"name": "MentionResource",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"TeamMentionResource": {
@@ -20222,46 +20344,48 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "TeamMentionResource",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"PresenceResource": {
 				"entry-point": "/presence-resource",
 				"name": "PresenceResource",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"DefaultMentionNameResolver": {
-				"entry-point": "/mention-name-resolver",
+				"entry-point": "/default-mention-name-resolver",
 				"name": "DefaultMentionNameResolver",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AbstractMentionResource": {
+				"entry-point": "/abstract-mention-resource",
 				"name": "AbstractMentionResource",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AbstractPresenceResource": {
+				"entry-point": "/abstract-presence-resource",
 				"name": "AbstractPresenceResource",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionNameStatus": {
 				"name": "MentionNameStatus",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionItem": {
 				"entry-point": "/item",
 				"name": "MentionItem",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionList": {
@@ -20269,7 +20393,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "MentionList",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ResourcedMentionList": {
@@ -20277,14 +20401,14 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "ResourcedMentionList",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionPicker": {
 				"entry-point": "/mention-picker",
 				"name": "MentionPicker",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"Mention": {
@@ -20292,7 +20416,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "Mention",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ResourcedMention": {
@@ -20300,164 +20424,166 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "ResourcedMention",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"UserAccessLevel": {
 				"entry-point": "/types",
 				"name": "UserAccessLevel",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"UserType": {
 				"entry-point": "/types",
 				"name": "UserType",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ComponentNames": {
 				"entry-point": "/types",
 				"name": "ComponentNames",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"SliNames": {
 				"entry-point": "/types",
 				"name": "SliNames",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"Actions": {
 				"entry-point": "/types",
 				"name": "Actions",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"isSpecialMention": {
+				"entry-point": "/is-special-mention",
 				"name": "isSpecialMention",
 				"type": "value",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"isResolvingMentionProvider": {
+				"entry-point": "/is-resolving-mention-provider",
 				"name": "isResolvingMentionProvider",
 				"type": "value",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ELEMENTS_CHANNEL": {
 				"entry-point": "/constants",
 				"name": "ELEMENTS_CHANNEL",
 				"type": "value",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ResolvingMentionProvider": {
 				"name": "ResolvingMentionProvider",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionProvider": {
 				"name": "MentionProvider",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"PresenceProvider": {
 				"name": "PresenceProvider",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionDescription": {
 				"entry-point": "/context-mention-resource",
 				"name": "MentionDescription",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionsResult": {
 				"name": "MentionsResult",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionNameResolver": {
 				"entry-point": "/mention-name-resolver",
 				"name": "MentionNameResolver",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionNameClient": {
 				"entry-point": "/mention-name-client",
 				"name": "MentionNameClient",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionNameDetails": {
 				"name": "MentionNameDetails",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionContextIdentifier": {
 				"name": "MentionContextIdentifier",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionStats": {
 				"name": "MentionStats",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"TeamMember": {
 				"name": "TeamMember",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionResourceConfig": {
 				"name": "MentionResourceConfig",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"TeamMentionResourceConfig": {
 				"entry-point": "/mention-resource",
 				"name": "TeamMentionResourceConfig",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"InviteFlow": {
 				"entry-point": "/types",
 				"name": "InviteFlow",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"UserRole": {
 				"entry-point": "/types",
 				"name": "UserRole",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"default": {
 				"entry-point": "/mention-picker",
 				"name": "MentionPicker",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			}
 		},
@@ -20466,32 +20592,32 @@ export const config: EntryPointConfig = {
 				"entry-point": "/mention-item/styles",
 				"name": "MENTION_ITEM_HEIGHT",
 				"type": "value",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MENTION_ITEM_HEIGHT_REFRESHED": {
 				"entry-point": "/mention-item/styles",
 				"name": "MENTION_ITEM_HEIGHT_REFRESHED",
 				"type": "value",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"Props": {
 				"name": "Props",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"default": {
 				"name": "MentionItem",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"MentionItemWithRef": {
 				"name": "MentionItemWithRef",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			}
 		}
@@ -20503,7 +20629,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "ButtonItem",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LinkItem": {
@@ -20511,7 +20637,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "LinkItem",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CustomItem": {
@@ -20519,7 +20645,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "CustomItem",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SkeletonItem": {
@@ -20527,21 +20653,21 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "SkeletonItem",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SpacingContext": {
 				"entry-point": "/menu-context",
 				"name": "SpacingContext",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SELECTION_STYLE_CONTEXT_DO_NOT_USE": {
 				"entry-point": "/selection-style-context-do-not-use",
 				"name": "SELECTION_STYLE_CONTEXT_DO_NOT_USE",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingItem": {
@@ -20549,7 +20675,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "HeadingItem",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SkeletonHeadingItem": {
@@ -20557,7 +20683,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "SkeletonHeadingItem",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Section": {
@@ -20565,7 +20691,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "Section",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MenuGroup": {
@@ -20573,7 +20699,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "MenuGroup",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"PopupMenuGroup": {
@@ -20581,77 +20707,77 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "PopupMenuGroup",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ButtonItemProps": {
 				"entry-point": "/types",
 				"name": "ButtonItemProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CustomItemComponentProps": {
 				"entry-point": "/types",
 				"name": "CustomItemComponentProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CustomItemProps": {
 				"entry-point": "/types",
 				"name": "CustomItemProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"HeadingItemProps": {
 				"entry-point": "/types",
 				"name": "HeadingItemProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"LinkItemProps": {
 				"entry-point": "/types",
 				"name": "LinkItemProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MenuGroupProps": {
 				"entry-point": "/types",
 				"name": "MenuGroupProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SectionProps": {
 				"entry-point": "/types",
 				"name": "SectionProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SkeletonHeadingItemProps": {
 				"entry-point": "/types",
 				"name": "SkeletonHeadingItemProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SkeletonItemProps": {
 				"entry-point": "/types",
 				"name": "SkeletonItemProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"Dimension": {
 				"entry-point": "/types",
 				"name": "Dimension",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"BaseItemProps": {
@@ -20659,21 +20785,21 @@ export const config: EntryPointConfig = {
 				"entryPointName": "MenuItemProps",
 				"name": "BaseItemProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"MenuGroupSizing": {
 				"entry-point": "/types",
 				"name": "MenuGroupSizing",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"RenderFunction": {
 				"entry-point": "/types",
 				"name": "RenderFunction",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SectionBaseProps": {
@@ -20681,7 +20807,7 @@ export const config: EntryPointConfig = {
 				"entryPointName": "SectionProps",
 				"name": "SectionBaseProps",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			}
 		}
@@ -23581,6 +23707,20 @@ export const config: EntryPointConfig = {
 				"consumersMigrated": false
 			}
 		},
+		"/preload-hold": {
+			"BeginUFOPreloadHoldArgs": {
+				"name": "BeginUFOPreloadHoldArgs",
+				"type": "type",
+				"voltCompliant": true,
+				"consumersMigrated": false
+			},
+			"beginUFOPreloadHold": {
+				"name": "beginUFOPreloadHold",
+				"type": "value",
+				"voltCompliant": true,
+				"consumersMigrated": false
+			}
+		},
 		"/resource-timing": {
 			"ResourceTiming": {
 				"entry-point": "/resource-timing/types",
@@ -23672,182 +23812,182 @@ export const config: EntryPointConfig = {
 				"entry-point": "/ui/AgentProfileInfo",
 				"name": "AgentProfileInfo",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentProfileCreator": {
 				"entry-point": "/ui/AgentProfileInfo",
 				"name": "AgentProfileCreator",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"getAgentCreator": {
 				"entry-point": "/ui/AgentProfileInfo",
 				"name": "getAgentCreator",
 				"type": "value",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentStarCount": {
 				"entry-point": "/ui/agent-profile-info/AgentStarCount",
 				"name": "AgentStarCount",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"StarIconButton": {
 				"entry-point": "/common/ui/StarIconButton",
 				"name": "StarIconButton",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"LinkIconButton": {
 				"entry-point": "/common/ui/LinkIconButton",
 				"name": "LinkIconButton",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentConversationStarters": {
-				"entry-point": "/ui/AgentConversationStarters",
+				"entry-point": "/agent-conversation-starters",
 				"name": "AgentConversationStarters",
 				"type": "component",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ConversationStarters": {
-				"entry-point": "/ui/AgentConversationStarters",
-				"name": "ConversationStarters",
-				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentConversationStartersProps": {
-				"entry-point": "/ui/AgentConversationStarters",
+				"entry-point": "/agent-conversation-starters",
 				"name": "AgentConversationStartersProps",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
+				"consumersMigrated": false
+			},
+			"ConversationStarters": {
+				"entry-point": "/conversation-starters",
+				"name": "ConversationStarters",
+				"type": "component",
+				"voltCompliant": true,
+				"consumersMigrated": false
+			},
+			"ConversationStartersProps": {
+				"entry-point": "/conversation-starters",
+				"name": "ConversationStartersProps",
+				"type": "type",
+				"voltCompliant": true,
+				"consumersMigrated": false
+			},
+			"getConversationStarters": {
+				"entry-point": "/get-conversation-starters",
+				"name": "getConversationStarters",
+				"type": "value",
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ConversationStarter": {
 				"entry-point": "/ui/AgentConversationStarters",
 				"name": "ConversationStarter",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"StaticAgentConversationStarter": {
 				"entry-point": "/ui/AgentConversationStarters",
 				"name": "StaticAgentConversationStarter",
 				"type": "type",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"ConversationStartersProps": {
-				"entry-point": "/ui/AgentConversationStarters",
-				"name": "ConversationStartersProps",
-				"type": "type",
-				"voltCompliant": false,
-				"consumersMigrated": false
-			},
-			"getConversationStarters": {
-				"entry-point": "/ui/AgentConversationStarters",
-				"name": "getConversationStarters",
-				"type": "value",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ChatPill": {
 				"entry-point": "/common/ui/ChatPill",
 				"name": "ChatPill",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"BrowseAgentsPill": {
 				"entry-point": "/common/ui/ChatPill",
 				"name": "BrowseAgentsPill",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ChatPillProps": {
 				"entry-point": "/common/ui/ChatPill",
 				"name": "ChatPillProps",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ChatPillIcon": {
 				"entry-point": "/common/ui/ChatIcon",
 				"name": "ChatPillIcon",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"ShowIcon": {
 				"entry-point": "/common/ui/ShowIcon",
 				"name": "ShowIcon",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"HiddenIcon": {
 				"entry-point": "/common/ui/HiddenIcon",
 				"name": "HiddenIcon",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentAvatar": {
 				"entry-point": "/ui/AgentAvatar",
 				"name": "AgentAvatar",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentBanner": {
 				"entry-point": "/ui/agent-avatar/GeneratedAvatar",
 				"name": "AgentBanner",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"GeneratedAvatar": {
 				"entry-point": "/ui/agent-avatar/GeneratedAvatar",
 				"name": "GeneratedAvatar",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentDropdownMenu": {
-				"entry-point": "/ui/AgentDropdownMenu",
+				"entry-point": "/ui/agent-dropdown-menu/agent-dropdown-menu",
 				"name": "AgentDropdownMenu",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentMenuItemSkeleton": {
 				"entry-point": "/ui/AgentMenuItemSkeleton",
 				"name": "AgentMenuItemSkeleton",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentVerificationDropdownItem": {
 				"entry-point": "/agent-verification-dropdown-item",
 				"name": "AgentVerificationDropdownItem",
 				"type": "component",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			},
 			"AgentVerificationDropdownItemProps": {
 				"entry-point": "/agent-verification-dropdown-item",
 				"name": "AgentVerificationDropdownItemProps",
 				"type": "type",
-				"voltCompliant": false,
+				"voltCompliant": true,
 				"consumersMigrated": false
 			}
 		}
@@ -30575,42 +30715,42 @@ export const config: EntryPointConfig = {
 				"entry-point": "/types",
 				"name": "OperationalEventPayload",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ProductInfoType": {
 				"entry-point": "/types",
 				"name": "ProductInfoType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ScreenEventPayload": {
 				"entry-point": "/types",
 				"name": "ScreenEventPayload",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"SettingsType": {
 				"entry-point": "/types",
 				"name": "SettingsType",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TrackEventPayload": {
 				"entry-point": "/types",
 				"name": "TrackEventPayload",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"UIEventPayload": {
 				"entry-point": "/types",
 				"name": "UIEventPayload",
 				"type": "type",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"default": {
@@ -30618,63 +30758,63 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "AnalyticsWebClient",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"apdexType": {
 				"entry-point": "/analytics-web-types",
 				"name": "apdexType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"envType": {
 				"entry-point": "/analytics-web-types",
 				"name": "envType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"eventType": {
 				"entry-point": "/analytics-web-types",
 				"name": "eventType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"originType": {
 				"entry-point": "/analytics-web-types",
 				"name": "originType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"platformType": {
 				"entry-point": "/analytics-web-types",
 				"name": "platformType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"tenantType": {
 				"entry-point": "/analytics-web-types",
 				"name": "tenantType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"userType": {
 				"entry-point": "/analytics-web-types",
 				"name": "userType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"originTracingType": {
 				"entry-point": "/analytics-web-types",
 				"name": "originTracingType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"TypeAheadHelper": {
@@ -30682,7 +30822,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "TypeAheadHelper",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DwellTimeHelper": {
@@ -30690,7 +30830,7 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "DwellTimeHelper",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"DwellTimeHelperWithBrowserInteraction": {
@@ -30698,63 +30838,63 @@ export const config: EntryPointConfig = {
 				"isDefaultExport": true,
 				"name": "DwellTimeHelperWithBrowserInteraction",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"CompressionRule": {
 				"entry-point": "/compression-rule",
 				"name": "CompressionRule",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"ResilienceMechanism": {
 				"entry-point": "/resilience-queue/types",
 				"name": "ResilienceMechanism",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"StopLowPriorityEventDelayReason": {
 				"entry-point": "/event-delay/types",
 				"name": "StopLowPriorityEventDelayReason",
 				"type": "component",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"STARGATE_PROXY_PATH": {
 				"entry-point": "/select-host",
 				"name": "STARGATE_PROXY_PATH",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"perimeterType": {
 				"entry-point": "/analytics-web-types",
 				"name": "perimeterType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"aliasType": {
 				"entry-point": "/analytics-web-types",
 				"name": "aliasType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"groupType": {
 				"entry-point": "/analytics-web-types",
 				"name": "groupType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			},
 			"productEmbedType": {
 				"entry-point": "/analytics-web-types",
 				"name": "productEmbedType",
 				"type": "value",
-				"voltCompliant": true,
+				"voltCompliant": false,
 				"consumersMigrated": false
 			}
 		}

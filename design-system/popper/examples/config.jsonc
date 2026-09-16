@@ -4,9 +4,10 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "02-advanced-behaviors.vr.ap.tsx",
-    "12-flag-imperative-create-popper.vr.ap.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"02-advanced-behaviors.vr.ap.tsx",
+		"12-flag-imperative-create-popper.vr.ap.tsx",
+		"13-flag-clipped-anchor.tsx"
+	],
+	"exampleDependencies": []
 }

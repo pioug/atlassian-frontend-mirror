@@ -165,13 +165,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-20
-	'editor_a11y__primary-toolbar-aria-label_fy27': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-07-21
 	'editor_a11y__toolbar-item-aria-described-by_fy27': {
 		defaultValue: boolean;
@@ -831,13 +824,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-07
-	'cc-maui-overlay-by-localid': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-07-29
 	cc_maui_polish_changes_batch_4: {
 		defaultValue: boolean;
@@ -1433,15 +1419,6 @@ export const editorExperimentsConfig: {
 	'editor_a11y__enghealth-46814_fy26': createBooleanExperiment({
 		productKeys: {
 			confluence: 'editor_a11y__enghealth-46814_fy26',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-07-20
-	'editor_a11y__primary-toolbar-aria-label_fy27': createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_a11y__primary-toolbar-aria-label_fy27',
-			jira: 'editor_a11y__primary-toolbar-aria-label_fy27',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2225,14 +2202,6 @@ export const editorExperimentsConfig: {
 	confluence_native_tabs_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_native_tabs_experiment',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-07-07
-	'cc-maui-overlay-by-localid': createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc-maui-overlay-by-localid',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

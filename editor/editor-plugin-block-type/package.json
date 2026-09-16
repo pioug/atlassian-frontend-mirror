@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "22.0.8",
+	"version": "22.0.11",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -82,16 +82,13 @@
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
 		},
-		"platform_editor_use_preferences_plugin": {
-			"type": "boolean"
-		},
 		"platform_editor_markdown_compatible_toolbar": {
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		},
-		"platform_editor_return_focus_after_text_styles": {
+		"platform_editor_return_focus_after_text_styles_2": {
 			"type": "boolean"
 		}
 	}

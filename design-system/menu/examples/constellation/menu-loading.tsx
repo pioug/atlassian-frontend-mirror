@@ -1,4 +1,10 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useEffect, useState } from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
@@ -13,8 +19,6 @@ import { type ButtonItemProps } from '@atlaskit/menu/types';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { xcss } from '@atlaskit/primitives/xcss';
 import { token } from '@atlaskit/tokens';
 
 import MenuGroupContainer from '../common/menu-group-container';
@@ -23,16 +27,17 @@ import Portfolio from '../icons/portfolio';
 import Slack from '../icons/slack';
 import Tempo from '../icons/tempo';
 
-const iconContainerStyles = xcss({
-	height: 'size.200',
-	width: 'size.200',
-	background: 'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',
-	borderRadius: 'radius.small',
-});
-
-const buttonContainerStyles = xcss({
-	display: 'flex',
-	justifyContent: 'center',
+const styles = cssMap({
+	iconContainer: {
+		height: token('space.200'),
+		width: token('space.200'),
+		background: 'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',
+		borderRadius: token('radius.small'),
+	},
+	buttonContainer: {
+		display: 'flex',
+		justifyContent: 'center',
+	},
 });
 
 const Item = ({ isLoading, ...props }: ButtonItemProps & { isLoading?: boolean }) => {
@@ -81,9 +86,9 @@ export default (): React.JSX.Element => {
 						<Item
 							isLoading={isLoading}
 							iconBefore={
-								<Box xcss={iconContainerStyles}>
+								<span css={styles.iconContainer}>
 									<Portfolio color={token('color.icon.brand')} />
-								</Box>
+								</span>
 							}
 							iconAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label="" />}
 						>
@@ -113,7 +118,7 @@ export default (): React.JSX.Element => {
 					</Section>
 				</MenuGroup>
 			</MenuGroupContainer>
-			<Box xcss={buttonContainerStyles}>
+			<Box xcss={styles.buttonContainer}>
 				<Button testId="toggle-loading" onClick={() => setRetryLoading(true)}>
 					Reload
 				</Button>

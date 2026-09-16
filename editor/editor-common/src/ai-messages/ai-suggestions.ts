@@ -295,7 +295,22 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingCheckingWritingClarity: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingCompleteClose: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCompleteNewSuggestionCount: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCompleteNewSuggestionCountWithoutReviewer: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -316,6 +331,16 @@ export const aiSuggestionsMessages: {
 		id: string;
 	};
 	thinkingCompleteReviewCompleteUpdated: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCompleteSuggestionCount: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCompleteSuggestionCountWithoutReviewer: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -350,6 +375,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingGeneratingAiSuggestions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingIdentifyingImprovements: {
 		defaultMessage: string;
 		description: string;
@@ -365,7 +395,22 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingPrioritizingAiSuggestions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingRefiningAiSuggestions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingRefiningSuggestions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingReviewingConsistency: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -708,12 +753,13 @@ export const aiSuggestionsMessages: {
 	},
 	thinkingReviewingContent: {
 		id: 'fabric.editor.ai.suggestions.thinking.reviewingContent.non-final',
-		defaultMessage: 'Reviewing content',
-		description: 'Loading message shown while the AI is reviewing the content',
+		defaultMessage: 'Rovo is reviewing your page',
+		description:
+			'First loading message on the AI suggestions thinking bar, shown when the name of the reviewing agent is unknown',
 	},
 	thinkingReviewingContentWithAgent: {
 		id: 'fabric.editor.ai.suggestions.thinking.reviewingContentWithAgent.non-final',
-		defaultMessage: 'Reviewing content with {agentName}',
+		defaultMessage: '{agentName} is analyzing',
 		description:
 			'First loading message on the AI suggestions thinking bar. The {agentName} placeholder is replaced with the reviewing agent name (for example "Content Reviewer"). Shown for a few seconds before the remaining rotating statuses.',
 	},
@@ -722,6 +768,34 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'This may take a few minutes',
 		description: 'Loading message setting expectations that the AI review may take a few minutes',
 	},
+	thinkingReviewingConsistency: {
+		id: 'fabric.editor.ai.suggestions.thinking.reviewingConsistency.non-final',
+		defaultMessage: 'Reviewing consistency',
+		description: 'Loading message shown while the AI is reviewing content consistency',
+	},
+	thinkingCheckingWritingClarity: {
+		id: 'fabric.editor.ai.suggestions.thinking.checkingWritingClarity.non-final',
+		defaultMessage: 'Checking writing clarity',
+		description: 'Loading message shown while the AI is checking the clarity of the writing',
+	},
+	thinkingGeneratingAiSuggestions: {
+		id: 'fabric.editor.ai.suggestions.thinking.generatingAiSuggestions.non-final',
+		defaultMessage: 'Generating AI suggestions',
+		description: 'Loading message shown while the AI is generating suggestions',
+	},
+	thinkingRefiningAiSuggestions: {
+		id: 'fabric.editor.ai.suggestions.thinking.refiningAiSuggestions.non-final',
+		defaultMessage: 'Refining AI suggestions',
+		description: 'Loading message shown while the AI is refining the suggestions it generated',
+	},
+	thinkingPrioritizingAiSuggestions: {
+		id: 'fabric.editor.ai.suggestions.thinking.prioritizingAiSuggestions.non-final',
+		defaultMessage: 'Prioritizing AI suggestions',
+		description: 'Loading message shown while the AI is prioritizing the suggestions it generated',
+	},
+	// Superseded in the rotating list by the messages above, which match the product's
+	// suggestions panel. Kept defined so removing them from `aiSuggestionsMessages` isn't a
+	// breaking change to this shared map; safe to delete once nothing can reach for them.
 	thinkingAnalyzingStructure: {
 		id: 'fabric.editor.ai.suggestions.thinking.analyzingStructure.non-final',
 		defaultMessage: 'Analyzing structure',
@@ -767,6 +841,32 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Finalizing suggestions for review',
 		description: 'Loading message shown while the AI is finalizing suggestions for review',
 	},
+	thinkingCompleteSuggestionCount: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.suggestionCount.non-final',
+		defaultMessage: '{count, plural, one {# suggestion} other {# suggestions}} from {reviewer}',
+		description:
+			'Number of newly available suggestions after a review that began with no pending suggestions. Reviewer is the agent name.',
+	},
+	thinkingCompleteNewSuggestionCount: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.newSuggestionCount.non-final',
+		defaultMessage:
+			'{count, plural, one {# new suggestion} other {# new suggestions}} from {reviewer}',
+		description:
+			'Number of newly available suggestions after a review that began with pending suggestions. Reviewer is the agent name.',
+	},
+	thinkingCompleteSuggestionCountWithoutReviewer: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.suggestionCountWithoutReviewer.non-final',
+		defaultMessage: '{count, plural, one {# suggestion} other {# suggestions}}',
+		description:
+			'Review result count when the reviewer name is unavailable and no suggestions existed at review start.',
+	},
+	thinkingCompleteNewSuggestionCountWithoutReviewer: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.newSuggestionCountWithoutReviewer.non-final',
+		defaultMessage: '{count, plural, one {# new suggestion} other {# new suggestions}}',
+		description:
+			'Review result count when the reviewer name is unavailable and suggestions existed at review start.',
+	},
+
 	thinkingCompleteReviewComplete: {
 		id: 'fabric.editor.ai.suggestions.thinkingComplete.reviewComplete.non-final',
 		defaultMessage: 'Suggestions ready',

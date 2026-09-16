@@ -17,6 +17,9 @@
 		},
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Focus ring",
 			"category": "Forms and input",
 			"status": {

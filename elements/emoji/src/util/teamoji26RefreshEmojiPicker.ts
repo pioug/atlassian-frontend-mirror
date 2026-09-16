@@ -5,17 +5,22 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 export const teamoji26RefreshEmojiPickerExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 export const teamoji26RefreshEmojiPickerUserIdGateName =
 	'platform_teamoji_26_refresh_emoji_picker_user_id';
+export const teamoji26RefreshEmojiPickerShortNameAndOrderingGateName =
+	'platform_bitbucket_fix_shortname_and_ordering';
 
 export const isTeamoji26RefreshEmojiPickerEnabled = (): boolean => {
 	return (
 		isExperimentEnabled(teamoji26RefreshEmojiPickerExperimentName) ||
-		fg(teamoji26RefreshEmojiPickerUserIdGateName)
+		fg(teamoji26RefreshEmojiPickerUserIdGateName) ||
+		fg(teamoji26RefreshEmojiPickerShortNameAndOrderingGateName)
 	);
 };
 
 export const isTeamoji26RefreshEmojiPickerEnabledNoExposure = (): boolean => {
 	return (
 		UNSAFE_expValNoExposure(teamoji26RefreshEmojiPickerExperimentName, 'isEnabled', false) ===
-			true || fg(teamoji26RefreshEmojiPickerUserIdGateName)
+			true ||
+		fg(teamoji26RefreshEmojiPickerUserIdGateName) ||
+		fg(teamoji26RefreshEmojiPickerShortNameAndOrderingGateName)
 	);
 };

@@ -1,5 +1,19 @@
 # @atlaskit/top-layer
 
+## 5.0.3
+
+### Patch Changes
+
+- [`c441257918c88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c441257918c88) -
+  Extract and document the popover focus restoration fallback without changing behavior.
+
+## 5.0.2
+
+### Patch Changes
+
+- [`e8dcde6cc4e85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8dcde6cc4e85) -
+  Anchored Popovers now always stay visible, even if the element they are anchored to is invisible
+
 ## 5.0.1
 
 ### Patch Changes

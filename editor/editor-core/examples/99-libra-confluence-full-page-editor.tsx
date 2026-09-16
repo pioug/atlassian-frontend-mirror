@@ -24,7 +24,7 @@ import {
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 import { getData } from '@atlaskit/media-integration-test-helpers/card-client';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

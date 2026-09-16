@@ -269,8 +269,14 @@ export const createBlockIndicatorAnchorWidgets = ({
 		['tableCell', 'tableHeader', 'tableRow'].includes(ancestor.type.name),
 	);
 
-	// Render outside the table when inside one; otherwise keep the original pos.
-	const widgetPos = parentTable ? parentTable.pos : from;
+	const parentLayout = fg('platform_editor_ai_show_diff_patch_1')
+		? findParentNodeClosestToPos($from, (ancestor) => ancestor.type.name === 'layoutSection')
+		: undefined;
+	// Layouts flatten direct widget children with display: contents. Such a wrapper has no
+	// bounding box or positioning context, so measuring its top produces an offset from the
+	// viewport origin and displaces the indicator into content below the editor. Keep the
+	// wrapper outside the layout, just as we do for tables, but still measure the target node.
+	const widgetPos = parentTable?.pos ?? parentLayout?.pos ?? from;
 	// Measure the actual cell/row DOM when inside one; otherwise measure the
 	// widget's own position.
 	const measurePos = parentCellOrRow ? parentCellOrRow.pos : from;

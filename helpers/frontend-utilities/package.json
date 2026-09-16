@@ -17,6 +17,9 @@
 		},
 		"team": "Frontend Platform Consortium",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "FrontendUtilities"
 		}
 	},

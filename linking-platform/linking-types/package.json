@@ -10,6 +10,9 @@
 	"atlassian": {
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "LinkingTypes"
 		}
 	},

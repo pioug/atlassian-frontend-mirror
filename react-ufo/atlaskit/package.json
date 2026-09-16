@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "7.10.0",
+	"version": "7.11.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -146,6 +146,7 @@
 		"./types": "./src/experience-trace-id-context/types.ts",
 		"./typing-performance-tracing": "./src/typing-performance-tracing/index.ts",
 		"./ufo-custom-marks": "./src/custom-mark/UFOCustomMarks.ts",
+		"./ufo-segment": "./src/segment/segment.tsx",
 		"./ufobm3-timings-to-ufo": "./src/custom-timings/UFOBM3TimingsToUFO.ts",
 		"./update-pageload-name": "./src/trace-pageload/updatePageloadName.ts",
 		"./use-interaction-context": "./src/interaction-context/useInteractionContext.ts",
@@ -179,6 +180,7 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/is-ci": "root:*",
 		"@types/scheduler": "root:*",

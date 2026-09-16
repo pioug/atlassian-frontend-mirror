@@ -12,7 +12,7 @@ import {
 	createUploadMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
 import { type FileIdentifier } from '@atlaskit/media-client';
-import { Card } from '../../src';
+import Card from '../../src/card/cardLoader';
 import { cardWrapperStyles } from '../../example-helpers/styles';
 import { MainWrapper } from '../../example-helpers';
 

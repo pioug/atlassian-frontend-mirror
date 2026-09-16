@@ -11,7 +11,8 @@ import DataLoader from 'dataloader';
 import type { CardAdf, CardAppearance, EnvironmentsKeys } from '@atlaskit/linking-common/types';
 import { request } from '@atlaskit/linking-common/api';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
-import { getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
+import { getBaseUrl } from '@atlaskit/linking-common/get-base-url';
+import { getResolverUrl } from '@atlaskit/linking-common/get-resolver-url';
 
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 

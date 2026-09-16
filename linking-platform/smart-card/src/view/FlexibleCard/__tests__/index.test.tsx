@@ -2,10 +2,12 @@ import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen } from '@atlassian/testing-library';
 
 import { getCardTestWrapper } from '../../../__tests__/__utils__/unit-testing-library-helpers';
 import { SmartLinkStatus } from '../../../constants';
+import { useFlexibleUiContext } from '../../../state/flexible-ui-context/useFlexibleUiContext';
 import { useSmartLinkCrossProductUrlWrapper } from '../../../state/hooks/use-smart-link-cross-product-url-wrapper';
 import { default as TitleBlock } from '../components/blocks/title-block';
 import { getContextByStatus } from '../getContextByStatus';
@@ -31,6 +33,48 @@ jest.mock('../getContextByStatus', () => ({
 describe('FlexibleCard', () => {
 	const title = 'some-name';
 	const url = 'http://some-url.com';
+
+	it.each([true, false])(
+		'gates navigation overrides without changing metadata (enabled=%s)',
+		(enabled) => {
+			if (enabled) passGate('confluence_ep_shim_macro_links_v2');
+			else failGate('confluence_ep_shim_macro_links_v2');
+			const metadata = Object.freeze({
+				url,
+				linkTitle: Object.freeze({ text: title, url }),
+			});
+			jest.mocked(getContextByStatus).mockReturnValueOnce(metadata);
+			const readMetadata = jest.fn();
+			const MetadataConsumer = () => {
+				readMetadata(useFlexibleUiContext());
+				return null;
+			};
+			const destination = 'https://help-center.example/article';
+
+			render(
+				<FlexibleCard
+					cardState={{ status: 'resolved' }}
+					url={url}
+					navigation={{ url: destination, target: '_top' }}
+					ui={{ clickableContainer: true, removeBlockRestriction: true }}
+				>
+					<TitleBlock />
+					<MetadataConsumer />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
+
+			expect(readMetadata.mock.calls.at(-1)?.[0]).toBe(metadata);
+			expect(metadata.linkTitle.url).toBe(url);
+			const links = screen.getAllByRole('link', { name: title });
+			expect(links).toHaveLength(2);
+			const targets = enabled ? ['_top', '_top'] : ['_self', '_blank'];
+			links.forEach((link, index) => {
+				expect(link).toHaveAttribute('href', enabled ? destination : url);
+				expect(link.getAttribute('target') || '_self').toBe(targets[index]);
+			});
+		},
+	);
 
 	it('renders flexible card', async () => {
 		const cardState: CardState = {

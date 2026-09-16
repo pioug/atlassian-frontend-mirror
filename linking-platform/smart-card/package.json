@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.23.3",
+	"version": "45.24.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,6 +27,9 @@
 		},
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Smart Card"
 		}
 	},
@@ -258,6 +261,10 @@
 		"./use-fire3-p-workflows-click-event": "./src/view/SmartLinkEvents/useFire3PWorkflowsClickEvent.tsx"
 	},
 	"platform-feature-flags": {
+		"confluence_ep_shim_macro_links_v2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_navx_3298_message_wrapper": {
 			"type": "boolean"
 		},
@@ -346,6 +353,10 @@
 		},
 		"nike_r19_render_unmount": {
 			"type": "boolean"
+		},
+		"platform_dst_modal-dialog-use-modal-title": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/f74ef1bc-7240-4aac-9dc8-9dc43b502089"

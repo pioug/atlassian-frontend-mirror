@@ -159,7 +159,7 @@ export const TextStylesMenuButton = ({
 			label={formatMessage(toolbarMessages.textStyles, {
 				blockTypeName: currentBlockType?.name,
 			})}
-			shouldRenderToParent={fg('platform_editor_return_focus_after_text_styles')}
+			shouldRenderToParent={fg('platform_editor_return_focus_after_text_styles_2')}
 		>
 			{children}
 		</ToolbarDropdownMenu>

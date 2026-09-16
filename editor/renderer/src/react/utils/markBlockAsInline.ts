@@ -1,12 +1,15 @@
 import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionParams, Parameters } from '@atlaskit/editor-common/extensions';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export function markBlockAsInline({
 	nodes,
 	onMark,
 	parentPos,
 	shouldDisplayExtensionAsInline,
+	isTopLevel = true,
 }: {
+	isTopLevel?: boolean;
 	nodes: PMNode[];
 	onMark: ({ pos }: { pos: number }) => void;
 	parentPos: number;
@@ -17,6 +20,16 @@ export function markBlockAsInline({
 	}
 
 	function isInlineBodiedExtension(node?: PMNode | null): boolean {
+		if (
+			!isTopLevel &&
+			node?.type.name === 'bodiedExtension' &&
+			node.attrs?.extensionType === 'com.atlassian.ecosystem' &&
+			node.attrs?.parameters?.layout === 'inline-bodied' &&
+			fg('platform_forge_inline_bodied_layout_switch') &&
+			fg('platform_forge_inline_bodied_macro')
+		) {
+			return false;
+		}
 		return Boolean(
 			node?.type.name === 'bodiedExtension' &&
 			shouldDisplayExtensionAsInline({

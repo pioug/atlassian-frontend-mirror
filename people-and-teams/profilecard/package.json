@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.24.3",
+	"version": "26.24.5",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,6 +23,9 @@
 		},
 		"team": "People and Teams Collective",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Profilecard"
 		}
 	},

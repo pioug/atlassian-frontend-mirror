@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 15.0.10
+
+### Patch Changes
+
+- [`9f67d7a39831c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f67d7a39831c) -
+  Clean up experiment `editor_a11y__primary-toolbar-aria-label_fy27`
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.8
 
 ### Patch Changes

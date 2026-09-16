@@ -985,6 +985,116 @@ describe('@atlaskit/editor-core', () => {
 			await requestPromise;
 		});
 
+		it('should clear selection when it belongs to the editor', () => {
+			mockExpEnabled('fix_editor_blur_issue_exp');
+			const dispatcherRef: { current: EventDispatcher | null } = { current: null };
+			const document = doc(p('hello{endPos}'))(defaultSchema);
+			const editorProps = { defaultValue: toJSON(document) };
+
+			renderWithIntl(
+				<ReactEditorView
+					{...requiredProps()}
+					editorProps={editorProps}
+					onEditorCreated={({ eventDispatcher }) => {
+						dispatcherRef.current = eventDispatcher;
+					}}
+				/>,
+			);
+
+			const editorDom = screen.getByRole('textbox');
+			const range = window.document.createRange();
+			range.selectNodeContents(editorDom);
+			const selection = window.getSelection();
+			selection?.removeAllRanges();
+			selection?.addRange(range);
+
+			expect(selection?.rangeCount).toBe(1);
+
+			dispatcherRef.current?.emit('resetEditorState', { doc: '', shouldScrollToBottom: false });
+
+			expect(selection?.rangeCount).toBe(0);
+		});
+
+		it('should not clear selection outside the editor', () => {
+			mockExpEnabled('fix_editor_blur_issue_exp');
+			const dispatcherRef: { current: EventDispatcher | null } = { current: null };
+			const document = doc(p('hello{endPos}'))(defaultSchema);
+			const editorProps = { defaultValue: toJSON(document) };
+
+			renderWithIntl(
+				<ReactEditorView
+					{...requiredProps()}
+					editorProps={editorProps}
+					onEditorCreated={({ eventDispatcher }) => {
+						dispatcherRef.current = eventDispatcher;
+					}}
+				/>,
+			);
+
+			const outsideSelectionNode = window.document.createElement('div');
+			outsideSelectionNode.contentEditable = 'true';
+			outsideSelectionNode.textContent = 'outside editor selection';
+			window.document.body.appendChild(outsideSelectionNode);
+
+			try {
+				const outsideTextNode = outsideSelectionNode.firstChild;
+				expect(outsideTextNode).not.toBeNull();
+				const range = window.document.createRange();
+				range.selectNodeContents(outsideTextNode as Node);
+				const selection = window.getSelection();
+				selection?.removeAllRanges();
+				selection?.addRange(range);
+
+				expect(selection?.rangeCount).toBe(1);
+
+				dispatcherRef.current?.emit('resetEditorState', { doc: '', shouldScrollToBottom: false });
+
+				expect(selection?.rangeCount).toBe(1);
+			} finally {
+				outsideSelectionNode.remove();
+			}
+		});
+
+		it('should clear selection outside the editor when fix_editor_blur_issue_exp is disabled', () => {
+			mockExpDisabled('fix_editor_blur_issue_exp');
+			const dispatcherRef: { current: EventDispatcher | null } = { current: null };
+			const document = doc(p('hello{endPos}'))(defaultSchema);
+			const editorProps = { defaultValue: toJSON(document) };
+
+			renderWithIntl(
+				<ReactEditorView
+					{...requiredProps()}
+					editorProps={editorProps}
+					onEditorCreated={({ eventDispatcher }) => {
+						dispatcherRef.current = eventDispatcher;
+					}}
+				/>,
+			);
+
+			const outsideSelectionNode = window.document.createElement('div');
+			outsideSelectionNode.contentEditable = 'true';
+			outsideSelectionNode.textContent = 'outside editor selection';
+			window.document.body.appendChild(outsideSelectionNode);
+
+			try {
+				const outsideTextNode = outsideSelectionNode.firstChild;
+				expect(outsideTextNode).not.toBeNull();
+				const range = window.document.createRange();
+				range.selectNodeContents(outsideTextNode as Node);
+				const selection = window.getSelection();
+				selection?.removeAllRanges();
+				selection?.addRange(range);
+
+				expect(selection?.rangeCount).toBe(1);
+
+				dispatcherRef.current?.emit('resetEditorState', { doc: '', shouldScrollToBottom: false });
+
+				expect(selection?.rangeCount).toBe(0);
+			} finally {
+				outsideSelectionNode.remove();
+			}
+		});
+
 		it('should not create a new schema when resetting editorState', async () => {
 			const dispatcherRef: { current: EventDispatcher | null } = { current: null };
 			const preset = createUniversalPreset({ props: {} });

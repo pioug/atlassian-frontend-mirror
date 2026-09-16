@@ -11,7 +11,7 @@ import { bind, type UnbindFn } from 'bind-event-listener';
 import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import { UFOThirdPartySegment } from '@atlaskit/react-ufo/third-party-segment';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 const containerStyle = css({
 	display: 'flex',

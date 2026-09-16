@@ -6,8 +6,7 @@
  * `'always-pinned'` (e.g. Markdown Mode source/preview view), the primary
  * toolbar must still mount — otherwise the override has no UI to drive.
  *
- * `platform_editor_controls = variant1` is set via `eeTest`; individual fg
- * gates are toggled per-test via `passGate`.
+ * `platform_editor_controls = variant1` is set via `eeTest`.
  */
 
 import React from 'react';
@@ -18,7 +17,6 @@ import { IntlProvider } from 'react-intl';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11y } from '@atlassian/a11y-jest-testing';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 // Drives the runtime override returned to `FullPage.tsx`'s selector.
 const mockToolbarOverride: { value: 'always-pinned' | undefined } = { value: undefined };
@@ -116,9 +114,7 @@ eeTest
 
 		it("hides the primary toolbar when docking pref is 'none' and no runtime override", async () => {
 			// Override is undefined, so `forcePrimaryToolbarPinned` short-circuits
-			// before reading the toolbar-mode-override gate — only the preferences
-			// gate is actually evaluated.
-			passGate('platform_editor_use_preferences_plugin');
+			// before reading the toolbar-mode-override gate.
 			renderFullPage();
 			expect(screen.queryByTestId('ak-editor-main-toolbar')).not.toBeInTheDocument();
 			await expect(document.body).toBeAccessible();
@@ -131,7 +127,6 @@ eeTest
 		it(
 			"mounts the primary toolbar when docking pref is 'none' but override forces 'always-pinned'",
 			skipAutoA11y(() => {
-				passGate('platform_editor_use_preferences_plugin');
 				mockToolbarOverride.value = 'always-pinned';
 				renderFullPage();
 				expect(screen.getByTestId('ak-editor-main-toolbar')).toBeInTheDocument();

@@ -3,10 +3,8 @@ import React, { useContext } from 'react';
 import { renderHook } from '@testing-library/react';
 
 import { getInteractionId } from '../getInteractionId';
-import UFOInteractionIDContext, {
-	DefaultInteractionID,
-	type InteractionIDContextType,
-} from '../index';
+import DefaultInteractionID, { type InteractionIDContextType } from '../defaultInteractionId';
+import UFOInteractionIDContext from '../index';
 import { subscribeToInteractionIdChanges } from '../subscribeToInteractionIdChanges';
 import { useInteractionId } from '../useInteractionId';
 

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-extension
 
+## 21.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.4
+
+### Patch Changes
+
+- [`2bbc1c84de468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bbc1c84de468) -
+  Migrate Volt consumer imports to existing definitions and align affected test mocks without
+  changing runtime behavior.
+- Updated dependencies
+
 ## 21.1.3
 
 ### Patch Changes

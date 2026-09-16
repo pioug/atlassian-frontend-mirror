@@ -7,17 +7,24 @@ import type {
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { SmartDiffThresholds as SmartDiffThresholdsInternal } from './pm-plugins/calculateDiff/smart/thresholds';
-import type {
-	ColorScheme as ResolvedColorScheme,
-	PublicColorScheme,
-} from './pm-plugins/decorations/colorSchemes/types';
+import type { ColorScheme as ResolvedColorScheme } from './pm-plugins/decorations/colorSchemes/types';
 
-export type ColorScheme = PublicColorScheme;
+/**
+ * `'standard'` (purple insertions, default) and `'traditional'` (green/red) are the two
+ * plugin-configured schemes. The remaining accent names are the attribution palette used for
+ * per-contributor colouring (`stepsWithAttribution`) — callers of the imperative `showDiff`
+ * command (see `PMDiffParams.colorScheme`) can also pass one of these directly to match a
+ * specific contributor's colour outside of attribution mode, for example matching a Review
+ * moment diff to the streaming highlight of the agent that produced it.
+ */
+export type ColorScheme = ResolvedColorScheme;
+
 export type DiffType = 'inline' | 'block' | 'step' | 'smart';
 
 /**
@@ -172,6 +179,13 @@ export type DiffParams = {
 
 export type PMDiffParams = {
 	/**
+	 * Overrides the colour scheme for this repaint only. Unset falls back to the plugin's
+	 * configured `DiffParams.colorScheme` (ultimately `'standard'`, purple). Persists across
+	 * `SCROLL_TO_NEXT`/`SCROLL_TO_PREVIOUS` repaints of the same diff, and resets when the diff
+	 * is hidden.
+	 */
+	colorScheme?: ColorScheme;
+	/**
 	 * For the `smart` diffType, where node/paragraph-level deleted content is rendered relative to
 	 * the new content. Defaults to `'top'`. Ignored for other diff types.
 	 */
@@ -263,6 +277,7 @@ export type ShowDiffPlugin = NextEditorPlugin<
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<UserIntentPlugin>,
+			OptionalPlugin<LimitedModePlugin>,
 			/** Carries the live-region announcement made when stepping between changes. */
 			OptionalPlugin<AccessibilityUtilsPlugin>,
 		];

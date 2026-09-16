@@ -19,7 +19,7 @@ import {
 	findParentNodeOfType,
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
+import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
 
 export const getSelectedExtension = (
 	state: EditorState,

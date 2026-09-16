@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 
 import CardClient from '@atlaskit/link-provider/client';
-import { NetworkError } from '@atlaskit/linking-common';
+import { NetworkError } from '@atlaskit/linking-common/network-error';
 import {
 	InvokeError,
 	type InvokeRequest,

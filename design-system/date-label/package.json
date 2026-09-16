@@ -10,6 +10,9 @@
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Date label",
 			"category": "Status indicators",
 			"subPages": [

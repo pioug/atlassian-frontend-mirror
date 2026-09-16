@@ -1,4 +1,4 @@
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 
 import { fakeFactory, mocks } from '../__fixtures__/mocks';
 

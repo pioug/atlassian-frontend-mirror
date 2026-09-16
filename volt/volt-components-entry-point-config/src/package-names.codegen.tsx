@@ -3,7 +3,7 @@
  *
  * Volt Stage 1 / Stage 2 readiness map derived from volt-preset-packages.json.
  *
- * @codegen <<SignedSource::4469b12e50f1f6853fc03dd2559fca1d>>
+ * @codegen <<SignedSource::31c1967acda15a26c7a06a251dca4ddc>>
  * @codegenCommand yarn workspace @atlaskit/volt-components-entry-point-config codegen
  */
 /**
@@ -17,7 +17,7 @@
  * `yarn workspace @atlaskit/volt-components-entry-point-config codegen`
  */
 export const PACKAGE_NAMES = {
-	'@atlaskit/adf-schema': { voltCompliant: true, consumersMigrated: false },
+	'@atlaskit/adf-schema': { voltCompliant: false, consumersMigrated: false },
 	'@atlaskit/adf-utils': { voltCompliant: false, consumersMigrated: false },
 	'@atlaskit/analytics-cross-product': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/analytics-listeners': { voltCompliant: true, consumersMigrated: false },
@@ -62,7 +62,7 @@ export const PACKAGE_NAMES = {
 	'@atlaskit/jql-editor': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/jql-editor-autocomplete-rest': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/jql-editor-common': { voltCompliant: true, consumersMigrated: false },
-	'@atlaskit/jql-parser': { voltCompliant: true, consumersMigrated: false },
+	'@atlaskit/jql-parser': { voltCompliant: false, consumersMigrated: false },
 	'@atlaskit/json-ld-types': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/layering': { voltCompliant: true, consumersMigrated: true },
 	'@atlaskit/link': { voltCompliant: true, consumersMigrated: false },
@@ -82,15 +82,15 @@ export const PACKAGE_NAMES = {
 	'@atlaskit/media-client-react': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/media-common': { voltCompliant: false, consumersMigrated: false },
 	'@atlaskit/media-core': { voltCompliant: true, consumersMigrated: false },
-	'@atlaskit/media-document-viewer': { voltCompliant: true, consumersMigrated: false },
+	'@atlaskit/media-document-viewer': { voltCompliant: false, consumersMigrated: false },
 	'@atlaskit/media-file-preview': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/media-picker': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/media-state': { voltCompliant: true, consumersMigrated: true },
 	'@atlaskit/media-svg': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/media-ui': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/media-viewer': { voltCompliant: false, consumersMigrated: false },
-	'@atlaskit/mention': { voltCompliant: false, consumersMigrated: false },
-	'@atlaskit/menu': { voltCompliant: true, consumersMigrated: false },
+	'@atlaskit/mention': { voltCompliant: true, consumersMigrated: false },
+	'@atlaskit/menu': { voltCompliant: false, consumersMigrated: false },
 	'@atlaskit/modal-dialog': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/motion': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/object': { voltCompliant: true, consumersMigrated: false },
@@ -112,7 +112,7 @@ export const PACKAGE_NAMES = {
 	'@atlaskit/range': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/react-select': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/react-ufo': { voltCompliant: true, consumersMigrated: false },
-	'@atlaskit/rovo-agent-components': { voltCompliant: false, consumersMigrated: false },
+	'@atlaskit/rovo-agent-components': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/rovo-triggers': { voltCompliant: false, consumersMigrated: false },
 	'@atlaskit/section-message': { voltCompliant: true, consumersMigrated: false },
 	'@atlaskit/select': { voltCompliant: true, consumersMigrated: false },
@@ -154,5 +154,5 @@ export const PACKAGE_NAMES = {
 	'@atlassian/ufo': { voltCompliant: true, consumersMigrated: false },
 	'@atlassian/ufo-experimental': { voltCompliant: true, consumersMigrated: false },
 	'@atlassiansox/analytics-cross-product-interaction-client': { voltCompliant: true, consumersMigrated: false },
-	'@atlassiansox/analytics-web-client': { voltCompliant: true, consumersMigrated: false },
+	'@atlassiansox/analytics-web-client': { voltCompliant: false, consumersMigrated: false },
 } as const;

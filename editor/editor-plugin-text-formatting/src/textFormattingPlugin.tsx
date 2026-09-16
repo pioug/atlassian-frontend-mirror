@@ -11,7 +11,6 @@ import type {
 	FloatingToolbarCustom,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
@@ -148,10 +147,8 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 			? {}
 			: {
 					selectionToolbar: () => {
-						const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-							? api?.userPreferences?.sharedState.currentState()?.preferences
-									?.toolbarDockingPosition
-							: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+						const toolbarDocking =
+							api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 
 						if (
 							toolbarDocking === 'none' &&

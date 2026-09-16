@@ -3,7 +3,8 @@ import React from 'react';
 import { act, render, screen } from '@atlassian/testing-library';
 
 import UFOInteractionContext from '../../interaction-context';
-import UFOInteractionIDContext, { DefaultInteractionID } from '../../interaction-id-context';
+import UFOInteractionIDContext from '../../interaction-id-context';
+import DefaultInteractionID from '../../interaction-id-context/defaultInteractionId';
 import { UFOThirdPartySegment } from '../third-party-segment';
 
 // Mock UFOSegment component

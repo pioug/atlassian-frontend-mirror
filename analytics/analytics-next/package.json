@@ -24,6 +24,9 @@
 		},
 		"team": "UIP Frontend Observability",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Analytics next"
 		}
 	},

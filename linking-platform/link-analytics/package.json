@@ -24,6 +24,9 @@
 		},
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "LinkingAnalytics"
 		}
 	},

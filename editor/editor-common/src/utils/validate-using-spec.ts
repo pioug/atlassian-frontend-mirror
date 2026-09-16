@@ -27,7 +27,7 @@ const errorCallbackFor = (
 	validate: Validate,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	validationOverrides?: {
-		allowExpandInPanel?: boolean;
+		allowContainerInPanel?: boolean;
 		allowNestedTables?: boolean;
 		allowTableInPanel?: boolean;
 	},
@@ -40,7 +40,7 @@ const errorCallbackFor = (
 				...options,
 				allowNestedTables: validationOverrides?.allowNestedTables,
 				allowTableInPanel: validationOverrides?.allowTableInPanel,
-				allowExpandInPanel: validationOverrides?.allowExpandInPanel,
+				allowContainerInPanel: validationOverrides?.allowContainerInPanel,
 			},
 			marks,
 			validate,
@@ -157,9 +157,10 @@ export const validationErrorHandler = (
 
 	// panel_c1 is a ProseMirror-only variant: on save, expand-in-panel documents are stored as
 	// plain ADF `panel` nodes containing an `expand`. The base validator-spec does not permit
-	// `expand` inside `panel` (it's gated behind the experiment), so we suppress the
-	// INVALID_CONTENT error when the experiment is active.
-	if (options.allowExpandInPanel) {
+	// `expand` inside `panel` (it's gated behind the consolidated container-in-panel experiment,
+	// see `isPanelNestingContainerSupported`), so we suppress the INVALID_CONTENT error when
+	// `allowContainerInPanel` is set.
+	if (options.allowContainerInPanel) {
 		const meta = error.meta as ValidationErrorMap['INVALID_CONTENT'] | undefined;
 		if (
 			meta?.parentType === 'panel' &&
@@ -249,7 +250,7 @@ export const validateADFEntity = (
 	node: ADFEntity,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	validationOverrides?: {
-		allowExpandInPanel?: boolean;
+		allowContainerInPanel?: boolean;
 		allowNestedTables?: boolean;
 		allowTableInPanel?: boolean;
 	},

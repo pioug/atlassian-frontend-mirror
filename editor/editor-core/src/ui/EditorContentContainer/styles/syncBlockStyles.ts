@@ -60,13 +60,17 @@ export const syncBlockStylesBase: SerializedStyles = css({
 			/* Node selection state */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.ak-editor-selected-node': {
-				boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+				boxShadow: `0 0 0 1px var(--ak-editor-sync-block-selected-border-color, ${token(
+					'color.border.focused',
+				)})`,
 
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
 					opacity: 1,
 					visibility: 'visible',
-					backgroundColor: token('color.background.selected'),
+					backgroundColor: `var(--ak-editor-sync-block-selected-label-background-color, ${token(
+						'color.background.selected',
+					)})`,
 					top: '-14px',
 					paddingBottom: token('space.050'),
 					paddingTop: token('space.050'),

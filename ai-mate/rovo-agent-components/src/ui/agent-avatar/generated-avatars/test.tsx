@@ -20,6 +20,11 @@ jest.mock('./assets/jira-task-planner-agent', () => ({
 	default: () => <div data-testid="jira-task-planner-agent-avatar" />,
 }));
 
+jest.mock('./assets/content-reviewer', () => ({
+	__esModule: true,
+	default: () => <div data-testid="content-reviewer-avatar" />,
+}));
+
 describe('getNumberIdForAvatar', () => {
 	[
 		{
@@ -55,6 +60,12 @@ describe('getNumberIdForAvatar', () => {
 });
 
 describe('GeneratedAvatar', () => {
+	it('renders the Content reviewer avatar for the content_reviewer_agent', async () => {
+		render(<GeneratedAvatar agentNamedId="content_reviewer_agent" size="medium" />);
+
+		expect(await screen.findByTestId('content-reviewer-avatar')).toBeInTheDocument();
+	});
+
 	it('renders the Social Media Scribe avatar for the Tech Writer agent', async () => {
 		render(<GeneratedAvatar agentNamedId="tech_writer_agent" size="medium" />);
 

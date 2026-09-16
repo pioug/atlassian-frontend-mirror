@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { compose } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
 
@@ -26,7 +28,7 @@ type State = {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class TableRow extends React.Component<Props, State> {
+class TableRowLegacy extends React.Component<Props, State> {
 	state: State = {
 		colGroupWidths: [],
 	};
@@ -91,4 +93,59 @@ export default class TableRow extends React.Component<Props, State> {
 			</tr>
 		);
 	}
+}
+
+function TableRowFunctional({
+	allowColumnSorting,
+	children,
+	index,
+	innerRef,
+	isFirstRow,
+	isLastRow,
+	isNumberColumnEnabled,
+	onSorting,
+	tableOrderStatus,
+}: Props): React.JSX.Element {
+	const isHeaderRow = !index;
+	const childrenArray = React.Children.toArray(children);
+	const cells =
+		allowColumnSorting && isHeaderRow
+			? childrenArray.map((child, columnIndex) => {
+					if (React.isValidElement(child)) {
+						return React.cloneElement(child, {
+							columnIndex,
+							onSorting,
+							sortOrdered:
+								tableOrderStatus?.columnIndex === columnIndex
+									? tableOrderStatus.order
+									: SortOrder.NO_ORDER,
+							isHeaderRow,
+						} as Props);
+					}
+				})
+			: childrenArray;
+
+	return (
+		<tr ref={innerRef}>
+			{isNumberColumnEnabled && (
+				<td
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={RendererCssClassName.NUMBER_COLUMN}
+					data-reaches-left
+					data-reaches-top={isFirstRow || undefined}
+					data-reaches-bottom={isLastRow || undefined}
+				>
+					{index}
+				</td>
+			)}
+			{cells}
+		</tr>
+	);
+}
+
+export default function TableRow(props: Props): React.JSX.Element {
+	const Component = fg('platform_renderer_table_row_functional')
+		? TableRowFunctional
+		: TableRowLegacy;
+	return React.createElement(Component, props);
 }

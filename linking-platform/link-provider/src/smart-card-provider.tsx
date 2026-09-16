@@ -7,7 +7,7 @@ import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-l
 import type { LinkPreview, CardPlatform } from '@atlaskit/link-extractors/types';
 import { type CardStore, getUrl } from '@atlaskit/linking-common/store';
 import { ACTION_RELOADING, ACTION_ERROR, cardAction } from '@atlaskit/linking-common/actions';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import CardClient from './client';
@@ -26,6 +26,7 @@ const isUnsupportedError = (error: APIError): boolean =>
 	error.type === 'SearchUnsupportedError';
 
 export function SmartCardProvider({
+	linkNavigation,
 	storeOptions,
 	bridgeProduct,
 	client: customClient,
@@ -171,11 +172,19 @@ export function SmartCardProvider({
 	const value = useMemo(
 		() =>
 			merge({}, parentContext || providerValue, {
+				...(fg('confluence_ep_shim_macro_links_v2') ? { linkNavigation } : undefined),
 				isPreviewPanelAvailable,
 				...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 				openPreviewPanel,
 			}),
-		[parentContext, providerValue, isPreviewPanelAvailable, isPreviewRestricted, openPreviewPanel],
+		[
+			parentContext,
+			providerValue,
+			isPreviewPanelAvailable,
+			isPreviewRestricted,
+			openPreviewPanel,
+			linkNavigation,
+		],
 	);
 
 	return <SmartCardContext.Provider value={value}>{children}</SmartCardContext.Provider>;

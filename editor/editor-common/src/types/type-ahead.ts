@@ -137,6 +137,12 @@ export type MoreOptionsButtonConfig = {
 };
 
 export type TypeAheadHandler = {
+	/**
+	 * Optional predicate evaluated before the typeahead opens. When false, the
+	 * trigger remains as ordinary editor text.
+	 */
+	canOpen?: () => boolean;
+
 	/** Custom regex must have a capture group around trigger so it's possible to
 	 * use it without needing to scan through all triggers again */
 	customRegex?: string;

@@ -2,6 +2,7 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { OpenTypeAheadProps } from '../../types';
@@ -32,6 +33,10 @@ export const openTypeAheadAtCursor =
 		removePrefixTriggerOnCancel,
 	}: OpenTypeAheadProps): EditorCommand =>
 	({ tr }) => {
+		if (triggerHandler.canOpen?.() === false && fg('editor-disable-feature')) {
+			return null;
+		}
+
 		openTypeAhead({
 			triggerHandler,
 			inputMethod,

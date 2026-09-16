@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::076472296d8fa5258a25ddd8b94b3ca1>>
+ * @codegen <<SignedSource::99ccaec91aaccec850bf22951e344715>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -373,7 +373,7 @@ export const tokens: Token[] = [
 		name: 'motion.panel.content.enter',
 		path: ['motion', 'panel', 'content', 'enter'],
 		description: 'Use for panel content enter.',
-		exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 100ms backwards',
+		exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{

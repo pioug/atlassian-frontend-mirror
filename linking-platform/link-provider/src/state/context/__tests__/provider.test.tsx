@@ -12,13 +12,14 @@ jest.mock('@atlaskit/link-extractors/extract-smart-link-embed', () => ({
 import React from 'react';
 import { act, render } from '@testing-library/react';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { SmartCardContext as Context } from '..';
 import CardClient from '../../../client';
 import type { CardContext } from '..';
 import { SmartCardProvider } from '../../../smart-card-provider';
 import { SMART_CARD_EXTERNAL_AUTH_EVENT } from '../../../smart-card-external-auth-event';
 import type { CardStore } from '@atlaskit/linking-common/store';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 
 describe('Provider', () => {
 	it('should setup provider with default options', () => {
@@ -82,6 +83,45 @@ describe('Provider', () => {
 				},
 			}),
 		);
+	});
+
+	it.each([true, false])(
+		'gates callback inheritance, changes, and removal (enabled=%s)',
+		(enabled) => {
+			if (enabled) passGate('confluence_ep_shim_macro_links_v2');
+			else failGate('confluence_ep_shim_macro_links_v2');
+			const inspect = jest.fn((_context?: CardContext) => null);
+			const first = (url: string) => ({ url });
+			const second = (url: string) => ({ url: `${url}/updated` });
+			const renderProviders = (linkNavigation?: CardProviderProps['linkNavigation']) => (
+				<SmartCardProvider linkNavigation={linkNavigation}>
+					<SmartCardProvider linkNavigation={undefined}>
+						<Context.Consumer>{inspect}</Context.Consumer>
+					</SmartCardProvider>
+				</SmartCardProvider>
+			);
+			const { rerender } = render(renderProviders(first));
+			for (const callback of [first, second, undefined]) {
+				rerender(renderProviders(callback));
+				const context = inspect.mock.calls.at(-1)?.[0];
+				expect(context?.linkNavigation).toBe(enabled ? callback : undefined);
+				if (!enabled) expect(context).not.toHaveProperty('linkNavigation');
+			}
+		},
+	);
+
+	it('lets a child override the parent callback', () => {
+		passGate('confluence_ep_shim_macro_links_v2');
+		const inspect = jest.fn(() => null);
+		const child = (url: string) => ({ url });
+		render(
+			<SmartCardProvider linkNavigation={() => ({ url: 'parent' })}>
+				<SmartCardProvider linkNavigation={child}>
+					<Context.Consumer>{inspect}</Context.Consumer>
+				</SmartCardProvider>
+			</SmartCardProvider>,
+		);
+		expect(inspect).toHaveBeenCalledWith(expect.objectContaining({ linkNavigation: child }));
 	});
 
 	it('should expose extractors to consumers', () => {

@@ -441,7 +441,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 			jest.useFakeTimers();
 			jest.spyOn(window, 'requestAnimationFrame').mockImplementation((fn: Function) => fn());
 			// The renderer started/rendered events are sampled, so pin the sample draw.
-			jest.spyOn(Math, 'random').mockReturnValue(0);
+			jest.spyOn(Math, 'random').mockReturnValue(0.05);
 		});
 
 		afterEach(() => {

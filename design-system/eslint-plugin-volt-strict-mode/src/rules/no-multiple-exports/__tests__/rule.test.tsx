@@ -615,6 +615,14 @@ typescriptEslintTester.run(
 			},
 			// ---- B2: shared mutable module state (TS2632) ----
 			{
+				name: 'B2: lazy singleton assigned in a private helper shared by lifecycle exports',
+				code: `let state; const get = () => state ?? (state = {}); export const start = () => get(); export const stop = () => get();`,
+			},
+			{
+				name: 'B2: private writer reached through multiple helpers',
+				code: `let state; const init = () => state = {}; const get = () => init(); export const start = () => get(); export const stop = () => state;`,
+			},
+			{
 				name: 'B2: module-level let written by one export and read by another',
 				code: `
           let count = 0;
@@ -710,6 +718,36 @@ typescriptEslintTester.run(
           export const Foo = () => <div css={sharedStyles} />;
           export const Bar = () => <span css={sharedStyles} />;
         `,
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'guard: an unused private writer must not exempt shared readers',
+				code: `let state; const unused = () => state = {}; const get = () => state; export const first = () => get(); export const second = () => get();`,
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'guard: private writer used by only one export',
+				code: `let state; const get = () => state ?? (state = {}); export const first = () => get(); export const second = () => 1;`,
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'guard: assignment to a shadowed helper parameter is not a module write',
+				code: `let state; const get = (state) => state = {}; export const first = () => get(state); export const second = () => state;`,
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'guard: module initialization alone does not qualify as a helper write',
+				code: `let state = {}; const get = () => state; export const first = () => get(); export const second = () => get();`,
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'guard: shared top-level assignment result is not a helper write',
+				code: `let state; const snapshot = (state = {}); export const first = () => snapshot; export const second = () => snapshot;`,
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'guard: a helper called only during module initialization is not an exported writer',
+				code: `let state; const init = () => state = {}; const snapshot = init(); export const first = () => snapshot; export const second = () => snapshot;`,
 				errors: [{ messageId: 'no-multiple-exports' }],
 			},
 			{

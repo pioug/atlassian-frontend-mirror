@@ -4,6 +4,11 @@
 	"description": "SSR Renderer based on Editor",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
+		"website": {
+			"tags": [
+				"platform-labs"
+			]
+		},
 		"react-compiler": {
 			"enabled": true,
 			"gating": {

@@ -14,6 +14,9 @@
 		},
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"category": "Messaging"
 		}
 	},

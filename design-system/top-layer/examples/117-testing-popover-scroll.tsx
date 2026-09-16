@@ -14,6 +14,9 @@ import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 const styles = cssMap({
+	spacerAbove: {
+		height: '200px',
+	},
 	scrollContainer: {
 		height: '300px',
 		overflow: 'auto',
@@ -36,7 +39,11 @@ const styles = cssMap({
 /**
  * Test fixture for scroll behavior.
  * The popover is inside a scrollable container.
- * Scrolling should NOT close the popover.
+ * Scrolling should NOT close the popover, or let the browser hide it.
+ *
+ * A `scrollTop` of 200 clips the trigger out of the 300px container, and the
+ * spacer above keeps the popover inside the viewport so a hit-test on it means
+ * something.
  */
 export default function TestingPopoverScroll(): ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
@@ -54,30 +61,33 @@ export default function TestingPopoverScroll(): ReactNode {
 	});
 
 	return (
-		<div data-testid="scroll-container" css={styles.scrollContainer}>
-			<div css={styles.spacerSmall} />
-			<button
-				ref={triggerRef}
-				type="button"
-				data-testid="popover-trigger"
-				onClick={toggle}
-				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
-			>
-				Open
-			</button>
-			<Popover
-				ref={popoverRef}
-				id={popoverId}
-				role="dialog"
-				label="Scroll test"
-				isOpen={isOpen}
-				onClose={close}
-			>
-				<div data-testid="popover-content" css={styles.content}>
-					Popover content in scrollable container
-				</div>
-			</Popover>
-			<div css={styles.spacerLarge} />
+		<div>
+			<div css={styles.spacerAbove} />
+			<div data-testid="scroll-container" css={styles.scrollContainer}>
+				<div css={styles.spacerSmall} />
+				<button
+					ref={triggerRef}
+					type="button"
+					data-testid="popover-trigger"
+					onClick={toggle}
+					{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				>
+					Open
+				</button>
+				<Popover
+					ref={popoverRef}
+					id={popoverId}
+					role="dialog"
+					label="Scroll test"
+					isOpen={isOpen}
+					onClose={close}
+				>
+					<div data-testid="popover-content" css={styles.content}>
+						Popover content in scrollable container
+					</div>
+				</Popover>
+				<div css={styles.spacerLarge} />
+			</div>
 		</div>
 	);
 }

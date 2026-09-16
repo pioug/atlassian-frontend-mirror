@@ -26,6 +26,9 @@
 		},
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Primitives",
 			"category": "Primitives",
 			"status": {
@@ -195,11 +198,11 @@
 		".": "./src/index.tsx",
 		"./anchor": "./src/components/anchor.tsx",
 		"./bleed": "./src/components/bleed.tsx",
-		"./box": "./src/entry-points/box.tsx",
+		"./box": "./src/components/box.tsx",
 		"./compiled/anchor": "./src/compiled/components/anchor.tsx",
 		"./compiled/bleed": "./src/compiled/components/bleed.tsx",
 		"./compiled/box": "./src/compiled/components/box.tsx",
-		"./compiled/components/types": "./src/entry-points/compiled-components-types.tsx",
+		"./compiled/components/types": "./src/compiled/components/types.tsx",
 		"./compiled/flex": "./src/compiled/components/flex.tsx",
 		"./compiled/focusable": "./src/compiled/components/focusable.tsx",
 		"./compiled/grid": "./src/compiled/components/grid.tsx",
@@ -215,18 +218,18 @@
 		"./compiled/text": "./src/compiled/components/text.tsx",
 		"./compiled/types": "./src/compiled/responsive/types.tsx",
 		"./compiled/use-media-query": "./src/compiled/responsive/use-media-query.tsx",
-		"./compiled/utils/types": "./src/entry-points/compiled-utils-types.tsx",
+		"./compiled/utils/types": "./src/utils/types.tsx",
 		"./compiled": "./src/compiled/index.tsx",
 		"./components/flex": "./src/components/flex.tsx",
 		"./constants": "./src/responsive/constants.tsx",
-		"./flex": "./src/entry-points/flex.tsx",
+		"./flex": "./src/components/flex.tsx",
 		"./grid": "./src/components/grid.tsx",
 		"./inline": "./src/components/inline.tsx",
 		"./media-helper": "./src/entry-points/media-helper.tsx",
 		"./metric-text": "./src/components/metric-text.tsx",
 		"./pressable": "./src/components/pressable.tsx",
 		"./responsive/build-media-query-css": "./src/responsive/unsafe-build-above-media-query-css.tsx",
-		"./responsive/constants": "./src/entry-points/responsive-constants.tsx",
+		"./responsive/constants": "./src/responsive/constants.tsx",
 		"./responsive/hide": "./src/responsive/hide.tsx",
 		"./responsive/media": "./src/responsive/media.tsx",
 		"./responsive/media-helper": "./src/entry-points/responsive-media-helper.tsx",
@@ -240,6 +243,12 @@
 		"./text": "./src/components/text.tsx",
 		"./tokens-map": "./src/xcss/tokens-map.tsx",
 		"./types": "./src/responsive/types.tsx",
-		"./xcss": "./src/entry-points/xcss.tsx"
+		"./xcss": "./src/entry-points/xcss.tsx",
+		"./xcss/inverse-color": "./src/xcss/inverse-color.tsx",
+		"./surface-context": "./src/utils/surface-context.tsx",
+		"./utils/surface-provider": "./src/utils/surface-provider.tsx",
+		"./media-helper/default": "./src/responsive/media-helper.tsx",
+		"./xcss/xcss": "./src/xcss/xcss.tsx",
+		"./compiled/responsive/index": "./src/compiled/responsive/index.tsx"
 	}
 }

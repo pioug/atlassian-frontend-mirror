@@ -1,6 +1,7 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { RadioSelect as AtlaskitRadioSelect } from '../../../radio-select';
@@ -17,6 +18,29 @@ const OPTIONS = [
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Radio Select', () => {
+	it('removes the focused option indicator when Finesse is enabled', async () => {
+		passGate('platform-dst-tokens-finesse');
+		render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
+
+		const option = screen.getByRole('option', { name: '1' });
+		await user.hover(option);
+
+		expect(option).toHaveCompiledCss('box-shadow', 'none');
+	});
+
+	it('keeps the focused option indicator when Finesse is disabled', async () => {
+		failGate('platform-dst-tokens-finesse');
+		render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
+
+		const option = screen.getByRole('option', { name: '1' });
+		await user.hover(option);
+
+		expect(option).toHaveCompiledCss(
+			'box-shadow',
+			'inset 2px 0 0 var(--ds-border-focused,#4688ec)',
+		);
+	});
+
 	it('should load radio icons with options', () => {
 		render(<AtlaskitRadioSelect menuIsOpen options={OPTIONS} label="Options" />);
 

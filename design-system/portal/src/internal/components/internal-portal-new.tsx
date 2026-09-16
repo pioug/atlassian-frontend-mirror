@@ -5,60 +5,38 @@ import { createPortal } from 'react-dom';
 import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
 import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import { useIsInsideThemeProvider } from '@atlaskit/app-provider/use-is-inside-theme-provider';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useIsomorphicLayoutEffect } from '../hooks/use-isomorphic-layout-effect';
 import { createAtlaskitPortal } from '../utils/create-atlaskit-portal';
 import { createPortalParent } from '../utils/create-portal-parent';
-import { removePortalParent } from '../utils/remove-portal-parent';
 
 interface InternalPortalProps {
 	children: React.ReactNode;
 	zIndex: number | string;
-	isClosed?: boolean;
 }
 
 export default function InternalPortalNew(props: InternalPortalProps): React.ReactPortal | null {
-	const { zIndex, children, isClosed } = props;
+	const { zIndex, children } = props;
 	const [atlaskitPortal, setAtlaskitPortal] = useState<HTMLDivElement | undefined | null>(null);
 
 	const colorMode = useColorMode();
 	const isInsideThemeProvider = useIsInsideThemeProvider();
 
 	useIsomorphicLayoutEffect(() => {
-		if (fg('import_into_jsm_in_template_gallery_killswitch')) {
-			if (!isClosed) {
-				let tempPortalContainer = createAtlaskitPortal(zIndex);
-				setAtlaskitPortal(tempPortalContainer);
-				const portalParent = createPortalParent();
-				if (!tempPortalContainer || !portalParent) {
-					return;
-				}
-				portalParent.appendChild(tempPortalContainer);
-				return () => {
-					if (portalParent) {
-						portalParent.removeChild(tempPortalContainer);
-						!portalParent.hasChildNodes() && removePortalParent(portalParent);
-					}
-					setAtlaskitPortal(null);
-				};
-			}
-		} else {
-			const tempPortalContainer = createAtlaskitPortal(zIndex);
-			setAtlaskitPortal(tempPortalContainer);
-			const portalParent = createPortalParent();
-			if (!tempPortalContainer || !portalParent) {
-				return;
-			}
-			portalParent.appendChild(tempPortalContainer);
-			return () => {
-				if (tempPortalContainer) {
-					portalParent.removeChild(tempPortalContainer);
-				}
-				setAtlaskitPortal(null);
-			};
+		const tempPortalContainer = createAtlaskitPortal(zIndex);
+		setAtlaskitPortal(tempPortalContainer);
+		const portalParent = createPortalParent();
+		if (!tempPortalContainer || !portalParent) {
+			return;
 		}
-	}, [zIndex, isClosed, fg]);
+		portalParent.appendChild(tempPortalContainer);
+		return () => {
+			if (tempPortalContainer) {
+				portalParent.removeChild(tempPortalContainer);
+			}
+			setAtlaskitPortal(null);
+		};
+	}, [zIndex]);
 
 	/**
 	 * We wrap portal children with a Suspense boundary because in React 18 concurrent,

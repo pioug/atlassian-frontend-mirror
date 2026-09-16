@@ -5,7 +5,7 @@ import {
 	type MediaClientConfig,
 	isErrorFileState,
 } from '@atlaskit/media-client';
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
@@ -17,13 +17,12 @@ import Select from '@atlaskit/select/default';
 import { Label } from '@atlaskit/form/label/default';
 import { token } from '@atlaskit/tokens';
 import { MainWrapper } from '../example-helpers';
+import { ToggleBox } from '../example-helpers/svg-helpers/toggle';
+import { CardBox, CardRow } from '../example-helpers/svg-helpers/cardContainer';
 import {
-	ToggleBox,
-	CardBox,
-	CardRow,
 	delayApiResponses,
 	errorApiResponses,
-} from '../example-helpers/svg-helpers';
+} from '../example-helpers/svg-helpers/mediaApiTweaks';
 import { useCreateMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;

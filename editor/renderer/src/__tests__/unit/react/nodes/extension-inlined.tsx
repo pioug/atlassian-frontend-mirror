@@ -1,9 +1,10 @@
 /* eslint-disable @atlaskit/editor/no-as-casting */
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
@@ -48,6 +49,62 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 	};
 
 	const serializer = new ReactSerializer({});
+
+	describe('Custom UI inline-bodied wrappers', () => {
+		const renderCustomUI = (nested: boolean, inline: boolean) =>
+			render(
+				<BodiedExtension
+					providers={providerFactory}
+					serializer={serializer}
+					rendererContext={rendererContext}
+					extensionType="com.atlassian.ecosystem"
+					extensionKey="custom-ui"
+					parameters={{ layout: 'inline-bodied', guestParams: { label: 'Inline' } }}
+					startPos={1}
+					path={nested ? [{ type: { name: 'layoutColumn' } } as unknown as PMNode] : []}
+					getContent={() => [{ type: 'paragraph', content: [{ type: 'text', text: 'Inline' }] }]}
+					shouldDisplayExtensionAsInline={() => inline}
+				>
+					<span>Custom UI iframe</span>
+				</BodiedExtension>,
+			);
+
+		it.each([true, false])(
+			'joins top-level text without UI Kit styling, width fix %s',
+			async (widthFix) => {
+				passGate('platform_forge_inline_bodied_layout_switch');
+				passGate('platform_forge_inline_bodied_macro');
+				mockExp('platform_editor_render_bodied_extension_as_inline', { isEnabled: true });
+				mockExp('platform_editor_renderer_extension_width_fix', { isEnabled: widthFix });
+				const { container } = renderCustomUI(false, true);
+				const wrapper = screen.getByTestId('extension--wrapper');
+				expect(wrapper).toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
+				expect(wrapper).toHaveAttribute('data-migrated-inline', 'true');
+				expect(wrapper).not.toHaveAttribute('data-forge-inline');
+				await expect(container).toBeAccessible();
+			},
+		);
+
+		it('keeps nested Custom UI macros as blocks', () => {
+			passGate('platform_forge_inline_bodied_layout_switch');
+			passGate('platform_forge_inline_bodied_macro');
+			mockExp('platform_editor_render_bodied_extension_as_inline', { isEnabled: true });
+			renderCustomUI(true, true);
+			const wrapper = screen.getByTestId('extension--wrapper');
+			expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
+			expect(wrapper).not.toHaveAttribute('data-forge-inline');
+			expect(wrapper).not.toHaveAttribute('data-migrated-inline');
+		});
+
+		it('keeps saved Custom UI metadata inert when the layout switch is off', () => {
+			failGate('platform_forge_inline_bodied_layout_switch');
+			renderCustomUI(false, false);
+			const wrapper = screen.getByTestId('extension--wrapper');
+			expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
+			expect(wrapper).not.toHaveAttribute('data-forge-inline');
+			expect(wrapper).not.toHaveAttribute('data-migrated-inline');
+		});
+	});
 
 	describe('Extension - inline styling and width/minHeight behavior', () => {
 		// Note: Extension does not support inline rendering - shouldDisplayExtensionAsInline is always

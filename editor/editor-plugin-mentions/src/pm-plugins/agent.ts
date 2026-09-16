@@ -12,7 +12,7 @@ import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/vie
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { ResolvingMentionProvider } from '@atlaskit/mention/mention-resource';
 import { MentionNameStatus } from '@atlaskit/mention/types';
-import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
+import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

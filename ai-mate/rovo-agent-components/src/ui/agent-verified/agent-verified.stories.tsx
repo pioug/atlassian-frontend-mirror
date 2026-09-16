@@ -1,14 +1,12 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
+import { withDi, withUseIntl } from '@atlassian/agent-studio-test-utils/storybook-decorators';
 import type { Meta } from '@storybook/react';
 import { injectable } from 'react-magnetic-di';
 import { useFragment } from 'react-relay';
 
-import { withDi, withUseIntl } from '@atlassian/agent-studio-test-utils/storybook-decorators';
-
 import type { agentVerified_AtlaskitRovoAgentComponents$key } from './__generated__/agentVerified_AtlaskitRovoAgentComponents.graphql';
-
-import { AgentVerified } from './index';
+import { AgentVerified } from './agent-verified';
 
 const commonDeps = [
 	injectable(useFragment, () => ({

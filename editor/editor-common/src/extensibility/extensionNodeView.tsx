@@ -208,6 +208,20 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			const selector = `[extensionkey="${extensionKey}"][localid="${localId}"]`;
 			const element = editorDom.querySelector(selector);
 			if (element && element instanceof HTMLElement) {
+				// A server-rendered element is only worth adopting if React actually rendered into it.
+				// The SSR pass renders each node view through an isolated `renderToStaticMarkup`; when
+				// that render throws, the portal provider swallows the error and leaves the container
+				// empty. Adopting an empty element and skipping the React portal leaves the extension
+				// invisible until the next `update()`, which for an untouched node only happens on user
+				// interaction (HOT-306707). Treat an empty element as "no SSR DOM" so the node view takes
+				// the normal React render path instead.
+				if (
+					fg('platform_editor_ssr_reuse_requires_content') &&
+					!element.querySelector('[data-testid="extension-node-wrapper"]')
+				) {
+					this.cachedSsrElement = null;
+					return null;
+				}
 				this.cachedSsrElement = element;
 				return element;
 			}

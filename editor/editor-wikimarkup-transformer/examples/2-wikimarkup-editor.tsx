@@ -84,6 +84,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
 						}}
 						contentTransformerProvider={(schema) => new WikiMarkupTransformer(schema)}
 						allowDate={true}
+						allowStatus={true}
 						mentionProvider={Promise.resolve(mentionResourceProvider)}
 						taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
 						onChange={this.handleChangeInTheEditor}

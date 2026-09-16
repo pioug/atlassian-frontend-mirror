@@ -4,7 +4,7 @@ import * as testMocks from '../../use-resolve/__tests__/index.test.mock';
 import type { CardContext } from '@atlaskit/link-provider/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardState } from '@atlaskit/linking-common/store';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common/api-error';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook } from '@atlassian/testing-library';

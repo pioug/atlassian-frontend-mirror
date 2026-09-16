@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "21.10.6",
+	"version": "21.10.8",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -56,6 +56,9 @@
 		},
 		"team": "Editor: AI",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Task Decision"
 		}
 	},

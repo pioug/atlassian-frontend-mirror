@@ -121,6 +121,9 @@
 			}
 		},
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "User Picker"
 		}
 	},

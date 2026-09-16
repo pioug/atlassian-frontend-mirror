@@ -1,5 +1,100 @@
 # @atlaskit/editor-common
 
+## 122.11.0
+
+### Minor Changes
+
+- [`b51cc398d7701`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b51cc398d7701) -
+  Add the opt-in @mention availability predicate used by the gated Home Search mode, so Search
+  preserves existing Chat mentions as inactive content while preventing new mention typeahead and
+  `/mention` slash-menu insertion. The `editor-disable-feature` feature gate enables that predicate
+  for Home Search.
+
+### Patch Changes
+
+- [`8aaca3d7e468b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8aaca3d7e468b) -
+  Behind the `platform_editor_ssr_reuse_requires_content` feature gate, `ExtensionNode` no longer
+  adopts an empty server-rendered element on the SSR DOM reuse path
+  (`platform_editor_hydration_skip_react_portal`). When the SSR render of an extension node view
+  failed and left the element empty, the node view now falls back to the normal React render instead
+  of staying blank until the next update (HOT-306707).
+- Updated dependencies
+
+## 122.10.0
+
+### Minor Changes
+
+- [`06eb2acdc3b14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06eb2acdc3b14) -
+  Publish the resolved reviewing agent into aiSuggestions shared state (new `setReviewingAgent`
+  action and `reviewingAgent` shared-state field) so products can name the agent in their own
+  suggestions loading states, and add a `skipProvisioning` option to the agent resolver so
+  identity-only lookups no longer provision an agent. Behind the `content_reviewer_agent` feature
+  gate.
+
+  The thinking bar's rotating statuses now match the sequence products show in their own suggestions
+  loading states, and its first status names the reviewing agent ("{agentName} is analyzing
+  content"). Adds the new `thinkingReviewingConsistency`, `thinkingCheckingWritingClarity`,
+  `thinkingGeneratingAiSuggestions`, `thinkingRefiningAiSuggestions` and
+  `thinkingPrioritizingAiSuggestions` messages to `aiSuggestionsMessages`; the statuses they replace
+  are still defined but no longer used.
+
+### Patch Changes
+
+- [`470aa65623e0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/470aa65623e0d) -
+  Use an opaque surface background for selected editor extension floating and synced-block labels
+  when `platform-dst-tokens-finesse` is enabled, preventing the selection outline from showing
+  through the labels. Synced blocks also use the semantic selected border colour. Flag-off styling
+  is unchanged.
+- Updated dependencies
+
+## 122.9.1
+
+### Patch Changes
+
+- [`08cc5b3a5abad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08cc5b3a5abad) -
+  EDITOR-8471 Fix the validation override that relaxes INVALID_CONTENT for container children inside
+  a panel on load. `processRawValue` passed `allowContainerInPanel` while `validateADFEntity` still
+  read `allowExpandInPanel`, so with the `platform_editor_nest_container_in_panel` experiment
+  enabled an `expand` inside a `panel` was wrapped as `unsupportedBlock`. The option is now named
+  `allowContainerInPanel` on both sides, including `ErrorCallbackOptions` in `@atlaskit/adf-utils`.
+- Updated dependencies
+
+## 122.9.0
+
+### Minor Changes
+
+- [`1167e60345129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1167e60345129) -
+  Add `getNonProductionBuildAnalyticsAttributes` for product analytics listeners to attach an
+  explicit `isNonProductionBuild` boolean behind `platform_editor_non_production_build_analytics`.
+  Unknown classifications and the control cohort omit the attribute. The helper accepts a lazy
+  classifier callback so product metadata and cookies are only read in treatment.
+- [`9686b07310cc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9686b07310cc9) -
+  Show the count of new suggestions after a review and reuse the toolbar review icon. Keep existing
+  refresh timing, View navigation, and dismissal behavior.
+- [`20d41af8d6f4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d41af8d6f4c) -
+  EDITOR-9000 Fixes scroll to suggestion when it is in table with sticky header
+
+### Patch Changes
+
+- Updated dependencies
+
+## 122.8.2
+
+### Patch Changes
+
+- [`2bbc1c84de468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bbc1c84de468) -
+  Migrate Volt consumer imports to existing definitions and align affected test mocks without
+  changing runtime behavior.
+- Updated dependencies
+
+## 122.8.1
+
+### Patch Changes
+
+- [`442abbe2a88e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/442abbe2a88e0) -
+  Normalize documents before relaxed show-diff comparisons when Confluence version-history diffing
+  is enabled.
+
 ## 122.8.0
 
 ### Minor Changes

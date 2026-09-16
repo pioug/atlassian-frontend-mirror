@@ -660,9 +660,11 @@ describe('DatasourceTableView', () => {
 	it('should render IssueLikeDataTableView with default height when shouldControlDataExport is false and feature gate is enabled', () => {
 		store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
 		// Simulate shouldControlDataExport being false
-		jest.spyOn(require('@atlaskit/link-provider'), 'useSmartCardContext').mockReturnValue({
-			value: { shouldControlDataExport: false },
-		});
+		jest
+			.spyOn(require('@atlaskit/link-provider/use-smart-card-context'), 'useSmartCardContext')
+			.mockReturnValue({
+				value: { shouldControlDataExport: false },
+			});
 		const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
 			issueLikeModule,
 			'IssueLikeDataTableView',

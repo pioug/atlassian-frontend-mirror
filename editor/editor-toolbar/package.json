@@ -3,9 +3,14 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.6.40",
+	"version": "2.6.43",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
+		"website": {
+			"tags": [
+				"platform-labs"
+			]
+		},
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
@@ -167,6 +172,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_lovability_text_bg_color_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_return_focus_after_text_styles_2": {
 			"type": "boolean"
 		}
 	}

@@ -27,6 +27,7 @@ const PENDING_LINK_STATUSES = [SmartLinkStatus.Pending, SmartLinkStatus.Resolvin
  */
 const FlexibleCard = ({
 	appearance = 'flexible',
+	navigation,
 	cardState,
 	children,
 	id,
@@ -133,10 +134,11 @@ const FlexibleCard = ({
 	const flexibleCardContext = useMemo<FlexibleCardContextType>(
 		() => ({
 			data: context,
+			navigation: context ? navigation : undefined,
 			status: placeHolderStatus ?? status,
 			ui,
 		}),
-		[context, placeHolderStatus, status, ui],
+		[context, placeHolderStatus, status, ui, navigation],
 	);
 
 	const { linkTitle } = context || {};

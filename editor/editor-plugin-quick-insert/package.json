@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-quick-insert",
-	"version": "18.0.8",
+	"version": "18.1.0",
 	"description": "Quick insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,11 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"website": {
+			"tags": [
+				"platform-labs"
+			]
+		},
 		"team": "Editor: Lego",
 		"singleton": true
 	},
@@ -71,6 +76,10 @@
 		},
 		"platform_editor_fix_space_triggering_ai": {
 			"type": "boolean"
+		},
+		"platform_dst_modal-dialog-use-modal-title": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	}
 }

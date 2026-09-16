@@ -38,6 +38,9 @@
 		},
 		"team": "Editor: AI",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Date"
 		}
 	},

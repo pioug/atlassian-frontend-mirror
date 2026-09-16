@@ -9,6 +9,9 @@
 		},
 		"team": "Media Exif",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "MediaDocumentViewer",
 			"category": "Layout and structure"
 		}

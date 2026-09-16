@@ -82,9 +82,6 @@
 			"path": "../../design-system/menu/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		},
 		{

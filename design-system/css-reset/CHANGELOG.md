@@ -1,5 +1,12 @@
 # @atlaskit/css-reset
 
+## 8.4.3
+
+### Patch Changes
+
+- [`58002bc0e767c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58002bc0e767c) -
+  Remove ineffective scrollbar hover and thumb-radius overrides
+
 ## 8.4.2
 
 ### Patch Changes

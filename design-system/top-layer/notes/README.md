@@ -84,6 +84,10 @@ Architectural decisions, design rationale, and decision logs.
 - **[fit-available-space.md](./decisions/fit-available-space.md)** — Decision: the size recipe. Cell
   vs viewport caps, the floor that keeps `position-try-fallbacks` working, why `display` has to live
   in `Popover`'s stylesheet, and the measured alternatives that failed
+- **[position-visibility-always.md](./decisions/position-visibility-always.md)** — Decision: the CSS
+  Anchor Positioning path writes `position-visibility: always`, so the browser never hides an
+  anchored surface on top-layer's behalf. The initial value `anchors-visible` strongly hides a
+  popover whose anchor is fully clipped or `visibility: hidden`, invisibly to geometry-based tests
 - **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Current matrix: which packages ship
   a top-layer code path, partial migrations, test-only coverage, and skipped packages
 - **[top-layer-unsafe-selectors.md](./decisions/top-layer-unsafe-selectors.md)** — **The single

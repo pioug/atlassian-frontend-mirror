@@ -22,6 +22,9 @@
 		},
 		"team": "Post Office - Engagement",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Notification Indicator"
 		}
 	},

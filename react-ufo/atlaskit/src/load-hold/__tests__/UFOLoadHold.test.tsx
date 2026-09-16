@@ -3,7 +3,8 @@ import React from 'react';
 import { act, render, screen } from '@atlassian/testing-library';
 
 import UFOInteractionContext, { type UFOInteractionContextType } from '../../interaction-context';
-import UFOInteractionIDContext, { DefaultInteractionID } from '../../interaction-id-context';
+import UFOInteractionIDContext from '../../interaction-id-context';
+import DefaultInteractionID from '../../interaction-id-context/defaultInteractionId';
 import UFOLoadHold from '../UFOLoadHold';
 
 // Mock functions to track calls

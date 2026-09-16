@@ -9,7 +9,7 @@ import { createStorybookMediaClientConfig, imageFileId } from '@atlaskit/media-t
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';
-import { Card } from '../src';
+import Card from '../src/card/cardLoader';
 
 const GATE = 'aifc_page_create_defer_generated_visuals';
 

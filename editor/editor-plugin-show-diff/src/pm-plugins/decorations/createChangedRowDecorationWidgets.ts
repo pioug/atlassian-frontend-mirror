@@ -27,7 +27,17 @@ import {
 	resolveCellOverlayStyleLegacy,
 	resolveDeletedRowStyleLegacy,
 } from './createChangedRowDecorationWidgets.styles.legacy';
-import { buildAnchorDecorationKey, buildDiffDecorationSpec } from './decorationKeys';
+import {
+	createContributorTagWidget,
+	isContributorTagWidgetEnabled,
+	type ContributorTagMountContext,
+} from './createContributorTagWidget';
+import {
+	AnchorTypeKey,
+	buildAnchorDecorationKey,
+	buildDiffDecorationSpec,
+	scrollMarginTopValue,
+} from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import {
 	applyCellEdgeAttrs,
@@ -154,20 +164,45 @@ const extractChangedRows = ({
 		}
 	});
 
-	// Filter changes that never truly got deleted
+	// Filter changes that never truly got deleted. Compare the number of equivalent rows rather
+	// than only checking whether one still exists: deleting two of three identical empty rows should
+	// retain two changed rows even though the third remains in the new table.
+	const equivalentRowDeletionCounts: Array<{ remaining: number; rowNode: PMNode }> = [];
+
 	return changedRows.filter((changedRow) => {
 		// A replacement leaves every sibling row in place, so asking "does this row still exist
 		// ANYWHERE in the new table?" can drop a genuinely rewritten row that happens to match a
-		// sibling. Compare it against the row at the same index instead. Deletions must keep the
-		// whole-table `some()`: their indices shift, so an index comparison would let every
-		// surviving row through and draw a widget for each one.
+		// sibling. Compare it against the row at the same index instead.
 		if (handleRowReplacement) {
 			const counterpart = tableNew.node.maybeChild(changedRow.rowIndex);
 			return !counterpart || !areNodesEqualIgnoreAttrs(counterpart, changedRow.rowNode);
 		}
-		return !tableNew.node.children.some((newRow) =>
-			areNodesEqualIgnoreAttrs(newRow, changedRow.rowNode),
+
+		let deletionCount = equivalentRowDeletionCounts.find(({ rowNode }) =>
+			areNodesEqualIgnoreAttrs(rowNode, changedRow.rowNode),
 		);
+
+		if (!deletionCount) {
+			const oldRowCount = tableOld.node.children.filter((oldRow) =>
+				areNodesEqualIgnoreAttrs(oldRow, changedRow.rowNode),
+			).length;
+			const newRowCount = tableNew.node.children.filter((newRow) =>
+				areNodesEqualIgnoreAttrs(newRow, changedRow.rowNode),
+			).length;
+
+			deletionCount = {
+				remaining: Math.max(0, oldRowCount - newRowCount),
+				rowNode: changedRow.rowNode,
+			};
+			equivalentRowDeletionCounts.push(deletionCount);
+		}
+
+		if (deletionCount.remaining === 0) {
+			return false;
+		}
+
+		deletionCount.remaining--;
+		return true;
 	});
 };
 
@@ -232,6 +267,9 @@ const createChangedRowDOM = (
 			? 'show-diff-changed-row'
 			: 'show-diff-deleted-row',
 	);
+	if (fg('platform_editor_ai_show_diff_patch_1')) {
+		tr.style.setProperty('scroll-margin-top', scrollMarginTopValue);
+	}
 
 	// Serialize each cell in the row
 	let cellIndex = 0;
@@ -319,23 +357,31 @@ const expandDiffForChangedRows = ({
  * Main function to handle deleted rows - computes diff and creates decorations
  */
 export const createChangedRowDecorationWidgets = ({
+	attributionKey,
 	changes,
 	originalDoc,
 	newDoc,
 	nodeViewSerializer,
 	colorScheme,
+	isActive,
 	isInserted = false,
 	diffType,
 	showIndicators = false,
+	showContributorTags = false,
+	tagMountContext,
 }: {
+	attributionKey?: string;
 	changes: SimpleChange[];
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
+	isActive?: boolean;
 	isInserted?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 	originalDoc: PMNode;
+	showContributorTags?: boolean;
 	showIndicators?: boolean;
+	tagMountContext?: ContributorTagMountContext;
 }): Decoration[] => {
 	// First, expand the changes to include complete deleted rows
 	const changedRows = expandDiffForChangedRows({
@@ -362,8 +408,13 @@ export const createChangedRowDecorationWidgets = ({
 			originalDoc.slice(changedRow.fromA, changedRow.toA),
 		);
 
-		const diffId = crypto.randomUUID();
+		// Stable while contributor tags are enabled so a decoration recalculation preserves the tag's
+		// identity and controller state.
+		const diffId = showContributorTags
+			? `widget-row-${changedRow.fromA}-${changedRow.toA}`
+			: crypto.randomUUID();
 		const decorations: Decoration[] = [];
+		const rowAnchorNames: string[] = [];
 
 		// `IndicatorBarContentComponent` renders a bar for every widget descriptor and anchors its
 		// top and bottom to `anchor-<diffId>`. Without an element carrying that anchor name the bar
@@ -375,7 +426,7 @@ export const createChangedRowDecorationWidgets = ({
 			isExtendedEnabled(diffType) &&
 			fg('platform_editor_ai_show_diff_patch_1')
 		) {
-			rowDOM.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
+			rowAnchorNames.push(buildAnchorDecorationKey({ diffId }));
 
 			// A table's content can extend past the doc margin, so the bar also needs a left anchor
 			// measured against the table itself or it is clipped once the table is resized.
@@ -385,18 +436,55 @@ export const createChangedRowDecorationWidgets = ({
 			}
 		}
 
-		decorations.push(
-			Decoration.widget(safeInsertPos, rowDOM, {
-				...buildDiffDecorationSpec({
-					colorScheme,
-					decorationType: 'widget',
+		const tagAnchorName =
+			showContributorTags && isContributorTagWidgetEnabled()
+				? buildAnchorDecorationKey({ diffId, anchorType: AnchorTypeKey.tag })
+				: undefined;
+		const tagWidget = tagAnchorName
+			? createContributorTagWidget({
+					anchorAtRangeStart: true,
+					anchorName: tagAnchorName,
 					diffId,
-					isActive: false,
-					isInserted,
-					diffType,
-				}),
+					doc: newDoc,
+					from: safeInsertPos,
+					mountContext: tagMountContext,
+					to: safeInsertPos,
+				})
+			: undefined;
+
+		if (tagAnchorName) {
+			// The tag host is a separate, table-safe widget. CSS anchor positioning aligns it to this
+			// synthetic row without placing non-cell DOM inside the `<tr>` or inheriting its deletion
+			// opacity and strikethrough.
+			rowAnchorNames.push(tagAnchorName);
+		}
+		if (rowAnchorNames.length > 0) {
+			rowDOM.style.setProperty(
+				'anchor-name',
+				rowAnchorNames.map((anchorName) => `--${anchorName}`).join(', '),
+			);
+		}
+		if (tagWidget) {
+			// Lets the contributor tag reveal when any part of the deleted row is hovered.
+			rowDOM.setAttribute('data-diff-id', diffId);
+		}
+
+		const rowWidget = Decoration.widget(safeInsertPos, rowDOM, {
+			...buildDiffDecorationSpec({
+				attributionKey: tagWidget ? attributionKey : undefined,
+				colorScheme,
+				decorationType: 'widget',
+				diffId,
+				isActive,
+				isInserted,
+				diffType,
 			}),
-		);
+		});
+
+		decorations.push(rowWidget);
+		if (tagWidget) {
+			decorations.push(tagWidget);
+		}
 
 		return decorations;
 	});

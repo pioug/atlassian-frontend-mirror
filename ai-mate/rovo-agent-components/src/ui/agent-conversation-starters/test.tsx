@@ -1,12 +1,11 @@
 import React from 'react';
 
+import { render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
-import { render, screen } from '@atlassian/testing-library';
-
+import { AgentConversationStarters } from './AgentConversationStarters';
+import { getConversationStarters } from './getConversationStarters';
 import { messages } from './messages';
-
-import { AgentConversationStarters, getConversationStarters } from './index';
 
 describe('AgentConversationStarters', () => {
 	const mockProps = {

@@ -27,6 +27,9 @@
 	"atlassian": {
 		"team": "Personalization",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Contextual Survey"
 		}
 	},

@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 72.4.8
+
+### Patch Changes
+
+- [`2d3ba49ee9cfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d3ba49ee9cfc) -
+  Add platform_bitbucket_fix_shortname_and_ordering for gating user ID rollout
+- Updated dependencies
+
+## 72.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 72.4.6
 
 ### Patch Changes

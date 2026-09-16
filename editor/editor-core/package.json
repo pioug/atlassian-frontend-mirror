@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "228.1.8",
+	"version": "228.1.13",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,6 +27,9 @@
 		"team": "Editor: Lego",
 		"singleton": true,
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Editor Core"
 		},
 		"integrationTests": {
@@ -215,10 +218,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_use_preferences_plugin": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_media_block_default": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -274,6 +273,10 @@
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
+		},
+		"platform-dst-tokens-finesse": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform-dst-top-layer-tooltip": {
 			"type": "boolean",

@@ -4,7 +4,7 @@ import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { NetworkError } from '@atlaskit/linking-common';
+import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { captureException } from '@atlaskit/linking-common/sentry';
 
 import { EVENT_CHANNEL } from '../../analytics/constants';

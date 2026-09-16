@@ -18,6 +18,9 @@
 			}
 		},
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Mention"
 		}
 	},
@@ -82,6 +85,14 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./analytics": "./src/util/analytics.ts",
+		"./abstract-mention-resource": "./src/api/AbstractMentionResource.ts",
+		"./abstract-presence-resource": "./src/api/AbstractPresenceResource.ts",
+		"./default-mention-name-resolver": "./src/api/DefaultMentionNameResolver.ts",
+		"./is-resolving-mention-provider": "./src/api/isResolvingMentionProvider.ts",
+		"./is-special-mention": "./src/is-special-mention.ts",
+		"./is-team-mention": "./src/is-team-mention.ts",
+		"./is-promise": "./src/is-promise.ts",
+		"./is-restricted": "./src/is-restricted.ts",
 		"./constants": "./src/_constants.ts",
 		"./context-mention-resource": "./src/api/ContextMentionResource.ts",
 		"./element": "./src/element.ts",
@@ -146,5 +157,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "29.1.6"
+	"version": "29.2.1"
 }

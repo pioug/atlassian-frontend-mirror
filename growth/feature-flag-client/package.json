@@ -20,6 +20,9 @@
 	"atlassian": {
 		"team": "MEP: Switcheroo",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Feature Flag Client"
 		}
 	},

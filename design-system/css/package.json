@@ -10,6 +10,9 @@
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "CSS",
 			"category": "Libraries",
 			"ignorePropTypes": true,

@@ -8,7 +8,9 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import AutomationIcon from '@atlaskit/icon/core/automation';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { useModal } from '@atlaskit/modal-dialog/hooks';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -51,7 +53,6 @@ export const AutomationModalHeader = ({
 	const showDescription = initialised && rules.length > 0 && !!modalDescription;
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/use-modal-title
 		<ModalHeader hasCloseButton>
 			<Stack>
 				<Inline alignBlock="center">
@@ -67,9 +68,13 @@ export const AutomationModalHeader = ({
 							spacing="compact"
 						/>
 					</Box>
-					<Heading size="medium" id={titleId}>
-						{modalTitle}
-					</Heading>
+					{fg('platform_dst_modal-dialog-use-modal-title') ? (
+						<ModalTitle>{modalTitle}</ModalTitle>
+					) : (
+						<Heading size="medium" id={titleId}>
+							{modalTitle}
+						</Heading>
+					)}
 				</Inline>
 				{showDescription && <Box xcss={styles.modalDescriptionStyle}>{modalDescription}</Box>}
 			</Stack>

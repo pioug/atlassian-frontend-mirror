@@ -6,6 +6,7 @@ import type { ReactElement } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -29,6 +30,12 @@ const floatingLabelStyles = cssMap({
 		zIndex: 2,
 	},
 	selected: {
+		backgroundColor: token('elevation.surface.hovered'),
+		paddingBottom: token('space.050'),
+		paddingTop: token('space.050'),
+		top: '-14px',
+	},
+	selectedOld: {
 		backgroundColor: token('color.background.selected'),
 		paddingBottom: token('space.050'),
 		paddingTop: token('space.050'),
@@ -44,7 +51,11 @@ type Props = {
 
 export const ExtensionFloatingLabel = ({ isSelected, testId, title }: Props): ReactElement => (
 	<div
-		css={[floatingLabelStyles.base, isSelected && floatingLabelStyles.selected]}
+		css={[
+			floatingLabelStyles.base,
+			isSelected && fg('platform-dst-tokens-finesse') && floatingLabelStyles.selected,
+			isSelected && !fg('platform-dst-tokens-finesse') && floatingLabelStyles.selectedOld,
+		]}
 		contentEditable={false}
 		data-testid={testId}
 	>

@@ -17,6 +17,9 @@
 		},
 		"team": "Jira Platform: Search Experience / Empanada",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "JQL Editor",
 			"category": "JQL"
 		}

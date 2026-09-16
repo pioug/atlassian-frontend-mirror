@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 18.1.0
+
+### Minor Changes
+
+- [`b51cc398d7701`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b51cc398d7701) -
+  Add the opt-in @mention availability predicate used by the gated Home Search mode, so Search
+  preserves existing Chat mentions as inactive content while preventing new mention typeahead and
+  `/mention` slash-menu insertion. The `editor-disable-feature` feature gate enables that predicate
+  for Home Search.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.10
+
+### Patch Changes
+
+- [`c7ac8f1cd5f6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7ac8f1cd5f6b) -
+  Migrate modal titles to ModalTitle behind platform_dst_modal-dialog-use-modal-title.
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.8
 
 ### Patch Changes

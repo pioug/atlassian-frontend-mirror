@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 22.11.5
+
+### Patch Changes
+
+- [`5283d6fbd291d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5283d6fbd291d) -
+  Removed the focused option indicator bar from checkbox and radio select options when the
+  `platform-dst-tokens-finesse` feature gate is enabled.
+- Updated dependencies
+
 ## 22.11.4
 
 ### Patch Changes

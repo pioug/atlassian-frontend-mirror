@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "36.3.6",
+	"version": "36.3.10",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,6 +23,9 @@
 		},
 		"team": "Editor: Collaboration",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "Reactions"
 		}
 	},
@@ -161,6 +164,10 @@
 		},
 		"platform_teamoji_26_refresh_emoji_picker_user_id": {
 			"type": "boolean"
+		},
+		"platform_dst_modal-dialog-use-modal-title": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"sideEffects": [

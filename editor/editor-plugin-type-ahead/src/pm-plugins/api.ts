@@ -27,9 +27,10 @@ const open =
 			return false;
 		}
 
-		const { tr } = state;
-
-		openTypeAheadAtCursor({ triggerHandler: handler, inputMethod })({ tr });
+		const tr = openTypeAheadAtCursor({ triggerHandler: handler, inputMethod })({ tr: state.tr });
+		if (!tr) {
+			return false;
+		}
 
 		editorView.dispatch(tr);
 

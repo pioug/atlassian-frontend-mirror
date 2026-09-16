@@ -76,6 +76,14 @@ The placement maps to CSS via two functions:
 - **`placementToTryFallbacks`** returns the ordered list of fallback `position-area` values plus
   `flip-{axis}` keywords. The order matches Popper's classic fallback chain.
 
+The CSS path also writes `position-visibility: always`. The property's initial value is
+`anchors-visible` in every engine, which lets the browser **strongly hide** an anchor-positioned
+popover (unpainted and unclickable, while still reporting `:popover-open` and a correct rect, and in
+Chrome still focusable and in the accessibility tree) whenever its anchor is fully clipped by an
+ancestor or is `visibility: hidden`. Firefox 153 computes the same default but never hides.
+Top-layer positions and never hides: whether a surface is shown is the consumer's decision, on both
+paths. See `notes/decisions/position-visibility-always.md`.
+
 ## Offset model
 
 Cross-link to `notes/decisions/placement-offset.md` for the design decision. Summary:

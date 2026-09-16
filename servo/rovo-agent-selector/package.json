@@ -2,6 +2,9 @@
 	"atlassian": {
 		"team": "Rovo for service - Servo",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "RovoAgentSelector",
 			"category": "Layout and structure"
 		}

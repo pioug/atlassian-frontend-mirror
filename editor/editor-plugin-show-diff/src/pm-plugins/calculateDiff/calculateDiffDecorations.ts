@@ -4,6 +4,7 @@ import { type Change, ChangeSet, simplifyChanges } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { areDocsEqualByBlockStructureAndText } from '@atlaskit/editor-common/utils/areDocsEqualByBlockStructureAndText';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -25,7 +26,6 @@ import type {
 	ShowDiffPlugin,
 	SmartDiffThresholds,
 } from '../../showDiffPluginType';
-import { areDocsEqualByBlockStructureAndText } from '../areDocsEqualByBlockStructureAndText';
 import { createDocMarginAnchorWidget } from '../decorations/createAnchorDecorationWidgets';
 import { createBlockChangedDecoration } from '../decorations/createBlockChangedDecoration';
 import type { ContributorTagMountContext } from '../decorations/createContributorTagWidget';

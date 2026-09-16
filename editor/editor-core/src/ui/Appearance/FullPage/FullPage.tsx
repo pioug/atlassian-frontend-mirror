@@ -13,7 +13,6 @@ import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
@@ -136,35 +135,17 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 
 	const hasHadInteraction = interactionState !== 'hasNotHadInteraction';
 
-	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking', {
-		disabled: fg('platform_editor_use_preferences_plugin'),
-	});
-	if (!fg('platform_editor_use_preferences_plugin')) {
-		if (!toolbarDocking) {
-			// This is a workaround for the rendering issue with the selection toolbar
-			// where using useSharedPluginStateSelector or useSharedPluginState the state are not
-			// available when the editor is first loaded. and cause the toolbar to blink.
-			const defaultDocking = props.__livePage ? 'none' : 'top';
-			toolbarDocking =
-				editorAPI?.selectionToolbar?.sharedState.currentState()?.toolbarDocking ?? defaultDocking;
-		}
-	}
-
 	let { toolbarDockingPosition } =
-		useSharedPluginStateSelector(editorAPI, 'userPreferences.preferences', {
-			disabled: !fg('platform_editor_use_preferences_plugin'),
-		}) || {};
-	if (fg('platform_editor_use_preferences_plugin')) {
-		if (!toolbarDockingPosition) {
-			// This is a workaround for the rendering issue with the selection toolbar
-			// when using useSharedPluginStateWithSelector the state is not yet
-			// available when the editor is first loaded.
-			// This causes the toolbar to blink creating a layout shift.
-			const defaultDockingPosition = props.__livePage ? 'none' : 'top';
-			toolbarDockingPosition =
-				editorAPI?.userPreferences?.actions.getUserPreferences()?.toolbarDockingPosition ??
-				defaultDockingPosition;
-		}
+		useSharedPluginStateSelector(editorAPI, 'userPreferences.preferences') || {};
+	if (!toolbarDockingPosition) {
+		// This is a workaround for the rendering issue with the selection toolbar
+		// when using useSharedPluginStateWithSelector the state is not yet
+		// available when the editor is first loaded.
+		// This causes the toolbar to blink creating a layout shift.
+		const defaultDockingPosition = props.__livePage ? 'none' : 'top';
+		toolbarDockingPosition =
+			editorAPI?.userPreferences?.actions.getUserPreferences()?.toolbarDockingPosition ??
+			defaultDockingPosition;
 	}
 
 	let primaryToolbarComponents = props.primaryToolbarComponents;
@@ -178,22 +159,12 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 	const { customPrimaryToolbarComponents } = props;
 
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		if (fg('platform_editor_use_preferences_plugin')) {
-			// need to check if the toolbarDockingPosition is set to 'none' or 'top'
-			if (toolbarDockingPosition === 'none' && !forcePrimaryToolbarPinned) {
-				primaryToolbarComponents = [];
+		// need to check if the toolbarDockingPosition is set to 'none' or 'top'
+		if (toolbarDockingPosition === 'none' && !forcePrimaryToolbarPinned) {
+			primaryToolbarComponents = [];
 
-				if (!hasCustomComponents(customPrimaryToolbarComponents)) {
-					isEditorToolbarHidden = true;
-				}
-			}
-		} else {
-			if (toolbarDocking === 'none' && !forcePrimaryToolbarPinned) {
-				primaryToolbarComponents = [];
-
-				if (!hasCustomComponents(customPrimaryToolbarComponents)) {
-					isEditorToolbarHidden = true;
-				}
+			if (!hasCustomComponents(customPrimaryToolbarComponents)) {
+				isEditorToolbarHidden = true;
 			}
 		}
 	}
@@ -237,7 +208,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 												isExperimentEnabled('platform_editor_default_toolbar_state'))
 								}
 								disabledWithoutInteractionLogic={!!props.disabled}
-								toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
+								toolbarDockingPosition={toolbarDockingPosition}
 								beforeIcon={props.primaryToolbarIconBefore}
 								editorAPI={editorAPI}
 								editorView={props.editorView}

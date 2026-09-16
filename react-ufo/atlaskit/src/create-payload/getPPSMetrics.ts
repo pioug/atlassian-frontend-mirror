@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { getLighthouseMetrics } from '../additional-payload';
+import { getLighthouseMetrics } from '../additional-payload/utils/lighthouse-metrics/getLighthouseMetrics';
 import type { InteractionMetrics } from '../common';
 import { getConfig } from '../config';
 

@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { setUFOConfig } from '../../config';
-import { DefaultInteractionID } from '../../interaction-id-context';
+import DefaultInteractionID from '../../interaction-id-context/defaultInteractionId';
 import { interactions } from '../common/constants';
 import {
 	abort,

@@ -1,5 +1,29 @@
 # @atlaskit/editor-extension-dropbox
 
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`c7ac8f1cd5f6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7ac8f1cd5f6b) -
+  Add ModalTitle usage behind platform_dst_modal-dialog-use-modal-title (adds
+  @atlaskit/platform-feature-flags).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.8
 
 ### Patch Changes

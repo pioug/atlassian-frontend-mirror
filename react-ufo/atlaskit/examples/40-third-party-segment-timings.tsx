@@ -11,7 +11,7 @@ import {
 	UFOThirdPartySegment,
 	type IframeSegmentEvent,
 } from '@atlaskit/react-ufo/third-party-segment';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 const containerStyle = css({
 	display: 'flex',

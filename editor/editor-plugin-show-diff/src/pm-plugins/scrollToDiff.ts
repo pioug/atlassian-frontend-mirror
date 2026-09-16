@@ -1,6 +1,11 @@
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
+import { getStickyHeaderHeight } from '@atlaskit/editor-common/table/get-sticky-header-height';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { isDiffDecoration } from './decorations/decorationKeys';
+import { isDiffDecoration, SCROLL_TARGET_MARGIN_CSS_PROPERTY } from './decorations/decorationKeys';
+import type { ShowDiffPlugin } from '../showDiffPluginType';
 
 /**
  * Extra space above the scrolled-to element so it does not sit flush under the
@@ -12,6 +17,24 @@ import { isDiffDecoration } from './decorations/decorationKeys';
  * outer scroll or mis-identifies the active scroll container.
  */
 const SCROLL_TOP_MARGIN_PX = 100;
+
+type PluginInjectionAPI = ExtractInjectionAPI<ShowDiffPlugin>;
+
+function updateScrollTargetMargin(
+	view: EditorView,
+	targetPos: number,
+	api: PluginInjectionAPI | undefined,
+): void {
+	const isLimitedModeEnabled = Boolean(api?.limitedMode?.sharedState.currentState()?.enabled);
+
+	const tableHeaderHeight = isLimitedModeEnabled
+		? undefined
+		: getStickyHeaderHeight(view, targetPos);
+	view.dom.style.setProperty(
+		SCROLL_TARGET_MARGIN_CSS_PROPERTY,
+		`${tableHeaderHeight ? tableHeaderHeight + tableMarginTop : 0}px`,
+	);
+}
 
 /**
  * Returns the resolved HTMLElement for a given DOM node, walking up to the
@@ -25,6 +48,10 @@ function scrollToSelection(node: Node | null | undefined): void {
 				? node.parentElement
 				: null;
 	if (!(element instanceof HTMLElement)) {
+		return;
+	}
+	if (fg('platform_editor_ai_show_diff_patch_1')) {
+		element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		return;
 	}
 
@@ -48,6 +75,7 @@ export const scrollToDecoration = (
 	view: EditorView,
 	decorations: Decoration[],
 	activeIndex: number = 0,
+	api?: PluginInjectionAPI,
 ): (() => void) => {
 	const decoration = decorations[activeIndex];
 	if (!decoration) {
@@ -61,6 +89,9 @@ export const scrollToDecoration = (
 
 	let rafId: number | null = requestAnimationFrame(() => {
 		rafId = null;
+		if (fg('platform_editor_ai_show_diff_patch_1')) {
+			updateScrollTargetMargin(view, target.from, api);
+		}
 		if (isDiffDecoration(target) && target.spec.decorationType === 'widget') {
 			// @ts-expect-error - decoration.type is not typed public API
 			const widgetDom = target?.type?.toDOM;

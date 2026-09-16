@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::587058ae450ce5f947bac19798e23e51>>
+ * @codegen <<SignedSource::b699a3ae5b0632bc7cbc5c901472b7e6>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -8541,7 +8541,9 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		keywords: ['rovo', 'authority', 'analytics'],
 		category: 'analytics',
 		package: '@atlassian/rovo-platform-ui-components',
-		examples: [],
+		examples: [
+			"import { IntlProvider } from 'react-intl';\nimport { InsightLinkCardGroup } from '@atlassian/rovo-platform-ui-components/insight-link-card-group';\nconst sourceUrls = [\n\t'https://hello.atlassian.net/wiki/spaces/ENG/pages/handbook',\n\t'https://hello.atlassian.net/wiki/spaces/ENG/pages/release-process',\n];\nexport default function InsightLinkCardGroupExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<InsightLinkCardGroup urls={sourceUrls} isFullScreen={false} />\n\t\t</IntlProvider>\n\t);\n}",
+		],
 		kind: 'function',
 	},
 	{

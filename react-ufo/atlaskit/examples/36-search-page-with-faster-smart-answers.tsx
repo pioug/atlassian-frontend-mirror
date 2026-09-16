@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { getConfig, setUFOConfig } from '@atlaskit/react-ufo/config';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 import { updatePageloadName } from '@atlaskit/react-ufo/update-pageload-name';
 
 const searchResultStyle = css({

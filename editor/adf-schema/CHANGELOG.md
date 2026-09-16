@@ -1,5 +1,25 @@
 # @atlaskit/adf-schema
 
+## 57.5.0
+
+### Minor Changes
+
+- [`b24442bfe4b79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b24442bfe4b79) -
+  EDITOR-8898: Promote the status `color` attribute change from stage-0 to the full ADF schema.
+  `status.attrs.color` is now a string matching
+  `neutral | purple | blue | red | yellow | green | #RRGGBB` in full ADF, not just on stage-0. All
+  six previously valid names still validate, so existing documents are unaffected.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 57.4.17
 
 ### Patch Changes

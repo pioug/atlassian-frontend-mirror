@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/volt-components-entry-point-config",
-	"version": "0.1.2",
+	"version": "0.2.1",
 	"description": "Config for entry-points to drive codemods, linting, and ratcheting",
 	"atlassian": {
 		"team": "UIP: Volt",

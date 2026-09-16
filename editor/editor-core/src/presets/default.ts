@@ -56,7 +56,6 @@ import { userIntentPlugin } from '@atlaskit/editor-plugins/user-intent';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -124,17 +123,14 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add([pastePlugin, { ...options?.paste, isFullPage }])
 		.add(clipboardPlugin)
 		.add(focusPlugin)
-		.maybeAdd(
-			[
-				userPreferencesPlugin,
-				{
-					initialUserPreferences: {
-						toolbarDockingPosition: isFullPage ? 'none' : 'top',
-					},
+		.add([
+			userPreferencesPlugin,
+			{
+				initialUserPreferences: {
+					toolbarDockingPosition: isFullPage ? 'none' : 'top',
 				},
-			],
-			() => fg('platform_editor_use_preferences_plugin'),
-		)
+			},
+		])
 		.maybeAdd(
 			interactionPlugin,
 			Boolean(options?.__livePage) ||

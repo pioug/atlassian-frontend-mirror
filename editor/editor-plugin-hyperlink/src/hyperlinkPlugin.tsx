@@ -24,7 +24,6 @@ import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -225,9 +224,8 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 
 			...(!isToolbarAIFCEnabled && {
 				selectionToolbar: (state, { formatMessage }) => {
-					const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-						? api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition
-						: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+					const toolbarDocking =
+						api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition;
 
 					if (
 						toolbarDocking === 'none' &&

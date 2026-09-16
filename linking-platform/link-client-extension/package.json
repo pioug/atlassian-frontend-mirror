@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-client-extension",
-	"version": "7.3.0",
+	"version": "7.3.1",
 	"description": "Extension methods for linking platform client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -17,6 +17,9 @@
 		},
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "LinkClientExtension"
 		}
 	},

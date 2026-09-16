@@ -144,7 +144,7 @@ export type Err = <T extends ValidationErrorType>(
 ) => NodeValidationResult;
 
 export interface ErrorCallbackOptions {
-	allowExpandInPanel?: boolean;
+	allowContainerInPanel?: boolean;
 	allowNestedTables?: boolean;
 	allowTableInPanel?: boolean;
 	allowUnsupportedBlock?: boolean;

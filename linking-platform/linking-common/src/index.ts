@@ -79,7 +79,8 @@ export { request } from './api';
 export { Pulse } from './components/Pulse/Pulse';
 
 /** @deprecated Use @atlaskit/linking-common/skeleton */
-export { Skeleton, SpanSkeleton } from './components/Skeleton';
+export { Skeleton } from './components/Skeleton';
+export { SpanSkeleton } from './components/Skeleton/span-skeleton';
 
 /** @deprecated No longer supported. Please declare type directly instead. */
 export type Prettify<T> = {

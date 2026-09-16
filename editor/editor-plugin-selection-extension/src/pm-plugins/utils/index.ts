@@ -13,7 +13,6 @@ import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullPageToolbarHeight } from '@atlaskit/editor-shared-styles';
 import { CellSelection, TableMap, type Rect } from '@atlaskit/editor-tables';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 // oxlint-disable-next-line import/no-duplicates
@@ -88,9 +87,8 @@ export const getSelectionTextInfoNew = (
 	view: EditorView,
 	api?: ExtractInjectionAPI<SelectionExtensionPlugin>,
 ): SelectionExtensionSelectionInfo => {
-	const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-		? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition
-		: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+	const toolbarDocking =
+		api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 	const isEditMode = Boolean(api?.editorViewMode?.sharedState.currentState()?.mode === 'edit');
 	const shouldOffsetToolbarHeight = toolbarDocking === 'top' && isEditMode;
 

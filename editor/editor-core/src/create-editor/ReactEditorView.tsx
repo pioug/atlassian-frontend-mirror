@@ -450,10 +450,21 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 		// The selectionToDOM method uses the document selection to determine currently selected node
 		// We need to mimic blurring this as it seems doing the above is not enough.
+		// Guard against clearing selections that belong outside this editor instance.
 		// @ts-expect-error
 		const sel = (viewRef.current.root as DocumentOrShadowRoot).getSelection();
 		if (sel) {
-			sel.removeAllRanges();
+			if (!isExperimentEnabled('fix_editor_blur_issue_exp')) {
+				sel.removeAllRanges();
+				return;
+			}
+
+			if (
+				(!sel.anchorNode || viewRef.current.dom.contains(sel.anchorNode)) &&
+				(!sel.focusNode || viewRef.current.dom.contains(sel.focusNode))
+			) {
+				sel.removeAllRanges();
+			}
 		}
 	}, []);
 

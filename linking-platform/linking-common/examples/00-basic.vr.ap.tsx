@@ -5,7 +5,8 @@
 import { css, jsx } from '@compiled/react';
 
 import Pulse from '../src/components/Pulse';
-import Skeleton, { SpanSkeleton } from '../src/components/Skeleton';
+import Skeleton from '../src/components/Skeleton';
+import { SpanSkeleton } from '../src/components/Skeleton/span-skeleton';
 
 const styles = css({
 	display: 'flex',

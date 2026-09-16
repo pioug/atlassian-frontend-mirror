@@ -1,5 +1,27 @@
 # @atlaskit/link-provider
 
+## 5.7.0
+
+### Minor Changes
+
+- [`a8d86fe6554c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8d86fe6554c5) -
+  Add an optional Flexible Card navigation policy. Embedded Confluence enables converted
+  destinations with confluence_ep_shim_macro_links_v2.
+
+  The confluence_ep_shim_macro_links_v2 gate controls callback inheritance, link destinations, and
+  target overrides.
+
+  Keep navigation separate from card metadata. Apply destinations directly to the rendered links.
+
+## 5.6.2
+
+### Patch Changes
+
+- [`2bbc1c84de468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bbc1c84de468) -
+  Migrate Volt consumer imports to existing definitions and align affected test mocks without
+  changing runtime behavior.
+- Updated dependencies
+
 ## 5.6.1
 
 ### Patch Changes

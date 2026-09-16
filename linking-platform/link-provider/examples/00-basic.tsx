@@ -4,7 +4,9 @@ import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import TextField from '@atlaskit/textfield/text-field';
 import CodeBlock from '@atlaskit/code/code-block';
 import { getUrl } from '@atlaskit/linking-common/store';
-import { SmartCardProvider, CardClient, useSmartLinkContext } from '../src';
+import { SmartCardProvider } from '../src/smart-card-provider';
+import CardClient from '../src/client';
+import { useSmartLinkContext } from '../src/state/context/useSmartLinkContext';
 
 const client = new CardClient('stg');
 const defaultLink =

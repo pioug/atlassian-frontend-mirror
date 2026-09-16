@@ -10,6 +10,9 @@
 	"atlassian": {
 		"team": "Bandicoots",
 		"website": {
+			"tags": [
+				"platform-labs"
+			],
 			"name": "jsonLdTypes"
 		}
 	},

@@ -3,7 +3,7 @@
 import React, { useLayoutEffect, useMemo, useState } from 'react';
 
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment from '@atlaskit/react-ufo/segment';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 const PREFIX_TESTID = 'sectionVertical';
 

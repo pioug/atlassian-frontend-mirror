@@ -11,6 +11,8 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
 import { useModal } from '@atlaskit/modal-dialog/hooks';
 import AKModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import Heading from '@atlaskit/heading/heading';
 import { token } from '@atlaskit/tokens';
@@ -55,9 +57,17 @@ const Header = () => {
 			{/* This div is offsetting the button to the right */}
 			<div css={spacingDivStyle} />
 			<Box xcss={headingStyle}>
-				<Heading id={titleId} size="xsmall">
-					Dropbox
-				</Heading>
+				{fg('platform_dst_modal-dialog-use-modal-title') ? (
+					<ModalTitle>
+						<Heading size="xsmall" as="span">
+							Dropbox
+						</Heading>
+					</ModalTitle>
+				) : (
+					<Heading id={titleId} size="xsmall">
+						Dropbox
+					</Heading>
+				)}
 			</Box>
 			<div>
 				<CloseButton onClick={onClose} />

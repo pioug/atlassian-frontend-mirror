@@ -12,7 +12,7 @@ import {
 } from '../../config';
 import { getActiveTrace } from '../../experience-trace-id-context/get-active-trace';
 import { setInteractionActiveTrace } from '../../experience-trace-id-context/set-interaction-active-trace';
-import { DefaultInteractionID } from '../../interaction-id-context';
+import DefaultInteractionID from '../../interaction-id-context/defaultInteractionId';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../../interaction-metrics';
 import UFORouteName from '../../route-name-context';
 

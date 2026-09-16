@@ -12,7 +12,6 @@ export default function Portal({
 	zIndex = 0,
 	children,
 	mountStrategy = 'effect',
-	isClosed = false,
 }: PortalProps): React.JSX.Element | null {
 	const isSubsequentRender = useIsSubsequentRender(mountStrategy);
 
@@ -20,13 +19,9 @@ export default function Portal({
 
 	return !fg('platform_design_system_team_portal_logic_r18_fix') ? (
 		isSubsequentRender ? (
-			<InternalPortal zIndex={zIndex} isClosed={isClosed}>
-				{children}
-			</InternalPortal>
+			<InternalPortal zIndex={zIndex}>{children}</InternalPortal>
 		) : null
 	) : (
-		<InternalPortalNew zIndex={zIndex} isClosed={isClosed}>
-			{children}
-		</InternalPortalNew>
+		<InternalPortalNew zIndex={zIndex}>{children}</InternalPortalNew>
 	);
 }

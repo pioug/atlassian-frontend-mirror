@@ -1,5 +1,33 @@
 # @atlaskit/reactions
 
+## 36.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.3.9
+
+### Patch Changes
+
+- [`5bb049fcdba7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bb049fcdba7e) -
+  Use the direct React UFO segment entry point, preserving the existing component implementation and
+  instrumentation behavior.
+- Updated dependencies
+
+## 36.3.8
+
+### Patch Changes
+
+- [`c7ac8f1cd5f6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7ac8f1cd5f6b) -
+  Migrate modal titles to ModalTitle behind platform_dst_modal-dialog-use-modal-title.
+
+## 36.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.3.6
 
 ### Patch Changes

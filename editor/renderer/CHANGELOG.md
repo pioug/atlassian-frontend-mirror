@@ -1,5 +1,44 @@
 # @atlaskit/renderer
 
+## 140.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 140.2.6
+
+### Patch Changes
+
+- [`5adb85a596691`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5adb85a596691) -
+  [ux] Replace native Forge outputType: inline with layout: inline-bodied. Consumers must use the
+  new layout declaration; stored nodes remain bodiedExtension with rich content. Preserve legacy
+  Connect parameters, native markers, and every existing feature gate, including
+  platform_forge_inline_bodied_macro. Align quick insertion, auto-conversion, configuration saves,
+  and view rendering with the new contract.
+
+  Persist Custom UI inline-bodied presentation in parameters.layout, separately from app
+  configuration, and use it for outer page composition behind
+  platform_forge_inline_bodied_layout_switch. Preserve Connect migration behaviour, keep unsupported
+  nested macros as blocks, and cover gate-off rendering.
+
+## 140.2.5
+
+### Patch Changes
+
+- [`4337ad329e99f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4337ad329e99f) -
+  Convert TableRow to a functional component behind platform_renderer_table_row_functional.
+- Updated dependencies
+
+## 140.2.4
+
+### Patch Changes
+
+- [`2bbc1c84de468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bbc1c84de468) -
+  Migrate Volt consumer imports to existing definitions and align affected test mocks without
+  changing runtime behavior.
+- Updated dependencies
+
 ## 140.2.3
 
 ### Patch Changes

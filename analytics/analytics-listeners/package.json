@@ -22,6 +22,11 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
+		"website": {
+			"tags": [
+				"platform-labs"
+			]
+		},
 		"react-compiler": {
 			"enabled": true,
 			"gating": {

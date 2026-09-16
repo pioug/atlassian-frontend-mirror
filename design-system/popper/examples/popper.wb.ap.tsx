@@ -12,6 +12,7 @@ import FlagVirtualElementExample from './09-flag-virtual-element';
 import FlagAnchorToggleExample from './10-flag-anchor-toggle';
 import FlagTopLayerEscapeExample from './11-flag-top-layer-escape';
 import FlagImperativeCreatePopperVrExample from './12-flag-imperative-create-popper.vr.ap';
+import FlagClippedAnchorExample from './13-flag-clipped-anchor';
 
 const BasicPositioningVr: WorkbenchExample = wb(BasicPositioningVrExample);
 
@@ -29,3 +30,4 @@ export const FlagTopLayerEscape: WorkbenchExample = wb(FlagTopLayerEscapeExample
 export const FlagImperativeCreatePopperVr: WorkbenchExample = wb(
 	FlagImperativeCreatePopperVrExample,
 );
+export const FlagClippedAnchor: WorkbenchExample = wb(FlagClippedAnchorExample);

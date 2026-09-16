@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.10.5
+
+### Patch Changes
+
+- [`a111bbc359db7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a111bbc359db7) -
+  Regenerate component and utility catalogs from the latest structured documentation.
+
 ## 1.10.4
 
 ### Patch Changes

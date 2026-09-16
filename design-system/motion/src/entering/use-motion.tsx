@@ -77,17 +77,14 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 		initialState ??
 			(appear ? (staggeredIsReady && !staggeredDelay ? 'entering' : 'init') : 'visible'),
 	);
+	// ExitingPersistence must win during render so consumers apply exit styles before layout effects.
+	// The lifecycle effect below uses the same value to measure and finish that exit.
+	const motionState: MotionState = isExiting ? 'exiting' : state;
 
 	const elementRef = useRef<T | null>(null);
 	const reanimateRef = useRef<Reanimate>();
 	const animationRef = useRef<ReturnType<typeof setTimeout>>();
 	const staggeredEntryRef = useRef<ReturnType<typeof setTimeout>>();
-
-	useEffect(() => {
-		if (isExiting) {
-			setState('exiting');
-		}
-	}, [isExiting]);
 
 	/**
 	 * Updates relevant state.
@@ -171,18 +168,18 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 		}
 
 		// If the state is visible, hidden or init, we don't need to do anything
-		if (state === 'visible' || state === 'init' || state === 'hidden') {
+		if (motionState === 'visible' || motionState === 'init' || motionState === 'hidden') {
 			return;
 		}
 
 		// If there is reduced motion or no exit animation, we call the onAnimationEnd function immediately
 		if (reducedMotion) {
-			onAnimationEnd(state, isCancelled);
+			onAnimationEnd(motionState, isCancelled);
 			return;
 		}
 
 		let animationDuration = 0;
-		if (state === 'entering' || state === 'exiting') {
+		if (motionState === 'entering' || motionState === 'exiting') {
 			if (elementRef.current) {
 				if (elementRef.current.style.animation) {
 					// Motion token
@@ -204,14 +201,14 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 		}
 
 		// Queue `onAnimationEnd` for after the animation has finished
-		if (state === 'exiting') {
+		if (motionState === 'exiting') {
 			animationRef.current = setTimeout(
-				() => onAnimationEnd(state, isCancelled),
+				() => onAnimationEnd(motionState, isCancelled),
 				animationDuration,
 			);
-		} else if (state === 'entering') {
+		} else if (motionState === 'entering') {
 			animationRef.current = setTimeout(
-				() => onAnimationEnd(state, isCancelled),
+				() => onAnimationEnd(motionState, isCancelled),
 				animationDuration,
 			);
 		}
@@ -226,7 +223,7 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 		// which would then trigger this effect every re-render.
 		// We want to make it easier for consumers so we go down this path unfortunately.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [onAnimationEnd, state, appear, staggeredDelay, staggeredIsReady, reducedMotion]);
+	}, [onAnimationEnd, motionState, appear, staggeredDelay, staggeredIsReady, reducedMotion]);
 
 	const reanimate = useCallback((value: Reanimate) => {
 		animationRef.current && clearTimeout(animationRef.current);
@@ -245,6 +242,6 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 	return {
 		ref,
 		reanimate,
-		state,
+		state: motionState,
 	};
 }

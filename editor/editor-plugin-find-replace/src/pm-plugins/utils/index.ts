@@ -9,8 +9,9 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
-import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
+import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
+import { isPromise } from '@atlaskit/mention/is-promise';
+import { MentionNameStatus } from '@atlaskit/mention/types';
 import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
 
 import type { FindReplacePlugin } from '../../findReplacePluginType';

@@ -25,8 +25,7 @@ jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 }));
 
 // Mock the isWithinPreviewPanelIFrame function from linking-common
-jest.mock('@atlaskit/linking-common/utils', () => ({
-	...jest.requireActual('@atlaskit/linking-common/utils'),
+jest.mock('@atlaskit/linking-common/utils/is-within-preview-panel-iframe', () => ({
 	isWithinPreviewPanelIFrame: jest.fn(),
 }));
 
@@ -44,7 +43,9 @@ describe('extractInvokePreviewAction', () => {
 		// Reset the mocks to default behavior
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 		const { fg } = require('@atlaskit/platform-feature-flags/fg');
-		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
+		const {
+			isWithinPreviewPanelIFrame,
+		} = require('@atlaskit/linking-common/utils/is-within-preview-panel-iframe');
 
 		expValEquals.mockReturnValue(false);
 		fg.mockReturnValue(false);
@@ -323,7 +324,9 @@ describe('extractInvokePreviewAction', () => {
 	it('should not openEmbedModal when experiment is enabled and within preview panel', async () => {
 		// Enable the experiment for this test
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
+		const {
+			isWithinPreviewPanelIFrame,
+		} = require('@atlaskit/linking-common/utils/is-within-preview-panel-iframe');
 		expValEquals.mockReturnValue(true);
 		isWithinPreviewPanelIFrame.mockReturnValue(true);
 
@@ -365,7 +368,9 @@ describe('extractInvokePreviewAction', () => {
 	it('should set isInPreviewPanel to false when not within preview panel', async () => {
 		// Enable the experiment for this test
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
+		const {
+			isWithinPreviewPanelIFrame,
+		} = require('@atlaskit/linking-common/utils/is-within-preview-panel-iframe');
 		expValEquals.mockReturnValue(true);
 		isWithinPreviewPanelIFrame.mockReturnValue(false);
 

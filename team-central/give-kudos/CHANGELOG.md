@@ -1,5 +1,16 @@
 # @atlassian/give-kudos
 
+## 6.16.0
+
+### Minor Changes
+
+- [`ee77f0533c536`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee77f0533c536) -
+  Update i18n NPM package versions for team-central (split from Group 10)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.15.1
 
 ### Patch Changes

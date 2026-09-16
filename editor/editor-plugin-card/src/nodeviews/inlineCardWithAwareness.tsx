@@ -13,7 +13,7 @@ import { HoverLinkOverlay } from '@atlaskit/editor-common/ui';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
-import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
+import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils/is-within-preview-panel-iframe';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

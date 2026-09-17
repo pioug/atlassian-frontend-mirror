@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+// Exposes start and finish callbacks while useMotion coordinates the animation lifecycle.
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { type StrictXCSSProp } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -6,6 +7,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { getComputedAnimationDurationMs } from '../utils/get-computed-animation-duration-ms';
 import { getDurationMs } from '../utils/get-duration-ms';
 import { isReducedMotion } from '../utils/is-reduced-motion';
+import { useLayoutEffect } from '../utils/use-layout-effect';
 import { resolveMotionToken } from '../utils/resolve-motion-token';
 
 import { Reanimate } from './reanimate';
@@ -21,6 +23,12 @@ export type CustomMotionXCSS = StrictXCSSProp<
 type MotionState = 'init' | 'entering' | 'visible' | 'exiting' | 'hidden';
 
 export interface UseMotionProps {
+	/**
+	 * Called immediately before an entering or exiting motion starts. The transition is provided so
+	 * consumers can handle only one direction; callbacks that do not filter it run for both.
+	 */
+	onStart?: (state: Transition) => void;
+
 	/**
 	 * Will callback when the motion has finished in the particular direction.
 	 * If it finished entering direction will be `entering`.
@@ -65,6 +73,7 @@ export interface UseMotionResult<T extends HTMLElement = HTMLElement> {
  */
 export function useMotion<T extends HTMLElement = HTMLElement>({
 	onFinish: onFinishMotion,
+	onStart: onStartMotion,
 	initialState,
 }: UseMotionProps = {}): UseMotionResult<T> {
 	const reducedMotion = isReducedMotion();
@@ -82,9 +91,20 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 	const motionState: MotionState = isExiting ? 'exiting' : state;
 
 	const elementRef = useRef<T | null>(null);
+	const onStartMotionRef = useRef(onStartMotion);
+	onStartMotionRef.current = onStartMotion;
 	const reanimateRef = useRef<Reanimate>();
 	const animationRef = useRef<ReturnType<typeof setTimeout>>();
 	const staggeredEntryRef = useRef<ReturnType<typeof setTimeout>>();
+
+	useLayoutEffect(() => {
+		if (motionState === 'exiting') {
+			onStartMotionRef.current?.('exiting');
+		}
+		if (motionState === 'entering') {
+			onStartMotionRef.current?.('entering');
+		}
+	}, [motionState]);
 
 	/**
 	 * Updates relevant state.
@@ -237,7 +257,7 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 		}
 	}, []);
 
-	const ref = mergeRefs([staggered.ref, elementRef]);
+	const ref = useMemo(() => mergeRefs([staggered.ref, elementRef]), [staggered.ref]);
 
 	return {
 		ref,

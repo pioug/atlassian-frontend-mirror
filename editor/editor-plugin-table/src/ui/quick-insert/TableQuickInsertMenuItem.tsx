@@ -7,6 +7,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import GridIcon from '@atlaskit/icon/core/grid';
@@ -19,12 +20,14 @@ type Props = {
 	api: ExtractInjectionAPI<TablePlugin> | undefined;
 	isTableSelectorEnabled: boolean | undefined;
 	options: TablePluginOptions;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 };
 
 export const TableQuickInsertMenuItem = ({
 	api,
 	isTableSelectorEnabled,
 	options,
+	previewImageUrls,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const onSelect = useCallback(
@@ -44,6 +47,7 @@ export const TableQuickInsertMenuItem = ({
 		<QuickInsertMenuItem
 			iconBefore={<GridIcon label="" />}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			shortcut={tooltip(toggleTable)}
 			title={formatMessage(messages.table)}
 		/>

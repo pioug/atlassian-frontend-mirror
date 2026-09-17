@@ -1,21 +1,11 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import type { ThemeState } from './theme-state';
 
 /**
  * Can't evaluate typography feature flags at the module level,
  * it will always resolve to false when server side rendered or when flags are loaded async.
  */
-interface ThemeStateDefaults extends Omit<ThemeState, 'shape' | 'motion'> {
-	shape: () => ThemeState['shape'];
+interface ThemeStateDefaults extends Omit<ThemeState, 'motion'> {
 	motion: () => ThemeState['motion'];
-}
-
-function getShapeDefault(): ThemeState['shape'] {
-	if (fg('platform-dst-shape-theme-default')) {
-		return 'shape';
-	}
-	return undefined;
 }
 
 function getMotionDefault(): ThemeState['motion'] {
@@ -30,7 +20,7 @@ export const themeStateDefaults: ThemeStateDefaults = {
 	contrastMode: 'auto',
 	dark: 'dark',
 	light: 'light',
-	shape: getShapeDefault,
+	shape: 'shape',
 	spacing: 'spacing',
 	typography: 'typography',
 	motion: getMotionDefault,

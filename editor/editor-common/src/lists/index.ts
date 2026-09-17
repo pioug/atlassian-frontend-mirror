@@ -1,21 +1,19 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 
-export { getListItemAttributes, normalizeListItemsSelection } from './selection';
+export { getListItemAttributes } from './selection';
 export { moveTargetIntoList } from './replace-content';
 export { JoinDirection } from './JoinDirection';
 export { isListNodeValidContent } from './isListNodeValidContent';
-export { joinSiblingLists, processNestedTaskListsInSameLevel } from './node';
+export { joinSiblingLists } from './node';
 export { getCommonListAnalyticsAttributes } from './analytics';
 export { countListItemsInSelection } from './countListItemsInSelection';
-export { hasValidListIndentationLevel } from './indentation';
 export { restoreSelection, computeSelectionOffsets } from './restore-selection';
 export { buildReplacementFragment } from './build-replacement-fragment';
 export type { BuildResult } from './build-replacement-fragment';
 export { narrowReplacementRange } from './narrow-replacement-range';
 export type { NarrowedReplacement } from './narrow-replacement-range';
 export type { FlattenedItem } from './flatten-list';
-export { flattenList } from './flatten-list';
 export type { FlattenListOptions, FlattenListResult } from './flatten-list';
 export {
 	getBlockMarkAttrs,

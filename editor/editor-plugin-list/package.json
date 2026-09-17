@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-list",
-	"version": "20.0.10",
+	"version": "21.0.0",
 	"description": "List plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -49,9 +49,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_adf_with_localid": {
-			"type": "boolean"
-		},
-		"platform_editor_flexible_list_normalization_fix": {
 			"type": "boolean"
 		},
 		"platform_editor_blocks_patch_7": {

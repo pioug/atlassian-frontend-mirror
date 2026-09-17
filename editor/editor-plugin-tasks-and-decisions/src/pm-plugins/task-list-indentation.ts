@@ -4,15 +4,13 @@ import type {
 	FlattenListOptions,
 	FlattenListResult,
 } from '@atlaskit/editor-common/lists';
-import { flattenList as flattenListBase } from '@atlaskit/editor-common/lists';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
- * Flattens a taskList into one item per task item, recording which items the
- * selection touches.
+ * Flattens a taskList tree into an array of task items with computed depths.
+ * Only selected items have their depth adjusted by indentDelta.
  */
-function flattenTaskListImpl(options: FlattenListOptions): FlattenListResult | null {
+export function flattenTaskList(options: FlattenListOptions): FlattenListResult | null {
 	const { doc, rootListStart, rootListEnd, selectionFrom, selectionTo, indentDelta, maxDepth } =
 		options;
 	const { taskList, taskItem, blockTaskItem } = doc.type.schema.nodes;
@@ -67,31 +65,6 @@ function flattenTaskListImpl(options: FlattenListOptions): FlattenListResult | n
 		return null;
 	}
 	return { items, startIndex, endIndex };
-}
-
-/**
- * Flattens a taskList tree into an array of task items with computed depths.
- * Only selected items have their depth adjusted by indentDelta.
- */
-export function flattenTaskList(options: FlattenListOptions): FlattenListResult | null {
-	if (fg('platform_editor_flexible_list_normalization_fix')) {
-		return flattenTaskListImpl(options);
-	}
-
-	const { taskList, taskItem, blockTaskItem } = options.doc.type.schema.nodes;
-
-	return flattenListBase(options, {
-		isContentNode: (node, parent) => {
-			const isTaskItemType =
-				node.type === taskItem || (blockTaskItem != null && node.type === blockTaskItem);
-			return isTaskItemType && parent != null && parent.type === taskList;
-		},
-		getSelectionBounds: (node, pos) => ({
-			start: pos,
-			end: pos + node.nodeSize,
-		}),
-		getDepth: (resolvedDepth, rootDepth) => resolvedDepth - rootDepth - 1,
-	});
 }
 
 // Each stack entry collects children for a taskList at a given depth.

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a5d12b4845cc2f8b6fdb6b64f74f3f83>>
+ * @codegen <<SignedSource::fd17fbd8ad33d40e931895b72f8c9d30>>
  * @codegenCommand yarn build tokens
  */
 
@@ -400,6 +400,74 @@ const tokens: Token[] = [
       "motion",
       "keyframe",
       "FadeOut100to0"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "grid-template-columns": "minmax(0, 0.8fr)"
+      },
+      "100%": {
+        "grid-template-columns": "minmax(0, 1fr)"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "grid-template-columns": "minmax(0, 0.8fr)"
+        },
+        "100%": {
+          "grid-template-columns": "minmax(0, 1fr)"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.GridColumnIn80to100",
+    "path": [
+      "motion",
+      "keyframe",
+      "GridColumnIn80to100"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "grid-template-columns": "minmax(0, 1fr)"
+      },
+      "100%": {
+        "grid-template-columns": "minmax(0, 0fr)"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "grid-template-columns": "minmax(0, 1fr)"
+        },
+        "100%": {
+          "grid-template-columns": "minmax(0, 0fr)"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.GridColumnOut100to0",
+    "path": [
+      "motion",
+      "keyframe",
+      "GridColumnOut100to0"
     ]
   },
   {
@@ -1144,6 +1212,26 @@ const tokens: Token[] = [
       "motion",
       "properties",
       "BorderColor"
+    ]
+  },
+  {
+    "value": "box-shadow",
+    "attributes": {
+      "group": "motionProperty"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "box-shadow",
+      "attributes": {
+        "group": "motionProperty"
+      }
+    },
+    "name": "motion.properties.BoxShadow",
+    "path": [
+      "motion",
+      "properties",
+      "BoxShadow"
     ]
   },
   {

@@ -105,7 +105,7 @@ import {
 } from '../src/pm-plugins/decorations/colorSchemes/types';
 
 const diffTypes: DiffType[] = ['inline', 'block', 'step'];
-type ColorSchemeMode = ColorScheme | 'attribution' | AdsAccentColor;
+type ColorSchemeMode = Exclude<ColorScheme, `agent-brand-${string}`> | 'attribution';
 
 const COLOR_SCHEME_LABELS: Record<ColorSchemeMode, string> = {
 	standard: 'Standard',

@@ -1,5 +1,21 @@
 # @atlaskit/user-picker
 
+## 13.13.3
+
+### Patch Changes
+
+- [`78264aeafd321`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78264aeafd321) -
+  Add an onStart lifecycle callback to useMotion so Tag, Select, and User Picker consumers can
+  determine settled truncation before tokenized grid-column motion runs behind
+  platform-dst-motion-uplift-labels.
+- Updated dependencies
+
+## 13.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.13.1
 
 ### Patch Changes

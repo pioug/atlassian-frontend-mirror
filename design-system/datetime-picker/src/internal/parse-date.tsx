@@ -55,8 +55,10 @@ export const parseDate: (
 	}
 
 	if (dateFormat && fg('platform-dst-dp-parse-date-format')) {
-		// new Date(0) to make reference date deterministic
-		const parsed = parse(date, convertTokens(dateFormat), new Date(0));
+		// date-fns uses the reference year to resolve two-digit years and fill
+		// omitted years. Use the current local date rather than the Unix epoch.
+		const referenceDate = fg('platform-dst-dp-current-reference-date') ? new Date() : new Date(0);
+		const parsed = parse(date, convertTokens(dateFormat), referenceDate);
 		// `dateFormat` is a display format, so typed input does not always match
 		// it. Locale parsing stays as the fallback so those entries still work.
 		if (isValid(parsed)) {

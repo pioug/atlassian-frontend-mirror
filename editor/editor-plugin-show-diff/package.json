@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-show-diff",
-	"version": "16.1.0",
+	"version": "17.0.0",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,6 +32,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/agent-color": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/custom-steps": "workspace:^",
 		"@atlaskit/editor-plugin-accessibility-utils": "workspace:^",
@@ -89,6 +90,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_show_diff_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_ai_show_diff_patch_2": {
 			"type": "boolean"
 		},
 		"platform_editor_ai_smart_diff": {

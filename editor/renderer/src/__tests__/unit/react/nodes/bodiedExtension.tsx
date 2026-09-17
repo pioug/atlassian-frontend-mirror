@@ -1,5 +1,4 @@
 import React from 'react';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import BodiedExtension from '../../../../react/nodes/bodiedExtension';
 import { Renderer } from '../../../../entry-points/renderer-default';
 
@@ -274,7 +273,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 		});
 	});
 
-	eeTest.describe('comment_on_bodied_extensions', 'Commenting features').variant(true, () => {
+	describe('Commenting features', () => {
 		it('should render bodied extensions with incremented start positions when inside a document', async () => {
 			const providerFactory = ProviderFactory.create({});
 

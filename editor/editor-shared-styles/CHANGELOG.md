@@ -1,5 +1,20 @@
 # @atlaskit/editor-shared-styles
 
+## 4.3.13
+
+### Patch Changes
+
+- [`5ea393c04c702`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ea393c04c702) -
+  [ux] Reserve red for deleted content: telepointers and collab avatars now skip the red participant
+  palette slots. Behind `confluence_ncs_step_diffing_version_history`.
+- Updated dependencies
+
+## 4.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.11
 
 ### Patch Changes

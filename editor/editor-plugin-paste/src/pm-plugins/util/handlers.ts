@@ -331,7 +331,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 
 		// A task slice carrying its own open taskList wrapper would, on a plain replaceSelection,
 		// nest that wrapper inside the current item and add an extra taskList level. Unwrapping one
-		// level keeps the pasted task(s) at the same level. Guarded by a kill switch.
+		// level keeps the pasted task(s) at the same level.
 		const isOpenTaskListSlice =
 			transformedSlice.content.firstChild?.type === taskList &&
 			transformedSlice.openStart >= 2 &&
@@ -340,13 +340,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 		// decisionItem (decisionList only accepts decisionItem), so decisionItem must fall through to
 		// the normal replaceSelection path.
 		const pastingIntoTaskItem = hasParentNodeOfType([taskItem])(selection);
-		if (
-			expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
-			!fg('platform_editor_flexible_list_kill_switch_1') &&
-			isOpenTaskListSlice &&
-			pastingIntoTaskItem &&
-			!selectionIsPanel
-		) {
+		if (isOpenTaskListSlice && pastingIntoTaskItem && !selectionIsPanel) {
 			const unwrappedSlice = new Slice(
 				transformedSlice.content.firstChild.content,
 				transformedSlice.openStart - 1,
@@ -1937,13 +1931,7 @@ export function handleRichText(
 
 		if (!isSliceContentTaskListNodes && (isSliceContentListNodes || isTargetPanelEmpty)) {
 			insertSliceForLists({ tr, slice, schema });
-		} else if (
-			noNeedForSafeInsert &&
-			!(
-				expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
-				checkTaskListInList(state, slice)
-			)
-		) {
+		} else if (noNeedForSafeInsert && !checkTaskListInList(state, slice)) {
 			if (
 				firstChildOfSlice?.type?.name === 'blockquote' &&
 				firstChildOfSlice?.content.firstChild?.type.name &&
@@ -1998,18 +1986,7 @@ export function handleRichText(
 				sliceHasList
 			) {
 				tr.replaceSelection(slice);
-			} else if (
-				expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
-				!fg('platform_editor_flexible_list_kill_switch_1') &&
-				checkTaskListInList(state, slice) &&
-				!checkIfSelectionInNestedList(state)
-			) {
-				// Corrected task-into-list insertion is gated behind the flexible list indentation
-				// experiment and protected by the kill switch.
-				tr = insertSliceForTaskInsideList({ tr, slice });
 			} else if (checkTaskListInList(state, slice) && !checkIfSelectionInNestedList(state)) {
-				// Legacy path (experiment OFF or kill switch ON): preserve the previous over-nesting
-				// behaviour via the function's internal fallback.
 				tr = insertSliceForTaskInsideList({ tr, slice });
 			} else {
 				// need safeInsert rather than replaceSelection, so that nodes aren't split in half

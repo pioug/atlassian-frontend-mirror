@@ -1,5 +1,70 @@
 # @atlaskit/editor-core
 
+## 229.0.0
+
+### Patch Changes
+
+- [`3b3e57040d2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3e57040d2d0) -
+  Remove retired flexible-list feature controls and schema styles while preserving shipped list
+  normalization, hidden-marker rendering for wrapper list items, task paste and task-list tab
+  behavior, and toolbar indentation behavior.
+
+  Remove unused legacy list utilities after the flexible-list rollout: `flattenList`,
+  `normalizeListItemsSelection`, `hasValidListIndentationLevel`,
+  `processNestedTaskListsInSameLevel`, and `wrapTaskListIntoListAbove`. The
+  `@atlaskit/editor-common/lists/indentation` entrypoint is also removed.
+
+  Consumers of the removed runtime helpers should use the editor list plugin's indent/outdent
+  commands. The shared `FlattenedItem`, `FlattenListOptions`, and `FlattenListResult` types remain
+  available for the active list implementations.
+
+- Updated dependencies
+
+## 228.1.16
+
+### Patch Changes
+
+- [`c1111df7c2aef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1111df7c2aef) -
+  Add light and dark hover previews for selected slash-command media, Whiteboard, and Profile
+  Picture items when `platform_editor_slash_command` is enabled.
+- Updated dependencies
+
+## 228.1.15
+
+### Patch Changes
+
+- [`749f1c3c8359c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/749f1c3c8359c) -
+  Retain the first 30 category results and include the first 10 ecosystem quick-insert registrations
+  when they fall beyond that cutoff.
+
+  Limit slash-command insert-menu category browsing while preserving uncapped search results.
+
+  Classify ecosystem quick-insert provider registrations without changing compatibility keys.
+
+  Preserve app provenance for Quick Insert items while the `platform_editor_slash_command`
+  experiment is enabled.
+
+  Enable Quick Insert category analytics while the `platform_editor_slash_command` experiment is
+  enabled.
+
+- Updated dependencies
+
+## 228.1.14
+
+### Patch Changes
+
+- [`88fb7a8d4013a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88fb7a8d4013a) -
+  [ux] Add optional light and dark preview URLs to slash-command menu items and pass theme-aware
+  previews to supported commands when the `platform_editor_slash_command` experiment is enabled.
+- [`04a147a4ed8b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04a147a4ed8b5) -
+  Remove the platform_editor_table_excerpts_fix experiment and make its enabled behavior permanent.
+  Tables inside layout columns retain their full-width styling in both Emotion and Compiled editors.
+
+  The experiment key has been removed from tmp-editor-statsig configuration. Consumers must remove
+  checks for this key and retain the isEnabled: true behavior.
+
+- Updated dependencies
+
 ## 228.1.13
 
 ### Patch Changes

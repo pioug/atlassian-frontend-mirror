@@ -1,7 +1,9 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-re-exports -- These should be re-exported as they are an external dependency */
+// Preserve the metadata patch installed when this entrypoint is evaluated.
+import './transform-override';
+
 export type { Mappable } from 'prosemirror-transform';
 
-export { Step } from './transform-override';
 export type { MetadataStep, Metadata } from './transform-override';
 
 export {

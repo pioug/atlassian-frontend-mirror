@@ -12,11 +12,6 @@ type ExtensionIcon = React.ComponentType<{ label: string }>;
 
 const lazyExtensionIconCache = new WeakMap<NonNullable<MenuItem['icon']>, ExtensionIcon>();
 
-const brandedSlashCommandIconUrls: Readonly<Record<string, string>> = {
-	amplitude: 'https://dam-cdn.atl.orangelogic.com/AssetLink/730r6bie0211kg6obni4343y4g1wv6n5.svg',
-	figma: 'https://dam-cdn.atl.orangelogic.com/AssetLink/68t3023r7347271te7qw370k2pk37rgb.svg',
-};
-
 const whiteboardQuickInsertItemKeys = new Set([
 	'whiteboard-extension:create-whiteboard',
 	'whiteboard-extension:create-diagram',
@@ -72,15 +67,12 @@ const createLazyExtensionIcon = (getIcon: NonNullable<MenuItem['icon']>): Extens
 export const ExtensionQuickInsertIcon = ({
 	getIcon,
 	itemKey,
-	itemTitle,
 	label,
 }: {
 	getIcon?: MenuItem['icon'];
 	itemKey: string;
-	itemTitle: string;
 	label: string;
 }): React.JSX.Element => {
-	const brandedIconUrl = brandedSlashCommandIconUrls[itemTitle.toLowerCase()];
 	const Icon = React.useMemo(() => {
 		const quickInsertItemIcon = quickInsertItemIcons[itemKey];
 		if (quickInsertItemIcon) {
@@ -93,10 +85,6 @@ export const ExtensionQuickInsertIcon = ({
 
 		return getIcon ? createLazyExtensionIcon(getIcon) : AppsIcon;
 	}, [getIcon, itemKey]);
-
-	if (brandedIconUrl) {
-		return <img alt="" aria-hidden="true" height={24} src={brandedIconUrl} width={24} />;
-	}
 
 	return <Icon label={label} />;
 };

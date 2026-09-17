@@ -8,6 +8,32 @@ typescriptEslintTester.run(
 	{
 		valid: [
 			{
+				name: 'Type-only satisfies reference is not a style value',
+				code: `
+          import { css } from '@compiled/react';
+          import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
+
+          const styles = css({
+            ['@media (min-width: 48rem)' satisfies MediaAboveSm]: {
+              padding: '8px',
+            },
+          });
+        `,
+			},
+			{
+				name: 'Imported type provenance in satisfies property values is not a style value',
+				code: `
+          import { cssMap } from '@compiled/react';
+          import type { height } from './constants';
+
+          const styles = cssMap({
+            root: {
+              height: '5px' satisfies typeof height,
+            },
+          });
+        `,
+			},
+			{
 				name: 'Basic valid test for css',
 				code: `
           import { css } from '@compiled/react';

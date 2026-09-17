@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 22.0.0
+
+### Patch Changes
+
+- [`3b3e57040d2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3e57040d2d0) -
+  Remove retired flexible-list feature controls and schema styles while preserving shipped list
+  normalization, hidden-marker rendering for wrapper list items, task paste and task-list tab
+  behavior, and toolbar indentation behavior.
+
+  Remove unused legacy list utilities after the flexible-list rollout: `flattenList`,
+  `normalizeListItemsSelection`, `hasValidListIndentationLevel`,
+  `processNestedTaskListsInSameLevel`, and `wrapTaskListIntoListAbove`. The
+  `@atlaskit/editor-common/lists/indentation` entrypoint is also removed.
+
+  Consumers of the removed runtime helpers should use the editor list plugin's indent/outdent
+  commands. The shared `FlattenedItem`, `FlattenListOptions`, and `FlattenListResult` types remain
+  available for the active list implementations.
+
+- Updated dependencies
+
+## 21.0.11
+
+### Patch Changes
+
+- [`88fb7a8d4013a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88fb7a8d4013a) -
+  [ux] Add optional light and dark preview URLs to slash-command menu items and pass theme-aware
+  previews to supported commands when the `platform_editor_slash_command` experiment is enabled.
+- Updated dependencies
+
 ## 21.0.10
 
 ### Patch Changes

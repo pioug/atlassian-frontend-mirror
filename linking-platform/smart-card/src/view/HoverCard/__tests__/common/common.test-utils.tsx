@@ -534,7 +534,7 @@ export const runCommonHoverCardTests = (
 				async (providerKey) => {
 					const expectedPreviewUrl = 'http://some-preview-url-test.com';
 
-					let mock = {
+					const mock = {
 						...mockConfluenceResponse,
 						meta: { ...mockConfluenceResponse.meta, key: providerKey },
 						data: {
@@ -565,7 +565,7 @@ export const runCommonHoverCardTests = (
 					if (iframeEl) {
 						if (providerKey !== 'not-supported-provider') {
 							expect(iframeEl.getAttribute('src')).toEqual(
-								`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+motion%3Amotion+spacing%3Aspacing+typography%3Atypography+colorMode%3Adark`,
+								`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+motion%3Amotion+shape%3Ashape+spacing%3Aspacing+typography%3Atypography+colorMode%3Adark`,
 							);
 						} else {
 							expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
@@ -665,7 +665,7 @@ export const runCommonHoverCardTests = (
 			);
 			await setup({
 				mock: mockBaseResponseWithErrorPreview,
-				mockFetch: mockFetch,
+				mockFetch,
 				testId: erroredTestId,
 			});
 			expect(screen.queryByTestId('hover-card-loading-view')).not.toBeInTheDocument();
@@ -673,7 +673,7 @@ export const runCommonHoverCardTests = (
 	});
 
 	describe('link click behaviour', () => {
-		const wrappedUrl = mockUrl + '?xpis=wrapped';
+		const wrappedUrl = `${mockUrl}?xpis=wrapped`;
 		let openSpy: jest.SpyInstance;
 
 		beforeEach(() => {
@@ -719,7 +719,7 @@ export const runCommonHoverCardTests = (
 		it('calls updateAnchorHref with decorated URL on middle-click (auxclick)', async () => {
 			jest
 				.spyOn(UseSmartLinkCrossProductUrlWrapperExport, 'useSmartLinkCrossProductUrlWrapper')
-				.mockImplementation(() => (url) => url + '?xpis=wrapped');
+				.mockImplementation(() => (url) => `${url}?xpis=wrapped`);
 			await setup({ mock: mockConfluenceResponse });
 			const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
 			const titleLink = titleBlock.querySelector('a');
@@ -739,7 +739,7 @@ export const runCommonHoverCardTests = (
 		it('calls updateAnchorHref with decorated URL on right-click (contextmenu)', async () => {
 			jest
 				.spyOn(UseSmartLinkCrossProductUrlWrapperExport, 'useSmartLinkCrossProductUrlWrapper')
-				.mockImplementation(() => (url) => url + '?xpis=wrapped');
+				.mockImplementation(() => (url) => `${url}?xpis=wrapped`);
 
 			await setup({ mock: mockConfluenceResponse });
 			const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');

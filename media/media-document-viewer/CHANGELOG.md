@@ -1,5 +1,27 @@
 # @atlaskit/media-document-viewer
 
+## 2.2.0
+
+### Minor Changes
+
+- [`616b68e686452`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/616b68e686452) -
+  Put `image-rendering: pixelated` on document page images behind the
+  `platform_media_doc_viewer_smooth_render` feature gate.
+
+  Pixelated rendering keeps pages crisp at 100% browser zoom, but it disables sub-pixel
+  interpolation, so pages render blurry and misaligned at non-integer browser or OS zoom levels.
+  When the gate is enabled the image falls back to the browser's default (smooth) scaling.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

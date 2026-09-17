@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "7.11.0",
+	"version": "7.12.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -126,6 +126,7 @@
 		"./span-id-key": "./src/experience-trace-id-context/span-id-key.ts",
 		"./ssr": "./src/ssr/index.ts",
 		"./ssr-render-profiler": "./src/segment/ssr-render-profiler.tsx",
+		"./flush-ssr-render-profiler-traces": "./src/segment/ssr-render-profiler/flush-traces.ts",
 		"./ssr-scripts/bindAbortListeners": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/bindAbortListeners.ts",
 		"./ssr-scripts/collectSSRPlaceholderDimensions": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/collectSSRPlaceholderDimensions.ts",
 		"./ssr-scripts": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/index.ts",
@@ -185,7 +186,8 @@
 		"@types/is-ci": "root:*",
 		"@types/scheduler": "root:*",
 		"is-ci": "root:*",
-		"react": "root:*"
+		"react": "root:*",
+		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_ufo_canvas_heatmap_full_precision": {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "5.11.6",
+	"version": "5.12.0",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,6 +80,7 @@
 		},
 		"./picker": "./src/picker.ts",
 		"./status": "./src/components/Status.tsx",
+		"./status-colors": "./src/components/status-colors.ts",
 		"./status-picker": "./src/components/StatusPicker.tsx"
 	},
 	"platform-feature-flags": {
@@ -90,6 +91,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_gracefully_render_status_color": {
+			"type": "boolean"
+		},
+		"platform_editor_status_popup_suggestions_patch_2": {
 			"type": "boolean"
 		}
 	}

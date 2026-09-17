@@ -2,6 +2,8 @@ import React, { useCallback, useId, useLayoutEffect, useMemo, useRef, useState }
 
 import { useIntl } from 'react-intl';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import { cssMap } from '@atlaskit/css';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import {
@@ -11,6 +13,7 @@ import {
 import {
 	buildQuickInsertMenuModel,
 	getMatchingQuickInsertComponents,
+	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
 import type { ExtractInjectionAPI, TypeAheadHandler } from '@atlaskit/editor-common/types';
@@ -46,8 +49,6 @@ const DEFAULT_MENU_MAX_HEIGHT = 480;
 const MENU_VERTICAL_PADDING = 8;
 const MENU_WIDTH = 320;
 const POPUP_OFFSET = [0, 8];
-const SECTION_OVERFLOW_LIMIT = 30;
-
 type Props = {
 	anchorElement: HTMLElement;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
@@ -106,6 +107,7 @@ export const RegisteredTypeAheadMenu = ({
 		() => api?.uiControlRegistry?.actions.getComponents(surface.root.key) ?? [],
 		[api, surface.root.key],
 	);
+	const isSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	const hasSectionOverflowItems = useMemo(
 		() => components.some(({ key }) => isSectionOverflowItemKey(key)),
 		[components],
@@ -116,7 +118,9 @@ export const RegisteredTypeAheadMenu = ({
 				? buildQuickInsertMenuModel(
 						components,
 						surface.root,
-						hasSectionOverflowItems ? SECTION_OVERFLOW_LIMIT : undefined,
+						hasSectionOverflowItems && isSlashCommandEnabled
+							? selectQuickInsertCategoryItems
+							: undefined,
 						surfaceContext,
 					)
 				: getMatchingQuickInsertComponents({
@@ -126,7 +130,15 @@ export const RegisteredTypeAheadMenu = ({
 						formatMessage,
 						surfaceContext,
 					}),
-		[components, formatMessage, hasSectionOverflowItems, query, surfaceContext, surface.root],
+		[
+			components,
+			formatMessage,
+			hasSectionOverflowItems,
+			isSlashCommandEnabled,
+			query,
+			surfaceContext,
+			surface.root,
+		],
 	);
 	const rows = useMemo(() => menuModel.sections.flat(), [menuModel.sections]);
 	const selectableRowIndexes = useMemo(
@@ -138,7 +150,6 @@ export const RegisteredTypeAheadMenu = ({
 	);
 	const selectableRowKeys = selectableRowIndexes.map((index) => rows[index]?.key).join(',');
 	const selectableItemCount = selectableRowIndexes.length + (menuModel.footer ? 1 : 0);
-
 	useLayoutEffect(() => {
 		setSelectedItemIndex(selectableItemCount > 0 ? 0 : -1);
 	}, [query, selectableItemCount, selectableRowKeys]);

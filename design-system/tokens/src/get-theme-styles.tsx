@@ -67,7 +67,7 @@ export const getThemeStyles = async (
 			dark: preferences?.dark || themeStateDefaults['dark'],
 			light: preferences?.light || themeStateDefaults['light'],
 			motion: preferences?.motion || themeStateDefaults['motion'](),
-			shape: preferences?.shape || themeStateDefaults['shape'](),
+			shape: preferences?.shape || themeStateDefaults['shape'],
 			spacing: preferences?.spacing || themeStateDefaults['spacing'],
 			typography: preferences?.typography || themeStateDefaults['typography'],
 		};

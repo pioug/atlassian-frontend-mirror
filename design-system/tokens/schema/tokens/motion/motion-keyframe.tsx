@@ -4,6 +4,26 @@ import type { BaseKeyframeToken } from '../../palettes/motion-palette';
 const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 	motion: {
 		keyframe: {
+			grid: {
+				column: {
+					in: {
+						attributes: {
+							group: 'motionKeyframe',
+							state: 'active',
+							introduced: '16.5.0',
+							description: 'Use to expand an inline grid column from 80% to full size on enter.',
+						},
+					},
+					out: {
+						attributes: {
+							group: 'motionKeyframe',
+							state: 'active',
+							introduced: '16.5.0',
+							description: 'Use to collapse an inline grid column from full size to zero on exit.',
+						},
+					},
+				},
+			},
 			scale: {
 				in: {
 					small: {

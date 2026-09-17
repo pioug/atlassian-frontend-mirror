@@ -2,11 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { ComponentType, CSSProperties, JSX, MouseEvent, ReactNode } from 'react';
+// Renders default multi-value content while the shared wrapper owns layout motion and truncation.
+import {
+	type ComponentType,
+	type CSSProperties,
+	type JSX,
+	type MouseEvent,
+	type ReactNode,
+} from 'react';
 
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
-import { useMotion } from '@atlaskit/motion/entering/use-motion';
+import type { UseMotionResult } from '@atlaskit/motion/entering/use-motion';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tag from '@atlaskit/tag/removable-tag';
 import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
@@ -18,6 +25,7 @@ import type { CommonPropsAndClassName, GroupBase, MultiValueGenericProps } from 
 
 import { MultiValueContainer as DefaultMultiValueContainer } from './containers/multi-value-container';
 import { MultiValueLabel } from './multi-value-label';
+import MultiValueMotion from './multi-value-motion';
 import type { MultiValueRemoveProps } from './multi-value-remove';
 
 interface MultiValueComponents<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
@@ -47,45 +55,17 @@ export interface MultiValueProps<
 }
 
 type MultiValueContentProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>> = {
+	hasEllipsis?: boolean;
 	multiValueProps: MultiValueProps<Option, IsMulti, Group>;
-	motionRef?: (node: HTMLDivElement | null) => void;
-	motionState?: ReturnType<typeof useMotion>['state'];
+	motionState?: UseMotionResult['state'];
+	truncationRef?: (node: HTMLDivElement | null) => void;
 };
 
 const multiValueTagWrapperStyles = cssMap({
 	root: {
-		alignItems: 'center',
-		display: 'flex',
-		flex: '0 1 auto',
-		minWidth: token('space.0'),
-		marginBlock: token('space.0'),
-		marginInline: token('space.0'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- styling Tag component wrapper
-		'& > *': {
-			alignItems: 'center',
-			display: 'flex',
-			flex: '1 1 0',
-			minWidth: token('space.0'),
-		},
-	},
-});
-
-const multiValueMotionStyles = cssMap({
-	active: {
-		overflow: 'hidden',
-		transformOrigin: 'left',
-	},
-	entering: {
-		animation: token('motion.label.enter'),
-		'@media (prefers-reduced-motion: reduce)': {
-			animation: 'none',
-		},
-	},
-	exiting: {
-		animation: token('motion.label.exit'),
-		'@media (prefers-reduced-motion: reduce)': {
-			animation: 'none',
-		},
+		// Preserve React Select's compatibility element and its DOM attributes without letting it
+		// hold the Tag's settled width. Tag's own motion wrapper participates in flex layout instead.
+		display: 'contents',
 	},
 });
 
@@ -182,7 +162,7 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	contentProps: MultiValueContentProps<Option, IsMulti, Group>,
 ) => {
-	const { multiValueProps: props, motionRef, motionState } = contentProps;
+	const { hasEllipsis, multiValueProps: props, motionState, truncationRef } = contentProps;
 	const {
 		children,
 		components,
@@ -201,6 +181,7 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 	const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 	const isEnteringWithMotion = motionState === 'entering';
 	const isExitingWithMotion = motionState === 'exiting';
+	const isWidthAnimating = isEnteringWithMotion || isExitingWithMotion;
 
 	const { css: containerCss, className: containerClassName } = getStyleProps(props, 'multiValue', {
 		'multi-value': true,
@@ -214,7 +195,6 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 	const { css: removeCss, className: removeClassName } = getStyleProps(props, 'multiValueRemove', {
 		'multi-value__remove': true,
 	});
-
 	const hasCustomLabel = Label !== MultiValueLabel;
 	const hasCustomContainer = Container !== DefaultMultiValueContainer;
 	const selectStyles = selectProps.styles;
@@ -251,13 +231,8 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 
 		return (
 			<div
-				css={[
-					multiValueTagWrapperStyles.root,
-					isExitingWithMotion && multiValueMotionStyles.active,
-					isExitingWithMotion && multiValueMotionStyles.exiting,
-				]}
+				css={multiValueTagWrapperStyles.root}
 				{...innerProps}
-				ref={motionRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 				className={cx(props.className as any, containerClassName, props.xcss, '-multiValue')}
 			>
@@ -299,12 +274,8 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 					tagLikeBorderFilterStyles,
 					isDisabled && multiValueTagLikeStyles.disabled,
 					isFocused && multiValueTagLikeStyles.focused,
-					(isEnteringWithMotion || isExitingWithMotion) && multiValueMotionStyles.active,
-					isEnteringWithMotion && multiValueMotionStyles.entering,
-					isExitingWithMotion && multiValueMotionStyles.exiting,
 				]}
 				{...innerProps}
-				ref={motionRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- custom styles.multiValue overrides (e.g. colored borders) must be preserved
 				style={containerCss as CSSProperties}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
@@ -316,10 +287,14 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 						innerProps={{
 							style: labelCss as CSSProperties,
 							className: labelClassName,
+							ref: truncationRef,
 						}}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={labelClassName}
-						hasEllipsis={cropWithEllipsis || cropWithEllipsis === undefined}
+						hasEllipsis={
+							(cropWithEllipsis || cropWithEllipsis === undefined) &&
+							(!isWidthAnimating || hasEllipsis)
+						}
 						selectProps={selectProps}
 					>
 						{children}
@@ -364,6 +339,7 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 				innerProps={{
 					style: labelCss as CSSProperties,
 					className: labelClassName,
+					ref: truncationRef,
 				}}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={labelClassName}
@@ -396,29 +372,46 @@ type MotionMultiValueProps<Option, IsMulti extends boolean, Group extends GroupB
 
 const MotionMultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MotionMultiValueProps<Option, IsMulti, Group>,
-) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	props: MotionMultiValueProps<Option, IsMulti, Group>,
-) => {
-	const { multiValueProps } = props;
-	const { ref, state } = useMotion<HTMLDivElement>({
-		onFinish: (motionState) => {
-			if (motionState === 'exiting') {
-				multiValueProps.onMotionFinish?.();
-			}
-		},
-	});
-
-	return (
-		<MultiValueContent multiValueProps={multiValueProps} motionRef={ref} motionState={state} />
-	);
-};
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	multiValueProps,
+}: MotionMultiValueProps<Option, IsMulti, Group>) => (
+	<MultiValueMotion onMotionFinish={multiValueProps.onMotionFinish} shouldMeasureTruncation={true}>
+		{({ hasEllipsis, motionState, truncationRef }) => (
+			<MultiValueContent
+				hasEllipsis={hasEllipsis}
+				multiValueProps={multiValueProps}
+				motionState={motionState}
+				truncationRef={truncationRef}
+			/>
+		)}
+	</MultiValueMotion>
+);
 
 const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MultiValueProps<Option, IsMulti, Group>,
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MultiValueProps<Option, IsMulti, Group>,
 ) => {
-	if (props.isMotionEnabled) {
+	const { Container, Label } = props.components;
+	const selectStyles = props.selectProps.styles;
+	const selectClassNames = props.selectProps.classNames;
+	const selectGetStyles = useSelectGetStyles();
+	// The standard Tag already owns its width and truncation motion. Tag-like custom values do not,
+	// so they continue through MultiValueMotion below.
+	const hasSelfManagedTagMotion =
+		fg('platform-dst-lozenge-tag-badge-visual-uplifts') &&
+		typeof props.children === 'string' &&
+		Label === MultiValueLabel &&
+		Container === DefaultMultiValueContainer &&
+		!selectStyles?.multiValue &&
+		!selectStyles?.multiValueLabel &&
+		!selectStyles?.multiValueRemove &&
+		!selectClassNames?.multiValue &&
+		!selectClassNames?.multiValueLabel &&
+		!selectClassNames?.multiValueRemove &&
+		(selectGetStyles === undefined || props.getStyles === selectGetStyles);
+
+	if (props.isMotionEnabled && !hasSelfManagedTagMotion) {
 		return <MotionMultiValue multiValueProps={props} />;
 	}
 

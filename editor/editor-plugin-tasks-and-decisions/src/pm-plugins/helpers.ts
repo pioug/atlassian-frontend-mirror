@@ -1,7 +1,7 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { findFarthestParentNode, isListNode } from '@atlaskit/editor-common/utils';
 import { NodeRange } from '@atlaskit/editor-prosemirror/model';
-import type { Node, NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
@@ -202,52 +202,6 @@ export const walkOut = ($startPos: ResolvedPos): ResolvedPos => {
 	}
 
 	return $pos;
-};
-
-/**
- * Finds the height of a tree-like structure, given any position inside it.
- *
- * Traverses from the top of the tree to all leaf nodes, and returns the length
- * of the longest path.
- *
- * This means you can use it with things like taskList, which
- * do not nest themselves inside taskItems but rather as adjacent children.
- *
- * @param $pos Any position inside the tree.
- * @param types The node types to consider traversable
- */
-export const subtreeHeight = ($from: ResolvedPos, $to: ResolvedPos, types: NodeType[]): number => {
-	const root = findFarthestParentNode((node) => types.indexOf(node.type) > -1)($from);
-	if (!root) {
-		return -1;
-	}
-
-	// get the height between the root and the current position
-	const distToParent = $from.depth - root.depth;
-
-	// include any following taskList since nested lists appear
-	// as siblings
-	//
-	// this is unlike regular bullet lists where the orderedList
-	// appears as descendent of listItem
-	const blockRange = getBlockRange({ $from, $to });
-	if (!blockRange) {
-		return -1;
-	}
-
-	// and get the max height from the current position to the
-	// deepest leaf node
-	let maxChildDepth = $from.depth;
-	$from.doc.nodesBetween(blockRange.start, blockRange.end, (descendent, relPos, _parent) => {
-		maxChildDepth = Math.max($from.doc.resolve(relPos).depth, maxChildDepth);
-
-		// keep descending down the tree if we can
-		if (types.indexOf(descendent.type) > -1) {
-			return true;
-		}
-	});
-
-	return distToParent + (maxChildDepth - $from.depth);
 };
 
 /**

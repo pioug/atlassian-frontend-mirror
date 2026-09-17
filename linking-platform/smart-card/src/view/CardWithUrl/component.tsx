@@ -1,6 +1,6 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { useSmartLinkContext } from '@atlaskit/link-provider/context';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
@@ -113,18 +113,14 @@ function Component({
 	// TODO: [ZS] Add new experiment flag to determine if the Rovo Actions CTA should be shown
 	const rovoActionsCtaShown = false;
 
-	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
-		: undefined;
+	const fire3PClickEvent = useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI);
 
 	// Shared scope guard for all 3P-click handlers.
 	const shouldFire3PClickEvent =
 		thirdPartyARI &&
 		thirdPartyARI.startsWith(thirdPartyARIPrefix) &&
 		getClickUrl(url, state.details) === url &&
-		fire3PClickEvent &&
-		fg('platform_smartlink_3pclick_analytics');
+		fire3PClickEvent;
 
 	const getDestinationUrl = useCallback(() => {
 		// FIXME: destinationUrl should be rendered in the DOM anchor href instead of derived at click time

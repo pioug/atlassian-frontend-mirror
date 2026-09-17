@@ -8,5 +8,9 @@
 		"isolatedDeclarations": true
 	},
 	"files": [],
-	"references": []
+	"references": [
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		}
+	]
 }

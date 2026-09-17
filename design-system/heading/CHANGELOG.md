@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 7.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.1
 
 ### Patch Changes

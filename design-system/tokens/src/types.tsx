@@ -1406,6 +1406,10 @@ export interface MotionTokenSchema<BaseToken> {
 			hovered: MotionToken<BaseToken>;
 			pressed: MotionToken<BaseToken>;
 		};
+		input: {
+			hovered: MotionToken<BaseToken>;
+			focused: MotionToken<BaseToken>;
+		};
 		listitem: {
 			hovered: MotionToken<BaseToken>;
 			pressed: MotionToken<BaseToken>;
@@ -1511,6 +1515,12 @@ export interface MotionEasingTokenSchema<BaseToken> {
 export interface MotionKeyframeTokenSchema<BaseToken> {
 	motion: {
 		keyframe: {
+			grid: {
+				column: {
+					in: MotionKeyframeToken<BaseToken>;
+					out: MotionKeyframeToken<BaseToken>;
+				};
+			};
 			scale: {
 				in: {
 					small: MotionKeyframeToken<BaseToken>;

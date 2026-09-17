@@ -9,11 +9,13 @@ describe('themeObjectToString', () => {
 			contrastMode: 'auto',
 			dark: 'dark',
 			light: 'light',
+			shape: 'shape',
 			spacing: 'spacing',
 			typography: 'typography',
 		};
 
-		const expected = 'colorMode:auto dark:dark light:light spacing:spacing typography:typography';
+		const expected =
+			'colorMode:auto dark:dark light:light shape:shape spacing:spacing typography:typography';
 
 		expect(themeObjectToString(themeState)).toBe(expected);
 	});
@@ -24,13 +26,14 @@ describe('themeObjectToString', () => {
 			contrastMode: 'auto',
 			dark: 'dark',
 			light: 'light',
+			shape: 'shape',
 			spacing: 'spacing',
 			typography: 'typography',
 			UNSAFE_themeOptions: { brandColor: '#ff0000' },
 		};
 
 		const expected =
-			'colorMode:auto dark:dark light:light spacing:spacing typography:typography UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
+			'colorMode:auto dark:dark light:light shape:shape spacing:spacing typography:typography UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
 
 		expect(themeObjectToString(themeState)).toBe(expected);
 	});
@@ -41,6 +44,7 @@ describe('themeObjectToString', () => {
 			contrastMode: 'auto',
 			dark: 'dark',
 			light: 'light',
+			shape: 'shape',
 			spacing: 'spacing',
 			typography: 'typography',
 			UNSAFE_themeOptions: { brandColor: '#ff0000' },
@@ -48,7 +52,7 @@ describe('themeObjectToString', () => {
 		const themeStateString = themeObjectToString(themeState);
 
 		const expectedEncodedURI =
-			'colorMode%3Aauto%20dark%3Adark%20light%3Alight%20spacing%3Aspacing%20typography%3Atypography%20UNSAFE_themeOptions%3A%7B%22brandColor%22%3A%22%23ff0000%22%7D';
+			'colorMode%3Aauto%20dark%3Adark%20light%3Alight%20shape%3Ashape%20spacing%3Aspacing%20typography%3Atypography%20UNSAFE_themeOptions%3A%7B%22brandColor%22%3A%22%23ff0000%22%7D';
 
 		expect(encodeURIComponent(themeStateString)).toBe(expectedEncodedURI);
 		expect(decodeURIComponent(expectedEncodedURI)).toBe(themeStateString);

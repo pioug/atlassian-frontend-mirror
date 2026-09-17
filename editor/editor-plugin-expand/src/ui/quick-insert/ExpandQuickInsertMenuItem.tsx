@@ -14,6 +14,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
@@ -30,9 +31,14 @@ import type { ExpandPlugin } from '../../types';
 type Props = {
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined;
 	isLegacy: boolean;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 };
 
-export const ExpandQuickInsertMenuItem = ({ api, isLegacy }: Props): React.JSX.Element => {
+export const ExpandQuickInsertMenuItem = ({
+	api,
+	isLegacy,
+	previewImageUrls,
+}: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { editorDisabled, mode } = useSharedPluginStateWithSelector(
 		api,
@@ -78,6 +84,7 @@ export const ExpandQuickInsertMenuItem = ({ api, isLegacy }: Props): React.JSX.E
 			iconBefore={<ExpandElementIcon label="" />}
 			isDisabled={editorDisabled || mode === 'view'}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			title={formatMessage(messages.expand)}
 		/>
 	);

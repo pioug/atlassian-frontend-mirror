@@ -96,6 +96,19 @@ describe('MultiValue', () => {
 			name: 'test@test.com',
 		};
 
+		it('should remove an uplifted value at motion start', () => {
+			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+			passGate('platform-dst-motion-uplift-labels');
+			renderMultiValue({
+				data: { data: email, label: email.name },
+				innerProps: {},
+			});
+
+			screen.getByRole('button').click();
+
+			expect(onClick).toHaveBeenCalledTimes(1);
+		});
+
 		it('should render AddOptionAvatar for email data', async () => {
 			renderMultiValue({
 				data: { data: email, label: email.name },

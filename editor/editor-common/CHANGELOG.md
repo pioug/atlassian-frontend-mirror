@@ -1,5 +1,66 @@
 # @atlaskit/editor-common
 
+## 123.0.0
+
+### Major Changes
+
+- [`3b3e57040d2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3e57040d2d0) -
+  Remove retired flexible-list feature controls and schema styles while preserving shipped list
+  normalization, hidden-marker rendering for wrapper list items, task paste and task-list tab
+  behavior, and toolbar indentation behavior.
+
+  Remove unused legacy list utilities after the flexible-list rollout: `flattenList`,
+  `normalizeListItemsSelection`, `hasValidListIndentationLevel`,
+  `processNestedTaskListsInSameLevel`, and `wrapTaskListIntoListAbove`. The
+  `@atlaskit/editor-common/lists/indentation` entrypoint is also removed.
+
+  Consumers of the removed runtime helpers should use the editor list plugin's indent/outdent
+  commands. The shared `FlattenedItem`, `FlattenListOptions`, and `FlattenListResult` types remain
+  available for the active list implementations.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 122.12.0
+
+### Minor Changes
+
+- [`b2a2413928cac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2a2413928cac) -
+  Match agent highlights, cursors and review diffs to shared Studio and third-party brand colours
+  under the existing telepointer redesign. Use the existing purple attribution treatment for Rovo
+  review diffs and preserve square Rovo telepointer avatars.
+
+### Patch Changes
+
+- [`749f1c3c8359c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/749f1c3c8359c) -
+  Retain the first 30 category results and include the first 10 ecosystem quick-insert registrations
+  when they fall beyond that cutoff.
+
+  Limit slash-command insert-menu category browsing while preserving uncapped search results.
+
+  Classify ecosystem quick-insert provider registrations without changing compatibility keys.
+
+  Preserve app provenance for Quick Insert items while the `platform_editor_slash_command`
+  experiment is enabled.
+
+  Enable Quick Insert category analytics while the `platform_editor_slash_command` experiment is
+  enabled.
+
+- [`ef1c909630275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef1c909630275) -
+  Fix Suggested Edits labels, loading-copy IDs, source tooltips, and source product icons under the
+  existing Suggested Edits rollout.
+- [`fb2456e25ba6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb2456e25ba6f) -
+  The generated content reveal animates `height` to `auto` instead of to a measured value, so the
+  node no longer reads its own height before opening.
+- Updated dependencies
+
+## 122.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 122.11.0
 
 ### Minor Changes

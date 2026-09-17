@@ -1,4 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { getLozengeAppearance } from '@atlaskit/status/status-colors';
 
 import type { StatusType } from '../types';
 
@@ -22,8 +23,11 @@ export const MAX_SUGGESTED_STATUSES = 20;
 // Remove when cleaning up `platform_editor_status_popup_suggestions_patch_1`.
 export const MAX_SUGGESTED_STATUSES_OLD = 7;
 
+// `color` may be a legacy name or a hex value that render the same hue (e.g. `green` and
+// `#D3F1A7` both resolve to `accent-lime`), so the key is built from the resolved appearance
+// rather than the raw attribute value — otherwise both variants would surface as suggestions.
 const getStatusKey = ({ color, text }: Pick<StatusType, 'color' | 'text'>) =>
-	`${color}:${text.trim().toLowerCase()}`;
+	`${getLozengeAppearance(color)}:${text.trim().toLowerCase()}`;
 
 const getDisplayText = (status: StatusType, shouldUppercaseText: boolean) =>
 	shouldUppercaseText && status.style !== 'mixedCase' ? status.text.toUpperCase() : status.text;

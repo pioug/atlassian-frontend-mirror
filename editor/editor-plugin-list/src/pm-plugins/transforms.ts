@@ -1,10 +1,9 @@
 import { isListNode } from '@atlaskit/editor-common/utils';
-import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, NodeRange, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget, ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getListLiftTarget } from './utils/indentation';
 
@@ -85,7 +84,7 @@ export function liftNodeSelectionList(selection: Selection, tr: Transaction): Tr
 }
 
 interface ListCol {
-	node: Node;
+	node: PMNode;
 	pos: number;
 }
 
@@ -125,16 +124,16 @@ export function liftTextSelectionList(selection: Selection, tr: Transaction): Tr
  */
 function getAffectedListsFromTransactions(
 	transactions: readonly Transaction[],
-	doc: Node,
+	doc: PMNode,
 	schema: Schema,
-): Map<number, Node> {
+): Map<number, PMNode> {
 	const { bulletList, orderedList } = schema.nodes;
 	const listTypes = [bulletList, orderedList].filter(Boolean);
 	if (listTypes.length === 0) {
 		return new Map();
 	}
 
-	const result = new Map<number, Node>();
+	const result = new Map<number, PMNode>();
 
 	for (const tr of transactions) {
 		for (const step of tr.steps) {
@@ -152,7 +151,7 @@ function getAffectedListsFromTransactions(
 				// return an outer list that is in a different structural context.
 				// $pos.node(depth) is O(1) array access.
 				let rootListPos: number | null = null;
-				let rootListNode: Node | null = null;
+				let rootListNode: PMNode | null = null;
 				for (let depth = $pos.depth; depth >= 0; depth--) {
 					const node = $pos.node(depth);
 					if (listTypes.includes(node.type)) {
@@ -174,7 +173,7 @@ function getAffectedListsFromTransactions(
 }
 
 interface ApplyListNormalisationFixesOptions {
-	doc: Node;
+	doc: PMNode;
 	schema: Schema;
 	tr: Transaction;
 	transactions: readonly Transaction[];
@@ -184,10 +183,6 @@ interface ApplyListNormalisationFixesOptions {
  * Applies list normalisation fixes to the given transaction for all affected list subtrees.
  * Processes nodes in reverse document order so that position offsets from insertions/joins
  * do not affect earlier positions.
- *
- * When platform_editor_flexible_list_indentation is off: inserts an empty paragraph before any listItem whose
- * first child is a list node, and merges adjacent same-type list nodes within a listItem.
- * When platform_editor_flexible_list_indentation is on: only merges adjacent same-type list nodes.
  */
 export function applyListNormalisationFixes({
 	tr,
@@ -200,12 +195,10 @@ export function applyListNormalisationFixes({
 		return tr;
 	}
 
-	const { listItem, paragraph, bulletList, orderedList, taskList } = schema.nodes;
+	const { listItem } = schema.nodes;
 	if (!listItem) {
 		return tr;
 	}
-	const nestedListTypes = [bulletList, orderedList, taskList].filter(Boolean);
-
 	// Process lists in reverse position order so fixes at higher positions
 	// don't shift the positions of fixes at lower positions.
 	const sortedEntries = [...affectedLists.entries()].sort(([posA], [posB]) => posB - posA);
@@ -254,25 +247,6 @@ export function applyListNormalisationFixes({
 							'[editor-plugin-list] applyListNormalisationFixes: unexpected join failure',
 							e,
 						);
-					}
-				}
-			}
-
-			// Insert empty paragraph before a list-type first child when _indentation is off.
-			// Only list types (bulletList, orderedList, taskList) are invalid as a first child —
-			// other non-paragraph types (mediaSingle, codeBlock, extension) are valid per the schema.
-			if (
-				paragraph &&
-				!expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)
-			) {
-				// Re-map position after any join steps that may have been added above.
-				const remappedPos = tr.mapping.map(listItemPositions[i]);
-				const currentNode = tr.doc.nodeAt(remappedPos);
-				const firstChild = currentNode?.firstChild;
-				if (firstChild && nestedListTypes.includes(firstChild.type)) {
-					const emptyParagraph = paragraph.createAndFill();
-					if (emptyParagraph) {
-						tr.insert(remappedPos + 1, emptyParagraph);
 					}
 				}
 			}

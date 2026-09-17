@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.0
+
+### Minor Changes
+
+- [`b2a2413928cac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2a2413928cac) -
+  Match agent highlights, cursors and review diffs to shared Studio and third-party brand colours
+  under the existing telepointer redesign. Use the existing purple attribution treatment for Rovo
+  review diffs and preserve square Rovo telepointer avatars.
+
+### Patch Changes
+
+- [`8c53dda37401d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c53dda37401d) -
+  Fix contributor tags on block nodes, behind `confluence_ncs_step_diffing_version_history`. Changes
+  are now split per contributor instead of being credited to whoever wrote last, so each
+  contributor's change hosts its own tag and is its own navigation stop.
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- [`285905eda333a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/285905eda333a) -
+  Show agent avatars before user avatars in connected contributor tags.
+- [`2adef2b5610ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2adef2b5610ff) -
+  [ux] Supply the top margin above a diff widget that lands at the start of its parent, so deleted
+  content no longer renders flush against the node below it. A node at the start of its parent has
+  its top margin reset; a spacer shaped like that node now carries the margin instead, in the
+  document and inside layout columns, expands, sync blocks and table cells. A complete deleted
+  textblock also keeps its own block wrapper so it retains its margin, including when that block
+  carries an alignment or indentation mark. Behind the platform_editor_ai_show_diff_patch_2 feature
+  gate.
+- Updated dependencies
+
 ## 16.1.0
 
 ### Minor Changes

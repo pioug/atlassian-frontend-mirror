@@ -8,6 +8,12 @@ import type { BaseKeyframeToken } from '../../palettes/motion-palette';
 const motion: ValueSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 	motion: {
 		keyframe: {
+			grid: {
+				column: {
+					in: { value: 'GridColumnIn80to100' },
+					out: { value: 'GridColumnOut100to0' },
+				},
+			},
 			scale: {
 				in: {
 					small: { value: 'ScaleIn95to100' },

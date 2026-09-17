@@ -89,6 +89,17 @@ const checkIdentifier = (
 ) => {
 	const { parent } = identifier as Rule.Node;
 
+	// Type references and `typeof` queries are erased at runtime and are not
+	// imported style values. Runtime expressions wrapped by `as` or `satisfies`
+	// must still be checked.
+	if (
+		parent &&
+		((parent as { type?: string }).type === 'TSTypeReference' ||
+			(parent as { type?: string }).type === 'TSTypeQuery')
+	) {
+		return;
+	}
+
 	// Even though `member` in `object.member` is syntactically an identifier,
 	// it should be ignored as `.member` is syntax sugar for `['member']` here.
 	// We should still lint `object[member]` (when `parent.computed` === true)

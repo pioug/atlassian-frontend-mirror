@@ -12,14 +12,10 @@ jest.mock('../../config', () => ({
 	getConfig: jest.fn(),
 }));
 
-import {
-	clearState,
-	flushSsrRenderProfilerTraces,
-	type GlobalThis,
-	type Span,
-	SsrRenderProfilerInner,
-	type TesseractTelemetryAPI,
-} from '../ssr-render-profiler';
+import { clearState } from '../ssr-render-profiler/clear-state';
+import { flushSsrRenderProfilerTraces } from '../ssr-render-profiler/flush-traces';
+import { SsrRenderProfilerInner } from '../ssr-render-profiler/ssr-render-profiler-inner';
+import type { GlobalThis, Span, TesseractTelemetryAPI } from '../ssr-render-profiler/types';
 
 const mockGetConfig = require('../../config').getConfig;
 const mockGetActiveInteraction = require('../../interaction-metrics').getActiveInteraction;

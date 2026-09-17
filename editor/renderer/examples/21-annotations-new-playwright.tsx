@@ -2,12 +2,9 @@ import React from 'react';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import CardClient from '@atlaskit/link-provider/client';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { createRendererWindowBindings } from './helper/testing-setup';
 
 import { RendererWithAnnotationsAndBodiedExtensions } from './reference-renderer-annotation-provider/RendererWithAnnotationsAndBodiedExtensions';
-
-setupEditorExperiments('test', { comment_on_bodied_extensions: true });
 
 export default function Example(): React.JSX.Element {
 	createRendererWindowBindings(window);

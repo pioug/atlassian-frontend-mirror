@@ -7,6 +7,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
+import { isTaggableBlockNode } from '../utils/taggableBlockNodes';
 
 import {
 	buildAddedCellOverlayRoundedStyle,
@@ -61,45 +62,34 @@ const UNSTYLED_NODES = [
 
 const CELL_NODES = ['tableCell', 'tableHeader'];
 
-/**
- * Block nodes that host a contributor tag of their own — those whose whole box reads as one change.
- * Lists and tables are excluded: they decorate per item and per cell, with no one-tag-per-block
- * design yet. `blockCard` covers the datasource variant, which is the same node type.
- */
-const TAGGABLE_BLOCK_NODES: ReadonlySet<string> = new Set([
-	'blockCard',
-	'blockquote',
-	'bodiedExtension',
-	'codeBlock',
-	'embedCard',
-	'expand',
-	'extension',
-	'media',
-	'multiBodiedExtension',
-	'panel',
-	'rule',
-]);
-
 /** Panels, rules and media can also sit in a table cell, which is out of scope for block tags. */
 const isInsideTable = (doc: PMNode, pos: number): boolean =>
 	findParentNodeClosestToPos(doc.resolve(pos), (node) => node.type.name === 'table') !== undefined;
 
-/** Whether this block can host a contributor tag of its own. */
+/**
+ * Whether this block can host a contributor tag of its own.
+ *
+ * The node type is resolved from the document rather than matched on `change.name`, so a schema
+ * variant is recognised as the type it varies — see `isTaggableBlockNode`. `from` is the node's own
+ * position, so `nodeAt` returns exactly the node being decorated.
+ */
 const canTagBlock = ({
 	diffType,
 	doc,
 	from,
-	name,
 }: {
 	diffType: DiffType | undefined;
 	doc: PMNode | undefined;
 	from: number;
-	name: string;
-}): boolean =>
-	doc !== undefined &&
-	isExtendedEnabled(diffType) &&
-	TAGGABLE_BLOCK_NODES.has(name) &&
-	!isInsideTable(doc, from);
+}): boolean => {
+	if (doc === undefined || !isExtendedEnabled(diffType)) {
+		return false;
+	}
+
+	const nodeType = doc.nodeAt(from)?.type;
+
+	return nodeType !== undefined && isTaggableBlockNode(nodeType) && !isInsideTable(doc, from);
+};
 
 /** Positioning context for the cell overlay widget decorations. */
 const cellPositionStyle = convertToInlineCss({
@@ -266,8 +256,7 @@ export const createBlockChangedDecoration = ({
 	// Derived from the node range so it survives a recalculation, as in
 	// `createInlineChangedDecoration`. Changes are disjoint, so no two of them decorate one node.
 	const diffId = showContributorTags ? `block-${change.from}-${change.to}` : crypto.randomUUID();
-	const shouldTagBlock =
-		showContributorTags && canTagBlock({ diffType, doc, from: change.from, name: change.name });
+	const shouldTagBlock = showContributorTags && canTagBlock({ diffType, doc, from: change.from });
 	// Named so this block's own tag can position against it; see `createContributorTagWidget`.
 	const tagAnchorName =
 		shouldTagBlock && isContributorTagWidgetEnabled()
@@ -328,7 +317,9 @@ export const createBlockChangedDecoration = ({
 			}),
 		);
 	}
-	// isInserted is only read under the extended experience, so pass it unconditionally.
+	// isInserted is only read under the extended experience, so pass it unconditionally. `change.name`
+	// verbatim: base-name resolution stays in `canTagBlock`, which needs tags on, so a schema
+	// variant's legacy style is untouched — see `resolveBaseNodeName`.
 	const nodeStyle = getBlockNodeStyle({
 		nodeName: change.name,
 		colorScheme,
@@ -374,6 +365,8 @@ export const createBlockChangedDecoration = ({
 	}
 
 	if (decorations.length === 0) {
+		// An unstyled node type (paragraph, heading, list, layout, …) emits no decoration at all, so
+		// there is nothing for a tag to hang off even when the node type would otherwise be taggable.
 		return decorations;
 	}
 

@@ -48,6 +48,22 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		input: {
+			hovered: {
+				value: {
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
+				},
+			},
+			focused: {
+				value: {
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
+				},
+			},
+		},
 		listitem: {
 			hovered: {
 				value: {
@@ -335,7 +351,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				value: {
 					duration: 'Duration150',
 					curve: 'EasePracticalOut',
-					keyframes: ['ScaleXIn80to100', 'FadeIn0to100'],
+					keyframes: ['GridColumnIn80to100', 'FadeIn0to100'],
 					fill: 'AnimationFillModeBackwards',
 				},
 			},
@@ -343,7 +359,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				value: {
 					duration: 'Duration100',
 					curve: 'EasePracticalIn',
-					keyframes: ['ScaleXOut100to0', 'FadeOut100to0'],
+					keyframes: ['GridColumnOut100to0', 'FadeOut100to0'],
 					fill: 'AnimationFillModeForwards',
 				},
 			},

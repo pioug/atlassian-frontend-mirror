@@ -6,7 +6,6 @@
 import { useCallback } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
@@ -99,7 +98,7 @@ const ActionButton = ({
 			testId={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style}
-			{...(fg('platform_sl_action_refactoring') ? { 'aria-label': ariaLabel } : {})}
+			aria-label={ariaLabel}
 		>
 			<Inline alignBlock="center" grow="fill" space={space}>
 				{icon}

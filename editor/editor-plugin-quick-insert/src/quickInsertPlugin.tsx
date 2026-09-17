@@ -452,7 +452,8 @@ function quickInsertPluginFactory(
 						if (
 							!isDestroyed &&
 							!quickInsertItemsAnalyticsScheduler &&
-							isExperimentEnabled('platform_editor_slash_app_category_analytics')
+							(isExperimentEnabled('platform_editor_slash_app_category_analytics') ||
+								isExperimentEnabled('platform_editor_slash_command'))
 						) {
 							quickInsertItemsAnalyticsScheduler =
 								createQuickInsertItemsAnalyticsScheduler(dispatchAnalyticsEvent);

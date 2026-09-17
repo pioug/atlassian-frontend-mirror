@@ -1,5 +1,16 @@
 # @atlaskit/datetime-picker
 
+## 18.7.3
+
+### Patch Changes
+
+- [`9120a19d533ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9120a19d533ce) -
+  Use the current local date as the reference when parsing dateFormat input, behind
+  `platform-dst-dp-current-reference-date`. Two-digit years now use date-fns century inference
+  relative to the current year, and formats without a year use the current year instead of the Unix
+  epoch. Requires `platform-dst-dp-parse-date-format` to be enabled.
+- Updated dependencies
+
 ## 18.7.2
 
 ### Patch Changes

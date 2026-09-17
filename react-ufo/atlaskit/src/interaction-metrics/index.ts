@@ -55,7 +55,7 @@ import {
 import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context/getInteractionId';
 import { BACKEND_RESOURCE_TIMING_INITIATOR_TYPES } from '../resource-timing/common/utils/resource-timing-initiator-types';
-import { flushSsrRenderProfilerTraces } from '../segment/ssr-render-profiler';
+import { flushSsrRenderProfilerTraces } from '../segment/ssr-render-profiler/flush-traces';
 import { newVCObserver } from '../vc/newVCObserver';
 import { type VCObserverInterface } from '../vc/types';
 

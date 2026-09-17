@@ -1,7 +1,13 @@
+import { agentBrandColorSchemes } from '@atlaskit/agent-color/agent-brand-color-schemes';
+import type {
+	AgentBrandColorScheme,
+	AgentPresenceColor,
+} from '@atlaskit/agent-color/agent-presence-color-types';
+
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { token } from '@atlaskit/tokens';
 
-import type { AdsAccentColor, DiffColorScheme } from './types';
+import type { AccentColor, AdsAccentColor, DiffColorScheme } from './types';
 import { getStandardDeletedTextDecorationStyle } from './getStandardDeletedTextDecorationStyle';
 
 /**
@@ -126,54 +132,56 @@ const textAccentMap: Record<AdsAccentColor, string> = {
 	lime: token('color.text.accent.lime'),
 };
 
-function bgSubtlest(color: AdsAccentColor): string {
-	return bgSubtlestMap[color];
+const getBrand = (color: AccentColor): AgentPresenceColor | undefined =>
+	Object.prototype.hasOwnProperty.call(agentBrandColorSchemes, color)
+		? agentBrandColorSchemes[color as AgentBrandColorScheme]
+		: undefined;
+
+function bgSubtlest(color: AccentColor): string {
+	return getBrand(color)?.background ?? bgSubtlestMap[color as AdsAccentColor];
 }
 
-function bgSubtlestPressed(color: AdsAccentColor): string {
-	return bgSubtlestPressedMap[color];
+function bgSubtlestPressed(color: AccentColor): string {
+	return getBrand(color)?.background ?? bgSubtlestPressedMap[color as AdsAccentColor];
 }
 
-function bgSubtler(color: AdsAccentColor): string {
-	return bgSubtlerMap[color];
+function bgSubtler(color: AccentColor): string {
+	return getBrand(color)?.border ?? bgSubtlerMap[color as AdsAccentColor];
 }
 
-function bgBolder(color: AdsAccentColor): string {
-	return bgBolderMap[color];
+function bgBolder(color: AccentColor): string {
+	return getBrand(color)?.bold ?? bgBolderMap[color as AdsAccentColor];
 }
 
-function bgSubtlerPressed(color: AdsAccentColor): string {
-	return bgSubtlerPressedMap[color];
+function bgSubtlerPressed(color: AccentColor): string {
+	return getBrand(color)?.background ?? bgSubtlerPressedMap[color as AdsAccentColor];
 }
 
-function borderAccent(color: AdsAccentColor): string {
-	return borderAccentMap[color];
+function borderAccent(color: AccentColor): string {
+	return getBrand(color)?.border ?? borderAccentMap[color as AdsAccentColor];
 }
 
-function textAccent(color: AdsAccentColor): string {
-	return textAccentMap[color];
+function textAccent(color: AccentColor): string {
+	return getBrand(color)?.accentText ?? textAccentMap[color as AdsAccentColor];
 }
 
-/**
- * Presentation tokens for a contributor tag in one diff colour.
- *
- * A `bolder` fill rather than the `subtlest` tint the highlight uses: the tag is a label on the
- * change, and at tag size a tint reads as a second, weaker highlight sitting above the real one.
- * `inverse` is the only text tone that reads on a bolder fill, and it needs no per-colour map —
- * which is also why the tag carries no border: the fill alone bounds it.
- */
-export function getAccentTokens(color: AdsAccentColor): {
+function deletedBackground(color: AccentColor): string {
+	return getBrand(color)?.emphasisBackground ?? bgSubtlest(color);
+}
+
+/** Contributor tags use a bold fill with a contrasting foreground, including branded schemes. */
+export function getAccentTokens(color: AccentColor): {
 	background: string;
 	text: string;
 } {
 	return {
 		background: bgBolder(color),
-		text: token('color.text.inverse'),
+		text: getBrand(color)?.boldText ?? token('color.text.inverse'),
 	};
 }
 
 /** Border token for a contributor accent, used by the diff indicator. */
-export function getAccentBorderColor(color: AdsAccentColor): string {
+export function getAccentBorderColor(color: AccentColor): string {
 	return borderAccent(color);
 }
 
@@ -195,14 +203,17 @@ function deletedCellOutline(colors: DiffColorScheme): string {
 
 function insertedInlineBorderColor(colors: DiffColorScheme): string {
 	return colors.insertedInlineBorderTone === 'backgroundHovered'
-		? bgSubtlestHoveredMap[colors.insertColor]
+		? (getBrand(colors.insertColor)?.border ??
+				bgSubtlestHoveredMap[colors.insertColor as AdsAccentColor])
 		: borderAccent(colors.insertColor);
 }
 
 /** Inline inserted content — default state. */
 export function buildInsertStyle(colors: DiffColorScheme): string {
+	const brand = getBrand(colors.insertColor);
 	return convertToInlineCss({
 		background: bgSubtlest(colors.insertColor),
+		...(brand ? { color: brand.text } : {}),
 		textDecoration: 'underline',
 		textDecorationStyle: colors.insertUnderlineStyle,
 		textDecorationThickness: token('space.025'),
@@ -222,8 +233,10 @@ export function buildInsertStyleInBlock(colors: DiffColorScheme): string {
 
 /** Extended insert style — background + border-bottom underline. */
 export function buildInsertStyleExtended(colors: DiffColorScheme): string {
+	const brand = getBrand(colors.insertColor);
 	return convertToInlineCss({
 		background: bgSubtlest(colors.insertColor),
+		...(brand ? { color: brand.text } : {}),
 		borderBottom: `2px solid ${insertedInlineBorderColor(colors)}`,
 		padding: `1px 0 2px`,
 	});
@@ -239,8 +252,10 @@ export function buildInsertStyleInBlockExtended(colors: DiffColorScheme): string
 
 /** Active state of the extended insert style. */
 export function buildInsertStyleExtendedActive(colors: DiffColorScheme): string {
+	const brand = getBrand(colors.insertColor);
 	return convertToInlineCss({
 		background: bgSubtlerPressed(colors.insertActiveColor),
+		...(brand ? { color: brand.text } : {}),
 		borderBottom: `2px solid ${borderAccent(colors.insertColor)}`,
 		padding: `1px 0 2px`,
 	});
@@ -248,16 +263,20 @@ export function buildInsertStyleExtendedActive(colors: DiffColorScheme): string 
 
 /** Extended insert style without underline — background + padding only. */
 export function buildInsertStyleExtendedNoUnderline(colors: DiffColorScheme): string {
+	const brand = getBrand(colors.insertColor);
 	return convertToInlineCss({
 		background: bgSubtlest(colors.insertColor),
+		...(brand ? { color: brand.text } : {}),
 		padding: `1px 0 2px`,
 	});
 }
 
 /** Active state of the no-underline extended insert style. */
 export function buildInsertStyleExtendedNoUnderlineActive(colors: DiffColorScheme): string {
+	const brand = getBrand(colors.insertColor);
 	return convertToInlineCss({
 		background: bgSubtlerPressed(colors.insertActiveColor),
+		...(brand ? { color: brand.text } : {}),
 		padding: `1px 0 2px`,
 	});
 }
@@ -271,8 +290,10 @@ export function buildInsertStyleInBlockExtendedNoUnderline(_colors: DiffColorSch
 
 /** Inline inserted content — active/focused state. */
 export function buildInsertStyleActive(colors: DiffColorScheme): string {
+	const brand = getBrand(colors.insertColor);
 	return convertToInlineCss({
 		background: bgSubtlerPressed(colors.insertActiveColor),
+		...(brand ? { color: brand.text } : {}),
 		textDecoration: 'underline',
 		textDecorationStyle: colors.insertUnderlineStyle,
 		textDecorationThickness: token('space.025'),
@@ -645,7 +666,7 @@ export function buildDeletedInlineContentStyleExtended(
 	const backgroundColor =
 		isActive && !isUnderlineEmphasis && colors.deletedInlineBorderTone === 'background'
 			? bgSubtlerPressed(colors.deleteActiveColor)
-			: bgSubtlest(colors.deleteColor);
+			: deletedBackground(colors.deleteColor);
 
 	const borderColor = isUnderlineEmphasis
 		? borderAccent(colors.deleteActiveColor)
@@ -881,7 +902,7 @@ export function getDeletedInlineRevealColors(colors: DiffColorScheme): {
  * paints at rest, so hovering restores the appearance rather than introducing a third one.
  */
 export function getDeletedHighlightHoverColor(colors: DiffColorScheme): string {
-	return bgSubtlest(colors.deleteColor);
+	return deletedBackground(colors.deleteColor);
 }
 
 /**

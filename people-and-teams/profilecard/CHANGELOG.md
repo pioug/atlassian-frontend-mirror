@@ -1,5 +1,26 @@
 # @atlaskit/profilecard
 
+## 26.24.8
+
+### Patch Changes
+
+- [`44e88b1074ac7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44e88b1074ac7) -
+  Use dedicated Link Provider and Rovo conversation starter entrypoints while preserving existing
+  bindings and type imports.
+- Updated dependencies
+
+## 26.24.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.24.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.24.5
 
 ### Patch Changes

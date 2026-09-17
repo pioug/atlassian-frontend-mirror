@@ -9,8 +9,10 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import {
 	buildQuickInsertMenuModel,
 	getMatchingQuickInsertComponents,
+	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
+import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
 import { TYPE_AHEAD_SURFACE_CONTEXT } from '@atlaskit/editor-common/type-ahead-surface-context';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
@@ -66,10 +68,19 @@ export const RegisteredInsertMenu = ({
 		() => createSurfaceContext(TYPE_AHEAD_SURFACE_CONTEXT, { menuOpenId }),
 		[menuOpenId],
 	);
+	const hasSectionOverflowItems = useMemo(
+		() => components.some(({ key }) => isSectionOverflowItemKey(key)),
+		[components],
+	);
 	const model = useMemo(
 		() =>
 			query === ''
-				? buildQuickInsertMenuModel(components, MENU, undefined, surfaceContext)
+				? buildQuickInsertMenuModel(
+						components,
+						MENU,
+						hasSectionOverflowItems ? selectQuickInsertCategoryItems : undefined,
+						surfaceContext,
+					)
 				: getMatchingQuickInsertComponents({
 						components,
 						formatMessage,
@@ -77,7 +88,7 @@ export const RegisteredInsertMenu = ({
 						rootComponent: MENU,
 						surfaceContext,
 					}),
-		[components, formatMessage, query, surfaceContext],
+		[components, formatMessage, hasSectionOverflowItems, query, surfaceContext],
 	);
 	const itemCount = useMemo(
 		() =>

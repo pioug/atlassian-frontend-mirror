@@ -1,5 +1,20 @@
 # @atlaskit/editor-prosemirror
 
+## 9.0.0
+
+### Major Changes
+
+- [`8c0128b9494b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c0128b9494b2) -
+  Remove `Step` from the `@atlaskit/editor-prosemirror/transform` entrypoint. Import `Step`,
+  including type-only uses, from `@atlaskit/editor-prosemirror/transform-override` instead:
+
+  ```ts
+  import { Step } from '@atlaskit/editor-prosemirror/transform-override';
+  ```
+
+  The `transform` entrypoint still initializes the metadata-preserving `Step.fromJSON` override. All
+  other exports remain unchanged.
+
 ## 8.0.3
 
 ### Patch Changes

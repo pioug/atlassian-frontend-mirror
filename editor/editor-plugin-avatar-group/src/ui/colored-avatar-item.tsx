@@ -6,6 +6,7 @@
 import { jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
@@ -20,10 +21,15 @@ interface ColoredAvatarItemProps {
 }
 
 export const ColoredAvatarItem = (props: ColoredAvatarItemProps): jsx.JSX.Element => {
+	// The fallback mirrors a participant palette slot; red is reserved for deleted content.
+	const fallbackColor = fg('confluence_ncs_step_diffing_version_history')
+		? token('color.background.accent.orange.subtle')
+		: token('color.background.accent.red.subtle');
+
 	const participantColor = props.api?.collabEdit?.actions?.getAvatarColor(
 		props.presenceId ?? props.sessionId,
 	) ?? {
-		backgroundColor: token('color.background.accent.red.subtle'),
+		backgroundColor: fallbackColor,
 		textColor: token('color.text.accent.gray.bolder'),
 	};
 

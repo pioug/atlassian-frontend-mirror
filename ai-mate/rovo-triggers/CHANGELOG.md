@@ -1,5 +1,19 @@
 # @atlaskit/rovo-triggers
 
+## 11.1.0
+
+### Minor Changes
+
+- [`c575d86f82b4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c575d86f82b4a) -
+  Add an opt-in deferred seeded-chat opening lifecycle gated by
+  `jira_rovo_defer_view_chat_open_until_seeded`.
+- [`ee866df2b4a26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee866df2b4a26) -
+  Add optional `statusScope` and `isNewStatus` to the Jira workflow wizard ADD_STATUS payload.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

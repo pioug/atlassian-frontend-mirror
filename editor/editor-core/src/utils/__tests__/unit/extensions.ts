@@ -111,36 +111,37 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		);
 	});
 
-	it('should returns quickInsert items from all extensions', async () => {
-		mockExpEnabled('platform_editor_slash_app_category_analytics');
+	it.each([
+		[false, false, false],
+		[true, false, true],
+		[false, true, true],
+		[true, true, true],
+	])(
+		'forwards app identity when category analytics is %s and slash command is %s',
+		async (categoryAnalytics, slashCommand, shouldIncludeApp) => {
+			(categoryAnalytics ? mockExpEnabled : mockExpDisabled)(
+				'platform_editor_slash_app_category_analytics',
+			);
+			(slashCommand ? mockExpEnabled : mockExpDisabled)('platform_editor_slash_command');
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				dummyExtensionProvider,
+				{} as EditorActions,
+				{ current: undefined },
+			);
 
-		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
-			dummyExtensionProvider,
-			{} as EditorActions,
-			{ current: undefined },
-		);
+			const items = await quickInsertProvider.getItems();
 
-		const items = await quickInsertProvider.getItems();
-
-		expect(items).toMatchObject([
-			{ app: { key: 'first' }, title: 'First dummy extension' },
-			{ app: { key: 'second' }, title: 'Second dummy extension' },
-		]);
-	});
-
-	it('omits app identity when category analytics is disabled', async () => {
-		mockExpDisabled('platform_editor_slash_app_category_analytics');
-		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
-			dummyExtensionProvider,
-			{} as EditorActions,
-			{ current: undefined },
-		);
-
-		const items = await quickInsertProvider.getItems();
-
-		expect(items[0]).not.toHaveProperty('app');
-		expect(items[1]).not.toHaveProperty('app');
-	});
+			if (shouldIncludeApp) {
+				expect(items).toMatchObject([
+					{ app: { key: 'first' }, title: 'First dummy extension' },
+					{ app: { key: 'second' }, title: 'Second dummy extension' },
+				]);
+			} else {
+				expect(items[0]).not.toHaveProperty('app');
+				expect(items[1]).not.toHaveProperty('app');
+			}
+		},
+	);
 
 	it('should create analytics event when inserted', async () => {
 		const dummyExtensionProvider = setup();

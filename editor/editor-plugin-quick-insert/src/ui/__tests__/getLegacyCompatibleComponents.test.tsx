@@ -1,8 +1,9 @@
 import { getLegacyCompatibleComponents } from '../getLegacyCompatibleComponents';
 
-const item = (key: string, title = key) => ({
+const item = (key: string, title = key, app?: { source?: 'internal' | 'ecosystem' }) => ({
 	key,
 	title,
+	...(app ? { app: { key, ...app } } : {}),
 	action: jest.fn(() => ({}) as never),
 });
 
@@ -24,6 +25,25 @@ describe('getLegacyCompatibleComponents', () => {
 		expect(components.map(({ key }) => key)).toEqual([
 			'quick-insert-provider-legacy',
 			'quick-insert-provider-direct',
+		]);
+	});
+
+	it('classifies matched ecosystem registrations while retaining raw matching keys', () => {
+		const components = getLegacyCompatibleComponents({
+			directComponents: [directComponent('direct'), directComponent('unmatched')],
+			onInsert: jest.fn(),
+			providedItems: [
+				item('direct', 'direct', { source: 'ecosystem' }),
+				item('fallback', 'fallback', { source: 'ecosystem' }),
+				item('internal', 'internal', { source: 'internal' }),
+			],
+		});
+
+		expect(components.map(({ key }) => key)).toEqual([
+			'quick-insert-ecosystem-fallback',
+			'quick-insert-provider-internal',
+			'quick-insert-ecosystem-direct',
+			'quick-insert-provider-unmatched',
 		]);
 	});
 

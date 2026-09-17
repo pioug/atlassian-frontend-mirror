@@ -13,5 +13,9 @@
 		"../src/**/*.test.*"
 	],
 	"files": [],
-	"references": []
+	"references": [
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		}
+	]
 }

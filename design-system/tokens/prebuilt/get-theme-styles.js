@@ -62,7 +62,7 @@ var getThemeStyles = exports.getThemeStyles = /*#__PURE__*/function () {
               dark: (preferences === null || preferences === void 0 ? void 0 : preferences.dark) || _themeStateDefaults.themeStateDefaults['dark'],
               light: (preferences === null || preferences === void 0 ? void 0 : preferences.light) || _themeStateDefaults.themeStateDefaults['light'],
               motion: (preferences === null || preferences === void 0 ? void 0 : preferences.motion) || _themeStateDefaults.themeStateDefaults['motion'](),
-              shape: (preferences === null || preferences === void 0 ? void 0 : preferences.shape) || _themeStateDefaults.themeStateDefaults['shape'](),
+              shape: (preferences === null || preferences === void 0 ? void 0 : preferences.shape) || _themeStateDefaults.themeStateDefaults['shape'],
               spacing: (preferences === null || preferences === void 0 ? void 0 : preferences.spacing) || _themeStateDefaults.themeStateDefaults['spacing'],
               typography: (preferences === null || preferences === void 0 ? void 0 : preferences.typography) || _themeStateDefaults.themeStateDefaults['typography']
             };

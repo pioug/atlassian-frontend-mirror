@@ -84,6 +84,7 @@ describe('useThemeObserver', () => {
 			dark: 'dark',
 			light: 'light',
 			motion: 'motion',
+			shape: 'shape',
 			spacing: 'spacing',
 			typography: 'typography',
 		};

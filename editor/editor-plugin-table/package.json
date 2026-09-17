@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "30.0.11",
+	"version": "31.0.0",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,6 +81,10 @@
 		"./ui/common-styles": "./src/entry-points/ui-common-styles.ts"
 	},
 	"platform-feature-flags": {
+		"platform-dst-tokens-finesse": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_markdown_compatible_toolbar": {
 			"type": "boolean"
 		},

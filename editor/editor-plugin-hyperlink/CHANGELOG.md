@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.13
+
+### Patch Changes
+
+- [`c1111df7c2aef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1111df7c2aef) -
+  Add light and dark hover previews for selected slash-command media, Whiteboard, and Profile
+  Picture items when `platform_editor_slash_command` is enabled.
+
+## 20.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.11
 
 ### Patch Changes

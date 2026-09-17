@@ -1,8 +1,14 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
 
 const defaultConfig = {
-	serviceUrl: `${DEFAULT_CONFIG.stargateRoot}/teamsslack/api/team`,
+	get serviceUrl() {
+		return fg('ptc-onboard-teams-slack-app-to-global-edge-url')
+			? DEFAULT_CONFIG.teamsInSlackServiceUrl
+			: `${DEFAULT_CONFIG.stargateRoot}/teamsslack/api/team`;
+	},
 };
 
 interface TeamInSlackResponse {

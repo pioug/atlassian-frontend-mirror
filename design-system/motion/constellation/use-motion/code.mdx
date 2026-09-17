@@ -19,6 +19,7 @@ type Transition = 'entering' | 'exiting';
 
 function useMotion<T extends HTMLElement = HTMLElement>(props?: {
 	initialState?: MotionState;
+	onStart?: (state: Transition) => void;
 	onFinish?: (state: Transition) => void;
 }): {
 	state: MotionState;
@@ -29,11 +30,12 @@ function useMotion<T extends HTMLElement = HTMLElement>(props?: {
 
 ## Options
 
-Both options are optional, and calling the hook with no arguments is the common case.
+All options are optional, and calling the hook with no arguments is the common case.
 
 | Property       | Type                          | Description                                                                                                                                                                                           |
 | -------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `initialState` | `MotionState`                 | The state the machine starts in, overriding the default mount behaviour. Use `visible` to render at rest with no entry animation, or `hidden` to stay mounted and hidden until `reanimate` is called. |
+| `onStart`      | `(state: Transition) => void` | Called immediately before an entering or exiting motion starts. Use the state to handle one direction, or ignore it to handle both.                                                                   |
 | `onFinish`     | `(state: Transition) => void` | Called when an entering or exiting animation completes. Also called with `entering` immediately on mount when the element is not appearing.                                                           |
 
 `useMotion` is generic over the element type it will be attached to, which types the returned `ref`:

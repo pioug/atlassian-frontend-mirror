@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 20.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.4.1
 
 ### Patch Changes

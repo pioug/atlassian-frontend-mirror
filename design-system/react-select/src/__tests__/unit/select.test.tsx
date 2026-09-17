@@ -1843,6 +1843,12 @@ test('multi select > does not consume a surrounding modal exit when tag motion i
 	await waitFor(() => expect(onCloseComplete).toHaveBeenCalledTimes(1));
 });
 
+test('single select > supports an undefined conditional MultiValue override', () => {
+	render(<Select {...BASIC_PROPS} components={{ MultiValue: undefined }} />);
+
+	expect(screen.getByTestId(`${testId}-select--container`)).toBeInTheDocument();
+});
+
 test('multi select > applies tag motion when the visual uplift and tag motion gates are on', () => {
 	jest.useFakeTimers();
 	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
@@ -1871,34 +1877,46 @@ test('multi select > applies tag motion when the visual uplift and tag motion ga
 	act(() => {
 		addValue();
 	});
+	// Measured motion enters on the next task after capturing its final geometry.
+	act(() => {
+		jest.advanceTimersByTime(0);
+	});
 
 	// Tag owns enter motion when the value is added.
 	// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-	const animatedTag = container.querySelector<HTMLElement>('[data-tag-text]')?.parentElement;
+	const animatedTagText = container.querySelector<HTMLElement>('[data-tag-text]');
+	const animatedTag = animatedTagText?.parentElement;
+	const tagMotionWrapper = animatedTag?.parentElement;
 	expect(animatedTag).toBeInTheDocument();
+	expect(animatedTagText).toBeVisible();
+	expect(tagMotionWrapper).toBeInTheDocument();
 	const enteringClassName = animatedTag?.className;
+	const enteringTextClassName = animatedTagText?.className;
+	expect(animatedTagText).not.toHaveStyle({ textOverflow: 'ellipsis' });
 	act(() => {
 		jest.advanceTimersByTime(100);
 	});
-	// Compiled style tags can be deduplicated away during rerenders in jsdom. The class change
-	// verifies that Tag completed its entering motion and returned to its visible styles.
+	// Keep the motion styles active until the browser signals that the animation has finished.
+	expect(animatedTag?.className).toBe(enteringClassName);
+	expect(animatedTagText).not.toHaveStyle({ textOverflow: 'ellipsis' });
+	expect(animatedTagText?.className).toBe(enteringTextClassName);
+	fireEvent.animationEnd(tagMotionWrapper as HTMLElement);
 	expect(animatedTag?.className).not.toBe(enteringClassName);
+	expect(animatedTagText?.className).toBe(enteringTextClassName);
 
-	const valueBeforeExit = container.querySelector<HTMLElement>('.react-select__multi-value');
-	const classNameBeforeExit = valueBeforeExit?.className;
+	const classNameBeforeExit = tagMotionWrapper?.className;
 
 	act(() => {
 		animatedTag?.querySelector('button')?.click();
 	});
 	expect(onChange).toHaveBeenCalledTimes(1);
+	expect(animatedTagText?.className).toBe(enteringTextClassName);
 
 	// Select owns exit persistence, including when the last value is replaced by the placeholder.
-	// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-	const exitingValue = container.querySelector<HTMLElement>('.react-select__multi-value');
-	expect(exitingValue).toBeInTheDocument();
+	expect(animatedTagText).toBeInTheDocument();
 	// Compiled's deduplicated style tags are not reliable after rerender in jsdom. The atomic
-	// class change deterministically verifies that Select applied its exiting motion variant.
-	expect(exitingValue?.className).not.toBe(classNameBeforeExit);
+	// class change deterministically verifies that Tag applied its exiting motion variant.
+	expect(tagMotionWrapper?.className).not.toBe(classNameBeforeExit);
 	expect(screen.getByText(OPTIONS[0].label)).toBeInTheDocument();
 	expect(screen.queryByTestId(`${testId}-select--placeholder`)).not.toBeInTheDocument();
 
@@ -1939,17 +1957,13 @@ test('multi select > applies motion to the tag-like custom content path', () => 
 	});
 
 	const tagLikeValue = container.querySelector<HTMLElement>('[data-multi-value-tag-like="true"]');
+	const tagLikeLabel = container.querySelector<HTMLElement>('.-MultiValueLabel');
+	const motionWrapper = tagLikeValue?.parentElement;
+	const enteringClassName = motionWrapper?.className;
+	const enteringLabelClassName = tagLikeLabel?.className;
 
 	expect(tagLikeValue).toBeInTheDocument();
-	expect(tagLikeValue).toHaveCompiledCss(
-		'animation',
-		'var(--ds-label-enter,.15s cubic-bezier(.4,1,.6,1) ScaleXIn80to100,.15s cubic-bezier(.4,1,.6,1) FadeIn0to100)',
-	);
-	expect(tagLikeValue).toHaveCompiledCss('transform-origin', 'left');
-	expect(tagLikeValue).toHaveCompiledCss('animation', 'none', {
-		media: '(prefers-reduced-motion: reduce)',
-	});
-	const enteringClassName = tagLikeValue?.className;
+	expect(enteringClassName).toBeTruthy();
 
 	act(() => {
 		tagLikeValue?.querySelector<HTMLElement>('[role="button"]')?.click();
@@ -1957,7 +1971,8 @@ test('multi select > applies motion to the tag-like custom content path', () => 
 
 	const exitingValue = container.querySelector<HTMLElement>('[data-multi-value-tag-like="true"]');
 	expect(exitingValue).toBeInTheDocument();
-	expect(exitingValue?.className).not.toBe(enteringClassName);
+	expect(exitingValue?.parentElement?.className).not.toBe(enteringClassName);
+	expect(tagLikeLabel?.className).toBe(enteringLabelClassName);
 	expect(screen.queryByTestId(`${testId}-select--placeholder`)).not.toBeInTheDocument();
 
 	act(() => {
@@ -1970,7 +1985,54 @@ test('multi select > applies motion to the tag-like custom content path', () => 
 	expect(screen.getByTestId(`${testId}-select--placeholder`)).toBeInTheDocument();
 	jest.useRealTimers();
 });
-test('multi select > does not animate tag-like custom content when reduced motion is preferred', () => {
+test('multi select > persists and animates a custom MultiValue renderer', () => {
+	jest.useFakeTimers();
+	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+	passGate('platform-dst-motion-uplift-labels');
+
+	const CustomMultiValue = ({ children, removeProps }: any) => (
+		<div data-testid="custom-multi-value">
+			<span>{children}</span>
+			<button type="button" onClick={removeProps.onClick}>
+				Remove
+			</button>
+		</div>
+	);
+	const MotionSelect = () => {
+		const [value, setValue] = React.useState<Option[]>([OPTIONS[0]]);
+
+		return (
+			<Select
+				{...BASIC_PROPS}
+				components={{ MultiValue: CustomMultiValue }}
+				isMulti
+				onChange={(nextValue) => setValue([...nextValue])}
+				value={value}
+			/>
+		);
+	};
+
+	render(<MotionSelect />);
+	act(() => {
+		jest.advanceTimersByTime(150);
+	});
+
+	const customValue = screen.getByTestId('custom-multi-value');
+	const visibleMotionClassName = customValue.parentElement?.className;
+	fireEvent.click(screen.getByRole('button', { name: 'Remove' }));
+
+	expect(screen.getByTestId('custom-multi-value')).toBeInTheDocument();
+	expect(customValue.parentElement?.className).not.toBe(visibleMotionClassName);
+
+	act(() => {
+		jest.advanceTimersByTime(100);
+	});
+
+	expect(screen.queryByTestId('custom-multi-value')).not.toBeInTheDocument();
+	jest.useRealTimers();
+});
+
+test('multi select > removes tag-like custom content immediately when reduced motion is preferred', () => {
 	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 	passGate('platform-dst-motion-uplift-labels');
 	const matchMediaSpy = jest.spyOn(window, 'matchMedia').mockReturnValue({
@@ -2003,7 +2065,15 @@ test('multi select > does not animate tag-like custom content when reduced motio
 	const tagLikeValue = container.querySelector<HTMLElement>('[data-multi-value-tag-like="true"]');
 
 	expect(tagLikeValue).toBeInTheDocument();
-	expect(tagLikeValue?.style.animation).toBe('');
+
+	act(() => {
+		tagLikeValue?.querySelector<HTMLElement>('[role="button"]')?.click();
+	});
+
+	expect(
+		container.querySelector<HTMLElement>('[data-multi-value-tag-like="true"]'),
+	).not.toBeInTheDocument();
+	expect(screen.getByTestId(testId + '-select--placeholder')).toBeInTheDocument();
 	matchMediaSpy.mockRestore();
 });
 

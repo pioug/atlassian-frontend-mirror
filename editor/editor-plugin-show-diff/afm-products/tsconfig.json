@@ -21,6 +21,9 @@
 			"path": "../../adf-schema/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../ai-mate/agent-color/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/avatar/afm-products/tsconfig.json"
 		},
 		{

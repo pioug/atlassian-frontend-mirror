@@ -30,6 +30,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",

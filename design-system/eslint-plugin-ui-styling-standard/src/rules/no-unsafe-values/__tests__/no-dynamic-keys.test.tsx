@@ -8,6 +8,33 @@ typescriptEslintTester.run(
 	{
 		valid: [
 			{
+				name: 'typed static at-rule key',
+				code: `
+          import { css } from '@compiled/react';
+          import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
+
+          const styles = css({
+            ['@media (min-width: 48rem)' satisfies MediaAboveSm]: {
+              padding: '8px',
+            },
+          });
+        `,
+			},
+			{
+				name: 'typed static at-rule keys across supported styling APIs',
+				code: `
+          import { css, cssMap, styled } from '@compiled/react';
+          import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
+
+          declare const xcss: (styles: unknown) => unknown;
+
+          css({ ['@media (min-width: 48rem)' satisfies MediaAboveSm]: {} });
+          cssMap({ root: { ['@media (min-width: 48rem)' satisfies MediaAboveSm]: {} } });
+          styled.div({ ['@media (min-width: 48rem)' satisfies MediaAboveSm]: {} });
+          xcss({ ['@media (min-width: 48rem)' satisfies MediaAboveSm]: {} });
+        `,
+			},
+			{
 				name: 'key is an identifier',
 				code: `
           import { css } from '@compiled/react';

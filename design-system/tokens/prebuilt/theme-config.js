@@ -134,6 +134,26 @@ var themeConfig = exports.themeConfig = {
     extends: 'light',
     increasesContrastFor: 'light'
   },
+  'UNSAFE-test-light': {
+    id: 'UNSAFE-test-light',
+    displayName: 'UNSAFE Test Light Theme',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'light'
+    },
+    extends: 'light'
+  },
+  'UNSAFE-test-dark': {
+    id: 'UNSAFE-test-dark',
+    displayName: 'UNSAFE Test Dark Theme',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'dark'
+    },
+    extends: 'dark'
+  },
   'atlassian-dark': {
     id: 'dark',
     displayName: 'Dark Theme',

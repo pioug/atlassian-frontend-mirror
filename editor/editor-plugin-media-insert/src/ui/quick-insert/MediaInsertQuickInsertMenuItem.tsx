@@ -34,6 +34,11 @@ type Props = {
 	config: MediaInsertPluginConfig | undefined;
 };
 
+const previewImageUrls = {
+	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/044ejisv22dxt27c8cn80db4x2oj13s3.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/563locbd706ado411n6gc2sh7tccqg4k.png',
+};
+
 export const MediaInsertQuickInsertMenuItem = ({ api, config }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { isOffline } = useQuickInsertContext();
@@ -82,6 +87,7 @@ export const MediaInsertQuickInsertMenuItem = ({ api, config }: Props): React.JS
 			iconBefore={<ImageIcon label="" />}
 			isDisabled={isOffline}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			title={formatMessage(messages.mediaFiles)}
 		/>
 	);

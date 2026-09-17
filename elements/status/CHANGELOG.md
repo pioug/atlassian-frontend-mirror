@@ -1,5 +1,33 @@
 # @atlaskit/status
 
+## 5.12.0
+
+### Minor Changes
+
+- [`01c0f8f495971`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01c0f8f495971) -
+  Export getLozengeAppearance via a new ./status-colors entrypoint so consumers can resolve a status
+  color's rendered hue.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.11.7
+
+### Patch Changes
+
+- [`c91ed7eb6ae9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c91ed7eb6ae9f) -
+  Pin the status picker colour palette above the scrolling suggestions. The native scrollbar can
+  then no longer narrow the swatch row and wrap it onto an extra row.
+
+  This sits behind `platform_editor_status_popup_suggestions_patch_2` for the six-colour palette.
+  The ten-colour palette takes it behind `platform_editor_update_status_colors`.
+
+  Adds a 4px row gap between the ten-colour palette's two swatch rows. Also stops a full-width
+  suggestion from extending past the last swatch.
+
+- Updated dependencies
+
 ## 5.11.6
 
 ### Patch Changes

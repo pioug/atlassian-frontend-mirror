@@ -15,6 +15,8 @@ export interface ThemeState {
 		| 'dark-future'
 		| 'light-increased-contrast'
 		| 'dark-increased-contrast'
+		| 'UNSAFE-test-light'
+		| 'UNSAFE-test-dark'
 	>;
 	dark: Extract<
 		ThemeIds,
@@ -24,10 +26,12 @@ export interface ThemeState {
 		| 'dark-future'
 		| 'light-increased-contrast'
 		| 'dark-increased-contrast'
+		| 'UNSAFE-test-light'
+		| 'UNSAFE-test-dark'
 	>;
 	colorMode: ThemeColorModes;
 	contrastMode: ThemeContrastModes;
-	shape?: Extract<ThemeIds, 'shape'>;
+	shape: Extract<ThemeIds, 'shape'>;
 	spacing: Extract<ThemeIds, 'spacing'>;
 	typography: Extract<ThemeIds, 'typography'>;
 	motion?: Extract<ThemeIds, 'motion'>;

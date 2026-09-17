@@ -33,6 +33,7 @@ import {
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
@@ -143,6 +144,28 @@ const rangeSelectionStylesForFakeBorders = `
 .${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .${TableSharedCssClassName.TABLE_RIGHT_BORDER} {
 	  background: ${akEditorSelectedBorderColor};
 }
+`;
+
+// Once platform-dst-tokens-finesse is cleaned up, apply these styles unconditionally.
+// Keep this scoped to cell selection so actual focus rings, danger states, and table controls
+// continue to use their existing semantic colours.
+const selectedCellBorderStyles = (): SerializedStyles => css`
+	.${ClassName.TABLE_NODE_WRAPPER} > table > tbody > tr {
+		${!expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+			? `
+		> td.${ClassName.TABLE_CELL}.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}),
+		> th.${ClassName.TABLE_HEADER_CELL}.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}) {
+			border-color: ${token('color.border.selected')};
+		}`
+			: ''}
+
+		> td.${ClassName.TABLE_CELL}.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER})::after,
+		> th.${ClassName.TABLE_HEADER_CELL}.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER})::after,
+		> td.${ClassName.TABLE_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after,
+		> th.${ClassName.TABLE_HEADER_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after {
+			border-color: ${token('color.border.selected')};
+		}
+	}
 `;
 
 const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
@@ -1471,6 +1494,8 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	.${ClassName.TABLE_NODE_WRAPPER}.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} {
 		overflow: visible;
 	}
+
+	${fg('platform-dst-tokens-finesse') ? selectedCellBorderStyles() : ''}
 `;
 
 // TODO: EDITOR-7593 - No usage found accross AFM, deprecate when EditorContentContainer in editor-core has finished compiled css migration under experiment 'platform_editor_core_static_css'

@@ -9,11 +9,11 @@ import { skipA11yAudit } from '@af/accessibility-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
+import { components } from '@atlaskit/react-select/components';
 
 import AtlaskitSelect from '../../../select';
 import AsyncSelect from '../../../async-select';
 import { CheckboxSelect } from '../../../checkbox-select';
-import { components } from '@atlaskit/react-select/components';
 import CreatableSelect from '../../../creatable-select';
 interface Option {
 	readonly label: string;
@@ -369,12 +369,9 @@ describe('Select', () => {
 			const tagLikeValue = container.querySelector<HTMLElement>(
 				'[data-multi-value-tag-like="true"]',
 			);
-			expect(tagLikeValue).toHaveCompiledCss(
-				'animation',
-				'var(--ds-label-enter,.15s cubic-bezier(.4,1,.6,1) ScaleXIn80to100,.15s cubic-bezier(.4,1,.6,1) FadeIn0to100)',
-			);
-			expect(tagLikeValue).toHaveCompiledCss('transform-origin', 'left');
-			const enteringClassName = tagLikeValue?.className;
+			expect(tagLikeValue).toBeInTheDocument();
+			const motionWrapper = tagLikeValue?.parentElement;
+			const enteringClassName = motionWrapper?.className;
 
 			act(() => {
 				screen.getByRole('button', { name: `${OPTIONS[0].label}, remove` }).click();
@@ -384,7 +381,7 @@ describe('Select', () => {
 				'[data-multi-value-tag-like="true"]',
 			);
 			expect(exitingValue).toBeInTheDocument();
-			expect(exitingValue?.className).not.toBe(enteringClassName);
+			expect(exitingValue?.parentElement?.className).not.toBe(enteringClassName);
 		});
 	});
 

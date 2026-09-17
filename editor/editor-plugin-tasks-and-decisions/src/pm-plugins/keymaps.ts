@@ -41,13 +41,12 @@ import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { GetContextIdentifier, TaskDecisionListType } from '../types';
 
 import { moveSelectedTaskListItems } from './actions/move-selected-task-list-items';
-import { joinAtCut, liftSelection, wrapSelectionInTaskList } from './commands';
+import { joinAtCut } from './commands';
 import {
 	findFirstParentListNode,
 	getBlockRange,
@@ -168,33 +167,22 @@ export const getUnindentCommand =
 			const normalizedSelection = normalizeTaskItemsSelection(state.selection);
 			const curIndentLevel = getCurrentIndentLevel(normalizedSelection);
 
-			if (expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
-				if (!curIndentLevel) {
-					return true;
-				}
-
-				const outdentTr = moveSelectedTaskListItems(state.tr, -1);
-				if (outdentTr) {
-					withAnalytics(
-						editorAnalyticsAPI,
-						indentationAnalytics(curIndentLevel, INDENT_DIRECTION.OUTDENT, inputMethod),
-					)((_state, d) => {
-						d?.(outdentTr);
-						return true;
-					})(state, dispatch);
-					return true;
-				}
-				return false;
+			if (!curIndentLevel) {
+				return true;
 			}
 
-			if (!curIndentLevel || curIndentLevel === 1) {
-				return false;
+			const outdentTr = moveSelectedTaskListItems(state.tr, -1);
+			if (outdentTr) {
+				withAnalytics(
+					editorAnalyticsAPI,
+					indentationAnalytics(curIndentLevel, INDENT_DIRECTION.OUTDENT, inputMethod),
+				)((_state, d) => {
+					d?.(outdentTr);
+					return true;
+				})(state, dispatch);
+				return true;
 			}
-
-			return withAnalytics(
-				editorAnalyticsAPI,
-				indentationAnalytics(curIndentLevel, INDENT_DIRECTION.OUTDENT, inputMethod),
-			)(autoJoin(liftSelection, ['taskList']))(state, dispatch);
+			return false;
 		});
 
 // if selection is decision item or first action item in table cell
@@ -220,32 +208,21 @@ export const getIndentCommand =
 			const normalizedSelection = normalizeTaskItemsSelection(state.selection);
 			const curIndentLevel = getCurrentIndentLevel(normalizedSelection);
 
-			if (expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
-				if (!curIndentLevel) {
-					return true;
-				}
-				const indentTr = moveSelectedTaskListItems(state.tr, 1);
-				if (indentTr) {
-					withAnalytics(
-						editorAnalyticsAPI,
-						indentationAnalytics(curIndentLevel, INDENT_DIRECTION.INDENT, inputMethod),
-					)((_state, d) => {
-						d?.(indentTr);
-						return true;
-					})(state, dispatch);
-					return true;
-				}
-				return false;
-			}
-
-			if (!curIndentLevel || curIndentLevel >= 6) {
+			if (!curIndentLevel) {
 				return true;
 			}
-
-			return withAnalytics(
-				editorAnalyticsAPI,
-				indentationAnalytics(curIndentLevel, INDENT_DIRECTION.INDENT, inputMethod),
-			)(autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
+			const indentTr = moveSelectedTaskListItems(state.tr, 1);
+			if (indentTr) {
+				withAnalytics(
+					editorAnalyticsAPI,
+					indentationAnalytics(curIndentLevel, INDENT_DIRECTION.INDENT, inputMethod),
+				)((_state, d) => {
+					d?.(indentTr);
+					return true;
+				})(state, dispatch);
+				return true;
+			}
+			return false;
 		});
 
 const backspaceFrom =
@@ -809,14 +786,14 @@ const enter = (
 							tr.insert(insertPos, newTask);
 							// Place cursor on the newly inserted empty task item above
 							// when nested inside another taskList.
-							if (expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
-								const { taskList: taskListType } = schema.nodes;
-								const parentTaskList = $from.node($from.depth - 1);
-								const grandparent = $from.depth >= 3 ? $from.node($from.depth - 2) : null;
-								if (parentTaskList?.type === taskListType && grandparent?.type === taskListType) {
-									tr.setSelection(TextSelection.create(tr.doc, insertPos + 1));
-								}
+
+							const { taskList: taskListType } = schema.nodes;
+							const parentTaskList = $from.node($from.depth - 1);
+							const grandparent = $from.depth >= 3 ? $from.node($from.depth - 2) : null;
+							if (parentTaskList?.type === taskListType && grandparent?.type === taskListType) {
+								tr.setSelection(TextSelection.create(tr.doc, insertPos + 1));
 							}
+
 							return tr;
 						}
 					}

@@ -142,7 +142,9 @@ export async function extensionProviderToQuickInsertProvider(
 					});
 
 					return {
-						...(isExperimentEnabled('platform_editor_slash_app_category_analytics') && item.app
+						...((isExperimentEnabled('platform_editor_slash_app_category_analytics') ||
+							isExperimentEnabled('platform_editor_slash_command')) &&
+						item.app
 							? { app: item.app }
 							: {}),
 						// Add module key so typeahead/quick-insert can identify items

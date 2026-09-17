@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::e37e1511230c88e6ce33024f31bdbdcd>>
+ * @codegen <<SignedSource::507c45fbb0d0c528ee4f76a3bf5c42d3>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -495,6 +495,8 @@ export type MotionEasing =
 export type MotionKeyframes =
 	| 'var(--ds-keyframe-fade-in)'
 	| 'var(--ds-keyframe-fade-out)'
+	| 'var(--ds-keyframe-grid-column-in)'
+	| 'var(--ds-keyframe-grid-column-out)'
 	| 'var(--ds-keyframe-scale-in-medium)'
 	| 'var(--ds-keyframe-scale-in-small)'
 	| 'var(--ds-keyframe-scale-out-medium)'
@@ -520,6 +522,8 @@ export type Motion =
 	| 'var(--ds-flag-enter)'
 	| 'var(--ds-flag-exit)'
 	| 'var(--ds-flag-reposition)'
+	| 'var(--ds-input-focused)'
+	| 'var(--ds-input-hovered)'
 	| 'var(--ds-label-enter)'
 	| 'var(--ds-label-exit)'
 	| 'var(--ds-listitem-hovered)'

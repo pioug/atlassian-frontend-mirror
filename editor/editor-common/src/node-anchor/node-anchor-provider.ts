@@ -1,12 +1,10 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isEmptyDocument } from '../utils';
 
 import { DynamicBitArray } from './dynamic-bit-array';
-import { shouldEnableLimitedModeForDocument } from './should-enable-limited-mode';
 
 // The slice of `@atlaskit/editor-plugin-limited-mode`'s state read below. Declared
 // structurally because `editor-common` must not depend on a plugin package.
@@ -117,9 +115,7 @@ const nodeIdProviderMap = new WeakMap<EditorView, NodeAnchorProvider>();
  * `getNodeIdProvider`. Plugin views and `usePluginHook` both run later.
  */
 const isLimitedModeEnabled = (editorView: EditorView): boolean =>
-	fg('platform_editor_fix_limited_mode_leaking')
-		? (limitedModePluginKey.getState(editorView.state)?.documentSizeBreachesThreshold ?? false)
-		: shouldEnableLimitedModeForDocument(editorView.state.doc);
+	limitedModePluginKey.getState(editorView.state)?.documentSizeBreachesThreshold ?? false;
 
 // Get the NodeIdProvider for a specific EditorView instance.
 // This allows access to the node ids anywhere.

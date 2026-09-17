@@ -11,6 +11,11 @@ import type { ExpandPlugin } from '../../types';
 
 import { ExpandQuickInsertMenuItem } from './ExpandQuickInsertMenuItem';
 
+const previewImageUrls = {
+	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/ltu45641cf615ybs8mr78hme7370ka38.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/gg4nl63re230l87iq0w0wqwas31esm3q.png',
+};
+
 export const getExpandQuickInsertComponents = ({
 	api,
 	isLegacy,
@@ -27,6 +32,12 @@ export const getExpandQuickInsertComponents = ({
 			keywords: ['accordion', 'collapse'],
 			title: formatMessage(messages.expand),
 		})),
-		component: () => <ExpandQuickInsertMenuItem api={api} isLegacy={isLegacy} />,
+		component: () => (
+			<ExpandQuickInsertMenuItem
+				api={api}
+				isLegacy={isLegacy}
+				previewImageUrls={previewImageUrls}
+			/>
+		),
 	},
 ];

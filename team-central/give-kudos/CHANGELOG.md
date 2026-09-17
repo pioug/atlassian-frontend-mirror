@@ -1,5 +1,62 @@
 # @atlassian/give-kudos
 
+## 6.17.0
+
+### Minor Changes
+
+- [`abf2022813c97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abf2022813c97) -
+  Apply the Volt one-export-per-file standard via `volt-migrate-package` to `@atlaskit/give-kudos`.
+  The package `exports` map gains two subpaths and now has 7 public subpaths in total — every
+  pre-existing subpath keeps its existing target. The two URL-validation helpers that previously
+  lived inside `GiveKudosLauncher/main.tsx` now each own a module, and `main.tsx` re-exports them as
+  `@deprecated` shims so existing imports keep working; VOLTC-139 tracks removing those shims.
+
+  ### No public API was removed
+
+  Every symbol exported before is still exported from the same subpath, including from
+  `./give-kudos-launcher/main`:
+
+  ```ts
+  import GiveKudosLauncher, {
+  	isSafeHttpsUrl,
+  	isTrustedOrigin,
+  } from '@atlaskit/give-kudos/give-kudos-launcher/main';
+  ```
+
+  ### Two new subpaths expose the helpers directly
+  - `./is-safe-https-url` — `isSafeHttpsUrl`
+  - `./is-trusted-origin` — `isTrustedOrigin`
+
+  Both are published. These are the preferred import paths going forward:
+
+  ```ts
+  import { isSafeHttpsUrl } from '@atlaskit/give-kudos/is-safe-https-url';
+  import { isTrustedOrigin } from '@atlaskit/give-kudos/is-trusted-origin';
+  ```
+
+  ### Note for consumers that mock these modules
+
+  `main.tsx` no longer defines `isSafeHttpsUrl` or `isTrustedOrigin`; it imports them and calls the
+  imported bindings internally. A `jest.mock()` or `jest.spyOn()` targeting
+  `@atlaskit/give-kudos/give-kudos-launcher/main` will therefore no longer intercept the launcher's
+  internal use of these helpers. Mock the module that now owns each export instead:
+
+  ```ts
+  jest.mock('@atlaskit/give-kudos/is-safe-https-url', () => ({ isSafeHttpsUrl: () => true }));
+  ```
+
+  No behaviour change.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.16.0
 
 ### Minor Changes

@@ -178,6 +178,10 @@ const colorPaletteWrapperStyles = css({
 	flexWrap: 'wrap',
 });
 
+const colorPaletteRowGapStyles = css({
+	rowGap: token('space.050'),
+});
+
 interface ColorPaletteProps {
 	className?: string;
 	cols?: number;
@@ -232,7 +236,7 @@ export default ({
 
 	return (
 		<ul
-			css={colorPaletteWrapperStyles}
+			css={[colorPaletteWrapperStyles, variant === 'extended' && colorPaletteRowGapStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			style={{ maxWidth: resolvedCols * 32 }}

@@ -14,9 +14,11 @@ export type Themes =
 	| 'atlassian-light'
 	| 'atlassian-light-future'
 	| 'atlassian-light-increased-contrast'
+	| 'UNSAFE-test-light'
 	| 'atlassian-dark'
 	| 'atlassian-dark-future'
 	| 'atlassian-dark-increased-contrast'
+	| 'UNSAFE-test-dark'
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
 	| 'atlassian-typography'
@@ -75,7 +77,9 @@ export const themeIdsWithOverrides: readonly [
 	'light-increased-contrast',
 	'light',
 	'light-future',
+	'UNSAFE-test-light',
 	'dark',
+	'UNSAFE-test-dark',
 	'dark-future',
 	'dark-increased-contrast',
 	'spacing',
@@ -139,12 +143,21 @@ interface ThemeConfig {
 	 * Theme to use a base. This will create the theme as
 	 * an extension with all token values marked as optional
 	 * to allow tokens to be overridden as required.
+	 *
+	 * The resulting theme css will contain a complete theme.
+	 * All tokens specified in the child theme will be overridden.
+	 * All tokens not specified in the child theme will be inherited from the parent theme.
 	 */
 	extends?: ThemeIds;
 	/**
 	 * Theme to override. This will cause the theme to only
 	 * output css variables which can be imported to temporarily
 	 * override existing themes for testing purposes.
+	 *
+	 *
+	 * The resulting theme css will be only the tokens specified
+	 * and will need the dependant theme to be loaded alongside
+	 * it in order to function correctly.
 	 */
 	override?: ThemeIds;
 	/**
@@ -206,6 +219,26 @@ export const themeConfig: Record<ThemeFileNames, ThemeConfig> = {
 		extends: 'light',
 		increasesContrastFor: 'light',
 	},
+	'UNSAFE-test-light': {
+		id: 'UNSAFE-test-light',
+		displayName: 'UNSAFE Test Light Theme',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+		extends: 'light',
+	},
+	'UNSAFE-test-dark': {
+		id: 'UNSAFE-test-dark',
+		displayName: 'UNSAFE Test Dark Theme',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+		extends: 'dark',
+	},
 	'atlassian-dark': {
 		id: 'dark',
 		displayName: 'Dark Theme',
@@ -215,6 +248,7 @@ export const themeConfig: Record<ThemeFileNames, ThemeConfig> = {
 			mode: 'dark',
 		},
 	},
+
 	'atlassian-dark-future': {
 		id: 'dark-future',
 		displayName: 'Future Dark Theme',

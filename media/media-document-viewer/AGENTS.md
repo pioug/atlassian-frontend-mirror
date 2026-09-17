@@ -53,7 +53,9 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 ## Development notes
 
 - Only internal dependency: `@atlaskit/media-common`
-- No feature flags registered in this package
+- Feature flags registered in this package: `platform_media_doc_viewer_smooth_render` (when on,
+  drops `image-rendering: pixelated` from page images so non-integer browser/OS zoom levels render
+  without sub-pixel blur — see HOT-306523)
 - Peer dependency: `react`
 - Has both Playwright and VR test suites
 - All new behaviour changes must be behind a feature gate (`fg()` from

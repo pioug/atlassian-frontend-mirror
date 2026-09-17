@@ -25,6 +25,7 @@ import { loadAndMountThemes } from './utils/load-and-mount-themes';
 const defaultThemeSettings: Theme = {
 	dark: 'dark',
 	light: 'light',
+	shape: 'shape',
 	spacing: 'spacing',
 	typography: 'typography',
 };
@@ -146,11 +147,10 @@ export function ThemeProvider({
 			return function cleanup() {
 				cleanupLastFnCall();
 			};
-		} else {
-			// For other theme providers (whether outside AppProvider or nested inside a ThemeProvider),
-			// we treat them as sub-tree themes that do not load global theme state.
-			loadAndMountThemes(theme);
 		}
+		// For other theme providers (whether outside AppProvider or nested inside a ThemeProvider),
+		// we treat them as sub-tree themes that do not load global theme state.
+		loadAndMountThemes(theme);
 	}, [isInsideAppProvider, isInsideThemeProvider, isRootThemeProvider, reconciledColorMode, theme]);
 
 	useEffect(() => {

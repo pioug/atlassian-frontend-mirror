@@ -17,11 +17,16 @@ import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { PopupContent } from '@atlaskit/popup/compositional/popup-content';
 import { token } from '@atlaskit/tokens';
 
 import {
+	InitialFocusOriginContext,
+	IsOpenContext,
 	OnCloseContext,
+	SetInitialFocusRefContext,
 	SetIsOpenContext,
 	TitleIdContextProvider,
 	useTitleId,
@@ -114,6 +119,13 @@ export type FlyoutMenuItemContentProps = {
 	 * If you are controlling the open state of the flyout menu, use this to update your state.
 	 */
 	onClose?: () => void;
+
+	/**
+	 * ID of the heading that names the dialog, including while content is loading.
+	 * When omitted, an ID is generated and assigned to the FlyoutHeader heading.
+	 * The supplied ID is also assigned to FlyoutHeader when it renders.
+	 */
+	titleId?: string;
 };
 
 /**
@@ -125,11 +137,28 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<FlyoutMenuItemContentProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, FlyoutMenuItemContentProps>(
 	(
-		{ children, containerTestId, onClose, autoFocus, maxHeight = FLYOUT_MENU_MAX_HEIGHT_PX },
+		{
+			children,
+			containerTestId,
+			onClose,
+			autoFocus,
+			maxHeight = FLYOUT_MENU_MAX_HEIGHT_PX,
+			titleId: providedTitleId,
+		},
 		forwardedRef,
 	) => {
 		const setIsOpen = useContext(SetIsOpenContext);
 		const onCloseRef = useContext(OnCloseContext);
+		const isOpen = useContext(IsOpenContext);
+		const initialFocusOriginRef = useRef<Element | null>(null);
+		const contentRef = useRef<HTMLDivElement | null>(null);
+		useLayoutEffect(() => {
+			// Capture the opening focus before a delayed header can mount. Top-layer
+			// may leave it on the trigger when the loading content has no controls.
+			initialFocusOriginRef.current = isOpen
+				? (contentRef.current?.ownerDocument.activeElement ?? null)
+				: null;
+		}, [isOpen]);
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 
 		// The source of the close is not accessible to the consumer, it is determined within the
@@ -179,7 +208,8 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 			onCloseRef.current = handleClose;
 		}, [handleClose, onCloseRef]);
 
-		const titleId = useTitleId();
+		const generatedTitleId = useTitleId();
+		const titleId = providedTitleId ?? generatedTitleId;
 
 		const computedMaxHeight = useMemo(
 			() =>
@@ -227,15 +257,24 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				shouldDisableGpuAcceleration
 				shouldRenderToParent
 			>
-				{({ update }) => (
+				{({ update, setInitialFocusRef }) => (
 					<UpdatePopperOnContentResize ref={forwardedRef} update={update}>
 						<TitleIdContextProvider value={titleId}>
 							<div
+								ref={contentRef}
 								css={flyoutMenuItemContentContainerStyles.container}
 								style={{ [maxHeightCssVar as keyof React.CSSProperties]: computedMaxHeight }}
 								data-testid={containerTestId ? `${containerTestId}--container` : undefined}
 							>
-								{children}
+								<SetInitialFocusRefContext.Provider
+									// Top-layer reads this ref only on open. When a placeholder has
+									// no controls, a delayed header must move focus from the trigger.
+									value={fg('platform-dst-top-layer') ? undefined : setInitialFocusRef}
+								>
+									<InitialFocusOriginContext.Provider value={initialFocusOriginRef}>
+										{children}
+									</InitialFocusOriginContext.Provider>
+								</SetInitialFocusRefContext.Provider>
 							</div>
 						</TitleIdContextProvider>
 					</UpdatePopperOnContentResize>

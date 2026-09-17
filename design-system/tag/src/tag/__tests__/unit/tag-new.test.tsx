@@ -5,7 +5,11 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
-import { act, render as rtlRender } from '@atlassian/testing-library/testing-library/react';
+import {
+	act,
+	fireEvent,
+	render as rtlRender,
+} from '@atlassian/testing-library/testing-library/react';
 
 import { colorMapping } from '../../../tag-new/color-mapping';
 import { default as TagNew } from '../../../tag-new/tag-new';
@@ -164,6 +168,7 @@ describe('TagNew component (UI uplift)', () => {
 
 		it('does not animate on initial render and applies exit motion when removed', () => {
 			passGate('platform-dst-motion-uplift-labels');
+			const getComputedStyleSpy = jest.spyOn(window, 'getComputedStyle');
 			const onAfterRemoveAction = jest.fn();
 			const { container } = render(
 				<TagNew
@@ -174,14 +179,18 @@ describe('TagNew component (UI uplift)', () => {
 				/>,
 			);
 			const tag = screen.getByTestId(testId);
+			// eslint-disable-next-line testing-library/no-node-access
+			const motionWrapper = tag.parentElement?.parentElement;
 			const removeButton = screen.getByTestId(`close-button-${testId}`);
+			const tagText = screen.getByText('Motion tag');
 
-			// useMotion is attached to the tag itself without a layout-affecting wrapper.
+			// The animated tag sits inside a tag-sized wrapper so percentage widths resolve locally.
 			// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-			expect(container.firstElementChild).toBe(tag);
+			expect(container.firstElementChild).toContainElement(tag);
 			expect(tag).toContainElement(removeButton);
 			expect(tag).toHaveStyle({ animation: '' });
 			const visibleClassName = tag.className;
+			const visibleTextClassName = tagText.className;
 
 			act(() => {
 				removeButton.click();
@@ -190,6 +199,10 @@ describe('TagNew component (UI uplift)', () => {
 			expect(screen.queryByTestId(`close-button-${testId}`)).not.toBeInTheDocument();
 			// eslint-disable-next-line jest-dom/prefer-to-have-class -- comparing complete atomic class sets verifies the compiled variant changed
 			expect(tag.className).not.toBe(visibleClassName);
+			// Persistence reads timing from the wrapper that owns the grid exit animation.
+			expect(getComputedStyleSpy).toHaveBeenCalledWith(motionWrapper);
+			// Fitting text switches to the measured clip style for exit motion and remains clipped.
+			expect(tagText).not.toHaveClass(visibleTextClassName, { exact: true });
 
 			act(() => {
 				jest.runAllTimers();
@@ -216,16 +229,43 @@ describe('TagNew component (UI uplift)', () => {
 			);
 
 			const tag = screen.getByTestId(testId);
+			// eslint-disable-next-line testing-library/no-node-access
+			const motionWrapper = tag.parentElement?.parentElement;
+			expect(motionWrapper).toBeInTheDocument();
 			const enteringClassName = tag.className;
+			const tagText = screen.getByText('Motion tag');
+			expect(tagText).not.toHaveStyle({ textOverflow: 'ellipsis' });
+			const enteringTextClassName = tagText.className;
 
 			act(() => {
 				jest.runAllTimers();
 			});
 
-			// Compiled style tags can be deduplicated away on rerender in jsdom. The atomic class
-			// change verifies that the entering variant completed and returned to visible styles.
-			// eslint-disable-next-line jest-dom/prefer-to-have-class -- comparing complete atomic class sets verifies the compiled variant changed
-			expect(tag.className).not.toBe(enteringClassName);
+			// The motion timer can finish before the browser animation when playback is slowed.
+			// Keep the entering and clipping styles until the wrapper animation actually ends.
+			expect(tag).toHaveClass(enteringClassName, { exact: true });
+			expect(tagText).toHaveClass(enteringTextClassName, { exact: true });
+
+			fireEvent.animationEnd(motionWrapper!);
+
+			expect(tag).not.toHaveClass(enteringClassName, { exact: true });
+			expect(tagText).toHaveClass(enteringTextClassName, { exact: true });
+		});
+
+		it('keeps ellipsis during exit when text truncates at its settled width', () => {
+			passGate('platform-dst-motion-uplift-labels');
+			jest.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(100);
+			jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(50);
+			render(<TagNew text="Truncated motion tag" testId={testId} />);
+			const tagText = screen.getByText('Truncated motion tag');
+			const settledClassName = tagText.className;
+
+			act(() => {
+				screen.getByTestId('close-button-test-tag-new').click();
+			});
+
+			// The settled layout truncates, so ellipsis remains stable throughout motion.
+			expect(tagText).toHaveClass(settledClassName, { exact: true });
 		});
 
 		it('removes immediately and completes the callback when reduced motion is preferred', () => {

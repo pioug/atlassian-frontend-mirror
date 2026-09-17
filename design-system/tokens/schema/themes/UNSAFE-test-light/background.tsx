@@ -1,0 +1,204 @@
+import type { BackgroundColorTokenSchema, ValueSchema } from '../../../src/types';
+import type { BaseToken } from '../../palettes/palette';
+
+const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
+	color: {
+		blanket: {
+			'[default]': { value: 'Neutral500A' },
+			// @ts-ignore temporary value (Teal500 10% opacity)
+			selected: { value: '#1D9AAA1A' },
+			// @ts-ignore temporary value (Red500 8% opacity)
+			danger: { value: '#EF5C4814' },
+		},
+		rovo: {
+			background: {
+				brand: {
+					bold: {
+						'[default]': { value: 'Neutral1200' },
+						hovered: { value: 'Neutral1100' },
+						pressed: { value: 'Neutral1000' },
+					},
+				},
+			},
+			border: {
+				blue: { value: 'Blue700' },
+				lime: { value: 'Lime600' },
+				purple: { value: 'Purple600' },
+				saffron: { value: 'Orange400' },
+			},
+			icon: {
+				blue: { value: 'Blue700' },
+				lime: { value: 'Lime600' },
+				purple: { value: 'Purple600' },
+				saffron: { value: 'Orange400' },
+			},
+		},
+		background: {
+			disabled: { value: 'Neutral200A' },
+			inverse: {
+				subtle: {
+					// @ts-ignore temporary value (#000000 16% opacity)
+					'[default]': { value: '#00000029' },
+					// @ts-ignore temporary value (#000000 24% opacity)
+					hovered: { value: '#0000003D' },
+					// @ts-ignore temporary value (#000000 32% opacity)
+					pressed: { value: '#00000052' },
+				},
+			},
+			input: {
+				'[default]': { value: 'Neutral0' },
+				hovered: { value: 'Neutral100' },
+				pressed: { value: 'Neutral0' },
+			},
+			neutral: {
+				'[default]': {
+					'[default]': { value: 'Neutral200A' },
+					hovered: { value: 'Neutral300A' },
+					pressed: { value: 'Neutral400A' },
+				},
+				subtle: {
+					// @ts-ignore temporary value
+					'[default]': { value: 'transparent' },
+					hovered: { value: 'Neutral200A' },
+					pressed: { value: 'Neutral300A' },
+				},
+				bold: {
+					'[default]': { value: 'Neutral1000' },
+					hovered: { value: 'Neutral900' },
+					pressed: { value: 'Neutral800' },
+				},
+			},
+			brand: {
+				subtlest: {
+					'[default]': { value: 'Purple100' },
+					hovered: { value: 'Purple200' },
+					pressed: { value: 'Purple250' },
+				},
+				bold: {
+					'[default]': { value: 'Purple700' },
+					hovered: { value: 'Purple800' },
+					pressed: { value: 'Purple850' },
+				},
+				boldest: {
+					'[default]': { value: 'Purple1000' },
+					hovered: { value: 'Purple900' },
+					pressed: { value: 'Purple850' },
+				},
+			},
+			selected: {
+				'[default]': {
+					'[default]': { value: 'Teal100' },
+					hovered: { value: 'Teal200' },
+					pressed: { value: 'Teal300' },
+				},
+				bold: {
+					'[default]': { value: 'Teal700' },
+					hovered: { value: 'Teal800' },
+					pressed: { value: 'Teal900' },
+				},
+			},
+			danger: {
+				'[default]': {
+					'[default]': { value: 'Red100' },
+					hovered: { value: 'Red200' },
+					pressed: { value: 'Red250' },
+				},
+				bold: {
+					'[default]': { value: 'Red700' },
+					hovered: { value: 'Red800' },
+					pressed: { value: 'Red850' },
+				},
+				subtler: {
+					'[default]': { value: 'Red200' },
+					hovered: { value: 'Red250' },
+					pressed: { value: 'Red300' },
+				},
+				subtle: {
+					'[default]': { value: 'Red300' },
+				},
+			},
+			warning: {
+				'[default]': {
+					'[default]': { value: 'Orange100' },
+					hovered: { value: 'Orange200' },
+					pressed: { value: 'Orange250' },
+				},
+				bold: {
+					'[default]': { value: 'Orange300' },
+					hovered: { value: 'Orange400' },
+					pressed: { value: 'Orange500' },
+				},
+				subtler: {
+					'[default]': { value: 'Orange200' },
+					hovered: { value: 'Orange250' },
+					pressed: { value: 'Orange300' },
+				},
+				subtle: {
+					'[default]': { value: 'Orange250' },
+				},
+			},
+			success: {
+				'[default]': {
+					'[default]': { value: 'Lime100' },
+					hovered: { value: 'Lime200' },
+					pressed: { value: 'Lime250' },
+				},
+				bold: {
+					'[default]': { value: 'Lime700' },
+					hovered: { value: 'Lime800' },
+					pressed: { value: 'Lime850' },
+				},
+				subtler: {
+					'[default]': { value: 'Lime200' },
+					hovered: { value: 'Lime250' },
+					pressed: { value: 'Lime300' },
+				},
+				subtle: {
+					'[default]': { value: 'Lime300' },
+				},
+			},
+			discovery: {
+				'[default]': {
+					'[default]': { value: 'Purple100' },
+					hovered: { value: 'Purple200' },
+					pressed: { value: 'Purple250' },
+				},
+				bold: {
+					'[default]': { value: 'Purple700' },
+					hovered: { value: 'Purple800' },
+					pressed: { value: 'Purple850' },
+				},
+				subtler: {
+					'[default]': { value: 'Purple200' },
+					hovered: { value: 'Purple250' },
+					pressed: { value: 'Purple300' },
+				},
+				subtle: {
+					'[default]': { value: 'Purple300' },
+				},
+			},
+			information: {
+				'[default]': {
+					'[default]': { value: 'Blue100' },
+					hovered: { value: 'Blue200' },
+					pressed: { value: 'Blue250' },
+				},
+				bold: {
+					'[default]': { value: 'Blue700' },
+					hovered: { value: 'Blue800' },
+					pressed: { value: 'Blue850' },
+				},
+				subtler: {
+					'[default]': { value: 'Blue200' },
+					hovered: { value: 'Blue250' },
+					pressed: { value: 'Blue300' },
+				},
+				subtle: {
+					'[default]': { value: 'Blue300' },
+				},
+			},
+		},
+	},
+};
+
+export default color;

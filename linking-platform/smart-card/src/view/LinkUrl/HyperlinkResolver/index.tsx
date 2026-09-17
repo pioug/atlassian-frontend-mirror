@@ -3,8 +3,6 @@ import React, { type ComponentType, useCallback } from 'react';
 import { withErrorBoundary as withReactErrorBoundary } from 'react-error-boundary';
 import { injectIntl } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { getFirstPartyIdentifier } from '../../../state/getFirstPartyIdentifier';
 import { getThirdPartyARI } from '../../../state/getThirdPartyARI';
 import useResolveHyperlink from '../../../state/hooks/use-resolve-hyperlink';
@@ -40,14 +38,10 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	const thirdPartyARI = getThirdPartyARI(state?.details);
 	const firstPartyIdentifier = getFirstPartyIdentifier();
 
-	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
-		: undefined;
+	const fire3PClickEvent = useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI);
 
 	// Shared scope guard for all 3P-click handlers.
-	const shouldFire3PClickEvent =
-		state?.status === 'resolved' && fire3PClickEvent && fg('platform_smartlink_3pclick_analytics');
+	const shouldFire3PClickEvent = state?.status === 'resolved' && fire3PClickEvent;
 
 	const onClick = useCallback(
 		(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {

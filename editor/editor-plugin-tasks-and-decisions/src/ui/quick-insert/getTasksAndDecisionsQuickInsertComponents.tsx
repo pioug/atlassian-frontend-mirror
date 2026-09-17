@@ -15,6 +15,16 @@ import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType'
 
 import { TasksAndDecisionsQuickInsertMenuItem } from './TasksAndDecisionsQuickInsertMenuItem';
 
+const taskPreviewImageUrls = {
+	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/y5ly4nr488m2m4k4esk1bu415k1gn4gn.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/t7loyl783j0qo1h45i828310rv4au3h8.png',
+};
+
+const decisionPreviewImageUrls = {
+	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/h5duy8s83312r7263jauu10mapc53383.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/70q22b8a03dep35ynbv8xigg82osw0rk.png',
+};
+
 export const getTasksAndDecisionsQuickInsertComponents = ({
 	api,
 	quickInsertActionDescription,
@@ -38,7 +48,13 @@ export const getTasksAndDecisionsQuickInsertComponents = ({
 			shortcut: '[]',
 			title: formatMessage(messages.action),
 		})),
-		component: () => <TasksAndDecisionsQuickInsertMenuItem api={api} item="taskList" />,
+		component: () => (
+			<TasksAndDecisionsQuickInsertMenuItem
+				api={api}
+				item="taskList"
+				previewImageUrls={taskPreviewImageUrls}
+			/>
+		),
 	},
 	{
 		key: DECISION_MENU_ITEM.key,
@@ -56,6 +72,12 @@ export const getTasksAndDecisionsQuickInsertComponents = ({
 			shortcut: '<>',
 			title: formatMessage(messages.decision),
 		})),
-		component: () => <TasksAndDecisionsQuickInsertMenuItem api={api} item="decisionList" />,
+		component: () => (
+			<TasksAndDecisionsQuickInsertMenuItem
+				api={api}
+				item="decisionList"
+				previewImageUrls={decisionPreviewImageUrls}
+			/>
+		),
 	},
 ];

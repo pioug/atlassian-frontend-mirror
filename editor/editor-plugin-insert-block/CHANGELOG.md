@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.12
+
+### Patch Changes
+
+- [`749f1c3c8359c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/749f1c3c8359c) -
+  Retain the first 30 category results and include the first 10 ecosystem quick-insert registrations
+  when they fall beyond that cutoff.
+
+  Limit slash-command insert-menu category browsing while preserving uncapped search results.
+
+  Classify ecosystem quick-insert provider registrations without changing compatibility keys.
+
+  Preserve app provenance for Quick Insert items while the `platform_editor_slash_command`
+  experiment is enabled.
+
+  Enable Quick Insert category analytics while the `platform_editor_slash_command` experiment is
+  enabled.
+
+- Updated dependencies
+
+## 19.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.10
 
 ### Patch Changes

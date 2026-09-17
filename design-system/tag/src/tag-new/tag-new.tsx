@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+// Clips tag text during motion and restores ellipsis only when the settled label truncates.
 import { forwardRef, memo, useCallback } from 'react';
 
 import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
@@ -47,6 +48,11 @@ const styles = cssMapUnbound({
 		backgroundColor: token('color.background.neutral.subtle'),
 		marginBlock: token('space.050'),
 		marginInline: token('space.050'),
+		// Keep tag text on one line even when surrounding styles set white-space.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& [data-tag-text]': {
+			whiteSpace: 'nowrap',
+		},
 	},
 	noMarginStyles: {
 		marginBlock: token('space.0'),
@@ -69,11 +75,16 @@ const styles = cssMapUnbound({
 	},
 	textStyles: {
 		overflow: 'hidden',
-		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 		flexGrow: 1,
 		minWidth: 0,
 		color: token('color.text'),
+	},
+	textEllipsis: {
+		textOverflow: 'ellipsis',
+	},
+	textClip: {
+		textOverflow: 'clip',
 	},
 	textStylesSelected: {
 		color: token('color.text.selected'),
@@ -183,21 +194,8 @@ const styles = cssMapUnbound({
 		},
 	},
 	activeMotionStyles: {
-		// Prevent controls from painting outside the tag while it scales in or out.
+		// Prevent controls from painting outside the tag while its grid wrapper resizes.
 		overflow: 'hidden',
-		transformOrigin: 'left',
-	},
-	enteringMotionStyles: {
-		animation: token('motion.label.enter'),
-		'@media (prefers-reduced-motion: reduce)': {
-			animation: 'none',
-		},
-	},
-	exitingMotionStyles: {
-		animation: token('motion.label.exit'),
-		'@media (prefers-reduced-motion: reduce)': {
-			animation: 'none',
-		},
 	},
 });
 
@@ -400,6 +398,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 	ref,
 ) {
 	const normalizedText = getTagText(text);
+	const isMotionEnabled = fg('platform-dst-motion-uplift-labels');
 	const { status, handleRemoveRequest, onKeyPress, removingTag, showingTag } =
 		useTagRemoval(onBeforeRemoveAction);
 
@@ -428,19 +427,19 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		onKeyPress,
 		buttonHandlers,
 	});
-	const isMotionEnabled = fg('platform-dst-motion-uplift-labels');
 
 	const renderTagContent = (
 		tagRef: React.Ref<HTMLSpanElement>,
 		isEntering = false,
 		isExiting = false,
+		hasEllipsis: boolean | null = null,
 	) => (
 		<span
 			{...other}
 			ref={tagRef}
 			css={[
 				styles.baseStyles,
-				!hasMargin && styles.noMarginStyles,
+				(isMotionEnabled || !hasMargin) && styles.noMarginStyles,
 				colorStyles[color as keyof typeof colorStyles],
 				borderIconFilterStyles.root,
 				isLink && styles.interactiveBaseStyles,
@@ -449,8 +448,6 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				// is present before hover state changes — required for the browser to animate the change
 				isLink && isMotionEnabled && styles.interactiveMotionStyles,
 				(isEntering || isExiting) && styles.activeMotionStyles,
-				isEntering && styles.enteringMotionStyles,
-				isExiting && styles.exitingMotionStyles,
 				// Only apply hover/active styles when link is hovered but NOT over the button
 				isLink && isLinkHovered && !isOverButton && borderIconInteractiveFilterStyles.root,
 				isLink && isLinkHovered && !isOverButton && styles.interactiveHoverStyles,
@@ -486,7 +483,10 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 					swatchBeforeRole={swatchBeforeRole}
 				/>
 				{elemBefore && <span css={styles.beforeStyles}>{elemBefore}</span>}
-				<span css={styles.textStyles} data-tag-text>
+				<span
+					css={[styles.textStyles, hasEllipsis === false ? styles.textClip : styles.textEllipsis]}
+					data-tag-text
+				>
 					{normalizedText}
 				</span>
 				{trailingMetric != null && trailingMetric !== '' && (
@@ -507,11 +507,12 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		return (
 			<TagMotion
 				forwardedRef={ref}
+				hasMargin={hasMargin}
 				onExitComplete={isRemovable ? onShrinkOutExitComplete : undefined}
 				status={status}
 			>
-				{({ isEntering, isExiting, ref: motionRef }) =>
-					renderTagContent(motionRef, isEntering, isExiting)
+				{({ hasEllipsis, isEntering, isExiting, ref: motionRef }) =>
+					renderTagContent(motionRef, isEntering, isExiting, hasEllipsis)
 				}
 			</TagMotion>
 		);
@@ -610,7 +611,10 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 						{elemBefore}
 					</span>
 				)}
-				<span css={[styles.textStyles, isSelected && styles.textStylesSelected]} data-tag-text>
+				<span
+					css={[styles.textStyles, styles.textEllipsis, isSelected && styles.textStylesSelected]}
+					data-tag-text
+				>
 					{getTagText(text)}
 				</span>
 				{trailingMetric != null && trailingMetric !== '' && (

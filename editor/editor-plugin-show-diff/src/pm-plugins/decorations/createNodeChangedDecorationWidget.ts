@@ -25,7 +25,11 @@ import {
 	buildAnchorDecorationKey,
 	scrollMarginTopValue,
 } from './decorationKeys';
+import { absorbFirstChildMarginReset } from './utils/absorbFirstChildMarginReset';
+import { createMarginAbsorber } from './utils/createMarginAbsorber';
+import { createNodeShapedMarginSpacer } from './utils/createNodeShapedMarginSpacer';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
+import { safeResolve } from './utils/safeResolve';
 import {
 	wrapBlockNodeView,
 	injectInnerWrapper,
@@ -242,6 +246,15 @@ export const createNodeChangedDecorationWidget = ({
 	// For non-table content, use the existing span wrapper approach
 	const dom = document.createElement('span');
 	const $safeInsertPos = newDoc.resolve(safeInsertPos);
+
+	// Whether the widget renders above the very start of its parent's content — the document, a
+	// layout column, a table cell, a panel.
+	//
+	// `parentOffset === 0` is the whole test on the position side: prosemirror-view paints every
+	// widget at a position before the node starting there, so a leading widget at the parent's start
+	// always renders above its content.
+	const isVisuallyFirstInParent = !placeBelow && $safeInsertPos.parentOffset === 0;
+
 	const isTopLevelInsert = $safeInsertPos.depth === 0;
 	const hasPreviousBlock = $safeInsertPos.nodeBefore?.isBlock === true;
 	const isFirstDocHeadingReplacement =
@@ -299,6 +312,26 @@ export const createNodeChangedDecorationWidget = ({
 	const firstReplacedNode = slice.content.firstChild;
 	const lastReplacedNode = slice.content.lastChild;
 	const showDiffPatch1 = fg('platform_editor_ai_show_diff_patch_1');
+	// Whether the slice's outermost textblocks still hold all of their original content.
+	//
+	// `openStart`/`openEnd` say whether the cut landed inside a block, but not whether it took
+	// any text with it — a deletion stopping exactly at a block's content boundary is still
+	// reported as open. Resolving the change's own ends separates the two, so a block whose text
+	// survived intact can render as a block even though its boundary was open.
+	//
+	// Both resolves sit behind the gate that consumes them, so this adds no position arithmetic to
+	// the ungated path, and an unresolvable position degrades to the `openStart`/`openEnd` test on
+	// its own — the block is then treated as partial, which is what it rendered as before the gate.
+	const $changeFromA = fg('platform_editor_ai_show_diff_patch_2')
+		? safeResolve(doc, change.fromA)
+		: null;
+	const $changeToA = fg('platform_editor_ai_show_diff_patch_2')
+		? safeResolve(doc, change.toA)
+		: null;
+	const isFirstNodeContentComplete = slice.openStart === 0 || $changeFromA?.parentOffset === 0;
+	const isLastNodeContentComplete =
+		slice.openEnd === 0 ||
+		($changeToA !== null && $changeToA.parentOffset === $changeToA.parent.content.size);
 	const isCompleteSameTypeReplacement =
 		slice.content.childCount === 1 &&
 		firstReplacedNode !== null &&
@@ -322,11 +355,22 @@ export const createNodeChangedDecorationWidget = ({
 			node.content.childCount > 1 &&
 			!isOpenAtSliceBoundary &&
 			isCompleteSameTypeReplacement;
+		// A textblock is otherwise serialized as its inline content only, with no `<p>`/`<h2>` wrapper.
+		// That is right when the diff cuts into an existing block — the deleted text belongs on the same
+		// line as the text that replaced it — but when the whole block went away it drops the very
+		// element that carries the block's margin, so the deleted block renders flush against its
+		// neighbours. Only the first and last children can be partial; middle ones are always complete.
+		const shouldRenderAsBlockNode =
+			fg('platform_editor_ai_show_diff_patch_2') &&
+			node.isTextblock &&
+			(!isFirst || isFirstNodeContentComplete) &&
+			(!isLast || isLastNodeContentComplete);
 
 		// Helper function to handle multiple child nodes
 		const handleMultipleChildNodes = (node: PMNode): boolean => {
 			if (
 				!shouldPreserveCompleteMultiInlineBlock &&
+				!shouldRenderAsBlockNode &&
 				node.content.childCount > 1 &&
 				node.type.inlineContent
 			) {
@@ -362,7 +406,7 @@ export const createNodeChangedDecorationWidget = ({
 			return;
 		}
 
-		if (shouldPreserveCompleteMultiInlineBlock) {
+		if (shouldPreserveCompleteMultiInlineBlock || shouldRenderAsBlockNode) {
 			fallbackSerialization = () => serializer.serializeNode(node);
 		} else if ((isFirst || (isLast && slice.content.childCount > 2)) && hasInlineContent) {
 			fallbackSerialization = () => serializer.serializeFragment(node.content);
@@ -438,6 +482,18 @@ export const createNodeChangedDecorationWidget = ({
 		dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
 	}
 
+	// A block node serialized into the widget is the widget's first child, and the editor's
+	// first-child reset is written against the parent element rather than the document position — so
+	// it zeroes the margin the block wrapper was kept for in the first place.
+	//
+	// Only away from the parent's start. There the reset is the correct outcome: the widget is the
+	// first thing in the document, column, cell or panel, and a leading gap above it would be wrong.
+	// The margin that matters at that position belongs to the node *below* the widget, which the
+	// shaped spacer pair supplies instead.
+	if (fg('platform_editor_ai_show_diff_patch_2') && !isVisuallyFirstInParent) {
+		absorbFirstChildMarginReset({ dom, testId: 'show-diff-widget-margin-absorber' });
+	}
+
 	// Needed even when the indicator bar is off, because a contributor tag also anchors against the
 	// widget.
 	if ((showIndicators || showContributorTags) && isExtendedEnabled(diffType)) {
@@ -509,7 +565,53 @@ export const createNodeChangedDecorationWidget = ({
 	const isSingleBlock = slice.content.childCount === 1 && slice.content.firstChild?.isBlock;
 	const isDiffWidgetAtStartOfDoc = $safeInsertPos.depth === 0 && $safeInsertPos.index(0) === 0;
 
-	if (isDiffWidgetAtStartOfDoc && isSingleBlock && isPureDeletion && isExtendedEnabled(diffType)) {
+	// A node at the start of its parent has its top margin reset, so a diff widget rendered above
+	// it sits flush against it. This applies wherever that parent is — the document, a layout
+	// column, a table cell — so it is decided from the anchor rather than from the document root
+	// (see `isVisuallyFirstInParent` above).
+	//
+	// Away from the parent's start the node below keeps its own margin, and it is the block *inside*
+	// the widget that loses one — handled by `absorbFirstChildMarginReset` above, not here.
+	const nodeAfterWidget = $safeInsertPos.nodeAfter;
+
+	if (
+		fg('platform_editor_ai_show_diff_patch_2') &&
+		isExtendedEnabled(diffType) &&
+		isVisuallyFirstInParent &&
+		nodeAfterWidget
+	) {
+		const shapedSpacer = createNodeShapedMarginSpacer({
+			node: nodeAfterWidget,
+			serializer,
+			testId: 'show-diff-shaped-margin-spacer',
+		});
+
+		if (shapedSpacer) {
+			// Two elements, because the two families of reset have to be handled differently. The
+			// absorber takes the document-level adjacent-sibling reset for a leading widget, whose
+			// `!important` would otherwise zero the shaped spacer's margin; the shaped spacer, now one
+			// position further along, is out of that rule's reach and keeps the margin it supplies.
+			// Inside containers the counting selectors skip both, so only the shaped one has an effect.
+			//
+			// Sides order the widgets against each other only — both still paint before the real node.
+			decorations.push(
+				Decoration.widget(
+					safeInsertPos,
+					createMarginAbsorber({ testId: 'show-diff-margin-absorber' }),
+					{ side: 0 },
+				),
+			);
+			decorations.push(Decoration.widget(safeInsertPos, shapedSpacer, { side: 1 }));
+		}
+	}
+
+	if (
+		!fg('platform_editor_ai_show_diff_patch_2') &&
+		isDiffWidgetAtStartOfDoc &&
+		isSingleBlock &&
+		isPureDeletion &&
+		isExtendedEnabled(diffType)
+	) {
 		const followingNode = $safeInsertPos.nodeAfter;
 		const headingLevel =
 			followingNode?.type.name === 'heading' ? followingNode.attrs.level : undefined;

@@ -2,8 +2,6 @@ import React, { lazy, useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
@@ -42,14 +40,8 @@ const ViewRelatedLinksAction = ({
 	return actionData ? (
 		<Action
 			content={<FormattedMessage {...messages.related_links_view_related_links} />}
-			{...(fg('platform_sl_action_refactoring')
-				? { tooltipMessage: <FormattedMessage {...messages.related_links_view_related_links} /> }
-				: {})}
-			icon={
-				<RelatedLinksActionIcon
-					{...(fg('platform_sl_action_refactoring') ? { iconSize: props.iconSize } : {})}
-				/>
-			}
+			tooltipMessage={<FormattedMessage {...messages.related_links_view_related_links} />}
+			icon={<RelatedLinksActionIcon iconSize={props.iconSize} />}
 			onClick={onClick}
 			testId="smart-action-view-related-links-action"
 			ariaLabel="View most recent pages or content types coming from or found on this link"

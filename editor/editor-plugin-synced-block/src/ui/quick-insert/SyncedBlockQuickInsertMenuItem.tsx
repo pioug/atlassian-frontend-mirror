@@ -8,6 +8,7 @@ import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
@@ -18,9 +19,11 @@ import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 
 export const SyncedBlockQuickInsertMenuItem = ({
 	api,
+	previewImageUrls,
 	syncBlockStore,
 }: {
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 	syncBlockStore: SyncBlockStoreManager;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
@@ -48,6 +51,7 @@ export const SyncedBlockQuickInsertMenuItem = ({
 			iconBefore={<BlockSyncedIcon label="" />}
 			isDisabled={editorDisabled}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			title={formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle)}
 		/>
 	);

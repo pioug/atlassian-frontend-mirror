@@ -1,52 +1,54 @@
 import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { CloseButton } from '../../flyout-menu-item/close-button';
 
 describe('Close button', () => {
+	beforeEach(() => {
+		failGate('platform-dst-motion-uplift-button');
+	});
 	const label = 'label';
 	const testId = 'testId';
 
 	it('should be a button', () => {
-		render(<CloseButton onClick={noop} label={label} testId={testId} />);
+		setupComponent({});
 
-		const closeButton = screen.getByTestId(`${testId}`);
+		const closeButton = screen.getByTestId(testId);
 		expect(screen.getByRole('button')).toBe(closeButton);
 	});
 
 	it('should trigger provided onClick when clicked', async () => {
-		const user = userEvent.setup();
 		const onClick = jest.fn();
-		render(<CloseButton onClick={onClick} label={label} testId={testId} />);
+		const { user } = setupComponent({ onClick });
 
-		const closeButton = screen.getByTestId(`${testId}`);
-
-		expect(onClick).toHaveBeenCalledTimes(0);
+		const closeButton = screen.getByTestId(testId);
 		await user.click(closeButton);
 		expect(onClick).toHaveBeenCalledTimes(1);
 	});
 
-	it('should have default accessible name', () => {
-		render(<CloseButton onClick={noop} label={label} testId={testId} />);
-
-		const closeButton = screen.getByTestId(`${testId}`);
-
-		expect(closeButton).toHaveAccessibleName();
-	});
-
 	it('should use label if provided', () => {
-		render(<CloseButton label={label} onClick={noop} testId={testId} />);
+		setupComponent({});
 
-		const closeButton = screen.getByTestId(`${testId}`);
-
-		expect(closeButton).toHaveAccessibleName(label);
+		expect(screen.getByTestId(testId)).toHaveAccessibleName(label);
 	});
 
 	it('should pass a11y checks', async () => {
-		const { container } = render(<CloseButton label={label} onClick={noop} testId={testId} />);
+		const { container } = setupComponent({});
 
 		await expect(container).toBeAccessible();
 	});
 });
+
+function setupComponent(props: Partial<React.ComponentProps<typeof CloseButton>> = {}) {
+	const user = userEvent.setup();
+	const result = render(<CloseButton label="label" onClick={noop} testId="testId" {...props} />);
+	return {
+		...result,
+		user,
+	};
+}

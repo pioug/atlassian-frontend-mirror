@@ -50,14 +50,7 @@ export const ExtensionQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
-			iconBefore={
-				<ExtensionQuickInsertIcon
-					getIcon={item.icon}
-					itemKey={item.key}
-					itemTitle={item.title}
-					label=""
-				/>
-			}
+			iconBefore={<ExtensionQuickInsertIcon getIcon={item.icon} itemKey={item.key} label="" />}
 			isDisabled={isOffline}
 			onSelect={onSelect}
 			previewImageUrls={getExtensionQuickInsertPreviewImageUrls(item)}

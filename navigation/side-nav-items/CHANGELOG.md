@@ -1,5 +1,29 @@
 # @atlaskit/side-nav-items
 
+## 2.5.0
+
+### Minor Changes
+
+- [`b3039e05575d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3039e05575d2) -
+  Add optional flyout-header close-button autofocus, coordinated with popup focus management to
+  preserve focus on cached opens, respect user interaction during loading, and restore the trigger
+  on dismissal. Object-list flyouts opt in behind `navx-a11y-43752-flyout-initial-focus`. Add an
+  optional `titleId` prop to `FlyoutMenuItemContent` so loading content and the loaded header can
+  share an accessible dialog name.
+
+### Patch Changes
+
+- [`2808e38fa97f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2808e38fa97f7) -
+  Replace imported constants in Compiled style keys/values with static literals guarded by type
+  assertions
+- Updated dependencies
+
+## 2.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.5
 
 ### Patch Changes

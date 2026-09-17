@@ -45,7 +45,7 @@ const setGlobalTheme = async (
 		contrastMode = themeStateDefaults['contrastMode'],
 		dark = themeStateDefaults['dark'],
 		light = themeStateDefaults['light'],
-		shape = themeStateDefaults['shape'](),
+		shape = themeStateDefaults['shape'],
 		spacing = themeStateDefaults['spacing'],
 		typography = themeStateDefaults['typography'],
 		motion = themeStateDefaults['motion'](),
@@ -54,7 +54,7 @@ const setGlobalTheme = async (
 		? nextThemeState({
 				...themeStateDefaults,
 				typography: themeStateDefaults['typography'],
-				shape: themeStateDefaults['shape'](),
+				shape: themeStateDefaults['shape'],
 				motion: themeStateDefaults['motion'](),
 				...getGlobalTheme(),
 			})
@@ -84,7 +84,7 @@ const setGlobalTheme = async (
 	};
 
 	// Determine what to load and loading strategy
-	let themePreferences = getThemePreferences(themeState);
+	const themePreferences = getThemePreferences(themeState);
 
 	const loadingStrategy = themeLoader ? themeLoader : loadAndAppendThemeCss;
 

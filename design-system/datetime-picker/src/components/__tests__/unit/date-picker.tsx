@@ -7,7 +7,7 @@ import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { convertTokens } from '../../../internal/parse-tokens';
 import { type DatePickerBaseProps } from '../../../types';
@@ -418,6 +418,35 @@ describe('DatePicker', () => {
 				fireEvent.keyDown(input, { key: 'Enter' });
 
 				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso, expect.any(Object));
+			});
+
+			describe('two-digit year entry', () => {
+				beforeEach(() => {
+					jest.useFakeTimers();
+					jest.setSystemTime(new Date(2026, 8, 16, 12));
+				});
+
+				afterEach(() => {
+					jest.useRealTimers();
+				});
+
+				it.each([
+					[false, '1926-02-01'],
+					[true, '2026-02-01'],
+				])('emits the expected century with reference date gate %s', async (enabled, expected) => {
+					const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+					passGate('platform-dst-dp-parse-date-format');
+					(enabled ? passGate : failGate)('platform-dst-dp-current-reference-date');
+					const onChangeSpy = jest.fn();
+					render(createDatePicker({ dateFormat: 'DD.MM.YY', onChange: onChangeSpy }));
+
+					await user.type(getInput(), '01.02.26');
+					expect(onChangeSpy).not.toHaveBeenCalled();
+					await user.keyboard('{Enter}');
+
+					expect(onChangeSpy).toHaveBeenCalledWith(expected, expect.any(Object));
+					expect(screen.getByTestId(testIdContainer)).toHaveTextContent('01.02.26');
+				});
 			});
 
 			it('falls back to locale parsing when typed input does not match dateFormat', () => {

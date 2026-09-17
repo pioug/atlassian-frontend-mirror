@@ -12,6 +12,11 @@ import type { MentionsPlugin } from '../../mentionsPluginType';
 
 import { MentionQuickInsertMenuItem } from './MentionQuickInsertMenuItem';
 
+const previewImageUrls = {
+	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/02107p5maex03pfb4s04rw7i4hbk5jj0.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/q3254137y85cxldh4osht5k5c7q88572.png',
+};
+
 export const getMentionQuickInsertComponents = ({
 	api,
 	canOpenMentionTypeAhead,
@@ -40,6 +45,12 @@ export const getMentionQuickInsertComponents = ({
 			shortcut: '@',
 			title: formatMessage(messages.mention),
 		})),
-		component: () => <MentionQuickInsertMenuItem api={api} typeAhead={typeAhead} />,
+		component: () => (
+			<MentionQuickInsertMenuItem
+				api={api}
+				previewImageUrls={previewImageUrls}
+				typeAhead={typeAhead}
+			/>
+		),
 	},
 ];

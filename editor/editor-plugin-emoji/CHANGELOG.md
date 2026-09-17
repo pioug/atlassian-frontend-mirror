@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-emoji
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.7
+
+### Patch Changes
+
+- [`c1111df7c2aef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1111df7c2aef) -
+  Add light and dark hover previews for selected slash-command media, Whiteboard, and Profile
+  Picture items when `platform_editor_slash_command` is enabled.
+- Updated dependencies
+
+## 19.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.1.5
 
 ### Patch Changes

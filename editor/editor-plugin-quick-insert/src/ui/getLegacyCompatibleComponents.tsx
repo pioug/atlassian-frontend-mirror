@@ -70,7 +70,7 @@ const getComponentsFromLegacyItems = (
 		const identity = getItemIdentity(item, index);
 		return {
 			type: 'menu-item',
-			key: getQuickInsertProviderMenuItemKey(identity),
+			key: getQuickInsertProviderMenuItemKey(identity, item.app),
 			parents: getQuickInsertMenuItemParents({
 				category: item.category,
 				legacyCategories: item.categories,
@@ -109,7 +109,7 @@ export const getLegacyCompatibleComponents = ({
 			);
 			return {
 				...component,
-				key: getQuickInsertProviderMenuItemKey(component.key),
+				key: getQuickInsertProviderMenuItemKey(component.key, item?.app),
 				component: item
 					? (props: CommonComponentProps) =>
 							component.component({

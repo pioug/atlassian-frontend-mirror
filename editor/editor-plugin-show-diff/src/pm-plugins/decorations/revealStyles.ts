@@ -1,3 +1,6 @@
+import { agentBrandColorSchemes } from '@atlaskit/agent-color/agent-brand-color-schemes';
+import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
+
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
@@ -160,6 +163,10 @@ export const resolveRevealStyle = ({
 	}
 
 	const colors = getColorScheme(colorScheme);
+	const brand =
+		isInserted && Object.prototype.hasOwnProperty.call(agentBrandColorSchemes, colors.insertColor)
+			? agentBrandColorSchemes[colors.insertColor as AgentBrandColorScheme]
+			: undefined;
 	const { background, border } = resolveRevealColors(colors, {
 		hideAddedDiffsUnderline,
 		isActive,
@@ -169,6 +176,7 @@ export const resolveRevealStyle = ({
 	return {
 		role: isInserted ? 'added' : 'deleted',
 		style:
+			(brand ? convertToInlineCss({ color: brand.text }) : '') +
 			(isInserted || !includeDeletedTextStyle ? '' : deletedTextOnlyStyle(colors, isActive)) +
 			revealBaseStyle +
 			buildWipeableBackground(background) +

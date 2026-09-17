@@ -8,6 +8,7 @@ import { createLintRule } from '../utils/create-rule';
 import { isImportBinding } from '../utils/is-import-binding';
 import { isRootPackageBarrel } from '../utils/is-root-package-barrel';
 import { lookupVariable } from '../utils/lookup-variable';
+import { isThirdPartyModule } from '../utils/is-third-party-module';
 
 const DEPRECATED_TAG = '@deprecated';
 
@@ -197,6 +198,13 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		}
 
 		const sourceCode = context.sourceCode ?? context.getSourceCode();
+		const externalSources = new Map<string, boolean>();
+		function isExternalSource(source: string): boolean {
+			if (!externalSources.has(source)) {
+				externalSources.set(source, isThirdPartyModule(filename, source));
+			}
+			return externalSources.get(source) === true;
+		}
 
 		// A re-exposed import is only a problem when it is NOT the file's sole
 		// runtime export. `import X; export default X;` (or `export { X }`) where X
@@ -222,6 +230,16 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 				id.name,
 			);
 			if (variable && isImportBinding(variable)) {
+				if (
+					variable.defs.some(
+						(definition) =>
+							definition.type === 'ImportBinding' &&
+							definition.parent.type === AST_NODE_TYPES.ImportDeclaration &&
+							isExternalSource(String(definition.parent.source.value)),
+					)
+				) {
+					return;
+				}
 				report(id as ESTreeNode);
 			}
 		}
@@ -232,7 +250,10 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 			},
 
 			ExportAllDeclaration(node) {
-				if (hasDeprecatedReexportMarker(node as TSESTree.Node, sourceCode)) {
+				if (
+					isExternalSource(String((node as TSESTree.ExportAllDeclaration).source.value)) ||
+					hasDeprecatedReexportMarker(node as TSESTree.Node, sourceCode)
+				) {
 					return;
 				}
 				report(node);
@@ -254,6 +275,9 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 				}
 
 				if (named.source != null) {
+					if (isExternalSource(String(named.source.value))) {
+						return;
+					}
 					// Report only if at least one specifier is a runtime (non-type)
 					// re-export. `export { type A, type B } from './y'` is fully
 					// type-only and exempt; `export {} from './y'` is a no-op and exempt.

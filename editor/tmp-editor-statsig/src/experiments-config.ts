@@ -22,7 +22,6 @@ export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
 	'single_column_layouts',
 	'platform_editor_preview_panel_responsiveness',
 	'platform_editor_toolbar_aifc',
-	'comment_on_bodied_extensions',
 ];
 
 /**
@@ -165,13 +164,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-21
-	'editor_a11y__toolbar-item-aria-described-by_fy27': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-06-19
 	'enghealth-53346_fix_redaction_marker_editor': {
 		defaultValue: boolean;
@@ -198,13 +190,6 @@ export const editorExperimentsConfig: {
 	// lwoollard experiments
 	// Added 02-12-2025
 	cc_fix_hydration_ttvc: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2024-10-01
-	comment_on_bodied_extensions: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -562,13 +547,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-27
-	platform_editor_table_excerpts_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-10-27
 	platform_editor_table_sticky_header_improvements: {
 		defaultValue: 'control' | 'test_with_overflow' | 'test_without_overflow';
@@ -904,20 +882,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-12
 	platform_editor_a11y_escape_link_dialog: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-20
-	platform_editor_flexible_list_indentation: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-24
-	platform_editor_flexible_list_schema: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1423,15 +1387,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-07-21
-	'editor_a11y__toolbar-item-aria-described-by_fy27': createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_a11y__toolbar-item-aria-described-by_fy27',
-			jira: 'editor_a11y__toolbar-item-aria-described-by_fy27',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-06-19
 	'enghealth-53346_fix_redaction_marker_editor': createBooleanExperiment({
 		productKeys: {
@@ -1617,14 +1572,6 @@ export const editorExperimentsConfig: {
 	'company_hub_carousel_thumbnails-refactor': createBooleanExperiment({
 		productKeys: {
 			confluence: 'company_hub_carousel_thumbnails-refactor',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2024-10-01
-	comment_on_bodied_extensions: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_comment_on_bodied_extensions',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1842,14 +1789,6 @@ export const editorExperimentsConfig: {
 	platform_editor_preview_panel_responsiveness: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_preview_panel_responsiveness',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-27
-	platform_editor_table_excerpts_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_excerpts_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2300,22 +2239,6 @@ export const editorExperimentsConfig: {
 	platform_editor_vc90_transition_panel_icon: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_vc90_transition_panel_icon',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-02-19
-	platform_editor_flexible_list_indentation: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_flexible_list_indentation',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-24
-	platform_editor_flexible_list_schema: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_flexible_list_schema',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -62,6 +62,16 @@ const isSameBlockChange = (inner: TaggableDecoration, block: TaggableDecoration)
 		(inner.from <= block.from && block.to <= inner.to));
 
 /**
+ * Whether `outer` is the box `inner` sits in, for one contributor. Nested blocks they inserted read
+ * as one change, so only the outermost keeps a tag (EDITOR-8932).
+ */
+const containsBlock = (outer: TaggableDecoration, inner: TaggableDecoration): boolean =>
+	outer.spec.attributionKey === inner.spec.attributionKey &&
+	outer.from <= inner.from &&
+	inner.to <= outer.to &&
+	outer.to - outer.from > inner.to - inner.from;
+
+/**
  * Which of two changes in the same range leads, and so is the one a tag captions. Position first,
  * then `side`, since deleted content shares its `from` with the content that replaced it and paints
  * above; then the narrower range, so a change nested in another captions itself.
@@ -79,6 +89,27 @@ const containedBy = (
 	targets
 		.filter(({ decoration }) => from <= decoration.from && decoration.to <= to)
 		.sort(byLeadingPosition);
+
+/**
+ * The stop a target is stepped to by: the narrowest one that wholly covers it. A stop's range is
+ * the union of the decorations grouped into it, so one inserted run's inline highlight stretches
+ * its stop over every block the run spans — including blocks that are a stop of their own. Picking
+ * the narrowest keeps each of those blocks in the stop that actually reaches it, rather than
+ * letting the widest stop claim them all and fold away every tag but the first (EDITOR-8932).
+ */
+const owningStop = (
+	target: TagTarget,
+	stops: ReadonlyArray<{ from: number; to: number }>,
+): { from: number; to: number } | undefined =>
+	stops.reduce<{ from: number; to: number } | undefined>(
+		(narrowest, stop) =>
+			stop.from <= target.decoration.from &&
+			target.decoration.to <= stop.to &&
+			(narrowest === undefined || stop.to - stop.from < narrowest.to - narrowest.from)
+				? stop
+				: narrowest,
+		undefined,
+	);
 
 /**
  * The one tag a navigation step reveals. `spec.isActive` is no use here: it covers everything the
@@ -145,6 +176,9 @@ export const extractContributorTags = (
 	const linkedDiffIds = new Map<string, string[]>();
 	const folded = new Set<TagTarget>();
 
+	/**
+	 * A folded target keeps no tag of its own — it becomes a hover target of the host instead.
+	 */
 	const fold = (host: TagTarget, target: TagTarget): void => {
 		folded.add(target);
 		const hostDiffId = host.decoration.spec.diffId;
@@ -200,23 +234,61 @@ export const extractContributorTags = (
 		}
 	}
 
+	// A nested block folds into the outermost one of the same contributor, so nesting adds no tags.
+	if (fg('confluence_ncs_step_diffing_version_history')) {
+		const blocksByContributor = new Map<string, TagTarget[]>();
+		for (const target of blockTargets) {
+			const key = target.decoration.spec.attributionKey ?? '';
+			blocksByContributor.set(key, [...(blocksByContributor.get(key) ?? []), target]);
+		}
+
+		for (const contributorBlocks of blocksByContributor.values()) {
+			// Block ranges nest rather than partially overlap, so ascending `from` then descending `to`
+			// reaches every block after the ones containing it. A stack of the blocks still open at
+			// this position then yields each block's container in one pass, rather than rescanning
+			// every block for the widest that contains it.
+			const nested = [...contributorBlocks].sort(
+				(left, right) =>
+					left.decoration.from - right.decoration.from || right.decoration.to - left.decoration.to,
+			);
+			const open: TagTarget[] = [];
+
+			for (const target of nested) {
+				while (
+					open.length > 0 &&
+					!containsBlock(open[open.length - 1].decoration, target.decoration)
+				) {
+					open.pop();
+				}
+				// Outermost first, so the bottom of the stack is the block the tag survives on.
+				if (open.length > 0) {
+					fold(open[0], target);
+				}
+				open.push(target);
+			}
+		}
+	}
+
 	// One tag per contributor per navigation stop. The folds above only catch a replacement's two
 	// halves and a block's own highlights; two of one contributor's changes that merely touch are a
 	// single stop (`groupTouchingDecorations`) yet kept a tag each, so the stop's trailing tag was
 	// drawn but could never be stepped to (EDITOR-8971). It folds into the leading tag of its
 	// contributor, staying a hover target. Contributors are kept apart: a stop spanning two of them
 	// still captions each, rather than crediting one for the other's change.
-	for (const stop of stops ?? []) {
-		const byContributor = new Map<string, TagTarget[]>();
-		for (const target of containedBy(
-			targets.filter((target) => !folded.has(target)),
-			stop,
-		)) {
-			const key = target.decoration.spec.attributionKey ?? '';
-			byContributor.set(key, [...(byContributor.get(key) ?? []), target]);
+	// Each target is counted against one stop only — see `owningStop`.
+	if (stops?.length) {
+		const byStopAndContributor = new Map<string, TagTarget[]>();
+		for (const target of targets.filter((target) => !folded.has(target))) {
+			const stop = owningStop(target, stops);
+			if (stop === undefined) {
+				continue;
+			}
+			const key = `${stop.from}-${stop.to}|${target.decoration.spec.attributionKey ?? ''}`;
+			byStopAndContributor.set(key, [...(byStopAndContributor.get(key) ?? []), target]);
 		}
 
-		for (const [leader, ...trailing] of byContributor.values()) {
+		for (const members of byStopAndContributor.values()) {
+			const [leader, ...trailing] = [...members].sort(byLeadingPosition);
 			trailing.forEach((target) => fold(leader, target));
 		}
 	}

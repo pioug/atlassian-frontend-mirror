@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "12.3.0",
+	"version": "12.3.1",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

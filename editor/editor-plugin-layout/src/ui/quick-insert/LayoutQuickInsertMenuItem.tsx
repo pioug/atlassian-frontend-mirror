@@ -12,6 +12,7 @@ import {
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import LayoutThreeColumnsIcon from '@atlaskit/icon/core/layout-three-columns';
@@ -33,12 +34,14 @@ const icons = {
 type Props = {
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined;
 	columnCount: 2 | 3 | 4 | 5;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 	title: MessageDescriptor;
 };
 
 export const LayoutQuickInsertMenuItem = ({
 	api,
 	columnCount,
+	previewImageUrls,
 	title,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
@@ -66,6 +69,7 @@ export const LayoutQuickInsertMenuItem = ({
 		<QuickInsertMenuItem
 			iconBefore={<Icon label="" />}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			title={formatMessage(title)}
 		/>
 	);

@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+// Lets uplifted Tag and AvatarTag values own width motion without a competing Select wrapper.
 
 import React from 'react';
 
@@ -195,8 +196,9 @@ export class MultiValue extends React.Component<Props> {
 			const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED';
 			const avatarProps = avatarUrl ? { name: data.name, src: avatarUrl } : { name: data.name };
 
-			const onAfterRemoveAction = () => {
+			const onBeforeRemoveAction = () => {
 				removeProps.onClick({} as React.MouseEvent<HTMLDivElement>);
+				return false;
 			};
 
 			if (isEmailOption) {
@@ -208,7 +210,7 @@ export class MultiValue extends React.Component<Props> {
 								<AddOptionAvatar isLozenge isPendingAction={(data as Email).isPendingAction} />
 							}
 							isRemovable={!isDisabled}
-							onAfterRemoveAction={onAfterRemoveAction}
+							onBeforeRemoveAction={onBeforeRemoveAction}
 							hasMargin={false}
 						/>
 					</span>
@@ -230,7 +232,7 @@ export class MultiValue extends React.Component<Props> {
 								</Box>
 							}
 							isRemovable={!isDisabled}
-							onAfterRemoveAction={onAfterRemoveAction}
+							onBeforeRemoveAction={onBeforeRemoveAction}
 							hasMargin={false}
 						/>
 					</span>
@@ -249,7 +251,7 @@ export class MultiValue extends React.Component<Props> {
 							}
 							isRemovable={!isDisabled}
 							hasMargin={false}
-							onAfterRemoveAction={onAfterRemoveAction}
+							onBeforeRemoveAction={onBeforeRemoveAction}
 						/>
 					</span>
 				);
@@ -263,7 +265,7 @@ export class MultiValue extends React.Component<Props> {
 								text={label}
 								isVerified={isTeamOption ? data.verified : undefined}
 								isRemovable={!isDisabled}
-								onAfterRemoveAction={onAfterRemoveAction}
+								onBeforeRemoveAction={onBeforeRemoveAction}
 								avatar={(props: AvatarPropTypes) => (
 									// AvatarTag always supplies size="xxsmall", which is a valid
 									// TeamAvatarSize; TeamAvatar does not support UNSAFE_xsmall.
@@ -284,7 +286,7 @@ export class MultiValue extends React.Component<Props> {
 							type="user"
 							text={label}
 							isRemovable={!isDisabled}
-							onAfterRemoveAction={onAfterRemoveAction}
+							onBeforeRemoveAction={onBeforeRemoveAction}
 							avatar={(props: AvatarPropTypes) => <Avatar {...props} {...avatarProps} />}
 							hasMargin={false}
 						/>
@@ -309,3 +311,7 @@ export class MultiValue extends React.Component<Props> {
 		);
 	}
 }
+
+// User Picker's uplifted values render Tag or AvatarTag, which own their width and truncation
+// motion. This prevents React Select from wrapping them in a second competing motion element.
+Object.defineProperty(MultiValue, Symbol.for('@atlaskit/tag/motion-capable'), { value: true });

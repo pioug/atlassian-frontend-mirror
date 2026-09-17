@@ -75,6 +75,17 @@ function decorationSide(decoration: Decoration): number {
 }
 
 /**
+ * Whose change a decoration is part of, or `''` on an unattributed diff — where every decoration
+ * reads as one contributor and the grouping below is unchanged.
+ *
+ * Contributors are kept apart so one stop never covers two of them, since only the tag on the
+ * change stepped to reveals (EDITOR-8932).
+ */
+function contributorOf(decoration: Decoration): string {
+	return (isDiffDecoration(decoration) && decoration.spec.attributionKey) || '';
+}
+
+/**
  * Collapses decorations that represent one continuous customer-facing edit.
  *
  * Decorations are kept separate in the DecorationSet so each one can retain its own visual
@@ -82,6 +93,8 @@ function decorationSide(decoration: Decoration): number {
  * deletion at the same location should be treated as one replacement. Zero-width decorations
  * (normally deleted-content widgets) can join a group, but cannot extend its range and therefore
  * cannot bridge two otherwise separate edits.
+ *
+ * One group per contributor within a run of touching ranges — see `contributorOf`.
  */
 function groupTouchingDecorations(
 	decorations: Decoration[],
@@ -91,27 +104,46 @@ function groupTouchingDecorations(
 		return decorations;
 	}
 
-	const groups: Array<{ decorations: Decoration[]; from: number; to: number }> = [];
-	let currentGroup: Decoration[] = [];
-	let currentGroupFrom = 0;
-	let currentGroupTo = 0;
+	type Group = { contributor: string; decorations: Decoration[]; from: number; to: number };
+	const groups: Group[] = [];
+	// The groups a following decoration can still join — one per contributor, dropped at every gap.
+	let openGroups: Group[] = [];
+	let clusterTo = 0;
 	const sortedDecorations = [...decorations].sort((a, b) =>
 		a.from === b.from ? a.to - b.to : a.from - b.from,
 	);
 
 	sortedDecorations.forEach((decoration) => {
-		if (currentGroup.length === 0 || decoration.from > currentGroupTo) {
-			currentGroup = [decoration];
-			currentGroupFrom = decoration.from;
-			currentGroupTo = decoration.to;
-			groups.push({ decorations: currentGroup, from: currentGroupFrom, to: currentGroupTo });
-			return;
+		// A gap ends the run: nothing before it can be joined.
+		if (decoration.from > clusterTo) {
+			openGroups = [];
 		}
 
-		currentGroup.push(decoration);
-		// A zero-width decoration must not extend the group and bridge a gap.
-		currentGroupTo = Math.max(currentGroupTo, decoration.to);
-		groups[groups.length - 1].to = currentGroupTo;
+		const contributor = contributorOf(decoration);
+		// An unattributed decoration names nobody to keep apart, so it joins whatever is open — a
+		// decision item's own highlight must not split the stop from the tag on its list.
+		const openGroup =
+			openGroups.find((group) => group.contributor === contributor) ??
+			(contributor === '' ? openGroups[0] : openGroups.find((group) => group.contributor === ''));
+
+		if (openGroup === undefined) {
+			const group = {
+				contributor,
+				decorations: [decoration],
+				from: decoration.from,
+				to: decoration.to,
+			};
+			groups.push(group);
+			openGroups = [...openGroups, group];
+		} else {
+			// The first contributor to join claims the group, so the next one still starts its own.
+			openGroup.contributor = openGroup.contributor || contributor;
+			openGroup.decorations.push(decoration);
+			openGroup.to = Math.max(openGroup.to, decoration.to);
+		}
+
+		// A zero-width decoration must not extend the run and bridge a gap.
+		clusterTo = Math.max(clusterTo, decoration.to);
 	});
 
 	return groups.map(({ decorations: group, from, to }) => {
@@ -161,8 +193,8 @@ function groupTouchingDecorations(
  * 4. When `doc` is passed: excludes diff-inline decorations whose range has no inline content
  *    (invalid positions, or block-only slices with no text/atoms — e.g. empty blocks)
  * 5. When `confluence_ncs_step_diffing_version_history` is enabled, groups overlapping or
- *    directly touching ranges across decoration types into one result, using the union of all
- *    grouped ranges
+ *    directly touching ranges across decoration types into one result per contributor, using the
+ *    union of all grouped ranges
  *    (zero-width widgets can join a group without extending it). Under
  *    `platform_editor_ai_show_diff_patch_1`, a group that starts with content painting above
  * 	  the content that replaced it — reports that widget as its `scrollTarget` spec,

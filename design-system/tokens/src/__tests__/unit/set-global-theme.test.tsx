@@ -33,9 +33,7 @@ const matchMediaObject = {
 
 Object.defineProperty(window, 'matchMedia', {
 	writable: true,
-	value: jest.fn().mockImplementation((_) => {
-		return matchMediaObject;
-	}),
+	value: jest.fn().mockImplementation((_) => matchMediaObject),
 });
 
 // Imported using `require` to allow us to mock matchMedia before importing
@@ -173,19 +171,18 @@ describe('setGlobalTheme style loading', () => {
 				// Wait for styles to be added to the page
 				await waitFor(() => {
 					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(9);
+					expect(styleElements).toHaveLength(10);
 				});
 				const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
 				expect(customStyleElements).toHaveLength(2);
 
 				const styleElements = document.querySelectorAll('style');
 
-				const dataThemes = Array.from(styleElements).map((el) => {
-					return (
+				const dataThemes = Array.from(styleElements).map(
+					(el) =>
 						(el.hasAttribute(CUSTOM_THEME_ATTRIBUTE) ? 'custom-' : '') +
-						el.getAttribute(THEME_DATA_ATTRIBUTE)
-					);
-				});
+						el.getAttribute(THEME_DATA_ATTRIBUTE),
+				);
 
 				// Validate that the custom style elements come after other style element
 				expect(dataThemes).toEqual([
@@ -195,6 +192,7 @@ describe('setGlobalTheme style loading', () => {
 					'dark',
 					'light-increased-contrast',
 					'dark-increased-contrast',
+					'shape',
 					'spacing',
 					'typography',
 					'motion',
@@ -211,19 +209,18 @@ describe('setGlobalTheme style loading', () => {
 				// Wait for styles to be added to the page
 				await waitFor(() => {
 					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(7);
+					expect(styleElements).toHaveLength(8);
 				});
 				const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
 				expect(customStyleElements).toHaveLength(2);
 
 				const styleElements = document.querySelectorAll('style');
 
-				const dataThemes = Array.from(styleElements).map((el) => {
-					return (
+				const dataThemes = Array.from(styleElements).map(
+					(el) =>
 						(el.hasAttribute(CUSTOM_THEME_ATTRIBUTE) ? 'custom-' : '') +
-						el.getAttribute(THEME_DATA_ATTRIBUTE)
-					);
-				});
+						el.getAttribute(THEME_DATA_ATTRIBUTE),
+				);
 
 				// Validate that the custom style elements come after other style element
 				expect(dataThemes).toEqual([
@@ -231,6 +228,7 @@ describe('setGlobalTheme style loading', () => {
 					'custom-dark',
 					'light',
 					'dark',
+					'shape',
 					'spacing',
 					'typography',
 					'motion',
@@ -250,14 +248,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(3);
+			expect(styleElements).toHaveLength(4);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes.sort()).toEqual(['motion', 'spacing', 'typography']);
+		expect(dataThemes.sort()).toEqual(['motion', 'shape', 'spacing', 'typography']);
 	});
 
 	it('should gracefully omit themes when falsy values are passed in with auto color mode', async () => {
@@ -271,14 +269,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(4);
+			expect(styleElements).toHaveLength(5);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes.sort()).toEqual(['dark', 'motion', 'spacing', 'typography']);
+		expect(dataThemes.sort()).toEqual(['dark', 'motion', 'shape', 'spacing', 'typography']);
 	});
 
 	it('Should not unset initialised themes when updating theme settings', async () => {
@@ -288,7 +286,7 @@ describe('setGlobalTheme style loading', () => {
 		expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 		expect(htmlElement).toHaveAttribute(
 			THEME_DATA_ATTRIBUTE,
-			'dark:dark light:light motion:motion spacing:spacing typography:typography',
+			'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 		);
 
 		// Updating theme color mode using the function argument to only update color mode
@@ -297,7 +295,7 @@ describe('setGlobalTheme style loading', () => {
 		expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
 		expect(htmlElement).toHaveAttribute(
 			THEME_DATA_ATTRIBUTE,
-			'dark:dark light:light motion:motion spacing:spacing typography:typography',
+			'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 		);
 
 		// Updating theme color mode using the object argument overrides non-defined theme settings to defaults
@@ -306,7 +304,7 @@ describe('setGlobalTheme style loading', () => {
 		expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 		expect(htmlElement).toHaveAttribute(
 			THEME_DATA_ATTRIBUTE,
-			'dark:dark light:light motion:motion spacing:spacing typography:typography',
+			'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 		);
 	});
 
@@ -343,7 +341,37 @@ describe('setGlobalTheme style loading', () => {
 					light: 'dark',
 					dark: 'dark',
 					spacing: 'spacing',
+					shape: 'shape',
 					typography: 'typography',
+				});
+
+				// Wait for styles to be added to the page
+				await waitFor(() => {
+					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
+					expect(styleElements).toHaveLength(6);
+				});
+
+				// Validate that the data-theme attributes match the expected values
+				const styleElements = document.querySelectorAll('style');
+				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
+
+				expect(dataThemes.sort()).toEqual([
+					'dark',
+					'dark-increased-contrast',
+					'motion',
+					'shape',
+					'spacing',
+					'typography',
+				]);
+			},
+			async () => {
+				// prompt a duplication of styles
+				await setGlobalTheme({
+					light: 'dark',
+					dark: 'dark',
+					spacing: 'spacing',
+					typography: 'typography',
+					shape: 'shape',
 				});
 
 				// Wait for styles to be added to the page
@@ -356,34 +384,7 @@ describe('setGlobalTheme style loading', () => {
 				const styleElements = document.querySelectorAll('style');
 				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-				expect(dataThemes.sort()).toEqual([
-					'dark',
-					'dark-increased-contrast',
-					'motion',
-					'spacing',
-					'typography',
-				]);
-			},
-			async () => {
-				// prompt a duplication of styles
-				await setGlobalTheme({
-					light: 'dark',
-					dark: 'dark',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
-
-				// Wait for styles to be added to the page
-				await waitFor(() => {
-					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(4);
-				});
-
-				// Validate that the data-theme attributes match the expected values
-				const styleElements = document.querySelectorAll('style');
-				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
-
-				expect(dataThemes.sort()).toEqual(['dark', 'motion', 'spacing', 'typography']);
+				expect(dataThemes.sort()).toEqual(['dark', 'motion', 'shape', 'spacing', 'typography']);
 			},
 		);
 	});
@@ -397,14 +398,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(5);
+			expect(styleElements).toHaveLength(6);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes).toEqual(['light', 'dark', 'spacing', 'typography', 'motion']);
+		expect(dataThemes).toEqual(['light', 'dark', 'shape', 'spacing', 'typography', 'motion']);
 	});
 
 	it('should load all feature flagged themes in the expected order when switching color modes', async () => {
@@ -419,14 +420,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(5);
+			expect(styleElements).toHaveLength(6);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes).toEqual(['light', 'spacing', 'typography', 'motion', 'dark']);
+		expect(dataThemes).toEqual(['light', 'shape', 'spacing', 'typography', 'motion', 'dark']);
 	});
 
 	it('should load all feature flagged themes in the expected order when switching feature flags', async () => {
@@ -439,14 +440,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(5);
+			expect(styleElements).toHaveLength(6);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes).toEqual(['light', 'dark', 'spacing', 'typography', 'motion']);
+		expect(dataThemes).toEqual(['light', 'dark', 'shape', 'spacing', 'typography', 'motion']);
 	});
 
 	describe('should set the correct themes, contrast mode, and color mode when a theme loader is provided', () => {
@@ -459,6 +460,7 @@ describe('setGlobalTheme style loading', () => {
 						dark: 'dark',
 						spacing: 'spacing',
 						typography: 'typography',
+						shape: 'shape',
 						colorMode: 'light',
 						contrastMode: 'more',
 					},
@@ -469,7 +471,7 @@ describe('setGlobalTheme style loading', () => {
 
 				expect(htmlElement).toHaveAttribute(
 					THEME_DATA_ATTRIBUTE,
-					'dark:dark light:light motion:motion spacing:spacing typography:typography',
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 				);
 
 				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -482,6 +484,7 @@ describe('setGlobalTheme style loading', () => {
 						dark: 'dark',
 						spacing: 'spacing',
 						typography: 'typography',
+						shape: 'shape',
 						colorMode: 'light',
 						contrastMode: 'more',
 					},
@@ -492,7 +495,7 @@ describe('setGlobalTheme style loading', () => {
 
 				expect(htmlElement).toHaveAttribute(
 					THEME_DATA_ATTRIBUTE,
-					'dark:dark light:light motion:motion spacing:spacing typography:typography',
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 				);
 
 				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -532,18 +535,19 @@ describe('setGlobalTheme style loading', () => {
 						dark: 'dark',
 						spacing: 'spacing',
 						typography: 'typography',
+						shape: 'shape',
 						colorMode: 'light',
 					},
 					themeLoaderMock,
 				);
 
-				// Should be called for each theme it injects (light, increased contrast, motion, spacing, typography)
-				expect(themeLoaderMock).toHaveBeenCalledTimes(5);
+				// Should be called for each theme it injects (light, increased contrast, motion, spacing, shape, typography)
+				expect(themeLoaderMock).toHaveBeenCalledTimes(6);
 
 				await waitFor(() => {
 					// There should be no style elements since the default theme loader should not be called
 					const styleElements = document.getElementsByTagName('style');
-					expect(styleElements.length).toBe(0);
+					expect(styleElements).toHaveLength(0);
 				});
 			},
 			async () => {
@@ -555,18 +559,19 @@ describe('setGlobalTheme style loading', () => {
 						dark: 'dark',
 						spacing: 'spacing',
 						typography: 'typography',
+						shape: 'shape',
 						colorMode: 'light',
 					},
 					themeLoaderMock,
 				);
 
-				// Should be called for each theme it injects (light, motion, spacing, typography)
-				expect(themeLoaderMock).toHaveBeenCalledTimes(4);
+				// Should be called for each theme it injects (light, motion, spacing, shape, typography)
+				expect(themeLoaderMock).toHaveBeenCalledTimes(5);
 
 				await waitFor(() => {
 					// There should be no style elements since the default theme loader should not be called
 					const styleElements = document.getElementsByTagName('style');
-					expect(styleElements.length).toBe(0);
+					expect(styleElements).toHaveLength(0);
 				});
 			},
 		);
@@ -634,7 +639,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 		UNSAFE_themeOptions: themeOptions,
 	});
 
-	var customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
+	const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
 	expect(customStyleElements).toHaveLength(1);
 	expect(customStyleElements[0]).toHaveAttribute(THEME_DATA_ATTRIBUTE, 'dark');
 
@@ -758,7 +763,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion spacing:spacing typography:typography',
+						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
@@ -768,7 +773,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion spacing:spacing typography:typography',
+						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
@@ -782,17 +787,13 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 				await themeSetter({ light: 'light' });
 				const htmlElement = document.getElementsByTagName('html')[0];
-				await waitFor(() => {
-					return expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
-				});
+				await waitFor(() => expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark'));
 			});
 
 			it('should switch theme correctly when colorMode set to "auto" (light mode)', async () => {
 				await themeSetter({ colorMode: 'auto' });
 				const htmlElement = document.getElementsByTagName('html')[0];
-				await waitFor(() => {
-					return expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-				});
+				await waitFor(() => expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light'));
 			});
 
 			it('should switch theme correctly when colorMode set to "auto" (dark mode)', async () => {
@@ -800,9 +801,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 				await themeSetter({ colorMode: 'auto' });
 				const htmlElement = document.getElementsByTagName('html')[0];
-				await waitFor(() => {
-					return expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
-				});
+				await waitFor(() => expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark'));
 			});
 		});
 
@@ -815,18 +814,18 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 						await themeSetter({ light: 'light' });
 						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() => {
-							return expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-						});
+						await waitFor(() =>
+							expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
+						);
 					},
 					async () => {
 						setMatchMedia(true);
 
 						await themeSetter({ light: 'light' });
 						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() => {
-							return expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-						});
+						await waitFor(() =>
+							expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
+						);
 					},
 				);
 			});
@@ -837,19 +836,16 @@ it('should load only necessary color modes on repeat calls', async () => {
 					async () => {
 						await themeSetter({ contrastMode: 'auto' });
 						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() => {
-							return expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
-						});
+						await waitFor(() =>
+							expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference'),
+						);
 					},
 					async () => {
 						await themeSetter({ contrastMode: 'auto' });
 						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() => {
-							return expect(htmlElement).not.toHaveAttribute(
-								CONTRAST_MODE_ATTRIBUTE,
-								'no-preference',
-							);
-						});
+						await waitFor(() =>
+							expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference'),
+						);
 					},
 				);
 			});
@@ -862,18 +858,18 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 						await themeSetter({ contrastMode: 'auto' });
 						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() => {
-							return expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-						});
+						await waitFor(() =>
+							expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
+						);
 					},
 					async () => {
 						setMatchMedia(true);
 
 						await themeSetter({ contrastMode: 'auto' });
 						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() => {
-							return expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-						});
+						await waitFor(() =>
+							expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
+						);
 					},
 				);
 			});
@@ -889,6 +885,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 							dark: 'dark',
 							spacing: 'spacing',
 							typography: 'typography',
+							shape: 'shape',
 							colorMode: 'light',
 							contrastMode: 'more',
 						},
@@ -899,7 +896,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion spacing:spacing typography:typography',
+						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 					);
 
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -912,6 +909,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 							dark: 'dark',
 							spacing: 'spacing',
 							typography: 'typography',
+							shape: 'shape',
 							colorMode: 'light',
 							contrastMode: 'more',
 						},
@@ -922,7 +920,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion spacing:spacing typography:typography',
+						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
 					);
 
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -955,7 +953,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					await waitFor(() => {
 						// There should be no style elements since the default theme loader should not be called
 						const styleElements = document.getElementsByTagName('style');
-						expect(styleElements.length).toBe(0);
+						expect(styleElements).toHaveLength(0);
 					});
 				},
 				async () => {
@@ -979,7 +977,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					await waitFor(() => {
 						// There should be no style elements since the default theme loader should not be called
 						const styleElements = document.getElementsByTagName('style');
-						expect(styleElements.length).toBe(0);
+						expect(styleElements).toHaveLength(0);
 					});
 				},
 			);

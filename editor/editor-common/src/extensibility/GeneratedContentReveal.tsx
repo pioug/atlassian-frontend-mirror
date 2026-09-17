@@ -18,8 +18,7 @@ import { useNativeEmbedSettled } from './useNativeEmbedSettled';
  * 1. `collapsed` — clipped to zero height and `inert`. The embed loads behind it, full size but
  *    unseen, with its own loading overlay hidden.
  * 2. `useNativeEmbedSettled` calls back once the embed has finished loading.
- * 3. `revealing` — the measured height goes into `--extension-reveal-height` and the node animates
- *    open (400ms).
+ * 3. `revealing` — the node animates open to its content height (400ms).
  * 4. The embed fades in (200ms), delayed so it follows the opening instead of overlapping it.
  * 5. `open` — on `animationend`, when the content first becomes visible, `inert` is dropped.
  *
@@ -37,9 +36,6 @@ const READY_TIMEOUT_MS = 30_000;
 
 /** For when no `animationend` arrives. Must exceed the reveal. */
 const REVEAL_TIMEOUT_MS = 1000;
-
-/** Set inline from the measured content height just before the animation runs. */
-const REVEAL_HEIGHT_VARIABLE = '--extension-reveal-height';
 
 const relativeStyles = css({
 	position: 'relative',
@@ -87,17 +83,12 @@ const hoverStyles = css({
 		},
 });
 
-/**
- * Animates `max-height`, so the rendered height is `min(content, max-height)` and overshooting is
- * harmless — the measurement is taken before the embed has settled on its size. A measurement is
- * needed because the embed writes a definite inline `height` onto `.extension-container`.
- */
 const openHeight = keyframes({
-	from: { maxHeight: 0 },
-	to: { maxHeight: `var(${REVEAL_HEIGHT_VARIABLE})` },
+	from: { height: 0 },
+	to: { height: 'auto' },
 });
 
-// `display: block` because `overflow` and `max-height` do not apply to an inline span.
+// `display: block` because `overflow` and `height` do not apply to an inline span.
 const clippedStyles = css({
 	display: 'block',
 	overflow: 'hidden',
@@ -110,7 +101,7 @@ const clippedStyles = css({
  * the reveal waits on.
  */
 const collapsedStyles = css({
-	maxHeight: 0,
+	height: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- the overlay is rendered by native-embeds-core, not here
 	'& [data-testid$="--loading-overlay"]': {
 		display: 'none',
@@ -118,6 +109,7 @@ const collapsedStyles = css({
 });
 
 const revealingStyles = css({
+	interpolateSize: 'allow-keywords',
 	animationName: openHeight,
 	// Must match the fade's `animationDelay` below, or they stop being sequential.
 	animationDuration: token('motion.duration.xlong'),
@@ -166,17 +158,15 @@ export const GeneratedContentReveal = ({
 	const [state, setState] = useState<RevealState>('collapsed');
 
 	// Only a collapsed node opens, so whichever of the readiness signal and the fail-safe timer
-	// comes second changes nothing. The measurement is repeated harmlessly in that case.
+	// comes second changes nothing.
 	const startRevealing = useCallback(() => {
-		// The clipped wrapper's `scrollHeight` is the height its content wants.
-		wrapperElement?.style.setProperty(REVEAL_HEIGHT_VARIABLE, `${wrapperElement.scrollHeight}px`);
 		setState((current) => (current === 'collapsed' ? 'revealing' : current));
-	}, [wrapperElement]);
+	}, []);
 
 	// Step 2 → 3.
 	useNativeEmbedSettled(wrapperElement, startRevealing);
 
-	// Set once the span exists; `startRevealing` only changes with it.
+	// One timer, set on mount, so the deadline never moves.
 	useEffect(() => {
 		const timer = setTimeout(startRevealing, READY_TIMEOUT_MS);
 		return () => clearTimeout(timer);

@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.4.4
+
+### Patch Changes
+
+- [`98d68443fc958`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98d68443fc958) -
+  Handle TypeScript satisfies and assertion wrappers without rejecting safe inline style values or
+  imported type references. Update the Platform ESLint plugin's Compiled ESLint dependency to
+  ^0.20.2 to fix shorthand-property sorting crashes on inline satisfies expressions.
+- Updated dependencies
+
+## 4.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.2
 
 ### Patch Changes

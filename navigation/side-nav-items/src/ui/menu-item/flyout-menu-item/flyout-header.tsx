@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
@@ -11,7 +11,13 @@ import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { CloseButton } from './close-button';
-import { OnCloseContext, useTitleId } from './flyout-menu-item-context';
+import {
+	InitialFocusOriginContext,
+	IsOpenContext,
+	OnCloseContext,
+	SetInitialFocusRefContext,
+	useTitleId,
+} from './flyout-menu-item-context';
 
 const headerStyles = cssMap({
 	root: {
@@ -35,6 +41,18 @@ const headerStyles = cssMap({
 });
 
 export interface FlyoutHeaderProps {
+	/**
+	 * Requests initial focus on the close button when the flyout opens or the
+	 * header becomes available, without interrupting focus on another control.
+	 * A control focused during loading keeps focus, including when the popup
+	 * focused it automatically. Top-layer focuses the first loading control;
+	 * the legacy popup focuses its container, allowing Close to take focus later.
+	 * When false, the popup's default focus behavior is preserved.
+	 *
+	 * @default false
+	 */
+	autoFocusCloseButton?: boolean;
+
 	/**
 	 * The actions to display within the flyout header.
 	 */
@@ -68,10 +86,67 @@ export interface FlyoutHeaderProps {
  * This component should be placed first within the FlyoutMenuItemContent.
  */
 export const FlyoutHeader = (props: FlyoutHeaderProps): JSX.Element => {
-	const { children, testId, title, closeButtonLabel } = props;
+	const { autoFocusCloseButton, children, testId, title, closeButtonLabel } = props;
 
 	const id = useTitleId();
 	const onCloseRef = useContext(OnCloseContext);
+	const setInitialFocusRef = useContext(SetInitialFocusRefContext);
+	const initialFocusOriginRef = useContext(InitialFocusOriginContext);
+	const isOpen = useContext(IsOpenContext);
+	const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+	const hasHandledInitialFocus = useRef(false);
+	const focusCloseButton = useCallback(
+		(button: HTMLButtonElement) => {
+			if (!autoFocusCloseButton || !isOpen || hasHandledInitialFocus.current) {
+				return;
+			}
+			// Ref callbacks can reattach during rerenders. Initialization must not
+			// reclaim focus after the user starts interacting with the flyout.
+			hasHandledInitialFocus.current = true;
+
+			const dialog = button.closest('[role="dialog"]');
+			const activeElement = button.ownerDocument.activeElement;
+			const shouldPreserveCurrentFocus =
+				activeElement !== dialog &&
+				(dialog?.contains(activeElement) ||
+					(initialFocusOriginRef?.current && activeElement !== initialFocusOriginRef.current));
+			if (shouldPreserveCurrentFocus) {
+				// Do not register a new target either: that would restart the legacy
+				// focus trap and interrupt the user's focus through a different path.
+				return;
+			}
+
+			if (setInitialFocusRef && activeElement !== dialog) {
+				setInitialFocusRef(button);
+			} else {
+				// Lazy content arrived after the popup took focus. Keep the existing trap
+				// and its return target instead of restarting it with a new initial target.
+				button.focus();
+			}
+		},
+		[autoFocusCloseButton, initialFocusOriginRef, isOpen, setInitialFocusRef],
+	);
+	const handleInitialFocus = useCallback(
+		(button: HTMLButtonElement | null) => {
+			closeButtonRef.current = button;
+			if (button && setInitialFocusRef) {
+				focusCloseButton(button);
+			}
+		},
+		[focusCloseButton, setInitialFocusRef],
+	);
+
+	useEffect(() => {
+		if (!isOpen) {
+			hasHandledInitialFocus.current = false;
+			return;
+		}
+		if (!setInitialFocusRef && closeButtonRef.current) {
+			// Top-layer content is visible after layout effects. Its open-time focus
+			// selection does not run again when a delayed header arrives.
+			focusCloseButton(closeButtonRef.current);
+		}
+	}, [focusCloseButton, isOpen, setInitialFocusRef]);
 
 	const handleClose = useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>) => {
@@ -93,6 +168,7 @@ export const FlyoutHeader = (props: FlyoutHeaderProps): JSX.Element => {
 			}
 			<Flex xcss={headerStyles.flex}>
 				<CloseButton
+					ref={autoFocusCloseButton ? handleInitialFocus : undefined}
 					label={closeButtonLabel}
 					onClick={handleClose}
 					testId={testId && `${testId}--close-button`}

@@ -7,6 +7,7 @@ import { PanelType, type PanelAttributes } from '@atlaskit/adf-schema/panel';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
@@ -32,11 +33,13 @@ export const PanelQuickInsertMenuItem = ({
 	api,
 	icon: Icon,
 	panelType,
+	previewImageUrls,
 	title,
 }: {
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
 	icon: React.ComponentType<{ label: string }>;
 	panelType: QuickInsertPanelType;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 	title: MessageDescriptor;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
@@ -56,6 +59,7 @@ export const PanelQuickInsertMenuItem = ({
 		<QuickInsertMenuItem
 			iconBefore={<Icon label="" />}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			title={formatMessage(title)}
 		/>
 	);

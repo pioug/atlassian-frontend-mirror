@@ -1,6 +1,5 @@
 import {
 	buildReplacementFragment as buildReplacementFragmentBase,
-	flattenList as flattenListBase,
 	type BuildResult,
 	type FlattenListOptions,
 	type FlattenListResult,
@@ -8,7 +7,6 @@ import {
 } from '@atlaskit/editor-common/lists';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Returns true if a listItem has at least one non-list child (paragraph, etc.).
@@ -18,22 +16,12 @@ function hasContentChildren(listItem: PMNode): boolean {
 }
 
 /**
- * Compute the size of non-list (content) children of a listItem, which
- * represents the "visible" bounds of the item for selection purposes.
- */
-function contentSize(listItem: PMNode): number {
-	return listItem.children.reduce((size, child) => {
-		return size + (isListNode(child) ? 0 : child.nodeSize);
-	}, 0);
-}
-
-/**
  * Flattens a list, splitting each list item into one item per run of content.
  * An item like `li(p, ul, p, ul)` becomes separate sibling items, so content
  * placed between sub-lists keeps its order. Also records which items the
  * selection touches.
  */
-function flattenListImpl(options: FlattenListOptions): FlattenListResult | null {
+export function flattenList(options: FlattenListOptions): FlattenListResult | null {
 	const { doc, rootListStart, selectionFrom, selectionTo, indentDelta, maxDepth } = options;
 	const rootList = doc.nodeAt(rootListStart);
 	if (!rootList) {
@@ -140,23 +128,6 @@ function flattenListImpl(options: FlattenListOptions): FlattenListResult | null 
 		return null;
 	}
 	return { items, startIndex, endIndex };
-}
-
-export function flattenList(options: FlattenListOptions): FlattenListResult | null {
-	if (fg('platform_editor_flexible_list_normalization_fix')) {
-		return flattenListImpl(options);
-	}
-
-	return flattenListBase(options, {
-		isContentNode: (node, parent) =>
-			isListItemNode(node) && hasContentChildren(node) && isListNode(parent),
-		// +1 shifts from the listItem node boundary to the start of its content children
-		getSelectionBounds: (node, pos) => ({
-			start: pos + 1,
-			end: pos + 1 + contentSize(node),
-		}),
-		getDepth: (resolvedDepth, rootDepth) => (resolvedDepth - rootDepth - 1) / 2,
-	});
 }
 
 /**

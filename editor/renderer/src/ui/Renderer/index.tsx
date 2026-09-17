@@ -1041,17 +1041,10 @@ function RendererActionsInternalUpdater({
 	// It is set to the root renderer's doc as otherwise the resulting document will
 	// be incorrect (nested renderers use a fake document which represents a subset
 	// of the actual document).
-	let _doc: PMNode | undefined;
-
-	if (editorExperiment('comment_on_bodied_extensions', true) && rootRendererContextValue) {
-		// If rootRendererContextValue is set -- we are inside a nested renderer
-		// and should always use the doc from the root renderer
-		_doc = rootRendererContextValue.doc;
-	} else {
-		// If rootRendererContextValue is not set -- we are in the root renderer
-		// and set the doc to the current doc.
-		_doc = doc;
-	}
+	// If rootRendererContextValue is set -- we are inside a nested renderer
+	// and should always use the doc from the root renderer.
+	// Otherwise we are in the root renderer and set the doc to the current doc.
+	const _doc: PMNode | undefined = rootRendererContextValue ? rootRendererContextValue.doc : doc;
 
 	useLayoutEffect(() => {
 		if (_doc) {
@@ -1063,14 +1056,15 @@ function RendererActionsInternalUpdater({
 		return () => actions._privateUnregisterRenderer();
 	}, [actions, schema, _doc, onAnalyticsEvent]);
 
-	if (editorExperiment('comment_on_bodied_extensions', true)) {
-		return (
-			// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			<RootRendererContext.Provider value={{ doc: _doc }}>{children}</RootRendererContext.Provider>
-		);
-	}
+	// Memoised so nested renderers don't re-render on every root renderer render
+	// when the doc itself is unchanged.
+	const rootRendererValue = useMemo(() => ({ doc: _doc }), [_doc]);
 
-	return children;
+	return (
+		<RootRendererContext.Provider value={rootRendererValue}>
+			{children}
+		</RootRendererContext.Provider>
+	);
 }
 
 // Usage notes:

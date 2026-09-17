@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { act, render as rtlRender, screen } from '@atlassian/testing-library';
+import { act } from '@atlassian/testing-library/act';
+import { fireEvent } from '@atlassian/testing-library/fire-event';
+import { render as rtlRender } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 import Avatar from '@atlaskit/avatar/avatar';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
@@ -229,6 +232,7 @@ describe('AvatarTag component', () => {
 				jest.runOnlyPendingTimers();
 			});
 			jest.useRealTimers();
+			jest.restoreAllMocks();
 		});
 
 		it('does not animate on initial render and applies exit motion when removed', () => {
@@ -236,8 +240,10 @@ describe('AvatarTag component', () => {
 			render(<AvatarTag type="user" text="Motion avatar" avatar={Avatar} testId={testId} />);
 
 			const tag = screen.getByTestId(testId);
+			const tagText = screen.getByText('Motion avatar');
 			expect(tag).toHaveStyle({ animation: '' });
 			const visibleClassName = tag.className;
+			const visibleTextClassName = tagText.className;
 
 			act(() => {
 				screen.getByTestId(`close-button-${testId}`).click();
@@ -246,11 +252,31 @@ describe('AvatarTag component', () => {
 			expect(screen.queryByTestId(`close-button-${testId}`)).not.toBeInTheDocument();
 			// eslint-disable-next-line jest-dom/prefer-to-have-class -- comparing complete atomic class sets verifies the compiled variant changed
 			expect(tag.className).not.toBe(visibleClassName);
+			// Fitting text switches to the measured clip style for exit motion and remains clipped.
+			expect(tagText).not.toHaveClass(visibleTextClassName, { exact: true });
 
 			act(() => {
 				jest.runAllTimers();
 			});
 			expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+		});
+
+		it('keeps ellipsis during exit when text truncates at its settled width', () => {
+			passGate('platform-dst-motion-uplift-labels');
+			jest.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(100);
+			jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(50);
+			render(
+				<AvatarTag type="user" text="Truncated motion avatar" avatar={Avatar} testId={testId} />,
+			);
+			const tagText = screen.getByText('Truncated motion avatar');
+			const settledClassName = tagText.className;
+
+			act(() => {
+				screen.getByTestId('close-button-test-avatar-tag').click();
+			});
+
+			// The settled layout truncates, so ellipsis remains stable throughout motion.
+			expect(tagText).toHaveClass(settledClassName, { exact: true });
 		});
 
 		it('applies enter motion when added after its presence boundary mounts', () => {
@@ -277,16 +303,27 @@ describe('AvatarTag component', () => {
 			);
 
 			const tag = screen.getByTestId(testId);
+			// eslint-disable-next-line testing-library/no-node-access
+			const motionWrapper = tag.parentElement?.parentElement;
+			expect(motionWrapper).toBeInTheDocument();
 			const enteringClassName = tag.className;
+			const tagText = screen.getByText('Motion avatar');
+			expect(tagText).not.toHaveStyle({ textOverflow: 'ellipsis' });
+			const enteringTextClassName = tagText.className;
 
 			act(() => {
 				jest.runAllTimers();
 			});
 
-			// Compiled style tags can be deduplicated away on rerender in jsdom. The atomic class
-			// change verifies that the entering variant completed and returned to visible styles.
-			// eslint-disable-next-line jest-dom/prefer-to-have-class -- comparing complete atomic class sets verifies the compiled variant changed
-			expect(tag.className).not.toBe(enteringClassName);
+			// The motion timer can finish before the browser animation when playback is slowed.
+			// Keep the entering and clipping styles until the wrapper animation actually ends.
+			expect(tag).toHaveClass(enteringClassName, { exact: true });
+			expect(tagText).toHaveClass(enteringTextClassName, { exact: true });
+
+			fireEvent.animationEnd(motionWrapper!);
+
+			expect(tag).not.toHaveClass(enteringClassName, { exact: true });
+			expect(tagText).toHaveClass(enteringTextClassName, { exact: true });
 		});
 	});
 });

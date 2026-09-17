@@ -71,29 +71,17 @@ test.describe('List inside a blockquote', () => {
 			await expect(editor).toMatchDocument(doc(blockquote(p(''))));
 		});
 
-		[true, false].forEach((flexibleListIndentation) => {
-			test.use({
-				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
-				editorExperiments: {
-					platform_editor_flexible_list_indentation: flexibleListIndentation,
-					platform_editor_flexible_list_schema: flexibleListIndentation,
-				},
-			});
-
-			test(`should insert an action item in a list inside blockquote - flexibleListIndentation:${flexibleListIndentation}`, async ({
-				editor,
-			}) => {
-				await editor.selection.set({ anchor: 2, head: 2 });
-				// Add a list item
-				await editor.keyboard.type('- item 1');
-				await editor.keyboard.press('Enter');
-				// Add an action item from the toolbar
-				const toolbar = EditorMainToolbarModel.from(editor);
-				await toolbar.clickAt('Action item');
-				await expect(editor).toMatchDocument(
-					doc(blockquote(ul(li(p('item 1')), li(taskList({})(taskItem({ state: 'TODO' })('')))))),
-				);
-			});
+		test('should insert an action item in a list inside blockquote', async ({ editor }) => {
+			await editor.selection.set({ anchor: 2, head: 2 });
+			// Add a list item
+			await editor.keyboard.type('- item 1');
+			await editor.keyboard.press('Enter');
+			// Add an action item from the toolbar
+			const toolbar = EditorMainToolbarModel.from(editor);
+			await toolbar.clickAt('Action item');
+			await expect(editor).toMatchDocument(
+				doc(blockquote(ul(li(p('item 1')), li(taskList({})(taskItem({ state: 'TODO' })('')))))),
+			);
 		});
 	});
 

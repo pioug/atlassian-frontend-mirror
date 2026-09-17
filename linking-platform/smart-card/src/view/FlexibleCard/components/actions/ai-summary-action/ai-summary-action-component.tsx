@@ -2,13 +2,10 @@ import React, { useEffect } from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import type { AISummaryActionData } from '../../../../../state/flexible-ui-context/types';
 import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
 import { AISummariseAction } from './ai-summarise-action';
 import { CopySummaryAction } from './copy-summary-action';
-import { CopySummaryActionNew } from './copy-summary-action-new';
 import type { AISummaryActionProps } from './types';
 
 export const AISummaryActionComponent = (
@@ -28,11 +25,7 @@ export const AISummaryActionComponent = (
 	}, [onLoadingChange, status]);
 
 	return status === 'done' ? (
-		fg('platform_sl_action_refactoring') ? (
-			<CopySummaryActionNew {...props} summary={content} testId={testId} />
-		) : (
-			<CopySummaryAction {...props} testId={testId} content={content} />
-		)
+		<CopySummaryAction {...props} summary={content} testId={testId} />
 	) : (
 		<AISummariseAction {...props} testId={testId} summariseUrl={summariseUrl} status={status} />
 	);

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { PositionType } from '@atlaskit/tooltip/types';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -27,11 +26,7 @@ export const ToolbarTooltip = ({
 			shortcut={shortcut}
 			// the information in toolbar tooltips is already announced by aria-label and aria-keyshortcuts on the item
 			// so we need to disable screen reader announcement of tooltip to avoid duplicate announcements
-			isScreenReaderAnnouncementDisabled={expValEquals(
-				'editor_a11y__toolbar-item-aria-described-by_fy27',
-				'isEnabled',
-				true,
-			)}
+			isScreenReaderAnnouncementDisabled
 		>
 			{children}
 		</Tooltip>

@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.12.0
+
+### Minor Changes
+
+- [`40e881e735f78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40e881e735f78) -
+  Add a direct SSR profiler flush entry point and separate profiler components from shared tracing
+  state, preserving legacy exports and lifecycle behavior. Mark the legacy profiler runtime
+  re-exports as deprecated compatibility shims; retain type exports unchanged.
+
 ## 7.11.0
 
 ### Minor Changes

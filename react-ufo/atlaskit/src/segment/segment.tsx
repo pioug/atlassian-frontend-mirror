@@ -56,7 +56,7 @@ import UFORouteName from '../route-name-context';
 import generateId from '../short-id';
 
 import scheduleOnPaint from './schedule-on-paint';
-import SsrRenderProfiler from './ssr-render-profiler';
+import SsrRenderProfiler from './ssr-render-profiler/ssr-render-profiler';
 
 export type UFOSegmentType = 'third-party' | 'gen-ai' | 'first-party';
 

@@ -13,6 +13,7 @@ import GetTokenValueWithClassExample from './7-get-token-value-with-class';
 import ShapeVrVrExample from './8-shape-vr.vr.ap';
 import ContrastCheckerExample from './9-contrast-checker';
 import CustomThemeVrExample from './9-custom-theme.vr.ap';
+import ThemeShowcaseExample from './11-theme-showcase.ap';
 
 const ColorRolesVr: WorkbenchExample = wb(ColorRolesVrExample);
 
@@ -29,3 +30,4 @@ export const GetTokenValueWithClass: WorkbenchExample = wb(GetTokenValueWithClas
 export const ShapeVrVr: WorkbenchExample = wb(ShapeVrVrExample);
 export const ContrastChecker: WorkbenchExample = wb(ContrastCheckerExample);
 export const CustomThemeVr: WorkbenchExample = wb(CustomThemeVrExample);
+export const ThemeShowcase: WorkbenchExample = wb(ThemeShowcaseExample);

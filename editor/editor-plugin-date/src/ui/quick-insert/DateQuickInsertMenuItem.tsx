@@ -13,6 +13,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
@@ -22,8 +23,10 @@ import { createDateAtTransaction } from '../../pm-plugins/actions';
 
 export const DateQuickInsertMenuItem = ({
 	api,
+	previewImageUrls,
 }: {
 	api: ExtractInjectionAPI<DatePlugin> | undefined;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const onSelect = useCallback(
@@ -45,6 +48,7 @@ export const DateQuickInsertMenuItem = ({
 		<QuickInsertMenuItem
 			iconBefore={<CalendarIcon label="" />}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			shortcut="//"
 			title={formatMessage(messages.date)}
 		/>

@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 199.0.0
+
+### Major Changes
+
+- [`04a147a4ed8b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04a147a4ed8b5) -
+  Remove the platform_editor_table_excerpts_fix experiment and make its enabled behavior permanent.
+  Tables inside layout columns retain their full-width styling in both Emotion and Compiled editors.
+
+  The experiment key has been removed from tmp-editor-statsig configuration. Consumers must remove
+  checks for this key and retain the isEnabled: true behavior.
+
+- [`6c7f03ca0f4ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c7f03ca0f4ad) -
+  Clean up experiment `editor_a11y__toolbar-item-aria-described-by_fy27`
+- [`edc1eb0f84ed8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edc1eb0f84ed8) -
+  Clean up experiment `platform_editor_comment_on_bodied_extensions`
+
 ## 198.0.0
 
 ### Major Changes

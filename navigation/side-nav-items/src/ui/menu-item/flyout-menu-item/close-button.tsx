@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import IconButton from '@atlaskit/button/icon/button';
 import CrossIcon from '@atlaskit/icon/core/cross';
@@ -37,16 +37,15 @@ type CloseButtonProps = {
  * within the flyout menu header. This can be done using a `Flex` primitive as
  * the custom header's container with a flex direction of `row-reverse`.
  */
-export const CloseButton: (props: CloseButtonProps) => React.JSX.Element = ({
-	label,
-	onClick,
-	testId,
-}) => (
+export const CloseButton: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CloseButtonProps> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, CloseButtonProps>(({ label, onClick, testId }, ref) => (
 	<IconButton
+		ref={ref}
 		testId={testId}
 		appearance="subtle"
 		icon={CrossIcon}
 		label={label}
 		onClick={onClick}
 	/>
-);
+));

@@ -17,7 +17,10 @@ import ButtonItem from '@atlaskit/menu/button-item';
 import HeadingItem from '@atlaskit/menu/heading-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { useStateFromPromise } from '../../src/ui/ConfigPanel/use-state-from-promise';
 
@@ -27,6 +30,32 @@ export type CallbackParams = {
 	node?: ExtensionModuleNode;
 	nodeKey?: string;
 	parameters?: Parameters;
+};
+
+type ExtensionIconLoader = NonNullable<ExtensionModule['icon']>;
+type ExtensionIconComponents = {
+	lazy: React.ComponentType<{ label: string }>;
+	loadable: React.ComponentType<{ label: string }>;
+};
+
+const extensionIconComponents = new Map<ExtensionIconLoader, ExtensionIconComponents>();
+
+const getExtensionIconComponents = (icon: ExtensionIconLoader): ExtensionIconComponents => {
+	const cachedComponents = extensionIconComponents.get(icon);
+	if (cachedComponents) {
+		return cachedComponents;
+	}
+
+	const components = {
+		lazy: lazyForPaint(icon),
+		loadable: Loadable<{ label: string }, never>({
+			loader: icon,
+			loading: () => null,
+		}),
+	};
+
+	extensionIconComponents.set(icon, components);
+	return components;
 };
 
 export default function ExtensionNodePicker({
@@ -103,12 +132,18 @@ export default function ExtensionNodePicker({
 										const iconProp: { elemBefore?: ReactNode } = {};
 
 										if (item.icon) {
-											const ExtensionIcon = Loadable<{ label: string }, never>({
-												loader: item.icon,
-												loading: () => null,
-											});
+											const { lazy: ExtensionIconLazy, loadable: ExtensionIconLoadable } =
+												getExtensionIconComponents(item.icon);
 
-											iconProp['elemBefore'] = <ExtensionIcon label={action.key} />;
+											iconProp['elemBefore'] = isExperimentEnabled(
+												'platform_editor_loosely_lazy_migration',
+											) ? (
+												<LazySuspense fallback={null}>
+													<ExtensionIconLazy label={action.key} />
+												</LazySuspense>
+											) : (
+												<ExtensionIconLoadable label={action.key} />
+											);
 										}
 
 										return (

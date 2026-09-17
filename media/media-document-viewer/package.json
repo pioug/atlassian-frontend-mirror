@@ -34,6 +34,7 @@
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -55,8 +56,13 @@
 		"react": "root:*",
 		"react-dom": "root:*"
 	},
+	"platform-feature-flags": {
+		"platform_media_doc_viewer_smooth_render": {
+			"type": "boolean"
+		}
+	},
 	"name": "@atlaskit/media-document-viewer",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"description": "Modern and fast document viewer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

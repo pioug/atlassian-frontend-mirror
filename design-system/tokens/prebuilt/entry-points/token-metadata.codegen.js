@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::99ccaec91aaccec850bf22951e344715>>
+ * @codegen <<SignedSource::ec0c00a7ddc2756d8c58e4c9b8ca417e>>
  * @codegenCommand yarn build tokens
  */
 
@@ -212,6 +212,24 @@ var tokens = exports.tokens = [{
     cssProperties: []
   }
 }, {
+  name: 'motion.input.focused',
+  path: ['motion', 'input', 'focused'],
+  description: 'Use for input focus state transitions.',
+  exampleValue: 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.input.hovered',
+  path: ['motion', 'input', 'hovered'],
+  description: 'Use for input hover and return-to-rest state transitions.',
+  exampleValue: 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
   name: 'motion.keyframe.fade.in',
   path: ['motion', 'keyframe', 'fade', 'in'],
   description: 'Use for fade-in transitions where an element goes from fully transparent to fully opaque.',
@@ -225,6 +243,24 @@ var tokens = exports.tokens = [{
   path: ['motion', 'keyframe', 'fade', 'out'],
   description: 'Use for fade-out transitions where an element goes from fully opaque to fully transparent.',
   exampleValue: 'FadeOut100to0',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.keyframe.grid.column.in',
+  path: ['motion', 'keyframe', 'grid', 'column', 'in'],
+  description: 'Use to expand an inline grid column from 80% to full size on enter.',
+  exampleValue: 'GridColumnIn80to100',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.keyframe.grid.column.out',
+  path: ['motion', 'keyframe', 'grid', 'column', 'out'],
+  description: 'Use to collapse an inline grid column from full size to zero on exit.',
+  exampleValue: 'GridColumnOut100to0',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -359,7 +395,7 @@ var tokens = exports.tokens = [{
   name: 'motion.label.enter',
   path: ['motion', 'label', 'enter'],
   description: 'Use for label enter transitions (e.g. tag component).',
-  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleXIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
+  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) GridColumnIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -368,7 +404,7 @@ var tokens = exports.tokens = [{
   name: 'motion.label.exit',
   path: ['motion', 'label', 'exit'],
   description: 'Use for label exit transitions (e.g. tag component).',
-  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleXOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) GridColumnOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []

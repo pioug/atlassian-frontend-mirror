@@ -6,4 +6,5 @@ export const DEFAULT_CONFIG: TeamsClientConfig = {
 	publicApiRoot: '/gateway/api/public',
 	invitationsServiceUrl: '/gateway/api/invitations',
 	collaborationGraphUrl: '/gateway/api/collaboration',
+	teamsInSlackServiceUrl: 'https://teams-slack-app.services.atlassian.com/api/team',
 };

@@ -8,6 +8,7 @@ const defaultThemeState: ThemeState = {
 	contrastMode: 'no-preference',
 	dark: 'dark',
 	light: 'light',
+	shape: 'shape',
 	spacing: 'spacing',
 	typography: 'typography',
 };

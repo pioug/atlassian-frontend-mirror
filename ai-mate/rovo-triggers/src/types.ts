@@ -192,6 +192,11 @@ export type ChatNewPayload = PayloadCore<
 		minionAlias?: string;
 		// Skip creating a seeded conversation in the BE with auto-generated name
 		skipCreatingSeededConversation?: boolean;
+		/**
+		 * Opens the Rovo shell with loading while the seeded conversation is created, then selects
+		 * that conversation once ready. Has no effect when `skipCreatingSeededConversation` is true.
+		 */
+		deferOpenUntilSeeded?: boolean;
 		// Space to set as the selected space bar in the chat input
 		selectedSpace?: { id: string; name: string; emoji?: string };
 		// Reset to default chat view from previously selected view, e.g. Browse agents
@@ -683,6 +688,8 @@ export type AddStatusRovoPayload = {
 	statusId: StatusId;
 	statusName: string;
 	statusCategory: StatusCategory;
+	statusScope?: 'GLOBAL' | 'PROJECT';
+	isNewStatus?: boolean;
 };
 export type UpdateStatusRovoPayload = {
 	statusId: StatusId;

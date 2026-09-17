@@ -155,8 +155,6 @@ describe('CardWithUrl', () => {
 		(appearance) => {
 			let mockFireEvent: jest.Mock;
 
-			const SMARTLINK_3P_ANALYTICS_FF = 'platform_smartlink_3pclick_analytics';
-
 			const renderResolved3P = () =>
 				render(
 					<IntlProvider locale="en">
@@ -188,11 +186,7 @@ describe('CardWithUrl', () => {
 				);
 			});
 
-			describe('with 3P analytics FF ON', () => {
-				beforeEach(() => {
-					passGate(SMARTLINK_3P_ANALYTICS_FF);
-				});
-
+			describe('3P Click Events are still fired on different click events', () => {
 				it('fires 3P click event with isAuxClick on middle click', () => {
 					const { container } = renderResolved3P();
 					fireAuxClick(container.querySelector('a')!, 1);
@@ -209,20 +203,6 @@ describe('CardWithUrl', () => {
 					const { container } = renderResolved3P();
 					fireEvent.contextMenu(container.querySelector('a')!);
 					expect(mockFireEvent).toHaveBeenCalledWith({ isContextMenu: true });
-				});
-			});
-
-			describe('with 3P analytics FF OFF', () => {
-				beforeEach(() => {
-					failGate(SMARTLINK_3P_ANALYTICS_FF);
-				});
-
-				it('does NOT fire 3P click events on middle or right click', () => {
-					const { container } = renderResolved3P();
-					const link = container.querySelector('a')!;
-					fireAuxClick(link, 1);
-					fireEvent.contextMenu(link);
-					expect(mockFireEvent).not.toHaveBeenCalled();
 				});
 			});
 		},

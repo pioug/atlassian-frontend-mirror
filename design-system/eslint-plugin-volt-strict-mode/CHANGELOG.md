@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-volt-strict-mode
 
+## 1.5.7
+
+### Patch Changes
+
+- [`b6887ff31a2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6887ff31a2d0) -
+  Allow verified third-party dependency re-exports while retaining checks for local, workspace, and
+  unresolved module forwarding.
+
 ## 1.5.6
 
 ### Patch Changes

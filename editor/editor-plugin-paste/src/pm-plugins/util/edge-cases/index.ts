@@ -6,8 +6,6 @@ import type { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/st
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isCursorSelectionAtTextStartOrEnd, isEmptyNode, isSelectionInsidePanel } from '../index';
 
@@ -162,22 +160,6 @@ export function insertSliceForTaskInsideList({
 	tr: Transaction;
 }): Transaction {
 	const { schema } = tr.doc.type;
-
-	// The corrected insertion path only applies for the flexible list indentation dogfooding audience
-	// (`platform_editor_flexible_list_indentation`), and the kill switch protects that audience from
-	// regressions. Fall back to the legacy path when the experiment is OFF or the kill switch is ON.
-	if (
-		!expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) ||
-		fg('platform_editor_flexible_list_kill_switch_1')
-	) {
-		//To avoid the list being replaced with the tasklist, enclose the slice within a taskItem.
-		const selectionBeforeReplace = tr.selection.from;
-		tr.replaceSelection(new Slice(Fragment.from(schema.nodes.taskItem.createAndFill()), 0, 0));
-		const nextSelection = Selection.near(tr.doc.resolve(selectionBeforeReplace + 1));
-		tr.setSelection(nextSelection);
-		tr.replaceSelection(slice);
-		return tr;
-	}
 
 	// Collapse redundant nested taskList wrappers from the slice context, always keeping a single
 	// outermost taskList so the content can be safely inserted as a sibling of the list item's

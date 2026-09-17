@@ -13,6 +13,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import MinusIcon from '@atlaskit/icon/core/minus';
@@ -21,8 +22,10 @@ import type { RulePlugin } from '../../rulePluginType';
 
 export const RuleQuickInsertMenuItem = ({
 	api,
+	previewImageUrls,
 }: {
 	api: ExtractInjectionAPI<RulePlugin> | undefined;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const onSelect = useCallback(
@@ -44,6 +47,7 @@ export const RuleQuickInsertMenuItem = ({
 		<QuickInsertMenuItem
 			iconBefore={<MinusIcon label="" />}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			shortcut="---"
 			title={formatMessage(messages.horizontalRule)}
 		/>

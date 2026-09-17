@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-status
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.12
+
+### Patch Changes
+
+- [`01c0f8f495971`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01c0f8f495971) -
+  Fix status suggestion popup showing duplicate entries when a legacy named color and its
+  equivalent-hue hex value (introduced by platform_editor_update_status_colors, e.g. green/#D3F1A7
+  or yellow/#FCE4A6) both appear in the document; suggestions now dedupe by resolved lozenge
+  appearance instead of the raw color attribute.
+- Updated dependencies
+
+## 19.0.11
+
+### Patch Changes
+
+- [`88fb7a8d4013a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88fb7a8d4013a) -
+  [ux] Add optional light and dark preview URLs to slash-command menu items and pass theme-aware
+  previews to supported commands when the `platform_editor_slash_command` experiment is enabled.
+- [`c91ed7eb6ae9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c91ed7eb6ae9f) -
+  Pin the status picker colour palette above the scrolling suggestions. The native scrollbar can
+  then no longer narrow the swatch row and wrap it onto an extra row.
+
+  This sits behind `platform_editor_status_popup_suggestions_patch_2` for the six-colour palette.
+  The ten-colour palette takes it behind `platform_editor_update_status_colors`.
+
+  Adds a 4px row gap between the ten-colour palette's two swatch rows. Also stops a full-width
+  suggestion from extending past the last swatch.
+
+- Updated dependencies
+
 ## 19.0.10
 
 ### Patch Changes

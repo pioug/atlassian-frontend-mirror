@@ -442,7 +442,7 @@ const styles = cssMap({
 		padding: '1em',
 		border: `1px solid ${token('color.border.code')}`,
 		borderRadius: token('radius.small'),
-		fontFamily: 'monospace',
+		fontFamily: token('font.family.code'),
 		fontSize: 'inherit',
 		lineHeight: '1.5',
 		whiteSpace: 'pre-wrap',

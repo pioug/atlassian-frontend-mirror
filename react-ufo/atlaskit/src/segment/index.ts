@@ -15,4 +15,4 @@ export type { Segment3pTimingEntry } from '../common';
 /**
  * @deprecated Use `import { flushSsrRenderProfilerTraces } from '@atlaskit/react-ufo/ssr-render-profiler'` instead.
  */
-export { flushSsrRenderProfilerTraces } from './ssr-render-profiler';
+export { flushSsrRenderProfilerTraces } from './ssr-render-profiler/flush-traces';

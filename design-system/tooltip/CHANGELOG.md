@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 24.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.3.3
 
 ### Patch Changes

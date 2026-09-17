@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::757b0c79178a4ff590d6104ef10bd48e>>
+ * @codegen <<SignedSource::b95b4312082181d68a1de5eea1407b6d>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -42,8 +42,14 @@ const defaultTokenValues = {
 	'motion.flag.exit':
 		'200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.flag.reposition': 'transform 250ms cubic-bezier(0.4, 0, 0, 1)',
+	'motion.input.focused':
+		'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+	'motion.input.hovered':
+		'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
 	'motion.keyframe.fade.in': 'FadeIn0to100',
 	'motion.keyframe.fade.out': 'FadeOut100to0',
+	'motion.keyframe.grid.column.in': 'GridColumnIn80to100',
+	'motion.keyframe.grid.column.out': 'GridColumnOut100to0',
 	'motion.keyframe.scale.in.medium': 'ScaleIn80to100',
 	'motion.keyframe.scale.in.small': 'ScaleIn95to100',
 	'motion.keyframe.scale.out.medium': 'ScaleOut100to80',
@@ -59,9 +65,9 @@ const defaultTokenValues = {
 	'motion.keyframe.slide.out.right.short': 'SlideOutRight8px',
 	'motion.keyframe.slide.out.top.short': 'SlideOutTop8px',
 	'motion.label.enter':
-		'150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleXIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
+		'150ms cubic-bezier(0.4, 1, 0.6, 1) GridColumnIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
 	'motion.label.exit':
-		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleXOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) GridColumnOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.listitem.hovered':
 		'background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 50ms cubic-bezier(0.4, 1, 0.6, 1)',
 	'motion.listitem.pressed':

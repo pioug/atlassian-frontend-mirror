@@ -8,6 +8,7 @@ import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
 import { useStaticCallback } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { Annotations } from './annotations';
@@ -173,7 +174,12 @@ const PageView = forwardRef<HTMLDivElement, PageViewProps>(
 						data-testid={`page-${pageIndex}-image`}
 						data-zoom={zoom}
 						src={imageSrc}
-						css={[pageImageStyles, pixelatedImageRendering]}
+						css={[
+							pageImageStyles,
+							// Pixelated rendering is crisper at 100% zoom, but breaks sub-pixel
+							// rendering at non-integer browser/OS zoom levels.
+							fg('platform_media_doc_viewer_smooth_render') ? undefined : pixelatedImageRendering,
+						]}
 						alt=""
 						onLoad={onImageLoad}
 					/>

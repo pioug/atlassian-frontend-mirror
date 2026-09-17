@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 6.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.8.1
 
 ### Patch Changes

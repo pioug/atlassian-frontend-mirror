@@ -15,7 +15,7 @@ function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r
  * This allows users to compose their themes and only use the tokens that are requested.
  * When a new theme is created, the import should automatically be added to the map
  *
- * @codegen <<SignedSource::3d041793de6aed48f20cb5e398199413>>
+ * @codegen <<SignedSource::3f58b313f1e628496675dd91b81ecfa1>>
  * @codegenCommand yarn build tokens
  */
 
@@ -48,6 +48,18 @@ var themeImportsMap = exports.themeImportMap = {
     return Promise.resolve().then(function () {
       return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_atlassian-light-increased-contrast" */
       './themes/atlassian-light-increased-contrast'));
+    });
+  },
+  'UNSAFE-test-light': function UNSAFETestLight() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_UNSAFE-test-light" */
+      './themes/UNSAFE-test-light'));
+    });
+  },
+  'UNSAFE-test-dark': function UNSAFETestDark() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_UNSAFE-test-dark" */
+      './themes/UNSAFE-test-dark'));
     });
   },
   'dark': function dark() {

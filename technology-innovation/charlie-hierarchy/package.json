@@ -46,7 +46,7 @@
 		"react-dom": "root:*"
 	},
 	"name": "@atlaskit/charlie-hierarchy",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "A component for building SVG-rendered trees, with support for custom node rendering, zooming, and panning.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,5 +1,9 @@
+import { agentBrandColorSchemes } from '@atlaskit/agent-color/agent-brand-color-schemes';
+import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
+
 import {
 	PARTICIPANT_COLOR_SCHEMES,
+	type AccentColor,
 	type AdsAccentColor,
 	type ColorScheme,
 	type DiffColorScheme,
@@ -63,7 +67,7 @@ export const standardScheme: DiffColorScheme = {
 	strikesDeletedEmbedCard: false,
 };
 
-const createAttributionScheme = (color: AdsAccentColor): DiffColorScheme => {
+const createAttributionScheme = (color: AccentColor): DiffColorScheme => {
 	return {
 		...standardScheme,
 		insertColor: color,
@@ -85,9 +89,17 @@ const attributionColorSchemes = Object.fromEntries(
 	PARTICIPANT_COLOR_SCHEMES.map((color) => [color, createAttributionScheme(color)]),
 ) as Record<AdsAccentColor, DiffColorScheme>;
 
+const brandSchemes = Object.fromEntries(
+	(Object.keys(agentBrandColorSchemes) as AgentBrandColorScheme[]).map((scheme) => [
+		scheme,
+		createAttributionScheme(scheme),
+	]),
+) as Record<AgentBrandColorScheme, DiffColorScheme>;
+
 /** Maps public schemes and attribution-only participant slots to their data objects. */
 export const colorSchemeRegistry: Record<ColorScheme, DiffColorScheme> = {
 	...attributionColorSchemes,
+	...brandSchemes,
 	traditional: traditionalScheme,
 	standard: standardScheme,
 };

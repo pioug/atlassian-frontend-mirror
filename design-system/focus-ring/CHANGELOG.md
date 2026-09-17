@@ -1,5 +1,11 @@
 # @atlaskit/focus-ring
 
+## 5.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

@@ -1,5 +1,37 @@
 # @atlaskit/smart-card
 
+## 45.24.5
+
+### Patch Changes
+
+- [`44e88b1074ac7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44e88b1074ac7) -
+  Use dedicated Link Provider and Rovo conversation starter entrypoints while preserving existing
+  bindings and type imports.
+- Updated dependencies
+
+## 45.24.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.24.3
+
+### Patch Changes
+
+- [`a36a11400919c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a36a11400919c) -
+  Cleanup platform_sl_action_refactoring
+- Updated dependencies
+
+## 45.24.2
+
+### Patch Changes
+
+- [`95f65ea31d9b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95f65ea31d9b4) -
+  Remove the feature gate for SmartLink click analytics, [platform_smartlink_3pclick_analytics]
+  (https://switcheroo.atlassian.com/ui/gates/fdd68661-5e95-468e-b92d-4489c112762a/key/platform_smartlink_3pclick_analytics?xpis=eyJicmlkZ2UiOiJzbWFydExpbmtzIiwiaWQiOiIxNzg5NTA4NjkzNzY2Iiwic291cmNlIjoiYml0YnVja2V0In0%3D)
+  3P click analytics is now always enabled.
+
 ## 45.24.1
 
 ### Patch Changes

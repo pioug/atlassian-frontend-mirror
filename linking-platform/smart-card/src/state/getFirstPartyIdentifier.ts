@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 // Helper function to extract page ID from standard Confluence page URLs
 const extractPageIdFromURL = (url: string): string | undefined => {
 	try {
@@ -120,7 +118,7 @@ const getProductFromWindowURL = (): string | undefined => {
 };
 
 export const getFirstPartyIdentifier = (): string | undefined => {
-	if (!fg('platform_smartlink_3pclick_analytics')) {
+	if (typeof window === 'undefined') {
 		return undefined;
 	}
 

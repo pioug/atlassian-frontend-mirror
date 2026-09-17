@@ -699,6 +699,11 @@ export const layoutBaseStyles: SerializedStyles = css({
 				boxSizing: 'border-box',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'> div': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+					'.pm-table-container': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						width: '100% !important',
+					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 					'> .embedCardView-content-wrap:first-of-type .rich-media-item': {
 						marginTop: 0,
@@ -774,32 +779,6 @@ export const layoutBaseStyles: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.pm-table-container': {
 				margin: '0 2px',
-			},
-		},
-	},
-});
-// on exp 'platform_editor_table_excerpts_fix' cleanup, merge this style to the one above
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
-export const layoutBaseStylesWithTableExcerptsFix: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-layout-section]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'[data-layout-column]': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'> div': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'.pm-table-container': {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-						width: '100% !important',
-					},
-				},
 			},
 		},
 	},

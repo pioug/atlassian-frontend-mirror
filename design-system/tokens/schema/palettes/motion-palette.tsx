@@ -50,6 +50,12 @@ const baseTransitionPropertyTokens = {
 			group: 'motionProperty',
 		},
 	},
+	BoxShadow: {
+		value: 'box-shadow',
+		attributes: {
+			group: 'motionProperty',
+		},
+	},
 	Color: {
 		value: 'color',
 		attributes: {
@@ -258,6 +264,32 @@ const baseKeyframeTokens = {
 		value: {
 			'0%': { transform: 'scaleX(1)' },
 			'100%': { transform: 'scaleX(0)' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	GridColumnIn80to100: {
+		value: {
+			'0%': {
+				'grid-template-columns': 'minmax(0, 0.8fr)',
+			},
+			'100%': {
+				'grid-template-columns': 'minmax(0, 1fr)',
+			},
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	GridColumnOut100to0: {
+		value: {
+			'0%': {
+				'grid-template-columns': 'minmax(0, 1fr)',
+			},
+			'100%': {
+				'grid-template-columns': 'minmax(0, 0fr)',
+			},
 		},
 		attributes: {
 			group: 'motionKeyframe',

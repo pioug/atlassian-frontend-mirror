@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "6.16.0",
+	"version": "6.17.0",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,9 @@
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./is-safe-https-url": "./src/ui/GiveKudosLauncher/isSafeHttpsUrl.tsx",
+		"./is-trusted-origin": "./src/ui/GiveKudosLauncher/isTrustedOrigin.tsx"
 	},
 	"scripts": {
 		"lint": "(cd ../../.. && yarn eslint 'packages/team-central/give-kudos/**/*.{ts,tsx}')",

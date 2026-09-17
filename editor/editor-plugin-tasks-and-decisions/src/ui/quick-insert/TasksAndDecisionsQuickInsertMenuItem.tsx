@@ -8,6 +8,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import DecisionIcon from '@atlaskit/icon/core/decision';
@@ -20,9 +21,14 @@ import type { TaskDecisionListType } from '../../types';
 type Props = {
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 	item: TaskDecisionListType;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 };
 
-export const TasksAndDecisionsQuickInsertMenuItem = ({ api, item }: Props): React.JSX.Element => {
+export const TasksAndDecisionsQuickInsertMenuItem = ({
+	api,
+	item,
+	previewImageUrls,
+}: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { contextIdentifierProvider } = useSharedPluginStateWithSelector(
 		api,
@@ -65,6 +71,7 @@ export const TasksAndDecisionsQuickInsertMenuItem = ({ api, item }: Props): Reac
 		<QuickInsertMenuItem
 			iconBefore={isAction ? <FieldCheckboxGroupIcon label="" /> : <DecisionIcon label="" />}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			shortcut={isAction ? '[]' : '<>'}
 			title={formatMessage(isAction ? messages.action : messages.decision)}
 		/>

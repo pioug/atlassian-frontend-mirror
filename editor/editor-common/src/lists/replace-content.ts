@@ -29,5 +29,3 @@ export const moveTargetIntoList = ({ insertPosition, $target }: Params): Step =>
 
 	return step;
 };
-// eslint-disable-next-line @atlaskit/editor/no-re-export
-export { wrapTaskListIntoListAbove } from './wrapTaskListIntoListAbove';

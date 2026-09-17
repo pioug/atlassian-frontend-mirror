@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/agent-color",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Stable colour selection for agents",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -19,9 +19,14 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./get-agent-color": "./src/get-agent-color.ts"
+		"./agent-brand-color-schemes": "./src/agent-brand-color-schemes.ts",
+		"./agent-presence-color-types": "./src/agent-presence-color-types.ts",
+		"./get-agent-color": "./src/get-agent-color.ts",
+		"./get-agent-presence-color": "./src/get-agent-presence-color.ts",
+		"./get-third-party-agent-color": "./src/get-third-party-agent-color.ts"
 	},
 	"dependencies": {
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
 	}
 }

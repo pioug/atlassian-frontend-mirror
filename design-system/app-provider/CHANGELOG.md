@@ -1,5 +1,16 @@
 # @atlaskit/app-provider
 
+## 7.0.0
+
+### Major Changes
+
+- [`20b3e525959eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20b3e525959eb) -
+  The `shape` tokens theme is now enabled by default.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Major Changes

@@ -350,8 +350,8 @@ export class ContributorTagController {
 		const stack: Array<{ contributor: TagContributor; stackIndex?: number }> =
 			model.connectedContributor
 				? [
-						...(user ? [{ contributor: user, stackIndex: 1 }] : []),
-						...(agent ? [{ contributor: agent, stackIndex: 0 }] : []),
+						...(agent ? [{ contributor: agent, stackIndex: 1 }] : []),
+						...(user ? [{ contributor: user, stackIndex: 0 }] : []),
 					]
 				: [{ contributor: model.contributor }];
 

@@ -50,6 +50,9 @@
 			"path": "../adf-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../../ai-mate/agent-color/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{

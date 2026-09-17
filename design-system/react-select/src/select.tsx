@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+// Applies presence motion at the value-list boundary so default and custom values reflow together.
 import React, {
 	type AriaAttributes,
 	Component,
@@ -25,7 +26,12 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
-import { defaultComponents, type SelectComponentsConfig } from './components';
+import {
+	components as builtinComponents,
+	defaultComponents,
+	type SelectComponentsConfig,
+} from './components';
+import MultiValueMotion from './components/multi-value-motion';
 import DummyInput from './components/dummy-input';
 import LiveRegion from './components/live-region';
 import MenuPlacer from './components/menu-placer';
@@ -1048,11 +1054,7 @@ export default class Select<
 		if (isMulti) {
 			const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 			const ffTagMotion = fg('platform-dst-motion-uplift-labels');
-			isTagMotionEnabled =
-				props.components?.MultiValue === undefined &&
-				props.components?.MultiValueContainer === undefined &&
-				ffTagUplifts &&
-				ffTagMotion;
+			isTagMotionEnabled = ffTagUplifts && ffTagMotion;
 		}
 		const hasCompletedMultiValueExit =
 			selectValue.length > 0 ? false : state.hasCompletedMultiValueExit;
@@ -2363,6 +2365,11 @@ export default class Select<
 			Placeholder,
 		} = this.getComponents();
 		const { commonProps } = this;
+		const isCustomMultiValue = MultiValue !== builtinComponents.MultiValue;
+		const customMultiValueOwnsTagMotion =
+			isCustomMultiValue &&
+			MultiValue != null &&
+			Reflect.get(MultiValue, Symbol.for('@atlaskit/tag/motion-capable')) === true;
 		const { controlShouldRenderValue, isDisabled, isMulti, inputValue, placeholder, testId } =
 			this.props;
 		const { selectValue, focusedValue, isFocused } = this.state;
@@ -2372,7 +2379,7 @@ export default class Select<
 				const isOptionFocused = opt === focusedValue;
 				const key = `${this.getOptionLabel(opt)}-${this.getOptionValue(opt)}`;
 
-				return (
+				const multiValue = (
 					<MultiValue
 						{...commonProps}
 						components={{
@@ -2384,7 +2391,7 @@ export default class Select<
 						isDisabled={isDisabled}
 						key={key}
 						index={index}
-						isMotionEnabled={isMotionEnabled}
+						isMotionEnabled={isMotionEnabled && !isCustomMultiValue}
 						onMotionFinish={this.onMultiValueMotionFinish}
 						removeProps={{
 							onClick: () => this.removeValue(opt),
@@ -2408,6 +2415,16 @@ export default class Select<
 						{this.formatOptionLabel(opt, 'value')}
 					</MultiValue>
 				);
+
+				if (isMotionEnabled && isCustomMultiValue && !customMultiValueOwnsTagMotion) {
+					return (
+						<MultiValueMotion key={key} onMotionFinish={this.onMultiValueMotionFinish}>
+							{() => multiValue}
+						</MultiValueMotion>
+					);
+				}
+
+				return multiValue;
 			});
 
 		const placeholderElement = inputValue ? null : (
@@ -2430,11 +2447,7 @@ export default class Select<
 		if (isMulti) {
 			const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 			const ffTagMotion = fg('platform-dst-motion-uplift-labels');
-			const isTagMotionEnabled =
-				this.props.components?.MultiValue === undefined &&
-				this.props.components?.MultiValueContainer === undefined &&
-				ffTagUplifts &&
-				ffTagMotion;
+			const isTagMotionEnabled = ffTagUplifts && ffTagMotion;
 
 			if (isTagMotionEnabled) {
 				return (

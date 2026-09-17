@@ -10,7 +10,15 @@ import TagGroup from '@atlaskit/tag-group/tag-group';
 import Tag from '@atlaskit/tag/tag-new';
 import { token } from '@atlaskit/tokens';
 
-const tagNames = ['Design', 'Engineering', 'Research', 'Content', 'Analytics'];
+const tagNames = [
+	'Design',
+	'Engineering',
+	'Research',
+	'Content',
+	'Analytics',
+	'A realllllllllllllly long tag name that should be truncated',
+	'Marketing',
+];
 
 const layoutStyles = css({
 	display: 'flex',

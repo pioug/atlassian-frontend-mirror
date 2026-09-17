@@ -150,6 +150,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardSourceAppsTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardSourcesButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -565,13 +570,13 @@ export const aiSuggestionsMessages: {
 		description: 'Label for the suggestions section in the AI suggestions staging area',
 	},
 	cardCloseButtonLabel: {
-		id: 'fabric.editor.ai.suggestions.card.closeButtonLabel.non-final',
+		id: 'fabric.editor.ai.suggestions.card.closeSuggestionButtonLabel.non-final',
 		defaultMessage: 'Close suggestion',
 		description: 'Label and tooltip for the close button on the AI suggestions card',
 	},
 	cardShowSidebarButtonLabel: {
-		id: 'fabric.editor.ai.suggestions.card.showSidebarButtonLabel.non-final',
-		defaultMessage: 'Show all suggestions',
+		id: 'fabric.editor.ai.suggestions.card.showSuggestionsButtonLabel.non-final',
+		defaultMessage: 'Show suggestions',
 		description:
 			'Label and tooltip for the button on the AI suggestions card that opens the suggestions sidebar',
 	},
@@ -643,18 +648,24 @@ export const aiSuggestionsMessages: {
 		description:
 			'Accessible name for the stack of app logos showing which apps an AI suggestion drew on',
 	},
+	cardSourceAppsTooltip: {
+		id: 'fabric.editor.ai.suggestions.card.sourceAppsTooltip.non-final',
+		defaultMessage: 'Sources from {apps}',
+		description:
+			'Tooltip and accessible name for the stack of product logos showing which apps an AI suggestion drew on. {apps} is a localized list of product names, such as “Confluence and Jira”.',
+	},
 	cardSourcesButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.sourcesButtonLabel.non-final',
 		defaultMessage: 'Sources',
 		description: 'Label for the sources toggle button on the AI suggestions card',
 	},
 	cardSourcesHideButtonLabel: {
-		id: 'fabric.editor.ai.suggestions.card.sourcesHideButtonLabel.non-final',
+		id: 'fabric.editor.ai.suggestions.card.hideReasoningButtonLabel.non-final',
 		defaultMessage: 'Hide reasoning',
 		description: 'Label for the sources toggle button when sources are expanded',
 	},
 	cardSourcesShowButtonLabel: {
-		id: 'fabric.editor.ai.suggestions.card.sourcesShowButtonLabel.non-final',
+		id: 'fabric.editor.ai.suggestions.card.showReasoningButtonLabel.non-final',
 		defaultMessage: 'Show reasoning',
 		description: 'Label for the sources toggle button when sources are collapsed',
 	},
@@ -697,7 +708,7 @@ export const aiSuggestionsMessages: {
 		description: 'Label for the dismiss button on the AI suggestions card',
 	},
 	cardMoreOptionsButtonLabel: {
-		id: 'fabric.editor.ai.suggestions.card.moreOptionsButtonLabel.non-final',
+		id: 'fabric.editor.ai.suggestions.card.moreActionsButtonLabel.non-final',
 		defaultMessage: 'More actions',
 		description: 'Label and tooltip for the overflow actions button on the AI suggestions card',
 	},
@@ -752,13 +763,13 @@ export const aiSuggestionsMessages: {
 			'Accessible label for the stop button displayed while the AI is thinking. When clicked, it cancels the ongoing action.',
 	},
 	thinkingReviewingContent: {
-		id: 'fabric.editor.ai.suggestions.thinking.reviewingContent.non-final',
+		id: 'fabric.editor.ai.suggestions.thinking.rovoReviewingPage.non-final',
 		defaultMessage: 'Rovo is reviewing your page',
 		description:
 			'First loading message on the AI suggestions thinking bar, shown when the name of the reviewing agent is unknown',
 	},
 	thinkingReviewingContentWithAgent: {
-		id: 'fabric.editor.ai.suggestions.thinking.reviewingContentWithAgent.non-final',
+		id: 'fabric.editor.ai.suggestions.thinking.agentAnalyzing.non-final',
 		defaultMessage: '{agentName} is analyzing',
 		description:
 			'First loading message on the AI suggestions thinking bar. The {agentName} placeholder is replaced with the reviewing agent name (for example "Content Reviewer"). Shown for a few seconds before the remaining rotating statuses.',

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::58deba1974375dc94777a3d8374bffb6>>
+ * @codegen <<SignedSource::019ef8490872403a5cfa3227739b9edc>>
  * @codegenCommand yarn build tokens
  */
 
@@ -823,6 +823,92 @@ const tokens: Token[] = [
   },
   {
     "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "17.1.0",
+      "description": "Use for input focus state transitions."
+    },
+    "value": {
+      "duration": 150,
+      "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+      "properties": [
+        "background-color",
+        "border-color",
+        "box-shadow"
+      ]
+    },
+    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motion",
+        "state": "active",
+        "introduced": "17.1.0",
+        "description": "Use for input focus state transitions."
+      },
+      "value": {
+        "duration": "Duration150",
+        "curve": "EasePracticalOut",
+        "properties": [
+          "BackgroundColor",
+          "BorderColor",
+          "BoxShadow"
+        ]
+      }
+    },
+    "name": "motion.input.focused",
+    "path": [
+      "motion",
+      "input",
+      "focused"
+    ],
+    "cleanName": "motion.input.focused"
+  },
+  {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "17.1.0",
+      "description": "Use for input hover and return-to-rest state transitions."
+    },
+    "value": {
+      "duration": 150,
+      "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+      "properties": [
+        "background-color",
+        "border-color",
+        "box-shadow"
+      ]
+    },
+    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motion",
+        "state": "active",
+        "introduced": "17.1.0",
+        "description": "Use for input hover and return-to-rest state transitions."
+      },
+      "value": {
+        "duration": "Duration150",
+        "curve": "EasePracticalOut",
+        "properties": [
+          "BackgroundColor",
+          "BorderColor",
+          "BoxShadow"
+        ]
+      }
+    },
+    "name": "motion.input.hovered",
+    "path": [
+      "motion",
+      "input",
+      "hovered"
+    ],
+    "cleanName": "motion.input.hovered"
+  },
+  {
+    "attributes": {
       "group": "motionKeyframe",
       "state": "active",
       "introduced": "11.5.0",
@@ -876,6 +962,64 @@ const tokens: Token[] = [
       "out"
     ],
     "cleanName": "motion.keyframe.fade.out"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "active",
+      "introduced": "16.5.0",
+      "description": "Use to expand an inline grid column from 80% to full size on enter."
+    },
+    "value": "GridColumnIn80to100",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "active",
+        "introduced": "16.5.0",
+        "description": "Use to expand an inline grid column from 80% to full size on enter."
+      },
+      "value": "GridColumnIn80to100"
+    },
+    "name": "motion.keyframe.grid.column.in",
+    "path": [
+      "motion",
+      "keyframe",
+      "grid",
+      "column",
+      "in"
+    ],
+    "cleanName": "motion.keyframe.grid.column.in"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "active",
+      "introduced": "16.5.0",
+      "description": "Use to collapse an inline grid column from full size to zero on exit."
+    },
+    "value": "GridColumnOut100to0",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "active",
+        "introduced": "16.5.0",
+        "description": "Use to collapse an inline grid column from full size to zero on exit."
+      },
+      "value": "GridColumnOut100to0"
+    },
+    "name": "motion.keyframe.grid.column.out",
+    "path": [
+      "motion",
+      "keyframe",
+      "grid",
+      "column",
+      "out"
+    ],
+    "cleanName": "motion.keyframe.grid.column.out"
   },
   {
     "attributes": {
@@ -1304,7 +1448,7 @@ const tokens: Token[] = [
       "duration": 150,
       "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
       "keyframes": [
-        "ScaleXIn80to100",
+        "GridColumnIn80to100",
         "FadeIn0to100"
       ],
       "fill": "backwards"
@@ -1322,7 +1466,7 @@ const tokens: Token[] = [
         "duration": "Duration150",
         "curve": "EasePracticalOut",
         "keyframes": [
-          "ScaleXIn80to100",
+          "GridColumnIn80to100",
           "FadeIn0to100"
         ],
         "fill": "AnimationFillModeBackwards"
@@ -1347,7 +1491,7 @@ const tokens: Token[] = [
       "duration": 100,
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "ScaleXOut100to0",
+        "GridColumnOut100to0",
         "FadeOut100to0"
       ],
       "fill": "forwards"
@@ -1365,7 +1509,7 @@ const tokens: Token[] = [
         "duration": "Duration100",
         "curve": "EasePracticalIn",
         "keyframes": [
-          "ScaleXOut100to0",
+          "GridColumnOut100to0",
           "FadeOut100to0"
         ],
         "fill": "AnimationFillModeForwards"

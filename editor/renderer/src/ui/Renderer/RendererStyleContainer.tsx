@@ -968,7 +968,6 @@ const listsSharedStylesForGekko = css({
 /**
  * Hides list markers for "wrapper items" - list items that only contain nested lists with no other content.
  * These wrapper items have no meaningful content themselves, only nested lists below.
- * Applied when platform_editor_flexible_list_schema experiment is enabled.
  */
 const listItemHiddenMarkerStyles = css({
 	// Hide markers and remove spacing for wrapper list items (items containing only nested lists)
@@ -3402,8 +3401,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					: paragraphSharedStylesWithEditorUGC,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
-				expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true) &&
-					listItemHiddenMarkerStyles,
+				listItemHiddenMarkerStyles,
 				indentationSharedStyles,
 				indentationSharedStylesWithMarginFix,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)

@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+// Clips avatar-tag text during motion and restores measured truncation after it settles.
 import {
 	cloneElement,
 	type ComponentType,
@@ -197,6 +198,11 @@ const styles = cssMapUnbound({
 		paddingBlock: token('space.0'),
 		marginBlock: token('space.050'),
 		marginInline: token('space.050'),
+		// Keep tag text on one line even when surrounding styles set white-space.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& [data-tag-text]': {
+			whiteSpace: 'nowrap',
+		},
 	},
 	noMarginStyles: {
 		marginBlock: token('space.0'),
@@ -236,12 +242,17 @@ const styles = cssMapUnbound({
 	},
 	textStyles: {
 		overflow: 'hidden',
-		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 		flex: '1 1 0',
 		flexShrink: 1,
 		minWidth: 0,
 		color: token('color.text'),
+	},
+	textEllipsis: {
+		textOverflow: 'ellipsis',
+	},
+	textClip: {
+		textOverflow: 'clip',
 	},
 	afterStyles: {
 		display: 'flex',
@@ -333,21 +344,8 @@ const styles = cssMapUnbound({
 		},
 	},
 	activeMotionStyles: {
-		// Prevent controls from painting outside the tag while it scales in or out.
+		// Prevent controls from painting outside the tag while its grid wrapper resizes.
 		overflow: 'hidden',
-		transformOrigin: 'left',
-	},
-	enteringMotionStyles: {
-		animation: token('motion.label.enter'),
-		'@media (prefers-reduced-motion: reduce)': {
-			animation: 'none',
-		},
-	},
-	exitingMotionStyles: {
-		animation: token('motion.label.exit'),
-		'@media (prefers-reduced-motion: reduce)': {
-			animation: 'none',
-		},
 	},
 });
 
@@ -396,6 +394,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 	},
 	ref,
 ) {
+	const isMotionEnabled = fg('platform-dst-motion-uplift-labels');
 	const { status, handleRemoveRequest, onKeyPress, removingTag, showingTag } =
 		useTagRemoval(onBeforeRemoveAction);
 
@@ -439,7 +438,6 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		shape: removeButtonShape,
 		buttonHandlers,
 	});
-	const isMotionEnabled = fg('platform-dst-motion-uplift-labels');
 
 	// Render the avatar with controlled props, then clone so our props are applied
 	const controlledProps: AvatarRenderProps = {
@@ -457,13 +455,14 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		tagRef: React.Ref<HTMLSpanElement>,
 		isEntering = false,
 		isExiting = false,
+		hasEllipsis: boolean | null = null,
 	) => (
 		<span
 			{...other}
 			ref={tagRef}
 			css={[
 				styles.baseStyles,
-				!hasMargin && styles.noMarginStyles,
+				(isMotionEnabled || !hasMargin) && styles.noMarginStyles,
 				isOtherType && styles.otherBaseStyles,
 				isAgentType && styles.agentBaseStyles,
 				borderColorStyles.root,
@@ -472,8 +471,6 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				isLink && styles.focusRingStyles,
 				isLink && isMotionEnabled && styles.interactiveMotionStyles,
 				(isEntering || isExiting) && styles.activeMotionStyles,
-				isEntering && styles.enteringMotionStyles,
-				isExiting && styles.exitingMotionStyles,
 				// Only apply hover/active styles when link is hovered but NOT over the button
 				isLink && isLinkHovered && !isOverButton && styles.interactiveHoverStyles,
 				isRemovable && !isUserType && styles.removableStyles,
@@ -502,7 +499,10 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				>
 					{avatarElement}
 				</span>
-				<span css={styles.textStyles} data-tag-text>
+				<span
+					css={[styles.textStyles, hasEllipsis === false ? styles.textClip : styles.textEllipsis]}
+					data-tag-text
+				>
 					{text}
 				</span>
 			</LinkWrapper>
@@ -523,11 +523,12 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		return (
 			<TagMotion
 				forwardedRef={ref}
+				hasMargin={hasMargin}
 				onExitComplete={isRemovable ? onShrinkOutExitComplete : undefined}
 				status={status}
 			>
-				{({ isEntering, isExiting, ref: motionRef }) =>
-					renderTagContent(motionRef, isEntering, isExiting)
+				{({ hasEllipsis, isEntering, isExiting, ref: motionRef }) =>
+					renderTagContent(motionRef, isEntering, isExiting, hasEllipsis)
 				}
 			</TagMotion>
 		);

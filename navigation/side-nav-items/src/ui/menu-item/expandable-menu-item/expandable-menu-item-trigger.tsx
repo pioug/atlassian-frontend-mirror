@@ -15,7 +15,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { token } from '@atlaskit/tokens';
 
-import { MenuItemBase, nestedOpenPopupCSSSelector } from '../menu-item';
+import { MenuItemBase } from '../menu-item';
 import type { MenuItemCommonProps, MenuItemSlots } from '../types';
 import { useScrollMenuItemIntoView } from '../use-scroll-menu-item-into-view';
 
@@ -36,9 +36,8 @@ type ExpandableMenuItemIconProps = {
 	providedElemBefore?: ReactNode;
 };
 
-// Widening type to `string` to side-step Compiled cssMap typescript warnings with unknown properties
-const chevronDisplayCssVar: string = '--expandable-chevron-display';
-const providedElemBeforeDisplayCssVar: string = '--expandable-provided-elembefore-display';
+const chevronDisplayCssVar = '--expandable-chevron-display';
+const providedElemBeforeDisplayCssVar = '--expandable-provided-elembefore-display';
 
 const wrapperStyles = cssMap({
 	root: {
@@ -76,8 +75,8 @@ const wrapperStyles = cssMap({
 			[chevronDisplayCssVar]: 'flex',
 			[providedElemBeforeDisplayCssVar]: 'none',
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		[nestedOpenPopupCSSSelector]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		['&:has([aria-expanded="true"][aria-haspopup])']: {
 			[chevronDisplayCssVar]: 'flex',
 			[providedElemBeforeDisplayCssVar]: 'none',
 		},
@@ -87,8 +86,8 @@ const wrapperStyles = cssMap({
 // Merge back into the `wrapperStyles` after cleanup
 const nestedOpenPopupStyles = cssMap({
 	showProvidedElemBefore: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		[nestedOpenPopupCSSSelector]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		['&:has([aria-expanded="true"][aria-haspopup])']: {
 			[chevronDisplayCssVar]: 'flex',
 			[providedElemBeforeDisplayCssVar]: 'none',
 		},

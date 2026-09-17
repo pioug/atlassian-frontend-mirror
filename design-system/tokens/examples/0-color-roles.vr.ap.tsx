@@ -9,7 +9,6 @@ import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
 
@@ -250,12 +249,6 @@ export default (): JSX.Element => {
 					</div>
 				))}
 			</div>
-			<button type="button" onClick={() => setGlobalTheme({ colorMode: 'light' })}>
-				light
-			</button>
-			<button type="button" onClick={() => setGlobalTheme({ colorMode: 'dark' })}>
-				dark
-			</button>
 		</div>
 	);
 };

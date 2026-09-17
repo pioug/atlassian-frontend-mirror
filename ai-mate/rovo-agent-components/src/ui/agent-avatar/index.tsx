@@ -69,6 +69,10 @@ type AgentAvatarProps = {
 /**
  * Agent avatar components that handles rendering correct avatar for different variations of agent types
  *
+ * @deprecated Use AvatarRelay to render the agent avatar stored in Identity.
+ * See https://hello.atlassian.net/wiki/spaces/agents/pages/7797900562/How+to+migrate+AgentAvatar+to+AvatarRelay
+ *
+ * @param imageUrl - A non-empty URL takes priority over generated avatars, unless isForgeAgent and forgeAgentIconUrl select a Forge icon. If you already have an image URL, use Avatar from @atlaskit/avatar with appearance="hexagon" and src={imageUrl} directly.
  * @param agentNamedId - This is agent.external_config_reference, this value exists for OOTB (out of the box) agents. This id is the first priority to generate avatar because each OOTB agents have its own fixed avatar
  * @param agentIdentityAccountId - This is Atlassian identity account ID for the agent(aaid). This id is prioritised to generate random avatar for non OOTB agents
  * @param agentId - This is agent.id

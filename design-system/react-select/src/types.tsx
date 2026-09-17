@@ -196,7 +196,11 @@ export interface MultiValueGenericProps<
 	children: ReactNode;
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	data: any;
-	innerProps: { className?: string; style?: CSSProperties };
+	innerProps: {
+		className?: string;
+		ref?: JSX.IntrinsicElements['div']['ref'];
+		style?: CSSProperties;
+	};
 	selectProps: SelectProps<Option, IsMulti, Group>;
 	isFocused?: boolean;
 	isDisabled?: boolean;

@@ -23,7 +23,6 @@ import {
 	removeBreakoutFromRendererSyncBlockHTML,
 	transformSingleColumnLayout,
 	transformSingleLineCodeBlockToCodeMark,
-	transformSliceEnsureListItemParagraphFirst,
 	transformSliceNestedExpandToExpand,
 	transformSliceToDecisionList,
 	transformSliceToJoinAdjacentCodeBlocks,
@@ -401,20 +400,18 @@ export function createPlugin(
 					// Pasting list content from an external source — slice top-level contains a list node.
 					let isPastingListContent = false;
 
-					if (expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true)) {
-						const listNodeTypes = [
-							state.schema.nodes.bulletList,
-							state.schema.nodes.orderedList,
-							state.schema.nodes.taskList,
-						].filter((n): n is NonNullable<typeof n> => Boolean(n));
+					const listNodeTypes = [
+						state.schema.nodes.bulletList,
+						state.schema.nodes.orderedList,
+						state.schema.nodes.taskList,
+					].filter((n): n is NonNullable<typeof n> => Boolean(n));
 
-						isPastingIntoList = hasParentNodeOfType(listNodeTypes)(state.selection);
+					isPastingIntoList = hasParentNodeOfType(listNodeTypes)(state.selection);
 
-						for (let i = 0; i < slice.content.childCount; i++) {
-							if (listNodeTypes.includes(slice.content.child(i).type)) {
-								isPastingListContent = true;
-								break;
-							}
+					for (let i = 0; i < slice.content.childCount; i++) {
+						if (listNodeTypes.includes(slice.content.child(i).type)) {
+							isPastingListContent = true;
+							break;
 						}
 					}
 
@@ -909,16 +906,6 @@ export function createPlugin(
 				}
 
 				slice = transformSliceToRemoveMacroId(slice, schema);
-
-				if (
-					expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true) &&
-					!expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)
-				) {
-					// Prevent pasted externally-authored flexible list HTML from producing flexible list structures
-					// Only when schema support is enabled but indentation behaviour is not, meaning editor gracefully
-					// handles the structure, but ideally does not produce it
-					slice = transformSliceEnsureListItemParagraphFirst(slice, schema);
-				}
 
 				return slice;
 			},

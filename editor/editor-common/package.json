@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "122.11.0",
+	"version": "123.0.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -415,7 +415,6 @@
 		"./transforms/list-types": "./src/transforms/list-types.ts",
 		"./transforms/list-utils": "./src/transforms/list-utils.ts",
 		"./lists/analytics": "./src/lists/analytics.ts",
-		"./lists/indentation": "./src/lists/indentation.ts",
 		"./lists/messages": "./src/lists/messages.ts",
 		"./lists/selection": "./src/lists/selection.ts",
 		"./utils/macro": "./src/utils/macro.ts",

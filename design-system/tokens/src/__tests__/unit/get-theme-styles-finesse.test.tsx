@@ -20,6 +20,7 @@ describe('getThemeStyles finesse overrides', () => {
 		expect(getThemeData(results)).toEqual([
 			{ id: 'light', attrs: { 'data-theme': 'light' } },
 			{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+			{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 			{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 			{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 			{ id: 'motion', attrs: { 'data-theme': 'motion' } },
@@ -30,7 +31,9 @@ describe('getThemeStyles finesse overrides', () => {
 		expect(getThemeData(allResults)).toEqual([
 			{ id: 'light', attrs: { 'data-theme': 'light' } },
 			{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
+			{ id: 'UNSAFE-test-light', attrs: { 'data-theme': 'UNSAFE-test-light' } },
 			{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+			{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
 			{ id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
 			{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 			{ id: 'shape', attrs: { 'data-theme': 'shape' } },
@@ -73,6 +76,7 @@ describe('getThemeStyles finesse overrides', () => {
 		expect(getThemeData(results)).toEqual([
 			{ id: 'light', attrs: { 'data-theme': 'light' } },
 			{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+			{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 			{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 			{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 			{ id: 'motion', attrs: { 'data-theme': 'motion' } },
@@ -80,7 +84,9 @@ describe('getThemeStyles finesse overrides', () => {
 		expect(getThemeData(allResults)).toEqual([
 			{ id: 'light', attrs: { 'data-theme': 'light' } },
 			{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
+			{ id: 'UNSAFE-test-light', attrs: { 'data-theme': 'UNSAFE-test-light' } },
 			{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+			{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
 			{ id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
 			{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 			{ id: 'shape', attrs: { 'data-theme': 'shape' } },

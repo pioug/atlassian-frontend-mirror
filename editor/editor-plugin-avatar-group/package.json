@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-avatar-group",
-	"version": "19.0.1",
+	"version": "20.0.0",
 	"description": "Avatar Group plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -51,6 +51,10 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
+		"confluence_ncs_step_diffing_version_history": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_move_presence_agents": {
 			"type": "boolean"
 		}

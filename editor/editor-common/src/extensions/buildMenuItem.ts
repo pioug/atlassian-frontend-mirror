@@ -19,7 +19,8 @@ export function buildMenuItem<T extends Parameters>(
 		throw new Error(`Couldn't find any action for ${title} (${key})`);
 	}
 	return {
-		...(isExperimentEnabled('platform_editor_slash_app_category_analytics')
+		...(isExperimentEnabled('platform_editor_slash_app_category_analytics') ||
+		isExperimentEnabled('platform_editor_slash_command')
 			? { app: extensionModule.app ?? manifest.app ?? { key: manifest.key } }
 			: {}),
 		key,

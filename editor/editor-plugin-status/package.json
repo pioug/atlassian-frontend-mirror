@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "19.0.10",
+	"version": "20.0.0",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -75,6 +75,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_status_popup_suggestions_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_status_popup_suggestions_patch_2": {
 			"type": "boolean"
 		}
 	}

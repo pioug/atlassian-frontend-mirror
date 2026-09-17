@@ -35,6 +35,7 @@ export type AgentEditChromeData = {
 	highlightBackgroundColor?: string;
 	/** Runtime CSS color value. Consumers should pass an ADS token value. */
 	highlightBorderColor?: string;
+	highlightTextColor?: string;
 	ranges: AgentEditChromeRange[];
 	/**
 	 * Which badge treatment the telepointer renders. Mirrors `TelepointerAgentKind` from

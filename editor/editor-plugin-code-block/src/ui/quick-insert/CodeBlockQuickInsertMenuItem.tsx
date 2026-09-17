@@ -7,6 +7,7 @@ import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
@@ -16,8 +17,10 @@ import { createInsertCodeBlockTransactionWithAnalytics } from '../../editor-comm
 
 export const CodeBlockQuickInsertMenuItem = ({
 	api,
+	previewImageUrls,
 }: {
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined;
+	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { editorDisabled } = useSharedPluginStateWithSelector(
@@ -42,6 +45,7 @@ export const CodeBlockQuickInsertMenuItem = ({
 			iconBefore={<AngleBracketsIcon label="" />}
 			isDisabled={editorDisabled}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			shortcut="```"
 			title={formatMessage(blockTypeMessages.codeblock)}
 		/>

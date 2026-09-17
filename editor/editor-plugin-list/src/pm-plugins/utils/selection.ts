@@ -1,11 +1,6 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { isListItemNode, isListNode, isParagraphNode } from '@atlaskit/editor-common/utils';
-import type {
-	NodeRange,
-	NodeType,
-	Node as PMNode,
-	ResolvedPos,
-} from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -89,15 +84,4 @@ export const selectionContainsList = (tr: Transaction): PMNode | null => {
 		return true;
 	});
 	return foundListNode;
-};
-
-type CreateNodeRange = (props: { selection: Selection }) => NodeRange | null;
-export const createListNodeRange: CreateNodeRange = ({ selection }) => {
-	const { $from, $to } = selection;
-	const range = $from.blockRange($to, isListNode);
-	if (!range) {
-		return null;
-	}
-
-	return range;
 };

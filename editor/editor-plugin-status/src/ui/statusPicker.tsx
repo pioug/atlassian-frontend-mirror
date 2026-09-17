@@ -121,8 +121,10 @@ const suggestedStatusesContainerStyles = css({
 	)}`,
 });
 
-// Fixed input plus capped scrolling color controls and suggestions.
+// Fixed input plus capped scrolling color controls and suggestions. The ten-color picker is
+// taller because it carries a second swatch row.
 const STATUS_PICKER_FIT_HEIGHT = 288;
+const STATUS_PICKER_TEN_COLOR_FIT_HEIGHT = 292;
 // Seven suggestions fit below the color palette before the content starts scrolling.
 const MAX_SUGGESTIONS_WITHOUT_SCROLLBAR = 7;
 // ColorPalette: swatches per row * 32px slot + 16px inline margin.
@@ -141,10 +143,6 @@ const statusPickerWidthStyles = css({
 const statusPickerWithScrollbarWidthStylesOld = css({
 	// Reserve space for the native scrollbar without reducing the picker content width.
 	width: `${STATUS_PICKER_CONTENT_WIDTH + STATUS_PICKER_SCROLLBAR_WIDTH}px`,
-});
-
-const statusPickerWithScrollbarWidthStyles = css({
-	width: `${STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH + STATUS_PICKER_SCROLLBAR_WIDTH}px`,
 });
 
 // When cleaning up `platform_editor_status_popup_suggestions_patch_1`, merge this into
@@ -179,6 +177,9 @@ const suggestedStatusButtonWrapperStyles = css({
 	borderStyle: 'solid',
 	borderColor: 'transparent',
 	borderRadius: token('space.075', '6px'),
+	// Keeps the border and padding inside `maxWidth`, so a full-width suggestion ends level
+	// with the last swatch.
+	boxSizing: 'border-box',
 	display: 'flex',
 	marginLeft: token('space.025', '2px'),
 	maxWidth: '100%',
@@ -488,11 +489,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 							? statusPickerWidthStylesOld
 							: undefined,
 						suggestionsPatchEnabled &&
-						isUpdateStatusColorsEnabled &&
-						(suggestedStatuses?.length ?? 0) > MAX_SUGGESTIONS_WITHOUT_SCROLLBAR
-							? statusPickerWithScrollbarWidthStyles
-							: undefined,
-						suggestionsPatchEnabled &&
+						!fg('platform_editor_status_popup_suggestions_patch_2') &&
 						!isUpdateStatusColorsEnabled &&
 						(suggestedStatuses?.length ?? 0) > MAX_SUGGESTIONS_WITHOUT_SCROLLBAR
 							? statusPickerWithScrollbarWidthStylesOld
@@ -516,6 +513,10 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 			return null;
 		}
 
+		const fitHeight = isExperimentEnabled('platform_editor_update_status_colors')
+			? STATUS_PICKER_TEN_COLOR_FIT_HEIGHT
+			: STATUS_PICKER_FIT_HEIGHT;
+
 		return (
 			target && (
 				<PopupWithListeners
@@ -529,7 +530,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 					fitHeight={
 						isExperimentEnabled('platform_editor_status_popup_suggestions') &&
 						fg('platform_editor_status_popup_suggestions_patch_1')
-							? STATUS_PICKER_FIT_HEIGHT
+							? fitHeight
 							: 40
 					}
 					mountTo={mountTo}

@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 2.6.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.44
+
+### Patch Changes
+
+- [`6c7f03ca0f4ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c7f03ca0f4ad) -
+  Clean up experiment `editor_a11y__toolbar-item-aria-described-by_fy27`
+- Updated dependencies
+
 ## 2.6.43
 
 ### Patch Changes

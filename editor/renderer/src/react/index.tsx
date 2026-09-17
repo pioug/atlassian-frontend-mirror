@@ -5,7 +5,6 @@ import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AnalyticsEventPayload } from '../analytics/events';
 import type { Serializer } from '../serializer';
@@ -240,13 +239,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private inlinePositions: Set<number> = new Set();
 
 	constructor(init: ReactSerializerInit) {
-		if (editorExperiment('comment_on_bodied_extensions', true)) {
-			this.initStartPos = init.startPos || 1;
-			this.startPos = init.startPos || 1;
-		} else {
-			this.initStartPos = 1;
-			this.startPos = 1;
-		}
+		this.initStartPos = init.startPos || 1;
+		this.startPos = init.startPos || 1;
 		this.providers = init.providers;
 		this.eventHandlers = init.eventHandlers;
 		this.extensionHandlers = init.extensionHandlers;

@@ -61,6 +61,7 @@ import { isOpenTokenOnlyChange } from './isOpenTokenOnlyChange';
 import { optimizeChanges } from './optimizeChanges';
 import { selectTokenEncoder } from './selectTokenEncoder';
 import {
+	type AttributedChange,
 	collapseOverlappingChanges,
 	simplifyChangesWithAttribution,
 } from './simplifyChangesWithAttribution';
@@ -254,6 +255,7 @@ const calculateNodesForBlockDecoration = ({
 	diffType,
 	coarseTableCellsOnly = false,
 	tagMountContext,
+	nodeRanges,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	attributionKey?: string;
@@ -264,6 +266,11 @@ const calculateNodesForBlockDecoration = ({
 	from: number;
 	intl: IntlShape;
 	isInserted?: boolean;
+	/**
+	 * The exact nodes to decorate, for one piece of a split change. Given, `from`/`to` are not
+	 * walked: descending a container would also claim the blocks another contributor added inside it.
+	 */
+	nodeRanges?: ReadonlyArray<{ from: number; to: number }>;
 	shouldHideDeleted?: boolean;
 	showContributorTags?: boolean;
 	showIndicators?: boolean;
@@ -271,6 +278,36 @@ const calculateNodesForBlockDecoration = ({
 	to: number;
 }): Decoration[] => {
 	const decorations: Decoration[] = [];
+
+	// Exact-nodes path: only reached for a split change (EDITOR-8932), which names the nodes it
+	// owns. Deliberately kept separate from the walk below rather than sharing it.
+	if (nodeRanges) {
+		for (const { from: pos, to: nodeEnd } of nodeRanges) {
+			const node = doc.nodeAt(pos);
+			if (!node?.isBlock) {
+				continue;
+			}
+			const isActive = isRangeActive(activeIndexPos, pos, nodeEnd);
+
+			decorations.push(
+				...createBlockChangedDecoration({
+					attributionKey,
+					change: { from: pos, to: nodeEnd, name: node.type.name },
+					colorScheme,
+					isInserted,
+					isActive,
+					shouldHideDeleted,
+					showContributorTags,
+					showIndicators,
+					doc,
+					diffType,
+					tagMountContext,
+				}),
+			);
+		}
+		return decorations;
+	}
+
 	// Coarse path: inside the large table, only cell/header overlays are kept — the
 	// table/row/paragraph decorations there are redundant and cause expensive per-cell
 	// re-render. Blocks outside the table keep their normal decorations.
@@ -546,7 +583,7 @@ const calculateDiffDecorationsInner = ({
 	const { tokenEncoder, shouldHideMarkOnlyDeletions } = selectTokenEncoder(
 		diffType === 'smart' && fg('platform_editor_ai_smart_diff'),
 	);
-	let changes: Change[];
+	let changes: AttributedChange[];
 	let attributedChanges: Change[] = [];
 	let attributionColors: ReturnType<typeof createAttributionColorMap> | undefined;
 
@@ -584,7 +621,7 @@ const calculateDiffDecorationsInner = ({
 			tr,
 			attributedChanges,
 		});
-		changes = collapseOverlappingChanges(uncollapsedChanges);
+		changes = collapseOverlappingChanges(uncollapsedChanges, tr.doc);
 
 		// Still colours-only: a tags-only diff keeps the plain colour scheme.
 		if (attributionColoringEnabled) {
@@ -620,7 +657,7 @@ const calculateDiffDecorationsInner = ({
 	// Our default operations are insertions, so it should match the opposite of isInverted.
 	const isInserted = !isInverted;
 
-	const createDecorationsForChange = (change: Change): void => {
+	const createDecorationsForChange = (change: AttributedChange): void => {
 		const changeColorScheme = attributionColors
 			? getColorSchemeForChange(change, attributedChanges, attributionColors, colorScheme)
 			: colorScheme;
@@ -761,6 +798,8 @@ const calculateDiffDecorationsInner = ({
 					doc: tr.doc,
 					from: change.fromB,
 					to: change.toB,
+					// A split piece's own range no longer covers the container it opened (EDITOR-8932).
+					nodeRanges: change.blockNodeRangesB,
 					colorScheme: changeColorScheme,
 					...(isExtendedEnabled(diffType) && {
 						isInserted,

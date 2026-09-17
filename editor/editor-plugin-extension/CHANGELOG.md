@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-extension
 
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.2.0
+
+### Minor Changes
+
+- [`0e77112a573cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e77112a573cc) -
+  Migrate the editor extension plugin's lazy-loaded configuration panel to react-loosely-lazy behind
+  the `platform_editor_loosely_lazy_migration` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.1.5
 
 ### Patch Changes

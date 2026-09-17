@@ -110,7 +110,7 @@
 		"ts-node": "root:*"
 	},
 	"name": "@atlaskit/object",
-	"version": "2.3.2",
+	"version": "2.3.3",
 	"description": "An object is an icon that represents an Atlassian-specific content type.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

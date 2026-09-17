@@ -4,90 +4,10 @@ import { getFirstParagraphBlockMarkAttrs } from '@atlaskit/editor-common/lists';
 import { isTaskList } from '@atlaskit/editor-common/transforms';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { findWrapping, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
+import { ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
 
-import {
-	getBlockRange,
-	isActionOrDecisionItem,
-	isActionOrDecisionList,
-	liftBlock,
-	subtreeHeight,
-} from './helpers';
-import { findBlockTaskItem, normalizeTaskItemsSelection } from './utils';
+import { isActionOrDecisionItem, isActionOrDecisionList } from './helpers';
 import { normalizeNodeForTaskTextSize } from './utils/paste';
-
-export const liftSelection: Command = (state, dispatch) => {
-	const normalizedSelection = normalizeTaskItemsSelection(state.selection);
-	const { $from, $to } = normalizedSelection;
-
-	const tr = liftBlock(state.tr, $from, $to);
-
-	if (dispatch && tr) {
-		dispatch(tr);
-	}
-
-	return !!tr;
-};
-
-/**
- * Wraps the current selection in a task list, respecting a maximum indentation depth of 6 levels.
- *
- * - Normalizes the selection to ensure it covers complete task items.
- * - Determines the maximum depth of task list nesting within the selection.
- * - If the selection is already nested at or beyond the maximum depth, the command does nothing.
- * - Calculates the block range to wrap, handling both regular and block task items.
- * - Wraps the block in a task list to increase indentation or create a new task list if necessary.
- *
- * @param state - The current editor state.
- * @param dispatch - The dispatch function to apply the transaction.
- * @returns `true` if the command was handled (even if no changes were made), otherwise `false`.
- * @example
- * ```typescript
- * autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
- * ```
- */
-export const wrapSelectionInTaskList: Command = (state, dispatch) => {
-	const { $from, $to } = normalizeTaskItemsSelection(state.selection);
-
-	// limit ui indentation to 6 levels
-	const { taskList, taskItem, blockTaskItem } = state.schema.nodes;
-	let maxDepth = subtreeHeight($from, $to, [taskList, taskItem]);
-
-	if (blockTaskItem) {
-		const resultOfFindBlockTaskItem = findBlockTaskItem($from);
-		if (resultOfFindBlockTaskItem) {
-			const { hasParagraph } = resultOfFindBlockTaskItem;
-			// If the selection is inside a nested node inside the blockTaskItem
-			// Remove the difference in depth between the selection and the blockTaskItemNode
-			if (hasParagraph) {
-				maxDepth = subtreeHeight($from, $to, [taskList, blockTaskItem]) - 1;
-			} else {
-				maxDepth = subtreeHeight($from, $to, [taskList, blockTaskItem]);
-			}
-		}
-	}
-
-	if (maxDepth >= 6) {
-		return true;
-	}
-
-	const blockRange = getBlockRange({ $from, $to });
-
-	if (!blockRange) {
-		return true;
-	}
-
-	const wrapping = findWrapping(blockRange, state.schema.nodes.taskList);
-	if (!wrapping) {
-		return true;
-	}
-
-	if (dispatch) {
-		dispatch(state.tr.wrap(blockRange, wrapping).scrollIntoView());
-	}
-
-	return true;
-};
 
 /**
  * Tries to move the paragraph content near the given position into the taskItem or decisionItem

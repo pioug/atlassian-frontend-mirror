@@ -131,10 +131,7 @@ export const deleteKeyCommand = (editorAnalyticsAPI: EditorAnalyticsAPI | undefi
 	joinListItemForward(editorAnalyticsAPI);
 
 // Get the depth of the nearest ancestor list
-export const rootListDepth = (
-	pos: ResolvedPos,
-	nodes: Record<string, NodeType>,
-): number | undefined => {
+const rootListDepth = (pos: ResolvedPos, nodes: Record<string, NodeType>): number | undefined => {
 	const { bulletList, orderedList, listItem } = nodes;
 	let depth;
 	for (let i = pos.depth - 1; i > 0; i--) {

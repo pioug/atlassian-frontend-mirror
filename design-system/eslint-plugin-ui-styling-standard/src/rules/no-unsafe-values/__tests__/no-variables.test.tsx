@@ -36,6 +36,17 @@ typescriptEslintTester.run(
 		],
 		invalid: [
 			{
+				name: 'undefined wrapped in a satisfies expression is blocked',
+				code: `
+          import { css } from '@compiled/react';
+
+          const styles = css({
+            margin: (undefined as string | undefined) satisfies string | undefined
+          })
+        `,
+				errors: [{ messageId: 'no-variables' }],
+			},
+			{
 				name: 'undefined is blocked',
 				code: `
           import { css } from '@compiled/react';

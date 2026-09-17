@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 import React, { type FormEvent, PureComponent, type ReactNode } from 'react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import ColorPalette from './internal/color-palette';
 import { type Color } from './Status';
 import { messages } from './i18n';
@@ -31,14 +32,25 @@ const fieldTextWrapperStyles = css({
 	},
 });
 
-// Keep the existing content position while reserving space inside the scrollport for focus rings.
 const scrollContainerStyles = css({
-	marginTop: token('space.050'),
-	maxHeight: '232px',
 	overflowY: 'auto',
 	overscrollBehaviorY: 'none',
-	paddingTop: token('space.050'),
 	width: '100%',
+});
+
+const paletteWrapperStyles = css({
+	marginTop: token('space.100'),
+});
+
+const scrollHeightStyles = cssMap({
+	// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_2`.
+	scrolling: {
+		marginTop: token('space.050'),
+		maxHeight: '232px',
+		paddingTop: token('space.050'),
+	},
+	default: { maxHeight: '204px' },
+	extended: { maxHeight: '176px' },
 });
 
 export interface Props {
@@ -79,7 +91,6 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 				palette={palette}
 			/>
 		);
-
 		// Using <React.Fragment> instead of [] to workaround Enzyme
 		// (https://github.com/airbnb/enzyme/issues/1149)
 		return (
@@ -96,8 +107,23 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 						aria-label={intl.formatMessage(messages.statusInputLabel)}
 					/>
 				</div>
-				{scrollableContent ? (
-					<div css={scrollContainerStyles} data-status-picker-scroll-container>
+				{fg('platform_editor_status_popup_suggestions_patch_2') ? (
+					<React.Fragment>
+						<div css={paletteWrapperStyles}>{colorPalette}</div>
+						{scrollableContent ? (
+							<div
+								css={[scrollContainerStyles, scrollHeightStyles[palette ?? 'default']]}
+								data-status-picker-scroll-container
+							>
+								{scrollableContent}
+							</div>
+						) : null}
+					</React.Fragment>
+				) : scrollableContent ? (
+					<div
+						css={[scrollContainerStyles, scrollHeightStyles.scrolling]}
+						data-status-picker-scroll-container
+					>
 						{colorPalette}
 						{scrollableContent}
 					</div>

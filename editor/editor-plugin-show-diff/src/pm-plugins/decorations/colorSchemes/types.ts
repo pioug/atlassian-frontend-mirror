@@ -1,3 +1,5 @@
+import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
+
 /** Schemes consumers may explicitly request through the show-diff API. */
 export type PublicColorScheme = 'standard' | 'traditional';
 
@@ -18,8 +20,8 @@ export const PARTICIPANT_COLOR_SCHEMES = [
 /** ADS accent hues used by the public and participant colour schemes. */
 export type AdsAccentColor = (typeof PARTICIPANT_COLOR_SCHEMES)[number];
 
-/** A public scheme or an attribution participant slot resolved internally for one change. */
-export type ColorScheme = PublicColorScheme | AdsAccentColor;
+export type AccentColor = AdsAccentColor | AgentBrandColorScheme;
+export type ColorScheme = PublicColorScheme | AccentColor;
 
 /**
  * A show-diff colour scheme. Colour fields are ADS hues that `factory.ts` expands into token paths;
@@ -30,15 +32,15 @@ export type DiffColorScheme = {
 	/** Stacking order of the square added-cell overlay. The rounded variant is always 2. */
 	addedCellOverlayZIndex: 1 | 2;
 	/** Deleted inline content, active/focused state. */
-	deleteActiveColor: AdsAccentColor;
+	deleteActiveColor: AccentColor;
 	/** Deleted inline content. */
-	deleteColor: AdsAccentColor;
+	deleteColor: AccentColor;
 	/** Active deleted-block ring: pale `background.accent.*.subtler.pressed` vs saturated `border.accent.*`. */
 	deletedBlockOutlineActiveEmphasis: 'background' | 'border';
 	/** Deleted cell outline: `color.border.disabled` hairline vs opaque accent border. */
 	deletedCellBorderProminence: 'subtle' | 'accent';
 	/** Deleted cell overlays. Gray in both current schemes. */
-	deletedCellColor: AdsAccentColor;
+	deletedCellColor: AccentColor;
 	/** Opacity of the deleted cell overlay background. Counterpart to `insertedCellOpacity`. */
 	deletedCellOpacity: number;
 	/**
@@ -77,11 +79,11 @@ export type DiffColorScheme = {
 	/** Deleted row de-emphasis: tint the line-through, or tint the row text. Both read `deleteColor`. */
 	deletedRowTreatment: 'strikeColor' | 'textTint';
 	/** Optional text and strikethrough hue, independent of deletion borders. */
-	deleteTextColor?: AdsAccentColor;
+	deleteTextColor?: AccentColor;
 	/** Inserted content, active/focused state. */
-	insertActiveColor: AdsAccentColor;
+	insertActiveColor: AccentColor;
 	/** Inserted content, default state. */
-	insertColor: AdsAccentColor;
+	insertColor: AccentColor;
 	/** Opacity of the inserted cell overlay background. */
 	insertedCellOpacity: number;
 	/** Bottom border tone for inserted text highlights. Defaults to accent. */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0b19dd7423b1805e821fa683ef2e0230>>
+ * @codegen <<SignedSource::8554f7d7886811264d83ddea1e264847>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -26,8 +26,12 @@ export type InternalTokenIds =
 	| 'motion.flag.enter'
 	| 'motion.flag.exit'
 	| 'motion.flag.reposition'
+	| 'motion.input.focused'
+	| 'motion.input.hovered'
 	| 'motion.keyframe.fade.in'
 	| 'motion.keyframe.fade.out'
+	| 'motion.keyframe.grid.column.in'
+	| 'motion.keyframe.grid.column.out'
 	| 'motion.keyframe.scale.in.medium'
 	| 'motion.keyframe.scale.in.small'
 	| 'motion.keyframe.scale.out.medium'

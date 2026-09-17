@@ -5,17 +5,18 @@ import { render, screen } from '@atlassian/testing-library';
 import { ExtensionQuickInsertIcon } from '../ExtensionQuickInsertIcon';
 
 describe('ExtensionQuickInsertIcon', () => {
-	it.each([
-		[
-			'Amplitude',
-			'https://dam-cdn.atl.orangelogic.com/AssetLink/730r6bie0211kg6obni4343y4g1wv6n5.svg',
-		],
-		['Figma', 'https://dam-cdn.atl.orangelogic.com/AssetLink/68t3023r7347271te7qw370k2pk37rgb.svg'],
-	] as const)('renders the approved %s icon', (itemTitle, iconUrl) => {
-		render(<ExtensionQuickInsertIcon itemKey="embed:item" itemTitle={itemTitle} label="" />);
+	it('renders the icon supplied by the extension', async () => {
+		const ExtensionIcon = ({ label }: { label: string }) => <span aria-label={label} role="img" />;
 
-		const icon = screen.getByAltText('');
-		expect(icon).toHaveAttribute('src', iconUrl);
-		expect(icon).toHaveAttribute('alt', '');
+		const { container } = render(
+			<ExtensionQuickInsertIcon
+				getIcon={() => Promise.resolve({ default: ExtensionIcon })}
+				itemKey="embed:item"
+				label="Extension"
+			/>,
+		);
+
+		expect(await screen.findByRole('img', { name: 'Extension' })).toBeInTheDocument();
+		await expect(container).toBeAccessible();
 	});
 });

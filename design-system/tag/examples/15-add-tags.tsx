@@ -5,7 +5,12 @@ import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Stack } from '@atlaskit/primitives/compiled';
 import Tag from '@atlaskit/tag/tag-new';
 
-const tagNames = ['Design', 'Engineering', 'Research'];
+const tagNames = [
+	'Design',
+	'Engineering',
+	'Research',
+	'A realllllllllllllllllyyyyyyyyyyyyyyyy long tag name that should be truncated',
+];
 
 export default function AddTagExample(): React.JSX.Element {
 	const [tag, setTag] = useState<string>();

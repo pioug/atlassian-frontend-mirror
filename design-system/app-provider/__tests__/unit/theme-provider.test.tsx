@@ -113,6 +113,7 @@ function ThemedComponent() {
 const defaultTheme: Theme = {
 	light: 'light',
 	dark: 'dark',
+	shape: 'shape',
 	spacing: 'spacing',
 	typography: 'typography',
 };
@@ -200,6 +201,7 @@ describe('ThemeProvider', () => {
 					expect.objectContaining({
 						light: 'light-increased-contrast',
 						dark: 'dark-increased-contrast',
+						shape: 'shape',
 						spacing: 'spacing',
 						typography: 'typography',
 					}),
@@ -261,6 +263,7 @@ describe('ThemeProvider', () => {
 					expect.objectContaining({
 						light: 'light-increased-contrast',
 						dark: 'dark-increased-contrast',
+						shape: 'shape',
 						spacing: 'spacing',
 						typography: 'typography',
 					}),
@@ -272,6 +275,7 @@ describe('ThemeProvider', () => {
 				const theme: Theme = {
 					light: 'light',
 					dark: 'dark-increased-contrast',
+					shape: 'shape',
 					spacing: 'spacing',
 					typography: 'typography',
 				};

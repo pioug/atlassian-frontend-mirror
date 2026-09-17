@@ -1,5 +1,20 @@
 # @atlaskit/rovo-agent-components
 
+## 8.12.2
+
+### Patch Changes
+
+- [`8039321556a06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8039321556a06) -
+  Deprecate AgentAvatar in favour of AvatarRelay and link to the migration guide. Recommend using
+  Avatar directly with a hexagon appearance when an image URL is already available.
+- Updated dependencies
+
+## 8.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.12.0
 
 ### Minor Changes

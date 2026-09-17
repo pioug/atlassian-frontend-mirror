@@ -1,4 +1,5 @@
-import { isTrustedOrigin, isSafeHttpsUrl } from '../../src/ui/GiveKudosLauncher/main';
+import { isSafeHttpsUrl } from '../../src/ui/GiveKudosLauncher/isSafeHttpsUrl';
+import { isTrustedOrigin } from '../../src/ui/GiveKudosLauncher/isTrustedOrigin';
 
 describe('isTrustedOrigin', () => {
 	it('returns true when the event origin matches the base URL origin', () => {

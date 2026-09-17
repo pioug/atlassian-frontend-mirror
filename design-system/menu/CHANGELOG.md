@@ -1,5 +1,22 @@
 # @atlaskit/menu
 
+## 11.0.0
+
+### Major Changes
+
+- [`a8424be03b25e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8424be03b25e) -
+  Remove "SELECTION_STYLE_CONTEXT_DO_NOT_USE" from `@atlaskit/menu/menu-context`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.1
 
 ### Patch Changes

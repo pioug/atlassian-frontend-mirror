@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -40,6 +41,8 @@ import {
 	isFlagEventTypeValue,
 	KudosType,
 } from '../../types';
+import { isSafeHttpsUrl } from './isSafeHttpsUrl';
+import { isTrustedOrigin } from './isTrustedOrigin';
 
 const styles = cssMap({
 	drawerCloseButtonContainer: {
@@ -53,17 +56,6 @@ const styles = cssMap({
 });
 
 const ANALYTICS_CHANNEL = 'atlas';
-
-export const isTrustedOrigin = (baseUrl: string, eventOrigin: string): boolean => {
-	try {
-		return new URL(baseUrl).origin === eventOrigin;
-	} catch {
-		return false;
-	}
-};
-
-export const isSafeHttpsUrl = (url: string | undefined): url is string =>
-	url ? new URL(url).protocol === 'https:' : false;
 
 const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const [isCloseConfirmModalOpen, setIsCloseConfirmModalOpen] = useState(false);
@@ -438,3 +430,12 @@ const ComposedGiveKudosLauncher = (props: GiveKudosDrawerProps): JSX.Element => 
 };
 
 export default ComposedGiveKudosLauncher;
+
+/**
+ * @deprecated Use `import { isTrustedOrigin } from '@atlaskit/give-kudos/is-trusted-origin'` instead.
+ */
+export { isTrustedOrigin } from './isTrustedOrigin';
+/**
+ * @deprecated Use `import { isSafeHttpsUrl } from '@atlaskit/give-kudos/is-safe-https-url'` instead.
+ */
+export { isSafeHttpsUrl } from './isSafeHttpsUrl';

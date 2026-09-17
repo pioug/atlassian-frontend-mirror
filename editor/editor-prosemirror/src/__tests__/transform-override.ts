@@ -1,5 +1,5 @@
 import type { Metadata, MetadataStep } from '../transform-override';
-import { Step } from '../transform';
+import { Step } from '../transform-override';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 type TestMetadataStep = Step & {

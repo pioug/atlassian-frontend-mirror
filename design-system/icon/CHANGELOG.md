@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 37.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.7.1
 
 ### Patch Changes

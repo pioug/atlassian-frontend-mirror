@@ -2,8 +2,10 @@ import {
 	createContext,
 	useContext,
 	type Context,
+	type Dispatch,
 	type MutableRefObject,
 	type Provider,
+	type SetStateAction,
 } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
@@ -26,6 +28,15 @@ export const SetIsOpenContext: Context<(value: boolean) => void> =
 	createContext<(value: boolean) => void>(noop);
 export const useFlyoutMenuOpen = (): boolean => useContext(IsOpenContext);
 export const useSetFlyoutMenuOpen = (): ((value: boolean) => void) => useContext(SetIsOpenContext);
+
+/** Registers the initial focus target with the popup that owns focus restoration. */
+export const SetInitialFocusRefContext: Context<
+	Dispatch<SetStateAction<HTMLElement | null>> | undefined
+> = createContext<Dispatch<SetStateAction<HTMLElement | null>> | undefined>(undefined);
+
+/** The element focused when this flyout opens, before delayed content is available. */
+export const InitialFocusOriginContext: Context<MutableRefObject<Element | null> | undefined> =
+	createContext<MutableRefObject<Element | null> | undefined>(undefined);
 
 /**
  * __On close context__

@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 21.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.2.1
 
 ### Patch Changes

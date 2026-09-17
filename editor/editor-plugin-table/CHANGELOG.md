@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-table
 
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.14
+
+### Patch Changes
+
+- [`51a89a2ad66b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51a89a2ad66b7) -
+  Use the semantic selected border colour consistently across selected editor table cells and table
+  edges when `platform-dst-tokens-finesse` is enabled. Flag-off styling is unchanged.
+- Updated dependencies
+
+## 30.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.12
+
+### Patch Changes
+
+- [`88fb7a8d4013a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88fb7a8d4013a) -
+  [ux] Add optional light and dark preview URLs to slash-command menu items and pass theme-aware
+  previews to supported commands when the `platform_editor_slash_command` experiment is enabled.
+- Updated dependencies
+
 ## 30.0.11
 
 ### Patch Changes

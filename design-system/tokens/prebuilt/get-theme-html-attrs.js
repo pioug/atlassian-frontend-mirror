@@ -45,7 +45,7 @@ var getThemeHtmlAttrs = exports.getThemeHtmlAttrs = function getThemeHtmlAttrs()
     _ref$motion = _ref.motion,
     motion = _ref$motion === void 0 ? _themeStateDefaults.themeStateDefaults['motion']() : _ref$motion,
     _ref$shape = _ref.shape,
-    shape = _ref$shape === void 0 ? _themeStateDefaults.themeStateDefaults['shape']() : _ref$shape,
+    shape = _ref$shape === void 0 ? _themeStateDefaults.themeStateDefaults['shape'] : _ref$shape,
     _ref$spacing = _ref.spacing,
     spacing = _ref$spacing === void 0 ? _themeStateDefaults.themeStateDefaults['spacing'] : _ref$spacing,
     _ref$typography = _ref.typography,

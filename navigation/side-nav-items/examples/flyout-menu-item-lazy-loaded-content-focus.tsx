@@ -3,9 +3,10 @@
  * @jsx jsx
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useId, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import Heading from '@atlaskit/heading/heading';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import BoardIcon from '@atlaskit/icon/core/board';
 import SearchIcon from '@atlaskit/icon/core/search';
@@ -31,53 +32,46 @@ const contentContainerStyles = cssMap({
 		paddingBlockEnd: token('space.200'),
 		paddingInlineStart: token('space.200'),
 	},
-	heading: {
-		paddingInlineStart: token('space.075'),
-		paddingBlockStart: token('space.100'),
-		paddingBlockEnd: token('space.100'),
-	},
 });
 
-function LoadingPlaceholder() {
-	return <div css={contentContainerStyles.root}>Loading...</div>;
+function LoadingPlaceholder({ titleId }: { titleId: string }) {
+	return (
+		<div css={contentContainerStyles.root}>
+			<Heading size="xsmall" as="h2" id={titleId}>
+				Recent
+			</Heading>
+			Loading...
+		</div>
+	);
 }
 
-function LazyLoadedContent() {
-	/**
-	 * We cannot use the `setInitialFocusRef` render prop to set focus on the initial focus button,
-	 * as it is lazy loaded in **after** the popup has opened.
-	 *
-	 * `setInitialFocusRef` is a focus-trap utility (https://github.com/focus-trap/focus-trap#initialfocus),
-	 * which only sets the focus to the specified element when the focus trap is activated - which is
-	 * right after the popup has opened. Lazy loaded content is not in the DOM yet, so cannot use this
-	 * functionality. Instead, focused needs to be manually set once the content has mounted.
-	 */
-	const initialFocusRef = useRef<HTMLElement>(null);
-	useEffect(() => {
-		console.log('initialFocusRef', initialFocusRef.current);
-		if (initialFocusRef.current) {
-			initialFocusRef.current.focus();
-		}
-	}, []);
+function SearchField({
+	value,
+	onChange,
+}: Pick<React.ComponentProps<typeof Textfield>, 'value' | 'onChange'>) {
+	return (
+		<Textfield
+			isCompact
+			aria-label="Search recent items"
+			value={value}
+			onChange={onChange}
+			elemBeforeInput={
+				<Box
+					paddingInlineStart="space.075"
+					paddingInlineEnd="space.025"
+					paddingBlockStart="space.025"
+				>
+					<SearchIcon label="" spacing="spacious" />
+				</Box>
+			}
+			placeholder="Search recent items"
+		/>
+	);
+}
 
+function LoadedItems() {
 	return (
 		<React.Fragment>
-			<FlyoutHeader title="Recent" closeButtonLabel="Close menu">
-				<Textfield
-					ref={initialFocusRef}
-					isCompact
-					elemBeforeInput={
-						<Box
-							paddingInlineStart="space.075"
-							paddingInlineEnd="space.025"
-							paddingBlockStart="space.025"
-						>
-							<SearchIcon label="" spacing="spacious" />
-						</Box>
-					}
-					placeholder="Search recent items"
-				/>
-			</FlyoutHeader>
 			<FlyoutBody>
 				<MenuSection>
 					<MenuSectionHeading>This week</MenuSectionHeading>
@@ -119,6 +113,42 @@ function LazyLoadedContent() {
 	);
 }
 
+function FlyoutContents({
+	isLoaded,
+	titleId,
+	autoFocusCloseButton,
+	showSearchWhileLoading,
+}: {
+	autoFocusCloseButton: boolean;
+	isLoaded: boolean;
+	showSearchWhileLoading: boolean;
+	titleId: string;
+}) {
+	const [query, setQuery] = useState('');
+	const handleSearch = useCallback((event: React.FormEvent<HTMLInputElement>) => {
+		setQuery(event.currentTarget.value);
+	}, []);
+	const search = <SearchField value={query} onChange={handleSearch} />;
+
+	return (
+		<React.Fragment>
+			{isLoaded ? (
+				<FlyoutHeader
+					title="Recent"
+					closeButtonLabel="Close menu"
+					autoFocusCloseButton={autoFocusCloseButton}
+				>
+					{!showSearchWhileLoading && search}
+				</FlyoutHeader>
+			) : (
+				<LoadingPlaceholder titleId={titleId} />
+			)}
+			{showSearchWhileLoading && <div css={contentContainerStyles.root}>{search}</div>}
+			{isLoaded && <LoadedItems />}
+		</React.Fragment>
+	);
+}
+
 const exampleContainerStyles = cssMap({
 	root: {
 		paddingBlockStart: token('space.200'),
@@ -130,8 +160,12 @@ const exampleContainerStyles = cssMap({
 });
 
 export default function FlyoutMenuItemLazyLoadedContentFocusExample(): JSX.Element {
+	const titleId = useId();
+	// Integration tests can exercise popup defaults and a control that survives header loading.
+	const params = new URLSearchParams(typeof window === 'undefined' ? '' : window.location.search);
+	const autoFocusCloseButton = params.get('autoFocusCloseButton') !== 'false';
+	const showSearchWhileLoading = params.get('showSearchWhileLoading') === 'true';
 	const [isOpen, setIsOpen] = useState(false);
-	const triggerRef = useRef<HTMLButtonElement>(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 
 	const handleOpenPopup = useCallback(() => {
@@ -141,19 +175,23 @@ export default function FlyoutMenuItemLazyLoadedContentFocusExample(): JSX.Eleme
 
 	const handleClosePopup = useCallback(() => {
 		setIsOpen(false);
-		triggerRef.current?.focus();
 	}, []);
 
 	return (
 		<div css={exampleContainerStyles.root}>
-			<FlyoutMenuItem isOpen={isOpen}>
-				<FlyoutMenuItemTrigger onClick={handleOpenPopup} ref={triggerRef}>
-					Toggle flyout
-				</FlyoutMenuItemTrigger>
-				<FlyoutMenuItemContent onClose={handleClosePopup} autoFocus={false}>
-					{isLoaded ? <LazyLoadedContent /> : <LoadingPlaceholder />}
-				</FlyoutMenuItemContent>
-			</FlyoutMenuItem>
+			<MenuList>
+				<FlyoutMenuItem isOpen={isOpen}>
+					<FlyoutMenuItemTrigger onClick={handleOpenPopup}>Toggle flyout</FlyoutMenuItemTrigger>
+					<FlyoutMenuItemContent onClose={handleClosePopup} titleId={titleId}>
+						<FlyoutContents
+							isLoaded={isLoaded}
+							titleId={titleId}
+							autoFocusCloseButton={autoFocusCloseButton}
+							showSearchWhileLoading={showSearchWhileLoading}
+						/>
+					</FlyoutMenuItemContent>
+				</FlyoutMenuItem>
+			</MenuList>
 		</div>
 	);
 }

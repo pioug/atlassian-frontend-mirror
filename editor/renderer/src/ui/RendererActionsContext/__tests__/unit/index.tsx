@@ -2,7 +2,6 @@ import React from 'react';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { render } from '@atlassian/testing-library/render';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { initialDoc } from '../../../../__tests__/__fixtures__/initial-doc';
 import { RendererActionsContext, RendererContext } from '../../index';
@@ -76,7 +75,7 @@ describe('Registering renderer actions', () => {
 		}).not.toThrow();
 	});
 
-	eeTest.describe('comment_on_bodied_extensions', 'nested renderers').variant(true, () => {
+	describe('nested renderers', () => {
 		it('the nested renderers actions are registered with the root renderers doc', async () => {
 			const actions = new RendererActions();
 

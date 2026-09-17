@@ -1,11 +1,10 @@
-import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { isListItemNode, isListNode } from '../utils';
 
 import { isListNodeValidContent } from './isListNodeValidContent';
 import { JoinDirection } from './JoinDirection';
-import { wrapTaskListIntoListAbove } from './wrapTaskListIntoListAbove';
 
 type JoinSiblingListsProps = {
 	direction?: JoinDirection;
@@ -111,95 +110,6 @@ export const joinSiblingLists = ({
 	return result;
 };
 
-/**
- * Returns the prosemirror position for the child at give index inside the parent node.
- * Example: Considering doc structure as below using the function
- *          passing parent resolved position for li and index 2
- *          would return starting position of taskList
- * DOC STRUCTURE:
- * ol()
- *  ( li(
- *      p('text'),
- *      ul(content),
- *      taskList(),
- *    )
- *  )
- * @param $from Starting resolved position for the parent node of the child we are looking for.
- * @param index Index of the child node we want the position for.
- * @returns
- */
-const findStartPositionOfChildWithIndex = ($from: ResolvedPos, index: number): number => {
-	const parent = $from.node();
-	let currentPos = $from.pos + 1;
-	for (let i = 0; i < index; i++) {
-		currentPos += parent.child(i).nodeSize;
-	}
-	return currentPos;
-};
-
-const findGrandParentResolvedPos = (tr: Transaction, $from: ResolvedPos) => {
-	return $from.depth > 2 ? tr.doc.resolve($from.start($from.depth - 2)) : null;
-};
-
-const findNestedTaskListsIndexAtSameLevel = (tr: Transaction, $from: ResolvedPos) => {
-	/*
-    Currently our cursor would be inside a pargraph of a list of type numbered/bullet list,
-    we need to find the grandparent of the cursor which is the list at same level of taskList.
-    We can get the root list item(inside which various lists are being resolved before outdenting) by going one depth above that list.
-  */
-	const nestedListResolvedPos = findGrandParentResolvedPos(tr, $from);
-	const rootListItem = nestedListResolvedPos?.node(nestedListResolvedPos.depth - 1);
-
-	const nestedTaskListsIndexes: number[] = [];
-	const rootListItemChildCount = rootListItem?.childCount || 0;
-	// first child of list item is always paragraph (i = 0) so we start from 1
-	for (let i = 1; i < rootListItemChildCount; i++) {
-		if (rootListItem?.child(i).type.name === 'taskList') {
-			nestedTaskListsIndexes.push(i);
-		}
-	}
-	return nestedTaskListsIndexes;
-};
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const processNestedTaskListsInSameLevel = (tr: Transaction): void => {
-	const { $from } = tr.selection;
-
-	const nestedTaskListIndexes = findNestedTaskListsIndexAtSameLevel(tr, $from);
-	if (nestedTaskListIndexes.length === 0) {
-		return;
-	}
-
-	const nestedListResolvedPos = findGrandParentResolvedPos(tr, $from);
-	const rootListItemStart = nestedListResolvedPos?.start(nestedListResolvedPos.depth - 1);
-
-	/* We need not wrap the taskList present above other lists since it doesn't affect the flow. */
-	const nestedTaskListIndexesToWrap = nestedTaskListIndexes.filter((index) => index > 1);
-
-	/*
-    Wraps the taskLists present at each index mentioned in the nestedTaskListIndexesToWrap to the list above it.
-    After each wrap the indexes changes since two lists are being merged into one,
-    so we keep track of it and use it to access actual calculated taskList indexes.
-  */
-	if (rootListItemStart) {
-		let taskListsFixedNested = 0;
-		nestedTaskListIndexesToWrap.forEach((index) => {
-			wrapTaskListIntoListAbove(
-				tr,
-				findStartPositionOfChildWithIndex(
-					tr.doc.resolve(rootListItemStart),
-					index - taskListsFixedNested,
-				),
-				findStartPositionOfChildWithIndex(
-					tr.doc.resolve(rootListItemStart),
-					index - 1 - taskListsFixedNested,
-				),
-			);
-			taskListsFixedNested++;
-		});
-	}
-	return;
-};
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { isListNodeValidContent } from './isListNodeValidContent';
 // eslint-disable-next-line @atlaskit/editor/no-re-export

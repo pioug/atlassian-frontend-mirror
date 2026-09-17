@@ -47,6 +47,24 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		input: {
+			hovered: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '17.1.0',
+					description: 'Use for input hover and return-to-rest state transitions.',
+				},
+			},
+			focused: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '17.1.0',
+					description: 'Use for input focus state transitions.',
+				},
+			},
+		},
 		listitem: {
 			hovered: {
 				attributes: {

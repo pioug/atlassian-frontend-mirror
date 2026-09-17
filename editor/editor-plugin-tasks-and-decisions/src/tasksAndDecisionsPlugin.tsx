@@ -27,15 +27,9 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
-import {
-	closeRequestEditPopupAt,
-	getCurrentIndentLevel,
-	getTaskItemIndex,
-	isInsideTask,
-} from './pm-plugins/helpers';
+import { closeRequestEditPopupAt, getCurrentIndentLevel, isInsideTask } from './pm-plugins/helpers';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import inputRulePlugin from './pm-plugins/input-rules';
@@ -238,20 +232,12 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 
 			const pluginState = taskPluginKey.getState(editorState);
 			const indentLevel = getCurrentIndentLevel(editorState.selection) || 0;
-			const itemIndex = getTaskItemIndex(editorState);
-			const isFlexibleListIndentationEnabled = expValEqualsNoExposure(
-				'platform_editor_flexible_list_indentation',
-				'isEnabled',
-				true,
-			);
 
 			return {
 				focusedTaskItemLocalId: pluginState?.focusedTaskItemLocalId || null,
 				isInsideTask: isInsideTask(editorState),
-				indentDisabled:
-					(!isFlexibleListIndentationEnabled && itemIndex === 0) ||
-					indentLevel >= MAX_INDENTATION_LEVEL,
-				outdentDisabled: isFlexibleListIndentationEnabled ? indentLevel <= 0 : indentLevel <= 1,
+				indentDisabled: indentLevel >= MAX_INDENTATION_LEVEL,
+				outdentDisabled: indentLevel <= 0,
 				// hasEditPermission is assumed to be true if pluginState.hasEditPermission is undefined
 				// this allows the default plugin state to initialise as true if the extra configuration is not provided
 				hasEditPermission:

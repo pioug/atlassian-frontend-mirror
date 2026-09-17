@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::047ab1ebaa362071b6be8f6dafc7ff4f>>
+ * @codegen <<SignedSource::946e907fa2694c1c93f00c6760e340de>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -192,6 +192,22 @@ export default `
     transform: scaleX(0);
   }
 }
+@keyframes GridColumnIn80to100 {
+  0% {
+    grid-template-columns: minmax(0, 0.8fr);
+  }
+  100% {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@keyframes GridColumnOut100to0 {
+  0% {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  100% {
+    grid-template-columns: minmax(0, 0fr);
+  }
+}
 html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:motion"] {
   --ds-avatar-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
   --ds-avatar-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to80 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
@@ -216,8 +232,12 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-flag-enter: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn50PercentLeft backwards, 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards;
   --ds-flag-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-flag-reposition: transform 250ms cubic-bezier(0.4, 0, 0, 1);
+  --ds-input-focused: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1);
+  --ds-input-hovered: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-keyframe-fade-in: FadeIn0to100;
   --ds-keyframe-fade-out: FadeOut100to0;
+  --ds-keyframe-grid-column-in: GridColumnIn80to100;
+  --ds-keyframe-grid-column-out: GridColumnOut100to0;
   --ds-keyframe-scale-in-medium: ScaleIn80to100;
   --ds-keyframe-scale-in-small: ScaleIn95to100;
   --ds-keyframe-scale-out-medium: ScaleOut100to80;
@@ -232,8 +252,8 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-keyframe-slide-out-left-short: SlideOutLeft8px;
   --ds-keyframe-slide-out-right-short: SlideOutRight8px;
   --ds-keyframe-slide-out-top-short: SlideOutTop8px;
-  --ds-label-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleXIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
-  --ds-label-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleXOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
+  --ds-label-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) GridColumnIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
+  --ds-label-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) GridColumnOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-listitem-hovered: background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 50ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-listitem-pressed: background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-listitem-selected: background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1);

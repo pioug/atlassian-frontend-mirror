@@ -1,5 +1,33 @@
 # @atlaskit/renderer
 
+## 141.0.0
+
+### Patch Changes
+
+- [`3b3e57040d2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3e57040d2d0) -
+  Remove retired flexible-list feature controls and schema styles while preserving shipped list
+  normalization, hidden-marker rendering for wrapper list items, task paste and task-list tab
+  behavior, and toolbar indentation behavior.
+
+  Remove unused legacy list utilities after the flexible-list rollout: `flattenList`,
+  `normalizeListItemsSelection`, `hasValidListIndentationLevel`,
+  `processNestedTaskListsInSameLevel`, and `wrapTaskListIntoListAbove`. The
+  `@atlaskit/editor-common/lists/indentation` entrypoint is also removed.
+
+  Consumers of the removed runtime helpers should use the editor list plugin's indent/outdent
+  commands. The shared `FlattenedItem`, `FlattenListOptions`, and `FlattenListResult` types remain
+  available for the active list implementations.
+
+- Updated dependencies
+
+## 140.2.8
+
+### Patch Changes
+
+- [`edc1eb0f84ed8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edc1eb0f84ed8) -
+  Clean up experiment `platform_editor_comment_on_bodied_extensions`
+- Updated dependencies
+
 ## 140.2.7
 
 ### Patch Changes

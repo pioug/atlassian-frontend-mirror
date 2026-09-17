@@ -109,7 +109,6 @@ import { InlineNodeViewSharedStyles } from './styles/inlineNodeViewSharedStyles'
 import {
 	layoutBaseStyles,
 	layoutBaseStylesAdvanced,
-	layoutBaseStylesWithTableExcerptsFix,
 	layoutColumnMartinTopFixes,
 	layoutColumnDividerStyles,
 	layoutColumnDividerStylesNestedDnD,
@@ -638,9 +637,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				textHighlightPaddingStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				listsStyles,
-				expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					listItemHiddenMarkerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				listItemHiddenMarkerStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				diffListStyles,
 				// Condense vertical spacing between list items when content mode dense is active
@@ -801,9 +799,6 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					resizerBottomHandleStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				layoutBaseStyles,
-				expValEquals('platform_editor_table_excerpts_fix', 'isEnabled', true) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					layoutBaseStylesWithTableExcerptsFix,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				alignMultipleWrappedImageInLayoutStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

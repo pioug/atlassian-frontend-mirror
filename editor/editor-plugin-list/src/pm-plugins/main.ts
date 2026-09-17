@@ -19,7 +19,6 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ListPlugin } from '../listPluginType';
 import type { ListState } from '../types';
@@ -407,9 +406,6 @@ export const createPlugin = (
 		key: listPluginKey,
 
 		appendTransaction(transactions, _oldState, newState) {
-			if (!expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true)) {
-				return null;
-			}
 			if (!transactions.some((t) => t.docChanged)) {
 				return null;
 			}

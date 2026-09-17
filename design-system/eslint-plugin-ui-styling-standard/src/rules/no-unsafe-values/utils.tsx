@@ -20,6 +20,28 @@ import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 
 import type { MessageId } from './messages';
 
+type TypeExpression = {
+	type: 'TSAsExpression' | 'TSSatisfiesExpression' | 'TSTypeAssertion';
+	expression: Node;
+};
+
+const unwrapSatisfiesExpression = (node: Node): Node => {
+	if ((node as { type: string }).type !== 'TSSatisfiesExpression') {
+		return node;
+	}
+
+	let currentNode = node;
+	while (
+		['TSAsExpression', 'TSSatisfiesExpression', 'TSTypeAssertion'].includes(
+			(currentNode as { type: string }).type,
+		)
+	) {
+		currentNode = (currentNode as unknown as TypeExpression).expression;
+	}
+
+	return currentNode;
+};
+
 function isReferenceToCssVar(variable: Variable) {
 	const definitions = variable.defs;
 
@@ -188,6 +210,21 @@ export class Linter {
 	}
 
 	private lintKey(property: Property) {
+		const key = property.key as Node;
+
+		// A type-only `satisfies` annotation preserves a static key at runtime.
+		// It is safe for the same reason as a directly written string literal.
+		const unwrappedKey = unwrapSatisfiesExpression(key);
+		const isSatisfiesExpression = unwrappedKey !== key;
+		if (
+			property.computed &&
+			isSatisfiesExpression &&
+			unwrappedKey.type === 'Literal' &&
+			typeof (unwrappedKey as { value?: unknown }).value === 'string'
+		) {
+			return;
+		}
+
 		/**
 		 * If it's not computed then it must be a plain string.
 		 *
@@ -259,6 +296,12 @@ export class Linter {
 	}
 
 	private lintValue(value: Property['value']): void {
+		const unwrappedValue = unwrapSatisfiesExpression(value);
+		if (unwrappedValue !== value) {
+			this.lintValue(unwrappedValue as Property['value']);
+			return;
+		}
+
 		/**
 		 * Literals are always allowed by this rule.
 		 */

@@ -1,6 +1,10 @@
 import { token } from '@atlaskit/tokens';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import { participantColors } from './consts';
 import { getHashCode, getParticipantColor } from './utils';
+
+const RED_INDEXES = [0, 11];
 
 describe('utils', () => {
 	describe('getHashCode', () => {
@@ -107,6 +111,59 @@ describe('utils', () => {
 					svgBackgroundColor: token('color.background.accent.yellow.subtler'),
 					textColor: token('color.text.inverse'),
 				},
+			});
+		});
+
+		describe('with confluence_ncs_step_diffing_version_history', () => {
+			// `participant-4` hashes onto slot 0 (red bolder), `participant-10` onto slot 11 (red subtle).
+			it.each([
+				['participant-4', 0],
+				['participant-10', 11],
+			] as const)('assigns %s the red slot %d when off', (id, redIndex) => {
+				failGate('confluence_ncs_step_diffing_version_history');
+
+				expect(getParticipantColor(id)).toEqual({
+					index: redIndex,
+					color: participantColors[redIndex],
+				});
+			});
+
+			it.each([
+				['participant-4', 1],
+				['participant-10', 12],
+			] as const)('moves %s onto the next assignable slot %d when on', (id, expectedIndex) => {
+				passGate('confluence_ncs_step_diffing_version_history');
+
+				expect(getParticipantColor(id)).toEqual({
+					index: expectedIndex,
+					color: participantColors[expectedIndex],
+				});
+			});
+
+			// Guards the premise of the collab-edit VR fixture, which relies on these two ids to
+			// render a red telepointer in the gate-off baseline.
+			it.each([
+				['alice', 0, 1],
+				['heidi', 11, 12],
+			] as const)(
+				'reassigns VR fixture id %s from slot %d to %d',
+				(id, redIndex, expectedIndex) => {
+					passGate('confluence_ncs_step_diffing_version_history');
+
+					expect(getHashCode(id) % participantColors.length).toBe(redIndex);
+					expect(getParticipantColor(id)).toEqual({
+						index: expectedIndex,
+						color: participantColors[expectedIndex],
+					});
+				},
+			);
+
+			it('never assigns a red slot to a hashed identity', () => {
+				passGate('confluence_ncs_step_diffing_version_history');
+
+				for (let i = 0; i < 500; i++) {
+					expect(RED_INDEXES).not.toContain(getParticipantColor(`participant-${i}`).index);
+				}
 			});
 		});
 	});

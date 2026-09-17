@@ -184,6 +184,43 @@ describe('useMotion()', () => {
 		expect(screen.getByTestId('layout-state-target')).toBeInTheDocument();
 	});
 
+	it('should call onStart before entering and exiting motions', () => {
+		const onStart = jest.fn<void, [Transition]>();
+
+		const { rerender } = renderWithMotionStyles(
+			<ExitingPersistence appear>
+				<MotionSection onStart={onStart} />
+			</ExitingPersistence>,
+		);
+
+		expect(onStart).toHaveBeenCalledTimes(1);
+		expect(onStart).toHaveBeenCalledWith('entering');
+
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+		expect(onStart).toHaveBeenCalledTimes(2);
+		expect(onStart).toHaveBeenLastCalledWith('exiting');
+	});
+
+	it('should let consumers handle only one motion direction from onStart', () => {
+		const onExitingStart = jest.fn();
+		const onStart = (state: Transition) => {
+			if (state === 'exiting') {
+				onExitingStart();
+			}
+		};
+
+		const { rerender } = renderWithMotionStyles(
+			<ExitingPersistence appear>
+				<MotionSection onStart={onStart} />
+			</ExitingPersistence>,
+		);
+
+		expect(onExitingStart).not.toHaveBeenCalled();
+
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+		expect(onExitingStart).toHaveBeenCalledTimes(1);
+	});
+
 	it('should apply the entering animation to the host element', () => {
 		renderWithMotionStyles(
 			<MotionSection enteringAnimation={ENTERING_ANIMATION} exitingAnimation={EXITING_ANIMATION} />,

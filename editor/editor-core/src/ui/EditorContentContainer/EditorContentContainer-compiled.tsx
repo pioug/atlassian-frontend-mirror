@@ -3147,6 +3147,10 @@ const editorContentStyles = cssMapScoped({
 					padding: token('space.150'),
 					boxSizing: 'border-box',
 					'> div': {
+						'.pm-table-container': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							width: '100% !important',
+						},
 						'> .embedCardView-content-wrap:first-of-type .rich-media-item': {
 							marginTop: 0,
 						},
@@ -3235,21 +3239,6 @@ const editorContentStyles = cssMapScoped({
 
 		'.ProseMirror [data-layout-section] [data-layout-column]': {
 			padding: '12px 20px',
-		},
-	},
-	// on exp 'platform_editor_table_excerpts_fix' cleanup, merge this style to the one above
-	layoutBaseStylesWithTableExcerptsFix: {
-		'.ProseMirror': {
-			'[data-layout-section]': {
-				'[data-layout-column]': {
-					'> div': {
-						'.pm-table-container': {
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-							width: '100% !important',
-						},
-					},
-				},
-			},
 		},
 	},
 	/**
@@ -8644,8 +8633,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.highlightLinksUnsetStyles,
 				editorContentStyles.textHighlightPaddingStyles,
 				editorContentStyles.listsStyles,
-				expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
-					editorContentStyles.listItemHiddenMarkerStyles,
+				editorContentStyles.listItemHiddenMarkerStyles,
 				editorContentStyles.diffListStyles,
 				// Condense vertical spacing between list items when content mode dense is active
 				contentMode === 'compact' && isDense && editorContentStyles.listsDenseStyles,
@@ -8739,8 +8727,6 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					expValEquals('databases-native-embeds-v2', 'isEnabled', true) &&
 					editorContentStyles.resizerBottomHandleStyles,
 				editorContentStyles.layoutBaseStyles,
-				expValEquals('platform_editor_table_excerpts_fix', 'isEnabled', true) &&
-					editorContentStyles.layoutBaseStylesWithTableExcerptsFix,
 				editorContentStyles.alignMultipleWrappedImageInLayoutStyles,
 				editorContentStyles.syncBlockStylesBase,
 				fg('platform-dst-tokens-finesse') && editorContentStyles.syncBlockSelectedStyles,

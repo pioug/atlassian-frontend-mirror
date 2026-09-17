@@ -101,6 +101,20 @@ const paragraphStyles = css({
 });
 ```
 
+Statically written CSS at-rule keys may be annotated with a type-only `satisfies` expression. The
+annotation is erased at runtime, so it does not make the key unsafe:
+
+```tsx
+import { css } from '@atlaskit/css';
+import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
+
+const styles = css({
+	['@media (min-width: 48rem)' satisfies MediaAboveSm]: {
+		padding: '8px',
+	},
+});
+```
+
 ### Variables
 
 #### Incorrect

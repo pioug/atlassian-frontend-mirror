@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.24.1",
+	"version": "45.24.5",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -283,16 +283,10 @@
 		"product-terminology-refresh": {
 			"type": "boolean"
 		},
-		"platform_smartlink_3pclick_analytics": {
-			"type": "boolean"
-		},
 		"jfp-magma-platform-lozenge-jump-fix": {
 			"type": "boolean"
 		},
 		"platform_sl_priority_icon": {
-			"type": "boolean"
-		},
-		"platform_sl_action_refactoring": {
 			"type": "boolean"
 		},
 		"jpx-1074-smart-links-iframe": {

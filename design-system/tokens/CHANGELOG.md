@@ -1,5 +1,34 @@
 # @atlaskit/tokens
 
+## 18.2.0
+
+### Minor Changes
+
+- [`78264aeafd321`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78264aeafd321) -
+  Add reusable grid-column enter and exit keyframe tokens and update the motion.label animations.
+  Updated consumers apply the new motion behind platform-dst-motion-uplift-labels.
+
+## 18.1.0
+
+### Minor Changes
+
+- [`7f37ec7cc8629`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f37ec7cc8629) -
+  Add UNSAFE_test-light and UNSAFE_test-dark color themes for visual and unit testing.
+
+## 18.0.0
+
+### Major Changes
+
+- [`20b3e525959eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20b3e525959eb) -
+  The `shape` theme is now enabled by default and is no longer behind a feature gate. The
+  `ThemeState` type now requires a value for the `shape` property to be provided.
+
+### Minor Changes
+
+- [`b6effa4972e52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6effa4972e52) -
+  Add motion.input.hovered and motion.input.focused tokens for input background-color, border-color,
+  and box-shadow transitions.
+
 ## 17.0.1
 
 ### Patch Changes

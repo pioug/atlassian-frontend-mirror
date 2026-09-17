@@ -11,6 +11,11 @@ import type { DatePlugin } from '../../datePluginType';
 
 import { DateQuickInsertMenuItem } from './DateQuickInsertMenuItem';
 
+const previewImageUrls = {
+	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/sme6e06rf6210v8e46a8ak5mqeww0666.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/24247c44u75a5hq2xv203x2k526olp03.png',
+};
+
 export const getDateQuickInsertComponents = ({
 	api,
 }: {
@@ -32,6 +37,6 @@ export const getDateQuickInsertComponents = ({
 			shortcut: '//',
 			title: formatMessage(messages.date),
 		})),
-		component: () => <DateQuickInsertMenuItem api={api} />,
+		component: () => <DateQuickInsertMenuItem api={api} previewImageUrls={previewImageUrls} />,
 	},
 ];

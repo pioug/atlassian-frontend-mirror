@@ -13,6 +13,8 @@ import type {
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
+import type { QuickInsertCategoryItemSelectionPolicy } from './selectQuickInsertCategoryItems';
+
 export type QuickInsertMenuSection = [RegisterMenuSection, ...RegisterMenuItem[]];
 
 export type QuickInsertMenuModel = {
@@ -24,7 +26,7 @@ export type QuickInsertMenuModel = {
 export const buildQuickInsertMenuModel = (
 	components: RegisterComponent[],
 	rootComponent: SurfaceIdentifier,
-	sectionOverflowLimit?: number,
+	selectCategoryItems?: QuickInsertCategoryItemSelectionPolicy,
 	surfaceContext?: SurfaceContext,
 ): QuickInsertMenuModel => {
 	const { root, childrenMap, topLevelChildren } = resolveSurface(components, rootComponent);
@@ -75,16 +77,15 @@ export const buildQuickInsertMenuModel = (
 			continue;
 		}
 
-		if (
-			sectionOverflowLimit !== undefined &&
-			viewMoreItem !== undefined &&
-			items.length > sectionOverflowLimit
-		) {
-			sections.push([section, ...items.slice(0, sectionOverflowLimit), viewMoreItem]);
-			continue;
+		const selectedItems =
+			viewMoreItem !== undefined && selectCategoryItems !== undefined
+				? selectCategoryItems(items)
+				: items;
+		if (selectedItems.length < items.length && viewMoreItem !== undefined) {
+			sections.push([section, ...selectedItems, viewMoreItem]);
+		} else {
+			sections.push([section, ...selectedItems]);
 		}
-
-		sections.push([section, ...items]);
 	}
 
 	return { footer, root, sections };

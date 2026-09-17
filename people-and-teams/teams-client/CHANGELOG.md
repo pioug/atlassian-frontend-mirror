@@ -1,5 +1,19 @@
 # @atlaskit/teams-client
 
+## 5.5.0
+
+### Minor Changes
+
+- [`04c2bee47b7d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04c2bee47b7d0) -
+  Migrate `TeamsInSlackClient` to use the Staffy Global Edge URL behind the feature gate
+  `ptc-onboard-teams-slack-app-to-global-edge-url`.
+
+  When the gate is enabled, all `/api/team/{teamId}` calls (GET, POST, DELETE) are routed to
+  `https://teams-slack-app.services.atlassian.com` instead of the Stargate path
+  `/gateway/api/teamsslack/api/team`. Falls back to Stargate when the gate is off.
+
+  Also adds `teamsInSlackServiceUrl` to `TeamsClientConfig` to allow per-environment URL overrides.
+
 ## 5.4.0
 
 ### Minor Changes

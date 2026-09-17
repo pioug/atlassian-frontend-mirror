@@ -59,6 +59,19 @@ import { importedWidth } from '../shared';
 const Component = () => <div style={{ width: importedWidth }} />;
 ```
 
+Type-only imports used by `satisfies` annotations are not style values and are allowed:
+
+```tsx
+import { css } from '@atlaskit/css';
+import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
+
+const styles = css({
+	['@media (min-width: 48rem)' satisfies MediaAboveSm]: {
+		padding: '8px',
+	},
+});
+```
+
 ### Correct
 
 Co-locate styles with components to improve code readability, linting, and build performance.

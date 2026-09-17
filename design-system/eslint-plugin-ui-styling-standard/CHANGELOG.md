@@ -1,5 +1,16 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.1.8
+
+### Patch Changes
+
+- [`2808e38fa97f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2808e38fa97f7) -
+  Allow static style keys and values annotated with TypeScript `satisfies` expressions
+- [`98d68443fc958`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98d68443fc958) -
+  Handle TypeScript satisfies and assertion wrappers without rejecting safe inline style values or
+  imported type references. Update the Platform ESLint plugin's Compiled ESLint dependency to
+  ^0.20.2 to fix shorthand-property sorting crashes on inline satisfies expressions.
+
 ## 2.1.7
 
 ### Patch Changes

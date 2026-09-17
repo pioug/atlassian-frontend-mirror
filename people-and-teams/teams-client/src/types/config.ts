@@ -4,4 +4,5 @@ export interface TeamsClientConfig {
 	publicApiRoot: string;
 	invitationsServiceUrl: string;
 	collaborationGraphUrl: string;
+	teamsInSlackServiceUrl: string;
 }

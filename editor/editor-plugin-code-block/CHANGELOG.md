@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-code-block
 
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.11
+
+### Patch Changes
+
+- [`88fb7a8d4013a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88fb7a8d4013a) -
+  [ux] Add optional light and dark preview URLs to slash-command menu items and pass theme-aware
+  previews to supported commands when the `platform_editor_slash_command` experiment is enabled.
+- Updated dependencies
+
 ## 20.0.10
 
 ### Patch Changes

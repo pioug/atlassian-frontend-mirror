@@ -3,7 +3,6 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -90,7 +89,7 @@ const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
 	return (
 		<ServerAction
 			content={<FormattedMessage {...label} />}
-			{...(fg('platform_sl_action_refactoring') ? { ariaLabel: intl.formatMessage(label) } : {})}
+			ariaLabel={intl.formatMessage(label)}
 			icon={followIcon}
 			testId="smart-action-follow-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

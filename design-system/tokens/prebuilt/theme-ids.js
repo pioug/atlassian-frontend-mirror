@@ -10,4 +10,4 @@ exports.themeIds = void 0;
  *
  * These ids must be kebab case
  */
-var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'dark', 'dark-future', 'dark-increased-contrast', 'spacing', 'shape', 'typography', 'motion'];
+var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'UNSAFE-test-light', 'dark', 'UNSAFE-test-dark', 'dark-future', 'dark-increased-contrast', 'spacing', 'shape', 'typography', 'motion'];

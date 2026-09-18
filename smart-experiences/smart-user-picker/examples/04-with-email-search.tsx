@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
-import SmartUserPicker from '../src/components';
+
 import { useEndpointMocks } from '../example-helpers/mock-endpoints-for-emails';
+import SmartUserPicker from '../src/components';
 import '../example-helpers/mock-ufo';
 
 const ExampleWithEmailSearch = (): React.JSX.Element => {

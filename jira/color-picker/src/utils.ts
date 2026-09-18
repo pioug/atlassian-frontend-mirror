@@ -1,5 +1,6 @@
-import { COLOR_CARD_SIZE } from './constants';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
+
+import { COLOR_CARD_SIZE } from './constants';
 import { Mode, type Color, type Palette } from './types';
 
 export const getWidth = (cols: number, mode?: Mode): number => {

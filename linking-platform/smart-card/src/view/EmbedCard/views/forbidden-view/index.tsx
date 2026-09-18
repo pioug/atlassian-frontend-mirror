@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/default/button';
 import { messages } from '../../../../messages';
 import { toMessage } from '../../../../utils/intl-utils';
 import UnresolvedView from '../unresolved-view';
-
 import { ForbiddenSVG } from './forbidden-svg';
 import { type ForbiddenViewProps } from './types';
 

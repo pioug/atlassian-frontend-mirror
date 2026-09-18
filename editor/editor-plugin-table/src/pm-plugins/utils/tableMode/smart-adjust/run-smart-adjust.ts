@@ -1,5 +1,4 @@
 import { type TableMeasurement, getTableMeasurement } from '../../../transforms/content-mode';
-
 import { distributeByEvenShareRatio, sumWidths } from './distribute-column-widths';
 
 const measureWithIntrinsicWidth = (

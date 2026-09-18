@@ -2,7 +2,6 @@ import type { InteractionMetrics } from '../../common';
 import type { OptimizedLabelStack } from '../common/types';
 import type { LabelStackRegistry } from '../common/utils/label-stack-registry';
 import { optimizeLabelStackWithRegistry } from '../common/utils/optimize-label-stack-with-registry';
-
 import type { getReactUFOPayloadVersion } from './get-react-ufo-payload-version';
 
 export function optimizeSpans(

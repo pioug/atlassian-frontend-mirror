@@ -1,5 +1,3 @@
-import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
-import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
 import {
 	getComponentIdentity,
 	resolveSurface,
@@ -13,6 +11,8 @@ import type {
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
+import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
+import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
 import type { QuickInsertCategoryItemSelectionPolicy } from './selectQuickInsertCategoryItems';
 
 export type QuickInsertMenuSection = [RegisterMenuSection, ...RegisterMenuItem[]];

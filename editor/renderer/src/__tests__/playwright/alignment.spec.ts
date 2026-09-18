@@ -1,6 +1,5 @@
-import { doc, p, table, tr, alignment, td, th } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { rendererTestCase as test, expect } from './not-libra';
+import { doc, p, table, tr, alignment, td, th } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
 	threeNormalParagraphs,
@@ -9,6 +8,7 @@ import {
 	thirdParagraphCentered,
 	mixAlignmentParagraph,
 } from './alignment.spec.ts-fixtures';
+import { rendererTestCase as test, expect } from './not-libra';
 
 test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
 

@@ -7,7 +7,9 @@ import ReactDOM from 'react-dom';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
+
 import { token } from '@atlaskit/tokens';
+
 import { usePosition } from './internal-ui/Position';
 
 export function AttachedComment({

@@ -13,7 +13,6 @@ import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/utils';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { getBlockControlsMeta, key } from '../main';
-
 import { newGetSelection } from './getSelection';
 
 export const getMultiSelectionIfPosInside = (

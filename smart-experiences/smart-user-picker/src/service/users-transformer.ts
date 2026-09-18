@@ -1,3 +1,6 @@
+import { type IntlShape } from 'react-intl';
+
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import {
 	type ExternalUser,
 	ExternalUserType,
@@ -11,11 +14,10 @@ import {
 	type User,
 	UserType,
 } from '@atlaskit/user-picker/types';
-import { type IntlShape } from 'react-intl';
+
 import { messages } from '../i18n';
 import type { UserEntityType } from '../types';
 import { EntityType } from '../types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 interface ServerItem {
 	id: string;

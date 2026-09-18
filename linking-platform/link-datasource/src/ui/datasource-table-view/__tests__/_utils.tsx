@@ -1,8 +1,8 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import { ORS_ACTIONS_DISCOVERY_ENDPOINT } from '@atlaskit/link-test-helpers/datasource';
-import type { ActionsServiceDiscoveryResponse } from '@atlaskit/linking-types/datasource-actions';
 import type { DatasourceDataResponse } from '@atlaskit/linking-types/datasource';
+import type { ActionsServiceDiscoveryResponse } from '@atlaskit/linking-types/datasource-actions';
 
 const ORS_FETCH_DATASOURCE_DATA_ENDPOINT =
 	/\/gateway\/api\/object\-resolver\/datasource\/[^/]+\/fetch\/data/;

@@ -1,7 +1,6 @@
 import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer/types';
 
 import type { NodeDataProvider } from '../node-data-provider';
-
 import { findNodesToPrefetch } from './find-nodes-to-prefetch';
 
 /**

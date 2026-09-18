@@ -2,14 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
+
 import { useRef, useEffect } from 'react';
 
-import { token } from '@atlaskit/tokens';
-import ErrorIcon from '@atlaskit/icon/core/status-error';
-import Flag from '@atlaskit/flag/flag';
-import { messages } from '@atlaskit/media-ui/messages';
+import { jsx, css } from '@compiled/react';
 import { useIntl } from 'react-intl';
+
+import Flag from '@atlaskit/flag/flag';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
+import { messages } from '@atlaskit/media-ui/messages';
+import { token } from '@atlaskit/tokens';
 
 const avatarPickerErrorStyles = css({
 	marginTop: token('space.0'),

@@ -12,7 +12,6 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type Action, type FocusableElementRef } from '../../types';
-
 import { PREFIX } from './use-generated-id';
 
 const actionMap: { [key: string]: Action } = {

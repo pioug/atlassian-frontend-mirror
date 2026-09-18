@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-heading, @atlaskit/design-system/use-tokens-typography -- Legacy analytics-next docs intentionally use lightweight local HTML doc blocks instead of ADS docs helpers. */
+
 import React from 'react';
 
 type ExampleBlockProps = {

@@ -16,7 +16,6 @@ import {
 	type OrderByOperator,
 	type Position,
 } from '../types';
-
 import { assignParent } from './common';
 import { orderByOperator } from './orderByOperator';
 

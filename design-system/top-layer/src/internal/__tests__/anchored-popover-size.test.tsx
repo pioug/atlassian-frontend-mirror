@@ -1,10 +1,10 @@
+import { getFitMarginDeclarations } from '../anchor-positioning/fit-margins';
 import {
 	getAnchoredPopoverSizeDeclarations,
 	type TAnchorSizeValues,
 	type TPopoverAxisSize,
 	type TPopoverWritingMode,
 } from '../anchored-popover-size';
-import { getFitMarginDeclarations } from '../anchor-positioning/fit-margins';
 import { resolvePlacement, type TPlacementOptions } from '../resolve-placement';
 
 /**

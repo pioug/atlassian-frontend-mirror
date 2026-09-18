@@ -14,8 +14,8 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import DecisionIcon from '@atlaskit/icon/core/decision';
 import FieldCheckboxGroupIcon from '@atlaskit/icon/core/field-checkbox-group';
 
-import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 import { getListTypes, insertTaskDecisionAction } from '../../pm-plugins/insert-commands';
+import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 import type { TaskDecisionListType } from '../../types';
 
 type Props = {

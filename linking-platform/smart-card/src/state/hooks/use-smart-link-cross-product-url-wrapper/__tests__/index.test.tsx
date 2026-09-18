@@ -1,10 +1,9 @@
-import { renderHook } from '@atlassian/testing-library';
-
 import { useCrossProductUrlWrapper } from '@atlaskit/analytics-cross-product/useCrossProductUrlWrapper';
 import type { CardContext } from '@atlaskit/link-provider/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import { renderHook } from '@atlassian/testing-library';
 
 import { getIsFirstPartyLink } from '../getIsFirstPartyLink';
 import { useSmartLinkCrossProductUrlWrapper } from '../index';

@@ -10,7 +10,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Command, EditorAppearance } from '../../../types';
 import { getAnalyticsEditorAppearance } from '../../../utils';
-
 import { useEscapeClickaway } from './useEscapeClickaway';
 
 const PREVENT_SCROLL = { preventScroll: true };

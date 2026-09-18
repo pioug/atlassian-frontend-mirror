@@ -1,12 +1,12 @@
-import { logDebug } from '../../../../util/logger';
-import { EventType } from '../../../../types';
-import WebsocketClient from './websocketClient';
-import { type MessageData } from '../../types';
-import { type Message } from '../../../types';
-import { type APSTransportParams } from '../index';
 import { APSTransportType } from '../../../../apiTypes';
+import { EventType } from '../../../../types';
+import { logDebug } from '../../../../util/logger';
+import { type Message } from '../../../types';
+import { type MessageData } from '../../types';
 import { getTimestampBasedSequenceNumber } from '../../utils';
 import AbstractApsTransport from '../abstract-aps-transport';
+import { type APSTransportParams } from '../index';
+import WebsocketClient from './websocketClient';
 
 enum State {
 	CLOSED,

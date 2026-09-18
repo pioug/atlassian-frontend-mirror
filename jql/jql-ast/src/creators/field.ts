@@ -7,7 +7,6 @@ import {
 	type Property,
 } from '../types';
 import { sanitiseJqlString } from '../utils/sanitise-jql-string';
-
 import { assignParent } from './common';
 
 function acceptField<Result>(this: Field, visitor: JastVisitor<Result>) {

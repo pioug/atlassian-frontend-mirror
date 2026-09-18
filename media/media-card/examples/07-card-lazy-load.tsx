@@ -2,12 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React from 'react';
+
 import { createStorybookMediaClientConfig, genericFileId } from '@atlaskit/media-test-helpers';
-import Card from '../src/card/cardLoader';
+
 import { MainWrapper } from '../example-helpers';
+import Card from '../src/card/cardLoader';
 
 const dimensions = { width: 500, height: 400 };
 

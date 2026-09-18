@@ -2,16 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import type { ComponentType, Dispatch, FC, SetStateAction } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { ComponentType, Dispatch, FC, SetStateAction } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
-import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
+import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
 
@@ -36,7 +40,7 @@ const CodeBlockWrapButton = ({
 					<Tooltip content={wrapMessage} hideTooltipOnClick={false} position="top">
 						<Button
 							appearance="subtle"
-							aria-haspopup={true}
+							aria-haspopup={fg('platform_editor_a11y_codeblock_haspopup') ? undefined : true}
 							aria-label={wrapMessage}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={`wrap-code ${wrapLongLines ? 'clicked' : ''}`}

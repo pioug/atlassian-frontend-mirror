@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
-import { DeleteUserOverviewScreen } from '../../components/DeleteUserOverviewScreen';
-import { catherineHirons } from '../../mocks/users';
-import accessibleSites from '../../mocks/accessibleSites';
-import { type DeleteUserOverviewScreenProps } from '../../components/DeleteUserOverviewScreen/types';
+
 import { IntlProvider } from 'react-intl';
+
+import { render, screen } from '@atlassian/testing-library';
+
+import { DeleteUserOverviewScreen } from '../../components/DeleteUserOverviewScreen';
+import { type DeleteUserOverviewScreenProps } from '../../components/DeleteUserOverviewScreen/types';
+import accessibleSites from '../../mocks/accessibleSites';
+import { catherineHirons } from '../../mocks/users';
 
 const defaultProps: Partial<DeleteUserOverviewScreenProps> = {
 	accessibleSites,

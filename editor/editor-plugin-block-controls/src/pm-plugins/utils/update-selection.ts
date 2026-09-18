@@ -1,9 +1,9 @@
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Step } from '@atlaskit/editor-prosemirror/transform-override';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 export const getInsertLayoutStep = (tr: Transaction): Step | undefined =>
 	tr.steps.find(

@@ -14,7 +14,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DatePlugin, DeleteDate, InsertDate } from '../types';
 import { isToday } from '../ui/DatePicker/utils/internal';
-
 import { pluginKey } from './plugin-key';
 
 type DeleteDateCommand = (

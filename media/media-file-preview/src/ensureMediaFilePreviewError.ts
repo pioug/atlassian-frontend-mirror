@@ -1,6 +1,6 @@
+import { isMediaFilePreviewError } from './isMediaFilePreviewError';
 import type { MediaFilePreviewErrorPrimaryReason } from './MediaFilePreviewError';
 import { MediaFilePreviewError } from './MediaFilePreviewError';
-import { isMediaFilePreviewError } from './isMediaFilePreviewError';
 
 // In a try/catch statement, the error caught is the type of unknown.
 // We can use this helper to ensure that the error handled is the type of MediaFilePreviewError if unsure

@@ -1,5 +1,5 @@
-import { Rectangle } from '@atlaskit/media-ui/rectangle';
 import type { Bounds } from '@atlaskit/media-ui/bounds';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
 import { Vector2 } from '@atlaskit/media-ui/vector2';
 
 export function zoomToFit(

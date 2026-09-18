@@ -1,8 +1,6 @@
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { ROVO_PARAM_PREFIX } from './constants';
-import { type RovoChatParams, type ValidParam } from './types';
-
 import {
 	addPrefix,
 	addRovoParamsToUrl,
@@ -14,6 +12,7 @@ import {
 	removePrefix,
 	updatePageRovoParams,
 } from './index';
+import { type RovoChatParams, type ValidParam } from './types';
 
 describe('Rovo Query', () => {
 	beforeAll(() => {

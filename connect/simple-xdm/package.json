@@ -44,6 +44,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"typescript": "root:*"
 	},
 	"atlaskit:src": "src/index.ts",

@@ -1,10 +1,9 @@
 import type { Node as ProseMirrorNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Mappable, StepMap, Transform } from '@atlaskit/editor-prosemirror/transform';
-
 import type { TableRect } from '@atlaskit/editor-tables/table-map';
+
 import type { Cell } from '../cells-at-column';
 import { hasMergedColumns } from '../table-map';
-
 import type { RowSideEffect, RowSideEffectJSON } from './types';
 
 function mergedRanges(first: number[], second: number[]) {

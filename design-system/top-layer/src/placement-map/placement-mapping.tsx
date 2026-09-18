@@ -1,5 +1,4 @@
 import { type TPlacementOptions } from '../internal/resolve-placement';
-
 import type { TLegacyPlacement } from './legacy-placements';
 
 /**

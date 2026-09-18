@@ -1,5 +1,4 @@
 import { type Team } from '../types';
-
 import { avatarImages, descriptions, memberNames, names, sampleImage } from './team-data';
 
 export function staticTeamData({

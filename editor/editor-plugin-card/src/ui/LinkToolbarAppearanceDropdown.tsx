@@ -24,7 +24,6 @@ import Section from '@atlaskit/menu/section';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
-
 import { DatasourceDropdownOption, datasourceDisplayInformation } from './DatasourceDropdownOption';
 import { getUnavailableMessage } from './LinkToolbarAppearance';
 import type { LinkToolbarAppearanceProps } from './LinkToolbarAppearance';

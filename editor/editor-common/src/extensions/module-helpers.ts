@@ -1,7 +1,6 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { Command, FloatingToolbarDropdown } from '../types';
-
 import { buildMenuItem } from './buildMenuItem';
 import { createAutoConverterRunner } from './createAutoConverterRunner';
 import type { ExtensionAPI } from './types/extension-handler';

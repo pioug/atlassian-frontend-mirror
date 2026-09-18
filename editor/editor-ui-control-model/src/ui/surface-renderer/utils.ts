@@ -8,7 +8,6 @@ import type {
 	RegisterComponent,
 	SurfaceContext,
 } from '../../types';
-
 import type { ChildrenMap, ResolvedSurface, SurfaceIdentifier } from './types';
 
 /** Renders children as-is. Used when no explicit component is registered. */

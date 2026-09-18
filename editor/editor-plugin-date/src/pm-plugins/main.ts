@@ -5,7 +5,6 @@ import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
 
 import { DateNodeView } from '../nodeviews/DateNodeView';
-
 import { pluginKey } from './plugin-key';
 import type { DatePluginState } from './types';
 import { mapping, onSelectionChanged, reducer } from './utils';

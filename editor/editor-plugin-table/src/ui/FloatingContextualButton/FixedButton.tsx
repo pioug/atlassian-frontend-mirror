@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 import rafSchedule from 'raf-schd';
-import { createPortal } from 'react-dom';
 
 import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';

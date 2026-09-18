@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
+
 import type { MouseEvent } from 'react';
 import React, { useCallback, useMemo, useRef } from 'react';
 

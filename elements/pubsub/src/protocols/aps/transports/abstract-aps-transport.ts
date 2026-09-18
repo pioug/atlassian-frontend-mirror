@@ -1,13 +1,14 @@
-import { type APSTransport, type APSTransportParams } from './index';
+import type { EventEmitter2 } from 'eventemitter2';
+import { backOff } from 'exponential-backoff';
+
+import { type APSTransportType } from '../../../apiTypes';
 import { type APSAnalyticsClient } from '../APSAnalyticsClient';
 import {
 	firstConnectBackoffOptions,
 	getTimestampBasedSequenceNumber,
 	reconnectBackoffOptions,
 } from '../utils';
-import { backOff } from 'exponential-backoff';
-import { type APSTransportType } from '../../../apiTypes';
-import type { EventEmitter2 } from 'eventemitter2';
+import { type APSTransport, type APSTransportParams } from './index';
 
 export default abstract class AbstractApsTransport implements APSTransport {
 	protected readonly analyticsClient: APSAnalyticsClient;

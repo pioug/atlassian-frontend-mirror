@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { SplitButton } from '@atlaskit/button/split-button/split-button'` instead.
  */
+
 export { SplitButton } from '../new-button/containers/split-button/split-button';
 
 /**

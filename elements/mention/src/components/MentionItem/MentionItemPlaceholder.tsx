@@ -1,11 +1,11 @@
 import React from 'react';
+
 import { useIntl } from 'react-intl';
 
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../i18n';
-
 import {
 	AvatarSkeletonWrapper,
 	AvatarStyle,

@@ -3,19 +3,19 @@
  * @jsx jsx
  */
 import { type AriaAttributes } from 'react';
+import React from 'react';
+
+import { cssMap, jsx, cx, css } from '@compiled/react';
 import { defineMessages, useIntl } from 'react-intl';
+
 import type AnalyticsEvent from '@atlaskit/analytics-next/AnalyticsEvent';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type PickerSize } from '@atlaskit/emoji/types';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
-
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
-import { cssMap, jsx, cx, css } from '@compiled/react';
-import React from 'react';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const styles = cssMap({
 	trigger: {

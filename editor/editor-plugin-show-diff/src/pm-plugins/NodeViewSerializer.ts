@@ -1,8 +1,8 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 /**
  * Utilities for working with ProseMirror node views and DOM serialization within the

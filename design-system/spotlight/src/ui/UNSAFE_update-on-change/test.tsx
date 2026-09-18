@@ -1,11 +1,9 @@
 import React from 'react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render } from '@atlassian/testing-library';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { SpotlightContext, type SpotlightContextType } from '../../controllers/context';
-
 import { UNSAFE_UpdateOnChange } from './index';
 
 // Mock browser APIs

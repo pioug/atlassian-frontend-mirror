@@ -8,18 +8,17 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { IconCode } from '@atlaskit/editor-common/assets';
 import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_CODE_BLOCK_MENU_ITEM,
 	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import { IconCode } from '@atlaskit/editor-common/assets';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
 import { createInsertCodeBlockTransaction, insertCodeBlockWithAnalytics } from './editor-commands';
@@ -45,24 +44,22 @@ const CODE_BLOCK_NODE_NAME = 'codeBlock';
 const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents([
-			{
-				type: 'block-menu-item',
-				key: TRANSFORM_STRUCTURE_CODE_BLOCK_MENU_ITEM.key,
-				parent: {
-					type: 'block-menu-section' as const,
-					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
-						TRANSFORM_STRUCTURE_CODE_BLOCK_MENU_ITEM.key
-					],
-				},
-				component: createCodeBlockMenuItem(api),
-				isHidden: () =>
-					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(CODE_BLOCK_NODE_NAME)),
+	api?.blockMenu?.actions.registerBlockMenuComponents([
+		{
+			type: 'block-menu-item',
+			key: TRANSFORM_STRUCTURE_CODE_BLOCK_MENU_ITEM.key,
+			parent: {
+				type: 'block-menu-section' as const,
+				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_STRUCTURE_CODE_BLOCK_MENU_ITEM.key
+				],
 			},
-		]);
-	}
+			component: createCodeBlockMenuItem(api),
+			isHidden: () =>
+				Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(CODE_BLOCK_NODE_NAME)),
+		},
+	]);
 
 	if (isRegisteredSlashCommandEnabled) {
 		api?.uiControlRegistry?.actions.register(getCodeBlockQuickInsertComponents({ api }));

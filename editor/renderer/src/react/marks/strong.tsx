@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { MarkProps } from '../types';
 
 export default function Strong(props: MarkProps): React.JSX.Element {

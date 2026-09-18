@@ -1,5 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
+
 import { getDimensionsWithDefault } from './getDimensionsWithDefault';
 import { Wrapper } from './lightCardWrappers';
 import { type StaticCardProps } from './types';

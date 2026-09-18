@@ -5,7 +5,6 @@ import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TableMenuComponentsParams } from '../shared/types';
-
 import { AddRowAboveItem } from './items/AddRowAboveItem';
 import { AddRowBelowItem } from './items/AddRowBelowItem';
 import { DeleteRowItem } from './items/DeleteRowItem';

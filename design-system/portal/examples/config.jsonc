@@ -4,9 +4,9 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "1-complex-layering.vr.ap.tsx",
-    "2-stacking-context.vr.ap.tsx",
-    "4-portal-re-render.vr.ap.tsx"
-  ]
+	"testExamples": [
+		"1-complex-layering.vr.ap.tsx",
+		"2-stacking-context.vr.ap.tsx",
+		"4-portal-re-render.vr.ap.tsx",
+	],
 }

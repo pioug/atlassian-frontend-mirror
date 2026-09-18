@@ -1,7 +1,6 @@
 import { type IntlShape } from 'react-intl';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../common/types';
-
 import { transformTimeStamp } from './transformTimeStamp';
 
 /**

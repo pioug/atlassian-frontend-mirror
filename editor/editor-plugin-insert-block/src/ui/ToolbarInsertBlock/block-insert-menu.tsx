@@ -6,7 +6,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 
 import type { InsertBlockPlugin } from '../../index';
 import type { OnInsert } from '../ElementBrowser/types';
-
 import { BlockInsertElementBrowser } from './block-insert-element-browser';
 import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';

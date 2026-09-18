@@ -4,8 +4,8 @@ import type React from 'react';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { type CardDimensions, type CardAppearance } from '../../../types';
-import { type Breakpoint } from '../common';
 import { type MediaCardCursor } from '../../../types';
+import { type Breakpoint } from '../common';
 
 export interface WrapperProps {
 	testId?: string;

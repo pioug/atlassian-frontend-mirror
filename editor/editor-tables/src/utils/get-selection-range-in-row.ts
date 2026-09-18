@@ -1,7 +1,6 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { SelectionRange } from '../types';
-
 import { getCellsInColumn } from './get-cells-in-column';
 import { getCellsInRow } from './get-cells-in-row';
 

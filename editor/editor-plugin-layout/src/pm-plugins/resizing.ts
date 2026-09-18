@@ -11,6 +11,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import type { LayoutPlugin } from '../layoutPluginType';
 import { LayoutSectionView } from '../nodeviews';
 import { LayoutSectionView as LayoutSectionViewVanilla } from '../nodeviews/layoutSectionView';

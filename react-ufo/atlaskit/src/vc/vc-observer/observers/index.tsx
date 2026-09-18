@@ -2,7 +2,6 @@ import { type VCIgnoreReason } from '../../../common/vc/types';
 import { getSelectorConfig } from '../../../config';
 import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
-
 import isNonVisualStyleMutation from './non-visual-styles/is-non-visual-style-mutation';
 import { RLLPlaceholderHandlers } from './rll-placeholders';
 import { SSRPlaceholderHandlers } from './ssr-placeholders';

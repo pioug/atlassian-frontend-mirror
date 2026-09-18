@@ -1,23 +1,16 @@
 import { getDocument } from '@atlaskit/browser-apis';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type {
 	InteractivitySnapshot,
 	SessionMode,
 	SnapshotReason,
 } from '../analytics/interactivity-snapshot';
-
-import { DocumentEventObserver } from './document-event-observer';
+import { SCHEMA_VERSION } from './bucket-boundaries';
 import { EditorEventObserver } from './editor-event-observer';
 import { InteractionObserver } from './interaction-observer';
 import type { InteractionEntry } from './interaction-tracker';
 import { InteractivitySession } from './interactivity-session';
-import { SCHEMA_VERSION } from './bucket-boundaries';
 import { LifecycleObserver } from './lifecycle-observer';
-import {
-	type LongAnimationFrame,
-	LongAnimationFrameObserver,
-} from './long-animation-frame-observer';
 import { SnapshotScheduler } from './snapshot-scheduler';
 
 export type InteractivityCollectorOptions = {
@@ -49,8 +42,6 @@ export class InteractivityCollector {
 	private readonly getSessionMode: InteractivityCollectorOptions['getSessionMode'];
 
 	private readonly interactionObserver: InteractionObserver;
-	private readonly longAnimationFrameObserver: LongAnimationFrameObserver | undefined;
-	private readonly documentEvents: DocumentEventObserver | undefined;
 	private readonly editorEvents: EditorEventObserver;
 	private readonly snapshotScheduler: SnapshotScheduler;
 	private readonly lifecycleObserver: LifecycleObserver;
@@ -68,14 +59,6 @@ export class InteractivityCollector {
 		this.getSessionMode = options.getSessionMode;
 
 		this.interactionObserver = new InteractionObserver((entries) => this.recordEntries(entries));
-		this.longAnimationFrameObserver = isExperimentEnabled(
-			'platform_editor_editor_interactivity_slowest',
-		)
-			? new LongAnimationFrameObserver((frames) => this.recordFrames(frames))
-			: undefined;
-		this.documentEvents = isExperimentEnabled('platform_editor_editor_interactivity_slowest')
-			? new DocumentEventObserver((event) => this.recordDocumentEvent(event))
-			: undefined;
 		this.editorEvents = new EditorEventObserver((event) => this.recordEditorEvent(event));
 		this.snapshotScheduler = new SnapshotScheduler(() => this.onTimer());
 		this.lifecycleObserver = new LifecycleObserver({
@@ -111,8 +94,6 @@ export class InteractivityCollector {
 		// this object was constructed.
 		this.session = this.createSession(0);
 		this.interactionObserver.start();
-		this.longAnimationFrameObserver?.start();
-		this.documentEvents?.start();
 		this.editorEvents.observe(this.editorRoot);
 		this.snapshotScheduler.start();
 		this.lifecycleObserver.start();
@@ -130,8 +111,6 @@ export class InteractivityCollector {
 		this.takeSnapshot('unmount');
 		this.stopped = true;
 		this.interactionObserver.stop();
-		this.longAnimationFrameObserver?.stop();
-		this.documentEvents?.stop();
 		this.editorEvents.stop();
 		this.snapshotScheduler.stop();
 		this.lifecycleObserver.stop();
@@ -275,44 +254,21 @@ export class InteractivityCollector {
 		this.session.revision += 1;
 	}
 
-	/**
-	 * Keeps what a slow interaction will be named by once its entry arrives. Nothing reported changes
-	 * here, so the revision stays.
-	 */
-	private recordDocumentEvent(event: Event): void {
-		if (this.stopped || !event.isTrusted) {
-			return;
-		}
-
-		this.session.slowest?.recordEvent(event);
-	}
-
-	/** Long Animation Frames say where the latency of a slow interaction went. */
-	private recordFrames(frames: LongAnimationFrame[]): void {
-		if (this.stopped) {
-			return;
-		}
-
-		if (this.session.slowest?.trackLongAnimationFrames(frames)) {
-			this.session.revision += 1;
-		}
-	}
-
 	private recordEntries(entries: InteractionEntry[]): void {
 		for (const entry of entries) {
-			for (const update of this.session.tracker.merge(entry)) {
-				let groupsChanged = this.session.page.trackInteractionUpdate(update);
-				if (update.group) {
-					groupsChanged = this.session.editor.trackInteractionUpdate(update) || groupsChanged;
-					groupsChanged =
-						this.session[update.group].trackInteractionUpdate(update) || groupsChanged;
-				}
+			const update = this.session.tracker.merge(entry);
+			if (!update) {
+				continue;
+			}
 
-				const slowestChanged = this.session.slowest?.trackInteractionUpdate(entry, update);
+			let changed = this.session.page.trackInteractionUpdate(update);
+			if (update.group) {
+				changed = this.session.editor.trackInteractionUpdate(update) || changed;
+				changed = this.session[update.group].trackInteractionUpdate(update) || changed;
+			}
 
-				if (groupsChanged || slowestChanged) {
-					this.session.revision += 1;
-				}
+			if (changed) {
+				this.session.revision += 1;
 			}
 		}
 	}
@@ -332,11 +288,9 @@ export class InteractivityCollector {
 			return;
 		}
 
-		// Must run before the change check: the browser may be holding entries and frames that have
-		// not reached the observer callbacks yet, and on `pagehide` there is no later chance to
-		// pick them up. Entries first, so a record the frames answer for exists by then.
+		// Must run before the change check: the browser may be holding entries that have not reached
+		// the observer callback yet, and on `pagehide` there is no later chance to pick them up.
 		this.interactionObserver.drain();
-		this.longAnimationFrameObserver?.drain();
 
 		if (session.revision === session.emittedRevision) {
 			return;
@@ -354,7 +308,6 @@ export class InteractivityCollector {
 			session.hiddenMs + (session.hiddenSince === undefined ? 0 : now - session.hiddenSince);
 		const pageTotalCount =
 			InteractionObserver.readPageInteractionCount() - session.interactionCountAtStart;
-		const slowest = session.slowest?.snapshot();
 
 		this.emit({
 			schema: SCHEMA_VERSION,
@@ -373,7 +326,6 @@ export class InteractivityCollector {
 			editorTyping: session.editorTyping.snapshot(),
 			editorPointer: session.editorPointer.snapshot(),
 			editorOther: session.editorOther.snapshot(),
-			...(slowest && { slowest }),
 		});
 	}
 }

@@ -1,24 +1,25 @@
 import React, { useRef, useState } from 'react';
 
-import { layers } from '@atlaskit/theme/constants';
+import { IntlProvider } from 'react-intl';
 
-import { lorem } from '../example-helpers';
-import { onClose } from '../example-helpers/on-close';
-import { onOpen } from '../example-helpers/on-open';
+import { layers } from '@atlaskit/theme/constants';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResourceUsageClear } from '@atlaskit/util-data-test/get-emoji-resource-usage-clear';
+
+import { lorem } from '../example-helpers';
 import {
 	UsageShowAndClearComponent,
 	type UsagingShowingProps,
 } from '../example-helpers/demo-emoji-usage-components';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
+import { onClose } from '../example-helpers/on-close';
+import { onOpen } from '../example-helpers/on-open';
 import type { TypeaheadProps } from '../example-helpers/typeahead-props';
 import type { EmojiProvider } from '../src/resource';
 import { EmojiTypeAhead } from '../src/typeahead';
 import type { EmojiId, OptionalEmojiDescription } from '../src/types';
 import debug from '../src/util/logger';
-import { IntlProvider } from 'react-intl';
 
 const tallPageStyle = {
 	height: '1000px',

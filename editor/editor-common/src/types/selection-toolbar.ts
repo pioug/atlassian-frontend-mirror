@@ -3,7 +3,6 @@ import type { IntlShape } from 'react-intl';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { ProviderFactory } from '../provider-factory';
-
 import type { Command } from './command';
 import type { FloatingToolbarItem } from './floating-toolbar';
 export type SelectionToolbarGroup = {

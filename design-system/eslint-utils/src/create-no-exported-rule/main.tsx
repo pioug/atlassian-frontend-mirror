@@ -3,7 +3,6 @@ import type { Rule } from 'eslint';
 import { getSourceCode } from '../context-compat';
 import { getScope } from '../get-scope';
 import { getImportSources, type SupportedNameChecker } from '../is-supported-import';
-
 import { checkIfSupportedExport } from './check-if-supported-export';
 
 type RuleModule = Rule.RuleModule;

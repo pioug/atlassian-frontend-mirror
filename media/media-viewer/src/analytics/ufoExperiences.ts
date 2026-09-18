@@ -1,13 +1,12 @@
+import { getMediaEnvironment, getMediaRegion, type RequestMetadata } from '@atlaskit/media-client';
+import { type FileAttributes } from '@atlaskit/media-common';
+import { getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { UFOExperience } from '@atlaskit/ufo/experience';
 import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
-import { type FileAttributes } from '@atlaskit/media-common';
-import { getMediaEnvironment, getMediaRegion, type RequestMetadata } from '@atlaskit/media-client';
-import { getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
-import { type PrimaryErrorReason } from '../errors';
 import { type FileStateFlags } from '../components/types';
+import { type PrimaryErrorReason } from '../errors';
 
 export type UFOFailedEventPayload = {
 	failReason?: PrimaryErrorReason;

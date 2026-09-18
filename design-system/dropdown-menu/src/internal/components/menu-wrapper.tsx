@@ -14,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 import { type FocusableElementRef, type MenuWrapperProps } from '../../types';
 import isCheckboxItem from '../utils/is-checkbox-item';
 import isRadioItem from '../utils/is-radio-item';
-
 import { FocusManagerContext } from './focus-manager-context';
 
 const styles = cssMap({

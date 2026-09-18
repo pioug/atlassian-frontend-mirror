@@ -1,9 +1,10 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { AgentDropdownMenu } from './AgentDropdownMenu';
 

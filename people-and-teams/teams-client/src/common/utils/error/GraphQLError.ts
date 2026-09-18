@@ -1,5 +1,4 @@
 import { CommonError } from './CommonError';
-
 import type { ErrorData } from './index';
 
 // Graphql Errors

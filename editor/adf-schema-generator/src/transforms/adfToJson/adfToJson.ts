@@ -1,16 +1,16 @@
+import type { JSONSchema4 } from 'json-schema';
+import flow from 'lodash/flow';
+
 import type { ADFNode } from '../../adfNode';
 import { traverse } from '../../traverse';
 import type { ADFNodeSpec } from '../../types/ADFNodeSpec';
-import { buildNode } from './nodeBuilder';
 import type {
 	ContentVisitorReturnType,
 	GroupVisitorReturnType,
 	NodeVisitorReturnType,
 } from './adfToJsonVisitor';
 import { buildVisitor } from './adfToJsonVisitor';
-
-import type { JSONSchema4 } from 'json-schema';
-import flow from 'lodash/flow';
+import { buildNode } from './nodeBuilder';
 
 export function transform(adf: ADFNode<[string], ADFNodeSpec>, fullSchema: boolean): JSONSchema4 {
 	const result: Record<string, NodeVisitorReturnType> = {};

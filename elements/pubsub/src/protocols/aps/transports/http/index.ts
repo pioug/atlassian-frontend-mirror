@@ -1,9 +1,9 @@
-import { type APSTransportParams } from '../index';
+import { APSTransportType } from '../../../../apiTypes';
 import { EventType } from '../../../../types';
 import { logDebug } from '../../../../util/logger';
-import { APSTransportType } from '../../../../apiTypes';
 import { getTimestampBasedSequenceNumber } from '../../utils';
 import AbstractApsTransport from '../abstract-aps-transport';
+import { type APSTransportParams } from '../index';
 
 export default class HttpTransport extends AbstractApsTransport {
 	private static readonly MSG_BOUNDARY = '\n';

@@ -62,25 +62,34 @@ jest.mock('@atlaskit/react-ufo/get-active-trace', () => ({
 	}),
 }));
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import * as svgHelpersModule from './svgView/helpers';
-import * as imageRendererHelpersModule from './ui/imageRenderer/calculateDimensions';
+import React from 'react';
+
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import CardLoader from './cardLoader';
-import React from 'react';
+import { IntlProvider } from 'react-intl';
+
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import {
+	type MediaClientConfig,
+	globalMediaEventEmitter,
+	type ImageResizeMode,
+} from '@atlaskit/media-client';
+import { getFileStreamsCache } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { createMockedMediaClientProvider } from '../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
-import { tallImage, asMockFunction, sleep } from '@atlaskit/media-test-helpers';
 import {
 	createServerUnauthorizedError,
 	createRateLimitedError,
 	createPollingMaxAttemptsError,
 } from '@atlaskit/media-client/test-helpers';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader';
+import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
+import { tallImage, asMockFunction, sleep } from '@atlaskit/media-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
 import {
 	imgTestId,
 	spinnerTestId,
@@ -88,20 +97,14 @@ import {
 	mediaViewerTestId,
 	titleBoxTestId,
 } from '../__tests__/utils/_testIDs';
-import {
-	type MediaClientConfig,
-	globalMediaEventEmitter,
-	type ImageResizeMode,
-} from '@atlaskit/media-client';
-import * as performanceModule from './performance';
-import { getFileStreamsCache } from '@atlaskit/media-client';
-import { IntlProvider } from 'react-intl';
-import { shouldPerformanceBeSampled } from '../utils/ufoExperiences';
-import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader';
+import { createMockedMediaClientProvider } from '../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
+import { shouldPerformanceBeSampled } from '../utils/ufoExperiences';
+import CardLoader from './cardLoader';
+import * as performanceModule from './performance';
+import * as svgHelpersModule from './svgView/helpers';
+import * as imageRendererHelpersModule from './ui/imageRenderer/calculateDimensions';
 import { LOCAL_HEIGHT_VARIABLE, LOCAL_WIDTH_VARIABLE } from './ui/wrapper/wrapper-compiled';
 
 const event = {

@@ -1,5 +1,4 @@
 import type { InteractionGroupSnapshot } from '../analytics/interactivity-snapshot';
-
 import { bucketKeyForMs, REPORTING_THRESHOLD_MS } from './bucket-boundaries';
 import type { InteractionUpdate } from './interaction-tracker';
 

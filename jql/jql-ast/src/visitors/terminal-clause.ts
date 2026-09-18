@@ -26,7 +26,6 @@ import {
 	type TerminalClauseRhs,
 } from '../types';
 import { notUndefined } from '../utils';
-
 import { getPositionFromContext, JastBuildingVisitor } from './common';
 import { FieldVisitor } from './field';
 import { OperandVisitor } from './operand';

@@ -7,11 +7,10 @@ import React from 'react';
 
 import { renderHook } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { useFilePreview } from '../useFilePreview';
-
 import { createMockedMediaClientProvider } from './helpers/_MockedMediaClientProvider';
 
 const mockIsCDNEnabled = jest.fn();

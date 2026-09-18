@@ -2,7 +2,6 @@ import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -56,12 +55,7 @@ export const handleMouseDown =
 				);
 			}
 		} else {
-			const isDragHandle =
-				event.target.closest(
-					editorExperiment('platform_editor_block_menu', true)
-						? DRAG_HANDLE_SELECTOR
-						: '[data-editor-block-ctrl-drag-handle]',
-				) !== null;
+			const isDragHandle = event.target.closest(DRAG_HANDLE_SELECTOR) !== null;
 
 			api?.core.actions.execute(({ tr }) => {
 				api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle)({ tr });
@@ -69,15 +63,9 @@ export const handleMouseDown =
 				 * When block menu is enabled, reset intent back to 'default' as editor-plugin-block-menu sets the user intent to 'blockMenuOpen', and setting here
 				 * causes flickering as this runs before editor-plugin-block-menu.
 				 */
-				if (editorExperiment('platform_editor_block_menu', true)) {
-					// if target is drag handle, block menu will be opened
-					if (!isDragHandle) {
-						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
-					}
-				} else {
-					api.userIntent?.commands.setCurrentUserIntent(
-						isDragHandle ? 'dragHandleSelected' : 'default',
-					)({ tr });
+				// if target is drag handle, block menu will be opened
+				if (!isDragHandle) {
+					api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 				}
 				return tr;
 			});

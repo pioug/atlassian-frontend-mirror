@@ -9,16 +9,15 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { MentionProvider } from '@atlaskit/mention/types';
-import type { ResolvingMentionProvider } from '@atlaskit/mention/mention-resource';
-import { MentionNameStatus } from '@atlaskit/mention/types';
 import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
+import type { ResolvingMentionProvider } from '@atlaskit/mention/mention-resource';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import { MentionNameStatus } from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { MentionPluginOptions, MentionPluginState } from '../types';
-
 import { getAgentMentionParentContext } from './agent-mention-context';
 import { nextRunStateDecorations } from './agent-run-state';
 import { mentionPluginKey } from './key';

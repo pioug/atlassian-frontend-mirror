@@ -1,4 +1,5 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import type { PresencePayload } from '../../types';
@@ -67,6 +68,13 @@ describe('participants-service-presence', () => {
 			it('should set userId', () => {
 				expect(setUserId).toHaveBeenCalledTimes(1);
 				expect(setUserId).toHaveBeenCalledWith(payload.userId);
+			});
+
+			it('should not set an undefined userId', () => {
+				setUserId.mockClear();
+				participantsService.onPresence({ ...payload, userId: undefined });
+
+				expect(setUserId).not.toHaveBeenCalled();
 			});
 
 			it('should broadcast presence', () => {
@@ -142,6 +150,7 @@ describe('participants-service-presence', () => {
 	describe('sendPresence', () => {
 		describe('on success', () => {
 			beforeEach(() => {
+				failGate('platform_move_presence_agents');
 				jest.spyOn(window, 'setTimeout');
 				// @ts-expect-error private function
 				participantsService.sendPresence();
@@ -174,6 +183,31 @@ describe('participants-service-presence', () => {
 				// @ts-expect-error private variable
 				expect(participantsService.presenceUpdateTimeout).toBeDefined();
 				expect(window.setTimeout).toHaveBeenCalledTimes(1);
+				expect(window.setTimeout).toHaveBeenCalledWith(expect.any(Function), 150000);
+			});
+		});
+
+		describe('when platform_move_presence_agents is enabled', () => {
+			beforeEach(() => {
+				passGate('platform_move_presence_agents');
+				jest.spyOn(window, 'setTimeout');
+				// @ts-expect-error private function
+				participantsService.sendPresence();
+			});
+
+			it('should broadcast the user presence but not the AI provider presence', () => {
+				expect(broadcast).toHaveBeenCalledTimes(1);
+				expect(broadcast).toHaveBeenCalledWith('participant:updated', payload);
+			});
+
+			it('should not read the active AI provider ids', () => {
+				expect(getAIProviderActiveIds).not.toHaveBeenCalled();
+				expect(getPresenceData).toHaveBeenCalledTimes(1);
+			});
+
+			it('should still re-arm the presence heartbeat', () => {
+				// @ts-expect-error private variable
+				expect(participantsService.presenceUpdateTimeout).toBeDefined();
 				expect(window.setTimeout).toHaveBeenCalledWith(expect.any(Function), 150000);
 			});
 		});

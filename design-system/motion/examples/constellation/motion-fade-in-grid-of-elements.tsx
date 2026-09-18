@@ -3,14 +3,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { cloneElement, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
-import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
@@ -20,6 +19,8 @@ import {
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
 import Motion from '@atlaskit/motion/entering/motion';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';

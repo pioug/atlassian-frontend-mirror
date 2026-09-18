@@ -13,7 +13,6 @@ import type {
 	NextEditorPlugin,
 	PluginDependenciesAPI,
 } from '../types/next-editor-plugin';
-
 import { corePlugin } from './core-plugin';
 
 // Ignored via go/ees005

@@ -5,8 +5,8 @@
  */
 
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-
 import ReactDOM from 'react-dom';
+
 import { css, jsx, styled } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 import invariant from 'tiny-invariant';
@@ -34,7 +34,6 @@ import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/ut
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
-
 import { getColumnMinWidth } from './get-column-min-width';
 import { getWidthCss } from './get-width-css';
 import { GlyphPlaceholder } from './glyph-placeholder';

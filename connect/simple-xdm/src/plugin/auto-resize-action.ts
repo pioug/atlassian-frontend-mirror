@@ -1,6 +1,5 @@
 // @ts-nocheck
 import Util from '../common/util';
-
 import size from './size';
 
 class AutoResizeAction {

@@ -4,8 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import Tag from '@atlaskit/tag/removable-tag';
 import TagGroup from '@atlaskit/tag-group/tag-group';
+import Tag from '@atlaskit/tag/removable-tag';
 import { token } from '@atlaskit/tokens';
 
 const layoutStyles = css({

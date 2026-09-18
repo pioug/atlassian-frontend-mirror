@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import Textfield from '@atlaskit/textfield/text-field';
 

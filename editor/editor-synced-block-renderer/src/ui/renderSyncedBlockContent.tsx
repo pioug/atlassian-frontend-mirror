@@ -9,7 +9,6 @@ import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockRendererOptions } from '../types';
-
 import { AKRendererWrapper } from './AKRendererWrapper';
 import { SyncedBlockErrorComponent } from './SyncedBlockErrorComponent';
 import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';

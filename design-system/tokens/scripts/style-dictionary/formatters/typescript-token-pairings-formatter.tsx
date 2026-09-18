@@ -1,5 +1,6 @@
-import format from '@af/formatting/sync';
 import type { Format, TransformedToken } from 'style-dictionary';
+
+import format from '@af/formatting/sync';
 
 import { getAlpha } from '../../../src/utils/get-alpha';
 import { getTokenId } from '../../../src/utils/get-token-id';

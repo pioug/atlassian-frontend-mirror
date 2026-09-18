@@ -24,7 +24,6 @@ import {
 	isWasOperator,
 	type Operator,
 } from '../types';
-
 import {
 	getPositionFromContext,
 	getPositionFromToken,

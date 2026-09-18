@@ -1,21 +1,22 @@
 import React from 'react';
+
 import { screen, render, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
-import type { DefaultValue, OptionData, Team, User } from '@atlaskit/user-picker/types';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // Commented due to HOT-111922
 import type { UFOExperience } from '@atlaskit/ufo/experience';
+import type { DefaultValue, OptionData, Team, User } from '@atlaskit/user-picker/types';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import SmartUserPicker from '../../../components';
-import { type Props } from '../../../types';
 import MessagesIntlProvider from '../../../components/MessagesIntlProvider';
-
-import getUserRecommendations from '../../../service/recommendation-client';
 import hydrateDefaultValues from '../../../service/default-value-hydration-client';
+import getUserRecommendations from '../../../service/recommendation-client';
+import { type Props } from '../../../types';
 import {
 	MockConcurrentExperienceInstance,
 	flushPromises,

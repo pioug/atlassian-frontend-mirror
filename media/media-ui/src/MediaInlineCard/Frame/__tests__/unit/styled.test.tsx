@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { Wrapper } from '../../styled';
 import { matchers } from 'jest-emotion';
+
+import { Wrapper } from '../../styled';
 
 expect.extend(matchers);
 

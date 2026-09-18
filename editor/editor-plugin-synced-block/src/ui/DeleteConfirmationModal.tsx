@@ -15,8 +15,8 @@ import type {
 	SyncBlockAttrs,
 	SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';

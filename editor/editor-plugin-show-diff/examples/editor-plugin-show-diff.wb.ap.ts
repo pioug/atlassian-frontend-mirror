@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import { default as BasicExample } from './1-basic';
 import { default as FullPageExample } from './1-full-page';
 import { default as AdvancedExample } from './2-advanced';

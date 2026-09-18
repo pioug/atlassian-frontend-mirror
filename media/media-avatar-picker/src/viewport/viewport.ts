@@ -1,5 +1,5 @@
-import { Rectangle } from '@atlaskit/media-ui/rectangle';
 import { Bounds } from '@atlaskit/media-ui/bounds';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
 import { Vector2 } from '@atlaskit/media-ui/vector2';
 
 /**

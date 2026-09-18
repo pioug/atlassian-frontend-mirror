@@ -11,7 +11,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { TriggerProps } from '@atlaskit/tooltip/types';
 
 import { type BreadcrumbsItemProps } from '../../types';
-
 import Step from './step';
 
 const itemWrapperStyles = css({

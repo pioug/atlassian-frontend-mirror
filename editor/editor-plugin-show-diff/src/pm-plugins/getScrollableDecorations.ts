@@ -3,7 +3,6 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DiffType } from '../showDiffPluginType';
-
 import {
 	DiffDecorationKey,
 	isDiffDecoration,

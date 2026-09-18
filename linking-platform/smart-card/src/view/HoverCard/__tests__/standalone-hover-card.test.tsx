@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
 import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import '@atlaskit/link-test-helpers/jest';
 import type { CardStore } from '@atlaskit/linking-common/store';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import '@atlaskit/link-test-helpers/jest';
+import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { CardAction } from '../../../constants';
 import { HoverCard as StandaloneHoverCard } from '../../../entry-points/hover';

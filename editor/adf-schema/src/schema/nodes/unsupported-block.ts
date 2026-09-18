@@ -1,4 +1,5 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { unsupportedBlock as unsupportedBlockFactory } from '../../next-schema/generated/nodeTypes';
 
 export const unsupportedBlock: NodeSpec = unsupportedBlockFactory({

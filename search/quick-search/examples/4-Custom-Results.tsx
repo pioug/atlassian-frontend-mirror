@@ -1,7 +1,9 @@
 import React from 'react';
+
 import AudioCircleIcon from '@atlaskit/icon/core/audio';
-import ResultBase from '../src/components/Results/ResultBase';
+
 import ResultItemGroup from '../src/components/ResultItem/ResultItemGroup';
+import ResultBase from '../src/components/Results/ResultBase';
 
 const defaultProps = {
 	resultId: 'result_id',

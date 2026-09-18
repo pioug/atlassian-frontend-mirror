@@ -1,5 +1,4 @@
 import { RESERVED_WORDS } from '../constants';
-
 import { sanitiseJqlString } from './sanitise-jql-string';
 
 describe('sanitiseJqlString', () => {

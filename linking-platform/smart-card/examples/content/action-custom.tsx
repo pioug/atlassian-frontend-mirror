@@ -9,7 +9,6 @@ import PremiumIcon from '@atlaskit/icon/core/premium';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, FooterBlock } from '../../src';
-
 import ExampleContainer from './example-container';
 
 const styles = css({

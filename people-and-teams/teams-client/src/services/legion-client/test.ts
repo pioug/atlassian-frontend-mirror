@@ -6,7 +6,13 @@ import { type TeamWithMemberships } from '../../types/membership';
 import type { ExternalReference, OrgScope, TeamWithImageUrls } from '../../types/team';
 import { ContainerType } from '../../types/team-container';
 import { RestClient } from '../rest-client';
-
+import {
+	type AllTeamsQuery,
+	type AllTeamsResponse,
+	defaultLegionClient,
+	LegionClient,
+	type OriginQuery,
+} from './index';
 import {
 	type LegionLinkResponseV4,
 	type LegionPaginatedResponse,
@@ -17,14 +23,6 @@ import {
 	type OrgAlignmentStatus,
 	type TeamStatesInBulkResponse,
 } from './types';
-
-import {
-	type AllTeamsQuery,
-	type AllTeamsResponse,
-	defaultLegionClient,
-	LegionClient,
-	type OriginQuery,
-} from './index';
 
 jest.mock('../rest-client', () => {
 	const ActualRestClient = jest.requireActual('../rest-client');

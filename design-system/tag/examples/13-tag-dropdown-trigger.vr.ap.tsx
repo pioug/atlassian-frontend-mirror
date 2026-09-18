@@ -15,8 +15,8 @@ import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { Popup } from '@atlaskit/popup/popup';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message/message';
-import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
 import TagDropdownTrigger from '@atlaskit/tag/tag-dropdown-trigger';
+import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

@@ -1,5 +1,4 @@
 import { type Team } from '../types/team';
-
 import type { MockConfig } from './mock-config';
 
 // tslint:disable-next-line:no-any

@@ -6,8 +6,8 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { Manager } from '@atlaskit/popper/manager';
 import { Popper } from '@atlaskit/popper/main';
+import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
 import { token } from '@atlaskit/tokens';
 

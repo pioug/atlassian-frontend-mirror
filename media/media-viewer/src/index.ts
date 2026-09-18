@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader'` instead.
  */
+
 export { default as MediaViewer } from './components/media-viewer-loader';
 /**
  * @deprecated Use `import type { MediaViewerExtensions, MediaViewerExtensionsActions, MediaViewerProps, MediaMessage } from '@atlaskit/media-viewer/types'` instead.

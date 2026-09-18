@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
+
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+
 import { Reactions } from '../src';
 import { simpleMockData } from '../src/MockReactionsClient';
-import { Example, Constants as ExampleConstants } from './utils';
 import { ReactionStatus } from '../src/types';
+import { Example, Constants as ExampleConstants } from './utils';
 
 export default (): React.JSX.Element => {
 	const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;

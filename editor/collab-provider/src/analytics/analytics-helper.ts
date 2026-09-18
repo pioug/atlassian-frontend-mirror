@@ -1,11 +1,12 @@
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { ProviderError } from '@atlaskit/editor-common/collab';
+
+import { network } from '../connectivity/singleton';
+import { CustomError } from '../errors/custom-errors';
 import type { ActionAnalyticsEvent, ErrorAnalyticsEvent, EVENT_STATUS } from '../helpers/const';
 import { EVENT_ACTION } from '../helpers/const';
 import { name as packageName, version as packageVersion } from '../version-wrapper';
-import { network } from '../connectivity/singleton';
-import { CustomError } from '../errors/custom-errors';
 
 const EVENT_SUBJECT = 'collab';
 

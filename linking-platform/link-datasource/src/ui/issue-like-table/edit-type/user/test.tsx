@@ -11,7 +11,6 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useLoadOptions } from '../../../../hooks/useLoadOptions';
 import { type DatasourceTypeWithOnlyTypeValues } from '../../../issue-like-table/types';
-
 import UserEditType from './index';
 
 jest.mock('../../../../contexts/datasource-experience-id/use-datasource-experience-id');

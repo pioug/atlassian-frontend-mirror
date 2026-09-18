@@ -5,7 +5,6 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { ANALYTICS_CHANNEL } from '../../constants';
 import { type LinkCreateProps } from '../../types';
-
 import { type LinkCreateAnalyticsContextType } from './analytics.codegen';
 
 export type TrackAttribute = <K extends keyof LinkCreateAnalyticsContextType>(

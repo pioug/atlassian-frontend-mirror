@@ -3,11 +3,6 @@ import { wb, type WorkbenchExample } from '@atlassian/workbench';
 import BasicVrExample from './0-basic.vr.ap';
 import BasicWithRichDescriptionExample from './01-basic-with-rich-description';
 import OnlyMandatoryPropsExample from './1-only-mandatory-props';
-import WithFixedSizeImageExample from './10-with-fixed-size-image';
-import InThinContainerExample from './11-in-thin-container';
-import WithHeadingLevelExample from './12-with-heading-level';
-import WithButtongGroupLabelExample from './13-with-buttong-group-label';
-import WithHeadingSizeVrExample from './14-with-heading-size.vr.ap';
 import WithImageExample from './2-with-image';
 import WithImageAndDescriptionExample from './3-with-image-and-description';
 import NarrowSizeExample from './4-narrow-size';
@@ -16,6 +11,11 @@ import WithPrimaryActionExample from './6-with-primary-action';
 import WithPrimaryAndSecondaryActionsExample from './7-with-primary-and-secondary-actions';
 import WithPrimaryAndTertiaryActionsExample from './8-with-primary-and-tertiary-actions';
 import LoadingStateExample from './9-loading-state';
+import WithFixedSizeImageExample from './10-with-fixed-size-image';
+import InThinContainerExample from './11-in-thin-container';
+import WithHeadingLevelExample from './12-with-heading-level';
+import WithButtongGroupLabelExample from './13-with-buttong-group-label';
+import WithHeadingSizeVrExample from './14-with-heading-size.vr.ap';
 
 const BasicVr: WorkbenchExample = wb(BasicVrExample);
 

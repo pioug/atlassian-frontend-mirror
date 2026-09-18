@@ -9,7 +9,6 @@ import { Box, Stack, xcss } from '@atlaskit/primitives';
 import JsonldEditorInput from '../jsonld-editor/jsonld-editor-input';
 import JsonldExample from '../jsonld-editor/jsonld-example';
 import LoadLinkForm from '../jsonld-editor/load-link-form';
-
 import Code from './code';
 import type { FlexibleTemplate } from './types';
 

@@ -16,6 +16,8 @@ import type {
 	Transformer,
 } from '@atlaskit/editor-common/types';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
+// eslint-disable-next-line import/order
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -25,13 +27,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
-
 import { isEmptyDocument } from './temp-is-empty-document';
 import { findNodePosByLocalIds } from './temp-nodes-by-localids';
 // eslint-disable-next-line import/order
 import { toJSON } from './temp-to-json';
-// eslint-disable-next-line import/order
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 
 // Please, do not copy or use this kind of code below
 // @ts-ignore

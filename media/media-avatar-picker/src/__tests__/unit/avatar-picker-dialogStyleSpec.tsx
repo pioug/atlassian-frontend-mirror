@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render } from '@atlassian/testing-library';
+
 import { DragZone } from '../../image-navigator/dragZone';
 
 describe('Avatar Picker Styles', () => {

@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { useTeamContainers } from '@atlaskit/teams-public/use-team-containers/use-team-containers'` instead.
  */
+
 export { useTeamContainers } from './hooks/use-team-containers/use-team-containers';
 /**
  * @deprecated Use `import { useTeamWebLinks } from '@atlaskit/teams-public/use-team-web-links/use-team-web-links'` instead.

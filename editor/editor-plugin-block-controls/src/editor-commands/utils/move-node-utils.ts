@@ -2,7 +2,6 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { createPreservedSelection } from '../../pm-plugins/utils/selection';
 
@@ -36,8 +35,7 @@ export const getNodeBoundsFromSelection = (
 	if (
 		selection instanceof NodeSelection &&
 		selection.node.type.name === 'media' &&
-		selection.node.attrs.type === 'file' &&
-		editorExperiment('platform_editor_block_menu', true)
+		selection.node.attrs.type === 'file'
 	) {
 		// The media node is wrapped in a mediaGroup, so we need to get the parent position
 		const mediaGroupPos = selection.$from.pos - 1;
@@ -73,10 +71,7 @@ export const getPosWhenMoveNodeUp = (
 			? $currentNodePos.node($currentNodePos.depth)
 			: $currentNodePos.nodeBefore;
 
-	if (
-		nodeBefore?.type.name === 'layoutColumn' &&
-		editorExperiment('platform_editor_block_menu', true)
-	) {
+	if (nodeBefore?.type.name === 'layoutColumn') {
 		return -1;
 	}
 
@@ -99,17 +94,15 @@ export const getPosWhenMoveNodeDown = ({
 	}
 
 	const nodeAfter = tr.doc.nodeAt(nodeAfterPos);
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		const nodeAtCurrentPos = tr.doc.nodeAt($currentNodePos.pos);
-		// if move empty line down to another empty line, move to the position of the next empty line
-		if (
-			nodeAtCurrentPos?.content.size === 0 &&
-			nodeAtCurrentPos.type.name !== 'extension' &&
-			nodeAfter?.content.size === 0 &&
-			nodeAfter.type.name !== 'extension'
-		) {
-			return nodeAfterPos;
-		}
+	const nodeAtCurrentPos = tr.doc.nodeAt($currentNodePos.pos);
+	// if move empty line down to another empty line, move to the position of the next empty line
+	if (
+		nodeAtCurrentPos?.content.size === 0 &&
+		nodeAtCurrentPos.type.name !== 'extension' &&
+		nodeAfter?.content.size === 0 &&
+		nodeAfter.type.name !== 'extension'
+	) {
+		return nodeAfterPos;
 	}
 
 	// if not the last node, move to the end of the next node

@@ -5,47 +5,48 @@
 /* eslint-disable jsdoc/check-tag-names */
 import { Fragment, useState, useMemo, useEffect } from 'react';
 import type { ComponentClass, ComponentProps } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
-import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
-import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils/is-within-preview-panel-iframe';
-import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
-import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import type { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { useProvider } from '@atlaskit/editor-common/provider-factory';
+import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { Diff } from '@atlaskit/editor-common/utils';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
-import { useProvider } from '@atlaskit/editor-common/provider-factory';
-import type { EditorCardProvider } from '@atlaskit/editor-card-provider';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
+import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils/is-within-preview-panel-iframe';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
+import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { CardErrorBoundary } from './fallback';
-import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
-import { withSmartCardStorage } from '../../ui/SmartCardStorage';
-import { getCardClickHandler } from '../utils/getCardClickHandler';
-import { getEventHandler } from '../../utils';
+import type { AnalyticsEventPayload } from '../../analytics/events';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
-
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import type { RendererAppearance } from '../../ui/Renderer/types';
-import type { AnalyticsEventPayload } from '../../analytics/events';
-import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
-import type { Diff } from '@atlaskit/editor-common/utils';
+import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
+import { withSmartCardStorage } from '../../ui/SmartCardStorage';
+import { getEventHandler } from '../../utils';
+import { getCardClickHandler } from '../utils/getCardClickHandler';
+import { CardErrorBoundary } from './fallback';
 
 type HoverLinkOverlayProps = ComponentProps<typeof HoverLinkOverlay>;
 export interface InlineCardProps extends MarkDataAttributes {

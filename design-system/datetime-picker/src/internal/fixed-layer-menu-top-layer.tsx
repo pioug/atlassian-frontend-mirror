@@ -9,8 +9,8 @@ import { jsx } from '@compiled/react';
 import { components } from '@atlaskit/react-select/components';
 import type { MenuProps, OptionType } from '@atlaskit/select/types';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
-import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 /**

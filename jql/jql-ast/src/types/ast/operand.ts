@@ -6,7 +6,6 @@ import {
 	type OPERAND_TYPE_LIST,
 	type OPERAND_TYPE_VALUE,
 } from '../../constants';
-
 import { type Argument } from './argument';
 import { type AstNode } from './common';
 

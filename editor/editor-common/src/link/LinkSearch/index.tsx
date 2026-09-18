@@ -8,7 +8,6 @@ import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider
 
 import { INPUT_METHOD } from '../../analytics';
 import type { Diff } from '../../utils';
-
 import LinkSearchList from './LinkSearchList';
 import type { RecentSearchProps, RecentSearchState } from './types';
 import withActivityProvider from './withActivityProvider';

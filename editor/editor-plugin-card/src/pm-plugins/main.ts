@@ -20,7 +20,6 @@ import type { CardPluginOptions, CardPluginState } from '../types';
 import { eventsFromTransaction } from '../ui/analytics/events-from-tr';
 import { isDatasourceTableLayout } from '../ui/LayoutButton/utils';
 import { isLocalStorageKeyDiscovered } from '../ui/local-storage';
-
 import {
 	clearOverlayCandidate,
 	setCardLayoutAndDatasourceTableRef,

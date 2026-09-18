@@ -1,4 +1,5 @@
 import type { JSONSchema4 } from 'json-schema';
+
 import type { ADFAttribute, ADFAttributes } from '../../types/ADFAttribute';
 import { isAnyOf } from '../../utils/isAnyOf';
 

@@ -1,11 +1,13 @@
 import type { Socket } from 'socket.io-client';
 import { io } from 'socket.io-client';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import type AnalyticsHelper from './analytics/analytics-helper';
+import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from './config';
+import { getProduct, getSubProduct, isGCPtenant } from './helpers/utils';
 import { Provider } from './provider';
 import type { Config, ProductInformation, InitAndAuthData, AuthCallback } from './types';
-import { getProduct, getSubProduct, isGCPtenant } from './helpers/utils';
-import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from './config';
-import type AnalyticsHelper from './analytics/analytics-helper';
 
 export function createSocketIOSocket(
 	url: string,

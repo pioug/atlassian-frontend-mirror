@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl';
+
 import Button from '@atlaskit/button/button';
 
+import { overviewMessages, dropDownListMessages } from '../../messages';
 import * as Styled from './styled';
 import { type DropDownListProps } from './types';
-import { overviewMessages, dropDownListMessages } from '../../messages';
 
 type State = {
 	isExpanded: boolean;

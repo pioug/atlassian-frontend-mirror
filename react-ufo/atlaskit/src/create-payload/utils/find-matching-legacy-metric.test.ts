@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../../common';
-
 import { findMatchingLegacyMetric } from './find-matching-legacy-metric';
 
 describe('findMatchingLegacyMetric', () => {

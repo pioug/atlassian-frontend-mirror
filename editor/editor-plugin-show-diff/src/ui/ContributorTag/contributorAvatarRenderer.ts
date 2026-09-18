@@ -6,7 +6,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { token } from '@atlaskit/tokens';
 
 import type { TagContributor } from '../../showDiffPluginType';
-
 import { getContributorTagIcon, type ContributorTagIcon } from './contributorTagIcons';
 
 /** Agent kinds with a custom contributor-tag icon. */

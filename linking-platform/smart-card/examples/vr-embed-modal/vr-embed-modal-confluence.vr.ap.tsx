@@ -1,6 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import '../utils/embed-modal-override.css';
-
 import React from 'react';
 
 import { ActionName, IconType } from '../../src/constants';

@@ -1,7 +1,6 @@
 import { type IntlShape } from 'react-intl';
 
 import { type DateRangeType } from '../../../../common/modal/popup-select/types';
-
 import { dateRangeMessages } from './messages';
 
 export const getDropdownLabel = (

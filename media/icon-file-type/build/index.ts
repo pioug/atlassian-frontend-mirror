@@ -1,8 +1,10 @@
 import path from 'path';
+
+import fs from 'fs-extra';
+import pkgDir from 'pkg-dir';
+
 import { build, createIconDocs, tidy } from '@af/icon-build-process';
 import type { IconBuildConfig } from '@af/icon-build-process';
-import pkgDir from 'pkg-dir';
-import fs from 'fs-extra';
 
 const root = pkgDir.sync();
 

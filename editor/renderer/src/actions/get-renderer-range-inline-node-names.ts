@@ -1,6 +1,7 @@
 import { getRangeInlineNodeNames, getRangeAncestorNodeNames } from '@atlaskit/editor-common/utils';
-import type RendererActions from './index';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import type RendererActions from './index';
 
 export function getRendererRangeInlineNodeNames({
 	actions,

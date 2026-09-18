@@ -25,7 +25,6 @@ import { token } from '@atlaskit/tokens';
 
 import { focusEditorView } from '../../pm-plugins/utils';
 import { editDatasource } from '../editDatasourceAction';
-
 import type { EditDatasourceToolbarButtonWithCommonProps, EditVariant } from './types';
 
 const dropdownExpandContainer = css({

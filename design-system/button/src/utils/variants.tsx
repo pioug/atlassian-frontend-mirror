@@ -6,7 +6,6 @@ import Button from '../new-button/variants/default/button';
 import LinkButton, { type LinkButtonProps } from '../new-button/variants/default/link';
 import IconButton, { type IconButtonProps } from '../new-button/variants/icon/button';
 import LinkIconButton, { type LinkIconButtonProps } from '../new-button/variants/icon/link';
-
 import { buttonAppearances } from './button-appearances';
 import { buttonSpacing } from './button-spacing';
 import { iconButtonAppearances } from './icon-button-appearances';

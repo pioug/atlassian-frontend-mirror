@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardContext } from '@atlaskit/link-provider/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 
 import { setResolvedToolbarAttributes } from '../pm-plugins/actions';
 import { getPluginState } from '../pm-plugins/util/state';
 import { getResolvedAttributesFromStore } from '../pm-plugins/utils';
-
 import type { EditorAnalyticsContextProps } from './EditorAnalyticsContext';
 import { EditorAnalyticsContext } from './EditorAnalyticsContext';
 

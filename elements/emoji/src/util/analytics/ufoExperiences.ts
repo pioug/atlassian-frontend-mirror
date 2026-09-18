@@ -1,7 +1,8 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { UFOExperience } from '@atlaskit/ufo/experience';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
 import {
 	UfoComponentName,

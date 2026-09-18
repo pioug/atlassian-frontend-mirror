@@ -9,7 +9,6 @@ import type { Site } from '../../../../common/types';
 import { type SelectOption } from '../../../common/modal/popup-select/types';
 import type { BasicFilterFieldType, SelectedOptionsMap } from '../types';
 import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
-
 import AsyncPopupSelect from './async-popup-select';
 
 export const availableBasicFilterTypes: BasicFilterFieldType[] = [

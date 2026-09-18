@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import Form from '@atlaskit/form/form';
 import { CharacterCounterField } from '@atlaskit/form/character-counter-field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { HelperMessage } from '@atlaskit/form/helper-message';
 import Textfield from '@atlaskit/textfield/text-field';

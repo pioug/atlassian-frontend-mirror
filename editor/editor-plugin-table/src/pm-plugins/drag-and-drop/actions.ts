@@ -1,7 +1,6 @@
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { TableDirection } from '../../types';
-
 import type { DropTargetType } from './consts';
 
 interface DragAndDropAction<T, D> {

@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
-
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
+import { render } from '@atlassian/testing-library';
 
 import { RendererFunctionalComponent as Renderer } from '../../';
 

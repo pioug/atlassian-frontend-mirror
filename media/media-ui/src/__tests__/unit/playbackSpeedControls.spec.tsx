@@ -1,12 +1,11 @@
 import React from 'react';
 import { act } from 'react';
 
+import { type OptionType } from '@atlaskit/select/types';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { type OptionType } from '@atlaskit/select/types';
-
-import type { PlaybackSpeedControlsProps } from '../../customMediaPlayer/PlaybackSpeedControls-2';
 import PlaybackSpeedControls from '../../customMediaPlayer/playbackSpeedControls';
+import type { PlaybackSpeedControlsProps } from '../../customMediaPlayer/PlaybackSpeedControls-2';
 import { renderWithIntl } from '../../test-helpers/renderWithIntl';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

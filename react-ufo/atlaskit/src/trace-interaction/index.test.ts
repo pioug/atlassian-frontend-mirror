@@ -1,9 +1,8 @@
 import type { UIEvent } from 'react';
 
+import traceUFOInteraction from './index';
 import mapToInteractionType from './internal/map-to-interaction-type';
 import internal_traceUFOInteraction from './internal/trace-ufo-interaction';
-
-import traceUFOInteraction from './index';
 
 // Mock the internal functions
 jest.mock('./internal/trace-ufo-interaction');

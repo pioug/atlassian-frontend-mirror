@@ -16,7 +16,6 @@ import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 import Select from '@atlaskit/select/default';
 
 import { useSuspenselessRefetch } from '../../common/utils/use-suspenseless-refetch';
-
 import type { rovoAgentSelector_AtlaskitRovoAgentSelector$key } from './__generated__/rovoAgentSelector_AtlaskitRovoAgentSelector.graphql';
 import rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQueryNode, {
 	type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery,

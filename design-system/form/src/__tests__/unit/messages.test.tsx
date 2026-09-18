@@ -2,8 +2,8 @@ import React from 'react';
 
 import { render, screen } from '@atlassian/testing-library';
 
-import { FieldId } from '../../field-id-context';
 import { ErrorMessage } from '../../error-message';
+import { FieldId } from '../../field-id-context';
 import { HelperMessage } from '../../helper-message';
 import { MessageWrapper } from '../../message-wrapper';
 import { ValidMessage } from '../../valid-message';

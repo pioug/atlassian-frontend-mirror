@@ -1,8 +1,9 @@
-import AnalyticsHelper from '../../analytics/analytics-helper';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
-import type { Config } from '../../types';
-import { createSocketIOSocket } from '../../socket-io-provider';
+
+import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
+import { createSocketIOSocket } from '../../socket-io-provider';
+import type { Config } from '../../types';
 
 const fakeAnalyticsWebClient: AnalyticsWebClient = {
 	sendOperationalEvent: jest.fn(),

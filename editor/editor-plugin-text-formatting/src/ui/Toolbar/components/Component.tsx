@@ -25,7 +25,6 @@ import {
 import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model';
 
 import { clearFormattingWithAnalyticsNext } from '../../../editor-commands/clear-formatting';
-
 import type { FormatComponentProps } from './utils';
 import { useComponentInfo } from './utils';
 

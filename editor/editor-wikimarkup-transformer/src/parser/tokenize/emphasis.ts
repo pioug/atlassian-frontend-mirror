@@ -1,9 +1,10 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
+import { parseString } from '../text';
+import { hasAnyOfMarks, getSurroundingSymbols } from '../utils/text';
 import { TokenType } from './';
 import type { Token, TokenParser } from './';
-import { hasAnyOfMarks, getSurroundingSymbols } from '../utils/text';
 import { commonFormatter } from './common-formatter';
-import { parseString } from '../text';
 
 export const emphasis: TokenParser = ({ input, position, schema, context }) => {
 	/**

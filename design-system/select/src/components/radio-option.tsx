@@ -11,7 +11,6 @@ import type { IconProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 
 import { type OptionProps, type OptionType } from '../types';
-
 import { ControlOption } from './control-option';
 
 const svgStyles = css({

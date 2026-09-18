@@ -7,11 +7,11 @@ import React, { Fragment, type KeyboardEvent, type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
+import type { MediaADFAttrs, MediaAttributes } from '@atlaskit/adf-schema/media';
 import type {
 	ExtendedMediaAttributes,
 	Layout as MediaSingleLayout,
 } from '@atlaskit/adf-schema/rich-media-common';
-import type { MediaADFAttrs, MediaAttributes } from '@atlaskit/adf-schema/media';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -47,7 +47,6 @@ import { CaptionPlaceholderButton } from '../ui/CaptionPlaceholder';
 import { CommentBadgeWrapper } from '../ui/CommentBadge';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
-
 import { hasPrivateAttrsChanged } from './helpers';
 import type { MediaNodeUpdater } from './mediaNodeUpdater';
 import { createMediaNodeUpdater } from './mediaNodeUpdater';

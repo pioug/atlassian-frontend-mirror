@@ -2,7 +2,6 @@ import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { getNodeText } from '../utils/document-text/getNodeText';
-
 import { type DebugMessageEventAttribute } from './types';
 
 const getDebugSelectionAttributes = (): {

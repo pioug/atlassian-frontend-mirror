@@ -8,8 +8,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { sizes } from '@atlaskit/icon/constants/default';
-import { Manager } from '@atlaskit/popper/manager';
 import { Popper, type PopperChildrenProps } from '@atlaskit/popper/main';
+import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
 import { token } from '@atlaskit/tokens';
 

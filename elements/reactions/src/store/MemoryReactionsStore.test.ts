@@ -1,17 +1,19 @@
+import { waitFor } from '@testing-library/react';
 import waitForExpect from 'wait-for-expect';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { type Client, ReactionStatus, ReactionUpdateType } from '../types';
-import * as AnalyticsModule from '../analytics';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import {
 	mockReactDomWarningGlobal,
 	mockResetUFOInstance,
 	useFakeTimers,
 } from '../__tests__/_testing-library';
 import type { FakeUFOInstance } from '../__tests__/_testing-library';
+import * as AnalyticsModule from '../analytics';
 import { ari, containerAri, getReactionSummary, getUser } from '../MockReactionsClient';
+import { type Client, ReactionStatus, ReactionUpdateType } from '../types';
 import { MemoryReactionsStore, ufoExperiences } from './MemoryReactionsStore';
-import { waitFor } from '@testing-library/react';
 
 const fakeCreateAndFireSafe = jest.fn();
 const spyCreateAndFireSafe = jest.spyOn(AnalyticsModule, 'createAndFireSafe');

@@ -1,12 +1,13 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { render } from '@atlassian/testing-library/render';
+
 import { IntlProvider } from 'react-intl';
 
-import { getMockWhatsNewArticleItemList } from '../../../../../../util/testing/mock';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { render } from '@atlassian/testing-library/render';
 
-import WhatsNewResultsList from '../../WhatsNewResultsList';
+import { getMockWhatsNewArticleItemList } from '../../../../../../util/testing/mock';
 import { type WhatsNewResultsList as WhatsNewResultsListInterface } from '../../model/WhatsNewResultsList';
+import WhatsNewResultsList from '../../WhatsNewResultsList';
 
 const mockOnWhatsNewArticleItemClick = jest.fn();
 const mockOnShowMoreButtonClick = jest.fn();

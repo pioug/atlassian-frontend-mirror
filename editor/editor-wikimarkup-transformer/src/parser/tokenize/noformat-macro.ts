@@ -1,9 +1,10 @@
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import type { Token, TokenParser } from '.';
 import type { Context } from '../../interfaces';
-import { commonMacro } from './common-macro';
 import { parseAttrs } from '../utils/attrs';
 import { title } from '../utils/title';
+import { commonMacro } from './common-macro';
 
 export const noformatMacro: TokenParser = ({ input, position, schema, context }) => {
 	return commonMacro(input.substring(position), schema, {

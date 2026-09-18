@@ -1,6 +1,6 @@
-import { quickInsertProviderMenuItemKey } from './getQuickInsertProviderMenuItemKey';
-
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
+
+import { quickInsertProviderMenuItemKey } from './getQuickInsertProviderMenuItemKey';
 
 const DEFAULT_ITEM_LIMIT = 30;
 const ECOSYSTEM_ITEM_LIMIT = 10;

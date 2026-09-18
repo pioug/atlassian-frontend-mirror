@@ -9,7 +9,6 @@ import { DatasourceAction } from '../../../../analytics/types';
 import type { DisplayViewModes } from '../../../../common/types';
 import { useUserInteractions } from '../../../../contexts/user-interactions/use-user-interactions';
 import { DisplayViewDropDown } from '../display-view-dropdown/display-view-drop-down';
-
 import { useViewModeContext } from './useViewModeContext';
 
 export const DatasourceViewModeDropDown = (): JSX.Element | null => {

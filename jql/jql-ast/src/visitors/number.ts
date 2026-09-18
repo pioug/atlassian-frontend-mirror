@@ -2,7 +2,6 @@ import type { JqlNumberContext } from '@atlaskit/jql-parser/JQLParser';
 
 import { internalCreators } from '../creators';
 import { type ValueOperand } from '../types';
-
 import { getPositionFromContext, JastBuildingVisitor } from './common';
 
 export class NumberVisitor extends JastBuildingVisitor<ValueOperand> {

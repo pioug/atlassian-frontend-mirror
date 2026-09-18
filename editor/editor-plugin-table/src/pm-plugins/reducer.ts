@@ -1,5 +1,4 @@
 import type { TablePluginAction, TablePluginState } from '../types';
-
 import { defaultTableSelection } from './default-table-selection';
 
 export default (pluginState: TablePluginState, action: TablePluginAction): TablePluginState => {

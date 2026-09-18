@@ -1,6 +1,7 @@
 import React, { forwardRef, useMemo } from 'react';
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 
 import {
 	type ContextPublicAttributes,

@@ -1,5 +1,4 @@
 import type { NavigationMetrics } from '../../../create-payload/utils/get-navigation-metrics';
-
 import { num } from './shape-resource-timing';
 
 /**

@@ -11,7 +11,6 @@ import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay
 import { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
 
 import { RovoAgentSelector } from '../src';
-
 import type { storiesRovoAgentSelectorQuery } from './__generated__/storiesRovoAgentSelectorQuery.graphql';
 
 const generateMockAgentEdges = (count: number) => {

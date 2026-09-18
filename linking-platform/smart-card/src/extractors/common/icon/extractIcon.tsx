@@ -15,7 +15,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getIconForFileType } from '../../../utils/get-icon-for-file-type';
 import { extractTaskType, type LinkTaskType } from '../lozenge/extractTaskType';
-
 import { extractFileFormat } from './extractFileFormat';
 import { extractIconFromDocument } from './extractIconFromDocument';
 import { extractIconFromTask } from './extractIconFromTask';

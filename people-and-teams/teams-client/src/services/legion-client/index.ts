@@ -1,10 +1,10 @@
+import { type LinkOrder, type NewTeamLink, type TeamLink } from '../../types/links';
+import { type ReadMediaTokenResponse } from '../../types/media';
 import {
 	type InvitedUser,
 	type TeamMembership,
 	type TeamWithMemberships,
 } from '../../types/membership';
-import { type LinkOrder, type NewTeamLink, type TeamLink } from '../../types/links';
-import { type ReadMediaTokenResponse } from '../../types/media';
 import type {
 	AlignmentPermission,
 	AssignedTeamsResponse,
@@ -31,7 +31,6 @@ import {
 import { type UserInSiteUserbase } from '../../types/user';
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
-
 import {
 	type LegionAssociateAgentResponse,
 	type LegionLinkResponseV3,

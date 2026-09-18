@@ -1,5 +1,4 @@
 import '@atlaskit/link-test-helpers/jest';
-
 import React from 'react';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';

@@ -2,11 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import EmailIcon from '@atlaskit/icon/core/email';
-import { token } from '@atlaskit/tokens';
+
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React from 'react';
+
+import EmailIcon from '@atlaskit/icon/core/email';
+import { token } from '@atlaskit/tokens';
 
 const getEmailAvatarWrapperStyle = (isLozenge?: boolean, isPendingAction?: boolean) => {
 	const padding = isLozenge ? `${token('space.0')}` : `${token('space.050')}`;

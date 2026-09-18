@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { teamsClient } from '../main';
 import { logInfoMessage } from '../sentry/logInfoMessage';
-
 import type { TeamsClientSetupProps } from './teams-client-setup-props';
 
 export const useTeamsClientSetupNext = ({

@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+
 import { createContext, type MutableRefObject } from 'react';
 
 export interface NestedContextValue {

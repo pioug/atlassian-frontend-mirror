@@ -4,7 +4,6 @@ import {
 	type ORDER_BY_DIRECTION_DESC,
 	type ORDER_BY_OPERATOR_ORDER_BY,
 } from '../../constants';
-
 import { type AstNode, type Removable, type Replaceable } from './common';
 import { type Field } from './field';
 

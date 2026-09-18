@@ -23,6 +23,7 @@ import { useFlexibleCardContext } from '../../../state/flexible-ui-context/useFl
 import { hasAuthScopeOverrides } from '../../../state/hasAuthScopeOverrides';
 import { getSocialProofExperimentMeta } from '../../../state/hooks/use-social-proof-experiment/getSocialProofExperimentMeta';
 import { default as useSocialProofExperiment } from '../../../state/hooks/use-social-proof-experiment/index';
+import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 import FlexibleCard from '../../FlexibleCard';
 import ActionGroup from '../../FlexibleCard/components/blocks/action-group';
 import Block from '../../FlexibleCard/components/blocks/block';
@@ -31,10 +32,9 @@ import { renderElementItems } from '../../FlexibleCard/components/blocks/renderE
 import { type ActionItem } from '../../FlexibleCard/components/blocks/types';
 import { default as LinkIcon } from '../../FlexibleCard/components/elements/link-icon-element';
 import { default as Title } from '../../FlexibleCard/components/elements/title-element';
-import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 import { AuthorizeAction } from '../actions/AuthorizeAction';
-import SocialProofMessage from './SocialProofMessage';
 import unauthIllustrationGeneral from './assets/general@2x.png';
+import SocialProofMessage from './SocialProofMessage';
 import { type FlexibleBlockCardProps } from './types';
 import { type UnresolvedViewProps } from './unresolved-view/types';
 import { FlexibleCardUiOptions, titleBlockOptions } from './utils';

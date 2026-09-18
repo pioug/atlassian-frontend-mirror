@@ -3,7 +3,6 @@ import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { ElementName } from '../../../../constants';
 import { type ElementItem } from '../../../FlexibleCard/components/blocks/types';
 import { getSimulatedBetterMetadata } from '../utils';
-
 import {
 	mockBaseResponse,
 	mockBBFileResponse,

@@ -4,8 +4,8 @@
 
 import CodeBlock from '../../react/nodes/codeBlock/codeBlock';
 import Date from '../../react/nodes/date';
-import DecisionList from '../../react/nodes/decisionList';
 import DecisionItem from '../../react/nodes/decisionItem';
+import DecisionList from '../../react/nodes/decisionList';
 import Emoji from '../../react/nodes/emoji';
 import Mention from '../../react/nodes/mention';
 import Panel from '../../react/nodes/panel';
@@ -41,4 +41,5 @@ const nodeToReact: typeof import('../../react/nodes').nodeToReact = {
  * This entry point will be removed in January 2027.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
+
 export default nodeToReact;

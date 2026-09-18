@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+
 import { getAncestors } from '../util/context-compat';
 import { getObjectPropertyAsLiteral } from '../util/handle-ast-object';
 

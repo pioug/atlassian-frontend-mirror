@@ -1,18 +1,20 @@
+import juice from 'juice';
+import flow from 'lodash/flow';
+import property from 'lodash/property';
+
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Fragment, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import flow from 'lodash/flow';
-import property from 'lodash/property';
-import type { SerializeFragmentWithAttachmentsResult, SerializerWithImages } from './serializer';
-import { nodeSerializers } from './node-serializers';
-import styles from './styles';
-import juice from 'juice';
+
 import { escapeHtmlString } from './escape-html-string';
-import { processImages } from './static';
-import { createClassName } from './styles/util';
-import { fontFamily, fontSize } from './styles/common';
 import type { MetaDataContext, EmailSerializerOpts } from './interfaces';
+import { nodeSerializers } from './node-serializers';
+import type { SerializeFragmentWithAttachmentsResult, SerializerWithImages } from './serializer';
+import { processImages } from './static';
+import styles from './styles';
+import { fontFamily, fontSize } from './styles/common';
+import { createClassName } from './styles/util';
 import { transformNestedTableExtension } from './table-util';
 
 const serializeNode = (
@@ -137,6 +139,7 @@ const stubImages = (content: SerializeFragmentWithAttachmentsResult, isMockEnabl
  * and referenced via CID. However, when rendered in browser, this does not work and breaks the experience
  * when rendered in demo page, so we instead inline the image data.
  */
+
 export class EmailSerializer implements SerializerWithImages<string> {
 	readonly opts: EmailSerializerOpts;
 	private static readonly defaultOpts: EmailSerializerOpts = {

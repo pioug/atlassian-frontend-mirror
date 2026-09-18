@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 import Button from '@atlaskit/button/default/button';
 import TextArea from '@atlaskit/textarea/text-area';
 import TextField from '@atlaskit/textfield/text-field';
+import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
-import Form from '../../form';
 import { CharacterCounterField } from '../../character-counter-field';
+import Form from '../../form';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CharacterCounterField', () => {

@@ -8,8 +8,8 @@ import React from 'react';
 import { cssMap } from '@compiled/react';
 
 import { Flex } from '@atlaskit/primitives/compiled'; // eslint-disable-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import type { PopupSelect } from '@atlaskit/select/popup-select';
 import { components } from '@atlaskit/react-select/components';
+import type { PopupSelect } from '@atlaskit/select/popup-select';
 
 // `cssMap` usages cannot be exported (@atlaskit/design-system/no-invalid-css-map), so this style
 // map is declared locally in each module that needs it rather than shared via an import.

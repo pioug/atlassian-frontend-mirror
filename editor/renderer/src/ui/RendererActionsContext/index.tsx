@@ -1,11 +1,12 @@
 /* eslint-disable jsdoc/require-jsdoc */
+
 import React, { useMemo } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import RendererActions from '../../actions/index';
 

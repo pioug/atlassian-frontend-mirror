@@ -141,8 +141,8 @@ events:
           type: number
           required: false
           description:
-            the HTTP status code, when the failure originated from a non-OK network response.
-            Absent otherwise
+            the HTTP status code, when the failure originated from a non-OK network response. Absent
+            otherwise
 
   - linkCreateExperience failed:
       type: operational

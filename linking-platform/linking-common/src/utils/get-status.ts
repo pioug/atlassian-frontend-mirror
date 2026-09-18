@@ -1,4 +1,5 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+
 import { type CardType } from '../types';
 
 const getStatusForNotFoundVisibility = (meta: JsonLd.Meta.BaseMeta) => {

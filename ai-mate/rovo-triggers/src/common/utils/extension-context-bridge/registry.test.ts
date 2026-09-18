@@ -1,5 +1,4 @@
 import { type Payload } from '../../../types';
-
 import { BRIDGE_MESSAGE_MARKER, BRIDGE_SOURCE, BRIDGE_TO_EXTENSION } from './constants';
 import { getInboundDecision, isRelayableContextKey, shouldRelayToProduct } from './policy';
 import { deserializePayload, serializePayload, type SerializationResult } from './registry';

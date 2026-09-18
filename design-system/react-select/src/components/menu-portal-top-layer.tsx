@@ -13,7 +13,6 @@ import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { getStyleProps } from '../get-style-props';
 import { MenuPortalCloseContext } from '../internal/menu-portal-close-context';
 import type { GroupBase, MenuPlacement } from '../types';
-
 import type { MenuPortalProps } from './menu-portal';
 
 // `'auto'` falls through to `'end'`; top-layer's `position-try-fallbacks` flips it if needed.

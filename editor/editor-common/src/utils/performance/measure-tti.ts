@@ -1,5 +1,4 @@
 import { SEVERITY } from '../SEVERITY';
-
 import { isPerformanceObserverLongTaskAvailable } from './is-performance-api-available';
 import { getDistortedDurationMonitor } from './measure-render';
 import { TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS } from './TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS';

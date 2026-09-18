@@ -1,12 +1,13 @@
 import type { JSONSchema4 } from 'json-schema';
+
 import { adfMark } from '../../../adfMark';
 import type { ADFNode } from '../../../adfNode';
 import { adfNode } from '../../../adfNode';
 import { adfNodeGroup } from '../../../adfNodeGroup';
-import type { ADFNodeContentRangeSpec } from '../../../types/ADFNodeSpec';
 import type { NodeVisitorReturnType } from '../../../transforms/adfToJson/adfToJsonVisitor';
 import { buildVisitor } from '../../../transforms/adfToJson/adfToJsonVisitor';
 import { JSONSchemaTransformerName } from '../../../transforms/transformerNames';
+import type { ADFNodeContentRangeSpec } from '../../../types/ADFNodeSpec';
 
 const testMark = adfMark('testMark').define({
 	attrs: {},

@@ -1,5 +1,6 @@
-import format from '@af/formatting/sync';
 import type { Format } from 'style-dictionary';
+
+import format from '@af/formatting/sync';
 
 import { getCSSCustomProperty } from '../../../src/utils/get-css-custom-property';
 import { getTokenId } from '../../../src/utils/get-token-id';

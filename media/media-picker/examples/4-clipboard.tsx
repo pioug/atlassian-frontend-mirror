@@ -1,13 +1,24 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
+
+import Button from '@atlaskit/button/button';
 import {
 	mediaPickerAuthProvider,
 	defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button/button';
-import Toggle from '@atlaskit/toggle';
+import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
 import Spinner from '@atlaskit/spinner/spinner';
+import Toggle from '@atlaskit/toggle';
+
+import { ClipboardContainer } from '../example-helpers/ClipboardContainer';
+import { DropzoneContentWrapper } from '../example-helpers/DropzoneContentWrapper';
+import { DropzoneItemsInfo } from '../example-helpers/DropzoneItemsInfo';
+import { InfoContainer } from '../example-helpers/InfoContainer';
+import { MainWrapper } from '../example-helpers/mainWrapper';
+import { PastedImage } from '../example-helpers/PastedImage';
+import { PopupContainer } from '../example-helpers/PopupContainer';
+import { PopupHeader } from '../example-helpers/PopupHeader';
 import { ClipboardLoader as Clipboard } from '../src/components/clipboard';
 import {
 	type ImagePreview,
@@ -16,15 +27,6 @@ import {
 	type UploadsStartEventPayload,
 	type UploadErrorEventPayload,
 } from '../src/types';
-import { ClipboardContainer } from '../example-helpers/ClipboardContainer';
-import { DropzoneContentWrapper } from '../example-helpers/DropzoneContentWrapper';
-import { DropzoneItemsInfo } from '../example-helpers/DropzoneItemsInfo';
-import { InfoContainer } from '../example-helpers/InfoContainer';
-import { PastedImage } from '../example-helpers/PastedImage';
-import { PopupContainer } from '../example-helpers/PopupContainer';
-import { PopupHeader } from '../example-helpers/PopupHeader';
-import { MainWrapper } from '../example-helpers/mainWrapper';
-import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
 
 export interface ClipboardWrapperState {
 	isConnectedToUsersCollection: boolean;

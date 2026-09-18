@@ -1,7 +1,8 @@
 import { Bounds } from '@atlaskit/media-ui/bounds';
+
+import { viewport as instance } from '../src/image-navigator';
 import { type Viewport } from '../src/viewport/viewport';
 import { renderViewport } from '../src/viewport/viewport-render';
-import { viewport as instance } from '../src/image-navigator';
 
 /**
  * This is a helper class to render debug info for a viewport.

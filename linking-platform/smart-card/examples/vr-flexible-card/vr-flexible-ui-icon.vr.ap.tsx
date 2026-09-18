@@ -3,7 +3,6 @@ import React from 'react';
 import { IconType, SmartLinkSize } from '../../src/constants';
 import AtlaskitIcon from '../../src/view/FlexibleCard/components/common/atlaskit-icon';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
 import '../utils/vr-preload-metadata-icons';
 
 function generateExample(iconType: IconType) {

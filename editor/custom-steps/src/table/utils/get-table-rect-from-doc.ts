@@ -1,5 +1,4 @@
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
-
 import type { TableRect } from '@atlaskit/editor-tables/table-map';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 

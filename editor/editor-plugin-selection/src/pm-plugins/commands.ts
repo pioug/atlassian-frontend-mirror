@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+
 import {
 	isIgnored as isIgnoredByGapCursor,
 	RelativeSelectionPos,
@@ -11,7 +12,6 @@ import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/m
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { SelectionDirection, selectionPluginKey } from '../types';
-
 import { SelectionActionTypes } from './actions';
 import { createCommand, getPluginState } from './plugin-factory';
 import {

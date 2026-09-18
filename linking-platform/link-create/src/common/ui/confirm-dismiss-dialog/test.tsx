@@ -8,7 +8,6 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import '@atlaskit/link-test-helpers/jest';
 
 import { ANALYTICS_CHANNEL } from '../../constants';
-
 import { ConfirmDismissDialog, type ConfirmDismissDialogProps } from './main';
 
 describe('ConfirmDismissDialog', () => {

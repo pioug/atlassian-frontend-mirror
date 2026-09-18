@@ -3,7 +3,6 @@ import React from 'react';
 import { validateSortKey } from '../internal/validate-sort-key';
 import { Head } from '../styled/head';
 import { type HeadType, type RowCellType, type SortOrderType } from '../types';
-
 import RankableHeadCell from './rankable/table-head-cell';
 import HeadCell from './table-head-cell';
 

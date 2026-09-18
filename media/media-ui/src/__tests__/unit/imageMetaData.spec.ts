@@ -2,8 +2,6 @@ jest.mock('../../imageMetaData/metatags');
 jest.mock('../../imageMetaData/isRotated');
 
 import { asMock } from '@atlaskit/media-common/test-helpers';
-import * as loadImageModule from '../../loadImage';
-import * as readImageNaturalOrientationFromDOMModule from '../../readImageNaturalOrientationFromDOM';
 
 import { getImageInfo } from '../../imageMetaData/getImageInfo';
 import { getMetaTagNumericValue } from '../../imageMetaData/getMetaTagNumericValue';
@@ -18,6 +16,8 @@ import {
 	type ImageMetaDataTags,
 	type ImageInfo,
 } from '../../imageMetaData/types';
+import * as loadImageModule from '../../loadImage';
+import * as readImageNaturalOrientationFromDOMModule from '../../readImageNaturalOrientationFromDOM';
 
 describe('Image Meta Data', () => {
 	let loadImage: jest.Mock<any>;

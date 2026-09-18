@@ -1,7 +1,6 @@
 import { action } from '@storybook/addon-actions';
 
 import { type HydratedUser, type HydratedValues } from '../src/ui/jql-editor/types';
-
 import { mockAvatarUrl, users } from './data';
 
 export const onHydrate = (query: string): Promise<HydratedValues> => {

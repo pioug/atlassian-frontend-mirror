@@ -1,6 +1,7 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+
 import { fireEvent, render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
 
 import { HardBreak } from '../../../../react/nodes';
 import Expand from '../../../../ui/Expand';

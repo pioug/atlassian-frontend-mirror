@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { useLocalStorage } from '@atlaskit/frontend-utilities/useLocalStorage'` instead.
  */
+
 export { useLocalStorage } from './useLocalStorage';
 /**
  * @deprecated Use `import { useLocalStorageRecord } from '@atlaskit/frontend-utilities/useLocalStorageRecord'` instead.

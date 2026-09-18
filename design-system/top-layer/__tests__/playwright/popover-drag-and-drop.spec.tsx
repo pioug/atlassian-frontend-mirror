@@ -1,5 +1,6 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint playwright/expect-expect: ["error", { "assertFunctionNames": ["expect", "expectPopoverOpen", "expectPopoverClosed", "expectDragging", "expectDragFinished", "expectDraggedOver", "expectPointerOver", "expectDropRecorded", "expectNoDropRecorded"] }] */
+
 import { expect, type Page, test } from '@af/integration-testing';
 
 import {

@@ -4,7 +4,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type TeamMembership } from '../../../types/membership';
 import { type TeamPermission } from '../../../types/team';
 import { isMember } from '../is-member';
-
 import { vanityActions } from './constants';
 import { hasPermission } from './has-permission';
 import { AllTeamActions } from './types';

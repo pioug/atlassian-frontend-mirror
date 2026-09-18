@@ -1,7 +1,6 @@
 import { APIError } from '@atlaskit/linking-common/api-error';
 
 import { fakeFactory, mocks } from '../__fixtures__/mocks';
-
 import { resolveAttributes } from './resolve-attributes';
 
 describe('resolveAttributes', () => {

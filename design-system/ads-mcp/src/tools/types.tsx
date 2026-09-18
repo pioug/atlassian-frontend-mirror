@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
+
 export type Status =
 	| 'release-candidate'
 	| 'early-access'

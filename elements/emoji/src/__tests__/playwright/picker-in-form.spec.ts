@@ -1,5 +1,6 @@
-import { expect, test } from '@af/integration-testing';
 import type { Page } from '@playwright/test';
+
+import { expect, test } from '@af/integration-testing';
 
 // Url to test the example
 // Css selectors used for the submit form test

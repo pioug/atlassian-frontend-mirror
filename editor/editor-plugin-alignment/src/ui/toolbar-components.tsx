@@ -18,7 +18,6 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import type { AlignmentState } from '../pm-plugins/types';
-
 import { AlignmentMenu } from './Toolbar/AlignmentMenu';
 import { AlignmentMenuItem } from './Toolbar/AlignmentMenuItem';
 import { MenuSection } from './Toolbar/MenuSection';

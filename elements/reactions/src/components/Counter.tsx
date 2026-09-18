@@ -3,13 +3,15 @@
  * @jsx jsx
  */
 import { useEffect, useMemo, useRef } from 'react';
-import { css, jsx } from '@compiled/react';
-import SlideIn from '@atlaskit/motion/slide-in';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import type { Durations } from '@atlaskit/motion/utils/durations';
-import { formatLargeNumber } from '../shared/utils';
 
+import { css, jsx } from '@compiled/react';
+
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import SlideIn from '@atlaskit/motion/slide-in';
+import type { Durations } from '@atlaskit/motion/utils/durations';
 import { token } from '@atlaskit/tokens';
+
+import { formatLargeNumber } from '../shared/utils';
 
 const containerStyle = css({
 	display: 'flex',

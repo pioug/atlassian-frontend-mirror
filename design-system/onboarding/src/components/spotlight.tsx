@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type SpotlightProps } from '../types';
-
 import SpotlightInner from './spotlight-inner';
 import { SpotlightConsumer } from './spotlight-manager';
 

@@ -22,7 +22,6 @@ import { token } from '@atlaskit/tokens';
 import { getStyleProps } from '../get-style-props';
 import { useSelectGetStyles } from '../internal/use-select-get-styles';
 import type { CommonPropsAndClassName, GroupBase, MultiValueGenericProps } from '../types';
-
 import { MultiValueContainer as DefaultMultiValueContainer } from './containers/multi-value-container';
 import { MultiValueLabel } from './multi-value-label';
 import MultiValueMotion from './multi-value-motion';

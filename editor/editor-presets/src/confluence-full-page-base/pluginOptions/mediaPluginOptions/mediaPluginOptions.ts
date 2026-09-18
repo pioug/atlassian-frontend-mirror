@@ -4,7 +4,6 @@ import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { MediaPluginOptions } from '@atlaskit/editor-plugin-media';
 
 import type { FullPageEditorAppearance } from '../../types';
-
 import { i18n } from './i18n';
 
 const STORAGE_SUPPORTS_REGEX = /^([\p{L}\p{N},'\.\s\-_\(\)]|&amp;[0-9]{2};)*$/u;

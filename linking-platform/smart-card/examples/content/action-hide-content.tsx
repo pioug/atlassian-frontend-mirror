@@ -5,7 +5,6 @@
 import { css, jsx } from '@compiled/react';
 
 import { ActionName, FooterBlock } from '../../src';
-
 import ExampleContainer from './example-container';
 
 const styles = css({

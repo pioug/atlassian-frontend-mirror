@@ -1,8 +1,9 @@
+import type { ComponentType } from 'react';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { PanelType } from '@atlaskit/adf-schema/panel';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import type { ComponentType } from 'react';
 
 const smallTextInNestedBlocksAdf: DocNode = {
 	type: 'doc',

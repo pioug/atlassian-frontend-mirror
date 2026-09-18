@@ -1,11 +1,11 @@
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { tableMarginTop } from '@atlaskit/editor-common/styles';
-import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getStickyHeaderHeight } from '@atlaskit/editor-common/table/get-sticky-header-height';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { isDiffDecoration, SCROLL_TARGET_MARGIN_CSS_PROPERTY } from './decorations/decorationKeys';
 import type { ShowDiffPlugin } from '../showDiffPluginType';
+import { isDiffDecoration, SCROLL_TARGET_MARGIN_CSS_PROPERTY } from './decorations/decorationKeys';
 
 /**
  * Extra space above the scrolled-to element so it does not sit flush under the

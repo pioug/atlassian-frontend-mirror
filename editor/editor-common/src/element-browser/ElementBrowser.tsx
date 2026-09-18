@@ -5,7 +5,6 @@ import type { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeas
 import type { QuickInsertItem } from '../provider-factory';
 import { getActiveQuickInsertCategories } from '../quick-insert/getActiveQuickInsertCategories';
 import type { EmptyStateHandler } from '../types';
-
 import StatelessElementBrowser from './components/StatelessElementBrowser';
 import type { Category, Modes } from './types';
 

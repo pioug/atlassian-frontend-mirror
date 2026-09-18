@@ -1,5 +1,8 @@
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import type { DebouncedFunc } from 'lodash';
 import throttle from 'lodash/throttle';
 
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type {
 	ResolvedEditorState,
 	SyncUpErrorFunction,
@@ -7,31 +10,24 @@ import type {
 	CollabInitPayload,
 	StepJson,
 } from '@atlaskit/editor-common/collab';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type {
-	Catchupv2Response,
-	ChannelEvent,
-	GenerateDiffStepsResponseBody,
-	ReconcileResponse,
-	ReconnectionMetadata,
-	StepsPayload,
-} from '../types';
-import type { MetadataService } from '../metadata/metadata-service';
-import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import { MEASURE_NAME, startMeasure, stopMeasure } from '../analytics/performance';
+import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
 import type { InternalError } from '../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
-
+import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
 import type { UGCFreeStepDetails } from '../helpers/utils';
 import {
 	createLogger,
@@ -42,19 +38,22 @@ import {
 	normalizeAgentId,
 	sleep,
 } from '../helpers/utils';
+import type { MetadataService } from '../metadata/metadata-service';
 import type { ParticipantsService } from '../participants/participants-service';
 import { MAX_STEP_REJECTED_ERROR, MAX_STEP_REJECTED_ERROR_AGGRESSIVE } from '../provider';
 import { CommitStepService } from '../provider/commit-step';
-import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
-
+import type {
+	Catchupv2Response,
+	ChannelEvent,
+	GenerateDiffStepsResponseBody,
+	ReconcileResponse,
+	ReconnectionMetadata,
+	StepsPayload,
+} from '../types';
 import { catchupv2 } from './catchupv2';
-import { StepQueueState } from './step-queue-state';
-import type { DocumentServiceInterface } from './interface-document-service';
 import { getConflictChanges } from './getConflictChanges';
-import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
-// oxlint-disable-next-line @atlassian/no-restricted-imports
-import type { DebouncedFunc } from 'lodash';
+import type { DocumentServiceInterface } from './interface-document-service';
+import { StepQueueState } from './step-queue-state';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
@@ -473,18 +472,25 @@ export class DocumentService implements DocumentServiceInterface {
 	 * milestone independently — the milestone attributes its own local steps, which are echoed back
 	 * to this client, so it needs the facepile without the backend streaming visuals.
 	 *
+	 * When agent edit presence is enabled, the canonical presence channel owns agent participants.
+	 * Skip this step-derived fallback entirely in that cohort to avoid duplicate or stale participants.
+	 *
 	 * The milestone value is read without logging an exposure: this runs on every received step
 	 * batch, whereas the canonical exposure is logged at the action-driven call sites that decide
-	 * whether to attribute a step. The backend experiment is evaluated first so its exposure
-	 * population is unchanged.
+	 * whether to attribute a step.
 	 *
 	 * Known limitation (PoC): steps replayed via catch-up/reconnect can briefly re-surface an agent
 	 * whose activity is stale — a freshness guard is a follow-up.
 	 */
 	private maybeAddAgentPresenceFromSteps(steps: StepJson[]): void {
 		if (
-			!expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true) &&
-			!UNSAFE_expValNoExposure('platform_editor_ai_streaming_ux_experience_m1', 'isEnabled', false)
+			fg('platform_editor_agent_edit_presence') ||
+			(!expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true) &&
+				!UNSAFE_expValNoExposure(
+					'platform_editor_ai_streaming_ux_experience_m1',
+					'isEnabled',
+					false,
+				))
 		) {
 			return;
 		}

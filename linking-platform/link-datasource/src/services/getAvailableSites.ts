@@ -2,7 +2,6 @@ import { mapAccessibleProductsToAvailableSites } from '@atlaskit/linking-common/
 import { shouldUseUnitCompliantApi } from '@atlaskit/linking-common/units-rollout';
 
 import type { Site } from '../common/types';
-
 import { isLinkDatasourceInUnitsRollout } from './isLinkDatasourceInUnitsRollout';
 
 export const getAccessibleProducts = async (product: 'jira' | 'confluence'): Promise<Site[]> => {

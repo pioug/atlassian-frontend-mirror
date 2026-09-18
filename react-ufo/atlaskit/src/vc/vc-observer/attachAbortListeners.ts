@@ -1,7 +1,6 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 
 import { AbortEvent } from '../../common/vc/types';
-
 import { getViewportHeight } from './getViewportHeight';
 import { getViewportWidth } from './getViewportWidth';
 

@@ -8,7 +8,6 @@ import {
 	type DataRecord,
 } from 'kakapo';
 import { type DatabaseSchema } from 'kakapo/dist/Database';
-
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
@@ -18,9 +17,13 @@ import {
 	type ItemsPayload,
 	type ResponseFileItem,
 } from '@atlaskit/media-client';
-
 import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 
+import { vrVideoDetails } from '../../exampleMediaItems';
+import { defaultBaseUrl } from '../../mediaClientProvider';
+import { mapDataUriToBlob } from '../../utils';
+import { logRequest } from '../../utils/logging';
+import { getTextFileType, getFakeFileName, mockDataUri } from '../../utils/mockData';
 import {
 	type MediaDatabaseSchema,
 	createCollection,
@@ -29,12 +32,7 @@ import {
 	type CollectionItem,
 	isMediaItemDetails,
 } from '../database';
-import { vrVideoDetails } from '../../exampleMediaItems';
-import { defaultBaseUrl } from '../../mediaClientProvider';
 import { createUpload } from '../database/upload';
-import { logRequest } from '../../utils/logging';
-import { getTextFileType, getFakeFileName, mockDataUri } from '../../utils/mockData';
-import { mapDataUriToBlob } from '../../utils';
 
 class RouterWithLogging<
 	MediaDatabaseSchema extends DatabaseSchema,

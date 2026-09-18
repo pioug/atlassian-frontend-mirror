@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type CustomProgressBarProps } from '../types';
-
 import ProgressBar from './progress-bar';
 
 /**

@@ -1,8 +1,11 @@
-import { type GasPurePayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import React from 'react';
+
 import { render, screen, fireEvent } from '@testing-library/react';
 import cases from 'jest-in-case';
-import React from 'react';
+
+import { type GasPurePayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
 import AtlaskitListener from '../../../atlaskit/AtlaskitListener';
 import type Logger from '../../../helpers/logger';

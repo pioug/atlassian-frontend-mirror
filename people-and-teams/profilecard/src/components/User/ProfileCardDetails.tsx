@@ -25,7 +25,6 @@ import {
 	type ProfilecardProps,
 } from '../../types';
 import { default as IconLabel } from '../Icon/IconLabel';
-
 import ReportingLinesDetails from './ReportingLinesDetails';
 
 const styles = cssMap({

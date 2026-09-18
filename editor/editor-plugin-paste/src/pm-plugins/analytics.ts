@@ -27,7 +27,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { PastePlugin } from '../index';
-
 import { getPasteSource } from './util';
 import {
 	handleCodeBlock,

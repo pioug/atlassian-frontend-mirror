@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { addBreadcrumb } from '@atlaskit/teams-client/add-breadcrumb'` instead.
  */
+
 export { addBreadcrumb } from './addBreadcrumb';
 /**
  * @deprecated Use `import { createErrorHandler } from '@atlaskit/teams-client/create-error-handler'` instead.

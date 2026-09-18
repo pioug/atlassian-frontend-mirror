@@ -1,5 +1,5 @@
-import { segmentText } from '../../../react/utils/segment-text';
 import type { TextHighlighter } from '../../../react/types';
+import { segmentText } from '../../../react/utils/segment-text';
 
 test('segment text no text', () => {
 	const highlighter: TextHighlighter = {

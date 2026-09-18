@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { fontSize as fontSizeFactory } from '../../next-schema/generated/markTypes';
 
 const allowedSizes = ['small'];

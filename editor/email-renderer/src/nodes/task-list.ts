@@ -1,5 +1,5 @@
-import type { NodeSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
+import type { NodeSerializerOpts } from '../interfaces';
 import { createClassName } from '../styles/util';
 
 const className = createClassName('taskList');

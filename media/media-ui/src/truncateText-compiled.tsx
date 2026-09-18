@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import type { TruncateStyledProps, TruncateProps, TruncateOutput } from '@atlaskit/media-ui/truncateText/types'` instead.
  */
+
 export type { TruncateStyledProps, TruncateProps, TruncateOutput } from './truncateTextTypes';
 
 /**

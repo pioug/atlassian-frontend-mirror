@@ -48,27 +48,28 @@ import type { UserPermitType } from '@atlaskit/editor-common/collab';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+// eslint-disable-next-line import/default
+import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import type { Provider } from '../';
 import { MAX_STEP_REJECTED_ERROR } from '../';
 import AnalyticsHelper from '../../analytics/analytics-helper';
+import { Api } from '../../api/api';
+import { NullApi } from '../../api/null-api';
 import { Channel } from '../../channel';
 import { catchupv2 } from '../../document/catchupv2';
+import { DocumentService } from '../../document/document-service';
+import { NullDocumentService } from '../../document/null-document-service';
+import { ProviderInitialisationError } from '../../errors/custom-errors';
+import type { InternalError } from '../../errors/internal-errors';
+import { INTERNAL_ERROR_CODE } from '../../errors/internal-errors';
+import { NCS_ERROR_CODE } from '../../errors/ncs-errors';
 import { ACK_MAX_TRY, CatchupEventReason } from '../../helpers/const';
 import * as Utilities from '../../helpers/utils';
 import * as Telepointer from '../../participants/telepointers-helper';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { CommitStepService } from '../commit-step';
-// eslint-disable-next-line import/default
-import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
-import { ProviderInitialisationError } from '../../errors/custom-errors';
-import type { InternalError } from '../../errors/internal-errors';
-import { INTERNAL_ERROR_CODE } from '../../errors/internal-errors';
-import { NCS_ERROR_CODE } from '../../errors/ncs-errors';
-import { NullDocumentService } from '../../document/null-document-service';
-import { NullApi } from '../../api/null-api';
-import { DocumentService } from '../../document/document-service';
-import { Api } from '../../api/api';
 
 const testProviderConfig = {
 	url: `http://provider-url:66661`,
@@ -145,6 +146,33 @@ describe('Provider', () => {
 	afterEach(jest.clearAllMocks);
 
 	describe('setup', () => {
+		it('forwards channel recovery requests to the host product', () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			const onRecoveryRequired = jest.fn();
+			provider.on('recovery:required', onRecoveryRequired);
+			provider.setup({ getState: () => editorState });
+
+			const payload = { reason: 'steps_migration' };
+			channel.emit('recovery:required', payload);
+
+			expect(onRecoveryRequired).toHaveBeenCalledTimes(1);
+			expect(onRecoveryRequired).toHaveBeenCalledWith(payload);
+		});
+
+		it.each([undefined, null, {}, { reason: 404 }])(
+			'ignores malformed recovery requests: %p',
+			(payload) => {
+				const provider = createSocketIOCollabProvider(testProviderConfig);
+				const onRecoveryRequired = jest.fn();
+				provider.on('recovery:required', onRecoveryRequired);
+				provider.setup({ getState: () => editorState });
+
+				channel.emit('recovery:required', payload);
+
+				expect(onRecoveryRequired).not.toHaveBeenCalled();
+			},
+		);
+
 		it('Should throw an error when cookies are not enabled', () => {
 			const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
 			Object.defineProperty(global.navigator, 'cookieEnabled', {

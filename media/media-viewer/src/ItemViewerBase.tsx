@@ -19,8 +19,6 @@ import { messages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 
-import { ErrorViewDownloadButton } from './ErrorViewDownloadButton';
-import { MediaViewerError } from './MediaViewerError';
 import { createCommencedEvent } from './analytics/events/operational/commenced';
 import { createLoadSucceededEvent } from './analytics/events/operational/loadSucceeded';
 import { fireAnalytics } from './analytics/fireAnalytics';
@@ -32,10 +30,12 @@ import {
 import { type FileStateFlags } from './components/types';
 import { Outcome } from './domain/outcome';
 import ErrorMessage from './errorMessageWithAnalytics';
+import { ErrorViewDownloadButton } from './ErrorViewDownloadButton';
 import { isFileStateItem } from './isFileStateItem';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from './item-viewer';
 import type { FileItem, Props, State } from './item-viewer';
 import { Spinner } from './loading';
+import { MediaViewerError } from './MediaViewerError';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
 import type { Props as AudioViewerProps } from './viewers/audio';
 import type { Props as CodeViewerProps } from './viewers/codeViewer';

@@ -1,6 +1,11 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
 jest.mock('../../client/media-store/resolveInitialAuth');
+import { nextTick } from '@atlaskit/media-common/test-helpers';
+import type { Auth } from '@atlaskit/media-core/auth';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
 import {
 	type CreatedTouchedFile,
 	MediaStore,
@@ -24,11 +29,7 @@ import {
 import { resolveAuth } from '../../client/media-store/resolveAuth';
 import { resolveInitialAuth } from '../../client/media-store/resolveInitialAuth';
 import { FILE_CACHE_MAX_AGE } from '../../constants';
-import type { Auth } from '@atlaskit/media-core/auth';
 import * as requestModule from '../../utils/request';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { nextTick } from '@atlaskit/media-common/test-helpers';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 const requestModuleMock = jest.spyOn(requestModule, 'request');
 

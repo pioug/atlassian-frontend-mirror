@@ -2,9 +2,9 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { useExitingPersistence } from '@atlaskit/motion/exiting-persistence/use-exiting-persistence';
 import Tag from '@atlaskit/tag/removable-tag';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import TagGroup from '../../index';
 

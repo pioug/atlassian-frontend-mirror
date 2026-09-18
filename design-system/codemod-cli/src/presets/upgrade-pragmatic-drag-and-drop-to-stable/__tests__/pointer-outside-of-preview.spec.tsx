@@ -1,5 +1,4 @@
 import transformer from '../upgrade-pragmatic-drag-and-drop-to-stable';
-
 import { check } from './_framework';
 
 describe('shift offsetFromPointer() to pointerOutsideOfPreview()', () => {

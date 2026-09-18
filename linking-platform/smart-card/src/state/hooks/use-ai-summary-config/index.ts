@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 
 import { type AISummaryConfig } from './types';
 

@@ -48,7 +48,6 @@ import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { handleNavKeyDown } from '../../common/utils/handleNavKeyDown';
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
-
 import { Announcer } from './announcer';
 import AutoSubmitOnChange from './autoSubmitOnChange';
 import { FormFooter, testIds as formFooterTestIds } from './form-footer';

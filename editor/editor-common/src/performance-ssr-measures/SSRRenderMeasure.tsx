@@ -2,7 +2,6 @@ import React, { useCallback, memo, useRef } from 'react';
 import type { ReactNode } from 'react';
 
 import { isSSR } from '../core-utils/is-ssr';
-
 import { RenderMarker } from './RenderMarker';
 
 /**

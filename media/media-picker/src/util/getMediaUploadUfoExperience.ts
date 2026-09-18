@@ -1,9 +1,9 @@
 import { getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
 import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
 import type { ComponentName } from './analytics';
-import type { UFOExperience } from '@atlaskit/ufo/experience';
 
 let ufoExperience: ConcurrentExperience | undefined;
 

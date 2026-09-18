@@ -35,7 +35,6 @@ import {
 import { currentMediaInlineNodeWithPos } from '../../pm-plugins/utils/current-media-node';
 import { isSelectionMediaSingleNode } from '../../pm-plugins/utils/media-common';
 import { changeFromMediaInlineToMediaSingleNode } from '../../pm-plugins/utils/media-single';
-
 import { getSelectedMediaSingle, removeMediaGroupNode } from './utils';
 
 export const DEFAULT_BORDER_COLOR = '#091e4224';

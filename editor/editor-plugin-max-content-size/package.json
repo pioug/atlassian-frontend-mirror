@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-max-content-size",
-	"version": "19.0.0",
+	"version": "19.1.0",
 	"description": "max-content-size plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,6 +25,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -33,6 +34,7 @@
 		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",

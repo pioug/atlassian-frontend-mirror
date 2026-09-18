@@ -4,7 +4,6 @@ import type { HiddenTimingItem } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
 import type { SsrSuccessBreakdown } from '../ssr';
 import { type VCObserver } from '../vc/vc-observer';
-
 import type {
 	AbortReasonType,
 	ApdexType,

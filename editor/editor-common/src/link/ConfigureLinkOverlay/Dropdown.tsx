@@ -22,7 +22,6 @@ import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { cardMessages as messages } from '../../messages';
-
 import { StyledButton } from './StyledButton';
 import { useLinkOverlayAnalyticsEvents } from './useLinkOverlayAnalyticsEvents';
 

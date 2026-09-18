@@ -1,5 +1,7 @@
 import React, { type PropsWithChildren } from 'react';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
 import { type Article, type ArticleItem, type ArticleFeedback } from '../../model/Article';
 import { type articleId } from '../../model/Help';
 import { createCtx } from '../../util/hooks/ctx';

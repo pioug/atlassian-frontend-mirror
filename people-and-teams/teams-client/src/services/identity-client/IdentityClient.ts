@@ -1,7 +1,6 @@
 import { type EditableUserFields } from '../../types/user';
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
-
 import { dataURItoFile } from './dataURItoFile';
 import { toManageAPIInput } from './toManageAPIInput'; // eslint-disable-line @typescript-eslint/consistent-type-imports
 import { transformUserManageConfig } from './transformUserManageConfig';

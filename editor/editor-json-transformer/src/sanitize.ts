@@ -5,6 +5,7 @@
 /**
  * @deprecated Use `import { sanitizeNode } from '@atlaskit/editor-json-transformer/sanitize/sanitize-node'` instead.
  */
+
 export { sanitizeNode } from './sanitize/sanitize-node';
 /**
  * @deprecated Use `import { removeMarks } from '@atlaskit/editor-json-transformer/sanitize/remove-marks'` instead.

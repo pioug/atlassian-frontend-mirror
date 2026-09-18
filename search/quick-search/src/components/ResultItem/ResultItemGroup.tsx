@@ -1,4 +1,5 @@
 import React from 'react';
+
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 

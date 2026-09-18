@@ -23,7 +23,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type BreadcrumbsItemProps, type BreadcrumbsProps } from '../types';
-
 import BreadcrumbsCurrentItem from './breadcrumbs-current-item';
 import EllipsisItem from './ellipsis-item';
 import { BreadcrumbsSizeProvider } from './internal/breadcrumbs-size-provider';

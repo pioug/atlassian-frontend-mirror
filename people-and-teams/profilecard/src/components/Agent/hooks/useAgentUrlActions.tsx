@@ -10,7 +10,6 @@ import { encodeParamsToUrl } from '../../../util/url';
 import { getAtlassianStudioAgentDuplicateUrl } from '../utils/getAtlassianStudioAgentDuplicateUrl';
 import { getAtlassianStudioAgentEditUrl } from '../utils/getAtlassianStudioAgentEditUrl';
 import { getStudioPath } from '../utils/getStudioPath';
-
 import { fetchActivationId } from './fetchActivationId';
 import { fetchDuplicateAgentMutation } from './fetchDuplicateAgentMutation';
 import { fetchHasVersionCapability } from './fetchHasVersionCapability';

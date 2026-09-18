@@ -1,8 +1,10 @@
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import MarkdownIt from 'markdown-it';
 import { markdownItTable } from 'markdown-it-table';
+
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { MarkdownParser } from '@atlaskit/editor-prosemirror/markdown';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import { markdownItMedia } from './media';
 
 // Ignored via go/ees005

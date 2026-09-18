@@ -1,3 +1,11 @@
+import React from 'react';
+
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import isEqual from 'lodash/isEqual';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import styled from 'styled-components';
+
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import AkAvatar from '@atlaskit/avatar/avatar';
 import AkComment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -5,10 +13,7 @@ import type { EditorProps } from '@atlaskit/editor-core';
 import type { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { ConnectedReactionsView } from '@atlaskit/reactions';
 import { ReactRenderer } from '@atlaskit/renderer';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from 'styled-components';
+
 import type { HttpError } from '../api/HttpError';
 import CommentContainer from '../containers/Comment';
 import { actionSubjectIds, eventTypes, fireEvent, trackEventActions } from '../internal/analytics';
@@ -16,8 +21,6 @@ import type { Comment as CommentType } from '../model/Comment';
 import type { User } from '../model/User';
 import Editor from './Editor';
 import type { SharedProps, RenderEditorWithComments } from './types';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import isEqual from 'lodash/isEqual';
 
 export interface Props extends SharedProps {
 	canModerateComment?: boolean;

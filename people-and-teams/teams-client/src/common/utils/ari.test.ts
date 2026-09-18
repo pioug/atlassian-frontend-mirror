@@ -1,5 +1,4 @@
 import { TEAM_ARI_PREFIX, USER_ARI_PREFIX } from '../types';
-
 import { isTeamARI } from './is-team-ari';
 import { isUserARI } from './is-user-ari';
 import { toTeamARI } from './to-team-ari';

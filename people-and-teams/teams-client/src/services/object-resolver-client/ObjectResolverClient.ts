@@ -1,6 +1,5 @@
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
-
 import { transformIconData } from './transformIconData';
 import type {
 	GetAriFromUrlResponse,

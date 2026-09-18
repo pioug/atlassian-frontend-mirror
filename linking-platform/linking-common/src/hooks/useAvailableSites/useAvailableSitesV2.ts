@@ -2,21 +2,20 @@ import { useState, useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
+import { shouldUseUnitCompliantApi } from '../../units-rollout/shouldUseUnitCompliantApi';
 import { useIsMounted } from '../useIsMounted';
 import {
 	ACCESSIBLE_PRODUCTS_PATH,
 	ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH,
 	defaultProducts,
 } from './index';
+import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
 import { mapAccessibleProductsToAvailableSites } from './mapAccessibleProductsToAvailableSites';
 import {
 	type AccessibleProductResponse,
 	type AvailableSite,
 	type AvailableSitesRequest,
 } from './types';
-import { shouldUseUnitCompliantApi } from '../../units-rollout/shouldUseUnitCompliantApi';
-
-import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
 
 async function getAccessibleProducts({
 	products,

@@ -2,7 +2,6 @@ import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 // oxlint-disable-next-line import/no-duplicates
 import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
-import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import {
 	type AddMarkStep,
 	type AddNodeMarkStep,
@@ -10,6 +9,7 @@ import {
 	StepMap,
 	StepResult,
 } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 type ViewModeStepProps = {
 	from: number;

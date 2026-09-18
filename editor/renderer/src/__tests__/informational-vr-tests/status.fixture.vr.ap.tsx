@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
-import { statusInPanelAdf, mixedCaseStatusInPanelAdf } from '../__fixtures__/status.adf';
 
+import { statusInPanelAdf, mixedCaseStatusInPanelAdf } from '../__fixtures__/status.adf';
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 export const StatusInPanelRenderer: ComponentType<any> = generateRendererComponent({

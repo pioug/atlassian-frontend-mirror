@@ -11,7 +11,6 @@ import { useCallback } from 'react';
 import { useAnalyticsEvents as useAnalyticsNextEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { EVENT_CHANNEL } from '../constants';
-
 import type { EventKey } from './analytics.types';
 import createEventPayload from './create-event-payload';
 

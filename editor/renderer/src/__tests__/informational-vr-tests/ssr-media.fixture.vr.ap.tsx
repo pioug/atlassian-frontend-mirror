@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
-import { IntlProvider } from 'react-intl';
+
 import { hydrateRoot } from 'react-dom/client';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import type { SSR } from '@atlaskit/media-common';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import ReactDOMServer from 'react-dom/server';
-import { Renderer } from '../../entry-points/renderer-default';
+import { IntlProvider } from 'react-intl';
+
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-client/test-helpers';
+import type { SSR } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+
+import { Renderer } from '../../entry-points/renderer-default';
 import { adfMediaSingleAndMediaGroupFiles } from './__fixtures__';
 
 const getMediaClientConfig = async () => {

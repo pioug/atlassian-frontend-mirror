@@ -24,7 +24,6 @@ import {
 	removeInlineCommentFromDoc,
 } from '../editor-commands';
 import { AnnotationSelectionType } from '../types';
-
 import type { InlineCommentPluginOptions } from './types';
 import { inlineCommentPluginKey, isSelectionValid } from './utils';
 

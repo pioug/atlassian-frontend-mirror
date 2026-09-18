@@ -6,7 +6,6 @@ import { hierarchy } from '@visx/hierarchy';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { CharlieHierarchy } from '../src';
-
 import { rootNode } from './common/basic-hierarchy';
 
 const containerStyles = xcss({

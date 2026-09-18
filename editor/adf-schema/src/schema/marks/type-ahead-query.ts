@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { typeAheadQuery as typeAheadQueryFactory } from '../../next-schema/generated/markTypes';
 import { B400 } from '../../utils/colors';
 

@@ -6,10 +6,10 @@ import { userEvent } from '@testing-library/user-event';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import Tabs from '../../components/tabs';
 import Tab from '../../components/tab';
 import TabList from '../../components/tab-list';
 import TabPanel from '../../components/tab-panel';
+import Tabs from '../../components/tabs';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

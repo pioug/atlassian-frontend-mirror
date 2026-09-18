@@ -4,8 +4,10 @@
  */
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
-import { RendererWithAnalytics as Renderer } from '../src/';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+
+import { RendererWithAnalytics as Renderer } from '../src/';
 
 const doc = {
 	version: 1,

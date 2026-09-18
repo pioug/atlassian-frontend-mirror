@@ -15,6 +15,8 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+// eslint-disable-next-line import/order
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { Inline } from '@atlaskit/primitives/compiled';
 
 import AiAgentAddIcon from '../../../../core/ai-agent-add';
@@ -528,9 +530,6 @@ import WorkItemAddIcon from '../../../../core/work-item-add';
 import WorkflowControlsIcon from '../../../../core/workflow-controls';
 import WorldIcon from '../../../../core/world';
 import WrenchIcon from '../../../../core/wrench';
-
-// eslint-disable-next-line import/order
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 const Icons = [
 	AiGenerativeAudioBriefingIcon,

@@ -36,7 +36,6 @@
 import type { AppConfig, InitProgressReport, MLCEngine } from '@mlc-ai/web-llm';
 
 import { abortExp, EXPERIENCE_NAME, failExp, startExp, succeedExp } from '../analytics/ufo';
-
 import { fetchAutocompleteArtifactJson } from './artifact-loader';
 import { ARTIFACT_NAME } from './artifacts-manifest';
 import {

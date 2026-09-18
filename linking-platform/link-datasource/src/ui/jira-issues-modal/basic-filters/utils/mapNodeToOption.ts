@@ -1,6 +1,5 @@
 import { type SelectOption } from '../../../common/modal/popup-select/types';
 import { type AggJqlBuilderFieldNode } from '../types';
-
 import { checkAndConvertToAbsoluteUrl } from './checkAndConvertToAbsoluteUrl';
 import { getLozengeAppearance } from './getLozengeAppearance';
 

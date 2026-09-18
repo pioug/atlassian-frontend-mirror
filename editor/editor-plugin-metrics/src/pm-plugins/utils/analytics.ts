@@ -8,7 +8,6 @@ import type { ActiveSessionEventPayload } from '@atlaskit/editor-common/analytic
 import type { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import type { MetricsState } from '../main';
-
 import { getNodeChanges } from './get-node-changes';
 
 export const getAnalyticsPayload = ({

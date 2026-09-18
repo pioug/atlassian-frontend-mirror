@@ -13,7 +13,6 @@ import type { EditorAppearanceComponentProps } from '../../types/editor-appearan
 import EditorContentContainer from '../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
-
 import { ChromelessEditorContainer } from './ChromelessEditorContainer';
 type AppearanceProps = EditorAppearanceComponentProps<
 	[OptionalPlugin<MaxContentSizePlugin>, OptionalPlugin<EditorViewModePlugin>]

@@ -1,5 +1,5 @@
-import { MockImage } from './globalImageMock/MockImage';
 import { mockGlobalImageState } from './globalImageMock/mockGlobalImageState';
+import { MockImage } from './globalImageMock/MockImage';
 
 declare var global: any;
 

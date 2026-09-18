@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { token } from '@atlaskit/tokens';
+
 import { StatusPicker, type ColorType } from '../src/picker';
 
 export interface Props {

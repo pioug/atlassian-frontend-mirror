@@ -1,14 +1,3 @@
-import type { DateDefinition as Date } from '../date';
-import type { EmojiDefinition as Emoji } from '../emoji';
-import type { HardBreakDefinition as HardBreak } from '../hard-break';
-import type { InlineCardDefinition as InlineCard } from '../inline-card';
-import type { InlineExtensionDefinition } from '../inline-extension';
-import type { MediaInlineDefinition } from '../media-inline';
-import type { MentionDefinition as Mention } from '../mention';
-import type { PlaceholderDefinition as Placeholder } from '../placeholder';
-import type { StatusDefinition as Status } from '../status';
-import type { TextDefinition as Text } from '../text';
-import type { MarksObject } from './mark';
 import type {
 	AnnotationMarkDefinition as Annotation,
 	CodeDefinition as Code,
@@ -21,6 +10,17 @@ import type {
 	UnderlineDefinition as Underline,
 	BackgroundColorDefinition as BackgroundColor,
 } from '../../marks';
+import type { DateDefinition as Date } from '../date';
+import type { EmojiDefinition as Emoji } from '../emoji';
+import type { HardBreakDefinition as HardBreak } from '../hard-break';
+import type { InlineCardDefinition as InlineCard } from '../inline-card';
+import type { InlineExtensionDefinition } from '../inline-extension';
+import type { MediaInlineDefinition } from '../media-inline';
+import type { MentionDefinition as Mention } from '../mention';
+import type { PlaceholderDefinition as Placeholder } from '../placeholder';
+import type { StatusDefinition as Status } from '../status';
+import type { TextDefinition as Text } from '../text';
+import type { MarksObject } from './mark';
 
 /**
  * @name formatted_text_inline_node

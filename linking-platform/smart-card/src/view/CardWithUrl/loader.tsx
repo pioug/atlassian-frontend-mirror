@@ -10,13 +10,12 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { failUfoExperience } from '../../state/analytics/failUfoExperience';
 import { startUfoExperience } from '../../state/analytics/startUfoExperience';
-import { importWithRetry } from '../../utils/import-with-retry';
 import { useSmartLinkAnalyticsContext } from '../../utils/analytics/useSmartLinkAnalyticsContext';
 import { clearMarks } from '../../utils/clear-marks';
 import { clearMeasures } from '../../utils/clear-measures';
+import { importWithRetry } from '../../utils/import-with-retry';
 import { isFlexibleUiCard } from '../../utils/is-flexible-ui-card';
 import { type CardProps } from '../Card/types';
-
 import { LoadingCardLink } from './component-lazy/LoadingCardLink';
 import { type CardWithUrlContentProps } from './types';
 export const LazyCardWithUrlContent: React.LazyExoticComponent<

@@ -1,6 +1,9 @@
 /* eslint-disable @atlassian/testing-library/prefer-atlassian-testing-library -- Emoji tests use the package's existing RTL dependency. */
+
 import React, { Component } from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import LoadingEmojiComponent, {
 	type Props,

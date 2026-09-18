@@ -8,7 +8,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
-
 import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 
 interface AkProps {

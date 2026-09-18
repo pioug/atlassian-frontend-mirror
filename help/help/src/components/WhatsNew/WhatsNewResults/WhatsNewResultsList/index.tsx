@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import ShowMoreButton from '../../../ShowMoreButton';
-import { useNavigationContext } from '../../../contexts/navigationContext';
 import { ARTICLE_TYPE } from '../../../../model/Help';
 import { NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE } from '../../../constants';
-
-import ArticlesList from './WhatsNewResultsList';
-import { WhatsNewResultsListContainer } from './styled';
+import { useNavigationContext } from '../../../contexts/navigationContext';
+import ShowMoreButton from '../../../ShowMoreButton';
 import { type WhatsNewResultsList as WhatsNewResultsListInterface } from './model/WhatsNewResultsList';
+import { WhatsNewResultsListContainer } from './styled';
+import ArticlesList from './WhatsNewResultsList';
 
 const WhatsNewResultsList: React.FC<WhatsNewResultsListInterface> = ({
 	style,

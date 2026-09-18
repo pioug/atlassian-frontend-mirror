@@ -4,8 +4,8 @@
  */
 import React, { useCallback } from 'react';
 
-import { useIntl } from 'react-intl';
 import { cssMap as compiledCssMap } from '@compiled/react';
+import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';

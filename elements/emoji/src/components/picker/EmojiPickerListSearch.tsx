@@ -2,19 +2,23 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import SearchIcon from '@atlaskit/icon/core/search';
-import TextField from '@atlaskit/textfield/text-field';
-import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
-import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+
 import React, { useLayoutEffect, useRef, useState } from 'react';
+
+import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
+
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import SearchIcon from '@atlaskit/icon/core/search';
+import TextField from '@atlaskit/textfield/text-field';
+import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
+
 import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
-import { messages } from '../i18n';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
+import { messages } from '../i18n';
 
 const isEmojiPickerInitialFocusFixEnabled = (): boolean => {
 	if (!FeatureGates.initializeCompleted()) {

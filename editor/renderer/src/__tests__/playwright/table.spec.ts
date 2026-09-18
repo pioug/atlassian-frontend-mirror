@@ -1,9 +1,8 @@
+import adf from '../__fixtures__/table-complex-selections.adf.json';
 import { selectors as decisionSelectors } from '../__helpers/page-objects/_decision';
 import { selectors as expandSelectors } from '../__helpers/page-objects/_expand';
 import { selectors as statusSelectors } from '../__helpers/page-objects/_status';
-
 import { expect, rendererTestCase as test } from './not-libra';
-import adf from '../__fixtures__/table-complex-selections.adf.json';
 
 test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
 

@@ -1,13 +1,15 @@
 /* eslint-disable no-console */
 
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
 
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { token } from '@atlaskit/tokens';
-import ToolsDrawer from './helpers/ToolsDrawer';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
 import { BitbucketTransformer } from '../src';
+import ToolsDrawer from './helpers/ToolsDrawer';
 
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');

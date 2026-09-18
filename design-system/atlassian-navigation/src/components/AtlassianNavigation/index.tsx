@@ -14,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
 import { defaultTheme, ThemeProvider } from '../../theme';
 import { PrimaryItemsContainer } from '../PrimaryItemsContainer';
-
 import { type AtlassianNavigationProps } from './types';
 
 const containerStyles = css({

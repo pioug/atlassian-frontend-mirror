@@ -1,10 +1,12 @@
 import React from 'react';
-import { initialDoc } from '../../__fixtures__/initial-doc';
-import type { RendererProps } from '../../../ui/renderer-props';
-import { Renderer } from '../../../entry-points/renderer-default';
-import { IntlProvider } from 'react-intl';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl';
+
+import { Renderer } from '../../../entry-points/renderer-default';
+import type { RendererProps } from '../../../ui/renderer-props';
+import { initialDoc } from '../../__fixtures__/initial-doc';
 
 const tooltipMessage =
 	'Content is not available in this editor, this will be preserved when you edit and save';

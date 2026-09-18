@@ -1,4 +1,5 @@
 import { type NumericalCardDimensions } from '@atlaskit/media-common';
+
 import { type MediaCardErrorInfo } from '../../utils/analytics';
 
 export type MediaCardSsrData = {

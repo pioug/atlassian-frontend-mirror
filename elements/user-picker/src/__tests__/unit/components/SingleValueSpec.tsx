@@ -1,12 +1,15 @@
+import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
-import React from 'react';
 import { IntlProvider } from 'react-intl';
+
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+
 import { type Props } from '../../../components/SingleValue';
 import { SingleValue } from '../../../components/SingleValue';
-import { type Team, type Group } from '../../../types';
 import { type Props as SizeableAvatarProps } from '../../../components/SizeableAvatar';
-import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+import { type Team, type Group } from '../../../types';
 
 const data = {
 	label: 'Jace Beleren',

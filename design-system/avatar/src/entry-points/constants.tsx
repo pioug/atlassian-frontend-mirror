@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { ACTIVE_SCALE_FACTOR, BORDER_WIDTH } from '@atlaskit/avatar/constants/default'` instead.
  */
+
 export { ACTIVE_SCALE_FACTOR, BORDER_WIDTH } from '../constants';
 /**
  * @deprecated Use `import { AVATAR_RADIUS } from '@atlaskit/avatar/avatar-radius'` instead.

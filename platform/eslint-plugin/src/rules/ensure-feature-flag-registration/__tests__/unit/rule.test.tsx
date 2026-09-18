@@ -1,6 +1,7 @@
+import { type PackageJson } from 'read-pkg-up';
+
 import { tester } from '../../../../__tests__/utils/_tester';
 import rule from '../../index';
-import { type PackageJson } from 'read-pkg-up';
 
 let mockPath = 'test/package.json';
 

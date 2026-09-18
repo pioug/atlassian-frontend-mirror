@@ -1,6 +1,6 @@
 import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema/font-size';
-import { uuid } from '@atlaskit/adf-schema/uuid';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -44,7 +44,6 @@ import {
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { GetContextIdentifier, TaskDecisionListType } from '../types';
-
 import { moveSelectedTaskListItems } from './actions/move-selected-task-list-items';
 import { joinAtCut } from './commands';
 import {

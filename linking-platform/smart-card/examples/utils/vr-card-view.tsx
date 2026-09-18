@@ -1,9 +1,7 @@
 import React from 'react';
 
 import VRTestWrapper, { type VRTestWrapperProps } from '../utils/vr-test-wrapper';
-
 import CardView, { type CardViewLayoutProps } from './card-view';
-
 // Statically import the component to ensure it's loaded before the test runs
 import '../../src/view/CardWithUrl/component-lazy';
 

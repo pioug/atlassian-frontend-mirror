@@ -6,7 +6,6 @@ import EditIcon from '@atlaskit/icon/core/edit';
 
 import { messages } from '../../../../../messages';
 import Action from '../action';
-
 import { type EditActionProps } from './types';
 
 const EditAction = (props: EditActionProps): React.JSX.Element => (

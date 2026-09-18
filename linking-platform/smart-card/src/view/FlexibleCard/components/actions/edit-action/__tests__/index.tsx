@@ -1,5 +1,4 @@
 import '@atlaskit/link-test-helpers/jest';
-
 import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';

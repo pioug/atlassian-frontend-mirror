@@ -16,7 +16,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../types';
-
 import {
 	nativeStickyHeaderZIndex,
 	tableBorderColor,

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { type VirtualElement } from '@popperjs/core';
-import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import __noop from '@atlaskit/ds-lib/noop';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Popper } from '../../popper';
 

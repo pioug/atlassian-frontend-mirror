@@ -1,9 +1,10 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import { default as BasicExample } from './01-basic';
 import { default as BasicThreeSectionsExample } from './02-basic-three-sections';
 import { default as BasicAnyNumberSectionsExample } from './03-basic-any-number-sections';
-import { default as BasicSectionBelowViewportWithHoldExample } from './03-basic-section-below-viewport-with-hold';
 import { default as BasicSectionBelowViewportExample } from './03-basic-section-below-viewport';
+import { default as BasicSectionBelowViewportWithHoldExample } from './03-basic-section-below-viewport-with-hold';
 import { default as BasicSectionUnmountExample } from './03-basic-section-unmount';
 import { default as BasicSsrTimingSectionsExample } from './03-basic-ssr-timing-sections';
 import { default as BasicWithCustomCohortDataExample } from './03-basic-with-custom-cohort-data';
@@ -31,10 +32,10 @@ import { default as AppWithTopLeftNavExample } from './21-app-with-top-left-nav'
 import { default as LoadHoldInteractionIdTrackingExample } from './21-load-hold-interaction-id-tracking';
 import { default as RllSimulationExample } from './22-rll-simulation';
 import { default as InteractionsSimpleButtonExample } from './23-interactions-simple-button';
+import { default as ThirdPartySegmentExample } from './24-third-party-segment';
 import { default as ThirdPartySegmentAbortHoldExample } from './24-third-party-segment-abort-hold';
 import { default as ThirdPartySegmentDangerousHtmlExample } from './24-third-party-segment-dangerous-html';
 import { default as ThirdPartySegmentIframeExample } from './24-third-party-segment-iframe';
-import { default as ThirdPartySegmentExample } from './24-third-party-segment';
 import { default as VcNoLayoutShiftExample } from './25-vc-no-layout-shift';
 import { default as VcNoLayoutShiftFalseExample } from './25-vc-no-layout-shift_false';
 import { default as SsrPlaceholderV3Example } from './26-ssr-placeholder-v3';
@@ -45,8 +46,8 @@ import { default as BasicWith3SectionsButtonMinorInteractionsOverrideExample } f
 import { default as BasicWithLateHoldExample } from './34-basic-with-late-hold';
 import { default as FinishInteractionTransitionExample } from './34-finish-interaction-transition';
 import { default as SearchPageWithoutSmartAnswersExample } from './34-search-page-without-smart-answers';
-import { default as SearchPageWithSlowerSmartAnswersClassChangeExample } from './35-search-page-with-slower-smart-answers-class-change';
 import { default as SearchPageWithSlowerSmartAnswersExample } from './35-search-page-with-slower-smart-answers';
+import { default as SearchPageWithSlowerSmartAnswersClassChangeExample } from './35-search-page-with-slower-smart-answers-class-change';
 import { default as SearchPageWithFasterSmartAnswersExample } from './36-search-page-with-faster-smart-answers';
 import { default as PoorlyPerformingComponentsExample } from './37-poorly-performing-components';
 import { default as ThirdPartySegmentLongHoldExample } from './37-third-party-segment-long-hold';

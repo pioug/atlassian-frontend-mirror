@@ -1,17 +1,19 @@
 import { useRef } from 'react';
 import React, { useMemo, useState, useEffect } from 'react';
+
+import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
+import Card from '@atlaskit/media-card/cardLoader';
+import { CardLoading } from '@atlaskit/media-card/cardLoading';
+import { isFileIdentifier } from '@atlaskit/media-client';
 import {
 	MediaClientContext,
 	MediaClientProvider,
 } from '@atlaskit/media-client-react/media-client-provider';
 import { useFileHashes } from '@atlaskit/media-client-react/use-file-hashes';
-import Card from '@atlaskit/media-card/cardLoader';
-import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
-import { CardLoading } from '@atlaskit/media-card/cardLoading';
+
 import { FilmstripView, type SizeEvent, type ScrollEvent } from './filmstripView';
-import { generateIdentifierKey } from './utils/generateIdentifierKey';
 import { type FilmstripProps } from './types';
-import { isFileIdentifier } from '@atlaskit/media-client';
+import { generateIdentifierKey } from './utils/generateIdentifierKey';
 
 export function usePrevious<T>(value: T | undefined): T | undefined {
 	const ref = useRef<T | undefined>();

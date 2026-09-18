@@ -1,11 +1,11 @@
+import type { ComponentType } from 'react';
+
+import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 import {
 	codeBlockInBlockquoteADF,
 	codeBlockOverflowInBlockquoteADF,
 } from '../__fixtures__/code-block-inside-blockquote.adf';
-import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
-
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import type { ComponentType } from 'react';
 
 export const CodeBlockInBlockquote: ComponentType<any> = generateRendererComponent({
 	document: codeBlockInBlockquoteADF(),

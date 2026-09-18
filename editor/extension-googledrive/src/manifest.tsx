@@ -1,7 +1,8 @@
-import type { ExtensionManifest, MaybeADFEntity } from '@atlaskit/editor-common/extensions';
-import enableGoogleDrive from './enable-googledrive';
-import { inlineCard } from '@atlaskit/adf-utils/builders';
 import type { InlineCardDefinition } from '@atlaskit/adf-schema/inline-card';
+import { inlineCard } from '@atlaskit/adf-utils/builders';
+import type { ExtensionManifest, MaybeADFEntity } from '@atlaskit/editor-common/extensions';
+
+import enableGoogleDrive from './enable-googledrive';
 
 declare global {
 	interface Window {

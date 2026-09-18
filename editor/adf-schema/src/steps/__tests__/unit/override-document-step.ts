@@ -1,8 +1,9 @@
-import { StepMap } from '@atlaskit/editor-prosemirror/transform';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { createEditorState } from '@af/adf-test-helpers/src/create-editor-state';
 import { doc, p } from '@af/adf-test-helpers/src/doc-builder';
 import { defaultSchema } from '@af/adf-test-helpers/src/schema';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { StepMap } from '@atlaskit/editor-prosemirror/transform';
+
 import { OverrideDocumentStep } from '../../override-document-step';
 
 describe('Override Document Step', () => {

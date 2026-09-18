@@ -1,5 +1,4 @@
 import { type UFOGlobalEventStreamEvent } from '../types';
-
 import { MAX_EARLY_QUEUE_LENGTH } from './index';
 import { type GlobalEventStream } from './index';
 

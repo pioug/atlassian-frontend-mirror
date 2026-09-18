@@ -12,7 +12,6 @@ import { canSplitCellSelection } from '../../../pm-plugins/commands/split-cell';
 import { canMergeCellSelection } from '../../../pm-plugins/transforms/merge';
 import { canMove } from '../../../pm-plugins/utils/drag-menu';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../../../types';
-
 import { TableMenuProvider } from './TableMenuContext';
 
 type TableMenuProps = {

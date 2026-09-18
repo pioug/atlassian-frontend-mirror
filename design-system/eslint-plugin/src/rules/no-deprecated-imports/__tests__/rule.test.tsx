@@ -2,7 +2,6 @@ import { tester } from '../../__tests__/utils/_tester';
 import { getConfig } from '../../utils/get-deprecated-config';
 import { importNameWithCustomMessageId, pathWithCustomMessageId } from '../constants';
 import rule from '../index';
-
 import { invalidDeprecatedIconTests } from './__helpers/icon-test-helper';
 
 const deprecatedImports = getConfig('imports');

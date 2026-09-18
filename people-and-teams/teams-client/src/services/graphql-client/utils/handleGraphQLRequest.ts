@@ -10,7 +10,6 @@ import {
 	type Options,
 	type ResultResponse,
 } from '../types';
-
 import { makeGraphQLRequestWithoutRetries } from './makeGraphQLRequestWithoutRetries';
 
 export async function handleGraphQLRequest<Key extends string, Data = unknown, Variables = unknown>(

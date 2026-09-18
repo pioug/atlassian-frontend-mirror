@@ -2,12 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import React from 'react';
+
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { token } from '@atlaskit/tokens';
+
 import { JIRATransformer } from '../src';
 
 const container = css({

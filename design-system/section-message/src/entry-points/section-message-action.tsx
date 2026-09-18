@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import SectionMessageAction from '@atlaskit/section-message/message-action'` instead.
  */
+
 export { default } from '../section-message-action';
 /**
  * @deprecated Use `import type { SectionMessageActionProps } from '@atlaskit/section-message/types'` instead.

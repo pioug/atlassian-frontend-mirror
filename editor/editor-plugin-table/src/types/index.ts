@@ -28,6 +28,7 @@ export type RowInsertPosition = 'TOP' | 'BOTTOM';
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6877 Internal documentation for deprecation (no external access)}
  **/
+
 export type PermittedLayoutsDescriptor = TableLayout[] | 'all';
 export type Cell = { node: PmNode; pos: number; start: number };
 export type CellTransform = (cell: Cell) => (tr: Transaction) => Transaction;

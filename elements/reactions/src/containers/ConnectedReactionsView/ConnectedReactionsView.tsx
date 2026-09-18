@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { type WithSamplingUFOExperience } from '@atlaskit/emoji';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { type WithSamplingUFOExperience } from '@atlaskit/emoji';
 
 import { UfoErrorBoundary, type ReactionsProps, type ReactionPickerProps } from '../../components';
 import { Reactions } from '../../components/Reactions';

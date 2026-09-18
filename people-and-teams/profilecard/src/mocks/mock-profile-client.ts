@@ -4,7 +4,6 @@ import {
 } from '../client/TeamCentralCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
 import { type ClientOverrides, type ProfileClientOptions } from '../types';
-
 import { getTimeString } from './get-time-string';
 import { getWeekday } from './get-weekday';
 import profiles from './profile-data';

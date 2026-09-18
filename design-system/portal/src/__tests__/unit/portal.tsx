@@ -1,4 +1,5 @@
 /* eslint-disable testing-library/no-node-access */
+
 import React, { type ReactNode, StrictMode, useEffect } from 'react';
 
 import { act, render, screen } from '@testing-library/react';
@@ -9,9 +10,9 @@ import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
-import Portal from '../../portal';
 import { portalParentSelector } from '../../internal/constants';
 import * as createContainerModule from '../../internal/utils/create-container';
+import Portal from '../../portal';
 
 replaceRaf();
 

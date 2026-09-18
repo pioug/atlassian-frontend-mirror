@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { fireEvent, render, type RenderResult } from '@testing-library/react';
-import QuizWidget from '../../components/QuizWidget/index';
+
 import { quizContent } from '../../../examples/0-Quiz-Widget';
+import QuizWidget from '../../components/QuizWidget/index';
 
 describe('QuizWidget', () => {
 	let quizComponent: RenderResult;

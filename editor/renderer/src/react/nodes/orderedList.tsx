@@ -1,9 +1,10 @@
 import React from 'react';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
+
 import { orderedListSelector } from '@atlaskit/adf-schema/ordered-list';
 import { getOrderedListInlineStyles } from '@atlaskit/editor-common/styles';
-
 import { getItemCounterDigitsSize, resolveOrder } from '@atlaskit/editor-common/utils';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+
 import type { NodeContent } from '../types';
 import { getListIndentLevel } from '../utils/lists';
 

@@ -6,7 +6,6 @@ import type { MentionNodeData, MentionProvider } from '@atlaskit/mention/types';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';
-
 import type {
 	MentionNodeDataIdentifier,
 	MentionNodeDataProvider,

@@ -8,7 +8,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { MediaOptions } from '../../types';
 import { canInsertMediaInline } from '../utils/media-files';
 import { isMediaSingle } from '../utils/media-single';
-
 import { isImage, isVideo } from './is-type';
 import { isInsidePotentialEmptyParagraph } from './media-common';
 

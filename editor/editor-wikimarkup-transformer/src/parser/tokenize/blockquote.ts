@@ -1,5 +1,5 @@
-import { rawContentProcessor } from './quote-macro';
 import type { Token, TokenParser } from './';
+import { rawContentProcessor } from './quote-macro';
 
 // bq. foobarbaz
 // Ignored via go/ees005

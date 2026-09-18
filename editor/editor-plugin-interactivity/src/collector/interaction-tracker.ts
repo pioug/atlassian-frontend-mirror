@@ -1,81 +1,20 @@
 import type { EditorInteractionGroupName } from '../analytics/interactivity-snapshot';
-import { BoundedList } from '../collections/bounded-list';
 import { BoundedMap } from '../collections/bounded-map';
-
 import { eventKey, interactionEventKind } from './interaction-events';
 
-/**
- * The Event Timing fields this package reads, declared optional so that a `PerformanceEntry` from
- * `getEntries()` is assignable without a cast — `interactionId` is missing from the DOM typings'
- * `PerformanceEventTiming` altogether, and the rest are only on it.
- */
+/** Optional so a `PerformanceEntry` is assignable without a cast: the DOM typings lack the field. */
 export type InteractionEntry = PerformanceEntry & {
 	interactionId?: number;
-	processingEnd?: number;
-	processingStart?: number;
-	target?: Node | null;
 };
 
-/**
- * One paint, and the processing of every event it presented.
- *
- * One paint can present several events, and the handlers of all of them ran before it: a
- * `pointerover` handler that was still running when the user clicked held up the paint that showed
- * the click. So an interaction's processing is the processing of its whole paint, not of its own
- * events only — otherwise a handler that is not its own reads as time the user waited for nothing.
- *
- * Event Timing gives a paint no identity. The only thing an entry says about it is
- * `startTime + duration`, the moment it happened, so that is what identifies it.
- */
-type Paint = {
-	/** When it happened, as the first event it presented reported. */
-	presentedAt: number;
-	/** The latest any of those events finished running handlers. */
-	processingEndedAt: number;
-	/** The earliest any of them started. */
-	processingStartedAt: number;
-};
-
-/**
- * The paint an entry was presented by, and whether the entry moved the processing that paint covers.
- * An entry whose handlers ran inside what the paint already covered changes nothing for any
- * interaction reading its boundaries from it.
- */
-type PaintPlacement = {
-	grew: boolean;
-	paint: Paint;
-};
-
-/**
- * The four moments an interaction's latency divides at, in order: the user acted, its handlers
- * started running, they finished, the screen updated.
- */
-export type InteractionBoundaries = {
-	presentedAt: number;
-	processingEndedAt: number;
-	processingStartedAt: number;
-	startedAt: number;
-};
-
-/**
- * What an entry did to the interaction it belongs to: either it is the first entry of a new
- * interaction, or it changed an interaction already known. Both carry the editor group of the
- * interaction, if it is one of the editor's, and the boundaries it now has.
- *
- * A `remeasured` where `previousLatencyMs` equals `latencyMs` is an interaction whose latency stayed
- * as it was and whose boundaries moved: the entry ran in the same paint without being the slowest
- * of them.
- */
 export type InteractionUpdate =
 	| {
-			boundaries: InteractionBoundaries | undefined;
 			group: EditorInteractionGroupName | undefined;
 			interactionId: number;
 			latencyMs: number;
 			type: 'new';
 	  }
 	| {
-			boundaries: InteractionBoundaries | undefined;
 			group: EditorInteractionGroupName | undefined;
 			interactionId: number;
 			latencyMs: number;
@@ -83,55 +22,23 @@ export type InteractionUpdate =
 			type: 'remeasured';
 	  };
 
-/**
- * What is kept per interaction. The boundaries are not among these: they are derived from the paint
- * whenever the interaction is reported, because the paint keeps growing as the browser reports the
- * remaining events it presented.
- */
 type TrackedInteraction = {
 	group: EditorInteractionGroupName | undefined;
 	latencyMs: number;
-	/** The paint that presented the entry which measured the interaction at its slowest. */
-	presentedIn: Paint | undefined;
-	/** The `startTime` of that entry: when the user acted. */
-	startedAt: number;
 };
 
-/**
- * How many interactions are remembered, so their growth can still be applied, and how many of
- * the editor's events. Entries of one interaction arrive within the interaction itself, so
- * anything older than the last few hundred is not needed.
- */
+/** Entries of one interaction arrive within it, so older than the last few hundred is not needed. */
 const MAX_TRACKED = 256;
 
 /**
- * How many paints entries can still be placed in. The entries of a paint arrive within a batch or
- * two of each other, so this only has to cover the paints in flight; it is what `web-vitals` keeps.
- */
-const MAX_RECENT_PAINTS = 10;
-/**
- * Event Timing rounds `duration` down to 8 ms, so two events presented by one paint report that
- * paint up to this far apart — and nothing else in Event Timing says they share it.
- */
-const PRESENTATION_ROUNDING_MS = 8;
-
-/**
- * Makes interactions out of what the two observers report, for one session.
+ * Makes interactions out of what the observer reports, for one session. Entries sharing a non-zero
+ * `interactionId` — the browser's own definition of an interaction, the one INP filters on — are one
+ * interaction whose latency is the maximum `duration` among them. They arrive incrementally, so a
+ * latency can grow after it was first reported, and callers move what they counted rather than
+ * counting the interaction twice.
  *
- * Entries sharing a non-zero `interactionId` are one interaction whose latency is the
- * maximum `duration` among them. Entries arrive incrementally, so an interaction's latency
- * can grow after it was first reported — callers apply that to what they already counted
- * rather than counting the interaction twice.
- *
- * A non-zero `interactionId` is the browser's own definition of an interaction, which is
- * also what INP filters on: it is assigned to the pointer and keyboard events that make one
- * up, and never to scrolling or pointer movement.
- *
- * The editor's events answer what an entry cannot: which interactions were with the editor, and
- * how many there were, including the ones below the Event Timing reporting threshold.
- *
- * Every entry is also placed in the paint that presented it, which is what says how an
- * interaction's latency divides into waiting, processing and presentation. See `Paint`.
+ * The editor's events answer what an entry cannot: which interactions were the editor's, and how
+ * many there were, including the ones below the Event Timing reporting threshold.
  */
 export class InteractionTracker {
 	private readonly startsAfterInteractionId: number;
@@ -139,30 +46,24 @@ export class InteractionTracker {
 
 	private readonly interactions = new BoundedMap<number, TrackedInteraction>(MAX_TRACKED);
 	private readonly groupByEvent = new BoundedMap<string, EditorInteractionGroupName>(MAX_TRACKED);
-	private readonly recentPaints = new BoundedList<Paint>(MAX_RECENT_PAINTS);
 
 	private highestInteractionId = 0;
 
 	/**
-	 * @param startsAfterInteractionId interactions up to and including this one belong to the
-	 * previous tracker and are ignored. `interactionId` counts up over the life of the page, so
-	 * a session opening mid-page passes the highest id the one before it saw; without that, an
-	 * entry still arriving for an interaction from the previous session would look new here and
-	 * be counted in both.
-	 * @param startedAt when the session opened. An interaction the user started before that is
-	 * ignored, which no id can do for the first session of a page: `buffered: false` does not keep
-	 * such an entry out, because Event Timing produces it after the paint that presented the event,
-	 * so the click on Edit whose handler mounts the editor is reported to an observer that only
-	 * subscribed while that handler ran. Nothing of this session saw the event, leaving the
-	 * interaction without a group and without a target, and the page interaction count the session
-	 * started from has already counted it.
+	 * Both arguments keep the interactions of the previous session out of this one.
+	 *
+	 * @param startsAfterInteractionId the highest id the previous tracker saw. Without it, an entry
+	 * still arriving for that session's interaction would look new here and be counted twice.
+	 * @param startedAt when the session opened. No id can keep out an interaction started before the
+	 * first session of a page: Event Timing produces the entry after the event was presented, so the
+	 * click on Edit that mounted the editor reaches an observer which subscribed while its handler
+	 * ran. The page count the session started from has already counted it.
 	 */
 	constructor(startsAfterInteractionId = 0, startedAt = 0) {
 		this.startsAfterInteractionId = startsAfterInteractionId;
 		this.startedAt = startedAt;
 	}
 
-	/** The highest `interactionId` this tracker has seen. */
 	get lastInteractionId(): number {
 		return Math.max(this.highestInteractionId, this.startsAfterInteractionId);
 	}
@@ -170,42 +71,25 @@ export class InteractionTracker {
 	/**
 	 * Merges an entry into the interaction it belongs to.
 	 *
-	 * @returns what that changed about the interactions this tracker knows, the entry's own first.
-	 * More than one of them when the paint the entry ran in presented several.
+	 * @returns what that changed, or nothing when the entry belongs to no interaction of this
+	 * session or left the latency as it was.
 	 */
-	merge(entry: InteractionEntry): InteractionUpdate[] {
+	merge(entry: InteractionEntry): InteractionUpdate | undefined {
 		if (!Number.isFinite(entry.duration) || entry.duration < 0) {
-			return [];
+			return undefined;
 		}
-
-		const placement = this.paintOf(entry);
-		const paint = placement?.paint;
 
 		const { interactionId } = entry;
 
-		// Reported only when the entry grew the paint, because otherwise nothing an interaction reads
-		// from it moved. Every interaction the paint presented is here, not only the entry's own: a
-		// `first-input` or non-interaction event reports `interactionId` 0 and has none of its own,
-		// and a second press of the same paint moved where the first one spent its latency.
-		//
-		// The check below is neither reached with a `0` nor needed: the interactions reported are the
-		// ones this tracker holds, and the only way into that map is past the check.
-		const remeasuredOthers = placement?.grew
-			? this.remeasuredUpdatesIn(placement.paint, { except: interactionId })
-			: [];
-
 		if (!interactionId) {
-			return remeasuredOthers;
+			return undefined;
 		}
 
-		// No interaction of this session: the session before it counted this one already, or the user
-		// started it before this session opened. Neither condition covers the other, because an entry
-		// is dated by its own event rather than by the interaction — the `keyup` of a press that
-		// rotated the session is dated after the rotation, and the click that mounted the editor has
-		// no id to recognise it by. The entry's handlers still ran before a paint of this session
-		// either way, so the interactions that paint presented are reported regardless.
+		// Neither check covers the other: an entry is dated by its own event rather than by the
+		// interaction, so the `keyup` of a press that rotated the session is dated after the
+		// rotation, and the click that mounted the editor has no id to recognise it by.
 		if (interactionId <= this.startsAfterInteractionId || entry.startTime < this.startedAt) {
-			return remeasuredOthers;
+			return undefined;
 		}
 
 		this.highestInteractionId = Math.max(this.highestInteractionId, interactionId);
@@ -216,38 +100,28 @@ export class InteractionTracker {
 			// Taken once: an entry that only makes the interaction slower has to move its count
 			// within the group it was counted in, not into another one.
 			const group = this.groupByEvent.get(eventKey(entry.name, entry.startTime));
-			const interaction = {
-				group,
-				latencyMs: entry.duration,
-				presentedIn: paint,
-				startedAt: entry.startTime,
-			};
+			const interaction = { group, latencyMs: entry.duration };
 
 			this.interactions.set(interactionId, interaction);
 
-			return [this.newUpdate(interactionId, interaction), ...remeasuredOthers];
+			return { type: 'new', interactionId, latencyMs: interaction.latencyMs, group };
 		}
 
-		if (entry.duration > tracked.latencyMs) {
-			const previousLatencyMs = tracked.latencyMs;
-
-			tracked.latencyMs = entry.duration;
-			tracked.presentedIn = paint;
-			tracked.startedAt = entry.startTime;
-
-			return [
-				this.remeasuredUpdate(interactionId, tracked, previousLatencyMs),
-				...remeasuredOthers,
-			];
+		// Not the slowest entry of the interaction, so its latency stands.
+		if (entry.duration <= tracked.latencyMs) {
+			return undefined;
 		}
 
-		// Not the slowest entry of the interaction, so its latency stands. Its handlers still ran
-		// before the same paint, if this is that paint, and so moved where that latency went.
-		if (!placement?.grew || paint !== tracked.presentedIn) {
-			return remeasuredOthers;
-		}
+		const previousLatencyMs = tracked.latencyMs;
+		tracked.latencyMs = entry.duration;
 
-		return [this.remeasuredUpdate(interactionId, tracked, tracked.latencyMs), ...remeasuredOthers];
+		return {
+			type: 'remeasured',
+			interactionId,
+			previousLatencyMs,
+			latencyMs: tracked.latencyMs,
+			group: tracked.group,
+		};
 	}
 
 	recordEditorEvent(event: Event): EditorInteractionGroupName | undefined {
@@ -261,126 +135,5 @@ export class InteractionTracker {
 		this.groupByEvent.set(eventKey(event.type, event.timeStamp), kind.group);
 
 		return kind.counts ? kind.group : undefined;
-	}
-
-	/**
-	 * Every interaction whose boundaries are read from this paint, reported as measured again at the
-	 * latency it already had.
-	 *
-	 * @param except the interaction the entry measured, which the caller reports itself. `0` or
-	 * nothing when the entry measured none, and then no interaction is left out.
-	 */
-	private remeasuredUpdatesIn(
-		paint: Paint,
-		{ except }: { except: number | undefined },
-	): InteractionUpdate[] {
-		const remeasured: InteractionUpdate[] = [];
-
-		this.interactions.forEach((interaction, interactionId) => {
-			if (interaction.presentedIn === paint && interactionId !== except) {
-				remeasured.push(this.remeasuredUpdate(interactionId, interaction, interaction.latencyMs));
-			}
-		});
-
-		return remeasured;
-	}
-
-	private newUpdate(interactionId: number, tracked: TrackedInteraction): InteractionUpdate {
-		return {
-			type: 'new',
-			interactionId,
-			latencyMs: tracked.latencyMs,
-			group: tracked.group,
-			boundaries: this.boundariesOf(tracked),
-		};
-	}
-
-	private remeasuredUpdate(
-		interactionId: number,
-		tracked: TrackedInteraction,
-		previousLatencyMs: number,
-	): InteractionUpdate {
-		return {
-			type: 'remeasured',
-			interactionId,
-			previousLatencyMs,
-			latencyMs: tracked.latencyMs,
-			group: tracked.group,
-			boundaries: this.boundariesOf(tracked),
-		};
-	}
-
-	/**
-	 * The four moments of an interaction, read from the paint as it stands now.
-	 *
-	 * Limited the way `web-vitals` limits its INP attribution, so the four stay in order: the paint's
-	 * handlers can have started before the event arrived, and can have finished after the paint the
-	 * event's rounded-down `duration` points at.
-	 *
-	 * @returns nothing when the browser reported no processing timestamps for the interaction, which
-	 * leaves it in no paint.
-	 */
-	private boundariesOf({
-		latencyMs,
-		presentedIn,
-		startedAt,
-	}: TrackedInteraction): InteractionBoundaries | undefined {
-		if (!presentedIn) {
-			return undefined;
-		}
-
-		const processingStartedAt = Math.max(presentedIn.processingStartedAt, startedAt);
-		const presentedAt = Math.max(startedAt + latencyMs, processingStartedAt);
-		const processingEndedAt = Math.min(presentedIn.processingEndedAt, presentedAt);
-
-		return {
-			startedAt,
-			processingStartedAt,
-			processingEndedAt,
-			presentedAt,
-		};
-	}
-
-	/**
-	 * The paint that presented this entry, grown to cover this entry's own processing.
-	 *
-	 * The moment being matched is always the one the first entry of the paint reported, so that a
-	 * run of entries 8 ms apart cannot walk one paint across the next.
-	 *
-	 * @returns nothing when the browser reported no processing timestamps for the entry, which
-	 * leaves nothing to place it by.
-	 */
-	private paintOf(entry: InteractionEntry): PaintPlacement | undefined {
-		const { startTime, duration, processingStart, processingEnd } = entry;
-
-		if (typeof processingStart !== 'number' || typeof processingEnd !== 'number') {
-			return undefined;
-		}
-
-		const presentedAt = startTime + duration;
-		const knownPaint = this.recentPaints.findLast(
-			(paint) => Math.abs(presentedAt - paint.presentedAt) <= PRESENTATION_ROUNDING_MS,
-		);
-
-		if (knownPaint) {
-			const grew =
-				processingStart < knownPaint.processingStartedAt ||
-				processingEnd > knownPaint.processingEndedAt;
-
-			knownPaint.processingStartedAt = Math.min(processingStart, knownPaint.processingStartedAt);
-			knownPaint.processingEndedAt = Math.max(processingEnd, knownPaint.processingEndedAt);
-
-			return { grew, paint: knownPaint };
-		}
-
-		const newPaint = {
-			presentedAt,
-			processingStartedAt: processingStart,
-			processingEndedAt: processingEnd,
-		};
-
-		this.recentPaints.push(newPaint);
-
-		return { grew: true, paint: newPaint };
 	}
 }

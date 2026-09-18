@@ -7,8 +7,8 @@ import { jsx, css } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { type StyledBarProps } from './types';
 import { Breakpoint, getTitleBoxHeight, responsiveSettings } from '../common';
+import { type StyledBarProps } from './types';
 
 const height = 3;
 const padding = 1;

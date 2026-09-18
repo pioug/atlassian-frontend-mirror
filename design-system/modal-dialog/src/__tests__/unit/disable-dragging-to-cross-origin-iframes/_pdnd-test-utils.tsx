@@ -3,7 +3,6 @@
 
 import invariant from 'tiny-invariant';
 
-import { fireEvent } from '@atlassian/testing-library';
 import { type NativeMediaType } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 import {
 	type CleanupFn,
@@ -12,6 +11,7 @@ import {
 	type DropTargetRecord,
 	type Input,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { fireEvent } from '@atlassian/testing-library';
 
 export function getDefaultInput(overrides: Partial<Input> = {}): Input {
 	const defaults: Input = {

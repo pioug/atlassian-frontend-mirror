@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+
+import Button from '@atlaskit/button/default/button';
 import {
 	I18NWrapper,
 	defaultCollectionName,
 	addGlobalEventEmitterListeners,
 	createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
-import { MainWrapper } from '../example-helpers/MainWrapper';
-import Button from '@atlaskit/button/default/button';
+
 import {
 	docIdentifier,
 	largePdfIdentifier,
@@ -19,6 +20,7 @@ import {
 	audioItem,
 	audioItemNoCover,
 } from '../example-helpers';
+import { MainWrapper } from '../example-helpers/MainWrapper';
 import { MediaViewer } from '../src';
 
 addGlobalEventEmitterListeners();

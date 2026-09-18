@@ -9,7 +9,6 @@ import {
 import type { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 
 import { type TeamContainer } from '../../../common/types';
-
 import { actions } from './actions-2';
 import type { FireAnalyticsProps } from './fire-analytics-props';
 import type { State } from './state';

@@ -12,7 +12,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 
 import type { ColorScheme, DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
-
 import {
 	standardDecorationMarkerVariable,
 	deletedDecorationMarkerVariable,

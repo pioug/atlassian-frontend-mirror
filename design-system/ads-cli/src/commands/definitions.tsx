@@ -27,7 +27,6 @@ import { formatLintRules } from '../output/format-lint-rules';
 import { formatManifest } from '../output/format-manifest';
 import { formatToken } from '../output/format-token';
 import { type LintRule, parseLintRuleRecords } from '../output/parse-lint-rule-records';
-
 import { buildManifest } from './build-manifest';
 import { getVersion } from './get-version';
 import { normalizeBatchRequest } from './normalize-batch-request';

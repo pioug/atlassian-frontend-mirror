@@ -15,7 +15,6 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import { token } from '@atlaskit/tokens';
 
 import { getBrowserInfo } from '../../utils/browser';
-
 import { CodeBlockSharedCssClassName } from './code-block';
 import { tableCellBackgroundStyleOverride } from './tableCell';
 import { TableSharedCssClassName } from './TableSharedCssClassName';

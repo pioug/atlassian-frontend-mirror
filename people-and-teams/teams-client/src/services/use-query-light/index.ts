@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { useLazyQueryLight } from '@atlaskit/teams-client/use-query-light/use-lazy-query-light'` instead.
  */
+
 export { useLazyQueryLight } from './useLazyQueryLight';
 /**
  * @deprecated Use `import { useQueryLight } from '@atlaskit/teams-client/use-query-light/use-query-light'` instead.

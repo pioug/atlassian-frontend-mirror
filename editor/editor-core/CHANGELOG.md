@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 229.1.0
+
+### Minor Changes
+
+- [`dca860eb0017e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dca860eb0017e) -
+  Migrate Editor Core's lazy-loaded extension components to react-loosely-lazy behind the
+  `platform_editor_loosely_lazy_migration` experiment.
+
+### Patch Changes
+
+- [`38952a4383a53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38952a4383a53) -
+  Add Data and charts slash-command hover previews behind platform_editor_slash_command.
+- [`14307d3138fd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14307d3138fd3) -
+  Refactor styles to use statically analyzable values and type-checked inline constants for Compiled
+  and Atlaspack incremental builds, preserving existing styling behavior.
+- Updated dependencies
+
+## 229.0.1
+
+### Patch Changes
+
+- [`8d37dc7e55d62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d37dc7e55d62) -
+  Clean up shipped experiment `platform_editor_block_menu`
+- Updated dependencies
+
 ## 229.0.0
 
 ### Patch Changes

@@ -3,23 +3,23 @@
  * @jsx jsx
  */
 import React, { Fragment, useCallback } from 'react';
+
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
 import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
 
-import { token } from '@atlaskit/tokens';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-
-import type { Position } from '../types';
-import { InsertDraftPosition } from '../types';
-import { splitText, calcTextSplitOffset, findTextString } from './text';
-import { calcInsertDraftPositionOnText } from './position';
-import { dataAttributes } from './dom';
+import { token } from '@atlaskit/tokens';
 
 import type { TextHighlighter } from '../../../react/types';
-import { segmentText } from '../../../react/utils/segment-text';
 import { renderTextSegments } from '../../../react/utils/render-text-segments';
+import { segmentText } from '../../../react/utils/segment-text';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 import { useAnnotationRangeState } from '../contexts/AnnotationRangeContext';
+import type { Position } from '../types';
+import { InsertDraftPosition } from '../types';
+import { dataAttributes } from './dom';
+import { calcInsertDraftPositionOnText } from './position';
+import { splitText, calcTextSplitOffset, findTextString } from './text';
 
 // Localized AnnotationSharedCSSByState().common and AnnotationSharedCSSByState().focus
 const markStyles = css({

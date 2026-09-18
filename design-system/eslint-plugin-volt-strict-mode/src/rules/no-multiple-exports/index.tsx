@@ -7,7 +7,6 @@ import { createLintRule } from '../utils/create-rule';
 import { isImportBinding } from '../utils/is-import-binding';
 import { isRootPackageBarrel } from '../utils/is-root-package-barrel';
 import { lookupVariable } from '../utils/lookup-variable';
-
 import { hasSharedCompiledStyles } from './detect-shared-compiled-styles';
 import { hasSharedMutableModuleState } from './detect-shared-mutable-state';
 import { collectExportedUnitRanges } from './utils/collect-exported-unit-ranges';

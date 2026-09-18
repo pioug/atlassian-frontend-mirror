@@ -3,7 +3,6 @@ import { type Action, type BoundActions, createHook, type HookFunction } from 'r
 import type { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 
 import { type TeamContainer } from '../../../common/types';
-
 import { TeamContainersStore } from './store';
 import type { TeamContainersState } from './team-containers-state';
 

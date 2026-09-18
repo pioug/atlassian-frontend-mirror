@@ -7,7 +7,6 @@ import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { normalizeStatusColorAttr } from '../utils/normalizeStatusColor';
-
 import { statusToDOM } from './statusNodeSpec';
 
 /**

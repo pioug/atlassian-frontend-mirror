@@ -1,87 +1,87 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Mapping file
 import type React from 'react';
+
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import Loadable from 'react-loadable';
-import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
+
+import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
+import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
 	UnsupportedBlock,
 	UnsupportedInline,
 	type EventHandlers,
 } from '@atlaskit/editor-common/ui';
+import type { Diff } from '@atlaskit/editor-common/utils';
+import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+
+import type { MediaSSR } from '../../types/mediaOptions';
+import type { SmartLinksOptions } from '../../types/smartLinksOptions';
+import type ExpandComponent from '../../ui/Expand';
+import type { ExpandProps } from '../../ui/Expand';
+import type { NodeComponentsProps, RendererAppearance } from '../../ui/Renderer/types';
+import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
+import type { NodeProps } from '../types';
+import type BlockCardComponent from './blockCard';
 import Blockquote from './blockquote';
 import BodiedExtension from './bodiedExtension';
-import MultiBodiedExtension from './multiBodiedExtension';
-import ExtensionFrame from './extensionFrame';
+import type BodiedSyncBlockComponent from './bodiedSyncBlock';
 import BulletList from './bulletList';
-
-import Doc, { DocWithSelectAllTrap } from './doc';
-import Extension from './extension';
-import HardBreak from './hardBreak';
-import Heading from './heading';
-import InlineExtension from './inlineExtension';
-import LayoutSection from './layoutSection';
-import LayoutColumn from './layoutColumn';
-import ListItem from './listItem';
 import Caption from './caption';
-import OrderedList from './orderedList';
-import Paragraph from './paragraph';
-import Placeholder from './placeholder';
-import Rule from './rule';
-import Table from './table';
-import { TableCell, TableHeader } from './tableCell';
-import TableRow from './tableRow';
-import UnknownBlock from './unknownBlock';
-
-import type TaskListComponent from './taskList';
-import type TaskItemComponent from './taskItem';
-import type DecisionListComponent from './decisionList';
-import type DecisionItemComponent from './decisionItem';
+import type CodeBlockComponent from './codeBlock/codeBlock';
+import type { Props as CodeBlockNodeProps } from './codeBlock/codeBlock';
+import type WindowedCodeBlockComponent from './codeBlock/windowedCodeBlock';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import type DateComponent from './date';
-import type StatusComponent from './status';
-import type EmojiComponent from './emoji';
-import type PanelComponent from './panel';
+import type { Props as DateNodeProps } from './date';
+import type DecisionItemComponent from './decisionItem';
+import type DecisionListComponent from './decisionList';
+import type { Props as DecisionListNodeProps } from './decisionList';
+import Doc, { DocWithSelectAllTrap } from './doc';
 import type EmbedCardComponent from './embedCard';
+import type EmojiComponent from './emoji';
+import type { EmojiProps } from './emoji';
+import Extension from './extension';
+import ExtensionFrame from './extensionFrame';
+import HardBreak from './hardBreak';
+import Heading from './heading';
 import type InlineCardComponent from './inlineCard';
-import type BlockCardComponent from './blockCard';
+import type { InlineCardProps } from './inlineCard';
+import InlineExtension from './inlineExtension';
+import LayoutColumn from './layoutColumn';
+import LayoutSection from './layoutSection';
+import ListItem from './listItem';
 import type MediaComponent from './media';
+import type { MediaProps } from './media';
 import type MediaGroupComponent from './mediaGroup';
+import type { MediaGroupProps } from './mediaGroup';
 import type MediaInlineComponent from './mediaInline';
 import type MediaSingleComponent from './mediaSingle';
-import type MentionComponent from './mention';
-import type ExpandComponent from '../../ui/Expand';
-import type { NodeComponentsProps, RendererAppearance } from '../../ui/Renderer/types';
-
-import type CodeBlockComponent from './codeBlock/codeBlock';
-import type WindowedCodeBlockComponent from './codeBlock/windowedCodeBlock';
-import type SyncBlock from './syncBlock';
-import type BodiedSyncBlockComponent from './bodiedSyncBlock';
-import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
-import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { Diff } from '@atlaskit/editor-common/utils';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
-import type { MediaSSR } from '../../types/mediaOptions';
-import type { SmartLinksOptions } from '../../types/smartLinksOptions';
-import type { ExpandProps } from '../../ui/Expand';
-import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
-import type { NodeProps } from '../types';
-import type { Props as CodeBlockNodeProps } from './codeBlock/codeBlock';
-import type { Props as DateNodeProps } from './date';
-import type { Props as DecisionListNodeProps } from './decisionList';
-import type { EmojiProps } from './emoji';
-import type { InlineCardProps } from './inlineCard';
-import type { MediaProps } from './media';
-import type { MediaGroupProps } from './mediaGroup';
 import type { Props as MediaSingleNodeProps } from './mediaSingle';
+import type MentionComponent from './mention';
 import type { Props as MentionNodeProps } from './mention';
+import MultiBodiedExtension from './multiBodiedExtension';
+import OrderedList from './orderedList';
+import type PanelComponent from './panel';
 import type { Props as PanelNodeProps } from './panel';
+import Paragraph from './paragraph';
+import Placeholder from './placeholder';
+import Rule from './rule';
+import type StatusComponent from './status';
 import type { Props as StatusNodeProps } from './status';
+import type SyncBlock from './syncBlock';
+import Table from './table';
+import { TableCell, TableHeader } from './tableCell';
+import TableRow from './tableRow';
+import type TaskItemComponent from './taskItem';
 import type { Props as TaskItemNodeProps } from './taskItem';
+import type TaskListComponent from './taskList';
 import type { Props as TaskListNodeProps } from './taskList';
+import UnknownBlock from './unknownBlock';
 
 const WindowedCodeBlock: React.ComponentType<CodeBlockNodeProps> & Loadable.LoadableComponent =
 	Loadable({
@@ -475,6 +475,7 @@ interface NodeSimple {
  *    }
  *  ]
  */
+
 export const mergeTextNodes = (
 	nodes: (Node | NodeSimple)[],
 ): (Node | TextWrapper | NodeSimple)[] => {

@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { FileFetcherError } from '@atlaskit/media-client/file-fetcher'` instead.
  */
+
 export { FileFetcherError } from './FileFetcherError';
 export type {
 	FileFetcherErrorReason,

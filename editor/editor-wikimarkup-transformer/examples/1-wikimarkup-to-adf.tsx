@@ -3,22 +3,25 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
+
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
-import { WikiMarkupTransformer } from '../src';
-import { ReactRenderer } from '@atlaskit/renderer';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
-import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import type { MentionProvider } from '@atlaskit/mention/types';
-import type { Context } from '../src/interfaces';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { ReactRenderer } from '@atlaskit/renderer';
 import { token } from '@atlaskit/tokens';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
+import { WikiMarkupTransformer } from '../src';
+import type { Context } from '../src/interfaces';
 
 const container = css({
 	display: 'grid',

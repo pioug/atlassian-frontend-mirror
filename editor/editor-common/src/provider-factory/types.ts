@@ -5,7 +5,6 @@ import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type { CollabEditProvider } from '../collab';
 import type { ExtensionProvider } from '../extensions/types/extension-provider';
-
 import type { AutoformattingProvider } from './autoformatting-provider';
 import type { CardProvider } from './card-provider';
 import type { ContextIdentifierProvider } from './context-identifier-provider';

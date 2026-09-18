@@ -82,7 +82,6 @@ import { getNodesVisibleInViewport } from '../utils/getNodesVisibleInViewport';
 import { isChromeless } from '../utils/is-chromeless';
 import { isFullPage } from '../utils/is-full-page';
 import measurements from '../utils/performance/measure-enum';
-
 import {
 	PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,

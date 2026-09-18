@@ -7,7 +7,6 @@ import {
 import { JSXElementHelper as JSXElement } from '../../ast-nodes/jsx-element-helper';
 import { createLintRule } from '../utils/create-lint-rule';
 import { getAffectedPackageConfig } from '../utils/get-affected-package-config';
-
 import { AFFECTED_ATLASKIT_PACKAGES } from './affected-atlaskit-packages';
 import { AFFECTED_HTML_ELEMENTS } from './affected-html-elements';
 import { UNWANTED_ATLASKIT_ATTRIBUTES } from './unwanted-atlaskit-attributes';

@@ -26,7 +26,6 @@ import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils'
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { isOutdatedBrowser } from '../utils/outdatedBrowsers';
-
 import { WithEditorView } from './WithEditorView';
 
 export type ErrorBoundaryProps = {

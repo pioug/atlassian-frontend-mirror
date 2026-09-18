@@ -8,10 +8,9 @@ import {
 
 import { tableAdf, tableWithNumberedColumnAdf } from '../__fixtures__/full-width-adf';
 import { overflowTableFullWidth, overflowTableWide } from '../__fixtures__/overflow.adf';
-import tableWithWrappedNodesAdf from '../__fixtures__/table-with-wrapped-nodes.adf.json';
-import tableComplexSelectionsAdf from '../__fixtures__/table-complex-selections.adf.json';
 import { tableColorAdf } from '../__fixtures__/table-color';
-
+import tableComplexSelectionsAdf from '../__fixtures__/table-complex-selections.adf.json';
+import tableWithWrappedNodesAdf from '../__fixtures__/table-with-wrapped-nodes.adf.json';
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 export const TableRenderer: ComponentType<any> = generateRendererComponent({

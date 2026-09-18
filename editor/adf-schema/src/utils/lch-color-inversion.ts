@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated compatibility re-export shims. */
+
 export type RGB = { b: number; g: number; r: number };
 export type LCH = { c: number; h: number; l: number };
 

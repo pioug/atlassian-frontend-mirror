@@ -1,5 +1,6 @@
-import { SimpleHasher } from '../../simpleHasher';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { SimpleHasher } from '../../simpleHasher';
 
 describe('SimpleHasher', () => {
 	const blob = new Blob(['1234567890']);

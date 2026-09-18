@@ -1,8 +1,8 @@
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import type { TextDefinition } from '@atlaskit/adf-schema/text';
 import type { BlockContent } from '@atlaskit/adf-schema/block-content';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { ParagraphDefinition } from '@atlaskit/adf-schema/paragraph';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type { TextDefinition } from '@atlaskit/adf-schema/text';
 import { DOMParser } from '@atlaskit/editor-prosemirror/model';
 
 import { getNestingRulesFromSchema } from './getNestingRulesFromSchema';

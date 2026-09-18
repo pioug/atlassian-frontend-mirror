@@ -6,7 +6,6 @@ import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { IconButton } from '../IconButton';
-
 import { type AppSwitcherProps } from './types';
 
 const iconSpacingStyles = cssMap({

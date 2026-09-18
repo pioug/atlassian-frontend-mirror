@@ -5,7 +5,6 @@ import { Stack } from '@atlaskit/primitives/compiled';
 
 import { messages } from '../../../../messages';
 import RelatedLinksList from '../../components/related-links-list';
-
 import { type RelatedLinksProps } from './types';
 
 const RelatedLinksResolvedView = ({

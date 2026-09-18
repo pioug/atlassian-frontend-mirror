@@ -1,5 +1,6 @@
-import { type UploadParams } from '../types';
 import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+
+import { type UploadParams } from '../types';
 
 export interface LocalUploadConfig {
 	uploadParams: UploadParams; // This is tenant upload params

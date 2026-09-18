@@ -17,7 +17,6 @@ import { messages } from '../../../../../messages';
 import FlexibleCard from '../../../../FlexibleCard';
 import { default as CustomBlock } from '../../../../FlexibleCard/components/blocks/block';
 import { default as PreviewBlock } from '../../../../FlexibleCard/components/blocks/preview-block';
-
 import { type HoverCardForbiddenProps } from './types';
 
 const titleBlockStyles = css({

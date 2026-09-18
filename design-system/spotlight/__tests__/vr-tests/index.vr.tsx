@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-dark-theme-vr-tests */
+
 import { snapshot } from '@af/visual-regression';
 
 import Links from '../../examples/action-links.vr.ap';

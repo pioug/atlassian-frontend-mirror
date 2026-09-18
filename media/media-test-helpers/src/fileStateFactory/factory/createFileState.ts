@@ -1,5 +1,6 @@
-import { tallImage } from '../..';
 import { type FileState, type FileDetails } from '@atlaskit/media-client';
+
+import { tallImage } from '../..';
 
 const localPreview = { value: tallImage };
 const brokenLocalPreview = { value: 'broken-data-uri' };

@@ -9,18 +9,17 @@ import { mockActionsDiscoveryEmptyResponse } from '@atlaskit/link-client-extensi
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 import { ORS_ACTIONS_DISCOVERY_ENDPOINT } from '@atlaskit/link-test-helpers/datasource';
-import type { AtomicActionInterface } from '@atlaskit/linking-types/datasource-actions';
 import type {
 	DatasourceDataResponseItem,
 	DatasourceDataSchema,
 } from '@atlaskit/linking-types/datasource';
+import type { AtomicActionInterface } from '@atlaskit/linking-types/datasource-actions';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import * as localeMessages from '../../common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { ActionsStore } from '../../state/actions';
-import * as localeMessages from '../../common/utils/locale/fetch-messages-for-locale';
 import { loadingErrorMessages, missingColumnsMessages } from '../common/error-state/messages';
-
 import {
 	mockActionKey,
 	mockActionsDiscoveryEndpoint,

@@ -12,7 +12,6 @@ import { Inline, type InlineProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { MenuItemPrimitiveProps, RenderFunction } from '../../types';
-
 import { SpacingContext, type SpacingMode } from './menu-context';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from './selection-style-context-do-not-use';
 

@@ -1,13 +1,14 @@
-import MediaCard from '../src/card/cardLoader';
 import React, { useEffect, useState, useMemo } from 'react';
 
 import Loadable from 'react-loadable';
-import { type SSR } from '@atlaskit/media-common';
+
 import { type FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
+import { type SSR } from '@atlaskit/media-common';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 
 import { MainWrapper } from '../example-helpers';
 import { SimulateSsr } from '../example-helpers/ssrHelpers';
+import MediaCard from '../src/card/cardLoader';
 import { createMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const rowStyle = {

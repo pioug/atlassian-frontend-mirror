@@ -16,7 +16,6 @@ import type {
 import { getContextualToolbarItemsFromModule } from '../extensions';
 import type { DropdownOptionT } from '../types';
 import { nodeToJSON } from '../utils';
-
 import { DropdownMenuItem } from './DropdownMenuItem';
 import { DropdownSeparator } from './DropdownSeparator';
 

@@ -7,8 +7,8 @@ import {
 
 import { AGGErrors } from '../../util/AGGErrors';
 import { HttpError } from '../../util/HttpError';
-import * as AGGQueryModule from '../AGGQuery';
 import { addHeaders } from '../addHeaders';
+import * as AGGQueryModule from '../AGGQuery';
 import { buildGatewayQuery } from '../buildGatewayQuery';
 import { convertTeam } from '../convertTeam';
 import { extractIdFromAri } from '../extractIdFromAri';

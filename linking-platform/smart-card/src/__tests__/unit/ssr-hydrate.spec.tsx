@@ -2,9 +2,9 @@ import React from 'react';
 
 import { hydrateRoot } from 'react-dom/client';
 
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { ssr } from '@atlaskit/ssr';
 
 import { cardState, url } from '../../../examples/utils/smart-card-ssr-state';

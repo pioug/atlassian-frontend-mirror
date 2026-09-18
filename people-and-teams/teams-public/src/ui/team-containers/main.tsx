@@ -8,8 +8,8 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Grid, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
-import { hasProductPermission } from '@atlaskit/teams-app-internal-product-permissions/utils';
 import { useProductPermissions } from '@atlaskit/teams-app-internal-product-permissions/main';
+import { hasProductPermission } from '@atlaskit/teams-app-internal-product-permissions/utils';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes, type TeamContainer } from '../../common/types';
@@ -18,11 +18,10 @@ import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';
 import { useCreateContainers } from '../../controllers/hooks/use-create-containers';
 import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
 import { useRefreshOnContainerCreated } from '../../controllers/hooks/use-refresh-containers-on-container-created';
-import { useTeamContainersHook } from '../../controllers/hooks/use-team-containers/use-team-containers-hook';
 import { useTeamContainers } from '../../controllers/hooks/use-team-containers/use-team-containers';
+import { useTeamContainersHook } from '../../controllers/hooks/use-team-containers/use-team-containers-hook';
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 import { hasProductPermission as hasProductPermissionOld } from '../../controllers/product-permission/hasProductPermission';
-
 import { getAddContainerCards } from './add-container-card/getAddContainerCards';
 import { DisconnectDialogLazy } from './disconnect-dialog/async';
 import { NoProductAccessState } from './no-product-access-empty-state';

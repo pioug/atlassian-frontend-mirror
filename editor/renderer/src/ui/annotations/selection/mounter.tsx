@@ -1,12 +1,18 @@
 import React, { useCallback, useContext, useMemo, useEffect } from 'react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
 import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	ACTION_SUBJECT_ID,
+} from '@atlaskit/editor-common/analytics';
 import type {
 	ApplyDraftResult,
 	ClearDraftResult,
@@ -16,18 +22,11 @@ import type {
 	AnnotationByMatches,
 	InlineCommentSelectionComponentProps,
 } from '@atlaskit/editor-common/types';
-import type { ApplyAnnotation } from '../../../actions/index';
-import { updateWindowSelectionAroundDraft } from '../draft/dom';
-import type { Position } from '../types';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import { getRendererRangeInlineNodeNames } from '../../../actions/get-renderer-range-inline-node-names';
+import type { ApplyAnnotation } from '../../../actions/index';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 import {
 	useAnnotationManagerDispatch,
@@ -37,6 +36,8 @@ import {
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
+import { updateWindowSelectionAroundDraft } from '../draft/dom';
+import type { Position } from '../types';
 
 type Props = {
 	applyAnnotation: ApplyAnnotation;

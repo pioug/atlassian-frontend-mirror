@@ -1,6 +1,5 @@
-import { collectSSRPlaceholderDimensions } from './ssr-scripts/collectSSRPlaceholderDimensions';
-
 import { SSRPlaceholderHandlers } from './index';
+import { collectSSRPlaceholderDimensions } from './ssr-scripts/collectSSRPlaceholderDimensions';
 
 describe('SSR Placeholder Display Contents Fix', () => {
 	let mockDocument: any;

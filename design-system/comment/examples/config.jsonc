@@ -4,10 +4,10 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "01-example-comment.vr.ap.tsx",
-    "03-nested-comments.vr.ap.tsx",
-    "10-with-inline-children.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"01-example-comment.vr.ap.tsx",
+		"03-nested-comments.vr.ap.tsx",
+		"10-with-inline-children.tsx",
+	],
+	"exampleDependencies": [],
 }

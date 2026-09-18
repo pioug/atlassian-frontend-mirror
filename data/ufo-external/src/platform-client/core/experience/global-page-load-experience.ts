@@ -1,6 +1,5 @@
 import { type PageLoadExperienceData } from '../../../types';
 import { untilAll } from '../../utils/until-helpers';
-
 import type { AbstractExperienceConfig } from './abstract-experience';
 import { ExperiencePerformanceTypes, ExperienceTypes } from './experience-types';
 import { PageSegmentExperienceTypes } from './page-segment-experience-types';

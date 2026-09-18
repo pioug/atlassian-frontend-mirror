@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { syncBlock } from '@atlaskit/adf-schema/sync-block';
 import { bodiedSyncBlock } from '@atlaskit/adf-schema/bodied-sync-block';
+import { syncBlock } from '@atlaskit/adf-schema/sync-block';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type {
 	EditorCommand,

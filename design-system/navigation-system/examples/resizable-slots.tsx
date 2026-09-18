@@ -24,8 +24,8 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import Link from '@atlaskit/link/link';
 import { ConfluenceIcon } from '@atlaskit/logo';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
@@ -57,8 +57,8 @@ import {
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { CheckboxSelect } from '@atlaskit/select/checkbox-select';
-import type { OptionType } from '@atlaskit/select/types';
 import { PopupSelect } from '@atlaskit/select/popup-select';
+import type { OptionType } from '@atlaskit/select/types';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	FlyoutMenuItem,

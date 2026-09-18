@@ -13,8 +13,8 @@ import type { SelectOption } from '@atlaskit/editor-common/types';
 import { akEditorLineHeight } from '@atlaskit/editor-shared-styles';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { Box } from '@atlaskit/primitives/compiled';
-import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
 import { components } from '@atlaskit/react-select/components';
+import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
 import type { GroupProps, OptionProps, ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 

@@ -4,24 +4,20 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "exampleDependencies": [
-    "@atlaskit/heading",
-    "@emotion/styled",
-    "react-beautiful-dnd"
-  ],
-  "testExamples": [
-    "00-single.tsx",
-    "01-multi.vr.ap.tsx",
-    "03-single-compact.vr.ap.tsx",
-    "05-single-subtle-and-compact.tsx",
-    "06-multi-compact.tsx",
-    "07-multi-with-default-values.vr.ap.tsx",
-    "08-multi-with-fixed-values.tsx",
-    "09-single-disabled.tsx",
-    "12-creatable-with-locale.tsx",
-    "13-modal.tsx",
-    "24-disable-input.tsx",
-    "25-disable-options.tsx",
-    "26-footer.vr.ap.tsx"
-  ]
+	"exampleDependencies": ["@atlaskit/heading", "@emotion/styled", "react-beautiful-dnd"],
+	"testExamples": [
+		"00-single.tsx",
+		"01-multi.vr.ap.tsx",
+		"03-single-compact.vr.ap.tsx",
+		"05-single-subtle-and-compact.tsx",
+		"06-multi-compact.tsx",
+		"07-multi-with-default-values.vr.ap.tsx",
+		"08-multi-with-fixed-values.tsx",
+		"09-single-disabled.tsx",
+		"12-creatable-with-locale.tsx",
+		"13-modal.tsx",
+		"24-disable-input.tsx",
+		"25-disable-options.tsx",
+		"26-footer.vr.ap.tsx",
+	],
 }

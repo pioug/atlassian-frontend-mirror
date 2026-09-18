@@ -15,7 +15,6 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 // These experiments have a jira-specific key that differs from the experiment name,
 // so they must opt out of product-key routing to avoid sending the wrong key on jira.
 export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
-	'platform_editor_block_menu',
 	'platform_editor_blocks',
 	'platform_editor_controls',
 	'advanced_layouts',
@@ -29,6 +28,7 @@ export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
  * - For multivariate experiments: returns union of valid string values (inferred from defaultValue type)
  * - For boolean experiments: returns only 'true' literal (cannot use 'false' as expected value)
  */
+
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
 		? true // Boolean: only 'true' is allowed as expected value
@@ -375,13 +375,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-06-05
 	platform_editor_block_controls_perf_optimization: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025--8-05
-	platform_editor_block_menu: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1808,15 +1801,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'jira_editor_a11y_toolbar_fixes',
 			jira: 'jira_editor_a11y_toolbar_fixes',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025--8-05
-	platform_editor_block_menu: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_block_menu',
-			jira: 'platform_editor_blocks_jira',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

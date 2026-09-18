@@ -6,6 +6,7 @@
  * TODO: Refactor this once tokenization by Core team is ready
  * https://product-fabric.atlassian.net/browse/CS-908
  */
+
 export const R50 = '#FFEBE6';
 
 export const R75 = '#FFBDAD';

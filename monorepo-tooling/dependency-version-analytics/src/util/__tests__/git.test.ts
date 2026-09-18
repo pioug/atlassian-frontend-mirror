@@ -1,6 +1,7 @@
-import * as git from '../git';
 import type { LogResult } from 'simple-git';
+
 import { generateLogsWithFiles } from '../../commands/populate-historic-data/__fixtures__/git';
+import * as git from '../git';
 
 let mockGit: any;
 

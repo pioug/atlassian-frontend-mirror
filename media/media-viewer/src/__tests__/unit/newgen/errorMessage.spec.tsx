@@ -8,20 +8,23 @@ jest.mock('../../../analytics/events/operational/previewTooLarge', () => ({
 	createPreviewTooLargeEvent: jest.fn(),
 }));
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
+
 import { IntlProvider } from 'react-intl';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { MediaViewerError } from '../../../MediaViewerError';
-import * as ufoWrapper from '../../../analytics/ufoExperiences';
-import { ErrorMessage } from '../../../errorMessage';
+
 import Button from '@atlaskit/button/standard-button';
-import { fakeIntl, smallImageFileId, asMock } from '@atlaskit/media-test-helpers';
-import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
 import { type FileState } from '@atlaskit/media-client';
+import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
+import { fakeIntl, smallImageFileId, asMock } from '@atlaskit/media-test-helpers';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render, screen } from '@atlassian/testing-library';
+
 import { createLoadFailedEvent } from '../../../analytics/events/operational/loadFailed';
 import { createPreviewTooLargeEvent } from '../../../analytics/events/operational/previewTooLarge';
 import { createPreviewUnsupportedEvent } from '../../../analytics/events/operational/previewUnsupported';
+import * as ufoWrapper from '../../../analytics/ufoExperiences';
+import { ErrorMessage } from '../../../errorMessage';
+import { MediaViewerError } from '../../../MediaViewerError';
 
 const mockfailMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'failMediaFileUfoExperience');
 

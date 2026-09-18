@@ -1,7 +1,6 @@
 import { bind } from 'bind-event-listener';
 
 import { AbortEvent } from '../../common/vc/types';
-
 import { attachAbortListeners } from './attachAbortListeners';
 import { getViewportHeight } from './getViewportHeight';
 import { getViewportWidth } from './getViewportWidth';

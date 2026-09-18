@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
+
+import { render, screen } from '@atlassian/testing-library';
 
 import { AgentConversationStarters } from './AgentConversationStarters';
 import { getConversationStarters } from './getConversationStarters';

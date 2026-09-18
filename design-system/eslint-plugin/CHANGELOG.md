@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.13.0
+
+### Minor Changes
+
+- [`4fae57ea9244e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fae57ea9244e) -
+  Add no-empty-icon-button-label rule to flag statically empty IconButton/LinkIconButton labels.
+
 ## 16.12.8
 
 ### Patch Changes

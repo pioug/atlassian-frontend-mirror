@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { SplitButton } from '@atlaskit/button/split-button/split-button';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';

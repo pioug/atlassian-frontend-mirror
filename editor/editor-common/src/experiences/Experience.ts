@@ -4,7 +4,6 @@ import type {
 	ExperienceEventAttributes,
 	ExperienceEventPayload,
 } from '../analytics/types/experience-events';
-
 import { DEFAULT_EXPERIENCE_SAMPLE_RATE, EXPERIENCE_ABORT_REASON } from './consts';
 import { canTransition } from './experience-state';
 import type { ExperienceCheck } from './ExperienceCheck';

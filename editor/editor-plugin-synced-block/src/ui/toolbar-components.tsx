@@ -12,7 +12,6 @@ import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
-
 import { CreateSyncedBlockButton } from './CreateSyncedBlockButton';
 
 const SYNCED_BLOCK_PRIMARY_TOOLBAR_GROUP = {

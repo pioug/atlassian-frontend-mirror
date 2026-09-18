@@ -2,7 +2,6 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 
 import { fetchWithRetry } from '../../utils/retry';
 import type { TokenData } from '../confluence/fetchMediaToken';
-
 import { getJiraIssueAriFromSourceAri } from './ari';
 
 const COMMON_HEADERS = {

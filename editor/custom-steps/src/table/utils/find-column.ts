@@ -1,4 +1,5 @@
 import type { TableRect } from '@atlaskit/editor-tables/table-map';
+
 import type { CellStep, ColumnInfo } from '../types';
 
 /**

@@ -1,5 +1,6 @@
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
+
 import { getStandaloneBackgroundColorMarks } from '../../../utils/getStandaloneBackgroundColorMarks';
 
 describe('getStandaloneBackgroundColorMarks()', () => {

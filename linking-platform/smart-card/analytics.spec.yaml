@@ -728,8 +728,8 @@ events:
   - button clicked (carouselNext):
       type: ui
       description: >
-        Fires when a user clicks the "See next" button in a smart link carousel view.
-        Used to measure engagement depth — how many users navigate past the first benefit slide.
+        Fires when a user clicks the "See next" button in a smart link carousel view. Used to
+        measure engagement depth — how many users navigate past the first benefit slide.
       attributes:
         <<: [*PackageMetaDataContext, *CommonContext]
         display:
@@ -740,14 +740,15 @@ events:
           required: true
           type: string
           description: >
-            Stable semantic identifier for the slide (e.g. 'smart-link-benefit', 'rovo-search-benefit').
-            Used instead of slideIndex so analytics remain accurate if slide order changes.
+            Stable semantic identifier for the slide (e.g. 'smart-link-benefit',
+            'rovo-search-benefit'). Used instead of slideIndex so analytics remain accurate if slide
+            order changes.
   - button clicked (carouselConnect):
       type: ui
       description: >
         Fires when a user clicks the connect account button from within a smart link carousel view.
-        Captures which benefit slide the user was viewing when they decided to connect,
-        enabling measurement of which slide is most persuasive.
+        Captures which benefit slide the user was viewing when they decided to connect, enabling
+        measurement of which slide is most persuasive.
       attributes:
         <<: [*PackageMetaDataContext, *CommonContext]
         display:
@@ -758,8 +759,9 @@ events:
           required: true
           type: string
           description: >
-            Stable semantic identifier for the slide (e.g. 'smart-link-benefit', 'rovo-search-benefit').
-            Used instead of slideIndex so analytics remain accurate if slide order changes.
+            Stable semantic identifier for the slide (e.g. 'smart-link-benefit',
+            'rovo-search-benefit'). Used instead of slideIndex so analytics remain accurate if slide
+            order changes.
   - smartLink clicked (tryAnotherAccount):
       type: ui
       description:
@@ -913,7 +915,9 @@ events:
           description: The unique ID for this Smart Link
   - smartLink seen:
       type: ui
-      description: fires an event that represents when a rendered Smart Link is visible in the viewport for the first time
+      description:
+        fires an event that represents when a rendered Smart Link is visible in the viewport for the
+        first time
       attributes:
         <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
         display:
@@ -957,5 +961,4 @@ events:
         isContextMenu:
           required: false
           type: boolean
-          description:
-            True when the event was a right-click captured via `onContextMenu`.
+          description: True when the event was a right-click captured via `onContextMenu`.

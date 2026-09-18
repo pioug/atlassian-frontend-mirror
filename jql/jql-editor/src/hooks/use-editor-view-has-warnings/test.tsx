@@ -6,7 +6,6 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import { useExternalMessages, useHydratedDeprecations } from '../../state';
 import { type ExternalMessagesNormalized } from '../../state/types';
 import { type HydratedDeprecatedField } from '../../ui/jql-editor/types';
-
 import { useEditorViewHasWarnings } from './index';
 
 const normalizedExternalMessagesEmpty: ExternalMessagesNormalized = {

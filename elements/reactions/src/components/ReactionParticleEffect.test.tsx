@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
+
 import { type EmojiDescription, type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+
 import {
 	mockReactDomWarningGlobal,
 	renderWithIntl,

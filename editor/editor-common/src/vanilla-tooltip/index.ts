@@ -202,6 +202,33 @@ export class VanillaTooltip {
 			);
 		}
 
+		// Resets `isDisplayed` when the browser closes the popover without going through `hide()`
+		// (e.g. light-dismissal). Prevents the guard in `show()` from becoming stale.
+		if (
+			isExperimentEnabled('platform_editor_use_vanilla_components') &&
+			fg('platform_editor_use_vanilla_components_patch_2')
+		) {
+			this.listeners.push(
+				bind(tooltip, {
+					type: 'toggle',
+					listener: (event) => {
+						if (event.newState === 'closed') {
+							this.isDisplayed = false;
+							// Cancel a pending show, which would otherwise mark a closed popover as
+							// displayed and announce a tooltip the user never saw.
+							//
+							// `shouldHidePopover` is set by `hide()` and cleared by `show()`, so it
+							// is false exactly when the pending timeout is a show. A pending hide
+							// must survive: it still has the positioning instance to release.
+							if (!this.shouldHidePopover && this.currentTimeoutId !== undefined) {
+								clearTimeout(this.currentTimeoutId);
+							}
+						}
+					},
+				}),
+			);
+		}
+
 		// Hide the tooltip if the hide transition has completed.
 		//
 		// Only reachable in the control arm: no consumer declares a transition on the tooltip, so

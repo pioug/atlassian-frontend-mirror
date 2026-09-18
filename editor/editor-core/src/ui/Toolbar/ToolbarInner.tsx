@@ -7,7 +7,6 @@ import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/c
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
-
 import type { ToolbarInnerProps } from './toolbar-types';
 import { ToolbarComponentsWrapperCompiled } from './ToolbarComponentsWrapper-compiled';
 import { ToolbarComponentsWrapperEmotion } from './ToolbarComponentsWrapper-emotion';

@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
+
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
 import LayoutColumn from '../../../../react/nodes/layoutColumn';
 import { LayoutSectionCompiled } from '../../../../react/nodes/layoutColumn-compiled';
 import { LayoutSectionEmotion } from '../../../../react/nodes/layoutColumn-emotion';

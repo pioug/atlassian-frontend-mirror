@@ -1,10 +1,9 @@
-import { ReplaceStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
-
 import { doc, p } from '@af/adf-test-helpers/src/doc-builder';
 import { defaultSchema } from '@af/adf-test-helpers/src/schema';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import { ReplaceStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 
 import { LinkMetaStep } from '../../link-meta-step';
-import { Slice } from '@atlaskit/editor-prosemirror/model';
 
 describe('LinkMetaStep', () => {
 	it('should expose a `getMetadata` method which returns the stored metadata', () => {

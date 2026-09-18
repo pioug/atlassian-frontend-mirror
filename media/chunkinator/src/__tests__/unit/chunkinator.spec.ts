@@ -1,6 +1,5 @@
-import { type Options } from '../../domain';
-
 import { chunkinator } from '../../chunkinator';
+import { type Options } from '../../domain';
 
 describe('chunkinator', () => {
 	let file: Blob;

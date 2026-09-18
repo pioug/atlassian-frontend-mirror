@@ -8,7 +8,6 @@ import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group'
 import { token } from '@atlaskit/tokens';
 
 import LozengeActionItem from '../lozenge-action-item';
-
 import type { LozengeActionItemsGroupProps } from './types';
 
 const dropdownItemGroupStyles = css({

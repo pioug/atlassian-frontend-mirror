@@ -1,12 +1,11 @@
 import { request } from '@atlaskit/linking-common/api';
 
 import { type FetchObjectSchemaResponse, type ObjectSchema } from '../types/assets/types';
-
-import { FetchError } from './FetchError';
-import { PermissionError } from './PermissionError';
 import type { AnalyticsFireEvent } from './cmdbService';
+import { FetchError } from './FetchError';
 import { getStatusCodeGroup } from './getStatusCodeGroup';
 import { mapFetchErrors } from './mapFetchErrors';
+import { PermissionError } from './PermissionError';
 
 export const fetchObjectSchema = async (
 	workspaceId: string,

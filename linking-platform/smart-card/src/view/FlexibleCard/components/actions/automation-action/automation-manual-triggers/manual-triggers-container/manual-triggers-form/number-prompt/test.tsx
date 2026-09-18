@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { screen } from '@atlassian/testing-library';
 import { injectable } from 'react-magnetic-di';
 
 import Field from '@atlaskit/form/field';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { screen } from '@atlassian/testing-library';
 
 import { createGenericComponent } from '../../common/create-generic-component';
 import { renderWithDi } from '../../common/test-utils/render-with-di';

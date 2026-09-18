@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect } from 'react';
-import { EmojiContext, type EmojiContextType } from './EmojiContext';
+
 import debug from '../util/logger';
+import { EmojiContext, type EmojiContextType } from './EmojiContext';
 
 type EmojiContextProviderType = {
 	emojiContextValue: EmojiContextType;

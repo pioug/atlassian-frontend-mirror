@@ -1,11 +1,11 @@
-import { overflowLayout } from '../__fixtures__/overflow.adf';
-import * as layout4Col from '../__fixtures__/layout-4-columns.adf.json';
-import * as layout5Col from '../__fixtures__/layout-5-columns.adf.json';
+import type { ComponentType } from 'react';
 
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
+import * as layout4Col from '../__fixtures__/layout-4-columns.adf.json';
+import * as layout5Col from '../__fixtures__/layout-5-columns.adf.json';
+import { overflowLayout } from '../__fixtures__/overflow.adf';
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import type { ComponentType } from 'react';
 
 export const OverflowLayoutRenderer: ComponentType<any> = generateRendererComponent({
 	document: overflowLayout,

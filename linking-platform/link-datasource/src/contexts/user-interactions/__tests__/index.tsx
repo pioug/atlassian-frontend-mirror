@@ -3,8 +3,8 @@ import React from 'react';
 import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
 import { DatasourceAction } from '../../../analytics/types';
-import { UserInteractionsProvider } from '../user-interactions-provider';
 import { useUserInteractions } from '../use-user-interactions';
+import { UserInteractionsProvider } from '../user-interactions-provider';
 
 const wrapper: RenderHookOptions<{ children: React.ReactNode }>['wrapper'] = ({ children }) => (
 	<UserInteractionsProvider>{children}</UserInteractionsProvider>

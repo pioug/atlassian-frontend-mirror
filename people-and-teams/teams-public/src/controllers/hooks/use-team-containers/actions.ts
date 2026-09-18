@@ -4,7 +4,6 @@ import type { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/
 import { teamsClient } from '@atlaskit/teams-client/client';
 
 import { type TeamContainer } from '../../../common/types';
-
 import { containersDeepEqual } from './containers-deep-equal';
 import { initialConnectedTeamsState } from './initial-connected-teams-state';
 import type { TeamContainersState } from './team-containers-state';

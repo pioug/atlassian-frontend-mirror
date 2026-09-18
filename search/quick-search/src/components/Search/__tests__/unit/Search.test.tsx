@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { fireEvent, render } from '@testing-library/react';
+
 import Search from '../../Search';
 
 describe('Search', () => {

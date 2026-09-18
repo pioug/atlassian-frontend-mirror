@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { act, render, screen } from '@atlassian/testing-library';
-import ErrorFlagGroup from '../../errorFlagGroup/ErrorFlagGroup';
+
 import { type FileEmptyData, type UploadRejectionData } from '../../../types';
+import ErrorFlagGroup from '../../errorFlagGroup/ErrorFlagGroup';
 
 const renderErrorFlagGroup = (
 	flagData: Array<UploadRejectionData | FileEmptyData>,

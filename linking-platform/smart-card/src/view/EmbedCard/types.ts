@@ -1,9 +1,9 @@
 import { type ReactNode } from 'react';
 
 import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
+import type { CardState } from '@atlaskit/linking-common/store';
 
 import { type InvokeHandler } from '../../model/invoke-handler';
-import type { CardState } from '@atlaskit/linking-common/store';
 import type {
 	InternalCardActionOptions as CardActionOptions,
 	CardPlatform,

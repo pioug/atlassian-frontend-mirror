@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { isImageRemote } from '../image-cropper/isImageRemote';
-import { ImageWrapper } from './imageWrapper';
 import { isSSR } from '../util';
+import { ImageWrapper } from './imageWrapper';
 
 export interface ImagePlacerImageProps {
 	src?: string;

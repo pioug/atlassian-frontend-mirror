@@ -7,7 +7,6 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { pluginKey } from '../plugin-key';
-
 import { mergeEmptyColumns } from './merge';
 
 export const deleteRows =

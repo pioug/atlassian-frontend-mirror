@@ -1,8 +1,8 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { zodToJsonSchema } from '../../helpers/zod-to-json-schema';
-
 import { i18nConversionInputSchema } from './i18n-conversion-input-schema';
 
 export const listI18nConversionTool: Tool = {

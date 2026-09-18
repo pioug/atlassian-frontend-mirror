@@ -23,7 +23,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { SelectionExtension, MenuItemsType } from '../../types';
-
 import { SelectionExtensionDropdownMenu } from './SelectionExtensionDropdownMenu';
 
 type SelectionExtensionItemsProps = {

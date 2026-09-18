@@ -1,12 +1,13 @@
-import { uuid } from '../../utils/uuid';
-import type { Inline } from './types/inline-content';
-import type { ParagraphDefinition as Paragraph } from './paragraph';
-import type { ExtensionDefinition as Extension } from './extension';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import {
 	taskItem as taskItemFactory,
 	blockTaskItem as blockTaskItemFactory,
 } from '../../next-schema/generated/nodeTypes';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import { uuid } from '../../utils/uuid';
+import type { ExtensionDefinition as Extension } from './extension';
+import type { ParagraphDefinition as Paragraph } from './paragraph';
+import type { Inline } from './types/inline-content';
 
 /**
  * @name taskItem_node

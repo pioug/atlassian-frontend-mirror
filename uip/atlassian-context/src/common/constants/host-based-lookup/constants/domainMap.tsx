@@ -1,5 +1,4 @@
 import { type DomainConfig } from './domains';
-
 import { COMMERCIAL, FEDRAMP_FEDEX, FEDRAMP_MODERATE, PRODUCTION, STAGING } from './index';
 
 export const domainMap: DomainConfig = {

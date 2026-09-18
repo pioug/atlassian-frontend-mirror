@@ -1,24 +1,23 @@
+import './card-states.card.test.mock';
 import React, { useState } from 'react';
-
-import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type CardClient from '@atlaskit/link-provider/client';
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import '@atlaskit/link-test-helpers/jest';
 import { APIError } from '@atlaskit/linking-common/api-error';
+import '@atlaskit/link-test-helpers/jest';
 import { flushPromises } from '@atlaskit/media-test-helpers';
+import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mockByUrl } from '../../../utils/mock-by-url';
 import { mocks } from '../../../utils/mocks';
 import { Card, type CardAppearance } from '../../Card';
 import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
-import './card-states.card.test.mock';
 
 mockSimpleIntersectionObserver();
 

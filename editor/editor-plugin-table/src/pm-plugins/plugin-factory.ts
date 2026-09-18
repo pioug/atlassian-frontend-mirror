@@ -4,7 +4,6 @@ import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { TablePluginState, TablePluginAction } from '../types';
-
 import { handleDocOrSelectionChanged } from './handlers';
 import { pluginKey } from './plugin-key';
 import reducer from './reducer';

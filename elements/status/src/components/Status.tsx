@@ -10,13 +10,16 @@ import {
 	type ForwardRefExoticComponent,
 	type RefAttributes,
 } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+
 import { createStatusAnalyticsAndFire } from './analytics';
 import { ANALYTICS_HOVER_DELAY } from './constants';
 import { getLozengeAppearance, type NamedColor, normalizeColor } from './status-colors';

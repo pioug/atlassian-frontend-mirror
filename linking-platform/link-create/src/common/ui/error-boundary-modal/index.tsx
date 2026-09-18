@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 

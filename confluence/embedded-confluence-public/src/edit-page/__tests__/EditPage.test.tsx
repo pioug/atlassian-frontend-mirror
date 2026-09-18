@@ -1,6 +1,9 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+
 import { DEFAULT_LOCALE } from '@atlassian/embedded-confluence-common';
+
 import { EditPage, type EditPageProps } from '../';
 
 jest.mock('uuid', () => ({

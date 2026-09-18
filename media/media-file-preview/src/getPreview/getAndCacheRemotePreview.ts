@@ -6,7 +6,6 @@ import {
 import { type MediaTraceContext } from '@atlaskit/media-common';
 
 import { type MediaFilePreview, type MediaFilePreviewDimensions } from '../types';
-
 import { enrichAttrsWithClientId } from './enrichAttrsWithClientId';
 import { extendAndCachePreview } from './extendAndCachePreview';
 import { getRemotePreview } from './getRemotePreview';

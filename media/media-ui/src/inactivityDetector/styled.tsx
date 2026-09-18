@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+
 import {
 	InactivityDetectorWrapper as CompiledInactivityDetectorWrapper,
 	type ContentWrapperProps,

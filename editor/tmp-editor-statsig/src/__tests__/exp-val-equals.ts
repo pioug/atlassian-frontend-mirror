@@ -1,9 +1,8 @@
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+
 import { expValEquals } from '../exp-val-equals';
 import { expValEqualsNoExposure } from '../exp-val-equals-no-exposure';
-
 import { setupEditorExperiments } from '../setup';
-
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
 const mockGetExperimentValue = jest.spyOn(FeatureGates, 'getExperimentValue').mockReturnValue(true);
 const mockInitializeCompleted = jest

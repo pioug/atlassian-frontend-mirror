@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import AnalyticsContext from '../src/components/AnalyticsContext';
 import AnalyticsListener from '../src/components/AnalyticsListener';
 import type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';
-
 import AnalyticsButton from './helpers/AnalyticsButton';
 
 const SaveButton = () => {

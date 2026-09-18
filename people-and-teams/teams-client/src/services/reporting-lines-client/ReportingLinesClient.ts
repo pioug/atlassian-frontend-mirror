@@ -1,7 +1,6 @@
 import type { ClientConfig } from '../base-client';
 import { DEFAULT_CONFIG } from '../constants';
 import { BaseGraphQlClient } from '../graphql-client/main';
-
 import ReportingLinesQueryWithAccountStatus from './utils/queries/ReportingLinesQueryWithAccountStatus.graphql';
 import type { ReportingLines } from './utils/types';
 

@@ -1,8 +1,9 @@
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { mergeStyles } from '@atlaskit/react-select/styles';
 import type { StylesConfig } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
-import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 export const BORDER_PADDING: 'var(--ds-space-075)' = token('space.075');
 export const AVATAR_PADDING = 6;

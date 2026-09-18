@@ -1,6 +1,5 @@
 // @ts-nocheck
 import Util from '../common/util';
-
 import ConfigurationOptions from './configuration-options';
 import documentContainer from './document-container';
 

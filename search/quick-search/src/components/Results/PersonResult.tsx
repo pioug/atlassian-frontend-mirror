@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar/avatar';
 
 import ResultBase from './ResultBase';

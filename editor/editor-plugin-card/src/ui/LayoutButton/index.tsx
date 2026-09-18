@@ -24,7 +24,6 @@ import { token } from '@atlaskit/tokens';
 import type { cardPlugin } from '../../cardPlugin';
 import { setCardLayout } from '../../pm-plugins/actions';
 import { isDatasourceNode } from '../../pm-plugins/utils';
-
 import type { DatasourceTableLayout, LayoutButtonProps, LayoutButtonWrapperProps } from './types';
 import { getDatasource, isDatasourceTableLayout } from './utils';
 

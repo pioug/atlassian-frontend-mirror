@@ -17,8 +17,8 @@ import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	BlockControlsPlugin,
@@ -174,15 +174,17 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 				});
 			}
 
-			if (editorExperiment('platform_editor_block_menu', true)) {
-				pmPlugins.push({
-					name: 'blockControlsSelectionPreservationPlugin',
-					plugin: createSelectionPreservationPlugin(api),
-				});
-			}
+			pmPlugins.push({
+				name: 'blockControlsSelectionPreservationPlugin',
+				plugin: createSelectionPreservationPlugin(api),
+			});
 
 			// platform_editor_controls note: quick insert rendering fixes
-			if (areToolbarFlagsEnabled(Boolean(api?.toolbar))) {
+			//
+			// Not registered under the registry migration: the decoration puts an inline
+			// `margin-top: 0` on the first document node, which fights features that render their own
+			// content above it — a leading show-diff widget is left flush against the node below.
+			if (areToolbarFlagsEnabled(Boolean(api?.toolbar)) && legacyBlockControlsEnabled) {
 				pmPlugins.push({
 					name: 'firstNodeDec',
 					plugin: firstNodeDecPlugin,
@@ -243,10 +245,6 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					triggerByNode?: TriggerByNode;
 				}) =>
 				({ tr }: { tr: Transaction }) => {
-					if (!editorExperiment('platform_editor_block_menu', true)) {
-						return tr;
-					}
-
 					const currMeta = tr.getMeta(key);
 					const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
 					const isMenuCurrentlyOpen = api?.blockControls?.sharedState.currentState()?.isMenuOpen;
@@ -474,10 +472,8 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					: undefined;
 			}
 
-			if (editorExperiment('platform_editor_block_menu', true)) {
-				sharedState.preservedSelection =
-					selectionPreservationPluginKey.getState(editorState)?.preservedSelection;
-			}
+			sharedState.preservedSelection =
+				selectionPreservationPluginKey.getState(editorState)?.preservedSelection;
 
 			return sharedState;
 		},

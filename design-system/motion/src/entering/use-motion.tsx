@@ -7,9 +7,8 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { getComputedAnimationDurationMs } from '../utils/get-computed-animation-duration-ms';
 import { getDurationMs } from '../utils/get-duration-ms';
 import { isReducedMotion } from '../utils/is-reduced-motion';
-import { useLayoutEffect } from '../utils/use-layout-effect';
 import { resolveMotionToken } from '../utils/resolve-motion-token';
-
+import { useLayoutEffect } from '../utils/use-layout-effect';
 import { Reanimate } from './reanimate';
 import { type Transition } from './types';
 import { useExitingPersistence } from './use-exiting-persistence';

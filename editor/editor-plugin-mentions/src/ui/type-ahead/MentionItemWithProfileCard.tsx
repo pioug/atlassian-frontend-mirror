@@ -10,7 +10,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { ProfileCardComponent } from '../ProfileCardComponent';
-
 import { isAgentMention } from './utils';
 
 // Delay before mounting the card and fetching the profile data

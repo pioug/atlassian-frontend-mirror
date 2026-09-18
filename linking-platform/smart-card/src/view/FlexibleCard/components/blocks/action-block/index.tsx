@@ -16,8 +16,8 @@ import {
 } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
-
 import Action from '../../actions/action';
+import type { ActionMessage } from '../../actions/action/types';
 import AISummaryAction from '../../actions/ai-summary-action';
 import AutomationAction from '../../actions/automation-action';
 import CopyLinkAction from '../../actions/copy-link-action';
@@ -29,7 +29,6 @@ import FollowAction from '../../actions/follow-action';
 import PreviewAction from '../../actions/preview-action';
 import RovoChatAction from '../../actions/rovo-chat-action';
 import ViewRelatedLinksAction from '../../actions/view-related-links-action';
-import type { ActionMessage } from '../../actions/action/types';
 import { ActionFooter } from './action-footer';
 import { getPrimitivesPaddingSpaceBySize } from './getPrimitivesPaddingSpaceBySize';
 import type { ActionBlockProps } from './types';

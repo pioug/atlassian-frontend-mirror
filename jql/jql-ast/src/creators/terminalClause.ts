@@ -17,7 +17,6 @@ import {
 	type Predicate,
 	type TerminalClause,
 } from '../types';
-
 import { assignParent } from './common';
 
 function acceptTerminalClause<Result>(this: TerminalClause, visitor: JastVisitor<Result>) {

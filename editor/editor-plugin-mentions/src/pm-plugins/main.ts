@@ -27,7 +27,6 @@ import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mentionNodeView';
 import { MENTION_PROVIDER_REJECTED, MENTION_PROVIDER_UNDEFINED } from '../types';
 import type { FireElementsChannelEvent, MentionPluginOptions, MentionPluginState } from '../types';
-
 import { mentionPluginKey } from './key';
 import { canMentionBeCreatedInRange } from './utils';
 

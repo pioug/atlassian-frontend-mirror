@@ -2,22 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+
 import { PureComponent, memo } from 'react';
 import type { FC, NamedExoticComponent } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+
 import type { EmojiAttributes } from '@atlaskit/adf-schema/emoji';
 import { messages } from '@atlaskit/editor-common/emoji';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { isSingleEmoji } from '@atlaskit/editor-common/utils/isSingleEmoji';
+import { ResourcedEmoji } from '@atlaskit/emoji/element';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import type { EmojiId, EmojiProviderLookupOrder } from '@atlaskit/emoji/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
-
 export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes {
 	allowTextFallback?: boolean;
 	emojiProviderLookupOrder?: EmojiProviderLookupOrder;
@@ -26,8 +29,7 @@ export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes
 	resourceConfig?: EmojiResourceConfig;
 	showTooltip?: boolean;
 }
-
-// eslint-disable-next-line @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components -- class kept for WithProviders compatibility
 class EmojiNode extends PureComponent<EmojiProps, object> {
 	static displayName = 'EmojiNode';
 	static defaultProps = {

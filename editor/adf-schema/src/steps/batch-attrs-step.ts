@@ -1,9 +1,9 @@
 // oxlint-disable-next-line import/no-duplicates
 import { Fragment, type Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { StepResult } from '@atlaskit/editor-prosemirror/transform';
 import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 export type BatchAttrsStepData = {
 	attrs: Record<string, unknown>;

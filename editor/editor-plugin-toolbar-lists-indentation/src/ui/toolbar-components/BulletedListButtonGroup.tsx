@@ -12,7 +12,6 @@ import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
-
 import { BulletedListButton } from './BulletedListButton';
 
 const BulletedListButtonGroup = ({ children }: { children: React.ReactNode }) => {

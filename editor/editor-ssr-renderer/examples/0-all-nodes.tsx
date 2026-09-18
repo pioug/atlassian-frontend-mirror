@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+
 import { createExample } from '../example-helpers/createExample';
 
 const AllNodesExample: () => JSX.Element = createExample({

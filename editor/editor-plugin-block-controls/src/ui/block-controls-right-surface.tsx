@@ -16,10 +16,9 @@ import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-
 import type { BlockControlsSurfaceTarget } from './block-controls-surface-targets';
-import { partitionComponentsByPersistence } from './utils/partition-components-by-persistence';
 import type { SurfaceWrapperPlacement } from './utils/get-surface-placement';
+import { partitionComponentsByPersistence } from './utils/partition-components-by-persistence';
 import { VisibilityContainer } from './visibility-container';
 
 const rightSurfaceOuterStyles = css({

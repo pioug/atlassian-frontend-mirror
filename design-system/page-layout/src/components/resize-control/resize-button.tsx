@@ -4,6 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import type { MouseEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
@@ -17,7 +18,6 @@ import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
 import { RESIZE_BUTTON_SELECTOR } from '../../common/constants';
-
 import type { ResizeButtonProps } from './types';
 
 const hitAreaSpanStyles = css({

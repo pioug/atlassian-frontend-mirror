@@ -4,7 +4,6 @@ import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
-
 import { CancelButton, type CancelButtonProps } from './index';
 
 jest.mock('../../../../analytics/index', () => ({

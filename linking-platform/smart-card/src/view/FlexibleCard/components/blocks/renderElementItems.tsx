@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type ElementName } from '../../../../constants';
-
 import AppliedToComponentsCount from '../elements/applied-to-components-count-element';
 import AssignedTo from '../elements/assigned-to-element';
 import AssignedToGroup from '../elements/assigned-to-group-element';
@@ -40,7 +39,6 @@ import Title from '../elements/title-element';
 import UserAttributes from '../elements/user-attributes-element';
 import ViewCount from '../elements/view-count-element';
 import VoteCount from '../elements/vote-count-element';
-
 import { isJSXElementNull } from './isJSXElementNull';
 import { type ElementItem } from './types';
 import { ElementDisplaySchema } from './utils';

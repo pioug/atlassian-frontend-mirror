@@ -1,11 +1,15 @@
+import type { ADFMark } from '../../adfMark';
 import type { ADFNode } from '../../adfNode';
 import { traverse } from '../../traverse';
-import { pmNodeGroupsCodeGen } from './pmNodeGroupsCodeGen';
-import { pmNodesCodeGen } from './pmNodesCodeGen';
-import { pmMarksCodeGen } from './pmMarksCodeGen';
-import { buildMarkSpec, buildNodeSpec } from './buildPmSpec';
+import { PMSpecTransformerName } from '../transformerNames';
 import { buildContentExpression } from './buildContentExpression';
 import { buildNodeTypeDefinition } from './buildPmNodeTypes';
+import { buildMarkSpec, buildNodeSpec } from './buildPmSpec';
+import { getNodeNames } from './getNodeNames';
+import { pmMarksCodeGen } from './pmMarksCodeGen';
+import { pmNodeGroupsCodeGen } from './pmNodeGroupsCodeGen';
+import { pmNodesCodeGen } from './pmNodesCodeGen';
+import { PSEUDO_GROUPS } from './pseudoGroups';
 import type {
 	ContentVisitorReturnType,
 	GroupVisitorReturnType,
@@ -13,10 +17,6 @@ import type {
 	NodeSpecResMap,
 	NodeVisitorReturnType,
 } from './types';
-import { PMSpecTransformerName } from '../transformerNames';
-import { PSEUDO_GROUPS } from './pseudoGroups';
-import type { ADFMark } from '../../adfMark';
-import { getNodeNames } from './getNodeNames';
 
 function isNodeReturnValue(
 	value: NodeVisitorReturnType | GroupVisitorReturnType,

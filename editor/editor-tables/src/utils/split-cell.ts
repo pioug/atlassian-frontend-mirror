@@ -1,5 +1,4 @@
 import type { Command } from '../types';
-
 import { splitCellWithType } from './split-cell-with-type';
 import { tableNodeTypes } from './table-node-types';
 

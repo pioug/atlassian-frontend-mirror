@@ -5,10 +5,11 @@ jest.mock('../../nodes/text-wrapper', () => ({
 	default: jest.fn(() => null),
 }));
 
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
 import { ReactSerializer } from '../../../index';
 import TextWrapperComponent from '../../nodes/text-wrapper';
 import { complexDocument as doc } from './__fixtures__/documents';

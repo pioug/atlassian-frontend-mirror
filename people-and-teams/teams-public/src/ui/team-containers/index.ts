@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { TeamContainers } from '@atlaskit/teams-public/main'` instead.
  */
+
 export { TeamContainers } from './main';
 /**
  * @deprecated Use `import type { TeamLinkCardProps } from '@atlaskit/teams-public/team-link-card'` instead.

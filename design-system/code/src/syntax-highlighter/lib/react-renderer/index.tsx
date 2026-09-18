@@ -3,7 +3,6 @@ import React from 'react';
 import type { RefractorNode } from 'refractor';
 
 import type { CodeBidiWarningConfig } from '../../types';
-
 import createElement from './create-element';
 
 /**

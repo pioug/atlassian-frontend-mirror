@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RendererCssClassName } from '../../../../consts';
+
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { RendererCssClassName } from '../../../../consts';
 import TableRow from '../../../../react/nodes/tableRow';
 
 type FakeCellProps = {

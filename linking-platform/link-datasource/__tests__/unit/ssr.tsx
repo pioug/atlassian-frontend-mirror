@@ -1,6 +1,6 @@
 import React from 'react';
-
 import ReactDOM from 'react-dom';
+
 import waitForExpect from 'wait-for-expect';
 
 import { ssr } from '@atlaskit/ssr';

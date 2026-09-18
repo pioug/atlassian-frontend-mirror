@@ -4,6 +4,7 @@
  */
 import { jsx } from '@compiled/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	ErroredClient,
 	ForbiddenClient,
@@ -30,7 +31,6 @@ import { Grid } from '@atlaskit/primitives';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { Card, TitleElement } from '@atlaskit/smart-card';
 
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import CustomUnresolvedAction, {
 	type CustomStatusComponents,
 } from '../../src/view/FlexibleCard/components/actions/custom-unresolved-action';

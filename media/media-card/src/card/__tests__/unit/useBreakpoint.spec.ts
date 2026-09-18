@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { useBreakpoint } from '../../useBreakpoint';
+
 import { Breakpoint } from '../../ui/common';
+import { useBreakpoint } from '../../useBreakpoint';
 
 /*
   NOTE: Breakpoint sizes below 600 will result in a Breakpoint.SMALL value

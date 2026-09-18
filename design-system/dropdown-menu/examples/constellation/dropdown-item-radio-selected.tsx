@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 
 const DropdownItemRadioExample = (): React.JSX.Element => {
 	const [selected, setSelected] = useState<string>('detail');

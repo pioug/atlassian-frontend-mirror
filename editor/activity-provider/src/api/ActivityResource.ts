@@ -1,4 +1,5 @@
 import { utils } from '@atlaskit/util-service-support';
+
 import type {
 	ActivityItem,
 	ActivityResponse,

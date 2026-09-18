@@ -6,8 +6,8 @@ import { getDefinitionId } from '../../state/getDefinitionId';
 import { getExtensionKey } from '../../state/getExtensionKey';
 import { getResourceType } from '../../state/getResourceType';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
-import { openUrl } from '../../utils/open-url';
 import { canShowAction } from '../../utils/actions/can-show-action';
+import { openUrl } from '../../utils/open-url';
 import { getActionsFromJsonLd } from '../common/actions/extractActions';
 import { type ExtractClientActionsParam, type TransformUrlFn } from './types';
 

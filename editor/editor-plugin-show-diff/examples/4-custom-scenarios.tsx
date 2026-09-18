@@ -48,7 +48,6 @@ import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import type { ColorScheme, DiffType } from '../src/showDiffPluginType';
-
 import {
 	type CustomScenario,
 	emptyDoc,

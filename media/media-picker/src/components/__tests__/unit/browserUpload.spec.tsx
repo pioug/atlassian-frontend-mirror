@@ -1,16 +1,16 @@
 import React from 'react';
-import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
-import { expectFunctionToHaveBeenCalledWith, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import {
 	type TouchFileDescriptor,
 	createMediaSubject,
 	fromObservable,
 } from '@atlaskit/media-client';
+import { expectFunctionToHaveBeenCalledWith, fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
+import { type BrowserConfig, type UploadErrorEventPayload } from '../../../types';
 import { Browser } from '../../browser/browser';
 import { type LocalUploadConfig } from '../../types';
-import { type BrowserConfig, type UploadErrorEventPayload } from '../../../types';
 
 const getFileInput = () => screen.getByTestId('media-picker-file-input') as HTMLInputElement;
 const createTestFile = () => new File(['file contents'], 'hello.txt', { type: 'text/plain' });

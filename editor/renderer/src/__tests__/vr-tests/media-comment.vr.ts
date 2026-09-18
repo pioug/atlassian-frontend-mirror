@@ -1,4 +1,5 @@
 import { snapshot } from '@af/visual-regression';
+
 import { MediaComment, MediaCommentWrapped } from './media-comment.fixture.vr.ap';
 
 snapshot(MediaComment, {

@@ -1,18 +1,18 @@
 import React from 'react';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
-import HelpArticleContent from '@atlaskit/help-article';
-import { token } from '@atlaskit/tokens';
-import ShortcutIcon from '@atlaskit/icon/core/link-external';
+
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import Button from '@atlaskit/button/button';
+import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+import HelpArticleContent from '@atlaskit/help-article';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-
 import { type WhatsNewArticle as WhatsNewArticleType } from '../../../model/WhatsNew';
 import { getTypeIcon, getTypeTitle } from '../../../util';
 import { WhatsNewTypeIcon, DividerLine } from '../../../util/styled';
-
 import Loading from './Loading';
 import {
 	WhatsNewTypeTitle,

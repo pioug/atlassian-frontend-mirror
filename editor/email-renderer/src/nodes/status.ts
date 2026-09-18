@@ -1,6 +1,3 @@
-import { createTag } from '../create-tag';
-import { createClassName } from '../styles/util';
-import type { NodeSerializerOpts } from '../interfaces';
 import {
 	B50,
 	B500,
@@ -19,6 +16,10 @@ import {
 	L200,
 	Orange200,
 } from '@atlaskit/adf-schema/colors';
+
+import { createTag } from '../create-tag';
+import type { NodeSerializerOpts } from '../interfaces';
+import { createClassName } from '../styles/util';
 
 const commonStyle = `
   border-radius: 3px;

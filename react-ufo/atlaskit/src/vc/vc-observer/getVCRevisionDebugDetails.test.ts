@@ -1,5 +1,4 @@
 import type { VCObserverEntryType } from '../vc-observer-new/types';
-
 import { getVCRevisionDebugDetails } from './getVCRevisionDebugDetails';
 
 describe('getVCRevisionDebugDetails', () => {

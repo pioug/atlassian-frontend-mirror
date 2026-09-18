@@ -5,8 +5,8 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import MediaButton from '@atlaskit/media-ui/MediaButton';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import type { DownloadButtonProps } from './DownloadButtonProps';
 import { fireAnalytics } from './analytics/fireAnalytics';
+import type { DownloadButtonProps } from './DownloadButtonProps';
 import { noop } from './noop';
 
 export function DownloadButton({

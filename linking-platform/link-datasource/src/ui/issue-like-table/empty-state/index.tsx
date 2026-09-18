@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx, styled } from '@compiled/react';
 
 import { Skeleton } from '@atlaskit/linking-common/skeleton';

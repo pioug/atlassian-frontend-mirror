@@ -9,7 +9,6 @@ import type {
 import type * as CSS from 'csstype';
 
 import type { MediaQuery } from '../responsive/types';
-
 import type { TokenisedProps } from './tokenised-props';
 import { tokensMap } from './tokens-map';
 import { uniqueSymbol } from './unique-symbol';

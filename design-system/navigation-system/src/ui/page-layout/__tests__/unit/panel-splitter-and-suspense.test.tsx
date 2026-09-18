@@ -8,7 +8,6 @@ import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
 import { SideNavBody } from '../../side-nav/side-nav-content';
-
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,

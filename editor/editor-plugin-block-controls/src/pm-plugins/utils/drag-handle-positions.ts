@@ -1,8 +1,8 @@
 import memoizeOne from 'memoize-one';
 
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT,
@@ -16,7 +16,6 @@ import {
 	DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT,
 	dragHandleGap,
 } from '../../ui/consts';
-
 import type { AnchorRectCache } from './anchor-utils';
 
 const STICKY_NODES = ['panel', 'table', 'expand', 'layoutSection', 'bodiedExtension'];

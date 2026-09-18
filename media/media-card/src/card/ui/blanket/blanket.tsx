@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Blanket as CompiledBlanket } from './blanket-compiled';
 
 export interface BlanketProps {

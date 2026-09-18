@@ -1,7 +1,7 @@
 import { type Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
-import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { StepResult, StepMap, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 export const analyticsStepType = 'atlaskit-analytics';
 export const analyticsInvertStepType = 'atlaskit-analytics-invert';

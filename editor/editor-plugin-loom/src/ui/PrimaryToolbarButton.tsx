@@ -21,7 +21,6 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { LoomPlugin } from '../loomPluginType';
 import { executeRecordVideo } from '../pm-plugins/commands';
 import type { ButtonComponentProps, LoomPluginOptions } from '../types';
-
 import ToolbarButtonComponent from './ToolbarButtonComponent';
 
 const selector = (

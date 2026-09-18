@@ -7,17 +7,17 @@ import { useEffect, useMemo, useState } from 'react';
 import { bind } from 'bind-event-listener';
 import Loadable from 'react-loadable';
 
-import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { Placement } from '@atlaskit/popper/main';
+import { ProfileCardLazy } from '@atlaskit/profilecard/lazy-profile-card';
 import type {
 	ProfileCardClientData,
 	TeamCentralReportingLinesData,
 } from '@atlaskit/profilecard/types';
-import { ProfileCardLazy } from '@atlaskit/profilecard/lazy-profile-card';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';

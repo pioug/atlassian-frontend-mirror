@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Spinner from '@atlaskit/spinner/spinner';
-import Tabs from '@atlaskit/tabs/tabs';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';
+import Tabs from '@atlaskit/tabs/tabs';
 import { token } from '@atlaskit/tokens';
 
 export default function withFlexContent(): React.JSX.Element {

@@ -1,25 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies -- test fixtures; not in the package manifest to avoid circular deps */
 import * as sinon from 'sinon';
 
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-/* eslint-disable import/no-extraneous-dependencies */
-import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
-import { getTestSiteEmojiRepository } from '@atlaskit/util-data-test/get-test-site-emoji-repository';
-import { mediaServiceEmoji } from '@atlaskit/util-data-test/media-service-emoji';
 import { mediaBaseUrl } from '@atlaskit/util-data-test/emoji-constants';
-import { getTestEmojis } from '@atlaskit/util-data-test/get-test-emojis';
-import { getTestAtlassianEmojis } from '@atlaskit/util-data-test/get-test-atlassian-emojis';
-import { getTestAtlassianServiceEmojis } from '@atlaskit/util-data-test/get-test-atlassian-service-emojis';
-import { getTestStandardEmojis } from '@atlaskit/util-data-test/get-test-standard-emojis';
-import { getTestStandardServiceEmojis } from '@atlaskit/util-data-test/get-test-standard-service-emojis';
-import { getTestSearchableEmojis } from '@atlaskit/util-data-test/get-test-searchable-emojis';
-import { getTestSiteEmojis } from '@atlaskit/util-data-test/get-test-site-emojis';
-import { getTestSiteServiceEmojis } from '@atlaskit/util-data-test/get-test-site-service-emojis';
-import { mediaEmoji as mediaEmojiData } from '@atlaskit/util-data-test/media-emoji';
-import { getTestSpriteEmoji } from '@atlaskit/util-data-test/get-test-sprite-emoji';
-import { getTestImageEmoji } from '@atlaskit/util-data-test/get-test-image-emoji';
-import { getTestSiteEmojiWtf } from '@atlaskit/util-data-test/get-test-site-emoji-wtf';
-import { getTestSiteEmojiFoo } from '@atlaskit/util-data-test/get-test-site-emoji-foo';
-
 import {
 	grinEmoji as getGrinEmoji,
 	atlassianBoomEmoji as getAtlassianBoomEmoji,
@@ -31,7 +13,22 @@ import {
 	blackFlagEmoji as getBlackFlagEmoji,
 	standardBoomEmoji as getStandardBoomEmoji,
 } from '@atlaskit/util-data-test/emoji-samples';
-/* eslint-enable import/no-extraneous-dependencies */
+import { getTestAtlassianEmojis } from '@atlaskit/util-data-test/get-test-atlassian-emojis';
+import { getTestAtlassianServiceEmojis } from '@atlaskit/util-data-test/get-test-atlassian-service-emojis';
+import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
+import { getTestEmojis } from '@atlaskit/util-data-test/get-test-emojis';
+import { getTestImageEmoji } from '@atlaskit/util-data-test/get-test-image-emoji';
+import { getTestSearchableEmojis } from '@atlaskit/util-data-test/get-test-searchable-emojis';
+import { getTestSiteEmojiFoo } from '@atlaskit/util-data-test/get-test-site-emoji-foo';
+import { getTestSiteEmojiRepository } from '@atlaskit/util-data-test/get-test-site-emoji-repository';
+import { getTestSiteEmojiWtf } from '@atlaskit/util-data-test/get-test-site-emoji-wtf';
+import { getTestSiteEmojis } from '@atlaskit/util-data-test/get-test-site-emojis';
+import { getTestSiteServiceEmojis } from '@atlaskit/util-data-test/get-test-site-service-emojis';
+import { getTestSpriteEmoji } from '@atlaskit/util-data-test/get-test-sprite-emoji';
+import { getTestStandardEmojis } from '@atlaskit/util-data-test/get-test-standard-emojis';
+import { getTestStandardServiceEmojis } from '@atlaskit/util-data-test/get-test-standard-service-emojis';
+import { mediaEmoji as mediaEmojiData } from '@atlaskit/util-data-test/media-emoji';
+import { mediaServiceEmoji } from '@atlaskit/util-data-test/media-service-emoji';
 
 import TokenManager from '../../api/media/TokenManager';
 import type {

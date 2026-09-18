@@ -5,7 +5,6 @@ import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isDiffDecoration } from '../../pm-plugins/decorations/decorationKeys';
 import type { ContributorTagModel } from '../../showDiffPluginType';
 import { formatContributorLabel } from '../ContributorTag/contributorLabel';
-
 import { diffNavigationMessages } from './messages';
 
 /**

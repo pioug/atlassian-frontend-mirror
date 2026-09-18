@@ -4,8 +4,8 @@ import omit from 'lodash/omit';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getRequiredIncludedDiffableAttrs, isDiffableAttr } from './diffableAttrs';

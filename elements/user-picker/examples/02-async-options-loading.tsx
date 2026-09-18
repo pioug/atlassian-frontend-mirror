@@ -1,5 +1,7 @@
-import { token } from '@atlaskit/tokens';
 import React, { useState } from 'react';
+
+import { token } from '@atlaskit/tokens';
+
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { UserPicker } from '../src/components/UserPicker';
 

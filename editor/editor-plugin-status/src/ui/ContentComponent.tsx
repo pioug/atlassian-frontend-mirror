@@ -11,7 +11,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { commitStatusPicker, updateStatus } from '../pm-plugins/actions';
 import type { StatusPlugin } from '../statusPluginType';
 import type { StatusType, ClosingPayload } from '../types';
-
 import {
 	getSuggestedStatuses,
 	MAX_SUGGESTED_STATUSES,

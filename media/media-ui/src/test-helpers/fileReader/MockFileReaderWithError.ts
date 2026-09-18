@@ -1,5 +1,4 @@
 import { mockFileReaderError } from '../mockFileReaderError';
-
 import { MockFileReader } from './MockFileReader';
 
 export class MockFileReaderWithError extends MockFileReader {

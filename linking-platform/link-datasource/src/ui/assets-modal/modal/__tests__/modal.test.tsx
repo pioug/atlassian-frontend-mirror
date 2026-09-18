@@ -6,7 +6,6 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { FetchError } from '../../../../services/FetchError';
 import { PermissionError } from '../../../../services/PermissionError';
-
 import {
 	getAssetsClientErrorHookState,
 	getAssetsClientLoadingHookState,

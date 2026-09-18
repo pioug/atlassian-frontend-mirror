@@ -5,7 +5,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variations from '../src/testutils/variations';
-
 import GlobalStyleSimulator from './utils/global-style-simulator';
 
 export default function VisitedExample(): React.JSX.Element {

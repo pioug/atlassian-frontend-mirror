@@ -1,7 +1,6 @@
 import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../jira-issues-modal';
-
 import { getDatasourceColumnSortGetter } from './datasource-column-sort';
 
 describe('getDatasourceColumnSortGetter', () => {

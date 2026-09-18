@@ -1,8 +1,8 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { zodToJsonSchema } from '../../helpers/zod-to-json-schema';
-
 import { searchAtlaskitComponentsInputSchema } from './search-atlaskit-components-input-schema';
 
 export const listSearchAtlaskitComponentsTool: Tool = {

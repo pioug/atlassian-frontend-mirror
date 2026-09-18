@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 21.1.0
+
+### Minor Changes
+
+- [`21d8655ca13bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21d8655ca13bf) -
+  Migrate the editor floating toolbar's lazy-loaded extension controls to react-loosely-lazy behind
+  the `platform_editor_loosely_lazy_migration` experiment.
+
+### Patch Changes
+
+- [`8d37dc7e55d62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d37dc7e55d62) -
+  Clean up shipped experiment `platform_editor_block_menu`
+- Updated dependencies
+
 ## 21.0.0
 
 ### Patch Changes

@@ -3,12 +3,15 @@
  * @jsx jsx
  */
 import { Fragment, useCallback, type MouseEvent } from 'react';
+
 import { css, jsx } from '@compiled/react';
+import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
+
+import Button from '@atlaskit/button/default/button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
-import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
+
 import { messages } from '../i18n';
-import Button from '@atlaskit/button/default/button';
 import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 export const emojiActionsTestId = 'emoji-actions';

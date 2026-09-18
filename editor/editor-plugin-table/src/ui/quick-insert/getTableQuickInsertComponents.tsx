@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { TablePlugin, TablePluginOptions } from '../../tablePluginType';
-
 import { TableQuickInsertMenuItem } from './TableQuickInsertMenuItem';
 
 const previewImageUrls = {

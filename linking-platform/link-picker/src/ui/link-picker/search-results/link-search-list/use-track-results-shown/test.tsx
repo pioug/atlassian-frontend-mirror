@@ -7,7 +7,6 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import mockedPluginData from '../../../../../__tests__/__helpers/mock-plugin-data';
 import { ANALYTICS_CHANNEL } from '../../../../../common/constants';
-
 import { useTrackResultsShown } from './index';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

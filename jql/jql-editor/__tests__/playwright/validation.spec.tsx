@@ -2,7 +2,6 @@ import { expect, test } from '@af/integration-testing';
 
 import { mockIntl } from '../../mocks';
 import { errorMessages } from '../../src/plugins/jql-ast/messages';
-
 import { JQLEditorPage } from './page';
 
 test.describe('JQL Editor validations', () => {

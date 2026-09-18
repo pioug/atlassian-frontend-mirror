@@ -5,19 +5,18 @@ import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { Subscription } from 'rxjs/Subscription';
 
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { JQLParseError } from '@atlaskit/jql-ast';
 import type {
 	JQLRuleSuggestion,
 	JQLSuggestions,
 } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
 import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import * as analyticsActionsModule from './analytics';
 import { getAutocompleteOptionId } from './getAutocompleteOptionId';
-import { type ExternalError, type Props, type State } from './types';
-
 import { actions, initialState } from './index';
+import { type ExternalError, type Props, type State } from './types';
 
 const mockValues: AutocompleteOptions = [
 	{ name: 'Chuck Norris', value: '123-abc-456' },

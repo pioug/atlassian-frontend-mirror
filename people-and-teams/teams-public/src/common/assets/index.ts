@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import ConfluenceIcon from '@atlaskit/teams-public/confluence-icon'` instead.
  */
+
 export { default as ConfluenceIcon } from './ConfluenceIcon.svg';
 /**
  * @deprecated Use `import JiraIcon from '@atlaskit/teams-public/jira-icon'` instead.

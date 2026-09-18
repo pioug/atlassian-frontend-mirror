@@ -1,4 +1,3 @@
-import { MarkdownSerializer, marks, nodes } from '../../../serializer';
 import {
 	blockquote,
 	code_block,
@@ -12,6 +11,8 @@ import {
 	mediaGroup,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
+
+import { MarkdownSerializer, marks, nodes } from '../../../serializer';
 
 // @ts-expect-error - Our node definitions are not compatible with prosemirror-markdown types
 const markdownSerializer = new MarkdownSerializer(nodes, marks);

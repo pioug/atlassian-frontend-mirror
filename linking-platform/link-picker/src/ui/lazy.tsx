@@ -4,7 +4,6 @@ import type { MemoExoticComponent } from 'react';
 import { lazyForPaint } from 'react-loosely-lazy';
 
 import type { LinkPickerProps } from '../common/types';
-
 import { composeLinkPicker } from './main';
 
 const LazyLinkPickerComponent = lazyForPaint(() =>

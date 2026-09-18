@@ -1,7 +1,6 @@
 import { type EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
-
 import { restrictedPaths } from './paths';
 
 const rule: import('eslint').Rule.RuleModule = createLintRule({

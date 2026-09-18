@@ -7,7 +7,6 @@ import EmptyState from '@atlaskit/empty-state/empty-state';
 import Link from '@atlaskit/link/link';
 
 import commonMessages from '../../messages';
-
 import ErrorSVG from './error-svg';
 import messages from './messages';
 

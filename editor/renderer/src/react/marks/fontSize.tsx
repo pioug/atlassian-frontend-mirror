@@ -1,5 +1,7 @@
 import React from 'react';
+
 import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema/font-size';
+
 import type { MarkProps } from '../types';
 
 export default function FontSize(props: MarkProps<FontSizeMarkAttrs>): React.JSX.Element {

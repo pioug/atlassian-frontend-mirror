@@ -1,5 +1,4 @@
 import { JastBuilder } from '../api';
-
 import { JqlAnonymizerVisitor } from './jql-anonymizer-visitor';
 
 const queries = [

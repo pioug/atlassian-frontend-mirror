@@ -18,7 +18,6 @@ import { getRowHeights } from '../../pm-plugins/utils/row-controls';
 import { isNativeStickySupported } from '../../pm-plugins/utils/sticky-header';
 import type { CellHoverMeta, DraggableSourceData, PluginInjectionAPI } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
-
 import { ColumnControls } from './ColumnControls';
 import { ColumnDropTargets } from './ColumnDropTargets';
 

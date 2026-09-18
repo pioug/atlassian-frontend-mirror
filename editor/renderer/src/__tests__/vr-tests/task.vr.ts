@@ -1,4 +1,5 @@
 import { snapshot } from '@af/visual-regression';
+
 import { TaskRenderer, TaskRendererWithReactLooselyLazy } from './task.fixture.vr.ap';
 
 snapshot(TaskRenderer, {

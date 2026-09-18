@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { EventType } from '@atlaskit/jql-editor-common/constants';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { Action, ActionSubject, ActionSubjectId } from '../../../analytics/constants';
 import { JQL_EDITOR_INPUT_ID } from '../../../common/constants';
@@ -10,7 +10,6 @@ import { useEditorThemeContext } from '../../../hooks/use-editor-theme/useEditor
 import { useIntl, useScopedId, useStoreActions } from '../../../state';
 import { TooltipTag } from '../../tooltip-tag';
 import { BaseExpandToggle } from '../base-expand-toggle';
-
 import { messages } from './messages';
 
 export const ExpandToggle = (): React.JSX.Element => {

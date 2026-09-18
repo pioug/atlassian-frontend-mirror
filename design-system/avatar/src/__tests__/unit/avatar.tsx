@@ -7,8 +7,8 @@ import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEv
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import Avatar from '../../avatar';

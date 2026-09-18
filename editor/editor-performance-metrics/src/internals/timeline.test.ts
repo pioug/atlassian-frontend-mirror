@@ -1,4 +1,5 @@
 /* eslint-disable compat/compat */
+
 import { TimelineController } from './timeline';
 import type { OnIdleBufferFlushCallback } from './timelineInterfaces';
 import type {

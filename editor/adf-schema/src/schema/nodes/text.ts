@@ -1,4 +1,5 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { text as textFactory } from '../../next-schema/generated/nodeTypes';
 
 /**

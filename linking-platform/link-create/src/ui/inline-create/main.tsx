@@ -16,7 +16,6 @@ import {
 import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
 import { FormContextProvider } from '../../controllers/form-context/main';
 import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controllers/plugin-context';
-
 import { InlineAnalytics } from './inline-analytics';
 
 const InlineCreateContent = ({

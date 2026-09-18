@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { HoverCard } from '@atlaskit/smart-card/hover'` instead.
  */
+
 export { HoverCard } from './entry-points/hover';
 
 /**

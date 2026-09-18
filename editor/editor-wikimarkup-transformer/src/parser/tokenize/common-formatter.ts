@@ -1,11 +1,12 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
+import type { Context } from '../../interfaces';
+import { escapeHandler } from '../utils/escape';
 import type { Token } from './';
 import { TokenType, parseToken } from './';
-import type { Context } from '../../interfaces';
+import { parseMacroKeyword } from './keyword';
 import { linkFormat } from './links/link-format';
 import { parseNewlineOnly } from './whitespace';
-import { parseMacroKeyword } from './keyword';
-import { escapeHandler } from '../utils/escape';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

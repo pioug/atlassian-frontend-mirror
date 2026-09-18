@@ -2,7 +2,6 @@ import { token } from '@atlaskit/tokens';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
 
 import type { Placement } from '../../types';
-
 import { placementMap } from './placement-map';
 
 const DEFAULT_GAP = token('space.050');

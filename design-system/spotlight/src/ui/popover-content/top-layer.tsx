@@ -15,7 +15,6 @@ import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dism
 import { SpotlightContext } from '../../controllers/context';
 import type { DismissEvent } from '../../types';
 import { usePositionArea } from '../../utils/use-position-area';
-
 import { getPlacementWithOffset } from './get-placement-with-offset';
 import type { PopoverContentProps } from './legacy';
 

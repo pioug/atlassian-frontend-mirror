@@ -1,18 +1,19 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
+
 import { annotation } from '../marks/annotation';
 import { code } from '../marks/code';
+import { backgroundColor, textColor } from '../marks/color';
+import { confluenceInlineComment } from '../marks/confluenceInlineComment';
 import { em } from '../marks/em';
 import { link } from '../marks/link';
 import { strike } from '../marks/strike';
 import { strong } from '../marks/strong';
 import { subsup } from '../marks/subsup';
-import { underline } from '../marks/underline';
-import { backgroundColor, textColor } from '../marks/color';
-import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
-import { unsupportedMark } from '../marks/unsupportedMark';
 import { typeAheadQuery } from '../marks/typeAheadQuery';
-import { confluenceInlineComment } from '../marks/confluenceInlineComment';
+import { underline } from '../marks/underline';
+import { unsupportedMark } from '../marks/unsupportedMark';
+import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
 export const text: ADFNode<
 	[string, 'with_no_marks', 'link_inline', 'formatted', 'code_inline'],

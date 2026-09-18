@@ -1,8 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import fs from 'fs';
 import { resolve, dirname } from 'path';
+
 import type { Rule } from 'eslint';
 import type { ObjectExpression } from 'estree';
+
 import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 
 const cwd = process.cwd();

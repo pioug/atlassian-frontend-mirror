@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import * as Image from '../../../../../examples-helpers/images.json';
-
 import Icon, { ICON_TYPE_TEST_ID, ICON_TYPE_TEXT_TEST_ID } from './index';
 
 describe('Icon Type', () => {

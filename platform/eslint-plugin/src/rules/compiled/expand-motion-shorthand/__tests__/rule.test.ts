@@ -1,4 +1,5 @@
 import { outdent } from 'outdent';
+
 import { tester } from '../../../../__tests__/utils/_tester';
 import { expandTransitionShorthand } from '../index';
 

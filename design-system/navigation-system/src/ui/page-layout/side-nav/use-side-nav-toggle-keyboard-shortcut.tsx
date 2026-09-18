@@ -7,7 +7,6 @@ import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
-
 import { useIsSideNavShortcutEnabled } from './use-is-side-nav-shortcut-enabled';
 import { useToggleSideNav } from './use-toggle-side-nav';
 

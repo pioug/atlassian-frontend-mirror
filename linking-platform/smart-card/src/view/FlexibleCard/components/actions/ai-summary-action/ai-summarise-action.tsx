@@ -12,7 +12,6 @@ import type {
 	AISummaryStatus,
 } from '../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
 import Action from '../action';
-
 import type { AISummaryActionProps } from './types';
 import { getErrorMessage } from './utils';
 

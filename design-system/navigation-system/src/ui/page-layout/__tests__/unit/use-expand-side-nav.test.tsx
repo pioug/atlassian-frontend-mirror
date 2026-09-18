@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
-import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 
 import { SetSideNavVisibilityState } from '../../side-nav/set-side-nav-visibility-state';
 import { SideNavVisibilityState } from '../../side-nav/side-nav-visibility-state';

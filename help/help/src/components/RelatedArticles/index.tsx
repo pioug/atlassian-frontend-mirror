@@ -4,24 +4,26 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+
+import { css, jsx } from '@compiled/react';
+import { injectIntl, type WrappedComponentProps } from 'react-intl';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import withAnalyticsContext, {
 	type WithContextProps,
 } from '@atlaskit/analytics-next/withAnalyticsContext';
-import SectionMessage from '@atlaskit/section-message/message';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
-import { injectIntl, type WrappedComponentProps } from 'react-intl';
 import { Text } from '@atlaskit/primitives/compiled';
-import { css, jsx } from '@compiled/react';
+import SectionMessage from '@atlaskit/section-message/message';
 
 import { messages } from '../../messages';
 import { type ArticleItem } from '../../model/Article';
-import ArticlesList from '../ArticlesList';
-import RelatedArticlesLoading from './RelatedArticlesLoading';
-import { DividerLine } from '../../util/styled';
-import { RelatedArticlesTitle } from './styled';
 import useCancellablePromise from '../../util/hooks/cancellablePromise';
 import { usePrevious } from '../../util/hooks/previous';
+import { DividerLine } from '../../util/styled';
+import ArticlesList from '../ArticlesList';
+import RelatedArticlesLoading from './RelatedArticlesLoading';
+import { RelatedArticlesTitle } from './styled';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

@@ -11,8 +11,8 @@ import { type MediaTraceContext } from '@atlaskit/media-common';
 import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 
-import { MediaViewerError } from '../MediaViewerError';
 import { Outcome } from '../domain/outcome';
+import { MediaViewerError } from '../MediaViewerError';
 import {
 	AudioPlayer,
 	AudioCover,

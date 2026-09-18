@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
+import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
+import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

@@ -2,14 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx } from '@compiled/react';
+
 import React, { type ReactNode, type MouseEvent, forwardRef } from 'react';
+
+import { jsx } from '@compiled/react';
+import { css } from '@compiled/react';
+
 import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 import ArrowRight from '@atlaskit/icon/core/arrow-right';
-import { MediaFilmStripListItemSelector } from '.';
-import { css } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
+
+import { MediaFilmStripListItemSelector } from '.';
 
 const filmStripViewStyles = css({
 	position: 'relative',

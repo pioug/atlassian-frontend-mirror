@@ -1,7 +1,5 @@
 import type { IntlShape } from 'react-intl';
 
-import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
-import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
 import {
 	getComponentIdentity,
 	resolveSurface,
@@ -15,6 +13,8 @@ import type {
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
+import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
+import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
 import type { QuickInsertMenuModel, QuickInsertMenuSection } from './build-quick-insert-menu-model';
 
 type MatchedItem = {

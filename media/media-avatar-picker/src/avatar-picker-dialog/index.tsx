@@ -3,17 +3,9 @@
  * @jsx jsx
  */
 import React, { type FormEvent, Fragment, createRef } from 'react';
-import { jsx, css } from '@compiled/react';
-import { cssMap } from '@atlaskit/css';
-
-import { token } from '@atlaskit/tokens';
 import { PureComponent } from 'react';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
-import ModalBody from '@atlaskit/modal-dialog/modal-body';
-import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
-import ModalHeader from '@atlaskit/modal-dialog/modal-header';
-import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import Button from '@atlaskit/button/standard-button';
+
+import { jsx, css } from '@compiled/react';
 import {
 	FormattedMessage,
 	IntlProvider,
@@ -21,26 +13,35 @@ import {
 	type MessageDescriptor,
 	type WrappedComponentProps,
 } from 'react-intl';
+
+import ButtonGroup from '@atlaskit/button/button-group';
+import LoadingButton from '@atlaskit/button/loading-button';
+import Button from '@atlaskit/button/standard-button';
+import { cssMap } from '@atlaskit/css';
 import Field from '@atlaskit/form/field';
 import { HelperMessage } from '@atlaskit/form/helper-message';
-import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
 import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile';
+import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
 import { messages } from '@atlaskit/media-ui/messages';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield/text-field';
+import { token } from '@atlaskit/tokens';
+
 import { type Avatar } from '../avatar-list';
 import ImageNavigator, { type CropProperties } from '../image-navigator';
+import { type LoadParameters } from '../image-navigator/index';
 import { PredefinedAvatarList } from '../predefined-avatar-list';
 import { PredefinedAvatarView } from '../predefined-avatar-view';
-import { type LoadParameters } from '../image-navigator/index';
-import ButtonGroup from '@atlaskit/button/button-group';
-
 import { DEFAULT_VISIBLE_PREDEFINED_AVATARS } from './layout-const';
 import { AVATAR_DIALOG_WIDTH, AVATAR_DIALOG_HEIGHT, CONTAINER_INNER_SIZE } from './layout-const';
-import { type AvatarPickerDialogProps, type AvatarPickerDialogState, Mode } from './types';
 import { SRLiveTitle } from './SRLiveTitle';
-import LoadingButton from '@atlaskit/button/loading-button';
 import { SubmitErrorDialog } from './SubmitErrorDialog';
+import { type AvatarPickerDialogProps, type AvatarPickerDialogState, Mode } from './types';
 
 export const MAX_SIZE_MB = 10;
 

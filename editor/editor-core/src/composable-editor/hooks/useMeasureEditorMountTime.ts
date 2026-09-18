@@ -11,7 +11,6 @@ import { clearMeasure, stopMeasure } from '@atlaskit/editor-common/performance-m
 import type { EditorNextProps, EditorProps } from '../../types/editor-props';
 import measurements from '../../utils/performance/measure-enum';
 import sendDurationAnalytics from '../utils/sendDurationAnalytics';
-
 import useEditorConstructor from './useEditorMeasuresConstructor';
 
 /**

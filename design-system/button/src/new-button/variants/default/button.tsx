@@ -4,7 +4,6 @@ import ButtonBase from '../shared/button-base';
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
 import { type CommonButtonVariantProps } from '../types';
-
 import { type CommonDefaultButtonProps } from './types';
 
 export type ButtonProps = CommonDefaultButtonProps & CommonButtonVariantProps;

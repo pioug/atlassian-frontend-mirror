@@ -9,7 +9,6 @@ import AlignPositionTopIcon from '@atlaskit/icon-lab/core/align-position-top';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TableMenuComponentsParams } from '../shared/types';
-
 import { MergeCellsItem } from './items/MergeCellsItem';
 import { SplitCellItem } from './items/SplitCellItem';
 import { VerticalAlignDropdownItem } from './items/VerticalAlignDropdownItem';

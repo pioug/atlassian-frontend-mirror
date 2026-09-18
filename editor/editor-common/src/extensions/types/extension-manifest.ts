@@ -3,7 +3,6 @@ import type { ComponentType, ReactNode } from 'react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { BlockTransformExtension } from '../../block-menu/block-transform-extension';
-
 import type {
 	ExtensionAPI,
 	ExtensionParams,

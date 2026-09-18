@@ -9,7 +9,6 @@ import type {
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import useErrorLogger from '../../hooks/useErrorLogger';
 import { useDatasourceItem } from '../index';
-
 import { useAtomicUpdateActionSchema } from './index';
 import type { ExecuteFetch } from './index';
 

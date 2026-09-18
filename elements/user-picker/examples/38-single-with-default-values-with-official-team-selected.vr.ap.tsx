@@ -2,8 +2,8 @@ import React from 'react';
 
 import { exampleOptions } from '../example-helpers';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import { UserPicker } from '../src/components/UserPicker';
 import { isTeam } from '../src/components/isTeam';
+import { UserPicker } from '../src/components/UserPicker';
 import { type Team } from '../src/types';
 
 const Example = (): React.JSX.Element => {

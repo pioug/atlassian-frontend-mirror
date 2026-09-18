@@ -32,7 +32,6 @@ import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import type { MentionPluginOptions } from '../types';
-
 import { disabledTooltipRenderer } from './disabledTooltipRenderer';
 import { type MentionAvatarController, mentionAvatarRenderer } from './mentionAvatarRenderer';
 import { profileCardRenderer } from './profileCardRenderer';

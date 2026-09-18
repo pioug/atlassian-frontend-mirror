@@ -20,11 +20,11 @@ import { UnsupportedInline } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
 import { EditorSmartCardProvider } from '@atlaskit/link-provider/editor-smart-card-provider';
 import { EditorSmartCardProviderValueGuard } from '@atlaskit/link-provider/editor-smart-card-provider-value-guard';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common/constants';
+import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { cardPlugin } from '../index';

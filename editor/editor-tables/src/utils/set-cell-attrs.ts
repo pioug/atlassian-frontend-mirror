@@ -2,7 +2,6 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import type { CellAttributes } from '../types';
-
 import { cloneTr } from './clone-tr';
 
 // Returns a new transaction that sets given `attrs` to a given `cell`.

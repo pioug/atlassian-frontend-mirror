@@ -10,7 +10,6 @@ import AlignPositionCenterVerticalIcon from '@atlaskit/icon-lab/core/align-posit
 import AlignPositionTopIcon from '@atlaskit/icon-lab/core/align-position-top';
 
 import { useTableMenuContext } from '../../shared/TableMenuContext';
-
 import { getSelectedCellValign } from './verticalAlignUtils';
 
 const getTriggerIcon = (valign?: Valign) => {

@@ -5,10 +5,10 @@ import { snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 import { default as ColorPicker } from '../../../examples/00-color-picker.vr.ap';
 import { default as ColorPalleteMenu } from '../../../examples/05-multi-columns-color-palette-menu.vr.ap';
 import { default as CompactColorPaletteMenu } from '../../../examples/06-compact-multi-columns-color-palette-menu.vr.ap';
-import { default as ColorPaletteMenuOutline } from '../../../examples/12-color-palette-menu-outline.vr.ap';
-import { default as ColorPickerOutlineOpen } from '../../../examples/13-color-picker-outline-open.vr.ap';
 import { default as ColorPickerSmallSwatchNoColor } from '../../../examples/07-color-picker-small-size-swatch-with-default-no-color-selected.vr.ap';
 import { default as ColorPickerSmallSwatch } from '../../../examples/08-color-picker-small-swatch.vr.ap';
+import { default as ColorPaletteMenuOutline } from '../../../examples/12-color-palette-menu-outline.vr.ap';
+import { default as ColorPickerOutlineOpen } from '../../../examples/13-color-picker-outline-open.vr.ap';
 
 const options = {
 	drawsOutsideBounds: true,

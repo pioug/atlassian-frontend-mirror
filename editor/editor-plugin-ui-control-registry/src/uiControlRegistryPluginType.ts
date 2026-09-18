@@ -1,10 +1,10 @@
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { RegisterOptions } from '@atlaskit/editor-ui-control-model/create-registry';
+import type { SurfaceIdentifier } from '@atlaskit/editor-ui-control-model/surface-renderer/types';
 import type {
 	ComponentIdentifier,
 	RegisterComponent,
 } from '@atlaskit/editor-ui-control-model/types';
-import type { SurfaceIdentifier } from '@atlaskit/editor-ui-control-model/surface-renderer/types';
 
 export type UiControlRegistryPlugin = NextEditorPlugin<
 	'uiControlRegistry',

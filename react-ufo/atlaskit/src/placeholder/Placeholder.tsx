@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 
 import UFOLoadHold from '../load-hold';
-
 import { LazySuspense } from './loosely-lazy/lazy-suspense';
 import type { LazySuspenseProps } from './loosely-lazy/types';
 import { WaitContext } from './loosely-lazy/wait-context';

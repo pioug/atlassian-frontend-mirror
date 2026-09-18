@@ -4,9 +4,9 @@ import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { useDatasourceClientExtension } from '@atlaskit/link-client-extension/use-data-source-client-extension';
 import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponseWithSchema';
 import { mockDatasourceDetailsResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDetailsResponse';
-import { useDatasourceClientExtension } from '@atlaskit/link-client-extension/use-data-source-client-extension';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';

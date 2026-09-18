@@ -3,9 +3,9 @@ import isEqual from 'lodash/isEqual';
 import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
-import type { SchemaStage } from './SchemaStage';
 import { sanitizeNode } from './sanitize/sanitize-node';
 import type { SanitizeNodeOptions } from './sanitize/sanitize-node';
+import type { SchemaStage } from './SchemaStage';
 import { toJSON } from './toJSON';
 import type { JSONDocNode, JSONNode } from './types';
 

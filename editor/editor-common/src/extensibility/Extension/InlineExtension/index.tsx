@@ -15,8 +15,8 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useSharedPluginStateWithSelector } from '../../../hooks';
@@ -24,7 +24,6 @@ import { createWidthContext, WidthContext } from '../../../ui';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
-
 import { wrapperStyle } from './styles';
 
 export interface Props {

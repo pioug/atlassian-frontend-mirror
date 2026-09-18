@@ -1,10 +1,13 @@
-import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
-import React from 'react';
+
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+
 import { SingleValueContainer } from '../../../components/SingleValueContainer';
-import { testUser } from '../_testUtils';
 import { type Option } from '../../../types';
+import { testUser } from '../_testUtils';
 
 jest.mock('@atlaskit/avatar/get-appearance', () => ({
 	...jest.requireActual('@atlaskit/avatar/get-appearance'),

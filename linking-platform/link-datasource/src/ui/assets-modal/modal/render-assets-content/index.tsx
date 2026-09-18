@@ -20,7 +20,6 @@ import { ModalLoadingError } from '../../../common/error-state/modal-loading-err
 import { NoResults } from '../../../common/error-state/no-results';
 import EmptyState from '../../../issue-like-table/empty-state';
 import { IssueLikeDataTableView } from '../../../issue-like-table/issue-like-data-table-view';
-
 import { InitialStateView } from './initial-state-view';
 
 export interface RenderAssetsContentProps {

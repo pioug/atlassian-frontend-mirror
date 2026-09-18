@@ -26,7 +26,6 @@ import {
 	stopMeasureReactNodeViewRendered,
 } from '../utils';
 import { analyticsEventKey } from '../utils/analytics';
-
 import { generateUniqueNodeKey } from './generateUniqueNodeKey';
 import type {
 	ForwardRef,

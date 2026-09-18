@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports -- exports reassign shared mutable module local(s) [testGlobalTheme]; splitting would fork the singleton and is forbidden by TS2632 */
+
 import type { NodeSpec, Node as PmNode, Attrs } from '@atlaskit/editor-prosemirror/model';
 
 import {
@@ -70,9 +71,9 @@ import { rgbToHex } from '../../utils/rgb-to-hex';
 import { uuid } from '../../utils/uuid';
 import type { NodeSpecOptions } from '../createPMSpecFactory';
 import type { FragmentDefinition } from '../marks/fragment';
-import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type { BlockCardDefinition as BlockCard } from './block-card';
 import type { BlockQuoteDefinition as Blockquote } from './blockquote';
+import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type { CodeBlockDefinition as CodeBlock } from './code-block';
 import type { DecisionListDefinition as DecisionList } from './decision-list';
 import type { EmbedCardDefinition as EmbedCard } from './embed-card';

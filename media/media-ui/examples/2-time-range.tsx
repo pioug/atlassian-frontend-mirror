@@ -1,7 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
-import { TimeRange } from '../src/customMediaPlayer/timeRange';
+
 import { Container, Group, TimeRangeWrapper } from '../example-helpers/styled';
+import { TimeRange } from '../src/customMediaPlayer/timeRange';
 
 export interface ExampleState {
 	currentTime1: number;

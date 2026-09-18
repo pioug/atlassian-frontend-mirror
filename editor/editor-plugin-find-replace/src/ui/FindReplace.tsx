@@ -4,6 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
@@ -14,7 +15,6 @@ import type { DispatchAnalyticsEvent, TRIGGER_METHOD } from '@atlaskit/editor-co
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
 
 import type { MatchCaseProps } from '../types';
-
 import Find from './Find';
 import Replace from './Replace';
 import { ruleStyles, wrapperPaddingStyles, wrapperStyles } from './ui-styles';

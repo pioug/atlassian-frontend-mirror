@@ -1,13 +1,14 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
+import type { Context } from '../interfaces';
 import { createTextNode } from './nodes/text';
+import { parseToken, TokenType } from './tokenize';
 import {
 	parseOtherKeyword,
 	parseLeadingKeyword,
 	parseMacroKeyword,
 	parseIssueKeyword,
 } from './tokenize/keyword';
-import { parseToken, TokenType } from './tokenize';
-import type { Context } from '../interfaces';
 import { parseWhitespaceOnly } from './tokenize/whitespace';
 import { escapeHandler } from './utils/escape';
 import { normalizePMNodes } from './utils/normalize';

@@ -21,7 +21,6 @@ import tokenNames from '@atlaskit/tokens/token-names';
 
 import { isHex } from '../utils/search-params';
 import { type Theme, type TokenName } from '../utils/types';
-
 import { baseTokenNames } from './base-token-editor';
 
 const styles = cssMap({

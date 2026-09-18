@@ -3,12 +3,13 @@ import React, { useCallback, useEffect, useMemo, useRef, type MouseEventHandler 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { functionUnionWithCondition } from '@atlaskit/platform-feature-flags-react/function-union-with-condition';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { type ActionName, CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
@@ -19,11 +20,10 @@ import { getServices } from '../../../state/getServices';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import { useSmartLinkCrossProductUrlWrapper } from '../../../state/hooks/use-smart-link-cross-product-url-wrapper';
 import { useSmartCardState } from '../../../state/store';
-import type { CardState } from '@atlaskit/linking-common/store';
-import { isSpecialEvent } from '../../../utils/is-special-event';
 import { fireLinkClickedEvent } from '../../../utils/analytics/fireLinkClickedEvent';
 import { getAnchorAttributesFromEvent } from '../../../utils/get-anchor-attributes-from-event';
 import { getIsAISummaryEnabled } from '../../../utils/get-is-ai-summary-enabled';
+import { isSpecialEvent } from '../../../utils/is-special-event';
 import { updateAnchorHref } from '../../../utils/update-anchor-href';
 import type { InternalCardActionOptions } from '../../Card/types.ts';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';

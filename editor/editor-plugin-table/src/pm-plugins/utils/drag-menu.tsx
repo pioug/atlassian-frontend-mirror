@@ -62,7 +62,6 @@ import {
 import { moveSourceWithAnalytics } from '../drag-and-drop/commands-with-analytics';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { getNewResizeStateFromSelectedColumns } from '../table-resizing/utils/resize-state';
-
 import {
 	hasMergedCellsInSelection,
 	hasMergedCellsWithColumnNextToColumnIndex,

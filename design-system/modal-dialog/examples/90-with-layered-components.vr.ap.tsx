@@ -1,7 +1,5 @@
 import React, { Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
 
-import PlaceholderContent from './placeholder-content';
-
 import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
 import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
@@ -18,8 +16,8 @@ import FlagGroup from '@atlaskit/flag/flag-group';
 import { CheckboxField } from '@atlaskit/form/checkbox-field';
 import AddCommentIcon from '@atlaskit/icon/core/comment-add';
 import Info from '@atlaskit/icon/core/status-information';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
@@ -31,6 +29,8 @@ import { PopupSelect } from '@atlaskit/select/popup-select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import PlaceholderContent from './placeholder-content';
 
 const iconSpacingStyles = cssMap({
 	space050: {

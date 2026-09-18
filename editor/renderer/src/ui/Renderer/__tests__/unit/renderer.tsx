@@ -1,31 +1,30 @@
 import React from 'react';
-import createStub from 'raf-stub';
 
 import { act, render } from '@testing-library/react';
+import createStub from 'raf-stub';
+import { IntlProvider } from 'react-intl';
+
 import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
-
 import {
 	SEVERITY,
 	UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common/utils';
 
-import { stopMeasure } from '@atlaskit/editor-common/performance-measures';
-
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import RendererDefaultComponent, {
 	DEGRADED_SEVERITY_THRESHOLD,
 	NORMAL_SEVERITY_THRESHOLD,
 	RendererFunctionalComponent as Renderer,
 } from '../../';
-import { ValidationContextProvider } from '../../ValidationContext';
 import { RendererContextProvider } from '../../../../renderer-context';
 import type { RendererAppearance } from '../../types';
-import { IntlProvider } from 'react-intl';
+import { ValidationContextProvider } from '../../ValidationContext';
 import { adfNestedTableData } from '../__fixtures__/mockData';
 const mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 

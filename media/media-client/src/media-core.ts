@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm'` instead.
  */
+
 export { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 /**
  * @deprecated Use `import type { MediaClientConfig } from '@atlaskit/media-core/auth'` instead.

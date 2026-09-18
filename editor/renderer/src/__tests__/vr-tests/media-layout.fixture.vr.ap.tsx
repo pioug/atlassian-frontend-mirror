@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { MediaBaseRenderer } from '../__helpers/mediaRenderer';
+import { mediaResizeLayout } from '../__fixtures__/media-resize-layout.adf';
+import multipleWrappedMediaInLayout from '../__fixtures__/multiple-wrapped-media-in-layout.adf.json';
+import complexMediaLayout from '../__fixtures__/renderer-media.adf.json';
 import wrappedMediaTextLayoutSplitAdf from '../__fixtures__/wrapped-media-text-layout-split.adf.json';
 import wrappedMediaTextLayoutAdf from '../__fixtures__/wrapped-media-text-layout.adf.json';
-import { mediaResizeLayout } from '../__fixtures__/media-resize-layout.adf';
-import complexMediaLayout from '../__fixtures__/renderer-media.adf.json';
 import wrappedMediaTextLeftAdf from '../__fixtures__/wrapped-media-text-left.adf.json';
-import multipleWrappedMediaInLayout from '../__fixtures__/multiple-wrapped-media-in-layout.adf.json';
+import { MediaBaseRenderer } from '../__helpers/mediaRenderer';
 
 export const MediaWrappedLayoutSplit = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={wrappedMediaTextLayoutSplitAdf} />;

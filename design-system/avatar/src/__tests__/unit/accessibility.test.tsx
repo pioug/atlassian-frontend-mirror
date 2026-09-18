@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
+import { render } from '@atlassian/testing-library';
 
 import { Block } from '../../../examples-util/block';
 import Avatar from '../../avatar';

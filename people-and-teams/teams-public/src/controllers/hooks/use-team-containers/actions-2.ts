@@ -4,7 +4,6 @@ import type { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/tea
 import { teamsClient } from '@atlaskit/teams-client/client';
 
 import { type TeamContainer } from '../../../common/types';
-
 import { containersEqual } from './containers-equal';
 import type { FireAnalyticsProps } from './fire-analytics-props';
 import { getErrorDetails } from './get-error-details';

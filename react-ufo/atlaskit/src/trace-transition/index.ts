@@ -12,7 +12,6 @@ import { getActiveTrace } from '../experience-trace-id-context/get-active-trace'
 import DefaultInteractionID from '../interaction-id-context/defaultInteractionId';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
-
 import { setInteractionActiveTrace } from './utils/set-interaction-active-trace';
 
 function traceUFOTransition(
@@ -63,4 +62,5 @@ export default traceUFOTransition;
 /**
  * @deprecated Use `import { useUFOTransitionCompleter } from '@atlaskit/react-ufo/use-ufo-transition-completer'` instead.
  */
+
 export { useUFOTransitionCompleter } from './useUFOTransitionCompleter';

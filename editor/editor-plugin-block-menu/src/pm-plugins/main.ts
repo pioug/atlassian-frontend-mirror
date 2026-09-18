@@ -4,7 +4,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockMenuPlugin, FLAG_ID } from '../blockMenuPluginType';
-
 import { shouldSuppressKeyboardEvent } from './utils/shouldSuppressKeyboardEvent';
 
 export const blockMenuPluginKey: PluginKey = new PluginKey('blockMenuPlugin');

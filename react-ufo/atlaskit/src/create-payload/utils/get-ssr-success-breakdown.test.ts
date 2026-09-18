@@ -5,7 +5,6 @@ jest.mock('../../ssr', () => ({
 
 import * as ssr from '../../ssr';
 import type { SsrSuccessBreakdown } from '../../ssr';
-
 import getSSRSuccessBreakdown from './get-ssr-success-breakdown';
 
 const SUCCESSFUL_BREAKDOWN: SsrSuccessBreakdown = {

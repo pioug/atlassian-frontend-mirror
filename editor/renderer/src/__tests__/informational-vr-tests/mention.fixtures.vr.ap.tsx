@@ -1,12 +1,14 @@
 import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 import type { MentionProvider } from '@atlaskit/mention/types';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import ProfileCardClient from '@atlaskit/profilecard/profile-card-client';
 import getMockProfileClient from '@atlaskit/profilecard/mock-profile-client';
-import { IntlProvider } from 'react-intl';
+import ProfileCardClient from '@atlaskit/profilecard/profile-card-client';
 
 import { Renderer } from '../../entry-points/renderer-default';
 

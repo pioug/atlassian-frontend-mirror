@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 38.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.1.17
 
 ### Patch Changes

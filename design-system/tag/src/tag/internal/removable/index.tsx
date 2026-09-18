@@ -18,14 +18,13 @@ import { token } from '@atlaskit/tokens';
 
 import { colorMapping } from '../../../tag-new/color-mapping';
 import { getTagText } from '../../../tag-new/get-tag-text';
-import { default as TagNew } from '../../../tag-new/tag-new';
 import { markAsTagMotionCapable } from '../../../tag-new/tag-motion-capability';
+import { default as TagNew } from '../../../tag-new/tag-new';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';
 import Content from '../shared/content';
 import { type SimpleTagProps } from '../shared/types';
-
 import RemoveButton from './remove-button';
 
 const textLinkCssVar = '--ds-ctl';

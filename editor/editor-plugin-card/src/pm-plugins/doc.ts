@@ -56,7 +56,6 @@ import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { CardPluginState, Request } from '../types';
-
 import {
 	hideDatasourceModal,
 	queueCards,

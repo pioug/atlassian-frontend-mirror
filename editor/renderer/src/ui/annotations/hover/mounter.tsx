@@ -1,26 +1,28 @@
 import React, { useCallback, useContext } from 'react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import type {
-	AnnotationByMatches,
-	InlineCommentHoverComponentProps,
-} from '@atlaskit/editor-common/types';
-import type { ApplyAnnotation } from '../../../actions/index';
-import { updateWindowSelectionAroundDraft } from '../draft/dom';
-import type { Position } from '../types';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
+import type {
+	AnnotationByMatches,
+	InlineCommentHoverComponentProps,
+} from '@atlaskit/editor-common/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import type { ApplyAnnotation } from '../../../actions/index';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 import {
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
+import { updateWindowSelectionAroundDraft } from '../draft/dom';
+import type { Position } from '../types';
 
 type Props = {
 	applyAnnotation: ApplyAnnotation;

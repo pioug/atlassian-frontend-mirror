@@ -4,6 +4,7 @@
 /**
  * @deprecated Use `import { AgentVerified } from '@atlaskit/rovo-agent-components/agent-verified'` instead.
  */
+
 export { AgentVerified } from './agent-verified';
 export type { AgentVerifiedProps } from './agent-verified';
 export type { AgentVerifiedIconProps } from './agent-verified';

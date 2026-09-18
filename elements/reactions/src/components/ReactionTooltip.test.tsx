@@ -1,11 +1,11 @@
 import React from 'react';
+
 import { act, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { TOOLTIP_USERS_LIMIT } from '../shared/constants';
 import { type ReactionSummary } from '../types';
-import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
-
 import { ReactionTooltip, RENDER_REACTIONTOOLTIP_TESTID } from './ReactionTooltip';
 
 describe('@atlaskit/reactions/components/ReactionTooltip', () => {

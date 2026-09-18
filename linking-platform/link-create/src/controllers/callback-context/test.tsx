@@ -4,9 +4,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import { type LinkCreateFailureContext } from '../../common/types';
-
 import { LinkCreateCallbackProvider, useLinkCreateCallback } from './main';
 
 const buildResponse = (status: number, traceId?: string) => {

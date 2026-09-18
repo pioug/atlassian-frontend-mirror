@@ -24,8 +24,8 @@ import Select from '@atlaskit/select/default';
 import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';
 import type { ThemeColorModes } from '@atlaskit/tokens/theme-color-modes';
-import type { ThemeIds } from '@atlaskit/tokens/theme-ids';
 import type { ThemeState } from '@atlaskit/tokens/theme-config';
+import type { ThemeIds } from '@atlaskit/tokens/theme-ids';
 
 const contentStyles = cssMap({
 	body: {

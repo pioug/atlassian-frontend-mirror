@@ -12,20 +12,23 @@ jest.mock('@atlaskit/feature-gate-js-client/feature-gates', () => {
 	};
 });
 
+import { mockIo } from './jest_mocks/socket.io-client.mock';
+
+import SocketIOClient from 'socket.io-client';
+
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { collab } from '@atlaskit/prosemirror-collab';
-import { createSocketIOCollabProvider } from '../socket-io-provider';
-import type { Config, PresencePayload } from '../types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import SocketIOClient from 'socket.io-client';
-import type { Provider } from '../provider';
-import { mockIo } from './jest_mocks/socket.io-client.mock';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { collab } from '@atlaskit/prosemirror-collab';
+
+import type { Provider } from '../provider';
+import { createSocketIOCollabProvider } from '../socket-io-provider';
+import type { Config, PresencePayload } from '../types';
 
 describe('Collab Provider Integration Tests - Confluence', () => {
 	let provider: Provider;

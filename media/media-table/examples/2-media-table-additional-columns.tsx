@@ -1,5 +1,9 @@
 import React from 'react';
-import { type MediaTableItem, MediaTable } from '../src';
+
+import dateFnsFormat from 'date-fns/format';
+
+import { type HeadType } from '@atlaskit/dynamic-table/types';
+import CheckCircleOutlineIcon from '@atlaskit/icon/core/check-circle';
 import {
 	createUploadMediaClientConfig,
 	audioNoCoverFileId,
@@ -11,12 +15,10 @@ import {
 	gifFileId,
 	videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
-import { type HeadType } from '@atlaskit/dynamic-table/types';
-import CheckCircleOutlineIcon from '@atlaskit/icon/core/check-circle';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
-import dateFnsFormat from 'date-fns/format';
 
 import { createMockFileData, RenderMediaTableWithFieldRange } from '../example-helpers/helpers';
+import { type MediaTableItem, MediaTable } from '../src';
 
 const dateformat = (date: number, format = 'E MMM dd yyyy kk:mm:ss') => {
 	return dateFnsFormat(date, format);

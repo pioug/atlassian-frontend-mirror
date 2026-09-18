@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ReactDOM from 'react-dom';
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';

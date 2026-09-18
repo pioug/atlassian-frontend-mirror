@@ -13,7 +13,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type DisplayViewModes } from '../../../../common/types';
-
 import { displayViewDropDownMessages } from './messages';
 
 const styles = cssMap({

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-code-block
 
+## 21.0.1
+
+### Patch Changes
+
+- [`8d37dc7e55d62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d37dc7e55d62) -
+  Clean up shipped experiment `platform_editor_block_menu`
+- [`8864ef7070f02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8864ef7070f02) -
+  Use the precise code-block copy accessible name behind platform_editor_a11y_codeblock_copy_name.
+- Updated dependencies
+
 ## 21.0.0
 
 ### Patch Changes

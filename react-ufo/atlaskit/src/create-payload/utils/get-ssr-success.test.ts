@@ -4,7 +4,6 @@ jest.mock('../../ssr', () => ({
 }));
 
 import * as ssr from '../../ssr';
-
 import getSSRSuccess from './get-ssr-success';
 
 describe('getSSRSuccess', () => {

@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { type SyntheticEvent } from 'react';
 
 import { type ServiceConfig } from '@atlaskit/util-service-support/types';

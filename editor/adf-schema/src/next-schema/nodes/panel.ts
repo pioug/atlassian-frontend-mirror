@@ -1,5 +1,6 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
+
 import { breakout } from '../marks/breakout';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
@@ -7,16 +8,16 @@ import { blockCard } from './blockCard';
 import { bodiedRule } from './bodiedRule';
 import { codeBlock } from './codeBlock';
 import { decisionList } from './decisionList';
+import { extension } from './extension';
 import { heading } from './heading';
 import { bulletList, orderedList } from './list';
 import { mediaGroup } from './mediaGroup';
 import { mediaSingle } from './mediaSingle';
 import { paragraph } from './paragraph';
 import { rule } from './rule';
+import { table } from './tableStub';
 import { taskList } from './task';
 import { unsupportedBlock } from './unsupportedBlock';
-import { extension } from './extension';
-import { table } from './tableStub';
 
 const panelContent = [
 	paragraph.use('with_no_marks'),

@@ -11,7 +11,6 @@ import {
 
 import type { PastePluginAction } from '../editor-actions/actions';
 import type { PastePluginState } from '../pastePluginType';
-
 import { reducer } from './reducer';
 
 export const pluginKey: PluginKey = new PluginKey('pastePlugin');

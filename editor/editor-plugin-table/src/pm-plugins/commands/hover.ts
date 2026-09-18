@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/order
+import type { Command } from '@atlaskit/editor-common/types';
 // #region Imports
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getCellsInColumn, getCellsInRow } from '@atlaskit/editor-tables/utils';
@@ -13,8 +15,6 @@ import {
 import { getMergedCellsPositions } from '../utils/table';
 // eslint-disable-next-line import/order
 import { updatePluginStateDecorations } from '../utils/update-plugin-state-decorations';
-// eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
 
 const makeArray = (n: number) => Array.from(Array(n).keys());
 

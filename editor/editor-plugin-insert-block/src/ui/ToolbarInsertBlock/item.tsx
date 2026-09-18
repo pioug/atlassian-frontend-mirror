@@ -17,7 +17,6 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
 import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
@@ -35,6 +34,7 @@ import HorizontalRuleIcon from '@atlaskit/icon/core/minus';
 import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import TaskIcon from '@atlaskit/icon/core/task';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 import { shallowEquals } from './shallow-equals';
 

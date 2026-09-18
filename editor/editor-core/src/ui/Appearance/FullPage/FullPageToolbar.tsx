@@ -31,7 +31,6 @@ import type { EditorActions } from '../../../index';
 import type { PrimaryToolbarComponents } from '../../../types/editor-props';
 import { ToolbarPortalMountPoint, useToolbarPortal } from '../../Toolbar/ToolbarPortal';
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
-
 import { BeforePrimaryToolbarWrapper } from './BeforeWrapper';
 import {
 	MainToolbarForFirstChildWrapper,

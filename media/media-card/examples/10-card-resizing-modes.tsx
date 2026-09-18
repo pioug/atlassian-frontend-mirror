@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { StoryList } from '@atlaskit/media-test-helpers';
+
 import { MainWrapper } from '../example-helpers';
 import {
 	resizingDefaultCards,

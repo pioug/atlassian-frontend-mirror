@@ -7,7 +7,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { QuickInsertItem } from '../provider-factory';
 import type { QuickInsertHandler, QuickInsertHandlerFn } from '../types';
-
 import { boostNativeResultsAboveSkills } from './boost-native-results-above-skills';
 
 const processQuickInsertItems = (

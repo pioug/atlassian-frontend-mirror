@@ -1,6 +1,5 @@
-import { timings } from './timings';
-
 import type { ReportedTimings } from './index';
+import { timings } from './timings';
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getTimings(): ReportedTimings {

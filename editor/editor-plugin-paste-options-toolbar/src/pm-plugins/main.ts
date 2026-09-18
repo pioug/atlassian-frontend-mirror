@@ -11,7 +11,6 @@ import {
 	ToolbarDropdownOption,
 	type PasteOptionsPluginState,
 } from '../types/types';
-
 import { PASTE_HIGHLIGHT_DECORATION_KEY, TEXT_HIGHLIGHT_CLASS } from './constants';
 import { createPluginState } from './plugin-factory';
 

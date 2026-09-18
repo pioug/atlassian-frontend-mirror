@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { fireEvent, screen } from '@testing-library/react';
+
 import ColorPalette from '../../../../components/internal/color-palette';
 import { renderWithIntl } from '../../helpers/_testing-library';
-import { fireEvent, screen } from '@testing-library/react';
 
 describe('ColorPalette', () => {
 	it('should render 6 colors', () => {

@@ -1,6 +1,5 @@
 import type { AssetsReporter } from '../common';
 import type { ResourceEntry } from '../resource-timing/common/types';
-
 import { calculateTransferType } from './calculateTransferType';
 import { round } from './round';
 import { DISK_KEY, MEMORY_KEY, NETWORK_KEY } from './utils';

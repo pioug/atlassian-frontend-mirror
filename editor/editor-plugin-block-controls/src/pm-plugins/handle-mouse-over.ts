@@ -5,9 +5,9 @@ import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-che
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import {
@@ -16,7 +16,6 @@ import {
 	getTypeNameFromDom,
 	NODE_ANCHOR_ATTR_NAME,
 } from '../ui/utils/dom-attr-name';
-
 import { IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT, IGNORE_NODES_NEXT } from './decorations-anchor';
 import { selectionPreservationPluginKey } from './selection-preservation/plugin-key';
 
@@ -184,11 +183,7 @@ export const handleMouseOver = (
 	}
 
 	// If the editor view is not in focus when the block menu is open, do not update the drag handle
-	if (
-		!view.hasFocus() &&
-		isMenuOpen &&
-		editorExperiment('platform_editor_block_menu', true, { exposure: true })
-	) {
+	if (!view.hasFocus() && isMenuOpen) {
 		return false;
 	}
 
@@ -400,30 +395,16 @@ export const handleMouseOver = (
 		if (nodeType) {
 			// platform_editor_controls note: enables quick insert
 			if (toolbarFlagsEnabled) {
-				if (editorExperiment('platform_editor_block_menu', true)) {
-					const preservedSelection = selectionPreservationPluginKey.getState(
-						view.state,
-					)?.preservedSelection;
-					const selection = preservedSelection || view.state.selection;
-					const isMultipleSelected = selection && isMultiBlockSelection(selection);
+				const preservedSelection = selectionPreservationPluginKey.getState(
+					view.state,
+				)?.preservedSelection;
+				const selection = preservedSelection || view.state.selection;
+				const isMultipleSelected = selection && isMultiBlockSelection(selection);
 
-					// Only execute when selection is not a multi-selection, block menu is open, and menu is opened via keyboard
-					// as when it is a multi-selection, the showDragHandleAt command interfere with selection
-					// sometimes makes the multi-selection not continous after block menu is opened with keyboard
-					if (!(isMultipleSelected && isMenuOpen && blockMenuOptions?.openedViaKeyboard)) {
-						api?.core?.actions.execute(
-							api?.blockControls?.commands.showDragHandleAt(
-								targetPos,
-								anchorName,
-								nodeType,
-								undefined,
-								rootPos ?? targetPos,
-								rootAnchorName ?? anchorName,
-								rootNodeType ?? nodeType,
-							),
-						);
-					}
-				} else {
+				// Only execute when selection is not a multi-selection, block menu is open, and menu is opened via keyboard
+				// as when it is a multi-selection, the showDragHandleAt command interfere with selection
+				// sometimes makes the multi-selection not continous after block menu is opened with keyboard
+				if (!(isMultipleSelected && isMenuOpen && blockMenuOptions?.openedViaKeyboard)) {
 					api?.core?.actions.execute(
 						api?.blockControls?.commands.showDragHandleAt(
 							targetPos,
@@ -442,14 +423,12 @@ export const handleMouseOver = (
 				);
 			}
 
-			if (editorExperiment('platform_editor_block_menu', true)) {
-				if (
-					isMenuOpen &&
-					originalAnchorName &&
-					api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'blockMenuOpen'
-				) {
-					api?.core?.actions.execute(api?.blockControls?.commands.toggleBlockMenu());
-				}
+			if (
+				isMenuOpen &&
+				originalAnchorName &&
+				api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'blockMenuOpen'
+			) {
+				api?.core?.actions.execute(api?.blockControls?.commands.toggleBlockMenu());
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen, fireEvent } from '@testing-library/react';
+
 import { UnhandledErrorCard } from '..';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({

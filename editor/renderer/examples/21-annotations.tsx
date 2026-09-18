@@ -2,14 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
+
 import React, { Fragment } from 'react';
+
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
-//import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
-import { RendererWithAnalytics as Renderer, AnnotationsWrapper } from '../src/';
-import { RendererActionsContext } from '../src/ui/RendererActionsContext';
+
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import {
 	AnnotationUpdateEmitter,
 	AnnotationUpdateEvent,
@@ -17,15 +18,18 @@ import {
 	type InlineCommentSelectionComponentProps,
 	type InlineCommentViewComponentProps,
 } from '@atlaskit/editor-common/types';
-import { annotationsStore, AnnotationsStoreProvider } from './helper/annotations/store';
-import { ExampleSelectionInlineComponent } from './helper/annotations/selection';
-import { ExampleHoverInlineComponent } from './helper/annotations/hover';
-import { ExampleViewInlineCommentComponent } from './helper/annotations/view';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { token } from '@atlaskit/tokens';
+
+//import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
+import { RendererWithAnalytics as Renderer, AnnotationsWrapper } from '../src/';
+import { RendererActionsContext } from '../src/ui/RendererActionsContext';
+import { ExampleHoverInlineComponent } from './helper/annotations/hover';
+import { ExampleSelectionInlineComponent } from './helper/annotations/selection';
+import { annotationsStore, AnnotationsStoreProvider } from './helper/annotations/store';
+import { ExampleViewInlineCommentComponent } from './helper/annotations/view';
 
 const exampleDocumentWithComments = {
 	version: 1,

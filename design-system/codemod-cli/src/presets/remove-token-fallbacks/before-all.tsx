@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import { type RemoveTokenFallbackOptions } from './types';
 import { clearFolder } from './utils/clear-folder';
 

@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { isRotated } from '@atlaskit/media-ui/imageMetaData/isRotated'` instead.
  */
+
 export { isRotated } from './isRotated';
 /**
  * @deprecated Use `import { getCssFromImageOrientation } from '@atlaskit/media-ui/imageMetaData/getCssFromImageOrientation'` instead.

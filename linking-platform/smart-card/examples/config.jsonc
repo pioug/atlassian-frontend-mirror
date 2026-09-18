@@ -4,14 +4,14 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "exampleDependencies": [],
-  "testExamples": [
-    "forbidden.svg",
-    "not_found.svg",
-    "unauthorized.svg",
-    "vr-embed-modal-with-flexible-ui-icon.vr.ap.tsx",
-    "vr-embed-modal.vr.ap.tsx",
-    "vr-inline-card-default-icon.vr.ap.tsx",
-    "vr-inline-card-text-wrap.vr.ap.tsx"
-  ]
+	"exampleDependencies": [],
+	"testExamples": [
+		"forbidden.svg",
+		"not_found.svg",
+		"unauthorized.svg",
+		"vr-embed-modal-with-flexible-ui-icon.vr.ap.tsx",
+		"vr-embed-modal.vr.ap.tsx",
+		"vr-inline-card-default-icon.vr.ap.tsx",
+		"vr-inline-card-text-wrap.vr.ap.tsx",
+	],
 }

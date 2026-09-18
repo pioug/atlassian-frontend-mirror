@@ -1,3 +1,5 @@
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import {
 	doc,
 	p,
@@ -16,6 +18,7 @@ import {
 	subsup,
 	underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
 	checkParse,
 	checkEncode,
@@ -23,8 +26,6 @@ import {
 	encode,
 	parseWithSchema,
 } from './_test-helpers';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 
 export const schema: Schema<string, string> = createJIRASchema({ allowSubSup: true });
 

@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import { PanelType } from '@atlaskit/adf-schema/panel';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+
 import Panel from '../../../../react/nodes/panel';
 
 describe('Renderer - React/Nodes/Panel', () => {

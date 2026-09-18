@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { SvgView as SvgViewCompiled } from './svgImage-compiled';
 import { SvgView as SvgViewV2 } from './svgViewV2';
 import type { SvgViewProps } from './types';

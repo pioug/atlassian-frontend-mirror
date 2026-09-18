@@ -1,8 +1,9 @@
+import { fromHTML, toHTML, textWithMarks } from '@af/adf-test-helpers/src/adf-schema';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
+import { textColor } from '../../../..';
 import { createSchema } from '../../../../schema/create-schema';
 import { setGlobalTheme } from '../../../../schema/marks/text-color';
-import { fromHTML, toHTML, textWithMarks } from '@af/adf-test-helpers/src/adf-schema';
-import { textColor } from '../../../..';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 const testColorObj1 = { color: '#97a0af' };
 const testColorObj2 = { color: '#97A0AF' };

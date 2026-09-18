@@ -34,7 +34,6 @@ import type {
 	BlockMenuPluginOptions,
 	RegisterBlockMenuComponent,
 } from '../blockMenuPluginType';
-
 import {
 	buildChildrenMap,
 	getChildrenMapKey,

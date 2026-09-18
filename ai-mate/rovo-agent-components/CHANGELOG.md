@@ -1,5 +1,22 @@
 # @atlaskit/rovo-agent-components
 
+## 8.13.0
+
+### Minor Changes
+
+- [`241e671db5235`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/241e671db5235) -
+  `ResolvedAgentAvatar` now accepts either a bare account id or a full identity ARI for
+  `agentIdentityAccountId`, so callers that already have the bare id don't need to wrap it first.
+  `fallback` is now optional, defaulting to a generic hexagon `Avatar` built from `agentName` when a
+  caller has nothing more specific to show. The fetched picture now renders through `Avatar`
+  directly instead of the deprecated `AgentAvatar`.
+
+## 8.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.12.2
 
 ### Patch Changes

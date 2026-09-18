@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import FragmentMark from '../../../../react/marks/fragment';
 
 describe('Renderer - React/Marks/Fragment', () => {

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Link from '@atlaskit/link/link';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { UnAuthClient } from '@atlaskit/link-test-helpers';
+import Link from '@atlaskit/link/link';
 
 import LinkUrl from '../../src/view/LinkUrl';
 

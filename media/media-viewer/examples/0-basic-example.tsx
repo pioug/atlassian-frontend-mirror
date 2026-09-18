@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+
+import { type Identifier, MediaClient } from '@atlaskit/media-client';
 import {
 	createStorybookMediaClientConfig,
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { type Identifier, MediaClient } from '@atlaskit/media-client';
-import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
+
 import { imageItem } from '../example-helpers';
+import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
 import { MediaViewer } from '../src';
 
 const mediaClientConfig = createStorybookMediaClientConfig();

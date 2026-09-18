@@ -1,7 +1,7 @@
 import React from 'react';
+
 import { EmbeddedDocument, DocumentBody, ServiceProvider, Toolbar } from '../src';
 import type { DocumentMode } from '../src';
-
 import { Container } from './helpers/styles';
 
 const SERVICE_URL = 'http://localhost:8080';

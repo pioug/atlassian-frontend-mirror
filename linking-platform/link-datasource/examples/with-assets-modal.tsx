@@ -7,12 +7,12 @@ import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/asset
 import type { InlineCardAdf } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
+import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../src/ui/assets-modal/AssetsConfigModalWithWrappers';
 import {
 	type AssetsDatasourceAdf,
 	type AssetsDatasourceParameters,
 } from '../src/ui/assets-modal/types';
-import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
-import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../src/ui/assets-modal/AssetsConfigModalWithWrappers';
 
 mockAssetsClientFetchRequests();
 

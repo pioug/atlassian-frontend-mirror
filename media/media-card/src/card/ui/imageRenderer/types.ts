@@ -1,4 +1,5 @@
 import { type MediaType, type ImageResizeMode, type Identifier } from '@atlaskit/media-client';
+
 import { type CardPreview } from '../../../types';
 
 export type ImageRendererProps = {

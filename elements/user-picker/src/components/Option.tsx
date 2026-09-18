@@ -8,17 +8,17 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { type Option as OptionType } from '../types';
 import AsyncCustomOption from './CustomOption';
 import AsyncEmailOption from './EmailOption';
+import { isValidEmail } from './emailValidation';
 import AsyncExternalOption from './ExternalUserOption';
 import AsyncGroupOption from './GroupOption';
-import AsyncTeamOption from './TeamOption';
-import { UserOption } from './UserOption';
-import { isValidEmail } from './emailValidation';
 import { isCustom } from './isCustom';
 import { isEmail } from './isEmail';
 import { isExternalUser } from './isExternalUser';
 import { isGroup } from './isGroup';
 import { isTeam } from './isTeam';
 import { isUser } from './isUser';
+import AsyncTeamOption from './TeamOption';
+import { UserOption } from './UserOption';
 
 export type OptionProps = AkOptionProps & {
 	data: OptionType;

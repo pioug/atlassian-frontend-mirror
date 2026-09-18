@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
 
 import { render, screen } from '@atlassian/testing-library';
 
-import { type MentionDescription } from '../../../../types';
 import MentionDescriptionByline from '../../../../components/MentionDescriptionByline';
+import { type MentionDescription } from '../../../../types';
 import { teamMention, userMention } from './_commonData';
 
 const renderByline = (mention: MentionDescription) =>

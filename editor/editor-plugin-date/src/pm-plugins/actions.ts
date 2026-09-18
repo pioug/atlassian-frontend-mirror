@@ -13,7 +13,6 @@ import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import type { DatePlugin, DateType } from '../types';
 import { isToday } from '../ui/DatePicker/utils/internal';
-
 import { pluginKey } from './plugin-key';
 import type { DatePluginState } from './types';
 

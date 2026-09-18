@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
-
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
@@ -14,6 +12,7 @@ import {
 	type MediaTraceContext,
 	type PerformanceAttributes,
 } from '@atlaskit/media-common';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { MediaCardError } from '../../MediaCardError';
 import type { MediaCardAnalyticsEventPayload, SSRStatus } from './analytics';

@@ -56,6 +56,7 @@ import { _overrides, _product } from './setup';
  *             It also closely aligns with similar utilities in other Atlassian products.
  *             For no exposure option use `expValEqualsNoExposure` from `@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure`.
  */
+
 export function editorExperiment<ExperimentName extends keyof EditorExperimentsConfig>(
 	experimentName: ExperimentName,
 	expectedExperimentValue: EditorExperimentsConfig[ExperimentName]['defaultValue'],

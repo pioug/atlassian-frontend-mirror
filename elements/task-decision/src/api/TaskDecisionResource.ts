@@ -1,13 +1,9 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
+
 import { type RequestServiceOptions, utils } from '@atlaskit/util-service-support';
 
-import {
-	convertServiceTaskToTask,
-	convertServiceTaskStateToBaseItem,
-	findIndex,
-} from './TaskDecisionUtils';
-
+import { objectKeyToString, toggleTaskState, toObjectKey } from '../type-helpers';
 import {
 	type BaseItem,
 	type ServiceTaskState,
@@ -25,8 +21,11 @@ import {
 	type TaskState,
 	type ServiceItem,
 } from '../types';
-
-import { objectKeyToString, toggleTaskState, toObjectKey } from '../type-helpers';
+import {
+	convertServiceTaskToTask,
+	convertServiceTaskStateToBaseItem,
+	findIndex,
+} from './TaskDecisionUtils';
 
 interface RecentUpdateByIdValue {
 	listener: RecentUpdatesListener;

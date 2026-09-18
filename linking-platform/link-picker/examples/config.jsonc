@@ -4,19 +4,19 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "vr-basic.tsx",
-    "vr-edit-link.tsx",
-    "vr-handle-plugin-error.tsx",
-    "vr-hide-display-text-with-multiple-plugins.tsx",
-    "vr-hide-display-text-with-plugin.tsx",
-    "vr-hide-display-text.tsx",
-    "vr-with-multiple-plugins.tsx",
-    "vr-with-no-plugins.tsx",
-    "vr-with-no-results-multi-product.tsx",
-    "vr-with-no-results.tsx",
-    "vr-with-plugin-action.tsx",
-    "vr-with-popup-integration.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"vr-basic.tsx",
+		"vr-edit-link.tsx",
+		"vr-handle-plugin-error.tsx",
+		"vr-hide-display-text-with-multiple-plugins.tsx",
+		"vr-hide-display-text-with-plugin.tsx",
+		"vr-hide-display-text.tsx",
+		"vr-with-multiple-plugins.tsx",
+		"vr-with-no-plugins.tsx",
+		"vr-with-no-results-multi-product.tsx",
+		"vr-with-no-results.tsx",
+		"vr-with-plugin-action.tsx",
+		"vr-with-popup-integration.tsx",
+	],
+	"exampleDependencies": [],
 }

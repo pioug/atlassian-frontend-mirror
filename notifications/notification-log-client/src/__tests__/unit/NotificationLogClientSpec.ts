@@ -1,4 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
+
 import { NotificationLogClient, type NotificationCountResponse } from '../..';
 
 describe('NotificationLogClient', () => {

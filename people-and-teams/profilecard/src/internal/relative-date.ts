@@ -3,7 +3,6 @@ import isThisMonth from 'date-fns/isThisMonth';
 import isThisWeek from 'date-fns/isThisWeek';
 
 import { type RelativeDateKeyType } from '../types';
-
 import { isValidDate } from './isValidDate';
 
 export default function getRelativeDateKey(

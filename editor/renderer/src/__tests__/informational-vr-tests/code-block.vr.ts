@@ -1,4 +1,5 @@
 import { snapshotInformational } from '@af/visual-regression';
+
 import { CodeBlockRendererLayout, CodeBlockRendererQuote } from './code-block.fixture.vr.ap';
 
 snapshotInformational(CodeBlockRendererLayout, {

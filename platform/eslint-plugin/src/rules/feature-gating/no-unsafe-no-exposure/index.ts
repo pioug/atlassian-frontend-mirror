@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+
 import { isAPIimport } from '../utils';
 
 const rule: Rule.RuleModule = {

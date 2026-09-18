@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotPadlockKey } from '../../../common/ui/spot/basics/padlock-key';
-
 import { loadingErrorMessages } from './messages';
 
 const styles = cssMap({

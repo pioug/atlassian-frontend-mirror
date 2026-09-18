@@ -18,7 +18,6 @@ import {
 	statusJqlField,
 } from '../../common/mocks';
 import { type JQLFieldResponse } from '../../common/types';
-
 import useOnOperators from './index';
 
 const mockJqlSearchableFields: JQLFieldResponse[] = [

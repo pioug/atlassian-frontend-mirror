@@ -11,7 +11,6 @@ import type { ExtractInjectionAPI, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-co
 import type { EmojiId } from '@atlaskit/emoji/types';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';
-
 import { usePopupManager } from './usePopupManager';
 
 interface UseEmojiPickerPopupProps {

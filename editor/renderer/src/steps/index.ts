@@ -1,7 +1,8 @@
 /* eslint-disable jsdoc/require-jsdoc -- internal step helpers */
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

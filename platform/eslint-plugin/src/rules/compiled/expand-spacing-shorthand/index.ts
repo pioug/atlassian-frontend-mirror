@@ -1,7 +1,8 @@
 import type { Rule } from 'eslint';
 import type { Property, Node, TemplateLiteral, CallExpression } from 'estree';
-import { getSourceCode } from '../../util/context-compat';
+
 import { isCompiledAPI } from '../../util/compiled-utils';
+import { getSourceCode } from '../../util/context-compat';
 
 const spacingPos = ['Top', 'Right', 'Bottom', 'Left'] as const;
 

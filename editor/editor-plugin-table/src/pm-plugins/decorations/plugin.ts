@@ -12,7 +12,6 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { pluginKey as tablePluginKey } from '../plugin-key';
 import { pluginKey as tableWidthPluginKey } from '../table-width';
-
 import {
 	buildColumnControlsDecorations,
 	maybeUpdateColumnControlsSelectedDecoration,

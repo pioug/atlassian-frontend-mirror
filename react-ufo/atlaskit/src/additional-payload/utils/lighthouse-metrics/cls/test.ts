@@ -1,8 +1,6 @@
 import { BufferWithMaxLength } from '../utils/buffer';
-
-import type { LayoutShiftAttribution, LayoutShiftPerformanceEntry } from './types';
-
 import { getCLS } from './index';
+import type { LayoutShiftAttribution, LayoutShiftPerformanceEntry } from './types';
 
 type LayoutShiftTestEntry = {
 	startTime: number;

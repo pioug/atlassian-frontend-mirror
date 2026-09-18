@@ -4,28 +4,26 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-basic.vr.ap.tsx",
-    "01-inline-code-basic.vr.ap.tsx",
-    "10-code-block-basic.vr.ap.tsx",
-    "12-code-block-ssr.tsx",
-    "14-code-block-highlighting-long-lines.vr.ap.tsx",
-    "21-code-block-empty.vr.ap.tsx",
-    "22-code-bidi-characters.vr.ap.tsx",
-    "applescript.vr.ap.tsx",
-    "cascading-style-sheets.vr.ap.tsx",
-    "clojure.vr.ap.tsx",
-    "delphi.vr.ap.tsx",
-    "diff.vr.ap.tsx",
-    "foxpro.vr.ap.tsx",
-    "jsx.vr.ap.tsx",
-    "object-pascal.vr.ap.tsx",
-    "qml.vr.ap.tsx",
-    "standard-ml.vr.ap.tsx",
-    "visual-basic.vr.ap.tsx",
-    "vr-python-test-id-and-wrapping.vr.ap.tsx"
-  ],
-  "exampleDependencies": [
-    "prismjs"
-  ]
+	"testExamples": [
+		"00-basic.vr.ap.tsx",
+		"01-inline-code-basic.vr.ap.tsx",
+		"10-code-block-basic.vr.ap.tsx",
+		"12-code-block-ssr.tsx",
+		"14-code-block-highlighting-long-lines.vr.ap.tsx",
+		"21-code-block-empty.vr.ap.tsx",
+		"22-code-bidi-characters.vr.ap.tsx",
+		"applescript.vr.ap.tsx",
+		"cascading-style-sheets.vr.ap.tsx",
+		"clojure.vr.ap.tsx",
+		"delphi.vr.ap.tsx",
+		"diff.vr.ap.tsx",
+		"foxpro.vr.ap.tsx",
+		"jsx.vr.ap.tsx",
+		"object-pascal.vr.ap.tsx",
+		"qml.vr.ap.tsx",
+		"standard-ml.vr.ap.tsx",
+		"visual-basic.vr.ap.tsx",
+		"vr-python-test-id-and-wrapping.vr.ap.tsx",
+	],
+	"exampleDependencies": ["prismjs"],
 }

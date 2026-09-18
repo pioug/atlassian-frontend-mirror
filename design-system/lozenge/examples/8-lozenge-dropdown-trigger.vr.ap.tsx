@@ -14,8 +14,8 @@ import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group'
 import Heading from '@atlaskit/heading/heading';
 import ImageIcon from '@atlaskit/icon/core/image';
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import type { LozengeColor as NewLozengeColor, SemanticColor } from '@atlaskit/lozenge/types';
 import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
+import type { LozengeColor as NewLozengeColor, SemanticColor } from '@atlaskit/lozenge/types';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

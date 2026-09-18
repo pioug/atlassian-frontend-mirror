@@ -8,6 +8,7 @@
 /**
  * @deprecated Use `import cs from '@atlaskit/teams-public/i18n/cs'` instead.
  */
+
 export { default as cs } from './cs';
 /**
  * @deprecated Use `import da from '@atlaskit/teams-public/i18n/da'` instead.

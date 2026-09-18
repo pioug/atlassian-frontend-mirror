@@ -1,7 +1,6 @@
 import faker from 'faker';
 
 import { RestClient } from '../rest-client';
-
 import defaultPublicApiClient from './index';
 
 jest.mock('../rest-client', () => {

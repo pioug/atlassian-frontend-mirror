@@ -6,9 +6,9 @@ import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
 import { easeIn, easeOut } from '../../../utils/curves';
-import { isReducedMotion } from '../../../utils/is-reduced-motion';
 import { durations } from '../../../utils/durations';
 import { exitingDurations } from '../../../utils/exiting-durations';
+import { isReducedMotion } from '../../../utils/is-reduced-motion';
 
 jest.mock('../../../utils/is-reduced-motion');
 

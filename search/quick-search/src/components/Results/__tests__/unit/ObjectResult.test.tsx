@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
+
 import Avatar from '@atlaskit/avatar/avatar';
+
 import ObjectResult from '../../ObjectResult';
 
 const DUMMY_AVATAR = <Avatar key="test-avatar" />;

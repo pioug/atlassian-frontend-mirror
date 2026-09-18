@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import type { StatsigClient } from '@statsig/js-client';
 
 import { Client } from '../Client';

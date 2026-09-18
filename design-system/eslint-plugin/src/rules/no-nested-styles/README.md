@@ -34,19 +34,10 @@ css({
 });
 ```
 
-```js
-import { media } from '@atlaskit/primitives';
-
-css({
-	[media.above.xs]: {
-		color: 'red',
-	},
-});
-```
-
-Canonical typed media-query keys are also supported:
+Use canonical typed media-query keys:
 
 ```tsx
+import { css } from '@atlaskit/css';
 import type MediaAboveXs from '@atlaskit/css/at-rules/media-above-xs';
 
 css({

@@ -12,7 +12,6 @@ import {
 	type FileIdentifier,
 	type ImageResizeMode,
 } from '@atlaskit/media-client';
-
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import {
 	createStorybookMediaClientConfig,
@@ -21,11 +20,10 @@ import {
 } from '@atlaskit/media-test-helpers';
 import Select from '@atlaskit/select/default';
 
-import Card from '../src/card/cardLoader';
-
 import { ControlsBox } from '../example-helpers/svg-helpers/controls';
 import { DimensionsPicker } from '../example-helpers/svg-helpers/dimensionPicker';
 import { SvgContainer } from '../example-helpers/svg-helpers/svgContainer';
+import Card from '../src/card/cardLoader';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 const mediaClientConfig = createStorybookMediaClientConfig();

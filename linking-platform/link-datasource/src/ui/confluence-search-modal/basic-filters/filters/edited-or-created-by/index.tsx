@@ -11,7 +11,6 @@ import { type SelectOption } from '../../../../common/modal/popup-select/types';
 import { useCurrentUserInfo } from '../../hooks/useCurrentUserInfo';
 import useRecommendation from '../../hooks/useRecommendation';
 import { CLOLBasicFilters } from '../../types';
-
 import { editedOrCreatedByMessage } from './messages';
 
 interface EditedOrCreatedByFilterProps {

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import type PropTypes from 'prop-types';
 
 import index, { type Matcher } from '../matchEvent';
-
 import { ContextTypes } from './ContextTypes';
 
 type AnalyticsData = {

@@ -3,17 +3,18 @@
  * @jsx jsx
  */
 import React from 'react';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-// eslint-disable-next-line no-restricted-imports -- Legacy package outside of AFM lacks entry points
-import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
-import { WikiMarkupTransformer } from '../src';
 
-import { content } from './styles';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
+// eslint-disable-next-line no-restricted-imports -- Legacy package outside of AFM lacks entry points
+import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { MentionResource } from '@atlaskit/mention/mention-resource';
 import { token } from '@atlaskit/tokens';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+
+import { WikiMarkupTransformer } from '../src';
+import { content } from './styles';
 
 const rejectedPromise = Promise.reject(new Error('Simulated provider rejection'));
 // Ignored via go/ees005

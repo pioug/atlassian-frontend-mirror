@@ -14,9 +14,9 @@ import { MediaPlayer } from '@atlaskit/media-ui/mediaPlayer';
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { MediaViewerError } from '../MediaViewerError';
 import { buildVideoErrorDiagnostics } from '../buildVideoErrorDiagnostics';
 import { Outcome } from '../domain/outcome';
+import { MediaViewerError } from '../MediaViewerError';
 import { Video, CustomVideoPlayerWrapper } from '../styleWrappers';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 import { isIE } from '../utils/isIE';

@@ -8,7 +8,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { RulePlugin } from '../../rulePluginType';
-
 import { RuleQuickInsertMenuItem } from './RuleQuickInsertMenuItem';
 
 const previewImageUrls = {

@@ -1,5 +1,4 @@
 import { type AccessRequestBulk } from '../services/invitations-client/types';
-
 import { mockJoinOrRequestDefaultAccessToProductsBulkRegex } from './endpoint-regexes';
 import { getJoinOrRequestDefaultAccessToProductsBulkSuccessResponse } from './invitations';
 import type { MockConfig } from './mock-config-2';

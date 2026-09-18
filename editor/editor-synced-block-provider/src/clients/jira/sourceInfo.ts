@@ -2,7 +2,6 @@
 
 import type { SyncBlockSourceInfo } from '../../providers/types';
 import { fetchWithRetry } from '../../utils/retry';
-
 import { getJiraIssueAriFromSourceAri } from './ari';
 
 const COMMON_HEADERS = {

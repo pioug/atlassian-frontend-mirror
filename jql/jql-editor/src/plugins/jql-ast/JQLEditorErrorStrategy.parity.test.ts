@@ -3,10 +3,9 @@ import { type ParserErrorListener, type Recognizer, type Token } from 'antlr4ts'
 import { JastBuilder } from '@atlaskit/jql-ast';
 
 import { mockIntl } from '../../../mocks';
-
-import JQLEditorErrorStrategy from './JQLEditorErrorStrategy';
 import { getJavaCodeFromChar } from './getJavaCodeFromChar';
 import { getPrintableChar } from './getPrintableChar';
+import JQLEditorErrorStrategy from './JQLEditorErrorStrategy';
 import { errorMessages } from './messages';
 
 type TestCase = {

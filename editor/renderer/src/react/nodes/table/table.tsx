@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Colgroup, colWidthSum } from './colgroup';
-import type { SharedTableProps } from './types';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { isTableInContentMode } from '@atlaskit/editor-common/table';
+
+import { Colgroup, colWidthSum } from './colgroup';
 import { isContentModeSupported } from './content-mode';
+import type { SharedTableProps } from './types';
 
 type TableProps = SharedTableProps & {
 	children: React.ReactNode[];

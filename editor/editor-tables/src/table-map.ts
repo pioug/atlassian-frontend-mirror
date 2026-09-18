@@ -272,6 +272,7 @@ export class TableMap {
 /**
  * @deprecated Use `import { Rect } from '@atlaskit/editor-tables/rect'` instead.
  */
+
 export { Rect } from './rect';
 
 /**

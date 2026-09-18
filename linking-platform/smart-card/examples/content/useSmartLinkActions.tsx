@@ -8,7 +8,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { Card } from '../../src';
 import { CardAction } from '../../src/constants';
 import { useSmartLinkActions } from '../../src/hooks';
-
 import ExampleContainer from './example-container';
 
 const PreviewButton = ({ url }: { url: string }) => {

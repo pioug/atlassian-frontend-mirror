@@ -1,10 +1,9 @@
 import React from 'react';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import { messages } from '../../messages';
-
 import { DividerLine, LoadingRectangle } from '../../util/styled';
-
 import { LoadingRelatedArticleList, LoadingRelatedArticleListItem } from './styled';
 
 const RelatedArticlesLoading: React.FC<WrappedComponentProps> = ({ intl: { formatMessage } }) => {

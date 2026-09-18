@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
+
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { FocusedTaskCloseAccount, type Props } from '../../components/FocusedTaskCloseAccount';

@@ -5,7 +5,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CodeBlockPlugin } from '../index';
 import { ACTIONS } from '../pm-plugins/actions';
 import { autoDetectPluginKey, type AutoDetectEntry } from '../pm-plugins/auto-detect-state';
-
 import { createAutoDetectEntry } from './auto-detect-state';
 import { detectLanguage } from './language-detect';
 

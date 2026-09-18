@@ -3,18 +3,20 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { type HeadType } from '@atlaskit/dynamic-table/types';
-import { MediaTable } from '../src';
-import { RenderMediaTableWithFieldRange, generateItems } from '../example-helpers/helpers';
 
+import { type HeadType } from '@atlaskit/dynamic-table/types';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
+
+import { RenderMediaTableWithFieldRange, generateItems } from '../example-helpers/helpers';
 import {
 	greenOnHoverStyles,
 	ROW_CLASSNAME,
 	ROW_HIGHLIGHT_CLASSNAME,
 } from '../example-helpers/styles';
+import { MediaTable } from '../src';
 
 const NUM_ITEMS = 50;
 const items = generateItems(NUM_ITEMS).map((item, index) => ({

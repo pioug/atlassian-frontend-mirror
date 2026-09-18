@@ -22,7 +22,6 @@ import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginTyp
 import type { ExtensionConfiguration, GetMenuItemsContext } from '../../types';
 import { SelectionExtensionMenuItems } from '../menu/SelectionExtensionMenuItems';
 import { SelectionExtensionComponentContextProvider } from '../SelectionExtensionComponentContext';
-
 import { getBlockMenuTriggerExtensionKey } from './getBlockMenuTriggerExtensionKey';
 
 type RegisterBlockMenuItemsOptions = {

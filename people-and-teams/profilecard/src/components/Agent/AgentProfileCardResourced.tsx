@@ -17,7 +17,6 @@ import {
 } from '../../types';
 import { getAAIDFromARI } from '../../util/rovoAgentUtils';
 import ErrorMessage from '../Error/ErrorMessage';
-
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 

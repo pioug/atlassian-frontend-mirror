@@ -3,8 +3,9 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+
 import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	staticReaction: {

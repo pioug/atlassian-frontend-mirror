@@ -1,10 +1,10 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import type { z } from 'zod';
 
 import { cleanQuery } from '../../helpers/clean-query';
-
 import type { getLintRulesInputSchema } from './get-lint-rules-input-schema';
 import {
 	lintRulesMcpStructuredContent,

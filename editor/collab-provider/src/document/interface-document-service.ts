@@ -1,9 +1,9 @@
 import type { ResolvedEditorState, SyncUpErrorFunction } from '@atlaskit/editor-common/collab';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { InternalError } from '../errors/internal-errors';
-import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 
 // This interface is to make sure both DocumentService and NullDocumentService have same signatures
 export interface DocumentServiceInterface {

@@ -1,13 +1,13 @@
 import React from 'react';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
+import { type Article as ArticleType } from '../../../model/Article';
 import { type HistoryItem, ARTICLE_TYPE } from '../../../model/Help';
 import { REQUEST_STATE } from '../../../model/Requests';
-import { type Article as ArticleType } from '../../../model/Article';
 import { type WhatsNewArticle as WhatsNewArticleType } from '../../../model/WhatsNew';
-
-import HelpArticle from '../HelpArticle';
 import ArticleLoadingFail from '../ArticleLoadingFail';
+import HelpArticle from '../HelpArticle';
 import WhatsNewArticle from '../WhatsNewArticle';
 
 interface Props {

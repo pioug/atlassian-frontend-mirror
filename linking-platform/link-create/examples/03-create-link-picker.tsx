@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import Link from '@atlaskit/link/link';
 import { LinkPicker } from '@atlaskit/link-picker';
+import Link from '@atlaskit/link/link';
 import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
 

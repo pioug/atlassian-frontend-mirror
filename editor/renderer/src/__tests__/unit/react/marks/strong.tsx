@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
+
 import Strong from '../../../../react/marks/strong';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

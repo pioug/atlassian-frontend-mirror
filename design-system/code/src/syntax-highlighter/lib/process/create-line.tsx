@@ -1,7 +1,6 @@
 import type { RefractorNode } from 'refractor';
 
 import type { SyntaxHighlighterLineProps } from '../../types';
-
 import createLineElement from './create-line-element';
 import getInlineLineNumber from './get-inline-line-number';
 

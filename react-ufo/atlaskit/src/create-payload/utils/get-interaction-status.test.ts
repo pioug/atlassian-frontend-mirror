@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../../common';
-
 import getInteractionStatus from './get-interaction-status';
 
 describe('getInteractionStatus', () => {

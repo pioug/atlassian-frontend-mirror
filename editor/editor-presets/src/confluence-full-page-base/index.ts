@@ -96,7 +96,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { agentManagedExtensionPlugin } from '@atlassian/editor-plugin-agent-managed-extension';
 
 import { agentManagedExtensionPluginOptions } from './pluginOptions/agentManagedExtensionPluginOptions';
@@ -226,10 +225,7 @@ export function confluenceFullPageBasePreset(
 			[toolbarPlugin, toolbarPluginOptions({ options: pluginOptions.toolbar })],
 			Boolean(enabledOptionalPlugins.toolbar),
 		)
-		.maybeAdd(
-			[blockMenuPlugin, blockMenuPluginOptions({ options: pluginOptions.blockMenu })],
-			editorExperiment('platform_editor_block_menu', true),
-		)
+		.add([blockMenuPlugin, blockMenuPluginOptions({ options: pluginOptions.blockMenu })])
 		.add(undoRedoPlugin)
 		.add([blockTypePlugin, blockTypePluginOptions({ options: pluginOptions.blockType })])
 		.add(clearMarksOnEmptyDocPlugin)

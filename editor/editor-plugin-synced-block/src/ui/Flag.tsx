@@ -13,8 +13,8 @@ import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages'
 import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import AkFlag from '@atlaskit/flag/flag';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
+import AkFlag from '@atlaskit/flag/flag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';
 import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';

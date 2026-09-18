@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { confluenceInlineComment as confluenceInlineCommentFactory } from '../../next-schema/generated/markTypes';
 
 /**

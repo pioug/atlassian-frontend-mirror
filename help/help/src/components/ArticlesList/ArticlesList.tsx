@@ -1,14 +1,14 @@
 import React from 'react';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { type ArticleItem } from '../../model/Article';
-
 import ArticlesListItem from './ArticlesListItem';
-import { type ArticlesList as ArticlesListInterface } from './model/ArticlesListItem';
 import { MIN_ITEMS_TO_DISPLAY } from './constants';
+import { type ArticlesList as ArticlesListInterface } from './model/ArticlesListItem';
 
 export interface Props {
 	/* Ref callback to capture the first expanded article element for focus management */

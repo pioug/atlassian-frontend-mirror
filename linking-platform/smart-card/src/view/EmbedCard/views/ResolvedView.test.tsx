@@ -9,7 +9,6 @@ import { screen } from '@atlassian/testing-library';
 
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import EmbedRovoActionsFooter from '../components/rovo-actions-footer';
-
 import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from './ResolvedView';
 
 const mockAppearanceTestId = 'mocked-appearance-test-id';

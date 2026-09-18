@@ -8,7 +8,6 @@ import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { doc, expand, p, table, td, tdEmpty, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { AddColumnStep } from '../add-column';
-
 import * as addColumnAtZeroJson from './__fixtures__/basic/add-column-at-0.json';
 import * as addColumnAtOneJson from './__fixtures__/basic/add-column-at-1.json';
 import * as addColumnAtTwoJson from './__fixtures__/basic/add-column-at-2.json';

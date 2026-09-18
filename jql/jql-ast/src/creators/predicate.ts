@@ -7,7 +7,6 @@ import {
 	type Predicate,
 	type PredicateOperator,
 } from '../types';
-
 import { assignParent } from './common';
 
 function acceptPredicate<Result>(this: Predicate, visitor: JastVisitor<Result>) {

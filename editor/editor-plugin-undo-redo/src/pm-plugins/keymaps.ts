@@ -12,7 +12,6 @@ import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { UndoRedoPlugin } from '../undoRedoPluginType';
-
 import { redoFromKeyboardWithAnalytics, undoFromKeyboardWithAnalytics } from './commands';
 
 /**

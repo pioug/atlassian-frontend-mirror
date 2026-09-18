@@ -1,5 +1,4 @@
 import type { FlatSegment3pTimingEntry, Segment3pData, Segment3pDataPayload } from '../../common';
-
 import { applySegment3pBudget } from './apply-segment3p-budget';
 
 /** Applies B1+B2 budget trimming to a `Segment3pData` and returns a `Segment3pDataPayload`. */

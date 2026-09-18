@@ -7,8 +7,8 @@ import { useContext } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';
@@ -19,11 +19,11 @@ import { HasDefaultBackgroundColorContext } from '../../top-nav-items/themed/has
 import { useCustomTheme } from '../../top-nav-items/themed/use-custom-theme';
 import { useCustomThemeNew } from '../../top-nav-items/themed/use-custom-theme-new';
 import {
-	bannerMountedVar,
-	localSlotLayers,
-	sideNavLiveWidthVar,
-	topNavMountedVar,
 	UNSAFE_topNavVar,
+	type bannerMountedVar,
+	type localSlotLayers,
+	type sideNavLiveWidthVar,
+	topNavMountedVar,
 } from '../constants';
 import { DangerouslyHoistCssVarToDocumentRoot } from '../dangerously-hoist-css-var-to-document-root';
 import { HoistCssVarToLocalGrid } from '../hoist-css-var-to-local-grid';
@@ -53,15 +53,15 @@ const styles = cssMap({
 		boxSizing: 'border-box',
 		borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height: `var(${topNavMountedVar})`,
+		height: `var(${'--n_tNvM' satisfies typeof topNavMountedVar})`,
 		// This sets the sticky point to be just below banner. It's needed to ensure the stick
 		// point is exactly where this element is rendered to with no wiggle room. Unfortunately the CSS
 		// spec for sticky doesn't support "stick to where I'm initially rendered" so we need to tell it.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		insetBlockStart: `var(${bannerMountedVar}, 0px)`,
+		insetBlockStart: `var(${'--n_bnrM' satisfies typeof bannerMountedVar}, 0px)`,
 		position: 'sticky',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		zIndex: localSlotLayers.topBar,
+		zIndex: 4 satisfies typeof localSlotLayers.topBar,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		' > span[data-ep-placeholder-id="top_navigation_skeleton"]': {
 			// TODO: BLU-3336 This is needed as a workaround for the JIRA issue (it places a placeholder span as a direct child of TopNav which breaks the grid layout). Please remove when the proper fix is applied.
@@ -89,7 +89,7 @@ const styles = cssMap({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		zIndex: localSlotLayers.topNavFHS,
+		zIndex: 3 satisfies typeof localSlotLayers.topNavFHS,
 
 		// The border is now on a pseudo element for layering reasons, so we reset the border style from styles.root
 		borderBlockEnd: 'none',
@@ -104,7 +104,7 @@ const styles = cssMap({
 			insetInlineEnd: 0,
 			// Push the element to the right based on the side nav width
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			insetInlineStart: `var(${sideNavLiveWidthVar}, 0px)`,
+			insetInlineStart: `var(${'--n_sNvlw' satisfies typeof sideNavLiveWidthVar}, 0px)`,
 			borderBlockEndWidth: token('border.width'),
 			borderBlockEndStyle: 'solid',
 			borderBlockEndColor: token('color.border'),

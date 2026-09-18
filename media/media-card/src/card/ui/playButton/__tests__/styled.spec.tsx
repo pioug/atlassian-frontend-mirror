@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
-import { playButtonClassName, bkgClassName } from '../styles';
-import { PlayButtonWrapper } from '../playButtonWrapper';
+
 import { PlayButtonBackground } from '../playButtonBackground';
+import { PlayButtonWrapper } from '../playButtonWrapper';
+import { playButtonClassName, bkgClassName } from '../styles';
 
 describe('Styled PlayButton', () => {
 	it('should capture and report a11y violations', async () => {

@@ -1,6 +1,6 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { doc, p, bodiedExtension, h1 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { doc, p, bodiedExtension, h1 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { markBlockAsInline } from '../../../react/utils/markBlockAsInline';

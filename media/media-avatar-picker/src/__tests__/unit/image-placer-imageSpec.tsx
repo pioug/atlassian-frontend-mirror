@@ -1,17 +1,19 @@
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
+
 import { IntlProvider } from 'react-intl';
+
+import { render, screen } from '@atlassian/testing-library';
 
 jest.mock('../../image-cropper/isImageRemote');
 
+import { asMock } from '@atlaskit/media-test-helpers';
+
+import { isImageRemote } from '../../image-cropper/isImageRemote';
 import {
 	ImagePlacerImage,
 	type ImagePlacerImageProps,
 	IMAGE_ERRORS,
 } from '../../image-placer/image';
-
-import { isImageRemote } from '../../image-cropper/isImageRemote';
-import { asMock } from '@atlaskit/media-test-helpers';
 
 const renderWithIntl = (ui: React.ReactElement) =>
 	render(<IntlProvider locale="en">{ui}</IntlProvider>);

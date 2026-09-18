@@ -10,16 +10,19 @@ jest.mock('@atlaskit/link-extractors/extract-smart-link-embed', () => ({
 }));
 
 import React from 'react';
+
 import { act, render } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { SmartCardContext as Context } from '..';
-import CardClient from '../../../client';
-import type { CardContext } from '..';
-import { SmartCardProvider } from '../../../smart-card-provider';
-import { SMART_CARD_EXTERNAL_AUTH_EVENT } from '../../../smart-card-external-auth-event';
-import type { CardStore } from '@atlaskit/linking-common/store';
+
 import { APIError } from '@atlaskit/linking-common/api-error';
+import type { CardStore } from '@atlaskit/linking-common/store';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
+import { SmartCardContext as Context } from '..';
+import type { CardContext } from '..';
+import CardClient from '../../../client';
+import { SMART_CARD_EXTERNAL_AUTH_EVENT } from '../../../smart-card-external-auth-event';
+import { SmartCardProvider } from '../../../smart-card-provider';
 
 describe('Provider', () => {
 	it('should setup provider with default options', () => {

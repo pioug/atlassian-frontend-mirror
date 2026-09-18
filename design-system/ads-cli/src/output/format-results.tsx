@@ -13,7 +13,6 @@ import { humanFormat } from '@atlaskit/cli-output/human-format';
 
 import { CLI_BIN_NAME } from '../commands/cli-metadata';
 import type { RowKind } from '../commands/types';
-
 import {
 	type CompactComponentResult,
 	type CompactDocResult,

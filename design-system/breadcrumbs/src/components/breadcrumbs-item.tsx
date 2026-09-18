@@ -12,7 +12,6 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { type BreadcrumbsItemProps } from '../types';
-
 import BreadcrumbsItemBase from './internal/breadcrumbs-item-base';
 import Step from './internal/step';
 import StepOld from './internal/step-old';

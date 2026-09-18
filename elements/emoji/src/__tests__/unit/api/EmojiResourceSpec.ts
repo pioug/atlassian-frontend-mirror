@@ -3,13 +3,13 @@ import * as sinon from 'sinon';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import type {
 	OnProviderChange,
 	SecurityOptions,
 	ServiceConfig,
 } from '@atlaskit/util-service-support';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import type EmojiRepository from '../../../api/EmojiRepository';
 import EmojiResource, { type EmojiResourceConfig } from '../../../api/EmojiResource';

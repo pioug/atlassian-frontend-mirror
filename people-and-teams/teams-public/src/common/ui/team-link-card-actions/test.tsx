@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { type ContainerTypes } from '../../types';
-
 import { TeamLinkCardActions } from './index';
 
 const defaultProps = {

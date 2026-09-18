@@ -4,8 +4,8 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LimitedModePlugin } from './limitedModePluginType';
-import { limitedModePluginKey } from './pm-plugins/plugin-key';
 import { createPlugin } from './pm-plugins/main';
+import { limitedModePluginKey } from './pm-plugins/plugin-key';
 
 export const limitedModePlugin: LimitedModePlugin = ({ api }) => {
 	return {

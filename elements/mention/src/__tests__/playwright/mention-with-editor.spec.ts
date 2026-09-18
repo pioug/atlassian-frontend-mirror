@@ -1,4 +1,5 @@
 import { expect } from '@af/integration-testing';
+
 import { test } from './mention';
 
 const EXAMPLE = 'mention-with-editor-extending-abstract-mention-resource';

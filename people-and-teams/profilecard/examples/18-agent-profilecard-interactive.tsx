@@ -8,7 +8,6 @@ import { token } from '@atlaskit/tokens';
 
 import AgentProfileCard from '../src/components/Agent/AgentProfileCard';
 import { type RovoAgentProfileCardInfo } from '../src/types';
-
 import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient } from './helper/util';
 

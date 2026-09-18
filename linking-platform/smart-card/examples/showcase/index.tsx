@@ -1,12 +1,13 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import Link from '@atlaskit/link/link';
 import Client from '@atlaskit/link-provider/client';
-import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import Link from '@atlaskit/link/link';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

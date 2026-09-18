@@ -1,7 +1,8 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 import { strong, doc as editorDoc, h1, a as link, em } from '@af/adf-test-helpers/src/doc-builder';
+
 import { heading } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 
 const packageName = process.env.npm_package_name as string;
 

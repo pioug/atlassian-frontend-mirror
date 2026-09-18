@@ -6,20 +6,20 @@
   and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
 */
 
-import nestedTableExtensionAdf from './__fixtures__/nested-table-extension-adf.json';
-import nestedTableExtensionWithNoNestedContentAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-adf.json';
-import nestedTableExtensionWithInvalidJsonAdf from './__fixtures__/nested-table-extension-with-invalid-json-adf.json';
-import nestedTableInsideTableCellAdf from './__fixtures__/nested-table-inside-table-cell.json';
-import nestedTableInsideTableHeaderAdf from './__fixtures__/nested-table-inside-table-header.json';
-import nestedTableExtensionWithNoNestedContentChildrenAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-children-adf.json';
-import nestedTableExtensionWithNoNestedContentChildrenPropertyAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-children-property-adf.json';
-import nestedTableExtensionInsideBodiedExtensionAdf from './__fixtures__/nested-table-extension-inside-bodied-extension-adf.json';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import {
 	transformNestedTableNodeOutgoingDocument,
 	transformNestedTablesIncomingDocument,
 } from '../../../transforms';
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import nestedTableExtensionAdf from './__fixtures__/nested-table-extension-adf.json';
+import nestedTableExtensionInsideBodiedExtensionAdf from './__fixtures__/nested-table-extension-inside-bodied-extension-adf.json';
+import nestedTableExtensionWithInvalidJsonAdf from './__fixtures__/nested-table-extension-with-invalid-json-adf.json';
+import nestedTableExtensionWithNoNestedContentAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-adf.json';
+import nestedTableExtensionWithNoNestedContentChildrenAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-children-adf.json';
+import nestedTableExtensionWithNoNestedContentChildrenPropertyAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-children-property-adf.json';
+import nestedTableInsideTableCellAdf from './__fixtures__/nested-table-inside-table-cell.json';
+import nestedTableInsideTableHeaderAdf from './__fixtures__/nested-table-inside-table-header.json';
 
 describe('Nested table transformations', () => {
 	describe('transform incoming document', () => {

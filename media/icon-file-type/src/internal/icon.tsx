@@ -6,9 +6,8 @@ import { type CSSProperties, memo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { token } from '@atlaskit/tokens';
-
 import type { IconProps } from '@atlaskit/icon/types';
+import { token } from '@atlaskit/tokens';
 
 /**
  * We are hiding these props from consumers as they're used to

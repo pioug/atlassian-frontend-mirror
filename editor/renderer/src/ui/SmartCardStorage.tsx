@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { Diff } from '@atlaskit/editor-common/utils';
 
 export interface WithSmartCardStorageProps {

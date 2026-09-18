@@ -13,7 +13,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
-
 import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 
 type DeleteColumnDropdownItemProps = {

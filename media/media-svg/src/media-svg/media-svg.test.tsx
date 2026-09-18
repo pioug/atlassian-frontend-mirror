@@ -6,11 +6,9 @@ import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
 import * as svgRendererModule from '../media-svg/svgRenderer-compiled';
 import { failDataURIConversionOnce } from '../test-helpers/mockFileReader';
-
 import { createMockedMediaClientProvider } from './__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
-import { MediaSVGError } from './MediaSVGError';
-
 import MediaSvg from './index';
+import { MediaSVGError } from './MediaSVGError';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

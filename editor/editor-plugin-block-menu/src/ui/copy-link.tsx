@@ -17,7 +17,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 import { FLAG_ID } from '../blockMenuPluginType';
 import { blockMenuPluginKey } from '../pm-plugins/main';
-
 import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 import { copyLink } from './utils/copyLink';

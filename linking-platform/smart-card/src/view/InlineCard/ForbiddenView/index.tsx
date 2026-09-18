@@ -15,10 +15,10 @@ import { token } from '@atlaskit/tokens';
 import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
 import { type RequestAccessContextProps } from '../../types';
-import { Frame } from '../Frame';
-import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { ActionButton } from '../common/action-button';
 import InlineLozenge from '../common/inline-lozenge';
+import { Frame } from '../Frame';
+import { IconAndTitleLayout } from '../IconAndTitleLayout';
 
 const styles = cssMap({
 	actionButtonLozengeStyle: {

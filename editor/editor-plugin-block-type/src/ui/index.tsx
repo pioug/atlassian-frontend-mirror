@@ -19,8 +19,8 @@ import { TRANSFORM_TEXT_FORMATTING_MENU_SECTION_RANK } from '@atlaskit/editor-co
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import type { BlockTypePlugin } from '../blockTypePluginType';
 
+import type { BlockTypePlugin } from '../blockTypePluginType';
 import { createHeadingBlockMenuItem } from './HeadingBlockMenuItem';
 import { createParagraphBlockMenuItem } from './ParagraphBlockMenuItem';
 import { createQuoteBlockMenuItem } from './QuoteBlockMenuItem';

@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Reactions, ReactionStatus } from '../../../src/';
-import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
-import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
-import type { ReactionSummary } from '../../types';
-import { Constants as ExampleConstants } from '../../../examples/utils';
 import { IntlProvider } from 'react-intl';
+
+import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
+import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
+
+import { Constants as ExampleConstants } from '../../../examples/utils';
+import { Reactions, ReactionStatus } from '../../../src/';
+import type { ReactionSummary } from '../../types';
 
 const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;
 const ari = `${ExampleConstants.AriPrefix}1`;

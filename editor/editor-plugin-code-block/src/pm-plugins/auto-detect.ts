@@ -4,7 +4,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { CodeBlockPlugin } from '../index';
 import { removeAutoDetection, updateAutoDetectState } from '../utils/auto-detect-state';
 import { syncPendingDetectionTimers, type AutoDetectTimer } from '../utils/auto-detect-view';
-
 import { ACTIONS } from './actions';
 import { autoDetectPluginKey, type AutoDetectState } from './auto-detect-state';
 

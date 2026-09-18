@@ -1,5 +1,4 @@
 import type { VCObserverEntry } from '../types'; // Adjust the path as necessary
-
 import EntriesTimeline from './index'; // Adjust the path as necessary
 
 // Mock performance.now() to ensure consistent timing behavior

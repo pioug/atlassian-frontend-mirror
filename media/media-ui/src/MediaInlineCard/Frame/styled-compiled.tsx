@@ -3,8 +3,10 @@
  * @jsx jsx
  */
 import React from 'react';
-import { token } from '@atlaskit/tokens';
+
 import { css, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 export interface WrapperProps {
 	isSelected?: boolean;

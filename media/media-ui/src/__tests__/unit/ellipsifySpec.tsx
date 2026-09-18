@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
+
 import { Ellipsify } from '../../Ellipsify-2';
 
 const ELLIPSIFY_TEST_ID = 'ellipsify';

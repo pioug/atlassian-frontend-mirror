@@ -1,5 +1,6 @@
 import React from 'react';
-import EmojiUploader from '../src/components/uploader/EmojiUploader';
+
+import { IntlProvider } from 'react-intl';
 
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -8,8 +9,8 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 
 import { lorem } from '../example-helpers';
+import EmojiUploader from '../src/components/uploader/EmojiUploader';
 import type { EmojiProvider } from '../src/resource';
-import { IntlProvider } from 'react-intl';
 
 export default function EmojiUploaderWithUpload(): React.JSX.Element {
 	const emojiProvider: Promise<EmojiProvider> = getEmojiResource({

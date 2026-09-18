@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen } from '@atlassian/testing-library';
-
 import { skipA11yAudit } from '@af/accessibility-testing';
+import { act, fireEvent, render, screen } from '@atlassian/testing-library';
 
 import Tooltip from '../../tooltip';
 

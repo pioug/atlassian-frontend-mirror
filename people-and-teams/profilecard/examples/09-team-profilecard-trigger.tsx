@@ -4,7 +4,6 @@ import { Box, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message/message';
 
 import TeamProfilecardTrigger from '../src/components/Team/TeamProfileCardTrigger';
-
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 import { Section } from './helper/section';

@@ -7,7 +7,6 @@ import type { SectionProps } from '@atlaskit/menu/types';
 import GroupTitle from '../internal/components/group-title';
 import { SelectionStoreContext } from '../internal/context/selection-store-context';
 import resetOptionsInGroup from '../internal/utils/reset-options-in-group';
-
 import { RadioGroupContext } from './radio-group-context';
 
 interface DropdownItemRadioGroupProps extends SectionProps {

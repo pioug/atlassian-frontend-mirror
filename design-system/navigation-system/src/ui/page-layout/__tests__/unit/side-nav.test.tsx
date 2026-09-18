@@ -15,7 +15,6 @@ import type { SideNavState } from '../../side-nav/types';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
 import { TopNav } from '../../top-nav/top-nav';
 import { TopNavStart as RealTopNavStart } from '../../top-nav/top-nav-start';
-
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,

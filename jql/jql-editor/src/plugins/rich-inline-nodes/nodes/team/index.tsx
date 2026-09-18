@@ -1,5 +1,4 @@
 import { type JQLNodeSpec } from '../types';
-
 import { TeamNode } from './team-node';
 import type { Props } from './types';
 

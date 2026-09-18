@@ -1,4 +1,5 @@
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
+
 import type { MetaDataContext } from './interfaces';
 import { markSerializers } from './mark-serializers';
 

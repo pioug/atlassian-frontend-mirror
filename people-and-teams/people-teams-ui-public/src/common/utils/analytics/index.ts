@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { PeopleTeamsAnalyticsProvider } from '@atlaskit/people-teams-ui-public/analytics/hooks'` instead.
  */
+
 export { PeopleTeamsAnalyticsProvider } from './hooks';
 
 /**

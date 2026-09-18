@@ -10,7 +10,6 @@ import Select from '@atlaskit/select/default';
 
 import MediaSvg from '../src/media-svg';
 import { usePrepareMediaState } from '../src/media-svg/__tests__/utils/mockedMediaClientProvider/_usePrepareMediaState';
-
 import { ControlsBox } from './helpers/controls';
 import { DimensionsPicker } from './helpers/dimensionPicker';
 import { SvgContainer } from './helpers/svgContainer';

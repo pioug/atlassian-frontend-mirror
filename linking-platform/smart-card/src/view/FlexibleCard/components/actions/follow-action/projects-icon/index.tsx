@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import ProjectIcon from '@atlaskit/icon/core/project';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 
 export const ProjectsIcon = (props: NewCoreIconProps): React.JSX.Element => (

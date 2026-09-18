@@ -7,9 +7,10 @@ import { useIntl } from 'react-intl';
 
 import DecisionIcon from '@atlaskit/icon/core/decision';
 import { token } from '@atlaskit/tokens';
+
 import { type Appearance, type ContentRef } from '../types';
-import Item from './Item';
 import { messages } from './i18n';
+import Item from './Item';
 
 const iconStyles = css({
 	flex: '0 0 16px',

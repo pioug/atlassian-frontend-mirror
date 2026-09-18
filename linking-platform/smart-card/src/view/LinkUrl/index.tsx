@@ -7,7 +7,6 @@ import withAnalyticsContext, {
 } from '@atlaskit/analytics-next/withAnalyticsContext';
 
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
-
 import Hyperlink from './Hyperlink';
 import { HyperlinkWithSmartLinkResolver } from './HyperlinkResolver';
 import LinkWarningModal from './LinkWarningModal';

@@ -28,6 +28,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
+		"@atlassian/workbench": "workspace:^",
 		"fetch-mock": "root:*",
 		"react": "root:*"
 	}

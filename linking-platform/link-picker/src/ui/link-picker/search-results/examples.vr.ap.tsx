@@ -3,7 +3,6 @@ import React from 'react';
 import { token } from '@atlaskit/tokens';
 
 import { LINK_PICKER_WIDTH_IN_PX } from '../../../common/constants';
-
 import { SearchResults, type SearchResultsProps } from './index';
 
 const NOOP = () => {};

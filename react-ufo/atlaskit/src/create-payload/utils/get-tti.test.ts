@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../../common';
-
 import { getTTI } from './get-tti';
 
 // Mock the config module

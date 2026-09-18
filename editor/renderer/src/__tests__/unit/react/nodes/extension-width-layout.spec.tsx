@@ -1,20 +1,22 @@
 /* eslint-disable @atlaskit/editor/no-as-casting, react/jsx-props-no-spreading */
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
-import Extension from '../../../../react/nodes/extension';
-import BodiedExtension from '../../../../react/nodes/bodiedExtension';
-import type { RendererContext } from '../../../../react/types';
-import ReactSerializer from '../../../../react';
-import { calcBreakoutWidthCss } from '../../../../react/utils/breakout';
 import { RendererCssClassName } from '../../../../consts';
+import ReactSerializer from '../../../../react';
+import BodiedExtension from '../../../../react/nodes/bodiedExtension';
+import Extension from '../../../../react/nodes/extension';
+import type { RendererContext } from '../../../../react/types';
+import { calcBreakoutWidthCss } from '../../../../react/utils/breakout';
 import { RendererStyleContainer } from '../../../../ui/Renderer/RendererStyleContainer';
 
 const providerFactory = ProviderFactory.create({});

@@ -1,4 +1,5 @@
 import { adfToValidatorSpec } from '@atlaskit/adf-schema-generator';
+
 import adfNode from '../../../src/next-schema/full-schema.adf';
 
 test('should be able to handle heading', () => {

@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../common';
-
 import { getEarliestLegacyStopTime } from './getEarliestLegacyStopTime';
 import { getPageVisibilityUpToTTI } from './getPageVisibilityUpToTTI';
 import { getVisibilityStateFromPerformance } from './utils/get-visibility-state-from-performance';

@@ -1,6 +1,5 @@
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
 import { type ThemeIdsWithOverrides } from '../theme-config';
-
 import { loadThemeCss } from './load-theme-css';
 export const loadAndAppendThemeCss = async (
 	themeId: ThemeIdsWithOverrides,

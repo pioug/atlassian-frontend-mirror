@@ -1,4 +1,5 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
 import { createSchema } from './create-schema';
 
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required

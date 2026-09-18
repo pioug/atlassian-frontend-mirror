@@ -17,7 +17,6 @@ import { itemIsDisabled } from '../pm-plugins/item-is-disabled';
 import { getPluginState, moveSelectedIndex, skipForwardToSafeItem } from '../pm-plugins/utils';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler, TypeAheadInputMethod } from '../types';
-
 import { useItemInsert } from './hooks/use-item-insert';
 import { useLoadItems } from './hooks/use-load-items';
 import { useOnForceSelect } from './hooks/use-on-force-select';

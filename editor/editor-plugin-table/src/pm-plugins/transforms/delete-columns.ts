@@ -11,7 +11,6 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 
 import type { PluginInjectionAPI } from '../../types';
 import { META_KEYS } from '../table-analytics';
-
 import { rescaleColumns } from './column-width';
 import { splitCellsInColumns } from './split';
 

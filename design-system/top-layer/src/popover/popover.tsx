@@ -34,7 +34,6 @@ import type { TSurfaceResetCheck } from '../internal/surface-reset';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useInitialFocus } from '../internal/use-initial-focus';
-
 import { type TPopoverCloseReason, type TPopoverForwardedProps } from './types';
 
 /**

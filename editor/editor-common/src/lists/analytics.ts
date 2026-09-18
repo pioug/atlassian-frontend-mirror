@@ -1,7 +1,6 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { CommonListAnalyticsAttributes } from '../analytics';
-
 import { countListItemsInSelection } from './countListItemsInSelection';
 import { getListItemAttributes } from './selection';
 

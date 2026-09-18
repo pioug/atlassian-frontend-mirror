@@ -9,7 +9,6 @@ import {
 	type NotClauseOperator,
 	type Position,
 } from '../types';
-
 import { assignParent } from './common';
 import { notClauseOperator } from './notClauseOperator';
 

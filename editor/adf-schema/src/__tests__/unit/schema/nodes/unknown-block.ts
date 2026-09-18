@@ -1,8 +1,8 @@
-import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { inlineNodes } from '../../../../schema/inline-nodes';
-import { unknownBlock } from '../../../..';
-
 import { schema } from '@af/adf-test-helpers/src/adf-schema';
+import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
+import { unknownBlock } from '../../../..';
+import { inlineNodes } from '../../../../schema/inline-nodes';
 
 const packageName = process.env.npm_package_name as string;
 const nodesToSkip = [

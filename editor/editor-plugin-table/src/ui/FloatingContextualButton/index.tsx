@@ -34,7 +34,6 @@ import {
 	type PluginInjectionAPI,
 	type TableSharedStateInternal,
 } from '../../types';
-
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import FixedButton from './FixedButton';

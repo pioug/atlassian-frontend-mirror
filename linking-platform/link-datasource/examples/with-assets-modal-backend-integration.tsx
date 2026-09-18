@@ -7,8 +7,6 @@ import { useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
-import { DatasourceTableViewWithWrappers as DatasourceTableView } from '../src/ui/datasource-table-view/DatasourceTableViewWithWrappers';
-import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../src/ui/assets-modal/AssetsConfigModalWithWrappers';
 import SmartCardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { forceCmdbBaseUrl } from '@atlaskit/link-test-helpers/assets';
@@ -16,11 +14,13 @@ import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/datas
 import { type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Card } from '@atlaskit/smart-card';
 
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
+import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../src/ui/assets-modal/AssetsConfigModalWithWrappers';
 import {
 	type AssetsDatasourceAdf,
 	type AssetsDatasourceParameters,
 } from '../src/ui/assets-modal/types';
-import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
+import { DatasourceTableViewWithWrappers as DatasourceTableView } from '../src/ui/datasource-table-view/DatasourceTableViewWithWrappers';
 
 const tableContainerStyles = css({
 	width: '700px',

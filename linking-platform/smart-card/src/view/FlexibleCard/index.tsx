@@ -12,7 +12,6 @@ import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
 import useResolve from '../../state/hooks/use-resolve';
 import useRovoConfig from '../../state/hooks/use-rovo-config';
 import { useSmartLinkCrossProductUrlWrapper } from '../../state/hooks/use-smart-link-cross-product-url-wrapper';
-
 import Container from './components/container';
 import { getContextByStatus } from './getContextByStatus';
 import { type FlexibleCardProps } from './types';

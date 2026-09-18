@@ -4,7 +4,6 @@ import { IntlProvider } from 'react-intl';
 
 import { useMessages } from '../services/use-messages';
 import { useSafeIntl } from '../services/use-safe-intl';
-
 import { type IntlMessagesProviderProps } from './types';
 
 export default function IntlMessagesProvider({

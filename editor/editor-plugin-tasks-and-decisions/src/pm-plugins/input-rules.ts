@@ -21,7 +21,6 @@ import type {
 	GetContextIdentifier,
 	TaskDecisionListType,
 } from '../types';
-
 import { changeInDepth, getListTypes, insertTaskDecisionAction } from './insert-commands';
 
 const createListRule =

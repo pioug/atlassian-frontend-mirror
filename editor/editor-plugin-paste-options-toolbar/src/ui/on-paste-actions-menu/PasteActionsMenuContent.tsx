@@ -15,7 +15,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { getSingleSmartLinkUrlFromSlice } from '../utils/current-pasted-smart-link';
-
 import { evaluateAsyncHidden, type AsyncHiddenResults } from './async-hidden';
 
 const styles = cssMap({

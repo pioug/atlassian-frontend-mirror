@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { getPopupStyles } from '../../../components/styles';
+
+import { render, screen } from '@testing-library/react';
+
 import { PopupUserPickerWithoutAnalytics } from '../../../components/PopupUserPicker';
+import { getPopupStyles } from '../../../components/styles';
 import { type PopupUserPickerProps } from '../../../types';
 
 jest.mock('../../../components/styles', () => ({

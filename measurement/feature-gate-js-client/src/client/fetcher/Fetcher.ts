@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+
 import {
 	type ClientOptions,
 	type CustomAttributes,
@@ -8,7 +9,6 @@ import {
 	PerimeterType,
 } from '../types';
 import { CLIENT_VERSION } from '../version';
-
 import { ResponseError } from './errors';
 import {
 	type FrontendClientSdkKeyResponse,

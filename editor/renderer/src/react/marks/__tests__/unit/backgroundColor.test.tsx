@@ -6,11 +6,11 @@
 import { jsx } from '@emotion/react';
 import { screen, render } from '@testing-library/react';
 
-import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
-import BackgroundColor from '../../backgroundColor';
 import { RendererStyleContainer } from '../../../../ui/Renderer/RendererStyleContainer';
+import BackgroundColor from '../../backgroundColor';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Marks/BackgroundColor', () => {

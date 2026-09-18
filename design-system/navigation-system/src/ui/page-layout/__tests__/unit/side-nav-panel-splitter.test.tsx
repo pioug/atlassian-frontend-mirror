@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { Popup } from '@atlaskit/popup/popup';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
@@ -14,7 +14,6 @@ import { TopNav } from '../../top-nav/top-nav';
 import { TopNavEnd } from '../../top-nav/top-nav-end';
 import { TopNavMiddle } from '../../top-nav/top-nav-middle';
 import { TopNavStart } from '../../top-nav/top-nav-start';
-
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,

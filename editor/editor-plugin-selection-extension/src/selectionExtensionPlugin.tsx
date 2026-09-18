@@ -12,13 +12,11 @@ import type {
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';
 import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
 import {
-	getFragmentInfoFromSelection,
 	getFragmentInfoFromSelectionNew,
 	getSelectionAdfInfo,
 	getSelectionAdfInfoNew,
@@ -61,9 +59,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 		}
 	}
 
-	if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
-		registerBlockMenuItems({ extensionList, api, editorViewRef });
-	}
+	registerBlockMenuItems({ extensionList, api, editorViewRef });
 
 	return {
 		name: 'selectionExtension',
@@ -109,19 +105,10 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				}
 				const { state } = editorViewRef.current;
 
-				if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
-					const selection =
-						api?.blockControls?.sharedState.currentState()?.preservedSelection || state.selection;
+				const selection =
+					api?.blockControls?.sharedState.currentState()?.preservedSelection || state.selection;
 
-					return getSelectionAdfInfoNew(selection);
-				}
-
-				const { selectionRanges, selectedNodeAdf } = getSelectionAdfInfo(state);
-
-				return {
-					selectedNodeAdf,
-					selectionRanges,
-				};
+				return getSelectionAdfInfoNew(selection);
 			},
 			getDocumentFromSelection: () => {
 				if (!editorViewRef.current) {
@@ -130,16 +117,10 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 
 				const { state } = editorViewRef.current;
 
-				if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
-					const selection =
-						api?.blockControls?.sharedState.currentState()?.preservedSelection || state.selection;
+				const selection =
+					api?.blockControls?.sharedState.currentState()?.preservedSelection || state.selection;
 
-					return getFragmentInfoFromSelectionNew(selection);
-				}
-
-				const { selectedNodeAdf } = getFragmentInfoFromSelection(state);
-
-				return { selectedNodeAdf };
+				return getFragmentInfoFromSelectionNew(selection);
 			},
 		},
 		usePluginHook: () => {

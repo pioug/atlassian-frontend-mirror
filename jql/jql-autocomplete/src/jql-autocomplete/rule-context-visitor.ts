@@ -1,6 +1,7 @@
 import { type BufferedTokenStream, type ParserRuleContext, type Token } from 'antlr4ts';
 import { type ErrorNode, type RuleNode } from 'antlr4ts/tree';
 
+import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
 import {
 	type JqlAndClauseContext,
 	type JqlChangedClauseContext,
@@ -33,12 +34,10 @@ import {
 	type JqlWasOperatorContext,
 	type JqlWhereContext,
 } from '@atlaskit/jql-parser/JQLParser';
-import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
 import type { JQLParserVisitor } from '@atlaskit/jql-parser/JQLParserVisitor';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type RuleSuggestion } from '../base-autocomplete/types';
-
 import { ORDER_BY_CLAUSE, WHERE_CLAUSE } from './constants';
 import { getPositionFromParserRule } from './get-position-from-parser-rule';
 import { isOperator } from './is-operator';

@@ -2,8 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@compiled/react';
+
 import React, { type ReactNode, forwardRef } from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 const imageWrapperStyles = css({
 	width: '100vw',

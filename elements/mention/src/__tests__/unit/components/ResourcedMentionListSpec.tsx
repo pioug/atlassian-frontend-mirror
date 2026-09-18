@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
 
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling

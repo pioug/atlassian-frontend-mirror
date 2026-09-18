@@ -1,5 +1,4 @@
 import { type CSSColor } from '../theme-options-schema';
-
 import { getClosestColorIndex } from './get-closest-color-index';
 import { argbFromRgba } from './hct-color-utils/argb-from-rgba';
 import { Contrast } from './hct-color-utils/contrast';

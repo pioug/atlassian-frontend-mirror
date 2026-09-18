@@ -14,7 +14,6 @@ import {
 } from '../../types';
 import { getAAIDFromARI } from '../../util/rovoAgentUtils';
 import ProfileCardTrigger, { type ProfileCardHandle } from '../common/ProfileCardTrigger';
-
 import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 
 export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<

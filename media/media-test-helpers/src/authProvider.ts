@@ -1,4 +1,5 @@
 import type { Auth, AuthProvider, AuthContext } from '@atlaskit/media-core/auth';
+
 import { defaultCollectionName } from './collectionNames';
 import { MEDIA_PLAYGROUND_BASE_URL } from './mediaBaseURLS';
 

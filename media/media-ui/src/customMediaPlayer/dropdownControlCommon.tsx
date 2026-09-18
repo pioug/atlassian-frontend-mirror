@@ -4,11 +4,12 @@
 // with the compiled react, we are leaving the static colors in tact for now.
 
 import React from 'react';
+
 import { cssMap } from '@compiled/react';
 
+import { components } from '@atlaskit/react-select/components';
 import type { PopupSelect } from '@atlaskit/select/popup-select';
 import type { OptionType, StylesConfig } from '@atlaskit/select/types';
-import { components } from '@atlaskit/react-select/components';
 
 export const popupCustomStyles: StylesConfig<OptionType> = {
 	container: (styles) => ({
@@ -34,6 +35,7 @@ export const popupCustomStyles: StylesConfig<OptionType> = {
 };
 
 /** Distance (px) between the trigger element and the popup menu. */
+
 export const POPUP_OFFSET = 10;
 
 export const popperProps: PopupSelect['props']['popperProps'] = {

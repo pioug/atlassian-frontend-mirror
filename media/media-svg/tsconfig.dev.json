@@ -92,6 +92,9 @@
 		},
 		{
 			"path": "../../design-system/toggle/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

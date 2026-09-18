@@ -3,9 +3,9 @@
  * @jsx jsx
  */
 import { useCallback, useId, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { cssMap, jsx } from '@compiled/react';
-import { flushSync } from 'react-dom';
 
 import Button from '@atlaskit/button/default/button';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -13,7 +13,6 @@ import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
 
 import { type SkipLinkData } from '../../context/skip-links/types';
-
 import { focusElement } from './focus-element';
 import { SkipLink } from './skip-link';
 

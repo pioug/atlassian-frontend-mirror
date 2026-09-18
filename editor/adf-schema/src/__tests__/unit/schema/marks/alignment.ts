@@ -1,6 +1,7 @@
+import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import { alignment } from '../../../..';
 import { createSchema } from '../../../../schema/create-schema';
-import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
 const packageName = process.env.npm_package_name as string;
 

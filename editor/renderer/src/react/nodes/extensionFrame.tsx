@@ -6,13 +6,14 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { RendererContext } from '../types';
-import type { Serializer } from '../../serializer';
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
+
+import type { Serializer } from '../../serializer';
+import type { RendererContext } from '../types';
 
 const containerCSS = css({
 	padding: `${token('space.100')}`,

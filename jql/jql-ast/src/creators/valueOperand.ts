@@ -1,7 +1,6 @@
 import { NODE_TYPE_OPERAND, OPERAND_TYPE_VALUE } from '../constants';
 import { type JastListener, type JastVisitor, type Position, type ValueOperand } from '../types';
 import { normaliseJqlString, sanitiseJqlString } from '../utils';
-
 import { noChildren } from './common';
 
 function acceptValueOperand<Result>(this: ValueOperand, visitor: JastVisitor<Result>) {

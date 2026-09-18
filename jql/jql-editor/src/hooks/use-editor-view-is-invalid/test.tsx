@@ -7,7 +7,6 @@ import { JQLParseError } from '@atlaskit/jql-ast';
 
 import { useEditorStateHasJqlError, useExternalMessages, useJqlError } from '../../state';
 import { type ExternalMessagesNormalized } from '../../state/types';
-
 import { useEditorViewIsInvalid } from './index';
 
 const normalizedExternalMessagesEmpty: ExternalMessagesNormalized = {

@@ -23,10 +23,10 @@ import {
 } from '../types';
 import { type AnalyticsEventPayload } from '../types';
 import type { ComponentName } from '../util/analytics';
+import { failMediaUploadUfoExperience } from '../util/failMediaUploadUfoExperience';
 import { getRequestMetadata } from '../util/getRequestMetadata';
 import { startMediaUploadUfoExperience } from '../util/startMediaUploadUfoExperience';
 import { succeedMediaUploadUfoExperience } from '../util/succeedMediaUploadUfoExperience';
-import { failMediaUploadUfoExperience } from '../util/failMediaUploadUfoExperience';
 import { UploadComponent } from './component';
 import { type LocalUploadConfig } from './types';
 

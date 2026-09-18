@@ -5,7 +5,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
-
 import { TaskItemNodeView } from './TaskItemNodeView';
 
 export const taskView = (

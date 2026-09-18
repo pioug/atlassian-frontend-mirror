@@ -3,19 +3,21 @@
  * @jsx jsx
  */
 import { forwardRef, useMemo, type ForwardRefExoticComponent, type RefAttributes } from 'react';
+
+import { cssMap, jsx, cx } from '@compiled/react';
 import { useIntl } from 'react-intl';
+
 import { ResourcedEmoji } from '@atlaskit/emoji';
-import { messages } from '../shared/i18n';
+import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
+import { messages } from '../shared/i18n';
 import { type ReactionSummary } from '../types';
 import { Counter } from './Counter';
 import { ReactionButton } from './ReactionButton';
-import { type ReactionsProps } from './Reactions';
 import { ReactionParticleEffect } from './ReactionParticleEffect';
-
-import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
-import { cssMap, jsx, cx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+import { type ReactionsProps } from './Reactions';
 
 const styles = cssMap({
 	emoji: {

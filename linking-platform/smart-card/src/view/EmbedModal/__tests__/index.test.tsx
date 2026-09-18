@@ -22,17 +22,16 @@ import {
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../index';
 import { messages } from '../../../messages';
-
+import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
+import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';
 import type { InvokeClientActionProps } from '../../../state/hooks/use-invoke-client-action/types';
-import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { context } from '../../../utils/analytics/analytics';
+import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { mocks } from '../../../utils/mocks';
 import * as EmbedContent from '../components/embed-content';
 import { MAX_MODAL_SIZE } from '../constants';
 import EmbedModal from '../index';
 import { EmbedModalSize } from '../types';
-import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
-import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';
 
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),

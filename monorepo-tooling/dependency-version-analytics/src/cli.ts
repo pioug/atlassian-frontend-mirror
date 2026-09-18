@@ -2,6 +2,7 @@
 
 import chalk from 'chalk';
 import meow from 'meow';
+
 import { populateProduct, populatePackage } from './commands/populate-historic-data';
 import type { UpgradeEvent } from './types';
 

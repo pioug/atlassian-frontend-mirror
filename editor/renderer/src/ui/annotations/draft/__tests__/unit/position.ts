@@ -1,5 +1,5 @@
-import { calcInsertDraftPositionOnText } from '../../position';
 import { InsertDraftPosition } from '../../../types';
+import { calcInsertDraftPositionOnText } from '../../position';
 
 describe('Annotations: draft/position', () => {
 	describe('#calcInsertDraftPositionOnText', () => {

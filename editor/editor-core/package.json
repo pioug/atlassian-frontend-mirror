@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "229.0.0",
+	"version": "229.1.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -91,6 +91,7 @@
 		"memoize-one": "root:*",
 		"prop-types": "root:*",
 		"react-loadable": "root:*",
+		"react-loosely-lazy": "root:*",
 		"react-transition-group": "root:*",
 		"uuid": "root:*"
 	},

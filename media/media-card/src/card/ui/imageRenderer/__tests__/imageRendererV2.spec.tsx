@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@atlassian/testing-library';
-import { ImageRenderer } from '../imageRendererV2';
+
 import type { FileIdentifier } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
+import { render, screen, fireEvent } from '@atlassian/testing-library';
+
+import { ImageRenderer } from '../imageRendererV2';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),

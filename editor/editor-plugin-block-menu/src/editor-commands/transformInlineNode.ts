@@ -4,7 +4,6 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
-
 import { isEmptyLine } from './is-empty-line';
 import { createTransformAnalytics } from './transform-analytics';
 import type { TransformInlineNodeMetadata } from './types';

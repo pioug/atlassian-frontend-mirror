@@ -1,13 +1,14 @@
-// eslint-disable-line no-console
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React from 'react';
+
+// eslint-disable-line no-console
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React from 'react';
-import RadioGroup from '@atlaskit/radio/radio-group';
-import Range from '@atlaskit/range/range';
+
 import Button from '@atlaskit/button/default/button';
 import Card from '@atlaskit/media-card/cardLoader';
 import {
@@ -22,9 +23,12 @@ import {
 	emailFileId,
 	archiveFileId,
 } from '@atlaskit/media-test-helpers';
-import { FilmstripView } from '../src/filmstripView';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import Range from '@atlaskit/range/range';
+
 import { flexStyles, storyWrapperStyles } from '../example-helpers/styles';
 import { ControlLabel, EditableBox, Separator } from '../example-helpers/wrapper';
+import { FilmstripView } from '../src/filmstripView';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 

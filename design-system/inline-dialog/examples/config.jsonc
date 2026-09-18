@@ -4,15 +4,15 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "99-testing.vr.ap.tsx",
-    "01-default.vr.ap.tsx",
-    "07-popper-placements.vr.ap.tsx"
-  ],
-  "exampleDependencies": [
-    "@atlaskit/datetime-picker",
-    "@atlaskit/modal-dialog",
-    "@atlaskit/select",
-    "react-lorem-component"
-  ]
+	"testExamples": [
+		"99-testing.vr.ap.tsx",
+		"01-default.vr.ap.tsx",
+		"07-popper-placements.vr.ap.tsx",
+	],
+	"exampleDependencies": [
+		"@atlaskit/datetime-picker",
+		"@atlaskit/modal-dialog",
+		"@atlaskit/select",
+		"react-lorem-component",
+	],
 }

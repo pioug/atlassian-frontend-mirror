@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 // Wrapper items ADF - list items that contain only nested lists

@@ -1,11 +1,15 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+import type { Context } from '../interfaces';
+import { blockCard } from './nodes/block-card';
 import { blockquote } from './nodes/blockquote';
+import { bodiedSyncBlock } from './nodes/bodied-sync-block';
 import { bulletList } from './nodes/bullet-list';
-import { taskList } from './nodes/taskList';
-import { decisionList } from './nodes/decisionList';
+import { caption } from './nodes/caption';
 import { codeBlock } from './nodes/code-block';
+import { decisionList } from './nodes/decisionList';
 import { doc } from './nodes/doc';
+import { embedCard } from './nodes/embed-card';
 import { expand } from './nodes/expand';
 import { heading } from './nodes/heading';
 import { mediaGroup } from './nodes/media-group';
@@ -15,12 +19,8 @@ import { panel } from './nodes/panel';
 import { paragraph } from './nodes/paragraph';
 import { rule } from './nodes/rule';
 import { table } from './nodes/table';
+import { taskList } from './nodes/taskList';
 import { unknown } from './nodes/unknown';
-import { blockCard } from './nodes/block-card';
-import { embedCard } from './nodes/embed-card';
-import { caption } from './nodes/caption';
-import { bodiedSyncBlock } from './nodes/bodied-sync-block';
-import type { Context } from '../interfaces';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

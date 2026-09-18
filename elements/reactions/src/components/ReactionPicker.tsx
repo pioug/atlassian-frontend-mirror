@@ -9,24 +9,28 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
+
 import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
+import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
+import Heading from '@atlaskit/heading/heading';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Manager } from '@atlaskit/popper/manager';
 import {
 	Popper,
 	type PopperProps,
 	type PopperChildrenProps,
 	type Placement,
 } from '@atlaskit/popper/main';
+import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
-import { layers } from '@atlaskit/theme/constants';
+import Portal from '@atlaskit/portal/portal';
 import { Box } from '@atlaskit/primitives/compiled';
-import Heading from '@atlaskit/heading/heading';
+import { layers } from '@atlaskit/theme/constants';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
 import { useCloseManagerV2 } from '../hooks/useCloseManager';
 import { useDelayedState } from '../hooks/useDelayedState';
@@ -34,13 +38,9 @@ import { useFocusTrap } from '../hooks/useFocusTrap';
 import { messages } from '../shared/i18n';
 import { type ReactionSource } from '../types';
 import { PickerRender } from '../ufo';
+import { RepositionOnUpdate } from './RepositionOnUpdate';
 import { Selector, type SelectorProps } from './Selector';
 import { Trigger, type TriggerProps } from './Trigger';
-import { RepositionOnUpdate } from './RepositionOnUpdate';
-
-import { token } from '@atlaskit/tokens';
-import Portal from '@atlaskit/portal/portal';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const pickerStyle = css({
 	verticalAlign: 'middle',

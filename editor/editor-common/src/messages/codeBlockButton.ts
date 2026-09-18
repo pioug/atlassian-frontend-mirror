@@ -11,6 +11,11 @@ export const codeBlockButtonMessages: {
 		description: string;
 		id: string;
 	};
+	copyCodeSnippetToClipboard: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	copyCodeToClipboard: {
 		defaultMessage: string;
 		description: string;
@@ -106,6 +111,11 @@ export const codeBlockButtonMessages: {
 		id: 'fabric.editor.codeBlockCopyButton.copyToClipboard',
 		defaultMessage: 'Copy as text',
 		description: 'Copy the content of the code block as text to your clipboard',
+	},
+	copyCodeSnippetToClipboard: {
+		id: 'editor-common.messages.codeBlockButton.copyCodeSnippetToClipboard',
+		defaultMessage: 'Copy code text',
+		description: 'Copy the code text to your clipboard',
 	},
 	copiedCodeToClipboard: {
 		id: 'fabric.editor.codeBlockCopyButton.copiedToClipboard',

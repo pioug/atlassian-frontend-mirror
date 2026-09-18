@@ -2,19 +2,19 @@ import React, { type ReactElement } from 'react';
 
 import cases from 'jest-in-case';
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import noop from '@atlaskit/ds-lib/noop';
 import Range from '@atlaskit/range/range';
 import TextField from '@atlaskit/textfield/text-field';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
-import Form from '../../form';
 import { CharacterCounterField } from '../../character-counter-field';
 import { CheckboxField } from '../../checkbox-field';
 import { ErrorMessage } from '../../error-message';
 import Field from '../../field';
 import { Fieldset } from '../../fieldset';
+import Form from '../../form';
 import { FormFooter } from '../../form-footer';
 import { FormHeader } from '../../form-header';
 import { FormSection } from '../../form-section';

@@ -1,7 +1,6 @@
 import { HttpError } from '../error/HttpError';
 import { SLOIgnoreError } from '../error/SLOIgnoreError';
 import { SLOIgnoreHttpError } from '../error/SLOIgnoreHttpError';
-
 import { createErrorMetadata } from './createErrorMetadata';
 import { isIgnoredError } from './isIgnoredError';
 

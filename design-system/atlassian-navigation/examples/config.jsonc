@@ -4,11 +4,6 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "10-authenticated-example.tsx",
-    "20-anonymous-example.tsx"
-  ],
-  "exampleDependencies": [
-    "react-dom"
-  ]
+	"testExamples": ["10-authenticated-example.tsx", "20-anonymous-example.tsx"],
+	"exampleDependencies": ["react-dom"],
 }

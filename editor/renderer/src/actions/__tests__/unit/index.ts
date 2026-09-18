@@ -7,7 +7,16 @@
 */
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import RendererActions from '../../index';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	ACTION_SUBJECT_ID,
+} from '@atlaskit/editor-common/analytics';
+import { Node } from '@atlaskit/editor-prosemirror/model';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import {
 	simpleTextWithAnnotation,
 	textWithOverlappingAnnotations,
@@ -16,17 +25,9 @@ import {
 	docWithTextAndMedia,
 	docWithInlineNodes,
 } from '../../../__tests__/__fixtures__/annotation';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import * as steps from '../../../steps';
-import { Node } from '@atlaskit/editor-prosemirror/model';
-import { Step } from '@atlaskit/editor-prosemirror/transform-override';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import RendererActions from '../../index';
 
 const mockArg = {} as any;
 const mockArg2 = {} as any;

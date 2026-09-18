@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import { createRoot, type Root } from 'react-dom/client';
 
-import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { inlineCard } from '@atlaskit/adf-utils/builders';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
+import { POPUP_MOUNTPOINT, DROPBOX_IFRAME_NAME } from './constants';
 import enableDropbox from './enable-dropbox';
 import type { DropboxFile } from './types';
-import { POPUP_MOUNTPOINT, DROPBOX_IFRAME_NAME } from './constants';
 
 const reactRoots = new WeakMap<Element, Root>();
 

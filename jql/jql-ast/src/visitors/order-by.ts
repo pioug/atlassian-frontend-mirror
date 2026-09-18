@@ -4,7 +4,6 @@ import { ORDER_BY_DIRECTION_ASC, ORDER_BY_DIRECTION_DESC } from '../constants';
 import { internalCreators } from '../creators';
 import { type OrderBy, type OrderByField } from '../types';
 import { notUndefined } from '../utils';
-
 import { getPositionFromContext, getPositionFromToken, JastBuildingVisitor } from './common';
 import { FieldVisitor } from './field';
 

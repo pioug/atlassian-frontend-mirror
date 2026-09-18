@@ -1,6 +1,7 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML as fromHTML_ } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import { mention } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 import { uuid } from '../../../../utils/uuid';
 
 const schema = makeSchema();

@@ -1,9 +1,11 @@
-import { render } from '@testing-library/react';
 import React, { useContext, useEffect, useState } from 'react';
+
+import { render } from '@testing-library/react';
 import * as sinon from 'sinon';
-import { EmojiContext } from '../../../../context/EmojiContext';
+
 import { EmojiResource } from '../../../../api/EmojiResource';
 import { EmojiCommonProvider } from '../../../../context/EmojiCommonProvider';
+import { EmojiContext } from '../../../../context/EmojiContext';
 
 export const RenderContextStub = (): React.JSX.Element => {
 	const stubbedContext = useContext(EmojiContext);

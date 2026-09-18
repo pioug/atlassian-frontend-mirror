@@ -83,6 +83,7 @@
 	"devDependencies": {
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-transition-group": "root:*",
 		"algoliasearch": "root:*",

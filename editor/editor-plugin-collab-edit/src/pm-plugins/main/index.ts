@@ -31,7 +31,6 @@ import type { CollabEditPlugin } from '../../collabEditPluginType';
 import type { PrivateCollabEditOptions, ProviderCallback } from '../../types';
 import { addSynchronyErrorAnalytics } from '../analytics';
 import { initialize } from '../events/initialize';
-
 import { pluginKey } from './plugin-key';
 import { PluginState } from './plugin-state';
 

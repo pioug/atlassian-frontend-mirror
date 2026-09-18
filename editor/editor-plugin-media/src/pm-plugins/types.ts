@@ -15,7 +15,6 @@ import type {
 	ProsemirrorGetPosHandler,
 } from '../types';
 import type { MediaPluginOptions } from '../types/media-plugin-options';
-
 import type PickerFacade from './picker-facade';
 
 export interface MediaNodeWithPosHandler {

@@ -1,9 +1,9 @@
 import type { Rule } from 'eslint';
+import type { Program } from 'estree';
 
 import { FEATURE_API_IMPORT_SOURCES } from '../../constants';
-import type { Node } from '../utils';
-import type { Program } from 'estree';
 import { getScope } from '../../util/context-compat';
+import type { Node } from '../utils';
 
 const validateUsage = (
 	node: Node<'CallExpression'>,

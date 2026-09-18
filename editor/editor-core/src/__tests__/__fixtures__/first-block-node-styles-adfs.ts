@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
-import { PanelType } from '@atlaskit/adf-schema/panel';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 
 export const paragraphAdf: DocNode = {
 	version: 1,

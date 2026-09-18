@@ -1,8 +1,9 @@
-import type { AlignmentMarkDefinition, IndentationMarkDefinition } from '../marks';
-import type { MarksObject, NoMark } from './types/mark';
-import type { Inline } from './types/inline-content';
-import { heading as headingFactory } from '../../next-schema/generated/nodeTypes';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { heading as headingFactory } from '../../next-schema/generated/nodeTypes';
+import type { AlignmentMarkDefinition, IndentationMarkDefinition } from '../marks';
+import type { Inline } from './types/inline-content';
+import type { MarksObject, NoMark } from './types/mark';
 
 /**
  * @name heading_node

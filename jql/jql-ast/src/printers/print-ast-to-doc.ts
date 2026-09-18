@@ -25,7 +25,6 @@ import {
 	type TerminalClause,
 	type ValueOperand,
 } from '../types';
-
 import { type Doc } from './types';
 import { group, ifBreak, newLine } from './utils';
 

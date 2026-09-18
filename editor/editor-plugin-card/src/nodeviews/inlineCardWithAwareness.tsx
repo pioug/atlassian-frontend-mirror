@@ -23,7 +23,6 @@ import { registerRemoveOverlay } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { AwarenessWrapper } from '../ui/AwarenessWrapper';
 import { PreviewInvoker } from '../ui/preview/PreviewInvoker';
-
 import type { SmartCardProps } from './genericCard';
 import { InlineCard } from './inlineCardBase';
 

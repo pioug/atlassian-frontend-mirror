@@ -1,10 +1,13 @@
+import React from 'react';
+
+import { screen, render, act } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
-import React from 'react';
+
 import MentionList from '../../../components/MentionList';
-import { IntlProvider } from 'react-intl';
-import { screen, render, act } from '@testing-library/react';
 
 // TODO: After updating to expect.hasAssertions() and RTL, it identified some tests that are not correctly written.
 // Please refer to: https://product-fabric.atlassian.net/browse/FS-4183

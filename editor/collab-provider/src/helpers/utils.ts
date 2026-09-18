@@ -1,9 +1,5 @@
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import type { ProductInformation } from '../types';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { scrubAdf } from '@atlaskit/adf-utils/scrub';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { sendableSteps } from '@atlaskit/prosemirror-collab';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type {
 	BatchAttrsStepPM,
 	InlineCommentAddNodeMarkStepPM,
@@ -18,7 +14,12 @@ import type {
 } from '@atlaskit/editor-common/collab';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { sendableSteps } from '@atlaskit/prosemirror-collab';
+
 import { CustomError } from '../errors/custom-errors';
+import type { ProductInformation } from '../types';
 
 // eslint-disable-next-line require-unicode-regexp
 const GCP_TENANT_PATTERN = /^.*-cdp-\w+\.jira-dev\.com$/;

@@ -31,7 +31,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { redo } from '@atlaskit/prosemirror-history/redo';
 import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ExpandPlugin } from '../../types';
 import { renderExpandButton } from '../../ui/renderExpandButton';
@@ -84,10 +83,8 @@ export class ExpandNodeView implements NodeView {
 		this.view = view;
 		this.node = node;
 
-		if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
-			this.isExpanded.expanded = expandedState.get(node) ?? false;
-			this.isExpanded.localId = node.attrs.localId;
-		}
+		this.isExpanded.expanded = expandedState.get(node) ?? false;
+		this.isExpanded.localId = node.attrs.localId;
 
 		const editorDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
 		const { dom, contentDOM } = DOMSerializer.renderSpec(
@@ -706,10 +703,9 @@ export class ExpandNodeView implements NodeView {
 				height: estimateExpandIntrinsicHeight(this.node, !isExpandCollapsed(this.node)),
 			}));
 			const currentExpanded = expandedState.get(node) ?? false;
-			const hasChanged = editorExperiment('platform_editor_block_menu', true, { exposure: true })
-				? this.isExpanded.expanded !== currentExpanded &&
-					this.isExpanded.localId === node.attrs.localId
-				: this.isExpanded.expanded !== currentExpanded;
+			const hasChanged =
+				this.isExpanded.expanded !== currentExpanded &&
+				this.isExpanded.localId === node.attrs.localId;
 			if (hasChanged) {
 				this.updateExpandToggleIcon(node);
 				this.updateDisplayStyle(node);
@@ -738,9 +734,7 @@ export class ExpandNodeView implements NodeView {
 			}
 		}
 		this.updateExpandBodyContentEditable();
-		this.isExpanded = editorExperiment('platform_editor_block_menu', true, { exposure: true })
-			? { expanded: expanded ?? false, localId: node.attrs.localId }
-			: { expanded: expanded ?? false };
+		this.isExpanded = { expanded: expanded ?? false, localId: node.attrs.localId };
 	}
 
 	private isLimitedModeEnabled(): boolean {

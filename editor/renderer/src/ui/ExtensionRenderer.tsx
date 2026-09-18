@@ -2,12 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
-import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
+
 import React from 'react';
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
+import { css, jsx } from '@emotion/react';
+// oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
 import memoizeOne from 'memoize-one';
 
-import type { RendererContext } from '../react/types';
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import { getNodeRenderer } from '@atlaskit/editor-common/extensions';
 import type {
@@ -22,6 +24,8 @@ import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
+
+import type { RendererContext } from '../react/types';
 
 interface Props {
 	actions?: MultiBodiedExtensionActions;

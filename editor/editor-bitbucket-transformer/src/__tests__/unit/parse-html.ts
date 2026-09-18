@@ -1,7 +1,6 @@
 import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Mark } from '@atlaskit/editor-prosemirror/model';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import {
 	a,
 	blockquote,
@@ -36,6 +35,8 @@ import {
 	ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { BitbucketTransformer, type AdditionalParseOptions } from '../..';
 
 const transformer = new BitbucketTransformer(schema);

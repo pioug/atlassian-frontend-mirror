@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import TileSkeleton from '@atlaskit/tile/tile-skeleton'` instead.
  */
+
 export { default } from '../skeleton';
 /**
  * @deprecated Use `import type { TileSkeletonProps } from '@atlaskit/tile/types'` instead.

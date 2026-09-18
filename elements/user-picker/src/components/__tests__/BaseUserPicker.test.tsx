@@ -1,9 +1,12 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { screen, act, fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import { BaseUserPicker } from '../BaseUserPicker';
-import Select from '@atlaskit/select/default';
+
+import { screen, act, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
+import Select from '@atlaskit/select/default';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+import { BaseUserPicker } from '../BaseUserPicker';
 class TestSelect extends React.Component {
 	render() {
 		return <div {...this.props} data-testid="test-select"></div>;

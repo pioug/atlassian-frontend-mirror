@@ -5,8 +5,8 @@ import { IntlProvider } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { AgentProfileCreator, getAgentCreator } from './index';
 

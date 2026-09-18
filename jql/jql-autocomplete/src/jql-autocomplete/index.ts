@@ -7,7 +7,6 @@ import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
 import { BaseAutocomplete } from '../base-autocomplete';
 import { type RuleSuggestionsWithRuleList, type Suggestions } from '../base-autocomplete/types';
 import { type Position } from '../common/types';
-
 import { isRuleWithContext, unclosedStringTokens } from './constants';
 import { defaultDelimiterTokens, defaultIgnoredTokens, getDefaultPreferredRules } from './defaults';
 import { isPredicateOperand } from './is-predicate-operand';

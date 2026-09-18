@@ -9,8 +9,8 @@ import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { undo } from '@atlaskit/prosemirror-history/undo';
 import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { backspaceKeymap } from './backspace';

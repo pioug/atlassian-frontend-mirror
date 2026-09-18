@@ -1,5 +1,4 @@
 import { ufolog } from '../../../logger/ufolog';
-
 import { type AbstractExperienceConfig } from './abstract-experience';
 import { UFOExperience } from './experience';
 

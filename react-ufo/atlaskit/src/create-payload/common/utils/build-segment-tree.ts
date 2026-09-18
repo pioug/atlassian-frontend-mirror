@@ -1,11 +1,9 @@
 import { getConfig } from '../../../config';
 import type { LabelStack } from '../../../interaction-context';
-
+import type { SegmentItem, SegmentTree } from './index';
 import { isSegmentLabel } from './is-segment-label';
 import { sanitizeLabelStackName } from './sanitize-label-stack-name';
 import { stringifyLabelStackWithoutId } from './stringify-label-stack-without-id';
-
-import type { SegmentItem, SegmentTree } from './index';
 
 export function buildSegmentTree(labelStacks: LabelStack[]): SegmentTree {
 	const r: SegmentItem = { n: 'segment-tree-root', c: {} };

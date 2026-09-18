@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
+
 export type { Command, CommandDispatch } from '../types/command';
 export type { DomAtPos } from '../types/dom-at-pos';
 export type { EditorAppearanceComponentProps } from '../types/editor-appearance-component';

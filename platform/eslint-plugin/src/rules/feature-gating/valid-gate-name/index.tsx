@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+
 import { FEATURE_API_IMPORT_SOURCES } from '../../constants';
 import { isIdentifierImportedFrom, type Node } from '../utils';
 

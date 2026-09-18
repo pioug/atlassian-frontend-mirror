@@ -24,7 +24,6 @@ import { getComputedAnimationDurationMs } from '../utils/get-computed-animation-
 import { getDurationMs } from '../utils/get-duration-ms';
 import { isReducedMotion } from '../utils/is-reduced-motion';
 import { resolveMotionToken } from '../utils/resolve-motion-token';
-
 import { Reanimate } from './reanimate';
 import { type Transition } from './types';
 import { useExitingPersistence } from './use-exiting-persistence';

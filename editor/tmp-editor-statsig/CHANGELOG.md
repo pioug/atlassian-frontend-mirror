@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 200.0.0
+
+### Major Changes
+
+- [`8d37dc7e55d62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d37dc7e55d62) -
+  Clean up shipped experiment `platform_editor_block_menu`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 199.0.0
 
 ### Major Changes

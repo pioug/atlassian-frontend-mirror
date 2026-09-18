@@ -5,7 +5,6 @@ import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-ap
 import type { TeamWithMemberships } from '@atlaskit/teams-client/membership';
 
 import { usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
-
 import type { FireAnalyticsProps } from './fire-analytics-props';
 import { getErrorDetails } from './get-error-details';
 import { getInitialTeamState } from './get-initial-team-state';

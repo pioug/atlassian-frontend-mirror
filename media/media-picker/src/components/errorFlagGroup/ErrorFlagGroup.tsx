@@ -1,12 +1,5 @@
 import React from 'react';
 
-import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
-import FailIcon from '@atlaskit/icon/core/cross-circle';
-import { token } from '@atlaskit/tokens';
-
-import { type UploadRejectionData } from '../../types';
-import { errorFlagMessages } from './messages';
 import {
 	injectIntl,
 	IntlProvider,
@@ -14,6 +7,14 @@ import {
 	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl';
+
+import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
+import FailIcon from '@atlaskit/icon/core/cross-circle';
+import { token } from '@atlaskit/tokens';
+
+import { type UploadRejectionData } from '../../types';
+import { errorFlagMessages } from './messages';
 
 export interface ErrorFlagGroupProps {
 	readonly flagData: UploadRejectionData[];

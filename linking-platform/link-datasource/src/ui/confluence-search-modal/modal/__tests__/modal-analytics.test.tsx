@@ -7,7 +7,6 @@ import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { DatasourceSearchMethod } from '../../../../analytics/types';
 import { type DatasourceTableState } from '../../../../hooks/useDatasourceTableState';
 import { useCurrentUserInfo } from '../../basic-filters/hooks/useCurrentUserInfo';
-
 import {
 	getDefaultHookState,
 	getEmptyHookState,

@@ -5,10 +5,10 @@
   See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
   */
 
-import type { ADFAttributes } from '../../../types/ADFAttribute';
 import { adfMark } from '../../../adfMark';
 import { adfMarkGroup } from '../../../adfMarkGroup';
 import { buildAttrs, buildMarkSpec } from '../../../transforms/adfToPm/buildPmSpec';
+import type { ADFAttributes } from '../../../types/ADFAttribute';
 
 describe('build pm specs', () => {
 	describe('build attrs', () => {

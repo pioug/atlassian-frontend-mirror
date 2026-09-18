@@ -10,7 +10,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { DataAttributes } from '../types';
-
 import { useToolbarDropdownMenu } from './ToolbarDropdownMenuContext';
 
 type TextStyle =

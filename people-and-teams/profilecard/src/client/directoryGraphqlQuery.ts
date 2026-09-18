@@ -1,8 +1,8 @@
-import type { HeaderProcessor } from './HeaderProcessor';
-import type { Query } from './Query';
 import { graphQLQuery } from './graphQLQuery';
 import { handleDirectoryGraphQLErrors } from './handleDirectoryGraphQLErrors';
+import type { HeaderProcessor } from './HeaderProcessor';
 import { id } from './id';
+import type { Query } from './Query';
 
 /**
  * @param {string} serviceUrl - GraphQL service endpoint

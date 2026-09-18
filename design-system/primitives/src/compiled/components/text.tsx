@@ -19,7 +19,6 @@ import { token } from '@atlaskit/tokens';
 import { HasTextAncestorProvider } from '../../utils/has-text-ancestor-provider';
 import { useSurface } from '../../utils/surface-provider';
 import { useHasTextAncestor } from '../../utils/use-has-text-ancestor';
-
 import type { BasePrimitiveProps, FontSize, FontWeight, TextAlign, TextColor } from './types';
 
 const asAllowlist = ['span', 'p', 'strong', 'em'] as const;

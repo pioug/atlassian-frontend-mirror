@@ -8,8 +8,8 @@ import { Layering } from '@atlaskit/layering/layering';
 import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { useLayering } from '@atlaskit/layering/use-layering';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Manager } from '@atlaskit/popper/manager';
 import { Popper } from '@atlaskit/popper/main';
+import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
 
 import { Container } from './inline-dialog-container';

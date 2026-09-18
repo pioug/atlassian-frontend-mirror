@@ -5,8 +5,9 @@ import {
 	type MediaTraceContext,
 	type WithTraceContext,
 } from '@atlaskit/media-common';
-import { type MediaFileEventPayload } from './_mediaFile';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { type MediaFileEventPayload } from './_mediaFile';
 
 type WithFeatureFlags = {
 	featureFlags: {

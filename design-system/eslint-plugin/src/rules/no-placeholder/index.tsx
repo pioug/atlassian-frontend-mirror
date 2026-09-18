@@ -4,7 +4,6 @@ import { JSXElementHelper as JSXElement } from '../../ast-nodes/jsx-element-help
 import { createLintRule } from '../utils/create-lint-rule';
 import { getAffectedPackageConfig } from '../utils/get-affected-package-config';
 import { FORM_PACKAGE, getFormImportLocalNames } from '../utils/get-form-import-local-names';
-
 import { AFFECTED_ATLASKIT_PACKAGES } from './affected-atlaskit-packages';
 import { AFFECTED_HTML_ELEMENTS } from './affected-html-elements';
 

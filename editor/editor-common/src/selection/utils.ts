@@ -10,7 +10,6 @@ import { NodeSelection, TextSelection, type Selection } from '@atlaskit/editor-p
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { isListNode } from '../utils';
-
 import { endPositionOfParent } from './endPositionOfParent';
 import { GapCursorSelection } from './gap-cursor/selection';
 import { isMultiBlockRange } from './isMultiBlockRange';

@@ -1,16 +1,19 @@
+import React from 'react';
+
+import { render } from '@testing-library/react';
+
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import type {
 	AnnotationProviders,
 	InlineCommentViewComponentProps,
 } from '@atlaskit/editor-common/types';
-import RendererActions from '../../../../actions/index';
-import { ProvidersContext } from '../../context';
-import React from 'react';
-import { AnnotationView } from '../../view';
-import { render } from '@testing-library/react';
-import { RendererContext } from '../../../RendererActionsContext';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+
+import RendererActions from '../../../../actions/index';
+import { RendererContext } from '../../../RendererActionsContext';
+import { ProvidersContext } from '../../context';
+import { AnnotationView } from '../../view';
 
 jest.mock('../../hooks/use-events', () => ({
 	useAnnotationClickEvent: jest.fn().mockReturnValue([

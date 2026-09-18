@@ -15,7 +15,6 @@ import {
 	type TeamCentralReportingLinesData,
 } from '../../types';
 import { default as ErrorMessage } from '../Error/ErrorMessage';
-
 import { ProfilecardInternal as ProfileCard } from './ProfilecardInternal';
 import UserLoadingState from './UserLoadingState';
 

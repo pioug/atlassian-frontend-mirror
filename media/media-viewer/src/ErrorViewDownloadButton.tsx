@@ -6,9 +6,9 @@ import { type FileState, type MediaClient } from '@atlaskit/media-client';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { messages } from '@atlaskit/media-ui/messages';
 
+import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { DownloadItem } from './DownloadItem';
 import type { MediaViewerError } from './MediaViewerError';
-import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { DownloadButtonWrapper } from './styleWrappers';
 
 export const ErrorViewDownloadButton = ({

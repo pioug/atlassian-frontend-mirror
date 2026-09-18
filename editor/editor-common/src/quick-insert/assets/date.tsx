@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
 import React from 'react';
 
 import { useIconThemed } from '../use-icon-themed';

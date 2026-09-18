@@ -1,14 +1,17 @@
 import React from 'react';
-import type { CellWithSortingProps } from '../../../../react/nodes/tableCell';
-import { TableHeader } from '../../../../react/nodes/tableCell';
-import { MODE, PLATFORM } from '../../../../analytics/events';
+
+import { fireEvent, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { RendererCssClassName } from '../../../../consts';
 import { SortOrder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { fireEvent, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
+import { MODE, PLATFORM } from '../../../../analytics/events';
+import { RendererCssClassName } from '../../../../consts';
+import type { CellWithSortingProps } from '../../../../react/nodes/tableCell';
+import { TableHeader } from '../../../../react/nodes/tableCell';
 
 const MOCK_SORTING_ICON_ID = 'mock-sort-icon';
 

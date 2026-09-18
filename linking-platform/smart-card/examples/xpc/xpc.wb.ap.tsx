@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import Xpc3pNotWrappedExample from './xpc-3p-not-wrapped';
 import XpcAllSurfacesExample from './xpc-all-surfaces';
 import XpcAlreadyWrappedExample from './xpc-already-wrapped';

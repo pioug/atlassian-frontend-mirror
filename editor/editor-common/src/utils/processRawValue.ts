@@ -28,7 +28,6 @@ import { isPanelNestingContainerSupported } from '../nesting/isPanelNestingConta
 import { isPanelNestingTableSupported } from '../nesting/isPanelNestingTableSupported';
 import type { ProviderFactory } from '../provider-factory';
 import type { ReplaceRawValue, Transformer } from '../types';
-
 import { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 import { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 import { validateADFEntity } from './validate-using-spec';

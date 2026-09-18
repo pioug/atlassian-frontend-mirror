@@ -1,5 +1,4 @@
 import type { InteractionType } from '../../common';
-
 import getNavigationMetrics, { type NavigationMetrics } from './get-navigation-metrics';
 
 // Helper function to get navigation metrics in legacy format for backward compatibility

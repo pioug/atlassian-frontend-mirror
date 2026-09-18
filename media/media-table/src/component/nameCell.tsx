@@ -2,20 +2,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import { type FC } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { type FC } from 'react';
+
 import { type MediaType } from '@atlaskit/media-client';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
+import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { Truncate } from '@atlaskit/media-ui/truncateText/truncate';
 import type { TruncateProps } from '@atlaskit/media-ui/truncateText/types';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
-import { nameCellWrapperStyles, truncateWrapperStyles } from './styles';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
+import { nameCellWrapperStyles, truncateWrapperStyles } from './styles';
 export interface NameCellProps extends TruncateProps {
 	mediaType?: MediaType;
 }
-
 export const NameCell: FC<NameCellProps> = (props) => {
 	const { mediaType, text, ...rest } = props;
 

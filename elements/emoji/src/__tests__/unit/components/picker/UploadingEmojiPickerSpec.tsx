@@ -1,21 +1,27 @@
+import console from 'console';
+
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
-import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import console from 'console';
+
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
+import { uploadEmojiNameInputTestId } from '../../../../components/common/EmojiUploadPicker';
+import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
+import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
 import {
 	chooseFileButtonTestId,
 	fileUploadInputTestId,
 } from '../../../../components/common/FileChooser';
-import { uploadEmojiNameInputTestId } from '../../../../components/common/EmojiUploadPicker';
-import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
 import { messages } from '../../../../components/i18n';
+import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
 import { deleteBeginEvent } from '../../../../util/analytics/deleteBeginEvent';
 import { deleteCancelEvent } from '../../../../util/analytics/deleteCancelEvent';
 import { deleteConfirmEvent } from '../../../../util/analytics/deleteConfirmEvent';
@@ -26,6 +32,7 @@ import { uploadCancelButton } from '../../../../util/analytics/uploadCancelButto
 import { uploadConfirmButton } from '../../../../util/analytics/uploadConfirmButton';
 import { uploadFailedEvent } from '../../../../util/analytics/uploadFailedEvent';
 import { uploadSucceededEvent } from '../../../../util/analytics/uploadSucceededEvent';
+import * as constants from '../../../../util/constants';
 import * as ImageUtil from '../../../../util/image';
 import {
 	atlassianEmojis,
@@ -40,11 +47,6 @@ import {
 } from '../../_test-data';
 import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
 import * as helper from './_emoji-picker-test-helpers';
-
-import userEvent from '@testing-library/user-event';
-import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
-import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
-import * as constants from '../../../../util/constants';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

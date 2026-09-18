@@ -1,9 +1,10 @@
 import Dataloader from 'dataloader';
 
-import type { MediaStore } from '../client/media-store/MediaStore';
-import { type NotFoundMediaItemDetails, type MediaItemDetails } from '../models/media';
 import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
 import type { Auth } from '@atlaskit/media-core/auth';
+
+import type { MediaStore } from '../client/media-store/MediaStore';
+import { type NotFoundMediaItemDetails, type MediaItemDetails } from '../models/media';
 
 export const MAX_BATCH_SIZE = 100;
 

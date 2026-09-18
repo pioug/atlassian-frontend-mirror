@@ -26,7 +26,6 @@ import { Text } from '@atlaskit/primitives/text';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 
 type Props = {

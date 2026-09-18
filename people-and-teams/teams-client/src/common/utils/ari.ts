@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { isUserARI } from '@atlaskit/teams-client/is-user-ari'` instead.
  */
+
 export { isUserARI } from './is-user-ari';
 /**
  * @deprecated Use `import { toUserId } from '@atlaskit/teams-client/to-user-id'` instead.

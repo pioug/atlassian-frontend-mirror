@@ -14,7 +14,6 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomPluginOptions } from '../types';
-
 import { LoomMenuItem } from './LoomMenuItem';
 import { MenuSection } from './MenuSection';
 

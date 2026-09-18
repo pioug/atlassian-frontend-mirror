@@ -16,9 +16,9 @@ import {
 import { cssMap, jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { useExitingPersistence } from '@atlaskit/motion/exiting-persistence/use-exiting-persistence';
-import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { token } from '@atlaskit/tokens';
 
 import { TagStatus } from './tag-status';

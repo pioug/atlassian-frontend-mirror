@@ -1,4 +1,5 @@
 import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+
 import { mapSsrMediaItemToFileState } from '../../ssr-media-item';
 import type { SsrMediaItem, SsrMediaItemDetails } from '../../ssr-media-item';
 

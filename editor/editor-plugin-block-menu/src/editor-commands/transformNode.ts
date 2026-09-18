@@ -19,7 +19,6 @@ import {
 } from '../editor-actions/transformSource';
 import type { BlockMenuTransformSourceRegistry } from '../editor-actions/transformSourceRegistry';
 import { isNestedNode } from '../ui/utils/isNestedNode';
-
 import { isEmptyLine } from './is-empty-line';
 import { createTransformAnalytics } from './transform-analytics';
 import { convertNodesToTargetType } from './transform-node-utils/transform';

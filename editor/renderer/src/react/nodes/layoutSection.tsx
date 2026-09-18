@@ -1,6 +1,8 @@
 import React from 'react';
-import type { NodeContent } from '../types';
+
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+
+import type { NodeContent } from '../types';
 
 export default function LayoutSection(
 	props: React.PropsWithChildren<{

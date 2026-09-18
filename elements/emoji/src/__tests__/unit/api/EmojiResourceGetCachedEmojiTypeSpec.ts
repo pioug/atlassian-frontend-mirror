@@ -1,8 +1,8 @@
 import 'es6-promise/auto';
-
 import fetchMock from 'fetch-mock/cjs/client';
-import type { EmojiId } from '../../../types';
+
 import EmojiResource, { type EmojiResourceConfig } from '../../../api/EmojiResource';
+import type { EmojiId } from '../../../types';
 import { standardServiceEmojis, thumbsupEmoji } from '../_test-data';
 
 const p1Url = 'https://p1/standard';

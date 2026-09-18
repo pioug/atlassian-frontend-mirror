@@ -1,9 +1,11 @@
 import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import { ResourcedTaskItem } from '../src';
 import { Grid, Item } from '../example-helpers/story-utils';
-import { IntlProvider } from 'react-intl';
+import { ResourcedTaskItem } from '../src';
 
 const mockTaskDecisionProvider = Promise.resolve(getMockTaskDecisionResource({ lag: 1000 }));
 const mockTaskDecisionProviderError = Promise.resolve(getMockTaskDecisionResource({ error: true }));

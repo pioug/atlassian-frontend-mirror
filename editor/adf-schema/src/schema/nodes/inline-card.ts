@@ -1,8 +1,9 @@
-import type { CardAttributes } from './block-card';
-import type { AnnotationMarkDefinition } from '../marks/annotation';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { inlineCard as inlineCardFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { AnnotationMarkDefinition } from '../marks/annotation';
+import type { CardAttributes } from './block-card';
 
 /**
  * @name inlineCard_node

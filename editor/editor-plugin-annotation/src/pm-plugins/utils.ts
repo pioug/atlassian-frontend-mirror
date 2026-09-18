@@ -38,7 +38,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnnotationInfo, DraftBookmark, InlineCommentInputMethod, TargetType } from '../types';
 import { AnnotationSelectionType } from '../types';
-
 import type { InlineCommentPluginState } from './types';
 
 function sum<T>(arr: Array<T>, f: (val: T) => number) {

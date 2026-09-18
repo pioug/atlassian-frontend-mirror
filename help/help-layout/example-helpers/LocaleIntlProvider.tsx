@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
+
 import MessagesIntlProvider from '../src/components/MessagesIntlProvider';
 
 const LocaleIntlProvider = ({

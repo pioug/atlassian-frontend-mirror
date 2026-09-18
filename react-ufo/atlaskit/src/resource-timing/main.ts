@@ -1,7 +1,6 @@
 import { sanitizeTimingName } from '../common/utils/timing-name';
 import { getConfig as getConfigUFO } from '../config';
 import { roundEpsilon } from '../round-number';
-
 import type { ResourceEntry, ResourceTiming, ResourceTimings } from './common/types';
 import { calculateTransferType } from './common/utils/calculate-transfer-type';
 import { getConfig } from './common/utils/config';

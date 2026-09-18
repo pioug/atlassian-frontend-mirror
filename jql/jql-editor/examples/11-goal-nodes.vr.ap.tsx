@@ -11,8 +11,8 @@ import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/
 
 import { jqlFieldsMock, jqlFunctionsMock, jqlValuesMock, goals } from '../examples-utils/data';
 import { Container } from '../examples-utils/styled';
-import { type HydratedGoal, type HydratedValues } from '../src/ui/jql-editor/types';
 import JQLEditor from '../src/ui';
+import { type HydratedGoal, type HydratedValues } from '../src/ui/jql-editor/types';
 
 const originalGetExperimentValue = FeatureGates.getExperimentValue.bind(FeatureGates);
 FeatureGates.getExperimentValue = ((

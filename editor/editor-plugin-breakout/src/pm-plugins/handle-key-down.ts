@@ -13,7 +13,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
-
 import { clampWidthToResizeBounds, getResizeContainerWidth } from './resize-width';
 
 const KEYBOARD_RESIZE_STEP = 10;

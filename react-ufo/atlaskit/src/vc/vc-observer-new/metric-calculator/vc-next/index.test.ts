@@ -1,5 +1,4 @@
 import type { VCObserverEntry, WindowEventEntryData } from '../../types';
-
 import VCCalculator_Next from './index';
 
 // Mock feature flags

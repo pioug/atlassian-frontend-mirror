@@ -16,7 +16,6 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 
 import type { MenuItemsType } from '../../types';
-
 import { SelectionExtensionDropdownMenuButton } from './SelectionExtensionDropdownMenuButton';
 
 export type SelectionExtensionDropdownMenuProps = {

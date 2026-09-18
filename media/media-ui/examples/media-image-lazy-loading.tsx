@@ -1,10 +1,12 @@
-import { token } from '@atlaskit/tokens';
 import React, { type CSSProperties } from 'react';
+
 import { IntlProvider } from 'react-intl';
+
 import Page from '@atlaskit/page';
-import { atlassianLogoUrl } from '../src/test-helpers/atlassianLogoUrl';
+import { token } from '@atlaskit/tokens';
 
 import { MediaImage } from '../src/mediaImage';
+import { atlassianLogoUrl } from '../src/test-helpers/atlassianLogoUrl';
 
 const paddingBoxStyle: CSSProperties = {
 	height: '110vh',

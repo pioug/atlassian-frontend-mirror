@@ -2,4 +2,5 @@
 /**
  * @deprecated Use `import BidiWarning from '@atlaskit/code/bidi-warning'` instead.
  */
+
 export { default } from './ui';

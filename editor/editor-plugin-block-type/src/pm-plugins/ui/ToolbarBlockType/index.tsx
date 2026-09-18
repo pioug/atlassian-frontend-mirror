@@ -28,7 +28,6 @@ import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';
 import { NORMAL_TEXT } from '../../block-types';
 import type { BlockType } from '../../types';
-
 import { BlockTypeButton } from './blocktype-button';
 import {
 	blockTypeMenuItemStyle,

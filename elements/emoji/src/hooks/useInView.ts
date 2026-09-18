@@ -3,6 +3,7 @@ import {
 	type InViewHookResponse,
 	useInView as useInViewLib,
 } from 'react-intersection-observer';
+
 import browserSupport from '../util/browser-support';
 
 type InViewHookNotSupportedResponse = [undefined, boolean];

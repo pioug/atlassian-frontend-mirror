@@ -2,6 +2,7 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MaxContentSizePlugin, MaxContentSizePluginState } from './maxContentSizePluginType';
 
@@ -36,6 +37,13 @@ export function createPlugin(dispatch: Dispatch, maxContentSize?: number): SafeP
 			}
 
 			maxContentSizeReached = result;
+
+			if (isExperimentEnabled('platform_editor_max_content_size_allow_delete')) {
+				// A document can load already over the limit, so only block transactions that grow it
+				// further — otherwise there is no way to edit it back under the limit.
+				return !result || tr.doc.nodeSize <= tr.before.nodeSize;
+			}
+
 			return !result;
 		},
 	});

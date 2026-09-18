@@ -7,7 +7,6 @@ import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-sty
 import isPdndAttribute from '../../vc-observer/observers/non-visual-styles/is-pdnd-attribute';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import { type VCObserverEntryType } from '../types';
-
 import { createIntersectionObserver, type VCIntersectionObserver } from './intersection-observer';
 import createMutationObserver from './mutation-observer';
 import { default as createPerformanceObserver } from './performance-observer/index';

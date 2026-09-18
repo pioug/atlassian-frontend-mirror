@@ -1,5 +1,5 @@
-import { serviceTask } from '../_test-data';
 import { convertServiceTaskToTask } from '../../../api/TaskDecisionUtils';
+import { serviceTask } from '../_test-data';
 
 describe('TaskDecisionUtils', () => {
 	it('convertServiceTaskToTask', () => {

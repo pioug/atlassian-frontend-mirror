@@ -7,7 +7,6 @@ import Fetcher, {
 } from '@atlaskit/feature-gate-fetcher';
 
 import { type ExperimentValuesEntry, type RulesetProfile } from '../database/types';
-
 import { type PollingConfig, type ProviderOptions } from './types';
 import { getValidatedPollingInterval } from './utils';
 

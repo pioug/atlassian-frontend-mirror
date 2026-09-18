@@ -14,8 +14,10 @@ import type { CSSProperties, HTMLAttributes } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles';
+import type { akEditorContextPanelWidth as AkEditorContextPanelWidthType } from '@atlaskit/editor-shared-styles/consts';
 import { token } from '@atlaskit/tokens';
+
+const akEditorContextPanelWidthStatic = 320 satisfies typeof AkEditorContextPanelWidthType;
 
 const getContextPanelWidthStyle = ({
 	customWidth,
@@ -40,7 +42,7 @@ const getContextPanelWidthStyle = ({
 const panelStyles = cssMap({
 	panel: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: `${akEditorContextPanelWidth}px`,
+		width: `${akEditorContextPanelWidthStatic}px`,
 		height: '100%',
 		overflow: 'hidden',
 		boxShadow: `inset 2px 0 0 0 ${token('color.border')}`,
@@ -48,7 +50,7 @@ const panelStyles = cssMap({
 	content: {
 		boxSizing: 'border-box',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: `${akEditorContextPanelWidth}px`,
+		width: `${akEditorContextPanelWidthStatic}px`,
 		height: '100%',
 		overflowY: 'auto',
 	},

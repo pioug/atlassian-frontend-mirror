@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { act } from '@atlassian/testing-library/act';
-import { fireEvent } from '@atlassian/testing-library/fire-event';
-import { render as rtlRender } from '@atlassian/testing-library/render';
-import { screen } from '@atlassian/testing-library/screen';
 import Avatar from '@atlaskit/avatar/avatar';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { act } from '@atlassian/testing-library/act';
+import { fireEvent } from '@atlassian/testing-library/fire-event';
+import { render as rtlRender } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { default as AvatarTag } from '../../../tag-new/avatar-tag';
 

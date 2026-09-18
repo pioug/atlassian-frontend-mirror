@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import { type ActionMessageAppearance } from '../../../actions/action/types';
 import MotionWrapper from '../../../common/motion-wrapper';
-
 import { type ActionFooterProps } from './types';
 
 const styles = cssMap({

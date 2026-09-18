@@ -1,18 +1,5 @@
 import { type ComponentType } from 'react';
 
-import { AtlasIcon } from '@atlaskit/logo/atlas-icon';
-import { AtlasLogo } from '@atlaskit/logo/logo';
-import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
-import { AtlassianAccessLogo } from '@atlaskit/logo/atlassian-access/logo';
-import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
-import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
-import { AtlassianMarketplaceLogo } from '@atlaskit/logo/atlassian-marketplace/logo';
-import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
-import { JiraSoftwareLogo } from '@atlaskit/logo/jira-software/logo';
-import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
-import { JiraWorkManagementLogo } from '@atlaskit/logo/jira-work-management/logo';
-import type { LogoProps } from '@atlaskit/logo/types';
 import {
 	AdminIcon,
 	AdminLogo,
@@ -101,6 +88,21 @@ import {
 	TrelloIcon,
 	TrelloLogo,
 } from '@atlaskit/logo';
+import { AtlasIcon } from '@atlaskit/logo/atlas-icon';
+import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
+import { AtlassianAccessLogo } from '@atlaskit/logo/atlassian-access/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
+import { AtlassianMarketplaceLogo } from '@atlaskit/logo/atlassian-marketplace/logo';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
+import { InsightsIcon } from '@atlaskit/logo/insights/icon';
+import { InsightsLogo } from '@atlaskit/logo/insights/logo';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { JiraSoftwareLogo } from '@atlaskit/logo/jira-software/logo';
+import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
+import { JiraWorkManagementLogo } from '@atlaskit/logo/jira-work-management/logo';
+import { AtlasLogo } from '@atlaskit/logo/logo';
+import type { LogoProps } from '@atlaskit/logo/types';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { logoDocsSchema } from '../../src/logo-docs-schema';
@@ -157,6 +159,7 @@ const logoMap: {
 	{ name: 'trello', logo: TrelloLogo, icon: TrelloIcon },
 	{ name: 'admin', logo: AdminLogo, icon: AdminIcon },
 	{ name: 'analytics', logo: AnalyticsLogo, icon: AnalyticsIcon },
+	{ name: 'insights', logo: InsightsLogo, icon: InsightsIcon },
 	{ name: 'chat', logo: ChatLogo, icon: ChatIcon },
 	{ name: 'feedback', logo: FeedbackLogo, icon: FeedbackIcon },
 	{ name: 'goals', logo: GoalsLogo, icon: GoalsIcon },

@@ -4,29 +4,30 @@
  */
 import React, { useCallback, useContext, useState, useEffect, useRef } from 'react';
 import type { ChangeEvent } from 'react';
+
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
+
 import type { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import { token } from '@atlaskit/tokens';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { token } from '@atlaskit/tokens';
 
 import { RendererWithAnalytics, AnnotationsWrapper, ReactRenderer } from '../../src/';
-
+import { RendererActionsContext } from '../../src/ui/RendererActionsContext';
 import {
 	ExampleAnnotationProductState,
 	ExampleAnnotationProductStateContext,
 	useExampleRendererAnnotationProvider,
 } from './example-renderer-annotation-provider';
-import { RendererActionsContext } from '../../src/ui/RendererActionsContext';
 
 const toolbarStyle = css({
 	display: 'flex',

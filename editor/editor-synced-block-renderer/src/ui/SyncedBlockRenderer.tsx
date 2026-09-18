@@ -9,7 +9,6 @@ import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-
 import type { MediaSSR } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
-
 import { renderSyncedBlockContent } from './renderSyncedBlockContent';
 
 export type SyncedBlockRendererProps = {

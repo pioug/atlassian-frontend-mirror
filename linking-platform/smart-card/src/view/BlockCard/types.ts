@@ -1,6 +1,6 @@
 import type { CardAuthFlowOpts, CardProviderRenderers } from '@atlaskit/link-provider/types';
-
 import type { CardState } from '@atlaskit/linking-common/store';
+
 import {
 	type InternalCardActionOptions as CardActionOptions,
 	type OnResolveCallback,

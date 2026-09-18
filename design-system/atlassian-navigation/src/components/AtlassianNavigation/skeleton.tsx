@@ -16,7 +16,6 @@ import { PrimaryItemsContainerSkeleton } from '../PrimaryItemsContainer/skeleton
 import { ProductHomeSkeleton } from '../ProductHome/skeleton';
 import { ProfileSkeleton } from '../Profile/skeleton';
 import { SearchSkeleton } from '../Search/skeleton';
-
 import { type NavigationSkeletonProps } from './types';
 
 const containerStyles = css({

@@ -2,9 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { layers } from '@atlaskit/theme/constants';
-import Spinner from '@atlaskit/spinner/spinner';
+
 import { css, jsx } from '@compiled/react';
+
+import Spinner from '@atlaskit/spinner/spinner';
+import { layers } from '@atlaskit/theme/constants';
 
 const blanketStyles = css({
 	position: 'fixed',

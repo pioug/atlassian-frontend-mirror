@@ -75,7 +75,6 @@ import { getAllowAddColumnCustomStep } from '../pm-plugins/utils/get-allow-add-c
 import { getRowIndexByMousePosition } from '../pm-plugins/utils/row-controls';
 import { TableCssClassName as ClassName, RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
 import type { PluginInjectionAPI } from '../types';
-
 import { TABLE_MENU_SELECTOR } from './TableMenu/shared/consts';
 
 const isFocusingCalendar = (event: Event) =>

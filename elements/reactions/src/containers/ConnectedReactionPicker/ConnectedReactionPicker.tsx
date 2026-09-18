@@ -1,9 +1,9 @@
 import React from 'react';
+
 import { type ReactionPickerProps, UfoErrorBoundary } from '../../components';
+import { ReactionPicker } from '../../components/ReactionPicker';
 import { type StorePropInput } from '../../types';
 import { PickerRender } from '../../ufo';
-
-import { ReactionPicker } from '../../components/ReactionPicker';
 export interface ConnectedReactionPickerProps extends Omit<ReactionPickerProps, 'onSelection'> {
 	/**
 	 * Individual id for a reaction

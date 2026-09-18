@@ -3,7 +3,7 @@ jest.mock('../../../../../utils/isIE', () => ({
 }));
 
 import React from 'react';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
@@ -18,9 +18,11 @@ import {
 	expectToEqual,
 	asMockFunction,
 } from '@atlaskit/media-test-helpers';
-import { MediaViewerError } from '../../../../../MediaViewerError';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { getErrorDetail } from '../../../../../getErrorDetail';
 import { getSecondaryErrorReason } from '../../../../../getSecondaryErrorReason';
+import { MediaViewerError } from '../../../../../MediaViewerError';
 import { VideoViewer, type Props } from '../../../../../viewers/video';
 
 const token = 'some-token';

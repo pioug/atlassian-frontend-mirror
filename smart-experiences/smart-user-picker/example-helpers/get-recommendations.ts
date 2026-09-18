@@ -1,4 +1,5 @@
 import type { MockApolloClient } from 'mock-apollo-client';
+
 import { UserAndGroupSearchQuery } from './user-and-group-query';
 
 export interface UserAndGroupSearchQueryUser {

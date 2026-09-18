@@ -5,7 +5,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-
 import {
 	getBlockMenuAnchorMetrics,
 	type BlockMenuAnchorMetrics,

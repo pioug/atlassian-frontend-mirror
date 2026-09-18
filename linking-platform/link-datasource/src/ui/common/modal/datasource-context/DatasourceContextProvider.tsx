@@ -8,7 +8,6 @@ import { useDatasourceTableState } from '../../../../hooks/useDatasourceTableSta
 import { useColumnResize } from '../datasources-table-in-modal-preview/use-column-resize';
 import { useColumnVisibility } from '../datasources-table-in-modal-preview/use-column-visibility';
 import { useColumnWrapping } from '../datasources-table-in-modal-preview/use-column-wrapping';
-
 import { DatasourceContext } from './DatasourceContext';
 import type { DatasourceContextProviderProps } from './DatasourceContextProviderProps';
 

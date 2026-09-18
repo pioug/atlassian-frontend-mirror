@@ -1,9 +1,8 @@
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { AddMarkStep, RemoveMarkStep, type StepMap } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { DiffStepAttribution } from '../../../showDiffPluginType';
 import { getAttributionKey } from '../colorSchemes/attributions';
-
 import { mapStepRangeToFinal } from './mapStepRangeToFinal';
 
 type StepRange = {

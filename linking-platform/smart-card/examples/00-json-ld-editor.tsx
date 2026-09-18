@@ -2,10 +2,10 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Grid, xcss } from '@atlaskit/primitives';
-import Tabs from '@atlaskit/tabs/tabs';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';
+import Tabs from '@atlaskit/tabs/tabs';
 
 import CardExample from './jsonld-editor/card-example';
 import JsonldEditor from './jsonld-editor/jsonld-editor';

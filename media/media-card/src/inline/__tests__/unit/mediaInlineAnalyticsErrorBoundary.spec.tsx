@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
+
 import * as analyticsModule from '../../../utils/analytics/fireMediaCardEvent';
 import MediaInlineAnalyticsErrorBoundary from '../../mediaInlineAnalyticsErrorBoundary';
 

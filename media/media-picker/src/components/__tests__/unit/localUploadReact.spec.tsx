@@ -1,12 +1,12 @@
 jest.mock('../../../service/uploadServiceImpl');
 
-import {
-	LocalUploadComponentReact,
-	type LocalUploadComponentBaseProps,
-} from '../../localUploadReact';
+import React from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
 
-import React from 'react';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+
+import { type UploadService } from '../../../service/types';
 import {
 	type MediaFile,
 	type UploadEventPayloadMap,
@@ -18,11 +18,13 @@ import {
 	type FileSizeLimitExceededData,
 	type FileEmptyData,
 } from '../../../types';
-import { type UploadService } from '../../../service/types';
 import { SCALE_FACTOR_DEFAULT } from '../../../util/getPreviewFromImage';
 import * as ufoWrapper from '../../../util/ufoExperiences';
 import { type UploadComponent } from '../../component';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import {
+	LocalUploadComponentReact,
+	type LocalUploadComponentBaseProps,
+} from '../../localUploadReact';
 
 jest.mock('@atlaskit/platform-feature-flags/fg');
 

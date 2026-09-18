@@ -15,7 +15,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { key } from '../main';
 import { createPreservedSelection, mapPreservedSelection } from '../utils/selection';
-
 import { stopPreservingSelection } from './editor-commands';
 import { selectionPreservationPluginKey } from './plugin-key';
 import type { SelectionPreservationPluginState } from './types';

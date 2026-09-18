@@ -1,7 +1,6 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { DefaultMentionNameResolver } from '../../../api/DefaultMentionNameResolver';
 import { type MentionNameClient } from '../../../api/MentionNameClient';

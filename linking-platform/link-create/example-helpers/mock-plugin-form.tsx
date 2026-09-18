@@ -8,7 +8,6 @@ import {
 	useLinkCreateCallback,
 	type Validator,
 } from '../src';
-
 import { MockDisclaimer } from './mock-disclaimer';
 
 interface pluginProps {

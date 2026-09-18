@@ -1,7 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
 import type { Command } from '../types';
-
 import { appearancePropsMap } from './appearancePropsMap';
 import type { ButtonOptionProps } from './LinkToolbarButtonGroup';
 import type { OptionConfig } from './types';

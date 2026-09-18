@@ -1,7 +1,6 @@
 import times from 'lodash/times';
 
 import { type TeamMembership } from '../types/membership';
-
 import { randomTeamMembership } from './random-team-membership-2';
 import type { MockConfig } from './team';
 

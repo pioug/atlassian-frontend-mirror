@@ -4,15 +4,12 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "09-size-function.vr.ap.tsx",
-    "14-svg.tsx",
-    "101-new-icon-explorer.tsx",
-    "107-new-icons-size.vr.ap.tsx",
-    "vr/vr-new-icon-button.tsx"
-  ],
-  "exampleDependencies": [
-    "lodash",
-    "nullthrows"
-  ]
+	"testExamples": [
+		"09-size-function.vr.ap.tsx",
+		"14-svg.tsx",
+		"101-new-icon-explorer.tsx",
+		"107-new-icons-size.vr.ap.tsx",
+		"vr/vr-new-icon-button.tsx",
+	],
+	"exampleDependencies": ["lodash", "nullthrows"],
 }

@@ -1,5 +1,5 @@
-import { createHash } from 'rusha';
 import { LRUMap } from 'lru_map';
+import { createHash } from 'rusha';
 
 const URL_HASH_CACHE_SIZE = 100;
 

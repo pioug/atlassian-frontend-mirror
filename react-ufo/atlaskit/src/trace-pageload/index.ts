@@ -74,4 +74,5 @@ export default traceUFOPageLoad;
 /**
  * @deprecated Use `import { updatePageloadName } from '@atlaskit/react-ufo/update-pageload-name'` instead.
  */
+
 export { updatePageloadName } from './updatePageloadName';

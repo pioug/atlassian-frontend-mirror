@@ -19,7 +19,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import type { CaptionPlugin } from '../captionPluginType';
 import captionNodeView from '../nodeviews';
 import { captionNodeView as captionNodeViewVanilla } from '../nodeviews/captionNodeView';
-
 import { pluginKey } from './plugin-key';
 
 const fireAnalytics = (

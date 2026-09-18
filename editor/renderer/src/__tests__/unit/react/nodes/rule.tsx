@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
+
 import Rule from '../../../../react/nodes/rule';
 
 describe('Renderer - React/Nodes/Rule', () => {

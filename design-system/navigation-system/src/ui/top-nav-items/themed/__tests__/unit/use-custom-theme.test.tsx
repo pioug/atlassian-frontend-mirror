@@ -1,5 +1,5 @@
-import { renderHook } from '@atlassian/testing-library/render-hook';
 import * as AppProvider from '@atlaskit/app-provider/use-color-mode';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { useCustomTheme } from '../../use-custom-theme';
 import { useCustomThemeNew } from '../../use-custom-theme-new';

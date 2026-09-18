@@ -1,4 +1,5 @@
 import memoizeOne from 'memoize-one';
+
 import { getTestEmojiRepository } from './get-test-emoji-repository';
 
 const repo = memoizeOne(getTestEmojiRepository);

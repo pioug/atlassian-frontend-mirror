@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
 import type { DisplayViewModes } from '../../../../common/types';
-
 import { ViewModeContext } from './useViewModeContext';
 
 export const DatasourceViewModeProvider = ({

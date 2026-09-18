@@ -40,7 +40,6 @@ import type {
 	ExtensionPluginOptions,
 	ExtensionState,
 } from '../extensionPluginType';
-
 import { buildExtensionBlockTransforms } from './block-transforms';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';

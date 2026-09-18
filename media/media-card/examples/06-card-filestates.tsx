@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { token } from '@atlaskit/tokens';
+
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import {
 	type SimulationSettings,
 	useRunSimulation,
@@ -15,12 +18,11 @@ import {
 	simulateAlwaysLoading,
 	simulateAlwaysProcessing,
 } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
+
 import { MainWrapper } from '../example-helpers';
-import { Card } from '../src/card/card';
 import { type CardProps } from '../src';
-import Button from '@atlaskit/button/default/button';
-import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import { Card } from '../src/card/card';
 
 const defaultDimensions = { width: 200, height: 150 };
 

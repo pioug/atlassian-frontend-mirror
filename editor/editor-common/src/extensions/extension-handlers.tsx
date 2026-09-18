@@ -4,8 +4,6 @@ import { useIntl } from 'react-intl';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import { messages } from './messages';
 import { resolveImportSync } from './resolveImportSync';
@@ -146,8 +144,7 @@ function ExtensionLoading(props: ExtensionLoadingProps) {
 			props.error &&
 			props.showUnknownMacroPlaceholder &&
 			extensionNode &&
-			isUnknownConfluenceMacroWithBody(extensionNode) &&
-			fg('tinymce_display_unknown_macro_body_content')
+			isUnknownConfluenceMacroWithBody(extensionNode)
 		) {
 			return <UnknownMacroPlaceholder extensionNode={extensionNode} />;
 		}

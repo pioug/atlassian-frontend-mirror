@@ -18,7 +18,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { isSelectionValid } from '../../pm-plugins/utils';
 import { AnnotationSelectionType, AnnotationTestIds, type AnnotationProviders } from '../../types';
-
 import { useCommentButtonMount } from './hooks';
 import {
 	fireOnClickAnalyticsEvent,

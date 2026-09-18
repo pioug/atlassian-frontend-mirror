@@ -1,7 +1,6 @@
 import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 import { type ClientOverrides } from '../types';
-
 import {
 	default as TeamCentralCardClient,
 	type TeamCentralCardClientOptions,

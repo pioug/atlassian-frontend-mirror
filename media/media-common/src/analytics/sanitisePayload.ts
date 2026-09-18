@@ -1,6 +1,7 @@
-import { type WithFileAttributes, type OperationalEventPayload } from './types';
 import { produce } from 'immer';
+
 import { isValidUuid } from '../utils/isValidUuid';
+import { type WithFileAttributes, type OperationalEventPayload } from './types';
 type PayloadWithFileAttributes = OperationalEventPayload<WithFileAttributes, any, any>;
 
 const sanitiseFileId = (draft: PayloadWithFileAttributes) => {

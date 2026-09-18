@@ -199,12 +199,10 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 										};
 									}
 
-									if (editorExperiment('platform_editor_block_menu', true)) {
-										const isBlockMenuOpen =
-											api?.userIntent?.sharedState.currentState()?.currentUserIntent ===
-											'blockMenuOpen';
-										newPluginState = { ...newPluginState, isBlockMenuOpen };
-									}
+									const isBlockMenuOpen =
+										api?.userIntent?.sharedState.currentState()?.currentUserIntent ===
+										'blockMenuOpen';
+									newPluginState = { ...newPluginState, isBlockMenuOpen };
 
 									// if the toolbarDockingInitialPosition preference has changed
 									// update the toolbarDocking state
@@ -340,11 +338,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							}
 						}
 
-						if (
-							isBlockMenuOpen &&
-							isEditorControlsEnabled &&
-							editorExperiment('platform_editor_block_menu', true)
-						) {
+						if (isBlockMenuOpen && isEditorControlsEnabled) {
 							// If the block menu is open, do not show the selection toolbar.
 							return;
 						}

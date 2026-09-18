@@ -16,9 +16,9 @@ import { useIntl } from 'react-intl';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip/types';
@@ -35,7 +35,6 @@ import {
 	resizerHoverZoneClassName,
 	resizerItemClassName,
 } from '../styles/shared/resizer';
-
 import type {
 	Dimensions,
 	EnabledHandles,

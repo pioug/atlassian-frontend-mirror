@@ -9,7 +9,6 @@ import type { OnErrorCallback } from '../../types';
 import CardLoaderWrapper from '../card-loader-wrapper';
 import { CardWithUrlContent } from '../component';
 import { type CardWithUrlContentProps } from '../types';
-
 import { LoadingCardLink } from './LoadingCardLink';
 
 export const LazyIntersectionObserverCard: React.FC<CardWithUrlContentProps> = (

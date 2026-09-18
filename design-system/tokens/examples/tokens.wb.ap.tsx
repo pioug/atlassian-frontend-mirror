@@ -2,9 +2,7 @@ import { wb, type WorkbenchExample } from '@atlassian/workbench';
 
 import ColorRolesVrExample from './0-color-roles.vr.ap';
 import ColorAccentsExample from './1-color-accents';
-import CurrentSurfaceVrVrExample from './10-current-surface-vr.vr.ap';
 import ElevationsExample from './2-elevations';
-import TypographyExample from './20-typography';
 import ColorPairsExample from './3-color-pairs';
 import SpacingVrVrExample from './4-spacing-vr.vr.ap';
 import TypographyVrVrExample from './5-typography-vr.vr.ap';
@@ -13,7 +11,9 @@ import GetTokenValueWithClassExample from './7-get-token-value-with-class';
 import ShapeVrVrExample from './8-shape-vr.vr.ap';
 import ContrastCheckerExample from './9-contrast-checker';
 import CustomThemeVrExample from './9-custom-theme.vr.ap';
+import CurrentSurfaceVrVrExample from './10-current-surface-vr.vr.ap';
 import ThemeShowcaseExample from './11-theme-showcase.ap';
+import TypographyExample from './20-typography';
 
 const ColorRolesVr: WorkbenchExample = wb(ColorRolesVrExample);
 

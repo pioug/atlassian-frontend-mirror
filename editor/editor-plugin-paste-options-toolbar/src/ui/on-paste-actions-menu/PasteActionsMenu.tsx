@@ -27,7 +27,6 @@ import { PASTE_MENU_GAP_HORIZONTAL, PASTE_MENU_GAP_TOP } from '../../pm-plugins/
 import { ToolbarDropdownOption } from '../../types/types';
 import { isToolbarVisible } from '../toolbar';
 import { isNotSingleLink } from '../utils/paste-menu-rules/isNotSingleLink';
-
 import { getVisibleKeys, hasVisibleButton } from './hasVisibleButton';
 import { PasteActionsMenuContent } from './PasteActionsMenuContent';
 

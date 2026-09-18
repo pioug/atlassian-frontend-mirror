@@ -7,6 +7,7 @@ import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-cont
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { ACTION_RESOLVING } from '@atlaskit/linking-common/actions';
 import { APIError, type APIErrorKind } from '@atlaskit/linking-common/api-error';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
@@ -14,7 +15,6 @@ import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../utils/mocks';
 import * as useActionFlags from '../../hooks/use-action-flags';
-import type { CardState } from '@atlaskit/linking-common/store';
 import { useSmartCardActions } from '../index';
 
 describe('Smart Card: Actions', () => {

@@ -1,7 +1,7 @@
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import type { Serializer } from '../serializer';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { reduce } from './nodes';
 
 export default class TextSerializer implements Serializer<string> {

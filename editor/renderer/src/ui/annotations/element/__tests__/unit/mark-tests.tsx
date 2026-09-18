@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-
-import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { act, fireEvent } from '@testing-library/react';
 import { createRoot, type Root } from 'react-dom/client';
-import { MarkComponent } from '../../mark';
 import { IntlProvider } from 'react-intl';
+
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+import { MarkComponent } from '../../mark';
 
 jest.mock('@atlaskit/feature-gate-js-client/feature-gates');
 

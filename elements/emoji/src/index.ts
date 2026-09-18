@@ -17,21 +17,24 @@ export {
 	emojiImage,
 	placeholder as emojiPlaceholder,
 } from './components/common/styles';
+import { denormaliseEmojiServiceResponse } from './api/denormaliseEmojiServiceResponse';
+import EmojiLoader from './api/EmojiLoader';
+import EmojiRepository from './api/EmojiRepository';
 import EmojiResource, {
 	type EmojiProvider,
 	type UploadingEmojiProvider,
 	type EmojiResourceConfig,
 } from './api/EmojiResource';
-import EmojiLoader from './api/EmojiLoader';
-import EmojiRepository from './api/EmojiRepository';
-import { denormaliseEmojiServiceResponse } from './api/denormaliseEmojiServiceResponse';
+import { UsageFrequencyTracker } from './api/internal/UsageFrequencyTracker';
+import { EmojiCommonProvider } from './context/EmojiCommonProvider';
+import { EmojiContextProvider } from './context/EmojiContextProvider';
+import { useEmoji } from './hooks/useEmoji';
+import { useEmojiContext } from './hooks/useEmojiContext';
 import { recordSelectionFailedSli } from './util/analytics/recordSelectionFailedSli';
 import { recordSelectionSucceededSli } from './util/analytics/recordSelectionSucceededSli';
 import type { WithSamplingUFOExperience } from './util/analytics/samplingUfo';
 import { ufoExperiences } from './util/analytics/ufoExperiences';
 import { withSampling } from './util/analytics/withSampling';
-import { toEmojiId } from './util/to-emoji-id';
-import { toOptionalEmojiId } from './util/to-optional-emoji-id';
 import {
 	customCategory,
 	defaultEmojiHeight,
@@ -47,11 +50,8 @@ import {
 	emojiPickerWidth,
 	emojiPickerHeight,
 } from './util/constants';
-import { UsageFrequencyTracker } from './api/internal/UsageFrequencyTracker';
-import { EmojiCommonProvider } from './context/EmojiCommonProvider';
-import { EmojiContextProvider } from './context/EmojiContextProvider';
-import { useEmoji } from './hooks/useEmoji';
-import { useEmojiContext } from './hooks/useEmojiContext';
+import { toEmojiId } from './util/to-emoji-id';
+import { toOptionalEmojiId } from './util/to-optional-emoji-id';
 
 export {
 	// Classes

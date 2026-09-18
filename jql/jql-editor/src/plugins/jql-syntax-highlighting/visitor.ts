@@ -14,7 +14,6 @@ import {
 } from '@atlaskit/jql-ast';
 
 import getDocumentPosition from '../common/get-document-position';
-
 import { type Highlight } from './types';
 
 export class SyntaxHighlightingVisitor extends AbstractJastVisitor<Highlight[]> {

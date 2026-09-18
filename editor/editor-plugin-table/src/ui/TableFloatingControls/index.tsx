@@ -19,7 +19,6 @@ import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
-
 import NumberColumn from './NumberColumn';
 import { DragControlsWithSelection } from './RowControls/DragControls';
 

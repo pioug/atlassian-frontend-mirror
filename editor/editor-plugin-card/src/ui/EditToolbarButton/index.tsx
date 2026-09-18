@@ -18,8 +18,8 @@ import {
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import type { DatasourceAdf } from '@atlaskit/linking-common/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { DatasourceAdf } from '@atlaskit/linking-common/types';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
@@ -29,7 +29,6 @@ import { focusEditorView, isDatasourceConfigEditable } from '../../pm-plugins/ut
 import { editDatasource } from '../editDatasourceAction';
 import { useFetchDatasourceDataInfo } from '../useFetchDatasourceDataInfo';
 import { useFetchDatasourceInfo } from '../useFetchDatasourceInfo';
-
 import EditToolbarButtonPresentation from './EditToolbarButtonPresentation';
 import type {
 	EditDatasourceToolbarButtonProps,

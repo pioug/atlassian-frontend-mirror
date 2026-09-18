@@ -1,8 +1,8 @@
 import React, { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu/selection-style-context-do-not-use';
 import ButtonItem from '@atlaskit/menu/button-item';
+import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu/selection-style-context-do-not-use';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import RadioIcon from '../internal/components/radio-icon';

@@ -9,7 +9,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SsrPreviewError } from '../SsrPreviewError';
 import { type MediaFilePreview } from '../types';
-
 import { mergeClientIdIntoAttrs } from './mergeClientIdIntoAttrs';
 
 const getDataUri = (

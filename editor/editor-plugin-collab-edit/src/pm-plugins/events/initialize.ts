@@ -12,7 +12,6 @@ import type { CollabEditPlugin } from '../../collabEditPluginType';
 import type { PrivateCollabEditOptions } from '../../types';
 import { pluginKey } from '../main/plugin-key';
 import { trackNCSInitializationPluginKey } from '../track-ncs-initialization';
-
 import type { Cleanup } from './handlers';
 import { subscribe } from './handlers';
 

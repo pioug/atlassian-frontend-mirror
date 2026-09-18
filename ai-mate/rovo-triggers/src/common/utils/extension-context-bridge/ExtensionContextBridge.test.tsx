@@ -8,7 +8,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { usePublish, useSubscribeAll } from '../../../main';
 import { type Payload } from '../../../types';
-
 import {
 	EXT_CONTEXT_BRIDGE_EXPERIMENT,
 	BRIDGE_MESSAGE_MARKER,

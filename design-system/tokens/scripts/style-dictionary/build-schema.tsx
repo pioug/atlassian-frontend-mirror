@@ -7,7 +7,6 @@ import defaultPalette from '../../schema/palettes/palette';
 import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
 import typographyPalette from '../../schema/palettes/typography-palette';
-
 import { ARTIFACT_OUTPUT_DIR, THEME_INPUT_DIR } from './constants';
 import formatterTokenDescriptionCSV from './formatters/csv-token-description';
 import formatterDynamicImportMap from './formatters/dynamic-import-map';

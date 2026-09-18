@@ -1,19 +1,20 @@
 import { $or, $onePlus, adfNode } from '@atlaskit/adf-schema-generator';
-import { blockGroup } from './groups/blockGroup';
-import { layoutSection } from './nodes/layoutSection';
-import { blockRootOnlyGroup } from './groups/blockRootOnlyGroup';
-import { blockContentGroup } from './groups/blockContentGroup';
-import { expand } from './nodes/expand';
-import { codeBlock } from './nodes/codeBlock';
-import { syncBlock } from './nodes/syncBlock';
-import { bodiedSyncBlock } from './nodes/bodiedSyncBlock';
 import type { ADFNode, ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator';
+
+import { blockContentGroup } from './groups/blockContentGroup';
+import { blockGroup } from './groups/blockGroup';
+import { blockRootOnlyGroup } from './groups/blockRootOnlyGroup';
 import { bodiedExtension } from './nodes/bodiedExtension';
+import { bodiedRule } from './nodes/bodiedRule';
+import { bodiedSyncBlock } from './nodes/bodiedSyncBlock';
+import { codeBlock } from './nodes/codeBlock';
+import { expand } from './nodes/expand';
 import { extension } from './nodes/extension';
+import { layoutSection } from './nodes/layoutSection';
 import { multiBodiedExtension } from './nodes/multiBodiedExtension';
 import { panel } from './nodes/panel';
 import { rule } from './nodes/rule';
-import { bodiedRule } from './nodes/bodiedRule';
+import { syncBlock } from './nodes/syncBlock';
 
 const doc: ADFNode<[string], ADFCommonNodeSpec> = adfNode('doc').define({
 	root: true,

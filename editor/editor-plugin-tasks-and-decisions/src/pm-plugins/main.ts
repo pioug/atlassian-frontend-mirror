@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
-import { uuid } from '@atlaskit/adf-schema/uuid';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -24,7 +24,6 @@ import { DecisionItemNodeView } from '../nodeviews/DecisionItemNodeView';
 import { taskView } from '../nodeviews/task-node-view';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { TaskDecisionPluginState, TaskItemInfoMeta } from '../types';
-
 import { focusTaskDecision, openRequestEditPopup, setProvider } from './actions';
 import {
 	focusCheckbox,

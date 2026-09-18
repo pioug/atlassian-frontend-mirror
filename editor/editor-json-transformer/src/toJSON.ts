@@ -1,12 +1,12 @@
+import { linkToJSON } from '@atlaskit/adf-schema';
 import { toJSON as codeBlockToJSON } from '@atlaskit/adf-schema/code-block';
 import { toJSON as dataConsumerToJSON } from '@atlaskit/adf-schema/data-consumer';
 import { toJSON as expandToJSON } from '@atlaskit/adf-schema/expand';
 import { toJSON as fragmentToJSON } from '@atlaskit/adf-schema/fragment';
-import { toJSON as mediaSingleToJSON } from '@atlaskit/adf-schema/to-json';
-import { toJSON as mediaToJSON } from '@atlaskit/adf-schema/to-json-2';
 import { toJSON as mentionToJSON } from '@atlaskit/adf-schema/mention';
 import { tableToJSON, toJSONTableCell, toJSONTableHeader } from '@atlaskit/adf-schema/tableNodes';
-import { linkToJSON } from '@atlaskit/adf-schema';
+import { toJSON as mediaSingleToJSON } from '@atlaskit/adf-schema/to-json';
+import { toJSON as mediaToJSON } from '@atlaskit/adf-schema/to-json-2';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { markOverrideRuleFor } from './markOverrideRules';

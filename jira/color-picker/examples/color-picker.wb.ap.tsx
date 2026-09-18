@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import { default as ColorPickerVrExample } from './00-color-picker.vr.ap';
 import { default as MultiColumnsColorPickerExample } from './01-multi-columns-color-picker';
 import { default as ColorPickerWithPopperPropsExample } from './02-color-picker-with-popper-props';

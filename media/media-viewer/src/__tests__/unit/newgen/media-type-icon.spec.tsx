@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
+
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
+import { render, screen } from '@atlassian/testing-library';
 
 const getIconSvg = () => {
 	const wrapper = screen.getByRole('img', { name: 'media-type' });

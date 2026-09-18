@@ -29,7 +29,6 @@ import {
 	contextualMenuTriggerSize,
 	tablePopupMenuFitHeight,
 } from '../consts';
-
 import { CellMenuPopup } from './CellMenuPopup';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default

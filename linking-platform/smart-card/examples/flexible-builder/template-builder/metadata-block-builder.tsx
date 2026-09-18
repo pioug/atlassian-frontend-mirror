@@ -2,7 +2,6 @@ import React from 'react';
 
 import { SmartLinkSize } from '../../../src';
 import { type BlockBuilderProps } from '../types';
-
 import EnumOption from './inputs/enum-option';
 import MaxLinesOption from './inputs/max-lines-option';
 import MetadataOption from './inputs/metadata-option';

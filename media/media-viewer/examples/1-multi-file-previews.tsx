@@ -1,12 +1,17 @@
 import React from 'react';
+
 import Button from '@atlaskit/button/default/button';
+import { type Identifier } from '@atlaskit/media-client';
 import {
 	externalImageIdentifier,
 	externalSmallImageIdentifier,
 	createStorybookMediaClient,
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
+import { videoFileId } from '@atlaskit/media-test-helpers';
+import { I18NWrapper } from '@atlaskit/media-test-helpers';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
+
 import {
 	docIdentifier,
 	largePdfIdentifier,
@@ -19,11 +24,8 @@ import {
 	audioItem,
 	audioItemNoCover,
 } from '../example-helpers';
+import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 import { MediaViewer } from '../src';
-import { videoFileId } from '@atlaskit/media-test-helpers';
-import { I18NWrapper } from '@atlaskit/media-test-helpers';
-import { type Identifier } from '@atlaskit/media-client';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
 
 addGlobalEventEmitterListeners();
 

@@ -15,9 +15,9 @@ import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 
-import { createStatusNode } from '../utils/createStatusNode';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import type { StatusPlugin } from '../statusPluginType';
+import { createStatusNode } from '../utils/createStatusNode';
 
 type Props = {
 	api: ExtractInjectionAPI<StatusPlugin> | undefined;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
 import noop from '@atlaskit/ds-lib/noop';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { CloseButton } from '../../close-button';
 

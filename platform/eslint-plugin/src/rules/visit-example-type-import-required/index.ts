@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+
+import { simpleTraverse } from '@typescript-eslint/typescript-estree';
 import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils';
 import type { Rule } from 'eslint';
-import { simpleTraverse } from '@typescript-eslint/typescript-estree';
 
 export const RULE_NAME = 'visit-example-type-import-required';
 

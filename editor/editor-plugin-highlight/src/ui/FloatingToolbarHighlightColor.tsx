@@ -43,7 +43,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';
-
 import { PaletteDropdown } from './shared/PaletteDropdown';
 import { useDropdownEvents } from './shared/useDropdownEvents';
 

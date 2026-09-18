@@ -8,7 +8,6 @@ import { NestedDropdownRightIcon, ToolbarNestedDropdownMenu } from '@atlaskit/ed
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { getLayoutColumnValign } from '../../pm-plugins/utils/layout-column-selection';
-
 import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 import { VERTICAL_ALIGN_ICONS } from './verticalAlignIcons';
 

@@ -6,7 +6,6 @@ import { Plugin, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { type Jast, JastBuilder } from '@atlaskit/jql-ast';
 
 import { getNodeText } from '../../utils/document-text/getNodeText';
-
 import JQLEditorErrorStrategy from './JQLEditorErrorStrategy';
 
 export const JQLAstPluginKey: any = new PluginKey<Jast>('jql-ast-plugin');

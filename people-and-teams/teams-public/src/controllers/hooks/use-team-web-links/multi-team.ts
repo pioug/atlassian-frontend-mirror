@@ -4,7 +4,6 @@ import { teamsClient } from '@atlaskit/teams-client/client';
 import type { TeamLink } from '@atlaskit/teams-client/links';
 
 import { type NewTeamWebLink, type TeamWebLink } from '../../../common/types';
-
 import {
 	type StoreApi,
 	type TeamLinkIconData,

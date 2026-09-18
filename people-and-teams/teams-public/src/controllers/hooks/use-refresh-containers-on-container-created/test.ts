@@ -2,7 +2,6 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { useCreateContainers } from '../use-create-containers';
 import { useTeamContainers } from '../use-team-containers/use-team-containers';
-
 import { INTERVAL_TIME, useRefreshOnContainerCreated } from './index';
 
 jest.mock('../use-create-containers');

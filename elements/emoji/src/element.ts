@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import EmojiPlaceholder from '@atlaskit/emoji/emoji-placeholder'` instead.
  */
+
 export { default as EmojiPlaceholder } from './components/common/EmojiPlaceholder';
 /**
  * @deprecated Use `import { Emoji } from '@atlaskit/emoji/emoji'` instead.

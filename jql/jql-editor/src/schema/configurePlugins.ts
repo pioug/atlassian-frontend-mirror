@@ -18,7 +18,6 @@ import { default as jqlSyntaxHighlightingPlugin } from '../plugins/jql-syntax-hi
 import { default as richInlineNodesPlugin } from '../plugins/rich-inline-nodes';
 import { default as validationTooltipPlugin } from '../plugins/validation-tooltip';
 import { type PortalActions } from '../ui/jql-editor-portal-provider/types';
-
 import type { JQLEditorCommand, JQLEditorKeymap } from './index';
 
 const noopCommand = () => true;

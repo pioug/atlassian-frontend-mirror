@@ -1,6 +1,9 @@
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen, fireEvent } from '@testing-library/react';
+
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+
 import {
 	createComponentWithAnalytics,
 	createTaggedComponentWithAnalytics,

@@ -1,7 +1,6 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 
 import { COLOR_MODE_ATTRIBUTE } from '../constants';
-
 import { darkModeMediaQuery } from './theme-loading';
 
 const isMatchMediaAvailable = typeof window !== 'undefined' && 'matchMedia' in window;

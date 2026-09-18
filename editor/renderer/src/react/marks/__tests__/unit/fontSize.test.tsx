@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import FontSize from '../../fontSize';
 
 describe('Renderer - React/Marks/FontSize', () => {

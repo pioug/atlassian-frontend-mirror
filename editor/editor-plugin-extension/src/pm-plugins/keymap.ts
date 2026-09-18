@@ -4,7 +4,6 @@ import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import { clearEditingContext } from '../editor-commands/commands';
-
 import { getPluginState } from './plugin-factory';
 
 export default function keymapPlugin(applyChange: ApplyChangeHandler | undefined): SafePlugin {

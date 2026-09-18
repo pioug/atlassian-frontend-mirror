@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef } from 'react';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 
 import { useSubscribeAll } from '../../../main';
-
 import {
 	getContextKey,
 	reportRelayDecision,

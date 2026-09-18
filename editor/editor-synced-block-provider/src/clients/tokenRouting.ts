@@ -1,5 +1,4 @@
 import type { SyncBlockProduct } from '../common/types';
-
 import { fetchMediaToken } from './confluence/fetchMediaToken';
 import type { TokenData } from './confluence/fetchMediaToken';
 import { fetchJiraMediaToken } from './jira/fetchMediaToken';

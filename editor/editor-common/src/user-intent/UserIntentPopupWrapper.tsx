@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 
 import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
-
 import type { PopupUserIntent } from './types';
 
 /**

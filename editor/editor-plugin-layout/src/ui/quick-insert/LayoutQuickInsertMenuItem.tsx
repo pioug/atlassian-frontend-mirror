@@ -15,10 +15,10 @@ import {
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import LayoutThreeColumnsIcon from '@atlaskit/icon/core/layout-three-columns';
-import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 import LayoutFiveColumnsIcon from '@atlaskit/icon-lab/core/layout-five-columns';
 import LayoutFourColumnsIcon from '@atlaskit/icon-lab/core/layout-four-columns';
+import LayoutThreeColumnsIcon from '@atlaskit/icon/core/layout-three-columns';
+import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 
 import { selectIntoLayoutSection } from '../../layoutPlugin';
 import type { LayoutPlugin } from '../../layoutPluginType';

@@ -1,5 +1,4 @@
 import { expVal } from '../expVal';
-
 import ViewportObserver from './viewport-observer';
 
 jest.mock('../expVal');

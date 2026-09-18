@@ -1,11 +1,11 @@
 import React from 'react';
-import { Container } from '../example-helpers/styled';
 
+import { token } from '@atlaskit/tokens';
+
+import { Container } from '../example-helpers/styled';
 import { MediaInlineCardErroredView } from '../src/MediaInlineCard/ErroredView';
 import { MediaInlineCardLoadedView } from '../src/MediaInlineCard/LoadedView';
 import { MediaInlineCardLoadingView } from '../src/MediaInlineCard/LoadingView';
-
-import { token } from '@atlaskit/tokens';
 
 export default (): React.JSX.Element => (
 	<div

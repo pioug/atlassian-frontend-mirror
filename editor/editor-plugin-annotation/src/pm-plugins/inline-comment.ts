@@ -27,7 +27,6 @@ import {
 import { resetUserIntent, setUserIntent } from '../editor-commands/utils';
 import { getAnnotationViewClassname, getBlockAnnotationViewClassname } from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
-
 import {
 	allowAnnotation,
 	applyDraft,

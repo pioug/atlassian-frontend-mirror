@@ -1,4 +1,5 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+
 import { nativeEmbedsFallbackTransform } from '../../../transforms/native-embeds-fallback-transform';
 import type { ADFEntity } from '../../../types';
 

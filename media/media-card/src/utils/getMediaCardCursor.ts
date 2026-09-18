@@ -1,5 +1,6 @@
-import { MediaCardCursor } from '../types';
 import { type MediaType } from '@atlaskit/media-client';
+
+import { MediaCardCursor } from '../types';
 
 /**
  * When the returned value is undefined, we'd expect the media card to take the parent's cursor style.

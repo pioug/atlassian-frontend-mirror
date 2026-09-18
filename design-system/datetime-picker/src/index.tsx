@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import DatePicker from '@atlaskit/datetime-picker/date-picker'` instead.
  */
+
 export { default as DatePicker } from './components/date-picker';
 /**
  * @deprecated Use `import TimePicker from '@atlaskit/datetime-picker/time-picker'` instead.

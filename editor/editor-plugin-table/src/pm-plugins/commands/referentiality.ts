@@ -1,10 +1,10 @@
+// eslint-disable-next-line import/order
+import type { Command } from '@atlaskit/editor-common/types';
 import { removeConnectedNodes } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 // eslint-disable-next-line import/order
 import { createCommand } from '../plugin-factory';
-// eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
 
 export const removeDescendantNodes = (sourceNode: PMNode): Command =>
 	createCommand(

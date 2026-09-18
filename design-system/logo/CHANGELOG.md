@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 23.1.0
+
+### Minor Changes
+
+- [`7f07675ed99e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f07675ed99e8) -
+  [ux] Add InsightsIcon and InsightsLogo components for the Insights product brand.
+
 ## 23.0.2
 
 ### Patch Changes

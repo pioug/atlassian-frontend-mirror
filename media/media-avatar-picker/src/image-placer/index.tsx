@@ -2,23 +2,26 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
+
 import React from 'react';
-import { Rectangle } from '@atlaskit/media-ui/rectangle';
-import { Vector2 } from '@atlaskit/media-ui/vector2';
+
+import { jsx, css } from '@compiled/react';
+
 import { Bounds } from '@atlaskit/media-ui/bounds';
 import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile';
-import type { FileInfo } from '@atlaskit/media-ui/imageMetaData/types';
 import { getFileInfo } from '@atlaskit/media-ui/getFileInfo';
 import { getFileInfoFromSrc } from '@atlaskit/media-ui/getFileInfoFromSrc';
+import type { FileInfo } from '@atlaskit/media-ui/imageMetaData/types';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
+
+import { isSSR } from '../util';
+import { zoomToFit, applyConstraints, transformVisibleBoundsToImageCoords } from './constraints';
 import { ImagePlacerContainer } from './container';
 import { ImagePlacerImage } from './image';
-import { Margin } from './margin';
-import { initialiseImagePreview, renderImageAtCurrentView } from './imageProcessor';
-import { zoomToFit, applyConstraints, transformVisibleBoundsToImageCoords } from './constraints';
 import { ImagePlacerErrorWrapper } from './imagePlacerErrorWrapper';
-import { isSSR } from '../util';
-
+import { initialiseImagePreview, renderImageAtCurrentView } from './imageProcessor';
+import { Margin } from './margin';
 /*
 "container(Width|Height)" is the outputed size of the final image plus "margin"s.
 "visibleBounds" is the exact output size of the final image
@@ -36,14 +39,12 @@ import { isSSR } from '../util';
 |  +------------------+  |
 +------------------------+
 */
-
 /* pass onImageActions prop function to receive an object with this API to access image at current view */
 export interface ImageActions {
 	toCanvas: () => HTMLCanvasElement;
 	toDataURL: () => string;
 	toFile: () => File;
 }
-
 export interface ImagePlacerProps {
 	containerWidth: number;
 	containerHeight: number;
@@ -62,7 +63,6 @@ export interface ImagePlacerProps {
 	onImageActions?: (actions: ImageActions) => void;
 	onRenderError?: (errorMessage: string) => JSX.Element;
 }
-
 /* immutable prop defaults */
 export const DEFAULT_MAX_ZOOM = 4;
 export const DEFAULT_MARGIN = 28;
@@ -71,10 +71,11 @@ export const DEFAULT_ZOOM = 0;
 export const DEFAULT_ORIGIN_X = 0;
 export const DEFAULT_ORIGIN_Y = 0;
 export const DEFAULT_USE_CONSTRAINTS = true;
-export const DEFAULT_USE_CIRCULAR = false; /* whether or not to apply a circular margin to image while positioning */
-export const DEFAULT_USE_CIRCULAR_CLIP_WITH_ACTIONS = false; /* whether or not to apply a circular clip when rendering via actions */
+export const DEFAULT_USE_CIRCULAR = false;
+/* whether or not to apply a circular margin to image while positioning */
+export const DEFAULT_USE_CIRCULAR_CLIP_WITH_ACTIONS = false;
+/* whether or not to apply a circular clip when rendering via actions */
 export const DEFAULT_BACKGROUND_COLOR = 'transparent';
-
 export const defaultProps: {
 	containerWidth: number;
 	containerHeight: number;
@@ -100,7 +101,6 @@ export const defaultProps: {
 	useCircularClipWithActions: DEFAULT_USE_CIRCULAR_CLIP_WITH_ACTIONS,
 	backgroundColor: DEFAULT_BACKGROUND_COLOR,
 };
-
 export interface ImagePlacerState {
 	imageWidth: number;
 	imageHeight: number;

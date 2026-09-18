@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { splitText, calcTextSplitOffset, findTextString } from '../../text';
 
 describe('Annotations: draft/text', () => {

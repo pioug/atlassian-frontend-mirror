@@ -13,7 +13,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { openRequestEditPopupAt } from '../pm-plugins/helpers';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { TaskAndDecisionsSharedState, TaskItemInfoMeta, TaskItemState } from '../types';
-
 import { taskItemToDom } from './taskItemNodeSpec';
 import { isContentEmpty } from './utils';
 

@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { type Stub, replaceRaf } from 'raf-stub';
+
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { type Stub, replaceRaf } from 'raf-stub';
 
 import { type EmojiProvider } from '@atlaskit/emoji';
-import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { Popper } from '@atlaskit/popper/main';
-
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { DefaultReactions } from '../shared/constants';
 import { RENDER_BUTTON_TESTID } from './EmojiButton';
-import { RENDER_TRIGGER_BUTTON_TESTID, RENDER_LIST_ITEM_WRAPPER_TESTID } from './Trigger';
 import {
 	RENDER_REACTIONPICKER_TESTID,
 	RENDER_REACTIONPICKERPANEL_TESTID,
@@ -21,6 +20,7 @@ import {
 	ReactionPicker,
 } from './ReactionPicker';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
+import { RENDER_TRIGGER_BUTTON_TESTID, RENDER_LIST_ITEM_WRAPPER_TESTID } from './Trigger';
 
 jest.mock('../hooks/useDelayedState', () => ({
 	useDelayedState: (defaultState: any) => useState(defaultState),

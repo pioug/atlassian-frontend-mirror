@@ -1,11 +1,11 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 
+import { nonNestableBlockContentGroup } from '../groups/nonNestableBlockContentGroup';
 import { breakout } from '../marks/breakout';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { nestedExpand } from './nestedExpand';
-import { nonNestableBlockContentGroup } from '../groups/nonNestableBlockContentGroup';
 
 export const expand: ADFNode<
 	[string, 'root_only'],

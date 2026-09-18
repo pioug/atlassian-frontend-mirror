@@ -1,9 +1,10 @@
 import React from 'react';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import CardClient from '@atlaskit/link-provider/client';
-import { createRendererWindowBindings } from './helper/testing-setup';
 
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+
+import { createRendererWindowBindings } from './helper/testing-setup';
 import { RendererWithAnnotationsAndBodiedExtensions } from './reference-renderer-annotation-provider/RendererWithAnnotationsAndBodiedExtensions';
 
 export default function Example(): React.JSX.Element {

@@ -2,7 +2,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { LastInteractionFinishInfo } from '../common';
 import type { RevisionPayloadVCDetails, VCLabelStacks } from '../common/vc/types';
-
 import getLateMutations from './get-late-mutations';
 
 jest.mock('@atlaskit/platform-feature-flags/fg');

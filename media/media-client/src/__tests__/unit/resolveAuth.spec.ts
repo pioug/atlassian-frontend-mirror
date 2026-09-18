@@ -1,6 +1,5 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-
 import type { AsapBasedAuth, AuthProvider, ClientBasedAuth } from '@atlaskit/media-core/auth';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { MediaStore } from '../../client/media-store/MediaStore';
 import { MediaStoreError } from '../../client/media-store/MediaStoreError';

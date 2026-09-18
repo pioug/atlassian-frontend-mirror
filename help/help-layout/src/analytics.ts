@@ -1,14 +1,15 @@
+import type { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
+
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import type { CreateEventMap, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import withAnalyticsContextHoc, {
 	type WithContextProps,
 } from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEventsHoc, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 
 export const withAnalyticsEvents: (
 	createEventMap?: CreateEventMap,

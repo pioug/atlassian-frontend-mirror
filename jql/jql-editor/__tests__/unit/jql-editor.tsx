@@ -1,15 +1,15 @@
 import React from 'react';
 
 import { render, waitFor } from '@testing-library/react';
-
 import '@testing-library/jest-dom';
+
 import * as pmView from '@atlaskit/editor-prosemirror/view';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { mockCreateRange } from '../../mocks';
-import { type HydratedValues } from '../../src/ui/jql-editor/types';
-import JQLEditor from '../../src/ui';
 import { defaultAutocompleteProvider } from '../../src/plugins/autocomplete/constants';
+import JQLEditor from '../../src/ui';
+import { type HydratedValues } from '../../src/ui/jql-editor/types';
 
 jest.mock('@atlaskit/editor-prosemirror/view', () => {
 	const originalModule = jest.requireActual('@atlaskit/editor-prosemirror/view');

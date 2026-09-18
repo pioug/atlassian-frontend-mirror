@@ -1,6 +1,5 @@
 import type { InteractionMetrics } from '../common';
 import { getConfig, getUfoNameOverrides } from '../config';
-
 import { createInteractionMetricsPayload } from './createInteractionMetricsPayload';
 import type { InteractionMetricsPayloadResult } from './InteractionMetricsPayloadResult';
 

@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { breakout as breakoutFactory } from '../../next-schema/generated/markTypes';
 
 const allowedTypes = ['wide', 'full-width'];

@@ -8,6 +8,7 @@
 /**
  * @deprecated Use `import zh from '@atlaskit/profilecard/i18n/zh'` instead.
  */
+
 export { default as zh } from './zh';
 /**
  * @deprecated Use `import zh_TW from '@atlaskit/profilecard/i18n/zh_TW'` instead.

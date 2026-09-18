@@ -39,7 +39,6 @@ import {
 import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
 import type { SyncedBlockFeedbackContext, SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
-
 import { SyncedLocationDropdown, SyncedLocationDropdownWithCount } from './SyncedLocationDropdown';
 
 export const getToolbarConfig = (

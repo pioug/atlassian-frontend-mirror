@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-date
 
+## 21.1.0
+
+### Minor Changes
+
+- [`0c0ee776d1d06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c0ee776d1d06) -
+  Migrate the editor date plugin's lazy-loaded date picker to react-loosely-lazy behind the
+  `platform_editor_loosely_lazy_migration` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.0
 
 ### Patch Changes

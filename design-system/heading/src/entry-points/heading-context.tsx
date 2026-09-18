@@ -2,6 +2,7 @@
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
+
 export { useHeading } from '../use-heading';
 /**
  * @deprecated Import from the generated per-export subpath instead.

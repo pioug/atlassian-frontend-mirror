@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { FormattedMessage, type MessageDescriptor } from 'react-intl';
+
 import Avatar from '@atlaskit/avatar/avatar';
 
 import { contentPreviewMessages } from '../../messages';
-import * as Styled from './styled';
 import MessagesIntlProvider from '../MessagesIntlProvider';
+import * as Styled from './styled';
 import {
 	type DeleteUserContentPreviewScreenProps,
 	type DeleteUserContentPreviewScreenState,

@@ -1,19 +1,22 @@
+import React from 'react';
+
 import { matchers } from '@emotion/jest';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
-import React from 'react';
+
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { messages } from '../../../../components/i18n';
 import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
-import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
 import {
 	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type PickerListRef,
 	type Props as EmojiPickerListProps,
 } from '../../../../components/picker/EmojiPickerList';
+import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
 import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
 import type { EmojiDescription } from '../../../../types';
 import * as constants from '../../../../util/constants';

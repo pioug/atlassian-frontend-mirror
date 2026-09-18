@@ -14,7 +14,6 @@ import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../src/constants';
-
 import ExampleContainer from './utils/example-container';
 import {
 	ALL,

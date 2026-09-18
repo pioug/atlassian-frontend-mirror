@@ -2,7 +2,6 @@ import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
-
 import { physicalLogicalMap } from './physical-logical-map';
 
 const rule: Rule.RuleModule = createLintRule({

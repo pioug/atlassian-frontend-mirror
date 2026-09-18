@@ -6,7 +6,6 @@ import {
 	type TeamPermission,
 	type TeamState,
 } from '../../../types/team';
-
 import { allPermissions } from './all-permissions';
 import { type PermissionMap } from './constants';
 import { inviteOnlyPermissions } from './invite-only-permissions';

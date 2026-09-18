@@ -1,7 +1,8 @@
 import { schema, toDOM, fromHTML, toContext } from '@af/adf-test-helpers/src/adf-schema';
+import { doc, bodiedExtension as bodiedExt, p } from '@af/adf-test-helpers/src/doc-builder';
+
 import { bodiedExtension, bodiedExtension as bodiedExtensionNodeSpec } from '../../../..';
 import { bodiedExtensionRootOnlyStage0 } from '../../../../schema/nodes/bodied-extension';
-import { doc, bodiedExtension as bodiedExt, p } from '@af/adf-test-helpers/src/doc-builder';
 
 const packageName = process.env.npm_package_name as string;
 

@@ -9,7 +9,6 @@ import { useAnalyticsEvents } from '../../../../common/analytics/generated/use-a
 import { messages } from '../../../../messages';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import UnresolvedView from '../unresolved-view';
-
 import { type UnauthorizedViewProps } from './types';
 import { UnauthorizedSVG } from './unauthorized-svg';
 import UnauthorizedCarouselView from './UnauthorizedCarouselView';

@@ -1,4 +1,3 @@
-import { MarkdownSerializer, marks, nodes } from '../../serializer';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
 	p,
@@ -11,6 +10,8 @@ import {
 	code,
 	mention,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { MarkdownSerializer, marks, nodes } from '../../serializer';
 
 // @ts-expect-error - Our node definitions are not compatible with prosemirror-markdown types
 const markdownSerializer = new MarkdownSerializer(nodes, marks);

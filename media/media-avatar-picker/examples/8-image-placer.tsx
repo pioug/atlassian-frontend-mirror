@@ -2,14 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React from 'react';
+
 import { jsx, css } from '@compiled/react';
 
-import { token } from '@atlaskit/tokens';
-import React from 'react';
-import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { ImagePlacer, type ImageActions } from '../src/image-placer';
 import Button from '@atlaskit/button/default/button';
+import Page, { Grid, GridColumn } from '@atlaskit/page';
+import { token } from '@atlaskit/tokens';
 
+import { ImagePlacer, type ImageActions } from '../src/image-placer';
 export interface ExampleState {
 	containerWidth: number;
 	containerHeight: number;

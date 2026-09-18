@@ -3,13 +3,16 @@
  * @jsx jsx
  */
 import React, { useCallback, useEffect, useRef, useState, type ChangeEventHandler } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+
 import Button from '@atlaskit/button/default/button';
 import UploadIcon from '@atlaskit/icon/core/upload';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
 import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/contains-files';
 import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/get-files';
+import { token } from '@atlaskit/tokens';
+
 import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 export interface Props {

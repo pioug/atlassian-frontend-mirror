@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type TableViewPropsRenderType } from '../types';
-
 import BooleanRenderType from './boolean';
 import DateRangeRenderType from './date-range';
 import DateTimeRenderType from './date-time';

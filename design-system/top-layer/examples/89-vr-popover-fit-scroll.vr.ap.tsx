@@ -40,8 +40,8 @@ import { jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { type TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 

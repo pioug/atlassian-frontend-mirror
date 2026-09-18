@@ -6,9 +6,9 @@ import type { MessageDescriptor } from 'react-intl';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import AkFlag from '@atlaskit/flag/flag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';
-import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import SuccessIcon from '@atlaskit/icon/core/check-circle';
 import { token } from '@atlaskit/tokens';
 

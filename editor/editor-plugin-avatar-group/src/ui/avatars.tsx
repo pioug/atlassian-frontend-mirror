@@ -22,7 +22,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 import { fetchUserNames } from '../services/fetch-user-names';
-
 import { avatarContainerStyles } from './styles';
 import toAvatar from './to-avatar';
 

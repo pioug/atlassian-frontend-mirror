@@ -10,8 +10,8 @@ import { cssMap, jsx } from '@atlaskit/css';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import Heading from '@atlaskit/heading/heading';
 import Link from '@atlaskit/link/link';
-import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { RovoIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
@@ -23,7 +23,6 @@ import type { AgentCreatorType } from '../../common/types';
 import { HiddenIcon } from '../../common/ui/hidden-icon';
 import { StarIconButton } from '../../common/ui/star-icon-button';
 import { isForgeAgentByCreatorType } from '../../common/utils/is-forge-agent';
-
 import { messages } from './messages';
 
 const styles = cssMap({

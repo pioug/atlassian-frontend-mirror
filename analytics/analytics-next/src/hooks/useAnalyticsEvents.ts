@@ -3,7 +3,6 @@ import { useCallbackOne } from 'use-memo-one';
 import type { AnalyticsEventPayload } from '../events/AnalyticsEvent';
 import UIAnalyticsEvent from '../events/UIAnalyticsEvent';
 import type { CreateUIAnalyticsEvent } from '../types';
-
 import { useAnalyticsContext } from './useAnalyticsContext';
 
 export type UseAnalyticsEventsHook = {

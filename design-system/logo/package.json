@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "23.0.2",
+	"version": "23.1.0",
 	"description": "A logo is a visual representation of a brand or app. It can be a word, an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -126,6 +126,7 @@
 		"./guard-detect/icon": "./src/artifacts/logo-components/guard-detect/icon.tsx",
 		"./home/icon": "./src/artifacts/logo-components/home/icon.tsx",
 		"./hub/icon": "./src/artifacts/logo-components/hub/icon.tsx",
+		"./insights/icon": "./src/artifacts/logo-components/insights/icon.tsx",
 		"./jira/icon": "./src/artifacts/logo-components/jira/icon.tsx",
 		"./jira-coding-agent/icon": "./src/artifacts/logo-components/jira-coding-agent/icon.tsx",
 		"./jira-data-center/icon": "./src/artifacts/logo-components/jira-data-center/icon.tsx",
@@ -166,6 +167,7 @@
 		"./guard/logo": "./src/artifacts/logo-components/guard/logo-cs.tsx",
 		"./home/logo": "./src/artifacts/logo-components/home/logo-cs.tsx",
 		"./hub/logo": "./src/artifacts/logo-components/hub/logo-cs.tsx",
+		"./insights/logo": "./src/entry-points/insights-logo.tsx",
 		"./jira/logo": "./src/artifacts/logo-components/jira/logo-cs.tsx",
 		"./jira-data-center/logo": "./src/artifacts/logo-components/jira-data-center/logo-cs.tsx",
 		"./jira-product-discovery/logo": "./src/artifacts/logo-components/jira-product-discovery/logo-cs.tsx",

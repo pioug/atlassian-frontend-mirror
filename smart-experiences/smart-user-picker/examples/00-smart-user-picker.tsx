@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react';
 
-import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party';
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
@@ -18,6 +17,7 @@ import type {
 	User,
 	Team,
 } from '@atlaskit/user-picker/types';
+import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party';
 
 import '../example-helpers/mock-ufo';
 import { options } from '../example-helpers/options';

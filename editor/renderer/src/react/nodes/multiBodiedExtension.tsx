@@ -5,25 +5,28 @@
  */
 
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
-import { jsx, css } from '@emotion/react';
 
 import React, { useContext, useState } from 'react';
-import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { RendererContext } from '../types';
-import type { Serializer } from '../../serializer';
+
+import { jsx, css } from '@emotion/react';
+
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
-import { RendererCssClassName } from '../../consts';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
+import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import AnalyticsContext from '../../analytics/analyticsContext';
+import { RendererCssClassName } from '../../consts';
+import type { Serializer } from '../../serializer';
+import type { RendererAppearance } from '../../ui/Renderer/types';
+import type { RendererContext } from '../types';
+import { calcBreakoutWidthCss } from '../utils/breakout';
 import { useMultiBodiedExtensionActions } from './multiBodiedExtension/actions';
 import { useMultiBodiedExtensionContext } from './multiBodiedExtension/context';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { calcBreakoutWidthCss } from '../utils/breakout';
-import type { RendererAppearance } from '../../ui/Renderer/types';
-import AnalyticsContext from '../../analytics/analyticsContext';
 
 type Props = React.PropsWithChildren<{
 	extensionHandlers?: ExtensionHandlers;

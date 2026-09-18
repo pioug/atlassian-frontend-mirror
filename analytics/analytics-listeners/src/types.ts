@@ -1,5 +1,6 @@
-import type Logger from './helpers/logger';
 import { type GasPurePayload, type GasPureScreenEventPayload } from '@atlaskit/analytics-gas-types';
+
+import type Logger from './helpers/logger';
 
 export type AnalyticsWebClient = {
 	sendOperationalEvent: (event: GasPurePayload) => void;
@@ -15,6 +16,7 @@ export type ListenerProps = {
 };
 
 export enum FabricChannel {
+	a2ui = 'a2ui',
 	atlaskit = 'atlaskit',
 	elements = 'fabric-elements',
 	navigation = 'navigation',

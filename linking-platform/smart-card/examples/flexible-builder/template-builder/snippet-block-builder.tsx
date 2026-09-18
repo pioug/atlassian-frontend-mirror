@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type BlockBuilderProps } from '../types';
-
 import MaxLinesOption from './inputs/max-lines-option';
 import TextOption from './inputs/text-option';
 

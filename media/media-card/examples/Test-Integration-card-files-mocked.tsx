@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { type FileIdentifier } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	StoryList,
 	wideImage,
@@ -8,12 +11,11 @@ import {
 	defaultCollectionName,
 	type MockFileInputParams,
 } from '@atlaskit/media-test-helpers';
-import { type FileIdentifier } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
-import Card from '../src/card/cardLoader';
-import { DelayedRender } from '../example-helpers/DelayedRender';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+
 import { MainWrapper } from '../example-helpers';
+import { DelayedRender } from '../example-helpers/DelayedRender';
+import Card from '../src/card/cardLoader';
 
 const identifiers = [1, 2, 3, 4].map(
 	(id: number): FileIdentifier => ({

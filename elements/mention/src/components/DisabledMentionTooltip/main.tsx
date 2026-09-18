@@ -1,5 +1,6 @@
-import Tooltip from '@atlaskit/tooltip/Tooltip';
 import React from 'react';
+
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 type Props = {
 	children: React.ReactNode;

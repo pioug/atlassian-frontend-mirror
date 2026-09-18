@@ -1,5 +1,4 @@
 import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
-
 import profiles, { avatarImages } from './profile-data';
 
 const mappedProfileToReportingLines: ReportingLinesUser[] = profiles.map((profile, index) => ({

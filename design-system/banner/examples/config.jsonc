@@ -4,13 +4,13 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-basic-usage.vr.ap.tsx",
-    "announcement-banner-with-long-text.vr.ap.tsx",
-    "announcement-banner.vr.ap.tsx",
-    "banner-with-link.vr.ap.tsx",
-    "error-banner.vr.ap.tsx",
-    "open-close-example.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"00-basic-usage.vr.ap.tsx",
+		"announcement-banner-with-long-text.vr.ap.tsx",
+		"announcement-banner.vr.ap.tsx",
+		"banner-with-link.vr.ap.tsx",
+		"error-banner.vr.ap.tsx",
+		"open-close-example.tsx",
+	],
+	"exampleDependencies": [],
 }

@@ -1,5 +1,6 @@
 import type { ProductType } from '@atlaskit/linking-common/types';
 
+import type { getXProductHeaderValue } from '../getXProductHeaderValue';
 import { AISummaryService } from '../index';
 import { readStream } from '../readStream';
 import {
@@ -8,8 +9,6 @@ import {
 	type StreamError,
 	type StreamResponse,
 } from '../types';
-import type { getXProductHeaderValue } from '../getXProductHeaderValue';
-
 import { streamAnswer, streamErrorAnswer } from './__mocks__/streamAnswers';
 
 const fetchMock = fetch as jest.MockedFunction<typeof fetch>;

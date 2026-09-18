@@ -1,5 +1,4 @@
 import { logException } from '../sentry/logException';
-
 import { ReportingLinesClient } from './ReportingLinesClient';
 import type { ReportingLines } from './utils/types';
 

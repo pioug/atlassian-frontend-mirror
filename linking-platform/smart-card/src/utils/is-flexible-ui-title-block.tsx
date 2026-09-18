@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { default as TitleBlock } from '../view/FlexibleCard/components/blocks/title-block';
-
 import { isStyleCacheProvider } from './is-style-cache-provider';
 
 export const isFlexibleUiTitleBlock = (node: React.ReactNode): boolean => {

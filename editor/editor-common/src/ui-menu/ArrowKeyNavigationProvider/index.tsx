@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ReactEditorViewContext } from '../../ui-react';
-
 import { ColorPaletteArrowKeyNavigationProvider } from './ColorPaletteArrowKeyNavigationProvider';
 import { MenuArrowKeyNavigationProvider } from './MenuArrowKeyNavigationProvider';
 import type { ArrowKeyNavigationProviderProps } from './types';

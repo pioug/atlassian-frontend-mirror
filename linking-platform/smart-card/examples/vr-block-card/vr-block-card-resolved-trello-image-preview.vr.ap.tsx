@@ -5,7 +5,6 @@ import Client from '@atlaskit/link-provider/client';
 import { TrelloCard } from '@atlaskit/link-test-helpers';
 
 import VRCardView from '../utils/vr-card-view';
-
 import '../utils/vr-preload-metadata-icons';
 
 class CustomClient extends Client {

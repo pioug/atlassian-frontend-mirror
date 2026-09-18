@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
 import DropdownItemCheckboxGroup from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 
 const DropdownMenuCheckboxStateless = (): React.JSX.Element => {
 	const [selected, setSelected] = useState<string[]>([]);

@@ -8,7 +8,6 @@ import {
 } from '@statsig/js-client';
 
 import { default as Subscriptions } from '../subscriptions/Subscriptions';
-
 import { DynamicConfig } from './compat/DynamicConfig';
 import { Layer } from './compat/Layer';
 import { EvaluationReason } from './compat/types';

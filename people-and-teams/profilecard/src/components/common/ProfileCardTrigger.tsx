@@ -14,7 +14,6 @@ import { PACKAGE_META_DATA } from '../../util/analytics';
 import { getActionSubject } from '../../util/getActionSubject';
 import { getPageTime } from '../../util/performance';
 import { useProfileInfo } from '../../util/useProfileInfo';
-
 import { LoadingState } from './LoadingState';
 import { PopupTrigger } from './PopupTrigger';
 import { ProfileCardWrapper } from './ProfileCardWrapper';

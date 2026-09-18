@@ -3,7 +3,6 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { appearanceForNodeType } from '../../pm-plugins/utils';
-
 import { EVENT_SUBJECT } from './types';
 import type { Entity } from './types';
 

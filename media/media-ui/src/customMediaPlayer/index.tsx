@@ -1,13 +1,16 @@
 import React from 'react';
+
 import { injectIntl, type WrappedComponentProps } from 'react-intl';
+
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common';
+
 import {
 	CustomMediaPlayerBase as CompiledCustomMediaPlayerBase,
 	type CustomMediaPlayerProps,
 } from './index-compiled';
-import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 
 export const CustomMediaPlayerBase = (
 	props: CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,

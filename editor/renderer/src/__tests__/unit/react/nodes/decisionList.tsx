@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import DecisionList from '../../../../react/nodes/decisionList';
 
 describe('Renderer - React/Nodes/DecisionList', () => {

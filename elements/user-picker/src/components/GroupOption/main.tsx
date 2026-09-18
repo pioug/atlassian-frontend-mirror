@@ -5,13 +5,13 @@
 
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { FormattedMessage } from 'react-intl';
 
-import { token } from '@atlaskit/tokens';
 import PeopleIcon from '@atlaskit/icon/core/people-group';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
+import { token } from '@atlaskit/tokens';
 
 import { type Group } from '../../types';
 import { AvatarItemOption } from '../AvatarItemOption';

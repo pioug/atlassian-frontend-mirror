@@ -14,11 +14,10 @@ import {
 	type DateRangeOption,
 	type DateRangeType,
 } from '../../../../common/modal/popup-select/types';
-
-import { PopupComponent } from './PopupComponent';
 import { getCurrentOptionLabel } from './getCurrentOptionLabel';
 import { getDropdownLabel } from './getDropdownLabel';
 import { dateRangeMessages } from './messages';
+import { PopupComponent } from './PopupComponent';
 import { CustomDropdownItem } from './styled';
 import { PopupTrigger } from './trigger';
 import { useInvalidDateRange } from './useInvalidDateRange';

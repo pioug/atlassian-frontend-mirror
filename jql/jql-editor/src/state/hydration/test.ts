@@ -1,9 +1,9 @@
+import { JastBuilder } from '@atlaskit/jql-ast';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { JastBuilder } from '@atlaskit/jql-ast';
 
-import { ValidQueryVisitor } from './ValidQueryVisitor';
 import { normaliseHydrationKey } from './normaliseHydrationKey';
+import { ValidQueryVisitor } from './ValidQueryVisitor';
 
 // Base queries that don't involve membersOf
 const baseQueries = [

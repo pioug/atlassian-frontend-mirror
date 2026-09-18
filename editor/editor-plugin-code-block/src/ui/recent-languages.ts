@@ -1,7 +1,6 @@
 import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
 
 import { DEFAULT_LANGUAGES, getLanguageIdentifier } from '../pm-plugins/language-list';
-
 import {
 	DETECT_LANGUAGE_VALUE,
 	NONE_LANGUAGE_VALUE,

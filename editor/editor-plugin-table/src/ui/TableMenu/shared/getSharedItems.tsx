@@ -37,7 +37,6 @@ import {
 	ROW_BACKGROUND_SECTION_RANK,
 	ROW_DANGER_SECTION_RANK,
 } from '../row/keys';
-
 import { BackgroundColorItem } from './items/BackgroundColorItem';
 import { ClearCellsItem } from './items/ClearCellsItem';
 import { BACKGROUND_COLOR_ITEM, CLEAR_CELLS_ITEM } from './keys';

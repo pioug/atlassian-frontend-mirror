@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/platform/no-direct-document-usage -- draft selection uses document range APIs */
+
 import type { Position } from '../types';
 
 export const dataAttributes = ({

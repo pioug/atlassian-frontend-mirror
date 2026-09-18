@@ -2,32 +2,30 @@ import React, { useCallback, useId, useLayoutEffect, useMemo, useRef, useState }
 
 import { useIntl } from 'react-intl';
 
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-
 import { cssMap } from '@atlaskit/css';
-import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import {
-	TYPE_AHEAD_SURFACE_CONTEXT,
-	type TypeAheadSurfaceContext,
-} from '@atlaskit/editor-common/type-ahead-surface-context';
 import {
 	buildQuickInsertMenuModel,
 	getMatchingQuickInsertComponents,
 	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
+import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
+import {
+	TYPE_AHEAD_SURFACE_CONTEXT,
+	type TypeAheadSurfaceContext,
+} from '@atlaskit/editor-common/type-ahead-surface-context';
 import type { ExtractInjectionAPI, TypeAheadHandler } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { CloseSelectionOptions } from '../../pm-plugins/constants';
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import { InputQuery } from '../InputQuery';
-
 import { getTypeAheadGlobalViewMoreId } from './getTypeAheadGlobalViewMoreId';
 import { getTypeAheadItemId } from './getTypeAheadItemId';
 import { TypeAheadMenuRenderer } from './TypeAheadMenuRenderer';

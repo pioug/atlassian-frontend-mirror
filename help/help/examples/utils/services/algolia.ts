@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect, type Dispatch, type SetStateAction } from 'react';
+
 import algoliasearch from 'algoliasearch';
-import type { Article, ArticleItem, articleId as articleIdType } from '../../../src/index';
-import { ARTICLE_ITEM_TYPES, createArticleObject } from '../../../src/index';
 
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+
+import type { Article, ArticleItem, articleId as articleIdType } from '../../../src/index';
+import { ARTICLE_ITEM_TYPES, createArticleObject } from '../../../src/index';
 
 // Styles provided by project MESA
 const ArticleExtraStyles = `

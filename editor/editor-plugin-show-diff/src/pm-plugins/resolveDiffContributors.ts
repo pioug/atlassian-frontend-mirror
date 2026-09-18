@@ -5,7 +5,6 @@ import type {
 	DiffStepAttribution,
 	StepWithAttribution,
 } from '../showDiffPluginType';
-
 import { getAttributionKey } from './decorations/colorSchemes/attributions';
 
 /** A brand name, so a literal rather than a translated message. */

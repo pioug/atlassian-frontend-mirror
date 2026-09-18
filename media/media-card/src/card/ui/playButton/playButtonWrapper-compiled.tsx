@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
 
 import { playButtonClassName } from './styles';

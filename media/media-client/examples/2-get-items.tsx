@@ -1,7 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
-import { createStorybookMediaClient, imageFileId, audioFileId } from '../src/test-helpers';
+
 import { MediaStore, type ItemsPayload } from '../src';
+import { createStorybookMediaClient, imageFileId, audioFileId } from '../src/test-helpers';
 
 const mediaClient = createStorybookMediaClient();
 const store = new MediaStore({

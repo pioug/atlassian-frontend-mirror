@@ -1,8 +1,8 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { type Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import type { Transform as ProseMirrorTransform } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { Rebaseable } from './index';
 

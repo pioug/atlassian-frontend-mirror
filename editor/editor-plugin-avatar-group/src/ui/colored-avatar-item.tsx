@@ -10,7 +10,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
-
 import { badge } from './styles';
 
 interface ColoredAvatarItemProps {

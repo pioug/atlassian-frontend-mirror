@@ -1,12 +1,13 @@
 import { schema, toDOM, fromHTML, toContext } from '@af/adf-test-helpers/src/adf-schema';
-import { multiBodiedExtension, extensionFrame as extensionFrameSpec } from '../../../..';
-import { multiBodiedExtensionRootOnlyStage0 } from '../../../../schema/nodes/multi-bodied-extension';
 import {
 	doc,
 	multiBodiedExtension as multiBodiedExt,
 	extensionFrame,
 	p,
 } from '@af/adf-test-helpers/src/doc-builder';
+
+import { multiBodiedExtension, extensionFrame as extensionFrameSpec } from '../../../..';
+import { multiBodiedExtensionRootOnlyStage0 } from '../../../../schema/nodes/multi-bodied-extension';
 
 const packageName = process.env.npm_package_name as string;
 

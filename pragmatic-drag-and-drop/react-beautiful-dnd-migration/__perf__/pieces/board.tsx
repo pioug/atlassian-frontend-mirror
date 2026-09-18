@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import type { DropResult } from 'react-beautiful-dnd';
 
 import { getInitialData, moveCard, reorderCard, reorderColumn } from '../../examples/data/tasks';
-
 import { Column } from './board-column';
 import type { RbdApi } from './types';
 

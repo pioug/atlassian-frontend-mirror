@@ -1,4 +1,5 @@
 /* eslint-disable compat/compat */
+
 import { getEventCategory, searchAncestors } from './dom';
 import { DOMObservers } from './DOMObservers';
 import { FirstInteractionObserver } from './firstInteractionObserver';

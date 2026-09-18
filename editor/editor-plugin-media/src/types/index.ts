@@ -168,6 +168,7 @@ export interface MediaPluginOptions {
  * @deprecated Use {@link MediaPluginOptions} instead.
  * @see https://product-fabric.atlassian.net/browse/ED-27496
  */
+
 export type MediaOptions = MediaPluginOptions;
 
 export interface MediaSingleOptions {

@@ -5,7 +5,6 @@ import {
 	registerPreloadInfo,
 	setPreloadHoldAdoptionHook,
 } from '../interaction-metrics';
-
 import { makePreloadKey } from './make-preload-key';
 import { type PendingPreloadHold, preloadHoldState } from './state';
 

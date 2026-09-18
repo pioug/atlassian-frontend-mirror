@@ -1,9 +1,9 @@
+import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import type {
 	MenuItemMatchContext,
 	RegisterComponent,
 	RegisterMenuItem,
 } from '@atlaskit/editor-ui-control-model/types';
-import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 
 export type RegistryElementBrowserSection = {
 	key: string;

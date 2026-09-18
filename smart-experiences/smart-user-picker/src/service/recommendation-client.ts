@@ -1,9 +1,10 @@
+import { type IntlShape } from 'react-intl';
+
 import type { OptionData } from '@atlaskit/user-picker/types';
 
-import { transformUsers } from './users-transformer';
 import { config } from '../config';
 import { type ConfluenceAttributes, type RecommendationRequest } from '../types';
-import { type IntlShape } from 'react-intl';
+import { transformUsers } from './users-transformer';
 
 export interface SUPError extends Error {
 	message: string;

@@ -1,11 +1,11 @@
 jest.mock('../../uploader');
 
+import { Subscription } from 'rxjs/Subscription';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
-import type { AuthProvider, Auth } from '@atlaskit/media-core/auth';
-import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/test-helpers';
-import { Subscription } from 'rxjs/Subscription';
 
+import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/test-helpers';
+import type { AuthProvider, Auth } from '@atlaskit/media-core/auth';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import {
@@ -23,9 +23,9 @@ import {
 	UploadController,
 	type MediaStoreGetFileImageParams,
 } from '../..';
+import * as resolveInitialAuthModule from '../../client/media-store/resolveInitialAuth';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import { uploadFile } from '../../uploader';
-import * as resolveInitialAuthModule from '../../client/media-store/resolveInitialAuth';
 
 const auth = {
 	token: 'some-token-that-does-not-really-matter-in-this-tests',

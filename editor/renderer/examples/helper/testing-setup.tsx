@@ -1,34 +1,36 @@
 import React from 'react';
+
 import { createRoot } from 'react-dom/client';
 import type { Root } from 'react-dom/client';
+import { IntlProvider } from 'react-intl';
+
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
+import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
+import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import AnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
-import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
-import type { RendererProps } from '../../src/ui/renderer-props';
-import { default as Renderer } from '../../src/ui/Renderer';
-import { document as defaultDoc } from './story-data';
-import Sidebar from './NavigationNext';
-import type { MentionProvider } from '@atlaskit/mention/types';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
-import AnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
-import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import type { MentionProvider } from '@atlaskit/mention/types';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
+import { default as Renderer } from '../../src/ui/Renderer';
+import type { RendererProps } from '../../src/ui/renderer-props';
 import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';
-import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
-import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 import { ExampleSelectionInlineComponent } from './annotations/selection';
-import { IntlProvider } from 'react-intl';
+import Sidebar from './NavigationNext';
+import { document as defaultDoc } from './story-data';
 
 const rootMap = new WeakMap<Element, Root>();
 

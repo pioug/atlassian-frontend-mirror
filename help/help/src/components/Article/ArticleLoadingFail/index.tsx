@@ -1,15 +1,16 @@
 import React from 'react';
-import Button from '@atlaskit/button/button';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import Button from '@atlaskit/button/button';
 import Heading from '@atlaskit/heading/heading';
 import { Text } from '@atlaskit/primitives/compiled';
 
-import { messages } from '../../../messages';
 import SomethingWrongImage from '../../../assets/SomethingWrongImage';
-
+import { messages } from '../../../messages';
 import { LoadingErrorMessage, LoadingErrorButtonContainer, LoadingErrorHeading } from './styled';
 
 const ANALYTICS_CONTEXT_DATA = {

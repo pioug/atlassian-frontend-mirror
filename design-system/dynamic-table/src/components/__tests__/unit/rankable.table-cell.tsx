@@ -4,7 +4,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import type { RowCellType } from '../../../types';
 import { RankableTableCell } from '../../rankable/rankable-table-cell';
-
 import { rowsWithKeys } from './_data';
 import { headMock1 } from './_head-mock';
 

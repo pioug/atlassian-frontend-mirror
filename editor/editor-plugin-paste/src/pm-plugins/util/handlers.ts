@@ -82,7 +82,6 @@ import {
 	stopTrackingPastedMacroPositions,
 } from '../../editor-commands/commands';
 import { getPluginState as getPastePluginState } from '../plugin-factory';
-
 import {
 	insertSliceForLists,
 	insertSliceForTaskInsideList,
@@ -90,7 +89,6 @@ import {
 	updateSelectionAfterReplace,
 } from './edge-cases';
 import { insertSliceInsideOfPanelNodeSelected } from './edge-cases/lists';
-
 import {
 	addReplaceSelectedTableAnalytics,
 	applyTextMarksToSlice,

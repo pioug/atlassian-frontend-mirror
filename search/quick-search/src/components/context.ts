@@ -1,6 +1,7 @@
 import React, { type ComponentType } from 'react';
-import { type ResultData, type ResultId } from './Results/types';
+
 import { type ResultBase } from './Results/ResultBase';
+import { type ResultData, type ResultId } from './Results/types';
 
 // eslint-disable-next-line no-barrel-files/no-barrel-files
 export { SelectedResultIdContext } from './selected-result-id-context';

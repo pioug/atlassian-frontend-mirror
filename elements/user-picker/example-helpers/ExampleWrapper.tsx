@@ -2,13 +2,13 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { assignToMe, exampleOptions, unassigned } from '.';
 import {
 	type LoadOptions,
 	type OnOption,
 	type OptionData,
 	type UserPickerProps,
 } from '../src/types';
-import { assignToMe, exampleOptions, unassigned } from '.';
 import { filterUsers } from './filterUsers';
 import { withLocalResource } from './withLocalResource';
 

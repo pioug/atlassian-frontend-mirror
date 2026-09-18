@@ -11,7 +11,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { TrackChangesPlugin, TrackChangesPluginOptions } from '../trackChangesPluginType';
-
 import { TrackChangesToolbarButton } from './TrackChangesToolbarButton';
 
 export const getToolbarComponents = (

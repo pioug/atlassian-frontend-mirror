@@ -3,9 +3,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
+
 import type { SegmentInfo } from '../../src/common';
 import type { RootSegment } from '../../src/common/react-ufo-payload-schema';
-
 import { expect, test } from './fixtures';
 
 /**

@@ -7,7 +7,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-
 import { useSuggestedItems } from './hooks/useSuggestedItems';
 import {
 	hasCreateSectionContent,

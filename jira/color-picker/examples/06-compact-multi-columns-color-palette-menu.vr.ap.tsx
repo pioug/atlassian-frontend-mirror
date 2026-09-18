@@ -1,10 +1,13 @@
 import React from 'react';
-import { ColorPaletteMenu, Compact } from '../src';
-import { extendedPalette } from '../mock-data';
-import { token } from '@atlaskit/tokens';
+
 import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { token } from '@atlaskit/tokens';
+
+import { extendedPalette } from '../mock-data';
+import { ColorPaletteMenu, Compact } from '../src';
 
 const platformFgInjectable = injectable(fg, () => true);
 

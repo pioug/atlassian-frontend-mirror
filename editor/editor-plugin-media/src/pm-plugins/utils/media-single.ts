@@ -45,7 +45,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaState } from '../../types';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
-
 import { findChangeFromLocation, getChangeMediaAnalytics } from './analytics';
 import { isImage } from './is-type';
 

@@ -1169,7 +1169,7 @@ events:
       description: fired when the link picker is successfully submitted
       attributes:
         <<: *PackageMetaDataContext
-  - link clicked (userCollaborator):
+  - ? link clicked (userCollaborator)
     type: ui
     description: fired when a user collaborator link is clicked
     attributes:

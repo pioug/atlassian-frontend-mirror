@@ -3,7 +3,6 @@
  */
 
 import { CLI_BIN_NAME } from '../commands/cli-metadata';
-
 import type { DisambiguationResult } from './disambiguation';
 
 /**

@@ -39,7 +39,6 @@ import { expVal, expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type { insertBlockPlugin } from '../../insertBlockPlugin';
-
 import type { InsertMenuProps, SvgGetterParams } from './types';
 
 export const DEFAULT_HEIGHT = 560;

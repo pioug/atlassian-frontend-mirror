@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar/avatar';
 import Heading from '@atlaskit/heading/heading';
 import { Stack, Text } from '@atlaskit/primitives/compiled';

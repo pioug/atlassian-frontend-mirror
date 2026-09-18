@@ -1,5 +1,8 @@
 import { Search } from 'js-search';
 
+import { AbstractMentionResource } from '@atlaskit/mention/abstract-mention-resource';
+import { SLI_EVENT_TYPE } from '@atlaskit/mention/analytics';
+import type { ResolvingMentionProvider } from '@atlaskit/mention/mention-resource';
 import {
 	type MentionDescription,
 	type MentionsResult,
@@ -8,10 +11,8 @@ import {
 	MentionNameStatus,
 	type MentionProvider,
 } from '@atlaskit/mention/types';
-import type { ResolvingMentionProvider } from '@atlaskit/mention/mention-resource';
-import { SLI_EVENT_TYPE } from '@atlaskit/mention/analytics';
-import { AbstractMentionResource } from '@atlaskit/mention/abstract-mention-resource';
 import type { InviteFlow, UserRole } from '@atlaskit/mention/types';
+
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
 import { HttpError } from './utils';

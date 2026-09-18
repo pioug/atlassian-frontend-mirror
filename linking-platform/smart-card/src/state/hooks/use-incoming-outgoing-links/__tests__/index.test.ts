@@ -1,5 +1,4 @@
 import 'jest-extended';
-
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderHook } from '@atlassian/testing-library';
 

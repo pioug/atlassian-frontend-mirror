@@ -1,10 +1,10 @@
-import { listNodeAdf } from '../__fixtures__/full-width-adf';
-import { listWithCodeblock } from '../__fixtures__/lists-with-codeblocks';
-import { createListAdf } from '../__fixtures__/lists-starting-from-adf';
-import listsOlUlAdf from '../__fixtures__/lists-ordered-unordered-adf.json';
-
-import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 import type { ComponentType } from 'react';
+
+import { listNodeAdf } from '../__fixtures__/full-width-adf';
+import listsOlUlAdf from '../__fixtures__/lists-ordered-unordered-adf.json';
+import { createListAdf } from '../__fixtures__/lists-starting-from-adf';
+import { listWithCodeblock } from '../__fixtures__/lists-with-codeblocks';
+import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 export const ListRenderer: ComponentType<any> = generateRendererComponent({
 	document: listNodeAdf,

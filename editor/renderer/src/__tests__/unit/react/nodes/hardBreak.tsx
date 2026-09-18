@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
+
 import Hardbreak from '../../../../react/nodes/hardBreak';
 
 describe('Renderer - React/Nodes/HardBreak', () => {

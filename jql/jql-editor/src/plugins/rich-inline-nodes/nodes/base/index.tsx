@@ -6,7 +6,6 @@ import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { NodeViewProps } from '../../util/react-node-view';
-
 import { type NodeBaseProps } from './types';
 
 const styles = cssMap({

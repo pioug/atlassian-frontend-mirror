@@ -75,10 +75,10 @@ import {
 	type Schema as PMSchema,
 	Slice,
 } from '@atlaskit/editor-prosemirror/model';
+import { AddMarkStep, Mapping, ReplaceStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
-import { AddMarkStep, Mapping, ReplaceStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

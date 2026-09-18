@@ -1,13 +1,14 @@
-import { type AnalyticsWebClient, APSTransportType, type OnEvent } from '../../apiTypes';
 import { EventEmitter2 } from 'eventemitter2';
-import { type APSProtocolConfig } from '../types';
-import { logDebug, logInfo } from '../../util/logger';
+
+import { type AnalyticsWebClient, APSTransportType, type OnEvent } from '../../apiTypes';
 import { type EventType, type Protocol } from '../../types';
-import HttpTransport from './transports/http';
-import { APS_STARGATE_PATH } from './utils';
-import WebsocketTransport from './transports/ws';
-import { type APSTransport } from './transports';
+import { logDebug, logInfo } from '../../util/logger';
+import { type APSProtocolConfig } from '../types';
 import getAnalyticsClient, { type APSAnalyticsClient } from './APSAnalyticsClient';
+import { type APSTransport } from './transports';
+import HttpTransport from './transports/http';
+import WebsocketTransport from './transports/ws';
+import { APS_STARGATE_PATH } from './utils';
 
 export default class APSProtocol implements Protocol {
 	readonly url: URL;

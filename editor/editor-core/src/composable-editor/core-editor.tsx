@@ -20,7 +20,6 @@ import { useEditorContext } from '../ui/EditorContext';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import measurements from '../utils/performance/measure-enum';
 import { name, version } from '../version-wrapper';
-
 import { EditorInternal } from './editor-internal';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
 // Ignored via go/ees005

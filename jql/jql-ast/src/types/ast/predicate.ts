@@ -1,5 +1,4 @@
 import { PREDICATE_OPERATORS } from '../../constants';
-
 import { type AstNode } from './common';
 import { type Operand } from './operand';
 

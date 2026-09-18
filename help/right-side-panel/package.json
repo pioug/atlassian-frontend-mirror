@@ -48,6 +48,7 @@
 	"devDependencies": {
 		"@atlaskit/page": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@types/exenv": "root:*",
 		"@types/react-transition-group": "root:*",
 		"react": "^19.0.0",

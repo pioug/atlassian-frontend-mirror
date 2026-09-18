@@ -7,12 +7,11 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { isTransformDisabledBasedOnStepsConfig } from '../editor-commands/transform-node-utils/transform';
 import { toNodeTypeValue } from '../editor-commands/transform-node-utils/types';
 import type { NodeTypeName, TargetNodeMarks } from '../editor-commands/transform-node-utils/types';
-import type { TransformNodeMarkChanges } from '../editor-commands/types';
 import {
 	getBlockNodesInRange,
 	getTargetNodeTypeNameInContext,
 } from '../editor-commands/transform-node-utils/utils';
-
+import type { TransformNodeMarkChanges } from '../editor-commands/types';
 import { getSingleTransformSourceNode, isExtensionTransformSource } from './transformSource';
 import type { BlockMenuTransformSourceRegistry } from './transformSourceRegistry';
 

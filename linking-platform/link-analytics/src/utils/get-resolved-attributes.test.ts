@@ -1,5 +1,4 @@
 import { mocks } from '../__fixtures__/mocks';
-
 import { getResolvedAttributes } from './get-resolved-attributes';
 
 describe('getResolvedAttributes', () => {

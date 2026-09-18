@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { isInvited } from '@atlaskit/teams-client/is-invited'` instead.
  */
+
 export { isInvited } from './is-invited';
 /**
  * @deprecated Use `import { isNonMember } from '@atlaskit/teams-client/is-non-member'` instead.

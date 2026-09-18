@@ -1,7 +1,9 @@
+import type { HTMLAttributes, DetailedHTMLProps } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled, { type StyledComponentClass } from 'styled-components';
+
 import { token } from '@atlaskit/tokens';
-import type { HTMLAttributes, DetailedHTMLProps } from 'react';
 
 // eslint-disable-next-line no-barrel-files/no-barrel-files
 export { ResultItemAfter } from './result-item-after';

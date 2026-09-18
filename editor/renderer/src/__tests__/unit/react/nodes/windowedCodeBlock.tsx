@@ -1,15 +1,16 @@
 import React, { act } from 'react';
+
 import { IntlProvider } from 'react-intl';
-import { render as renderToDOM } from '@atlassian/testing-library';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { nextTick as flushLazyModuleFetching } from '@atlaskit/editor-test-helpers/next-tick';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockIntersectionObserver } from '@atlaskit/editor-test-helpers/mock-intersection-observer';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { nextTick as flushLazyModuleFetching } from '@atlaskit/editor-test-helpers/next-tick';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import { render as renderToDOM } from '@atlassian/testing-library';
 
 import WindowedCodeBlock from '../../../../react/nodes/codeBlock/windowedCodeBlock';
 import { selectors } from '../../../__helpers/page-objects/_codeblock';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 jest.mock('@atlaskit/code/code-block', () => {
 	const React = jest.requireActual('react');

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::efd3479518f07c3ac84b66a36297e84c>>
+ * @codegen <<SignedSource::9c725af62b9c335024ee165ef41d7186>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -18,6 +18,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/no-deprecated-design-token-usage': 'warn',
 		'@atlaskit/design-system/no-deprecated-imports': 'error',
 		'@atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop': 'error',
+		'@atlaskit/design-system/no-empty-icon-button-label': 'warn',
 		'@atlaskit/design-system/no-html-anchor': 'warn',
 		'@atlaskit/design-system/no-html-button': 'warn',
 		'@atlaskit/design-system/no-html-checkbox': 'warn',

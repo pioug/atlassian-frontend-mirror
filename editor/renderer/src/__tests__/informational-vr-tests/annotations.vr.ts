@@ -2,12 +2,13 @@
 import type { Locator } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
+
+import { selectors } from '../__helpers/page-objects/_annotation.vr.ap';
+import { RendererWithAnnotationsOverMarksWrapper } from '../__helpers/renderer-with-text-highlighter.vr.ap';
 import {
 	RendererWithAnnotations,
 	RendererWithTableAndAnnotations,
 } from '../__helpers/rendererWithAnnotations.vr.ap';
-import { selectors } from '../__helpers/page-objects/_annotation.vr.ap';
-import { RendererWithAnnotationsOverMarksWrapper } from '../__helpers/renderer-with-text-highlighter.vr.ap';
 
 snapshotInformational(RendererWithAnnotationsOverMarksWrapper, {
 	description: 'displays the correct annotation highlight',

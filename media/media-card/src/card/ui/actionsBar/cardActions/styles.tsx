@@ -1,13 +1,13 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type SerializedStyles } from '@emotion/react';
-
 import { type MouseEvent, type HTMLAttributes } from 'react';
 import type React from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, type SerializedStyles } from '@emotion/react';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { token } from '@atlaskit/tokens';
 import { borderRadius, center } from '@atlaskit/media-ui/mixins';
 import { size } from '@atlaskit/media-ui/size';
+import { token } from '@atlaskit/tokens';
 
 export enum CardActionIconButtonVariant {
 	default = 'default',

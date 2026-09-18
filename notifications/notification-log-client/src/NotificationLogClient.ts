@@ -1,4 +1,5 @@
 import { type RequestServiceOptions, utils } from '@atlaskit/util-service-support';
+
 import {
 	type NotificationLogProvider,
 	type NotificationCountResponse,

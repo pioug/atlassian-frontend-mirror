@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { z } from 'zod';
 
 import { i18nConversionGuide } from './guide';

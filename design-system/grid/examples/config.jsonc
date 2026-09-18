@@ -4,12 +4,12 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "01-grid-cards.vr.ap.tsx",
-    "02-grid-widths.vr.ap.tsx",
-    "03-grid-no-inline-padding.vr.ap.tsx",
-    "20-grid-hidden-item.vr.ap.tsx",
-    "90-jsm-grid.tsx",
-    "96-grid-container.vr.ap.tsx"
-  ]
+	"testExamples": [
+		"01-grid-cards.vr.ap.tsx",
+		"02-grid-widths.vr.ap.tsx",
+		"03-grid-no-inline-padding.vr.ap.tsx",
+		"20-grid-hidden-item.vr.ap.tsx",
+		"90-jsm-grid.tsx",
+		"96-grid-container.vr.ap.tsx",
+	],
 }

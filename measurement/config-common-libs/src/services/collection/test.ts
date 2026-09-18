@@ -2,7 +2,6 @@ import { readFileSync } from 'fs';
 import path from 'path';
 
 import { ConfigError, type ParseOptions, type ZConfigMap } from '../types';
-
 import { ConfigCollection } from './index';
 
 const fixtures = path.join(__dirname, '__fixtures__');

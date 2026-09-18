@@ -13,7 +13,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import GridIcon from '@atlaskit/icon/core/grid';
 
 import type { TablePlugin, TablePluginOptions } from '../../tablePluginType';
-
 import { insertTableFromQuickInsert } from './insertTableFromQuickInsert';
 
 type Props = {

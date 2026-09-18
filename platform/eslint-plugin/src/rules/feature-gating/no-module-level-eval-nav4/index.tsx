@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
 import type { Node } from 'estree';
+
 import { getScope } from '../../util/context-compat';
 
 const featureLibraryFunctions = new Set([

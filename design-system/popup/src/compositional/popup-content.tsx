@@ -8,7 +8,6 @@ import Portal from '@atlaskit/portal/portal';
 import PopperWrapper from '../popper-wrapper';
 import { type ContentProps, type PopupProps as LegacyPopupProps } from '../types';
 import { usePopupAppearance } from '../use-appearance';
-
 import { IdContext } from './id-context';
 import { IsOpenContext } from './is-open-context';
 import { PopupContentTopLayer } from './popup-content-top-layer';

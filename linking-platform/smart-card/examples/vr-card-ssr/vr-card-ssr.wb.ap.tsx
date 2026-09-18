@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import ResolvedBlockCardSsrExample from './resolved-block-card-ssr.vr.ap';
 import ResolvedInlineCardSsrExample from './resolved-inline-card-ssr.vr.ap';
 

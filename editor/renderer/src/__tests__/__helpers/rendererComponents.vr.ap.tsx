@@ -1,38 +1,34 @@
 import React from 'react';
 import type { ComponentType } from 'react';
+
+import { IntlProvider } from 'react-intl';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { createMockEnvironment } from 'relay-test-utils';
 
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import CardClient from '@atlaskit/link-provider/client';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import pixelWidthMediaNested from '../__fixtures__/media-pixel-size-nested.adf.json';
-
-import pixelWidthGreaterThenDefault from '../__fixtures__/media-pixel-greater-then-default.adf.json';
-
-import inlineImageDefault from '../__fixtures__/media-inline-image-default.adf.json';
-import inlineImageError from '../__fixtures__/media-inline-image-error.adf.json';
-import inlineImageWithBorders from '../__fixtures__/media-inline-image-with-borders.adf.json';
-import inlineImageWithLinks from '../__fixtures__/media-inline-image-with-links.adf.json';
-import inlineImageWideLayout from '../__fixtures__/media-inline-image-wide-layout.adf.json';
-
-import inlineImageWithLinksAndBorders from '../__fixtures__/media-inline-image-with-links-borders.adf.json';
-import datasourceWithRichtext from '../__fixtures__/datasource-with-richtext.adf.json';
-import listInBlockquote from '../__fixtures__/list-in-blockquote.adf.json';
-import panelWithMedia from '../__fixtures__/panel-with-media.json';
-
-import { overflowTable } from '../__fixtures__/overflow.adf';
-
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { IntlProvider } from 'react-intl';
-import { Renderer } from '../../entry-points/renderer-default';
-import type { RendererProps } from '../..';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+
+import type { RendererProps } from '../..';
+import { Renderer } from '../../entry-points/renderer-default';
+import datasourceWithRichtext from '../__fixtures__/datasource-with-richtext.adf.json';
+import listInBlockquote from '../__fixtures__/list-in-blockquote.adf.json';
+import inlineImageDefault from '../__fixtures__/media-inline-image-default.adf.json';
+import inlineImageError from '../__fixtures__/media-inline-image-error.adf.json';
+import inlineImageWideLayout from '../__fixtures__/media-inline-image-wide-layout.adf.json';
+import inlineImageWithBorders from '../__fixtures__/media-inline-image-with-borders.adf.json';
+import inlineImageWithLinksAndBorders from '../__fixtures__/media-inline-image-with-links-borders.adf.json';
+import inlineImageWithLinks from '../__fixtures__/media-inline-image-with-links.adf.json';
+import pixelWidthGreaterThenDefault from '../__fixtures__/media-pixel-greater-then-default.adf.json';
+import pixelWidthMediaNested from '../__fixtures__/media-pixel-size-nested.adf.json';
+import { overflowTable } from '../__fixtures__/overflow.adf';
+import panelWithMedia from '../__fixtures__/panel-with-media.json';
 
 const mockEnvironment = createMockEnvironment();
 

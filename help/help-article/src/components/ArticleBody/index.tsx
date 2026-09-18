@@ -1,18 +1,19 @@
 import React, { useEffect, useLayoutEffect } from 'react';
-import debounce from 'lodash/debounce';
 import ReactDOM from 'react-dom';
-import { createRoot, type Root } from 'react-dom/client';
+
 import { captureMessage } from '@sentry/browser';
+import debounce from 'lodash/debounce';
+import { createRoot, type Root } from 'react-dom/client';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { ReactRenderer } from '@atlaskit/renderer';
 
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
 import type { AdfDoc } from '../../model/HelpArticle';
-
 import resetCSS from './resetCss';
 import { ArticleFrame } from './styled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const reactRoots = new WeakMap<Element, Root>();
 

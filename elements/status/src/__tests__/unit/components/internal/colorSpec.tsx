@@ -1,9 +1,12 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
+
+import { fireEvent, screen } from '@testing-library/react';
+
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
 import { ANALYTICS_HOVER_DELAY } from '../../../../components/constants';
 import Color from '../../../../components/internal/color';
 import { renderWithIntl } from '../../helpers/_testing-library';
-import { fireEvent, screen } from '@testing-library/react';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

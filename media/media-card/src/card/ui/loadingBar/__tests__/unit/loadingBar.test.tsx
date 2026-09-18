@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
+import { render } from '@atlassian/testing-library';
 
 import { LoadingBar } from '../../loadingBar';
 

@@ -1,7 +1,7 @@
+import { isObject } from '../utils';
 import type SchemaNode from './schema-node';
 import SchemaNodeWithValidators from './schema-node-with-validators';
 import type { Indexed } from './schema-node-with-validators';
-import { isObject } from '../utils';
 
 type Properties = {
 	[key: string]: {

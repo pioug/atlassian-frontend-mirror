@@ -14,7 +14,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
-
 import { LogoRenderer } from './logo-renderer';
 
 const anchorStyles = cssMap({

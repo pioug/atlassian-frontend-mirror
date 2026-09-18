@@ -1,14 +1,14 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
+
 import { fireEvent, screen, within, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { renderWithIntl } from '../__tests__/_testing-library';
-
 import { ReactionsDialog, type ReactionsDialogProps } from './ReactionsDialog';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

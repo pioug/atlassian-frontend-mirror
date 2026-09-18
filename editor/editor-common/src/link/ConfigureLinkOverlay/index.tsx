@@ -18,7 +18,6 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { cardMessages } from '../../messages';
-
 import Dropdown from './Dropdown';
 import type { OnDropdownChange } from './Dropdown';
 import { StyledButton } from './StyledButton';

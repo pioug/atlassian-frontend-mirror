@@ -4,15 +4,14 @@ import type { UnbindFn } from 'bind-event-listener';
 import { isBlockControlsSuppressionTarget } from '@atlaskit/editor-common/block-controls-suppression';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
-
 import { RIGHT_MARGIN_ROVO_GAP_PX } from './constants';
 import { handleKeyDown } from './handle-key-down';
 import { handleMouseEnter, handleMouseLeave, handleMouseMove } from './handle-mouse-move';

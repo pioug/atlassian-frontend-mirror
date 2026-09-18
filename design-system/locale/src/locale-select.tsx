@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Select from '@atlaskit/select/default';
 import { components } from '@atlaskit/react-select/components';
+import Select from '@atlaskit/select/default';
 import type { SingleValueProps } from '@atlaskit/select/types';
 
 import defaultLocales from './default-locales';

@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
+import { token } from '@atlaskit/tokens';
+
+import { messages } from '../messages';
+import { type HelpLayout } from '../model/HelpLayout';
 import Header from './Header';
 import { SideNav } from './SideNav';
-
-import { type HelpLayout } from '../model/HelpLayout';
-import { messages } from '../messages';
-import { token } from '@atlaskit/tokens';
 import { Container, Section, HelpFooter, LoadingContainer, LoadingRectangle } from './styled';
 
 export const HelpContent: React.FC<HelpLayout & WrappedComponentProps> = (props) => {

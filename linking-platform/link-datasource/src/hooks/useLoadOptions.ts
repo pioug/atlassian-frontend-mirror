@@ -7,7 +7,6 @@ import {
 } from '@atlaskit/linking-types/datasource-actions';
 
 import type { ExecuteFetch } from '../state/actions';
-
 import { useDatasourceTableFlag } from './useDatasourceTableFlag';
 
 const loadOptions = async <T>(

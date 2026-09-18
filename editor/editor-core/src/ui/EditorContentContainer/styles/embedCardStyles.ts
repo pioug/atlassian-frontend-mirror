@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
 	@repo/internal/deprecations/deprecation-ticket-required,
 	@atlaskit/ui-styling-standard/no-exported-styles */
+
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 

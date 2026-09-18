@@ -1,5 +1,4 @@
 import { type TeamContainer, type TeamWebLink } from '../types';
-
 import type { TeamLinkIconData } from './team-web-link-converters';
 import { webLinkToContainer } from './web-link-to-container';
 

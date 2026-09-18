@@ -13,7 +13,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
-
 import {
 	ListsIndentationHeroButtonCollapsed,
 	ListsIndentationHeroButtonNew,

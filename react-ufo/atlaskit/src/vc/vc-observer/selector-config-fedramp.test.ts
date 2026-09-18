@@ -1,7 +1,6 @@
 import { isFedrampModerate } from '@atlaskit/atlassian-context/is-fedramp-moderate';
 
 import { __resetFedrampOverrideCacheForTests, setUFOConfig } from '../../config';
-
 import { VCObserver } from './index';
 
 jest.mock('@atlaskit/atlassian-context/is-fedramp-moderate', () => ({

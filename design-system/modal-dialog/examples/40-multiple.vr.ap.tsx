@@ -14,13 +14,13 @@ import { CheckboxField } from '@atlaskit/form/checkbox-field';
 import Field from '@atlaskit/form/field';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { FormSection } from '@atlaskit/form/form-section';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import { FullScreenModalDialog } from '@atlaskit/modal-dialog/full-screen';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { FullScreenModalDialog } from '@atlaskit/modal-dialog/full-screen';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

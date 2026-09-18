@@ -8,7 +8,6 @@ import { includesHardCodedColor } from '../utils/includes-hard-coded-color';
 import { isDecendantOfPrimitive } from '../utils/is-decendant-of-primitive';
 import { isDecendantOfSvgElement } from '../utils/is-decendant-of-svg-element';
 import { isHardCodedColor } from '../utils/is-hard-coded-color';
-
 import { getTokenSuggestion } from './get-token-suggestion';
 import type { RuleConfig } from './types';
 

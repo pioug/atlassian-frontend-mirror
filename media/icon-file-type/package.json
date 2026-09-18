@@ -59,6 +59,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@emotion/styled": "root:*",
 		"fs-extra": "root:*",
 		"jscodeshift": "root:*",

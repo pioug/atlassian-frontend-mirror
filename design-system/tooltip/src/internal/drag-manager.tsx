@@ -6,6 +6,7 @@
  *
  * We can reconsider this choice in the future.
  */
+
 import { bindAll } from 'bind-event-listener';
 
 type Registration = {

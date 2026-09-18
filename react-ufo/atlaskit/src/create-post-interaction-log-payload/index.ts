@@ -21,7 +21,6 @@ import {
 	type InteractionType,
 	segmentUnmountCache,
 } from '../interaction-metrics';
-
 import getLateMutations from './get-late-mutations';
 
 function getParentStack(labelStack: LabelStack | null | undefined) {

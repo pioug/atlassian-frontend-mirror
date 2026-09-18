@@ -12,7 +12,22 @@ import React, {
 	useRef,
 } from 'react';
 import type { ComponentProps } from 'react';
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
+import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuid } from 'uuid';
+
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { isPanelNestingTableSupported } from '@atlaskit/editor-common/nesting';
+import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
+import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
+import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
 import { ProviderFactory, ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory';
 import {
 	BaseTheme,
@@ -21,30 +36,17 @@ import {
 	WidthProvider,
 	WithCreateAnalyticsEvent,
 } from '@atlaskit/editor-common/ui';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
-import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
-
-import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { isPanelNestingTableSupported } from '@atlaskit/editor-common/nesting';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
-import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
-import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
-import { useScrollToBlock } from '../hooks/useScrollToBlock';
 import {
 	getAnalyticsAppearance,
 	getAnalyticsEventSeverity,
 	shouldForceTracking,
 } from '@atlaskit/editor-common/utils';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import { v4 as uuid } from 'uuid';
 import type { MediaSSR, RendererContext, RenderOutputStat } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
 import AnalyticsContext from '../../analytics/analyticsContext';
@@ -56,31 +58,30 @@ import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/util
 import { RendererContextProvider, useRendererContext } from '../../renderer-context';
 import type { Serializer } from '../../serializer';
 import { findInTree } from '../../utils';
+import { ActiveHeaderIdProvider } from '../active-header-id-provider';
+import { AnnotationsPositionContext, AnnotationsWrapper } from '../annotations';
+import { CollapsibleHeadingsProvider } from '../collapsible-headings';
+import { useScrollToBlock } from '../hooks/useScrollToBlock';
+import type { RendererProps } from '../renderer-props';
 import {
 	RendererContext as ActionsContext,
 	RendererActionsContext,
 } from '../RendererActionsContext';
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
-import { ActiveHeaderIdProvider } from '../active-header-id-provider';
-import { AnnotationsPositionContext, AnnotationsWrapper } from '../annotations';
-import { CollapsibleHeadingsProvider } from '../collapsible-headings';
-import type { RendererProps } from '../renderer-props';
-import { ErrorBoundary } from './ErrorBoundary';
+import { getHeightInfoPayload, getWidthInfoPayload } from './analytics-utils';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
 import { isInteractiveElement } from './click-to-edit';
 import { countNodes } from './count-nodes';
+import { ErrorBoundary } from './ErrorBoundary';
+import { getBaseFontSize } from './get-base-font-size';
+import { PortalContext } from './PortalContext';
+import { removeEmptySpaceAroundContent } from './rendererHelper';
+import { RendererStyleContainer } from './RendererStyleContainer';
 import { TELEPOINTER_ID } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import type { RendererAppearance, RendererContentMode } from './types';
-import { ValidationContext } from './ValidationContext';
-import { RendererStyleContainer } from './RendererStyleContainer';
-import { getBaseFontSize } from './get-base-font-size';
-import { removeEmptySpaceAroundContent } from './rendererHelper';
 import { useMemoFromPropsDerivative } from './useMemoFromPropsDerivative';
-import { PortalContext } from './PortalContext';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { getHeightInfoPayload, getWidthInfoPayload } from './analytics-utils';
+import { ValidationContext } from './ValidationContext';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;

@@ -1,6 +1,8 @@
 /* eslint-disable @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated compatibility re-export shims. */
+
 import type { BreakoutMarkDefinition } from '../marks';
 import type { BlockCardDefinition as BlockCard } from './block-card';
+import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type { CodeBlockDefinition as CodeBlock } from './code-block';
 import type { DecisionListDefinition as DecisionList } from './decision-list';
 import type { HeadingDefinition as Heading } from './heading';
@@ -8,7 +10,6 @@ import type { MediaGroupDefinition as MediaGroup } from './media-group';
 import type { MediaSingleDefinition as MediaSingle } from './media-single';
 import type { ParagraphDefinition as Paragraph } from './paragraph';
 import type { RuleDefinition as Rule } from './rule';
-import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type { TableDefinition as Table } from './tableNodes';
 import type { TaskListDefinition as TaskList } from './task-list';
 import type {

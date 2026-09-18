@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import FailedFetchError from '@atlaskit/frontend-utilities/retry-operation/FailedFetchError'` instead.
  */
+
 export { FailedFetchError } from './errors/FailedFetchError';
 /**
  * @deprecated Use `import { retryOnException } from '@atlaskit/frontend-utilities/retry-operation/retry-on-exception'` instead.

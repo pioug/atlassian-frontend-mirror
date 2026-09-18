@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import Loadable from 'react-loadable';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -23,6 +25,7 @@ import { nodeToJSON } from '@atlaskit/editor-common/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import Dropdown from './Dropdown';
 interface Props {
@@ -54,6 +57,11 @@ type ExtensionButtonProps = {
 
 type ExtensionIconModule = ExtensionToolbarButton['icon'];
 
+type ExtensionIconProps = {
+	icon: ExtensionIconModule;
+	label: string;
+};
+
 const noop = () => null;
 
 const isDefaultExport = <T extends Object>(mod: T | { default: T }): mod is { default: T } => {
@@ -68,21 +76,41 @@ const resolveExtensionIcon = async (getIcon: ExtensionIconModule) => {
 	return isDefaultExport(maybeIcon) ? maybeIcon.default : maybeIcon;
 };
 
+const ButtonIconLazy = ({ icon, label }: ExtensionIconProps) => {
+	const Icon = React.useMemo(() => lazyForPaint(() => resolveExtensionIcon(icon)), [icon]);
+
+	return (
+		<LazySuspense fallback={null}>
+			<Icon label={label} />
+		</LazySuspense>
+	);
+};
+
+const ButtonIconLoadable = ({ icon, label }: ExtensionIconProps) => {
+	const Icon = React.useMemo(
+		() =>
+			Loadable<{ label: string }, never>({
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-await
+				loader: async () => resolveExtensionIcon(icon),
+				loading: noop,
+			}),
+		[icon],
+	);
+
+	return <Icon label={label} />;
+};
+
+const ExtensionIcon = ({ icon, label }: ExtensionIconProps) => {
+	return isExperimentEnabled('platform_editor_loosely_lazy_migration') ? (
+		<ButtonIconLazy icon={icon} label={label} />
+	) : (
+		<ButtonIconLoadable icon={icon} label={label} />
+	);
+};
+
 const ExtensionButton = (props: ExtensionButtonProps) => {
 	const { item, node, extensionApi, areAnyNewToolbarFlagsEnabled } = props;
-
-	const ButtonIcon = React.useMemo(
-		() =>
-			item.icon
-				? Loadable<{ label: string }, never>({
-						// Ignored via go/ees005
-						// eslint-disable-next-line require-await
-						loader: async () => resolveExtensionIcon(item.icon),
-						loading: noop,
-					})
-				: undefined,
-		[item.icon],
-	);
 
 	const onClick = () => {
 		if (typeof item.action !== 'function') {
@@ -115,7 +143,7 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 		<Button
 			title={item.label}
 			ariaLabel={getAriaLabel()}
-			icon={ButtonIcon ? <ButtonIcon label={item.label || ''} /> : undefined}
+			icon={item.icon ? <ExtensionIcon icon={item.icon} label={item.label || ''} /> : undefined}
 			onClick={onClick}
 			tooltipContent={item.tooltip}
 			tooltipStyle={item.tooltipStyle}

@@ -1,5 +1,6 @@
 import React, { type ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+
 import { createRoot, type Root } from 'react-dom/client';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';

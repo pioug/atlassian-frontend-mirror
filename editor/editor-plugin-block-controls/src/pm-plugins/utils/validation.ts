@@ -12,8 +12,8 @@ import {
 	type ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const isInsideTable = (nodeType: NodeType): Boolean => {
 	const { tableCell, tableHeader } = nodeType.schema.nodes;

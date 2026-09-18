@@ -13,7 +13,6 @@ import {
 	type CardInnerAppearance,
 } from '../../../view/Card/types';
 import { type TransformUrlFn } from '../../action/types';
-
 import { extractAISummaryAction } from './extract-ai-summary-action';
 import { extractAutomationAction } from './extract-automation-action';
 import { extractCopyLinkClientAction } from './extract-copy-link-action';

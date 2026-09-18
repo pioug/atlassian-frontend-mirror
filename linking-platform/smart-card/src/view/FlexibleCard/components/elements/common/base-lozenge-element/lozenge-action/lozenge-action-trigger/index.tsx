@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, cx, jsx } from '@compiled/react';
@@ -17,7 +18,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../../../../../messages';
-
 import { type LozengeActionTriggerProps } from './type';
 
 const styles = cssMap({

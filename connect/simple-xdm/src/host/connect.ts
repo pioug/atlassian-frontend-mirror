@@ -1,6 +1,5 @@
 // @ts-nocheck
 import Utils from '../common/util';
-
 import { getPlatformFeatureFlags } from './feature-flag';
 import XDMRPC from './xdmrpc';
 

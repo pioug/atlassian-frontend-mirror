@@ -6,7 +6,6 @@ import type {
 	SyncBlockJiraIssueType,
 	SyncBlockSourceInfo,
 } from '../providers/types';
-
 import type { SYNC_BLOCK_PRODUCTS } from './consts';
 
 export type BlockInstanceId = string;

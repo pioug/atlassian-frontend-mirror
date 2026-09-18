@@ -3,7 +3,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { akEditorBreakoutPadding, breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
 
 import type { EditorContainerWidth } from '../../types';
-
 import { calcColumnsFromPx } from './calcColumnsFromPx';
 import { calcPxFromColumns } from './calcPxFromColumns';
 import { calcPxFromPct } from './calcPxFromPct';

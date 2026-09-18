@@ -4,19 +4,19 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-item-variations.tsx",
-    "05-menu-group.vr.ap.tsx",
-    "06-skeleton-items.vr.ap.tsx",
-    "button-item.vr.ap.tsx",
-    "custom-item.vr.ap.tsx",
-    "heading-item.tsx",
-    "link-item.vr.ap.tsx",
-    "loading-skeleton.tsx",
-    "menu.tsx",
-    "scrollable-sections.tsx",
-    "selection-states.vr.ap.tsx",
-    "skeleton-heading-item.tsx",
-    "skeleton-item.tsx"
-  ]
+	"testExamples": [
+		"00-item-variations.tsx",
+		"05-menu-group.vr.ap.tsx",
+		"06-skeleton-items.vr.ap.tsx",
+		"button-item.vr.ap.tsx",
+		"custom-item.vr.ap.tsx",
+		"heading-item.tsx",
+		"link-item.vr.ap.tsx",
+		"loading-skeleton.tsx",
+		"menu.tsx",
+		"scrollable-sections.tsx",
+		"selection-states.vr.ap.tsx",
+		"skeleton-heading-item.tsx",
+		"skeleton-item.tsx",
+	],
 }

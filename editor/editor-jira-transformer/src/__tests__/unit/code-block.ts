@@ -1,6 +1,7 @@
-import { code_block, doc, ul, li, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { checkParseEncodeRoundTrips, checkEncode, checkParse } from './_test-helpers';
 import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
+import { code_block, doc, ul, li, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { checkParseEncodeRoundTrips, checkEncode, checkParse } from './_test-helpers';
 
 const schema = createJIRASchema({ allowCodeBlock: true, allowLists: true });
 

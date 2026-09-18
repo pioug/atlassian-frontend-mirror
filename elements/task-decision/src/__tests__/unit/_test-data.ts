@@ -1,10 +1,9 @@
-import { type ServiceTask, type Task } from '../../types';
-
-import { convertServiceTaskToTask } from '../../api/TaskDecisionUtils';
-
 import addMinutes from 'date-fns/addMinutes';
 
 import { getServiceTasksResponse } from '@atlaskit/util-data-test/task-decision-story-data';
+
+import { convertServiceTaskToTask } from '../../api/TaskDecisionUtils';
+import { type ServiceTask, type Task } from '../../types';
 
 export {
 	getServiceTasksResponse,

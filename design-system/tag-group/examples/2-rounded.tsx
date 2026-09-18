@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import Tag from '@atlaskit/tag/removable-tag';
 import TagGroup from '@atlaskit/tag-group/tag-group';
+import Tag from '@atlaskit/tag/removable-tag';
 
 const tagNames = [
 	'liquorice',

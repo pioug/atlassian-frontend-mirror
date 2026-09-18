@@ -5,7 +5,6 @@ import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stabl
 import type { UIAnalyticsEventHandler } from '../../events/UIAnalyticsEvent';
 import { useAnalyticsContext } from '../../hooks/useAnalyticsContext';
 import { useTrackedRef } from '../../hooks/useTrackedRef';
-
 import type { AnalyticsListenerFunction } from './types';
 
 const AnalyticsListener: AnalyticsListenerFunction = ({ children, channel, onEvent }) => {

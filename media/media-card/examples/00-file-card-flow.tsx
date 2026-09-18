@@ -2,10 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+
 import React from 'react';
 import { Component, type SyntheticEvent } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+
+import Button from '@atlaskit/button/default/button';
+import {
+	UploadController,
+	type FileIdentifier,
+	MediaClient,
+	type MediaSubscribable,
+} from '@atlaskit/media-client';
 import {
 	defaultCollectionName,
 	genericFileId,
@@ -24,16 +34,9 @@ import {
 	emptyImageFileId,
 } from '@atlaskit/media-test-helpers';
 
-import Button from '@atlaskit/button/default/button';
-import Card from '../src/card/cardLoader';
-import {
-	UploadController,
-	type FileIdentifier,
-	MediaClient,
-	type MediaSubscribable,
-} from '@atlaskit/media-client';
-import { cardWrapperStyles, cardFlowHeaderStyles } from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';
+import { cardWrapperStyles, cardFlowHeaderStyles } from '../example-helpers/styles';
+import Card from '../src/card/cardLoader';
 
 const mediaClientConfig = createUploadMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);

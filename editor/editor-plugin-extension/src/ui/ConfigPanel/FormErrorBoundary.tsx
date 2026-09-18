@@ -3,9 +3,9 @@ import React from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {

@@ -5,8 +5,8 @@ import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'reac
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import UploadIcon from '@atlaskit/icon/core/upload';
-import type { OptionType, ValueType } from '@atlaskit/select/types';
 import { PopupSelect } from '@atlaskit/select/popup-select';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

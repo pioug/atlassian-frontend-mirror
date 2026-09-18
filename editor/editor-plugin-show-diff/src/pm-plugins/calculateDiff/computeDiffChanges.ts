@@ -16,11 +16,10 @@
 import { ChangeSet, simplifyChanges, type Change } from 'prosemirror-changeset';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { DiffType, SmartDiffThresholds } from '../../showDiffPluginType';
-
 import { diffBySteps } from './diffBySteps';
 import { groupChangesByBlock } from './groupChangesByBlock';
 import { optimizeChanges } from './optimizeChanges';

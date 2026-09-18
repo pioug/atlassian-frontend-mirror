@@ -6,7 +6,6 @@ import { type Flag, GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudo
 import ButtonItem from '@atlaskit/menu/button-item';
 
 import { extractIdFromAri } from '../../../client/extractIdFromAri';
-
 import { messages } from './messages';
 import { type ActionItem, MoreActions } from './more-actions';
 

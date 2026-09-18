@@ -1,6 +1,6 @@
 import React from 'react';
-
 import ReactDOM from 'react-dom';
+
 import { createRoot, type Root } from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
 

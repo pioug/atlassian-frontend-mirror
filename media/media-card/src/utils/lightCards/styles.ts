@@ -1,7 +1,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
+
 import { center, borderRadius } from '@atlaskit/media-ui/mixins';
+import { token } from '@atlaskit/tokens';
+
 import { type WrapperProps } from './types';
 
 export const wrapperStyles = ({ dimensions }: WrapperProps): SerializedStyles =>

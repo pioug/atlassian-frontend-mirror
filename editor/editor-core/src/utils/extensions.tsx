@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Loadable from 'react-loadable';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
@@ -92,6 +94,24 @@ const dummyExtensionAPI: ExtensionAPI = {
 	},
 };
 
+type IconLoader = NonNullable<MenuItem['icon']>;
+// Keep lazy icon component identities stable across menu unmounts and remounts.
+const lazyExtensionIconCache = new WeakMap<IconLoader, ReturnType<typeof lazyForPaint>>();
+
+const LazyExtensionIcon = ({ iconLoader }: { iconLoader: IconLoader }) => {
+	let Icon = lazyExtensionIconCache.get(iconLoader);
+	if (!Icon) {
+		Icon = lazyForPaint(() => iconLoader());
+		lazyExtensionIconCache.set(iconLoader, Icon);
+	}
+
+	return (
+		<LazySuspense fallback={null}>
+			<Icon label="" />
+		</LazySuspense>
+	);
+};
+
 /** Creates legacy and registered Quick Insert representations for extensions. */
 export async function extensionProviderToQuickInsertProvider(
 	extensionProvider: ExtensionProvider,
@@ -136,11 +156,6 @@ export async function extensionProviderToQuickInsertProvider(
 			const quickInsertItems = getQuickInsertItemsFromModule<QuickInsertItem>(
 				extensions,
 				(item) => {
-					const Icon = Loadable<{ label: string }, object>({
-						loader: item.icon,
-						loading: () => null,
-					});
-
 					return {
 						...((isExperimentEnabled('platform_editor_slash_app_category_analytics') ||
 							isExperimentEnabled('platform_editor_slash_command')) &&
@@ -153,7 +168,17 @@ export async function extensionProviderToQuickInsertProvider(
 						key: item.key,
 						title: item.title,
 						description: item.description,
-						icon: () => <Icon label="" />,
+						icon: () => {
+							if (isExperimentEnabled('platform_editor_loosely_lazy_migration')) {
+								return <LazyExtensionIcon iconLoader={item.icon} />;
+							}
+
+							const Icon = Loadable<{ label: string }, object>({
+								loader: item.icon,
+								loading: () => null,
+							});
+							return <Icon label="" />;
+						},
 						keywords: item.keywords,
 						featured: item.featured,
 						priority: item.priority,

@@ -1,10 +1,10 @@
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
+import { _overrides } from '@atlaskit/tmp-editor-statsig/setup';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { EditorCardProvider } from '..';
 import { mocks } from './__fixtures__/mocks';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { _overrides } from '@atlaskit/tmp-editor-statsig/setup';
-
 import { getMockProvidersResponse, expectedInlineAdf, expectedEmbedAdf } from './test-utils';
 
 const mockGetExperimentValue = jest.fn();

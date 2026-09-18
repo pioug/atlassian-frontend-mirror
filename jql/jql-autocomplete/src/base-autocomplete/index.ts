@@ -7,7 +7,6 @@ import {
 import { type BufferedTokenStream, type Parser, Token } from 'antlr4ts';
 
 import { type Position } from '../common/types';
-
 import {
 	type RuleSuggestion,
 	type RuleSuggestionsWithRuleList,

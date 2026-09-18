@@ -1,6 +1,4 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { adf2wiki } from '../_test-helpers';
-
 import {
 	blockquote,
 	doc,
@@ -19,6 +17,8 @@ import {
 	panel,
 	hr as rule,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { adf2wiki } from '../_test-helpers';
 
 describe('ADF => WikiMarkup => ADF - Nested expand', () => {
 	test('should convert a list inside a nested expand', () => {

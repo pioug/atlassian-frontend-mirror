@@ -6,8 +6,8 @@ import { bind } from 'bind-event-listener';
 import { Box } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import FlagGroup from '../../flag-group';
 import Flag from '../../flag';
+import FlagGroup from '../../flag-group';
 import { type FlagProps } from '../../types';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

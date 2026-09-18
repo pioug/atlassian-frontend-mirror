@@ -1,8 +1,8 @@
 import type { EmojiResponse } from '../types';
 import { isTestEnvironment } from '../util/is-test-environment';
-import type { EmojiLoaderConfig } from './EmojiUtils';
 import { denormaliseEmojiServiceResponse } from './denormaliseEmojiServiceResponse';
 import { emojiRequest } from './emojiRequest';
+import type { EmojiLoaderConfig } from './EmojiUtils';
 
 /**
  * Shared cache of in-flight/resolved emoji load promises, keyed by the request URL so that

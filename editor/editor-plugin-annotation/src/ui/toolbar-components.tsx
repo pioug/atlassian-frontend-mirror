@@ -13,7 +13,6 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import type { AnnotationProviders } from '../types';
-
 import { CommentButton } from './CommentButton/CommentButton';
 
 export const getToolbarComponents = (

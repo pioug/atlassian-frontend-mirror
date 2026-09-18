@@ -1,5 +1,6 @@
-import { type ArticleItem } from '../../../model/Article';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
+import { type ArticleItem } from '../../../model/Article';
 
 export interface ArticlesList {
 	/* List of articles. This prop is optional */

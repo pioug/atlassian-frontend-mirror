@@ -1,5 +1,7 @@
-import { render } from '@testing-library/react';
 import React from 'react';
+
+import { render } from '@testing-library/react';
+
 import { dataAttributes, updateWindowSelectionAroundDraft } from '../../dom';
 
 let createRangeMock: jest.SpyInstance;

@@ -7,7 +7,6 @@ import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/exam
 import type { EditorActions } from '../src';
 import { usePresetContext } from '../src/presets/context';
 import { default as EditorContext } from '../src/ui/EditorContext';
-
 import { default as FullPageExample } from './5-full-page';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];

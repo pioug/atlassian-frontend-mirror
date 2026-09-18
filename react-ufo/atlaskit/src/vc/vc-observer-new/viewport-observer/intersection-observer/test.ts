@@ -1,5 +1,4 @@
 import type { VCObserverEntryType } from '../../types';
-
 import { createIntersectionObserver } from './index';
 
 describe('createIntersectionObserver', () => {

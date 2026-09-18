@@ -1,13 +1,14 @@
 /* eslint-disable import/order */
+
+// Mock must be imported before ThemeProvider
+import { setMatchMediaPrefersDark } from '../mocks/match-media.mock';
+
 import React from 'react';
 
 import * as tokensGetGlobalTheme from '@atlaskit/tokens/get-global-theme';
 import * as tokensSetGlobalTheme from '@atlaskit/tokens/set-global-theme';
 import { themeObjectToString } from '@atlaskit/tokens/theme-object-to-string';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
-
-// Mock must be imported before ThemeProvider
-import { setMatchMediaPrefersDark } from '../mocks/match-media.mock';
 
 import AppProvider from '../../src/app-provider';
 import { ThemeProvider } from '../../src/theme-provider';

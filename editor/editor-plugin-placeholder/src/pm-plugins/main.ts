@@ -8,7 +8,6 @@ import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { EMPTY_PARAGRAPH_TIMEOUT_DELAY, pluginKey } from '../placeholderPlugin';
 import type { PlaceholderPlugin, PlaceholderPluginOptions } from '../placeholderPluginType';
-
 import { TYPEWRITER_TYPED_AND_DELETED_DELAY } from './constants';
 import { createPlaceholderDecoration } from './decorations';
 import type { PlaceHolderState } from './types';

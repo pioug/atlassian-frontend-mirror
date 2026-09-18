@@ -1,5 +1,6 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /* eslint-disable @atlaskit/editor/no-re-export -- deprecated shims re-exporting the split `expVal`/`expValNoExposure` modules for backwards compatibility (VOLTC-139). */
+
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';

@@ -1,4 +1,5 @@
 import meow from 'meow';
+
 import app from './';
 
 const cli = meow(

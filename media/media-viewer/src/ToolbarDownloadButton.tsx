@@ -9,8 +9,8 @@ import {
 import { type MediaTraceContext } from '@atlaskit/media-common';
 
 import { createDownloadButtonClickedEvent } from './analytics/events/ui/downloadButtonClicked';
-import { DownloadItem } from './DownloadItem';
 import { downloadIcon } from './downloadIcon';
+import { DownloadItem } from './DownloadItem';
 
 export const ToolbarDownloadButton = ({
 	state,

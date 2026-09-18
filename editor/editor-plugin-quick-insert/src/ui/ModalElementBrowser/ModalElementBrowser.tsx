@@ -15,10 +15,10 @@ import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
-import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { useModal } from '@atlaskit/modal-dialog/hooks';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { token } from '@atlaskit/tokens';
 
 import { getCategories } from './categories';

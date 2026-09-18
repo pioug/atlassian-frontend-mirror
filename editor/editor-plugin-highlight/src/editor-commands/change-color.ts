@@ -23,7 +23,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { HighlightPluginAction, highlightPluginKey } from '../pm-plugins/main';
-
 import { getActiveColor } from './color';
 
 const maybeSyncSelectionAfterFormat = (tr: Transaction) => {

@@ -1,7 +1,10 @@
+import React from 'react';
+
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
+
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import EmojiPicker from '../../../../components/picker/EmojiPicker';

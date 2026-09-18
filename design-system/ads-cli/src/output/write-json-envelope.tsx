@@ -3,7 +3,6 @@
  */
 
 import type { Envelope } from '../envelope/types';
-
 import type { Writer } from './writer';
 
 /**

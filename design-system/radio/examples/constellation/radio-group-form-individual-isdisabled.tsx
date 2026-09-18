@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import Form from '@atlaskit/form/form';
 import Field, { type FieldProps } from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { Box } from '@atlaskit/primitives/compiled';
 import RadioGroup from '@atlaskit/radio/radio-group';

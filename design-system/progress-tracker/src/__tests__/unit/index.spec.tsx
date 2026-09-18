@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
-
 import { token } from '@atlaskit/tokens';
+import { render, screen } from '@atlassian/testing-library';
 
 import { ProgressTracker, type Stages } from '../../index';
 import { type Stage } from '../../types';

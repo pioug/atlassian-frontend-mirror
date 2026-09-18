@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "38.1.17",
+	"version": "38.1.18",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -137,6 +137,7 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@emotion/react": "root:*",
 		"@types/deep-equal": "root:*",
 		"fetch-mock": "root:*",

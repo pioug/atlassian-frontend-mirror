@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { TeamContainerSkeleton } from '@atlaskit/teams-public/next/team-container-skeleton'` instead.
  */
+
 export { TeamContainerSkeleton } from './common/ui/team-container-skeleton';
 /**
  * @deprecated Use `import { AddContainerCard } from '@atlaskit/teams-public/next/add-container-card'` instead.

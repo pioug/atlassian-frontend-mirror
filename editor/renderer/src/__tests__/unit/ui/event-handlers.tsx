@@ -1,11 +1,14 @@
 import React from 'react';
-import type { RendererProps } from '../../../ui/renderer-props';
-import { Renderer } from '../../../entry-points/renderer-default';
-import { IntlProvider } from 'react-intl';
+
 import { render } from '@testing-library/react';
-import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
-import initialDoc from '../../__fixtures__/event-handlers.adf.json';
+import { IntlProvider } from 'react-intl';
+
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
+
+import { Renderer } from '../../../entry-points/renderer-default';
+import type { RendererProps } from '../../../ui/renderer-props';
+import initialDoc from '../../__fixtures__/event-handlers.adf.json';
 
 jest.mock('react-lazily-render', () => {
 	let isOnRenderCalled = false;

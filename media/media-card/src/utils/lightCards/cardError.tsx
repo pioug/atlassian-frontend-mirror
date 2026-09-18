@@ -1,9 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
+
 import { ErrorIcon } from './errorIcon';
+import { getDimensionsWithDefault } from './getDimensionsWithDefault';
 import { Wrapper } from './lightCardWrappers';
 import { type StaticCardProps } from './types';
-import { getDimensionsWithDefault } from './getDimensionsWithDefault';
 
 export class CardError extends Component<StaticCardProps, {}> {
 	render(): React.JSX.Element {

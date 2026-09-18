@@ -1,8 +1,8 @@
 /* eslint-env jest */
 /* eslint-disable no-console */
 
-import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
 import { UFOExperience } from '@atlaskit/ufo/experience';
+import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
 import { ExperienceTypes, ExperiencePerformanceTypes } from '@atlaskit/ufo/experience-types';
 
 export const flushPromises = (): Promise<void> => {

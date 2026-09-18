@@ -12,7 +12,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TablePluginState } from '../types';
-
 import { defaultTableSelection } from './default-table-selection';
 import { pluginKey as tableResizingPluginKey } from './table-resizing/plugin-key';
 import { isTableCollapsible } from './utils/collapse';

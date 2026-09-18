@@ -2,19 +2,23 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
-import React from 'react';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { MentionProvider } from '@atlaskit/mention/types';
-import { MentionResource } from '@atlaskit/mention/mention-resource';
-import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+
 import type { ActivityProvider } from '@atlaskit/activity';
 // eslint-disable-next-line  no-restricted-imports -- Legacy package outside of AFM lacks entry points
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiProvider } from '@atlaskit/emoji';
+import { MentionResource } from '@atlaskit/mention/mention-resource';
+import type { MentionProvider } from '@atlaskit/mention/types';
 import { token } from '@atlaskit/tokens';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+
 import { BitbucketTransformer } from '../../src';
 import { content } from './styles';
 

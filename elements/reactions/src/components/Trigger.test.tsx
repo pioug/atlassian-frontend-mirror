@@ -1,7 +1,10 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+
 import { screen, fireEvent, render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { Trigger } from './Trigger';
 

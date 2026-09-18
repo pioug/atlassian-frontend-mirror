@@ -3,7 +3,6 @@ import type {
 	RegisterBlockMenuComponentType,
 	RegisterBlockMenuSection,
 } from '../../blockMenuPluginType';
-
 import type { ChildrenMap } from './types';
 
 /**

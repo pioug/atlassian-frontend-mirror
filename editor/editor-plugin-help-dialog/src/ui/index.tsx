@@ -21,7 +21,6 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 import type { HelpDialogPlugin } from '../helpDialogPluginType';
 import { closeHelpCommand } from '../pm-plugins/commands';
-
 import type { Format } from './Format';
 import { getSupportedFormatting } from './formatting';
 import Modal from './Modal';

@@ -39,8 +39,8 @@ import {
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ActiveNode, BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
@@ -64,7 +64,6 @@ import {
 	transformSliceExpandToNestedExpand,
 	transformSliceNodeType,
 } from '../pm-plugins/utils/validation';
-
 import { getPosWhenMoveNodeDown, getPosWhenMoveNodeUp } from './utils/move-node-utils';
 
 /**
@@ -451,9 +450,7 @@ export const moveNode =
 			api?.metrics?.commands.setContentMoved()({ tr });
 		}
 
-		const preservedSelection = editorExperiment('platform_editor_block_menu', true)
-			? api?.blockControls.sharedState.currentState()?.preservedSelection
-			: undefined;
+		const preservedSelection = api?.blockControls.sharedState.currentState()?.preservedSelection;
 
 		if (preservedSelection) {
 			const $from = tr.doc.resolve(Math.min(start, preservedSelection.from));
@@ -580,10 +577,7 @@ export const moveNode =
 		tr.setMeta(key, { ...currMeta, nodeMoved: true });
 		if (
 			// when move node via block menu, we need to keep the focus on block menu popup, so don't move focus to editor in this scenario
-			!(
-				inputMethod === INPUT_METHOD.BLOCK_MENU &&
-				editorExperiment('platform_editor_block_menu', true)
-			)
+			inputMethod !== INPUT_METHOD.BLOCK_MENU
 		) {
 			api?.core.actions.focus();
 		}

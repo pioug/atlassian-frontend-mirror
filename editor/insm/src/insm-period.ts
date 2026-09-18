@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
+
 import type { INSMSession } from './insm-session';
 import type { Measure } from './types';
 

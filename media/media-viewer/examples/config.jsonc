@@ -4,13 +4,11 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "10-vr-password-input.tsx",
-    "5-vr-mocked-viewer.tsx",
-    "7-vr-empty-file.tsx",
-    "8-vr-archive-side-bar.tsx"
-  ],
-  "exampleDependencies": [
-    "exenv"
-  ]
+	"testExamples": [
+		"10-vr-password-input.tsx",
+		"5-vr-mocked-viewer.tsx",
+		"7-vr-empty-file.tsx",
+		"8-vr-archive-side-bar.tsx",
+	],
+	"exampleDependencies": ["exenv"],
 }

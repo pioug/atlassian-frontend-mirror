@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
+
 import Placeholder from '../../../../react/nodes/placeholder';
 
 describe('Renderer - React/Nodes/Placeholder', () => {

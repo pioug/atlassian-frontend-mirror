@@ -1,4 +1,5 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import type { AddCellArgs, Builder, CellType, Table, TableCell, TableRow } from '../../interfaces';
 
 // Ignored via go/ees005

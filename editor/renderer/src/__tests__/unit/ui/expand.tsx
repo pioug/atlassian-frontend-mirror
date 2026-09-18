@@ -1,16 +1,19 @@
 import React from 'react';
+
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl';
+
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import ExpandWithInt from '../../../ui/Expand';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { ExpandBodyBlock, withExpandBodyBlock } from '../../../ui/utils/expand-body';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
+import ExpandWithInt from '../../../ui/Expand';
+import { ExpandBodyBlock, withExpandBodyBlock } from '../../../ui/utils/expand-body';
 
 // Pinned so a server render and the subsequent client render produce identical ids. `_uniqueId` is
 // a module-level counter, so otherwise they drift and React logs a (harmless, pre-existing)

@@ -1,12 +1,15 @@
+import fs from 'fs';
+import { resolve } from 'path';
+
+import type { StandardizedFilePath } from '@ts-morph/common';
+import { Project } from 'ts-morph';
+import type { Symbol, SourceFile, ExportSpecifier, Node } from 'ts-morph';
+import ts from 'typescript';
+
 // This rule is banning the `Symbol` type from ts-morph. However we need this type in our functions below. The `symbol` replacement is throwing errors
 /* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-wrapper-object-types */
 import { createSignedArtifact } from '@atlassian/codegen';
-import { Project } from 'ts-morph';
-import type { StandardizedFilePath } from '@ts-morph/common';
-import type { Symbol, SourceFile, ExportSpecifier, Node } from 'ts-morph';
-import { resolve } from 'path';
-import fs from 'fs';
-import ts from 'typescript';
+
 import { generateComponentPropTypeSourceCode } from './codeGenerator';
 
 const forgeUIProject = new Project({

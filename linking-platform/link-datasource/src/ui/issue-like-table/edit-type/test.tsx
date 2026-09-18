@@ -1,7 +1,6 @@
 import type { DatasourceType } from '@atlaskit/linking-types/datasource';
 
 import type { DatasourceTypeWithOnlyValues } from '../types';
-
 import { editType } from './editType';
 import { isEditTypeSupported } from './isEditTypeSupported';
 

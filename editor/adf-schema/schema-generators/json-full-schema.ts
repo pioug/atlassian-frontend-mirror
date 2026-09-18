@@ -1,5 +1,7 @@
 import path from 'path';
+
 import { adfToJSON } from '@atlaskit/adf-schema-generator';
+
 import adfNode from '../src/next-schema/full-schema.adf';
 import { writeToFile } from './helpers/writeToFile';
 

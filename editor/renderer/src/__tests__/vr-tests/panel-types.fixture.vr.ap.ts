@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+
 import {
 	customPanelEmojiAndColoredBackground,
 	customPanelEmojiAndColoredBackgroundAndColoredText,
@@ -12,7 +13,6 @@ import {
 	successPanelWithColoredText,
 	warningPanel,
 } from '../__fixtures__/panel-types.adf';
-
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 export const CustomPanelEmojiAndColoredBackground: ComponentType<any> = generateRendererComponent({

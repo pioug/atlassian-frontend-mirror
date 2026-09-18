@@ -1,10 +1,8 @@
 import { DefaultError } from '../../common/utils/error/DefaultError';
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
-
-import { type MutabilityConstraint, type Reason } from './types';
-
 import { NOT_EDITABLE, NOT_EDITABLE_FIELD, NOT_EDITABLE_REASON } from './index';
+import { type MutabilityConstraint, type Reason } from './types';
 
 const defaultConfig = {
 	serviceUrl: `${DEFAULT_CONFIG.stargateRoot}/users/manage`,

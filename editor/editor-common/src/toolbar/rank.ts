@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+
 import {
 	AI_PASTE_MENU_SECTION,
 	AI_SECTION,

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type ElementItem, ElementName, MetadataBlock } from '../../src';
-
 import ExampleContainer from './example-container';
 
 const appearances = ['default', 'inprogress', 'moved', 'new', 'removed', 'success'];

@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+
 import { screen, waitFor } from '@testing-library/react';
 
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';

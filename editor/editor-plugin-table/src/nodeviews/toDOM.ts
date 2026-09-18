@@ -21,7 +21,6 @@ import {
 } from '../pm-plugins/table-resizing/utils/misc';
 import { isContentModeSupported } from '../pm-plugins/utils/tableMode/is-content-mode-supported';
 import { TableCssClassName as ClassName } from '../types';
-
 import { getAlignmentStyle } from './table-container-styles';
 
 type Config = {

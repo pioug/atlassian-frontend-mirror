@@ -6,8 +6,8 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Mapping } from '@atlaskit/editor-prosemirror/transform';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { StepMap, Transform } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { HistoryOptions } from './types';
 

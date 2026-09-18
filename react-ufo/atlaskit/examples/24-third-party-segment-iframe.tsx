@@ -8,10 +8,10 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { bind, type UnbindFn } from 'bind-event-listener';
 
-import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import { UFOThirdPartySegment } from '@atlaskit/react-ufo/third-party-segment';
 import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
+import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
 
 const containerStyle = css({
 	display: 'flex',

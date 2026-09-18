@@ -1,5 +1,6 @@
-import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 import { UFOExperience } from '@atlaskit/ufo/experience';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+
 import type AnalyticsHelper from './analytics-helper';
 
 const createDocumentInitExperience: () => UFOExperience = () =>

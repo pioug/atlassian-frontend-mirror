@@ -1,4 +1,5 @@
 import { snapshotInformational } from '@af/visual-regression';
+
 import { StatusInPanelRenderer, MixedCaseStatusInPanelRenderer } from './status.fixture.vr.ap';
 
 // This test ensures that the status component is rendered clearly within panels of the same color.

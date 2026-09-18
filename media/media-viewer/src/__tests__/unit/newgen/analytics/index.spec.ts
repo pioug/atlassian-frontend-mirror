@@ -7,11 +7,11 @@ import {
 	RequestError,
 } from '@atlaskit/media-client';
 
-import { MediaViewerError } from '../../../../MediaViewerError';
 import { createDownloadFailedEventPayload } from '../../../../analytics/events/operational/createDownloadFailedEventPayload';
 import { createLoadFailedEvent } from '../../../../analytics/events/operational/loadFailed';
 import { createZipEntryLoadFailedEvent } from '../../../../analytics/events/operational/zipEntryLoadFailed';
 import { getFileAttributes } from '../../../../analytics/getFileAttributes';
+import { MediaViewerError } from '../../../../MediaViewerError';
 
 export const processedFile: ProcessedFileState = {
 	status: 'processed',

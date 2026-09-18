@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { messages } from '../../messages';
 import { type HelpPanelHeader } from '../../model/HelpLayout';
-
-import CloseButton from './CloseButton';
 import BackButton from './BackButton';
+import CloseButton from './CloseButton';
 import { HeaderContainer, HeaderTitle, HeaderContent } from './styled';
 
 export const HelpContent: React.FC<HelpPanelHeader & WrappedComponentProps> = ({

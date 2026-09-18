@@ -20,14 +20,14 @@ import { Camera } from '@atlaskit/media-ui/camera/camera';
 import { messages } from '@atlaskit/media-ui/messages';
 import { Vector2 } from '@atlaskit/media-ui/vector2';
 
-import { MediaViewerError } from '../../MediaViewerError';
 import { createClosedEvent } from '../../analytics/events/ui/closed';
 import { ZoomLevel } from '../../domain/zoomLevel';
+import { MediaViewerError } from '../../MediaViewerError';
 import { BaselineExtend } from '../../styleWrappers';
 import { ZoomControls } from '../../zoomControls';
-import { ImageWrapper } from './ImageWrapper';
 import { clientRectangle } from './clientRectangle';
 import { getErrorReason } from './errors';
+import { ImageWrapper } from './ImageWrapper';
 import { naturalSizeRectangle } from './naturalSizeRectangle';
 import { zoomLevelAfterResize } from './zoomLevelAfterResize';
 

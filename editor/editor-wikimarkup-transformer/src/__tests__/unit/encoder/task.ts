@@ -7,9 +7,9 @@
 */
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import WikiMarkupTransformer from '../../../index';
-
 import { doc, taskList, taskItem } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import WikiMarkupTransformer from '../../../index';
 
 describe('ADF => WikiMarkup - Task', () => {
 	const transformer = new WikiMarkupTransformer();

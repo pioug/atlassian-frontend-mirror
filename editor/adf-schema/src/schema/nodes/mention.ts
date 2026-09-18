@@ -1,4 +1,5 @@
 import type { Attrs, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import { mention as mentionFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { AnnotationMarkDefinition } from '../marks/annotation';

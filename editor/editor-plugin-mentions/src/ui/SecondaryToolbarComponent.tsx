@@ -8,7 +8,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { mentionsPlugin } from '../mentionsPlugin';
 import type { MentionsPlugin } from '../mentionsPluginType';
-
 import ToolbarMention from './ToolbarMention';
 
 interface SecondaryToolbarComponentProps {

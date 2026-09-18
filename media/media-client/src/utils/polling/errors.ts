@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { PollingError } from '@atlaskit/media-client/polling'` instead.
  */
+
 export { PollingError } from './PollingError';
 /**
  * @deprecated Use `import { isPollingError } from '@atlaskit/media-client/polling'` instead.

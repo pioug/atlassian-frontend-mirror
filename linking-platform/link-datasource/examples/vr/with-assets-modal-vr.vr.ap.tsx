@@ -6,9 +6,9 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
-import { type AssetsDatasourceParameters } from '../../src/ui/assets-modal/types';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../../src/ui/assets-modal';
 import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../../src/ui/assets-modal/AssetsConfigModalWithWrappers';
+import { type AssetsDatasourceParameters } from '../../src/ui/assets-modal/types';
 
 mockAssetsClientFetchRequests({ delayedResponse: false });
 

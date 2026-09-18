@@ -7,7 +7,6 @@
 
 import { CLI_BIN_NAME } from '../commands/cli-metadata';
 import type { RowKind } from '../commands/types';
-
 import { formatCompactResults } from './format-results';
 
 /**

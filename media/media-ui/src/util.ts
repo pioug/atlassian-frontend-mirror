@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile'` instead.
  */
+
 export { dataURItoFile } from './dataURItoFile';
 /**
  * @deprecated Use `import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI'` instead.

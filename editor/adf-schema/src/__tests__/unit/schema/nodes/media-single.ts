@@ -1,6 +1,6 @@
+import { schema } from '@af/adf-test-helpers/src/adf-schema';
 import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
-import { schema } from '@af/adf-test-helpers/src/adf-schema';
 import {
 	mediaSingle,
 	mediaSingleWithCaption,

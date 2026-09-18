@@ -1,6 +1,6 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-
 import { doc, p, strong, expand, nestedExpand } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import WikiMarkupTransformer from '../../../index';
 
 // This is a lossy conversion, expands get lost in converting to WikiMarkup

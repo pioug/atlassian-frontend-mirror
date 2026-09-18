@@ -50,7 +50,6 @@ import { ToolbarKeyboardShortcutHint } from '../../../src/ui/ToolbarKeyboardShor
 import { ToolbarNestedDropdownMenu } from '../../../src/ui/ToolbarNestedDropdownMenu';
 import { ToolbarSection } from '../../../src/ui/ToolbarSection';
 import { ToolbarTooltip } from '../../../src/ui/ToolbarTooltip';
-
 import { useExampleToolbarState } from './useExampleToolbarState';
 
 const headingSizeStylesMap = cssMap({

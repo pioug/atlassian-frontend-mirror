@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import VrHoverCardConfluenceExample from './vr-hover-card-confluence.vr.ap';
 import VrHoverCardForSlackMessageExample from './vr-hover-card-for-slack-message.vr.ap';
 import VrHoverCardForbiddenJiraExample from './vr-hover-card-forbidden-jira.vr.ap';

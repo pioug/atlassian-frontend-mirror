@@ -1,7 +1,6 @@
 import { isNodeOfType, type Node } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
-
 import { isBlockedAddEventListener } from './checks/is-blocked-add-event-listener';
 import { isBlockedBind } from './checks/is-blocked-bind';
 import { isBlockedBindAll } from './checks/is-blocked-bind-all';

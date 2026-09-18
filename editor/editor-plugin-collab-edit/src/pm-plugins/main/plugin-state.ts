@@ -25,7 +25,6 @@ import {
 	hasExistingNudge,
 } from '../utils';
 import type { NudgeAnimationsMap } from '../utils';
-
 import {
 	ADD_AGENT_SHIMMER_META,
 	type AgentShimmerRange,

@@ -1,4 +1,5 @@
 /* eslint-disable no-bitwise */
+
 export const generateUuid = (): string =>
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp

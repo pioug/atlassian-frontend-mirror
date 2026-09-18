@@ -12,7 +12,6 @@ import type {
 } from '../../../common/vc/types';
 import type { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
-
 import { calculateTTVCPercentilesWithDebugInfo } from './percentile-calc/canvas-heatmap';
 import type { VCCalculator, VCCalculatorParam } from './types';
 import { detectLayoutShiftCause } from './utils/detect-layout-shift-cause';

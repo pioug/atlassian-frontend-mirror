@@ -1,10 +1,11 @@
+import { EventEmitter2 } from 'eventemitter2';
 import * as jestExtendedMatchers from 'jest-extended';
+
+import getAnalyticsClient from '../../../../../../protocols/aps/APSAnalyticsClient';
+import WebsocketTransport from '../../../../../../protocols/aps/transports/ws';
 import WebsocketClient, {
 	type WebsocketClientParams,
 } from '../../../../../../protocols/aps/transports/ws/websocketClient';
-import WebsocketTransport from '../../../../../../protocols/aps/transports/ws';
-import { EventEmitter2 } from 'eventemitter2';
-import getAnalyticsClient from '../../../../../../protocols/aps/APSAnalyticsClient';
 
 jest.mock('../../../../../../protocols/aps/transports/ws/websocketClient');
 jest.mock('../../../../../../protocols/aps/utils', () => {

@@ -13,7 +13,6 @@ import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import Select from '@atlaskit/select/default';
 
 import MediaSvg from '../src/media-svg';
-
 import { ControlsBox } from './helpers/controls';
 import { DimensionsPicker } from './helpers/dimensionPicker';
 import { SvgContainer } from './helpers/svgContainer';

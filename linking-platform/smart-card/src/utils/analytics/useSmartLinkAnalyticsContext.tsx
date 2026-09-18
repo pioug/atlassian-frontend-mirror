@@ -3,11 +3,11 @@ import { useMemo } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { getUrl } from '@atlaskit/linking-common/store';
 
+import { getSmartLinkAnalyticsContext } from './getSmartLinkAnalyticsContext';
 import type {
 	SmartLinkAnalyticsContextProps,
 	SmartLinkAnalyticsContextType,
 } from './SmartLinkAnalyticsContext';
-import { getSmartLinkAnalyticsContext } from './getSmartLinkAnalyticsContext';
 
 /**
  * Provides an analytics context data to supply attributes to events based on a URL

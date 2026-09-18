@@ -5,7 +5,6 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { type JQLEditorCommand } from '../../schema';
 import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import { PluginKeymap } from '../common/plugin-keymap';
-
 import {
 	ARROW_DOWN_KEY,
 	ARROW_UP_KEY,

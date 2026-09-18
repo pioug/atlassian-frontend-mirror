@@ -9,9 +9,9 @@ import {
 } from '@atlassian/teams-app-internal-playground/playground';
 
 import ConfluenceIcon from '../src/common/assets/ConfluenceIcon.svg';
-import { ContainerIcon } from '../src/common/ui/container-icon';
 import JiraIcon from '../src/common/assets/JiraIcon.svg';
 import LoomIcon from '../src/common/assets/LoomIcon.svg';
+import { ContainerIcon } from '../src/common/ui/container-icon';
 
 const styles = cssMap({
 	iconRow: {

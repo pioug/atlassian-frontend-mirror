@@ -8,7 +8,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import type { MediaPluginOptions } from '../types';
-
 import { ReactMediaGroupNode } from './mediaGroup';
 
 export const lazyMediaGroupView = (

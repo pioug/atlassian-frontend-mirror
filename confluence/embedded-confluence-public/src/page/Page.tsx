@@ -1,15 +1,17 @@
 import React from 'react';
+
+import { useIntl } from 'react-intl';
+
+import type { EditPageProps } from '@atlassian/embedded-confluence-common/edit-page';
 /* eslint-disable-next-line import/no-extraneous-dependencies */
 import {
 	Page as PageCommon,
 	type PageProps as Props,
 } from '@atlassian/embedded-confluence-common/page';
-import type { EditPageProps } from '@atlassian/embedded-confluence-common/edit-page';
 import type { ViewPageProps } from '@atlassian/embedded-confluence-common/view-page';
-import { useIntl } from 'react-intl';
 
-import { ViewPage } from '../view-page';
 import { EditPage } from '../edit-page';
+import { ViewPage } from '../view-page';
 
 const ViewComponent = (props: Omit<ViewPageProps, 'locale'>) => {
 	const { locale } = useIntl();

@@ -21,7 +21,6 @@ import { CellSelection } from '@atlaskit/editor-tables';
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
 import { convertTaskItemsToBlockTaskItems, getSelectionRangeExpandedToLists } from '../utils';
-
 import {
 	FORMATTING_NODE_TYPES,
 	FORMATTING_MARK_TYPES,

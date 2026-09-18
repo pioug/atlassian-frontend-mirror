@@ -3,13 +3,12 @@ import React from 'react';
 import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx } from '@atlaskit/css';
 import RetryIcon from '@atlaskit/icon/core/retry';
-import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { AgentChatIcon } from '../../common/ui/agent-chat-icon';
 import { BrowseAgentsPill } from '../../common/ui/chat-pill';
-
 import type { ConversationStarter } from './index';
 
 const styles = cssMap({

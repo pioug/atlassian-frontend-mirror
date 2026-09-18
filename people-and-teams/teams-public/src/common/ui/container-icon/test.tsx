@@ -3,7 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import type { ContainerTypes } from '../../types';
-
 import { ContainerIcon } from './index';
 
 jest.mock('../loom-avatar/main', () => ({

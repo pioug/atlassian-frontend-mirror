@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 
 import { type CustomData, type PerformanceConfig, type Timing } from '../../../types';
-
 import { type ExperiencePerformanceTypes, type ExperienceTypes } from './experience-types';
 
 export type AbstractExperienceConfig = {

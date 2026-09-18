@@ -1,7 +1,10 @@
-import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
-import { render } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import React from 'react';
+
+import { render } from '@testing-library/react';
+
+import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
+
 import { InlineCommentsStateContext } from '../../../context';
 import { useInlineCommentsFilter } from '../../use-inline-comments-filter';
 

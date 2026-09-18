@@ -3,7 +3,6 @@
 import type { InteractionMetrics } from '../../common';
 import { getConfig, getMostRecentVCRevision, isVCRevisionEnabled } from '../../config';
 import type { VCObserverInterface } from '../../vc/types';
-
 import getInteractionStatus from './get-interaction-status';
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
 import getSSRDoneTimeValue from './get-ssr-done-time-value';

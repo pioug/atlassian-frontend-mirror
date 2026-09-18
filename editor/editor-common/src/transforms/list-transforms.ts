@@ -1,6 +1,7 @@
 import type { Mark, NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+
 import { convertBlockToInlineContent } from './convertBlockToInlineContent';
 import { createBlockTaskItem } from './createBlockTaskItem';
 import { isBulletOrOrderedList } from './isBulletOrOrderedList';

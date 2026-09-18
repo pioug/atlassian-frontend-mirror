@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { sortMembersByType } from '@atlaskit/teams-client/sort-teams'` instead.
  */
+
 export { sortMembersByType } from './sort-teams';
 /**
  * @deprecated Use `import { isInvited } from '@atlaskit/teams-client/is-invited'` instead.

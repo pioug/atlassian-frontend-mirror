@@ -1,5 +1,13 @@
 # @atlaskit/side-nav-items
 
+## 2.5.1
+
+### Patch Changes
+
+- [`14307d3138fd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14307d3138fd3) -
+  Refactor styles to use statically analyzable values and type-checked inline constants for Compiled
+  and Atlaspack incremental builds, preserving existing styling behavior.
+
 ## 2.5.0
 
 ### Minor Changes

@@ -16,14 +16,13 @@ import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { createInlineCodeFromTextInputWithAnalytics } from '../editor-commands/text-formatting';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as commands from '../editor-commands/text-formatting';
-
 import { pluginKey } from './plugin-key';
 
 const isSelectionInlineCursor = (selection: Selection) => {

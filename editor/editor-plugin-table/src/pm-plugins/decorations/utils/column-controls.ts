@@ -9,7 +9,6 @@ import {
 	findControlsHoverDecoration,
 	updateDecorations,
 } from '../../utils/decoration';
-
 import { composeDecorations } from './compose-decorations';
 import type { DecorationTransformer, DecorationTransformerParams } from './types';
 

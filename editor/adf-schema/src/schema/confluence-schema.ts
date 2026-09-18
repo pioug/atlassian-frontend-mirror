@@ -1,5 +1,6 @@
-import { createSchema } from './create-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
+import { createSchema } from './create-schema';
 
 const nodes = [
 	'doc',

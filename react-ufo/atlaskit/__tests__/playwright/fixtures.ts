@@ -1,6 +1,7 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable compat/compat */
 /* eslint-disable no-unused-vars */
+
 import type {
 	Page as PlaywrightCorePage,
 	PlaywrightTestArgs,
@@ -32,7 +33,6 @@ import type {
 } from '../../src/common/react-ufo-payload-schema';
 import type { RevisionPayloadEntry } from '../../src/common/vc/types';
 import type { TerminalErrorPayload } from '../../src/create-terminal-error-payload';
-
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
 type FixtureUse<T> = (value: T) => Promise<void>;

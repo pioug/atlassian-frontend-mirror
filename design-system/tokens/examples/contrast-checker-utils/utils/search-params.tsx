@@ -2,7 +2,6 @@ import type { ActiveTokens } from '@atlaskit/tokens/artifacts/types';
 import tokenNames from '@atlaskit/tokens/token-names';
 
 import { baseTokenNames } from '../components/base-token-editor';
-
 import type { BaseTokens, ColorMode, Theme } from './types';
 
 const url = new URL(window.location.href);

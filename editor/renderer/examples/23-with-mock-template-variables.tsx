@@ -1,6 +1,8 @@
 import React from 'react';
-import RendererDemo from './helper/RendererDemo';
+
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+
+import RendererDemo from './helper/RendererDemo';
 import document from './helper/template-variables.adf.json';
 
 const extensionHandlers: ExtensionHandlers = {

@@ -1,13 +1,15 @@
+import { createMockService } from './document-service.mock';
+
 import type { StepJson } from '@atlaskit/editor-common/collab';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 import type { StepsPayload } from '../../types';
 import type { DocumentService } from '../document-service';
-
-import { createMockService } from './document-service.mock';
 
 /**
  * Agent edit presence: the document-service detects agent-authored steps in a received batch
@@ -24,12 +26,17 @@ const buildStep = (extra: Partial<StepJson> = {}): StepJson =>
 	}) as unknown as StepJson;
 
 // Registers the shared service setup for a describe block and returns accessors scoped to it.
-const withService = () => {
+const withService = (agentEditPresenceEnabled = false) => {
 	let service: DocumentService;
 	let participantsServiceMock: ReturnType<typeof createMockService>['participantsServiceMock'];
 	let analyticsHelperMock: ReturnType<typeof createMockService>['analyticsHelperMock'];
 
 	beforeEach(() => {
+		if (agentEditPresenceEnabled) {
+			passGate('platform_editor_agent_edit_presence');
+		} else {
+			failGate('platform_editor_agent_edit_presence');
+		}
 		jest.useFakeTimers();
 		const mocks = createMockService();
 		service = mocks.service;
@@ -197,3 +204,24 @@ eeTest
 			expect(wasExperimentExposed('platform_editor_ai_streaming_ux_experience_m1')).toBe(false);
 		});
 	});
+
+describe('document-service: agent edit presence', () => {
+	const ctx = withService(true);
+
+	beforeEach(() => {
+		mockExpEnabled('platform_editor_ai_streaming_ux_experience_m1');
+	});
+
+	it('does not derive agent participants from authored steps', () => {
+		ctx.processSteps([buildStep({ agentType: 'mcp', agentId: '712020:abc' })]);
+
+		expect(
+			ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
+		).not.toHaveBeenCalled();
+		expect(ctx.getAnalyticsHelperMock().sendActionEvent).not.toHaveBeenCalledWith(
+			EVENT_ACTION.AGENT_EDIT_RECEIVED,
+			expect.anything(),
+			expect.anything(),
+		);
+	});
+});

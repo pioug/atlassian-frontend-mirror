@@ -1,5 +1,5 @@
-import { grinEmoji, evilburnsEmoji } from '@atlaskit/util-data-test/emoji-samples';
 import { videoLargeFileId, videoSquareFileId } from '@atlaskit/media-test-helpers';
+import { grinEmoji, evilburnsEmoji } from '@atlaskit/util-data-test/emoji-samples';
 
 type EmojiAttrs = {
 	fallback?: string;

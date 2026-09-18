@@ -24,7 +24,6 @@ import {
 	JIRA_SUB_TASK,
 	JIRA_TASK,
 } from '../../constants';
-
 import { type IconOpts } from './extractIcon';
 
 const TaskIcon = TaskObject;

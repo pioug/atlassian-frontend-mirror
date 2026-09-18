@@ -6,7 +6,6 @@ import LogInIcon from '@atlaskit/icon/core/log-in';
 import type { AnchorProps } from '@atlaskit/primitives/anchor';
 
 import { ListItem } from '../../components/list-item';
-
 import { LinkIconButton } from './themed/link-icon-button';
 
 interface LogInProps extends Pick<AnchorProps, 'href'> {

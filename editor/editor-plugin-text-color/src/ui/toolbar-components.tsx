@@ -22,7 +22,6 @@ import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextColorPlugin } from '../textColorPluginType';
-
 import { ColorAccessibilityMenuItem } from './ColorAccessibilityMenuItem';
 import { RemoveColorMenuItem } from './RemoveColorMenuItem';
 import { TextColorHighlightMenu } from './TextColorHighlightMenu';

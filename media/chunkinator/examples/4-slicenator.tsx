@@ -1,4 +1,5 @@
 import React, { type ChangeEvent } from 'react';
+
 import { slicenator } from '../src/slicenator';
 
 const onChange = (e: ChangeEvent<HTMLInputElement>) => {

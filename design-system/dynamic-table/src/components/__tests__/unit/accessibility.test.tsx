@@ -10,7 +10,6 @@ import DynamicTable, { DynamicTableStateless as StatelessDynamicTable } from '..
 import { type RowCellType, type StatelessProps } from '../../../types';
 import LoadingContainer from '../../loading-container';
 import { RankableTableCell } from '../../rankable/rankable-table-cell';
-
 import { rowsWithKeys } from './_data';
 import rows from './_data-json.json';
 import { headMock1 } from './_head-mock';

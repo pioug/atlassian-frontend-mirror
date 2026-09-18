@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 
 import type { ManualRule } from '../manual-triggers-container/common/types';
-
 import { AutomationMenuContextContainer } from './menu-context/AutomationMenuContextContainer';
 import { AutomationModalBody } from './sub-components/body';
 import { AutomationModalExecutionState } from './sub-components/execution-state-message';

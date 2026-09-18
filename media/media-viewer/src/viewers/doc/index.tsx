@@ -4,9 +4,9 @@ import { type MediaClient, type FileState } from '@atlaskit/media-client';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type { MediaViewerError } from '../../MediaViewerError';
 import { Outcome } from '../../domain/outcome';
 import { ZoomLevel } from '../../domain/zoomLevel';
+import type { MediaViewerError } from '../../MediaViewerError';
 import { BaseViewer } from '../base-viewer';
 import { DocViewer as DocViewerComponent } from './DocViewer';
 

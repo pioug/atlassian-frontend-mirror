@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { headingNodeAdf } from '../__fixtures__/full-width-adf';
-import adfHeadingsMultilined from '../__fixtures__/headings-multilined.adf.json';
-import headingsLeftAligned from '../__fixtures__/headings-aligned-left.adf.json';
 import headingsCenterAligned from '../__fixtures__/headings-aligned-center.adf.json';
+import headingsLeftAligned from '../__fixtures__/headings-aligned-left.adf.json';
 import headingsRightAligned from '../__fixtures__/headings-aligned-right.adf.json';
+import adfHeadingsMultilined from '../__fixtures__/headings-multilined.adf.json';
 import adfHeadingsRTLSymbols from '../__fixtures__/headings-right-aligned-symbols.adf.json';
-
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 export const HeadingRenderer: React.ComponentType<any> = generateRendererComponent({

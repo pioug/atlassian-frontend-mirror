@@ -3,13 +3,15 @@ jest.mock('@atlaskit/chunkinator/chunkinator');
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { mapTo } from 'rxjs/operators/mapTo';
+
 import { chunkinator } from '@atlaskit/chunkinator/chunkinator';
 import type { HashedBlob } from '@atlaskit/chunkinator/domain';
-import type { AuthProvider, MediaApiConfig } from '@atlaskit/media-core/auth';
-import { uploadFile, type UploadableFileUpfrontIds, type MediaStore } from '../..';
-import { asMockFunction, nextTick } from '@atlaskit/media-common/test-helpers';
-import * as calculateChunkSize from '../../uploader/calculateChunkSize';
 import * as getMediaFeatureFlag from '@atlaskit/media-common';
+import { asMockFunction, nextTick } from '@atlaskit/media-common/test-helpers';
+import type { AuthProvider, MediaApiConfig } from '@atlaskit/media-core/auth';
+
+import { uploadFile, type UploadableFileUpfrontIds, type MediaStore } from '../..';
+import * as calculateChunkSize from '../../uploader/calculateChunkSize';
 import { UploaderError } from '../../uploader/UploaderError';
 
 jest.mock('@atlaskit/media-common');

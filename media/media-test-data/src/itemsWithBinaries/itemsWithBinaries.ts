@@ -1,7 +1,6 @@
 import { merge, type PartialResponseFileItem } from '@atlaskit/media-client/test-helpers';
 
 import { type FileItemGenerator, generateSampleFileItem } from '../sampleFileItems';
-
 import { artifactSets } from './artifactSets';
 import { createItemWithBinaries } from './createItemWithBinaries';
 import { type ArtifactsSet, type ItemWithBinariesGenerator } from './types';

@@ -7,9 +7,9 @@ import memoizeOne from 'memoize-one';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { getDocument } from '@atlaskit/browser-apis';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -41,7 +41,6 @@ import { FormFooter } from '@atlaskit/form/form-footer';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
-
 import { ALLOWED_LOGGED_MACRO_PARAMS } from './constants';
 import { DescriptionSummary } from './DescriptionSummary';
 import ErrorMessage from './ErrorMessage';

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Component } from 'react';
+
 import StatefulAvatarPickerDialog from '../example-helpers/StatefulAvatarPickerDialog';
-import { CONTAINER_SIZE, CONTAINER_PADDING } from '../src/avatar-picker-dialog/layout-const';
 import { ViewportDebugger } from '../example-helpers/viewport-debug';
+import { CONTAINER_SIZE, CONTAINER_PADDING } from '../src/avatar-picker-dialog/layout-const';
 
 class Example extends Component<{}, {}> {
 	debugView?: ViewportDebugger;

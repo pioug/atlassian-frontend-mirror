@@ -1,6 +1,7 @@
 import React from 'react';
-import { groupOptionsByType } from './index';
+
 import type { GroupedOptions } from '../../types';
+import { groupOptionsByType } from './index';
 
 const expectFormattedMessage = (defaultMessage: string) =>
 	expect.objectContaining({

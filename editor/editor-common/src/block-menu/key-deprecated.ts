@@ -4,6 +4,7 @@
  * @deprecated https://hello.jira.atlassian.cloud/browse/EDITOR-2872
  * To be removed as part of Block menu project release
  */
+
 export const FORMAT_MENU_ITEM = {
 	key: 'nested-menu-format-section-primary',
 };

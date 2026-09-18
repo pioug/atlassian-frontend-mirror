@@ -1,6 +1,7 @@
 import React from 'react';
-import { type TickBoxProps } from './types';
+
 import { TickBoxWrapper as CompiledTickBoxWrapper } from './tickBoxWrapper-compiled';
+import { type TickBoxProps } from './types';
 
 export const TickBoxWrapper: {
 	(props: TickBoxProps): React.JSX.Element;

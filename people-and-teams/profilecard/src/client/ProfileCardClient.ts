@@ -11,7 +11,6 @@ import {
 	type Team,
 	type TeamCentralReportingLinesData,
 } from '../types';
-
 import { defaultConfig } from './defaultConfig';
 import { maybeCreateTeamCentralClient } from './maybeCreateTeamCentralClient';
 import { default as RovoAgentCardClient } from './RovoAgentCardClient';

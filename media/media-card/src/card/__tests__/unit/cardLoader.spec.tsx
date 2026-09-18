@@ -5,12 +5,15 @@ jest.mock('../../cardWithMediaClient', () => ({
 	CardWithMediaClient: () => <div data-testid="mock-card" />,
 }));
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
 import { act } from 'react';
-import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
-import { type FileIdentifier } from '@atlaskit/media-client';
-import CardLoader from '../../cardLoader';
+
 import { IntlProvider } from 'react-intl';
+
+import { type FileIdentifier } from '@atlaskit/media-client';
+import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
+import { render, screen } from '@atlassian/testing-library';
+
+import CardLoader from '../../cardLoader';
 
 const mediaClient = fakeMediaClient();
 

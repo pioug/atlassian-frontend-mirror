@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, fireEvent, type RenderResult, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
+
 import {
 	type VideoProps,
 	type RenderCallback,

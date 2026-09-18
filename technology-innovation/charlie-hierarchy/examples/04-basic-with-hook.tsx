@@ -10,7 +10,6 @@ import { token } from '@atlaskit/tokens';
 
 import { CharlieHierarchy } from '../src';
 import { HierarchyContainer, useHierarchyData } from '../src/hooks/use-hierarchy';
-
 import { rootNode as hierarchyRootNode, type Node } from './common/basic-hierarchy';
 
 const styles = cssMap({

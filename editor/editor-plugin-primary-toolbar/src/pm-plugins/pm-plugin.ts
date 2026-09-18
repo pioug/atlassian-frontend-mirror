@@ -3,7 +3,6 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { ComponentRegistry, PrimaryToolbarPluginState } from '../primaryToolbarPluginType';
-
 import { getToolbarComponents } from './toolbar-configuration';
 
 export const primaryToolbarPluginKey: PluginKey<PrimaryToolbarPluginState> =

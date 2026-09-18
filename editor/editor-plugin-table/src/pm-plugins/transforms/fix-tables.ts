@@ -11,7 +11,6 @@ import type { ReportInvalidNodeAttrs } from '../../types';
 import { calculateColumnWidth, getCellsRefsInColumn } from '../table-resizing/utils/column-state';
 import { contentWidth } from '../table-resizing/utils/content-width';
 import { getLayoutSize } from '../table-resizing/utils/misc';
-
 import { replaceCells } from './table-transform-utils';
 
 const validateTableCellNodeAttrs = (

@@ -14,7 +14,6 @@ import { Anchor, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { BreadcrumbsItemProps } from '../../types';
-
 import { useBreadcrumbsSize } from './use-breadcrumbs-size';
 
 type StepProps = {

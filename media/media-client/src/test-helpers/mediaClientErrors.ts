@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpers'` instead.
  */
+
 export { createServerUnauthorizedError } from './createServerUnauthorizedError';
 /**
  * @deprecated Use `import { createRateLimitedError } from '@atlaskit/media-client/test-helpers'` instead.

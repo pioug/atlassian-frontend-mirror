@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
 import { type PickerState } from '../../common/types';
-
 import { useSearchQuery } from './index';
 
 describe('useSearchQuery', () => {

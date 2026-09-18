@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { UfoErrorBoundary } from '../UfoErrorBoundary';
 import type { Props } from '../types';
+import { UfoErrorBoundary } from '../UfoErrorBoundary';
 import { smartUserPickerRenderedUfoExperience } from '../ufoExperiences';
 import { useUFOConcurrentExperience } from '../useUFOConcurrentExperience';
 import MessagesIntlProvider from './MessagesIntlProvider';

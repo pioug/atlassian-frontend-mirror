@@ -5,7 +5,6 @@ import {
 	type NotClauseOperator,
 	type Position,
 } from '../types';
-
 import { noChildren } from './common';
 
 function acceptNotClauseOperator<Result>(this: NotClauseOperator, visitor: JastVisitor<Result>) {

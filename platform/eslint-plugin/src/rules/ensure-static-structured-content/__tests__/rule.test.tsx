@@ -1,7 +1,6 @@
 import { RuleTester } from 'eslint';
 
 import '../../../__tests__/utils/_tester';
-
 import rule from '../index';
 
 const tester = new RuleTester({

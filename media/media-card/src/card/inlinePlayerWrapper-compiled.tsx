@@ -2,13 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
+
 import { jsx, css } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import UFOCustomData from '@atlaskit/react-ufo/custom-data';
+import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
+import { token } from '@atlaskit/tokens';
+
 import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithDefault';
 import { type InlinePlayerWrapperProps } from './types';
-import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
-import UFOCustomData from '@atlaskit/react-ufo/custom-data';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const hideNativeBrowserTextSelectionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

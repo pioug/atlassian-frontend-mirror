@@ -1,7 +1,7 @@
 import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 
 import { type UnbindFn, bind } from 'bind-event-listener';
-import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import {
 	Manager as LegacyManager,
@@ -20,9 +20,9 @@ import {
 	type PopperProps,
 	Reference as WrappedReference,
 } from '@atlaskit/popper/react-popper';
-import type { GroupBase } from '@atlaskit/react-select/types';
 import type { components as RSComponents } from '@atlaskit/react-select/components';
 import { mergeStyles } from '@atlaskit/react-select/styles';
+import type { GroupBase } from '@atlaskit/react-select/types';
 import { token } from '@atlaskit/tokens';
 
 import Select from '../select';
@@ -35,7 +35,6 @@ import {
 	type ValidationState,
 	type ValueType,
 } from '../types';
-
 import { defaultComponents } from './components';
 import { DummyControl } from './dummy-control';
 import { MenuDialog } from './menu-dialog';

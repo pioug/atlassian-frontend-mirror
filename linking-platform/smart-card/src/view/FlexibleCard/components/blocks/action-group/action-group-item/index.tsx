@@ -3,8 +3,8 @@ import React, { useCallback } from 'react';
 import type { Appearance } from '@atlaskit/button/old-button/types';
 
 import { ActionName, InternalActionName, type SmartLinkSize } from '../../../../../../constants';
-
 import Action from '../../../actions/action';
+import { type ActionProps } from '../../../actions/action/types';
 import AISummaryAction from '../../../actions/ai-summary-action';
 import AutomationAction from '../../../actions/automation-action';
 import CopyLinkAction from '../../../actions/copy-link-action';
@@ -16,7 +16,6 @@ import FollowAction from '../../../actions/follow-action';
 import PreviewAction from '../../../actions/preview-action';
 import RovoChatAction from '../../../actions/rovo-chat-action';
 import ViewRelatedLinksAction from '../../../actions/view-related-links-action';
-import { type ActionProps } from '../../../actions/action/types';
 import { type ActionItem } from '../../types';
 
 const Actions = {

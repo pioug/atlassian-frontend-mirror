@@ -10,7 +10,6 @@ import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 
 import { CustomItem } from '../Item/custom-item';
-
 import HeaderContainer from './header-container';
 
 const styles = cssMap({

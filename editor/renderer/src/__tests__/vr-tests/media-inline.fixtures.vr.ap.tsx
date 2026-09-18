@@ -1,14 +1,15 @@
 import React from 'react';
 
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+
 import { Renderer } from '../../entry-points/renderer-default';
-import { mediaInlineAdf } from './__fixtures__/media-inline.adf';
+import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
+import type { RendererProps } from '../../ui/renderer-props';
 import { mediaInlineInParagraphAdf } from './__fixtures__/media-inline-in-paragraph.adf';
 import { mediaInlineMultipleInParagraphAdf } from './__fixtures__/media-inline-multiple-in-paragraph.adf';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import type { RendererProps } from '../../ui/renderer-props';
-import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
+import { mediaInlineAdf } from './__fixtures__/media-inline.adf';
 
 const Media = ({
 	adf,

@@ -1,3 +1,8 @@
+import type { ComponentType } from 'react';
+
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+
+import * as nestedIframe from '../__fixtures__/extension-iframe-nested.adf.json';
 import {
 	extensionAwesomeList,
 	extensionBlockEh,
@@ -7,10 +12,7 @@ import {
 	inlineExtensionPlainTextMacroAdf,
 	inlineExtensionPlainTextMacroAdfLongText,
 } from '../__fixtures__/extension-layouts';
-import * as nestedIframe from '../__fixtures__/extension-iframe-nested.adf.json';
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import type { ComponentType } from 'react';
 
 export const ExtensionAwesomeList: ComponentType<any> = generateRendererComponent({
 	document: extensionAwesomeList,

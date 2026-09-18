@@ -7,7 +7,6 @@ import type {
 	CalcTTVCPercentilesArgWithDebugInfo,
 	PercentileCalcResultWithSpeedIndex,
 } from '../types';
-
 import { calculatePercentiles } from './calculate-percentiles';
 import { calculatePercentilesWithDebugInfo } from './calculate-percentiles-with-debug-info';
 import { ViewportCanvas } from './viewport-canvas';

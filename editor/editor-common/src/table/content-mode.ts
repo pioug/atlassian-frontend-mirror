@@ -1,4 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import { hasTableColumnBeenResized } from './hasTableColumnBeenResized';
 
 /**

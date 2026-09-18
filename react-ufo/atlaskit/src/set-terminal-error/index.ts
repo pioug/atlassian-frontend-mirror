@@ -5,7 +5,6 @@ import type { LabelStack } from '../interaction-context';
 import { useInteractionContext } from '../interaction-context/useInteractionContext';
 import { getActiveInteraction, PreviousInteractionLog } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
-
 import { classifyTerminalError, type TerminalErrorCategory } from './classify-terminal-error';
 
 export type { TerminalErrorCategory };

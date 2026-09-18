@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { isInIframe } from '@atlaskit/linking-common/utils/preview-panel'` instead.
  */
+
 export { isInIframe } from './is-in-iframe';
 /**
  * @deprecated Use `import { isWithinPreviewPanel } from '@atlaskit/linking-common/utils/preview-panel'` instead.

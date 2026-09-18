@@ -4,7 +4,6 @@ import type { GetMenuItemsFn } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
 import { getBlockMenuTriggerExtensionKey } from '../utils/getBlockMenuTriggerExtensionKey';
 import { isNestedDropdownMenuConfiguration } from '../utils/menu-items';
-
 import { SelectionExtensionDropdownItem } from './SelectionExtensionDropdownItem';
 import { SelectionExtensionNestedDropdownMenu } from './SelectionExtensionNestedDropdownMenu';
 

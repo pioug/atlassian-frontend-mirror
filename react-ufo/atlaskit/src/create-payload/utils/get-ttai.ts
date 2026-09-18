@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../../common';
-
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
 
 export default function getTTAI(interaction: InteractionMetrics): number | undefined {

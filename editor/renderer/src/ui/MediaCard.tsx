@@ -1,19 +1,27 @@
 import React, { Component, useContext } from 'react';
 
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import type { MediaType } from '@atlaskit/adf-schema/media';
 import { filter } from '@atlaskit/adf-utils/traverse';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { withImageLoader } from '@atlaskit/editor-common/utils';
+import type { ImageLoaderProps, ImageStatus } from '@atlaskit/editor-common/utils';
+import { CardError } from '@atlaskit/media-card/cardError';
+import CardAsync from '@atlaskit/media-card/cardLoader';
+import { CardLoading } from '@atlaskit/media-card/cardLoading';
+import CardSync from '@atlaskit/media-card/cardSync';
 import type {
 	CardAppearance,
 	CardDimensions,
 	CardOnClickCallback,
 	CardProps as AtlaskitMediaCardProps,
 } from '@atlaskit/media-card/types';
-import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
-import CardAsync from '@atlaskit/media-card/cardLoader';
-import CardSync from '@atlaskit/media-card/cardSync';
-import { CardLoading } from '@atlaskit/media-card/cardLoading';
-import { CardError } from '@atlaskit/media-card/cardError';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type {
 	ImageResizeMode,
 	FileIdentifier,
@@ -23,24 +31,17 @@ import type {
 	MediaClient,
 } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import type { MediaType } from '@atlaskit/adf-schema/media';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { withImageLoader } from '@atlaskit/editor-common/utils';
-import type { ImageLoaderProps, ImageStatus } from '@atlaskit/editor-common/utils';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import type { RendererAppearance } from './Renderer/types';
-import type { RendererContext } from '../react/types';
-import type { MediaSSR } from '../types/mediaOptions';
+import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import AnalyticsContext from '../analytics/analyticsContext';
 import type { AnalyticsEventPayload } from '../analytics/events';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+import type { RendererContext } from '../react/types';
+import type { MediaSSR } from '../types/mediaOptions';
+import type { RendererAppearance } from './Renderer/types';
 
 export type MediaProvider = {
 	viewMediaClientConfig: MediaClientConfig;

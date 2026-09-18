@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
-import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 import type {
 	AnalyticsEventPayload,
 	EditorAnalyticsAPI,

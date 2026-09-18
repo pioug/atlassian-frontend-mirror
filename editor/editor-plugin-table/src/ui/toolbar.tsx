@@ -66,8 +66,8 @@ import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	clearHoverSelection,
@@ -119,7 +119,6 @@ import type {
 	ToolbarMenuState,
 } from '../types';
 import { TableCssClassName } from '../types';
-
 import { colorPaletteColumns, colorPalletteColumns } from './consts';
 import { FloatingAlignmentButtons } from './FloatingAlignmentButtons/FloatingAlignmentButtons';
 

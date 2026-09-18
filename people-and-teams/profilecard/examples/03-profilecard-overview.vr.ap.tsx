@@ -5,11 +5,9 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { ProfilecardInternal as ProfileCard } from '../src/components/User/ProfilecardInternal';
-
 import profiles, { avatarImages } from '../src/mocks/profile-data';
 import { reportingLinesData } from '../src/mocks/reporting-lines-data';
 import { type ProfilecardProps, type ReportingLinesUser } from '../src/types';
-
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 

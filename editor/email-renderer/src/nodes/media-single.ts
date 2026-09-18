@@ -1,8 +1,8 @@
-import type { NodeSerializerOpts } from '../interfaces';
+import { applyMarks } from '../apply-marks';
 import { createTag } from '../create-tag';
+import type { NodeSerializerOpts } from '../interfaces';
 import { serializeStyle } from '../serialize-style';
 import { createClassName } from '../styles/util';
-import { applyMarks } from '../apply-marks';
 
 const className = createClassName('media-single');
 export const styles: string = `

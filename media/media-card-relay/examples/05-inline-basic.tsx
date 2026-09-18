@@ -28,7 +28,6 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { MediaInlineCardRelay } from '../src';
-
 import RelayMock, {
 	MOCK_AUDIO_ITEM,
 	MOCK_IMAGE_ITEM,

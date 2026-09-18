@@ -1,5 +1,5 @@
-import CardLoader from '../src/card/cardLoader';
 import React, { useState, useEffect, useMemo } from 'react';
+
 import { type MediaClientConfig } from '@atlaskit/media-client';
 import {
 	generateItemWithBinaries,
@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/media-test-data';
 
 import { MainWrapper } from '../example-helpers';
+import CardLoader from '../src/card/cardLoader';
 import { createMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 type UseGenerateItemsWithBinariesState = [

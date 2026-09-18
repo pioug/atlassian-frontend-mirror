@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { Box, BoxProps } from '@atlaskit/primitives/compiled/box'` instead.
  */
+
 export { Box, type BoxProps } from './components/box';
 /**
  * @deprecated Use `import { Inline, InlineProps } from '@atlaskit/primitives/compiled/inline'` instead.

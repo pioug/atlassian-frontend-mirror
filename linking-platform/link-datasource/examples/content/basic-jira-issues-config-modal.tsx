@@ -13,8 +13,8 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
-import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/JiraIssuesConfigModalWithWrappers';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../../src/ui/jira-issues-modal';
+import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/JiraIssuesConfigModalWithWrappers';
 
 mockDatasourceFetchRequests({
 	delayedResponse: false,

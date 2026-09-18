@@ -13,7 +13,6 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { TextFormattingPlugin } from '../../../textFormattingPluginType';
 import { FormatOptions } from '../types';
-
 import { FormatButton } from './Component';
 import { formatOptions } from './utils';
 

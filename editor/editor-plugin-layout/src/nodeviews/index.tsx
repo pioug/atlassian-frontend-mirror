@@ -16,14 +16,13 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Schema, DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LayoutPlugin } from '../layoutPluginType';
 import { selectIntoLayout } from '../pm-plugins/utils';
 import type { LayoutPluginOptions } from '../types';
 import { LayoutSSRReactContextsProvider } from '../ui/LayoutSSRReactContextsProvider';
-
 import { isEmptyLayout } from './utils';
 
 type LayoutSectionViewProps = {

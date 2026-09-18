@@ -1,6 +1,9 @@
-import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+
 import { UserOption } from '../../../components/UserOption';
 import { type LozengeProps, type User } from '../../../types';
 

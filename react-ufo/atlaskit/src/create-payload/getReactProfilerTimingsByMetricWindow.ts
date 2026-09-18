@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../common';
-
 import { type LabelStackRegistry } from './common/utils/label-stack-registry';
 import { getReactProfilerTimingsForWindow } from './getReactProfilerTimingsForWindow';
 import { type getReactUFOPayloadVersion } from './utils/get-react-ufo-payload-version';

@@ -1,8 +1,8 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { useContext, useMemo } from 'react';
 
 import UFOInteractionContext from '../interaction-context';
-
 import type { UFOCustomDataProps } from './types';
 
 export type { UFOCustomDataProps } from './types';

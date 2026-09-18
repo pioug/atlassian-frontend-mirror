@@ -2,4 +2,5 @@
 /**
  * @deprecated Use `import { LoomSpaceAvatar } from '@atlaskit/teams-public/loom-avatar/main'` instead.
  */
+
 export { LoomSpaceAvatar } from './main';

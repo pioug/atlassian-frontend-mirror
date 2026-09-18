@@ -3,7 +3,6 @@ import { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import { MarksSide } from '../marks-side';
-
 import { getInlineCodeCursorSide } from './inline-code-side';
 
 type GetActiveMarksSideOptions = {

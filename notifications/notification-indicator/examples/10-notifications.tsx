@@ -1,6 +1,6 @@
 import React from 'react';
-import Heading from '@atlaskit/heading/heading';
 
+import Heading from '@atlaskit/heading/heading';
 import {
 	type NotificationCountResponse,
 	type NotificationLogProvider,

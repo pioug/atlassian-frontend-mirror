@@ -5,6 +5,7 @@
 import { keyframes, jsx, css, cssMap } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
+
 import { type SkeletonProps } from './types';
 
 const placeholderShimmer = keyframes({

@@ -8,9 +8,8 @@ import { act, fireEvent, screen, within } from '@atlassian/testing-library';
 import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
 import { CardAction } from '../../../../constants';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
-
-import * as analytics from '../../../../utils/analytics/analytics';
 import * as UseSmartLinkCrossProductUrlWrapperExport from '../../../../state/hooks/use-smart-link-cross-product-url-wrapper';
+import * as analytics from '../../../../utils/analytics/analytics';
 import { type InternalCardActionOptions as CardActionOptions } from '../../../../view/Card/types';
 import {
 	mockBaseResponseWithErrorPreview,
@@ -18,7 +17,6 @@ import {
 	mockJiraResponse,
 	mockUnauthorisedResponse,
 } from '../__mocks__/mocks';
-
 import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
 
 const userEventOptionsWithAdvanceTimers = {

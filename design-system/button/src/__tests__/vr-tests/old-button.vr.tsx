@@ -1,7 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
 import OldButtonExample from '../../../examples/99-appearances-old-button.vr.ap';
-
 import { themeVariants } from './utils';
 
 snapshot(OldButtonExample, {

@@ -3,9 +3,12 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import Card from '../src/card/cardLoader';
+import { canUseDOM } from 'exenv';
+
+import { type FileIdentifier } from '@atlaskit/media-client';
 import {
 	defaultCollectionName,
 	createStorybookMediaClientConfig,
@@ -14,10 +17,10 @@ import {
 	generateFilesFromTestData,
 	type MockFile,
 } from '@atlaskit/media-test-helpers';
-import { inlineCardVideoWrapperItemStyles } from '../example-helpers/styles';
-import { canUseDOM } from 'exenv';
-import { type FileIdentifier } from '@atlaskit/media-client';
+
 import { MainWrapper } from '../example-helpers';
+import { inlineCardVideoWrapperItemStyles } from '../example-helpers/styles';
+import Card from '../src/card/cardLoader';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 const onClick = () => console.log('onClick');

@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { code as codeFactory } from '../../next-schema/generated/markTypes';
 
 /**

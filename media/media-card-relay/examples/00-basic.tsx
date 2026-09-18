@@ -17,7 +17,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { MediaCardRelay } from '../src';
-
 import RelayMock, { useMockMediaItemRef, MOCK_IMAGE_ITEM } from './utils/relay-mock';
 import { useMockMediaConfig } from './utils/useMockMediaConfig';
 

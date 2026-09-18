@@ -1,13 +1,11 @@
 import React, { useCallback, useState } from 'react';
 
-import PlaceholderContent from './placeholder-content';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
@@ -17,6 +15,7 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { width } from '../src/internal/width';
+import PlaceholderContent from './placeholder-content';
 
 const units = [420, '42%', '42em', '100%'];
 const sizes: (string | number)[] = width.values;

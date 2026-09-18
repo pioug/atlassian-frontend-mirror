@@ -4,6 +4,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
 
 // TODO: remove this override behaviour for @atlaskit/icon-object

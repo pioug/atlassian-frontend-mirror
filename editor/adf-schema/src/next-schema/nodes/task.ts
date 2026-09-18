@@ -1,5 +1,6 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
+
 import { inlineContentGroup } from '../groups/inlineContentGroup';
 import { inlineGroup } from '../groups/inlineGroup';
 import { unsupportedMark } from '../marks/unsupportedMark';

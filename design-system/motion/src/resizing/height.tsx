@@ -1,8 +1,8 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
+
 import React, { Fragment } from 'react';
 
 import { type CallbackRef } from '../utils/use-element-ref';
-
 import { type ResizingHeightOpts, useResizingHeight } from './use-resizing-height';
 
 /**

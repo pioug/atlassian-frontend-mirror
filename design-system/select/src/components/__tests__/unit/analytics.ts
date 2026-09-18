@@ -1,7 +1,9 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
+
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+
 import '../../../select';
 
 const packageName = process.env._PACKAGE_NAME_ as string;

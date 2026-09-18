@@ -4,10 +4,10 @@ import type { EmojiDescription, OptionalEmojiDescription } from '../../types';
 import { convertMediaToImageEmoji } from '../../util/convert-media-to-image-emoji';
 import { isMediaRepresentation } from '../../util/is-media-representation';
 import debug from '../../util/logger';
+import { getRequiredRepresentation } from './getRequiredRepresentation';
 import { maxImageCached, maxImageSize } from './MediaEmojiCache';
 import type { EmojiCacheStrategy } from './MediaEmojiCache';
 import type MediaImageLoader from './MediaImageLoader';
-import { getRequiredRepresentation } from './getRequiredRepresentation';
 
 /**
  * For browsers that do no cache images without equivalent headers (e.g. Firefox).

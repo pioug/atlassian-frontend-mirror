@@ -1,9 +1,8 @@
-import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge/extract-closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge/extract-closest-edge';
 import type { ElementEventBasePayload } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 
 import type { DraggableData, DraggableSourceData, DraggableTargetData } from '../../../types';
-
 import { getDragBehaviour } from './getDragBehaviour';
 
 export const getDraggableDataFromEvent = ({

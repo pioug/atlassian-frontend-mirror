@@ -1,8 +1,9 @@
 import type { JSONSchema4 } from 'json-schema';
-import { adfNode } from '../../../adfNode';
+
 import { $or } from '../../../$or';
 import { $range } from '../../../$range';
 import { $zeroPlus } from '../../../$zeroPlus';
+import { adfNode } from '../../../adfNode';
 import { transform } from '../../../transforms/adfToJson/adfToJson';
 import { expectedJSONDefinitions, getTestAdfNode } from '../../__fixtures__/testAdfNode.fixture';
 

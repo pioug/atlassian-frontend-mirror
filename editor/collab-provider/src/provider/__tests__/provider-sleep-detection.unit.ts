@@ -1,14 +1,15 @@
 import { replaceRaf } from 'raf-stub';
+
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
 
-import { createSocketIOCollabProvider } from '../../socket-io-provider';
-import { Channel } from '../../channel';
 import AnalyticsHelper from '../../analytics/analytics-helper';
+import { Channel } from '../../channel';
 import { CatchupEventReason } from '../../helpers/const';
+import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { getMaxGapSince } from '../sleep-detector';
 
 replaceRaf();

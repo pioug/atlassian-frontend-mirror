@@ -1,4 +1,6 @@
 import type { JSONSchema4 } from 'json-schema';
+
+import type { ADFNode } from '../../adfNode';
 import {
 	$onePlus,
 	$or,
@@ -8,7 +10,6 @@ import {
 	adfNode,
 	adfNodeGroup,
 } from '../../index';
-import type { ADFNode } from '../../adfNode';
 import type { ADFCommonNodeSpec } from '../../types/ADFNodeSpec';
 
 export const getTestAdfNode = (): ADFNode<[string], ADFCommonNodeSpec> => {

@@ -8,9 +8,9 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 import type { MentionProvider } from '@atlaskit/mention/types';
 
 import type { InsertMentionParameters } from './editor-commands';

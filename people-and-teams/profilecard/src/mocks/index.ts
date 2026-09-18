@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import getMockProfileClient from '@atlaskit/profilecard/mock-profile-client'` instead.
  */
+
 export { default as getMockProfileClient } from './mock-profile-client';
 /**
  * @deprecated Use `import getMockTeamClient from '@atlaskit/profilecard/mock-team-client'` instead.

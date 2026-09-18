@@ -7,7 +7,6 @@ import { type MediaApi } from '@atlaskit/media-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { MockedMediaClientProvider } from '../test-helpers/MockedMediaClientProvider';
-
 import { useCopyIntent } from './useCopyIntent';
 
 // Polyfill ClipboardEvent for JSDOM

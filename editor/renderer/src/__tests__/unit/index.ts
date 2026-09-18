@@ -1,5 +1,7 @@
 import assert from 'assert';
+
 import sinon from 'sinon';
+
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import {
 	nativeEmbedsFallbackTransform,
@@ -50,15 +52,14 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn(() => false),
 }));
 
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import * as commonUtils from '@atlaskit/editor-common/utils';
 import * as common from '@atlaskit/editor-common/validator';
-import type { Serializer } from '../../serializer';
-import { renderDocument } from '../../render-document';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-
 import { PLATFORM } from '../../analytics/events';
+import { renderDocument } from '../../render-document';
+import type { Serializer } from '../../serializer';
 import doc from '../__fixtures__/basic-document.adf.json';
 import dateDoc from '../__fixtures__/date.adf.json';
 import headingsDoc from '../__fixtures__/headings-adf.json';

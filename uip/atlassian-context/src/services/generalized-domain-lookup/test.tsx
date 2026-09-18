@@ -1,6 +1,5 @@
 import { PRODUCTION, STAGING } from '../../common/constants';
 import { isFedrampModerate } from '../perimeter/isFedrampModerate';
-
 import { getDomainInContext } from './getDomainInContext';
 import { getUrlForDomainInContext } from './getUrlForDomainInContext';
 

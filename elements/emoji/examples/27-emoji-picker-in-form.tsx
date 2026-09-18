@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
+
+import { IntlProvider } from 'react-intl';
+
+import Button from '@atlaskit/button/default/button';
+import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import TextField from '@atlaskit/textfield/text-field';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
-import { IntlProvider } from 'react-intl';
+
 import EmojiPicker, { type EmojiId, type OnEmojiEvent, ResourcedEmoji } from '../src';
 import { EmojiPickerPopup } from './26-emoji-common-provider-with-real-backend';
-
-import Form from '@atlaskit/form/form';
-import Field from '@atlaskit/form/field';
-import { FormFooter } from '@atlaskit/form/form-footer';
-import TextField from '@atlaskit/textfield/text-field';
-import Button from '@atlaskit/button/default/button';
 
 const EmojiPickerWithUpload = (): React.JSX.Element => {
 	const [formSubmitted, setFormSubmitted] = useState(false);

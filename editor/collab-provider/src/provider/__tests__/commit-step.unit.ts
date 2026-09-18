@@ -7,25 +7,25 @@
 */
 
 import '../../__tests__/jest_mocks/socket.io-client.mock';
-
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
+import { AGENT_ATTRIBUTION_META } from '@atlaskit/editor-common/transaction-agent-attribution';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { CommitStepService, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-step';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { NotConnectedError } from '../../errors/custom-errors';
 import { EVENT_STATUS } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { AcknowledgementResponseTypes } from '../../types';
-import { NotConnectedError } from '../../errors/custom-errors';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { AGENT_ATTRIBUTION_META } from '@atlaskit/editor-common/transaction-agent-attribution';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { CommitStepService, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-step';
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client'),

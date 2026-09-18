@@ -2,8 +2,8 @@ import React, { type ComponentProps } from 'react';
 
 import { render } from '@testing-library/react';
 
-import { FormatMessages } from './FormatMessages';
 import { extractMessageNodes } from './extractMessageNodes';
+import { FormatMessages } from './FormatMessages';
 
 describe('FormatMessages', () => {
 	const renderComponent = (props: ComponentProps<typeof FormatMessages>) => {

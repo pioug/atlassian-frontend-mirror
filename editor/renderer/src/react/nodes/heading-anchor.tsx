@@ -4,6 +4,7 @@
  */
 import type { Ref } from 'react';
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
@@ -11,9 +12,9 @@ import { injectIntl } from 'react-intl';
 
 import LinkIcon from '@atlaskit/icon/core/link';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { token } from '@atlaskit/tokens';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { headingAnchorLinkMessages } from '../../messages';
 import type { MessageDescriptor } from '../../types/i18n';

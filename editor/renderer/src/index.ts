@@ -10,6 +10,7 @@ export { default as TextSerializer } from './text';
  * This export will be removed in January 2027.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
+
 export { default as ReactRenderer } from './ui/Renderer';
 
 /**

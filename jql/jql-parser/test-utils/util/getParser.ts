@@ -2,7 +2,6 @@ import { CharStreams, CommonTokenStream } from 'antlr4ts';
 
 import { JQLLexer } from '../../src/generated/JQLLexer';
 import { JQLParser } from '../../src/generated/JQLParser';
-
 import { mockErrorListener } from './mockErrorListener';
 
 export const getParser = (query: string): JQLParser => {

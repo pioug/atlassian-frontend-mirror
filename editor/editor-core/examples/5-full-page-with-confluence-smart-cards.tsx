@@ -2,8 +2,8 @@ import React from 'react';
 
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import Link from '@atlaskit/link/link';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import Link from '@atlaskit/link/link';
 import SectionMessage from '@atlaskit/section-message/message';
 import Toggle from '@atlaskit/toggle';
 

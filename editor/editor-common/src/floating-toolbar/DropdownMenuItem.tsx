@@ -12,8 +12,8 @@ import type { IntlShape } from 'react-intl';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
-import type { ButtonItemProps } from '@atlaskit/menu/types';
 import ButtonItem from '@atlaskit/menu/button-item';
+import type { ButtonItemProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

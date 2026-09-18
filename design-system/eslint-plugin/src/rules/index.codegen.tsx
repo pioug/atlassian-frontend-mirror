@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b7786eebbecf87217dbdc71b8f92b77e>>
+ * @codegen <<SignedSource::3cbc9ff39720b5f2f75f62ce8aacd211>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -24,6 +24,7 @@ import noDeprecatedDesignTokenUsage from './no-deprecated-design-token-usage';
 import noDeprecatedImports from './no-deprecated-imports';
 import noDirectUseOfWebPlatformDragAndDrop from './no-direct-use-of-web-platform-drag-and-drop';
 import noEmotionPrimitives from './no-emotion-primitives';
+import noEmptyIconButtonLabel from './no-empty-icon-button-label';
 import noEmptyStyledExpression from './no-empty-styled-expression';
 import noExportedCss from './no-exported-css';
 import noExportedKeyframes from './no-exported-keyframes';
@@ -108,6 +109,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-deprecated-imports': noDeprecatedImports,
 	'no-direct-use-of-web-platform-drag-and-drop': noDirectUseOfWebPlatformDragAndDrop,
 	'no-emotion-primitives': noEmotionPrimitives,
+	'no-empty-icon-button-label': noEmptyIconButtonLabel,
 	'no-empty-styled-expression': noEmptyStyledExpression,
 	'no-exported-css': noExportedCss,
 	'no-exported-keyframes': noExportedKeyframes,

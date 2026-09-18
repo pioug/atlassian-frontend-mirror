@@ -15,7 +15,6 @@ import {
 import { CardSSR } from '../src/ssr';
 import useAISummaryAction from '../src/state/hooks/use-ai-summary-action';
 import type { AISummaryState } from '../src/state/hooks/use-ai-summary/ai-summary-service/types';
-
 import ExampleContainer from './utils/example-container';
 
 const googleDocResponse = {

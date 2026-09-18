@@ -3,14 +3,17 @@
  * @jsx jsx
  */
 import React, { memo, forwardRef } from 'react';
+
 import { css, cssMap, jsx } from '@compiled/react';
+
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
+
 import type { EmojiDescription } from '../../types';
-import Emoji from './Emoji';
 import { TONESELECTOR_KEYBOARD_KEYS_SUPPORTED } from '../../util/constants';
 import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
-import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import Emoji from './Emoji';
 
 const emojiButton = css({
 	backgroundColor: 'transparent',

@@ -3,7 +3,6 @@ import React from 'react';
 import LikeIcon from '@atlaskit/icon/core/thumbs-up';
 
 import { ActionName, TitleBlock } from '../../src';
-
 import ExampleContainer from './example-container';
 
 export default (): React.JSX.Element => (

@@ -1,5 +1,4 @@
 import { type EnvironmentType } from '../../common/constants';
-
 import { getDomainInContext } from './getDomainInContext';
 
 export function getUrlForDomainInContext(

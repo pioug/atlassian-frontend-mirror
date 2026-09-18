@@ -11,7 +11,6 @@ import { WithProviders } from '../../../provider-factory';
 import type { Command, EditorAppearance, LinkInputType, LinkPickerOptions } from '../../../types';
 import type { EditorLinkPickerProps } from '../EditorLinkPicker';
 import { EditorLinkPicker } from '../EditorLinkPicker';
-
 import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 
 const HYPERLINK_PROVIDERS: (keyof Providers)[] = ['activityProvider', 'searchProvider'];

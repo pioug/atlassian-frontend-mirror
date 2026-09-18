@@ -2,12 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl';
+
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { type RowType, type RowCellType } from '@atlaskit/dynamic-table/types';
 import {
@@ -21,9 +27,7 @@ import {
 	type WithMediaClientConfigProps,
 } from '@atlaskit/media-client-react/with-media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import { mediaTableWrapperStyles } from './styles';
-import DownloadButton from './downloadButton';
-import PreviewButton from './previewButton';
+
 import {
 	type RowData,
 	type OnSortData,
@@ -38,10 +42,9 @@ import {
 	CELL_KEY_PREVIEW,
 	ANALYTICS_MEDIA_CHANNEL,
 } from '../util';
-import withAnalyticsEvents, {
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next/withAnalyticsEvents';
-
+import DownloadButton from './downloadButton';
+import PreviewButton from './previewButton';
+import { mediaTableWrapperStyles } from './styles';
 export class MediaTable extends Component<
 	MediaTableProps & WrappedComponentProps,
 	MediaTableState

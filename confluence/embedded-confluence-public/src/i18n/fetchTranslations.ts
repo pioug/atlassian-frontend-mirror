@@ -1,5 +1,5 @@
-import en_GB from './en_GB';
 import en from './en';
+import en_GB from './en_GB';
 
 const fetchTranslations = async (locale: string): Promise<Record<string, string>> => {
 	switch (locale) {

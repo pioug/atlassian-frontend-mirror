@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
-
 import { TaskListMenuItem } from './TaskListMenuItem/TaskListMenuItem';
 
 type GetTasksAndDecisionsToolbarComponentsProps = {

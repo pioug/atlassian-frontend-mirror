@@ -24,7 +24,6 @@ import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../../common/types';
 import { MinHeightContainer } from '../../../../common/ui/min-height-container';
 import { handleNavKeyDown } from '../../../../common/utils/handleNavKeyDown';
-
 import { NoResults, testIds as noResultsTestIds } from './link-search-no-results';
 import { LinkSearchListItem, testIds as searchResultItemTestIds } from './list-item';
 import { useTrackResultsShown } from './use-track-results-shown';

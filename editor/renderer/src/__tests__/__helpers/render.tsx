@@ -1,16 +1,15 @@
 import React, { act } from 'react';
-import { IntlProvider } from 'react-intl';
-
-import { createRoot, type Root } from 'react-dom/client';
 
 import type { RenderResult } from '@testing-library/react';
-import { render } from '@atlassian/testing-library';
+import { createRoot, type Root } from 'react-dom/client';
+import { IntlProvider } from 'react-intl';
 
 import type { GasPurePayload, GasPureScreenEventPayload } from '@atlaskit/analytics-gas-types';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
+import { render } from '@atlassian/testing-library';
 
 export const renderWithIntl = (component: React.ReactNode): RenderResult => {
 	return render(<IntlProvider locale="en">{component}</IntlProvider>);

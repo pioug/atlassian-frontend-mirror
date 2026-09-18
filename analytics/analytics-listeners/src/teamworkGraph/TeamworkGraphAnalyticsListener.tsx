@@ -1,7 +1,8 @@
 import React from 'react';
+
+import GenericAnalyticsListener from '../GenericAnalyticsListener';
 import { type ListenerProps, FabricChannel } from '../types';
 import { processEvent } from './process-event';
-import GenericAnalyticsListener from '../GenericAnalyticsListener';
 
 export default function TeamworkGraphAnalyticsListener(props: ListenerProps): React.JSX.Element {
 	return (

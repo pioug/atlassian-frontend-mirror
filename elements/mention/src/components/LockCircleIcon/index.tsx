@@ -1,5 +1,6 @@
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { lazy, type LazyExoticComponent } from 'react';
+
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 const AsyncLockCircleIcon: LazyExoticComponent<{
 	(props: NewCoreIconProps): JSX.Element;

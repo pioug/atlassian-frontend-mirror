@@ -2,7 +2,6 @@ import { teamsClient } from '@atlaskit/teams-client/client';
 import type { TeamLink } from '@atlaskit/teams-client/links';
 
 import { type NewTeamWebLink } from '../../../common/types';
-
 import { initialState } from './initial-state';
 import { type StoreApi, type TeamWebLinksState } from './types';
 

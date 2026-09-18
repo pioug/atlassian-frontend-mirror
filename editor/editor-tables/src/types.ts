@@ -38,6 +38,7 @@ export type Axis = 'horiz' | 'vert';
  * LEFT = -1
  * RIGHT = 1
  */
+
 export type Direction = -1 | 1;
 
 export type Dispatch = (tr: Transaction) => void;

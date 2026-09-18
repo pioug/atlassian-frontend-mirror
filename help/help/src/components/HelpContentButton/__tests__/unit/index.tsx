@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { render, fireEvent, waitFor } from '@testing-library/react';
+
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import ShipIcon from '@atlaskit/icon/core/release';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import HelpContentButton from '../../index';

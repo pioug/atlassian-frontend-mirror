@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
 
 import Modal from '@atlaskit/modal-dialog/modal-dialog';

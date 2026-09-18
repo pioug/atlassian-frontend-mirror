@@ -18,7 +18,6 @@ import type { EditorActions } from '../src';
 import { ContextPanel } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
-
 import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 import type { EditorAPI } from './5-full-page';
 

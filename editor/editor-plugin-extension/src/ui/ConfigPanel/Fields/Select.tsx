@@ -2,13 +2,12 @@ import React, { Fragment } from 'react';
 
 import type { EnumSelectField, Option } from '@atlaskit/editor-common/extensions';
 import Field from '@atlaskit/form/field';
-import type { ValueType } from '@atlaskit/select/types';
 import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
 
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';
 import { getOptionFromValue, validate } from '../utils';
-
 import { formatOptionLabel } from './SelectItem';
 
 export default function SelectField({

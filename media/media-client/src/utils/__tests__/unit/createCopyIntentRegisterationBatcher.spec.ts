@@ -1,8 +1,8 @@
 import Dataloader from 'dataloader';
+
 import { asMock } from '@atlaskit/media-common/test-helpers';
 
 import { MediaStore } from '../../..';
-
 import { createCopyIntentRegisterationBatcher } from '../../createCopyIntentRegisterationBatcher';
 
 describe('createCopyIntentRegisterationBatcher', () => {

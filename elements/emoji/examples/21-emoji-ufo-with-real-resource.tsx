@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { payloadPublisher } from '@atlassian/ufo/publisher';
-import { ufologger } from '@atlassian/ufo-experimental/logger';
 import { IntlProvider } from 'react-intl';
+
+import { ufologger } from '@atlassian/ufo-experimental/logger';
+import { payloadPublisher } from '@atlassian/ufo/publisher';
 
 import { getEmojiConfig } from '../example-helpers/get-emoji-config';
 import { getRealEmojiProvider } from '../example-helpers/get-real-emoji-provider';

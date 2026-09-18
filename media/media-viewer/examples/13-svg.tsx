@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+
+import Button from '@atlaskit/button/button';
 import { type FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
+import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
+import { svgFileIds } from '@atlaskit/media-client/test-helpers';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import Select from '@atlaskit/select/default';
+
+import { CenteredForm } from '../example-helpers/centeredForm';
+import { ToggleBox, useSelectOptions, delayApiResponses } from '../example-helpers/svg';
 import { MediaViewer } from '../src';
 import { useCreateMockedMediaClientProviderWithBinaries } from '../src/__tests__/unit/newgen/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import Select from '@atlaskit/select/default';
-import Button from '@atlaskit/button/button';
-import { CenteredForm } from '../example-helpers/centeredForm';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { svgFileIds } from '@atlaskit/media-client/test-helpers';
-import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
-import { ToggleBox, useSelectOptions, delayApiResponses } from '../example-helpers/svg';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 

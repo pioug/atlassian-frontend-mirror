@@ -4,7 +4,6 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
-
 import { trackLastOrganicChangePluginKey } from './track-last-organic-change';
 import { groupSteps, sanitizeStep } from './track-steps';
 

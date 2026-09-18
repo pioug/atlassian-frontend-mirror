@@ -1,10 +1,10 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
-import { NCS_ERROR_CODE } from './ncs-errors';
-import type { InternalError } from './internal-errors';
-import { INTERNAL_ERROR_CODE } from './internal-errors';
 import type { ProviderError } from '@atlaskit/editor-common/collab';
 import { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import type { InternalError } from './internal-errors';
+import { INTERNAL_ERROR_CODE } from './internal-errors';
+import { NCS_ERROR_CODE } from './ncs-errors';
 
 /*
  * Maps internal collab provider errors to an emitted error format

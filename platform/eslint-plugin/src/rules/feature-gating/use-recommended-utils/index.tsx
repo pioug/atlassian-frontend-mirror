@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+
 import { isIdentifierImportedFrom, type Node } from '../utils';
 
 const BANNED_IMPORTS_SET = new Set(['@atlaskit/feature-gate-js-client']);

@@ -1,6 +1,7 @@
 import { expectToEqual } from '@atlaskit/media-common/test-helpers';
-import { overrideMediaTypeIfUnknown } from '../../overrideMediaTypeIfUnknown';
+
 import { type ErrorFileState, type FileState, type MediaType } from '../../..';
+import { overrideMediaTypeIfUnknown } from '../../overrideMediaTypeIfUnknown';
 
 describe('overrideMediaTypeIfUnknown()', () => {
 	const mediaType: MediaType = 'doc';

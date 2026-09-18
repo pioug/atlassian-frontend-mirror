@@ -34,8 +34,8 @@ import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
 import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-right';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { LayoutPlugin } from '../index';
 import {
@@ -46,7 +46,6 @@ import {
 } from '../pm-plugins/actions';
 import { isDistributedUniformly } from '../pm-plugins/utils/layout-column-distribution';
 import type { PresetLayout } from '../types';
-
 import {
 	EditorLayoutFiveColumnsIcon,
 	EditorLayoutFourColumnsIcon,

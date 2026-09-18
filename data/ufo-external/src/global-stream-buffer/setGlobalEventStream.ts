@@ -1,6 +1,5 @@
 import { ufowarn } from '../logger/ufowarn';
 import { type UFOGlobalEventStreamEvent } from '../types';
-
 import { type GlobalEventStream } from './index';
 
 type GlobalEventStreamBuffer = {

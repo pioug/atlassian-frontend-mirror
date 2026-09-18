@@ -20,7 +20,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getIframeSandboxAttribute } from '../../../utils/get-iframe-sandbox-attribute';
-
 import { IFrame } from './IFrame';
 import { IframeDwellTracker } from './IframeDwellTracker';
 

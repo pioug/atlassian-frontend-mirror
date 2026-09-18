@@ -1,7 +1,7 @@
 import { type Hooks, snapshotInformational, type SnapshotTestOptions } from '@af/visual-regression';
 
-import ModalWideButtonText from '../../../../examples/101-modal-wide-button-text.vr.ap';
 import ModalBasic from '../../../../examples/99-modal-basic.vr.ap';
+import ModalWideButtonText from '../../../../examples/101-modal-wide-button-text.vr.ap';
 
 const variants: SnapshotTestOptions<Hooks>['variants'] = [
 	{

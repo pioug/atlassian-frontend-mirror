@@ -11,7 +11,6 @@ import type { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-
 import { token } from '@atlaskit/tokens';
 
 import type { Item } from '../../examples/data/tasks';
-
 import type { RbdApi } from './types';
 
 const cardStyles = css({

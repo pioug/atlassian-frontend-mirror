@@ -34,7 +34,6 @@ import {
 	tableControlsSpacing,
 	tableScrollbarOffset,
 } from '../ui/consts';
-
 import TableNodeView from './TableNodeViewBase';
 
 interface SentinelData {

@@ -31,12 +31,12 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 import { EVENT_CHANNEL } from '../../../analytics/constants';
 import { componentMetadata } from '../../../analytics/constants';
-import { useDatasourceAnalyticsEvents } from '../../../analytics/index';
 import type {
 	AnalyticsContextAttributesType,
 	AnalyticsContextType,
 	ComponentMetaDataType,
 } from '../../../analytics/generated/analytics.types';
+import { useDatasourceAnalyticsEvents } from '../../../analytics/index';
 import {
 	DatasourceAction,
 	DatasourceDisplay,
@@ -49,9 +49,8 @@ import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messa
 import { buildDatasourceAdf } from '../../../common/utils/schema-utils';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id/use-datasource-experience-id';
-
-import { UserInteractionsProvider } from '../../../contexts/user-interactions/user-interactions-provider';
 import { useUserInteractions } from '../../../contexts/user-interactions/use-user-interactions';
+import { UserInteractionsProvider } from '../../../contexts/user-interactions/user-interactions-provider';
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
@@ -64,7 +63,6 @@ import { DatasourceModal } from '../../common/modal/datasource-modal';
 import { AssetsSearchContainer } from '../search-container';
 import { AssetsSearchContainerLoading } from '../search-container/loading-state';
 import { type AssetsConfigModalProps, type AssetsDatasourceParameters } from '../types';
-
 import { modalMessages } from './messages';
 import { RenderAssetsContent } from './render-assets-content';
 

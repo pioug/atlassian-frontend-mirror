@@ -1,6 +1,9 @@
-import { token } from '@atlaskit/tokens';
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+
+import { token } from '@atlaskit/tokens';
+
 import ModalSpinner from '../../modalSpinner';
 
 // skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.

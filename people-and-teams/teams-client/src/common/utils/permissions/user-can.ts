@@ -4,7 +4,6 @@ import {
 	type TeamPermission,
 	type TeamState,
 } from '../../../types/team';
-
 import { getPermissionMap } from './get-permission-map';
 import { type TeamAction } from './types';
 

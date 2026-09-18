@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { getExtension } from '@atlaskit/media-ui/getExtension'` instead.
  */
+
 export { getExtension } from './getExtension';
 /**
  * @deprecated Use `import { isCodeViewerItem } from '@atlaskit/media-ui/isCodeViewerItem'` instead.

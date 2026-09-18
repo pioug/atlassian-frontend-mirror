@@ -17,35 +17,37 @@ import {
 	type ComponentType,
 	type FC,
 } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+import FocusLock from 'react-focus-lock';
 import {
 	FormattedMessage,
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl';
-import TextField from '@atlaskit/textfield/text-field';
-import CrossIcon from '@atlaskit/icon/core/cross';
-import AkButton from '@atlaskit/button/standard-button';
-import { Text } from '@atlaskit/primitives/compiled';
-import FocusLock from 'react-focus-lock';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { getDocument } from '@atlaskit/browser-apis';
+import Button from '@atlaskit/button/default/button';
+import AkButton from '@atlaskit/button/standard-button';
+import CrossIcon from '@atlaskit/icon/core/cross';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled';
+import TextField from '@atlaskit/textfield/text-field';
+import { token } from '@atlaskit/tokens';
+
 import type { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
-import CreateEmojiWithRovo from './CreateEmojiWithRovo';
 import debug from '../../util/logger';
 import { messages } from '../i18n';
+import CreateEmojiWithRovo from './CreateEmojiWithRovo';
 import EmojiErrorMessage from './EmojiErrorMessage';
 import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import Button from '@atlaskit/button/default/button';
-import { Box } from '@atlaskit/primitives/compiled';
-import { getDocument } from '@atlaskit/browser-apis';
 import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 const closeEmojiUploadButton = css({

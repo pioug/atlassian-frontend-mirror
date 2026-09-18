@@ -2,7 +2,6 @@ import { type TeamMembershipQueryResponse } from '../services/agg-client/utils/q
 import { type RecommendationsResponse } from '../services/invitations-client/types';
 import { type LegionTeamGetResponseV4 } from '../services/legion-client/types';
 import { type TeamMembership } from '../types/membership';
-
 import avatar1 from './images/avatar-1.png';
 import avatar2 from './images/avatar-2.png';
 import avatar3 from './images/avatar-3.png';

@@ -1,7 +1,7 @@
 import { token } from '@atlaskit/tokens';
 
-import { getAgentColor, type AgentColor, type GetAgentColorProps } from './get-agent-color';
 import type { AgentPresenceColor } from './agent-presence-color-types';
+import { getAgentColor, type AgentColor, type GetAgentColorProps } from './get-agent-color';
 
 const studioColors: Record<AgentColor, AgentPresenceColor> = {
 	blue: {

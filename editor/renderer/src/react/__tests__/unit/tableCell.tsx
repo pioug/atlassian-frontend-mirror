@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
-import { TableCell } from '../../nodes/tableCell';
 
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
+
+import { TableCell } from '../../nodes/tableCell';
 
 describe('custom table cell background colors inversion in dark mode', () => {
 	it('should capture and report a11y violations', async () => {

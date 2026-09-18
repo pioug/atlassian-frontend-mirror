@@ -9,7 +9,6 @@ import { token } from '@atlaskit/tokens';
 
 import ProfileCardResourced from '../src/components/User/ProfileCardResourced';
 import ProfileCardTrigger from '../src/components/User/ProfileCardTrigger';
-
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 import { getMockProfileClient } from './helper/util';

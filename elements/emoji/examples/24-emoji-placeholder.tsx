@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
+
 import { EmojiPlaceholder } from '../src';
 
 export default function Example(): React.JSX.Element {

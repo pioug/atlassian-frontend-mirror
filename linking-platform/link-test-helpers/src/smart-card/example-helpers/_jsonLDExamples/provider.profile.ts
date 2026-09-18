@@ -1,7 +1,6 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { avatarSquare, iconAtlas } from '../../images';
-
 import { overrideEmbedContent } from './utils';
 
 export const ProfileObject = {

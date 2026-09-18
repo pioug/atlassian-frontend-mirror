@@ -1,8 +1,10 @@
 import React from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { token } from '@atlaskit/tokens';
-import { messages } from '../../../../messages';
 
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
+
+import { token } from '@atlaskit/tokens';
+
+import { messages } from '../../../../messages';
 import { LoadingRectangle } from '../../../../util/styled';
 
 export const Loading: React.FC<WrappedComponentProps> = ({ intl: { formatMessage } }) => (

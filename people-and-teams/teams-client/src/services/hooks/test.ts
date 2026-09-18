@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
 import { teamsClient } from '../main';
-
 import { useTeamsClientSetup } from './use-teams-client-setup';
 import { useTeamsClientSetupNext } from './use-teams-client-setup-next';
 

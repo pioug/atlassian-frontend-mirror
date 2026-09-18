@@ -8,9 +8,11 @@ import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import TextArea from '@atlaskit/textarea/text-area';
-import { token } from '@atlaskit/tokens';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 
+import { DEFAULT_ADF } from './utils/adf-validation/default-adf';
+import { formatProblem, formatSyntaxProblem } from './utils/adf-validation/format-problem';
 import {
 	describeJsonSyntaxError,
 	type JsonLine,
@@ -19,8 +21,6 @@ import {
 	toJsonLines,
 	toSourceLines,
 } from './utils/adf-validation/json-lines';
-import { DEFAULT_ADF } from './utils/adf-validation/default-adf';
-import { formatProblem, formatSyntaxProblem } from './utils/adf-validation/format-problem';
 import { type LocatedError, pathToLabel, validateAdf } from './utils/adf-validation/validate-adf';
 
 const styles = cssMap({

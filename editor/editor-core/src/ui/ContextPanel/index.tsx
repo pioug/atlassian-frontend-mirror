@@ -1,4 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
+
 import React from 'react';
 
 import { injectIntl } from 'react-intl';

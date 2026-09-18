@@ -21,7 +21,6 @@ import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { getLayoutColumnMenuAnchorPos } from '../../pm-plugins/utils/layout-column-selection';
-
 import { LAYOUT_COLUMN_MENU_FALLBACKS } from './components';
 import { LAYOUT_COLUMN_MENU } from './keys';
 import {

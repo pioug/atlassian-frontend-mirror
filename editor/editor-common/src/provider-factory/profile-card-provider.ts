@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
 import type { Placement } from '@atlaskit/popper/main';
-import type { ProfileCardAction } from '@atlaskit/profilecard/types';
 import type ProfileClient from '@atlaskit/profilecard/profile-card-client';
+import type { ProfileCardAction } from '@atlaskit/profilecard/types';
 
 /**
  * Render-prop signature for injecting a custom user profile card around a mention. When the

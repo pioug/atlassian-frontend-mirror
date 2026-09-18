@@ -8,12 +8,11 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { LoadingSkeleton } from '../../../../common/loading-skeleton';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
 import { default as CustomBlock } from '../../../../FlexibleCard/components/blocks/block';
 import { BaseIconElement } from '../../../../FlexibleCard/components/elements/common';
-import { LoadingSkeleton } from '../../../../common/loading-skeleton';
 import { CARD_WIDTH_REM } from '../../../styled';
-
 import { type HoverCardLoadingViewProps } from './types';
 
 const loadingViewContainer = css({

@@ -1,9 +1,7 @@
 import React, { type ReactNode, useMemo, useReducer } from 'react';
-
 import { createPortal } from 'react-dom';
 
 import { type PluginContainerKey } from '../../plugins/types';
-
 import { PortalActionsContext } from './context';
 import { type Container, type PortalAction, type PortalActions, type PortalState } from './types';
 

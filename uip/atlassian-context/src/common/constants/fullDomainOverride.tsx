@@ -1,5 +1,4 @@
 import { type DomainConfig } from './domains';
-
 import { COMMERCIAL, DEV, FEDRAMP_MODERATE, PRODUCTION, STAGING } from './index';
 
 export const fullDomainOverride: Record<string, DomainConfig> = {

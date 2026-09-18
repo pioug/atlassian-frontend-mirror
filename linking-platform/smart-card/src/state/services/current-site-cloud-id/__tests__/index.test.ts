@@ -1,9 +1,9 @@
 import * as linkingCommon from '@atlaskit/linking-common/api';
 
+import { currentSiteCloudIdConstants } from '../constants';
 import { getCurrentSiteCloudId } from '../getCurrentSiteCloudId';
 import { getCurrentSiteCloudIdLocalStorageKey } from '../getCurrentSiteCloudIdLocalStorageKey';
 import { getCurrentSiteCloudIdSync } from '../getCurrentSiteCloudIdSync';
-import { currentSiteCloudIdConstants } from '../constants';
 import { CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY, currentSiteCloudIdService } from '../index';
 
 const requestSpy = jest.spyOn(linkingCommon, 'request');

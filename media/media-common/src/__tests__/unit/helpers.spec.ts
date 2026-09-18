@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 import {
 	debounce,
 	getRandomHex,
@@ -7,7 +9,6 @@ import {
 	omitBy,
 	pick,
 } from '../../utils/helpers';
-import crypto from 'crypto';
 
 describe('helpers', () => {
 	const prevCrypto = window.crypto;

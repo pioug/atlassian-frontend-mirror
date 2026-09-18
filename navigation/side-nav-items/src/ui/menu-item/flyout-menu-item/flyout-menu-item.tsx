@@ -6,7 +6,6 @@ import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
 import { Popup } from '@atlaskit/popup/compositional/popup';
 
 import { MenuListItem } from '../menu-list-item';
-
 import type { FlyoutCloseSource } from './flyout-menu-item-content';
 import {
 	IsOpenContext,

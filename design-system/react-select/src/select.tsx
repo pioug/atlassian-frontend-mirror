@@ -31,10 +31,10 @@ import {
 	defaultComponents,
 	type SelectComponentsConfig,
 } from './components';
-import MultiValueMotion from './components/multi-value-motion';
 import DummyInput from './components/dummy-input';
 import LiveRegion from './components/live-region';
 import MenuPlacer from './components/menu-placer';
+import MultiValueMotion from './components/multi-value-motion';
 import { createFilter, type FilterOptionOption } from './filters';
 import { formatGroupLabel as formatGroupLabelBuiltin } from './format-group-label';
 import { getOptionLabel as getOptionLabelBuiltin } from './get-option-label';

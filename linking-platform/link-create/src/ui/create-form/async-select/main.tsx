@@ -11,7 +11,6 @@ import messages from '../../../common/messages';
 import { useLinkCreateCallback } from '../../../controllers/callback-context/main';
 import { CreateField } from '../../../controllers/create-field/main';
 import { useFormContext } from '../../../controllers/form-context/main';
-
 import { type AsyncSelectProps } from './types';
 
 export const TEST_ID = 'link-create-async-select';

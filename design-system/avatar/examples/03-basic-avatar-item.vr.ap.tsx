@@ -5,12 +5,12 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar/avatar';
+import AvatarItem from '@atlaskit/avatar/avatar-item';
 import type {
 	AppearanceType,
 	Presence as PresenceType,
 	Status as StatusType,
 } from '@atlaskit/avatar/types';
-import AvatarItem from '@atlaskit/avatar/avatar-item';
 import { token } from '@atlaskit/tokens';
 
 const RANDOM_USERS: {

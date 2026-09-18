@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { PrimaryButtonSkeleton } from '../PrimaryButton/skeleton';
-
 import { type PrimaryItemsContainerSkeletonProps } from './types';
 
 const primaryButtonSkeletonStyles = css({

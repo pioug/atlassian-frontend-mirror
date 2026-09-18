@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+
 import { IntlProvider } from 'react-intl';
-import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
+
+import { Label } from '@atlaskit/form/label/default';
 import defaultLocales from '@atlaskit/locale/default-locales';
+import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { locales } from '@atlaskit/media-ui/locales';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { Label } from '@atlaskit/form/label/default';
 
 function getMessages(localeValue: string) {
 	const lang = localeValue.substring(0, 2);

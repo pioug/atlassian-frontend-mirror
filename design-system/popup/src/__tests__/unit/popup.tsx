@@ -1,4 +1,5 @@
 /* eslint-disable testing-library/no-node-access */
+
 import React, {
 	type Dispatch,
 	forwardRef,
@@ -10,9 +11,9 @@ import React, {
 
 import { replaceRaf } from 'raf-stub';
 
-import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 import Button from '@atlaskit/button/default/button';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { Popup } from '../../popup';
 import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';

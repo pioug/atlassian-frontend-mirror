@@ -7,8 +7,8 @@ import { useContext } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { prefersReducedMotion } from '@atlaskit/motion/utils/accessibility';
 import { easeOut } from '@atlaskit/motion/curves';
+import { prefersReducedMotion } from '@atlaskit/motion/utils/accessibility';
 
 import {
 	COLLAPSED_LEFT_SIDEBAR_WIDTH,
@@ -20,7 +20,6 @@ import { getPageLayoutSlotSelector } from '../../common/get-page-layout-slot-sel
 import { useIsSidebarDragging } from '../../common/hooks';
 import type { SlotWidthProps } from '../../common/types';
 import { SidebarResizeContext, useSkipLink } from '../../controllers';
-
 import SlotFocusRing from './internal/slot-focus-ring';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

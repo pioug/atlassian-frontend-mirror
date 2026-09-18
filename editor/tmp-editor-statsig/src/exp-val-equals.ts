@@ -1,5 +1,4 @@
 import { expValEqualsInternal } from './exp-val-equals-internal';
-
 import type {
 	EditorExperimentsConfig,
 	ExperimentDefaultValue,

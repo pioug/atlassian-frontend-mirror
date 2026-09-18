@@ -1,3 +1,4 @@
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import {
 	a,
 	blockquote,
@@ -45,7 +46,6 @@ import {
 	syncBlock,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 
 import { MarkdownSerializer, marks, nodes } from '../../serializer';
 

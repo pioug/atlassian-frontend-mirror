@@ -1,5 +1,4 @@
 import React, { Suspense, useState } from 'react';
-
 import { createPortal } from 'react-dom';
 
 import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';

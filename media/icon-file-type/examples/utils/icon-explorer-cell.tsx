@@ -1,19 +1,20 @@
 import React, { useRef, useState, type ComponentType, type FC } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import Textfield from '@atlaskit/textfield/text-field';
 import Button from '@atlaskit/button/default/button';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
-import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { token } from '@atlaskit/tokens';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives/compiled';
+import Textfield from '@atlaskit/textfield/text-field';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 // eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconExplorerLink = styled.a({

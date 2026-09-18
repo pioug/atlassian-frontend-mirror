@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 
 import type { HeadType, SortOrderType, StatelessProps } from '../../../types';
 import DynamicTable from '../../stateless';
-
 import { rowsWithKeys } from './_data';
 import { headMock1 } from './_head-mock';
 

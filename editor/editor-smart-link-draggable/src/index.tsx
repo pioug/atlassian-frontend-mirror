@@ -3,10 +3,10 @@
  * @jsx jsx
  */
 import React, { type PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
-
-import { bind } from 'bind-event-listener';
-import { css } from '@compiled/react';
 import ReactDOM from 'react-dom';
+
+import { css } from '@compiled/react';
+import { bind } from 'bind-event-listener';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { extractSmartLinkTitle } from '@atlaskit/link-extractors/extract-smart-link-title';

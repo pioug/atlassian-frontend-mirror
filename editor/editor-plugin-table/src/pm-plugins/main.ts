@@ -28,6 +28,7 @@ import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-p
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
+
 import {
 	tableCellView,
 	tableHeaderView,
@@ -57,7 +58,6 @@ import {
 	whenTableInFocus,
 	withCellTracking,
 } from '../ui/event-handlers';
-
 import { addBoldInEmptyHeaderCells, clearHoverSelection, setTableRef } from './commands';
 import { stopKeyboardColumnResizing } from './commands/column-resize';
 import {

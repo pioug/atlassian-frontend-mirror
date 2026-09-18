@@ -6,8 +6,8 @@ import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { buildDatasourceAdf } from '@atlaskit/link-datasource/utils/schema';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
@@ -16,7 +16,6 @@ import ButtonItem from '@atlaskit/menu/button-item';
 import { updateCardViaDatasource } from '../pm-plugins/doc';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import type { CardPluginState } from '../types';
-
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
 interface Props {

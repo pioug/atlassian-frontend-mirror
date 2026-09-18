@@ -9,9 +9,9 @@ import { css, jsx } from '@compiled/react';
 
 import Code from '@atlaskit/code/code';
 import Heading from '@atlaskit/heading/heading';
-import IconTile from '@atlaskit/icon/icon-tile';
 import metadata from '@atlaskit/icon-lab/metadata';
 import FlaskIcon from '@atlaskit/icon/core/flask';
+import IconTile from '@atlaskit/icon/icon-tile';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';

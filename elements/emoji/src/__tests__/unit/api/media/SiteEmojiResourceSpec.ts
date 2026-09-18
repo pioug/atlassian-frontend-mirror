@@ -3,13 +3,14 @@ jest.mock('@atlaskit/media-client-react/get-media-client', () => ({
 	getMediaClient: jest.fn(),
 }));
 
+import { waitFor } from '@testing-library/react';
+import fetchMock from 'fetch-mock/cjs/client';
+import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
+import { Observable } from 'rxjs/Observable';
+import * as sinon from 'sinon';
+
 import type { FileState } from '@atlaskit/media-client';
 import * as MediaClientReactModule from '@atlaskit/media-client-react/get-media-client';
-import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
-
-import fetchMock from 'fetch-mock/cjs/client';
-import * as sinon from 'sinon';
-import { waitFor } from '@testing-library/react';
 
 import SiteEmojiResource, {
 	type EmojiProgress,
@@ -26,7 +27,6 @@ import type {
 } from '../../../../types';
 import { isMediaRepresentation } from '../../../../util/is-media-representation';
 import { toEmojiId } from '../../../../util/to-emoji-id';
-
 import {
 	atlassianServiceEmojis,
 	defaultMediaApiToken,
@@ -39,7 +39,6 @@ import {
 	loadedMediaEmojiWithoutAlt,
 	standardBoomEmoji,
 } from '../../_test-data';
-import { Observable } from 'rxjs/Observable';
 
 class TestSiteEmojiResource extends SiteEmojiResource {
 	constructor(tokenManager: TokenManager) {

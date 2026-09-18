@@ -3,10 +3,13 @@
  * @jsx jsx
  */
 import React from 'react';
+import { Component } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { Component } from 'react';
-import RadioGroup from '@atlaskit/radio/radio-group';
+import * as exenv from 'exenv';
+
+import { type ImageResizeMode } from '@atlaskit/media-client';
 import {
 	videoFileDetails,
 	imageFileDetails,
@@ -20,13 +23,12 @@ import {
 	wideTransparentImage,
 	I18NWrapper,
 } from '@atlaskit/media-test-helpers';
-import { type ImageResizeMode } from '@atlaskit/media-client';
-import Toggle from '@atlaskit/toggle';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import Range from '@atlaskit/range/range';
-import * as exenv from 'exenv';
-import { CardView } from '../src/card/cardView';
-import { type CardAppearance, type CardStatus, type CardDimensions, type CardAction } from '../src';
+import Toggle from '@atlaskit/toggle';
+
 import { openAction, closeAction, deleteAction, actions } from '../example-helpers';
+import { MainWrapper } from '../example-helpers';
 import {
 	editableCardOptionsStyles,
 	editableCardContentStyles,
@@ -36,8 +38,9 @@ import {
 	flexWrapperStyles,
 	cardPreviewWrapperStyles,
 } from '../example-helpers/styles';
+import { type CardAppearance, type CardStatus, type CardDimensions, type CardAction } from '../src';
+import { CardView } from '../src/card/cardView';
 import { defaultImageCardDimensions } from '../src/utils/cardDimensions';
-import { MainWrapper } from '../example-helpers';
 
 const appearanceOptions = [
 	{ value: 'auto', label: 'Auto' },

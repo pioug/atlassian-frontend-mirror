@@ -5,7 +5,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
-
 import { TRANSFORMATION_MATRIX, TRANSFORMATION_MATRIX_PANEL_C1 } from './TRANSFORMATION_MATRIX';
 import type { NodeTypeName, TargetNodeMarks, TransformStepContext } from './types';
 import { getNodeName, toNodeTypeValue } from './types';

@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import { screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';

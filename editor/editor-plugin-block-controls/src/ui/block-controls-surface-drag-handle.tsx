@@ -13,8 +13,8 @@ import {
 	type MouseEvent,
 } from 'react';
 
-import { useIntl } from 'react-intl';
 import { cssMap as compiledCssMap } from '@compiled/react';
+import { useIntl } from 'react-intl';
 
 // oxlint-disable-next-line typescript/consistent-type-imports -- jsx is the runtime factory for the classic JSX pragma above.
 import { jsx } from '@atlaskit/css';
@@ -46,7 +46,6 @@ import { selectionPreservationPluginKey } from '../pm-plugins/selection-preserva
 import { prepareCollapsedHeadingSelection } from '../pm-plugins/utils/collapsed-heading';
 import { expandAndUpdateSelection } from '../pm-plugins/utils/expand-and-update-selection';
 import { isHandleCorrelatedToSelection } from '../pm-plugins/utils/getSelection';
-
 import { buildLayoutColumnMenuMeta } from './block-controls-surface-drag-handle-utils';
 import { DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH } from './consts';
 import { DragHandleNestedIcon } from './drag-handle-nested-icon';

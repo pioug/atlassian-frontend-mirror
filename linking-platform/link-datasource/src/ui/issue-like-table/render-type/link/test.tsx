@@ -9,7 +9,6 @@ import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import SmartLinkCustomClient from '../../../../../examples-helpers/smartLinkCustomClient';
-
 import Link, { LINK_TYPE_TEST_ID } from './index';
 
 jest.mock('@atlaskit/smart-card/hook/use-smart-link-destination-url', () => ({

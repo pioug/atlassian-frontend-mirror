@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+
 import type { Rule } from 'eslint';
 import { isNodeOfType, type Property as ObjectEntry } from 'eslint-codemod-utils';
 
@@ -7,7 +8,6 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { Import } from '../../../../ast-nodes/import';
 import { ObjectEntry as ObjectEntryHelper } from '../../../../ast-nodes/object-entry';
 import { Root } from '../../../../ast-nodes/root';
-
 import { styleMap } from './style-map';
 import supported from './supported';
 

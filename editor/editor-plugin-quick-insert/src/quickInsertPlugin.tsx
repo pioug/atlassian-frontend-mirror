@@ -42,8 +42,8 @@ import {
 	type QuickInsertPluginStateKeys,
 } from './pm-plugins/plugin-key';
 import type { OpenElementBrowserOptions, QuickInsertPlugin } from './quickInsertPluginType';
-import { getLegacyCompatibleComponents } from './ui/getLegacyCompatibleComponents';
 import { getBlockControlQuickInsertComponents } from './ui/block-control-quick-insert';
+import { getLegacyCompatibleComponents } from './ui/getLegacyCompatibleComponents';
 import { getQuickInsertComponents } from './ui/getQuickInsertComponents';
 import ModalElementBrowser from './ui/ModalElementBrowser';
 import { RegistryElementBrowserContainer } from './ui/RegistryElementBrowser';

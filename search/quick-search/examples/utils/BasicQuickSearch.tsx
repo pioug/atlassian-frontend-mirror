@@ -1,17 +1,19 @@
 import React from 'react';
-import { objectData, personData, containerData, makeAutocompleteData } from './mockData';
+
+import { token } from '@atlaskit/tokens';
+
 import QuickSearch from '../../src/components/QuickSearch';
 import ResultItemGroup from '../../src/components/ResultItem/ResultItemGroup';
 import ContainerResult, {
 	type Props as ContainerResultProps,
 } from '../../src/components/Results/ContainerResult';
-import PersonResult, {
-	type Props as PersonResultProps,
-} from '../../src/components/Results/PersonResult';
 import ObjectResult, {
 	type Props as ObjectResultProps,
 } from '../../src/components/Results/ObjectResult';
-import { token } from '@atlaskit/tokens';
+import PersonResult, {
+	type Props as PersonResultProps,
+} from '../../src/components/Results/PersonResult';
+import { objectData, personData, containerData, makeAutocompleteData } from './mockData';
 
 type DataShape = {
 	title: string;

@@ -1,6 +1,8 @@
-import { snapshotInformational } from '@af/visual-regression';
-import { ExtensionsWithinExpand } from './extension.fixture.vr.ap';
 import type { Locator, Page } from '@playwright/test';
+
+import { snapshotInformational } from '@af/visual-regression';
+
+import { ExtensionsWithinExpand } from './extension.fixture.vr.ap';
 
 snapshotInformational(ExtensionsWithinExpand, {
 	prepare: async (page: Page, component: Locator) => {

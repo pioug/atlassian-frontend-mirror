@@ -5,7 +5,6 @@ import { bind } from 'bind-event-listener';
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import {
 	SyncBlockError,
 	type SyncBlockSourceInfo,
@@ -13,10 +12,10 @@ import {
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
-
 import { getUnpublishedSourceType } from './getUnpublishedSourceType';
 import { SyncBlockLabel } from './SyncBlockLabel';
 

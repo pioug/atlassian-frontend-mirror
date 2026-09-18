@@ -5,7 +5,6 @@ import {
 	INDEXEDDB_TIMEOUT,
 	StoreName,
 } from '../database/constants';
-
 import {
 	type ClientSdkKeyEntry,
 	type ClientSdkKeyEntryWithoutKey,

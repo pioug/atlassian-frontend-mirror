@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
-import { blanketClassName } from '../styles';
+
 import { Blanket } from '../blanket';
+import { blanketClassName } from '../styles';
 
 describe('Styled Blanket', () => {
 	it('should capture and report a11y violations', async () => {

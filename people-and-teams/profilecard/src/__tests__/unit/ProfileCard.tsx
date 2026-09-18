@@ -3,14 +3,13 @@ import React from 'react';
 import { act, fireEvent, within } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 import { screen, userEvent } from '@atlassian/testing-library';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ProfilecardInternal as ProfileCard } from '../../components/User/ProfilecardInternal';
 import { moreActionsClicked } from '../../util/moreActionsClicked';
 import { profileCardRendered } from '../../util/profileCardRendered';
-
 import { flexiTime } from './helper/_mock-analytics';
 
 jest.mock('react-intl', () => {

@@ -2,8 +2,8 @@ import React, { type ChangeEvent, Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import Form from '@atlaskit/form/form';
 import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 
 const CheckboxRequiredExample = (): React.JSX.Element => {

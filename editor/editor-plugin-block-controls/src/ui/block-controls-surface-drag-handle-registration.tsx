@@ -6,7 +6,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterButton } from '@atlaskit/editor-ui-control-model/types';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-
 import { BlockControlsSurfaceDragHandle } from './block-controls-surface-drag-handle';
 
 export const getBlockControlsSurfaceDragHandleComponents = ({

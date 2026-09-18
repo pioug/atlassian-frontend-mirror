@@ -1,4 +1,7 @@
 /* eslint-disable testing-library/prefer-user-event */
+
+import { type Option, OPTIONS } from './constants.mock';
+
 import React from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -8,8 +11,6 @@ import cases from 'jest-in-case';
 import { skipA11yAudit } from '@af/accessibility-testing';
 
 import Async from '../../async';
-
-import { type Option, OPTIONS } from './constants.mock';
 
 const testId = 'react-select';
 

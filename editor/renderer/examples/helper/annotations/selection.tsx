@@ -2,19 +2,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Button from '@atlaskit/button/default/button';
-import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import AddCommentIcon from '@atlaskit/icon/core/comment';
+
+import React from 'react';
+
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
-import React from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
+
+import Button from '@atlaskit/button/default/button';
 // AFP-2532 TODO: Fix automatic suppressions below
 import type { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
-import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-helpers';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
+import { Popup } from '@atlaskit/editor-common/ui';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-helpers';
+import AddCommentIcon from '@atlaskit/icon/core/comment';
 import { token } from '@atlaskit/tokens';
 
 const whiteBoxStyles = css({

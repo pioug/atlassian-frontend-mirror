@@ -9,9 +9,9 @@ import {
 } from '../src/types';
 import { PreviewsTitle } from './PreviewsTitle';
 import { PreviewsWrapper } from './PreviewsWrapper';
-import { UploadPreviewsFlexRow } from './UploadPreviewsFlexRow';
 import { type PreviewData } from './types';
 import { UploadPreview } from './upload-preview';
+import { UploadPreviewsFlexRow } from './UploadPreviewsFlexRow';
 
 export interface PreviewsDataState {
 	previewsData: PreviewData[];

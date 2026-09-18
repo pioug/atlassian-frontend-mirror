@@ -5,6 +5,7 @@ import {
 	type EmojiUpload,
 	type OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji/types';
+
 import { emojiFromUpload } from './emoji-from-upload';
 import { MockNonUploadingEmojiResource } from './mock-non-uploading-emoji-resource';
 import { type MockEmojiResourceConfig, type UploadDetail } from './types';

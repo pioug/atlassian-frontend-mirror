@@ -10,7 +10,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isNativeStickySupported } from '../pm-plugins/utils/sticky-header';
 import type { PluginInjectionAPI } from '../types';
-
 // TODO: ED-23976 - Clean up
 import { createTableView } from './table';
 import TableCell from './TableCell';

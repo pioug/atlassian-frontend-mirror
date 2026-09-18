@@ -1,6 +1,7 @@
-import { DefaultMentionNameResolver } from '@atlaskit/mention/default-mention-name-resolver';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { DefaultMentionNameResolver } from '@atlaskit/mention/default-mention-name-resolver';
+
 import { MockMentionNameClient } from './mock-mention-name-client';
 
 export const createMockMentionNameResolver = (): DefaultMentionNameResolver => {

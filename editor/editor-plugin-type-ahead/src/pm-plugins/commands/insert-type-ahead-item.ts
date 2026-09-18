@@ -16,7 +16,6 @@ import { ACTIONS } from '../actions';
 import { pluginKey } from '../key';
 import { StatsModifier } from '../stats-modifier';
 import { getPluginState } from '../utils';
-
 import { closeTypeAhead } from './close-type-ahead';
 import { insertBlockNode, insertInlineNodeOrFragment } from './insert-utils';
 

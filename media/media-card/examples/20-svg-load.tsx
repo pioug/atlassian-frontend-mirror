@@ -1,28 +1,30 @@
 import React, { useState } from 'react';
+
+import Button from '@atlaskit/button/button';
+import { Label } from '@atlaskit/form/label/default';
 import {
 	type ImageResizeMode,
 	type FileIdentifier,
 	type MediaClientConfig,
 	isErrorFileState,
 } from '@atlaskit/media-client';
-import Card from '../src/card/cardLoader';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { svgFileIds } from '@atlaskit/media-client/test-helpers';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button/button';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import Select from '@atlaskit/select/default';
-import { Label } from '@atlaskit/form/label/default';
 import { token } from '@atlaskit/tokens';
+
 import { MainWrapper } from '../example-helpers';
-import { ToggleBox } from '../example-helpers/svg-helpers/toggle';
 import { CardBox, CardRow } from '../example-helpers/svg-helpers/cardContainer';
 import {
 	delayApiResponses,
 	errorApiResponses,
 } from '../example-helpers/svg-helpers/mediaApiTweaks';
+import { ToggleBox } from '../example-helpers/svg-helpers/toggle';
+import Card from '../src/card/cardLoader';
 import { useCreateMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;

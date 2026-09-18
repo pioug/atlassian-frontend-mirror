@@ -1,5 +1,6 @@
-import { ssr } from '@atlaskit/ssr';
 import Loadable from 'react-loadable';
+
+import { ssr } from '@atlaskit/ssr';
 
 Loadable.preloadAll();
 

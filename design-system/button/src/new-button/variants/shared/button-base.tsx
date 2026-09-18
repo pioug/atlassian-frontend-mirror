@@ -22,7 +22,6 @@ import {
 	type CommonButtonProps,
 	type Spacing,
 } from '../types';
-
 import blockEvents from './block-events';
 import renderLoadingOverlay from './loading-overlay';
 

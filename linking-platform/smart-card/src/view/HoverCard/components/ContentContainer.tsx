@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import useAISummaryAction from '../../../state/hooks/use-ai-summary-action';
 import AIPrism from '../../common/ai-prism';
-
 import { hoverCardClassName } from './HoverCardContent';
 
 const HoverCardContainerStyle = css({

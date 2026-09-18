@@ -1,17 +1,17 @@
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
-import { fragment } from '../marks/fragment';
-import { unsupportedMark } from '../marks/unsupportedMark';
-import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
+
 import {
 	tableCellContentPseudoGroup,
 	tableCellContentNodes,
 	tableHeaderContentPseudoGroup,
 } from '../groups/tableCellContentPseudoGroup';
-import { tableCellContent } from './tableCellContent';
-
+import { fragment } from '../marks/fragment';
+import { unsupportedMark } from '../marks/unsupportedMark';
+import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { nestedExpand } from './nestedExpand';
-import { unsupportedBlock } from './unsupportedBlock';
+import { tableCellContent } from './tableCellContent';
 import { table } from './tableStub';
+import { unsupportedBlock } from './unsupportedBlock';
 
 const valign = {
 	type: 'enum' as const,

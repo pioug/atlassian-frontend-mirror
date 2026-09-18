@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
+
 import { ViewportDetector } from '../../viewportDetector';
 
 const observeMock = jest.fn();

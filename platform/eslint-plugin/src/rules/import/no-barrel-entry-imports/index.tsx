@@ -5,7 +5,6 @@ import type { Rule } from 'eslint';
 
 import { PACKAGE_NAMES } from '@atlaskit/volt-components-entry-point-config/package-names';
 
-import { debarrelPackageFolders } from './constants';
 import { parseBarrelExports } from '../shared/barrel-parsing';
 import { DEFAULT_TARGET_FOLDERS, findWorkspaceRoot, isRelativeImport } from '../shared/file-system';
 import { findPackageInRegistry, isPackageInApplyToImportsFrom } from '../shared/package-registry';
@@ -15,6 +14,7 @@ import {
 	parsePackageExports,
 } from '../shared/package-resolution';
 import { type ExportInfo, type FileSystem, realFileSystem } from '../shared/types';
+import { debarrelPackageFolders } from './constants';
 
 /**
  * Options for the no-barrel-entry-imports rule.

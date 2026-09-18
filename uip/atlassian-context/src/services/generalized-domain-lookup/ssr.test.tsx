@@ -3,7 +3,6 @@
  */
 
 import { DEV, PRODUCTION, STAGING } from '../../common/constants';
-
 import { getDomainInContext } from './getDomainInContext';
 import { getUrlForDomainInContext } from './getUrlForDomainInContext';
 

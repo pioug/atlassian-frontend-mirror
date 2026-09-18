@@ -4,11 +4,11 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-signup-form.tsx",
-    "06-create-repository.vr.ap.tsx",
-    "10-submission-validation.tsx",
-    "21-messages.vr.ap.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"00-signup-form.tsx",
+		"06-create-repository.vr.ap.tsx",
+		"10-submission-validation.tsx",
+		"21-messages.vr.ap.tsx",
+	],
+	"exampleDependencies": [],
 }

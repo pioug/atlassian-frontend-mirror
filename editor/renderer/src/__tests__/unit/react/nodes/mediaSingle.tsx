@@ -1,14 +1,16 @@
 import React from 'react';
-import { skipAutoA11y } from '@atlassian/a11y-jest-testing';
-import { imageFileId } from '@atlaskit/media-test-helpers';
+
+import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common/ui';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { imageFileId } from '@atlaskit/media-test-helpers';
+import { skipAutoA11y } from '@atlassian/a11y-jest-testing';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import Caption from '../../../../react/nodes/caption';
 import type { MediaProps } from '../../../../react/nodes/media';
 import Media from '../../../../react/nodes/media';
 import type { Props as MediaSingleProps } from '../../../../react/nodes/mediaSingle';
 import MediaSingle, { getMediaContainerWidth } from '../../../../react/nodes/mediaSingle';
-import Caption from '../../../../react/nodes/caption';
-import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common/ui';
 
 const mockMedia = jest.fn();
 jest.mock('../../../../react/nodes/media', () => {

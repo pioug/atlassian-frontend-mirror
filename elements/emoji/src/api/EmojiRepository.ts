@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { type ITokenizer, Search, UnorderedSearchIndex } from 'js-search';
 
 import type { CategoryId } from '../components/picker/categories';
@@ -13,12 +14,12 @@ import {
 import { defaultCategories, frequentCategory } from '../util/constants';
 import { getCategoryId } from '../util/get-category-id';
 import { isEmojiDescriptionWithVariations } from '../util/is-emoji-description-with-variations';
+import { isTeamoji26RefreshEmojiPickerEnabled } from '../util/teamoji26RefreshEmojiPicker';
 import { tokenizerRegex } from './EmojiRepositoryRegex';
 import { getEmojiVariation } from './getEmojiVariation';
-import { UsageFrequencyTracker } from './internal/UsageFrequencyTracker';
 import { createSearchEmojiComparator } from './internal/createSearchEmojiComparator';
 import { createUsageOnlyEmojiComparator } from './internal/createUsageOnlyEmojiComparator';
-import { isTeamoji26RefreshEmojiPickerEnabled } from '../util/teamoji26RefreshEmojiPicker';
+import { UsageFrequencyTracker } from './internal/UsageFrequencyTracker';
 
 type Token = {
 	start: number;

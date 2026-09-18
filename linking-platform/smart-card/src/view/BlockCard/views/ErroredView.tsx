@@ -7,7 +7,6 @@ import { messages } from '../../../messages';
 import { type ActionItem } from '../../FlexibleCard/components/blocks/types';
 import Text from '../../FlexibleCard/components/elements/common/base-text-element';
 import { RetryAction } from '../actions/RetryAction';
-
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';

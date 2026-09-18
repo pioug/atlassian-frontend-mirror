@@ -11,7 +11,6 @@ import { getDeclaredVariables, getSourceCode } from '@atlaskit/eslint-utils/cont
 import { createLintRule } from '../utils/create-lint-rule';
 import { isCssInJsObjectNode } from '../utils/is-css-in-js-object-node';
 import { isCssInJsTemplateNode } from '../utils/is-css-in-js-template-node';
-
 import { countMatchingKeyValues } from './count-matching-key-values';
 import fixJsx from './fix-jsx';
 import fixVanilla from './fix-vanilla';

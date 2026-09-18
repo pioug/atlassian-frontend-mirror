@@ -45,7 +45,6 @@ import {
 	getSelectionPositions,
 } from '../pm-plugins/utils';
 import { type AnnotationProviders, AnnotationTestIds } from '../types';
-
 import { AnnotationViewWrapper } from './AnnotationViewWrapper';
 
 const findPosForDOM = (sel: Selection) => {

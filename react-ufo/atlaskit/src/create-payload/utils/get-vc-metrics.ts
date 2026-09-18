@@ -2,7 +2,6 @@ import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
 import { getConfig, getMostRecentVCRevision } from '../../config';
 import { postInteractionLog } from '../../interaction-metrics';
-
 import getInteractionStatus from './get-interaction-status';
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
 import getSSRDoneTimeValue from './get-ssr-done-time-value';

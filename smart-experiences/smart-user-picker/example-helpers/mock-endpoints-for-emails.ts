@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+
 import fetchMock from 'fetch-mock/cjs/client';
+
 import { EntityType, type RecommendationResponse, UserEntityType } from '../src/types';
 
 const createUser = (id: string, name: string, email?: string) => ({

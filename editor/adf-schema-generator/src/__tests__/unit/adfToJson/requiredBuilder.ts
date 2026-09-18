@@ -1,10 +1,10 @@
-import type { ADFAttribute, ADFAttributeString, ADFAttributes } from '../../../types/ADFAttribute';
+import type { ContentVisitorReturnType } from '../../../transforms/adfToJson/adfToJsonVisitor';
 import {
 	buildRequired,
 	hasRequiredAttributes,
 	buildVariantRequired,
 } from '../../../transforms/adfToJson/requiredBuilder';
-import type { ContentVisitorReturnType } from '../../../transforms/adfToJson/adfToJsonVisitor';
+import type { ADFAttribute, ADFAttributeString, ADFAttributes } from '../../../types/ADFAttribute';
 import type { ADFNodeContentRangeSpec } from '../../../types/ADFNodeSpec';
 
 describe('hasRequiredAttributes', () => {

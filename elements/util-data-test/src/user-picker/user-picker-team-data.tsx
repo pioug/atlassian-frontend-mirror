@@ -1,5 +1,7 @@
 import React from 'react';
+
 import type { Team } from '@atlaskit/user-picker/types';
+
 import ChevronRight from './ChevronRight';
 
 export const userPickerTeamData: Team[] = [

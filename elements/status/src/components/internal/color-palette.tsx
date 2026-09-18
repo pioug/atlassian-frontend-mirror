@@ -4,15 +4,15 @@
  */
 import React, { useEffect, useRef, useCallback } from 'react';
 
+import { css, jsx } from '@compiled/react';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
-import { css, jsx } from '@compiled/react';
 
 import { type Color as ColorType } from '../Status';
-import { type StatusPaletteVariant } from '../StatusPicker';
 import { isSwatchSelected, COLORS, PICKER_SWATCHES, SWATCH_ICON_COLOR } from '../status-colors';
-
+import { type StatusPaletteVariant } from '../StatusPicker';
 import Color from './color';
 
 const paletteLegacy: [

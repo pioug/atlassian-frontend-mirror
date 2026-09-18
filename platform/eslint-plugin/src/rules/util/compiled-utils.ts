@@ -1,11 +1,13 @@
-import type { Node } from 'estree';
-import { getAncestors, getScope } from './context-compat';
 import type { Rule } from 'eslint';
+import type { Node } from 'estree';
+
 import {
 	getImportSources,
 	isCompiled,
 	isAtlasKitCSS,
 } from '@atlaskit/eslint-utils/is-supported-import';
+
+import { getAncestors, getScope } from './context-compat';
 
 // Checks if the function that holds the property is using a Compiled import package that this rule is targeting
 export const isCompiledAPI = (context: Rule.RuleContext, node: Node): boolean => {

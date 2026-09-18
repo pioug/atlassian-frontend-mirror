@@ -1,12 +1,15 @@
+import React from 'react';
+
+import { screen, waitFor, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import React from 'react';
-import { screen, waitFor, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

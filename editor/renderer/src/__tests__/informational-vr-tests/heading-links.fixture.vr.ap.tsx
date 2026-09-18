@@ -1,6 +1,6 @@
 import React from 'react';
-import { Renderer } from '../../entry-points/renderer-default';
 
+import { Renderer } from '../../entry-points/renderer-default';
 import {
 	adfHeadingInsideTable,
 	adfHeadingNestedExpand,

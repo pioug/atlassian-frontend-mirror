@@ -22,7 +22,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 
 import type { ListPlugin } from '../listPluginType';
 import type { ListState } from '../types';
-
 import { applyListNormalisationFixes } from './transforms';
 import { isWrappingPossible } from './utils/selection';
 

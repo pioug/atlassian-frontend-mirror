@@ -1,3 +1,5 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { caption as captionFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { DateDefinition as Date } from './date';
@@ -8,7 +10,6 @@ import type { MentionDefinition as Mention } from './mention';
 import type { PlaceholderDefinition as Placeholder } from './placeholder';
 import type { StatusDefinition as Status } from './status';
 import type { InlineFormattedText, InlineCode } from './types/inline-content';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name caption_node

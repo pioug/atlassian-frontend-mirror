@@ -1,6 +1,4 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import WikiMarkupTransformer from '../../../index';
-
 import {
 	a,
 	code,
@@ -14,6 +12,8 @@ import {
 	textColor,
 	underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import WikiMarkupTransformer from '../../../index';
 
 describe('ADF => WikiMarkup - Paragraph', () => {
 	const transformer = new WikiMarkupTransformer();

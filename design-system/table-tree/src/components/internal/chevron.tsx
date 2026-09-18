@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/consistent-props-definitions */
+
 import React from 'react';
 
 import IconButton from '@atlaskit/button/icon/button';

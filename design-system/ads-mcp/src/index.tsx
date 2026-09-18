@@ -1,4 +1,5 @@
 /* eslint-disable no-console, import/extensions */
+
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {

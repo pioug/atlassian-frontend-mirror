@@ -1,5 +1,4 @@
 import { type AutocompleteAnalyticsAttributes, type SelectableAutocompleteOption } from '../types';
-
 import { getOptionFunctionName } from './getOptionFunctionName';
 
 export const getAutocompleteAnalyticsAttributes = ({

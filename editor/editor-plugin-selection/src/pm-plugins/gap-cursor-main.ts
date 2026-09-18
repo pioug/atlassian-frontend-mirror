@@ -15,7 +15,6 @@ import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { selectionPluginKey } from '../types';
-
 import { gapCursorPluginKey } from './gap-cursor-plugin-key';
 import { deleteNode } from './gap-cursor/actions';
 import { Direction } from './gap-cursor/direction';

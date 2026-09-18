@@ -47,8 +47,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { changeColor as changeColorWithAnalytics } from '../../pm-plugins/commands/change-color';

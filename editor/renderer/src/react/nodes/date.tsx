@@ -1,16 +1,19 @@
 import React, { memo } from 'react';
+
+import { injectIntl } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
 	isPastDate,
 	timestampToString,
 	timestampToTaskContext,
 } from '@atlaskit/editor-common/utils';
-import { injectIntl } from 'react-intl';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+
 import { useRendererContext } from '../../renderer-context';
-import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
+import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
 
 export interface Props extends MarkDataAttributes {
 	parentIsIncompleteTask?: boolean;

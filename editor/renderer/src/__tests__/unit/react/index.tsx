@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: remove this and fix types */
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import React from 'react';
-import { ReactSerializer } from '../../../index';
+
+import { screen } from '@testing-library/react';
+
 import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import {
 	defaultSchemaConfig,
@@ -11,33 +11,36 @@ import {
 	defaultSchema as schema,
 } from '@atlaskit/adf-schema/schema-default';
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
+import type { AnalyticsEventPayload } from '../../../analytics/events';
+import { ReactSerializer } from '../../../index';
+import { Link } from '../../../react/marks';
 import { Expand, Emoji } from '../../../react/nodes';
+import type { MediaSSR } from '../../../types/mediaOptions';
 import {
 	ExpandBodyBlock,
 	ExpandBodyProvider,
 	ExpandBodyTable,
 } from '../../../ui/utils/expand-body';
-import { Link } from '../../../react/marks';
-import type { MediaSSR } from '../../../types/mediaOptions';
-
-import * as doc from '../../__fixtures__/hello-world.adf.json';
 import * as dataConsumerDoc from '../../__fixtures__/data-consumer.adf.json';
+import * as expandWithMedia from '../../__fixtures__/expand-with-media.adf.json';
 import * as headingDoc from '../../__fixtures__/heading-doc.adf.json';
-import * as nestedHeadingsDoc from '../../__fixtures__/nested-headings-adf.json';
-import * as nestedHeadingsWithPanelLayoutTableDoc from '../../__fixtures__/nested-headings-adf-panel-layout-table.json';
+import * as doc from '../../__fixtures__/hello-world.adf.json';
+import * as layoutWithMedia from '../../__fixtures__/layout-with-media.adf.json';
+import * as linkDoc from '../../__fixtures__/links.adf.json';
 import * as mediaFragment from '../../__fixtures__/media-fragment.json';
 import * as mediaGroupFragment from '../../__fixtures__/media-group-fragment.json';
-import * as linkDoc from '../../__fixtures__/links.adf.json';
-import * as expandWithMedia from '../../__fixtures__/expand-with-media.adf.json';
 import * as nestedExpandWithMedia from '../../__fixtures__/nested-expand-with-media.json';
-import * as layoutWithMedia from '../../__fixtures__/layout-with-media.adf.json';
+import * as nestedHeadingsWithPanelLayoutTableDoc from '../../__fixtures__/nested-headings-adf-panel-layout-table.json';
+import * as nestedHeadingsDoc from '../../__fixtures__/nested-headings-adf.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
 import * as tableWithNestedTable from '../../__fixtures__/table-with-nested-table-adf.json';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { AnalyticsEventPayload } from '../../../analytics/events';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { screen } from '@testing-library/react';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

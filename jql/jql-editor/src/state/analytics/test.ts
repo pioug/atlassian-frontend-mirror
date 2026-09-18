@@ -6,7 +6,6 @@ import { EventType } from '@atlaskit/jql-editor-common/constants';
 import { Action, ActionSubject } from '../../analytics/constants';
 import { initialState } from '../index';
 import { type State } from '../types';
-
 import { onStartAutocompleteEvent } from './index';
 
 const storeActionApi: StoreActionApi<State> = {

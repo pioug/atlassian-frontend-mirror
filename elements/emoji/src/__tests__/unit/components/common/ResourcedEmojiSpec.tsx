@@ -1,25 +1,25 @@
 import React from 'react';
-import Loadable from 'react-loadable';
+
 import { waitFor, cleanup, screen, fireEvent } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+import Loadable from 'react-loadable';
+
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
+import type { EmojiId } from '../../../..';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import { type EmojiDescription, UfoEmojiTimings } from '../../../../types';
-
-import { evilburnsEmoji, grinEmoji, getEmojiResourcePromise, mediaEmoji } from '../../_test-data';
-
-import type { EmojiId } from '../../../..';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import { ufoExperiences } from '../../../../util/analytics/ufoExperiences';
 import browserSupport from '../../../../util/browser-support';
 import * as constants from '../../../../util/constants';
+import { evilburnsEmoji, grinEmoji, getEmojiResourcePromise, mediaEmoji } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 jest.mock('../../../../util/constants', () => {
 	const originalModule = jest.requireActual('../../../../util/constants');

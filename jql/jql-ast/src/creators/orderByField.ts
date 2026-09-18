@@ -8,7 +8,6 @@ import {
 	type OrderByField,
 	type Position,
 } from '../types';
-
 import { assignParent } from './common';
 
 function acceptOrderByField<Result>(this: OrderByField, visitor: JastVisitor<Result>) {

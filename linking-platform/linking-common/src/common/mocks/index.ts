@@ -6,6 +6,7 @@
 /**
  * @deprecated Use `import { mockedAvailableSitesResult } from '@atlaskit/linking-common/available-sites-result'` instead.
  */
+
 export { mockedAvailableSitesResult } from './available-sites-result';
 
 /** @deprecated Use @atlaskit/link-test-helpers/mocks/accessible-products-result */

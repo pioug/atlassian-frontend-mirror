@@ -1,4 +1,5 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { hardBreak as hardBreakFactory } from '../../next-schema/generated/nodeTypes';
 
 /**

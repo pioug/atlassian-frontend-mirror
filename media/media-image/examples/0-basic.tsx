@@ -3,10 +3,11 @@
  * @jsx jsx
  */
 import React from 'react';
+import { Component } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { Component } from 'react';
-import Textfield from '@atlaskit/textfield/text-field';
+
 import {
 	genericFileId,
 	gifFileId,
@@ -16,10 +17,12 @@ import {
 	errorFileId,
 	createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
-import Spinner from '@atlaskit/spinner/spinner';
 import Select from '@atlaskit/select/default';
-import { MediaImage } from '../src';
+import Spinner from '@atlaskit/spinner/spinner';
+import Textfield from '@atlaskit/textfield/text-field';
+
 import { optionsWrapperStyles, mediaImageWrapperStyles } from '../example-helpers/styles';
+import { MediaImage } from '../src';
 
 export interface ExampleProps {}
 

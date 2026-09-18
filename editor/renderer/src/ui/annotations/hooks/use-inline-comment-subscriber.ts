@@ -1,6 +1,8 @@
 import { useContext } from 'react';
-import { ProvidersContext } from '../context';
+
 import type { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
+
+import { ProvidersContext } from '../context';
 
 export const useInlineCommentSubscriberContext = (): AnnotationUpdateEmitter | null => {
 	const providers = useContext(ProvidersContext);

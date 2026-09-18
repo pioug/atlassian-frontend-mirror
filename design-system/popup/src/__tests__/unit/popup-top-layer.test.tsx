@@ -1,9 +1,10 @@
 /* eslint-disable testing-library/no-node-access */
+
 import React, { forwardRef } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen } from '@atlassian/testing-library';
-import { cssMap } from '@atlaskit/css';
 
 import { Popup } from '../../popup';
 import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';

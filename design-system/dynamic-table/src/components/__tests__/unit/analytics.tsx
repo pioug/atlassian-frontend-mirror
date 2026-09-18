@@ -6,7 +6,6 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import DynamicTable from '../../stateless';
-
 import rows from './_data-json.json';
 import { headMock1 } from './_head-mock';
 

@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+
 import { type CardAction } from '../../actions';
 
 export interface ActionsBarProps {

@@ -1,6 +1,3 @@
-import { test as baseTest, type Locator, type Page } from '@af/integration-testing';
-import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
-import { PageRequestController } from '@af/search-test-utils/PageRequestController';
 import type {
 	TestType,
 	PlaywrightTestArgs,
@@ -8,6 +5,10 @@ import type {
 	PlaywrightWorkerArgs,
 	PlaywrightWorkerOptions,
 } from 'playwright/test';
+
+import { test as baseTest, type Locator, type Page } from '@af/integration-testing';
+import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
+import { PageRequestController } from '@af/search-test-utils/PageRequestController';
 
 const Selectors = {
 	MENTION_LIST_ITEM: '[data-mention-item]',

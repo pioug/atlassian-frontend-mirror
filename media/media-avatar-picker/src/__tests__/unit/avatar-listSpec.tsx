@@ -1,10 +1,13 @@
 import React from 'react';
-import { type Avatar, AvatarList } from '../../avatar-list';
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
+import { type Avatar, AvatarList } from '../../avatar-list';
 
 // AvatarList has pre-existing a11y issues (radio without aria-label when avatar has no name)
 skipAutoA11yFile();

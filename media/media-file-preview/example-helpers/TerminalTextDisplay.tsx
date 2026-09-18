@@ -1,5 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
+
 import React, { type ReactNode } from 'react';
 
 type TerminalTextDisplayProps = {

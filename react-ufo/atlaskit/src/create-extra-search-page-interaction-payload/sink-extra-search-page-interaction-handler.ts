@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../common';
-
 import { interactionBufferState } from './interaction-buffer-state';
 
 export function sinkExtraSearchPageInteractionHandler(

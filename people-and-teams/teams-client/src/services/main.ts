@@ -8,7 +8,6 @@ import {
 	type TeamWithMemberships,
 } from '../types/membership';
 import { type TeamWithImageUrls } from '../types/team';
-
 import { aggClient } from './agg-client';
 import { type TeamContainers } from './agg-client/TeamContainers';
 import { type AGGPageInfoVariables, type ResultWithPageInfo } from './agg-client/types';

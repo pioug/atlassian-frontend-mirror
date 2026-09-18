@@ -13,7 +13,6 @@ import { type ElementItem, ElementName, MetadataBlock, SmartLinkSize } from '../
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
 import '../utils/vr-preload-metadata-icons';
 
 const blockOverrideCss = css({

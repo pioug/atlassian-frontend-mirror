@@ -1,6 +1,7 @@
 import React from 'react';
-import RendererDemo from './helper/RendererDemo';
+
 import deepLinkTestADF from './helper/deep-link-test.adf.json';
+import RendererDemo from './helper/RendererDemo';
 
 /**
  * Static example demonstrating deep link target functionality.

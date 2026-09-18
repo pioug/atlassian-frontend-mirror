@@ -1,5 +1,6 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-selectors */
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
+
 import React from 'react';
 import type { ReactNode } from 'react';
 
@@ -8,7 +9,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
-
 import type { ResponsiveContainerProps } from './ResponsiveContainer';
 import { ResponsiveContainer, ResponsiveWrapper } from './ResponsiveContainer';
 import { ToolbarKeyboardNavigationProvider } from './ToolbarKeyboardNavigationProvider';

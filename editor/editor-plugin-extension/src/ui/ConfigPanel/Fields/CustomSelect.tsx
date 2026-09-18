@@ -21,7 +21,6 @@ import type { ValueType } from '@atlaskit/select/types';
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';
 import { validate } from '../utils';
-
 import { formatOptionLabel } from './SelectItem';
 import UnhandledType from './UnhandledType';
 

@@ -1,5 +1,5 @@
-import { PanelType } from '@atlaskit/adf-schema/panel';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 
 export const statusInPanelAdf: DocNode = {
 	version: 1,

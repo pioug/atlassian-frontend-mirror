@@ -3,11 +3,14 @@
  * @jsx jsx
  */
 import React, { type AriaAttributes } from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
+
 import { components } from '@atlaskit/react-select/components';
 import type { OptionType, SelectProps } from '@atlaskit/select/types';
-import { type AriaAttributesType } from '../types';
 import { token } from '@atlaskit/tokens';
-import { cssMap, jsx } from '@compiled/react';
+
+import { type AriaAttributesType } from '../types';
 
 export type Props = {
 	ariaDescribedBy?: AriaAttributesType;

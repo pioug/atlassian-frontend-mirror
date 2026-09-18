@@ -22,7 +22,6 @@ import {
 import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
 
 import { nestedNumberedListDocument, numberedListDocument } from '../../__fixtures__/base-adfs';
-
 import {
 	blockquoteAdf,
 	blockquoteInsideExpandAdf,

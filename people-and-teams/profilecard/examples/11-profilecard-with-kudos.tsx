@@ -7,16 +7,15 @@ import type { FlagProps } from '@atlaskit/flag/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import ProfileCardResourced from '../src/components/User/ProfileCardResourced';
-import { type Team } from '../src/types';
 import TeamProfilecardTrigger from '../src/components/Team/TeamProfileCardTrigger';
+import ProfileCardResourced from '../src/components/User/ProfileCardResourced';
 import ProfileCardTrigger from '../src/components/User/ProfileCardTrigger';
+import getMockTeamClient from '../src/mocks/mock-team-client';
 import teamData from '../src/mocks/team-data';
-
+import { type Team } from '../src/types';
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 import { getMockProfileClient } from './helper/util';
-import getMockTeamClient from '../src/mocks/mock-team-client';
 
 const styles = cssMap({
 	wrap: {

@@ -1,8 +1,11 @@
-import { renderHook } from '@testing-library/react';
 import React from 'react';
+
+import { renderHook } from '@testing-library/react';
+import { act, waitFor } from '@testing-library/react';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { act, waitFor } from '@testing-library/react';
+
 import type { EmojiResource } from '../api/EmojiResource';
 import { EmojiCommonProvider } from '../context/EmojiCommonProvider';
 import { useEmoji } from './useEmoji';

@@ -1,5 +1,5 @@
-import type { CustomData } from '@atlaskit/ufo/types';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
+import type { CustomData } from '@atlaskit/ufo/types';
 
 import { isExperienceSampled } from './isExperienceSampled';
 import { ufoExperiencesSampled } from './samplingUfo';

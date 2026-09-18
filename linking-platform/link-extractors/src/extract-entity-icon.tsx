@@ -1,7 +1,7 @@
-import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { isBaseEntity } from '@atlaskit/linking-types/is-base-entity';
 import { isDesignEntity } from '@atlaskit/linking-types/is-design-entity';
 import { isDocumentEntity } from '@atlaskit/linking-types/is-document-entity';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import { extractEntity } from './extract-entity';
 

@@ -6,7 +6,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-
 import { checkIsFormatMenuHidden } from './utils/checkIsFormatMenuHidden';
 
 export const FormatMenuSection = ({

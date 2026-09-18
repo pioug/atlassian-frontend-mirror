@@ -9,7 +9,6 @@ import { cssMap, jsx } from '@atlaskit/css';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 
 import { MenuListItem } from '../menu-list-item';
-
 import {
 	IsExpandedContext,
 	OnExpansionToggleContext,

@@ -23,12 +23,11 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LayoutPlugin } from '../layoutPluginType';
 import type { Change, PresetLayout } from '../types';
-
 import {
 	DEFAULT_LAYOUT_COLUMN_VALIGN,
 	EVEN_DISTRIBUTED_COL_WIDTHS,

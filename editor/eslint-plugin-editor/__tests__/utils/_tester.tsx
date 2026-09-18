@@ -1,5 +1,6 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 /* eslint-disable no-undef */
+
 import { TSESLint } from '@typescript-eslint/utils';
 import { RuleTester } from 'eslint';
 

@@ -2,7 +2,6 @@ import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-lint-rule';
 import { errorBoundary } from '../utils/error-boundary';
-
 import { getConfig } from './config/get-config';
 import { PATTERNS } from './config/patterns';
 import type { RuleConfig } from './config/types';

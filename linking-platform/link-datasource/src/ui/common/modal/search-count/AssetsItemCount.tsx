@@ -3,10 +3,8 @@ import React from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { footerMessages } from '../../../table-footer/messages';
-
-import { ItemCountWrapper } from './ItemCountWrapper';
-
 import type { TableSearchCountProps } from './index';
+import { ItemCountWrapper } from './ItemCountWrapper';
 
 export const AssetsItemCount = ({
 	searchCount,

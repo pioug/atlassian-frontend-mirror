@@ -1,6 +1,6 @@
+import type { BodiedRuleAttributes, BodiedRuleDefinition } from '@atlaskit/adf-schema/bodied-rule';
 import type { HeadingDefinition } from '@atlaskit/adf-schema/heading';
 import type { ParagraphDefinition } from '@atlaskit/adf-schema/paragraph';
-import type { BodiedRuleAttributes, BodiedRuleDefinition } from '@atlaskit/adf-schema/bodied-rule';
 
 export const bodiedRule = (
 	attrs: BodiedRuleAttributes,

@@ -1,19 +1,23 @@
 import React from 'react';
+
 import { cleanup, createEvent, fireEvent, waitFor } from '@testing-library/react';
-import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import { axe, toHaveNoViolations } from 'jest-axe';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import Emoji from '../../../../components/common/Emoji';
-import { spriteEmoji, imageEmoji } from '../../_test-data';
-import type { EmojiDescription } from '../../../../types';
-import { commonSelectedStyles } from '../../../../components/common/styles';
-import browserSupport from '../../../../util/browser-support';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
+import Emoji from '../../../../components/common/Emoji';
+import { commonSelectedStyles } from '../../../../components/common/styles';
+import type { EmojiDescription } from '../../../../types';
+import browserSupport from '../../../../util/browser-support';
 import * as isSSRModule from '../../../../util/is-ssr';
 
 import '@testing-library/jest-dom';
+
+import { spriteEmoji, imageEmoji } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 // Add matcher provided by 'jest-axe'
 expect.extend(toHaveNoViolations);

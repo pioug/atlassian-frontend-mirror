@@ -1,10 +1,13 @@
 import React from 'react';
+
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
+
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import FlagGroup from '@atlaskit/flag/flag-group';
-import SuccessIcon from '@atlaskit/icon/core/status-success';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { token } from '@atlaskit/tokens';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
+
 import { messages } from '../../../messages';
 
 export type NotificationTypes = 'success' | 'error' | null;

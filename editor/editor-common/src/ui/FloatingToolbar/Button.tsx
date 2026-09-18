@@ -8,7 +8,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 import type { ButtonAppearance } from '../../types';
-
 import { iconOnlySpacing } from './iconOnlySpacing';
 import { getButtonStyles } from './styles';
 

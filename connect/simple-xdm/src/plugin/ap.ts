@@ -3,7 +3,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import PostMessage from '../common/postmessage';
 import Util from '../common/util';
-
 import autoResizeAction from './auto-resize-action';
 import ConfigurationOptions from './configuration-options';
 import ConsumerOptions from './consumer-options';

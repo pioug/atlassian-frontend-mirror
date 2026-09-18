@@ -1,10 +1,13 @@
 import React from 'react';
-import type { EmojiProvider } from '../src/resource';
-import { EmojiPicker } from '../src/picker';
+
 import { IntlProvider } from 'react-intl';
+
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+
+import { EmojiPicker } from '../src/picker';
+import type { EmojiProvider } from '../src/resource';
 
 export default function Example(): React.JSX.Element {
 	const emojiProvider = getEmojiResource() as Promise<EmojiProvider>;

@@ -4,6 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports -- jsx required at runtime for @jsxRuntime classic
@@ -29,7 +30,6 @@ import { buildVisitedNonHyperLinkPayload, INPUT_METHOD } from '../../analytics';
 import type { ACTION_SUBJECT_ID, EditorAnalyticsAPI } from '../../analytics';
 import { cardMessages } from '../../messages';
 import type { Command } from '../../types';
-
 import type { HoverLinkOverlayProps } from './types';
 
 /**

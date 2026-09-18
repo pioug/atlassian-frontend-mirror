@@ -3,7 +3,6 @@ import type { Rule } from 'eslint';
 import { createIsFromImportSourceFor } from '../../common/is-from-import-source';
 import { createLintRule } from '../utils/create-lint-rule';
 import { errorBoundary } from '../utils/error-boundary';
-
 import { getCssMapKey } from './get-css-map-key';
 import { getIconSize } from './get-icon-size';
 import { getSpacingAttribute } from './get-spacing-attribute';

@@ -1,8 +1,9 @@
 import React, { type PropsWithChildren, useMemo } from 'react';
-import { DatasourceExperienceIdContext } from './datasource-experience-id-context';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
+
+import { DatasourceExperienceIdContext } from './datasource-experience-id-context';
 
 export const DatasourceExperienceIdProvider = ({
 	children,

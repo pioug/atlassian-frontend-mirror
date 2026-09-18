@@ -1,5 +1,4 @@
 import { type BaseProps } from '../types';
-
 import { getIfVisuallyHiddenChildren } from './get-if-visually-hidden-children';
 
 export default function getIsOnlySingleIcon({

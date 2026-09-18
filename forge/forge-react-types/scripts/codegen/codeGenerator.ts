@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import kebabCase from 'lodash/kebabCase';
 /* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-wrapper-object-types */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
@@ -11,8 +13,7 @@ import {
 	Node,
 	Project,
 } from 'ts-morph';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import kebabCase from 'lodash/kebabCase';
+
 import {
 	serializeTypeReferenceWithPickType,
 	extractPickKeys,

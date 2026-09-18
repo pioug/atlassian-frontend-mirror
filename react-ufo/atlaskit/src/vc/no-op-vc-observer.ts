@@ -1,5 +1,4 @@
 import type { VCResult } from '../common/vc/types';
-
 import type { GetVCResultType, VCObserverInterface } from './types';
 
 // This class should be used on scenarios where VC can not be calculate

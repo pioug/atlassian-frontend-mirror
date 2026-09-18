@@ -3,8 +3,8 @@
  * @jsx jsx
  */
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

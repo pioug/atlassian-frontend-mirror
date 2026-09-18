@@ -1,5 +1,23 @@
 # @atlassian/navigation-system
 
+## 10.17.3
+
+### Patch Changes
+
+- [`14307d3138fd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14307d3138fd3) -
+  Refactor styles to use statically analyzable values and type-checked inline constants for Compiled
+  and Atlaspack incremental builds, preserving existing styling behavior.
+- Updated dependencies
+
+## 10.17.2
+
+### Patch Changes
+
+- [`5017f4bf49edf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5017f4bf49edf) -
+  [ux] Adjusted main content to snap when 60% of the entry or exit animation of the panel and side
+  nav have completed. Changes are behind the `platform-dst-motion-uplift-panel` and
+  `platform-dst-motion-uplift-sidenav` feature gates.
+
 ## 10.17.1
 
 ### Patch Changes

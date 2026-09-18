@@ -53,7 +53,6 @@ import { changePanelType, removePanel } from '../editor-actions/actions';
 import type { PanelPlugin } from '../index';
 import type { EmojiInfo, PanelPluginOptions } from '../panelPluginType';
 import { findPanel } from '../pm-plugins/utils/utils';
-
 import { panelTypeDropdown } from './panelTypeDropdown';
 
 export const panelIconMap: {

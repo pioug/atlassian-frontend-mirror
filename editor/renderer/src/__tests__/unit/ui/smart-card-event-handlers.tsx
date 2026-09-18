@@ -6,12 +6,15 @@ jest.mock('react-lazily-render', () => ({
 }));
 
 import React from 'react';
-import type { RendererProps } from '../../../ui/renderer-props';
-import { Renderer } from '../../../entry-points/renderer-default';
-import { IntlProvider } from 'react-intl';
+
 import { render, waitFor, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';
+
+import { Renderer } from '../../../entry-points/renderer-default';
+import type { RendererProps } from '../../../ui/renderer-props';
 
 const initialDoc = {
 	version: 1,

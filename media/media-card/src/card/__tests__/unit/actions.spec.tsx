@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
-
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { render, screen } from '@atlassian/testing-library';
 
 import { createDownloadAction } from '../../createDownloadAction';
 

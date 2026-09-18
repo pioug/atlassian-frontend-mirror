@@ -1,4 +1,3 @@
-import { findIndex, objectKeyToString, toggleTaskState } from './utils';
 import type {
 	BaseItem,
 	DecisionState,
@@ -9,6 +8,7 @@ import type {
 	TaskDecisionProvider,
 	TaskState,
 } from './types';
+import { findIndex, objectKeyToString, toggleTaskState } from './utils';
 
 export interface MockTaskDecisionResourceConfig {
 	empty?: boolean;

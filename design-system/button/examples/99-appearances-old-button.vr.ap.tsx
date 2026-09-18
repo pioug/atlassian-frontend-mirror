@@ -6,8 +6,8 @@ import React, { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import type { Appearance } from '@atlaskit/button/old-button/types';
 import Button from '@atlaskit/button/loading-button';
+import type { Appearance } from '@atlaskit/button/old-button/types';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { token } from '@atlaskit/tokens';
 

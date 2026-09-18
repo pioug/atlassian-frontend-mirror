@@ -8,8 +8,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import CodeBidiWarning from './bidi-warning/ui';
 import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
+import CodeBidiWarning from './bidi-warning/ui';
 import type { CodeProps } from './types';
 const styles = cssMap({
 	base: {

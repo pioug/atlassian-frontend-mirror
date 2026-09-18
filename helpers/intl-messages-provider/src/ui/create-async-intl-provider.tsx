@@ -1,7 +1,7 @@
 import React, { type ReactNode } from 'react';
 
-import IntlMessagesProvider from './main';
 import { type I18NMessages } from '../common/types';
+import IntlMessagesProvider from './main';
 
 /**
  * A map of locale code -> dynamic import of that locale's i18n message bundle.

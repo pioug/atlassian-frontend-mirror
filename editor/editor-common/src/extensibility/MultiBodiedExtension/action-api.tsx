@@ -11,7 +11,6 @@ import { ACTION } from '../../analytics';
 import type { EventDispatcher } from '../../event-dispatcher';
 import type { MultiBodiedExtensionActions } from '../../extensions';
 import type { ChangeActiveOptions } from '../../extensions/types/extension-handler';
-
 import { sendMBEAnalyticsEvent } from './utils';
 
 type ActionsProps = {

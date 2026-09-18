@@ -6,8 +6,8 @@ import { type CSSProperties, type JSX, type ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
 import { type CommonPropsAndClassName, type GroupBase } from '../types';

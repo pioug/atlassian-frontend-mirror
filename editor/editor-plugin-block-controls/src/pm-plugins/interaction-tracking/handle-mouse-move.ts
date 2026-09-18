@@ -5,7 +5,6 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { handleMouseOver } from '../handle-mouse-over';
-
 import { clearHoverSide, mouseEnter, mouseLeave, setHoverSide, stopEditing } from './commands';
 import { RIGHT_MARGIN_ROVO_GAP_PX } from './constants';
 import { getInteractionTrackingState } from './pm-plugin';

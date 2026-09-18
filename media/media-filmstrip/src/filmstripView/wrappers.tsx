@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+
 import type { FilmStripListProps, FilmStripListWrapperProps } from './wrappers-compiled';
 import {
 	ArrowLeftWrapper as CompiledArrowLeftWrapper,

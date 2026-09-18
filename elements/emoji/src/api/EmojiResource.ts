@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import {
 	AbstractResource,
@@ -36,9 +37,9 @@ import { isMediaEmoji } from '../util/is-media-emoji';
 import { isPromise } from '../util/is-promise';
 import debug from '../util/logger';
 import storageAvailable from '../util/storage-available';
+import { isTeamoji26RefreshEmojiPickerEnabled } from '../util/teamoji26RefreshEmojiPicker';
 import { promiseWithTimeout } from '../util/timed-promise';
 import { toEmojiId } from '../util/to-emoji-id';
-import { isTeamoji26RefreshEmojiPickerEnabled } from '../util/teamoji26RefreshEmojiPicker';
 import EmojiLoader from './EmojiLoader';
 import EmojiRepository from './EmojiRepository';
 import type {

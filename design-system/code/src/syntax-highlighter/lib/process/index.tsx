@@ -1,7 +1,6 @@
 import type { AST, RefractorNode } from 'refractor';
 
 import type { AstGenerator, SyntaxHighlighterLineProps } from '../../types';
-
 import createLineGenerator from './create-line';
 import createLineElement from './create-line-element';
 import flattenCodeTree from './flatten-code-tree';

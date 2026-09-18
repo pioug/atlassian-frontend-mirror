@@ -1,5 +1,4 @@
 import type { PerformanceEntryBuffer } from '../utils/buffer';
-
 import type { LayoutShiftPerformanceEntry } from './types';
 
 function isSameRects(rect1: DOMRectReadOnly, rect2: DOMRectReadOnly) {

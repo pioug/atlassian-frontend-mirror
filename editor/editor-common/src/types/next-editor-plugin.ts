@@ -10,7 +10,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { FireAnalyticsCallback } from '../analytics';
-
 import type { EditorAppearance } from './editor-appearance';
 import type { EditorCommand, EditorCommandWithMetadata } from './editor-command';
 import type { EditorPlugin } from './editor-plugin';

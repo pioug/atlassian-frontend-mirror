@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
+
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import DecisionItem from '../../../../react/nodes/decisionItem';
+
 import ReactSerializer from '../../../../react';
+import DecisionItem from '../../../../react/nodes/decisionItem';
 
 describe('Renderer - React/Nodes/DecisionItem', () => {
 	const serialiser = new ReactSerializer({});

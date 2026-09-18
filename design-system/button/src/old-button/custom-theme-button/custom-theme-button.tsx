@@ -10,7 +10,6 @@ import ButtonBase from '../shared/button-base';
 import getIsOnlySingleIcon from '../shared/get-is-only-single-icon';
 import LoadingSpinner from '../shared/loading-spinner';
 import type { BaseProps } from '../types';
-
 import {
 	type CustomThemeButtonOwnProps,
 	type InteractionState,

@@ -1,5 +1,5 @@
-import SchemaNode from './schema-node';
 import { getPmName } from '../utils';
+import SchemaNode from './schema-node';
 
 export default class RefSchemaNode extends SchemaNode {
 	constructor(protected name: string) {

@@ -2,10 +2,11 @@ jest.mock('../../util');
 
 import { mockCanvas } from '@atlaskit/media-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+import { getCanvas } from '../../util';
 import { DEFAULT_INNER_WIDTH, DEFAULT_INNER_HEIGHT } from '../../viewport';
 import { renderViewport } from '../../viewport/viewport-render';
 import { setup as setupViewport } from './viewportSpec';
-import { getCanvas } from '../../util';
 
 export const radians = (deg: number): number => deg * (Math.PI / 180);
 

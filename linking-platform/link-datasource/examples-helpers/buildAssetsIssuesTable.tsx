@@ -9,7 +9,6 @@ import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-message
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
 import { type AssetsDatasourceParameters } from '../src/ui/assets-modal/types';
 import { DataSourceTableViewNoSuspense } from '../src/ui/datasource-table-view/datasourceTableView';
-
 import SmartLinkClient from './smartLinkCustomClient';
 import { useAssetsTableProps } from './useAssetsTableProps';
 

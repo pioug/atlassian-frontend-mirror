@@ -4,8 +4,8 @@ import { act, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { SyncInfo } from './index';
 

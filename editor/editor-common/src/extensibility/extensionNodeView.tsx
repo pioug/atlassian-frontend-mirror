@@ -21,7 +21,6 @@ import type { ProviderFactory } from '../provider-factory';
 import type { ForwardRef, getPosHandler, ProsemirrorGetPosHandler } from '../react-node-view';
 import ReactNodeView from '../react-node-view';
 import type { EditorAppearance } from '../types';
-
 import { Extension } from './Extension';
 import { ExtensionNodeWrapper } from './ExtensionNodeWrapper';
 import { isNativeEmbedExtension } from './nativeEmbedExtension';

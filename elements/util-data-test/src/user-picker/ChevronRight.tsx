@@ -1,5 +1,6 @@
-import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import React from 'react';
+
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';

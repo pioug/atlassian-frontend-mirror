@@ -23,8 +23,8 @@ import { token } from '@atlaskit/tokens';
 
 import { LinkWrapper } from './link-wrapper';
 import { RemovableWrapper } from './removable-wrapper';
-import { markAsTagMotionCapable } from './tag-motion-capability';
 import { TagMotion } from './tag-motion';
+import { markAsTagMotionCapable } from './tag-motion-capability';
 import { useButtonInteraction } from './use-button-interaction';
 import { useLink } from './use-link';
 import { useRemoveButton } from './use-remove-button';

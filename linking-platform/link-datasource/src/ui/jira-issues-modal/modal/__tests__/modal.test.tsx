@@ -23,7 +23,6 @@ import { type IssueLikeDataTableViewProps } from '../../../issue-like-table/type
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
 import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '../../JiraIssuesConfigModalWithWrappers'; // Using async one to test lazy integration at the same time
 import { type JiraIssuesDatasourceAdf } from '../../types';
-
 import {
 	getAvailableSites,
 	getDefaultHookState,

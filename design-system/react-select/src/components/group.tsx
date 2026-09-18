@@ -10,7 +10,6 @@ import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
 import { type CommonPropsAndClassName, type GroupBase, type Options } from '../types';
-
 import { type ForwardedHeadingProps, type GroupHeadingProps } from './group-heading';
 
 export interface GroupProps<

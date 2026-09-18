@@ -2,18 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React, { type FormEvent, PureComponent, type ReactNode } from 'react';
+
+import { css, cssMap, jsx } from '@compiled/react';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
-import React, { type FormEvent, PureComponent, type ReactNode } from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { css, cssMap, jsx } from '@compiled/react';
+
+import { messages } from './i18n';
 import ColorPalette from './internal/color-palette';
 import { type Color } from './Status';
-import { messages } from './i18n';
-
 export type ColorType = Color;
-
 /**
  * Which set of selectable values the picker offers.
  * - `default`: the six named colours.

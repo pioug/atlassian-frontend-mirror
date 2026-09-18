@@ -1,11 +1,12 @@
 import React, { useState, useCallback, type PropsWithChildren } from 'react';
+
 import debounce from 'lodash/debounce';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { type ArticleItem } from '../../model/Article';
 import { REQUEST_STATE } from '../../model/Requests';
 import { createCtx } from '../../util/hooks/ctx';
-
 import { MIN_CHARACTERS_FOR_SEARCH } from '../constants';
 
 interface SearchSharedInterface {

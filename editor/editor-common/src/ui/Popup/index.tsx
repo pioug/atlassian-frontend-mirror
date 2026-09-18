@@ -1,14 +1,12 @@
 import React from 'react';
+import { createPortal, flushSync } from 'react-dom';
 
 import { bind } from 'bind-event-listener';
 import type { FocusTrap, Options as FocusTrapOptions } from 'focus-trap';
 import createFocusTrap from 'focus-trap';
 import rafSchedule from 'raf-schd';
-import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { Position } from './utils';
 import { calculatePlacement, calculatePosition, findOverflowScrollParent } from './utils';
@@ -291,13 +289,7 @@ export default class Popup extends React.Component<Props, State> {
 				? defaultTrapConfig
 				: { ...defaultTrapConfig, ...this.props.focusTrap };
 
-		this.focusTrap = createFocusTrap(
-			popup,
-			editorExperiment('platform_editor_block_menu', true) ||
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-				? trapConfig
-				: defaultTrapConfig,
-		);
+		this.focusTrap = createFocusTrap(popup, trapConfig);
 		this.focusTrap.activate();
 	});
 

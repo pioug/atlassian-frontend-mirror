@@ -4,18 +4,16 @@
  */
 
 import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { cssMap, jsx } from '@compiled/react';
-import { createPortal } from 'react-dom';
 
 import HomeIcon from '@atlaskit/icon/core/home';
 import { CustomerServiceManagementIcon } from '@atlaskit/logo';
 import { UNSAFE_Ribbon as Ribbon } from '@atlaskit/navigation-system/experimental/ribbon';
-import {
-	Main,
-	UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY,
-	UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY,
-} from '@atlaskit/navigation-system/layout/main';
+import { Main } from '@atlaskit/navigation-system/layout/main';
+import type { UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY as UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_TYPE } from '@atlaskit/navigation-system/layout/main';
+import type { UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY as UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_TYPE } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
@@ -44,14 +42,19 @@ import { token } from '@atlaskit/tokens';
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockRibbon } from './utils/mock-ribbon';
 import { MockSearch } from './utils/mock-search';
+const UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_STATIC =
+	`calc(var(${'--bannerHeight'}, 0px) + var(${'--topNavigationHeight'}, 0px))` satisfies typeof UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_TYPE;
+
+const UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_STATIC =
+	`calc(var(${'--leftPanelWidth'}, 0px) + var(${'--leftSidebarWidth'}, 0px))` satisfies typeof UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_TYPE;
 
 const fixedHeaderStyles = cssMap({
 	root: {
 		position: 'fixed',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		insetBlockStart: UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY,
+		insetBlockStart: UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_STATIC,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		insetInlineStart: UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY,
+		insetInlineStart: UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_STATIC,
 		insetInlineEnd: 0,
 		height: 64,
 		borderBlockEndColor: token('color.border'),

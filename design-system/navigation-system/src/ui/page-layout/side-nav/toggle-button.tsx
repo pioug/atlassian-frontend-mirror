@@ -10,15 +10,14 @@ import { bind } from 'bind-event-listener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type { IconButtonProps } from '@atlaskit/button/icon/button';
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
 import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { IconButton } from '../../top-nav-items/themed/icon-button';
-
 import { SideNavToggleButtonAttachRef } from './side-nav-toggle-button-attach-ref';
 import { sideNavToggleTooltipKeyboardShortcut } from './side-nav-toggle-tooltip-keyboard-shortcut';
 import { SideNavVisibilityState } from './side-nav-visibility-state';

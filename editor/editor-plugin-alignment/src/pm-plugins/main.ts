@@ -4,7 +4,6 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import { isAlignable } from '../editor-commands';
-
 import type { AlignmentPluginState } from './types';
 import { getActiveAlignment } from './utils';
 

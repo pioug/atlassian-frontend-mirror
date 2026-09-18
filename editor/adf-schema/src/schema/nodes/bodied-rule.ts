@@ -1,10 +1,11 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { bodiedRuleStage0 as bodiedRuleFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { BreakoutMarkDefinition } from '../marks';
 import type { HeadingDefinition } from './heading';
-import type { MarksObject } from './types/mark';
 import type { ParagraphDefinition } from './paragraph';
+import type { MarksObject } from './types/mark';
 
 export type BodiedRuleAlignment = 'start' | 'center' | 'end';
 export type BodiedRuleStyle = 'solid' | 'dashed' | 'dotted' | 'sketch' | 'fade';

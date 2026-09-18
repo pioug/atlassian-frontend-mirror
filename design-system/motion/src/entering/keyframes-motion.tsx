@@ -7,7 +7,6 @@ import { type Durations, durations } from '../utils/durations';
 import { exitingDurations } from '../utils/exiting-durations';
 import { isReducedMotion } from '../utils/is-reduced-motion';
 import { useSetTimeout } from '../utils/use-set-timeout';
-
 import { type AnimationCurve, type Direction, type MotionProps } from './types';
 import { useExitingPersistence } from './use-exiting-persistence';
 import { useStaggeredEntrance } from './use-staggered-entrance';

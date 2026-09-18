@@ -1,8 +1,9 @@
 import React, { type ComponentProps, Fragment, type ReactElement } from 'react';
 
-import { render } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl'; // eslint-disable-line import/no-extraneous-dependencies
 import { DiProvider } from 'react-magnetic-di';
+
+import { render } from '@atlassian/testing-library';
 
 type RenderOptions = NonNullable<Parameters<typeof render>[1]>;
 

@@ -16,7 +16,6 @@ import type {
 import Broadcast from '../Broadcast';
 import FeatureGatesDB from '../database/FeatureGatesDB';
 import { type ExperimentValuesEntry, type RulesetProfile } from '../database/types';
-
 import Refresh from './Refresh';
 import { type FeatureGateState, type ProviderOptions } from './types';
 import { cloneObject, createHash, getFrontendExperimentsResult } from './utils';

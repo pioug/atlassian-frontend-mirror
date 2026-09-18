@@ -16,13 +16,12 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
-import type { TeamContainer } from '@atlaskit/teams-public/types';
 import { TeamContainers } from '@atlaskit/teams-public/main';
+import type { TeamContainer } from '@atlaskit/teams-public/types';
 import { useTeamContainers } from '@atlaskit/teams-public/use-team-containers/use-team-containers';
 import { token } from '@atlaskit/tokens';
 
 import TeamAppTile from '../common/assets/TeamAppTile.svg';
-
 import { TeamActions, type TeamActionsProps } from './team-actions';
 import { TeamConnections } from './team-connections/main';
 import { TeamContainersSkeleton } from './team-containers-skeleton';

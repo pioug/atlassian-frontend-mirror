@@ -1,9 +1,7 @@
 import React, { memo } from 'react';
-
 import { createPortal } from 'react-dom';
 
 import { isSSR } from '../core-utils/is-ssr';
-
 import type { PortalManager } from './PortalManager';
 import { PortalRenderWrapperInner } from './PortalRenderWrapperInner';
 type RenderFn = (

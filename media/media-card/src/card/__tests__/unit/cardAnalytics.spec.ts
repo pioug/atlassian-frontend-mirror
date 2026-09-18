@@ -8,9 +8,9 @@ import {
 } from '@atlaskit/media-common';
 
 import { MediaCardError } from '../../../MediaCardError';
+import type { SSRStatus } from '../../../utils/analytics/analytics';
 import * as getRenderErrorEventPayloadModule from '../../../utils/analytics/getRenderErrorEventPayload';
 import * as getRenderFailedFileStatusPayloadModule from '../../../utils/analytics/getRenderFailedFileStatusPayload';
-import type { SSRStatus } from '../../../utils/analytics/analytics';
 import { fireOperationalEvent } from '../../fireOperationalEvent';
 
 const getRenderErrorEventPayload = jest.spyOn(

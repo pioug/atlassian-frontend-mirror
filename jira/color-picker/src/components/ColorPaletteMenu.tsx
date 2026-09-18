@@ -14,19 +14,18 @@ import {
 	type ForwardRefExoticComponent,
 	type RefAttributes,
 } from 'react';
-import { Mode, type Palette, type ColorCardVariant } from '../types';
+
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import withAnalyticsEvents, {
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import withAnalyticsContext, {
 	type WithContextProps,
 } from '@atlaskit/analytics-next/withAnalyticsContext';
-import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
-import ColorCard, { type ColorCardRef } from './ColorCard';
-import { getOptions, getWidth } from '../utils';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
+
 import {
 	COLOR_PALETTE_MENU,
 	KEY_ARROW_UP,
@@ -35,6 +34,9 @@ import {
 	KEY_ARROW_RIGHT,
 	KEY_TAB,
 } from '../constants';
+import { Mode, type Palette, type ColorCardVariant } from '../types';
+import { getOptions, getWidth } from '../utils';
+import ColorCard, { type ColorCardRef } from './ColorCard';
 
 export type Props = {
 	/** the toggle that decides if the selected color will be automatically focused on load */

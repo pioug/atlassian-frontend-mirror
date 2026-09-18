@@ -1,9 +1,9 @@
 /* eslint-disable testing-library/no-node-access */
+
 import React, { type Dispatch, forwardRef, type SetStateAction } from 'react';
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
-
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Popup } from '../../popup';
 import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';

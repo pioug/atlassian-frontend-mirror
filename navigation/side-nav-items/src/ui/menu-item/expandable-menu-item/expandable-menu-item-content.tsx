@@ -6,9 +6,8 @@ import { forwardRef, type ReactNode, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { expandableMenuItemIndentation } from '../constants';
+import type { expandableMenuItemIndentation as ExpandableMenuItemIndentationType } from '../constants';
 import { List } from '../list';
-
 import {
 	AreAllAncestorsExpandedContext,
 	LevelContext,
@@ -16,6 +15,8 @@ import {
 	useIsExpanded,
 	useLevel,
 } from './expandable-menu-item-context';
+
+const expandableMenuItemIndentation = '12px' satisfies typeof ExpandableMenuItemIndentationType;
 
 const styles = cssMap({
 	content: {

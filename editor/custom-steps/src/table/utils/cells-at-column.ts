@@ -1,5 +1,4 @@
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-
 import type { TableRect } from '@atlaskit/editor-tables/table-map';
 import type { CellAttributes } from '@atlaskit/editor-tables/types';
 import { columnIsHeader, tableNodeTypes } from '@atlaskit/editor-tables/utils';

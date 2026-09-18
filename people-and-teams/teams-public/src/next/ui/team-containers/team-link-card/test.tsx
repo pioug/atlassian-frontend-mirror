@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { type ContainerTypes } from '../../../../common/types';
-
 import { TeamLinkCard } from './index';
 
 jest.mock('../../../../common/utils/get-container-properties', () => ({

@@ -5,9 +5,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { INPUT_METHOD } from '../analytics';
 import type { TypeAheadInsert } from '../types';
-
-import { ElementBrowserQuickInsertMenuItem } from './ElementBrowserQuickInsertMenuItem';
 import { CompactQuickInsertMenuItem } from './CompactQuickInsertMenuItem';
+import { ElementBrowserQuickInsertMenuItem } from './ElementBrowserQuickInsertMenuItem';
 import { useQuickInsertContext } from './useQuickInsertContext';
 
 export type OnSelectContext = {

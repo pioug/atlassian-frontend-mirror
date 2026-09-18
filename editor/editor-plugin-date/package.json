@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "21.0.0",
+	"version": "21.1.0",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -50,7 +50,8 @@
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*",
 		"date-fns": "root:*",
-		"react-loadable": "root:*"
+		"react-loadable": "root:*",
+		"react-loosely-lazy": "root:*"
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",

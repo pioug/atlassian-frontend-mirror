@@ -12,7 +12,6 @@ import {
 } from '@atlaskit/link-test-helpers';
 
 import { Card } from '../src';
-
 import ExampleContainer from './utils/example-container';
 
 class ProviderClient extends CardClient {

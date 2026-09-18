@@ -1,18 +1,21 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
-import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
+
 import { type EmojiId, type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
+
 import {
 	mockReactDomWarningGlobal,
 	renderWithIntl,
 	useFakeTimers,
 } from '../__tests__/_testing-library';
-import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 import { DefaultReactions, TeamojiDefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { RENDER_SELECTOR_TESTID, Selector } from './Selector';
+import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 
 const renderSelector = (
 	onSelection: OnEmojiEvent = () => {},

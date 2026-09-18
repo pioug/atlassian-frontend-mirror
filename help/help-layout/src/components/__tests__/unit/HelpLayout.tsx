@@ -1,11 +1,12 @@
 import React from 'react';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
-import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
-import { messages } from '../../../messages';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 
+import { messages } from '../../../messages';
 import { HelpLayout } from '../../HelpLayout';
 
 // Messages

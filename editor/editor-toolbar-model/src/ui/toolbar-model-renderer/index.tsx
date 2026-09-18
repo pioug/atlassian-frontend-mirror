@@ -3,7 +3,6 @@ import React from 'react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { RegisterToolbar, RegisterComponent, ToolbarComponentTypes } from '../../types';
-
 import { getSortedChildren, isSection, NoOp } from './common';
 import type { ToolbarProps } from './types';
 

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Component, type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuid } from 'uuid';
+
+import { FileStateWrapper } from '../example-helpers/FileStateWrapper';
+import { type FileState } from '../src';
 import {
 	createStorybookMediaClient,
 	imageFileId,
@@ -9,10 +14,6 @@ import {
 	defaultCollectionName,
 	animatedFileId,
 } from '../src/test-helpers';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import { v4 as uuid } from 'uuid';
-import { FileStateWrapper } from '../example-helpers/FileStateWrapper';
-import { type FileState } from '../src';
 
 export interface ExampleState {
 	fileStates: { [id: string]: FileState };

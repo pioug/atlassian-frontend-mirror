@@ -1,6 +1,6 @@
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { type ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { IconType } from '../../constants';
 import { getLazyIcons } from '../get-lazy-icons';

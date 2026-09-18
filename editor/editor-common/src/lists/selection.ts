@@ -2,7 +2,6 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { isListItemNode } from '../utils';
-
 import { numberNestedLists } from './numberNestedLists';
 
 export const getListItemAttributes = (

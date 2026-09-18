@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import Textfield from '@atlaskit/textfield/text-field';
 import Lozenge from '@atlaskit/lozenge/lozenge';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import Client, { type PubSubClientConfig, SpecialEventType } from '../src';
-import APSProtocol from '../src/protocols/aps';
 import { type APSTransportType } from '../src/apiTypes';
+import APSProtocol from '../src/protocols/aps';
 
 let clientConfig: { serviceConfig: PubSubClientConfig };
 let defaultApsUrl: string;

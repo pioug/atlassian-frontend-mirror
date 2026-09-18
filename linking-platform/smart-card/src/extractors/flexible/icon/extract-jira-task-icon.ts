@@ -1,7 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { IconType } from '../../../constants';
-
 import { type IconDescriptor } from './types';
 
 const extractJiraTaskIcon = (taskType?: string, label?: string): IconDescriptor | undefined => {

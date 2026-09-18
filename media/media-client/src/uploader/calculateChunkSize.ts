@@ -1,5 +1,5 @@
-import { DATA_UNIT } from '../models/media';
 import { MAX_UPLOAD_FILE_SIZE } from '../constants';
+import { DATA_UNIT } from '../models/media';
 
 export const fileSizeError = 'fileSizeExceedsLimit';
 

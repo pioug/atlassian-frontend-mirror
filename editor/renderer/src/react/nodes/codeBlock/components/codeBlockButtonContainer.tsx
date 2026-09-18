@@ -2,14 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import type { Dispatch, SetStateAction } from 'react';
+
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
-import type { Dispatch, SetStateAction } from 'react';
+
+import { token } from '@atlaskit/tokens';
+
 import CopyButton from './codeBlockCopyButton';
 import DownloadButton from './codeBlockDownloadButton';
 import CodeWrapButton from './codeBlockWrapButton';
-import { token } from '@atlaskit/tokens';
-
 export interface CodeBlockButtonContainerProps {
 	allowCopyToClipboard?: boolean;
 	allowDownloadCodeBlock?: boolean;

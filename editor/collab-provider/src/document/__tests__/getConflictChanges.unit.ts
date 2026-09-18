@@ -1,10 +1,9 @@
+import type { ConflictChanges } from '@atlaskit/editor-common/collab';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { doc, p, emoji } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { ConflictChanges } from '@atlaskit/editor-common/collab';
 
 import { getConflictChanges } from '../getConflictChanges';
-
 import { Editor } from './_utils';
 
 beforeEach(() => {

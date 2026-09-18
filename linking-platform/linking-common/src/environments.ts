@@ -30,6 +30,7 @@ export default BaseUrls;
 /**
  * @deprecated Use `import { getBaseUrl } from '@atlaskit/linking-common/client'` instead.
  */
+
 export { getBaseUrl } from './getBaseUrl';
 /**
  * @deprecated Use `import { getResolverUrl } from '@atlaskit/linking-common/client'` instead.

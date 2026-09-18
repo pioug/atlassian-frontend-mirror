@@ -1,15 +1,18 @@
+import type { ComponentType, FC } from 'react';
+
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
-import { ClearIndicator } from './ClearIndicator';
-import { MultiValue } from './MultiValue';
-import { MultiValueContainer } from './MultiValueContainer';
-import { Option, type OptionProps } from './Option';
-import { SingleValue, type Props } from './SingleValue';
-import { Input } from './Input';
-import { SingleValueContainer } from './SingleValueContainer';
-import { PopupInput } from './PopupInput';
-import { PopupControl } from './PopupControl';
-import { Menu } from './Menu';
-import Control from './Control';
+
+import type { ControlProps as ReactSelectControlProps } from '@atlaskit/react-select/control';
+import type { GroupProps } from '@atlaskit/react-select/group';
+import type { GroupHeadingProps } from '@atlaskit/react-select/group-heading';
+import type { MenuProps } from '@atlaskit/react-select/menu';
+import type { MenuListProps } from '@atlaskit/react-select/menu-list';
+import type { MenuPortalProps } from '@atlaskit/react-select/menu-portal';
+import type { OptionProps as ReactSelectOptionProps } from '@atlaskit/react-select/option';
+import type { PlaceholderProps } from '@atlaskit/react-select/placeholder';
+import type { ContainerProps } from '@atlaskit/react-select/select-container';
+import type { GroupBase } from '@atlaskit/react-select/types';
+import type { ValueContainerProps } from '@atlaskit/react-select/value-container';
 import type {
 	ClearIndicatorProps,
 	ControlProps,
@@ -24,19 +27,19 @@ import type {
 	SelectComponentsConfig,
 	SingleValueProps,
 } from '@atlaskit/select/types';
+
 import { type OptionData, type UserPickerProps } from '../types';
-import type { OptionProps as ReactSelectOptionProps } from '@atlaskit/react-select/option';
-import type { GroupBase } from '@atlaskit/react-select/types';
-import type { GroupProps } from '@atlaskit/react-select/group';
-import type { ControlProps as ReactSelectControlProps } from '@atlaskit/react-select/control';
-import type { GroupHeadingProps } from '@atlaskit/react-select/group-heading';
-import type { MenuProps } from '@atlaskit/react-select/menu';
-import type { MenuListProps } from '@atlaskit/react-select/menu-list';
-import type { MenuPortalProps } from '@atlaskit/react-select/menu-portal';
-import type { PlaceholderProps } from '@atlaskit/react-select/placeholder';
-import type { ContainerProps } from '@atlaskit/react-select/select-container';
-import type { ValueContainerProps } from '@atlaskit/react-select/value-container';
-import type { ComponentType, FC } from 'react';
+import { ClearIndicator } from './ClearIndicator';
+import Control from './Control';
+import { Input } from './Input';
+import { Menu } from './Menu';
+import { MultiValue } from './MultiValue';
+import { MultiValueContainer } from './MultiValueContainer';
+import { Option, type OptionProps } from './Option';
+import { PopupControl } from './PopupControl';
+import { PopupInput } from './PopupInput';
+import { SingleValue, type Props } from './SingleValue';
+import { SingleValueContainer } from './SingleValueContainer';
 
 /**
  * Memoize getComponents to avoid rerenders.

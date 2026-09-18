@@ -20,7 +20,6 @@ import { willSurfaceRender } from '@atlaskit/editor-ui-control-model/surface-ren
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
-
 import { BlockControlsRightSurface } from './block-controls-right-surface';
 import {
 	createBlockControlsSurfaceContext,

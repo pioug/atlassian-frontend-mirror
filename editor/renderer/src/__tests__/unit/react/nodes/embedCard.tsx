@@ -1,16 +1,16 @@
 import React from 'react';
-import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
-import '@atlaskit/link-test-helpers/jest';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import type { RendererAppearance } from '@atlaskit/renderer';
-import { Pressable } from '@atlaskit/primitives/compiled';
 
-import Client from '@atlaskit/link-provider/client';
-import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { Card } from '@atlaskit/smart-card';
 import { render } from '@testing-library/react';
 
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
+import '@atlaskit/link-test-helpers/jest';
+import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import { Pressable } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import type { RendererAppearance } from '@atlaskit/renderer';
+import { Card } from '@atlaskit/smart-card';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmbedCard from '../../../../react/nodes/embedCard';

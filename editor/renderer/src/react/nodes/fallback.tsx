@@ -1,7 +1,9 @@
-import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
-import Link from '@atlaskit/link/link';
-import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource/analytics/render-failed';
 import React from 'react';
+
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource/analytics/render-failed';
+import Link from '@atlaskit/link/link';
+
 import { InlineCard } from './';
 
 type CardErrorBoundaryProps = {

@@ -1,6 +1,22 @@
 import React, { useEffect, useState } from 'react';
+
 // @ts-expect-error TS7016 - no type declarations for server.browser, but it avoids Atlaspack's TextEncoder shim that breaks in Gemini
 import ReactDOMServer from 'react-dom/server.browser';
+import { IntlProvider } from 'react-intl';
+
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import {
+	url,
+	cardState,
+	atlassianProjectCardState,
+	atlassianProjectUrl,
+} from '@atlaskit/media-test-helpers/smart-card-state';
+
+import { Renderer } from '../../entry-points/renderer-default';
+import type { RendererProps } from '../../index';
 import {
 	ssrCodeBlockDoc,
 	ssrCodeBlockInBlockquoteDoc,
@@ -13,19 +29,6 @@ import {
 import { resizedImagedoc } from '../__fixtures__/ssr-resized-image.adf';
 import { resizedMedia, mediaInTable } from '../__fixtures__/ssr-resized-media.adf';
 import { smartCardAdf, smartCardAtlassianProjectAdf } from '../__fixtures__/ssr-smart-card.adf';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import CardClient from '@atlaskit/link-provider/client';
-import { IntlProvider } from 'react-intl';
-import { Renderer } from '../../entry-points/renderer-default';
-import type { RendererProps } from '../../index';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import {
-	url,
-	cardState,
-	atlassianProjectCardState,
-	atlassianProjectUrl,
-} from '@atlaskit/media-test-helpers/smart-card-state';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RendererWrapper = ({

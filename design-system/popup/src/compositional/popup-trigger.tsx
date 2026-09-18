@@ -5,7 +5,6 @@ import { Reference } from '@atlaskit/popper/reference';
 
 import type { TriggerProps } from '../types';
 import { useGetMemoizedMergedTriggerRefNew } from '../use-get-memoized-merged-trigger-ref-new';
-
 import { IdContext } from './id-context';
 import { IsOpenContext } from './is-open-context';
 import { RoleContext } from './role-context';

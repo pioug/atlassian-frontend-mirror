@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-primitives-text, @atlaskit/design-system/use-heading, @atlaskit/design-system/no-html-anchor -- Legacy analytics-next docs intentionally use plain HTML prose, links, and inline styles after the docs helper cleanup. */
+
 import React from 'react';
 
 const warningStyles: React.CSSProperties = {

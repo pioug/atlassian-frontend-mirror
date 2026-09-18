@@ -1,10 +1,12 @@
 import React from 'react';
+
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { render, screen } from '@atlassian/testing-library';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
-import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render, screen } from '@atlassian/testing-library';
+
 import { MentionAvatar } from '../../../components/MentionAvatar';
 
 jest.mock('@atlaskit/feature-gate-js-client/feature-gates', () => ({

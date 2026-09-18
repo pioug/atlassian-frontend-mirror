@@ -17,11 +17,10 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TableOptions } from '../../../nodeviews/types';
-
 import { hasTableBeenResized, hasTableColumnBeenResized } from './colgroup';
 import {
 	MAX_SCALING_PERCENT,

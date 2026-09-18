@@ -19,7 +19,6 @@ import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginTyp
 import type { SelectionExtensionSelectionInfo } from '../../types';
 import type { SelectionRange } from '../../types';
 import { getBoundingBoxFromSelection } from '../../ui/getBoundingBoxFromSelection';
-
 import { getSelectionInfo } from './selection-helpers';
 
 const getSelectedRect = (selection: CellSelection): Rect => {

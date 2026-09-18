@@ -1,13 +1,13 @@
+import {
+	darkViolationsVisualRefresh,
+	lightViolationsVisualRefresh,
+} from './contrast-violation-registry.mock';
+
 import checkThemePairContrasts, {
 	type lightResults,
 } from '../../../examples/contrast-checker-utils/utils/check-pair-contrasts';
 import rawTokensDark from '../../artifacts/tokens-raw/atlassian-dark';
 import rawTokensLight from '../../artifacts/tokens-raw/atlassian-light';
-
-import {
-	darkViolationsVisualRefresh,
-	lightViolationsVisualRefresh,
-} from './contrast-violation-registry.mock';
 
 const getViolations = (
 	results: typeof lightResults.fullResults,

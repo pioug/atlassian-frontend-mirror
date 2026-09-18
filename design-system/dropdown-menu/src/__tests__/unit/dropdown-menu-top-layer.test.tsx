@@ -4,10 +4,10 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import DropdownMenu from '../../dropdown-menu';
-import DropdownItem from '../../dropdown-menu-item';
 import DropdownItemCheckbox from '../../checkbox/dropdown-item-checkbox';
 import DropdownItemCheckboxGroup from '../../checkbox/dropdown-item-checkbox-group';
+import DropdownMenu from '../../dropdown-menu';
+import DropdownItem from '../../dropdown-menu-item';
 import DropdownItemGroup from '../../dropdown-menu-item-group';
 import DropdownItemRadio from '../../radio/dropdown-item-radio';
 import DropdownItemRadioGroup from '../../radio/dropdown-item-radio-group';

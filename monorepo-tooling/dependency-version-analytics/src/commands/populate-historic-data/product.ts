@@ -1,15 +1,16 @@
-import { DEFAULT_TAG } from '../../constants';
 import chalk from 'chalk';
+import type { LogResult } from 'simple-git';
+
+import { DEFAULT_TAG } from '../../constants';
 import { type UpgradeEvent } from '../../types';
-import { type PopulateHistoricDataFlags, type DependencyMap, type PackageChange } from './types';
 import { createUpgradeEvent, sendAnalytics } from '../../util/analytics';
+import { assert } from '../../util/assert';
 import { getChangesSince, tagCommit, doesTagExist, refetchTag, getHash } from '../../util/git';
 import * as statlas from '../../util/statlas';
-import type { LogResult } from 'simple-git';
-import { generateCSV } from './util/generate-csv';
-import { assert } from '../../util/assert';
 import { DependencyStore } from './lib/dependency-store';
+import { type PopulateHistoricDataFlags, type DependencyMap, type PackageChange } from './types';
 import { getSupportedScopes } from './util/allowed-scopes';
+import { generateCSV } from './util/generate-csv';
 
 export type PopulateProductFlags = PopulateHistoricDataFlags & {
 	csv: boolean;

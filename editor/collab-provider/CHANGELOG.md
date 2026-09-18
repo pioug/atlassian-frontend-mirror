@@ -1,5 +1,45 @@
 # @atlaskit/collab-provider
 
+## 28.2.1
+
+### Patch Changes
+
+- [`d2d4a126ef64e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d4a126ef64e) -
+  Gate the periodic AI-provider presence re-broadcast behind platform_move_presence_agents, matching
+  the existing gating of the ai-provider:change send in Provider.sendMessage. When the gate is
+  enabled the presence heartbeat no longer re-announces editor AI plugin provider ids, which
+  previously registered a duplicate, agentType-less presence participant for an agent that was
+  already present under its AAID and caused it to render as the External agent fallback.
+- Updated dependencies
+
+## 28.2.0
+
+### Minor Changes
+
+- [`9461b21b24472`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9461b21b24472) -
+  Add the recovery:required provider event with a reason payload so Confluence can reset an NCS
+  document on request. NCS sends the event to the document's current socket. Rollout is controlled
+  by NCS emitting the event.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.0
+
+### Minor Changes
+
+- [`36e3ed7c27a98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36e3ed7c27a98) -
+  Fix missing userIds in steps by using the already known confluence userId, gated by
+  `confluence_ncs_step_diffing_version_history`.
+
+### Patch Changes
+
+- [`6f50f448a393e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f50f448a393e) -
+  Stop deriving agent participants from editor steps when platform_editor_agent_edit_presence is
+  enabled.
+- Updated dependencies
+
 ## 28.0.0
 
 ### Patch Changes

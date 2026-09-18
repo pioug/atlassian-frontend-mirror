@@ -11,7 +11,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler, TypeAheadPluginState } from '../types';
-
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { itemIsDisabled } from './item-is-disabled';
 import { pluginKey as typeAheadPluginKey } from './key';

@@ -1,8 +1,11 @@
-import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { render, screen } from '@testing-library/react';
 import React, { type ReactNode } from 'react';
-import { type LozengeProps } from '../../../types';
+
+import { render, screen } from '@testing-library/react';
+
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+
 import { AvatarItemOption } from '../../../components/AvatarItemOption';
+import { type LozengeProps } from '../../../types';
 
 describe('AvatarItemOption', () => {
 	describe('option content', () => {

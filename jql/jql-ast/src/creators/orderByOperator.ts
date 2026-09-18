@@ -1,6 +1,5 @@
 import { ORDER_BY_OPERATOR_ORDER_BY } from '../constants';
 import { type JastListener, type JastVisitor, type OrderByOperator, type Position } from '../types';
-
 import { noChildren } from './common';
 
 function acceptOrderByOperator<Result>(this: OrderByOperator, visitor: JastVisitor<Result>) {

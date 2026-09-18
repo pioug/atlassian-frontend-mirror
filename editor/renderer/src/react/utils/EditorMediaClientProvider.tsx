@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+
 import {
 	useProviderFactory,
 	useProviderLayout,
 	type MediaProvider as EditorMediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

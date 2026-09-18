@@ -7,16 +7,18 @@ jest.mock('unzipit', () => ({
 	},
 	HTTPRangeReader: () => 'reader',
 }));
-import { IntlProvider } from 'react-intl';
-
 import React from 'react';
+
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+import { type ZipEntry } from 'unzipit';
+
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+
 import {
 	ArchiveSidebar,
 	type ArchiveSidebarProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar';
-import { type ZipEntry } from 'unzipit';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ArchiveSidebar', () => {

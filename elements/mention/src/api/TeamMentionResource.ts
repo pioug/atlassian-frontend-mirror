@@ -1,4 +1,3 @@
-import { SLI_EVENT_TYPE } from './../util/analytics';
 import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
 
 import {
@@ -10,6 +9,8 @@ import {
 	SliNames,
 	Actions,
 } from '../types';
+import debug from '../util/logger';
+import { SLI_EVENT_TYPE } from './../util/analytics';
 import {
 	MentionResource,
 	type MentionContextIdentifier,
@@ -17,7 +18,6 @@ import {
 	type TeamMentionResourceConfig,
 	type MentionProvider,
 } from './MentionResource';
-import debug from '../util/logger';
 
 const MAX_QUERY_TEAMS = 20;
 

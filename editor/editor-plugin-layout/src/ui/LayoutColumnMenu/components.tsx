@@ -8,7 +8,6 @@ import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-cont
 import type { RegisterComponent, SurfaceFallbacks } from '@atlaskit/editor-ui-control-model';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
-
 import { DeleteColumnDropdownItem } from './DeleteColumnDropdownItem';
 import { DistributeColumnsDropdownItem } from './DistributeColumnsDropdownItem';
 import { InsertColumnDropdownItem } from './InsertColumnDropdownItem';

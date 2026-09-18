@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useId } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -47,6 +47,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 	const closeMenu = context?.closeMenu;
 
 	const { formatMessage } = useIntl();
+	const labelId = useId();
 	const isNewColorPaletteEnabled = expValEquals(
 		'platform_editor_lovability_text_bg_color',
 		'isEnabled',
@@ -81,6 +82,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 
 	const colorPalette = (
 		<ColorPalette
+			ariaLabelledBy={labelId}
 			cols={isNewColorPaletteEnabled ? TEXT_COLOR_PICKER_COLUMNS : undefined}
 			gap={
 				isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1')
@@ -103,7 +105,9 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 
 	return (
 		<Stack xcss={styles.container} testId="text-color-menu-item">
-			<Heading size="xxsmall">{formatMessage(messages.textColorTooltip)}</Heading>
+			<Heading id={labelId} size="xxsmall">
+				{formatMessage(messages.textColorTooltip)}
+			</Heading>
 			{isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1') ? (
 				<Bleed inline="space.025">{colorPalette}</Bleed>
 			) : (

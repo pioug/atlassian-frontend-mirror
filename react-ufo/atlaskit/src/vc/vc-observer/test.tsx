@@ -2,12 +2,10 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
-
 import { attachAbortListeners } from './attachAbortListeners';
+import { VCObserver } from './index';
 import { Observers } from './observers';
 import type { Callback } from './observers/types';
-
-import { VCObserver } from './index';
 
 jest.mock('@atlaskit/platform-feature-flags/fg');
 jest.mock('./observers/index');

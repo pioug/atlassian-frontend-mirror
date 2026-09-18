@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
-
 import createEventPayload, { type AnalyticsEventAttributes } from './analytics.codegen';
 
 export type ScreenViewedEventProps = {

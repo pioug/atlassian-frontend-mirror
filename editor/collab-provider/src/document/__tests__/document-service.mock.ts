@@ -1,9 +1,9 @@
-import type { ParticipantsService } from '../../participants/participants-service';
-import { DocumentService } from '../document-service';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { MetadataService } from '../../metadata/metadata-service';
-import type { Config } from '../../types';
+import type { ParticipantsService } from '../../participants/participants-service';
 import type { CommitStepService } from '../../provider/commit-step';
+import type { Config } from '../../types';
+import { DocumentService } from '../document-service';
 import type { StepQueueState } from '../step-queue-state';
 
 jest.mock('../../analytics/analytics-helper');

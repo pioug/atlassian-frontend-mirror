@@ -4,7 +4,6 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findChildren } from '@atlaskit/editor-prosemirror/utils';
 
 import { roundToNearest } from '../media-single';
-
 import { MEDIA_DYNAMIC_GUIDELINE_PREFIX } from './constants';
 import { getMediaSingleDimensions } from './getMediaSingleDimensions';
 import type { GuidelineConfig, GuidelineStyles, RelativeGuides } from './types';

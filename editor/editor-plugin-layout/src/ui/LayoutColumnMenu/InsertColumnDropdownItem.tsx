@@ -23,7 +23,6 @@ import {
 	getEffectiveMaxLayoutColumns,
 	type InsertLayoutColumnSide,
 } from '../../pm-plugins/actions';
-
 import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 
 type InsertColumnOption = {

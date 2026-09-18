@@ -10,15 +10,14 @@ import { useIntl } from 'react-intl';
 import Button from '@atlaskit/button/default/button';
 import EmptyState from '@atlaskit/empty-state/empty-state';
 import type { DatasourceMeta } from '@atlaskit/linking-types/datasource';
-import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
 import { auth as outboundAuth } from '@atlaskit/outbound-auth-flow-client/auth';
+import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import useErrorLogger from '../../../hooks/useErrorLogger';
-
 import { loadingErrorMessages } from './messages';
 import { ProviderAuthRequiredSVG } from './provider-auth-required-svg';
 

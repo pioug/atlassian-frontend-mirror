@@ -3,9 +3,11 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
+
 import { tickBoxClassName } from './styles';
 import { type TickBoxProps } from './types';
-import { token } from '@atlaskit/tokens';
 
 const selectedStyles = css({
 	backgroundColor: token('color.icon.information'),

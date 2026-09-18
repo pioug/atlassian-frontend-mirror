@@ -1,7 +1,8 @@
 import type { MediaClient, FileIdentifier } from '@atlaskit/media-client';
-import { parseError } from './util';
-import type { ArtifactUploaderProps } from '../types';
 import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
+
+import type { ArtifactUploaderProps } from '../types';
+import { parseError } from './util';
 
 export const createUploadCaptionsFn =
 	(

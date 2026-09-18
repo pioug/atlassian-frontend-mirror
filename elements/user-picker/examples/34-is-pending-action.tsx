@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import type { Email } from '../src/types';
 import { UserPicker } from '../src/components/UserPicker';
+import type { Email } from '../src/types';
 
 const Example = (): React.JSX.Element => {
 	const options: Email[] = ['spiderman', 'hulk', 'thor']

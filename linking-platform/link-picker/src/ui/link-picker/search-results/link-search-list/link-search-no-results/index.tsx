@@ -5,7 +5,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { EmptyState } from '../../../../../common/ui/empty-state';
-
 import { NoResultsSVG } from './no-results-svg';
 
 export const messages: {

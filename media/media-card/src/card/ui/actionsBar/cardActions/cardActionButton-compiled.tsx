@@ -3,11 +3,14 @@
  * @jsx jsx
  */
 import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, cssMap } from '@compiled/react';
-import { type CardActionButtonOwnProps } from './styles';
-import { token } from '@atlaskit/tokens';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { token } from '@atlaskit/tokens';
+
+import { type CardActionButtonOwnProps } from './styles';
 
 const variantStyleMap = cssMap({
 	filled: {

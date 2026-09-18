@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type ExternalMessage } from '../../../../state/types';
-
 import { extractMessageNodes } from './extractMessageNodes';
 import { MessageList } from './styled';
 

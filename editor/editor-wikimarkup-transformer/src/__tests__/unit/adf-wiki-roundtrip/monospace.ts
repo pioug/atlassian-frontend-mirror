@@ -1,7 +1,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { adf2wiki, wiki2adf } from '../_test-helpers';
-
 import { code, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { adf2wiki, wiki2adf } from '../_test-helpers';
 
 describe('ADF => WikiMarkup => ADF - Monospace', () => {
 	test('should convert monospace node with attachment link', () => {

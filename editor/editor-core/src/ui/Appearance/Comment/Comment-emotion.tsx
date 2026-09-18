@@ -45,7 +45,6 @@ import PluginSlot from '../../PluginSlot';
 import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 import WithFlash from '../../WithFlash';
-
 import { CommentToolbar } from './CommentToolbar';
 import { MainToolbar } from './Toolbar';
 

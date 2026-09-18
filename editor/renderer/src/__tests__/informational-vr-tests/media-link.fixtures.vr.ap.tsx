@@ -1,13 +1,15 @@
 import React from 'react';
+
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import CardClient from '@atlaskit/link-provider/client';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
+import { Renderer } from '../../entry-points/renderer-default';
 import {
 	adfLeftAndRightWrappedMediaInsideTable,
 	adfLeftWrappedMediaInsideTable,
@@ -17,7 +19,6 @@ import {
 	adfMediaSingle,
 	adfRightWrappedMediaInsideTable,
 } from './__fixtures__';
-import { Renderer } from '../../entry-points/renderer-default';
 
 const smartCardClient = new CardClient('stg');
 

@@ -1,20 +1,21 @@
-import React from 'react';
 import EventEmitter from 'events';
 
-import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import * as annotationAdf from '../__fixtures__/annotation-adf.json';
-import * as docWithTable from '../__fixtures__/doc-with-table-adf.json';
+import React from 'react';
 
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type {
 	AnnotationUpdateEventPayloads,
 	AnnotationUpdateEvent,
 	InlineCommentAnnotationProvider,
 } from '@atlaskit/editor-common/types';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
+
 import Renderer from '../../ui/Renderer';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import * as annotationAdf from '../__fixtures__/annotation-adf.json';
+import * as docWithTable from '../__fixtures__/doc-with-table-adf.json';
 import { SelectionInlineComponentMock } from './annotationSelectionComponentMock';
 
 type Callback<T> = T extends keyof AnnotationUpdateEventPayloads

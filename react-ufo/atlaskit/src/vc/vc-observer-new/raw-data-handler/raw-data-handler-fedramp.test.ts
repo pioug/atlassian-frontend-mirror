@@ -4,7 +4,6 @@ import { __resetFedrampOverrideCacheForTests } from '../../../config';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
 import getViewportWidth from '../metric-calculator/utils/get-viewport-width';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
-
 import RawDataHandler from './index';
 
 jest.mock('../metric-calculator/utils/get-viewport-width');

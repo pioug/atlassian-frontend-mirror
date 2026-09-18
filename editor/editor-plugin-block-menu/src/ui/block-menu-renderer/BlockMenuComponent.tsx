@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { RegisterBlockMenuComponent } from '../../blockMenuPluginType';
-
 import { BlockMenuComponents } from './BlockMenuComponents';
 import type { BlockMenuRenderingContext } from './types';
 import { getChildrenMapKey, willComponentRender } from './utils';

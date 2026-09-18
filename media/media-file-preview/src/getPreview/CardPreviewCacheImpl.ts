@@ -1,8 +1,7 @@
 import { type MediaFilePreview } from '../types';
-
-import type { ObjectURLCache } from './ObjectURLCache-2';
 import type { MediaFilePreviewCache, Mode } from './cache';
 import { getCacheKey } from './getCacheKey';
+import type { ObjectURLCache } from './ObjectURLCache-2';
 
 export class CardPreviewCacheImpl implements MediaFilePreviewCache {
 	constructor(private previewCache: ObjectURLCache) {}

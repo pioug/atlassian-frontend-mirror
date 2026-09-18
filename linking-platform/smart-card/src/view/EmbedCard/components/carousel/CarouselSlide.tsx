@@ -16,7 +16,6 @@ import { Box, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../messages';
-
 import type { CarouselSize } from './types';
 
 const styles = cssMap({

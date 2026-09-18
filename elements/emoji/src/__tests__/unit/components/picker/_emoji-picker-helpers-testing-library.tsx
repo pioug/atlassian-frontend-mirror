@@ -2,6 +2,7 @@ import { fireEvent, screen, within } from '@testing-library/react';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import userEvent from '@testing-library/user-event';
+
 import { emojiActionsTestId } from '../../../../components/common/EmojiActions';
 import {
 	emojiErrorIconTestId,
@@ -19,10 +20,10 @@ import {
 } from '../../../../components/common/FileChooser';
 import { retryUploadButtonTestId } from '../../../../components/common/RetryableButton';
 import { categorySelectorComponentTestId } from '../../../../components/picker/CategorySelector';
+import { categorySelectorCategoryTestId } from '../../../../components/picker/categorySelectorCategoryTestId';
 import { emojiPickerFooterTestId } from '../../../../components/picker/EmojiPickerFooter';
 import { emojiPickerSearchTestId } from '../../../../components/picker/EmojiPickerListSearch';
 import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
-import { categorySelectorCategoryTestId } from '../../../../components/picker/categorySelectorCategoryTestId';
 
 export function getEmojiActionsSection(): HTMLElement {
 	return screen.getByTestId(emojiActionsTestId);

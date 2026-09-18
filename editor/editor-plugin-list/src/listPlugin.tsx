@@ -18,7 +18,6 @@ import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ListPlugin } from './listPluginType';
 import {
@@ -50,9 +49,7 @@ export const listPlugin: ListPlugin = ({ api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents(getListComponents(api));
-	}
+	api?.blockMenu?.actions.registerBlockMenuComponents(getListComponents(api));
 	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	if (isRegisteredSlashCommandEnabled) {
 		api?.uiControlRegistry?.actions.register(getListQuickInsertComponents({ api }));

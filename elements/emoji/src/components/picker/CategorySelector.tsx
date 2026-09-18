@@ -21,13 +21,13 @@ import {
 	defaultCategories,
 	KeyboardKeys,
 } from '../../util/constants';
+import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 import { messages } from '../i18n';
 import { CategoryDescriptionMap, CategoryDescriptionMapNew, type CategoryId } from './categories';
 import { categorySelectorCategoryTestId } from './categorySelectorCategoryTestId';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
 import { sortCategories } from './sortCategories';
 import { sortCategoriesNew } from './sortCategoriesNew';
-import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 
 const isEmojiPickerInitialFocusFixEnabled = (): boolean => {
 	if (!FeatureGates.initializeCompleted()) {

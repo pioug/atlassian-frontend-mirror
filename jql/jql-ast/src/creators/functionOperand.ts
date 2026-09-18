@@ -8,7 +8,6 @@ import {
 	type JastVisitor,
 	type Position,
 } from '../types';
-
 import { assignParent } from './common';
 
 function acceptFunctionOperand<Result>(this: FunctionOperand, visitor: JastVisitor<Result>) {

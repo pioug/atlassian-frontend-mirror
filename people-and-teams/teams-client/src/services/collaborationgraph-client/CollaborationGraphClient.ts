@@ -1,5 +1,4 @@
 import { RestClient } from '../rest-client';
-
 import type { RecommendedUsersArgs, RecommendedUsersResponse, UserContainerArgs } from './index';
 
 enum CONTAINER_TYPE {

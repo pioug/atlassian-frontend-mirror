@@ -16,8 +16,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { layers } from '@atlaskit/theme/constants';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
@@ -25,7 +25,6 @@ import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracke
 import { isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
 import type { AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
 import { shouldAllowInlineDropTarget } from '../pm-plugins/utils/inline-drop-target';
-
 import { getNestedNodeLeftPaddingMargin } from './consts';
 import { InlineDropTarget } from './inline-drop-target';
 

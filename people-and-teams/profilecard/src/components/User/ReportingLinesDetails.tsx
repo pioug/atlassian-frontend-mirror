@@ -2,8 +2,8 @@ import React from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Avatar from '@atlaskit/avatar/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group/avatar-group';
+import Avatar from '@atlaskit/avatar/avatar';
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

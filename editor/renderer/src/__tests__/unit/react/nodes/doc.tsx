@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import Doc from '../../../../react/nodes/doc';
 
 describe('Renderer - React/Nodes/Doc', () => {

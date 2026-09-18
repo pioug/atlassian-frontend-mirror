@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
+
 import React from 'react';
+
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { token } from '@atlaskit/tokens';
 
-import { document as storyDataDocument } from './story-data';
-
-import type { MetaDataContext } from '../../src/interfaces';
 import EmailSerializer from '../../src';
+import type { MetaDataContext } from '../../src/interfaces';
+import { document as storyDataDocument } from './story-data';
 
 export interface DemoRendererProps {
 	document?: object;

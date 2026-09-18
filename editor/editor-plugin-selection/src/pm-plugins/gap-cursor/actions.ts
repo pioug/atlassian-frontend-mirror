@@ -22,7 +22,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 
 import { gapCursorPluginKey } from '../gap-cursor-plugin-key';
-
 import { Direction, isBackward, isForward } from './direction';
 import { isTextBlockNearPos } from './utils';
 

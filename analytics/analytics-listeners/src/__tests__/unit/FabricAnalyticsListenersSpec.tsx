@@ -1,5 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen, fireEvent } from '@testing-library/react';
+
 import { createComponentWithAnalytics, IncorrectEventType } from '../../../examples/helpers';
 import FabricAnalyticsListeners from '../../FabricAnalyticsListeners';
 import { LOG_LEVEL } from '../../helpers/logger';
@@ -9,6 +11,7 @@ declare const global: any;
 
 const DummyElementsCompWithAnalytics = createComponentWithAnalytics(FabricChannel.elements);
 const DummyAtlaskitCompWithAnalytics = createComponentWithAnalytics(FabricChannel.atlaskit);
+const DummyA2UICompWithAnalytics = createComponentWithAnalytics(FabricChannel.a2ui);
 const DummyNavigationCompWithAnalytics = createComponentWithAnalytics(FabricChannel.navigation);
 const DummyMediaCompWithAnalytics = createComponentWithAnalytics(FabricChannel.media);
 const DummyPeopleTeamsCompWithAnalytics = createComponentWithAnalytics(FabricChannel.peopleTeams);
@@ -179,6 +182,19 @@ describe('<FabricAnalyticsListeners />', () => {
 			await expect(document.body).toBeAccessible();
 		});
 
+		it('should render an A2UIAnalyticsListener', async () => {
+			render(
+				<FabricAnalyticsListeners client={analyticsWebClientMock}>
+					<DummyA2UICompWithAnalytics onClick={() => {}} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'a2ui' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
+		});
+
 		it('should render a NavigationListener', async () => {
 			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
@@ -340,6 +356,26 @@ describe('<FabricAnalyticsListeners />', () => {
 			);
 
 			const dummyComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
+		});
+	});
+
+	describe('<A2UIAnalyticsListener />', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={analyticsWebClientMock}>
+					<DummyA2UICompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'a2ui' });
 			expect(dummyComponent).toBeInTheDocument();
 
 			await fireEvent.click(dummyComponent);

@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import { getTagText } from '../../../tag-new/get-tag-text';
-
 import type { SimpleTagProps } from './types';
 
 interface ContentProps extends SimpleTagProps {

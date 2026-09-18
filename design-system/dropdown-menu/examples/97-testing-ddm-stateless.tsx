@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import DropdownMenuStateless from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
+import DropdownMenuStateless from '@atlaskit/dropdown-menu/dropdown-menu';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 
 const DropdownMenuStatelessExample = (): React.JSX.Element => {

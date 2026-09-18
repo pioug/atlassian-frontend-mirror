@@ -1,7 +1,10 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { render } from '@testing-library/react';
-import ColorCard, { type Props } from '../../components/ColorCard';
 import React from 'react';
+
+import { render } from '@testing-library/react';
+
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import ColorCard, { type Props } from '../../components/ColorCard';
 import { COLOR_PALETTE_MENU, COLOR_PICKER } from '../../constants';
 
 const defaultProps: Props = {

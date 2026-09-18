@@ -1,10 +1,10 @@
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
+import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import {
 	getComponentIdentity,
 	resolveSurface,
 	willComponentRender,
 } from '@atlaskit/editor-ui-control-model/surface-renderer';
-import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import type { RegisterComponent, SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 
 type SurfaceIdentifier = {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { UserPicker } from '../src/components/UserPicker';
 import { type Team, type Group, type OptionData } from '../src/types';

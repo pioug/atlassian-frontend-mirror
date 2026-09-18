@@ -2,7 +2,6 @@ import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/mode
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { isListItemNode, isListNode } from '../utils';
-
 import { isListNodeValidContent } from './isListNodeValidContent';
 import { JoinDirection } from './JoinDirection';
 

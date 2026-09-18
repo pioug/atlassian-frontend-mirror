@@ -1,5 +1,6 @@
-import type { MarkdownSerializerState } from './serializer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
+import type { MarkdownSerializerState } from './serializer';
 
 const isHeaderRow = (row: PMNode): boolean => row.child(0).type.name === 'tableHeader';
 

@@ -1,4 +1,5 @@
 /* eslint-disable no-inner-declarations */
+
 import once from '../once';
 
 test('single argument', () => {

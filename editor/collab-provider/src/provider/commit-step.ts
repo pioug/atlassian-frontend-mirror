@@ -1,5 +1,20 @@
 import countBy from 'lodash/countBy';
+
+import type { CollabEvents, StepJson } from '@atlaskit/editor-common/collab';
+import {
+	AGENT_ATTRIBUTION_META,
+	type AgentAttributionTransactionMeta,
+} from '@atlaskit/editor-common/transaction-agent-attribution';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import type AnalyticsHelper from '../analytics/analytics-helper';
+import type { InternalError } from '../errors/internal-errors';
+import { NCS_ERROR_CODE } from '../errors/ncs-errors';
 import { ADD_STEPS_TYPE, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
+import { createLogger } from '../helpers/utils';
 import type {
 	AcknowledgementErrorPayload,
 	AddStepAcknowledgementPayload,
@@ -7,19 +22,6 @@ import type {
 	StepsPayload,
 } from '../types';
 import { AcknowledgementResponseTypes } from '../types';
-import type { CollabEvents, StepJson } from '@atlaskit/editor-common/collab';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { NCS_ERROR_CODE } from '../errors/ncs-errors';
-import { createLogger } from '../helpers/utils';
-import type AnalyticsHelper from '../analytics/analytics-helper';
-import type { InternalError } from '../errors/internal-errors';
-import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
-import {
-	AGENT_ATTRIBUTION_META,
-	type AgentAttributionTransactionMeta,
-} from '@atlaskit/editor-common/transaction-agent-attribution';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const logger = createLogger('commit-step', 'black');
 export const RESET_READYTOCOMMIT_INTERVAL_MS = 5000;

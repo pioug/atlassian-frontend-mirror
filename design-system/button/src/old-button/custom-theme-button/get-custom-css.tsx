@@ -2,7 +2,6 @@
 import { type CSSObject } from '@emotion/react';
 
 import { getCss } from '../shared/get-css';
-
 import { type InteractionState, type ThemeProps } from './custom-theme-button-types';
 
 type InteractionMap = {

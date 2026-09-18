@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect } from 'react';
-import { render } from '@atlassian/testing-library';
 
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
@@ -8,12 +8,11 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import { render } from '@atlassian/testing-library';
 
 import { ANALYTICS_MEDIA_CHANNEL } from '../../analytics/constants';
 import { type ContextPublicAttributes, type ContextStaticProps } from '../../analytics/types';
 import { withMediaAnalyticsContext } from '../../analytics/withMediaAnalyticsContext';
-
 import { type MediaFeatureFlags } from '../../mediaFeatureFlags';
 
 describe('withMediaAnalyticsContext()', () => {

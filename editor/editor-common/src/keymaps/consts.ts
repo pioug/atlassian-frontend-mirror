@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+
 export const LEFT = 37;
 export const RIGHT = 39;
 export const UP = 38;

@@ -1,20 +1,21 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 /* eslint-disable testing-library/no-container, testing-library/no-node-access */
+
 import React, { type ReactNode } from 'react';
 
 import cases from 'jest-in-case';
 import selectEvent from 'react-select-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { act, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 import { components } from '@atlaskit/react-select/components';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { act, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
-import AtlaskitSelect from '../../../select';
 import AsyncSelect from '../../../async-select';
 import { CheckboxSelect } from '../../../checkbox-select';
 import CreatableSelect from '../../../creatable-select';
+import AtlaskitSelect from '../../../select';
 interface Option {
 	readonly label: string;
 	readonly value: string;

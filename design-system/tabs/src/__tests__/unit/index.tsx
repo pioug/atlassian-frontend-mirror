@@ -4,10 +4,10 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 
-import Tabs from '../../components/tabs';
 import Tab from '../../components/tab';
 import TabList from '../../components/tab-list';
 import TabPanel from '../../components/tab-panel';
+import Tabs from '../../components/tabs';
 import { type TabsProps } from '../../types';
 
 declare var global: any;

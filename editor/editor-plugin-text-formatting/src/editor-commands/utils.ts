@@ -3,7 +3,6 @@ import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { MenuIconItem } from '../ui/Toolbar/types';
-
 import { FORMATTING_MARK_TYPES, FORMATTING_NODE_TYPES } from './clear-formatting';
 
 export const hasCode = (state: EditorState, pos: number): boolean => {

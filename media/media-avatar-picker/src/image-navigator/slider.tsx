@@ -2,22 +2,23 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+
 import { Component, type ComponentType, type FC } from 'react';
-import FieldRange from '@atlaskit/range/range';
-import { messages } from '@atlaskit/media-ui/messages';
-import ScaleLargeIcon from '@atlaskit/icon/core/image';
-import ScaleSmallIcon from '@atlaskit/icon/core/image';
-import Button from '@atlaskit/button/standard-button';
+
+import { jsx, css } from '@compiled/react';
 import { injectIntl } from 'react-intl';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 
+import Button from '@atlaskit/button/standard-button';
+import ScaleLargeIcon from '@atlaskit/icon/core/image';
+import ScaleSmallIcon from '@atlaskit/icon/core/image';
+import { messages } from '@atlaskit/media-ui/messages';
+import FieldRange from '@atlaskit/range/range';
+import { token } from '@atlaskit/tokens';
 export interface SliderProps {
 	value: number;
 	onChange: (value: number) => void;
 }
-
 export const defaultProps = {
 	value: 0,
 };

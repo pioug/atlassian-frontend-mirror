@@ -3,7 +3,6 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import type { InteractionMetrics } from '../../common';
 import { LabelStackRegistry } from '../common/utils/label-stack-registry';
 import { resolveLabelStackFromTrie } from '../common/utils/resolve-label-stack-from-trie';
-
 import { optimizeHoldInfo } from './optimize-hold-info';
 
 describe('optimizeHoldInfo', () => {

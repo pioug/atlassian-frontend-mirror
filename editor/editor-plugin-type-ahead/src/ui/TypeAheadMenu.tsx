@@ -10,7 +10,6 @@ import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-inde
 import type { CloseSelectionOptions } from '../pm-plugins/constants';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { PopupMountPointReference, TypeAheadPluginSharedState } from '../types';
-
 import { useItemInsert } from './hooks/use-item-insert';
 import { TypeAheadPopup } from './TypeAheadPopup';
 

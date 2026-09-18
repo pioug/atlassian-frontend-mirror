@@ -1,9 +1,8 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { type ThemeIds } from '../theme-ids';
 import { type ThemeIdsWithOverrides, type ThemeOverrideIds } from '../theme-config';
+import { type ThemeIds } from '../theme-ids';
 import { type ThemeState } from '../theme-state';
-
 import getIncreasedContrastTheme from './get-increased-contrast-theme';
 
 const finesseOverrides: Partial<Record<ThemeIds, ThemeOverrideIds>> = {

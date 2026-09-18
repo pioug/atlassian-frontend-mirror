@@ -1,18 +1,20 @@
 import React from 'react';
+
 import { FormattedMessage, type MessageDescriptor } from 'react-intl';
+
 import Button from '@atlaskit/button/button';
-import SectionMessage from '@atlaskit/section-message/message';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
+import SectionMessage from '@atlaskit/section-message/message';
 
 import { commonMessages, overviewMessages } from '../../messages';
-import StatefulInlineDialog from '../StatefulInlineDialog';
-import UserInfo from '../UserInfo';
-import { type DeleteUserOverviewScreenProps } from './types';
-import * as Styled from './styled';
 import { DropdownList } from '../DropdownList';
 import MessagesIntlProvider from '../MessagesIntlProvider';
+import StatefulInlineDialog from '../StatefulInlineDialog';
+import UserInfo from '../UserInfo';
+import * as Styled from './styled';
+import { type DeleteUserOverviewScreenProps } from './types';
 
 export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverviewScreenProps> {
 	static defaultProps: Partial<DeleteUserOverviewScreenProps> = {

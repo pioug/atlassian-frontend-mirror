@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { IntlShape } from 'react-intl';
 
 import {
@@ -64,7 +65,6 @@ import type {
 	ExtensionPluginOptions,
 	ExtensionState,
 } from '../extensionPluginType';
-
 import { pluginKey as macroPluginKey } from './macro/plugin-key';
 import { getPluginState } from './plugin-factory';
 import type { Position } from './utils';

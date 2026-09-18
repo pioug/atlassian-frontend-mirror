@@ -1,12 +1,12 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { ADNode } from '@atlaskit/editor-common/validator';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { Transformer } from '@atlaskit/editor-common/types';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { ADNode } from '@atlaskit/editor-common/validator';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,6 +54,7 @@ export const getEventHandler = (
  * @param evaluate Function which returns true or false based on the given element. eg: Checks if
  * element has desired classname.
  */
+
 export function findInTree(
 	element: HTMLElement,
 	topElement: HTMLElement,

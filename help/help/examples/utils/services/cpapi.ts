@@ -1,6 +1,8 @@
 import { useState, type Dispatch, type SetStateAction } from 'react';
-import type { WhatsNewArticleItem, WhatsNewArticle, articleId } from '../../../src';
+
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+
+import type { WhatsNewArticleItem, WhatsNewArticle, articleId } from '../../../src';
 
 export interface FilterConfiguration {
 	changeStatus?: string[];

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { axe, toHaveNoViolations } from 'jest-axe';
+
 import EmojiPlaceholder from '../../../../components/common/EmojiPlaceholder';
 import { renderWithIntl } from '../../_testing-library';
 

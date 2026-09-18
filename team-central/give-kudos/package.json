@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "6.17.0",
+	"version": "6.17.1",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -86,6 +86,9 @@
 		"goals_projects_bug_smash_july_2026": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"teams_a11y_focus_high_priority": {
+			"type": "boolean"
 		}
 	}
 }

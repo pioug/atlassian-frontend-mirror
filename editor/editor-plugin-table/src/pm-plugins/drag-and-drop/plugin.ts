@@ -9,8 +9,8 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getCellsInRow, getSelectedCellInfo } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TablePlugin } from '../../tablePluginType';
@@ -21,7 +21,6 @@ import { pluginKey as tablePluginKey } from '../plugin-key';
 import { insertColgroupFromNode } from '../table-resizing/utils/colgroup';
 import { findNearestCellIndexToPoint } from '../utils/dom';
 import { hasMergedCellsInBetween } from '../utils/merged-cells';
-
 import { DragAndDropActionType } from './actions';
 import { clearDropTarget, setDropTarget, toggleDragMenu } from './commands';
 import {
@@ -32,9 +31,9 @@ import {
 import { DropTargetType } from './consts';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
-import { getDraggableDataFromEvent } from './utils/monitor';
 // eslint-disable-next-line import/order
 import type { DragAndDropPluginState } from './types';
+import { getDraggableDataFromEvent } from './utils/monitor';
 
 const destroyFn = (
 	editorView: EditorView,

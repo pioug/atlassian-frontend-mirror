@@ -2,12 +2,12 @@ import React, { type FC, type MouseEvent, useCallback } from 'react';
 
 import AnalyticsListener from '../src/components/AnalyticsListener';
 import type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';
-import { useAnalyticsEvents } from '../src/hooks/useAnalyticsEvents';
-import { useCallbackWithAnalytics } from '../src/hooks/useCallbackWithAnalytics';
-import { usePlatformLeafEventHandler } from '../src/hooks/usePlatformLeafEventHandler';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '../src/hocs/withAnalyticsEvents';
+import { useAnalyticsEvents } from '../src/hooks/useAnalyticsEvents';
+import { useCallbackWithAnalytics } from '../src/hooks/useCallbackWithAnalytics';
+import { usePlatformLeafEventHandler } from '../src/hooks/usePlatformLeafEventHandler';
 
 interface Props extends WithAnalyticsEventsProps {
 	children: React.ReactNode;

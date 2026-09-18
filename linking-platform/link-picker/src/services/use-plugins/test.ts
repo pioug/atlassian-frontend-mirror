@@ -10,11 +10,9 @@ import {
 } from '../../__tests__/__helpers/mock-plugins';
 import { RECENT_SEARCH_LIST_SIZE } from '../../common/constants';
 import { type LinkPickerPlugin, type LinkPickerState } from '../../common/types';
-
+import { usePlugins } from './index';
 import * as reducer from './reducer';
 import { CancellationError, resolvePluginUpdates } from './utils';
-
-import { usePlugins } from './index';
 
 beforeEach(() => {
 	jest.restoreAllMocks();

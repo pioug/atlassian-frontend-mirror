@@ -13,7 +13,6 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { selectionPluginKey } from '../types';
-
 import type { SelectionAction } from './actions';
 import { reducer } from './reducer';
 import { getDecorations, isSelectableContainerNode } from './utils';

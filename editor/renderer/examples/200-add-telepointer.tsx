@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { default as Renderer } from '../src/ui/Renderer';
 
 type Document = {

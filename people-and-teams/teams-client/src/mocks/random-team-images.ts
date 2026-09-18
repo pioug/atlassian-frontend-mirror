@@ -1,5 +1,4 @@
 import { type TeamAvatarImage } from '../types/team';
-
 import { randomHeaderImage } from './random-header-image';
 import type { MockConfig } from './team';
 

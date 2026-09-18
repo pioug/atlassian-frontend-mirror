@@ -1,8 +1,7 @@
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 
 import { disableDraggingToCrossOriginIFramesForElement } from '../../../internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
-
 import { appendToBody, getElements, reset } from './_pdnd-test-utils';
 import { depressPointer, releasePointer } from './_util';
 

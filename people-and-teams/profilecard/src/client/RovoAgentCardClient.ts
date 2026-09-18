@@ -12,9 +12,8 @@ import type {
 import { PACKAGE_META_DATA } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 import { USER_ARI_PREFIX } from '../util/rovoAgentUtils';
-
-import { AGGQuery } from './AGGQuery';
 import { AgentForbiddenError } from './AgentForbiddenError';
+import { AGGQuery } from './AGGQuery';
 import CachingClient from './CachingClient';
 import { getErrorAttributes } from './getErrorAttributes';
 import { SHARED_CACHE_MAX_AGE, sharedAgentProfileCache } from './sharedAgentProfileCache';

@@ -11,14 +11,17 @@ jest.mock('unzipit', () => ({
 }));
 
 import React from 'react';
-import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+
 import { IntlProvider } from 'react-intl';
+import { unzip } from 'unzipit';
+
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
+import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+
 import ArchiveSidebarRenderer, {
 	type ArchiveSidebarRendererProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
-import { unzip } from 'unzipit';
 
 describe('ArchiveSidebarRenderer', () => {
 	const fileState: ProcessedFileState = {

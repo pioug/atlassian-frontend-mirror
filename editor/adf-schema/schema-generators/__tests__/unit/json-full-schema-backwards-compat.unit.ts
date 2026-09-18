@@ -1,5 +1,7 @@
 import { validateSchemaCompatibility } from 'json-schema-diff-validator';
+
 import { adfToJSON } from '@atlaskit/adf-schema-generator';
+
 import adfNode from '../../../src/next-schema/full-schema.adf';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

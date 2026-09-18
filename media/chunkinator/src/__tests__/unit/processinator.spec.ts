@@ -1,7 +1,8 @@
-import { processinator } from '../../processinator';
-import { type HashedBlob } from '../../domain';
 import { from } from 'rxjs/observable/from';
 import { toArray } from 'rxjs/operators/toArray';
+
+import { type HashedBlob } from '../../domain';
+import { processinator } from '../../processinator';
 
 describe('processinator', () => {
 	it('should process blobs in batches', async () => {

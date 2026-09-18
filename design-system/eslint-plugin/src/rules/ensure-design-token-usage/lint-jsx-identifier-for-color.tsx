@@ -3,7 +3,6 @@ import type { Rule } from 'eslint';
 import { getIsException } from '../utils/get-is-exception';
 import { includesHardCodedColor } from '../utils/includes-hard-coded-color';
 import { isLegacyColor } from '../utils/is-legacy-color';
-
 import { getTokenSuggestion } from './get-token-suggestion';
 import type { RuleConfig } from './types';
 

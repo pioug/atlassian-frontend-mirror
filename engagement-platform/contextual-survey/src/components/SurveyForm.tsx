@@ -6,15 +6,14 @@ import { useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import type { OnSubmitHandler } from '@atlaskit/form/types';
 import Heading from '@atlaskit/heading/heading';
 import { useResizingHeight } from '@atlaskit/motion/use-resizing-height';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { type FormValues } from '../types';
-
 import FeedbackScoreButtons from './FeedbackScoreButtons';
 import { SurveyFormExpandedFeedback } from './SurveyFormExpandedFeedback';
 

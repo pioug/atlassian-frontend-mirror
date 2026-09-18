@@ -1,6 +1,25 @@
+import fetchMock from 'fetch-mock/cjs/client';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuid } from 'uuid';
+
+import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
+import {
+	expectFunctionToHaveBeenCalledWith,
+	asMock,
+	asMockFunction,
+	asMockFunctionResolvedValue,
+	sleep,
+	timeoutPromise,
+} from '@atlaskit/media-common/test-helpers';
 import type { AuthProvider } from '@atlaskit/media-core/auth';
 import { authToOwner } from '@atlaskit/media-core/auth-to-owner';
-import fetchMock from 'fetch-mock/cjs/client';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
+import { mediaStore as fileStateStore } from '@atlaskit/media-state/media-store';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import {
 	type ResponseFileItem,
 	type MediaFile,
@@ -18,30 +37,13 @@ import {
 	FileFetcherError,
 	getDimensionsFromBlob,
 } from '../..';
-import { getFileStreamsCache } from '../../file-streams-cache';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import { v4 as uuid } from 'uuid';
 import { FileFetcherImpl } from '../../client/file-fetcher';
-import { type UploadFileCallbacks } from '../../uploader';
-import {
-	expectFunctionToHaveBeenCalledWith,
-	asMock,
-	asMockFunction,
-	asMockFunctionResolvedValue,
-	sleep,
-	timeoutPromise,
-} from '@atlaskit/media-common/test-helpers';
+import type * as MediaStoreModule from '../../client/media-store/MediaStore';
+import { getFileStreamsCache } from '../../file-streams-cache';
 import { fakeMediaClient } from '../../test-helpers';
+import { type UploadFileCallbacks } from '../../uploader';
 import { fromObservable } from '../../utils/mediaSubscribable/fromObservable';
 import { toPromise } from '../../utils/mediaSubscribable/toPromise';
-import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
-import type * as MediaStoreModule from '../../client/media-store/MediaStore';
-import { createMediaStore } from '@atlaskit/media-state/create-media-store';
-import { mediaStore as fileStateStore } from '@atlaskit/media-state/media-store';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {
 	return {

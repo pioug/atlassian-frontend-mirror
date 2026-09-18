@@ -1,5 +1,6 @@
-import { type UIEventPayload } from '@atlaskit/media-common';
 import { end } from 'perf-marks';
+
+import { type UIEventPayload } from '@atlaskit/media-common';
 
 export type ClosedInputType = 'button' | 'blanket' | 'escKey';
 

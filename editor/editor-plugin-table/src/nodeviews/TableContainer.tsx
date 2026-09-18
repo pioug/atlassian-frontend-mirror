@@ -23,8 +23,8 @@ import {
 	akEditorFullPageNarrowBreakout,
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
 import { getResizerMinWidth } from '../pm-plugins/table-resizing/utils/colgroup';
@@ -44,7 +44,6 @@ import type tablePlugin from '../tablePlugin';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 import { useIsTableInLimitedMode } from '../ui/hooks/useIsTableInLimitedMode';
-
 import { getAlignmentStyle } from './table-container-styles';
 import { TableResizer } from './TableResizer';
 

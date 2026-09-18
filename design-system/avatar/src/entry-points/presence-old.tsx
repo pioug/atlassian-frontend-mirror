@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import AvatarPresence from '@atlaskit/avatar/presence'` instead.
  */
+
 export { default } from '../presence';
 /**
  * @deprecated Use `import type { PresenceProps } from '@atlaskit/avatar/presence'` instead.

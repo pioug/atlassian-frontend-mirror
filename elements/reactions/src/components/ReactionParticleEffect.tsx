@@ -2,9 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
+
 import { css, jsx } from '@compiled/react';
 
+import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
 import { layers } from '@atlaskit/theme/constants';
 
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';

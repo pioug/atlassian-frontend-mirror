@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 import { adfTableWithParagraph, adfTableWithUnequalTableRows } from './__fixtures__';
 

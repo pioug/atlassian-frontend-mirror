@@ -34,7 +34,6 @@ import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
 import type { ForwardRef, getPosHandler, getPosHandlerNode, MediaOptions } from '../types';
 import { MediaSSRReactContextsProvider } from '../ui/MediaSSRReactContextsProvider';
-
 import { MediaSingleNodeNext } from './mediaSingleNext';
 import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 

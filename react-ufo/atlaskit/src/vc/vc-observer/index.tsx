@@ -16,7 +16,6 @@ import type {
 import { getSelectorConfig, isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
-
 import { attachAbortListeners } from './attachAbortListeners';
 import {
 	getVCRevisionDebugDetails,

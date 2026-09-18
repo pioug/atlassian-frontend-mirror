@@ -6,7 +6,6 @@ import Button from '@atlaskit/button/default/button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { LinkPickerState, LinkSearchListItemData } from '../../../../common/types';
-
 import { checkSubmitDisabled } from './utils';
 
 type LinkPickerButtonGroupProps = {

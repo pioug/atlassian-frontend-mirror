@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { TeamOptionProps } from './main';
 
 const AsyncTeamOption = React.lazy(() =>

@@ -1,8 +1,6 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocBuilder, Refs } from '@atlaskit/editor-common/types';
-import { history } from '@atlaskit/prosemirror-history/history';
-import { undo } from '@atlaskit/prosemirror-history/undo';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -10,6 +8,8 @@ import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { p, td } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
+import { history } from '@atlaskit/prosemirror-history/history';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 
 import { AddColumnStep } from '../add-column';
 

@@ -7,7 +7,6 @@ import { isDecendantOfStyleBlock } from '../utils/is-decendant-of-style-block';
 import { isLegacyElevation } from '../utils/is-elevation';
 import { isLegacyColor } from '../utils/is-legacy-color';
 import { isLegacyNamedColor } from '../utils/is-legacy-named-color';
-
 import { getElevationTokenExample } from './get-elevation-token-example';
 import { getTokenSuggestion } from './get-token-suggestion';
 import type { RuleConfig } from './types';

@@ -7,7 +7,6 @@
  * Only `shouldUseUnitCompliantApi` should need this - see that file for how the result is used.
  */
 import { request } from '../api';
-
 import { cache } from './cache';
 import { type UnitsRolloutSettings } from './types';
 

@@ -1,8 +1,9 @@
 import React from 'react';
 
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
+
 import { Renderer } from '../../entry-points/renderer-default';
 import type { RendererProps } from '../../ui/renderer-props';
 

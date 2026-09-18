@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { hasPermissionForAction } from '@atlaskit/teams-client/has-permission-for-action'` instead.
  */
+
 export { hasPermissionForAction } from './has-permission-for-action';
 /**
  * @deprecated Use `import { hasPermission } from '@atlaskit/teams-client/has-permission'` instead.

@@ -15,7 +15,6 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { SortOrder } from '../types';
-
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from './consts';
 import { NewSortingIcon } from './NewSortingIcon';
 import { sortingAriaLabelMessages } from './sortingAriaLabelMessages';

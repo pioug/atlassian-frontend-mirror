@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/order
+import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
@@ -10,15 +12,12 @@ import {
 	createRowInsertLine,
 	updateDecorations,
 } from '../utils/decoration';
-
 import { DragAndDropActionType } from './actions';
 import { DropTargetType } from './consts';
 import { createCommand, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 // eslint-disable-next-line import/order
 import type { TriggerType } from './types';
-// eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
 
 // TODO: ED-26961 - This command is a placeholder example. Please replace this if required.
 const getDecorations = (state: EditorState): DecorationSet => {

@@ -4,12 +4,11 @@ import ActionBlock from '../view/FlexibleCard/components/blocks/action-block';
 import AIFooterBlock from '../view/FlexibleCard/components/blocks/ai-footer-block';
 import Block from '../view/FlexibleCard/components/blocks/block';
 import FooterBlock from '../view/FlexibleCard/components/blocks/footer-block';
+import ResolvedHoverCardFooterBlock from '../view/FlexibleCard/components/blocks/hover-card-footer-block';
 import MetadataBlock from '../view/FlexibleCard/components/blocks/metadata-block';
 import PreviewBlock from '../view/FlexibleCard/components/blocks/preview-block';
 import SnippetBlock from '../view/FlexibleCard/components/blocks/snippet-block';
 import TitleBlock from '../view/FlexibleCard/components/blocks/title-block';
-import ResolvedHoverCardFooterBlock from '../view/FlexibleCard/components/blocks/hover-card-footer-block';
-
 import { isStyleCacheProvider } from './is-style-cache-provider';
 
 const Blocks = {

@@ -2,14 +2,14 @@ import React from 'react';
 
 import { render } from '@atlassian/testing-library/render';
 
+import { AnnotationRangeStateContext } from '../../../contexts/AnnotationRangeContext';
+import { InsertDraftPosition } from '../../../types';
+import type { Position } from '../../../types';
 import {
 	applyAnnotationOnText,
 	TextWithAnnotationDraft,
 	getAnnotationIndex,
 } from '../../component';
-import { InsertDraftPosition } from '../../../types';
-import type { Position } from '../../../types';
-import { AnnotationRangeStateContext } from '../../../contexts/AnnotationRangeContext';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: draft/component', () => {

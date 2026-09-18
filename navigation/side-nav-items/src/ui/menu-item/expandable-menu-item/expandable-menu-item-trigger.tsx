@@ -10,15 +10,14 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import IconButton from '@atlaskit/button/icon/button';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
-import type { IconProps } from '@atlaskit/icon/types';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import type { IconProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 
 import { MenuItemBase } from '../menu-item';
 import type { MenuItemCommonProps, MenuItemSlots } from '../types';
 import { useScrollMenuItemIntoView } from '../use-scroll-menu-item-into-view';
-
 import {
 	useIsExpanded,
 	useOnExpansionToggle,

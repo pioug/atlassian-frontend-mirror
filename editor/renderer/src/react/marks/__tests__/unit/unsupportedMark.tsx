@@ -1,6 +1,8 @@
-import UnsupportedMark from '../../unsupportedMark';
-import { render } from '@testing-library/react';
 import React from 'react';
+
+import { render } from '@testing-library/react';
+
+import UnsupportedMark from '../../unsupportedMark';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('UnsupportedMark', () => {

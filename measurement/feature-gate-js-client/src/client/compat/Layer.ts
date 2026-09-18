@@ -2,7 +2,6 @@ import type { StatsigClient } from '@statsig/js-client';
 
 import { migrateEvaluationDetails } from '../migrateEvaluationDetails';
 import { migrateSecondaryExposures } from '../migrateSecondaryExposures';
-
 import type { EvaluationDetails } from './types';
 
 export type LogParameterFunction = (layer: Layer, parameterName: string) => void;

@@ -60,7 +60,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
-
 import type { DefaultPresetBuilder } from './default-preset-type';
 // #endregion
 

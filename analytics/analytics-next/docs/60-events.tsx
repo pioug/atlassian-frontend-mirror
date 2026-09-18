@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/use-primitives-text, @atlaskit/design-system/use-heading -- Legacy analytics-next docs intentionally use plain HTML prose instead of ADS docs primitives. */
+
 import React from 'react';
 
 import { CodeBlock } from './DocBlocks';

@@ -6,22 +6,23 @@ import React, {
 	useRef,
 	type PropsWithChildren,
 } from 'react';
+
 import isEqual from 'lodash/isEqual';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
 import { type Article, type ArticleItem } from '../../model/Article';
-import { type WhatsNewArticleItem, type WhatsNewArticle } from '../../model/WhatsNew';
-import { REQUEST_STATE } from '../../model/Requests';
 import { type HistoryItem, type articleId, ARTICLE_TYPE } from '../../model/Help';
+import { REQUEST_STATE } from '../../model/Requests';
+import { type WhatsNewArticleItem, type WhatsNewArticle } from '../../model/WhatsNew';
 import { createCtx } from '../../util/hooks/ctx';
-
 import { VIEW } from '../constants';
-
+import { useAiContext } from './aiAgentContext';
+import { useHeaderContext } from './headerContext';
 import { useHelpArticleContext } from './helpArticleContext';
-import { useWhatsNewArticleContext } from './whatsNewArticleContext';
 import { useHomeContext } from './homeContext';
 import { useSearchContext } from './searchContext';
-import { useHeaderContext } from './headerContext';
-import { useAiContext } from './aiAgentContext';
+import { useWhatsNewArticleContext } from './whatsNewArticleContext';
 
 type ViewType = keyof typeof VIEW;
 

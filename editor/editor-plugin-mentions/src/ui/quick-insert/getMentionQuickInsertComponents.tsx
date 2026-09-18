@@ -9,7 +9,6 @@ import type { TypeAheadHandler } from '@atlaskit/editor-plugin-type-ahead';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { MentionsPlugin } from '../../mentionsPluginType';
-
 import { MentionQuickInsertMenuItem } from './MentionQuickInsertMenuItem';
 
 const previewImageUrls = {

@@ -15,9 +15,9 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 
 import { jsx } from '@compiled/react';
-import { createPortal } from 'react-dom';
 
 import { type Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item';
 import {

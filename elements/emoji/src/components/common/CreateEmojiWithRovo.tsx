@@ -3,16 +3,18 @@
  * @jsx jsx
  */
 import { type ChangeEvent, useCallback, useState } from 'react';
+
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { token } from '@atlaskit/tokens';
+
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import IconButton from '@atlaskit/button/icon/button';
-import TextField from '@atlaskit/textfield/text-field';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 import { RovoIcon } from '@atlaskit/logo';
 import { Text } from '@atlaskit/primitives/compiled';
+import TextField from '@atlaskit/textfield/text-field';
+import { token } from '@atlaskit/tokens';
 
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { generateEmojiImage } from '../../api/ai/generateEmojiImage';
 import { slugifyPrompt } from '../../util/ai-emoji';
 import { aiGenerationCompletedEvent } from '../../util/analytics/aiGenerationCompletedEvent';

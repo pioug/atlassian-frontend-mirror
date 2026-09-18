@@ -3,8 +3,8 @@ import React from 'react';
 import { renderHook, waitFor } from '@testing-library/react';
 
 import { mapMediaItemToFileState } from '@atlaskit/media-client';
-import { useFileHashes } from '@atlaskit/media-client-react/use-file-hashes';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
+import { useFileHashes } from '@atlaskit/media-client-react/use-file-hashes';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';

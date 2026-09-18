@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { FormHeader } from '@atlaskit/form/form-header';
 import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';

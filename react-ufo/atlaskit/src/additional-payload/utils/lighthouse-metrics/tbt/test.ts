@@ -1,5 +1,4 @@
 import { BufferWithMaxLength } from '../utils/buffer';
-
 import { getTBT } from './index';
 
 const makeBuffer = (arr: Array<{ startTime: number; duration: number }>) => {

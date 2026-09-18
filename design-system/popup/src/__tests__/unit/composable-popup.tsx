@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
 import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Popup } from '../../compositional/popup';
 import { PopupContent } from '../../compositional/popup-content';

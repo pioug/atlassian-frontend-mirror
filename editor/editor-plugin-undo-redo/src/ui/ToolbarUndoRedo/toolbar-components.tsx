@@ -15,7 +15,6 @@ import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { UndoRedoPlugin } from '../../undoRedoPluginType';
-
 import { RedoButton } from './RedoButton';
 import { UndoButton } from './UndoButton';
 

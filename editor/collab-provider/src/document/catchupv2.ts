@@ -1,8 +1,9 @@
-import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
+import type { StepJson } from '@atlaskit/editor-common/collab';
+
 import type { InternalError } from '../errors/internal-errors';
+import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { createLogger, getObfuscatedSteps, getDocAdfWithObfuscation } from '../helpers/utils';
 import type { Catchupv2Options, StepsPayload } from '../types';
-import type { StepJson } from '@atlaskit/editor-common/collab';
 
 const logger = createLogger('Catchupv2', 'red');
 

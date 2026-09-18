@@ -2,7 +2,6 @@
 import { type SerializedStyles } from '@emotion/react';
 
 import type { BackgroundColorToken as BackgroundColor } from '../utils/types';
-
 import { backgroundColorMap } from './background-color';
 import { getSerializedStylesMap } from './get-serialized-styles-map';
 

@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+
 import { CustomOption } from '../../../components/CustomOption/main';
 import { type Custom } from '../../../types';
 

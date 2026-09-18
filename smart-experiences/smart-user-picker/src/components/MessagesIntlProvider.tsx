@@ -1,5 +1,7 @@
 import React, { type PropsWithChildren, useMemo } from 'react';
+
 import { IntlProvider, injectIntl, type IntlShape, type WithIntlProps } from 'react-intl';
+
 import { getMessagesForLocale } from '../util/i18n-util';
 
 export type MessagesIntlProviderProps = PropsWithChildren<{

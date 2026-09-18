@@ -1,9 +1,10 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
+
 import type { MouseEventHandler, FocusEventHandler } from 'react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 import classnames from 'classnames';
-import ReactDOM from 'react-dom';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
@@ -35,7 +36,6 @@ import type {
 import { dragTableInsertColumnButtonSize } from '../consts';
 import { DragPreview } from '../DragPreview';
 import { useIsTableInLimitedMode } from '../hooks/useIsTableInLimitedMode';
-
 import { HandleIconComponent } from './HandleIconComponent';
 
 export type DragHandleAppearance = 'default' | 'selected' | 'disabled' | 'danger' | 'placeholder';

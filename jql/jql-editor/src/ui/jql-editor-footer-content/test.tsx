@@ -6,13 +6,11 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import { useEditorViewHasInfos } from '../../hooks/use-editor-view-has-infos';
 import { useEditorViewHasWarnings } from '../../hooks/use-editor-view-has-warnings';
 import { useEditorViewIsInvalid } from '../../hooks/use-editor-view-is-invalid';
-
+import { JQLEditorFooterContent } from './index';
 import { JQLEditorHelp } from './jql-editor-help';
 import { ErrorMessages } from './jql-messages/errors';
 import { InfoMessages } from './jql-messages/infos/InfoMessages';
 import { WarningMessages } from './jql-messages/warnings/WarningMessages';
-
-import { JQLEditorFooterContent } from './index';
 
 const useEditorViewIsInvalidMock = jest.fn<boolean, []>(() => false);
 const useEditorViewHasWarningsMock = jest.fn<boolean, []>(() => false);

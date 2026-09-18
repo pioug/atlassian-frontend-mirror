@@ -2,8 +2,8 @@ import React, { type ReactNode } from 'react';
 
 import { type FormSubscription } from 'final-form';
 
-import { act, renderHook } from '@atlassian/testing-library';
 import __noop from '@atlaskit/ds-lib/noop';
+import { act, renderHook } from '@atlassian/testing-library';
 
 import { FormContext } from '../../form-context';
 import { useFormState } from '../../use-form-state';

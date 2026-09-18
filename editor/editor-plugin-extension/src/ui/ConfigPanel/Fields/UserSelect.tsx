@@ -8,19 +8,18 @@ import type {
 import { getUserFieldContextProvider } from '@atlaskit/editor-common/extensions';
 import type { FieldProps } from '@atlaskit/form/field';
 import Field from '@atlaskit/form/field';
+import SmartUserPicker from '@atlaskit/smart-user-picker/components';
+import hydrateDefaultValues from '@atlaskit/smart-user-picker/default-value-hydration-client';
 import type {
 	DefaultValue,
 	OptionData,
 	OptionIdentifier,
 	Value as UnsafeValue,
 } from '@atlaskit/user-picker/types';
-import SmartUserPicker from '@atlaskit/smart-user-picker/components';
-import hydrateDefaultValues from '@atlaskit/smart-user-picker/default-value-hydration-client';
 
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';
 import { validate } from '../utils';
-
 import UnhandledType from './UnhandledType';
 
 type FieldValue = UserField['defaultValue'];

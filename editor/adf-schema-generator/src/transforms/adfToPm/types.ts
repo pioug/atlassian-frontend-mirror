@@ -1,7 +1,8 @@
 import type { MarkSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
-import type { ADFAttributes } from '../../types/ADFAttribute';
+
 import type { ADFMark } from '../../adfMark';
 import type { ADFNode } from '../../adfNode';
+import type { ADFAttributes } from '../../types/ADFAttribute';
 import type { ADFMarkSpec } from '../../types/ADFMarkSpec';
 
 export type NodeTypeDefinition = {

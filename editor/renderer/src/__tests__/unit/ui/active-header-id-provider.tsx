@@ -1,9 +1,11 @@
+import React from 'react';
+
+import { render } from '@testing-library/react';
+
 import {
 	ActiveHeaderIdConsumer,
 	ActiveHeaderIdProvider,
 } from '../../../ui/active-header-id-provider';
-import React from 'react';
-import { render } from '@testing-library/react';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ActiveHeaderIdProvider', () => {

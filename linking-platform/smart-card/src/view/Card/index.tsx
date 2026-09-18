@@ -11,7 +11,6 @@ import withAnalyticsEvents, {
 
 import { context } from '../../utils/analytics/analytics';
 import { CardWithURLRenderer } from '../CardWithUrl/loader';
-
 import { type CardAppearance, type CardPlatform, type CardProps } from './types';
 
 class PlainCard extends React.PureComponent<CardProps & WrappedComponentProps> {

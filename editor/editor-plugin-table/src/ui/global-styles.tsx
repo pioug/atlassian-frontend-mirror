@@ -9,7 +9,6 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 import type { PluginInjectionAPI } from '../types';
-
 import { tableStyles } from './common-styles';
 
 export const GlobalStylesWrapper = ({

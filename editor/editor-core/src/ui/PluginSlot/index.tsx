@@ -17,7 +17,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
 import { ErrorBoundary } from '../ErrorBoundary';
-
 import { MountPluginHooks } from './mount-plugin-hooks';
 import { PluginsComponentsWrapperCompiled } from './PluginSlot-compiled';
 import { PluginsComponentsWrapperEmotion } from './PluginSlot-emotion';

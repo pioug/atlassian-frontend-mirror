@@ -7,9 +7,9 @@ import {
 	THEME_DATA_ATTRIBUTE,
 } from './constants';
 import { type DataColorModes, type DataContrastModes } from './theme-config';
+import { themeObjectToString } from './theme-object-to-string';
 import { type ThemeState } from './theme-state';
 import { themeStateDefaults } from './theme-state-defaults';
-import { themeObjectToString } from './theme-object-to-string';
 import { hash } from './utils/hash';
 import { isValidBrandHex } from './utils/is-valid-brand-hex';
 

@@ -1,22 +1,25 @@
 import React, { useMemo, useRef, useLayoutEffect } from 'react';
+
 import type { IntlShape } from 'react-intl';
-// oxlint-disable-next-line import/no-duplicates
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
+
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-// oxlint-disable-next-line import/no-duplicates
-import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
-import { DOMSerializer, type Mark, type Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import {
 	profileSSROperation,
 	SSRRenderMeasure,
 } from '@atlaskit/editor-common/performance/ssr-measures';
-import { createSSRPMPlugins } from './create-ssr-pm-plugins';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
+// oxlint-disable-next-line import/no-duplicates
+import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer, type Mark, type Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+// oxlint-disable-next-line import/no-duplicates
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
+
 import { createSSREditorState } from './create-ssr-editor-state';
+import { createSSRPMPlugins } from './create-ssr-pm-plugins';
 
 const SSR_TRACE_SEGMENT_NAME = 'reactEditorView/editorSSRRenderer';
 

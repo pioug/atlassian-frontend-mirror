@@ -4,7 +4,6 @@ import { EditorSmartCardProvider } from '@atlaskit/link-provider/editor-smart-ca
 import { EditorSmartCardProviderValueGuard } from '@atlaskit/link-provider/editor-smart-card-provider-value-guard';
 
 import { EditorAnalyticsContext } from '../EditorAnalyticsContext';
-
 import type { AnalyticsBindingsProps } from './common';
 import { DatasourceEventsBinding } from './DatasourceEvents';
 import { LinkEventsBinding } from './LinkEvents';

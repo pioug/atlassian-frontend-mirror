@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
-import { IntlProvider } from 'react-intl';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import CardClient from '@atlaskit/link-provider/client';
+
 import { hydrateRoot } from 'react-dom/client';
-import Loadable from 'react-loadable';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import ReactDOMServer from 'react-dom/server';
+import { IntlProvider } from 'react-intl';
+import Loadable from 'react-loadable';
+
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	url,
 	cardState,
@@ -13,10 +16,10 @@ import {
 	atlassianProjectCardState,
 } from '@atlaskit/media-test-helpers/smart-card-state';
 import { token } from '@atlaskit/tokens';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
+
 import { default as Renderer } from '../src/ui/Renderer';
-import smartCardAdf from './helper/ssr-smart-card.json';
 import type { RendererProps } from '../src/ui/renderer-props';
+import smartCardAdf from './helper/ssr-smart-card.json';
 
 type PageProps = {
 	title: string;

@@ -14,7 +14,6 @@ import {
 	type LinkSearchListItemData,
 } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
-
 import { usePluginReducer } from './reducer';
 import { CancellationError, resolvePluginUpdates } from './utils';
 

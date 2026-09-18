@@ -1,8 +1,9 @@
 import type { BackgroundColorDefinition } from '@atlaskit/adf-schema/background-color';
-import type { TextColorAttributes } from '@atlaskit/adf-schema/text-color';
 import type { TextDefinition } from '@atlaskit/adf-schema/text';
-import { applyMark } from '../utils/apply-mark';
+import type { TextColorAttributes } from '@atlaskit/adf-schema/text-color';
+
 import type { WithMark } from '../types';
+import { applyMark } from '../utils/apply-mark';
 
 export const backgroundColor =
 	(attrs: TextColorAttributes) =>

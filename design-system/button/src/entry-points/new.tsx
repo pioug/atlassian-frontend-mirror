@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import Button, { ButtonProps } from '@atlaskit/button/default/button'` instead.
  */
+
 export { default, type ButtonProps } from '../new-button/variants/default/button';
 /**
  * @deprecated Use `import LinkButton, { LinkButtonProps } from '@atlaskit/button/link'` instead.

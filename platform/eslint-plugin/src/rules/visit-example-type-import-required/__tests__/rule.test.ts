@@ -1,4 +1,5 @@
 import { RuleTester } from 'eslint';
+
 import rule, { RULE_NAME } from '../index';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

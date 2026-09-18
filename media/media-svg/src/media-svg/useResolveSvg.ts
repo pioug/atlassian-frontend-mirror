@@ -6,7 +6,6 @@ import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { usePrevious } from '../utils/usePrevious';
-
 import { MediaSVGError } from './MediaSVGError';
 import type { ContentSource } from './types';
 

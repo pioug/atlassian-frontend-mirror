@@ -1,12 +1,14 @@
 import React, { type ErrorInfo, type PropsWithChildren } from 'react';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { token } from '@atlaskit/tokens';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import { token } from '@atlaskit/tokens';
+
 import type { AnalyticsErrorBoundaryInlinePayload } from '../utils/analytics/analytics';
+import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
 export type MediaInlineAnalyticsErrorBoundaryProps = PropsWithChildren<
 	{
 		isSelected?: boolean;

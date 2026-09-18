@@ -1,12 +1,13 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import type { Token, TokenParser } from '.';
 import type { Context } from '../../interfaces';
-import { commonMacro } from './common-macro';
 import { parseString } from '../text';
 import { parseAttrs } from '../utils/attrs';
 import { normalizePMNodes } from '../utils/normalize';
 import { getPanelType } from '../utils/panel-type';
 import { title } from '../utils/title';
+import { commonMacro } from './common-macro';
 
 const allowedNodeType = ['paragraph', 'heading', 'orderedList', 'bulletList'];
 

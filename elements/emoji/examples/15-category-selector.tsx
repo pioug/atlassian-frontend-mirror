@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
+
 import CategorySelector from '../src/components/picker/CategorySelector';
 
 export default function Example(): React.JSX.Element {

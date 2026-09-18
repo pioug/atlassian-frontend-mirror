@@ -2,7 +2,9 @@
 // Entry file in package.json
 
 import React from 'react';
+
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+
 import type { NestedRendererType } from './ui/Renderer/types';
 
 export type RendererContextProps = {

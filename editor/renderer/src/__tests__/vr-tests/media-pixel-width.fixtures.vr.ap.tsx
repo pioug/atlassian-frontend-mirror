@@ -4,8 +4,8 @@ import React from 'react';
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 
-import { adfMediaWrappedLeft } from '../__fixtures__/media-pixel-width';
 import { Renderer } from '../../entry-points/renderer-default';
+import { adfMediaWrappedLeft } from '../__fixtures__/media-pixel-width';
 
 const Media = ({ adf, appearance }: { adf: Record<string, unknown>; appearance: string }) => {
 	return (

@@ -10,15 +10,18 @@ import React, {
 	useImperativeHandle,
 	forwardRef,
 } from 'react';
-import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
-import { css, jsx } from '@atlaskit/css';
+
 import { css as cssUnbounded } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
 import { mergeRefs } from 'use-callback-ref';
-import type { ColorCardType, ColorCardVariant } from '../types';
+
+import { css, jsx } from '@atlaskit/css';
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
+import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
+import type { ColorCardType, ColorCardVariant } from '../types';
 
 export interface Props {
 	autoFocus?: boolean;

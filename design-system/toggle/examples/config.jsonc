@@ -4,9 +4,9 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "0-stateful.vr.ap.tsx",
-    "10-stateful-with-toggle-enabled.vr.ap.tsx",
-    "2-disabled.vr.ap.tsx"
-  ]
+	"testExamples": [
+		"0-stateful.vr.ap.tsx",
+		"10-stateful-with-toggle-enabled.vr.ap.tsx",
+		"2-disabled.vr.ap.tsx",
+	],
 }

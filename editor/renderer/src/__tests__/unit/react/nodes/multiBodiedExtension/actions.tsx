@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { renderHook } from '@testing-library/react';
+
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import { useMultiBodiedExtensionActions } from '../../../../../react/nodes/multiBodiedExtension/actions';

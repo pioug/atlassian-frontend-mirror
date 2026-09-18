@@ -5,6 +5,7 @@ import type {
 	ADFNodeContentRangeSpec,
 } from '@atlaskit/adf-schema-generator';
 import { $or, $range, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
+
 import { breakout } from '../marks/breakout';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';

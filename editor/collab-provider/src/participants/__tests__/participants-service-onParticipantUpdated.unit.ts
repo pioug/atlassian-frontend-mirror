@@ -1,8 +1,9 @@
-import type { PresencePayload } from '../../types';
-import AnalyticsHelper from '../../analytics/analytics-helper';
-import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import AnalyticsHelper from '../../analytics/analytics-helper';
+import type { PresencePayload } from '../../types';
+import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import { AGENT_PRESENCE_TTL_MS, ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
 

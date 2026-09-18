@@ -21,7 +21,6 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import type tablePlugin from '../../tablePlugin';
 import { SortingIconWrapper } from '../../ui/icons/SortingIconWrapper';
 import { getPluginState } from '../plugin-factory';
-
 import {
 	IS_DISABLED_CLASS_NAME,
 	SORT_INDEX_DATA_ATTRIBUTE,

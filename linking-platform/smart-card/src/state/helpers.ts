@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { getByDefinitionId } from '@atlaskit/smart-card/helpers'` instead.
  */
+
 export { getByDefinitionId } from './getByDefinitionId';
 /**
  * @deprecated Use `import { getClickUrl } from '@atlaskit/smart-card/helpers'` instead.

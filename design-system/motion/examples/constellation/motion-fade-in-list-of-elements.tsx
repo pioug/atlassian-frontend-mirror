@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';

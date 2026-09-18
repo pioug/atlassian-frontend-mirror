@@ -8,7 +8,6 @@ import {
 	type ConfluenceSearchConfigModalProps,
 	type ConfluenceSearchDatasourceParameters,
 } from '../types';
-
 import { PlainConfluenceSearchConfigModal } from './PlainConfluenceSearchConfigModal';
 
 const isValidParameters = (parameters: DatasourceParameters | undefined): boolean =>

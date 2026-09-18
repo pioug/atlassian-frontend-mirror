@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import Blockquote from '../../../../react/nodes/blockquote';
 
 describe('Renderer - React/Nodes/Blockquote', () => {

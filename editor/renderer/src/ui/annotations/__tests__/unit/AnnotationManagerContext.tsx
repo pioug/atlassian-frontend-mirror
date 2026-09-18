@@ -1,19 +1,18 @@
 import React, { act } from 'react';
 
-import { screen, renderHook } from '@atlassian/testing-library';
-
 import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { createAnnotationManager } from '@atlaskit/editor-common/annotation';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { screen, renderHook } from '@atlassian/testing-library';
 
+import { createAnnotationStep } from '../../../../steps';
+import { RendererActionsContext } from '../../../RendererActionsContext';
 import {
 	AnnotationManagerProvider,
 	useAnnotationManagerDispatch,
 	useAnnotationManagerState,
 } from '../../contexts/AnnotationManagerContext';
-import { RendererActionsContext } from '../../../RendererActionsContext';
-import { createAnnotationStep } from '../../../../steps';
 
 describe('Annotations: AnnotationManagerProvider', () => {
 	const wrapper = ({ children }: React.PropsWithChildren) => (

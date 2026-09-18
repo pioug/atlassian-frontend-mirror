@@ -7,14 +7,15 @@
 */
 
 import React from 'react';
+
+import { createIntl, createIntlCache } from 'react-intl';
+
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
-import { createIntl, createIntlCache } from 'react-intl';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 import { messages } from '../../../../messages';
-
 import { CloseButton } from '../../CloseButton';
 
 // Messages

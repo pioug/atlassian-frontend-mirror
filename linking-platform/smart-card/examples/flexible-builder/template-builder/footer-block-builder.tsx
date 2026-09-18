@@ -2,7 +2,6 @@ import React from 'react';
 
 import { SmartLinkSize } from '../../../src';
 import { type BlockBuilderProps } from '../types';
-
 import ActionOption from './inputs/action-option';
 import EnumOption from './inputs/enum-option';
 

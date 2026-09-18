@@ -1,5 +1,4 @@
 import '@atlaskit/link-test-helpers/jest';
-
 import React from 'react';
 
 import fetchMock from 'jest-fetch-mock';
@@ -14,13 +13,12 @@ import { renderHook } from '@atlassian/testing-library';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import { mocks } from '../../../../utils/mocks';
-
+import * as startUfoExperienceModule from '../../../analytics/startUfoExperience';
+import * as succeedUfoExperienceModule from '../../../analytics/succeedUfoExperience';
 import { aiSummaryMocks } from '../../__tests__/__mocks__/ai-summary-mocks';
 import { readStream } from '../../use-ai-summary/ai-summary-service/readStream';
 import { AISummariesStore } from '../../use-ai-summary/ai-summary-service/store';
 import { ChunkProcessingError } from '../../use-ai-summary/ai-summary-service/types';
-import * as startUfoExperienceModule from '../../../analytics/startUfoExperience';
-import * as succeedUfoExperienceModule from '../../../analytics/succeedUfoExperience';
 import useAISummaryAction from '../index';
 
 jest.mock('uuid', () => ({

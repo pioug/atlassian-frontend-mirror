@@ -7,8 +7,8 @@ import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import type { PositionType } from '@atlaskit/tooltip/types';
 import TooltipPrimitive, { type TooltipPrimitiveProps } from '@atlaskit/tooltip/TooltipPrimitive';
+import type { PositionType } from '@atlaskit/tooltip/types';
 
 const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'left'];
 

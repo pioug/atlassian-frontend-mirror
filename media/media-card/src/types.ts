@@ -23,8 +23,8 @@ import {
 import type { MediaFilePreviewErrorPrimaryReason } from '@atlaskit/media-file-preview/media-file-preview-error';
 import { type ViewerOptionsProps, type MediaViewerExtensions } from '@atlaskit/media-viewer';
 
-import type { MediaCardError, MediaCardErrorPrimaryReason } from './MediaCardError';
 import { type CardAction } from './card/actions';
+import type { MediaCardError, MediaCardErrorPrimaryReason } from './MediaCardError';
 
 export type CardStatus =
 	| 'uploading'

@@ -1,15 +1,15 @@
-import { initialize } from '@af/adf-test-helpers/src/ajv';
 import betterAjvErrors from 'better-ajv-errors';
 
-import v1SchemaFull from '../../../../json-schema/v1/full.json';
-import v1SchemaStage0 from '../../../../json-schema/v1/stage-0.json';
-
+import { initialize } from '@af/adf-test-helpers/src/ajv';
 import {
 	fullValidJsonSchema,
 	fullInvalidJsonSchema,
 	stage0ValidJsonSchema,
 	stage0InvalidJsonSchema,
 } from '@atlassian/adf-schema-json';
+
+import v1SchemaFull from '../../../../json-schema/v1/full.json';
+import v1SchemaStage0 from '../../../../json-schema/v1/stage-0.json';
 
 const ajv = initialize();
 const packageName = process.env.npm_package_name as string;

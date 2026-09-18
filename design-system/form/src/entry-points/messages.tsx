@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { HelperMessage } from '@atlaskit/form/helper-message'` instead.
  */
+
 export { HelperMessage } from '../helper-message';
 /**
  * @deprecated Use `import { ErrorMessage } from '@atlaskit/form/error-message'` instead.

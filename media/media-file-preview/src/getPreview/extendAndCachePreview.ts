@@ -5,7 +5,6 @@ import {
 } from '@atlaskit/media-client';
 
 import { type MediaFilePreview } from '../types';
-
 import { mediaFilePreviewCache } from './cache';
 
 export const extendAndCachePreview = (

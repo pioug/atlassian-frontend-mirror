@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { fireEvent, waitFor, screen, cleanup } from '@testing-library/react';
+
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
 import {
 	VirtualList,
 	virtualListScrollContainerTestId,

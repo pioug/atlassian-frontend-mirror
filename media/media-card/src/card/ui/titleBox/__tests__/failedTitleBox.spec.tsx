@@ -1,8 +1,11 @@
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
+
 import { IntlProvider } from 'react-intl';
-import { FailedTitleBox } from '../failedTitleBox';
+
+import { render, screen } from '@atlassian/testing-library';
+
 import { Breakpoint } from '../../common';
+import { FailedTitleBox } from '../failedTitleBox';
 
 describe('FailedTitleBox', () => {
 	it('should capture and report a11y violations', async () => {

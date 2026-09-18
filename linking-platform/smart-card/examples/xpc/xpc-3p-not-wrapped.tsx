@@ -5,7 +5,6 @@ import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-car
 
 import { Card } from '../../src';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
 import { installInteractionSessionFake } from './shared/interaction-session-fake';
 import { SHARED_THIRD_PARTY_URL, thirdPartyResponse } from './shared/mocks';
 

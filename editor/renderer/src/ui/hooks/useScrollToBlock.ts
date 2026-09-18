@@ -1,5 +1,6 @@
-import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { useEffect } from 'react';
+
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { getDocument } from '@atlaskit/browser-apis';
 import {
 	DEFAULT_BLOCK_LINK_HASH_PREFIX,
@@ -9,6 +10,7 @@ import {
 	findNodeWithExpandParents,
 	getLocalIdSelector,
 } from '@atlaskit/editor-common/block-menu';
+
 import { useStableScroll } from './useStableScroll';
 
 /**

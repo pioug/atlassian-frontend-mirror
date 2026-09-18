@@ -14,7 +14,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { visitCardLinkAnalytics } from '../ui/toolbar';
-
 import type { SmartCardProps } from './genericCard';
 
 export const InlineCard: React.MemoExoticComponent<

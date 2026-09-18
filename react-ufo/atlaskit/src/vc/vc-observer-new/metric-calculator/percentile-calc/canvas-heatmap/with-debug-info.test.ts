@@ -1,5 +1,4 @@
 import type { ViewportEntryData } from '../../../types';
-
 import { calculatePercentilesWithDebugInfo } from './calculate-percentiles-with-debug-info';
 
 // Test utilities

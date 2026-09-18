@@ -10,10 +10,10 @@ import { jsx, css } from '@compiled/react'; // eslint-disable-line @atlaskit/ui-
 import CodeBlock from '@atlaskit/code/code-block';
 import { token } from '@atlaskit/tokens';
 
-import { MediaViewerError } from '../../MediaViewerError';
 import { Outcome } from '../../domain/outcome';
 import ErrorMessage from '../../errorMessageWithAnalytics';
 import { Spinner } from '../../loading';
+import { MediaViewerError } from '../../MediaViewerError';
 import { CodeViewerHeaderBar } from './CodeViewerHeaderBar';
 import {
 	CodeViewWrapper,

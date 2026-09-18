@@ -1,11 +1,11 @@
 import { type MediaTraceContext } from '@atlaskit/media-common';
 
-import type { MediaFilePreviewError } from './MediaFilePreviewError';
 import type { MediaFilePreviewErrorInfo } from './analytics';
 import { getErrorTraceContext } from './getErrorTraceContext';
 import { getRenderErrorErrorDetail } from './getRenderErrorErrorDetail';
 import { getRenderErrorErrorReason } from './getRenderErrorErrorReason';
 import { getRenderErrorFailReason } from './getRenderErrorFailReason';
+import type { MediaFilePreviewError } from './MediaFilePreviewError';
 
 export const extractErrorInfo = (
 	error: MediaFilePreviewError,

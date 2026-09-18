@@ -2,6 +2,7 @@
 import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
+
 import {
 	HeadingInsidePanel,
 	HeadingInsideLayout,

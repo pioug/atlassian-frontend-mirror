@@ -12,7 +12,6 @@ import { setCellVerticalAlignmentWithAnalytics } from '../../../../pm-plugins/co
 import { getPluginState } from '../../../../pm-plugins/plugin-factory';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
-
 import { getSelectedCellValign } from './verticalAlignUtils';
 
 type VerticalAlignDropdownItemProps = TableMenuComponentsParams & {

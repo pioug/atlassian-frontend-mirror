@@ -56,8 +56,8 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	MEDIA_PLUGIN_IS_RESIZING_KEY,
@@ -65,7 +65,6 @@ import {
 } from '../../pm-plugins/main';
 import { getMediaResizeAnalyticsEvent } from '../../pm-plugins/utils/analytics';
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
-
 import { leftHandleOnlyLayouts } from './constants';
 import { ResizableMediaMigrationNotification } from './ResizableMediaMigrationNotification';
 import { wrapperStyle } from './styled';

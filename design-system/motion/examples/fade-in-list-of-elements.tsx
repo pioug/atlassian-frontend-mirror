@@ -6,7 +6,6 @@
 import { css, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading/heading';
-import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
@@ -14,6 +13,7 @@ import {
 	OpsgenieIcon,
 	StatuspageIcon,
 } from '@atlaskit/logo';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import FadeIn from '@atlaskit/motion/fade-in';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';

@@ -1,6 +1,5 @@
 import type { InteractionType } from '../common';
 import * as ssr from '../ssr';
-
 import getSSRSuccessUtil from './utils/get-ssr-success';
 import getSSRSuccessBreakdownUtil from './utils/get-ssr-success-breakdown';
 

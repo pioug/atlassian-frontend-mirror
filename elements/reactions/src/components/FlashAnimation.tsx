@@ -3,7 +3,9 @@
  * @jsx jsx
  */
 import { type PropsWithChildren } from 'react';
+
 import { jsx, css, keyframes } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
 
 const flashTime = 700;

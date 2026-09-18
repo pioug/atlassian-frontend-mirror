@@ -24,9 +24,8 @@ import { token } from '@atlaskit/tokens';
 import { type AgentProfileCardProps } from '../../types';
 import { PACKAGE_META_DATA } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
-import { default as ErrorMessage } from '../Error/ErrorMessage';
 import { LoadingState } from '../common/LoadingState';
-
+import { default as ErrorMessage } from '../Error/ErrorMessage';
 import { AgentActions } from './Actions';
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { ConversationStarters } from './ConversationStarters';

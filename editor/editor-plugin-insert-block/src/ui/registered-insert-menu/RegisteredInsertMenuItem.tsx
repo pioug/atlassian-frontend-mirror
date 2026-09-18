@@ -4,8 +4,8 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
-import type { SurfaceContext, RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SurfaceContext, RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 type Props = {
 	editorView: EditorView;

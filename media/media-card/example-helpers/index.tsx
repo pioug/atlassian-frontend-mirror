@@ -1,9 +1,8 @@
 // eslint-disable-line no-console
 
 import React, { type PropsWithChildren } from 'react';
-import { IntlProvider } from 'react-intl';
 
-import { payloadPublisher } from '@atlassian/ufo/publisher';
+import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
@@ -19,9 +18,10 @@ import {
 	enableMediaUfoLogger,
 	FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
+import { payloadPublisher } from '@atlassian/ufo/publisher';
 
-import Card from '../src/card/cardLoader';
 import { type CardAction } from '../src/card/actions';
+import Card from '../src/card/cardLoader';
 import { MediaCardError } from '../src/MediaCardError';
 import type { CardFocusEvent, CardAppearance, CardEvent } from '../src/types';
 import DevelopmentUseMessage from './developmentUseMessage';

@@ -1,4 +1,5 @@
 import { isRotated } from '@atlaskit/media-ui/imageMetaData/isRotated';
+
 import { getCanvas } from '../util';
 
 export interface Rect {

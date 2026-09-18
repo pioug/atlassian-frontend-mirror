@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { useTheme } from '../../theme';
-
 import { type IconButtonSkeletonProps } from './types';
 
 const buttonHeight = token('space.400');

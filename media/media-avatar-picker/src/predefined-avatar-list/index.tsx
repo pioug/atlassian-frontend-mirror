@@ -2,15 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
+
 import { jsx, css } from '@compiled/react';
+import { useIntl } from 'react-intl';
+
+import Button from '@atlaskit/button/standard-button';
+import EditorMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { messages } from '@atlaskit/media-ui/messages';
 import { token } from '@atlaskit/tokens';
 
 import { AvatarList, type Avatar } from '../avatar-list';
-import EditorMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Button from '@atlaskit/button/standard-button';
-import { useIntl } from 'react-intl';
-import { messages } from '@atlaskit/media-ui/messages';
-import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 const predefinedAvatarsWrapperStyles = css({
 	display: 'flex',

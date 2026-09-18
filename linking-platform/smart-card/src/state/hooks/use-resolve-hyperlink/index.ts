@@ -17,7 +17,6 @@ import { getDefinitionId } from '../../getDefinitionId';
 import { getExtensionKey } from '../../getExtensionKey';
 import { getResourceType } from '../../getResourceType';
 import { useSmartCardState } from '../../store';
-
 import { useScheduledRegister } from './useScheduledRegister';
 
 const useResolveHyperlink = ({

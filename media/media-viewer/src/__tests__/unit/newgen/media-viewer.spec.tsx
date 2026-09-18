@@ -1,19 +1,21 @@
 import React from 'react';
-import { type MediaClientConfig, getFileStreamsCache } from '@atlaskit/media-client';
+
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
+import { type MediaClientConfig, getFileStreamsCache } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
-import { MediaViewer } from '../../../';
-import { type MediaViewerExtensions } from '../../../components/types';
 import {
 	createMockedMediaApi,
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
+import * as downloadUrlModule from '@atlaskit/media-common/downloadUrl';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
+
+import { MediaViewer } from '../../../';
 import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
-import * as downloadUrlModule from '@atlaskit/media-common/downloadUrl';
+import { type MediaViewerExtensions } from '../../../components/types';
+import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 
 const fireAnalyticsMock = jest.spyOn(fireAnalyticsModule, 'fireAnalytics');
 const mocksucceedMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'succeedMediaFileUfoExperience');
@@ -22,6 +24,7 @@ const mockstartMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'startMediaFileUf
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader';
 
 const fakeMediaClientConfig = {} as MediaClientConfig;

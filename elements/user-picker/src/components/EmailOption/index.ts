@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { EmailOptionProps } from './main';
 
 const AsyncEmailOption = React.lazy(() =>

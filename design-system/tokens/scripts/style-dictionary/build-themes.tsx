@@ -9,7 +9,6 @@ import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
 import typographyPalette from '../../schema/palettes/typography-palette';
 import themeConfig, { type Palettes, type ThemeFileNames } from '../../src/theme-config';
-
 import {
 	ARTIFACT_OUTPUT_DIR,
 	FIGMA_ARTIFACT_OUTPUT_DIR,
@@ -19,8 +18,8 @@ import {
 import { default as formatterCSSVariables } from './formatters/css-variables';
 import formatterCSSVariablesAsModule from './formatters/css-variables-as-module';
 import formatterFigma from './formatters/figma';
-import formatterRaw from './formatters/raw';
 import { formatter as formatterTSTokenValueForContrastCheck } from './formatters/formatter';
+import formatterRaw from './formatters/raw';
 import { default as motionTransform } from './transformers/animation';
 import boxShadowTransform from './transformers/box-shadow';
 import dotSyntax from './transformers/dot-syntax';

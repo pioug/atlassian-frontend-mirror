@@ -5,7 +5,6 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { CommentProps } from '../types';
-
 import Footer from './footer';
 import Header from './header';
 import CommentLayout from './layout';

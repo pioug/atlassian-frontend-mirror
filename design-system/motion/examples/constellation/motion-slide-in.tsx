@@ -8,9 +8,9 @@ import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
+import type { Direction, Fade } from '@atlaskit/motion/entering/types';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
-import type { Direction, Fade } from '@atlaskit/motion/entering/types';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from '../utils/blocks';

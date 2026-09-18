@@ -1,5 +1,10 @@
 import { Device, snapshot } from '@af/visual-regression';
 import { flagsForVrTestsWithReducedPadding } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
+
+import {
+	TableRendererOverflow,
+	TableRendererWithInlineComments,
+} from '../__helpers/rendererComponents.vr.ap';
 import {
 	TableRenderer,
 	TableRendererWideOverflow,
@@ -22,10 +27,6 @@ import {
 	TableRendererWithNumberedColumnComment,
 	TableRendererWithNumberedColumnWithoutAppearance,
 } from './table.fixture.vr.ap';
-import {
-	TableRendererOverflow,
-	TableRendererWithInlineComments,
-} from '../__helpers/rendererComponents.vr.ap';
 
 snapshot(TableRenderer, {
 	description: 'Table renderer should NOT render a right shadow',

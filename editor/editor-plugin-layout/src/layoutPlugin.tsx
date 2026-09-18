@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { layoutColumn, layoutColumnWithLocalId } from '@atlaskit/adf-schema/nodes/layout-column';
 import {
 	layoutSection,
 	layoutSectionWithLocalId,
 	layoutSectionWithSingleColumn,
 	layoutSectionWithSingleColumnLocalId,
 } from '@atlaskit/adf-schema/layout-section';
+import { layoutColumn, layoutColumnWithLocalId } from '@atlaskit/adf-schema/nodes/layout-column';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -42,8 +42,8 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LayoutPlugin } from './layoutPluginType';
 import {
@@ -111,24 +111,22 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 	const isRegisteredSlashCommandEnabled =
 		isExperimentEnabled('platform_editor_slash_command') && isAdvancedLayoutEnabled;
 
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents([
-			{
-				type: 'block-menu-item',
-				key: TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM.key,
-				parent: {
-					type: 'block-menu-section' as const,
-					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
-						TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM.key
-					],
-				},
-				component: createLayoutBlockMenuItem(api),
-				isHidden: () =>
-					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(LAYOUT_SECTION_NODE_NAME)),
+	api?.blockMenu?.actions.registerBlockMenuComponents([
+		{
+			type: 'block-menu-item',
+			key: TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM.key,
+			parent: {
+				type: 'block-menu-section' as const,
+				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM.key
+				],
 			},
-		]);
-	}
+			component: createLayoutBlockMenuItem(api),
+			isHidden: () =>
+				Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(LAYOUT_SECTION_NODE_NAME)),
+		},
+	]);
 
 	if (expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
 		api?.uiControlRegistry?.actions.register(getLayoutColumnMenuComponents({ api }));

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Tabs } from '../index';
+
 import { render } from '@testing-library/react';
+
+import { Tabs } from '../index';
 
 describe('Tabs', () => {
 	it('should render tabs', async () => {

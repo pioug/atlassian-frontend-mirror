@@ -1,9 +1,11 @@
 import React from 'react';
-import { token } from '@atlaskit/tokens';
+
 import { IntlProvider } from 'react-intl';
 
-import { emojiPickerWidth } from '../src/util/constants';
+import { token } from '@atlaskit/tokens';
+
 import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';
+import { emojiPickerWidth } from '../src/util/constants';
 
 const emoji = {
 	id: '118608',

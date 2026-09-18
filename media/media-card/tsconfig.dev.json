@@ -160,6 +160,9 @@
 		},
 		{
 			"path": "../../data/ufo-internal/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

@@ -1,12 +1,11 @@
 import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { StepMap, Transform } from '@atlaskit/editor-prosemirror/transform';
-
 import type { TableRect } from '@atlaskit/editor-tables/table-map';
 import type { CellAttributesWithColSpan } from '@atlaskit/editor-tables/types';
 import { addColSpan, removeColSpan } from '@atlaskit/editor-tables/utils';
-import type { CellStep } from '../types';
 
+import type { CellStep } from '../types';
 import type { Cell } from './cells-at-column';
 
 const EmptyCellNodeSize = 4;

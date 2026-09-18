@@ -1,10 +1,9 @@
 import type { TokenEncoder } from 'prosemirror-changeset';
 
-import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
+import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { getDiffableAttrNames } from '../decorations/utils/diffableAttrs';
-
 import { encodeCharacterWithMarks } from './encodeCharacterWithMarks';
 
 /**

@@ -4,7 +4,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
 
 import { floatingLayouts } from '../utils/floatingLayouts';
-
 import { calcMediaSingleMaxWidth } from './calcMediaSingleMaxWidth';
 import { wrappedLayouts } from './constants';
 import { getMediaSingleInitialWidth } from './getMediaSingleInitialWidth';

@@ -24,12 +24,12 @@ import {
 	type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { ActionOperationStatus } from '@atlaskit/linking-types/datasource-actions';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceResponseSchemaProperty,
 	type Icon,
 } from '@atlaskit/linking-types/datasource';
+import { ActionOperationStatus } from '@atlaskit/linking-types/datasource-actions';
 import type { Input } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';

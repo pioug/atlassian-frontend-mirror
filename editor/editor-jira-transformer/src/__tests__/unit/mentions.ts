@@ -1,6 +1,7 @@
-import { doc, p, mention } from '@atlaskit/editor-test-helpers/doc-builder';
-import { checkParseEncodeRoundTrips } from './_test-helpers';
 import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
+import { doc, p, mention } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { checkParseEncodeRoundTrips } from './_test-helpers';
 
 const schema = createJIRASchema({ allowMentions: true });
 const mentionEncoder = (userId: string) => `/secure/ViewProfile?name=${userId}`;

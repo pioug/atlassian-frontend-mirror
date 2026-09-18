@@ -7,7 +7,6 @@ import { domainMap } from '../../../common/constants/host-based-lookup/constants
 import { fullDomainOverride } from '../../../common/constants/host-based-lookup/constants/fullDomainOverride';
 import { subdomainOverride } from '../../../common/constants/host-based-lookup/constants/subdomainOverride';
 import { AllowedDomains, type DomainKey } from '../../../common/constants/host-based-lookup/types';
-
 import { _getEnvironmentFromDomain } from './_getEnvironmentFromDomain';
 
 function isValidDomainKey(domainKey: unknown): domainKey is DomainKey {

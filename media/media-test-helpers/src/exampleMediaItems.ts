@@ -5,12 +5,13 @@ import {
 	type ExternalImageIdentifier,
 	type MediaType,
 } from '@atlaskit/media-client';
+
 import {
 	defaultCollectionName as collectionName,
 	onlyAnimatedGifsCollectionName,
 } from './collectionNames';
-import { videoURI } from './dataURIs/videoURI';
 import { videoPreviewURI } from './dataURIs/videoPreviewURI';
+import { videoURI } from './dataURIs/videoURI';
 
 const fileType: MediaItemType = 'file';
 

@@ -14,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 
 import { ExpandedFrame } from '../../components/ExpandedFrame';
 import { ImageIcon } from '../../components/ImageIcon';
-
 import type { UnresolvedViewProps } from './types';
 
 const containerStyles = css({

@@ -1,5 +1,4 @@
 import type { HistoryPluginState } from '../historyPluginType';
-
 import type { HistoryAction } from './actions';
 import { HistoryActionTypes } from './actions';
 

@@ -1,18 +1,20 @@
 import React from 'react';
+
 import Button from '@atlaskit/button/default/button';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
-import ModalBody from '@atlaskit/modal-dialog/modal-body';
-import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
-import ModalHeader from '@atlaskit/modal-dialog/modal-header';
-import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { type Identifier } from '@atlaskit/media-client';
 import {
 	createStorybookMediaClientConfig,
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+
 import { imageItem } from '../example-helpers';
 import { MainWrapper } from '../example-helpers/MainWrapper';
 import { MediaViewer } from '../src';
-import { type Identifier } from '@atlaskit/media-client';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 

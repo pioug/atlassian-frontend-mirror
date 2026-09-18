@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::372cbad7b2d5ad2941d82fd482ea6c98>>
+ * @codegen <<SignedSource::47dc00a0ab378d7e80b2f0fe943d155b>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -64,6 +64,9 @@ import { HomeLogo } from '../../../src/artifacts/logo-components/home/logo';
 import { HomeLogoCS } from '../../../src/artifacts/logo-components/home/logo-cs';
 import { HubIcon } from '../../../src/artifacts/logo-components/hub/icon';
 import { HubLogoCS } from '../../../src/artifacts/logo-components/hub/logo-cs';
+import { InsightsIcon } from '../../../src/artifacts/logo-components/insights/icon';
+import { InsightsLogo } from '../../../src/artifacts/logo-components/insights/logo';
+import { InsightsLogoCS } from '../../../src/artifacts/logo-components/insights/logo-cs';
 import { JiraCodingAgentIcon } from '../../../src/artifacts/logo-components/jira-coding-agent/icon';
 import { JiraDataCenterIcon } from '../../../src/artifacts/logo-components/jira-data-center/icon';
 import { JiraDataCenterLogoCS } from '../../../src/artifacts/logo-components/jira-data-center/logo-cs';
@@ -323,6 +326,16 @@ export const rows: Array<{
 		Icon32: (props) => <HubIcon {...props} size="32" />,
 		Logo: null,
 		LogoCS: (props) => <HubLogoCS {...props} />,
+	},
+	{
+		name: 'Insights',
+		Icon12: (props) => <InsightsIcon {...props} size="12" />,
+		Icon16: (props) => <InsightsIcon {...props} size="16" />,
+		Icon20: (props) => <InsightsIcon {...props} size="20" />,
+		Icon24: (props) => <InsightsIcon {...props} size="24" />,
+		Icon32: (props) => <InsightsIcon {...props} size="32" />,
+		Logo: (props) => <InsightsLogo {...props} />,
+		LogoCS: (props) => <InsightsLogoCS {...props} />,
 	},
 	{
 		name: 'Jira Data Center',

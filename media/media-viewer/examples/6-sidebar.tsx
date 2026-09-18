@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+
 import Button from '@atlaskit/button/standard-button';
-import AkSpinner from '@atlaskit/spinner/spinner';
-import DetailViewIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
+import DetailViewIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
 import {
 	type ExternalImageIdentifier,
 	type Identifier,
@@ -15,15 +15,9 @@ import {
 	createStorybookMediaClient,
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
+import AkSpinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
-import {
-	MainWrapper,
-	ButtonList,
-	Group,
-	MVSidebar,
-	MVSidebarHeader,
-} from '../example-helpers/MainWrapper';
 import {
 	docIdentifier,
 	largePdfIdentifier,
@@ -36,6 +30,13 @@ import {
 	audioItem,
 	audioItemNoCover,
 } from '../example-helpers';
+import {
+	MainWrapper,
+	ButtonList,
+	Group,
+	MVSidebar,
+	MVSidebarHeader,
+} from '../example-helpers/MainWrapper';
 import { MediaViewer, type MediaViewerExtensionsActions } from '../src';
 
 const mediaClient = createStorybookMediaClient();

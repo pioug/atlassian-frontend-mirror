@@ -1,10 +1,11 @@
 import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import { Node } from '@atlaskit/editor-prosemirror/model';
-import { panelC1FallbackTransform } from '../../../transforms/panel-c1-fallback-transform';
+
 import {
 	transformContainerNodes,
 	upgradeContainerNodes,
 } from '../../../transforms/depth-limited-nesting-container-nodes-transform';
+import { panelC1FallbackTransform } from '../../../transforms/panel-c1-fallback-transform';
 import type { ADFEntity } from '../../../types';
 
 const LEGACY_CONTENT_MACRO_EXTENSION_TYPE = 'com.atlassian.confluence.migration';

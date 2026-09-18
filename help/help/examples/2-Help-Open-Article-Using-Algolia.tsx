@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import algoliasearch from 'algoliasearch';
+
 import Page from '@atlaskit/page';
 
 import Help, { ARTICLE_TYPE } from '../src';

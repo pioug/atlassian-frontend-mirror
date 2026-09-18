@@ -6,7 +6,6 @@ import type { TriggerProps } from '@atlaskit/popup/types';
 import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 import { ListItem } from '../../components/list-item';
-
 import { IconButton } from './themed/icon-button';
 
 export interface EndItemProps extends Partial<

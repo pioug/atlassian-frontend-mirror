@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import React, { useContext } from 'react';
 
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableCellBorderWidth, tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { WidthContext } from '@atlaskit/editor-common/ui';
 import {
@@ -8,11 +9,11 @@ import {
 	akEditorTableLegacyCellMinWidth,
 	akEditorTableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
-import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import type { SharedTableProps } from './types';
-import { useRendererContext } from '../../../renderer-context';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { useRendererContext } from '../../../renderer-context';
+import type { SharedTableProps } from './types';
 
 // we allow scaling down column widths by no more than 30%
 // this intends to reduce unwanted scrolling in the Renderer in these scenarios:

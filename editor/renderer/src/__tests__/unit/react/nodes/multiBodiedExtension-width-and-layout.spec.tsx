@@ -1,13 +1,16 @@
 /* eslint-disable @atlaskit/editor/no-as-casting, react/jsx-props-no-spreading */
+
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import MultiBodiedExtension from '../../../../react/nodes/multiBodiedExtension';
-import { useMultiBodiedExtensionContext } from '../../../../react/nodes/multiBodiedExtension/context';
-import { useMultiBodiedExtensionActions } from '../../../../react/nodes/multiBodiedExtension/actions';
-import { calcBreakoutWidthCss } from '../../../../react/utils/breakout';
+
 import { RendererCssClassName } from '../../../../consts';
+import MultiBodiedExtension from '../../../../react/nodes/multiBodiedExtension';
+import { useMultiBodiedExtensionActions } from '../../../../react/nodes/multiBodiedExtension/actions';
+import { useMultiBodiedExtensionContext } from '../../../../react/nodes/multiBodiedExtension/context';
+import { calcBreakoutWidthCss } from '../../../../react/utils/breakout';
 
 jest.mock('@atlaskit/editor-common/ui', () => ({
 	...jest.requireActual('@atlaskit/editor-common/ui'),

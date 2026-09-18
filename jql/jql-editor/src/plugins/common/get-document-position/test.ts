@@ -1,7 +1,6 @@
 import { Node } from '@atlaskit/editor-prosemirror/model';
 
 import { JQLEditorSchema } from '../../../schema';
-
 import getDocumentPosition from './index';
 
 const empty = {

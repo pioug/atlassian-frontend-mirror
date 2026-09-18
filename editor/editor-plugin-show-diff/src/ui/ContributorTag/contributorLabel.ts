@@ -1,7 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
 import type { ContributorTagModel, TagContributor } from '../../showDiffPluginType';
-
 import { contributorTagMessages } from './messages';
 
 const getContributorName = (

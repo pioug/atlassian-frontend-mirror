@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import ButtonMenuItemExample from './button-menu-item.vr.ap';
 import DragAndDropJiraScalingVrExample from './drag-and-drop-jira-scaling-vr.vr.ap';
 import ExpandableMenuItemExample from './expandable-menu-item.vr.ap';

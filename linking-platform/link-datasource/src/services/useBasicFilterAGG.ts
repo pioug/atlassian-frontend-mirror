@@ -11,7 +11,6 @@ import {
 	type FieldValuesResponse,
 	type HydrateResponse,
 } from '../ui/jira-issues-modal/basic-filters/types';
-
 import { fieldValuesQuery, hydrateJQLQuery, userHydration, userQuery } from './utils';
 
 interface GetFieldValuesProps {

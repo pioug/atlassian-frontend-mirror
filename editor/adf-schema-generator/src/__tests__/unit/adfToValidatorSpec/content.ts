@@ -1,8 +1,8 @@
-import { adfNode } from '../../../adfNode';
-import { $or } from '../../../$or';
-import { $zeroPlus } from '../../../$zeroPlus';
 import { $onePlus } from '../../../$onePlus';
+import { $or } from '../../../$or';
 import { $range } from '../../../$range';
+import { $zeroPlus } from '../../../$zeroPlus';
+import { adfNode } from '../../../adfNode';
 import { adfNodeGroup } from '../../../adfNodeGroup';
 import { adfToValidatorSpec } from '../../../transforms/adfToValidatorSpec/adfToValidatorSpec';
 import type { ValidatorSpecNode } from '../../../transforms/adfToValidatorSpec/ValidatorSpec';

@@ -8,7 +8,6 @@ import { Stack } from '@atlaskit/primitives/compiled';
 import '../examples-helpers';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import { Card } from '../src';
-
 import ExampleContainer from './utils/example-container';
 
 class CustomClient extends Client {

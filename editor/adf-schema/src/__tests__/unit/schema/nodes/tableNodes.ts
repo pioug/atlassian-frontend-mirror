@@ -1,6 +1,7 @@
+import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import { createSchema } from '../../../../schema/create-schema';
 import type { TableAttributes, CellAttributes } from '../../../../schema/nodes/tableNodes';
-import { uuid } from '../../../../utils/uuid';
 import {
 	table,
 	tableCell,
@@ -14,8 +15,8 @@ import {
 	tableHeaderWithNestedTableStage0,
 	setGlobalTheme,
 } from '../../../../schema/nodes/tableNodes';
-import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-
+import { uuid } from '../../../../utils/uuid';
+import { normalizeNodeSpec } from '../../_utils';
 import {
 	ATTRIBUTES_PARSE_DEFAULTS,
 	ATTRIBUTES_PARSE_DEFAULT_DISPLAY_MODE,
@@ -59,7 +60,6 @@ import {
 	HTML_PARSE_EDITOR_P_TABLE_P_RANGE_NESTED_TABLE,
 	HTML_PARSE_EDITOR_P_PARTIAL_TABLE_NESTED_TABLE,
 } from './_consts';
-import { normalizeNodeSpec } from '../../_utils';
 
 const makeSchema = () =>
 	createSchema({

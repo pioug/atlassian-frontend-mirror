@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+
 import { hydrateRoot } from 'react-dom/client';
 import ReactDOMServer from 'react-dom/server';
-
 import Loadable from 'react-loadable';
 
 import { getRealEmojiProvider } from '../example-helpers/get-real-emoji-provider';

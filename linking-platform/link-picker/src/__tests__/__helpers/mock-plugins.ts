@@ -6,7 +6,6 @@ import {
 	type LinkSearchListItemData,
 } from '../../common/types';
 import { UnauthenticatedError } from '../../common/utils/errors';
-
 import mockPluginData from './mock-plugin-data';
 
 export class UnstableMockLinkPickerPlugin implements LinkPickerPlugin {

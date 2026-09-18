@@ -1,7 +1,6 @@
 import type tokens from '../artifacts/token-names';
-import { type CSSColor } from '../theme-options-schema';
 import { type ThemeColorModes } from '../theme-color-modes';
-
+import { type CSSColor } from '../theme-options-schema';
 import { additionalContrastChecker } from './additional-contrast-checker';
 import { generateColors } from './generate-colors';
 import { generateTokenMap } from './generate-token-map';

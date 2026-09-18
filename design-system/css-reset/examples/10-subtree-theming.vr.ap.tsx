@@ -8,6 +8,7 @@
 /* eslint-disable @atlaskit/design-system/no-html-heading */
 /* eslint-disable @atlaskit/design-system/use-heading */
 /* eslint-disable @atlaskit/design-system/use-primitives-text */
+
 import React from 'react';
 
 import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';

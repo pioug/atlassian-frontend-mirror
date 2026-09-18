@@ -9,7 +9,6 @@ import FeedbackCollector from '../../components/FeedbackCollector';
 import FeedbackFlag from '../../components/FeedbackFlag';
 import FeedbackForm, { type OptionType } from '../../components/FeedbackForm';
 import { type FormFields } from '../../types';
-
 import { customFieldRecords, emptyOptionData } from './_data';
 
 jest.mock('../../i18n/fr', () => ({

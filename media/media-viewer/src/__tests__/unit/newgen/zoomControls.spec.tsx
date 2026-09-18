@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen, userEvent } from '@atlassian/testing-library';
-import { ZoomControlsBase, type ZoomControlsProps } from '../../../zoomControls';
-import { ZoomLevel } from '../../../domain/zoomLevel';
+
 import { fakeIntl } from '@atlaskit/media-test-helpers';
+import { render, screen, userEvent } from '@atlassian/testing-library';
+
+import { ZoomLevel } from '../../../domain/zoomLevel';
+import { ZoomControlsBase, type ZoomControlsProps } from '../../../zoomControls';
 
 describe('Zooming', () => {
 	describe('<ZoomControls />', () => {

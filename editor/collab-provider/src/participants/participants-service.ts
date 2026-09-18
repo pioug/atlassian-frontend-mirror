@@ -8,10 +8,10 @@ import type {
 } from '@atlaskit/editor-common/collab';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { disconnectedReasonMapper } from '../disconnected-reason-mapper';
 import type AnalyticsHelper from '../analytics/analytics-helper';
+import { disconnectedReasonMapper } from '../disconnected-reason-mapper';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
-import { telepointerFromStep } from './telepointers-helper';
+import { createLogger, isAIProviderID } from '../helpers/utils';
 import type {
 	CollabEventDisconnectedData,
 	ChannelEvent,
@@ -28,7 +28,7 @@ import {
 } from './participants-helper';
 import { ParticipantsState } from './participants-state';
 import type { ParticipantFilter } from './participants-state';
-import { createLogger, isAIProviderID } from '../helpers/utils';
+import { telepointerFromStep } from './telepointers-helper';
 
 const logger = createLogger('PresenceService', 'pink');
 
@@ -838,8 +838,16 @@ export class ParticipantsService {
 				SEND_PRESENCE_INTERVAL,
 			);
 
-			// Expose existing AI providers to the newly joined user
-			this.sendAIProvidersPresence();
+			// Expose existing AI providers to the newly joined user.
+			//
+			// Gated to match the `ai-provider:change` send in `Provider.sendMessage`. Under the new
+			// agent-presence path an agent is registered from its own authored steps, keyed on its
+			// AAID and carrying an `agentType`. These ids come from the editor AI plugin instead,
+			// keyed on the agent's Convo-AI id with no `agentType`, so re-broadcasting them adds a
+			// second, unresolvable participant for an agent that is already present.
+			if (!fg('platform_move_presence_agents')) {
+				this.sendAIProvidersPresence();
+			}
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while sending presence');
@@ -877,9 +885,9 @@ export class ParticipantsService {
 	onPresence = (payload: PresencePayload): void => {
 		try {
 			logger('onPresence userId: ', payload.userId);
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			this.setUserId(payload.userId!);
+			if (payload.userId) {
+				this.setUserId(payload.userId);
+			}
 			this.sendPresence();
 			this.sendPresenceJoined();
 		} catch (error) {

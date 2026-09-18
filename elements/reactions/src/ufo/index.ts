@@ -1,7 +1,7 @@
+import { withSampling, type WithSamplingUFOExperience } from '@atlaskit/emoji';
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { UFOExperience } from '@atlaskit/ufo/experience';
 import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
-import { withSampling, type WithSamplingUFOExperience } from '@atlaskit/emoji';
 
 /**
  * Initial experience config object (deferred from @atlaskit/ufo inner types)

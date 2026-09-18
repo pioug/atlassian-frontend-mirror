@@ -10,7 +10,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
-
 import { ColoredAvatarItem } from './colored-avatar-item';
 
 const getUserNameForAttribution = (

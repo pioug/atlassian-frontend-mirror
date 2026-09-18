@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { axe } from '@af/accessibility-testing';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
-import { axe } from '@af/accessibility-testing';
 
 import { BadgeContainer } from '../../badge-container';
 import { List } from '../../list';

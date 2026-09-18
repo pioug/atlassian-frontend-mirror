@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { Client } from './Client';
 import type { DynamicConfig } from './compat/DynamicConfig';
 import type { Layer } from './compat/Layer';

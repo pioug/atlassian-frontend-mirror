@@ -19,7 +19,6 @@ import {
 	useStoreActions,
 } from '../../../../state';
 import type { CustomErrorComponent, ExternalMessagesNormalized } from '../../../../state/types';
-
 import { ErrorMessages } from './index';
 
 const normalizedExternalMessagesEmpty: ExternalMessagesNormalized = {

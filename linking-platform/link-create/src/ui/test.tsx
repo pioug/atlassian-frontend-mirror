@@ -18,7 +18,6 @@ import {
 	ExitWarningModalProvider,
 	useExitWarningModal,
 } from '../controllers/exit-warning-modal-context';
-
 import { CreateForm } from './create-form/main';
 import { default as InlineCreate } from './inline-create';
 import { default as LinkCreate } from './modal-create';

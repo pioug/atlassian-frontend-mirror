@@ -1,12 +1,12 @@
 import fetchMock from 'fetch-mock';
 
-import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
 
-import { default as TeamCentralCardClient } from '../TeamCentralCardClient';
 import { buildReportingLinesQuery } from '../buildReportingLinesQuery';
 import { directoryGraphqlQuery } from '../directoryGraphqlQuery';
 import { getOrgIdForCloudIdFromAGG } from '../getOrgIdForCloudIdFromAGG';
+import { default as TeamCentralCardClient } from '../TeamCentralCardClient';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),

@@ -2,7 +2,6 @@ import React from 'react';
 
 import { type SmartLinkSize } from '../../../../constants';
 import { isFlexibleUiElement } from '../../../../utils/is-flexible-ui-element';
-
 import ActionGroup from './action-group';
 import ElementGroup from './element-group';
 

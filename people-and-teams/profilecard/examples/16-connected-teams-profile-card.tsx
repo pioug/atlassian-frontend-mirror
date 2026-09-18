@@ -5,7 +5,6 @@ import {
 	mockProfileData,
 	mockTeamContainersQueries,
 } from '../src/components/team-profile-card/mocks';
-
 import ExampleWrapper from './helper/example-wrapper';
 
 mockTeamContainersQueries();

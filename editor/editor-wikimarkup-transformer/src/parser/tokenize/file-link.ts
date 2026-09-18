@@ -1,4 +1,5 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
 import getMediaGroupNodeView from '../nodes/mediaGroup';
 import type { Token } from './';
 

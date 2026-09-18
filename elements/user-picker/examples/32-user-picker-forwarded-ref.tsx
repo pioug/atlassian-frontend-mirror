@@ -1,5 +1,7 @@
-import Button from '@atlaskit/button/default/button';
 import React, { useRef, useState } from 'react';
+
+import Button from '@atlaskit/button/default/button';
+
 import { exampleOptions } from '../example-helpers';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { UserPicker } from '../src/components/UserPicker';

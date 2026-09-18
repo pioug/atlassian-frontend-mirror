@@ -5,7 +5,6 @@ import { performance } from 'perf_hooks';
 import { parseFile, writeToPath } from 'fast-csv';
 
 import { JastBuilder } from '../src';
-
 import { type QueryPerformance, type QueryRecord } from './types';
 
 const builder = new JastBuilder();

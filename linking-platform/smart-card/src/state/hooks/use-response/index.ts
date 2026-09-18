@@ -11,10 +11,10 @@ import {
 	ACTION_UPDATE_METADATA_STATUS,
 	cardAction,
 } from '@atlaskit/linking-common/actions';
-import type { CardState } from '@atlaskit/linking-common/store';
-import { getStatus } from '@atlaskit/linking-common/utils/get-status';
-import type { MetadataStatus } from '@atlaskit/linking-common/types';
 import { APIError } from '@atlaskit/linking-common/api-error';
+import type { CardState } from '@atlaskit/linking-common/store';
+import type { MetadataStatus } from '@atlaskit/linking-common/types';
+import { getStatus } from '@atlaskit/linking-common/utils/get-status';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SmartLinkStatus } from '../../../constants';

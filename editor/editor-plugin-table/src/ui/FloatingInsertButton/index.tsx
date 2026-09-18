@@ -35,7 +35,6 @@ import { checkIfNumberColumnEnabled } from '../../pm-plugins/utils/nodes';
 import { isFullRowOrColumnSelected } from '../../pm-plugins/utils/selection';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
-
 import getPopupOptions from './getPopupOptions';
 import { DragAndDropInsertButton } from './InsertButton';
 

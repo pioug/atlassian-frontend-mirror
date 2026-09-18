@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render } from '@atlassian/testing-library';
+
 import { Shortcut } from '../../shortcut';
 
 describe('Shortcut', () => {

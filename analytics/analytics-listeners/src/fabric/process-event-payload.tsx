@@ -1,14 +1,16 @@
+import merge from 'lodash/merge';
+
 import {
 	DEFAULT_SOURCE,
 	type GasPayload,
 	type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-import { ELEMENTS_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
 import { EDITOR_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
+import { ELEMENTS_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import merge from 'lodash/merge';
-import { ELEMENTS_TAG } from './FabricElementsListener';
+
 import { EDITOR_TAG } from './FabricEditorListener';
+import { ELEMENTS_TAG } from './FabricElementsListener';
 
 const extractFieldsFromContext = (fieldsToPick: string[]) => (contexts: Record<string, any>[]) =>
 	contexts

@@ -2,8 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
+
 import { css, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 const svgStyles = css({
 	fill: token('elevation.surface'),

@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { type ReactNode, useCallback, useContext, useEffect, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -19,7 +20,6 @@ import InteractionContext from '@atlaskit/interaction-context';
 import { token } from '@atlaskit/tokens';
 
 import { type BaseProps } from '../types';
-
 import blockEvents from './block-events';
 import { getContentStyle } from './get-content-style';
 import { getFadingCss } from './get-fading-css';

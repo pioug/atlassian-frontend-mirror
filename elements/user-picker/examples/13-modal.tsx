@@ -1,6 +1,8 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
+
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { PopupUserPicker } from '../src/components/PopupUserPicker';
 

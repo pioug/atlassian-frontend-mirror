@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import VrEmbedCardErrorExample from './vr-embed-card-error.vr.ap';
 import VrEmbedCardForbiddenFixBlurringExample from './vr-embed-card-forbidden-fix-blurring.vr.ap';
 import VrEmbedCardForbiddenFrameHideExample from './vr-embed-card-forbidden-frame-hide.vr.ap';
@@ -9,6 +10,7 @@ import VrEmbedCardForbiddenSiteForbiddenAccessExample from './vr-embed-card-forb
 import VrEmbedCardForbiddenSitePendingAccessExample from './vr-embed-card-forbidden-site-pending-access.vr.ap';
 import VrEmbedCardForbiddenSiteRequestAccessExample from './vr-embed-card-forbidden-site-request-access.vr.ap';
 import VrEmbedCardForbiddenExample from './vr-embed-card-forbidden.vr.ap';
+import VrEmbedCardFrameExample from './vr-embed-card-frame';
 import VrEmbedCardFrameStyleHideAndSelectedExample from './vr-embed-card-frame-style-hide-and-selected.vr.ap';
 import VrEmbedCardFrameStyleHideExample from './vr-embed-card-frame-style-hide.vr.ap';
 import VrEmbedCardFrameStyleShowAndSelectedExample from './vr-embed-card-frame-style-show-and-selected.vr.ap';
@@ -21,7 +23,6 @@ import VrEmbedCardFrameWithNoPlaceholderWithHrefExample from './vr-embed-card-fr
 import VrEmbedCardFrameWithNoPlaceholderWithOnClickExample from './vr-embed-card-frame-with-no-placeholder-with-on-click.vr.ap';
 import VrEmbedCardFrameWithPlaceholderAndHrefExample from './vr-embed-card-frame-with-placeholder-and-href.vr.ap';
 import VrEmbedCardFrameWithPlaceholderAndOnClickExample from './vr-embed-card-frame-with-placeholder-and-on-click.vr.ap';
-import VrEmbedCardFrameExample from './vr-embed-card-frame';
 import VrEmbedCardNotFoundFrameHideExample from './vr-embed-card-not-found-frame-hide.vr.ap';
 import VrEmbedCardNotFoundSiteAccessExistsExample from './vr-embed-card-not-found-site-access-exists.vr.ap';
 import VrEmbedCardNotFoundExample from './vr-embed-card-not-found.vr.ap';

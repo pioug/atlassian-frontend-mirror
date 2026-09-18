@@ -14,7 +14,6 @@ import {
 } from '../pm-plugins/ai-generating-decoration';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { getIdentifier } from '../pm-plugins/utils/media-common';
-
 import { createInsertMediaAsMediaSingleCommand } from './utils/media-single';
 
 export const showMediaViewer =

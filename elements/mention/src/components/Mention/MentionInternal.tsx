@@ -7,11 +7,12 @@
 
 import React from 'react';
 
+import { css } from '@compiled/react';
+
 import { jsx } from '@atlaskit/css';
 import FocusRing from '@atlaskit/focus-ring/focus-ring';
 import { token } from '@atlaskit/tokens';
 import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
-import { css } from '@compiled/react';
 
 import { UNKNOWN_USER_ID } from '../../_constants';
 import { isRestricted } from '../../is-restricted';
@@ -20,9 +21,9 @@ import { UnknownUserError } from '../../util/i18n';
 import AsyncDisabledMentionTooltip from '../DisabledMentionTooltip';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import AsyncNoAccessTooltip from '../NoAccessTooltip';
-import PrimitiveMention from './PrimitiveMention';
 import { ANALYTICS_HOVER_DELAY } from './index';
 import type { Props } from './index';
+import PrimitiveMention from './PrimitiveMention';
 import { UfoErrorBoundary, mentionRenderedUfoExperience } from './ufoExperiences';
 
 const avatarStyles = css({

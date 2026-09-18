@@ -48,7 +48,6 @@ import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 
 import type EditorActions from '../actions';
-
 import type { EditorOnChangeHandler } from './editor-onchange';
 import type { ExtensionConfig } from './extension-config';
 

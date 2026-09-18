@@ -1,11 +1,12 @@
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Metadata, StepJson } from '@atlaskit/editor-common/collab';
 import { Node } from '@atlaskit/editor-prosemirror/model';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { catchupv2, isOutOfSync } from '../catchupv2';
-import type { Catchupv2Options, Catchupv2Response } from '../../types';
+
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { CatchupEventReason } from '../../helpers/const';
+import type { Catchupv2Options, Catchupv2Response } from '../../types';
+import { catchupv2, isOutOfSync } from '../catchupv2';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),

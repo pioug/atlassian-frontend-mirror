@@ -1,8 +1,9 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import type { Token, TokenParser } from '.';
-import { commonMacro } from './common-macro';
 import { parseAttrs } from '../utils/attrs';
 import { title } from '../utils/title';
+import { commonMacro } from './common-macro';
 
 const SUPPORTED_CODEBOCK_LANGUAGES = [
 	'abap',

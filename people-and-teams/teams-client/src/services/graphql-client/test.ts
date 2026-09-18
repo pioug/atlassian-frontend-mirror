@@ -1,6 +1,5 @@
 import { DEFAULT_CONFIG } from '../constants';
 import { logException } from '../sentry/logException';
-
 import { BaseGraphQlClient } from './main';
 
 jest.mock('./utils/handleGraphQLRequest', () => ({

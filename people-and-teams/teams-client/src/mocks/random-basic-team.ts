@@ -1,5 +1,4 @@
 import { type Team } from '../types/team';
-
 import type { MockConfig } from './team';
 
 export const randomBasicTeam =

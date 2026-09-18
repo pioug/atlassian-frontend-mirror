@@ -1,5 +1,4 @@
 import * as Sentry from '../sentry';
-
 import { BaseClient, type ClientConfig, type LogExceptionFN } from './index';
 
 const mockLogException: LogExceptionFN = jest.fn();

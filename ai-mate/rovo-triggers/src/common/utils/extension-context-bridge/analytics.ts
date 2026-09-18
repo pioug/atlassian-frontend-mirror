@@ -11,7 +11,6 @@
  */
 
 import { type Payload } from '../../../types';
-
 import { type InboundDecision } from './policy';
 
 /**

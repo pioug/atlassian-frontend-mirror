@@ -1,24 +1,25 @@
 import React from 'react';
-import withAnalyticsEvents, {
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next/withAnalyticsEvents';
+
+import { IntlProvider as ReactIntlProvider, useIntl } from 'react-intl';
+import { IntlProvider as ReactIntlNextProvider } from 'react-intl';
+
 import withAnalyticsContext, {
 	type WithContextProps,
 } from '@atlaskit/analytics-next/withAnalyticsContext';
-import { IntlProvider as ReactIntlProvider, useIntl } from 'react-intl';
-import { IntlProvider as ReactIntlNextProvider } from 'react-intl';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+
 import { defaultAnalyticsAttributes } from '../analytics';
 import { type Help as HelpInterface } from '../model/Help';
-
+import { AiContextProvider } from './contexts/aiAgentContext';
 import { HeaderContextProvider } from './contexts/headerContext';
-import { HomeContextProvider } from './contexts/homeContext';
 import { HelpArticleContextProvider } from './contexts/helpArticleContext';
+import { HomeContextProvider } from './contexts/homeContext';
 import { NavigationContextProvider } from './contexts/navigationContext';
 import { RelatedArticlesContextProvider } from './contexts/relatedArticlesContext';
 import { SearchContextProvider } from './contexts/searchContext';
 import { WhatsNewArticleProvider } from './contexts/whatsNewArticleContext';
-import { AiContextProvider } from './contexts/aiAgentContext';
-
 import HelpContent from './HelpContent';
 
 export type Props = HelpInterface & WithAnalyticsEventsProps;

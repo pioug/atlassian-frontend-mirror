@@ -41,7 +41,6 @@ import type {
 } from '../types';
 import { MediaSSRReactContextsProvider } from '../ui/MediaSSRReactContextsProvider';
 import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
-
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 export interface MediaInlineProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

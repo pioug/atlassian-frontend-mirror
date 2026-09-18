@@ -3,6 +3,7 @@
   Styles in this file are based on
   packages/editor/editor-core/src/plugins/media/styles.ts
 */
+
 export const resizerItemClassName = 'resizer-item';
 export const resizerHoverZoneClassName = 'resizer-hover-zone';
 export const resizerExtendedZone = 'resizer-is-extended';

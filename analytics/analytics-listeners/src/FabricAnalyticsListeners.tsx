@@ -1,26 +1,27 @@
 import React from 'react';
 
-import { type AnalyticsWebClient, FabricChannel, type ListenerProps } from './types';
-import FabricElementsListener from './fabric/FabricElementsListener';
-import AtlaskitListener from './atlaskit/AtlaskitListener';
-import Logger from './helpers/logger';
-import NavigationListener from './navigation/NavigationListener';
-import FabricEditorListener from './fabric/FabricEditorListener';
-import MediaAnalyticsListener from './media/MediaAnalyticsListener';
-import PeopleTeamsAnalyticsListener from './peopleTeams/PeopleTeamsAnalyticsListener';
-import NotificationsAnalyticsListener from './notifications/NotificationsAnalyticsListener';
-import RecentWorkAnalyticsListener from './recentWork/RecentWorkAnalyticsListener';
-import AtlasAnalyticsListener from './atlas/AtlasAnalyticsListener';
-import CrossFlowAnalyticsListener from './cross-flow/CrossFlowAnalyticsListener';
-import LinkingPlatformAnalyticsListener from './linkingPlatform/LinkingPlatformAnalyticsListener';
-import PostOfficeAnalyticsListener from './postOffice/PostOfficeAnalyticsListener';
+import A2UIAnalyticsListener from './a2ui/A2UIAnalyticsListener';
 import AIMateAnalyticsListener from './aiMate/AIMateAnalyticsListener';
+import AtlasAnalyticsListener from './atlas/AtlasAnalyticsListener';
+import AtlaskitListener from './atlaskit/AtlaskitListener';
 import AVPAnalyticsListener from './avp/AVPAnalyticsListener';
+import CrossFlowAnalyticsListener from './cross-flow/CrossFlowAnalyticsListener';
+import FabricEditorListener from './fabric/FabricEditorListener';
+import FabricElementsListener from './fabric/FabricElementsListener';
 import GrowthAnalyticsListener from './growth/GrowthAnalyticsListener';
+import Logger from './helpers/logger';
+import LinkingPlatformAnalyticsListener from './linkingPlatform/LinkingPlatformAnalyticsListener';
+import MediaAnalyticsListener from './media/MediaAnalyticsListener';
+import NavigationListener from './navigation/NavigationListener';
+import NotificationsAnalyticsListener from './notifications/NotificationsAnalyticsListener';
 import OmniChannelAnalyticsListener from './omni-channel/OmniChannelAnalyticsListener';
-import TownsquareHomeAnalyticsListener from './townsquareHome/TownsquareHomeAnalyticsListener';
+import PeopleTeamsAnalyticsListener from './peopleTeams/PeopleTeamsAnalyticsListener';
+import PostOfficeAnalyticsListener from './postOffice/PostOfficeAnalyticsListener';
+import RecentWorkAnalyticsListener from './recentWork/RecentWorkAnalyticsListener';
 import RovoExtensionAnalyticsListener from './rovoExtension/RovoExtensionAnalyticsListener';
 import TeamworkGraphAnalyticsListener from './teamworkGraph/TeamworkGraphAnalyticsListener';
+import TownsquareHomeAnalyticsListener from './townsquareHome/TownsquareHomeAnalyticsListener';
+import { type AnalyticsWebClient, FabricChannel, type ListenerProps } from './types';
 
 export type Props = {
 	/** Children! */
@@ -32,6 +33,7 @@ export type Props = {
 };
 
 const listenerMap = {
+	[FabricChannel.a2ui]: A2UIAnalyticsListener,
 	[FabricChannel.elements]: FabricElementsListener,
 	[FabricChannel.editor]: FabricEditorListener,
 	[FabricChannel.atlaskit]: AtlaskitListener,

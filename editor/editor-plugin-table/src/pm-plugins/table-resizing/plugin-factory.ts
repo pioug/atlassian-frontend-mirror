@@ -1,3 +1,7 @@
+// eslint-disable-next-line import/order
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+// eslint-disable-next-line import/order
+import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type {
 	EditorState,
@@ -7,14 +11,9 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 
 import type { ColumnResizingPluginAction, ColumnResizingPluginState } from '../../types';
-
 import { pluginKey } from './plugin-key';
 // eslint-disable-next-line import/order
 import reducer from './reducer';
-// eslint-disable-next-line import/order
-import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-// eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
 
 function mapping(
 	tr: ReadonlyTransaction,

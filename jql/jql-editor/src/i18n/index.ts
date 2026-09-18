@@ -8,6 +8,7 @@
 /**
  * @deprecated Use `import zh from '@atlaskit/jql-editor/src/i18n/zh'` instead.
  */
+
 export { default as zh } from './zh';
 /**
  * @deprecated Use `import cs from '@atlaskit/jql-editor/src/i18n/cs'` instead.

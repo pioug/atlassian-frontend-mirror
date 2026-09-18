@@ -1,5 +1,4 @@
 import { combineProviders } from '../provider-helpers';
-
 import type { ExtensionKey, ExtensionManifest, ExtensionType } from './types/extension-manifest';
 import type { ExtensionProvider } from './types/extension-provider';
 

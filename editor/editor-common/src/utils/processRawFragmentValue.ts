@@ -3,7 +3,6 @@ import { Fragment, type Node, type Schema } from '@atlaskit/editor-prosemirror/m
 import type { DispatchAnalyticsEvent } from '../analytics';
 import type { ProviderFactory } from '../provider-factory';
 import type { ReplaceRawValue, Transformer } from '../types';
-
 import { processRawValue } from './processRawValue';
 
 export function processRawFragmentValue(

@@ -8,7 +8,6 @@ import {
 	type TableViewedDatasourceConfigModalAttributesType,
 } from '../../../../analytics/generated/analytics.types';
 import { type DatasourceTableState } from '../../../../hooks/useDatasourceTableState';
-
 import {
 	getDefaultHookState,
 	getEmptyHookState,

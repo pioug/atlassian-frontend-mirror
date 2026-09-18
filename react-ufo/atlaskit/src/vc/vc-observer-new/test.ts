@@ -2,19 +2,17 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
-
 import EntriesTimeline from './entries-timeline';
 import * as getElementNameModule from './get-element-name';
 import { getHasAbortingEventDuringSSR } from './get-has-aborting-event-during-ssr';
+import { default as VCObserverNew } from './index';
+import type { VCObserverNewConfig } from './index';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
 import VCCalculator_FY26_04 from './metric-calculator/fy26_04';
 import RawDataHandler from './raw-data-handler';
 import type { VCObserverEntry } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
-
-import { default as VCObserverNew } from './index';
-import type { VCObserverNewConfig } from './index';
 
 // Mock dependencies
 jest.mock('./viewport-observer');

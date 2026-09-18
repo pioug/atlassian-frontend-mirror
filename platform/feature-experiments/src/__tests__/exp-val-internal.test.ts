@@ -6,8 +6,8 @@
  * the real production code path, not the @atlassian/experiment-test-utils mock layer.
  */
 
-import { expValInternal } from '../_internal/exp-val-internal';
 import { devOverrides, setDefaultBooleanExperimentsToTrue } from '../_internal/dev-overrides-store';
+import { expValInternal } from '../_internal/exp-val-internal';
 import {
 	UNSAFE_setupPlatformExperiments,
 	UNSAFE_teardownPlatformExperiments,

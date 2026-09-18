@@ -2,7 +2,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type ThemeIdsWithOverrides } from '../theme-config';
 import { type ThemeState } from '../theme-state';
-
 import getIncreasedContrastTheme from './get-increased-contrast-theme';
 
 export const getThemePreferences = (themeState: ThemeState): ThemeIdsWithOverrides[] => {

@@ -4,12 +4,12 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "vr-basic.vr.ap.tsx",
-    "vr-loading-buttons.tsx",
-    "vr-sizes.vr.ap.tsx",
-    "vr-table-cell-alignment.vr.ap.tsx",
-    "vr-text-alignment.vr.ap.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"vr-basic.vr.ap.tsx",
+		"vr-loading-buttons.tsx",
+		"vr-sizes.vr.ap.tsx",
+		"vr-table-cell-alignment.vr.ap.tsx",
+		"vr-text-alignment.vr.ap.tsx",
+	],
+	"exampleDependencies": [],
 }

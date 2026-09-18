@@ -1,7 +1,9 @@
 import React from 'react';
+
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import type { TextSegment } from './segment-text';
+
 import type { TextHighlighter } from '../types';
+import type { TextSegment } from './segment-text';
 
 export function renderTextSegments(
 	segments: Array<TextSegment>,

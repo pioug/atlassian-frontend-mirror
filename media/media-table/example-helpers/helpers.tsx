@@ -2,14 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React, { useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { useState } from 'react';
 import dateFnsFormat from 'date-fns/format';
+import { IntlProvider } from 'react-intl';
+
 import { type MediaType } from '@atlaskit/media-client';
-import { exampleWrapperStyles, ROW_HIGHLIGHT_CLASSNAME } from './styles';
-import Range from '@atlaskit/range/range';
-import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
 import {
 	largeImageFileId,
 	smallImageFileId,
@@ -18,9 +19,11 @@ import {
 	docFileId,
 	videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
-import { type MediaTableItem, NameCell } from '../src';
-import { IntlProvider } from 'react-intl';
+import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
+import Range from '@atlaskit/range/range';
 
+import { type MediaTableItem, NameCell } from '../src';
+import { exampleWrapperStyles, ROW_HIGHLIGHT_CLASSNAME } from './styles';
 export const createMockFileData = (name: string, mediaType: MediaType): jsx.JSX.Element => {
 	return <NameCell text={name} mediaType={mediaType} endFixedChars={4} />;
 };

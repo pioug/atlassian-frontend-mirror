@@ -1,7 +1,6 @@
 import { useMemo, useRef } from 'react';
 
 import type { AnalyticsEventCreator, CreateEventMap } from '../types';
-
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 
 export type PatchedPropsHook = {

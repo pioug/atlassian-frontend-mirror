@@ -2,9 +2,9 @@ import React from 'react';
 
 import useInlineTailoredAction from '../../../state/hooks/use-inline-tailored-actions';
 import { HoverCard } from '../../HoverCard';
+import { InlineRovoActionButton } from '../common/rovo-actions-cta';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { InlineRovoActionButton } from '../common/rovo-actions-cta';
 import { renderLozenge } from './renderLozenge';
 import { type InlineCardResolvedViewFunctionalProps } from './types';
 

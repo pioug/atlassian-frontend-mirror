@@ -1,4 +1,5 @@
 /* eslint-disable testing-library/prefer-screen-queries */
+
 import invariant from 'tiny-invariant';
 
 import { expect, type Locator, type Page, test } from '@af/integration-testing';

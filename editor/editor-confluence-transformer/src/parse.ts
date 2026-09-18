@@ -1,20 +1,28 @@
+import { acNameToEmoji } from '@atlaskit/adf-schema/ac-name-to-emoji';
+import { acShortcutToEmoji } from '@atlaskit/adf-schema/ac-shortcut-to-emoji';
+import type { NameToEmoji } from '@atlaskit/adf-schema/confluence/emoji';
 import type { MediaAttributes } from '@atlaskit/adf-schema/media';
 import type {
 	RichMediaAttributes as MediaSingleAttributes,
 	Layout as MediaSingleLayout,
 } from '@atlaskit/adf-schema/rich-media-common';
-import type { NameToEmoji } from '@atlaskit/adf-schema/confluence/emoji';
-import { acNameToEmoji } from '@atlaskit/adf-schema/ac-name-to-emoji';
-import { acShortcutToEmoji } from '@atlaskit/adf-schema/ac-shortcut-to-emoji';
 import { tableBackgroundColorNames } from '@atlaskit/adf-schema/tableNodes';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorFullPageMaxWidth,
 	akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles/consts';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import parseCxhtml from './parse-cxhtml';
+
+import {
+	blockquoteContentWrapper,
+	listContentWrapper,
+	listItemContentWrapper,
+	ensureInline,
+	docContentWrapper,
+} from './content-wrapper';
 import { AC_XMLNS, default as encodeCxhtml } from './encode-cxhtml';
+import parseCxhtml from './parse-cxhtml';
 import {
 	findTraversalPath,
 	getNodeName,
@@ -31,13 +39,6 @@ import {
 	mapPanelTypeToPm,
 	calcPixelsFromCSSValue,
 } from './utils';
-import {
-	blockquoteContentWrapper,
-	listContentWrapper,
-	listItemContentWrapper,
-	ensureInline,
-	docContentWrapper,
-} from './content-wrapper';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

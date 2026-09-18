@@ -16,7 +16,6 @@ import type { TSurfaceResetCheck } from '../internal/surface-reset';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useSafariEscapeFix } from '../internal/use-safari-escape-fix';
-
 import { type TDialogCloseReason, type TDialogProps } from './types';
 
 // Surface reset — see the rationale on `surfaceResetStyles` in `popover/popover.tsx`.

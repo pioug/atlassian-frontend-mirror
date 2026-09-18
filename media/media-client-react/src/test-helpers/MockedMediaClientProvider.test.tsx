@@ -6,7 +6,6 @@ import { type MediaClient } from '@atlaskit/media-client';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 
 import { useMediaClient } from '../useMediaClient';
-
 import { MockedMediaClientProvider } from './MockedMediaClientProvider';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

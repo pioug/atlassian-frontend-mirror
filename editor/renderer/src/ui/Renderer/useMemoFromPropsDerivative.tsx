@@ -1,4 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
+
 import { useMemo, useRef } from 'react';
 
 export function useMemoFromPropsDerivative<

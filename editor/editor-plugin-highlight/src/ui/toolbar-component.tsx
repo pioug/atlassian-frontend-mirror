@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import type { HighlightPlugin } from '../highlightPluginType';
-
 import { HighlightColorMenuItem } from './HighlightColorMenuItem';
 
 export const getToolbarComponent = (

@@ -27,15 +27,16 @@
  *
  * Usage: import `showFlag` and call it directly — no provider needed.
  */
-import React from 'react';
 
+import React from 'react';
 import { flushSync } from 'react-dom';
+
 import { createRoot, type Root } from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
 
+import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import FlagGroup from '@atlaskit/flag/flag-group';
 import type { FlagProps } from '@atlaskit/flag/types';
-import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 
 import AIPrism from '../common/ai-prism';
 

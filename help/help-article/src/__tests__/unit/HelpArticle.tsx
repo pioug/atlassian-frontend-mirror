@@ -1,6 +1,9 @@
 /* eslint-disable no-undef, import/no-extraneous-dependencies */
+
 import React from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
+
 import HelpArticle from '../../components/HelpArticle';
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
 

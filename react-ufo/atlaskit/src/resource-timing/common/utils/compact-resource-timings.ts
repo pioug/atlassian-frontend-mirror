@@ -1,6 +1,5 @@
 import { roundEpsilon } from '../../../round-number';
 import type { ResourceTiming } from '../types';
-
 import type {
 	CompactResourceTimingEntry,
 	CompactResourceTimings,

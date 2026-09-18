@@ -1,6 +1,8 @@
-import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
+
+import { token } from '@atlaskit/tokens';
+
 import { transition } from '../transition';
 
 export const blanketClassName = 'media-card-blanket';

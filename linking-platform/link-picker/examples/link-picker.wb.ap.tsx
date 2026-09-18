@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import BasicExample from './00-basic';
 import HideDisplayTextExample from './01-hide-display-text';
 import NoresultsExample from './02-noresults';
@@ -23,14 +24,14 @@ import LinkPickerInFormExample from './70-link-picker-in-form';
 import VrBasicExample from './vr-basic';
 import VrEditLinkExample from './vr-edit-link';
 import VrHandlePluginErrorExample from './vr-handle-plugin-error';
+import VrHideDisplayTextExample from './vr-hide-display-text';
 import VrHideDisplayTextWithMultiplePluginsExample from './vr-hide-display-text-with-multiple-plugins';
 import VrHideDisplayTextWithPluginExample from './vr-hide-display-text-with-plugin';
-import VrHideDisplayTextExample from './vr-hide-display-text';
-import VrWithMultiplePluginsDifferentContentExample from './vr-with-multiple-plugins-different-content';
 import VrWithMultiplePluginsExample from './vr-with-multiple-plugins';
+import VrWithMultiplePluginsDifferentContentExample from './vr-with-multiple-plugins-different-content';
 import VrWithNoPluginsExample from './vr-with-no-plugins';
-import VrWithNoResultsMultiProductExample from './vr-with-no-results-multi-product';
 import VrWithNoResultsExample from './vr-with-no-results';
+import VrWithNoResultsMultiProductExample from './vr-with-no-results-multi-product';
 import VrWithPluginActionExample from './vr-with-plugin-action';
 import VrWithPopupIntegrationExample from './vr-with-popup-integration';
 

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { PureComponent } from 'react';
+
 import { jsx } from '@compiled/react';
 
 export const Grid = ({ children }: React.PropsWithChildren<unknown>): JSX.Element => (

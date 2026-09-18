@@ -4,15 +4,16 @@ import type {
 	ADFNodeContentOneOrMoreSpec,
 } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
+
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
-import { bulletList, orderedList } from './list';
-import { paragraph } from './paragraph';
-import { unsupportedBlock } from './unsupportedBlock';
 import { codeBlock } from './codeBlock';
+import { extension } from './extension';
+import { bulletList, orderedList } from './list';
 import { mediaGroup } from './mediaGroup';
 import { mediaSingle } from './mediaSingle';
-import { extension } from './extension';
+import { paragraph } from './paragraph';
+import { unsupportedBlock } from './unsupportedBlock';
 
 const blockQuoteContent = [
 	paragraph.use('with_no_marks'),

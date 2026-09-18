@@ -1,6 +1,9 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
+
 import type React from 'react';
+
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
+
 import Expand from '../../ui/Expand';
 import BlockCard from './blockCard';
 import Blockquote from './blockquote';

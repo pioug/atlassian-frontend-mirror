@@ -4,15 +4,15 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-different-spotlights.vr.ap.tsx",
-    "101-modal-wide-button-text.vr.ap.tsx",
-    "104-spotlight-target-height.vr.ap.tsx",
-    "105-spotlight-target-tabs.tsx",
-    "90-spotlight-button-appearance.vr.ap.tsx",
-    "96-spotlight-without-pulse.vr.ap.tsx",
-    "99-modal-basic.vr.ap.tsx",
-    "spotlight-dialog-placement.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"00-different-spotlights.vr.ap.tsx",
+		"101-modal-wide-button-text.vr.ap.tsx",
+		"104-spotlight-target-height.vr.ap.tsx",
+		"105-spotlight-target-tabs.tsx",
+		"90-spotlight-button-appearance.vr.ap.tsx",
+		"96-spotlight-without-pulse.vr.ap.tsx",
+		"99-modal-basic.vr.ap.tsx",
+		"spotlight-dialog-placement.tsx",
+	],
+	"exampleDependencies": [],
 }

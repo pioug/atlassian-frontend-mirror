@@ -3,14 +3,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { jsx } from '@compiled/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { UnicornResolvedClient } from '@atlaskit/link-test-helpers';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { Card, SmartLinkSize, SmartLinkTheme, TitleElement } from '@atlaskit/smart-card';
 
 import { SmartLinkInternalTheme } from '../../src/constants';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 export default (): JSX.Element => {

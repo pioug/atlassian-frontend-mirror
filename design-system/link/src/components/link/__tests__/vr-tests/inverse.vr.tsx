@@ -1,7 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
 import InverseExample from '../../../../../examples/07-inverse.vr.ap';
-
 import { themeVariants } from './utils';
 
 snapshot(InverseExample, {

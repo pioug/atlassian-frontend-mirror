@@ -3,22 +3,23 @@
  * @jsx jsx
  */
 import { Fragment, useRef } from 'react';
+
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import {
 	AnnotationsProvider,
 	CommentsContentProvider,
 	RendererAnnotationComponents,
 	useRendererAnnotationProviders,
 } from '@atlaskit/editor-test-helpers/annotation-example';
+import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { token } from '@atlaskit/tokens';
 
-import * as docWithMultipleMarksAndAnnotations from '../__fixtures__/annotation-over-marks.adf.json';
-import { AnnotationsWrapper } from '../../ui/annotations';
 import { RendererWithAnalytics } from '../../entry-points/renderer-default';
+import { AnnotationsWrapper } from '../../ui/annotations';
+import * as docWithMultipleMarksAndAnnotations from '../__fixtures__/annotation-over-marks.adf.json';
 
 const doc = {
 	version: 1,

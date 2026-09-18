@@ -1,10 +1,10 @@
 /* eslint-disable @repo/internal/react/no-clone-element */
+
 import React, { cloneElement, type ReactElement } from 'react';
 
 import toItemId from '../../utils/to-item-id';
 import { type RowProps } from '../row';
 import { type RowsProps } from '../rows';
-
 import Items from './items';
 
 type ItemProps<Item> = {

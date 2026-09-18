@@ -1,6 +1,7 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import { bodiedRule as bodiedRuleSchema } from '../../../../next-schema/nodes/bodiedRule';
+import { createSchema } from '../../../../schema/create-schema';
 import { bodiedRule, bodiedRuleRootOnlyStage0 } from '../../../../schema/nodes/bodied-rule';
 import { bodiedRule as bodiedRuleValidatorSpec } from '../../../../validator-schema/generated/validatorSpec';
 

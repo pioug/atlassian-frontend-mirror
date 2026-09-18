@@ -1,8 +1,8 @@
 import { TokenType } from '../';
 import type { Token, TokenParser } from '../';
 import { parseString } from '../../text';
-import { resolveLink } from './link-resolver';
 import { parseContentLink } from './link-parser';
+import { resolveLink } from './link-resolver';
 
 // [http://www.example.com] and [Example|http://www.example.com]
 // Ignored via go/ees005

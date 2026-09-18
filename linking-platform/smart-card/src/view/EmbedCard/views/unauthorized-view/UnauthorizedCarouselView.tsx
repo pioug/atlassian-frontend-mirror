@@ -15,7 +15,6 @@ import useRovoConfig from '../../../../state/hooks/use-rovo-config';
 import Carousel from '../../components/carousel';
 import { ExpandedFrame } from '../../components/ExpandedFrame';
 import { ImageIcon } from '../../components/ImageIcon';
-
 import LazyRovoChatBenefitImage from './carousel-images/LazyRovoChatBenefitImage';
 import LazyRovoSearchBenefitImage from './carousel-images/LazyRovoSearchBenefitImage';
 import NoAuthAvailableImage from './carousel-images/NoAuthAvailableImage';

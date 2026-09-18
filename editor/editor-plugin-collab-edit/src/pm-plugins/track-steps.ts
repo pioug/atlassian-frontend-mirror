@@ -1,7 +1,7 @@
 // delete this file when cleaning up platform_editor_remove_collab_step_metrics
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -16,7 +16,6 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
-
 import { updateNcsSessionStepMetrics } from './track-step-metrics';
 
 function groupBy<T>(array: T[], keyGetter: (item: T) => string): Record<string, T[]> {

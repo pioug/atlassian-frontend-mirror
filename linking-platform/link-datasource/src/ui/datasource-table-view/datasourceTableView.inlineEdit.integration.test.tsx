@@ -5,14 +5,13 @@ import { IntlProvider } from 'react-intl';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import type { AtomicActionInterface } from '@atlaskit/linking-types/datasource-actions';
 import type {
 	DatasourceDataResponseItem,
 	DatasourceDataSchema,
 } from '@atlaskit/linking-types/datasource';
+import type { AtomicActionInterface } from '@atlaskit/linking-types/datasource-actions';
 
 import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id/datasource-experience-id-provider';
-
 import {
 	mockActionKey,
 	mockActionsDiscoveryEndpoint,

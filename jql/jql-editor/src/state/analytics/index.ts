@@ -1,8 +1,8 @@
 import { type Action } from 'react-sweet-state';
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventType } from '@atlaskit/jql-editor-common/constants';
 import { type AnalyticsAttributes } from '@atlaskit/jql-editor-common/analytics/types';
+import { EventType } from '@atlaskit/jql-editor-common/constants';
 
 import { ActionSubject, Action as AnalyticsAction } from '../../analytics/constants';
 import { bucketJqlFunctionName } from '../../utils/team-jql-functions/bucketJqlFunctionName';

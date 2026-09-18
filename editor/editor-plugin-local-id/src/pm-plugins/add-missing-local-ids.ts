@@ -4,7 +4,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { AddMissingLocalIdsOptions } from '../localIdPluginType';
-
 import { generateShortUUID, generatedShortUUIDs } from './generateShortUUID';
 
 export const localIdNotEmpty = (localId: unknown): boolean =>

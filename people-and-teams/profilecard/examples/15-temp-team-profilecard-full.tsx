@@ -8,7 +8,6 @@ import { token } from '@atlaskit/tokens';
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';
 import type { TeamProfilecardProps } from '../src/types';
-
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 

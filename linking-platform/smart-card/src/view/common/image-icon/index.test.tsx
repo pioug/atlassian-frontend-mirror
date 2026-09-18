@@ -5,9 +5,8 @@ import { IntlProvider } from 'react-intl';
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { fireEvent, screen } from '@atlassian/testing-library';
 
-import type { ImageIconProps } from './types';
-
 import ImageIcon from './index';
+import type { ImageIconProps } from './types';
 
 jest.mock('react-render-image', () => ({
 	...jest.requireActual('react-render-image'),

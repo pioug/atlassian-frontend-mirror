@@ -1,13 +1,13 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
-import AnalyticsHelper from '../analytics-helper';
-import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
-import { name as packageName, version as packageVersion } from '../../version-wrapper';
+import { CustomError } from '../../errors/custom-errors';
 import type { InternalError } from '../../errors/internal-errors';
 import { NCS_ERROR_CODE } from '../../errors/ncs-errors';
-import { CustomError } from '../../errors/custom-errors';
+import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
+import { name as packageName, version as packageVersion } from '../../version-wrapper';
+import AnalyticsHelper from '../analytics-helper';
 
 describe('Analytics helper function', () => {
 	const fakeAnalyticsWebClient: AnalyticsWebClient = {

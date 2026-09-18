@@ -12,17 +12,16 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 import { autoUpdate } from '@floating-ui/dom';
-import { createPortal } from 'react-dom';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getStyleProps } from '../get-style-props';
 import { PortalPlacementContext } from '../internal/portal-placement-context';
 import type { CommonPropsAndClassName, GroupBase, MenuPlacement, MenuPosition } from '../types';
-
 import { MenuPortalTopLayer } from './menu-portal-top-layer';
 
 function getBoundingClientObj(element: HTMLElement): {

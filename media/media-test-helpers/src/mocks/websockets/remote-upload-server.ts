@@ -1,34 +1,33 @@
-import { Server, type WebSocket, type Client } from 'mock-socket';
 import { type Database } from 'kakapo';
+import { Server, type WebSocket, type Client } from 'mock-socket';
 import { Observable } from 'rxjs/Observable';
-import { type Observer } from 'rxjs/Observer';
-import { type Subscription } from 'rxjs/Subscription';
 import { from } from 'rxjs/observable/from';
 import { of } from 'rxjs/observable/of';
+import { type Observer } from 'rxjs/Observer';
+import { concatMap } from 'rxjs/operators/concatMap';
 import { delay } from 'rxjs/operators/delay';
 import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
-import { concatMap } from 'rxjs/operators/concatMap';
 import { mergeMap } from 'rxjs/operators/mergeMap';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { tap } from 'rxjs/operators/tap';
+import { type Subscription } from 'rxjs/Subscription';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
+import { smallImage } from '../../dataURIs/smallImageURI';
+import { defaultBaseUrl } from '../../mediaClientProvider';
+import { getWsUrl, mapDataUriToBlob } from '../../utils';
+import { WsDirection, logWsMessage } from '../../utils/logging';
+import { getFakeFileSize } from '../../utils/mockData';
+import { createCollectionItem, type MediaDatabaseSchema } from '../database';
 import {
 	notifyMetadataPayload,
 	remoteUploadStartPayload,
 	remoteUploadProgressPayload,
 	remoteUploadEndPayload,
 } from './messages';
-
 import { type WebSocketServer } from './types';
-import { createCollectionItem, type MediaDatabaseSchema } from '../database';
-import { defaultBaseUrl } from '../../mediaClientProvider';
-import { smallImage } from '../../dataURIs/smallImageURI';
-import { getWsUrl, mapDataUriToBlob } from '../../utils';
-import { WsDirection, logWsMessage } from '../../utils/logging';
-import { getFakeFileSize } from '../../utils/mockData';
 
 const DELAY_MESSAGS_MS = 200;
 const DELAY_MESSAGES_SLOW_MS = 1000;

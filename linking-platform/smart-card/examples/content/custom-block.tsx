@@ -3,7 +3,6 @@ import React from 'react';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { CustomBlock } from '../../src';
-
 import ExampleContainer from './example-container';
 
 export default (): React.JSX.Element => {

@@ -1,6 +1,6 @@
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 type Params = {
 	$target: ResolvedPos;

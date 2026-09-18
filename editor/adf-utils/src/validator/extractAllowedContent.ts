@@ -1,5 +1,4 @@
 import type { ADFEntity } from '../types';
-
 import type { ValidatorSpec, Content, CreateSpecReturn } from '../types/validatorTypes';
 
 export function extractAllowedContent(

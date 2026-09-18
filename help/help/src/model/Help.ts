@@ -1,14 +1,15 @@
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
+
+import type { Props as HelpContentButtonProps } from '../components/HelpContentButton';
 import { type Article, type ArticleItem, type ArticleFeedback } from './Article';
+import { type REQUEST_STATE } from './Requests';
 import {
 	type WhatsNewArticleItem,
 	type WhatsNewArticle,
 	type WHATS_NEW_ITEM_TYPES,
 	type whatsNewSearchResult,
 } from './WhatsNew';
-import { type REQUEST_STATE } from './Requests';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
-import type { Props as HelpContentButtonProps } from '../components/HelpContentButton';
 
 export enum ARTICLE_TYPE {
 	HELP_ARTICLE = 'HELP_ARTICLE',

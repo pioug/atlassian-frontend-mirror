@@ -3,8 +3,8 @@ import React, { forwardRef, type Ref } from 'react';
 import AppProvider from '@atlaskit/app-provider/app-provider';
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import ButtonGroup from '@atlaskit/button/button-group';
-import LinkButton from '@atlaskit/button/link';
 import LinkIconButton from '@atlaskit/button/icon/link';
+import LinkButton from '@atlaskit/button/link';
 import AddIcon from '@atlaskit/icon/core/add';
 import { Stack } from '@atlaskit/primitives/compiled';
 

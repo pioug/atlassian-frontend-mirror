@@ -1,11 +1,11 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
-import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';

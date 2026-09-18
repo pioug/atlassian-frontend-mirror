@@ -1,13 +1,13 @@
 import * as mocks from './image-placer.mock';
+
 import {
 	mockLoadImage,
 	mockLoadImageError,
 	unMockLoadImage,
 } from '@atlaskit/media-test-helpers/mockLoadImage';
-
+import { Bounds } from '@atlaskit/media-ui/bounds';
 import type { FileInfo } from '@atlaskit/media-ui/imageMetaData/types';
 import { Rectangle } from '@atlaskit/media-ui/rectangle';
-import { Bounds } from '@atlaskit/media-ui/bounds';
 
 import {
 	applyOrientation,

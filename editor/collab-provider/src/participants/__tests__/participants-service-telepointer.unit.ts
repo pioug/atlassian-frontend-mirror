@@ -1,10 +1,11 @@
-import AnalyticsHelper from '../../analytics/analytics-helper';
-import type { PresencePayload } from '../../types';
 import type {
 	ProviderParticipant,
 	StepJson,
 	CollabEventTelepointerData,
 } from '@atlaskit/editor-common/collab';
+
+import AnalyticsHelper from '../../analytics/analytics-helper';
+import type { PresencePayload } from '../../types';
 import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';

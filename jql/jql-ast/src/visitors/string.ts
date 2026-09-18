@@ -1,7 +1,6 @@
 import type { JqlStringContext } from '@atlaskit/jql-parser/JQLParser';
 
 import { type StringValue } from '../types';
-
 import { getPositionFromContext, JastBuildingVisitor } from './common';
 
 export class StringVisitor extends JastBuildingVisitor<StringValue> {

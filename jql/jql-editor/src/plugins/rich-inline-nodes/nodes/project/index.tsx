@@ -1,5 +1,4 @@
 import type { JQLNodeSpec } from '../types';
-
 import { ProjectNode } from './project-node';
 import type { Props } from './types';
 

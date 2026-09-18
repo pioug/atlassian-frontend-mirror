@@ -34,7 +34,6 @@ import { token } from '@atlaskit/tokens';
 
 import type { CardPlugin } from '../cardPluginType';
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
-
 import { getSingleSmartLinkUrlFromSlice } from './currentPastedSmartLink';
 import {
 	changeNativeEmbedAppearance,

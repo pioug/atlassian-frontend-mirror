@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Date } from '../../../components/Date';
+
 import { type DateProps } from '../../../';
+import { Date } from '../../../components/Date';
 
 describe('Date', () => {
 	const renderDate = (props: Partial<DateProps> = {}) =>

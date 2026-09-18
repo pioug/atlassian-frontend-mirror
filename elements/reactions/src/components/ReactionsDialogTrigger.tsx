@@ -2,12 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import { cssMap, cx, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import { Pressable } from '@atlaskit/primitives/compiled';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { useIntl } from 'react-intl';
+
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { messages } from '../shared/i18n';
 

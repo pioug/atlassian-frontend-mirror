@@ -1,4 +1,5 @@
 /* eslint-disable require-unicode-regexp */
+
 import {
 	MarkdownSerializer as PMMarkdownSerializer,
 	MarkdownSerializerState as PMMarkdownSerializerState,
@@ -7,8 +8,9 @@ import {
 } from '@atlaskit/editor-prosemirror/markdown';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { escapeMarkdown, stringRepeat, escapeHtmlAttribute } from './util';
+
 import tableNodes from './tableSerializer';
+import { escapeMarkdown, stringRepeat, escapeHtmlAttribute } from './util';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

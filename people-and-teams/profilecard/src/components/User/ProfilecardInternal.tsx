@@ -32,7 +32,6 @@ import { PACKAGE_META_DATA } from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
 import { getPageTime } from '../../util/performance';
 import { default as ErrorMessage } from '../Error/ErrorMessage';
-
 import { LoadingView } from './LoadingView';
 import {
 	ACTION_OVERFLOW_THRESHOLD,

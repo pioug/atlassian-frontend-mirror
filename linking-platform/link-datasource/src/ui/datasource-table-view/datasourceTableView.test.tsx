@@ -24,13 +24,12 @@ import {
 	useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
 import { Store } from '../../state';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import { LoadingError } from '../common/error-state/loading-error';
 import * as issueLikeModule from '../issue-like-table/issue-like-data-table-view';
-import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import { useIsOnScreen } from '../issue-like-table/useIsOnScreen';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../jira-issues-modal';
-
 import { DatasourceTableView } from './datasourceTableView';
 import { type DatasourceTableViewProps } from './types';
 

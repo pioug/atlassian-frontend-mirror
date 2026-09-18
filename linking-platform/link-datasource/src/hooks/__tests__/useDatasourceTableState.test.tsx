@@ -4,14 +4,14 @@ import { act, renderHook, type RenderHookOptions, waitFor } from '@testing-libra
 import { defaultRegistry } from 'react-sweet-state';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { mockActionsDiscoveryResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockActionsDiscoveryResponse';
-import { mockDatasourceDataResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponse';
-import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponseWithSchema';
-import { mockDatasourceDetailsResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDetailsResponse';
 import {
 	DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
 	useDatasourceClientExtension,
 } from '@atlaskit/link-client-extension/use-data-source-client-extension';
+import { mockActionsDiscoveryResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockActionsDiscoveryResponse';
+import { mockDatasourceDataResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponse';
+import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponseWithSchema';
+import { mockDatasourceDetailsResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDetailsResponse';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';

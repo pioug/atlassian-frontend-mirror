@@ -6,9 +6,9 @@ import { type FC, type ReactNode, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group/avatar-group';
 import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
 import type { SizeType } from '@atlaskit/avatar/types';
-import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import { Label } from '@atlaskit/form/label/default';

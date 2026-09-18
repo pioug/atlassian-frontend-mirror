@@ -1,12 +1,13 @@
-import type { LayoutColumnDefinition } from './layout-column';
-import type { BreakoutMarkDefinition } from '../marks';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import {
 	layoutSection as layoutSectionFactory,
 	layoutSectionWithSingleColumnStage0 as layoutSectionWithSingleColumnStage0Factory,
 	layoutSectionFull as layoutSectionFullFactory,
 } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { BreakoutMarkDefinition } from '../marks';
+import type { LayoutColumnDefinition } from './layout-column';
 
 /**
  * @name layoutSection_node

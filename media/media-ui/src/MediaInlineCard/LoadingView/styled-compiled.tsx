@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
 
 const spinnerWrapperStyles = css({

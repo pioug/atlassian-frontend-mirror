@@ -3,14 +3,15 @@
  * @jsx jsx
  */
 import { useState, type ComponentType, type FC } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import AkCodeBlock from '@atlaskit/code/code-block';
 import type { SupportedLanguages } from '@atlaskit/code/constants';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import CodeBlockContainer from './components/codeBlockContainer';

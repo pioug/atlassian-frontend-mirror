@@ -22,7 +22,6 @@ import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import type { DateType } from '../../types';
-
 import { formatDateType, parseDateType } from './utils/formatParse';
 import { adjustDate, findDateSegmentByPosition, isDatePossiblyValid } from './utils/internal';
 

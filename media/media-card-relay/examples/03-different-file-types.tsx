@@ -26,7 +26,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 
 import { MediaCardRelay } from '../src';
-
 import RelayMock, {
 	useMockMediaItemRef,
 	MOCK_IMAGE_ITEM,

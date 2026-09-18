@@ -1,9 +1,10 @@
 import React from 'react';
-import { render } from '@atlassian/testing-library/render';
-import { createIntl, createIntlCache } from 'react-intl';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
+import { createIntl, createIntlCache } from 'react-intl';
+
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { render } from '@atlassian/testing-library/render';
 
 import { WhatsNewResultsLoading } from '../../index';
 

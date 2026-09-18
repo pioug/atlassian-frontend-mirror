@@ -3,9 +3,9 @@ import React from 'react';
 import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
 import { SplitButton } from '@atlaskit/button/split-button/split-button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
 const _default_1: React.JSX.Element = (

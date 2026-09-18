@@ -102,8 +102,8 @@ class FakeOffscreenCanvas {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).OffscreenCanvas = FakeOffscreenCanvas as any;
 
-import { setUFOConfig } from '../../../config';
 import type { InteractionMetrics } from '../../../common';
+import { setUFOConfig } from '../../../config';
 import VCObserverNew from '../../../vc/vc-observer-new';
 import type { VCObserverEntry } from '../../../vc/vc-observer-new/types';
 import getVCMetrics from '../get-vc-metrics';

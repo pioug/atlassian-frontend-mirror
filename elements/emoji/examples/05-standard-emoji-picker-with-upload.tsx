@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
-import { EmojiPicker } from '../src/picker';
+import { IntlProvider } from 'react-intl';
+
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
@@ -8,9 +9,10 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-data-test/get-emoji-resource-standard-atlassian';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
+
 import { onSelection } from '../example-helpers/on-selection';
+import { EmojiPicker } from '../src/picker';
 import type { EmojiProvider } from '../src/resource';
-import { IntlProvider } from 'react-intl';
 
 const EmojiPickerWithUpload = (): React.JSX.Element => {
 	const [siteEmojiEnabled, setSiteEmojiEnabled] = useState(true);

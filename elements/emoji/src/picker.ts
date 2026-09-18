@@ -2,4 +2,5 @@
 /**
  * @deprecated Use `import { EmojiPicker } from '@atlaskit/emoji/emoji-picker'` instead.
  */
+
 export { default as EmojiPicker } from './components/picker/EmojiPicker';

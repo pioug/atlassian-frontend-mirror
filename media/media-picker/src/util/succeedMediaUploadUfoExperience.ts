@@ -1,5 +1,5 @@
-import type { FileAttributes } from '@atlaskit/media-common';
 import { getMediaEnvironment, getMediaRegion } from '@atlaskit/media-client';
+import type { FileAttributes } from '@atlaskit/media-common';
 
 import { getMediaUploadUfoExperience } from './getMediaUploadUfoExperience';
 

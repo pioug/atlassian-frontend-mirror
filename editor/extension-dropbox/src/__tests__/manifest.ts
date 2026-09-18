@@ -1,12 +1,13 @@
 import ReactDOM from 'react-dom';
+
 import { createRoot } from 'react-dom/client';
 
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
+import { POPUP_MOUNTPOINT } from '../constants';
 import getManifest from '../manifest';
 import type { DropboxFile } from '../types';
-import { POPUP_MOUNTPOINT } from '../constants';
 
 jest.mock('react-dom', () => ({
 	__esModule: true,

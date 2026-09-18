@@ -3,12 +3,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { type CSSProperties, type ComponentType, type FC } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/custom-theme-button-types';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

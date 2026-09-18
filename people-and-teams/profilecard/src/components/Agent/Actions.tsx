@@ -12,7 +12,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
-
 import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
 type AgentActionsProps = {

@@ -5,7 +5,6 @@ import Avatar from '@atlaskit/avatar/avatar';
 import { useHydratedAssets } from '../../../../state';
 import type { NodeViewProps } from '../../util/react-node-view';
 import { NodeBase } from '../base';
-
 import type { Props } from './types';
 
 export const AssetsNode = ({

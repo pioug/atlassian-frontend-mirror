@@ -15,7 +15,6 @@ import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';
 import type { LinkPickerProps } from '../common/types';
 import type { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
 import { LinkPickerSessionProvider } from '../controllers/session-provider';
-
 import { ErrorBoundary } from './error-boundary';
 import { LoaderFallback } from './loader-fallback';
 import { MessagesProvider } from './messages-provider';

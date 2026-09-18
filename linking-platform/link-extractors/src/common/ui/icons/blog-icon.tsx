@@ -5,7 +5,6 @@ import BlogObjectTile from '@atlaskit/object/tile/blog';
 import type { ObjectProps } from '@atlaskit/object/types';
 
 import type { SmartLinkSize } from '../../../constants';
-
 import { renderIconPerSize } from './render-icon-per-size';
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-types

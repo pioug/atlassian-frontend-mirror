@@ -15,7 +15,6 @@ import { token } from '@atlaskit/tokens';
 import { MenuItemBase } from '../menu-item';
 import { type COLLAPSE_ELEM_BEFORE_TYPE } from '../menu-item-signals';
 import type { MenuItemCommonProps, MenuItemOnClick } from '../types';
-
 import { IsOpenContext, OnCloseContext } from './flyout-menu-item-context';
 
 const elemAfterStyles = cssMap({

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { InlineCardResolvedView as ResolvedView } from '../src/view/InlineCard/ResolvedView';
-
 import { VRTestCase } from './utils/common';
 
 export default (): React.JSX.Element => {

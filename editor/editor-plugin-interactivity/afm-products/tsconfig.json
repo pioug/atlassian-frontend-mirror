@@ -31,9 +31,6 @@
 			"path": "../../editor-plugin-editor-viewmode/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../editor-common/afm-products/tsconfig.json"
 		}
 	]

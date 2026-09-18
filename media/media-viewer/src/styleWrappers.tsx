@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
+
 import {
 	type CSSProperties,
 	forwardRef,
@@ -13,13 +13,16 @@ import {
 	type RefAttributes,
 	useMemo,
 } from 'react';
-import { type MediaType } from '@atlaskit/media-client';
+
+import { jsx, css } from '@compiled/react';
 import { TouchScrollable } from 'react-scrolllock';
 import { useMergeRefs } from 'use-callback-ref';
-import { token } from '@atlaskit/tokens';
+
+import Heading from '@atlaskit/heading/heading';
+import { type MediaType } from '@atlaskit/media-client';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import Heading from '@atlaskit/heading/heading';
+import { token } from '@atlaskit/tokens';
 
 const blanketStyles = css({
 	position: 'fixed',

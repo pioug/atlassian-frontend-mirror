@@ -1,13 +1,16 @@
 import { createElement, Fragment } from 'react';
+
 import Loadable from 'react-loadable';
-import { render } from '@atlassian/testing-library/render';
+
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { ReactSerializer } from '../../../index';
-import { emojiList } from './__fixtures__/emoji';
-import Emoji from '../../../react/nodes/emoji';
 import type { EmojiId } from '@atlaskit/emoji';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render } from '@atlassian/testing-library/render';
+
+import { ReactSerializer } from '../../../index';
+import Emoji from '../../../react/nodes/emoji';
+import { emojiList } from './__fixtures__/emoji';
 
 // The emoji node needs an emoji provider to render anything, so it is stubbed out and only the
 // props the serializer hands to it are asserted.

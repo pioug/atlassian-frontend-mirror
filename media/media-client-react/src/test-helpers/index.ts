@@ -6,6 +6,7 @@ Entry point: ./test-helpers
 /**
  * @deprecated Use `import type { MockedMediaClientProviderProps } from '@atlaskit/media-client-react/mocked-media-client-provider'` instead.
  */
+
 export type { MockedMediaClientProviderProps } from './MockedMediaClientProvider';
 /**
  * @deprecated Use `import { MockedMediaClientProvider, mockedMediaClientConfig } from '@atlaskit/media-client-react/mocked-media-client-provider'` instead.

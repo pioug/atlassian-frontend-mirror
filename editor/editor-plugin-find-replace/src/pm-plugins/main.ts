@@ -6,7 +6,6 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { FindReplacePlugin } from '../findReplacePluginType';
 import type { FindReplacePluginState } from '../types';
-
 import { createPluginState, getPluginState } from './plugin-factory';
 import { findReplacePluginKey } from './plugin-key';
 

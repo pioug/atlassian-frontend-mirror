@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+
 import { ConnectedReactionsView, type StorePropInput } from '../src';
-import { ExampleWrapper, Example, Constants as ExampleConstants } from './utils';
 import { DefaultReactions } from '../src/shared/constants';
+import { ExampleWrapper, Example, Constants as ExampleConstants } from './utils';
 
 export default (): React.JSX.Element => {
 	return (

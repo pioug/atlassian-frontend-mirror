@@ -3,10 +3,12 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
+
 import type { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 const emojiName = css({
 	display: 'block',

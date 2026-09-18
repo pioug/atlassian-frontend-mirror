@@ -7,19 +7,19 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { jsx } from '@atlaskit/css';
 import IconButton from '@atlaskit/button/icon/button';
-import Heading from '@atlaskit/heading/heading';
-import { MENU, RECOMMENDED_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
+import { jsx } from '@atlaskit/css';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
-import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
+import { MENU, RECOMMENDED_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
 import { getMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-get-menu-footer-section-key';
 import { getSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-get-section-overflow-item-key';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
+import Heading from '@atlaskit/heading/heading';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';

@@ -16,8 +16,8 @@ import { DOCUMENT_SCROLL_ROOT_ID } from '@atlaskit/media-document-viewer/get-doc
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Spinner from '@atlaskit/spinner/spinner';
 
-import { MediaViewerError } from '../../MediaViewerError';
 import { ZoomLevel } from '../../domain/zoomLevel';
+import { MediaViewerError } from '../../MediaViewerError';
 import { ZoomControls } from '../../zoomControls';
 import { PasswordInput } from './passwordInput';
 

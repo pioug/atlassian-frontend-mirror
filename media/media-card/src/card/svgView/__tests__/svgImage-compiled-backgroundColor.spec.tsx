@@ -2,13 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx } from '@compiled/react';
-import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
-import { SvgView } from '../svgImage-compiled';
-import type { FileIdentifier } from '@atlaskit/media-client';
 
+import React from 'react';
+
+import { jsx } from '@compiled/react';
+
+import type { FileIdentifier } from '@atlaskit/media-client';
+import { render, screen } from '@atlassian/testing-library';
+
+import { SvgView } from '../svgImage-compiled';
 // Mock useResolveSvg to return a valid SVG URL
+
 jest.mock('@atlaskit/media-svg/use-resolve-svg', () => ({
 	...jest.requireActual('@atlaskit/media-svg/use-resolve-svg'),
 	useResolveSvg: jest.fn().mockReturnValue({

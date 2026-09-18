@@ -1,5 +1,6 @@
-import { type WhatsNewArticleItem } from '../../../../../model/WhatsNew';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
+import { type WhatsNewArticleItem } from '../../../../../model/WhatsNew';
 
 export interface WhatsNewResultsList {
 	hasNextPage?: boolean;

@@ -1,18 +1,19 @@
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
 import React, { type ReactNode } from 'react';
+
 import { FormattedMessage } from 'react-intl';
 
-import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner/spinner';
 
-import { SlackIcon } from '../assets/slack';
+import { type UserSource } from '../../types';
 import { GoogleIcon } from '../assets/google';
 import { MicrosoftIcon } from '../assets/microsoft';
-import { messages } from '../i18n';
-import { type UserSource } from '../../types';
+import { SlackIcon } from '../assets/slack';
 import { type ExternalUserSourcesData } from '../ExternalUserSourcesContainer';
+import { messages } from '../i18n';
 
 const sourcesTooltipContainer = xcss({
 	paddingBottom: 'space.050',

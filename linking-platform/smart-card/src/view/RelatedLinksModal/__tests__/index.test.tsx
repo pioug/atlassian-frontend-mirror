@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { screen, waitFor, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
-
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import '@atlaskit/link-test-helpers/jest';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
+import '@atlaskit/link-test-helpers/jest';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { screen, waitFor, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
 
 import useIncomingOutgoingAri from '../../../state/hooks/use-incoming-outgoing-links';
 import useResponse from '../../../state/hooks/use-response';

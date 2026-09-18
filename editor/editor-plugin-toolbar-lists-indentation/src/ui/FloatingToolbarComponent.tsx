@@ -12,7 +12,6 @@ import {
 } from '../pm-plugins/indentation-buttons';
 import type { ToolbarListsIndentationPlugin } from '../toolbarListsIndentationPluginType';
 import { ToolbarType } from '../types';
-
 import ToolbarListsIndentation from './index';
 
 type FloatingToolbarComponentProps = {

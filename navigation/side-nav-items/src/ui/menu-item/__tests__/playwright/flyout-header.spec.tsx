@@ -1,5 +1,6 @@
 /* eslint-disable playwright/no-standalone-expect -- Navigation requires the it alias, which this rule does not recognize. */
 /* eslint-disable testing-library/prefer-screen-queries -- These are Playwright page locators, not Testing Library render queries. */
+
 import { expect, type Page, test as it } from '@af/integration-testing';
 
 it.afterEach(async ({ page }) => {

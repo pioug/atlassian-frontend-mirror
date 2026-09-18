@@ -3,8 +3,8 @@ import { simplifyChanges, ChangeSet, type Change } from 'prosemirror-changeset';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Mark } from '@atlaskit/editor-prosemirror/model';
 import { Mapping, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { DiffStepAttribution } from '../../showDiffPluginType';
 import {
@@ -12,7 +12,6 @@ import {
 	getAttributionKey,
 } from '../decorations/colorSchemes/attributions';
 import { buildCharsByOffset } from '../utils/charsByOffset';
-
 import { attrAwareTokenEncoder } from './attrAwareTokenEncoder';
 import { optimizeChanges } from './optimizeChanges';
 

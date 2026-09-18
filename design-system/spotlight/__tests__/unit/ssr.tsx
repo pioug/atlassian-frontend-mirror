@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import { screen } from '@atlassian/testing-library';
 
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
+import { screen } from '@atlassian/testing-library';
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 

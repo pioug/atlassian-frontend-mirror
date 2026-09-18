@@ -1,5 +1,6 @@
-import { type CardDimensions } from '../../types';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
+
+import { type CardDimensions } from '../../types';
 
 export interface StaticCardProps {
 	dimensions?: CardDimensions;

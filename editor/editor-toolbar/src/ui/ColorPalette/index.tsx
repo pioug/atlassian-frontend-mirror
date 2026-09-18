@@ -59,6 +59,7 @@ function getCheckMarkColor(color: string, useIconToken: boolean): string {
  * - Customizable color mapping
  */
 const ColorPalette = ({
+	ariaLabelledBy,
 	cols = DEFAULT_COLOR_PICKER_COLUMNS,
 	gap = 'space.050',
 	onClick,
@@ -231,14 +232,18 @@ const ColorPalette = ({
 		[colorsPerRow, focusColorAt, onClick, onKeyDown],
 	);
 
-	return (
-		<Grid gap={gap} ref={paletteRef} role="group">
+	const paletteGrid = (
+		<Grid
+			gap={gap}
+			ref={paletteRef}
+			role={fg('platform_editor_a11y_color_palette_radiogroup') ? 'presentation' : 'group'}
+		>
 			{colorsPerRow.map((row, rowIndex) => (
 				<Inline
 					space={shouldUseInlineColorGap ? gap : undefined}
 					rowSpace={shouldUseInlineColorGap ? undefined : gap}
 					key={`row-first-color-${row[0].value}`}
-					role="radiogroup"
+					role={fg('platform_editor_a11y_color_palette_radiogroup') ? 'presentation' : 'radiogroup'}
 				>
 					{row.map(({ value, label, border, message, decorator }, colIndex) => {
 						let tooltipMessage = message;
@@ -287,6 +292,17 @@ const ColorPalette = ({
 			))}
 		</Grid>
 	);
+
+	if (fg('platform_editor_a11y_color_palette_radiogroup')) {
+		// All swatches are one radio group; the grid and its rows only carry the layout
+		return (
+			<div role="radiogroup" aria-labelledby={ariaLabelledBy}>
+				{paletteGrid}
+			</div>
+		);
+	}
+
+	return paletteGrid;
 };
 
 export default ColorPalette;

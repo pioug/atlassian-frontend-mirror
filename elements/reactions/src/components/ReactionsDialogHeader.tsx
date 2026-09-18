@@ -3,32 +3,33 @@
  * @jsx jsx
  */
 import { useState } from 'react';
-import { useIntl } from 'react-intl';
-import { jsx, css, cssMap } from '@compiled/react';
 
-import { token } from '@atlaskit/tokens';
-import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+import { jsx, css, cssMap } from '@compiled/react';
+import { useIntl } from 'react-intl';
+
+import IconButton from '@atlaskit/button/icon/button';
+import { ResourcedEmoji } from '@atlaskit/emoji/element';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
+import Heading from '@atlaskit/heading/heading';
+import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
-import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
-import IconButton from '@atlaskit/button/icon/button';
-import { type EmojiProvider } from '@atlaskit/emoji/resource';
-import Heading from '@atlaskit/heading/heading';
-import { useModal } from '@atlaskit/modal-dialog/hooks';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
-import { ResourcedEmoji } from '@atlaskit/emoji/element';
 
-import { messages } from '../shared/i18n';
-import { Counter } from './Counter';
-import { type ReactionSummary } from '../types';
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
+import { messages } from '../shared/i18n';
+import { type ReactionSummary } from '../types';
+import { Counter } from './Counter';
 
 const styles = cssMap({
 	leftNavigationStyle: {

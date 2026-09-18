@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { fireEvent, render, screen } from '@atlassian/testing-library';
-import { MediaImage, type MediaImageProps } from '../../mediaImage';
+
 import { type isRotated } from '../../imageMetaData/isRotated';
+import { MediaImage, type MediaImageProps } from '../../mediaImage';
 
 interface SetupParams {
 	isCoverStrategy: boolean;

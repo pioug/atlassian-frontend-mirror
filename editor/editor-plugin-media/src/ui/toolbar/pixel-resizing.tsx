@@ -17,7 +17,6 @@ import { openPixelEditor } from '../../pm-plugins/pixel-resizing/commands';
 import { type Props, PixelEntry } from '../../pm-plugins/pixel-resizing/ui';
 import { PIXEL_RESIZING_TOOLBAR_WIDTH } from '../../pm-plugins/pixel-resizing/ui/constants';
 import type { MediaOptions, MediaToolbarBaseConfig } from '../../types';
-
 import { getSelectedMediaSingle } from './utils';
 
 export const getPixelResizingToolbar = (

@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 export const SLI_EVENT_TYPE = 'sli';
 
 export const SMART_EVENT_TYPE = 'smart';

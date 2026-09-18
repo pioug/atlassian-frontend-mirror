@@ -14,13 +14,12 @@ import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EditorAppearanceComponentProps } from '../../../types/editor-appearance-component';
 import type { PrimaryToolbarComponents } from '../../../types/editor-props';
 import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
-
 import { FullPageEditorWrapperCompiled } from './FullPage-compiled';
 import { FullPageEditorWrapperEmotion } from './FullPage-emotion';
 import { FullPageContentArea } from './FullPageContentArea';

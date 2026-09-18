@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';

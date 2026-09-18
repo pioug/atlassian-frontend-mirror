@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
 import { useProductPermissionsStore } from '../../product-permission/main';
-
 import { useProductPermissions } from './index';
 
 jest.mock('../../product-permission/main', () => ({

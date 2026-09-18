@@ -4,10 +4,9 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { TeamLink } from '@atlaskit/teams-client/links';
 
 import { type NewTeamWebLink, type TeamWebLink } from '../../../common/types';
-
 import { useTeamWebLinksActions as useTeamWebLinksActionsMulti } from './multi-team';
-import { type StoreApi, type TeamLinkIconData, type TeamWebLinksState } from './types';
 import { TeamWebLinksStore } from './store';
+import { type StoreApi, type TeamLinkIconData, type TeamWebLinksState } from './types';
 
 const useTeamWebLinksActionsOriginal = createHook(TeamWebLinksStore, {
 	selector: null,

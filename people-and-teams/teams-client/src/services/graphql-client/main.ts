@@ -1,7 +1,6 @@
 import { DefaultError } from '../../common/utils/error/DefaultError';
 import { GraphQLError } from '../../common/utils/error/GraphQLError';
 import { BaseClient, type ClientConfig } from '../base-client';
-
 import { type Body, type Options, type ResultResponse } from './types';
 import { handleGraphQLRequest } from './utils/handleGraphQLRequest';
 

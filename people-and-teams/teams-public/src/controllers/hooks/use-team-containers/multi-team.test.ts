@@ -1,5 +1,5 @@
-import { renderHook, waitFor } from '@atlassian/testing-library';
 import { teamsClient } from '@atlaskit/teams-client/client';
+import { renderHook, waitFor } from '@atlassian/testing-library';
 
 import { MOCK_CONNECTED_TEAMS_RESULT } from './mocks';
 import { useConnectedTeams } from './use-connected-teams-2';

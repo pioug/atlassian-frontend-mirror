@@ -1,11 +1,13 @@
 import React from 'react';
 
-import Card from '../src/card/cardLoader';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
-import { mediaPickerAuthProvider, defaultCollectionName } from '@atlaskit/media-test-helpers';
+
 import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
+import { mediaPickerAuthProvider, defaultCollectionName } from '@atlaskit/media-test-helpers';
+
 import { MainWrapper } from '../example-helpers';
+import Card from '../src/card/cardLoader';
 
 const mediaClientConfig = {
 	authProvider: mediaPickerAuthProvider('asap'),

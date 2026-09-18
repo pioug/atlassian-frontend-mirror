@@ -1,10 +1,12 @@
 /* eslint-disable @atlaskit/editor/no-as-casting, react/jsx-props-no-spreading */
+
 import React from 'react';
+
 import { render } from '@testing-library/react';
 
 import MultiBodiedExtension from '../../../../react/nodes/multiBodiedExtension';
-import { useMultiBodiedExtensionContext } from '../../../../react/nodes/multiBodiedExtension/context';
 import { useMultiBodiedExtensionActions } from '../../../../react/nodes/multiBodiedExtension/actions';
+import { useMultiBodiedExtensionContext } from '../../../../react/nodes/multiBodiedExtension/context';
 
 jest.mock('@atlaskit/editor-common/ui', () => ({
 	...jest.requireActual('@atlaskit/editor-common/ui'),

@@ -1,18 +1,20 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+
 import { styled } from '@compiled/react';
+import { IntlProvider } from 'react-intl';
+
 import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { token } from '@atlaskit/tokens';
 
-import accessibleSites from '../src/mocks/accessibleSites';
-import { catherineHirons } from '../src/mocks/users';
-import StatefulInlineDialog from '../src/components/StatefulInlineDialog';
 import {
 	FocusedTaskCloseAccount,
 	DeleteUserOverviewScreen,
 	DeleteUserContentPreviewScreen,
 } from '../src';
+import StatefulInlineDialog from '../src/components/StatefulInlineDialog';
+import accessibleSites from '../src/mocks/accessibleSites';
+import { catherineHirons } from '../src/mocks/users';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Controls = styled.div({

@@ -14,9 +14,9 @@ import type { MultiValueProps } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import { type Option, type User } from '../types';
-import ValueContainerWrapper from './ValueContainerWrapper';
 import { messages } from './i18n';
 import { isChildInput } from './isChildInput';
+import ValueContainerWrapper from './ValueContainerWrapper';
 
 export type State = {
 	previousValueSize: number;

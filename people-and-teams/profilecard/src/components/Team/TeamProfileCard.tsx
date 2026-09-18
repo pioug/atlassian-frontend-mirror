@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Avatar from '@atlaskit/avatar/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group/avatar-group';
+import Avatar from '@atlaskit/avatar/avatar';
 import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
 import LinkButton from '@atlaskit/button/link';
@@ -37,7 +37,6 @@ import { PACKAGE_META_DATA } from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
 import { getPageTime } from '../../util/performance';
 import { ErrorIllustration } from '../Error/ErrorIllustration';
-
 import TeamForbiddenErrorState from './TeamForbiddenErrorState';
 import TeamLoadingState from './TeamLoadingState';
 

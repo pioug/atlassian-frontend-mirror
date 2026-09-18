@@ -13,7 +13,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 
 import type { AlignmentState } from '../../pm-plugins/types';
-
 import type { OptionInfo } from './types';
 
 export const alignmentOptions = (): Record<AlignmentState, OptionInfo> => ({

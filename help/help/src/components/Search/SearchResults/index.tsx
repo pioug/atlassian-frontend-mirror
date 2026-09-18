@@ -1,17 +1,17 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
+
 import { Transition } from 'react-transition-group';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import { REQUEST_STATE } from '../../../model/Requests';
 import { type ArticleItem } from '../../../model/Article';
-
-import { type TransitionStatus, VIEW } from '../../constants';
-import { useSearchContext } from '../../contexts/searchContext';
-import { useNavigationContext } from '../../contexts/navigationContext';
 import { ARTICLE_TYPE } from '../../../model/Help';
-
-import SearchResultsList from './SearchResults';
+import { REQUEST_STATE } from '../../../model/Requests';
+import { type TransitionStatus, VIEW } from '../../constants';
+import { useNavigationContext } from '../../contexts/navigationContext';
+import { useSearchContext } from '../../contexts/searchContext';
 import SearchExternalSite from './SearchExternalSite';
+import SearchResultsList from './SearchResults';
 import SearchResultsEmpty from './SearchResultsEmpty';
 import SearchResultsError from './SearchResultsError';
 import {

@@ -1,8 +1,9 @@
 import type { Rule } from 'eslint';
 import type { Node } from 'estree';
-import { isAPIimport, isIdentifierImportedFrom } from '../utils';
+
 import { EXPERIMENT_API_IMPORT_SOURCES, STATSIG_LIB_IMPORT_SOURCES } from '../../constants';
 import { getScope } from '../../util/context-compat';
+import { isAPIimport, isIdentifierImportedFrom } from '../utils';
 
 // Member-style statsig APIs (e.g. `FeatureGates.checkGate(...)`) that resolve a
 // gate/experiment value and therefore must not be evaluated at module level.

@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { stringifyType } from '@atlaskit/link-datasource/elements'` instead.
  */
+
 export { stringifyType } from './stringifyType';
 /**
  * @deprecated Use `import { renderType } from '@atlaskit/link-datasource/elements'` instead.

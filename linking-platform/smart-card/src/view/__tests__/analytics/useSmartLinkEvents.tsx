@@ -1,8 +1,7 @@
 import React, { type PropsWithChildren } from 'react';
 
-import { renderHook } from '@atlassian/testing-library';
-
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { renderHook } from '@atlassian/testing-library';
 
 import { SmartLinkEvents, useSmartLinkEvents } from '../../../index';
 import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';

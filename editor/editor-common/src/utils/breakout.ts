@@ -10,7 +10,6 @@ import {
 
 import { mapBreakpointToLayoutMaxWidth } from '../ui/BaseTheme';
 import { getBreakpoint } from '../ui/WidthProvider';
-
 import { parsePx } from './parsePx';
 
 /**

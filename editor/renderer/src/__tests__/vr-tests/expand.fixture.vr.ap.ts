@@ -1,8 +1,8 @@
-import { expandADF } from '../__fixtures__/expand-adf';
-
-import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 import type { ComponentType } from 'react';
+
+import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
+import { expandADF } from '../__fixtures__/expand-adf';
+import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 export const ExpandRenderer: ComponentType<any> = generateRendererComponent({
 	document: expandADF(),

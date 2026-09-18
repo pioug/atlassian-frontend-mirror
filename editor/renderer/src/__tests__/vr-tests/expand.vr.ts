@@ -1,5 +1,6 @@
 import { Device, snapshot } from '@af/visual-regression';
 import { flagsForVrTestsWithReducedPadding } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
+
 import {
 	ExpandRenderer,
 	ExpandFullPageRenderer,

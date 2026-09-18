@@ -29,13 +29,13 @@ import type { Email } from '../types';
 import { type Option, type UserPickerProps } from '../types';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { AvatarOrIcon } from './AvatarOrIcon';
-import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl } from './getAvatarUrl';
 import { messages } from './i18n';
 import { isEmail } from './isEmail';
 import { isGroup } from './isGroup';
 import { isTeam } from './isTeam';
 import { scrollToValue } from './scrollToValue';
+import { SizeableAvatar } from './SizeableAvatar';
 
 const groupTagContainerOld = xcss({
 	paddingLeft: 'space.025',

@@ -1,7 +1,7 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
-import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps/type-ahead';
 import { LinkMetaStep } from '@atlaskit/adf-schema/steps/link-meta-step';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
+import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps/type-ahead';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

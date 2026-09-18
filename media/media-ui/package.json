@@ -84,6 +84,7 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/blueimp-load-image": "root:*",

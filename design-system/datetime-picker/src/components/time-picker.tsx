@@ -17,6 +17,8 @@ import {
 	type LocalizationProvider,
 } from '@atlaskit/locale/localization-provider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { mergeStyles } from '@atlaskit/react-select/styles';
+import CreatableSelect from '@atlaskit/select/creatable-select';
 import Select from '@atlaskit/select/default';
 import type {
 	ActionMeta,
@@ -25,8 +27,6 @@ import type {
 	SelectComponentsConfig,
 	ValueType,
 } from '@atlaskit/select/types';
-import CreatableSelect from '@atlaskit/select/creatable-select';
-import { mergeStyles } from '@atlaskit/react-select/styles';
 
 import { defaultTimes } from '../internal/default-times';
 import { EmptyComponent } from '../internal/empty-component';

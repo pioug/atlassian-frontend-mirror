@@ -1,10 +1,11 @@
 import React from 'react';
 
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
+
 import { default as Renderer } from '../src/ui/Renderer';
 import adf from './helper/multi-bodied-extension-demo.adf.json';
 import { createRendererWindowBindings } from './helper/testing-setup';

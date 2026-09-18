@@ -54,6 +54,7 @@
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-test-renderer": "root:*"

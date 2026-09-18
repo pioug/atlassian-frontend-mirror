@@ -1,5 +1,4 @@
 import { transformTextLinkCodeMarks } from '../../../transforms/text-link-code-transform';
-
 import textLinkCodeAdf from './__fixtures__/text-link-code-adf.json';
 import textLinkCodeExpectedAdf from './__fixtures__/text-link-code-expected-adf.json';
 import textValidMarksAdf from './__fixtures__/text-valid-marks-adf.json';

@@ -1,7 +1,6 @@
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { getPluginState } from '../plugin-factory';
-
 import { createDecorations, findDecorationFromMatch } from './index';
 
 // max number of decorations to apply at once

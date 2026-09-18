@@ -8,7 +8,6 @@ import { toggleMark } from '@atlaskit/editor-common/mark';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
-
 import type { ToggleMarkWithAnalyticsEditorCommand } from './types';
 import { nextToggleMark } from './utils/marks';
 

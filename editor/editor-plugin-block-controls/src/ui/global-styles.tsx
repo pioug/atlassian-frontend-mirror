@@ -23,11 +23,10 @@ import {
 	akEditorGutterPaddingReduced,
 } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-
 import {
 	ACTIVE_DRAG_HANDLE_ATTR,
 	ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,

@@ -12,7 +12,6 @@ import {
 	MockLinkPickerPromisePlugin,
 	UnstableMockLinkPickerPlugin,
 } from '../__tests__/__helpers/mock-plugins';
-
 import { default as LinkPicker } from './index';
 
 const styles = cssMap({

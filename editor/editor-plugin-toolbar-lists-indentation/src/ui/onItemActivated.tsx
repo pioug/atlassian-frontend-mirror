@@ -5,7 +5,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ToolbarListsIndentationPlugin } from '../index';
 import type { IndentationButtonNode } from '../pm-plugins/indentation-buttons';
 import type { ButtonName } from '../types';
-
 import { isMarkdownCompatibleToolbarEnabled } from './utils/markdown-compatible-toolbar';
 
 export const onItemActivated =

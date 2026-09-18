@@ -1,10 +1,11 @@
 import type { JSONSchema4 } from 'json-schema';
+
 import type { ADFNode } from '../../adfNode';
 import type { ADFVisitor } from '../../traverse';
 import type { ADFNodeContentRangeSpec, ADFNodeSpec } from '../../types/ADFNodeSpec';
 import { JSONSchemaTransformerName } from '../transformerNames';
-import { resolveName } from './nameResolver';
 import { buildMarks } from './marksBuilder';
+import { resolveName } from './nameResolver';
 
 // Lots of placeholder code for now
 export type NodeVisitorReturnType = {

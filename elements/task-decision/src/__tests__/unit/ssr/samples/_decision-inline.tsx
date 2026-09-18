@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
+
+import { dumpRef } from '../../../../../example-helpers/story-utils';
 import DecisionItem from '../../../../components/DecisionItem';
 import DecisionList from '../../../../components/DecisionList';
-import { dumpRef } from '../../../../../example-helpers/story-utils';
 
 export default (): React.JSX.Element => (
 	<IntlProvider locale="en">

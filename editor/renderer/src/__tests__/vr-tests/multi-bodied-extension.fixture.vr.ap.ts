@@ -1,8 +1,10 @@
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { getXProductExtensionProvider } from '@atlaskit/editor-test-helpers/fakeXProductExtensions';
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import type { ComponentType } from 'react';
+
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+import { getXProductExtensionProvider } from '@atlaskit/editor-test-helpers/fakeXProductExtensions';
 
 import {
 	multiBodiedExtensionNodeAdf,
@@ -10,7 +12,6 @@ import {
 	multiBodiedExtensionExtNodeWideAdf,
 } from '../__fixtures__/full-width-adf';
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import type { ComponentType } from 'react';
 
 // Create the extension provider synchronously to avoid timing issues
 const extensionProvider = combineExtensionProviders([getXProductExtensionProvider()]);

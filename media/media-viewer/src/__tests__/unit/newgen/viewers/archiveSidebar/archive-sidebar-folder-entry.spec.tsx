@@ -1,14 +1,17 @@
 import React from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl';
+import { type ZipEntry } from 'unzipit';
+
+import * as MediaCommon from '@atlaskit/media-common';
+import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+
 import {
 	ArchiveSidebarFolderEntry,
 	type ArchiveSidebarFolderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
-import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { type ZipEntry } from 'unzipit';
-import { IntlProvider } from 'react-intl';
-import * as MediaCommon from '@atlaskit/media-common';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),

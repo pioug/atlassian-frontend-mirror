@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
-import React from 'react';
+
 import { ClearIndicator } from '../../../components/ClearIndicator';
 
 const TestClearIndicator = ClearIndicator as React.ComponentType<any>;

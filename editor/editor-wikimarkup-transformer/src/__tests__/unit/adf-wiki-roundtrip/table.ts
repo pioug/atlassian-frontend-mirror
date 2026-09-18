@@ -1,6 +1,4 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import WikiMarkupTransformer from '../../../index';
-
 import {
 	code_block,
 	doc,
@@ -21,6 +19,8 @@ import {
 	ul,
 	strong,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import WikiMarkupTransformer from '../../../index';
 
 describe('ADF => WikiMarkup - Table', () => {
 	const transformer = new WikiMarkupTransformer();

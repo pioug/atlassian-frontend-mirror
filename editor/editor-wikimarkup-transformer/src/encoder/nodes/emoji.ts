@@ -1,6 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { NodeEncoder } from '..';
 
+import type { NodeEncoder } from '..';
 import { mapping } from '../emoji-unicode-mapping';
 import { unknown } from './unknown';
 

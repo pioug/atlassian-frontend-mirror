@@ -10,7 +10,6 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
 
 import { Button } from '../../../common/ui/Button';
-
 import { EditButton } from './edit-button';
 import { messages } from './messages';
 import { SubmitButton } from './submit-button';

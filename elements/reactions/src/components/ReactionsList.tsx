@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { type ReactionSummary, type ProfileCardWrapper } from '../types';
 import { Box } from '@atlaskit/primitives/compiled';
 
+import { type ReactionSummary, type ProfileCardWrapper } from '../types';
 import { ReactionView } from './ReactionView';
 
 export interface ReactionsListProps {

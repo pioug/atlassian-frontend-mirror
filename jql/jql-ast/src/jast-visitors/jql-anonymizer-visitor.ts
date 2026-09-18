@@ -18,7 +18,6 @@ import {
 	type TerminalClause,
 } from '../types';
 import { notUndefined } from '../utils';
-
 import { AbstractJastVisitor } from './abstract-jast-visitor';
 
 const ANONYMIZED_FIELD = '"?"';

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-max-content-size
 
+## 19.1.0
+
+### Minor Changes
+
+- [`41dab1dc7296e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41dab1dc7296e) -
+  EDITOR-8234 Allow editing a document that is already over maxContentSize. Transactions that do not
+  grow the document are no longer blocked, so an over-sized document can be edited back under the
+  limit instead of locking the editor up. Behind the platform_editor_max_content_size_allow_delete
+  experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.0
 
 ### Patch Changes

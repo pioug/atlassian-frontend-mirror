@@ -1,4 +1,5 @@
 import path from 'path';
+
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {

@@ -8,8 +8,8 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
 import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '@atlaskit/link-datasource/jira-issues-config-modal-with-wrappers';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
 import SmartCardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';

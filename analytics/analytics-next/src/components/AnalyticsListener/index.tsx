@@ -3,7 +3,6 @@ import React from 'react';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import isModernContextEnabledEnv from '../../utils/isModernContextEnabledEnv';
-
 import LegacyAnalyticsListener from './LegacyAnalyticsListener';
 import ModernAnalyticsListener from './ModernAnalyticsListener';
 import type { AnalyticsListenerFunction } from './types';

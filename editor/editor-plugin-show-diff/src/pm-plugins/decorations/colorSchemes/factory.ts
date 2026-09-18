@@ -3,12 +3,11 @@ import type {
 	AgentBrandColorScheme,
 	AgentPresenceColor,
 } from '@atlaskit/agent-color/agent-presence-color-types';
-
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { token } from '@atlaskit/tokens';
 
-import type { AccentColor, AdsAccentColor, DiffColorScheme } from './types';
 import { getStandardDeletedTextDecorationStyle } from './getStandardDeletedTextDecorationStyle';
+import type { AccentColor, AdsAccentColor, DiffColorScheme } from './types';
 
 /**
  * Hover highlight for deleted text under an 'onEmphasis' scheme. Inline styles cannot express

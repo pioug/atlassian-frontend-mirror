@@ -4,12 +4,15 @@
  */
 
 import { useState } from 'react';
-import { cssMap, cx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
-import { Box, Flex, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
-import { type SideNavTab } from '../../model/HelpLayout';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import { jsx } from '@compiled/react';
+
+import { cssMap, cx } from '@atlaskit/css';
+import { Box, Flex, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import { type SideNavTab } from '../../model/HelpLayout';
 import { DynamicHeader } from '../DynamicHeader';
 
 interface SideNavProps {

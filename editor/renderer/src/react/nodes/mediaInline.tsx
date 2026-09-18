@@ -1,3 +1,10 @@
+import React, { useCallback, useEffect, useMemo, useState, useContext } from 'react';
+
+import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline';
 import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
 import type {
@@ -6,27 +13,22 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import { useProvider } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import type { InlineCardEvent } from '@atlaskit/media-card/types';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import MediaInlineCard from '@atlaskit/media-card/loader';
+import type { InlineCardEvent } from '@atlaskit/media-card/types';
 import type { FileIdentifier, FileState } from '@atlaskit/media-client';
-import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
-import React, { useCallback, useEffect, useMemo, useState, useContext } from 'react';
-import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
-import { injectIntl } from 'react-intl';
+
+import { ACTION_SUBJECT } from '../../analytics/enums';
+import type { MediaSSR } from '../../types/mediaOptions';
 import type { ClipboardAttrs } from '../../ui/MediaCard';
 import { getClipboardAttrs, mediaIdentifierMap } from '../../ui/MediaCard';
+import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { RendererContext } from '../types';
-import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-
-import type { MediaSSR } from '../../types/mediaOptions';
-import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
-import { ACTION_SUBJECT } from '../../analytics/enums';
-import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 
 type RenderMediaInlineProps = {
 	children?: React.ReactNode;

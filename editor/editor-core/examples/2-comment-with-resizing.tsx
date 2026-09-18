@@ -6,7 +6,6 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 
 import { exampleDocument } from '../example-helpers/grid-document';
-
 import CommentExample from './2-comment';
 
 const mediaProvider = storyMediaProviderFactory();

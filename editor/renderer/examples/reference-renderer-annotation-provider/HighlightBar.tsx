@@ -4,8 +4,10 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
+
 import { Popup } from './internal-ui/Popup';
 import { usePosition } from './internal-ui/Position';
 

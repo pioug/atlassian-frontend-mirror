@@ -5,12 +5,10 @@
 /// <reference types="node" />
 // for typing `process`
 import React from 'react';
-import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
-import type { ValueType } from '@atlaskit/select/types';
-import Trigger from './Trigger';
-import { type Color, type Palette, type SwatchSize, type ColorCardVariant } from '../types';
-import * as components from './components';
-import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB, KEY_ESCAPE } from '../constants';
+
+import { injectIntl } from 'react-intl';
+import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
+
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import withAnalyticsContext, {
 	type WithContextProps,
@@ -18,11 +16,16 @@ import withAnalyticsContext, {
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { getOptions } from '../utils';
 import { css, jsx } from '@atlaskit/css';
-import { injectIntl } from 'react-intl';
-import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
+import type { ValueType } from '@atlaskit/select/types';
+
+import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB, KEY_ESCAPE } from '../constants';
 import messages from '../messages';
+import { type Color, type Palette, type SwatchSize, type ColorCardVariant } from '../types';
+import { getOptions } from '../utils';
+import * as components from './components';
+import Trigger from './Trigger';
 export interface Props {
 	/** color of checkmark on selected color */
 	checkMarkColor?: string;

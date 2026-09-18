@@ -6,7 +6,6 @@
 import { jsx } from '@compiled/react';
 
 import type { MenuGroupProps } from '../types';
-
 import MenuGroup from './menu-group';
 
 /**

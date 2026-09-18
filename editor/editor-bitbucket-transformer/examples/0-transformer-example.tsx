@@ -2,23 +2,26 @@
  * See this example in action at
  * https://atlaskit.atlassian.com/examples/editor/editor-bitbucket-transformer/transformer-example
  */
-
+/* eslint-disable no-console */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-/* eslint-disable no-console */
-import React from 'react';
+
 import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import { token } from '@atlaskit/tokens';
 import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { token } from '@atlaskit/tokens';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
 import { BitbucketTransformer } from '../src';
 import exampleBitbucketHTML from './helpers/exampleHTML';
 

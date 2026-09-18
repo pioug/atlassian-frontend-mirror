@@ -3,11 +3,14 @@
  * @jsx jsx
  */
 import React from 'react';
-import { components } from '@atlaskit/react-select/components';
-import { token } from '@atlaskit/tokens';
-import { type UserPickerProps } from '../types';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
+import { components } from '@atlaskit/react-select/components';
+import { token } from '@atlaskit/tokens';
+
+import { type UserPickerProps } from '../types';
 
 export type Props = React.PropsWithChildren<{
 	selectProps: UserPickerProps;

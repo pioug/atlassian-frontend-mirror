@@ -1,10 +1,10 @@
 import type { IntlShape } from 'react-intl';
 
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { EditorPlugin, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { EventDispatcher, createDispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorPlugin, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 class SSREventDispatcher extends EventDispatcher {

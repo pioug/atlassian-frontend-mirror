@@ -16,11 +16,11 @@ import { token } from '@atlaskit/tokens';
 
 import { type Option, type OptionData } from '../types';
 import { AvatarOrIcon } from './AvatarOrIcon';
-import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl } from './getAvatarUrl';
 import { messages } from './i18n';
 import { isGroup } from './isGroup';
 import { isTeam } from './isTeam';
+import { SizeableAvatar } from './SizeableAvatar';
 
 const styles = cssMap({
 	avatarItem: {

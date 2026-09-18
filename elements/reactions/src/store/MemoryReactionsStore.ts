@@ -1,10 +1,15 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { WithSamplingUFOExperience } from '@atlaskit/emoji';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
+import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+
 import {
 	createAndFireSafe,
 	createRestFailedEvent,
 	createRestSucceededEvent,
 	extractErrorInfo,
 } from '../analytics';
+import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../shared/constants';
 import {
 	type Client,
 	type OnChangeCallback,
@@ -17,6 +22,17 @@ import {
 	type Store,
 	type Updater,
 } from '../types';
+import {
+	type ReactionUpdateSuccess,
+	type ReactionUpdateFailure,
+	ReactionUpdateType,
+} from '../types/reaction';
+import {
+	ReactionsAdd,
+	ReactionDetailsFetch,
+	ReactionsRemove,
+	sampledReactionsRendered,
+} from '../ufo';
 import { batch, batchByKey } from './batched';
 import {
 	addOne,
@@ -28,21 +44,6 @@ import {
 	removeOne,
 	updateByEmojiId,
 } from './utils';
-import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../shared/constants';
-import {
-	ReactionsAdd,
-	ReactionDetailsFetch,
-	ReactionsRemove,
-	sampledReactionsRendered,
-} from '../ufo';
-import {
-	type ReactionUpdateSuccess,
-	type ReactionUpdateFailure,
-	ReactionUpdateType,
-} from '../types/reaction';
-import type { WithSamplingUFOExperience } from '@atlaskit/emoji';
-import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
-import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 
 /**
  * Set of all available UFO experiences relating to reaction element

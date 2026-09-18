@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-html-heading, @atlaskit/design-system/no-html-anchor */
+
 import React from 'react';
 
 import Banner from '@atlaskit/banner';

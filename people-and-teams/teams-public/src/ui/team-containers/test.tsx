@@ -4,16 +4,15 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { messages } from '../../common/utils/get-container-properties';
 import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import { useTeamContainers } from '../../controllers/hooks/use-team-containers/use-team-containers';
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
-
 import { TeamContainers } from './main';
 import type { TeamContainersComponent } from './types';
 

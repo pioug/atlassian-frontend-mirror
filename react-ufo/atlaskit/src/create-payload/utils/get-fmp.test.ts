@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../../common';
-
 import { getFMP } from './get-fmp';
 
 // Mock the config module

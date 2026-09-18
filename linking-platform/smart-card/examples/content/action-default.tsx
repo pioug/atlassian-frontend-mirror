@@ -7,7 +7,6 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, FooterBlock, TitleBlock } from '../../src';
-
 import ExampleContainer from './example-container';
 
 const styles = css({

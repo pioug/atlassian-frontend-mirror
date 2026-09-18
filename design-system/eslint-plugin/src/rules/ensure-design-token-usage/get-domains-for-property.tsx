@@ -1,6 +1,5 @@
 import { isColorCssPropertyName } from '../utils/is-color-css-property-name';
 import { isCurrentSurfaceCustomPropertyName } from '../utils/is-current-surface-custom-property-name';
-
 import { isShapeProperty } from './is-shape-property';
 import { isSpacingProperty } from './is-spacing-property';
 import type { Domains } from './types';

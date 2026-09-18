@@ -4,6 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { cssMap, jsx } from '@compiled/react';
 
 import Badge from '@atlaskit/badge/badge';

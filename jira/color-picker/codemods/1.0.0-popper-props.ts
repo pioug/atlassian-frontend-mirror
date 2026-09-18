@@ -1,12 +1,4 @@
 import {
-	addCommentToStartOfFile,
-	getJSXAttributesByName,
-	getDefaultSpecifierName,
-	hasImportDeclaration,
-	isUsingProp,
-} from './utils/helpers';
-
-import {
 	type API,
 	type default as core,
 	type ASTPath,
@@ -15,6 +7,14 @@ import {
 	type Options,
 } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
+
+import {
+	addCommentToStartOfFile,
+	getJSXAttributesByName,
+	getDefaultSpecifierName,
+	hasImportDeclaration,
+	isUsingProp,
+} from './utils/helpers';
 
 function updatePopperProps(j: core.JSCodeshift, source: Collection<any>, specifier: string) {
 	source.findJSXElements(specifier).forEach((path: ASTPath<JSXElement>) => {

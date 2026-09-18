@@ -20,7 +20,6 @@ import {
 import { getTopLevelItemData, isTopLevelItemData, type TProject } from '../data';
 import { RegistryContext } from '../registry';
 import { TopLevelSharedMoreMenu } from '../top-level-shared-more-menu';
-
 import { ProjectGroup } from './project';
 
 export function ProjectsMenuItem({

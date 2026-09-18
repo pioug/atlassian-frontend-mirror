@@ -1,5 +1,5 @@
-import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import type { ConversationEntity } from '@atlaskit/linking-types/entity-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 export default {
 	meta: {

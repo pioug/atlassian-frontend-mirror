@@ -1,7 +1,9 @@
-import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+
+import { fireEvent, waitFor } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import * as sinon from 'sinon';
+
 import EmojiResource from '../../../../api/EmojiResource';
 import CachingEmoji from '../../../../components/common/CachingEmoji';
 import { type EmojiContext } from '../../../../components/common/internal-types';

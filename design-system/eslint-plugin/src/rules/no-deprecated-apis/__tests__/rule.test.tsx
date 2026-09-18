@@ -1,6 +1,5 @@
 import { tester } from '../../__tests__/utils/_tester';
 import rule, { name, noDeprecatedJSXAttributeMessageId } from '../index';
-
 import defaultMeta from './__fixtures__/default.json';
 import hasNamedSpecifiers from './__fixtures__/has-named-specifiers.json';
 

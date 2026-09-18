@@ -1,10 +1,12 @@
 /* eslint-disable jsdoc/require-jsdoc -- SSR inline script helpers */
+
 import React from 'react';
+
 import { breakoutConsts } from '@atlaskit/editor-common/utils';
 import type { BreakoutConstsType } from '@atlaskit/editor-common/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FullPagePadding } from './style';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 declare global {
 	interface Window {

@@ -2,7 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { MediaInsertPluginState } from '../mediaInsertPluginType';
-
 import { ACTION_CLOSE_POPUP, ACTION_OPEN_POPUP } from './actions';
 import { pluginKey } from './plugin-key';
 

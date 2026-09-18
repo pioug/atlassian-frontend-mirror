@@ -6,19 +6,19 @@
   and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
 */
 
-import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
 import type { Provider } from '..';
 import { EVENT_STATUS, CatchupEventReason } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
@@ -60,6 +60,7 @@ describe('#sendData', () => {
 		const testProviderConfigWithAnalytics = {
 			url: `http://provider-url:6661`,
 			documentAri: documentAri,
+			userId: 'user-123',
 			productInfo: {
 				product: 'confluence',
 				subProduct: 'live',
@@ -172,6 +173,7 @@ describe('#sendData', () => {
 				steps: [
 					expect.objectContaining({
 						...fakeStep.toJSON(),
+						userId: 'user-123',
 					}),
 				],
 			}),

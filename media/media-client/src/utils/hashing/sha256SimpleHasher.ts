@@ -1,7 +1,9 @@
 import { sha256 } from 'js-sha256';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { type Hasher } from './hasher';
+
 import { toFileReaderError } from './fileReaderError';
+import { type Hasher } from './hasher';
 
 export class SimpleHasher implements Hasher {
 	hash(blob: Blob): Promise<string> {

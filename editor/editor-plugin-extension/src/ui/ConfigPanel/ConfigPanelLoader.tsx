@@ -1,10 +1,10 @@
 import React, { type ComponentType } from 'react';
 
 import Loadable from 'react-loadable';
-
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { PublicProps } from './ConfigPanelFieldsLoader';
 import LoadingState from './LoadingState';

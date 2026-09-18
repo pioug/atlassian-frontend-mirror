@@ -1,9 +1,10 @@
-import type { FilePreview } from '@atlaskit/media-state/file-state';
-import { type MediaType } from '../models/media';
 import {
 	isMimeTypeSupportedByBrowser,
 	isMimeTypeSupportedByServer,
 } from '@atlaskit/media-common/mediaTypeUtils';
+import type { FilePreview } from '@atlaskit/media-state/file-state';
+
+import { type MediaType } from '../models/media';
 import { getVideoDimensionsFromBlob } from './getVideoDimensionsFromBlob';
 
 /**

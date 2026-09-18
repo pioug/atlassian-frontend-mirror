@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 // Simulating import from '@atlaskit/profilecard/user'
 import ProfileCardTrigger from '../src/components/User/ProfileCardTrigger';
-
 import { BlankSpace } from './helper/blank-space';
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';

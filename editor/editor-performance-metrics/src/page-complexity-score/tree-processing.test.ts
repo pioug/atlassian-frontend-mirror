@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { collectLeafNodesWeights, collectLeafNodesWeightsInternal } from './tree-processing';
 import type { AdfNode } from './types';
 

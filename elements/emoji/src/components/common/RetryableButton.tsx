@@ -2,11 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { FormattedMessage } from 'react-intl';
+
 import { css, jsx } from '@compiled/react';
+import { FormattedMessage } from 'react-intl';
+
 import AkButton from '@atlaskit/button/default/button';
-import Spinner from '@atlaskit/spinner/spinner';
 import { Box } from '@atlaskit/primitives/compiled';
+import Spinner from '@atlaskit/spinner/spinner';
+
 import { messages } from '../i18n';
 
 const buttonSpinner = css({

@@ -4,6 +4,7 @@
  */
 import { jsx, css } from '@compiled/react';
 import { useIntl } from 'react-intl';
+
 import { messages } from '@atlaskit/media-ui/messages';
 
 const imageWrapperStyles = css({

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import type { CardProviderProps as ProviderProps } from '@atlaskit/link-provider/types';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderProps as ProviderProps } from '@atlaskit/link-provider/types';
 import {
 	ErroredClient,
 	ForbiddenClient,
@@ -30,7 +30,6 @@ import { HoverCard } from '../src/hoverCard';
 import { useSmartCardActions } from '../src/state/actions';
 import { useSmartCardState } from '../src/state/store';
 import HoverCardContent from '../src/view/HoverCard/components/HoverCardContent';
-
 import ExampleContainer from './utils/example-container';
 import HoverCardBox from './utils/hover-card-box';
 import { useLocalStorageState } from './utils/use-local-storage-state';

@@ -3,17 +3,20 @@
  * @jsx jsx
  */
 import React, { useState } from 'react';
-import { token } from '@atlaskit/tokens';
+
+import { jsx } from '@compiled/react';
+import { css } from '@compiled/react';
+
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import {
 	createFileDetails,
 	createIdentifier,
 	FileStateFactory,
 } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
+
 import { MainWrapper } from '../example-helpers';
 import { Card } from '../src/card/card';
-import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import { jsx } from '@compiled/react';
-import { css } from '@compiled/react';
 
 const testButtonStyles = css({
 	width: '100%',

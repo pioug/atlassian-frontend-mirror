@@ -9,7 +9,6 @@ import type { InsertBlockPlugin } from '../../index';
 import InsertMenu, { DEFAULT_HEIGHT } from '../ElementBrowser/InsertMenu';
 import type { OnInsert } from '../ElementBrowser/types';
 import { RegisteredInsertMenuContent } from '../registered-insert-menu/RegisteredInsertMenuContent';
-
 import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
 

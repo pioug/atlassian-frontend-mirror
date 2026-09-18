@@ -1,5 +1,4 @@
 import { type RankEnd, type RowType } from '../types';
-
 import { computeIndex } from './compute-index';
 
 export const reorderRows = (

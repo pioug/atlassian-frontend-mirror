@@ -2,7 +2,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { TransformStep } from '../types';
 import { convertNestedExpandToExpand } from '../utils';
-
 import { unwrapStep } from './unwrapStep';
 
 /**

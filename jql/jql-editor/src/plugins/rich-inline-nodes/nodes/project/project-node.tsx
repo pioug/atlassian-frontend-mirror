@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 import { useHydratedProject } from '../../../../state';
 import type { NodeViewProps } from '../../util/react-node-view';
 import { NodeBase } from '../base';
-
 import { messages } from './messages';
 import type { Props } from './types';
 

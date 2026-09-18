@@ -11,7 +11,6 @@ import {
 } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
-
 import { messages } from './messages';
 import { Linter } from './utils';
 

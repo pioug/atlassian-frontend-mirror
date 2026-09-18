@@ -4,7 +4,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useDatasourceItem } from '../../../state';
 import { type DatasourceTypeWithOnlyValues } from '../types';
-
 import { getIssueLinkData } from './get-issue-link-data';
 import { getLinkedCellContent } from './get-linked-cell-content';
 import { isIssueTypeColumnFn } from './is-issue-type-column-fn';

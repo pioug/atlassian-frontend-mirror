@@ -3,9 +3,12 @@
  * @jsx jsx
  */
 import { Component } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+
 import WarningIcon from '@atlaskit/icon/core/status-warning';
+import { token } from '@atlaskit/tokens';
+
 import { type CardDimensions } from '../../../types';
 import { defaultImageCardDimensions } from '../../../utils/cardDimensions';
 import { ContentLoadingErrorMessage } from './contentLoadingErrorMessage';

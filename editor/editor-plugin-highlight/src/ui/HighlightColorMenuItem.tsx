@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useId, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -141,6 +141,7 @@ const NoColorIconDecorator = ({
 
 export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps): JSX.Element {
 	const { formatMessage } = useIntl();
+	const labelId = useId();
 	const activeColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
 	const context = useToolbarDropdownMenu();
 	const { textColor, defaultColor } = useSelectedTextColor();
@@ -204,6 +205,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 
 	const colorPaletteElement = (
 		<ColorPalette
+			ariaLabelledBy={labelId}
 			cols={isNewColorPaletteEnabled ? HIGHLIGHT_COLOR_PICKER_COLUMNS : undefined}
 			gap={
 				isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1')
@@ -233,7 +235,9 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 			)}
 			testId="highlight-color-menu-item"
 		>
-			<Heading size="xxsmall">{formatMessage(messages.highlight)}</Heading>
+			<Heading id={labelId} size="xxsmall">
+				{formatMessage(messages.highlight)}
+			</Heading>
 			{isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1') ? (
 				<Bleed inline="space.025">{colorPaletteElement}</Bleed>
 			) : (

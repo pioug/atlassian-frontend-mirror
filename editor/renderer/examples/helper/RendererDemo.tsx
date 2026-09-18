@@ -1,39 +1,38 @@
 /* eslint-disable no-console */
+
 import React from 'react';
-import { scrubAdf } from '@atlaskit/adf-utils/scrub';
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import type { CardEvent, InlineCardEvent } from '@atlaskit/media-card/types';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ADFStage } from '@atlaskit/editor-common/validator';
-import type { AnnotationProviders } from '@atlaskit/editor-common/types';
-import type { CardSurroundings, EventHandlers } from '@atlaskit/editor-common/ui';
-import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import Button from '@atlaskit/button/button';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 
 import Clock from 'react-live-clock';
 
-import { document as storyDataDocument } from './story-data';
-import type { RendererProps } from '../../src/ui/renderer-props';
-import { default as Renderer } from '../../src/ui/Renderer';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { scrubAdf } from '@atlaskit/adf-utils/scrub';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import Button from '@atlaskit/button/button';
+import CodeBlock from '@atlaskit/code/code-block';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types';
+import type { CardSurroundings, EventHandlers } from '@atlaskit/editor-common/ui';
+import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
+import type { ADFStage } from '@atlaskit/editor-common/validator';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import type { CardEvent, InlineCardEvent } from '@atlaskit/media-card/types';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import { token } from '@atlaskit/tokens';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { renderDocument } from '../../src';
 import TextSerializer from '../../src/text';
-
-import Sidebar, { getDefaultShowSidebarState } from './NavigationNext';
+import { default as Renderer } from '../../src/ui/Renderer';
+import type { RendererProps } from '../../src/ui/renderer-props';
 import type { RendererAppearance, HeadingAnchorLinksProps } from '../../src/ui/Renderer/types';
-import CodeBlock from '@atlaskit/code/code-block';
-import type { MentionProvider } from '@atlaskit/mention/types';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
-
-import { token } from '@atlaskit/tokens';
+import Sidebar, { getDefaultShowSidebarState } from './NavigationNext';
+import { document as storyDataDocument } from './story-data';
 
 const MockProfileClient: any = simpleMockProfilecardClient();
 

@@ -12,17 +12,20 @@ jest.mock('@atlaskit/media-card/loader', () => {
 	};
 });
 
+import React from 'react';
+
+import { act, screen, waitFor } from '@testing-library/react';
+
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import type { InlineCardEvent } from '@atlaskit/media-card/types';
 import type { FileDetails } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { act, screen, waitFor } from '@testing-library/react';
+
 import MediaInline from '../../../../react/nodes/mediaInline';
 
 describe('MediaInline', () => {

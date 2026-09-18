@@ -1,4 +1,5 @@
 import { createContext, type Context as ReactContext } from 'react';
+
 import type { Document } from '../model';
 
 export interface ContextType {

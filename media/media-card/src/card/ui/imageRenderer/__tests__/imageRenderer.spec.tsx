@@ -1,8 +1,10 @@
 import React from 'react';
+
+import { type MediaType, type FileIdentifier } from '@atlaskit/media-client';
 import { render, screen, fireEvent } from '@atlassian/testing-library';
+
 import { ImageRenderer } from '../imageRenderer';
 import { resizeModeToMediaImageProps } from '../resizeModeToMediaImageProps';
-import { type MediaType, type FileIdentifier } from '@atlaskit/media-client';
 
 const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
 

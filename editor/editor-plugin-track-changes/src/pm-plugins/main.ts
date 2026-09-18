@@ -2,7 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import {
 	ReplaceAroundStep,
 	ReplaceStep,
@@ -10,11 +9,11 @@ import {
 	RemoveMarkStep,
 	AttrStep,
 } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
-
 import { filterSteps } from './filterSteps';
 import { InvertableStep } from './invertableStep';
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './types';

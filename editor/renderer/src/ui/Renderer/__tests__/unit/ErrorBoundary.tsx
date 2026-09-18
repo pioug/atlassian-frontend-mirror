@@ -1,16 +1,17 @@
 import React from 'react';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { render } from '@atlassian/testing-library';
 
-import { ErrorBoundary } from '../../ErrorBoundary';
-import type { ComponentCrashErrorAEP } from '../../../../analytics/events';
-import { PLATFORM } from '../../../../analytics/events';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import {
 	ACTION,
 	EVENT_TYPE,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
+import { render } from '@atlassian/testing-library';
+
+import type { ComponentCrashErrorAEP } from '../../../../analytics/events';
+import { PLATFORM } from '../../../../analytics/events';
+import { ErrorBoundary } from '../../ErrorBoundary';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ErrorBoundary', () => {

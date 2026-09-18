@@ -9,7 +9,6 @@ import { IntlProvider } from 'react-intl';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { useFormContext } from '../../../controllers/form-context/main';
-
 import { CreateFormFooter } from './main';
 
 jest.mock('../../../controllers/form-context/main', () => {

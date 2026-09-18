@@ -15,7 +15,6 @@ import type {
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type EditorActions from '../../actions';
-
 import { ExtensionQuickInsertMenuItem } from './ExtensionQuickInsertMenuItem';
 
 type ExtensionQuickInsertComponentProps = CommonComponentProps & {

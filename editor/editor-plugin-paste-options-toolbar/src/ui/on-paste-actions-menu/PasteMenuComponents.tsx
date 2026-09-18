@@ -43,7 +43,6 @@ import type {
 	PasteOptionsToolbarSharedState,
 } from '../../pasteOptionsToolbarPluginType';
 import { ToolbarDropdownOption, type PasteType } from '../../types/types';
-
 import { getVisibleKeys } from './hasVisibleButton';
 import { PasteOptionsDropdownButton } from './PasteOptionsDropdownButton';
 

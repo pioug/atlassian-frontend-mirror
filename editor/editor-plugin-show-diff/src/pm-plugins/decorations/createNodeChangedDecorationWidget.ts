@@ -9,8 +9,9 @@ import { token } from '@atlaskit/tokens';
 import type { DiffType, RevealOptions } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
+import { countEmptyTextBlockOnlySlice } from '../utils/emptyTextBlocks';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
-
+import type { ColorScheme } from './colorSchemes/types';
 import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
 import {
@@ -19,19 +20,22 @@ import {
 	createContributorTagHost,
 	unmountContributorTag,
 } from './createContributorTagWidget';
-import type { ColorScheme } from './colorSchemes/types';
 import {
+	AnchorTypeKey,
 	buildDiffDecorationSpec,
 	buildAnchorDecorationKey,
 	scrollMarginTopValue,
 } from './decorationKeys';
 import { absorbFirstChildMarginReset } from './utils/absorbFirstChildMarginReset';
+import { createDeletedLineBreakDecoration } from './utils/createDeletedLineBreakWidget';
 import { createMarginAbsorber } from './utils/createMarginAbsorber';
 import { createNodeShapedMarginSpacer } from './utils/createNodeShapedMarginSpacer';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import { safeResolve } from './utils/safeResolve';
+import { getTableDiffMode } from './utils/tableDiffMode';
 import {
 	wrapBlockNodeView,
+	createRemovedLozenge,
 	injectInnerWrapper,
 	createContentWrapper,
 } from './utils/wrapBlockNodeView';
@@ -159,11 +163,13 @@ export const createNodeChangedDecorationWidget = ({
 	hideAddedDiffsUnderline = false,
 	reveal,
 	tagMountContext,
+	deletedColumns,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	attributionKey?: string;
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted' | 'toB'>;
 	colorScheme?: ColorScheme;
+	deletedColumns?: readonly number[];
 	diffType?: DiffType;
 	doc: PMNode;
 	hideAddedDiffsUnderline?: boolean;
@@ -179,6 +185,17 @@ export const createNodeChangedDecorationWidget = ({
 }): Decoration[] => {
 	const slice = doc.slice(change.fromA, change.toA);
 	const shouldSkipDeletedEmptyParagraphDecoration = !isInserted && isEmptyParagraphSlice(slice);
+	// How many blank lines the deletion took, when it took nothing else. Blank means an empty
+	// paragraph or heading — both are a line the author put there deliberately, and neither leaves
+	// the widget any content to serialize.
+	//
+	// Kept separate from `shouldSkipDeletedEmptyParagraphDecoration` and gated, so the ungated early
+	// return below still covers only the single-empty-paragraph case it always did. Everything else
+	// degrades to what it rendered before the gate: an empty block, serialized invisibly.
+	const deletedBlankLineCount =
+		!isInserted && fg('platform_editor_ai_show_diff_patch_2')
+			? countEmptyTextBlockOnlySlice(slice)
+			: 0;
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
 	// For `placeBelow`, anchor at the END of the new content (change.toB) so the deleted
@@ -191,23 +208,36 @@ export const createNodeChangedDecorationWidget = ({
 			? safeInsertPos >= activeIndexPos.from && safeInsertPos <= activeIndexPos.to
 			: safeInsertPos === activeIndexPos.from && safeInsertPos === activeIndexPos.to);
 
-	if (slice.content.content.length === 0 || shouldSkipDeletedEmptyParagraphDecoration) {
+	if (deletedBlankLineCount > 0) {
+		// The blocks have no content to serialize, so the deletion is shown as one struck-through
+		// return glyph per line the author removed. A single widget, not one per line: the lines are
+		// gone from `newDoc`, so they all resolve to the same anchor and separate widgets would stack.
+		//
+		// No attribution: the glyph is not a tag host, matching `canTagWidget` below.
+		return [
+			createDeletedLineBreakDecoration({
+				colorScheme,
+				count: deletedBlankLineCount,
+				diffType,
+				isActive,
+				pos: safeInsertPos,
+				reveal,
+				side: placeBelow ? 1 : -1,
+			}),
+		];
+	}
+
+	if (shouldSkipDeletedEmptyParagraphDecoration) {
 		return [];
 	}
 
-	const isTableCellContent = slice.content.content.some(() =>
-		slice.content.content.some((siblingNode) =>
-			['tableHeader', 'tableCell'].includes(siblingNode.type.name),
-		),
-	);
-	const isTableRowContent = slice.content.content.some(() =>
-		slice.content.content.some((siblingNode) => ['tableRow'].includes(siblingNode.type.name)),
-	);
+	if (slice.content.content.length === 0) {
+		return [];
+	}
 
-	// Added whole cells (e.g. "Add table headers"): render per-cell content widgets.
-	// Deleted whole cells (delete row/col) fall through — they don't exist in `newDoc`,
-	// so there's nowhere to anchor content and we keep the original "render nothing".
-	if (isTableCellContent && isInserted) {
+	const tableDiffMode = getTableDiffMode({ slice, isInserted });
+
+	if (tableDiffMode.kind === 'cells') {
 		return createTableCellContentWidgets({
 			slice,
 			newDoc,
@@ -218,11 +248,10 @@ export const createNodeChangedDecorationWidget = ({
 			diffType,
 		});
 	}
-	if (isTableCellContent) {
-		// Deleted whole cells: nothing to render (see note above).
+	if (tableDiffMode.kind === 'none') {
 		return [];
 	}
-	if (isTableRowContent) {
+	if (tableDiffMode.kind === 'rows') {
 		return createChangedRowDecorationWidgets({
 			attributionKey,
 			changes: [change],
@@ -233,6 +262,7 @@ export const createNodeChangedDecorationWidget = ({
 			isActive,
 			isInserted,
 			diffType,
+			intl,
 			// Needed for the row's own indicator anchor; this path returns before the
 			// `anchor-name` assignment further down.
 			showIndicators,
@@ -240,6 +270,8 @@ export const createNodeChangedDecorationWidget = ({
 			tagMountContext,
 		});
 	}
+	// `wholeTable` and `generic` both continue into the generic block widget below. Splitting the
+	// whole-table case into its own renderer is the next step of this refactor.
 
 	const serializer = nodeViewSerializer;
 
@@ -477,6 +509,40 @@ export const createNodeChangedDecorationWidget = ({
 		}
 	});
 
+	let contributorTagAnchorName: string | undefined;
+	if (!isInserted && deletedColumns?.length) {
+		const table = dom.querySelector('table');
+		const firstRow = table?.rows[0];
+		if (table && canTagWidget) {
+			contributorTagAnchorName = buildAnchorDecorationKey({
+				diffId,
+				anchorType: AnchorTypeKey.tag,
+			});
+			// The widget host sits before the table's preserved block margin. Anchor the tag to the
+			// table itself so its bottom edge meets the table's top edge with no visual gap.
+			table.style.setProperty('anchor-name', `--${contributorTagAnchorName}`);
+		}
+		deletedColumns.forEach((column) => {
+			Array.from(table?.rows ?? []).forEach((row) => {
+				const cell = row.cells[column];
+				Array.from(cell?.children ?? []).forEach((child) => {
+					if (child instanceof HTMLElement) {
+						child.style.setProperty('text-decoration-line', 'line-through');
+					}
+				});
+			});
+
+			const headerCell = firstRow?.cells[column];
+			if (headerCell) {
+				headerCell.style.position = 'relative';
+				// Append, never prepend. Editor CSS resets the top margin of a cell's first child, so
+				// a prepended label pushes the paragraph out of that reset and the cell grows.
+				// The label is absolutely positioned, so DOM order does not move it.
+				headerCell.append(createRemovedLozenge(intl, isActive, colorScheme, true));
+			}
+		});
+	}
+
 	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
 	if (fg('platform_editor_ai_show_diff_patch_1')) {
 		dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
@@ -510,7 +576,11 @@ export const createNodeChangedDecorationWidget = ({
 
 		// Hosted at the start of the deleted run rather than on `dom` itself: `dom` is inline, so once
 		// the deleted content wraps its box is the union of its line fragments.
-		const tagHost = createContributorTagHost(diffId, tagMountContext);
+		const tagHost = createContributorTagHost({
+			anchorName: contributorTagAnchorName,
+			diffId,
+			mountContext: tagMountContext,
+		});
 		if (tagHost) {
 			dom.prepend(tagHost.host);
 			tagMount = tagHost.mount;

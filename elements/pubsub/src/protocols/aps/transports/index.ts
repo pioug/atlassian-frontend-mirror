@@ -1,4 +1,5 @@
 import { type EventEmitter2 } from 'eventemitter2';
+
 import { type APSTransportType } from '../../../apiTypes';
 import { type APSAnalyticsClient } from '../APSAnalyticsClient';
 

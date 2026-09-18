@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 

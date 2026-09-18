@@ -24,7 +24,6 @@ import type {
 	RemoveTypeAheadDecorations,
 } from '../types';
 import { WrapperTypeAhead } from '../ui/WrapperTypeAhead';
-
 import { closeTypeAhead } from './commands/close-type-ahead';
 import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE, TYPE_AHEAD_DECORATION_KEY } from './constants';
 import { StatsModifier } from './stats-modifier';

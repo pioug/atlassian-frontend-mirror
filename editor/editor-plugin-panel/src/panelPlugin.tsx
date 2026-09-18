@@ -24,7 +24,6 @@ import {
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { PanelPlugin } from './panelPluginType';
 import { createPanelAction } from './pm-plugins/commands/create-panel-action';
@@ -40,23 +39,21 @@ const panelPlugin: PanelPlugin = ({
 	config: { allowCustomPanel = false, allowCustomPanelEdit = false } = {},
 	api,
 }) => {
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents([
-			{
-				type: 'block-menu-item',
-				key: TRANSFORM_STRUCTURE_PANEL_MENU_ITEM.key,
-				parent: {
-					type: 'block-menu-section' as const,
-					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
-						TRANSFORM_STRUCTURE_PANEL_MENU_ITEM.key
-					],
-				},
-				component: createPanelBlockMenuItem(api),
-				isHidden: () => Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(PANEL_NODE_NAME)),
+	api?.blockMenu?.actions.registerBlockMenuComponents([
+		{
+			type: 'block-menu-item',
+			key: TRANSFORM_STRUCTURE_PANEL_MENU_ITEM.key,
+			parent: {
+				type: 'block-menu-section' as const,
+				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_STRUCTURE_PANEL_MENU_ITEM.key
+				],
 			},
-		]);
-	}
+			component: createPanelBlockMenuItem(api),
+			isHidden: () => Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(PANEL_NODE_NAME)),
+		},
+	]);
 	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	if (isRegisteredSlashCommandEnabled) {
 		api?.uiControlRegistry?.actions.register(

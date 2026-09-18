@@ -1,4 +1,5 @@
 import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import { createSchema } from '../../../../schema/create-schema';
 import { inlineCard } from '../../../../schema/nodes/inline-card';
 

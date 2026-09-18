@@ -4,7 +4,6 @@ import outdent from 'outdent';
 import { ruleTester } from '@atlassian/eslint-utils';
 
 import rule from '../index';
-
 import type { Tests } from './_types';
 
 export const typographyTests: Tests = {

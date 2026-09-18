@@ -7,7 +7,6 @@ import { token } from '@atlaskit/tokens';
 import type { IconColor, TextColor } from '@atlaskit/tokens/css-type-schema';
 
 import { type ThemeAppearance } from '../lozenge';
-
 import { type IconProp, type LozengeColor } from './types';
 
 export interface IconRendererProps {

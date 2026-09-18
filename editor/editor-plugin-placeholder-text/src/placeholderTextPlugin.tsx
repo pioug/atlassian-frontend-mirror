@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { placeholder } from '@atlaskit/adf-schema/placeholder';
 import {
 	ACTION,
@@ -21,6 +20,7 @@ import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import TextIcon from '@atlaskit/icon/core/text';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	hidePlaceholderFloatingToolbar,

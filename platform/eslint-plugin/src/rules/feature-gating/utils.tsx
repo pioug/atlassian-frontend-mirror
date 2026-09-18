@@ -1,6 +1,7 @@
-import { FEATURE_API_IMPORT_SOURCES } from '../constants';
 import type { Rule, Scope } from 'eslint';
 import type { Node as EstreeNode } from 'estree';
+
+import { FEATURE_API_IMPORT_SOURCES } from '../constants';
 import { getScope } from '../util/context-compat';
 
 export function isIdentifierImportedFrom(

@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import type { ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
@@ -17,7 +18,6 @@ import {
 	PAGE_LAYOUT_CONTAINER_SELECTOR,
 } from '../../common/constants';
 import { type SkipLinkData, useSkipLinks } from '../../controllers';
-
 import { SkipLink } from './skip-link';
 import type { SkipLinkWrapperProps } from './types';
 

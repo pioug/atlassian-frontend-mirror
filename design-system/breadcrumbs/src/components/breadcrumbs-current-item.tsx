@@ -17,7 +17,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { TriggerProps } from '@atlaskit/tooltip/types';
 
 import { type BreadcrumbsCurrentItemProps } from '../types';
-
 import { useBreadcrumbsSize } from './internal/use-breadcrumbs-size';
 import useOverflowable from './internal/use-overflowable';
 

@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
-import { Mounter } from './mounter';
-import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/types';
-import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/types';
+
+import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+import { useAnnotationHoverContext } from '../contexts/AnnotationHoverContext';
 import {
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
-import { useAnnotationHoverContext } from '../contexts/AnnotationHoverContext';
+import { Mounter } from './mounter';
 
 type Props = {
 	component: React.ComponentType<InlineCommentHoverComponentProps>;

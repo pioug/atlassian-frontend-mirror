@@ -1,11 +1,11 @@
 import React, { useContext, useRef, useState } from 'react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 
 import { SetSideNavVisibilityState } from '../../side-nav/set-side-nav-visibility-state';
 import { SideNavRefContext } from '../../side-nav/side-nav-ref-context';

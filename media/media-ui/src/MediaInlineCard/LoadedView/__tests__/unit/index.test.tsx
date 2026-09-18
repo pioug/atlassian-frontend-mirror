@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import { MediaInlineCardLoadedView } from '../../index';
 
 jest.mock('react-render-image');

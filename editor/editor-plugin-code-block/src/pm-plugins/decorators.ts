@@ -6,7 +6,6 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { CodeBlockLineAttributes } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';
-
 import { getAllCodeBlockNodesInDoc } from './utils';
 
 export const DECORATION_WIDGET_TYPE = 'decorationWidgetType';

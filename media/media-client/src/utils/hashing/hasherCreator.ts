@@ -1,5 +1,6 @@
-import { type Hasher } from './hasher';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
+
+import { type Hasher } from './hasher';
 let hasher: Hasher | null = null;
 let sha256Hasher: Hasher | null = null;
 

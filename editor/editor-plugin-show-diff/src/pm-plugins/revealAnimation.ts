@@ -1,7 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { RevealOptions } from '../showDiffPluginType';
-
 import {
 	buildWipeableBackground,
 	REVEAL_ATTR,

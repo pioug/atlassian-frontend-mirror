@@ -3,22 +3,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { Fragment, useCallback, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/default/button';
-import type { EditorActions } from '@atlaskit/editor-core';
 import { getLimitedModeThresholds } from '@atlaskit/editor-common/limited-mode-document-thresholds';
 import { shouldEnableLimitedModeForDocument } from '@atlaskit/editor-common/should-enable-limited-mode';
+import type { EditorActions } from '@atlaskit/editor-core';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
 import { PresetContextProvider } from '../src/presets/context';
-
 import FullPageExample, { type EditorAPI } from './5-full-page';
 
 /**

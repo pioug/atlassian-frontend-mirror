@@ -19,7 +19,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences/succeedUfoExperience';
 import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id/use-datasource-experience-id';
-
 import { ConcatenatedMenuList } from './concatenated-menu-list';
 import { MenuItem } from './menu-item';
 import { columnPickerMessages } from './messages';

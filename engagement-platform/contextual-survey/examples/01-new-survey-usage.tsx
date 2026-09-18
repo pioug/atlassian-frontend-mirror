@@ -12,7 +12,6 @@ import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { token } from '@atlaskit/tokens';
 
 import { ContextualSurvey, DismissTrigger, type OnDismissArgs, SurveyMarshal } from '../src/new';
-
 import headerImage from './headerImage.svg';
 
 const styles = css({

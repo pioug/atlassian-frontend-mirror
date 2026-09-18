@@ -32,7 +32,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { setEditingContextToContextPanel } from '../editor-commands/commands';
 import type { CreateExtensionAPI } from '../extensionPluginType';
-
 import { insertMacroFromMacroBrowser } from './macro/actions';
 import { pluginKey as macroPluginKey } from './macro/plugin-key';
 import {

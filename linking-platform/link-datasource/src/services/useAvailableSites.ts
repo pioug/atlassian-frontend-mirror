@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import type { Site } from '../common/types';
-
 import { getAccessibleProducts } from './getAvailableSites';
 
 export const useAvailableSites = (

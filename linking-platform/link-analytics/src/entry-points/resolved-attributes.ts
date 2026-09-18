@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { getResolvedAttributes } from '@atlaskit/link-analytics/get-resolved-attributes'` instead.
  */
+
 export { getResolvedAttributes } from '../utils/get-resolved-attributes';
 /**
  * @deprecated Use `import { getUrlAttributes } from '@atlaskit/link-analytics/get-url-attributes'` instead.

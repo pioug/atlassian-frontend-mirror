@@ -1,8 +1,8 @@
 import React from 'react';
 
-import processEvent from './process-event';
-import { type ListenerProps, FabricChannel } from '../types';
 import GenericAnalyticsListener from '../GenericAnalyticsListener';
+import { type ListenerProps, FabricChannel } from '../types';
+import processEvent from './process-event';
 
 export default function LinkingPlatformAnalyticsListener(props: ListenerProps): React.JSX.Element {
 	return (

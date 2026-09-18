@@ -1,5 +1,6 @@
-import { type UfoDurationMetrics } from './durationMetrics';
 import { addCustomSpans } from '@atlaskit/react-ufo/interaction-metrics';
+
+import { type UfoDurationMetrics } from './durationMetrics';
 
 const mediaLabelStack = [{ name: 'media' }];
 

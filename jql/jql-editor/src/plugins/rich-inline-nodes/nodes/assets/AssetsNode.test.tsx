@@ -4,7 +4,6 @@ import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { HydratedAssets } from '../../../../ui/jql-editor/types';
-
 import { AssetsNode } from './assets-node';
 
 const AVATAR_URL = 'https://assets-media.example.com/assets/icons/icons48/3D%20Printer.png';

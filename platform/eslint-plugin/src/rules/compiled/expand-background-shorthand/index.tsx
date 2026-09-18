@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
 import type { Property, Node } from 'estree';
+
 import { isCompiledAPI } from '../../util/compiled-utils';
 
 // Checks if node is a call expression with identifier 'token'

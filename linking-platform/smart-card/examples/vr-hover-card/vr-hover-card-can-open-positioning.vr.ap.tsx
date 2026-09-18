@@ -5,7 +5,6 @@
 import { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
@@ -16,7 +15,6 @@ import { token } from '@atlaskit/tokens';
 import { HoverCard } from '../../src/hoverCard';
 import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
 import '../utils/vr-preload-metadata-icons';
 
 class CustomClient extends Client {

@@ -7,7 +7,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useHydratedUser } from '../../../../state';
 import { type NodeViewProps } from '../../util/react-node-view';
 import { type JQLNodeSpec } from '../types';
-
 import { AvatarWrapper, NameContainer, UserContainer } from './styled';
 
 export type Props = {

@@ -1,17 +1,19 @@
+import React from 'react';
+
 import {
 	type EventType,
 	type GasPurePayload,
 	type GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
-import React from 'react';
+
 import { FabricChannel } from '../../src/types';
 
 export type OwnProps = {
@@ -47,6 +49,12 @@ export class DummyElementsComponent extends React.Component<Props> {
 export class DummyAtlaskitComponent extends React.Component<Props> {
 	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.atlaskit} onClick={this.props.onClick} />;
+	}
+}
+
+export class DummyA2UIComponent extends React.Component<Props> {
+	render(): React.JSX.Element {
+		return <CustomButton text={FabricChannel.a2ui} onClick={this.props.onClick} />;
 	}
 }
 
@@ -163,6 +171,7 @@ class MyButton extends React.Component<Props> {
 }
 
 const componentChannels = {
+	[FabricChannel.a2ui]: DummyA2UIComponent,
 	[FabricChannel.atlaskit]: DummyAtlaskitComponent,
 	[FabricChannel.elements]: DummyElementsComponent,
 	[FabricChannel.navigation]: DummyNavigationComponent,
@@ -245,7 +254,7 @@ export const IncorrectEventType = (
 	})(componentChannels[channel]);
 
 export const createButtonWithAnalytics = (
-	payload: GasPurePayload,
+	payload: GasPurePayload | GasPureScreenEventPayload,
 	channel: FabricChannel,
 	context: AnalyticsEventPayload[] = [], // Context should incluide all data in the same order that AnalyticsListener would receive it
 ): typeof MyButton => {

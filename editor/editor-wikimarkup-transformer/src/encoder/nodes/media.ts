@@ -1,4 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import type { NodeEncoder, NodeEncoderOpts } from '..';
 
 export const media: NodeEncoder = (

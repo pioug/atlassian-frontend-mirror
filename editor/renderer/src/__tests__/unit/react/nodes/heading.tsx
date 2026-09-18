@@ -10,17 +10,20 @@ jest.mock('@atlaskit/react-ufo/interaction-metrics', () => ({
 	abortAll: jest.fn(),
 }));
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
-import type { HeadingLevels } from '../../../../react/nodes/heading';
-import Heading from '../../../../react/nodes/heading';
+
+import { fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
-import { fireEvent } from '@testing-library/react';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import ReactSerializer from '../../../../react';
-import userEvent from '@testing-library/user-event';
+import type { HeadingLevels } from '../../../../react/nodes/heading';
+import Heading from '../../../../react/nodes/heading';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

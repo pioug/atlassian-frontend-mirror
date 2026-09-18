@@ -5,7 +5,6 @@ import Box from '@atlaskit/primitives/box';
 
 import type { TabIndex } from '../../types';
 import { type DateObj, type Week } from '../types';
-
 import DateComponent from './date';
 import WeekdayGrid from './week-day-grid';
 

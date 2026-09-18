@@ -1,10 +1,10 @@
 import { $onePlus } from '../../$onePlus';
 import { $or } from '../../$or';
-import { adfNodeGroup } from '../../adfNodeGroup';
-import { type ADFNode, adfNode } from '../../adfNode';
-import { traverse, type ADFVisitor } from '../../traverse';
-import { adfMark } from '../../adfMark';
 import { $zeroPlus } from '../../$zeroPlus';
+import { adfMark } from '../../adfMark';
+import { type ADFNode, adfNode } from '../../adfNode';
+import { adfNodeGroup } from '../../adfNodeGroup';
+import { traverse, type ADFVisitor } from '../../traverse';
 
 test('should be called for each item type', () => {
 	const text = adfNode('text').define({});

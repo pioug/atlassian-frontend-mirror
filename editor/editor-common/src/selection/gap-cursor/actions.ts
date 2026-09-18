@@ -2,7 +2,6 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { Command } from '../../types';
-
 import { GapCursorSelection } from './selection';
 import { Side } from './Side';
 import { isValidTargetNode } from './utils/is-valid-target-node';

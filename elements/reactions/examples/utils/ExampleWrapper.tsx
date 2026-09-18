@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
-import { MockReactionsClient } from '../../src/MockReactionsClient';
+
 import { type ReactionsStore, type ReactionClient, MemoryReactionsStore } from '../../src';
+import { MockReactionsClient } from '../../src/MockReactionsClient';
 
 export interface ExampleWrapperProps {
 	/**

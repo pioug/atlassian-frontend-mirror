@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { ExifOrientation } from '@atlaskit/media-ui/imageMetaData/types'` instead.
  */
+
 export { ExifOrientation } from './types';
 
 /**

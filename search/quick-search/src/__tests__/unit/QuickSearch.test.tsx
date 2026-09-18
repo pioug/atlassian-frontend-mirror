@@ -1,16 +1,19 @@
 import React from 'react';
+
 import { fireEvent, render } from '@testing-library/react';
-import { AnalyticsListener } from '@atlaskit/analytics';
 import keycode from 'keycode';
-import QuickSearch from '../../components/QuickSearch';
-import ResultItemGroup from '../../components/ResultItem/ResultItemGroup';
-import PersonResult from '../../components/Results/PersonResult';
+
+import { AnalyticsListener } from '@atlaskit/analytics';
+
 import {
 	QS_ANALYTICS_EV_CLOSE,
 	QS_ANALYTICS_EV_KB_CTRLS_USED,
 	QS_ANALYTICS_EV_OPEN,
 	QS_ANALYTICS_EV_SUBMIT,
 } from '../../components/constants';
+import QuickSearch from '../../components/QuickSearch';
+import ResultItemGroup from '../../components/ResultItem/ResultItemGroup';
+import PersonResult from '../../components/Results/PersonResult';
 
 const results = (onClick: jest.Mock) => (
 	<ResultItemGroup title="People">

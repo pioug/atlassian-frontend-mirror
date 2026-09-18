@@ -2,7 +2,6 @@ import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
 import { editorExperimentsConfig, type EditorExperimentsConfig } from './experiments-config';
-
 import { _overrides, _product } from './setup';
 
 // This internal representation doesn't currently support productKeys

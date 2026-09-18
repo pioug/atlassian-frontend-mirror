@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- LENS1-245 tracks @atlaskit/focus-ring deprecation. */
+
 import { useRef, useState } from 'react';
 
 import type { FocusEventHandlers, FocusState } from './types';

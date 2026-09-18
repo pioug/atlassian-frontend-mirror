@@ -1,13 +1,11 @@
 import { type MediaType } from '..';
 import { isArchive } from './isArchive';
-
 import {
 	isImageMimeTypeSupportedByBrowser,
 	isDocumentMimeTypeSupportedByBrowser,
 	isAudioMimeTypeSupportedByBrowser,
 	isVideoMimeTypeSupportedByBrowser,
 } from './isMimeTypeSupportedByBrowser';
-
 import {
 	isImageMimeTypeSupportedByServer,
 	isDocumentMimeTypeSupportedByServer,

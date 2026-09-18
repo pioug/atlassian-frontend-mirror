@@ -3,7 +3,6 @@ import { getExtensionModuleNode } from '@atlaskit/editor-common/extensions';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { updateState } from '../editor-commands/commands';
-
 import { getSelectedExtension } from './utils';
 
 const maybeGetExtensionModuleNode = async (

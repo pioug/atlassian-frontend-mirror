@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { PlayPauseBlanket as CompiledPlayPauseBlanket } from './playPauseBlanket-compiled';
 
 export const PlayPauseBlanket = (

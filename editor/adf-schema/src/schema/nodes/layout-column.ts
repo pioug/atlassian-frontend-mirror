@@ -1,7 +1,8 @@
-import type { BlockContent } from './types/block-content';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { layoutColumn as layoutColumnFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { BlockContent } from './types/block-content';
 import { parseValign } from './types/valign';
 import type { Valign } from './types/valign';
 

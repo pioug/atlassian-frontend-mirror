@@ -1,13 +1,15 @@
 import React, { useState, type ReactNode } from 'react';
-import { token } from '@atlaskit/tokens';
-import { UserPicker } from '../src/components/UserPicker';
-import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
+
+import Heading from '@atlaskit/heading/heading';
 import { DragDropContext } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/drag-drop-context';
-import { Droppable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/droppable';
 import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/draggable';
+import { Droppable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/droppable';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
-import Heading from '@atlaskit/heading/heading';
+import { token } from '@atlaskit/tokens';
+
+import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
+import { UserPicker } from '../src/components/UserPicker';
 
 const Example = (): React.JSX.Element => {
 	const [items, setItems] = useState(getItems(3));

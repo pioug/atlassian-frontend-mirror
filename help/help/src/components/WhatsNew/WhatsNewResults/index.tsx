@@ -4,30 +4,29 @@
  */
 
 import React, { useCallback, useState, useRef } from 'react';
-import { Transition } from 'react-transition-group';
-import isEqual from 'lodash/isEqual';
-import Select from '@atlaskit/select/default';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import { Label } from '@atlaskit/form/label/default';
 
-import { VIEW } from '../../constants';
+import { css, jsx } from '@compiled/react';
+import isEqual from 'lodash/isEqual';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
+import { Transition } from 'react-transition-group';
+
+import { Label } from '@atlaskit/form/label/default';
+import Select from '@atlaskit/select/default';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-import { WHATS_NEW_ITEM_TYPES } from '../../../model/WhatsNew';
 import { REQUEST_STATE } from '../../../model/Requests';
-
+import { WHATS_NEW_ITEM_TYPES } from '../../../model/WhatsNew';
+import { VIEW } from '../../constants';
 import { type TransitionStatus, NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE } from '../../constants';
-import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
-import { useNavigationContext } from '../../contexts/navigationContext';
 import { useAiContext } from '../../contexts/aiAgentContext';
-
+import { useNavigationContext } from '../../contexts/navigationContext';
+import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
+import { SelectContainer, WhatsNewResultsListContainer } from './styled';
 import WhatsNewResultsEmpty from './WhatsNewResultsEmpty';
 import WhatsNewResultsError from './WhatsNewResultsError';
-import WhatsNewResultsLoading from './WhatsNewResultsLoading';
 import WhatsNewResultsList from './WhatsNewResultsList';
-import { SelectContainer, WhatsNewResultsListContainer } from './styled';
+import WhatsNewResultsLoading from './WhatsNewResultsLoading';
 
 interface SelectOption {
 	label: string;

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
 import UFOInteractionContext, {
@@ -8,6 +7,7 @@ import UFOInteractionContext, {
 } from '@atlaskit/react-ufo/interaction-context';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { CardViewBase, type CardViewProps } from '../../card/cardView';
 import { imgTestId, spinnerTestId } from '../utils/_testIDs';

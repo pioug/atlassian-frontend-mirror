@@ -1,13 +1,17 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
-import AnalyticsListenerNext from '@atlaskit/analytics-next/AnalyticsListener';
-import { fireEvent, screen } from '@testing-library/react';
-import { token } from '@atlaskit/tokens';
-import { renderWithIntl } from '../helpers/_testing-library';
+
 import React from 'react';
+
+import { fireEvent, screen } from '@testing-library/react';
+
+import AnalyticsListenerNext from '@atlaskit/analytics-next/AnalyticsListener';
+import { token } from '@atlaskit/tokens';
+
+import { Status } from '../../..';
 import { ELEMENTS_CHANNEL } from '../../../components/analytics';
 import { ANALYTICS_HOVER_DELAY } from '../../../components/constants';
-import { Status } from '../../..';
 import { type NamedColor } from '../../../components/status-colors';
+import { renderWithIntl } from '../helpers/_testing-library';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

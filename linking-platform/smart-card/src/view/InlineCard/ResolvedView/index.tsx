@@ -7,9 +7,9 @@ import { type LozengeProps } from '../../../types';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
 import { HoverCard } from '../../HoverCard';
 import { type HoverPreviewOptions } from '../../HoverCard/types';
+import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import InlineLozenge from '../common/inline-lozenge';
 import { InlineCardResolvedViewFunctional } from './InlineCardResolvedViewFunctional';
 import type { InlineCardResolvedViewFunctionalProps } from './types';
 

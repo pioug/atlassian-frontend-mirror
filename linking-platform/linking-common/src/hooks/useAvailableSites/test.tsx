@@ -1,27 +1,26 @@
 import React from 'react';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook, waitFor } from '@testing-library/react';
-
-import '@atlaskit/link-test-helpers/jest';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import fetchMock from 'fetch-mock/cjs/client';
 
+import '@atlaskit/link-test-helpers/jest';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { icon } from '../../common/mocks/icons';
 import { mockAccessibleProducts } from '../../common/mocks/mock-accessible-products';
 import { mockAccessibleProductsWithError } from '../../common/mocks/mock-accessible-products-with-error';
 import { mockAvailableSites } from '../../common/mocks/mock-available-sites';
 import { mockAvailableSitesWithError } from '../../common/mocks/mock-available-sites-with-error';
-import { mapAccessibleProductsToAvailableSites } from './mapAccessibleProductsToAvailableSites';
-import { useAvailableSites } from './useAvailableSites';
-import { useAvailableSitesV2 } from './useAvailableSitesV2';
 import { __clearUnitsRolloutSettingsCacheForTests } from '../../units-rollout/clearCacheForTests';
 import { shouldUseUnitCompliantApi } from '../../units-rollout/shouldUseUnitCompliantApi';
-
-import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { icon } from '../../common/mocks/icons';
 import { getOperationFailedAttributes } from './getOperationFailedAttributes';
+import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
+import { mapAccessibleProductsToAvailableSites } from './mapAccessibleProductsToAvailableSites';
 import { AvailableSitesProductType, type AccessibleProduct, type AvailableSite } from './types';
+import { useAvailableSites } from './useAvailableSites';
+import { useAvailableSitesV2 } from './useAvailableSitesV2';
 
 const AVAILABLE_SITES_PATH = '/gateway/api/available-sites';
 const AVAILABLE_SITES_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/available-sites';

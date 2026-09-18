@@ -3,17 +3,16 @@
  * @jsx jsx
  */
 import type { ComponentType, FC } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import DownloadIcon from '@atlaskit/icon/core/download';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
 import IconButton from '@atlaskit/button/icon/button';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
-
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
+import DownloadIcon from '@atlaskit/icon/core/download';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';

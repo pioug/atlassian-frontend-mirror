@@ -3,19 +3,22 @@
  * @jsx jsx
  */
 
+import React from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+import { FormattedMessage } from 'react-intl';
+
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
+
 import { type Team } from '../../types';
 import { AvatarItemOption } from '../AvatarItemOption';
 import { AvatarOrIcon } from '../AvatarOrIcon';
 import { HighlightText } from '../HighlightText';
-import { SizeableAvatar } from '../SizeableAvatar';
 import { messages } from '../i18n';
+import { SizeableAvatar } from '../SizeableAvatar';
 import { textWrapper } from '../textWrapper';
 
 export type TeamOptionProps = {

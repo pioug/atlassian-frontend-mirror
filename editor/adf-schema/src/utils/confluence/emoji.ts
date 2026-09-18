@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated compatibility re-export shims. */
+
 import type { acNameToEmojiMap } from './acNameToEmojiMap';
 
 // Default emoji id for Confluence glyphs that has no match to Fabric Emoji

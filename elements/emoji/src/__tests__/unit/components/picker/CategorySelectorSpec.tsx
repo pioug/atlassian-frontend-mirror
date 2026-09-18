@@ -6,10 +6,10 @@ import { act } from 'react-test-renderer';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
 import { messages } from '../../../../components/i18n';
+import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import type { Props } from '../../../../components/picker/CategorySelector';
 import CategorySelector from '../../../../components/picker/CategorySelector';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from '../../../../components/picker/EmojiPickerList';
-import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import { sortCategories } from '../../../../components/picker/sortCategories';
 import type { CategoryId } from '../../../../types';
 import { defaultCategories } from '../../../../util/constants';

@@ -1,6 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { NodeEncoder, NodeEncoderOpts } from '..';
 
+import type { NodeEncoder, NodeEncoderOpts } from '..';
 import { listItem } from './listItem';
 
 export const bulletList: NodeEncoder = (

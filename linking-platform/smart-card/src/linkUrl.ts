@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import _default_1 from '@atlaskit/smart-card/link'` instead.
  */
+
 export { default } from './view/LinkUrl';
 
 /** @deprecated Use @atlaskit/smart-card/link/types */

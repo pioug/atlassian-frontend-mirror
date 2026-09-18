@@ -16,7 +16,6 @@ import type { BackEvent, DismissEvent, DoneEvent, NextEvent, Placement } from '.
 import { useFocusWithin } from '../../utils/use-focus-within';
 import { useOnClickOutside } from '../../utils/use-on-click-outside';
 import { useOnEscape } from '../../utils/use-on-escape';
-
 import { ConditionalExitingPersistence } from './conditional-exiting-persistence';
 
 const styles = cssMap({

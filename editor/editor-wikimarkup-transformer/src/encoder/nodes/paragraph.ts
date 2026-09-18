@@ -1,6 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { NodeEncoder, NodeEncoderOpts } from '..';
 
+import type { NodeEncoder, NodeEncoderOpts } from '..';
 import { inlines } from './inlines';
 
 export const paragraph: NodeEncoder = (node: PMNode, { context }: NodeEncoderOpts = {}): string => {

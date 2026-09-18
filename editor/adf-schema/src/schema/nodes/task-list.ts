@@ -1,4 +1,5 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { taskList as taskListFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type {

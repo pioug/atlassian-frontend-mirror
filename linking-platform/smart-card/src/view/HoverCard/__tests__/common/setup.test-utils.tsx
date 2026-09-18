@@ -1,6 +1,5 @@
 import React, { type ReactElement } from 'react';
 
-import { render, screen, userEvent, type Matcher } from '@atlassian/testing-library';
 import type {
 	MatcherOptions,
 	waitForOptions,
@@ -19,6 +18,7 @@ import type { ProductType } from '@atlaskit/linking-common/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { Card, type CardProps } from '@atlaskit/smart-card';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
+import { render, screen, userEvent, type Matcher } from '@atlassian/testing-library';
 
 import * as analytics from '../../../../utils/analytics/analytics';
 import { fakeFactory } from '../../../../utils/fake-factory';

@@ -1,5 +1,5 @@
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 export interface PmHistoryItem {
 	map: StepMap;

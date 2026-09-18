@@ -1,8 +1,8 @@
-import { renderHook, act } from '@atlassian/testing-library';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+import * as blockMenuUtils from '@atlaskit/editor-common/block-menu';
+import { renderHook, act } from '@atlassian/testing-library';
 
 import { useScrollToBlock } from '../useScrollToBlock';
-import * as blockMenuUtils from '@atlaskit/editor-common/block-menu';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),

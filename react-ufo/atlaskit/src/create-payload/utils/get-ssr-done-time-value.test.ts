@@ -1,6 +1,5 @@
 import { type Config } from '../../config';
 import * as ssr from '../../ssr';
-
 import getSSRDoneTimeValue from './get-ssr-done-time-value';
 
 // Mock the ssr module

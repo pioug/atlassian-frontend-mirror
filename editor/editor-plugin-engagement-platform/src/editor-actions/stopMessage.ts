@@ -2,7 +2,6 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/anal
 
 import type { CoordinationClient } from '../engagementPlatformPluginType';
 import { engagementPlatformPmPluginCommand } from '../pm-plugins/engagementPlatformPmPlugin/engagementPlatformPmPluginCommand';
-
 import type { EngagementPlatformPluginApi } from './types';
 
 export function stopMessage(

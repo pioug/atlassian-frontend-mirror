@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import type { MouseEventHandler, PointerEvent } from 'react';
 import React, { PureComponent, useCallback, useContext, useMemo } from 'react';
 
@@ -10,16 +11,16 @@ import React, { PureComponent, useCallback, useContext, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import CustomItem from '@atlaskit/menu/custom-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import type { PositionType } from '@atlaskit/tooltip/types';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { PositionType } from '@atlaskit/tooltip/types';
 
 import { DropdownMenuSharedCssClassName } from '../../styles';
 import { KeyDownHandlerContext } from '../../ui-menu/ToolbarArrowKeyNavigationProvider';
@@ -29,7 +30,6 @@ import type { Props as DropListProps } from '../../ui/DropList';
 import Popup from '../../ui/Popup';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
-
 import type { MenuItem, Props, State } from './types';
 
 const wrapper = css({

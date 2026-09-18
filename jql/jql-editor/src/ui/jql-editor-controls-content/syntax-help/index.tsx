@@ -10,7 +10,6 @@ import { TooltipContent } from '../../../common/styled';
 import { useIntl, useOnSyntaxHelp, useScopedId } from '../../../state';
 import { TooltipTag } from '../../tooltip-tag';
 import { BaseSyntaxHelp } from '../base-syntax-help';
-
 import { messages } from './messages';
 
 export const SyntaxHelp = (): React.JSX.Element => {

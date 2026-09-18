@@ -1,6 +1,7 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
+
 import type { JSONNode } from '../types';
 
 export function removeMarks(node: JSONNode): {

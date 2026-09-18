@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import type { ReactElement } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
-import type { Actions, Mode, State } from './context';
-import { Context } from './context';
-import type { Provider } from '../provider/provider';
-import type { ProviderProps } from '../provider';
-import { getProvider } from '../provider';
-import type { Document } from '../model';
+
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
+
+import type { Document } from '../model';
+import type { ProviderProps } from '../provider';
+import { getProvider } from '../provider';
+import type { Provider } from '../provider/provider';
+import type { Actions, Mode, State } from './context';
+import { Context } from './context';
 
 export const akEditorFullPageMaxWidth = 680;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

@@ -11,7 +11,6 @@ import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-p
 import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
 
 import MediaSvg from '../src/media-svg';
-
 import { ControlsBox } from './helpers/controls';
 import { DimensionsPicker } from './helpers/dimensionPicker';
 import { SvgContainer } from './helpers/svgContainer';

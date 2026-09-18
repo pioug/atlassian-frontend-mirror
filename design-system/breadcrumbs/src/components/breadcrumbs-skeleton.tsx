@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 import { type BreadcrumbsSkeletonProps } from '../types';
-
 import BreadcrumbsSkeletonItem from './breadcrumbs-skeleton-item';
 import { BreadcrumbsSkeletonContext } from './internal/breadcrumbs-skeleton-context';
 

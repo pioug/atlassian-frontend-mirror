@@ -20,7 +20,6 @@ import {
 	type ValueOperand,
 } from '../types';
 import { notUndefined } from '../utils';
-
 import { ArgumentVisitor } from './argument';
 import { getPositionFromContext, getPositionFromToken, JastBuildingVisitor } from './common';
 import { NumberVisitor } from './number';

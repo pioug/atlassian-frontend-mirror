@@ -1,21 +1,22 @@
 import React from 'react';
+
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { type EmojiProvider } from '@atlaskit/emoji';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+
+import { getReactionSummary } from '../MockReactionsClient';
+import { DefaultReactions } from '../shared/constants';
+import { type ReactionSummary } from '../types';
+import { RENDER_COUNTER_TESTID } from './Counter';
 import {
 	ReactionSummaryButton,
 	RENDER_SUMMARY_BUTTON_TESTID,
 	RENDER_SUMMARY_EMOJI_TESTID,
 } from './ReactionSummaryButton';
-import { DefaultReactions } from '../shared/constants';
-import { getReactionSummary } from '../MockReactionsClient';
-
-import { type ReactionSummary } from '../types';
-import { RENDER_COUNTER_TESTID } from './Counter';
 
 jest.mock('./ReactionParticleEffect', () => {
 	return {

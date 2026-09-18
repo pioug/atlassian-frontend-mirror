@@ -1,11 +1,14 @@
 import React from 'react';
-import { render } from '@atlassian/testing-library/render';
+
+import { IntlProvider } from 'react-intl';
+
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { render } from '@atlassian/testing-library/render';
+
 import { ReactSerializer } from '../../../index';
 import { MarkElement as AnnotationMark } from '../../../ui/annotations/element';
 import { simpleDocument as doc } from './__fixtures__/documents';
-import { IntlProvider } from 'react-intl';
 
 // Spy on the annotation mark element while keeping it rendering for real, so the props the
 // serializer hands down can be asserted without inspecting the React tree.

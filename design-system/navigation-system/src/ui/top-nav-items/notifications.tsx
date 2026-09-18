@@ -3,7 +3,6 @@ import React, { type ComponentType, forwardRef } from 'react';
 import NotificationsIcon from '@atlaskit/icon/core/notification';
 
 import { BadgeContainer } from '../../components/badge-container';
-
 import { EndItem, type EndItemProps } from './end-item';
 
 const NOTIFICATIONS_BADGE_ID = 'atlassian-navigation-notification-count';

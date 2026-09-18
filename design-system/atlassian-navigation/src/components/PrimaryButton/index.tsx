@@ -12,7 +12,6 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { useTheme } from '../../theme';
-
 import { getPrimaryButtonTheme } from './styles';
 import { type PrimaryButtonProps } from './types';
 

@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import { cssMap, jsx, cx } from '@compiled/react';
+
 import { components } from '@atlaskit/react-select/components';
 import type { ControlProps } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
-import { cssMap, jsx, cx } from '@compiled/react';
 import type { UserPickerProps } from '../types';
 
 const controlStyles = cssMap({

@@ -2,7 +2,6 @@ import type { EditorState } from 'prosemirror-state';
 import type { Decoration } from 'prosemirror-view';
 
 import type { DeletedDiffWidget } from '../showDiffPluginType';
-
 import { isDiffDecorationSpec } from './decorations/decorationKeys';
 import { showDiffPluginKey } from './main';
 

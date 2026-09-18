@@ -4,7 +4,6 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 
 import type { ExpandPlugin } from '../types';
-
 import { deleteExpand } from './commands';
 import { findSelectedParentExpandNode } from './utils';
 

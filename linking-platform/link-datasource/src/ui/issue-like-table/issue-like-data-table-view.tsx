@@ -34,7 +34,6 @@ import { succeedUfoExperience } from '../../analytics/ufoExperiences/succeedUfoE
 import { useDatasourceExperienceId } from '../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useIsInPDFRender } from '../../hooks/useIsInPDFRender';
 import { NoResults } from '../common/error-state/no-results';
-
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
@@ -44,11 +43,11 @@ import { getWidthCss } from './get-width-css';
 import { issueLikeTableMessages } from './messages';
 import { renderType } from './render-type/renderType';
 import { TableCellContent } from './table-cell-content/table-cell-content';
+import { hasAvailableTableSettings } from './table-settings-menu/hasAvailableTableSettings';
 import {
 	TableSettingsMenu,
 	type TableSettingsMenuProps,
 } from './table-settings-menu/TableSettingsMenu';
-import { hasAvailableTableSettings } from './table-settings-menu/hasAvailableTableSettings';
 import {
 	type HeaderRowCellType,
 	type IssueLikeDataTableViewProps,

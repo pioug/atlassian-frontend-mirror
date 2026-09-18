@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { getCachedProviderPctMapAndRefresh } from '../../../../state/services/personalization/getCachedProviderPctMapAndRefresh';
 import { InlineCardUnauthorizedView } from '../index';

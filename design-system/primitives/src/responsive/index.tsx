@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { media } from '@atlaskit/primitives/responsive/media'` instead.
  */
+
 export { media } from './media';
 /**
  * @deprecated Use `import { UNSAFE_media } from '@atlaskit/primitives/media-helper/default'` instead.

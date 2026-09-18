@@ -1,5 +1,4 @@
 import { TypeFlags, SyntaxKind, ObjectFlags } from 'typescript';
-
 import type {
 	Node,
 	Type,

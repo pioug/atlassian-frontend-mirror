@@ -5,6 +5,7 @@ const CONFLUENCE_PAGE_ARI_REGEX = /ari:cloud:confluence:[^:]+:(page|blogpost)\/(
 /**
  * The type of the Confluence page
  */
+
 export type PAGE_TYPE = 'page' | 'blogpost';
 
 /**

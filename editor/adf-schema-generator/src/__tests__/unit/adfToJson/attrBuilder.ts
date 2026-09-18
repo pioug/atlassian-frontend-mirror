@@ -1,10 +1,10 @@
+import { buildAttrs, buildAttrsSet } from '../../../transforms/adfToJson/attrBuilder';
 import type {
 	ADFAttribute,
 	ADFAttributeNumber,
 	ADFAttributeString,
 	ADFAttributesAnyOf,
 } from '../../../types/ADFAttribute';
-import { buildAttrs, buildAttrsSet } from '../../../transforms/adfToJson/attrBuilder';
 
 describe('when running buildAttrs', () => {
 	test('given undefined nodeAttrs, it should return an empty object', () => {

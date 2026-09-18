@@ -7,7 +7,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import { DialogImage } from '../styled/dialog';
 import { type Actions } from '../types';
-
 import SpotlightCard from './spotlight-card';
 import ValueChanged from './value-changed';
 

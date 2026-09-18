@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import Card from '../src/card/cardLoader';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+
 import Heading from '@atlaskit/heading/heading';
 import { type MediaClientConfig } from '@atlaskit/media-client';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import { ToggleBox } from '../example-helpers/svg-helpers/toggle';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 
 import { MainWrapper } from '../example-helpers';
+import { ToggleBox } from '../example-helpers/svg-helpers/toggle';
+import Card from '../src/card/cardLoader';
 import { useCreateMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;

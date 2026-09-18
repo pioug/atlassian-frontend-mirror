@@ -1,4 +1,5 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { confluenceJiraIssue as confluenceJiraIssueFactory } from '../../next-schema/generated/nodeTypes';
 
 const name = 'confluenceJiraIssue';

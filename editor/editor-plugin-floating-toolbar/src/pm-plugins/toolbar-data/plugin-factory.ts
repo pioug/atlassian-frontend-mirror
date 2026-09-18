@@ -4,7 +4,6 @@ import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { FloatingToolbarPluginData } from '../../floatingToolbarPluginType';
-
 import { pluginKey } from './plugin-key';
 import { reducer } from './reducer';
 import type { FloatingToolbarPluginAction } from './types';

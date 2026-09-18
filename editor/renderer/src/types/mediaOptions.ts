@@ -1,5 +1,5 @@
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { MediaFeatureFlags, SSR } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 
 export type MediaSSR = {

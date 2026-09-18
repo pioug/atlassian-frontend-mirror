@@ -9,7 +9,6 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useMediaClient } from '../useMediaClient';
-
 import { getCopyIntentErrorPayload } from './getCopyIntentErrorPayload';
 import { getCopyIntentSuccessPayload } from './getCopyIntentSuccessPayload';
 import { getDocument } from './getDocument';

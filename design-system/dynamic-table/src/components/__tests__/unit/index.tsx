@@ -8,7 +8,6 @@ import Spinner from '@atlaskit/spinner/spinner';
 
 import DynamicTable, { DynamicTableStateless } from '../../../index';
 import { type RowCellType, type RowType } from '../../../types';
-
 import { rowsWithKeys } from './_data';
 import rows from './_data-json.json';
 import rowsNumeric from './_data-numeric-json.json';

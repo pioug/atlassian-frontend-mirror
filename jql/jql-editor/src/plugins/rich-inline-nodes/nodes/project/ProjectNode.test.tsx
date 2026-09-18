@@ -6,7 +6,6 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { useHydratedProject } from '../../../../state';
 import type { HydratedProject } from '../../../../ui/jql-editor/types';
-
 import { messages } from './messages';
 import { ProjectNode } from './project-node';
 

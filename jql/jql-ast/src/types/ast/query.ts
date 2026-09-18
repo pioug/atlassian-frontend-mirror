@@ -1,6 +1,5 @@
 import { type NODE_TYPE_QUERY } from '../../constants';
 import { type JQLParseError } from '../../errors';
-
 import { type Clause, type ParentOfClause } from './clause';
 import { type AstNode } from './common';
 import { type CompoundOperatorValue } from './compound-operator';

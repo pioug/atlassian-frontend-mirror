@@ -1,5 +1,4 @@
 import type { FindReplacePluginState } from '../types';
-
 import type { FindReplaceAction } from './actions';
 import { FindReplaceActionTypes } from './actions';
 

@@ -6,7 +6,6 @@ import {
 	PRODUCTION,
 	STAGING,
 } from '../../common/constants';
-
 import type {
 	IsolatedCloudDomainPatternMap,
 	IsolatedCloudDomainTypeEnumeration,

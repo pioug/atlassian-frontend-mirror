@@ -1,5 +1,5 @@
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 
 /**
  * Set a `style` property on a `HTMLElement`

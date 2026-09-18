@@ -7,7 +7,6 @@ import { ProfilecardInternal as ProfileCard } from '@atlaskit/profilecard/profil
 import { token } from '@atlaskit/tokens';
 
 import { CharlieHierarchy } from '../src';
-
 import { rootNode } from './common/basic-hierarchy';
 
 export default function Basic(): React.JSX.Element {

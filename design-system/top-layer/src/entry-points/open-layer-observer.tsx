@@ -2,6 +2,7 @@
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
+
 export { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer/open-layer-observer';
 /**
  * @deprecated Import from the generated per-export subpath instead.

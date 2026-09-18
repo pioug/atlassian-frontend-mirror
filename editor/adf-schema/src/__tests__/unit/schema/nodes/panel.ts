@@ -1,5 +1,4 @@
 import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 import { panel, panelC1Stage0 } from '../../../../next-schema';

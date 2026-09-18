@@ -1,19 +1,22 @@
 import React from 'react';
-import MediaInlineCard from '../../loader';
+
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { type MediaClientConfig } from '@atlaskit/media-client';
-// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
-import { generateSampleFileItem } from '@atlaskit/media-test-data/src';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import {
 	createMockedMediaApi,
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
-import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
-import { render, screen, waitFor } from '@testing-library/react';
-import * as analyticsModule from '../../../utils/analytics/fireMediaCardEvent';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import userEvent from '@testing-library/user-event';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
+import { generateSampleFileItem } from '@atlaskit/media-test-data/src';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
+import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+import * as analyticsModule from '../../../utils/analytics/fireMediaCardEvent';
+import MediaInlineCard from '../../loader';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 

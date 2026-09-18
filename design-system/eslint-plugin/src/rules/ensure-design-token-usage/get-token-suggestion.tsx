@@ -2,7 +2,6 @@ import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { isDecendantOfGlobalToken } from '../utils/is-decendant-of-global-token';
-
 import type { RuleConfig } from './types';
 
 type Suggestion = {

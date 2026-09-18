@@ -17,7 +17,6 @@ import { clearEditingContext, forceAutoSave } from '../editor-commands/commands'
 import type { ExtensionPlugin } from '../extensionPluginType';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { getSelectedExtension } from '../pm-plugins/utils';
-
 import ConfigPanelLoader from './ConfigPanel/ConfigPanelLoader';
 import { CONFIG_PANEL_WIDTH } from './ConfigPanel/constants';
 import HeaderAfterIconElement from './ConfigPanel/Header/HeaderAfterIconElement';

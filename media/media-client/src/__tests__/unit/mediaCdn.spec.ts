@@ -1,8 +1,7 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-
 import { isGoogleCloudPlatform } from '@atlaskit/atlassian-context/cloud-provider';
 import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
 import { isGCPtenant as isGCPtenantInStaging } from '@atlaskit/media-common/mediaEnvUtils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { isCDNEnabled } from '../../utils/isCDNEnabled';
 import { mapToMediaCdnUrl } from '../../utils/mapToMediaCdnUrl';

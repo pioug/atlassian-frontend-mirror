@@ -1,10 +1,13 @@
 import React from 'react';
-import { List } from '../../../list';
+
+import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { render, screen, waitFor } from '@testing-library/react';
+
+import { List } from '../../../list';
 
 describe('<List />', () => {
 	it('should show item', async () => {

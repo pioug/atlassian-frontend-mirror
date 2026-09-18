@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { Label } from '@atlaskit/form/label/default'` instead.
  */
+
 export { Label } from '../label';
 /**
  * @deprecated Use `import { Legend } from '@atlaskit/form/legend'` instead.

@@ -17,8 +17,8 @@ import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import Link from '@atlaskit/link/link';
 import type { CardContext } from '@atlaskit/link-provider/types';
+import Link from '@atlaskit/link/link';
 import type { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';
 

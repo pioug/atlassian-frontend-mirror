@@ -1,4 +1,5 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { confluenceUnsupportedBlock as confluenceUnsupportedBlockFactory } from '../../next-schema/generated/nodeTypes';
 
 const name = 'confluenceUnsupportedBlock';

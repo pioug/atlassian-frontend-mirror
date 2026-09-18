@@ -1,23 +1,24 @@
+import { MockCardComponent } from './card.mock';
+
 import React from 'react';
+
 import { render } from '@testing-library/react';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl';
 
+import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { WidthContext } from '@atlaskit/editor-common/ui';
+import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { Card } from '@atlaskit/smart-card';
 
 import BlockCard from '../../../../react/nodes/blockCard';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { MockCardComponent } from './card.mock';
-
-import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
-import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
-import { WidthContext } from '@atlaskit/editor-common/ui';
-import { Pressable } from '@atlaskit/primitives/compiled';
 
 jest.mock('../../../../react/nodes/fallback', () => {
 	const actual = jest.requireActual('../../../../react/nodes/fallback');

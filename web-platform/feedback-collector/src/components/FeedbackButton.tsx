@@ -7,7 +7,6 @@ import FlagGroup from '@atlaskit/flag/flag-group';
 import FeedbackIcon from '@atlaskit/icon/core/feedback';
 
 import { messages } from '../messages';
-
 import FeedbackCollector from './FeedbackCollector';
 import FeedbackFlag from './FeedbackFlag';
 import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';

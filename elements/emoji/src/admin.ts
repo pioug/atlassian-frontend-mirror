@@ -2,4 +2,5 @@
 /**
  * @deprecated Use `import { EmojiUploader } from '@atlaskit/emoji/emoji-uploader'` instead.
  */
+
 export { default as EmojiUploader } from './components/uploader/EmojiUploader';

@@ -2,31 +2,30 @@ import React from 'react';
 
 import { matchers } from '@emotion/jest';
 import { act, fireEvent, type RenderResult, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import fetchMock from 'fetch-mock/cjs/client';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-
-import { mockReactDomWarningGlobal, renderWithIntl } from '../../_testing-library';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import type { ServiceConfig } from '@atlaskit/util-service-support';
-import userEvent from '@testing-library/user-event';
-import fetchMock from 'fetch-mock/cjs/client';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { EmojiResource, type EmojiResourceConfig } from '../../../../api/EmojiResource';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
-import { sortCategories } from '../../../../components/picker/sortCategories';
-import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
 import EmojiPicker, {
 	type Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
-import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
 import { emojiPickerHeightOffset } from '../../../../components/picker/emojiPickerHeightOffset';
+import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
+import { sortCategories } from '../../../../components/picker/sortCategories';
+import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
 import {
 	SearchSourceTypes,
 	type EmojiDescription,
@@ -65,6 +64,7 @@ import {
 	standardEmojis,
 	standardServiceEmojis,
 } from '../../_test-data';
+import { mockReactDomWarningGlobal, renderWithIntl } from '../../_testing-library';
 import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
 import * as helper from './_emoji-picker-test-helpers';
 

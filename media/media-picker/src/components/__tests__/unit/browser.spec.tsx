@@ -2,14 +2,14 @@ import React from 'react';
 
 jest.mock('../../../service/uploadServiceImpl');
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
 import Button from '@atlaskit/button/standard-button';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { UploadServiceImpl } from '../../../service/uploadServiceImpl';
 import { type BrowserConfig } from '../../../types';
-import { BrowserBase } from '../../browser/BrowserBase';
 import { type BrowseFn, Browser } from '../../browser/browser';
+import { BrowserBase } from '../../browser/BrowserBase';
 
 const MockedUploadServiceImpl = jest.mocked(UploadServiceImpl);
 

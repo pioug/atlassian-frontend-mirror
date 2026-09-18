@@ -1,3 +1,4 @@
+import { getActiveQuickInsertCategories } from './getActiveQuickInsertCategories';
 import {
 	BLOCK_TEMPLATES_SECTION,
 	DATA_AND_CHARTS_SECTION,
@@ -8,7 +9,6 @@ import {
 	STRUCTURE_SECTION,
 	TEXT_FORMATTING_SECTION,
 } from './keys';
-import { getActiveQuickInsertCategories } from './getActiveQuickInsertCategories';
 
 type MenuSection = {
 	key: string;

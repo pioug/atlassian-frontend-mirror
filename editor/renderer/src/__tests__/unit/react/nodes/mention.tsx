@@ -1,9 +1,10 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { IntlProvider } from 'react-intl';
 
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderToString } from 'react-dom/server';
+import { IntlProvider } from 'react-intl';
+
 import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
 import type { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/ui';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

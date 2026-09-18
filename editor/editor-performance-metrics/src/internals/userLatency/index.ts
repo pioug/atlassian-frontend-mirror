@@ -1,5 +1,4 @@
 import { TimelineController } from '../timeline';
-
 import { processTimelineEvents } from './processTimelineEvents';
 import type { UserLatencyEvent } from './processTimelineEvents';
 import { UserLatencyObservers } from './UserLatencyOberservers';

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen, userEvent } from '@atlassian/testing-library';
+
 import {
 	ArchiveSidebarHeader,
 	type HeaderProps,

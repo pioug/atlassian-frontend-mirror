@@ -4,14 +4,14 @@ import { render, screen } from '@testing-library/react';
 
 import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
-import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
-import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
-import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
-import { withMediaClientAndSettings } from '@atlaskit/media-client-react/with-media-client-and-settings';
 import type {
 	MediaParsedSettings,
 	MediaSettings,
 } from '@atlaskit/media-client-react/media-parsed-settings';
+import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
+import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
+import { withMediaClientAndSettings } from '@atlaskit/media-client-react/with-media-client-and-settings';
 
 const TestComponentBase = ({
 	mediaClient,

@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
+import { type EmojiProvider } from '@atlaskit/emoji';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+
 import { getReactionSummary } from '../MockReactionsClient';
 import { DefaultReactions } from '../shared/constants';
 import { type ReactionSummary } from '../types';
-import { RENDER_SUMMARY_VIEW_POPUP_TESTID, ReactionSummaryView } from './ReactionSummaryView';
-import { type EmojiProvider } from '@atlaskit/emoji';
-import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
 import { RENDER_REACTION_TESTID } from './Reaction';
+import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
+import { RENDER_SUMMARY_VIEW_POPUP_TESTID, ReactionSummaryView } from './ReactionSummaryView';
 
 jest.mock('@atlaskit/emoji/picker', () => ({
 	...jest.requireActual('@atlaskit/emoji/picker'),

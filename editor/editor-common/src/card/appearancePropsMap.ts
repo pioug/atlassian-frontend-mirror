@@ -1,8 +1,8 @@
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import MinusIcon from '@atlaskit/icon/core/minus';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';
 import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 import { cardMessages as messages } from '../messages';
 

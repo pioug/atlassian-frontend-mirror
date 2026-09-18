@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react';
 
+import { IntlProvider, useIntl } from 'react-intl';
+
+import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets';
+import { getExamplesProviders } from '@af/editor-examples-helpers/utils';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { getExamplesProviders } from '@af/editor-examples-helpers/utils';
-import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets';
-import { IntlProvider, useIntl } from 'react-intl';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
+
 import { EditorSSRRenderer } from '../src';
 
 class SSRPortalProviderAPI implements PortalProviderAPI {

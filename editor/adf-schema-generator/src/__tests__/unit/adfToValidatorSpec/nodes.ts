@@ -1,7 +1,7 @@
+import { $or } from '../../../$or';
 import { adfNode } from '../../../adfNode';
 import { adfToValidatorSpec } from '../../../transforms/adfToValidatorSpec/adfToValidatorSpec';
 import type { ValidatorSpecNode } from '../../../transforms/adfToValidatorSpec/ValidatorSpec';
-import { $or } from '../../../$or';
 
 describe('ignored nodes', () => {
 	it('should not include ignored node in the output', () => {

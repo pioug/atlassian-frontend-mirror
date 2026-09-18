@@ -37,64 +37,6 @@ export type SessionMode = 'editing' | 'reading';
 export type EditorInteractionGroupName = 'editorOther' | 'editorPointer' | 'editorTyping';
 
 /**
- * The group a record is attributed to. Unlike the `page` histogram, which counts the editor's
- * interactions as well, `outsideEditor` is only the interactions that are not the editor's.
- */
-export type SlowInteractionGroup = EditorInteractionGroupName | 'outsideEditor';
-
-/**
- * One of the slowest interactions of the session: which target was slow, and where the time went,
- * neither of which the histograms can answer.
- *
- * The three phases divide `durationMs` and add up to it within rounding, and so do the four totals.
- * Everything but the phases comes from the Long Animation Frames the interaction ran in, so all of
- * it is absent when the browser reported none — and the fields describing one script are absent as
- * well when no script of those frames overlapped the interaction.
- */
-export type SlowInteraction = {
-	durationMs: number;
-	/** Function the interaction's slowest script ran in. */
-	functionName?: string;
-	group: SlowInteractionGroup;
-	/** Time between the event arriving and its handlers starting to run. */
-	inputDelayMs?: number;
-	/**
-	 * What ran that script, as the browser names it: `event-listener`, `user-callback`,
-	 * `resolve-promise`, `classic-script` and so on.
-	 */
-	invokerType?: string;
-	/** How much of the interaction's slowest script fell inside the interaction. */
-	longestScriptMs?: number;
-	/** Type of the event the latency was measured on, which for a pointer press is usually `click`. */
-	name: string;
-	/** Time between the handlers finishing and the next frame being presented. */
-	presentationDelayMs?: number;
-	/** Time spent running the event's handlers. */
-	processingMs?: number;
-	/** The bundle that script came from, without its origin or query. */
-	scriptName?: string;
-	/** The phase of the interaction that script ran in. */
-	scriptSubpart?: 'inputDelay' | 'presentationDelay' | 'processing';
-	/** A short DOM path, as it stood when the event was dispatched. */
-	target?: string;
-	/** Time between the last frame of the interaction ending and the screen updating. */
-	totalPaintDurationMs?: number;
-	/**
-	 * Script time inside the interaction across its frames, the part a script forced into style and
-	 * layout excluded.
-	 */
-	totalScriptDurationMs?: number;
-	/** Style and layout across the frames of the interaction, the part forced from a script included. */
-	totalStyleAndLayoutDurationMs?: number;
-	/**
-	 * The part of the latency the frames account for nothing in — the main thread was busy with
-	 * something no Long Animation Frame attributed to a script, to style and layout, or to paint.
-	 * Not idle time: the browser reports no frame under 50 ms, so the work of those lands here too.
-	 */
-	totalUnattributedDurationMs?: number;
-};
-
-/**
  * Session-to-date latency distribution for one group of interactions.
  *
  * `totalCount` counts every interaction, including those below the Event Timing reporting
@@ -137,6 +79,4 @@ export type InteractivitySnapshot = {
 	seq: number;
 	/** Fixed for the whole session: a mode change closes it and opens the next. */
 	sessionMode?: SessionMode;
-	/** Slowest first. Absent when nothing was slow enough to record. */
-	slowest?: SlowInteraction[];
 };

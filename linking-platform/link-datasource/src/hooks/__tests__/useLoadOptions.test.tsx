@@ -1,7 +1,7 @@
 import React, { type ReactPortal } from 'react';
+import ReactDOM from 'react-dom';
 
 import { renderHook, type RenderHookOptions, waitFor } from '@testing-library/react';
-import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';

@@ -40,14 +40,14 @@ jest.mock('../../../utils/analytics/extractErrorInfo', () => ({
 
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
+import { MediaCardError } from '../../../MediaCardError';
+import type { SSRStatus } from '../../../utils/analytics/analytics';
+import { extractErrorInfo } from '../../../utils/analytics/extractErrorInfo';
 import {
 	startUfoExperience,
 	completeUfoExperience,
 	abortUfoExperience,
 } from '../../../utils/ufoExperiences';
-import { MediaCardError } from '../../../MediaCardError';
-import { extractErrorInfo } from '../../../utils/analytics/extractErrorInfo';
-import type { SSRStatus } from '../../../utils/analytics/analytics';
 
 describe('ufoExperience', () => {
 	const mockStart = jest.fn();

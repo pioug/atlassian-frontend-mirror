@@ -1,11 +1,12 @@
+import type { JSX } from 'react';
+
 import WhatsNewIconExperiment from '../assets/WhatsNewIcoExperiment';
 import WhatsNewIconFix from '../assets/WhatsNewIconFix';
-import WhatsNewIconRemoved from '../assets/WhatsNewIconRemoved';
 import WhatsNewIconImprovement from '../assets/WhatsNewIconImprovement';
 import WhatsNewIconNew from '../assets/WhatsNewIconNew';
-import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
+import WhatsNewIconRemoved from '../assets/WhatsNewIconRemoved';
 import { messages } from '../messages';
-import type { JSX } from 'react';
+import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 
 export const getTypeIcon = (itemType?: WHATS_NEW_ITEM_TYPES): JSX.Element | '' => {
 	switch (itemType) {

@@ -1,22 +1,21 @@
 import React, { useCallback } from 'react';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+import HelpArticleContent from '@atlaskit/help-article';
 
-import RelatedArticles from '../../RelatedArticles';
-import { ARTICLE_TYPE } from '../../../model/Help';
 import {
 	type ArticleFeedback,
 	type ArticleItem,
 	type Article as ArticleType,
 } from '../../../model/Article';
-
-import { useNavigationContext } from '../../contexts/navigationContext';
+import { ARTICLE_TYPE } from '../../../model/Help';
 import { useHelpArticleContext } from '../../contexts/helpArticleContext';
+import { useNavigationContext } from '../../contexts/navigationContext';
 import { useRelatedArticlesContext } from '../../contexts/relatedArticlesContext';
-
-import HelpArticleContent from '@atlaskit/help-article';
-import WasHelpfulForm from './WasHelpfulForm';
+import RelatedArticles from '../../RelatedArticles';
 import Loading from './Loading';
+import WasHelpfulForm from './WasHelpfulForm';
 
 interface Props {
 	article?: ArticleType;

@@ -24,7 +24,6 @@ import { default as VoteCount } from '../../src/view/FlexibleCard/components/ele
 import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
 import '../utils/vr-preload-metadata-icons';
 
 const overrideCss = css({

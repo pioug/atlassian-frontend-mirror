@@ -8,7 +8,6 @@ import { writeHumanError } from '../output/write-human-error';
 import { writeJsonEnvelope } from '../output/write-json-envelope';
 import type { Writer } from '../output/writer';
 import { ExitCode, type ExitCodeValue } from '../types';
-
 import { CLI_ATLAS_INVOCATION } from './cli-metadata';
 import type { CommandInput } from './types';
 import {

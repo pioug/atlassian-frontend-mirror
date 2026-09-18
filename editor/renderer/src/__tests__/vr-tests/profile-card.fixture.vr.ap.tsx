@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { RendererStyleContainer } from '../../ui/Renderer/RendererStyleContainer';
 import { ProfilecardInternal as ProfileCard } from '@atlaskit/profilecard/profilecard-internal';
+
+import { RendererStyleContainer } from '../../ui/Renderer/RendererStyleContainer';
 
 export const ProfileCardInRenderer = (): React.JSX.Element => {
 	return (

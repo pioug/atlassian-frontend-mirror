@@ -11,7 +11,6 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context/useAutomationMenu';
-
 import EmptyIcon from './empty-icon';
 
 const styles = cssMap({

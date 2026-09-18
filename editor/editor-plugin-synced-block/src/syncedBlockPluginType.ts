@@ -21,8 +21,8 @@ import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
 	SyncBlockDataProviderInterface,

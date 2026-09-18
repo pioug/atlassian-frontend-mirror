@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { act } from 'react-dom/test-utils';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';

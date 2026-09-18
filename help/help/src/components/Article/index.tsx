@@ -4,16 +4,18 @@
  */
 
 import React, { useState, useLayoutEffect, useRef, useEffect, useCallback } from 'react';
+
+import { css, jsx } from '@compiled/react';
 import { Transition } from 'react-transition-group';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { token } from '@atlaskit/tokens';
-import { css, jsx } from '@compiled/react';
 
-import { useNavigationContext } from '../contexts/navigationContext';
-import { useHelpArticleContext } from '../contexts/helpArticleContext';
-import { SLIDEIN_OVERLAY_TRANSITION_DURATION_MS, type TransitionStatus, VIEW } from '../constants';
-import ArticleContent from './ArticleContent';
 import type { HistoryItem } from '../../model/Help';
+import { SLIDEIN_OVERLAY_TRANSITION_DURATION_MS, type TransitionStatus, VIEW } from '../constants';
+import { useHelpArticleContext } from '../contexts/helpArticleContext';
+import { useNavigationContext } from '../contexts/navigationContext';
+import ArticleContent from './ArticleContent';
 
 interface ArticleProps {
 	isAiEnabled?: boolean;

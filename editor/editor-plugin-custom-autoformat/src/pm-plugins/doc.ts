@@ -4,7 +4,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 
 import type { CustomAutoformatState } from '../types';
-
 import type { InputRuleHander } from './input-rules';
 import { autoformatAction } from './utils';
 

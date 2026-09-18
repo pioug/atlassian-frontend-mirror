@@ -22,7 +22,6 @@ import type { GuidelineConfig } from '../guideline';
 import { LAYOUT_SECTION_MARGIN } from '../styles';
 import type { EditorContainerWidth, getPosHandlerNode } from '../types';
 import { getBrowserInfo } from '../utils/browser';
-
 import Resizer from './Resizer';
 import { ResizerBreakoutModeLabel } from './ResizerBreakoutModeLabel';
 import type { HandleResize, HandleResizeStart } from './types';

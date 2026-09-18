@@ -15,7 +15,6 @@ import { useExecuteAtomicAction } from '../../../state/actions/useExecuteAtomicA
 import { isEditTypeSelectable } from '../edit-type/isEditTypeSelectable';
 import { isEditTypeSupported } from '../edit-type/isEditTypeSupported';
 import { type DatasourceTypeWithOnlyValues, type TableViewPropsRenderType } from '../types';
-
 import { getIssueLinkData } from './get-issue-link-data';
 import { getLinkedCellContent } from './get-linked-cell-content';
 import { InlineEdit } from './inline-edit';

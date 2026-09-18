@@ -14,7 +14,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { PopupMountPointReference, TypeAheadHandler, TypeAheadPluginState } from '../types';
-
 import { ACTIONS } from './actions';
 import { openTypeAheadAtCursor } from './commands/open-typeahead-at-cursor';
 import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE } from './constants';

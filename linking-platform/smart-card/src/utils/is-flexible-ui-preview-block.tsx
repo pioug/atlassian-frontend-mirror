@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { default as PreviewBlock } from '../view/FlexibleCard/components/blocks/preview-block';
-
 import { isStyleCacheProvider } from './is-style-cache-provider';
 
 export const isFlexibleUiPreviewBlock = (node: React.ReactNode): boolean => {

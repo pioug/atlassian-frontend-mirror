@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { ComponentIdentifier, RegisterComponent } from '../../types';
-
 import { SurfaceComponents } from './SurfaceComponents';
 import type { SurfaceRenderingContext } from './types';
 import { getComponentIdentity, PassThrough, willComponentRender } from './utils';

@@ -4,7 +4,6 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { nodeToJSON } from '../utils/nodes';
-
 import { getSliceFromSelection } from './context-helpers';
 
 /**

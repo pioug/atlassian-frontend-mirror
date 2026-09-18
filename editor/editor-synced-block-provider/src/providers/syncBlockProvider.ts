@@ -17,7 +17,6 @@ import type {
 	SyncBlockNode,
 	SyncBlockProduct,
 } from '../common/types';
-
 import { SyncBlockDataProviderInterface } from './types';
 import type {
 	ADFFetchProvider,

@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';
 import type { Placement } from '../../types';
-
 import { Caret } from './caret';
 
 const styles = cssMap({

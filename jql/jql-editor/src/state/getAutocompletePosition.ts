@@ -1,7 +1,6 @@
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import getDocumentPosition from '../plugins/common/get-document-position';
-
 import { type AutocompletePosition } from './types';
 
 export const getAutocompletePosition = (

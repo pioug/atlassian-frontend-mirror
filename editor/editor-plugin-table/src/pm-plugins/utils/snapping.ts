@@ -9,8 +9,8 @@ import {
 	akEditorFullPageNarrowBreakout,
 	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
 

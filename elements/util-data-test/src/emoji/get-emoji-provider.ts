@@ -1,10 +1,10 @@
 import { EmojiRepository } from '@atlaskit/emoji/resource';
-import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 import type { EmojiProvider, EmojiServiceResponse } from '@atlaskit/emoji/types';
+import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 
+import { loggedUser } from './logged-user';
 import { MockEmojiResource } from './mock-emoji-resource';
 import { type MockEmojiResourceConfig } from './types';
-import { loggedUser } from './logged-user';
 
 type DataFetch = () => Promise<EmojiServiceResponse>;
 

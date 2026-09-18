@@ -6,8 +6,8 @@ import { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import Motion from '@atlaskit/motion/entering/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from '../utils/blocks';

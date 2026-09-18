@@ -1,7 +1,7 @@
 import React from 'react';
-import { render as renderFn, screen } from '@atlassian/testing-library';
 
 import { token } from '@atlaskit/tokens';
+import { render as renderFn, screen } from '@atlassian/testing-library';
 
 import ProgressTrackerLink from '../../internal/link';
 import ProgressTrackerStage from '../../internal/stage';

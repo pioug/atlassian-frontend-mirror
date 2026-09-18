@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { token } from '@atlaskit/tokens';
 
 const Example = (): React.JSX.Element => {

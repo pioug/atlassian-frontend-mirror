@@ -1,7 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { TableMap } from '../table-map';
-
 import type { TableNodeCache } from './table-node-types';
 
 export function determineTableHeaderStateFromTableNode(

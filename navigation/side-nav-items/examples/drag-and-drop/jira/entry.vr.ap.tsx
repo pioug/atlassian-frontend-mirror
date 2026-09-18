@@ -33,7 +33,6 @@ import {
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 
 import { WithResponsiveViewport } from '../../utils/with-responsive-viewport';
-
 import { Sidebar } from './sidebar';
 
 export function App(): JSX.Element {

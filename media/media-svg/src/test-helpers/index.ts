@@ -4,4 +4,5 @@
 /**
  * @deprecated Use `import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader'` instead.
  */
+
 export { failDataURIConversionOnce } from './mockFileReader';

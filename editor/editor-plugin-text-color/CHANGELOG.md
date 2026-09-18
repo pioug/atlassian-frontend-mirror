@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-text-color
 
+## 19.0.2
+
+### Patch Changes
+
+- [`6c8c928766851`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c8c928766851) -
+  Associate the text color palette's radio group with its visible "Text color" label
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.0
 
 ### Patch Changes

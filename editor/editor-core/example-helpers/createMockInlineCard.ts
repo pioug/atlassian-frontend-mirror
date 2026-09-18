@@ -2,6 +2,7 @@
 /**
  * Helper function to create a mock inline card ADF node
  */
+
 export const createMockInlineCard = (
 	url: string,
 ): {

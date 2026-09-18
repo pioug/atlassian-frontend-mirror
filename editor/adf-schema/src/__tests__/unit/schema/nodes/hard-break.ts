@@ -1,6 +1,4 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { hardBreak } from '../../../..';
 import {
 	doc,
 	code_block,
@@ -8,6 +6,9 @@ import {
 	hardBreak as hardBreakNode,
 } from '@af/adf-test-helpers/src/doc-builder';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
+
+import { hardBreak } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 
 const schema = makeSchema();
 const packageName = process.env.npm_package_name as string;

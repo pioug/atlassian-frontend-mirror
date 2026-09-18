@@ -1,8 +1,8 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import React, { useContext, useMemo, type ReactNode } from 'react';
 
 import { type NavigationContext } from '../common/utils/getNavigationProps';
-
 import { NavigationContextReact } from './NavigationContextReact';
 
 export interface TeamsNavigationProviderProps {

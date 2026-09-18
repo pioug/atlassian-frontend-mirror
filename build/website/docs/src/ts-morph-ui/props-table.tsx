@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { memo, type MemoExoticComponent, type ReactNode } from 'react';
 
 import { jsx, keyframes } from '@compiled/react';

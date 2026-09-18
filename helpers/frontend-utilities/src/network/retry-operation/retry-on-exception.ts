@@ -1,5 +1,4 @@
 import { convertToError } from '../../error-handling/convert-to-error/convertToError';
-
 import { NO_RETRIES } from './constants';
 import FailedFetchError from './errors/FailedFetchError';
 import { type RetryConfig } from './types';

@@ -4,7 +4,6 @@ import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render } from '@atlassian/testing-library';
 
 import { IconType, SmartLinkSize } from '../../../../../constants';
-
 import AtlaskitIcon from './index';
 
 const mockDocumentIconModuleLoaded = jest.fn();

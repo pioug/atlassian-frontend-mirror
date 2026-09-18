@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { RequestError } from '@atlaskit/media-client/request'` instead.
  */
+
 export { RequestError } from './RequestError';
 /**
  * @deprecated Use `import { isRequestError } from '@atlaskit/media-client/request'` instead.

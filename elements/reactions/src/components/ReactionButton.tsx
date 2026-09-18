@@ -3,13 +3,14 @@
  * @jsx jsx
  */
 import { css, jsx, cssMap, cx } from '@compiled/react';
-import { FlashAnimation } from './FlashAnimation';
-import { type ReactionProps } from './Reaction';
+
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { FlashAnimation } from './FlashAnimation';
+import { type ReactionProps } from './Reaction';
 
 const styles = cssMap({
 	reactionButton: {

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import { useFocusRing } from '../../src/use-focus-ring';
 import type { FocusState } from '../../src/types';
+import { useFocusRing } from '../../src/use-focus-ring';
 
 /**
  * @returns The getByTestId() fn and the hook state

@@ -2,9 +2,8 @@
 // for typing `process`
 
 import type { Team } from '../types';
-
-import { AGGQuery } from './AGGQuery';
 import { addHeaders } from './addHeaders';
+import { AGGQuery } from './AGGQuery';
 import { buildGatewayQuery } from './buildGatewayQuery';
 import { convertTeam } from './convertTeam';
 

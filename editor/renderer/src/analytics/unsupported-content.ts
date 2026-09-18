@@ -1,10 +1,10 @@
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
 	getUnsupportedContentLevelData,
 	getAnalyticsAppearance,
 } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from './events';
 import { PLATFORM } from './events';
 

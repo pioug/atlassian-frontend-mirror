@@ -5,7 +5,6 @@ import Avatar from '@atlaskit/avatar/avatar';
 import { useHydratedLozengeWithAvatar } from '../../../../state';
 import { type NodeViewProps } from '../../util/react-node-view';
 import { type JQLNodeSpec } from '../types';
-
 import { AvatarWrapper, LozengeWithAvatarContainer, NameContainer } from './styled';
 
 export type Props = {

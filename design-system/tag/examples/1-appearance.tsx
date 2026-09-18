@@ -2,8 +2,8 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
 import { Box } from '@atlaskit/primitives/compiled';
-import Tag from '@atlaskit/tag/removable-tag';
 import AvatarTag from '@atlaskit/tag/avatar-tag';
+import Tag from '@atlaskit/tag/removable-tag';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 
 export default (): React.JSX.Element => (

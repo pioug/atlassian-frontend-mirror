@@ -21,7 +21,6 @@ import { type Identifier, isExternalImageIdentifier, isMediaBlobUrl } from '@atl
 import type { MediaState, getPosHandler as ProsemirrorGetPosHandler } from '../../types';
 import { isExternalMedia } from '../../ui/toolbar/utils';
 import { getMediaPluginState } from '../main';
-
 import { isVideo } from './media-single';
 
 const isTemporary = (id: string): boolean => {

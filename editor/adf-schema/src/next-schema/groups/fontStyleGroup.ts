@@ -1,5 +1,6 @@
 import type { ADFMarkGroup } from '@atlaskit/adf-schema-generator';
 import { adfMarkGroup } from '@atlaskit/adf-schema-generator';
+
 import { em } from '../marks/em';
 import { strike } from '../marks/strike';
 import { strong } from '../marks/strong';

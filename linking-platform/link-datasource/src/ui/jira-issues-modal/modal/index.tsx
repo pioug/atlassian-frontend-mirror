@@ -66,7 +66,6 @@ import {
 	type JiraIssueDatasourceParameters,
 	type JiraIssueDatasourceParametersQuery,
 } from '../types';
-
 import { modalMessages } from './messages';
 
 const styles = cssMap({

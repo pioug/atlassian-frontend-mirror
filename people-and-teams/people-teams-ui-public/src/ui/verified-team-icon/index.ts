@@ -2,4 +2,5 @@
 /**
  * @deprecated Use `import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public'` instead.
  */
+
 export { VerifiedTeamIcon } from './main';

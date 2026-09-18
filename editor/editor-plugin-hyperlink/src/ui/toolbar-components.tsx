@@ -11,7 +11,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
-
 import { LinkButton } from './toolbar/LinkButton';
 
 export const getToolbarComponents = (

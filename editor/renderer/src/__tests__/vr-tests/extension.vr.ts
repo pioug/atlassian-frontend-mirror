@@ -1,3 +1,5 @@
+import { snapshot } from '@af/visual-regression';
+
 import {
 	ExtensionAwesomeList,
 	ExtensionBlockEh,
@@ -8,7 +10,6 @@ import {
 	ExtensionInlineEhPlainTextMacroLongText,
 	ExtensionInlineEhPlainTextMacro,
 } from './extension.fixture.vr.ap';
-import { snapshot } from '@af/visual-regression';
 
 snapshot(ExtensionAwesomeList);
 snapshot(ExtensionBlockEh);

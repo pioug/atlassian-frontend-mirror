@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
+
 export { isElementBySelectorInDocument } from '../isElementBySelectorInDocument';
 export { setTextSelection } from '../setTextSelection';
 export { createPMSchemaAndPlugins } from '../test-utils';

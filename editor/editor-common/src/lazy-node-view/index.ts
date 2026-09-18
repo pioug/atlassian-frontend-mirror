@@ -11,7 +11,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/view';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
-
 import { cancelCallback, scheduleCallback } from './lazy-scheduler';
 import { makeNodePlaceholderId } from './makeNodePlaceholderId';
 import { LazyNodeView } from './node-view';

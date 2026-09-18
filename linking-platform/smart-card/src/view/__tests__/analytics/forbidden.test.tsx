@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
@@ -8,10 +7,11 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import '@atlaskit/link-test-helpers/jest';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
+import '@atlaskit/link-test-helpers/jest';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mocks } from '../../../utils/mocks';

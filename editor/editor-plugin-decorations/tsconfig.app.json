@@ -41,9 +41,6 @@
 		},
 		{
 			"path": "../editor-tables/tsconfig.app.json"
-		},
-		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	]
 }

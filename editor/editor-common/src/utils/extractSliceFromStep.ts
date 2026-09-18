@@ -1,6 +1,6 @@
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 export const extractSliceFromStep = (step: Step): Slice | null => {
 	if (!(step instanceof ReplaceStep) && !(step instanceof ReplaceAroundStep)) {

@@ -8,6 +8,7 @@
 /**
  * @deprecated Use `import { ChatToAgentButton } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu'` instead.
  */
+
 export { ChatToAgentButton } from './ChatToAgentButton';
 /**
  * @deprecated Use `import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components'` instead.

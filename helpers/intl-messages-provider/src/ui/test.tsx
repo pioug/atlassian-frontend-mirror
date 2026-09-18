@@ -4,8 +4,8 @@ import { defineMessages, IntlProvider, useIntl } from 'react-intl';
 
 import { render, screen } from '@atlassian/testing-library';
 
-import { default as IntlMessagesProvider } from './main';
 import { type I18NMessages } from '../common/types';
+import { default as IntlMessagesProvider } from './main';
 
 describe('IntlMessagesProvider', () => {
 	const messages = defineMessages({

@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/consistent-types-definitions */
+
 import { type default as React, type Ref } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';

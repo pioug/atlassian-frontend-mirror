@@ -1,5 +1,5 @@
-import isBefore from 'date-fns/isBefore';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+import isBefore from 'date-fns/isBefore';
 
 const ISO_FORMAT = 'YYYY-MM-DD';
 const DEFAULT_FORMAT = 'DD MMM YYYY';

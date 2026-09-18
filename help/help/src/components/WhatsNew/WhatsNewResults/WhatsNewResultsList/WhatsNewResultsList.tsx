@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
+
+import formatDate from 'date-fns/format';
+import isToday from 'date-fns/isToday';
+import isYesterday from 'date-fns/isYesterday';
+import toDate from 'date-fns/toDate';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { token } from '@atlaskit/tokens';
-import toDate from 'date-fns/toDate';
-import isYesterday from 'date-fns/isYesterday';
-import isToday from 'date-fns/isToday';
-import formatDate from 'date-fns/format';
 
 import { type WhatsNewArticleItem } from '../../../../model/WhatsNew';
-
-import WhatsNewResultItem from './WhatsNewResultItem';
 import { type WhatsNewResultsList as WhatsNewResultsListInterface } from './model/WhatsNewResultsList';
 import { WhatsNewResultsListGroupTitle, WhatsNewResultsListGroupWrapper } from './styled';
+import WhatsNewResultItem from './WhatsNewResultItem';
 
 export interface Props {
 	/* Number of "What's new" articles to diplay. This prop is optional (default value is 5) */

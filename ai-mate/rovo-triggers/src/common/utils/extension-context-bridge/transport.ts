@@ -1,7 +1,6 @@
 import { bind } from 'bind-event-listener';
 
 import { type Payload } from '../../../types';
-
 import { BRIDGE_CONTROL_REQUEST_CONTEXT, BRIDGE_MESSAGE_MARKER } from './constants';
 import type { BRIDGE_TO_EXTENSION, BRIDGE_TO_PRODUCT } from './constants';
 

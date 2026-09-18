@@ -4,13 +4,13 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "exampleDependencies": [],
-  "testExamples": [
-    "0-color-roles.vr.ap.tsx",
-    "10-current-surface-vr.vr.ap.tsx",
-    "4-spacing-vr.vr.ap.tsx",
-    "5-typography-vr.vr.ap.tsx",
-    "8-shape-vr.vr.ap.tsx",
-    "9-custom-theme.vr.ap.tsx"
-  ]
+	"exampleDependencies": [],
+	"testExamples": [
+		"0-color-roles.vr.ap.tsx",
+		"10-current-surface-vr.vr.ap.tsx",
+		"4-spacing-vr.vr.ap.tsx",
+		"5-typography-vr.vr.ap.tsx",
+		"8-shape-vr.vr.ap.tsx",
+		"9-custom-theme.vr.ap.tsx",
+	],
 }

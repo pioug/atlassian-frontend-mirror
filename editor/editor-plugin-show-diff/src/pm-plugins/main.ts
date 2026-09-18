@@ -28,7 +28,6 @@ import type {
 	SmartDiffThresholds,
 } from '../showDiffPluginType';
 import { getActiveDiffAnnouncement } from '../ui/DiffNavigation/announceActiveDiff';
-
 import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecorations';
 import type { ResolvedDiffContributors } from './decorations/colorSchemes/attributions';
 import type { ContributorTagMountContext } from './decorations/createContributorTagWidget';

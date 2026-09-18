@@ -1,7 +1,6 @@
 import type { MemoExoticComponent } from 'react';
 
 import type { LinkPickerProps } from '../common/types';
-
 import { default as LazyLinkPicker } from './lazy';
 import { LinkPicker } from './link-picker';
 import { composeLinkPicker } from './main';

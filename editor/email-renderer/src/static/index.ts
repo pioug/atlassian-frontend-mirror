@@ -1,9 +1,9 @@
+import type { SerializeFragmentWithAttachmentsResult, MediaImageBase64 } from '../serializer';
+import { CS_CONTENT_PREFIX } from '../styles/util';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as icons from './icons';
 import { IconName } from './icons';
-import type { SerializeFragmentWithAttachmentsResult, MediaImageBase64 } from '../serializer';
-import { CS_CONTENT_PREFIX } from '../styles/util';
 
 const cidPrefix = 'cid:';
 const pfcsPrefix = CS_CONTENT_PREFIX;

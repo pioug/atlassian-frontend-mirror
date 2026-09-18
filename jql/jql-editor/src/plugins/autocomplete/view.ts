@@ -10,7 +10,6 @@ import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';
 import { type PluginKeymap } from '../common/plugin-keymap';
 import ReactPluginView from '../common/react-plugin-view';
-
 import Autocomplete from './components/autocomplete';
 import { type AutocompleteProps, type SelectableAutocompleteOption } from './components/types';
 import { AUTOCOMPLETE_PLUGIN_NAME, JQLAutocompletePluginKey } from './constants';

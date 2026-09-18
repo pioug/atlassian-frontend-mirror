@@ -17,8 +17,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Reanimate } from '@atlaskit/motion/reanimate';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
@@ -26,15 +26,14 @@ import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
-
 import {
-	contentHeightWhenFixed,
-	contentInsetBlockStart,
-	localSlotLayers,
+	UNSAFE_panelLayoutVar,
+	type contentHeightWhenFixed,
+	type contentInsetBlockStart,
+	type localSlotLayers,
 	panelPanelSplitterId,
 	panelVar,
 	sideNavLiveWidthVar,
-	UNSAFE_panelLayoutVar,
 } from './constants';
 import { DangerouslyHoistCssVarToDocumentRoot } from './dangerously-hoist-css-var-to-document-root';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
@@ -65,18 +64,20 @@ const styles = cssMap({
 		boxSizing: 'border-box',
 		// On small viewports the panel is displayed above other slots so we set its zindex.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		zIndex: localSlotLayers.panelSmallViewports,
+		zIndex: 1 satisfies typeof localSlotLayers.panelSmallViewports,
 		// Height is set so it takes up all of the available viewport space minus top bar + banner.
 		// Since panel is always rendered ontop of other grid items across all viewports height is
 		// always set.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height: contentHeightWhenFixed,
+		height:
+			'calc(100vh - var(--n_bnrM, 0px) - var(--n_tNvM, 0px))' satisfies typeof contentHeightWhenFixed,
 		position: 'sticky',
 		// This sets the sticky point to be just below top bar + banner. It's needed to ensure the stick
 		// point is exactly where this element is rendered to with no wiggle room. Unfortunately the CSS
 		// spec for sticky doesn't support "stick to where I'm initially rendered" so we need to tell it.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		insetBlockStart: contentInsetBlockStart,
+		insetBlockStart:
+			'calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px))' satisfies typeof contentInsetBlockStart,
 		backgroundColor: token('elevation.surface.overlay'),
 		/**
 		 * For mobile viewports, the panel will try to take the minimum width, but no larger than 90% of the screen width.
@@ -91,7 +92,7 @@ const styles = cssMap({
 		width: `min(90%, var(--minWidth))`,
 		'@media (min-width: 48rem)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			width: `var(${panelSplitterResizingVar}, var(${panelVar}))`,
+			width: `var(${panelSplitterResizingVar}, var(${'--n_pnlW' satisfies typeof panelVar}))`,
 		},
 		'@media (min-width: 64rem)': {
 			backgroundColor: token('elevation.surface'),
@@ -140,7 +141,7 @@ const styles = cssMap({
 			},
 			transitionProperty: 'position',
 			transitionDuration: token('motion.duration.instant'),
-			transitionDelay: token('motion.duration.short'),
+			transitionDelay: '24ms', // Snaps main content when 60% of the panel has entered
 			transitionBehavior: 'allow-discrete',
 			'@starting-style': {
 				position: 'fixed',
@@ -154,6 +155,10 @@ const styles = cssMap({
 			"[dir='rtl'] &": {
 				animation: token('motion.panel.exit.left'),
 			},
+			transitionProperty: 'position',
+			transitionDuration: token('motion.duration.instant'),
+			transitionDelay: '19ms', // Snaps main content when 60% of the panel has exited
+			transitionBehavior: 'allow-discrete',
 			position: 'fixed',
 		},
 	},

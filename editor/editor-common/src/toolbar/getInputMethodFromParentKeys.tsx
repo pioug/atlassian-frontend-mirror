@@ -1,7 +1,6 @@
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import { INPUT_METHOD } from '../analytics';
-
 import { TOOLBARS } from './keys';
 
 export const getInputMethodFromParentKeys = (

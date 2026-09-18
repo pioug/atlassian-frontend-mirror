@@ -1,6 +1,7 @@
 import type FetchMock from 'fetch-mock';
 import fetchMock from 'fetch-mock/cjs/client';
 
+import type { Icon } from '@atlaskit/linking-types/datasource';
 import {
 	ActionOperationStatus,
 	type ActionsServiceDiscoveryResponse,
@@ -8,7 +9,6 @@ import {
 	type AtomicActionExecuteResponse,
 	type AtomicActionInterface,
 } from '@atlaskit/linking-types/datasource-actions';
-import type { Icon } from '@atlaskit/linking-types/datasource';
 
 import {
 	blocker,

@@ -1,9 +1,18 @@
 /* eslint-disable @atlaskit/editor/no-as-casting */
-import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import React, { act } from 'react';
+
 import { createRoot, type Root } from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
+
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
+import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+// eslint-disable-next-line @atlaskit/platform/no-alias
+import * as ffPackage from '@atlaskit/platform-feature-flags/fg';
+
 import ReactSerializer from '../../../react/index';
 import { getPosFromRange, resolvePos } from '../../index';
 import {
@@ -12,11 +21,6 @@ import {
 	docWithImage,
 	docWithImageInTable,
 } from './__fixtures__/documents';
-// eslint-disable-next-line @atlaskit/platform/no-alias
-import * as ffPackage from '@atlaskit/platform-feature-flags/fg';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 
 /*
  * NOTE: This will interfere with the ability to test the compiled styles,

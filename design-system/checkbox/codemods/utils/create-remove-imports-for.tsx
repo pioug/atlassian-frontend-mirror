@@ -2,7 +2,6 @@ import { type JSCodeshift } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
 import { type Nullable } from '../types';
-
 import { addCommentToStartOfFile } from './add-comment-to-start-of-file';
 
 export const createRemoveImportsFor: ({

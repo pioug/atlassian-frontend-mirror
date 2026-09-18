@@ -1,7 +1,6 @@
 import cloneDeepWith from 'lodash/cloneDeepWith';
 
 import { JastBuilder } from '../api';
-
 import { print } from './index';
 
 const testCases = [

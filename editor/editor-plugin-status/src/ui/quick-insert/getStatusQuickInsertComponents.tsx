@@ -8,7 +8,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { StatusPlugin } from '../../statusPluginType';
-
 import { StatusQuickInsertMenuItem } from './StatusQuickInsertMenuItem';
 
 const previewImageUrls = {

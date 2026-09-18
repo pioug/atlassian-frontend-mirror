@@ -9,7 +9,6 @@
  */
 
 import { EXPERIENCE_NAME, failExp, startExp, succeedExp } from '../analytics/ufo';
-
 import { ARTIFACT_NAME, fetchArtifactJson } from './artifacts-manifest';
 import type { CanonicalLmEvidence } from './canonical-lm-scoring';
 import { isAutocompleteDebugEnabled } from './debug-mode';

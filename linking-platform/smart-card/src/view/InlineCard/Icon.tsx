@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-styled */
+
 import React from 'react';
 
 import { styled, type StyledProps } from '@compiled/react';

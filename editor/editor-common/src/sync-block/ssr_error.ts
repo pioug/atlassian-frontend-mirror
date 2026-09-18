@@ -1,7 +1,6 @@
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
 import type { SyncedBlockSSRErrorAEP } from '../analytics/types/sync-block-events';
 import { isSSR } from '../core-utils';
-
 import { SyncedBlocksSSRErrorCodeMap } from './SyncedBlocksSSRErrorCodeMap';
 type BlockNodeIdentifiers = {
 	blockInstanceId: string;

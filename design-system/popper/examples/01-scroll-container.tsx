@@ -6,8 +6,8 @@
 import { css, jsx, styled } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
-import { Manager } from '@atlaskit/popper/manager';
 import { Popper } from '@atlaskit/popper/main';
+import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
 import { token } from '@atlaskit/tokens';
 

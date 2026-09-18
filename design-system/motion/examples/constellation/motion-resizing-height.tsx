@@ -8,8 +8,8 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { Label } from '@atlaskit/form/label/default';
-import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import { BitbucketIcon, ConfluenceIcon, OpsgenieIcon, StatuspageIcon } from '@atlaskit/logo';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import FadeIn from '@atlaskit/motion/fade-in';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { useResizingHeight } from '@atlaskit/motion/use-resizing-height';

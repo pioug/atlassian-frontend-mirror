@@ -3,10 +3,9 @@ import Bowser from 'bowser-ultralight';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { INSM } from './insm';
-import type { AddedProperties, ExperienceProperties } from './types';
-
 import { PeriodTracking } from './insm-period';
 import { LongAnimationFrameMeasurer } from './session-measurers/LongAnimationFrameMeasurer';
+import type { AddedProperties, ExperienceProperties } from './types';
 
 /**
  * Only intended for internal use.

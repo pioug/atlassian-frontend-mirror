@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import Textfield from '@atlaskit/textfield/text-field';
-import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
-import { getMediaFeatureFlags, clearAllLocalFeatureFlags, setLocalFeatureFlag } from './helpers';
-import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
-import HipchatChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import Button from '@atlaskit/button/standard-button';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import { Popup } from '@atlaskit/popup/popup';
+import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import HipchatChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
 import { debounce } from '@atlaskit/media-common';
+import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import { Popup } from '@atlaskit/popup/popup';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Stack, xcss } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield/text-field';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import { getMediaFeatureFlags, clearAllLocalFeatureFlags, setLocalFeatureFlag } from './helpers';
 
 const camelCaseToSentenceCase = (text: string) => {
 	var result = text.replace(/([A-Z])/g, ' $1');

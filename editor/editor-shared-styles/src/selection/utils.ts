@@ -6,7 +6,6 @@ import {
 	akEditorSelectedBoxShadow,
 	akEditorSmallZIndex,
 } from '../consts';
-
 import { SelectionStyle } from './types';
 
 /**

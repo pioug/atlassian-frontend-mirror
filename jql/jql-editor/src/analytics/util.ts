@@ -1,6 +1,6 @@
+import type { JqlAnalyticsEvent } from '@atlaskit/jql-editor-common/analytics/types';
 import { ANALYTICS_CHANNEL } from '@atlaskit/jql-editor-common/constants';
 import { useJqlPackageAnalytics } from '@atlaskit/jql-editor-common/util';
-import type { JqlAnalyticsEvent } from '@atlaskit/jql-editor-common/analytics/types';
 
 import { type Action, type ActionSubject, type ActionSubjectId } from './constants';
 

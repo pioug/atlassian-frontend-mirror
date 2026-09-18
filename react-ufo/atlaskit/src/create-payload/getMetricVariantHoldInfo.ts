@@ -1,7 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { HoldActive, HoldInfo, InteractionMetrics, MetricVariantCategory } from '../common';
-
 import { type LabelStackRegistry } from './common/utils/label-stack-registry';
 import { type getReactUFOPayloadVersion } from './utils/get-react-ufo-payload-version';
 import { optimizeHoldInfo } from './utils/optimize-hold-info';

@@ -1,5 +1,6 @@
 import type { ADFMark, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
 import { adfMark } from '@atlaskit/adf-schema-generator';
+
 import { fontStyleGroup } from '../groups/fontStyleGroup';
 import { linkMarkGroup } from '../groups/linkMarkGroup';
 import { searchQueryMarkGroup } from '../groups/searchQueryMarkGroup';

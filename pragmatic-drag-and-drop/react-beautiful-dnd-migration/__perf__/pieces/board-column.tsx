@@ -12,7 +12,6 @@ import { durations } from '@atlaskit/motion/utils/durations';
 import { token } from '@atlaskit/tokens';
 
 import type { ColumnType } from '../../examples/data/tasks';
-
 import { Card } from './board-card';
 import type { RbdApi } from './types';
 

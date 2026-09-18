@@ -10,7 +10,6 @@ import { token } from '@atlaskit/tokens';
 import TeamProfilecardTrigger from '../src/components/Team/TeamProfileCardTrigger';
 import teamData from '../src/mocks/team-data';
 import { type Team } from '../src/types';
-
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
 

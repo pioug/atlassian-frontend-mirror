@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
 import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
+import { render, screen } from '@atlassian/testing-library';
 
 import ModalBody from '../../modal-body';
 import ModalDialog from '../../modal-dialog';

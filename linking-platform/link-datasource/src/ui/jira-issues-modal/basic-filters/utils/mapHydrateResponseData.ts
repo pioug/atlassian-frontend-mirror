@@ -1,6 +1,5 @@
 import { type HydrateResponse, type SelectedOptionsMap } from '../types';
 import { availableBasicFilterTypes } from '../ui';
-
 import { isNonNullSelectOption } from './isNonNullSelectOption';
 import { mapNodeToOption } from './mapNodeToOption';
 

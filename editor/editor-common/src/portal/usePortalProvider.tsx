@@ -3,9 +3,8 @@ import { useEffect, useMemo } from 'react';
 import { getPortalProviderAPI } from './common';
 import type { PortalRendererComponent, UsePortalProviderReturnType } from './common';
 import { createPortalRendererComponent } from './createPortalRendererComponent';
-import { PortalManager } from './PortalManager';
-
 import type { PortalProviderAPI } from './index';
+import { PortalManager } from './PortalManager';
 
 /**
  * Initializes PortalManager and creates PortalRendererComponent. Offers an API (portalProviderAPI) for managing portals.

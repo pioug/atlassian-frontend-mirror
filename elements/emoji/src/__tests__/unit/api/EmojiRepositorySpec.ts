@@ -2,8 +2,8 @@ import { Search } from 'js-search';
 import pWaitFor from 'p-wait-for';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import EmojiRepository from '../../../api/EmojiRepository';
 import { getEmojiVariation } from '../../../api/getEmojiVariation';

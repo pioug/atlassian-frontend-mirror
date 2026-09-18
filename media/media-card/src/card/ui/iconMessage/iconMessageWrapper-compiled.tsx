@@ -3,9 +3,10 @@
  * @jsx jsx
  */
 import { css, jsx, keyframes } from '@compiled/react';
-import { type IconMessageWrapperProps } from './types';
 
 import { token } from '@atlaskit/tokens';
+
+import { type IconMessageWrapperProps } from './types';
 
 const breatheAnimation = keyframes({
 	'0%': {

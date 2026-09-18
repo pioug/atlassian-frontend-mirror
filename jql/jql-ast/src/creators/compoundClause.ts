@@ -15,7 +15,6 @@ import {
 	type JastVisitor,
 	type Position,
 } from '../types';
-
 import { assignParent } from './common';
 
 function acceptCompoundClause<Result>(this: CompoundClause, visitor: JastVisitor<Result>) {

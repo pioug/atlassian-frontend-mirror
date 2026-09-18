@@ -1,6 +1,6 @@
+import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
-import { execSync } from 'child_process';
 
 // Ignored via go/ees005
 // eslint-disable-next-line no-var

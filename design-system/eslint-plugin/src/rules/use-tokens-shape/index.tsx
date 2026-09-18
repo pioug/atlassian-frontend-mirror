@@ -1,7 +1,6 @@
 import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-lint-rule';
-
 import { StyleProperty } from './transformers';
 
 const rule: Rule.RuleModule = createLintRule({

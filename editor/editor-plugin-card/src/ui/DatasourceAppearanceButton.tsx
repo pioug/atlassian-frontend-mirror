@@ -17,15 +17,14 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { buildDatasourceAdf } from '@atlaskit/link-datasource/utils/schema';
-import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardContext } from '@atlaskit/link-provider/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 import { updateCardViaDatasource } from '../pm-plugins/doc';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import type { CardPluginState } from '../types';
-
 import { DatasourceIcon } from './DatasourceIcon';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 

@@ -1,3 +1,5 @@
+import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
+
 import React from 'react';
 
 import { IntlProvider } from 'react-intl';
@@ -7,7 +9,6 @@ import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import { CardDisplay } from '../../../../../../constants';
-import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
 import { mockUnauthorisedResponse } from '../../../../__tests__/__mocks__/mocks';
 import RovoUnauthorisedView from '../RovoUnauthorisedView';
 import { type HoverCardUnauthorisedProps } from '../types';

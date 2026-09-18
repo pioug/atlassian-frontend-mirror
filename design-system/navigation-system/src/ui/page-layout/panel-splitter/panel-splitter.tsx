@@ -12,30 +12,29 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
-import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/utils/block-dragging-to-iframes';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/utils/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import type { TooltipProps } from '@atlaskit/tooltip/types';
 import TooltipContainer, { type TooltipContainerProps } from '@atlaskit/tooltip/TooltipContainer';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { contentInsetBlockStart } from '../constants';
-
 import { convertResizeBoundToPixels } from './convert-resize-bound-to-pixels';
 import { getPercentageWithinPixelBounds } from './get-percentage-within-pixel-bounds';
 import { getPixelWidth } from './get-pixel-width';

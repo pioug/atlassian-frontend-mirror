@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+
 import type { Layers } from './types';
 
 export const CHANNEL = '__ATLASKIT_THEME__';

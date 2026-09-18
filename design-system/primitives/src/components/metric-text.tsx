@@ -15,6 +15,7 @@
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
+
 import { MetricText, type MetricTextProps } from '../compiled/components/metric-text';
 
 export type { MetricTextProps };

@@ -5,7 +5,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import TeamProfilecardTrigger from '../src/components/Team/TeamProfileCardTrigger';
-
 import ExampleWrapper from './helper/example-wrapper';
 
 const styles = cssMap({

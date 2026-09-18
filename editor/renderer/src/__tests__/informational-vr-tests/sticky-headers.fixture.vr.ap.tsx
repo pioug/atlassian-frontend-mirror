@@ -1,4 +1,8 @@
 import React from 'react';
+
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+
+import { Renderer } from '../../entry-points/renderer-default';
 import {
 	stickyHeadersBrokenOutTableNoResize,
 	stickyHeadersBrokenOutTableOverflowing,
@@ -16,8 +20,6 @@ import {
 	stickyHeadersUnresizedTableNumberedColumn,
 	stickyHeadersUnresizedTableWithoutHeaderRow,
 } from '../__fixtures__/sticky-header-adf';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { Renderer } from '../../entry-points/renderer-default';
 
 function StickyHeaderFixture({ adf }: { adf: unknown }) {
 	return (

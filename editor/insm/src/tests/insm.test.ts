@@ -1,4 +1,5 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+
 import { insm, init as originalInit } from '../index';
 import type { INSMOptions } from '../types';
 

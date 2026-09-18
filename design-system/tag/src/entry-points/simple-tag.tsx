@@ -2,6 +2,7 @@
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
+
 export { default } from '../tag/internal/simple';
 /**
  * @deprecated Import from the generated per-export subpath instead.

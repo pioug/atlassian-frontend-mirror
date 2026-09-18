@@ -1,6 +1,6 @@
+import { schema } from '@af/adf-test-helpers/src/adf-schema';
 import { fromHTML, toDOM } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
-import { schema } from '@af/adf-test-helpers/src/adf-schema';
 import { mediaGroup } from '../../../..';
 import { normalizeNodeSpec } from '../../_utils';
 

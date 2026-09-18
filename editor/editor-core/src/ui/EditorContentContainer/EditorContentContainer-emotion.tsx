@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
@@ -19,14 +20,13 @@ import { akEditorGutterPaddingDynamic, editorFontSize } from '@atlaskit/editor-s
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
-
 import { agentShimmerStyle } from './styles/agentShimmerStyles';
 import {
 	aiPanelBaseFirefoxStyles,
@@ -91,8 +91,8 @@ import {
 	expandStylesMixin_fg_platform_visual_refresh_icons,
 	getDenseExpandTitleStyles,
 } from './styles/expandStyles';
-import { extensionDiffStyles, getExtensionStyles } from './styles/extensionStyles';
 import { extensionWithBreakoutStyles } from './styles/extensionBreakoutStyles';
+import { extensionDiffStyles, getExtensionStyles } from './styles/extensionStyles';
 import {
 	findReplaceStyles,
 	findReplaceStylesWithCodeblockColorContrastFix,
@@ -197,7 +197,6 @@ import {
 	showDiffDeletedNodeStyles,
 	showDiffDeletedNodeStylesNew,
 	smartCardDiffStyles,
-	smartCardStylesWithSearchMatch,
 	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 	smartLinksInLivePagesStyles,
@@ -608,15 +607,12 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				isFloatingTocEnabled &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					headingScrollMarginStyles,
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					blockquoteSelectedNodeStyles,
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					listSelectedNodeStyles,
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					textSelectedNodeStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				blockquoteSelectedNodeStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				listSelectedNodeStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				textSelectedNodeStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				blocktypeStyles_fg_platform_editor_typography_ugc,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -769,11 +765,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					statusStylesHexAccent,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				annotationStyles,
-				editorExperiment('platform_editor_block_menu', true)
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						smartCardStylesWithSearchMatchAndBlockMenuDangerStyles
-					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						smartCardStylesWithSearchMatch,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
@@ -1010,30 +1003,27 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				selectionToolbarAnimationStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				editorExperiment('platform_editor_block_menu', true) && [
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					blockquoteDangerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					textDangerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					listDangerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					dangerDateStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					emojiDangerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					mentionDangerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					decisionDangerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					statusDangerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					dangerRuleStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					mediaDangerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					nestedPanelDangerStyles,
-				],
+				blockquoteDangerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				textDangerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				listDangerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				dangerDateStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				emojiDangerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				mentionDangerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				decisionDangerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				statusDangerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				dangerRuleStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				mediaDangerStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				nestedPanelDangerStyles,
 				// Block spacing hook — opt-in via --ak-editor-extension-block-spacing.
 				// Applied last so the var-based margins override the base block margins by source
 				// order. Gated by an experiment so it can be disabled.

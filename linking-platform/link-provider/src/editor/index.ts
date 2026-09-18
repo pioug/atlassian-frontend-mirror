@@ -8,14 +8,16 @@
 // https://product-fabric.atlassian.net/browse/EDM-5755
 
 import DataLoader from 'dataloader';
-import type { CardAdf, CardAppearance, EnvironmentsKeys } from '@atlaskit/linking-common/types';
-import { request } from '@atlaskit/linking-common/api';
-import { getStatus } from '@atlaskit/linking-common/utils/get-status';
-import { getBaseUrl } from '@atlaskit/linking-common/get-base-url';
-import { getResolverUrl } from '@atlaskit/linking-common/get-resolver-url';
 
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
+import { request } from '@atlaskit/linking-common/api';
+import { getBaseUrl } from '@atlaskit/linking-common/get-base-url';
+import { getResolverUrl } from '@atlaskit/linking-common/get-resolver-url';
+import type { CardAdf, CardAppearance, EnvironmentsKeys } from '@atlaskit/linking-common/types';
+import { getStatus } from '@atlaskit/linking-common/utils/get-status';
 
+import CardClient from '../client';
+import { Transformer } from './transformer';
 import {
 	type CardProvider,
 	type LinkAppearance,
@@ -23,9 +25,6 @@ import {
 	type ProviderPattern,
 	type ProvidersData,
 } from './types';
-import { Transformer } from './transformer';
-
-import CardClient from '../client';
 
 const BATCH_WAIT_TIME = 50;
 

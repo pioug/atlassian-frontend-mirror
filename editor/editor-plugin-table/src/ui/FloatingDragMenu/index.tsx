@@ -16,7 +16,6 @@ import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
-
 import DragMenu from './DragMenu';
 
 interface Props {

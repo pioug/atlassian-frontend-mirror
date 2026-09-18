@@ -8,7 +8,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { CodeBlockPlugin } from '../../codeBlockPluginType';
-
 import { CodeBlockQuickInsertMenuItem } from './CodeBlockQuickInsertMenuItem';
 
 const previewImageUrls = {

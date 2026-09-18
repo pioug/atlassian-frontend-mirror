@@ -1,8 +1,11 @@
 import type { PropsWithChildren } from 'react';
-import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+
+import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import type { AnalyticsEventPayload } from '../analytics/events';
 import type { Serializer } from '../serializer';
 import type {
@@ -11,7 +14,6 @@ import type {
 	RendererContentMode,
 	NestedRendererType,
 } from '../ui/Renderer/types';
-import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 
 export interface RendererContext {
 	// Ignored via go/ees005

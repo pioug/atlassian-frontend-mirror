@@ -26,7 +26,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaOptions } from '../types';
-
 import { createMediaNodeUpdater, type MediaNodeUpdater } from './mediaNodeUpdater';
 
 const getIdentifier = (item: PMNode): Identifier => {

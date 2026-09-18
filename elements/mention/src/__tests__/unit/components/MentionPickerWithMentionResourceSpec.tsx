@@ -1,17 +1,18 @@
 import React from 'react';
-import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
 import fetchMock from 'fetch-mock/cjs/client';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
+
+import { act, render, waitFor } from '@atlassian/testing-library';
 
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MentionResource } from '../../../api/MentionResource';
-import { MentionPicker } from '../../../components/MentionPicker/MentionPicker';
 import { type Props } from '../../../components/MentionPicker';
+import { MentionPicker } from '../../../components/MentionPicker/MentionPicker';
 import { type MentionsResult } from '../../../types';
 import * as fireAnalyticsMentionTypeaheadEventModule from '../../../util/fire-analytics-mention-typeahead-event';
-import { act, render, waitFor } from '@atlassian/testing-library';
 import { resultC } from '../_mention-search-results';
 
 const mentionResource = () =>

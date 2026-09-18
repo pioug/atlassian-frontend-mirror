@@ -1,6 +1,6 @@
-import { RequestError } from './RequestError';
 import { createRequestErrorReason } from './createRequestErrorReason';
 import { extractMediaHeaders } from './extractMediaHeaders';
+import { RequestError } from './RequestError';
 import { type RequestErrorMetadata } from './types';
 
 export function createRequestErrorFromResponse(

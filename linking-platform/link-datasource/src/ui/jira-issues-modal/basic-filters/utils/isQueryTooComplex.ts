@@ -14,10 +14,8 @@ import {
 } from '@atlaskit/jql-ast';
 
 import { ALLOWED_ORDER_BY_KEYS } from '../../jira-search-container';
-
-import { isClauseTooComplex } from './isClauseTooComplex';
-
 import { isValidJql } from './index';
+import { isClauseTooComplex } from './isClauseTooComplex';
 
 // Map of field keys to their respective clauses in the Jast
 type ClauseMap = {

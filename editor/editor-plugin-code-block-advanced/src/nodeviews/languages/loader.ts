@@ -3,7 +3,6 @@ import type { LanguageSupport } from '@codemirror/language';
 import type { Extension } from '@codemirror/state';
 
 import { languageStyling } from '../../ui/syntaxHighlightingTheme';
-
 import { mapLanguageToCodeMirror } from './languageMap';
 
 /**

@@ -4,8 +4,11 @@
  */
 
 import React, { useEffect, useState } from 'react';
+
 import { css, jsx, keyframes } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
+
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 
 const dividerLineStyles = css({

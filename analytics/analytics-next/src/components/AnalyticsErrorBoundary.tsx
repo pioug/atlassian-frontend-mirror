@@ -3,7 +3,6 @@ import React, { Component, type ReactNode } from 'react';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import isModernContextEnabledEnv from '../utils/isModernContextEnabledEnv';
-
 import LegacyAnalyticsContext from './AnalyticsContext/LegacyAnalyticsContext';
 import ModernAnalyticsContext from './AnalyticsContext/ModernAnalyticsContext';
 

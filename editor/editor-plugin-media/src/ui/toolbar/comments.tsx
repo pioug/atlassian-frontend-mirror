@@ -20,7 +20,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginOptions } from '../../types';
-
 import { getSelectedMediaSingle } from './utils';
 
 export const commentButton = (

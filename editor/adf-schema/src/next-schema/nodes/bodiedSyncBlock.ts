@@ -1,28 +1,28 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
+
 import { breakout } from '../marks/breakout';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { unsupportedBlock } from '../nodes/unsupportedBlock';
 import { blockCard } from './blockCard';
-import { bodiedRule } from './bodiedRule';
 import { blockquote } from './blockquote';
+import { bodiedRule } from './bodiedRule';
 import { codeBlock } from './codeBlock';
 import { confluenceUnsupportedBlock } from './confluenceUnsupportedBlock';
 import { decisionList } from './decisionList';
 import { embedCard } from './embedCard';
 import { expand } from './expand';
+import { heading } from './heading';
+import { layoutSection } from './layoutSection';
 import { bulletList, orderedList } from './list';
 import { mediaGroup } from './mediaGroup';
 import { mediaSingle } from './mediaSingle';
 import { panel } from './panel';
 import { paragraph } from './paragraph';
 import { rule } from './rule';
-
-import { heading } from './heading';
 import { table } from './tableNodes';
 import { taskList } from './task';
-import { layoutSection } from './layoutSection';
 
 export const bodiedSyncBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
 	'bodiedSyncBlock',

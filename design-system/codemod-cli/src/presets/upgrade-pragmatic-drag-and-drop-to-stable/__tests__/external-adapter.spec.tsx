@@ -1,6 +1,5 @@
 import { pleaseMigrateMessage } from '../transformers/external-adapter';
 import transformer from '../upgrade-pragmatic-drag-and-drop-to-stable';
-
 import { check } from './_framework';
 
 describe('file adapter => external adapter', () => {

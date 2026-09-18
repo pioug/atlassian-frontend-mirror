@@ -12,8 +12,8 @@ import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/
 
 import { jqlFieldsMock, jqlFunctionsMock } from '../examples-utils/data';
 import { Container } from '../examples-utils/styled';
-import { type HydratedValue, type HydratedValues } from '../src/ui/jql-editor/types';
 import JQLEditor from '../src/ui';
+import { type HydratedValue, type HydratedValues } from '../src/ui/jql-editor/types';
 
 const exampleFeatureGateOverrides: Record<string, boolean> = {
 	'orion-8274-cmdb-object-jql-values-resolver': true,

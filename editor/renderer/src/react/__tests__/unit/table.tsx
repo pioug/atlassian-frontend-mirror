@@ -1,9 +1,13 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop, react/jsx-props-no-spreading */
+
 import React from 'react';
+
 // eslint-disable-next-line @atlassian/testing-library/prefer-atlassian-testing-library -- pre-existing usage
 import { render, screen } from '@testing-library/react';
-import { TableContainer } from '../../nodes/table';
+
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { TableContainer } from '../../nodes/table';
 
 jest.mock('../../nodes/table', () => ({
 	...jest.requireActual('../../nodes/table'),

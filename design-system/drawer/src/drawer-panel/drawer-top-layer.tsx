@@ -13,8 +13,8 @@ import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import { createCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { Dialog } from '@atlaskit/top-layer/dialog-content';
-import type { TDialogCloseReason } from '@atlaskit/top-layer/dialog/types';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
+import type { TDialogCloseReason } from '@atlaskit/top-layer/dialog/types';
 
 import { EnsureIsInsideDrawerContext } from '../ensure-is-inside-drawer-context';
 import { OnCloseContext } from '../on-close-context';

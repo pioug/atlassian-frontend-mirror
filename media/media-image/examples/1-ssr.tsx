@@ -1,3 +1,17 @@
+import React, { type PropsWithChildren, useEffect, useMemo } from 'react';
+
+import { hydrateRoot } from 'react-dom/client';
+import ReactDOMServer from 'react-dom/server';
+
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import {
+	type FileIdentifier,
+	MediaClient,
+	type MediaStoreGetFileImageParams,
+} from '@atlaskit/media-client';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import { type SSR } from '@atlaskit/media-common';
 /**
  * Development use only
  * The purpose of this example is to explore on edge cases for this component's
@@ -5,23 +19,12 @@
  * way. It is discouraged to use this code as a base for consumers.
  */
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
-import {
-	type FileIdentifier,
-	MediaClient,
-	type MediaStoreGetFileImageParams,
-} from '@atlaskit/media-client';
 import { tallImage } from '@atlaskit/media-test-helpers';
-import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
-import React, { type PropsWithChildren, useEffect, useMemo } from 'react';
-import { type SSR } from '@atlaskit/media-common';
-import { MediaImage } from '../src';
-import Spinner from '@atlaskit/spinner/spinner';
-import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { imageFileId } from '@atlaskit/media-test-helpers';
-import ReactDOMServer from 'react-dom/server';
-import { hydrateRoot } from 'react-dom/client';
+import Spinner from '@atlaskit/spinner/spinner';
+
 import DevelopmentUseMessage from '../example-helpers/developmentUseMessage';
+import { MediaImage } from '../src';
 
 const dimensions = { width: 100, height: 150 };
 

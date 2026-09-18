@@ -1,11 +1,14 @@
 import React from 'react';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { getFileStreamsCache } from '@atlaskit/media-client';
+
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
+import { getFileStreamsCache } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { IntlProvider } from 'react-intl';
+
 import { DeduplicatedFilmStrip } from './deduplicatedFilmstrip';
 
 const imgTestId = 'media-image';

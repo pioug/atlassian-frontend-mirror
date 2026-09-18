@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
+import { EmojiPreviewComponent } from '../../../../components/common/EmojiPreviewComponent';
 import type { EmojiDescriptionWithVariations } from '../../../../types';
 import { imageEmoji } from '../../_test-data';
-import { EmojiPreviewComponent } from '../../../../components/common/EmojiPreviewComponent';
 import { renderWithIntl } from '../../_testing-library';
 
 const emoji: EmojiDescriptionWithVariations = {

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { token } from '@atlaskit/tokens';
+
+import Button from '@atlaskit/button/default/button';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import {
 	type SimulationSettings,
 	useRunSimulation,
@@ -16,11 +18,10 @@ import {
 	simulateAlwaysLoading,
 	simulateAlwaysProcessing,
 } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
+
 import { MainWrapper } from '../example-helpers';
 import { MediaInlineCard, type MediaInlineCardProps } from '../src/inline/mediaInlineCard';
-
-import Button from '@atlaskit/button/default/button';
-import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 
 const defaultDimensions = { width: 200, height: 150 };
 

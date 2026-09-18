@@ -3,7 +3,6 @@
 import { DOMParser, type ResolvedPos, type Slice } from '@atlaskit/editor-prosemirror/model';
 
 import { splitTextByNewLine } from '../utils/split-text-by-new-line';
-
 import { JQLEditorSchema } from './index';
 
 const domParser = DOMParser.fromSchema(JQLEditorSchema);

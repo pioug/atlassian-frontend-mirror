@@ -1,4 +1,5 @@
 import type { User } from '@atlaskit/user-picker/types';
+
 import { config } from '../config';
 import type { AtlAttributionHeaderData } from './atl-attribution';
 import { UNKNOWN_USER } from './constants';

@@ -4,8 +4,8 @@ import { skipA11yAudit } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/default/button';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import Select from '@atlaskit/select/default';
-import type { OptionType } from '@atlaskit/select/types';
 import { PopupSelect } from '@atlaskit/select/popup-select';
+import type { OptionType } from '@atlaskit/select/types';
 import {
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
@@ -23,7 +23,6 @@ import * as panelSplitterWidthUtils from '../../panel-splitter/get-pixel-width';
 import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
-
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,

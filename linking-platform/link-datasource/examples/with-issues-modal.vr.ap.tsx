@@ -17,8 +17,8 @@ import {
 } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
-import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '../src/ui/jira-issues-modal/JiraIssuesConfigModalWithWrappers';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/jira-issues-modal';
+import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '../src/ui/jira-issues-modal/JiraIssuesConfigModalWithWrappers';
 import { JiraIssuesConfigModalNoSuspense } from '../src/ui/jira-issues-modal/modal';
 import {
 	type JiraIssueDatasourceParameters,

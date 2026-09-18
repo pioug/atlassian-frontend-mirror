@@ -11,12 +11,11 @@ import Button from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { Box } from '@atlaskit/primitives/compiled';
-import type { OptionType, ValueType } from '@atlaskit/select/types';
 import { PopupSelect } from '@atlaskit/select/popup-select';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import type { Site } from '../../../../common/types';
-
 import { siteSelectorMessages } from './messages';
 
 const styles = cssMap({

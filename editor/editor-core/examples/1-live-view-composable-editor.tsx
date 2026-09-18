@@ -42,7 +42,6 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled - go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
@@ -211,7 +210,7 @@ function ComposableEditorPage() {
 				enabled: true,
 			},
 			blockMenuPlugin: {
-				enabled: editorExperiment('platform_editor_block_menu', true),
+				enabled: true,
 			},
 		},
 	});

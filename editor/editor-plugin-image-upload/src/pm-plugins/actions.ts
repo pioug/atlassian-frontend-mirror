@@ -2,7 +2,6 @@ import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/ty
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { ImageUploadPluginAction } from '../types';
-
 import { stateKey } from './plugin-key';
 
 const imageUploadAction = (tr: Transaction, action: ImageUploadPluginAction): Transaction => {

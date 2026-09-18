@@ -10,7 +10,6 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type SkipLinkData } from '../../context/skip-links/types';
-
 import { SkipLink } from './skip-link';
 import { SkipLinksPopup } from './skip-links-popup';
 

@@ -1,7 +1,6 @@
 import React, { type ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { SkipLinksContainer } from '../../components/skip-links/skip-links-container';
-
 import { SkipLinksContext, type SkipLinksContextData } from './skip-links-context';
 import { type SkipLinkData } from './types';
 

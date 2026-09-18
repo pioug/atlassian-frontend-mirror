@@ -4,7 +4,6 @@ import type {
 } from '@atlaskit/adf-schema/rich-media-common';
 
 import { wrappedLayouts } from '../ui/MediaSingle/wrappedLayouts';
-
 import { nonWrappedLayouts } from './nonWrappedLayouts';
 import { shouldAddDefaultWrappedWidth } from './shouldAddDefaultWrappedWidth';
 

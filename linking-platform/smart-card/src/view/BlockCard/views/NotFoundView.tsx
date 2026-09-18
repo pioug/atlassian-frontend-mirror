@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
 import Text from '../../FlexibleCard/components/elements/common/base-text-element';
-
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';

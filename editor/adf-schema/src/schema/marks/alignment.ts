@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { alignment as alignmentFactory } from '../../next-schema/generated/markTypes';
 
 /** TODO: Flip these positions for RTL */

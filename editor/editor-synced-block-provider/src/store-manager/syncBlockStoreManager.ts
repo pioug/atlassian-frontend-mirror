@@ -16,7 +16,6 @@ import {
 	getFetchSourceInfoExperience,
 } from '../utils/experienceTracking';
 import { getSourceProductFromResourceIdSafe } from '../utils/utils';
-
 import { ReferenceSyncBlockStoreManager } from './referenceSyncBlockStoreManager';
 import { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
 

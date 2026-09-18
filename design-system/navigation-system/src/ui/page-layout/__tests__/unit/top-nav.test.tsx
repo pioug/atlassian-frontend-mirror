@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { TopNav } from '../../top-nav/top-nav';
 

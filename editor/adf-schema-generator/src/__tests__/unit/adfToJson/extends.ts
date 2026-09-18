@@ -1,6 +1,6 @@
-import { transform } from '../../../transforms/adfToJson/adfToJson';
-import { adfNode } from '../../../adfNode';
 import { $or } from '../../../$or';
+import { adfNode } from '../../../adfNode';
+import { transform } from '../../../transforms/adfToJson/adfToJson';
 
 describe('extends', () => {
 	test('should produce extends json schema for a node', () => {

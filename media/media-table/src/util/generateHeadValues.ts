@@ -1,5 +1,7 @@
-import { type HeadType, type HeadCellType } from '@atlaskit/dynamic-table/types';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
+
+import { type HeadType, type HeadCellType } from '@atlaskit/dynamic-table/types';
+
 import { CELL_KEY_DOWNLOAD, CELL_KEY_PREVIEW } from './constants';
 
 const generateHeadValues = memoizeOne(

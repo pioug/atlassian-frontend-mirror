@@ -1,7 +1,6 @@
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { zodToJsonSchema } from '../../helpers/zod-to-json-schema';
-
 import { analyzeA11yInputSchema } from './analyze-a11y-input-schema';
 
 export const listAnalyzeA11yTool: Tool = {

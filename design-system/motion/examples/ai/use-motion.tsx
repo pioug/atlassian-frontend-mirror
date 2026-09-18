@@ -5,8 +5,8 @@
 import React, { useState } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

@@ -1,6 +1,5 @@
 import type { SyntheticEvent } from 'react';
 import React, { Component } from 'react';
-
 import { createPortal } from 'react-dom';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -29,7 +28,6 @@ import { getRowDeleteButtonParams, getRowHeights } from '../../pm-plugins/utils/
 import type { PluginInjectionAPI, TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import { stickyRowZIndex } from '../consts';
-
 import DeleteButton from './DeleteButton';
 import getPopupOptions from './getPopUpOptions';
 import type { CellSelectionType } from './types';

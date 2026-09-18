@@ -7,7 +7,6 @@ import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-anal
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';
 import { type TeamProfileCardErrorType } from '../src/types';
-
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';

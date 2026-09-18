@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen } from '@atlassian/testing-library';
-
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
+import { act, fireEvent, render, screen } from '@atlassian/testing-library';
 
 import Tooltip from '../../tooltip';
 

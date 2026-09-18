@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import type { State } from '@atlaskit/popper/main'` instead.
  */
+
 export type { State } from '@popperjs/core';
 
 /**

@@ -3,10 +3,10 @@ import { type FileState, isErrorFileState, type MediaClient } from '@atlaskit/me
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { MediaViewerError } from './MediaViewerError';
 import { createDownloadFailedEventPayload } from './analytics/events/operational/createDownloadFailedEventPayload';
 import { createDownloadSucceededEventPayload } from './analytics/events/operational/createDownloadSucceededEventPayload';
 import { fireAnalytics } from './analytics/fireAnalytics';
+import { MediaViewerError } from './MediaViewerError';
 
 export const createItemDownloader: any =
 	(

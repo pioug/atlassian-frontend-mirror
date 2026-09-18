@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { bidiCharacterRegex } from '@atlaskit/code/bidi-character-regex'` instead.
  */
+
 export { bidiCharacterRegex } from '../bidi-warning/bidi-character-regex';
 /**
  * @deprecated Use `import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning/bidi-warning-decorator'` instead.

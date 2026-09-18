@@ -1,5 +1,6 @@
-import { createSignedArtifact } from '@atlassian/codegen';
 import type { Format } from 'style-dictionary';
+
+import { createSignedArtifact } from '@atlassian/codegen';
 
 import { typescriptTokenPairingsFormatter } from './typescript-token-pairings-formatter';
 

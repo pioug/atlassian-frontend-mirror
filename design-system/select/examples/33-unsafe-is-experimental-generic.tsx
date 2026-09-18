@@ -11,9 +11,9 @@ import Lozenge, { type LozengeProps } from '@atlaskit/lozenge/lozenge';
 import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Pressable from '@atlaskit/primitives/pressable';
+import { components } from '@atlaskit/react-select/components';
 import Select from '@atlaskit/select/default';
 import type { MenuProps, OptionProps, ValueType } from '@atlaskit/select/types';
-import { components } from '@atlaskit/react-select/components';
 
 interface Option {
 	label: string;

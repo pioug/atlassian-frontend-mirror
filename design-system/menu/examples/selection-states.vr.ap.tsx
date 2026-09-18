@@ -1,12 +1,12 @@
 import React from 'react';
 
+import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
 import ButtonItem from '@atlaskit/menu/button-item';
 import CustomItem from '@atlaskit/menu/custom-item';
-import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import LinkItem from '@atlaskit/menu/link-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
-import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 
 type LinkProps = CustomItemComponentProps & {

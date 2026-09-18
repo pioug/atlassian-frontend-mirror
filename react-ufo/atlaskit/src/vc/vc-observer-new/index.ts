@@ -6,7 +6,6 @@ import { sanitizeLabelStackName } from '../../create-payload/common/utils/saniti
 import { getActiveInteraction } from '../../interaction-metrics';
 import type { SearchPageConfig } from '../types';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
-
 import EntriesTimeline from './entries-timeline';
 import getElementName, { type SelectorConfig } from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';

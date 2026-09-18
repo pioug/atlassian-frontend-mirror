@@ -13,7 +13,6 @@ import {
 	ResponsiveCustomMenuCompact,
 } from '../constants';
 import type { IconTypes, MenuIconItem } from '../types';
-
 import { useIconList } from './use-icon-list';
 import type { IconsPositions } from './use-icon-list';
 

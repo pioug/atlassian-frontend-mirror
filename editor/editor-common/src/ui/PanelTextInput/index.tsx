@@ -9,7 +9,6 @@ import { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 
 import { getBrowserInfo } from '../../utils/browser';
-
 import { panelTextInput, panelTextInputWithCustomWidth } from './styles';
 
 export interface Props {

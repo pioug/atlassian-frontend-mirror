@@ -6,10 +6,9 @@ import type { ProfileCardClientData, ProfileClientOptions, TeamsUserQueryRespons
 import { PACKAGE_META_DATA } from '../util/analytics';
 import { localTime } from '../util/date';
 import { getPageTime } from '../util/performance';
-
 import { AGGQuery } from './AGGQuery';
-import CachingClient from './CachingClient';
 import { buildAggUserQuery } from './buildAggUserQuery';
+import CachingClient from './CachingClient';
 import { getErrorAttributes } from './getErrorAttributes';
 
 const buildScopedProfileAtlAttributionHeader = (cloudId: string) =>

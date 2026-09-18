@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
@@ -17,6 +16,7 @@ import {
 } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';

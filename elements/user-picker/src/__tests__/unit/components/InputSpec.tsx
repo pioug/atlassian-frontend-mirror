@@ -1,6 +1,9 @@
 import React from 'react';
-import type { OptionType, SelectProps } from '@atlaskit/select/types';
+
 import { fireEvent, render } from '@testing-library/react';
+
+import type { OptionType, SelectProps } from '@atlaskit/select/types';
+
 import { Input } from '../../../components/Input';
 import { type AriaAttributesType } from '../../../types';
 

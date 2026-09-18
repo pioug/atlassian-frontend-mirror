@@ -10,6 +10,7 @@ import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomple
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics/types';
 import {
 	accountJqlField,
 	accountManagerJqlField,
@@ -24,14 +25,12 @@ import {
 	singleQuotedJqlField,
 	statusJqlField,
 } from '../../common/mocks';
-import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics/types';
 import {
 	type AutocompleteSuggestionsResponse,
 	type JQLFieldResponse,
 	type JQLFieldValueResponse,
 } from '../../common/types';
 import { getAutocompleteSuggestionsUrl } from '../use-fetch-field-values/getAutocompleteSuggestionsUrl';
-
 import useOnValues, { type FieldValuesReducer } from './index';
 
 // @ts-ignore

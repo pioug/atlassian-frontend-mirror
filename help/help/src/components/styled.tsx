@@ -4,8 +4,11 @@
  */
 
 import React from 'react';
+
 import { css, jsx } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
+
 import type { TransitionStatus } from './constants';
 
 const helpBodyContainerStyles = css({

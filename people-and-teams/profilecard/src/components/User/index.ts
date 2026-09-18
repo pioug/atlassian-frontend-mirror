@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '@atlaskit/profilecard/config'` instead.
  */
+
 export { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 
 /**

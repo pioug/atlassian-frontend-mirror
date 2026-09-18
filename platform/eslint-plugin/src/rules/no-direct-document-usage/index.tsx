@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+
 import { skipForExampleFiles, skipForTestFiles } from '../util/file-exclusions';
 
 const rule: Rule.RuleModule = {

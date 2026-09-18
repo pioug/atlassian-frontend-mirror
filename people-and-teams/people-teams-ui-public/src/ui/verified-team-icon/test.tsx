@@ -4,7 +4,6 @@ import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithIntl } from '../../common/utils/test';
-
 import { VerifiedTeamIcon } from './main';
 
 describe('VerifiedTeamIcon', () => {

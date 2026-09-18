@@ -1,16 +1,17 @@
 /** Workspace code */
 
 import debugModule from 'debug';
+import micromatch from 'micromatch';
 import semver from 'semver';
+import type { DefaultLogFields, ListLogLine } from 'simple-git';
+
+import { DEP_TYPES } from '../../../constants';
 import { type DependencyType } from '../../../types';
-import { getWorkspacePaths, getWorkspacePackageJsonPaths } from '../../../util/yarn';
-import { type DependencyMap } from '../types';
+import { assert } from '../../../util/assert';
 import { showFile } from '../../../util/git';
 import { type IPackageJSON } from '../../../util/package-json';
-import { DEP_TYPES } from '../../../constants';
-import { assert } from '../../../util/assert';
-import type { DefaultLogFields, ListLogLine } from 'simple-git';
-import micromatch from 'micromatch';
+import { getWorkspacePaths, getWorkspacePackageJsonPaths } from '../../../util/yarn';
+import { type DependencyMap } from '../types';
 import { isPackageFromSupportedScopes } from '../util/allowed-scopes';
 
 const debug = debugModule('atlaskit:dependency');

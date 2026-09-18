@@ -15,7 +15,6 @@ import {
 	type RankStart,
 	type RowType,
 } from '../../types';
-
 import TableRow from './table-row';
 
 // computes destination of ranking

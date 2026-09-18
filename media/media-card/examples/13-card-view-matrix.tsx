@@ -1,24 +1,28 @@
+// eslint-disable-line no-console
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-// eslint-disable-line no-console
-import React from 'react';
-import { atlassianLogoUrl, tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
-import { token } from '@atlaskit/tokens';
-import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import Select from '@atlaskit/select/default';
-import DownloadIcon from '@atlaskit/icon/core/download';
-import TrashIcon from '@atlaskit/icon/core/delete';
-import EditIcon from '@atlaskit/icon/core/edit';
-import { type CardAction, type CardStatus } from '../src';
-import { CardView } from '../src/card/cardView';
-import { type FileDetails, type MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl';
+
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import TrashIcon from '@atlaskit/icon/core/delete';
+import DownloadIcon from '@atlaskit/icon/core/download';
+import EditIcon from '@atlaskit/icon/core/edit';
+import { type FileDetails, type MediaType } from '@atlaskit/media-client';
+import { atlassianLogoUrl, tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
+import Select from '@atlaskit/select/default';
+import { token } from '@atlaskit/tokens';
+
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
+import { type CardAction, type CardStatus } from '../src';
+import { CardView } from '../src/card/cardView';
 
 const dimensions = { width: '100%', height: '100%' };
 

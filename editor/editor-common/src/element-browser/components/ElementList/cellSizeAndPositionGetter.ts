@@ -4,7 +4,6 @@ import type {
 } from 'react-virtualized/dist/commonjs/Collection';
 
 import { ELEMENT_ITEM_HEIGHT } from '../../constants';
-
 import { generateVirtualizedContainerDatum } from './utils';
 
 /**

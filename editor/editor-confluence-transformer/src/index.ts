@@ -1,10 +1,11 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transformer } from '@atlaskit/editor-common/types';
-import parse from './parse';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import encode from './encode';
+import parse from './parse';
 export { LANGUAGE_MAP as CONFLUENCE_LANGUAGE_MAP } from './languageMap';
 
 export class ConfluenceTransformer implements Transformer<string> {

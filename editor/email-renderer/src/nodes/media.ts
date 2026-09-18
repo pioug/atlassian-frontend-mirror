@@ -1,15 +1,16 @@
-import type { NodeSerializerOpts, MediaMetaDataContextItem } from '../interfaces';
-import { createTag } from '../create-tag';
 import { N30 } from '@atlaskit/adf-schema/colors';
+
+import { createTag } from '../create-tag';
+import type { NodeSerializerOpts, MediaMetaDataContextItem } from '../interfaces';
+import { getIconFromMediaType } from '../media-util';
+import { serializeStyle } from '../serialize-style';
+import { createContentId } from '../static';
+import type { IconString } from '../static/icons';
 import {
 	createClassName,
 	MEDIA_PREVIEW_IMAGE_WIDTH,
 	MEDIA_PREVIEW_IMAGE_HEIGHT,
 } from '../styles/util';
-import { createContentId } from '../static';
-import type { IconString } from '../static/icons';
-import { getIconFromMediaType } from '../media-util';
-import { serializeStyle } from '../serialize-style';
 
 const className = createClassName('media');
 const ICON_DIMENSION = 14;

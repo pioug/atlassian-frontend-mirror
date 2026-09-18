@@ -18,7 +18,6 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { commentMessages as messages } from '../media';
-
 import { getBadgeSize } from './getBadgeSize';
 const commentBadgeWrapper = css({
 	position: 'absolute',

@@ -1,7 +1,6 @@
 import { type Ref, useContext } from 'react';
 
 import { useUniqueId } from '../utils/use-unique-id';
-
 import { StaggeredEntranceContext } from './staggered-entrance';
 
 export const useStaggeredEntrance = (): {

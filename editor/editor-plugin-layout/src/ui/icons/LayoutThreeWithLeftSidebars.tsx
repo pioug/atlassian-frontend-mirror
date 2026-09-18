@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { IconProps } from '@atlaskit/icon/types';
 import LayoutThreeColumnsSidebarsLeftIcon from '@atlaskit/icon-lab/core/layout-three-columns-sidebars-left';
+import type { IconProps } from '@atlaskit/icon/types';
 
 export const LayoutThreeWithLeftSidebarsIcon = (
 	props: Omit<IconProps, 'glyph' | 'size'>,

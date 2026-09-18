@@ -2,6 +2,7 @@ import React from 'react';
 import { type ReactNode, type WheelEvent, type MouseEvent, type ReactElement } from 'react';
 
 import debounce from 'debounce';
+
 import {
 	FilmStripList,
 	FilmStripListItem,

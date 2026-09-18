@@ -2,10 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
-import { useEffect } from 'react';
-import { token } from '@atlaskit/tokens';
 
+import { useEffect } from 'react';
+
+import { jsx, css } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 // ── Rovo gradient animation setup ───────────────────────────────────────────
 // Mirrors the shared rovo-gradient component but self-contained to avoid
 // circular dependency (media-card cannot depend on rovo-platform-ui-components).

@@ -1,7 +1,8 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+
 import CardClient from '../..';
 import { type ErrorResponseBody } from '../../types/responses';
-import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 export const mockContext = {
 	'@vocab': 'https://www.w3.org/ns/activitystreams#',

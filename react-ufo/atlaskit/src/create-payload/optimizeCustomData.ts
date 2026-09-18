@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../common';
-
 import { type LabelStackRegistry } from './common/utils/label-stack-registry';
 import { optimizeLabelStackWithRegistry } from './common/utils/optimize-label-stack-with-registry';
 import { stringifyLabelStackFully } from './common/utils/stringify-label-stack-fully';

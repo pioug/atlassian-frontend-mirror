@@ -16,8 +16,8 @@ import type { SupportedLanguages } from '@atlaskit/code/constants';
 import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
 
-import type { MediaViewerError } from '../../MediaViewerError';
 import type { Outcome } from '../../domain/outcome';
+import type { MediaViewerError } from '../../MediaViewerError';
 
 const codeViewWrapperStyles = css({
 	position: 'absolute',

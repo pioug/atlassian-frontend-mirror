@@ -1,10 +1,10 @@
 import type { IntlShape } from 'react-intl/src/types';
 
-import type { Valign } from '@atlaskit/adf-schema/valign';
 import {
 	tableBackgroundColorNameByHex,
 	type Layout as TableLayout,
 } from '@atlaskit/adf-schema/tableNodes';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type {
 	AnalyticsEventPayload,
@@ -54,7 +54,6 @@ import {
 	getSelectedTableInfo,
 } from '../utils/analytics';
 import { checkIfNumberColumnEnabled } from '../utils/nodes';
-
 import { clearMultipleCells } from './clear';
 import { wrapTableInExpand } from './collapse';
 import { changeColumnWidthByStep } from './column-resize';

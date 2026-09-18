@@ -11,7 +11,6 @@ import { ReactRenderer } from '@atlaskit/renderer';
 import { token } from '@atlaskit/tokens';
 
 import { getEmojiProviderForCloudId } from '../src/provider';
-
 import adfDoc from './__mocks__/adfDoc.json';
 import emojiMockData from './__mocks__/emojiData.json';
 

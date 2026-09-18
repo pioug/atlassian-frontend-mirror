@@ -1,10 +1,11 @@
 /* eslint-disable @atlassian/testing-library/prefer-atlassian-testing-library */
 /* eslint-disable testing-library/prefer-user-event */
+
 import React from 'react';
 
-import { fireEvent, render, screen } from '@atlassian/testing-library';
 import { Text } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { SpotlightActions } from '../actions';
 import { SpotlightBody } from '../body';
@@ -18,7 +19,6 @@ import { PopoverProvider } from '../popover-provider';
 import { PopoverTarget } from '../popover-target';
 import { SpotlightPrimaryAction } from '../primary-action';
 import { SpotlightSecondaryAction } from '../secondary-action';
-
 import { PopoverContent } from './index';
 
 var mockPopoverProps: jest.Mock;

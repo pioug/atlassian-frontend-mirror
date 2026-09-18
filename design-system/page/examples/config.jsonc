@@ -4,16 +4,16 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-basic-usage.vr.ap.tsx",
-    "01-layout-example.vr.ap.tsx",
-    "02-nested-grid-example.vr.ap.tsx",
-    "03-spacing-example.vr.ap.tsx",
-    "04-navigation-and-banner-integration.tsx",
-    "05-columns.vr.ap.tsx",
-    "06-fixed-layout.vr.ap.tsx",
-    "07-fluid-layout.vr.ap.tsx",
-    "08-edge-cases.vr.ap.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"00-basic-usage.vr.ap.tsx",
+		"01-layout-example.vr.ap.tsx",
+		"02-nested-grid-example.vr.ap.tsx",
+		"03-spacing-example.vr.ap.tsx",
+		"04-navigation-and-banner-integration.tsx",
+		"05-columns.vr.ap.tsx",
+		"06-fixed-layout.vr.ap.tsx",
+		"07-fluid-layout.vr.ap.tsx",
+		"08-edge-cases.vr.ap.tsx",
+	],
+	"exampleDependencies": [],
 }

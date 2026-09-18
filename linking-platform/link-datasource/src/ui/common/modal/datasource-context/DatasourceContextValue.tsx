@@ -6,7 +6,6 @@ import { type DatasourceTableState } from '../../../../hooks/useDatasourceTableS
 import { type ColumnResizeProps } from '../datasources-table-in-modal-preview/use-column-resize';
 import { type ColumnVisibilityProps } from '../datasources-table-in-modal-preview/use-column-visibility';
 import { type ColumnWrappingProps } from '../datasources-table-in-modal-preview/use-column-wrapping';
-
 import type { DatasourceContextProviderProps } from './DatasourceContextProviderProps';
 
 export type DatasourceContextValue<Parameters extends DatasourceParameters = DatasourceParameters> =

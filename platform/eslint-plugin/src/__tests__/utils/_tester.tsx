@@ -1,5 +1,6 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 /* eslint-disable no-undef */
+
 import { RuleTester } from 'eslint';
 
 (RuleTester as any).describe = (text: string, method: Function) => {

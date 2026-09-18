@@ -17,7 +17,6 @@ import {
 	type Position,
 	type Query,
 } from '../types';
-
 import { assignParent } from './common';
 
 /**

@@ -18,7 +18,6 @@ import {
 } from '../utils';
 import { getBrowserInfo } from '../utils/browser';
 import { ZERO_WIDTH_SPACE } from '../whitespace';
-
 import { generateUniqueNodeKey } from './generateUniqueNodeKey';
 import { getOrCreateOnVisibleObserver } from './onVisibleObserverFactory';
 

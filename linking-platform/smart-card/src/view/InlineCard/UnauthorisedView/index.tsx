@@ -19,9 +19,9 @@ import { useAnalyticsEvents } from '../../../common/analytics/generated/use-anal
 import { messages } from '../../../messages';
 import { getCachedProviderPctMapAndRefresh } from '../../../state/services/personalization/getCachedProviderPctMapAndRefresh';
 import { HoverCard } from '../../HoverCard';
+import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { ActionButton } from '../common/action-button';
 
 export interface InlineCardUnauthorizedViewProps {
 	/** The name of the service (e.g. Dropbox/Asana/Google/etc) to display */

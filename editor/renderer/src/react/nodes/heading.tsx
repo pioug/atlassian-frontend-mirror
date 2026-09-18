@@ -3,31 +3,31 @@
  * @jsx jsx
  */
 import React from 'react';
-import { useIntl } from 'react-intl';
 
 import { css, jsx } from '@compiled/react';
+import { useIntl } from 'react-intl';
+
 import IconButton from '@atlaskit/button/icon/button';
-import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles/constants';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles/constants';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import AnalyticsContext from '../../analytics/analyticsContext';
-import { copyTextToClipboard } from '../utils/clipboard';
-import type { NodeProps } from '../types';
-import type { HeadingAnchorLinksProps } from '../../ui/Renderer/types';
 import { collapsibleHeadingMessages } from '../../messages';
 import { useCollapsibleHeading } from '../../ui/collapsible-headings';
-
+import type { HeadingAnchorLinksProps } from '../../ui/Renderer/types';
+import type { NodeProps } from '../types';
+import { copyTextToClipboard } from '../utils/clipboard';
 import HeadingAnchor from './heading-anchor';
 
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;

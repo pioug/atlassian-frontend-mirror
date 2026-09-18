@@ -12,6 +12,7 @@ import {
 	type DragEvent,
 	type KeyboardEvent,
 	type MouseEvent,
+	type ReactNode,
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
@@ -35,12 +36,13 @@ import {
 	dragToMoveUp,
 	getAriaKeyshortcuts,
 	TooltipContentWithMultipleShortcuts,
+	type Keymap,
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -55,9 +57,9 @@ import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-ada
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -78,11 +80,6 @@ import {
 } from '../pm-plugins/utils/drag-handle-positions';
 import { expandAndUpdateSelection } from '../pm-plugins/utils/expand-and-update-selection';
 import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
-import {
-	alignAnchorHeadInDirectionOfPos,
-	expandSelectionHeadToNodeAtPos,
-} from '../pm-plugins/utils/selection';
-
 import {
 	ACTIVE_DRAG_HANDLE_ATTR,
 	ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,
@@ -264,12 +261,6 @@ const dragHandleButtonStylesOld = css({
 
 	'&:hover:disabled': {
 		backgroundColor: token('color.background.disabled'),
-	},
-});
-
-const focusedStylesOld = css({
-	'&:focus': {
-		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 	},
 });
 
@@ -632,90 +623,6 @@ export const DragHandle = ({
 			view.focus();
 		},
 		[api, view, getPos, nodeType, anchorName],
-	);
-
-	const handleOnClick = useCallback(
-		(e: MouseEvent<HTMLButtonElement>) => {
-			api?.core?.actions.execute(({ tr }) => {
-				const startPos = getPos();
-				if (startPos === undefined) {
-					return tr;
-				}
-
-				if (
-					nodeType === 'layoutColumn' &&
-					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-				) {
-					tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, false));
-				}
-
-				const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
-				const $anchor =
-					mSelect?.anchor !== undefined ? tr.doc.resolve(mSelect?.anchor) : tr.selection.$anchor;
-				if (tr.selection.empty || !e.shiftKey) {
-					tr = selectNode(tr, startPos, nodeType, api);
-				} else if (
-					isTopLevelNodeValue &&
-					$anchor.depth <= DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH &&
-					e.shiftKey &&
-					fg('platform_editor_elements_dnd_shift_click_select')
-				) {
-					const alignAnchorHeadToSel = alignAnchorHeadInDirectionOfPos(tr.selection, startPos);
-					const selectionWithExpandedHead = expandSelectionHeadToNodeAtPos(
-						alignAnchorHeadToSel,
-						startPos,
-					);
-					tr.setSelection(selectionWithExpandedHead);
-					api?.blockControls?.commands.setMultiSelectPositions()({ tr });
-				}
-				const resolvedMovingNode = tr.doc.resolve(startPos);
-				const maybeNode = resolvedMovingNode.nodeAfter;
-
-				tr.setMeta('scrollIntoView', false);
-				api?.analytics?.actions.attachAnalyticsEvent({
-					eventType: EVENT_TYPE.UI,
-					action: ACTION.CLICKED,
-					actionSubject: ACTION_SUBJECT.BUTTON,
-					actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
-					attributes: {
-						nodeDepth: resolvedMovingNode.depth,
-						nodeTypes: maybeNode?.type.name || '',
-					},
-				})(tr);
-				return tr;
-			});
-
-			view.focus();
-		},
-		[api, view, getPos, isTopLevelNodeValue, nodeType],
-	);
-
-	const handleKeyDown = useCallback(
-		(e: KeyboardEvent<HTMLButtonElement>) => {
-			// allow user to use spacebar to select the node
-			if (!e.repeat && e.key === ' ') {
-				const startPos = getPos();
-				api?.core?.actions.execute(({ tr }) => {
-					if (startPos === undefined) {
-						return tr;
-					}
-
-					const node = tr.doc.nodeAt(startPos);
-					if (!node) {
-						return tr;
-					}
-					const $startPos = tr.doc.resolve(startPos + node.nodeSize);
-					const selection = new TextSelection($startPos);
-					tr.setSelection(selection);
-					return tr;
-				});
-			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
-				// If not trying to press shortcut keys,
-				// return focus to editor to resume editing from caret position
-				view.focus();
-			}
-		},
-		[getPos, api?.core?.actions, view],
 	);
 
 	const handleKeyDownNew = useCallback(
@@ -1288,50 +1195,51 @@ export const DragHandle = ({
 		}
 	}, [api?.blockControls?.sharedState, isLayoutColumn, isShiftDown, isTopLevelNodeValue, view]);
 
-	const dragHandleMessage = editorExperiment('platform_editor_block_menu', true)
-		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })
-		: formatMessage(blockControlsMessages.dragToMove);
+	const dragHandleMessage = formatMessage(blockControlsMessages.dragToMoveClickToOpen, {
+		br: <br />,
+	});
 
 	// Create a string version for aria-label
-	const dragHandleAriaLabel = expValEquals('platform_editor_block_menu', 'isEnabled', true)
-		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: ' ' })
-		: formatMessage(blockControlsMessages.dragToMove);
+	const dragHandleAriaLabel = formatMessage(blockControlsMessages.dragToMoveClickToOpen, {
+		br: ' ',
+	});
 
-	let helpDescriptors = isTopLevelNodeValue
-		? [
-				{
-					description: dragHandleMessage,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveUp),
-					keymap: dragToMoveUp,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveDown),
-					keymap: dragToMoveDown,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveLeft),
-					keymap: dragToMoveLeft,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveRight),
-					keymap: dragToMoveRight,
-				},
-			]
-		: [
-				{
-					description: dragHandleMessage,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveUp),
-					keymap: dragToMoveUp,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveDown),
-					keymap: dragToMoveDown,
-				},
-			];
+	let helpDescriptors: Array<{ description?: string | ReactNode; keymap?: Keymap }> =
+		isTopLevelNodeValue
+			? [
+					{
+						description: dragHandleMessage,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveUp),
+						keymap: dragToMoveUp,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveDown),
+						keymap: dragToMoveDown,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveLeft),
+						keymap: dragToMoveLeft,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveRight),
+						keymap: dragToMoveRight,
+					},
+				]
+			: [
+					{
+						description: dragHandleMessage,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveUp),
+						keymap: dragToMoveUp,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveDown),
+						keymap: dragToMoveDown,
+					},
+				];
 
 	let isParentNodeOfTypeLayout;
 
@@ -1425,10 +1333,8 @@ export const DragHandle = ({
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 					editorExperiment('platform_editor_controls', 'control') &&
 					dragHandleButtonSmallScreenStyles,
-				editorExperiment('platform_editor_block_menu', true) &&
-					isFocused &&
-					keyboardFocusedDragHandleStyles,
-				editorExperiment('platform_editor_block_menu', true) ? focusedStyles : focusedStylesOld,
+				isFocused && keyboardFocusedDragHandleStyles,
+				focusedStyles,
 				dragHandleButtonScaledStyles,
 			]}
 			ref={buttonRef}
@@ -1439,13 +1345,9 @@ export const DragHandle = ({
 					? handleMouseDown
 					: undefined
 			}
-			onMouseUp={editorExperiment('platform_editor_block_menu', true) ? handleMouseUp : undefined}
-			onClick={
-				editorExperiment('platform_editor_block_menu', true) ? handleOnClickNew : handleOnClick
-			}
-			onKeyDown={
-				editorExperiment('platform_editor_block_menu', true) ? handleKeyDownNew : handleKeyDown
-			}
+			onMouseUp={handleMouseUp}
+			onClick={handleOnClickNew}
+			onKeyDown={handleKeyDownNew}
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			onDrop={handleOnDrop}
 			disabled={dragHandleDisabled}
@@ -1454,9 +1356,7 @@ export const DragHandle = ({
 			data-testid="block-ctrl-drag-handle"
 			aria-label={dragHandleAriaLabel}
 			onBlur={() => {
-				if (editorExperiment('platform_editor_block_menu', true)) {
-					setIsFocused(false);
-				}
+				setIsFocused(false);
 
 				const pos = getPos();
 				if (pos !== undefined) {

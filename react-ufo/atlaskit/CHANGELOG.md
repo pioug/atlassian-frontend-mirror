@@ -1,5 +1,30 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.13.0
+
+### Minor Changes
+
+- [`f6f3cb62ea900`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6f3cb62ea900) -
+  `createRelayEnvironment` accepts an optional `networkMiddleware` to wrap Relay query and mutation
+  execution, and `@atlaskit/react-ufo/data-fetch-hold` adds `startDataFetchHold` to hold the active
+  UFO interaction while a fetch is in flight. Jira's Relay environment uses this to hold
+  interactions across mutation network requests, gated behind `platform_ufo_relay_operation_holds`.
+
+  ```tsx
+  createRelayEnvironment({
+  	networkMiddleware: (next) => (request, variables, cacheConfig) =>
+  		Observable.create((sink) => {
+  			const release = startDataFetchHold({ label: 'graphql', name: request.name });
+  			const subscription = next(request, variables, cacheConfig).subscribe(sink);
+
+  			return () => {
+  				subscription.unsubscribe();
+  				release?.();
+  			};
+  		}),
+  });
+  ```
+
 ## 7.12.0
 
 ### Minor Changes

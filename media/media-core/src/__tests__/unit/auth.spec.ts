@@ -1,7 +1,7 @@
 import { type ClientBasedAuth, type AsapBasedAuth } from '../../auth';
-import { isClientBasedAuth } from '../../isClientBasedAuth';
-import { isAsapBasedAuth } from '../../isAsapBasedAuth';
 import { authToOwner } from '../../authToOwner';
+import { isAsapBasedAuth } from '../../isAsapBasedAuth';
+import { isClientBasedAuth } from '../../isClientBasedAuth';
 
 describe('Auth', () => {
 	const clientBasedAuth: ClientBasedAuth = {

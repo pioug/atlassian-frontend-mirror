@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports */
@@ -40,7 +41,6 @@ import { token } from '@atlaskit/tokens';
 
 import type { OnInsert } from '../ElementBrowser/types';
 import { LINK_BUTTON_KEY } from '../toolbar-components/hooks/filterDropdownItems';
-
 import { BlockInsertMenu } from './block-insert-menu';
 import type { BlockMenuItem } from './create-items';
 import { createItems } from './create-items';

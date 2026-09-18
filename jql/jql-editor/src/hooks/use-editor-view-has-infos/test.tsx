@@ -5,7 +5,6 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { useExternalMessages } from '../../state';
 import { type ExternalMessagesNormalized } from '../../state/types';
-
 import { useEditorViewHasInfos } from './index';
 
 const normalizedExternalMessagesEmpty: ExternalMessagesNormalized = {

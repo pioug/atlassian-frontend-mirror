@@ -16,7 +16,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
-
 import { MenuSection } from './MenuSection';
 import { PinButton } from './PinButton';
 import { PinMenuItem } from './PinMenuItem';

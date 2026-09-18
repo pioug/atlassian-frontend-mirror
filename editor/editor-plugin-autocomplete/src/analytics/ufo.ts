@@ -12,8 +12,8 @@
  */
 
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
-import type { CustomData } from '@atlaskit/ufo/types';
 import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+import type { CustomData } from '@atlaskit/ufo/types';
 
 /**
  * Experience name strings are surfaced downstream by the UFO pipeline as

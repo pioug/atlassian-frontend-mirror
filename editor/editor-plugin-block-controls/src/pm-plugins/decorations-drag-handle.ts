@@ -15,7 +15,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { ACTIVE_DRAG_HANDLE_ATTR } from '../ui/consts';
 import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
-
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
 import { renderToMountPoint } from './react-root-registry';
 import type { AnchorRectCache } from './utils/anchor-utils';

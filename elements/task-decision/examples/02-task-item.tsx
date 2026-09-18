@@ -1,10 +1,11 @@
 import React from 'react';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import { TaskItem } from '../src';
 import { dumpRef, action } from '../example-helpers/story-utils';
+import { TaskItem } from '../src';
 
 export default (): React.JSX.Element => (
 	<div>

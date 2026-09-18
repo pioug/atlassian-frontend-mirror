@@ -1,6 +1,6 @@
 import type { MediaApiToken } from '../../types';
-import type TokenManager from './TokenManager';
 import { imageAcceptHeader } from '../../util/image';
+import type TokenManager from './TokenManager';
 
 const defaultConcurrentDownloadLimit = 16;
 const backoffMaxDelayInMillis = 600;

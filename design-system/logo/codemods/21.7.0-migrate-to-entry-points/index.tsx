@@ -82,6 +82,8 @@ const SYMBOL_TO_ENTRY_POINT: Record<string, string> = {
 	HomeLogo: 'home/logo',
 	HubIcon: 'hub/icon',
 	HubLogo: 'hub/logo',
+	InsightsIcon: 'insights/icon',
+	InsightsLogo: 'insights/logo',
 	JiraIcon: 'jira/icon',
 	JiraLogo: 'jira/logo',
 	JiraCodingAgentIcon: 'jira-coding-agent/icon',

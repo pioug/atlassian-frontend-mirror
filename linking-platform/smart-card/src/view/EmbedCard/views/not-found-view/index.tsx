@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { messages } from '../../../../messages';
 import { toMessage } from '../../../../utils/intl-utils';
 import UnresolvedView from '../unresolved-view';
-
 import { NotFoundSVG } from './not-found-svg';
 import type { NotFoundViewProps } from './types';
 

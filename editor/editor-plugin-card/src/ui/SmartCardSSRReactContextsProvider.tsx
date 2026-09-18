@@ -3,8 +3,8 @@ import React, { type ReactNode } from 'react';
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import type { CardContext } from '@atlaskit/link-provider/types';
 import { SmartCardContext } from '@atlaskit/link-provider/context';
+import type { CardContext } from '@atlaskit/link-provider/types';
 
 interface Props {
 	children: ReactNode;

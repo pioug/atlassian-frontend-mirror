@@ -6,7 +6,6 @@ import {
 } from '@atlaskit/media-client';
 
 import { type MediaFilePreview, type MediaFilePreviewDimensions } from '../types';
-
 import { enrichAttrsWithClientId } from './enrichAttrsWithClientId';
 import { extendAndCachePreview } from './extendAndCachePreview';
 import { getLocalPreview } from './getLocalPreview';

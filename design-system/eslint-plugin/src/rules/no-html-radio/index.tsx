@@ -1,7 +1,6 @@
 import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-lint-rule';
-
 import { JSXElement } from './node-types/jsx-element';
 
 const rule: Rule.RuleModule = createLintRule({

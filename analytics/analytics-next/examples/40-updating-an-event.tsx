@@ -3,7 +3,6 @@ import React, { type FormEvent, type MouseEvent, useCallback, useState } from 'r
 import AnalyticsListener from '../src/components/AnalyticsListener';
 import { type AnalyticsEventPayload } from '../src/events/AnalyticsEvent';
 import type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';
-
 import AnalyticsButton from './helpers/AnalyticsButton';
 
 const fieldStyles: React.CSSProperties = {

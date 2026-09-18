@@ -1,10 +1,7 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-
-import { ConfluenceTransformer } from '..';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	doc,
 	blockquote,
@@ -14,6 +11,8 @@ import {
 	media,
 	caption,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { ConfluenceTransformer } from '..';
 
 const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);

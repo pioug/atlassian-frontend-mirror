@@ -26,7 +26,6 @@ import {
 } from '../pm-plugins/utils';
 import { AnnotationSelectionType } from '../types';
 import type { InlineCommentInputMethod, TargetType } from '../types';
-
 import transform from './transform';
 import { resetUserIntent, setUserIntent } from './utils';
 

@@ -1,5 +1,4 @@
 import { type JiraSearchMethod } from '../common/types';
-
 import { DatasourceSearchMethod } from './types';
 import { mapSearchMethod } from './utils';
 

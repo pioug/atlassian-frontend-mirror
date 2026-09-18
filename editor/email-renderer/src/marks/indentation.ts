@@ -1,6 +1,6 @@
 import type { MarkSerializerOpts } from '../interfaces';
-import { createTable } from '../table-util';
 import { createClassName } from '../styles/util';
+import { createTable } from '../table-util';
 
 export const styles: string = `
 .${createClassName('mark-indentation-1')} {

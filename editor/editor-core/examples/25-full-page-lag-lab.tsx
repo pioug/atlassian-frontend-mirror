@@ -17,7 +17,6 @@ import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import { token } from '@atlaskit/tokens';
 
 import type EditorActions from '../src/actions';
-
 import { default as FullPageExample } from './5-full-page';
 
 // helper function to read url args

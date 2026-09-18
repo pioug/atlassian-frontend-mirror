@@ -28,7 +28,6 @@ import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags }
 import { shouldExtensionBreakout } from '../../utils/should-extension-breakout';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
-
 import { isEmptyBodiedMacro } from './extension-utils';
 import {
 	contentWrapper,

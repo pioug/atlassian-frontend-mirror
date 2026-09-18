@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import EditIcon from '@atlaskit/icon/core/edit';
-import userEvent from '@testing-library/user-event';
 
 import { type CardAction } from '../../../actions';
-
 import { ActionsBar } from '../actionsBar';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({

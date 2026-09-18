@@ -15,7 +15,6 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AutocompletePlugin } from '../autocompletePluginType';
-
 import {
 	CTC_STYLES,
 	ctcTag,

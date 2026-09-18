@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import type { BooleanType } from '@atlaskit/linking-types/datasource';
 
 import TextRenderType from '../text';
-
 import { booleanTypeMessages } from './messages';
 
 interface BooleanProps {

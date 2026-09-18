@@ -1,27 +1,27 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
 
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { PanelType } from '@atlaskit/adf-schema/panel';
+import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { act } from '@atlassian/testing-library/act';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { waitFor } from '@atlassian/testing-library/wait-for';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
-import { PanelType } from '@atlaskit/adf-schema/panel';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-
-import { RendererFunctionalComponent as Renderer } from '../../index';
-import { RendererStyleContainer } from '../../RendererStyleContainer';
-import type { RendererAppearance } from '../../types';
 import { Doc } from '../../../../react/nodes';
 import Panel from '../../../../react/nodes/panel';
 import { CollapsibleHeadingsProvider, useCollapsibleHeading } from '../../../collapsible-headings';
 import { buildTopLevelHeadingSections } from '../../../collapsible-headings-section-model';
+import { RendererFunctionalComponent as Renderer } from '../../index';
+import { RendererStyleContainer } from '../../RendererStyleContainer';
+import type { RendererAppearance } from '../../types';
 
 const documentWithHeadingSections: DocNode = {
 	type: 'doc',

@@ -3,6 +3,7 @@ import {
 	type WithFileAttributes,
 	type WithTraceContext,
 } from '@atlaskit/media-common';
+
 import { type MediaFileEventPayload } from './_mediaFile';
 
 export type CommencedAttributes = WithFileAttributes & WithTraceContext;

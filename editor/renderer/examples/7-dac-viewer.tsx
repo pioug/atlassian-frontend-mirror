@@ -1,3 +1,6 @@
+import React, { PureComponent } from 'react';
+import type { ChangeEvent } from 'react';
+
 /**
  *
  *
@@ -7,19 +10,16 @@
  *
  */
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import CardClient from '@atlaskit/link-provider/client';
 import {
 	SmartCardProvider,
 	SmartCardProvider as SmartCardContextProvider,
 } from '@atlaskit/link-provider/smart-card-provider';
+import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { initialize } from '@atlaskit/editor-test-helpers/ajv';
-import React, { PureComponent } from 'react';
-import type { ChangeEvent } from 'react';
 
 import Renderer from '../src/ui/Renderer';
-
-import { token } from '@atlaskit/tokens';
 
 export interface State {
 	err?: Error;

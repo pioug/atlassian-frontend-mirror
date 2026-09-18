@@ -1,9 +1,11 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { ELEMENTS_CHANNEL } from './_constants';
 import { AbstractMentionResource } from './api/AbstractMentionResource';
 import { AbstractPresenceResource } from './api/AbstractPresenceResource';
 import ContextMentionResource from './api/ContextMentionResource';
 import { DefaultMentionNameResolver } from './api/DefaultMentionNameResolver';
+import { isResolvingMentionProvider } from './api/isResolvingMentionProvider';
 import { type MentionNameClient } from './api/MentionNameClient';
 import type { MentionNameResolver } from './api/MentionNameResolver';
 import {
@@ -14,7 +16,6 @@ import {
 	type MentionStats,
 	type MentionResourceConfig,
 } from './api/MentionResource';
-import { isResolvingMentionProvider } from './api/isResolvingMentionProvider';
 import { PresenceResource, type PresenceProvider } from './api/PresenceResource';
 import { isSpecialMention } from './is-special-mention';
 import {

@@ -1,7 +1,6 @@
 import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-rule';
-
 import { BarrelExport } from './transformers/barrel-export';
 import { BarrelImport } from './transformers/barrel-import';
 import { createBarrelImportListeners } from './utils/create-barrel-import-listeners';

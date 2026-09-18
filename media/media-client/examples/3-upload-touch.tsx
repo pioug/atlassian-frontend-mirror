@@ -1,14 +1,15 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/default/button';
-
-import { MediaStore } from '../src';
-import { createUploadMediaClient } from '../src/test-helpers';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
+
+import Button from '@atlaskit/button/default/button';
+
 import { Response } from '../example-helpers/Response';
 import { Row } from '../example-helpers/Row';
 import { UploadTouchWrapper as Wrapper } from '../example-helpers/UploadTouchWrapper';
+import { MediaStore } from '../src';
+import { createUploadMediaClient } from '../src/test-helpers';
 
 const context = createUploadMediaClient();
 

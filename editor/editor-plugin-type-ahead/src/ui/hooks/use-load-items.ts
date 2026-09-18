@@ -14,7 +14,6 @@ import { clearListError } from '../../pm-plugins/commands/clear-list-error';
 import { updateListError } from '../../pm-plugins/commands/update-list-error';
 import { updateListItem } from '../../pm-plugins/commands/update-list-items';
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
-
 import { buildSectionedResult } from './build-sectioned-result';
 
 const EMPTY_LIST_ITEM: Array<TypeAheadItem> = [];

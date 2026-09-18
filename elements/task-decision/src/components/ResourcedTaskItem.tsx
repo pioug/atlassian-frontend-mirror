@@ -1,6 +1,8 @@
 import React, { type Ref } from 'react';
 import { PureComponent } from 'react';
-import TaskItem from './TaskItem';
+
+import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
+
 import {
 	type Appearance,
 	type BaseItem,
@@ -9,7 +11,7 @@ import {
 	type TaskState,
 	type DecisionState,
 } from '../types';
-import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
+import TaskItem from './TaskItem';
 
 export interface Props {
 	appearance?: Appearance;

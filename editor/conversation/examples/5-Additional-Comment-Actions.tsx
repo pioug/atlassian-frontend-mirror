@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { MOCK_USERS } from '../example-helpers/MockData';
 import {
 	getDataProviderFactory,

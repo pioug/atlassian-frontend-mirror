@@ -1,6 +1,6 @@
-import getHydratedUsers from '../../../service/users-client';
-import { graphqlQuery } from '../../../service/graphqlUtils';
 import { UNKNOWN_USER } from '../../../service/constants';
+import { graphqlQuery } from '../../../service/graphqlUtils';
+import getHydratedUsers from '../../../service/users-client';
 
 jest.mock('../../../service/graphqlUtils', () => {
 	return {

@@ -15,7 +15,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
-
 import {
 	BLOCK_QUOTE,
 	CODE_BLOCK,

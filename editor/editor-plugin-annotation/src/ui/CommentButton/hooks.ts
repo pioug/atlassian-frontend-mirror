@@ -9,7 +9,6 @@ import { resolveDraftBookmark } from '../../pm-plugins/utils';
 // oxlint-disable-next-line import/no-duplicates
 import type { AnnotationSelectionType } from '../../types';
 import type { AnnotationProviders } from '../../types';
-
 import { fireCommentButtonViewedAnalyticsEvent } from './utils';
 
 export const useCommentButtonMount = ({

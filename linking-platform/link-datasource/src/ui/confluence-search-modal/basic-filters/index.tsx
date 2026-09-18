@@ -6,7 +6,6 @@ import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from '../../common/modal/popup-select/types';
-
 import { DateRangePicker, type DateRangeSelection } from './filters/date-range-picker';
 import EditedOrCreatedByFilter from './filters/edited-or-created-by';
 import { CLOLBasicFilters, type SelectedOptionsMap } from './types';

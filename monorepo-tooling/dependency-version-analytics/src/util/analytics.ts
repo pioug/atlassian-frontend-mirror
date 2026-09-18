@@ -1,8 +1,9 @@
+/* eslint-disable-next-line @repo/internal/import/no-unresolved */
+import { analyticsClient } from '@atlassiansox/analytics-node-client';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import semver from 'semver';
-/* eslint-disable-next-line @repo/internal/import/no-unresolved */
-import { analyticsClient } from '@atlassiansox/analytics-node-client';
+
 import {
 	type UpgradeEvent,
 	type DependencyType,

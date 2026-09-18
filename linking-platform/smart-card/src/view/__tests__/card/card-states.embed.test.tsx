@@ -1,23 +1,23 @@
+import './card-states.card.test.mock';
 import React from 'react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { render, screen, waitFor } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type CardClient from '@atlaskit/link-provider/client';
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { render, screen, waitFor } from '@atlassian/testing-library';
 
 import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mockGenerator, mocks } from '../../../utils/mocks';
 import { getIsDataExportEnabled } from '../../../utils/should-data-export';
 import { Card } from '../../Card';
-import './card-states.card.test.mock';
 
 mockSimpleIntersectionObserver();
 jest.mock('../../../state/hooks/use-control-data-export-config', () => ({

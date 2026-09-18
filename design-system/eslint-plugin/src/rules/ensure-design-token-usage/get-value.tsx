@@ -4,7 +4,6 @@ import { type CallExpression, type EslintNode, isNodeOfType } from 'eslint-codem
 import { getScope } from '@atlaskit/eslint-utils/context-compat';
 
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
-
 import { getValueFromShorthand } from './get-value-from-shorthand';
 import { getValueFromTemplateLiteralRaw } from './get-value-from-template-literal-raw';
 import { isBorderRadius } from './is-border-radius';

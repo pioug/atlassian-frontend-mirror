@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Box } from '@atlaskit/primitives/compiled';
-import Tabs from '@atlaskit/tabs/tabs';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';
+import Tabs from '@atlaskit/tabs/tabs';
 
 import { Panel } from './shared';
 

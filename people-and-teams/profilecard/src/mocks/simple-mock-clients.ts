@@ -8,7 +8,6 @@ import {
 	type RovoAgentCardClientResult,
 	type Team,
 } from '../types';
-
 import agentData, { agentAggData } from './agent-data';
 import { getTimeString } from './get-time-string';
 import { getWeekday } from './get-weekday';

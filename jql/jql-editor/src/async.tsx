@@ -2,6 +2,8 @@ import React, { type ComponentType } from 'react';
 
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+// eslint-disable-next-line import/order
+import type { Cleanup } from 'react-loosely-lazy/dist/types/cleanup';
 
 import { withErrorBoundary } from './ui/error-boundary';
 import { withIntlProvider } from './ui/intl-provider';
@@ -9,8 +11,6 @@ import { JQLEditorReadOnly } from './ui/jql-editor-layout/JQLEditorReadOnly';
 import { type JQLEditorUIProps } from './ui/jql-editor/types';
 // eslint-disable-next-line import/order
 import { type JQLEditorProps } from './ui/types';
-// eslint-disable-next-line import/order
-import type { Cleanup } from 'react-loosely-lazy/dist/types/cleanup';
 
 const JQLEditor = lazyForPaint<ComponentType<JQLEditorUIProps>>(
 	() =>

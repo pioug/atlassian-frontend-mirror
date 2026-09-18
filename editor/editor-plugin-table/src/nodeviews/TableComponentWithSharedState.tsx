@@ -15,7 +15,6 @@ import { findTable } from '@atlaskit/editor-tables';
 
 import type tablePlugin from '../tablePlugin';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
-
 import TableComponent from './TableComponent';
 import type { TableOptions } from './types';
 

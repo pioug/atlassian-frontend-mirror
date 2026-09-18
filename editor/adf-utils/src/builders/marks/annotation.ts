@@ -3,8 +3,9 @@ import type {
 	AnnotationMarkAttributes,
 } from '@atlaskit/adf-schema/annotation';
 import type { TextDefinition } from '@atlaskit/adf-schema/text';
-import { applyMark } from '../utils/apply-mark';
+
 import type { WithMark } from '../types';
+import { applyMark } from '../utils/apply-mark';
 
 export const annotation =
 	(attrs: AnnotationMarkAttributes) =>

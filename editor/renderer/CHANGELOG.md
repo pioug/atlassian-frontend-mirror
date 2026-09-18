@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 141.0.1
+
+### Patch Changes
+
+- [`43145fb3049ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43145fb3049ae) -
+  Increase heading link targets to at least 24 by 24 pixels when
+  platform_editor_heading_link_target_size is enabled.
+- [`a3fc5f163489f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3fc5f163489f) -
+  Remove unnecessary aria-haspopup from the code block wrap and copy buttons behind
+  platform_editor_a11y_codeblock_haspopup
+- [`8864ef7070f02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8864ef7070f02) -
+  Use the precise code-block copy accessible name behind platform_editor_a11y_codeblock_copy_name.
+- Updated dependencies
+
 ## 141.0.0
 
 ### Patch Changes

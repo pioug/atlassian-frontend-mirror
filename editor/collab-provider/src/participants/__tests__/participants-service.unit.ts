@@ -1,18 +1,18 @@
+import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import AnalyticsHelper from '../../analytics/analytics-helper';
+import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 import type { PresencePayload } from '../../types';
 import type { BatchProps, ParticipantsMap } from '../participants-helper';
-import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
+import { PARTICIPANT_UPDATE_INTERVAL } from '../participants-helper';
 import {
 	AGENT_PRESENCE_INACTIVE_MS,
 	AGENT_PRESENCE_TTL_MS,
 	ParticipantsService,
 } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
-import { PARTICIPANT_UPDATE_INTERVAL } from '../participants-helper';
-import AnalyticsHelper from '../../analytics/analytics-helper';
-import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
 jest.mock('@atlaskit/feature-gate-js-client/feature-gates');
 

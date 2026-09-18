@@ -1,7 +1,8 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML, toContext } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 import { layoutSection, layoutColumn, doc, p } from '@af/adf-test-helpers/src/doc-builder';
+
 import { layoutColumn as layoutColumnNodeSpec, layoutColumnStage0 } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 import { normalizeNodeSpec } from '../../_utils';
 
 const schema = makeSchema();

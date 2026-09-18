@@ -1,9 +1,9 @@
 jest.mock('../../isRetina');
 jest.mock('../../getElementDimension');
 import { getDataURIDimension } from '../../getDataURIDimension';
+import { getElementDimension } from '../../getElementDimension';
 import { getRequestedDimensions } from '../../getRequestedDimensions';
 import { isRetina } from '../../isRetina';
-import { getElementDimension } from '../../getElementDimension';
 
 describe('getDataURIDimension()', () => {
 	it('resolves both requested dimensions through the shared dimension helper', () => {

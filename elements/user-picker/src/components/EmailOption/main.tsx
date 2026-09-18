@@ -5,11 +5,12 @@
 
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
+import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
 import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
-import { jsx } from '@emotion/react';
+
 import { type Email } from '../../types';
 import { AddOptionAvatar } from '../AddOptionAvatar';
 import { AvatarItemOption } from '../AvatarItemOption';

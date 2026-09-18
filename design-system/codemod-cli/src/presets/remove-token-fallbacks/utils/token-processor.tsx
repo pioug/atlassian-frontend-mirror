@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -25,7 +26,6 @@ import {
 	type TokenProcessingResult,
 	type TransformationDetails,
 } from '../types';
-
 import { normalizeValues } from './normalize-values';
 import { addOrUpdateEslintIgnoreComment } from './update-comments';
 

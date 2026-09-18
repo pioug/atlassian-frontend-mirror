@@ -17,7 +17,6 @@ import type { SelectionExtensionPlugin } from '../selectionExtensionPluginType';
 // oxlint-disable-next-line import/no-duplicates
 import type { ExtensionMenuItemConfiguration } from '../types';
 import type { SelectionExtensionPluginOptions } from '../types';
-
 import { MenuItem } from './toolbar-components/MenuItem';
 import { registerInlineToolbar } from './toolbar-components/register-inline-toolbar';
 import { migrateSelectionExtensionToMenuItem } from './utils/migrate-selection-extention';

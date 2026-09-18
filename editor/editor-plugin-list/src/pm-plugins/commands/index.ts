@@ -29,12 +29,12 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { StepResult } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import {
 	findParentNodeOfTypeClosestToPos,
 	findPositionOfNodeBefore,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -45,7 +45,6 @@ import {
 	isInsideListItem,
 	selectionContainsList,
 } from '../utils/selection';
-
 import { isFirstChildOfParent } from './isFirstChildOfParent';
 import { joinListItemForward } from './join-list-item-forward';
 import { listBackspace } from './listBackspace';

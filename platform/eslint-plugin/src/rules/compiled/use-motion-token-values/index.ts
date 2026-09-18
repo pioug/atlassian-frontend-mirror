@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
 import type { Property, ImportDeclaration, CallExpression, Literal } from 'estree';
+
 import tokenDefaultValues from '@atlaskit/tokens/token-default-values';
 
 const DURATION_TOKEN_NAMES = [

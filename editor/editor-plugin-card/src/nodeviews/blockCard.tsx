@@ -32,7 +32,6 @@ import { Datasource } from '../nodeviews/datasource';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { isDatasourceNode } from '../pm-plugins/utils';
 import { SmartCardSSRReactContextsProvider } from '../ui/SmartCardSSRReactContextsProvider';
-
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
 

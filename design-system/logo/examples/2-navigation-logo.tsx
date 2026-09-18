@@ -7,11 +7,6 @@ import React, { Fragment, type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
-import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
-import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
-import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
-import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
 import {
 	AdminIcon,
 	AlignIcon,
@@ -35,6 +30,12 @@ import {
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
+import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
+import { InsightsIcon } from '@atlaskit/logo/insights/icon';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
 import { token } from '@atlaskit/tokens';
 
 const logoOptions = [
@@ -48,6 +49,7 @@ const logoOptions = [
 	ConfluenceIcon,
 	FocusIcon,
 	GuardIcon,
+	InsightsIcon,
 	JiraIcon,
 	JiraProductDiscoveryIcon,
 	JiraServiceManagementIcon,

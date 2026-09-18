@@ -1,3 +1,12 @@
+import {
+	type MentionDescription,
+	type MentionDisabledState,
+	type MentionDisabledStateInput,
+	type InviteFromMentionProvider,
+	type XProductInviteMentionProvider,
+	type AnalyticsCallback,
+} from '../types';
+import { padArray } from '../util';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
 	type MentionProvider,
@@ -9,15 +18,6 @@ import {
 	// @ts-ignore
 	ResultCallback,
 } from './MentionResource';
-import { padArray } from '../util';
-import {
-	type MentionDescription,
-	type MentionDisabledState,
-	type MentionDisabledStateInput,
-	type InviteFromMentionProvider,
-	type XProductInviteMentionProvider,
-	type AnalyticsCallback,
-} from '../types';
 export type { MentionDescription };
 
 export type MentionProviderFunctions = Omit<

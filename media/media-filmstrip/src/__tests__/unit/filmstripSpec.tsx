@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
-import { Filmstrip, type FilmstripProps, type FilmstripItem } from '../..';
-import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+
 import { type Identifier } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { render, screen } from '@atlassian/testing-library';
+
+import { Filmstrip, type FilmstripProps, type FilmstripItem } from '../..';
 
 jest.mock('@atlaskit/media-card/cardLoader', () => ({
 	...jest.requireActual('@atlaskit/media-card/cardLoader'),

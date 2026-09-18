@@ -34,7 +34,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
-
 import { leftHandleOnlyLayouts } from './constants';
 import { wrapperStyle } from './styled';
 import type { EnabledHandles, Props } from './types';

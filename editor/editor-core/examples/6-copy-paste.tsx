@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import type { ReactNode } from 'react';
 import React, { Fragment, useEffect, useState } from 'react';
 
@@ -27,16 +28,16 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import type { ImagePreview, UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import { ClipboardLoader as Clipboard } from '@atlaskit/media-picker/clipboard';
+import type { ImagePreview, UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import {
 	defaultCollectionName,
 	defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers/collectionNames';
 import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';

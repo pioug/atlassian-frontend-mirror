@@ -1,7 +1,7 @@
-import type { State } from './store';
 import type { Comment } from '../model/Comment';
 import type { Conversation } from '../model/Conversation';
 import type { User } from '../model/User';
+import type { State } from './store';
 
 export const getConversation = (state: State, conversationId: string): Conversation | undefined =>
 	state.conversations.filter(

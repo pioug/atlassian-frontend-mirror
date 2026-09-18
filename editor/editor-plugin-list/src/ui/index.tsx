@@ -11,7 +11,6 @@ import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-m
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ListPlugin } from '../listPluginType';
-
 import { createBulletedListBlockMenuItem } from './BulletedListBlockMenuItem';
 import { createNumberedListBlockMenuItem } from './NumberedListBlockMenuItem';
 

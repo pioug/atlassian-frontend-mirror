@@ -6,6 +6,14 @@
   and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
 */
 
+import type {
+	TestType,
+	PlaywrightTestArgs,
+	PlaywrightTestOptions,
+	PlaywrightWorkerArgs,
+	PlaywrightWorkerOptions,
+} from 'playwright/test';
+
 import {
 	expect as baseExpect,
 	test as base,
@@ -15,17 +23,9 @@ import {
 } from '@af/integration-testing';
 import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-
-import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
-import type { RendererProps } from '@atlaskit/renderer';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
-import type {
-	TestType,
-	PlaywrightTestArgs,
-	PlaywrightTestOptions,
-	PlaywrightWorkerArgs,
-	PlaywrightWorkerOptions,
-} from 'playwright/test';
+import type { RendererProps } from '@atlaskit/renderer';
+import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
 
 class AnnotationModel {
 	private constructor(private page: Page) {}

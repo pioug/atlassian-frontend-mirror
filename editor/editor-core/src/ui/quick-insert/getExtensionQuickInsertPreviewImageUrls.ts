@@ -7,7 +7,115 @@ const googleDrivePreviewImageUrls: PreviewImageUrls = {
 	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/wi413m0837rjykg23r6y0256b7377185.png',
 };
 
+const dataAndChartsPreviewImageUrlsByKey: Readonly<Record<string, PreviewImageUrls>> = {
+	'quick-insert-assets-menu-item': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/64d41r462m2343iomn821ver0g4ohh37.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/0w58rc60jh54m68224qqinuk52d6lldt.png',
+	},
+	'blog-posts': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/syvwj7cg10q6n1586u2l64q78o2dc54d.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/5n54qb4j1pn588ud6604eh4c8hj5422v.png',
+	},
+	'change-history': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/623tjta5b2flb1b7lf3t0dp6r4c858v5.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/u83vu4k3if5kh4a12e34pr5jf833e71l.png',
+	},
+	children: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/a0qd7lp8011o238rmf3m872hb765y2g1.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/ttbt2qi6tkl6cgdyig1th4x837g3c018.png',
+	},
+	details: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/11j376ovg761h7o2vfr0l6n8okxf22m4.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/857b0i4hxk3pxeq3h5v2ykfav4niv5hx.png',
+	},
+	detailssummary: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/566j328lm7022fx64cv77w8xtyodre44.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/07k170i7odd417hvcpkp800353211gwi.png',
+	},
+	'content-report-table': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/ewhj8d8216yc6lyny58l2w4h3nikbs06.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/060xk53i83jkbc5m5op8v44887tv3038.png',
+	},
+	pagetree: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/8g3qkn50t2m3n05465s783f54517su0j.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/kji77816l70343e211ll54222q3i0m57.png',
+	},
+	contributors: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/f115sn7v8x2oo65outd1g7124u03dfj1.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/22801wwe6yf82mcfcrd7vg54620p5e0g.png',
+	},
+	'database-extension:create-database': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/65m57812l47f0a55qpm51t8glk24vsne.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/lqqxkx57ue3ws60m642br54ss6m3neow.png',
+	},
+	'decisionreport:decisionreport': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1w6a5k5f1yndoy2g3j158n151020v71y.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/3347ejx66xy7y375s232mbeg0ia1rdm8.png',
+	},
+	'database-extension:reference-database': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/5b815435xso5xv248niy0dg3m3yr2w6c.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/he1vu1p7ngbjcy6lw8i8vh601aw14ct1.png',
+	},
+	contentbylabel: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/3i6n45of3ks7lm5v65k74r0580mqya62.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/8hy8d25516esmq4q267bf15483851454.png',
+	},
+	'quick-insert-confluence-list-menu-item': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/8jh31f0k143b475y5tun230v166c7087.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/6co68akkw56t83fql3m823qi21k8776u.png',
+	},
+	'quick-insert-jira-work-items-menu-item': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/m284qw5066530tr5yd11473uq1l8t86t.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/4b1455q46emetd0jxv70xuo7i7lwo574.png',
+	},
+	listlabels: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/3k50k14u80g034t323q3m13m6820ag70.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1a51b87u6bvsq84pup1wy1n32pg2s6c7.png',
+	},
+	livesearch: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/80v4vx47y130st85qx46432fo18g0sbx.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/0n8ie724cnnvl62w1m521k8eq5v73u76.png',
+	},
+	pagetreesearch: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/g32sx54apgb3yt844qi4y28gu835q682.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/w7o6smtuy41bg08327dy2ai0fht2lc6m.png',
+	},
+	'popular-labels': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/oqgl5347hqmx6u3v837q1bh2q70ls7bd.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/a2x44n7aasba646mlmqht7cqfq6k8783.png',
+	},
+	'questionslist-macro-native:questionslist-macro-native': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/37x027653yfd01ik041qnf005f1j5867.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/4f6f51758m5m6nu06x557nm115613233.png',
+	},
+	'recently-updated': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/g4y1gsehg600ge0nem6r2xv4b0ga7106.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/g2vqf86yj16fi74mny6b265mw5l181fx.png',
+	},
+	'gadget:spaces': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/jw8r2233444raq4p3v56obq230hh5a8n.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/b3py8prmf21tl73nb42gc67a0i437o1q.png',
+	},
+	'tasks-report-macro': {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/n2lm728m8n7au2q455wy57m407a8i74b.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/e7qda5xter48ao38ieq82jgv3m7j3g8c.png',
+	},
+	calendar: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/01d5gi6lifcsu5el861v8p7kw84ja8it.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/g7v75uv8mw0i7hw36181xx2nly2674pi.png',
+	},
+	userlister: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/5cy6l23fwmo2820uce5m50g1222l0hpb.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/4883g3sm4pdy8w3mmphdqj81588c37gf.png',
+	},
+	profile: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/evx8rg04mer8binf15e8ao0imm5kv7ek.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/o2kexap23ijq8jeqhpvi8lgc51dex3wj.png',
+	},
+};
+
 const previewImageUrlsByKey: Readonly<Record<string, PreviewImageUrls>> = {
+	...dataAndChartsPreviewImageUrlsByKey,
 	'profile-picture:profile-picture': {
 		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/35rb2mbxc2dt8p7op8u8lyss5h220428.png',
 		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/4o3lpe2eh4nlakav375621i73do50kyx.png',
@@ -113,7 +221,16 @@ const previewImageUrlsByTitle: Readonly<Record<string, PreviewImageUrls>> = {
 };
 
 export const getExtensionQuickInsertPreviewImageUrls = (
-	item: Pick<MenuItem, 'title'> & Partial<Pick<MenuItem, 'key'>>,
-): PreviewImageUrls | undefined =>
-	(item.key ? previewImageUrlsByKey[item.key] : undefined) ??
-	previewImageUrlsByTitle[item.title.toLowerCase()];
+	item: Pick<MenuItem, 'title'> & Partial<Pick<MenuItem, 'extensionKey' | 'key'>>,
+): PreviewImageUrls | undefined => {
+	const normalizedTitle = item.title.toLowerCase();
+
+	return (
+		(item.key ? previewImageUrlsByKey[item.key] : undefined) ??
+		(item.extensionKey === 'gadget'
+			? dataAndChartsPreviewImageUrlsByKey[`${item.extensionKey}:${normalizedTitle}`]
+			: undefined) ??
+		(item.extensionKey ? dataAndChartsPreviewImageUrlsByKey[item.extensionKey] : undefined) ??
+		previewImageUrlsByTitle[normalizedTitle]
+	);
+};

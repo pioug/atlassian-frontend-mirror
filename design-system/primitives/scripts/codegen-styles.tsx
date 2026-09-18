@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import { readdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 

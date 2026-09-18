@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { type z } from 'zod';
@@ -7,7 +8,6 @@ import { mergeMultiTermFuseResults } from '../../helpers';
 import { cleanQuery } from '../../helpers/clean-query';
 import { loadAllComponents } from '../get-all-components/load-all-components';
 import type { ComponentMcpPayload } from '../get-all-components/types';
-
 import { type searchComponentsInputSchema } from './search-components-input-schema';
 
 const buildComponentResult = (result: ComponentMcpPayload) => {

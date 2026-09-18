@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Wrapper as CompiledWrapper, type WrapperProps } from './styled-compiled';
 
 export const Wrapper: React.ForwardRefExoticComponent<

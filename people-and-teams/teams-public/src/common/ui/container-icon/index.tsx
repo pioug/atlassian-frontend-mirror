@@ -9,8 +9,8 @@ import { Box } from '@atlaskit/primitives/compiled';
 import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';
 
-import { LoomSpaceAvatar } from '../loom-avatar/main';
 import { type ContainerTypes } from '../../types';
+import { LoomSpaceAvatar } from '../loom-avatar/main';
 
 const styles = cssMap({
 	linkIconWrapperSmall: {

@@ -4,18 +4,18 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-nested-side-navigation.vr.ap.tsx",
-    "01-sidebar-with-rbd.tsx",
-    "02-customised-components.tsx",
-    "03-simple-sidebar.tsx",
-    "10-with-spotlight.tsx",
-    "12-nested-side-navigation-scroll-indicator.vr.ap.tsx",
-    "13-content.vr.ap.tsx",
-    "loading-skeletons-nested.tsx",
-    "loading-skeletons.tsx",
-    "section.tsx",
-    "side-navigation.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"00-nested-side-navigation.vr.ap.tsx",
+		"01-sidebar-with-rbd.tsx",
+		"02-customised-components.tsx",
+		"03-simple-sidebar.tsx",
+		"10-with-spotlight.tsx",
+		"12-nested-side-navigation-scroll-indicator.vr.ap.tsx",
+		"13-content.vr.ap.tsx",
+		"loading-skeletons-nested.tsx",
+		"loading-skeletons.tsx",
+		"section.tsx",
+		"side-navigation.tsx",
+	],
+	"exampleDependencies": [],
 }

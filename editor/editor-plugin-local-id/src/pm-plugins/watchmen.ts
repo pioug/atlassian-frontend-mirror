@@ -8,13 +8,13 @@ import {
 	type EditorState,
 	type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import {
 	AttrStep,
 	DocAttrStep,
 	ReplaceAroundStep,
 	ReplaceStep,
 } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { LocalIdPlugin, LocalIdStatusCode } from '../localIdPluginType';
 

@@ -1,4 +1,5 @@
 import { mediaState } from '@atlaskit/media-core/cache';
+
 import { type UploadEventPayloadMap, type EventPayloadListener } from './client/events';
 
 export const globalMediaEventEmitter = {

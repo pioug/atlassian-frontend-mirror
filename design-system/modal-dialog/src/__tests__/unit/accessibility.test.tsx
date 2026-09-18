@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/default/button';
+import { render } from '@atlassian/testing-library';
 
 import ModalBody from '../../modal-body';
+import Modal from '../../modal-dialog';
 import ModalFooter from '../../modal-footer';
 import ModalHeader from '../../modal-header';
 import ModalTitle from '../../modal-title';
 import ModalTransition from '../../modal-transition';
-import Modal from '../../modal-dialog';
 
 it('Basic Modal should not fail aXe audit', async () => {
 	const { container } = render(

@@ -1,5 +1,6 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { doc, emoji, hardBreak, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { adfEmojiItems, wikiToAdfEmojiMapping } from '../../../parser/tokenize/emoji';
 import { checkParseEncodeRoundTrips } from '../_test-helpers';
 

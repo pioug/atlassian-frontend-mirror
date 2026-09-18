@@ -3,8 +3,8 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnal
 import { type MentionNameDetails, type MentionNameResolver, MentionNameStatus } from '../types';
 import { fireAnalyticsMentionHydrationEvent } from '../util/fire-analytics-mention-hydration-event';
 import { type MentionNameClient } from './MentionNameClient';
-import type { Queue } from './Queue';
 import { mergeNameResolverQueues } from './mergeNameResolverQueues';
+import type { Queue } from './Queue';
 
 export class DefaultMentionNameResolver implements MentionNameResolver {
 	public static waitForBatch = 100; // ms

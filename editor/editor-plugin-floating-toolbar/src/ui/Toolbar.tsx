@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { Component } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -40,7 +41,6 @@ import { token } from '@atlaskit/tokens';
 import type { FloatingToolbarPlugin } from '../floatingToolbarPluginType';
 import { checkShouldForceFocusAndApply, forceFocusSelector } from '../pm-plugins/force-focus';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
-
 import Dropdown from './Dropdown';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';

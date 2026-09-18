@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { TextPosition, Position } from '../types';
 
 export const findTextString = (reactNode: React.ReactNode): string | null => {

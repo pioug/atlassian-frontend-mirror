@@ -1,7 +1,9 @@
 import React from 'react';
+
 import VidPlayIcon from '@atlaskit/icon/core/video-play-overlay';
-import { PlayButtonWrapper } from './playButtonWrapper';
+
 import { PlayButtonBackground } from './playButtonBackground';
+import { PlayButtonWrapper } from './playButtonWrapper';
 
 export const PlayButton = (): React.JSX.Element => {
 	return (

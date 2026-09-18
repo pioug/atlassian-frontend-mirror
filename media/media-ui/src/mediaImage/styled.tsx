@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
+
 import React, { type CSSProperties } from 'react';
 
 /*

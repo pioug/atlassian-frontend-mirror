@@ -3,7 +3,6 @@ import React from 'react';
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 
 import en from '../../../i18n/en';
-
 import { fetchMessagesForLocale } from './utils/fetch-messages-for-locale';
 
 type LazyMessagesProviderProps = {

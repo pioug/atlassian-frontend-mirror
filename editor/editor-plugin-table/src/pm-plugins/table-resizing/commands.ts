@@ -8,7 +8,6 @@ import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import type { PluginInjectionAPI } from '../../types';
 import { META_KEYS } from '../table-analytics';
 import { updateColumnWidths } from '../transforms/column-width';
-
 import { createCommand, getPluginState } from './plugin-factory';
 import { isClickNear } from './utils/dom';
 import { evenAllColumnsWidths } from './utils/resize-state';

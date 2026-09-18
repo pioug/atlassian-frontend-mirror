@@ -13,9 +13,9 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap as cssMapAK, cx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
+import Motion from '@atlaskit/motion/entering/motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
-import Motion from '@atlaskit/motion/entering/motion';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Portal from '@atlaskit/portal/portal';
 import { Box } from '@atlaskit/primitives/compiled';

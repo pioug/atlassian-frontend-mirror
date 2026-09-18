@@ -1,6 +1,5 @@
 jest.mock('../../../utils/shouldSample');
 import './unauthorized.test.mock';
-
 import React from 'react';
 
 import * as jestExtendedMatchers from 'jest-extended';
@@ -23,7 +22,6 @@ import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
-
 import '../../../utils/shouldSample';
 
 mockSimpleIntersectionObserver();

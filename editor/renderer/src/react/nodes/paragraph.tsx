@@ -1,6 +1,7 @@
 import React from 'react';
-import Inline from './inline';
+
 import type { NodeProps } from '../types';
+import Inline from './inline';
 
 export default function Paragraph({
 	children,

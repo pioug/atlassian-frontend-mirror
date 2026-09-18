@@ -1,6 +1,5 @@
 import type { RevisionPayload, VCRawDataType, VCResult } from '../common/vc/types';
 import { isVCRevisionEnabled } from '../config';
-
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from './types';
 import { VCObserver } from './vc-observer';
 import { default as VCObserverNew } from './vc-observer-new/index';

@@ -1,6 +1,6 @@
+import { isMediaCardError } from './isMediaCardError';
 import type { MediaCardErrorPrimaryReason } from './MediaCardError';
 import { MediaCardError } from './MediaCardError';
-import { isMediaCardError } from './isMediaCardError';
 
 // In a try/catch statement, the error caught is the type of unknown.
 // We can use this helper to ensure that the error handled is the type of MediaCardError if unsure

@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { randomTeamMembership } from '@atlaskit/teams-client/random-team-membership'` instead.
  */
+
 export { randomTeamMembership } from './random-team-membership';
 /**
  * @deprecated Use `import { randomTeamMemberships } from '@atlaskit/teams-client/random-team-memberships'` instead.

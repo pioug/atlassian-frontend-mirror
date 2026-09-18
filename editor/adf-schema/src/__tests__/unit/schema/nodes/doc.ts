@@ -1,5 +1,4 @@
 import { doc } from '../../../..';
-
 import { normalizeNodeSpec } from '../../_utils';
 
 const packageName = process.env.npm_package_name as string;

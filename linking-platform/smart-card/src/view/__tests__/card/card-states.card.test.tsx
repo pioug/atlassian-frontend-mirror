@@ -1,17 +1,18 @@
+import './card-states.card.test.mock';
 import React from 'react';
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type CardClient from '@atlaskit/link-provider/client';
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import '@atlaskit/link-test-helpers/jest';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
+import '@atlaskit/link-test-helpers/jest';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
 import { fakeFactory } from '../../../utils/fake-factory';
@@ -19,7 +20,6 @@ import { mockGenerator, mocks } from '../../../utils/mocks';
 import { getIsDataExportEnabled } from '../../../utils/should-data-export';
 import { Card } from '../../Card';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
-import './card-states.card.test.mock';
 
 const mockUrl = 'https://some.url';
 

@@ -1,3 +1,5 @@
+import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
+
 import React from 'react';
 
 import { IntlProvider } from 'react-intl';
@@ -10,7 +12,6 @@ import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../../../../constants';
-import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
 import { mocks } from '../../../../../../utils/mocks';
 import { mockUnauthorisedResponse } from '../../../../__tests__/__mocks__/mocks';
 import HoverCardUnauthorisedView from '../index';

@@ -1,12 +1,13 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
 import type { Token, TokenParser } from '.';
 import { TokenType } from '.';
 import type { Context } from '../../interfaces';
-import { commonMacro } from './common-macro';
-import { parseAttrs } from '../utils/attrs';
-import { parseString } from '../text';
 import { getEditorColor } from '../color';
+import { parseString } from '../text';
+import { parseAttrs } from '../utils/attrs';
 import { hasAnyOfMarks } from '../utils/text';
+import { commonMacro } from './common-macro';
 
 export const colorMacro: TokenParser = ({ input, position, schema, context }) => {
 	return commonMacro(input.substring(position), schema, {

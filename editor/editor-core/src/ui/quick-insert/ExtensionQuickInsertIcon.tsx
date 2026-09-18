@@ -1,12 +1,12 @@
 import React from 'react';
 
 import type { MenuItem } from '@atlaskit/editor-common/extensions';
-import AppsIcon from '@atlaskit/icon/core/apps';
-import CardIcon from '@atlaskit/icon/core/card';
-import WhiteboardIcon from '@atlaskit/icon/core/whiteboard';
 import CarouselIcon from '@atlaskit/icon-lab/core/carousel';
 import TableOfContentIcon from '@atlaskit/icon-lab/core/table-of-content';
 import TemplateIcon from '@atlaskit/icon-lab/core/template';
+import AppsIcon from '@atlaskit/icon/core/apps';
+import CardIcon from '@atlaskit/icon/core/card';
+import WhiteboardIcon from '@atlaskit/icon/core/whiteboard';
 
 type ExtensionIcon = React.ComponentType<{ label: string }>;
 

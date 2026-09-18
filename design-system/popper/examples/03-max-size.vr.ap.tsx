@@ -8,8 +8,8 @@ import { type ReactNode } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
-import { Manager } from '@atlaskit/popper/manager';
 import { type Placement, Popper } from '@atlaskit/popper/main';
+import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
 import { token } from '@atlaskit/tokens';
 

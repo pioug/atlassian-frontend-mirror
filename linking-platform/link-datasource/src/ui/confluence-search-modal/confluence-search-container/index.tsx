@@ -13,7 +13,6 @@ import BasicFilters from '../basic-filters';
 import { useBasicFilterHydration } from '../basic-filters/hooks/useBasicFilterHydration';
 import { CLOLBasicFilters, type SelectedOptionsMap } from '../basic-filters/types';
 import { type ConfluenceSearchDatasourceParameters } from '../types';
-
 import { searchMessages } from './messages';
 
 interface Props {

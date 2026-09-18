@@ -1,18 +1,23 @@
 import React, { useMemo } from 'react';
+
+import { RelayEnvironmentProvider } from 'react-relay';
 import { createMockEnvironment } from 'relay-test-utils';
-import { mockSyncedBlockProviderWithStaticData } from '@atlaskit/editor-test-helpers/sync-block-mock-providers';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import {
 	getSyncBlockNodesFromDoc,
 	useMemoizedSyncedBlockNodeComponent,
 } from '@atlaskit/editor-synced-block-renderer';
+import { mockSyncedBlockProviderWithStaticData } from '@atlaskit/editor-test-helpers/sync-block-mock-providers';
 
 import { Renderer } from '../../entry-points/renderer-default';
 import type { RendererProps } from '../../ui/renderer-props';
-import { RelayEnvironmentProvider } from 'react-relay';
 
 const mockEnvironment = createMockEnvironment();
 
+import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block';
+
+import type { RendererContentMode } from '../../ui/Renderer/types';
 import {
 	syncBlockWithParagraphAndPanelAdf,
 	syncBlockNotFoundAdf,
@@ -22,8 +27,6 @@ import {
 	syncBlockInvalidRequestErrorAdf,
 	syncBlockUnsyncNotFoundAdf,
 } from './__fixtures__/sync-block.adf';
-import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block';
-import type { RendererContentMode } from '../../ui/Renderer/types';
 
 const mockSourceInfo: Record<string, { title: string; url: string }> = {
 	'ari:cloud:confluence:test-sync-block-not-found:page/1234/abc': {

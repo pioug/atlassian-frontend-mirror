@@ -4,6 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 
@@ -23,7 +24,6 @@ import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracke
 import { isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
 import type { AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
 import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
-
 import type { DropTargetProps } from './drop-target';
 
 const HOVER_ZONE_WIDTH = '--editor-blocks-inline-hover-zone-width';

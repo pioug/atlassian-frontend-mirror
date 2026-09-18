@@ -7,8 +7,8 @@ import { Fragment } from 'react';
 
 import { css, jsx, styled } from '@compiled/react';
 
-import { Manager } from '@atlaskit/popper/manager';
 import { type Placement, Popper } from '@atlaskit/popper/main';
+import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
 import { token } from '@atlaskit/tokens';
 

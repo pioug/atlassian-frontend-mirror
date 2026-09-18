@@ -3,11 +3,10 @@ import React, { useCallback, useContext, useState } from 'react';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PlainOutsideClickTargetRefContext, withOuterListeners } from '@atlaskit/editor-common/ui';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
-
 import { RegisteredInsertMenu } from './RegisteredInsertMenu';
 
 type Props = {

@@ -3,7 +3,6 @@ import { traverse } from '@atlaskit/adf-utils/traverse';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { JSONNode } from '../types';
-
 import { removeMarks } from './remove-marks';
 import { removeNonAnnotationMarks } from './remove-non-annotation-marks';
 

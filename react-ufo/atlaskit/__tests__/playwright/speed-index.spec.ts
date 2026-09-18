@@ -2,6 +2,7 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
 /* eslint-disable playwright/no-conditional-in-test */
+
 import { expect, test, viewports } from './fixtures';
 
 test.describe('speed index', () => {

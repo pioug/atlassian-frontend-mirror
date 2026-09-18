@@ -13,8 +13,8 @@ import Heading from '@atlaskit/heading/heading';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';
-import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 

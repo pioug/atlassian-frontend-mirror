@@ -1,5 +1,4 @@
 import { USER_ARI_PREFIX, type UserARI } from '../types';
-
 import { isUserARI } from './is-user-ari';
 
 export const toUserId = (ari: UserARI | string): string => {

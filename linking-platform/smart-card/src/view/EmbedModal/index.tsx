@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
@@ -9,7 +9,6 @@ import { SmartLinkSize } from '../../constants';
 import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
 import { getPreviewUrlWithTheme } from '../../utils/get-preview-url-with-theme';
 import { BaseIconElement } from '../FlexibleCard/components/elements/common';
-
 import withAnalytics from './components/analytics';
 import type { WithAnalytics } from './components/analytics/types';
 import EmbedContent from './components/embed-content';

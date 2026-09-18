@@ -17,10 +17,10 @@ import {
 	type MediaStoreGetFileImageParams,
 	toCommonMediaClientError,
 } from '@atlaskit/media-client';
-import { isCDNEnabled } from '@atlaskit/media-client/media-cdn';
 import { useCopyIntent } from '@atlaskit/media-client-react/use-copy-intent';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import { isCDNEnabled } from '@atlaskit/media-client/media-cdn';
 import {
 	isMimeTypeSupportedByBrowser,
 	type MediaTraceContext,
@@ -29,8 +29,6 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
 
-import { ImageLoadError } from './ImageLoadError';
-import { MediaFilePreviewError } from './MediaFilePreviewError';
 import type { SSRStatus } from './analytics';
 import { createFailedSSRObject } from './createFailedSSRObject';
 import { createRequestDimensions } from './createRequestDimensions';
@@ -48,8 +46,10 @@ import { isSSRPreview } from './getPreview/isSSRPreview';
 import { isSupportedLocalPreview } from './getPreview/isSupportedLocalPreview';
 import { generateScriptProps } from './globalScope/generateScriptProps';
 import { getSSRData } from './globalScope/getSSRData';
+import { ImageLoadError } from './ImageLoadError';
 import { isBigger } from './isBigger';
 import { isWider } from './isWider';
+import { MediaFilePreviewError } from './MediaFilePreviewError';
 import {
 	type MediaFilePreview,
 	type MediaFilePreviewDimensions,

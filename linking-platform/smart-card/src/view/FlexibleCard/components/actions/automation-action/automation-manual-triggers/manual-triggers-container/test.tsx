@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { act, fireEvent, screen, waitFor } from '@atlassian/testing-library';
 import { injectable } from 'react-magnetic-di';
 
-import { ManualRulesContainer, type ManualRulesContainerProps } from './ManualRulesContainer';
+import { act, fireEvent, screen, waitFor } from '@atlassian/testing-library';
+
 import { mockTransformedRules } from './common/mocks';
 import { renderWithDi } from './common/test-utils/render-with-di';
 import type { ManualRule, RuleQuery } from './common/types';
+import { ManualRulesContainer, type ManualRulesContainerProps } from './ManualRulesContainer';
 import { invokeManuallyTriggeredRule } from './services/invokeManuallyTriggeredRule';
 import { useManualRules } from './useManualRules';
 

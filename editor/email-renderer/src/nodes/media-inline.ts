@@ -1,11 +1,12 @@
-import type { MediaMetaDataContextItem, NodeSerializerOpts } from '../interfaces';
+import { N30 } from '@atlaskit/adf-schema/colors';
+
+import { applyMarks } from '../apply-marks';
 import { createTag } from '../create-tag';
-import { createClassName, getInlineImageSizeFromParentNode } from '../styles/util';
+import type { MediaMetaDataContextItem, NodeSerializerOpts } from '../interfaces';
 import { getIconFromMediaType } from '../media-util';
 import { createContentId } from '../static';
 import type { IconString } from '../static/icons';
-import { N30 } from '@atlaskit/adf-schema/colors';
-import { applyMarks } from '../apply-marks';
+import { createClassName, getInlineImageSizeFromParentNode } from '../styles/util';
 
 const className = createClassName('mediaInline');
 

@@ -6,7 +6,6 @@ import { useLayering } from '@atlaskit/layering/use-layering';
 
 import { type FocusableElementRef } from '../../types';
 import handleFocus from '../utils/handle-focus';
-
 import { FocusManagerContext } from './focus-manager-context';
 
 /**

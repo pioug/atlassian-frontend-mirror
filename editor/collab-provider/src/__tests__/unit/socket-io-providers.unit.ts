@@ -1,7 +1,8 @@
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from '../../config';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import type { InitAndAuthData } from '../../types';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 describe('Socket io provider', () => {
 	const url = 'http://localhost:8080/ccollab/sessionId/123';

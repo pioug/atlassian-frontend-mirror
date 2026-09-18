@@ -46,6 +46,7 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	// Platform Collection
 	{ name: 'admin', type: 'new', category: 'app' },
 	{ name: 'analytics', type: 'new', category: 'app' },
+	{ name: 'insights', type: 'new', category: 'app' },
 	{ name: 'chat', type: 'new', category: 'app' },
 	{ name: 'feedback', type: 'new', category: 'app' },
 	{ name: 'goals', type: 'new', category: 'app' },

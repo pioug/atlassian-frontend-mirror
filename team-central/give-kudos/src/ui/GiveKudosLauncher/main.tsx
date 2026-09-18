@@ -151,6 +151,33 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 		setIsCloseConfirmModalOpen(false);
 	};
 
+	// Closing from the confirm modal is a two step close. The drawer's focus lock only returns focus
+	// to whatever opened the drawer if focus is still inside the drawer when the lock is torn down,
+	// and opening the confirm modal moves focus out of it. So the modal is dismissed first, focus is
+	// put back on the drawer's own close button, and only then is the drawer closed.
+	const shouldCloseDrawerAfterConfirmModalRef = useRef(false);
+
+	const requestDrawerCloseFromConfirmModal = useCallback(() => {
+		if (!fg('teams_a11y_focus_high_priority')) {
+			closeDrawer();
+			return;
+		}
+
+		shouldCloseDrawerAfterConfirmModalRef.current = true;
+		setIsDirty(false);
+		setIsCloseConfirmModalOpen(false);
+	}, [closeDrawer]);
+
+	const handleConfirmModalCloseComplete = useCallback(() => {
+		if (!shouldCloseDrawerAfterConfirmModalRef.current) {
+			return;
+		}
+
+		shouldCloseDrawerAfterConfirmModalRef.current = false;
+		focusBackButton();
+		closeDrawer();
+	}, [closeDrawer, focusBackButton]);
+
 	const createFlagWithJsonStringifiedInput = useCallback(
 		(flagEvent: FlagEvent) => {
 			const handleCreateOrFail = (addFlagConfig: Flag) => {
@@ -389,7 +416,14 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 			<div data-testid={testId}>
 				<ModalTransition>
 					{isCloseConfirmModalOpen && (
-						<Modal onClose={closeWarningModal} width="small">
+						<Modal
+							onClose={closeWarningModal}
+							width="small"
+							shouldReturnFocus={fg('teams_a11y_focus_high_priority') ? backButtonRef : undefined}
+							onCloseComplete={
+								fg('teams_a11y_focus_high_priority') ? handleConfirmModalCloseComplete : undefined
+							}
+						>
 							<ModalHeader hasCloseButton={fg('goals_projects_bug_smash_july_2026')}>
 								<ModalTitle>
 									<FormattedMessage {...messages.confirmCloseTitle} />
@@ -406,7 +440,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 									appearance="primary"
 									onClick={() => {
 										sendCancelAnalytic();
-										closeDrawer();
+										requestDrawerCloseFromConfirmModal();
 									}}
 								>
 									<FormattedMessage {...messages.unsavedKudosWarningCloseButton} />

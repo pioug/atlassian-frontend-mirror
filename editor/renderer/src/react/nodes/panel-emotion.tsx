@@ -14,11 +14,11 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { token } from '@atlaskit/tokens';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
 interface PanelStyledProps {
 	backgroundColor?: string;

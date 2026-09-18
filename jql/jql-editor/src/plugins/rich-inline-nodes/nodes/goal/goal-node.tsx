@@ -6,7 +6,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { useHydratedGoal } from '../../../../state';
 import type { NodeViewProps } from '../../util/react-node-view';
 import { NodeBase } from '../base';
-
 import { GoalIcon, type GoalIconKey } from './goal-icon';
 import { isGoalIconKey } from './is-goal-icon-key';
 import type { Props } from './types';

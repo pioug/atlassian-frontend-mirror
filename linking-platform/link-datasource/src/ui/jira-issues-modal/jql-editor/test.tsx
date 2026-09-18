@@ -4,13 +4,13 @@ import { render } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl';
 
-import JQLEditor from '@atlaskit/jql-editor/ui';
-import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
 import type {
 	GetAutocompleteInitialData,
 	GetAutocompleteSuggestions,
 } from '@atlaskit/jql-editor-autocomplete-rest/types';
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider';
+import JQLEditor from '@atlaskit/jql-editor/ui';
+import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
 import { mockAutoCompleteData, mockSuggestionData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 

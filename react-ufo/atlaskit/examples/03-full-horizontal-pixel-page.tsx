@@ -1,5 +1,6 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
+
 import React, { useLayoutEffect, useMemo, useState } from 'react';
 
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';

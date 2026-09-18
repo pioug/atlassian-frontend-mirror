@@ -1,9 +1,10 @@
 import React from 'react';
 
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+
 import { default as Renderer } from '../src/ui/Renderer';
 import document from './helper/overflow.adf.json';
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export default function Example(): React.JSX.Element {
 	return (

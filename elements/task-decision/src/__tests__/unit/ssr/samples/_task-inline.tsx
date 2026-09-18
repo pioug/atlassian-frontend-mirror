@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
+
+import { dumpRef, action, TaskStateManager } from '../../../../../example-helpers/story-utils';
 import TaskItem from '../../../../components/TaskItem';
 import TaskList from '../../../../components/TaskList';
-import { dumpRef, action, TaskStateManager } from '../../../../../example-helpers/story-utils';
 
 export default (): React.JSX.Element => (
 	<IntlProvider locale="en">

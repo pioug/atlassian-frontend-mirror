@@ -1,8 +1,10 @@
+import { createMockService } from './document-service.mock';
+
+import type { StepJson } from '@atlaskit/editor-common/collab';
+
 import type AnalyticsHelper from '../../analytics/analytics-helper';
 import type { StepsPayload } from '../../types';
-import type { StepJson } from '@atlaskit/editor-common/collab';
 import type { DocumentService } from '../document-service';
-import { createMockService } from './document-service.mock';
 
 describe('onStepsAdded', () => {
 	let service: DocumentService;

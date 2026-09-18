@@ -9,7 +9,6 @@ import { ToolbarDropdownMenu, ToolbarTooltip } from '@atlaskit/editor-toolbar';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
-
 import { alignmentOptions } from './options';
 
 export const AlignmentMenu = ({

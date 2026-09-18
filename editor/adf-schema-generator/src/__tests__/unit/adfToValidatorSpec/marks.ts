@@ -1,6 +1,6 @@
-import { adfNode } from '../../../adfNode';
-import { adfMark } from '../../../adfMark';
 import { $or } from '../../../$or';
+import { adfMark } from '../../../adfMark';
+import { adfNode } from '../../../adfNode';
 import { adfToValidatorSpec } from '../../../transforms/adfToValidatorSpec/adfToValidatorSpec';
 import type { ValidatorSpecNode } from '../../../transforms/adfToValidatorSpec/ValidatorSpec';
 

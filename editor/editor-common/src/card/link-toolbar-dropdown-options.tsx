@@ -3,7 +3,6 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import type { Command, DropdownOptionT } from '../types';
-
 import { appearancePropsMap } from './appearancePropsMap';
 import type { OptionConfig } from './types';
 

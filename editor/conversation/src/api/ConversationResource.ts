@@ -1,6 +1,5 @@
 import type { Store, Unsubscribe } from 'redux';
-import type { State, Action, Handler } from '../internal/store';
-import createStore from '../internal/store';
+
 import {
 	FETCH_CONVERSATIONS_REQUEST,
 	FETCH_CONVERSATIONS_SUCCESS,
@@ -19,10 +18,12 @@ import {
 	CREATE_CONVERSATION_SUCCESS,
 	CREATE_CONVERSATION_ERROR,
 } from '../internal/actions';
+import type { State, Action, Handler } from '../internal/store';
+import createStore from '../internal/store';
+import { uuid } from '../internal/uuid';
 import type { Comment } from '../model/Comment';
 import type { Conversation } from '../model/Conversation';
 import type { User } from '../model/User';
-import { uuid } from '../internal/uuid';
 import { HttpError } from './HttpError';
 
 export interface ConversationResourceConfig {

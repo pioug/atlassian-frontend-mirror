@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { filterUniqueItems } from '@atlaskit/linking-common/utils/filter-unique-items'` instead.
  */
+
 export { filterUniqueItems } from './filter-unique-items';
 
 /**

@@ -1,5 +1,4 @@
 import { type TeamMembership } from '../types/membership';
-
 import type { MockConfig } from './mock-config';
 import { randomUser } from './random-user';
 

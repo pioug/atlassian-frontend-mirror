@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { AvailableSitesProductType } from './types';
 
 export const AVAILABLE_SITES_PATH: any = '/gateway/api/available-sites';

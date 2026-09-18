@@ -30,25 +30,25 @@ import {
 } from '@atlaskit/jql-ast';
 import { JQLAutocomplete } from '@atlaskit/jql-autocomplete/jql-autocomplete';
 import type { JQLRuleSuggestion } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { type AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
+import type { AutocompleteProvider } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { EventType } from '@atlaskit/jql-editor-common/constants';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ActionSubject, ActionSubjectId, Action as AnalyticsAction } from '../analytics/constants';
 import { type JqlEditorAnalyticsEvent } from '../analytics/types';
 import { selectErrorCommand } from '../commands/select-error-command';
 import { JQL_EDITOR_MAIN_ID } from '../common/constants';
-import { type AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
-import {
-	defaultAutocompleteProvider,
-	JQLAutocompletePluginKey,
-} from '../plugins/autocomplete/constants';
-import type { AutocompleteProvider } from '@atlaskit/jql-editor-common/autocomplete/types';
 import type {
 	AutocompleteOptionGroup,
 	AutocompleteOptionType,
 	SelectableAutocompleteOption,
 	SelectableAutocompleteOptions,
 } from '../plugins/autocomplete/components/types';
+import {
+	defaultAutocompleteProvider,
+	JQLAutocompletePluginKey,
+} from '../plugins/autocomplete/constants';
 import { getJastFromState } from '../plugins/jql-ast/getJastFromState';
 import { defaultEditorState, type JQLEditorCommand } from '../schema';
 import { clipboardTextParser } from '../schema/clipboardTextParser';
@@ -66,11 +66,16 @@ import {
 	type HydratedValue,
 } from '../ui/jql-editor/types';
 import { getNodeText } from '../utils/document-text/getNodeText';
-
 import { onStartAutocompleteEvent } from './analytics';
 import { sortOperators } from './autocomplete';
+import { getAutocompleteOptionId } from './getAutocompleteOptionId';
+import { getAutocompletePosition } from './getAutocompletePosition';
+import { getFieldNodes } from './getFieldNodes';
+import { getReplacePositionStart } from './getReplacePositionStart';
 import { hydrateQuery } from './hydration';
 import { normaliseHydrationKey } from './hydration/normaliseHydrationKey';
+import { sendDebugMessage } from './sendDebugMessage';
+import { tokensToAutocompleteOptions } from './tokensToAutocompleteOptions';
 import {
 	type AutocompletePosition,
 	type AutocompleteState,
@@ -84,12 +89,6 @@ import {
 	type Props,
 	type State,
 } from './types';
-import { getAutocompleteOptionId } from './getAutocompleteOptionId';
-import { getAutocompletePosition } from './getAutocompletePosition';
-import { getFieldNodes } from './getFieldNodes';
-import { getReplacePositionStart } from './getReplacePositionStart';
-import { sendDebugMessage } from './sendDebugMessage';
-import { tokensToAutocompleteOptions } from './tokensToAutocompleteOptions';
 
 const initialIntl = createIntl({ locale: 'en' });
 

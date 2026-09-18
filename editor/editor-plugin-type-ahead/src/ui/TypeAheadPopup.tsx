@@ -27,8 +27,8 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
@@ -46,7 +46,6 @@ import type {
 	TypeAheadInputMethod,
 	TypeAheadResolvedSection,
 } from '../types';
-
 import { TypeAheadErrorFallback } from './TypeAheadErrorFallback';
 import { TypeAheadList } from './TypeAheadList';
 

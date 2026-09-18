@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/no-class-components */
+
 import { PureComponent } from 'react';
 
 import type ProviderFactory from './provider-factory';

@@ -22,7 +22,6 @@ import type { CardContext } from '@atlaskit/link-provider/types';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 import { getResolvedAttributesFromStore } from '../pm-plugins/utils';
-
 import { LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from './local-storage';
 import { DiscoveryPulse } from './Pulse';
 import { shouldRenderToolbarPulse } from './toolbar';

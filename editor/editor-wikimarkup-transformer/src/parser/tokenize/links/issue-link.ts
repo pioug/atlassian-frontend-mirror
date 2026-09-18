@@ -1,8 +1,9 @@
-import type { ContentLink } from './link-parser';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import type { Context } from '../../../interfaces';
 import { buildInlineCard, getIssue } from '../issue-key';
 import type { Issue } from '../issue-key';
+import type { ContentLink } from './link-parser';
 
 export function issueLinkResolver(
 	link: ContentLink,

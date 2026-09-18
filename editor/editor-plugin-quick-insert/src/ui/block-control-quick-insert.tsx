@@ -7,7 +7,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterButton } from '@atlaskit/editor-ui-control-model/types';
 
 import type { QuickInsertPlugin } from '../quickInsertPluginType';
-
 import { BlockControlQuickInsertButton } from './BlockControlQuickInsertButton';
 
 export const getBlockControlQuickInsertComponents = ({

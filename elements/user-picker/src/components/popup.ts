@@ -1,4 +1,5 @@
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
+
 import type { Placement } from '@atlaskit/popper/main';
 
 import { type Target, type BoundariesElement, type RootBoundary } from '../types';

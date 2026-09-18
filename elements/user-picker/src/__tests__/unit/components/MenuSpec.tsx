@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
-import React from 'react';
+
 import { Menu } from '../../../components/Menu';
 
 const TestMenu = Menu as React.ComponentType<any>;

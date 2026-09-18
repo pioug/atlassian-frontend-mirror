@@ -1,9 +1,9 @@
 import React from 'react';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import Button from '@atlaskit/button/standard-button';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { CustomThemeButtonProps } from '@atlaskit/button/custom-theme-button-types';
+import Button from '@atlaskit/button/standard-button';
 import __noop from '@atlaskit/ds-lib/noop';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

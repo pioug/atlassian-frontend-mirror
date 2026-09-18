@@ -1,8 +1,10 @@
-import Button from '@atlaskit/button/default/button';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
-import ModalBody from '@atlaskit/modal-dialog/modal-body';
-import { token } from '@atlaskit/tokens';
 import React, { useState } from 'react';
+
+import Button from '@atlaskit/button/default/button';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import { token } from '@atlaskit/tokens';
+
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { UserPicker } from '../src/components/UserPicker';
 

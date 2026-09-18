@@ -5,7 +5,6 @@ import { render, screen } from '@atlassian/testing-library';
 
 import { SpotlightContext } from '../../controllers/context';
 import type { Placement } from '../../types';
-
 import { SpotlightCard } from './index';
 
 const testId = 'SpotlightCard';

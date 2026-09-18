@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { bulletListSelector } from '@atlaskit/adf-schema/bullet-list';
-import { getListIndentLevel } from '../utils/lists';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
+
+import { getListIndentLevel } from '../utils/lists';
 
 export default function BulletList(
 	props: React.PropsWithChildren<{ localId?: string; path?: Node[] }>,

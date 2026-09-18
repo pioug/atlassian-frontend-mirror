@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
+
+import { type MediaItemDetails } from '@atlaskit/media-client';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import { type MediaTraceContext } from '@atlaskit/media-common';
+
+import { messages } from '../../../../messages';
 import ApiFeedback, { type NotificationTypes } from '../apiFeedback';
-import { default as UploadCaptionsForm } from './captions/uploadForm';
 import { createUploadCaptionsFn } from './captions/uploader';
+import { default as UploadCaptionsForm } from './captions/uploadForm';
 import { BrowserPicker } from './filePickers/browser';
 import type { ArtifactUploaderProps } from './types';
-import { type MediaItemDetails } from '@atlaskit/media-client';
-import { messages } from '../../../../messages';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
-import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type CaptionsUploaderBrowserProps = ArtifactUploaderProps & {
 	isOpen: boolean;

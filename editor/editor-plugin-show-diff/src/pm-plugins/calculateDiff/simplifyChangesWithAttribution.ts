@@ -3,7 +3,6 @@ import { type Change, simplifyChanges } from 'prosemirror-changeset';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { getAttributionKey } from '../decorations/colorSchemes/attributions';
-
 import { optimizeChanges } from './optimizeChanges';
 
 type Range = { from: number; to: number };

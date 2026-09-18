@@ -5,7 +5,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
 import type { EventDispatcher } from '../event-dispatcher';
 import type { ProviderFactory } from '../provider-factory';
-
 import type { EditorActionsOptions } from './editor-actions';
 import type { EditorAppearance } from './editor-appearance';
 

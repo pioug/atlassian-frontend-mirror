@@ -4,7 +4,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';
-
 import { usePopupManager } from './usePopupManager';
 
 interface UseTableSelectorPopupProps {

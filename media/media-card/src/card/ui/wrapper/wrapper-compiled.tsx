@@ -3,16 +3,16 @@
  * @jsx jsx
  */
 import { jsx, css, cssMap } from '@compiled/react';
-import { newFileExperienceClassName } from '../../cardConstants';
-import { type WrapperProps } from './types';
-import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
+import UFOCustomData from '@atlaskit/react-ufo/custom-data';
+import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 import { token } from '@atlaskit/tokens';
 
 import { getDefaultCardDimensions } from '../../../utils/cardDimensions';
 import { getCSSUnitValue } from '../../../utils/getCSSUnitValue';
+import { newFileExperienceClassName } from '../../cardConstants';
 import { type Breakpoint } from '../common';
-import UFOCustomData from '@atlaskit/react-ufo/custom-data';
+import { type WrapperProps } from './types';
 
 export const LOCAL_WIDTH_VARIABLE = '--media-wrapper-width';
 export const LOCAL_HEIGHT_VARIABLE = '--media-wrapper-height';

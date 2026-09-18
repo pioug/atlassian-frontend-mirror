@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { mapAccessibleProductsToAvailableSites } from '@atlaskit/linking-common/hook/use-available-sites'` instead.
  */
+
 export { mapAccessibleProductsToAvailableSites } from './useAvailableSites/mapAccessibleProductsToAvailableSites';
 
 /**

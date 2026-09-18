@@ -1,15 +1,18 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled, { type StyledComponent } from '@emotion/styled';
+import type { DetailedHTMLProps, HTMLAttributes } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { Theme } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import styled, { type StyledComponent } from '@emotion/styled';
+
 import { token } from '@atlaskit/tokens';
+
 import {
 	mentionListWidth,
 	noDialogContainerBorderColor,
 	noDialogContainerBorderRadius,
 	noDialogContainerBoxShadow,
 } from '../../shared-styles';
-import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export interface MentionListStyleProps {
 	empty?: boolean;

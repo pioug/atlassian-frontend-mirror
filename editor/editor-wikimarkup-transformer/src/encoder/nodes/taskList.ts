@@ -1,6 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { NodeEncoder } from '..';
 
+import type { NodeEncoder } from '..';
 import { taskItem } from './taskItem';
 
 const nestedNode = (node: PMNode, depth: number = 1): string => {

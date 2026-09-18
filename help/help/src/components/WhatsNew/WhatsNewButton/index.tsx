@@ -1,15 +1,17 @@
 import React, { useCallback } from 'react';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
-import { token } from '@atlaskit/tokens';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
-import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
-import { useNavigationContext } from '../../contexts/navigationContext';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
+import { token } from '@atlaskit/tokens';
+
 import { messages } from '../../../messages';
-import HelpContentButton from '../../HelpContentButton';
 import { ARTICLE_TYPE } from '../../../model/Help';
+import { useNavigationContext } from '../../contexts/navigationContext';
+import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
+import HelpContentButton from '../../HelpContentButton';
 
 const ANALYTICS_CONTEXT_DATA = {
 	componentName: 'WhatsNewButton',

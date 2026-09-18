@@ -3,7 +3,6 @@ import { token } from '@atlaskit/tokens';
 
 import type { DiffDescriptor, DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
-
 import type { ColorScheme } from './colorSchemes/types';
 
 /**

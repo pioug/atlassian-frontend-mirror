@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { Transition } from 'react-transition-group';
-import ArrowleftIcon from '@atlaskit/icon/core/arrow-left';
+
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import Button from '@atlaskit/button/standard-button';
+import ArrowleftIcon from '@atlaskit/icon/core/arrow-left';
 
 import { messages } from '../../messages';
 import { type TransitionStatus } from '../constants';

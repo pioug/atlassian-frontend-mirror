@@ -1,5 +1,7 @@
 import React from 'react';
+
 import memoizeOne from 'memoize-one';
+
 import {
 	getExtensionModuleNodePrivateProps,
 	getNodeRenderer,

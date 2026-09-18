@@ -1,12 +1,12 @@
 import { B50, R50, Y50, G50, P50 } from '@atlaskit/adf-schema/colors';
 
+import { createTag } from '../create-tag';
 import type { NodeSerializerOpts } from '../interfaces';
+import { createContentId } from '../static';
+import { fontFamily, fontSize, lineHeight, fontWeight } from '../styles/common';
+import { createClassName } from '../styles/util';
 import { createTable } from '../table-util';
 import type { TableData } from '../table-util';
-import { createTag } from '../create-tag';
-import { createContentId } from '../static';
-import { createClassName } from '../styles/util';
-import { fontFamily, fontSize, lineHeight, fontWeight } from '../styles/common';
 
 type PanelType = 'info' | 'note' | 'tip' | 'success' | 'warning' | 'error' | 'custom';
 

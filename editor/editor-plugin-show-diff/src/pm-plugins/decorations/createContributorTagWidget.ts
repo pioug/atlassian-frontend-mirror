@@ -8,7 +8,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { ShowDiffPlugin } from '../../showDiffPluginType';
 import { ContributorTagController } from '../../ui/ContributorTag/contributorTagController';
 import { buildCharsByOffset, isWhitespaceChar } from '../utils/charsByOffset';
-
 import { clampAnchorPosIntoCell } from './createAnchorDecorationWidgets';
 import { buildContributorTagDecorationSpec } from './decorationKeys';
 
@@ -111,17 +110,26 @@ const supportsAnchorPositioning = (): boolean =>
  * The host for a tag on deleted content, which renders inside its own widget decoration rather than
  * needing one of its own. Unmount with `unmountContributorTag` from that widget's `destroy`.
  */
-export const createContributorTagHost = (
-	diffId: string,
-	mountContext?: ContributorTagMountContext,
-): { host: HTMLSpanElement; mount: ContributorTagMount | undefined } | undefined => {
+export const createContributorTagHost = ({
+	anchorName,
+	diffId,
+	mountContext,
+}: {
+	anchorName?: string;
+	diffId: string;
+	mountContext?: ContributorTagMountContext;
+}): { host: HTMLSpanElement; mount: ContributorTagMount | undefined } | undefined => {
 	if (!isContributorTagWidgetEnabled()) {
 		return undefined;
 	}
 
-	const host = buildContributorTagHost(diffId);
+	const tagAnchorName = anchorName && supportsAnchorPositioning() ? anchorName : undefined;
+	const host = buildContributorTagHost(diffId, tagAnchorName);
 
-	return { host, mount: mountContributorTag({ diffId, host, mountContext }) };
+	return {
+		host,
+		mount: mountContributorTag({ anchorName: tagAnchorName, diffId, host, mountContext }),
+	};
 };
 
 /**

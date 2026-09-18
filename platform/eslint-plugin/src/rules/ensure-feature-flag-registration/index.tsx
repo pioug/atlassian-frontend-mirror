@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
+
 import { getMetadataForFilename, getterIdentifierToFlagTypeMap } from '../util/registration-utils';
 
 const rule: Rule.RuleModule = {

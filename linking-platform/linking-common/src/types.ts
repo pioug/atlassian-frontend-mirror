@@ -1,6 +1,9 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+
 import { type AnyAction } from 'redux';
+
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+
 import type Environments from './environments';
 
 export interface InvokePayload<T> {

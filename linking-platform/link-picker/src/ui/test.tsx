@@ -6,7 +6,6 @@ import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import '@testing-library/jest-dom';
 
 import type { LinkPickerProps } from '../common/types';
-
 import type { LinkPicker as LinkPickerType } from './link-picker';
 
 const testIds = {

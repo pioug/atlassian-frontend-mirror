@@ -1,7 +1,6 @@
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
 import { type ThemeColorModes } from '../theme-color-modes';
 import { type ThemeOptionsSchema } from '../theme-options-schema';
-
 import { hash } from './hash';
 
 type ThemeAttributeId = 'light' | 'dark';

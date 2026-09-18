@@ -6,7 +6,6 @@ import { ClipboardLoader as Clipboard } from '@atlaskit/media-picker/clipboard';
 import type { ClipboardConfig } from '@atlaskit/media-picker/types';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
-
 import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {

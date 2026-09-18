@@ -4,32 +4,32 @@
  */
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
-import { Card } from '@atlaskit/smart-card';
+
+import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { UnsupportedBlock, UnsupportedInline, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-
-import { CardErrorBoundary } from './fallback';
+import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/utils';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
-import type { RendererAppearance } from '../../ui/Renderer/types';
-import { getCardClickHandler } from '../utils/getCardClickHandler';
-import { getEventHandler } from '../../utils';
-import type { SmartLinksOptions } from '../../types/smartLinksOptions';
-import InlineCard from './inlineCard';
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
-import { CardSSR } from '@atlaskit/smart-card/ssr';
+import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-
-import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
+import { Card } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { token } from '@atlaskit/tokens';
-import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/utils';
-import { usePortal } from '../../ui/Renderer/PortalContext';
+
 import { RendererCssClassName } from '../../consts';
+import type { SmartLinksOptions } from '../../types/smartLinksOptions';
+import { usePortal } from '../../ui/Renderer/PortalContext';
+import type { RendererAppearance } from '../../ui/Renderer/types';
+import { getEventHandler } from '../../utils';
+import { getCardClickHandler } from '../utils/getCardClickHandler';
+import { CardErrorBoundary } from './fallback';
+import InlineCard from './inlineCard';
 
 const datasourceCenterWrapperStyles = css({
 	marginTop: token('space.150'),

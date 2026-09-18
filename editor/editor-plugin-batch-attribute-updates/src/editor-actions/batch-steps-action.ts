@@ -1,8 +1,8 @@
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { BatchAttrsStepData } from '@atlaskit/adf-schema/steps/batch-attrs-step';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { BatchStepsAction } from '../batchAttributeUpdatesPluginType';
 

@@ -14,7 +14,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import type { GuidelineConfig } from '../guideline';
 import type { BreakoutMode, EditorContainerWidth } from '../types';
-
 import type { Snap } from './types';
 
 export const SNAP_GAP = 8;

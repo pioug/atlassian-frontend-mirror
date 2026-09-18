@@ -1,7 +1,8 @@
-import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { status } from '../../../..';
-import { StatusLocalIdRegex } from '@af/adf-test-helpers/src/constants';
 import { schema } from '@af/adf-test-helpers/src/adf-schema';
+import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+import { StatusLocalIdRegex } from '@af/adf-test-helpers/src/constants';
+
+import { status } from '../../../..';
 const packageName = process.env.npm_package_name as string;
 
 describe(`${packageName}/schema status node`, () => {

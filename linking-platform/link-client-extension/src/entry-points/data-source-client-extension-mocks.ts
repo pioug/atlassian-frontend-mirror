@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { mockActionsDiscoveryEmptyResponse } from '@atlaskit/link-client-extension'` instead.
  */
+
 export { mockActionsDiscoveryEmptyResponse } from '../services/use-data-source-client-extension/mockActionsDiscoveryEmptyResponse';
 /**
  * @deprecated Use `import { mockActionsDiscoveryResponse } from '@atlaskit/link-client-extension'` instead.

@@ -11,7 +11,6 @@ import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
 
 import { type BreadcrumbsSkeletonItemProps } from '../types';
-
 import { useBreadcrumbsSkeleton } from './internal/use-breadcrumbs-skeleton';
 
 const styles = cssMap({

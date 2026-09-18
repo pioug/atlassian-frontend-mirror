@@ -4,9 +4,12 @@
  */
 
 import { PureComponent } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import { type Appearance, type ContentRef, type TaskType, type DecisionType } from '../types';
+
 import { token } from '@atlaskit/tokens';
+
+import { type Appearance, type ContentRef, type TaskType, type DecisionType } from '../types';
 
 export interface Props {
 	appearance?: Appearance;

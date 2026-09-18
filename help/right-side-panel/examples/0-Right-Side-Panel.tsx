@@ -1,11 +1,11 @@
 import React from 'react';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import Page from '@atlaskit/page';
 
-import { ButtonsWrapper, TextWrapper } from './utils/styled';
-
 import { RightSidePanel, FlexContainer, ContentWrapper } from '../src';
+import { ButtonsWrapper, TextWrapper } from './utils/styled';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {

@@ -1,5 +1,4 @@
 import { roundEpsilon } from '../round-number';
-
 import type { BundleEvalTimingsConfig, ReportedTimings } from './types';
 
 export type { BundleEvalTimingsConfig } from './types';

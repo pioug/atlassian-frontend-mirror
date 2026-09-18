@@ -1,5 +1,4 @@
 import type { AnonymousAsset, GetAnonymousAvatarWithStylingProps } from '../../types';
-
 import { ANONYMOUS_ASSETS } from './anonymous-assets';
 import { getIntl } from './intl';
 import { fetchWithRetry } from './retry';

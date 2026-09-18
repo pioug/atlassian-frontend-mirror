@@ -14,7 +14,6 @@ import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
-
 import { basicSearchInputMessages } from './messages';
 
 export interface BasicSearchInputProps {

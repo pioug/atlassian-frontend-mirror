@@ -1,19 +1,17 @@
+import { isSchemaWithBlockQuotes } from '@atlaskit/adf-schema/is-schema-with-block-quotes';
+import { isSchemaWithCodeBlock } from '@atlaskit/adf-schema/is-schema-with-code-block';
+import { isSchemaWithEmojis } from '@atlaskit/adf-schema/is-schema-with-emojis';
+import { isSchemaWithLists } from '@atlaskit/adf-schema/is-schema-with-lists';
+import { isSchemaWithMedia } from '@atlaskit/adf-schema/is-schema-with-media';
+import { isSchemaWithMentions } from '@atlaskit/adf-schema/is-schema-with-mentions';
+import { isSchemaWithTables } from '@atlaskit/adf-schema/is-schema-with-tables';
+import type { Transformer } from '@atlaskit/editor-common/types';
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
-import parseHtml from './parse-html';
 import fixDoc from './fix-doc';
-
+import parseHtml from './parse-html';
 import { bfsOrder, convert, ensureBlocks } from './utils';
-
-import { isSchemaWithLists } from '@atlaskit/adf-schema/is-schema-with-lists';
-import { isSchemaWithMentions } from '@atlaskit/adf-schema/is-schema-with-mentions';
-import { isSchemaWithEmojis } from '@atlaskit/adf-schema/is-schema-with-emojis';
-import { isSchemaWithCodeBlock } from '@atlaskit/adf-schema/is-schema-with-code-block';
-import { isSchemaWithBlockQuotes } from '@atlaskit/adf-schema/is-schema-with-block-quotes';
-import { isSchemaWithMedia } from '@atlaskit/adf-schema/is-schema-with-media';
-import { isSchemaWithTables } from '@atlaskit/adf-schema/is-schema-with-tables';
-import type { Transformer } from '@atlaskit/editor-common/types';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

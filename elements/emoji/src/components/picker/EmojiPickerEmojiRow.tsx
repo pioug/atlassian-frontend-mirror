@@ -3,17 +3,20 @@
  * @jsx jsx
  */
 import { memo, type MemoExoticComponent } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import { useIntl } from 'react-intl';
-import type { EmojiDescription, OnEmojiEvent } from '../../types';
-import CachingEmoji from '../common/CachingEmoji';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
-import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
-import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
+import { useIntl } from 'react-intl';
+
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import type { CategoryGroupKey } from './categories';
+import { token } from '@atlaskit/tokens';
+
+import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
+import type { EmojiDescription, OnEmojiEvent } from '../../types';
+import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
+import CachingEmoji from '../common/CachingEmoji';
 import { messages } from '../i18n';
+import type { CategoryGroupKey } from './categories';
 
 const emojiItem = css({
 	display: 'inline-block',

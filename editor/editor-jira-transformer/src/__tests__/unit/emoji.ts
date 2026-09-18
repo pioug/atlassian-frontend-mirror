@@ -1,7 +1,8 @@
-import { mapImageToEmoji } from '../../emojiHelper';
-import { doc, p, emoji } from '@atlaskit/editor-test-helpers/doc-builder';
-import { checkParse, checkEncode } from './_test-helpers';
 import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
+import { doc, p, emoji } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { mapImageToEmoji } from '../../emojiHelper';
+import { checkParse, checkEncode } from './_test-helpers';
 
 describe('emojiHelper', () => {
 	it(`maps correctly formed image tags`, () => {

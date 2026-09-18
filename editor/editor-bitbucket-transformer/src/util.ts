@@ -1,4 +1,5 @@
 /* eslint-disable require-unicode-regexp */
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const ESCAPE_MARKDOWN_SPECIAL_CHARS_REGEX = /^[#-&(-*]/;

@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/use-primitives-text */
+
 import React from 'react';
 
 import Link from '@atlaskit/link/link';

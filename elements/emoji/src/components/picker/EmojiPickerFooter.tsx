@@ -3,14 +3,17 @@
  * @jsx jsx
  */
 import { memo, type MemoExoticComponent } from 'react';
-import { useIntl } from 'react-intl';
+
 import { css, jsx } from '@compiled/react';
+import { useIntl } from 'react-intl';
+
 import { cssMap } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
 import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
 import type { EmojiDescription } from '../../types';
-import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { AddOwnEmoji } from '../common/AddEmoji';
+import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 
 const emojiPickerFooter = css({

@@ -1,9 +1,11 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import TeamMentionDescriptionByline from '../../../../components/MentionDescriptionByline';
-import { type MentionDescription } from '../../../..//types';
-import { teamMention } from './_commonData';
+
 import { screen, render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
+import { type MentionDescription } from '../../../..//types';
+import TeamMentionDescriptionByline from '../../../../components/MentionDescriptionByline';
+import { teamMention } from './_commonData';
 
 const renderByline = (teamData: MentionDescription) => {
 	return render(

@@ -27,7 +27,6 @@ import {
 import type tablePlugin from '../../tablePlugin';
 import { getClosestSelectionRect } from '../../ui/toolbar';
 import { getPluginState } from '../plugin-factory';
-
 import { selectColumn, selectRow } from './misc';
 
 enum TableSelectionDirection {

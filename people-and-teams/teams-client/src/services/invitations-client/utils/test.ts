@@ -1,6 +1,5 @@
 import { MOCK_PRODUCT_RECOMMENDATIONS_RESPONSE } from '../../../mocks/responses';
 import { type Recommendation, type RecommendationsResponse } from '../types';
-
 import { removeDuplicateRecommendations } from './index';
 
 describe('utils', () => {

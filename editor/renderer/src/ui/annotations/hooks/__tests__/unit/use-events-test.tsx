@@ -1,14 +1,17 @@
+import React, { act } from 'react';
+
+import { createRoot, type Root } from 'react-dom/client';
+
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { AnnotationState } from '@atlaskit/editor-common/types';
 import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import React, { act } from 'react';
-import { createRoot, type Root } from 'react-dom/client';
+
 import {
 	useAnnotationClickEvent,
 	useAnnotationStateByTypeEvent,
 	useHasFocusEvent,
 } from '../../use-events';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 function createFakeAnnotationState(id: string): AnnotationState<AnnotationTypes.INLINE_COMMENT> {
 	return {

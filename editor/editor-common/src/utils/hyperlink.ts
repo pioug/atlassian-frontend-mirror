@@ -10,7 +10,6 @@ import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analyt
 import type { AnalyticsEventPayload } from '../analytics/types/events';
 import type { InputMethodInsertLink } from '../analytics/types/insert-events';
 import { getHadMarkAttributes } from '../mark/getHadMarkAttributes';
-
 import { FILEPATH_REGEXP } from './FILEPATH_REGEXP';
 import { getLinkDomain } from './getLinkDomain';
 import { normalizeUrl } from './normalizeUrl';

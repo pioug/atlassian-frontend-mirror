@@ -1,4 +1,3 @@
-import { BitbucketTransformer } from '../..';
 import {
 	doc,
 	mediaSingle,
@@ -10,6 +9,8 @@ import {
 	code,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
+
+import { BitbucketTransformer } from '../..';
 
 describe('Caption edge cases and sanitization', () => {
 	const transformer = new BitbucketTransformer(defaultSchema);

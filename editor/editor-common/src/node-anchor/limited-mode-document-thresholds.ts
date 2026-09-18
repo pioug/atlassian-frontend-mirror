@@ -1,5 +1,3 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-
 /** Fixed document thresholds for limited (performance) mode (previously Statsig-driven). */
 export const LIMITED_MODE_DEFAULT_NODE_COUNT_THRESHOLD = 5000;
 
@@ -37,17 +35,11 @@ export type LimitedModeThresholds = {
 };
 
 /**
- * The document thresholds currently in force. This is the only place the cohort is resolved — the
- * limited-mode decision itself is identical either way, only these two numbers change.
+ * The document thresholds currently in force. Only these two numbers determine when limited mode
+ * engages — the decision logic itself is identical regardless of threshold values.
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const getLimitedModeThresholds = (): LimitedModeThresholds =>
-	isExperimentEnabled('platform_editor_limited_threshold_tweaks')
-		? {
-				docSizeThreshold: LIMITED_MODE_TWEAKED_DOC_SIZE_THRESHOLD,
-				nodeCountThreshold: LIMITED_MODE_TWEAKED_NODE_COUNT_THRESHOLD,
-			}
-		: {
-				docSizeThreshold: LIMITED_MODE_DEFAULT_DOC_SIZE_THRESHOLD,
-				nodeCountThreshold: LIMITED_MODE_DEFAULT_NODE_COUNT_THRESHOLD,
-			};
+export const getLimitedModeThresholds = (): LimitedModeThresholds => ({
+	docSizeThreshold: LIMITED_MODE_TWEAKED_DOC_SIZE_THRESHOLD,
+	nodeCountThreshold: LIMITED_MODE_TWEAKED_NODE_COUNT_THRESHOLD,
+});

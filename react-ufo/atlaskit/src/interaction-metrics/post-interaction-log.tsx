@@ -8,8 +8,8 @@ import type { VCResult } from '../common/vc/types';
 import { getConfig } from '../config';
 import { getPageVisibilityState } from '../hidden-timing';
 import type { LabelStack } from '../interaction-context';
-import { VCObserverWrapper } from '../vc/VCObserverWrapper';
 import type { VCObserverInterface, VCObserverOptions } from '../vc/types';
+import { VCObserverWrapper } from '../vc/VCObserverWrapper';
 
 const POST_INTERACTION_LOG_SEND_DEFAULT_TIMEOUT = 3000;
 

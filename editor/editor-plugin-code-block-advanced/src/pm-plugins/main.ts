@@ -7,7 +7,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { lazyCodeBlockView } from '../nodeviews/lazyCodeBlockAdvanced';
-
 import { shiftArrowDownWorkaround, shiftArrowUpWorkaround } from './shiftArrowKeyWorkaround';
 
 interface Props {

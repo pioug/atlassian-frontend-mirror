@@ -1,6 +1,6 @@
-import { fireEvent } from '@atlassian/testing-library';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { monitorForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/adapter/monitor-for-text-selection';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { fireEvent } from '@atlassian/testing-library';
 
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../../../../internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 import { appendToBody, getElements, reset } from '../_pdnd-test-utils';

@@ -18,24 +18,25 @@ jest.mock('unzipit', () => ({
 }));
 
 import React from 'react';
-import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+
 import { IntlProvider } from 'react-intl';
+
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
-import type { Props as ArchiveViewerProps } from '../../../../../viewers/archiveSidebar/archive';
-import { ArchiveViewerBase } from '../../../../../viewers/archiveSidebar/archive-viewer-base';
-import { getArchiveEntriesFromFileState } from '../../../../../viewers/archiveSidebar/get-archive-entries-from-file-state';
-
-import { ArchiveViewerError } from '../../../../../ArchiveViewerError';
 import { createPreviewUnsupportedEvent } from '../../../../../analytics/events/operational/previewUnsupported';
 import { createZipEntryLoadFailedEvent } from '../../../../../analytics/events/operational/zipEntryLoadFailed';
 import { createZipEntryLoadSucceededEvent } from '../../../../../analytics/events/operational/zipEntryLoadSucceeded';
+import { ArchiveViewerError } from '../../../../../ArchiveViewerError';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../../../../item-viewer';
+import type { Props as ArchiveViewerProps } from '../../../../../viewers/archiveSidebar/archive';
+import { ArchiveViewerBase } from '../../../../../viewers/archiveSidebar/archive-viewer-base';
 import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../viewers/archiveSidebar/consts';
+import { getArchiveEntriesFromFileState } from '../../../../../viewers/archiveSidebar/get-archive-entries-from-file-state';
 
 type EntryConfig = {
 	name: string;

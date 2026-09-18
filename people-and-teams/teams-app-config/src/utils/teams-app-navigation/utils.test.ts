@@ -9,7 +9,6 @@ import { hostname } from '../../common/utils/hostname';
 import { openInNewTab } from '../../common/utils/openInNewTab';
 import { pathname } from '../../common/utils/pathname';
 import { redirect } from '../../common/utils/redirect';
-
 import { generatePath } from './generatePath';
 import { generateTeamsAppPath } from './generateTeamsAppPath';
 import { getHostProductFromPath } from './getHostProductFromPath';

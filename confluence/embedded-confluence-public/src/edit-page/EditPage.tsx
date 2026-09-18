@@ -1,10 +1,12 @@
 import React from 'react';
+
+import { useIntl } from 'react-intl';
+
 /* eslint-disable-next-line import/no-extraneous-dependencies */
 import {
 	EditPage as EditPageCommon,
 	type EditPageProps as Props,
 } from '@atlassian/embedded-confluence-common/edit-page';
-import { useIntl } from 'react-intl';
 
 export type EditPageProps = Omit<Props, 'locale'>;
 

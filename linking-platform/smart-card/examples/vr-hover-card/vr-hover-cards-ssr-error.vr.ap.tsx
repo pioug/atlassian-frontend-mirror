@@ -1,8 +1,8 @@
 import React from 'react';
 
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 
 import { Card } from '../../src';
 import { mockSSRResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';

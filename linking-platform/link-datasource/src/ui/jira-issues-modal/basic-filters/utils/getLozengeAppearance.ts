@@ -1,5 +1,4 @@
 import { type Appearance, appearanceMap } from '../types';
-
 import { isColorName } from './isColorName';
 
 export const getLozengeAppearance = (colorName: string): Appearance | undefined => {

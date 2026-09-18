@@ -13,7 +13,6 @@ import type { IntlShape } from 'react-intl';
 import { token } from '@atlaskit/tokens';
 
 import { ZERO_WIDTH_SPACE } from '../whitespace';
-
 import { ExtensionSSRReactContextsProvider } from './ExtensionSSRReactContextsProvider';
 import { GeneratedContentReveal } from './GeneratedContentReveal';
 import type { MacroInteractionDesignFeatureFlags } from './types';

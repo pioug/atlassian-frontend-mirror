@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type ExternalMessage } from '../../../../state/types';
-
 import { MAX_MESSAGES } from './index';
 
 /**

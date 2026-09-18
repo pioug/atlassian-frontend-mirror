@@ -1,10 +1,12 @@
 import { useContext, useEffect } from 'react';
+
+import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { AnnotationState } from '@atlaskit/editor-common/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import { ProvidersContext } from '../context';
+
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+import { ProvidersContext } from '../context';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 
 export type LoadCompleteHandler = (params: { numberOfUnresolvedInlineComments: number }) => void;

@@ -1,9 +1,9 @@
-import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import { inlineNodes } from '@atlaskit/adf-schema/inline-nodes';
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { generateUuid as uuid } from '@atlaskit/adf-schema/uuid';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
+import { generateUuid as uuid } from '@atlaskit/adf-schema/uuid';
 import type { Mark as PMMark, Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

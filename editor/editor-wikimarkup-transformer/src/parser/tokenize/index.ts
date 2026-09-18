@@ -1,35 +1,36 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { media } from './media';
+
+import type { Context } from '../../interfaces';
+import { adfMacro } from './adf-macro';
+import { anchorMacro } from './anchor-macro';
 import { blockquote } from './blockquote';
 import { citation } from './citation';
+import { codeMacro } from './code-macro';
+import { colorMacro } from './color-macro';
 import { deleted } from './deleted';
 import { doubleDashSymbol } from './double-dash-symbol';
 import { emoji } from './emoji';
 import { emphasis } from './emphasis';
+import { forceLineBreak } from './force-line-break';
 import { hardbreak } from './hardbreak';
 import { heading } from './heading';
 import { inserted } from './inserted';
-import { linkFormat } from './links/link-format';
+import { issueKey } from './issue-key';
 import { linkText } from './link-text';
+import { linkFormat } from './links/link-format';
 import { list } from './list';
+import { media } from './media';
 import { monospace } from './monospace';
+import { noformatMacro } from './noformat-macro';
+import { panelMacro } from './panel-macro';
 import { quadrupleDashSymbol } from './quadruple-dash-symbol';
+import { quoteMacro } from './quote-macro';
 import { ruler } from './ruler';
 import { strong } from './strong';
 import { subscript } from './subscript';
 import { superscript } from './superscript';
 import { table } from './table';
 import { tripleDashSymbol } from './triple-dash-symbol';
-import { panelMacro } from './panel-macro';
-import { adfMacro } from './adf-macro';
-import { anchorMacro } from './anchor-macro';
-import { codeMacro } from './code-macro';
-import { quoteMacro } from './quote-macro';
-import { colorMacro } from './color-macro';
-import { noformatMacro } from './noformat-macro';
-import { forceLineBreak } from './force-line-break';
-import { issueKey } from './issue-key';
-import type { Context } from '../../interfaces';
 
 export enum TokenType {
 	ADF_MACRO = 'ADF_MACRO', // {adf}

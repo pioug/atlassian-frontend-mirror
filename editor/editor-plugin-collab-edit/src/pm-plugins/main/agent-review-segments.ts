@@ -1,9 +1,9 @@
-import { slicesEqualIgnoringLocalId } from '@atlaskit/editor-common/collab-agent-review-slice-compare';
-import { logException } from '@atlaskit/editor-common/monitoring';
 import type {
 	AgentRemoteEditReviewData,
 	AgentRemoteEditReviewSegment,
 } from '@atlaskit/editor-common/collab-agent-remote-edit-review';
+import { slicesEqualIgnoringLocalId } from '@atlaskit/editor-common/collab-agent-review-slice-compare';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';

@@ -15,7 +15,6 @@ import rafSchedule from 'raf-schd';
 import { combine } from '../combine';
 import { type TPlacement } from '../resolve-placement';
 import { setStyle, type TStyleDeclaration } from '../set-style';
-
 import { computeFallbackPosition } from './anchor-positioning-fallback';
 import { resolveCssLengthToPixels } from './resolve-css-length-to-pixels';
 import { warnFallbackFailure } from './warn-fallback-failure';

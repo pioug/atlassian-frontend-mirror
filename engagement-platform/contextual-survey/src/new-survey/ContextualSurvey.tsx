@@ -4,7 +4,6 @@ import type { FormApi, OnSubmitHandler } from '@atlaskit/form/types';
 
 import useEscapeToDismiss from '../components/useEscapeToDismiss';
 import { type FormValues } from '../types';
-
 import FeedbackAcknowledgement from './FeedbackAcknowledgement';
 import SignUpPrompt from './SignUpPrompt';
 import SignUpSuccess from './SignUpSuccess';

@@ -35,7 +35,6 @@ import type { AlignmentPlugin } from '../../alignmentPluginType';
 import { ToolbarType } from '../../pm-plugins/types';
 import type { AlignmentState } from '../../pm-plugins/types';
 import Alignment from '../Alignment';
-
 import { IconMap } from './icon-map';
 
 interface State {

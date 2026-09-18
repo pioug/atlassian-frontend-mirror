@@ -33,16 +33,15 @@ import {
 } from '@atlaskit/adf-utils/builders';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
+import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
+import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
-import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
-import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
-import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
@@ -83,8 +82,9 @@ import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
 // eslint-disable-next-line no-restricted-imports -- This development example must enable the experiment before the editor initializes.
 import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
@@ -92,6 +92,10 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { token } from '@atlaskit/tokens';
 
+import {
+	PARTICIPANT_COLOR_SCHEMES,
+	type AdsAccentColor,
+} from '../src/pm-plugins/decorations/colorSchemes/types';
 import type {
 	ColorScheme,
 	DiffContributorProfile,
@@ -99,10 +103,6 @@ import type {
 	DiffType,
 	StepWithAttribution,
 } from '../src/showDiffPluginType';
-import {
-	PARTICIPANT_COLOR_SCHEMES,
-	type AdsAccentColor,
-} from '../src/pm-plugins/decorations/colorSchemes/types';
 
 const diffTypes: DiffType[] = ['inline', 'block', 'step'];
 type ColorSchemeMode = Exclude<ColorScheme, `agent-brand-${string}`> | 'attribution';

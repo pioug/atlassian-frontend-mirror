@@ -7,8 +7,8 @@ import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { isImportBinding } from '../utils/is-import-binding';
 import { isRootPackageBarrel } from '../utils/is-root-package-barrel';
-import { lookupVariable } from '../utils/lookup-variable';
 import { isThirdPartyModule } from '../utils/is-third-party-module';
+import { lookupVariable } from '../utils/lookup-variable';
 
 const DEPRECATED_TAG = '@deprecated';
 

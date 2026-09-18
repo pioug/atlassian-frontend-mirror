@@ -1,5 +1,4 @@
 import { type TeamWithImageUrls } from '../types/team';
-
 import { randomBasicTeam } from './random-basic-team';
 import { randomTeamImages } from './random-team-images';
 import { randomTeamMemberships } from './random-team-memberships-2';

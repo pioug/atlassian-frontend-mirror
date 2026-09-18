@@ -1,5 +1,4 @@
 import '@atlaskit/link-test-helpers/jest';
-
 import React from 'react';
 
 import { IntlProvider } from 'react-intl';
@@ -15,8 +14,8 @@ import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render, userEvent } from '@atlassian/testing-library';
 
-import { useSmartLink } from '../../../state/hooks/useSmartLink';
 import { getClickUrl } from '../../../state/getClickUrl';
+import { useSmartLink } from '../../../state/hooks/useSmartLink';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';
 import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
 import * as Fire3PWorkflowsClickEventModule from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';

@@ -26,7 +26,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getCSSCustomProperty } from '../src/utils/get-css-custom-property';
-
 import Accordion from './contrast-checker-utils/components/accordion';
 import BaseTokenEditor, {
 	type baseTokens,

@@ -1,5 +1,4 @@
 import { DEFAULT_CONFIG } from '../constants';
-
 import { TeamCentralClient } from './TeamCentralClient';
 
 describe('TeamCentralClient', () => {

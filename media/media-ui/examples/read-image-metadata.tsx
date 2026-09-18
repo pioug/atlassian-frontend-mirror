@@ -1,9 +1,8 @@
 import React from 'react';
+
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { type ImageMetaData } from '../src/imageMetaData/types';
-import { readImageMetaData } from '../src/imageMetaData/readImageMetaData';
-import { getFileInfo } from '../src/getFileInfo';
-import { getScaleFactor } from '../src/imageMetaData/getScaleFactor';
+
 import {
 	InputWrapper,
 	PreviewList,
@@ -12,7 +11,10 @@ import {
 	Code,
 	CloseButton,
 } from '../example-helpers/styled';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import { getFileInfo } from '../src/getFileInfo';
+import { getScaleFactor } from '../src/imageMetaData/getScaleFactor';
+import { readImageMetaData } from '../src/imageMetaData/readImageMetaData';
+import { type ImageMetaData } from '../src/imageMetaData/types';
 
 interface ExamplePreview {
 	filename: string;

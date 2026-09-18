@@ -4,7 +4,6 @@ import { JQLSyntaxError } from '@atlaskit/jql-ast';
 
 import getDocumentPosition from '../common/get-document-position';
 import { getJastFromState } from '../jql-ast/getJastFromState';
-
 import {
 	JQLValidationTooltipPluginKey,
 	TOOLTIP_CLASSNAME,

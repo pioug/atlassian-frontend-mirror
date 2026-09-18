@@ -27,7 +27,6 @@ import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-dra
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 import { ScrollContext } from '../scroll-context';
 import type { InternalModalDialogProps } from '../types';
-
 import { dialogHeight } from './dialog-height';
 import { dialogWidth } from './dialog-width';
 import Positioner from './positioner';

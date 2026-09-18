@@ -1,14 +1,13 @@
+import type { ComponentType } from 'react';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 
-import * as codeBlockAdf from '../__fixtures__/code-block.adf.json';
-import * as codeBlockWithBreakoutAdf from '../__fixtures__/code-block-with-breakout.adf.json';
-import * as adfTrailingNewline from '../__fixtures__/code-block-trailing-newline.adf.json';
-import { overflowCodeblock, overflowCodeblockWithWrapEnabled } from '../__fixtures__/overflow.adf';
-
 import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
-
+import * as adfTrailingNewline from '../__fixtures__/code-block-trailing-newline.adf.json';
+import * as codeBlockWithBreakoutAdf from '../__fixtures__/code-block-with-breakout.adf.json';
+import * as codeBlockAdf from '../__fixtures__/code-block.adf.json';
+import { overflowCodeblock, overflowCodeblockWithWrapEnabled } from '../__fixtures__/overflow.adf';
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import type { ComponentType } from 'react';
 
 export const CodeBlockRendererCopy: ComponentType<any> = generateRendererComponent({
 	document: codeBlockAdf,

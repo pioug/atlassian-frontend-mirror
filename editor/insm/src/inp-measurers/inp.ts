@@ -1,5 +1,6 @@
-import type { Measure, PeriodMeasurer } from '../types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import type { Measure, PeriodMeasurer } from '../types';
 
 interface PerformanceEventTiming extends PerformanceEntry {
 	interactionId?: number;

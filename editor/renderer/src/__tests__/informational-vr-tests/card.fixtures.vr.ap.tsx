@@ -1,13 +1,16 @@
 import React from 'react';
+
+import { DiProvider, injectable } from 'react-magnetic-di';
+
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import type CardClient from '@atlaskit/link-provider/client';
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { IFrame } from '@atlaskit/smart-card/test-utils/iframe';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import { IFrame } from '@atlaskit/smart-card/test-utils/iframe';
 
 import { Renderer } from '../../entry-points/renderer-default';
 import {
@@ -26,8 +29,6 @@ import {
 	ForbiddenWithSiteApprovedRequestClient,
 	ForbiddenWithSiteForbiddenClient,
 } from './card.customClient';
-
-import { DiProvider, injectable } from 'react-magnetic-di';
 
 mockDatasourceFetchRequests({
 	initialVisibleColumnKeys: ['key', 'assignee', 'summary', 'description'],

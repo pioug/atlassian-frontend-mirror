@@ -10,10 +10,10 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import type { TabField, TabGroupField } from '@atlaskit/editor-common/extensions';
-import Tabs from '@atlaskit/tabs/tabs';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';
+import Tabs from '@atlaskit/tabs/tabs';
 
 const panelWrapperStyles = css({
 	flexGrow: 1,

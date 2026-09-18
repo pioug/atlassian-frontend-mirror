@@ -3,7 +3,6 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
 import { isImportFromPackage } from '../utils/is-import-from-package';
-
 import { checkStylesObject } from './utils';
 
 const SELECT_PACKAGE = '@atlaskit/select';

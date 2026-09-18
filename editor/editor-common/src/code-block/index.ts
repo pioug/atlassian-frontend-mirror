@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
-import { uuid } from '@atlaskit/adf-schema/uuid';
+
 import type { CodeBlockAttrs } from '@atlaskit/adf-schema/code-block';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { Node as PmNode, NodeType, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';

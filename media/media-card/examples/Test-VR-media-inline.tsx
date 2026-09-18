@@ -3,8 +3,11 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { IntlProvider } from 'react-intl';
+
 import {
 	createUploadMediaClientConfig,
 	defaultCollectionName,
@@ -12,10 +15,10 @@ import {
 	generateFilesFromTestData,
 	type MockFileInputParams,
 } from '@atlaskit/media-test-helpers';
-import { IntlProvider } from 'react-intl';
-import MediaInlineCard from '../src/inline/loader';
+
 import { MainWrapper } from '../example-helpers';
 import { mediaInlineTableStyles, mediaInlineWrapperStyles } from '../example-helpers/styles';
+import MediaInlineCard from '../src/inline/loader';
 
 const mockImageFile: MockFileInputParams = {
 	id: '57b9af11-eead-4711-85fa-9d393278c314',

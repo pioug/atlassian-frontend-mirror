@@ -5,7 +5,9 @@
  */
 
 import React from 'react';
+
 import { css, jsx, keyframes } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({

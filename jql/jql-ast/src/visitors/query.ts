@@ -2,7 +2,6 @@ import type { JqlQueryContext } from '@atlaskit/jql-parser/JQLParser';
 
 import { internalCreators } from '../creators';
 import { type Query } from '../types';
-
 import { getPositionFromContext, JastBuildingVisitor } from './common';
 import { OrderByVisitor } from './order-by';
 import { WhereVisitor } from './where';

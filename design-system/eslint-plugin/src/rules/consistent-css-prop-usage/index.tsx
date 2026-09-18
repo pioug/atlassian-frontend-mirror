@@ -19,7 +19,6 @@ import { Import } from '../../ast-nodes/import';
 import { createLintRule } from '../utils/create-lint-rule';
 import { getFirstSupportedImport } from '../utils/get-first-supported-import';
 import { getModuleOfIdentifier } from '../utils/get-module-of-identifier';
-
 import type { RuleConfig } from './types';
 
 type IdentifierWithParent = Scope.Reference['identifier'] & Rule.NodeParentExtension;

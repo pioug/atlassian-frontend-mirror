@@ -2,7 +2,6 @@ import type { Experiment } from '@statsig/js-client';
 
 import { migrateEvaluationDetails } from '../migrateEvaluationDetails';
 import { migrateSecondaryExposures } from '../migrateSecondaryExposures';
-
 import type { EvaluationDetails } from './types';
 
 export type OnDefaultValueFallback = (

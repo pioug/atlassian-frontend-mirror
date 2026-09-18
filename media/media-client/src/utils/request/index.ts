@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { type RequestMetadata, type RequestOptions } from './types';
 
 export type { RequestErrorReason, RequestErrorMetadata, RequestErrorAttributes } from './types';
@@ -20,16 +21,16 @@ export { createRequestErrorReason } from './createRequestErrorReason';
  */
 export { isRateLimitedError } from './isRateLimitedError';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import getNavigator from '../getNavigator';
+import { mapRetryUrlToPathBasedUrl } from '../mapRetryUrlToPathBasedUrl';
 import { createProcessFetchResponse } from './createProcessFetchResponse';
 import { createUrl } from './createUrl';
 import { defaultShouldRetryError } from './defaultShouldRetryError';
 import { extendHeaders } from './extendHeaders';
 import { fetchRetry } from './fetchRetry';
 import { isFetchNetworkError } from './isFetchNetworkError';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
-import getNavigator from '../getNavigator';
-import { mapRetryUrlToPathBasedUrl } from '../mapRetryUrlToPathBasedUrl';
 
 export async function request(
 	url: string,

@@ -10,7 +10,6 @@ import {
 	type EventKey,
 } from '../../analytics/generated/analytics.types';
 import type createEventPayload from '../../analytics/generated/create-event-payload';
-
 import { ActionsStore } from './index';
 
 type AnalyticsCaptureError = (

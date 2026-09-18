@@ -1,7 +1,6 @@
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 
 import type { GuidelineTypes, WidthTypes } from '../../guideline/types';
-
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { EventInput } from './type-ahead';
 import type { ChangeTypeAEP, TrackAEP, UIAEP } from './utils';

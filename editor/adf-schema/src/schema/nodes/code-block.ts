@@ -1,5 +1,6 @@
 import type { NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+
 import { codeBlock as codeBlockFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { BreakoutMarkDefinition } from '../marks/breakout';

@@ -31,7 +31,6 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { getPluginState as getExtensionPluginState } from '../plugin-factory';
-
 import { pluginKey } from './plugin-key';
 
 export const insertMacroFromMacroBrowser =

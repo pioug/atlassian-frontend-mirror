@@ -1,6 +1,6 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import type { BatchResponse } from '@atlaskit/link-provider/responses';
 import CardClient from '@atlaskit/link-provider/client';
+import type { BatchResponse } from '@atlaskit/link-provider/responses';
 
 export const fakeFactory: any = (
 	implementation: (url: string) => Promise<JsonLd.Response>,

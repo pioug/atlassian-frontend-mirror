@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { MediaInlineCardErroredView } from '../..';
 import { IntlProvider } from 'react-intl';
+
 import ErrorIcon from '@atlaskit/icon/core/status-error';
+
+import { MediaInlineCardErroredView } from '../..';
 
 describe('Errored view', () => {
 	it('should accept custom icon', () => {

@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.6.45",
+	"version": "2.7.0",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"website": {
@@ -160,6 +160,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
@@ -169,6 +170,9 @@
 	},
 	"platform-feature-flags": {
 		"cc_blocks_changeboarding": {
+			"type": "boolean"
+		},
+		"platform_editor_a11y_color_palette_radiogroup": {
 			"type": "boolean"
 		},
 		"platform_editor_lovability_text_bg_color_patch_1": {

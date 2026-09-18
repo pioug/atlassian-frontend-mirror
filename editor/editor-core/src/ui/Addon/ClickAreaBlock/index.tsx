@@ -5,7 +5,6 @@ import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/c
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clickAreaClickHandler } from '../click-area-helper';
-
 import { ClickAreaBlockContainerCompiled } from './clickAreaBlock-compiled';
 import { ClickAreaBlockContainerEmotion } from './clickAreaBlock-emotion';
 

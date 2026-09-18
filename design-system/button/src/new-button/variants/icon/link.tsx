@@ -16,7 +16,6 @@ import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
 import type { CommonAnchorProps, CommonLinkVariantProps } from '../types';
-
 import { type CommonIconButtonProps } from './types';
 
 export type LinkIconButtonProps<RouterLinkConfig extends Record<string, any> = never> =

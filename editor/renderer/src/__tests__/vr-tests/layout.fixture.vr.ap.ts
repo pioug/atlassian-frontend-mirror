@@ -1,25 +1,25 @@
-import { overflowLayout } from '../__fixtures__/overflow.adf';
-import * as layoutWithDefaultBreakoutMark from '../__fixtures__/layout-default-breakout.adf.json';
+import type { ComponentType } from 'react';
+
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+
 import * as layout2Col from '../__fixtures__/layout-2-columns.adf.json';
-import * as layout3Col from '../__fixtures__/layout-3-columns.adf.json';
-import * as layoutLeftSidebar from '../__fixtures__/layout-left-sidebar.adf.json';
-import * as layoutRightSidebar from '../__fixtures__/layout-right-sidebar.adf.json';
-import * as layout3ColWithSidebars from '../__fixtures__/layout-3-columns-with-sidebars.adf.json';
+import * as layout3ColWithWidth from '../__fixtures__/layout-3-columns-with-breakout-width.adf.json';
 import * as Layout3ColWithDifferentText from '../__fixtures__/layout-3-columns-with-different-text.adf.json';
 import * as Layout3ColWithMention from '../__fixtures__/layout-3-columns-with-mention.adf.json';
+import * as layout3ColWithSidebars from '../__fixtures__/layout-3-columns-with-sidebars.adf.json';
+import * as layout3Col from '../__fixtures__/layout-3-columns.adf.json';
+import * as layout4ColWithWidth from '../__fixtures__/layout-4-columns-with-breakout-width.adf.json';
+import * as layout5ColWithWidthAndLayout5ColWithWide from '../__fixtures__/layout-5-columns-with-breakout-width-and-layout-5-columns-with-wide.adf.json';
+import * as layout5ColWithWidth from '../__fixtures__/layout-5-columns-with-breakout-width.adf.json';
+import * as layoutWithDefaultBreakoutMark from '../__fixtures__/layout-default-breakout.adf.json';
+import * as layoutLeftSidebar from '../__fixtures__/layout-left-sidebar.adf.json';
+import * as layoutRightSidebar from '../__fixtures__/layout-right-sidebar.adf.json';
 import * as LayoutWithBlockNodes from '../__fixtures__/layout-with-block-nodes.adf.json';
 import * as LayoutWithDifferentText from '../__fixtures__/layout-with-different-text.adf.json';
 import * as LayoutWithMedia from '../__fixtures__/layout-with-media.adf.json';
 import * as LayoutWithTextAndCodeblock from '../__fixtures__/layout-with-text-and-codeblock.adf.json';
-import * as layout3ColWithWidth from '../__fixtures__/layout-3-columns-with-breakout-width.adf.json';
-import * as layout4ColWithWidth from '../__fixtures__/layout-4-columns-with-breakout-width.adf.json';
-import * as layout5ColWithWidth from '../__fixtures__/layout-5-columns-with-breakout-width.adf.json';
-import * as layout5ColWithWidthAndLayout5ColWithWide from '../__fixtures__/layout-5-columns-with-breakout-width-and-layout-5-columns-with-wide.adf.json';
-
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-
+import { overflowLayout } from '../__fixtures__/overflow.adf';
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import type { ComponentType } from 'react';
 
 export const OverflowLayoutRenderer: ComponentType<any> = generateRendererComponent({
 	document: overflowLayout,

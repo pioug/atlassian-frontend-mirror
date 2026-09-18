@@ -1,9 +1,9 @@
 import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 
 import { Card } from '../../src';
 import {

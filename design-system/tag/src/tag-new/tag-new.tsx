@@ -19,9 +19,9 @@ import { colorMapping } from './color-mapping';
 import { getTagText } from './get-tag-text';
 import { LinkWrapper } from './link-wrapper';
 import { RemovableWrapper } from './removable-wrapper';
-import { markAsTagMotionCapable } from './tag-motion-capability';
 import SwatchBefore from './swatch-before';
 import { TagMotion } from './tag-motion';
+import { markAsTagMotionCapable } from './tag-motion-capability';
 import { type TagDropdownTriggerProps, type TagNewProps } from './types';
 import { useButtonInteraction } from './use-button-interaction';
 import { useLink } from './use-link';
@@ -537,6 +537,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
  * and supports selected/loading states. Use this when you need a tag that opens a popup
  * or dropdown menu.
  */
+
 export const TagDropdownTriggerComponent: import('react').ForwardRefExoticComponent<
 	TagDropdownTriggerProps & import('react').RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, TagDropdownTriggerProps>(function TagDropdownTrigger(

@@ -1,6 +1,5 @@
 import { type TPlacement, type TPlacementEdge } from '../resolve-placement';
 import { type TStyleDeclaration } from '../set-style';
-
 import { type TLogicalMarginProperty } from './fit-margins';
 
 /**

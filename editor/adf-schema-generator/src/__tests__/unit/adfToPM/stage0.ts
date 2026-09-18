@@ -1,8 +1,8 @@
-import { transform } from '../../../transforms/adfToPm/adfToPm';
+import { $or } from '../../../$or';
+import { adfMark } from '../../../adfMark';
 import { adfNode } from '../../../adfNode';
 import { adfNodeGroup } from '../../../adfNodeGroup';
-import { adfMark } from '../../../adfMark';
-import { $or } from '../../../$or';
+import { transform } from '../../../transforms/adfToPm/adfToPm';
 
 test('should produce 2 specs for a node with stage0 partial override', () => {
 	const strong = adfMark('strong').define({});

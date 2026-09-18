@@ -1,5 +1,4 @@
 import { type ProductPermissionsResponse } from '../types';
-
 import { getEndpoint } from './get-endpoint';
 import { getProductPermissionRequestBody } from './get-product-permission-request-body';
 import { makeGraphqlRequest } from './make-graphql-request';

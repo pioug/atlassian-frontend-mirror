@@ -1,4 +1,5 @@
 import type { MarkSpec, Mark } from '@atlaskit/editor-prosemirror/model';
+
 import { subsup as subsupFactory } from '../../next-schema/generated/markTypes';
 
 export interface SubSupAttributes {

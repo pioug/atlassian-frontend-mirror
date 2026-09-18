@@ -11,9 +11,9 @@ import Heading from '@atlaskit/heading/heading';
 import { token } from '@atlaskit/tokens';
 import { Dialog } from '@atlaskit/top-layer/dialog-content';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
-import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 

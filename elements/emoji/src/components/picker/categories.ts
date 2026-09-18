@@ -1,16 +1,16 @@
-import BasketballIcon from '@atlaskit/icon/core/basketball';
+import AtlassianIcon from '@atlaskit/icon-lab/core/atlassian';
 import AddIcon from '@atlaskit/icon/core/add';
+import BasketballIcon from '@atlaskit/icon/core/basketball';
+import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
+import ClockIcon from '@atlaskit/icon/core/clock';
+import EmojiIcon from '@atlaskit/icon/core/emoji';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import FlagIcon from '@atlaskit/icon/core/flag';
-import TakeoutFoodIcon from '@atlaskit/icon/core/takeout-food';
-import ClockIcon from '@atlaskit/icon/core/clock';
-import TreeIcon from '@atlaskit/icon/core/tree';
-import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
-import EmojiIcon from '@atlaskit/icon/core/emoji';
 import HeartIcon from '@atlaskit/icon/core/heart';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
+import TakeoutFoodIcon from '@atlaskit/icon/core/takeout-food';
+import TreeIcon from '@atlaskit/icon/core/tree';
 import VehicleCarIcon from '@atlaskit/icon/core/vehicle-car';
-import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
-import AtlassianIcon from '@atlaskit/icon-lab/core/atlassian';
 
 import type { CategoryDescription } from '../../types';
 import { customCategory, userCustomTitle, customTitle } from '../../util/constants';

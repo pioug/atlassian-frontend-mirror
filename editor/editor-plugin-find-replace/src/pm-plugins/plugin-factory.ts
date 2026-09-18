@@ -12,7 +12,6 @@ import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { FindReplacePluginState, Match } from '../types';
-
 import type { FindReplaceAction } from './actions';
 import { initialState } from './main';
 import { findReplacePluginKey } from './plugin-key';

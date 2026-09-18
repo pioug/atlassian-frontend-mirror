@@ -5,8 +5,8 @@ import { EditorPageModel } from '@af/editor-libra/page-models';
 import { snapshotInformational } from '@af/visual-regression';
 // eslint-disable-next-line
 import { deviceViewPorts } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
 
+import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
 import { EditorFullPage, EditorFullWidth } from './toggle-width-fixtures/toggle-width.fixtures';
 
 snapshotInformational(EditorFullWidth, {

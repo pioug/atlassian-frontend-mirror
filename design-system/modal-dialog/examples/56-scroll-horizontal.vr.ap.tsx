@@ -1,18 +1,18 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import PlaceholderContent from './placeholder-content';
-
 import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { cssMap } from '@atlaskit/css';
 import { CheckboxField } from '@atlaskit/form/checkbox-field';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box, Text } from '@atlaskit/primitives/compiled';
+
+import PlaceholderContent from './placeholder-content';
 
 const containerStyles = cssMap({
 	root: {

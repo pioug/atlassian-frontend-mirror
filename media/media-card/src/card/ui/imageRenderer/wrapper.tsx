@@ -2,8 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
+
 import { type ReactNode } from 'react';
+
+import { jsx, css } from '@compiled/react';
 
 const wrapperStyles = css({
 	position: 'absolute',

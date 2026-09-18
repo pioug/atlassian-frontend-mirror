@@ -1,9 +1,11 @@
 import React, { useContext, useMemo, useCallback } from 'react';
+
+import type { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+
+import { RendererContext } from '../../../ui/RendererActionsContext';
 import { ProvidersContext } from '../context';
 import { useAnnotationClickEvent } from '../hooks/use-events';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { RendererContext } from '../../../ui/RendererActionsContext';
-import type { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 
 type Props = {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;

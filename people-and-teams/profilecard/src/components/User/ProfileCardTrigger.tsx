@@ -29,7 +29,6 @@ import { PACKAGE_META_DATA } from '../../util/analytics';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 import { getPageTime } from '../../util/performance';
 import { AgentProfileCardResourced } from '../Agent/AgentProfileCardResourced';
-
 import { ProfileCardLazy } from './lazyProfileCard';
 import UserLoadingState from './UserLoadingState';
 

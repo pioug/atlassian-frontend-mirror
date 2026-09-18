@@ -3,7 +3,6 @@ import type { Rule, Scope as ScopeNamespace } from 'eslint';
 import { getSourceCode } from '../context-compat';
 import { getScope } from '../get-scope';
 import { type ImportSource } from '../is-supported-import';
-
 import { isStyledComponent } from './is-styled-component';
 
 type Node = Rule.Node;

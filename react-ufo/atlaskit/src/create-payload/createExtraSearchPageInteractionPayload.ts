@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../common';
-
 import { createInteractionMetricsPayload } from './createInteractionMetricsPayload';
 import type { InteractionMetricsPayloadResult } from './InteractionMetricsPayloadResult';
 import getVCMetrics from './utils/get-vc-metrics';

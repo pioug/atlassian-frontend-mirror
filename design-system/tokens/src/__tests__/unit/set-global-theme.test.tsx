@@ -1,4 +1,7 @@
 /* eslint-disable testing-library/no-node-access */
+
+import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
+
 import { waitFor } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
@@ -11,15 +14,12 @@ import {
 	THEME_DATA_ATTRIBUTE,
 } from '../../constants';
 import * as customThemeUtils from '../../custom-theme';
-
 // This import is just to get types
 import type * as enableGlobalThemeTypes from '../../enable-global-theme';
 import type * as setGlobalThemeTypes from '../../set-global-theme';
 import { type ThemeIdsWithOverrides } from '../../theme-config';
 import { type ThemeOptionsSchema } from '../../theme-options-schema';
 import { hash } from '../../utils/hash';
-
-import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
 
 // Mock window.matchMedia before importing setGlobalTheme
 const matchMediaObject = {

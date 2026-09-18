@@ -9,7 +9,6 @@ import { Box, Grid, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { type BlockName } from '../constants';
-
 import ChevronIcon from './chevron-icon';
 
 const containerStyles = xcss({

@@ -1,4 +1,5 @@
 import { N50 } from '@atlaskit/adf-schema/colors';
+
 import { createTag } from '../create-tag';
 import type { NodeSerializerOpts } from '../interfaces';
 import { createClassName } from '../styles/util';

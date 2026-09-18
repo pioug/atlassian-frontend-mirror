@@ -3,6 +3,7 @@ import { AbstractMentionResource } from './api/AbstractMentionResource';
 import { AbstractPresenceResource } from './api/AbstractPresenceResource';
 import ContextMentionResource from './api/ContextMentionResource';
 import { DefaultMentionNameResolver } from './api/DefaultMentionNameResolver';
+import { isResolvingMentionProvider } from './api/isResolvingMentionProvider';
 import { type MentionNameClient } from './api/MentionNameClient';
 import type { MentionNameResolver } from './api/MentionNameResolver';
 import {
@@ -14,7 +15,6 @@ import {
 	type MentionResourceConfig,
 	type TeamMentionResourceConfig,
 } from './api/MentionResource';
-import { isResolvingMentionProvider } from './api/isResolvingMentionProvider';
 import { PresenceResource, type PresenceProvider } from './api/PresenceResource';
 import TeamMentionResource from './api/TeamMentionResource';
 import Mention from './components/Mention';

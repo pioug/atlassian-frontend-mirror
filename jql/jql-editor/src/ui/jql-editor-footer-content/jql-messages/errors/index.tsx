@@ -18,10 +18,9 @@ import {
 	useStoreActions,
 } from '../../../../state';
 import type { CustomErrorMessageProps, ExternalMessage } from '../../../../state/types';
+import { extractMessageNodes } from '../format/extractMessageNodes';
 import { FormatMessages } from '../format/FormatMessages';
 import { MessageContainer } from '../format/MessageContainer';
-import { extractMessageNodes } from '../format/extractMessageNodes';
-
 import { messages } from './messages';
 
 /**

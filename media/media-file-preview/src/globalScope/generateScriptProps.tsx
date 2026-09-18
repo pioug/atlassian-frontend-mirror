@@ -4,7 +4,6 @@ import { type FileIdentifier } from '@atlaskit/media-client';
 import { type NumericalCardDimensions } from '@atlaskit/media-common';
 
 import { type MediaFilePreviewErrorInfo } from '../analytics';
-
 import { getKey } from './getKey';
 import { MAX_EAGER_LOAD_COUNT } from './globalScope';
 

@@ -3,7 +3,6 @@ import React from 'react';
 import { act, renderHook } from '@testing-library/react';
 
 import { type DisplayViewModes } from '../../../../common/types';
-
 import { DatasourceViewModeProvider } from './DatasourceViewModeProvider';
 import { useViewModeContext } from './useViewModeContext';
 

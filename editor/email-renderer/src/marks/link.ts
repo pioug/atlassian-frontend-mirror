@@ -1,5 +1,5 @@
-import type { MarkSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
+import type { MarkSerializerOpts } from '../interfaces';
 import { createClassName } from '../styles/util';
 
 export const styles: string = `

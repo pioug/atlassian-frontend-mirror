@@ -1,8 +1,9 @@
-import { traverse } from '../traverse/traverse';
-import type { ADFEntity } from '../types';
-import { tableRow, tableCell, paragraph, listItem } from '../builders';
 import type { TableCell as TableCellDefinition } from '@atlaskit/adf-schema/tableNodes';
 import type { TextDefinition } from '@atlaskit/adf-schema/text';
+
+import { tableRow, tableCell, paragraph, listItem } from '../builders';
+import { traverse } from '../traverse/traverse';
+import type { ADFEntity } from '../types';
 import { isEmpty } from './helpers';
 
 const getMaxColumnsCountForTable = (tableNode: ADFEntity): number => {

@@ -11,8 +11,8 @@ import { css, jsx } from '@emotion/react';
 import { Checkbox as AKCheckbox } from '@atlaskit/checkbox/checkbox';
 import type { EnumCheckboxField, Option } from '@atlaskit/editor-common/extensions';
 import type { FieldProps } from '@atlaskit/form/field';
-import { Fieldset as AKFieldset } from '@atlaskit/form/fieldset';
 import Field from '@atlaskit/form/field';
+import { Fieldset as AKFieldset } from '@atlaskit/form/fieldset';
 import { token } from '@atlaskit/tokens';
 
 import FieldMessages from '../FieldMessages';

@@ -6,7 +6,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import TextArea from '@atlaskit/textarea/text-area';
 
 import AISummary from '../src/view/common/ai-summary';
-
 import ExampleContainer from './utils/example-container';
 import InternalMessage from './utils/internal-message';
 

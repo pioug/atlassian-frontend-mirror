@@ -1,9 +1,11 @@
-import type { FileState } from '@atlaskit/media-state/file-state';
 import { Observable } from 'rxjs/Observable';
-import { type Observer } from 'rxjs/Observer';
-import { Subscription } from 'rxjs/Subscription';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { from } from 'rxjs/observable/from';
+import { type Observer } from 'rxjs/Observer';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subscription } from 'rxjs/Subscription';
+
+import type { FileState } from '@atlaskit/media-state/file-state';
+
 import { toPromise } from '../../toPromise';
 
 const fS1: FileState = {

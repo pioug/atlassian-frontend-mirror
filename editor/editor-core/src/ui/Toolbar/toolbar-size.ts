@@ -9,7 +9,6 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isFullPage } from '../../utils/is-full-page';
-
 import type { ToolbarBreakPoint } from './toolbar-types';
 
 // Toolbar sizes for full page editor a little bit different, because it has more buttons e.g. actions button...

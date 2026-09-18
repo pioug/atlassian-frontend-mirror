@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
-import SimpleStatus from '../../../examples/00-simple-status.vr.ap';
+
 import SimpleBoldStatus from '../../../examples/00-simple-bold-status.vr.ap';
-import HexStatus from '../../../examples/03-hex-status.vr.ap';
+import SimpleStatus from '../../../examples/00-simple-status.vr.ap';
 import {
 	NeutralStatus,
 	PurpleStatus,
@@ -10,6 +10,7 @@ import {
 	YellowStatus,
 	GreenStatus,
 } from '../../../examples/01-status-picker.vr.ap';
+import HexStatus from '../../../examples/03-hex-status.vr.ap';
 
 const statusColorsEnabled = {
 	platform_editor_gracefully_render_status_color: true,

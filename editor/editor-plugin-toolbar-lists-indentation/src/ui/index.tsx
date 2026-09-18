@@ -11,7 +11,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 import type { IndentationButtonNode } from '../pm-plugins/indentation-buttons';
 import type { ToolbarListsIndentationPlugin } from '../toolbarListsIndentationPluginType';
 import { ToolbarType } from '../types';
-
 import { onItemActivated } from './onItemActivated';
 import { Toolbar } from './Toolbar';
 import { ToolbarDropdown } from './ToolbarDropdown';

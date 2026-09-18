@@ -1,9 +1,9 @@
 import React, { useReducer } from 'react';
 
 import AKBadge from '@atlaskit/badge/badge';
+import { JiraIcon } from '@atlaskit/logo';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
-import { JiraIcon } from '@atlaskit/logo';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,

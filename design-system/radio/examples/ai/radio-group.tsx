@@ -1,4 +1,5 @@
 /* eslint-disable no-console, import/no-anonymous-default-export */
+
 import React from 'react';
 
 import RadioGroup from '@atlaskit/radio/radio-group';

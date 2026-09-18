@@ -1,10 +1,12 @@
 import React from 'react';
-import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import { UserPicker } from '../src/components/UserPicker';
-import { type User } from '../src/types';
+
 import EmailIcon from '@atlaskit/icon/core/email';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
+
+import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
+import { UserPicker } from '../src/components/UserPicker';
+import { type User } from '../src/types';
 
 const agentUsers: User[] = [
 	{

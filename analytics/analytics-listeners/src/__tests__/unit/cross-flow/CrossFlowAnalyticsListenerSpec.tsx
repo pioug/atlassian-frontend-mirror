@@ -1,11 +1,14 @@
 import React from 'react';
-import CrossFlowAnalyticsListener from '../../../cross-flow/CrossFlowAnalyticsListener';
-import { type AnalyticsWebClient, FabricChannel } from '../../../types';
-import type Logger from '../../../helpers/logger';
+
 import { render, screen, fireEvent } from '@testing-library/react';
-import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
-import { createButtonWithAnalytics } from '../../../../examples/helpers';
+
 import { UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
+
+import { createButtonWithAnalytics } from '../../../../examples/helpers';
+import CrossFlowAnalyticsListener from '../../../cross-flow/CrossFlowAnalyticsListener';
+import type Logger from '../../../helpers/logger';
+import { type AnalyticsWebClient, FabricChannel } from '../../../types';
+import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 
 describe('CrossFlowAnalyticsListener', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;

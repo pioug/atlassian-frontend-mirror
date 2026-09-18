@@ -1,3 +1,5 @@
+import { type MockRequest, type MockResponse } from 'xhr-mock';
+
 import {
 	type MockContext,
 	exactMatch,
@@ -6,7 +8,6 @@ import {
 	type RequestData,
 	type MediaCollectionFile,
 } from '..';
-import { type MockRequest, type MockResponse } from 'xhr-mock';
 import { files } from '../staticCommon';
 
 export const getFileImage =

@@ -35,7 +35,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { AnnotationPlugin } from '../annotationPluginType';
 import { setInlineCommentDraftState } from '../editor-commands';
 import { type AnnotationProviders, AnnotationSelectionType, AnnotationTestIds } from '../types';
-
 import { getPluginState, isSelectionValid, resolveDraftBookmark } from './utils';
 
 interface BuildToolbarOptions {

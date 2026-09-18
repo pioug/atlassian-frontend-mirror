@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl';
 import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import * as Image from '../../../../../examples-helpers/images.json';
-
 import UserType, { USER_TYPE_TEST_ID, type UserProps } from './index';
 
 let mockInnerSetWidth: Function | undefined;

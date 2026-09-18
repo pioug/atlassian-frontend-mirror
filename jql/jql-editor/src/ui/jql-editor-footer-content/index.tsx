@@ -5,7 +5,6 @@ import { di } from 'react-magnetic-di';
 import { useEditorViewHasInfos } from '../../hooks/use-editor-view-has-infos';
 import { useEditorViewHasWarnings } from '../../hooks/use-editor-view-has-warnings';
 import { useEditorViewIsInvalid } from '../../hooks/use-editor-view-is-invalid';
-
 import { JQLEditorHelp } from './jql-editor-help';
 import { ErrorMessages } from './jql-messages/errors';
 import { InfoMessages } from './jql-messages/infos/InfoMessages';

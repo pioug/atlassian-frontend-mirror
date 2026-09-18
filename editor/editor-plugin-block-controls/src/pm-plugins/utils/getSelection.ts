@@ -8,7 +8,6 @@ import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prose
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 
@@ -51,54 +50,6 @@ export const isNodeWithCodeBlock = (tr: Transaction, start: number, nodeSize: nu
 	return hasCodeBlock;
 };
 
-const isNodeWithMediaOrExtension = (doc: PMNode, start: number, nodeSize: number) => {
-	const $startPos = doc.resolve(start);
-	let hasMediaOrExtension = false;
-	doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n) => {
-		if (['media', 'extension'].includes(n.type.name)) {
-			hasMediaOrExtension = true;
-		}
-	});
-	return hasMediaOrExtension;
-};
-
-const oldGetSelection = (tr: Transaction, start: number) => {
-	const node = tr.doc.nodeAt(start);
-	const isNodeSelection = node && NodeSelection.isSelectable(node);
-	const nodeSize = node ? node.nodeSize : 1;
-	const $startPos = tr.doc.resolve(start);
-	const nodeName = node?.type.name;
-	const isBlockQuoteWithMediaOrExtension =
-		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr.doc, start, nodeSize);
-	const isListWithMediaOrExtension =
-		(nodeName === 'bulletList' && isNodeWithMediaOrExtension(tr.doc, start, nodeSize)) ||
-		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(tr.doc, start, nodeSize));
-
-	if (
-		(isNodeSelection && nodeName !== 'blockquote') ||
-		isListWithMediaOrExtension ||
-		isBlockQuoteWithMediaOrExtension ||
-		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text
-		['decisionList', 'layoutColumn'].includes(nodeName || '')
-	) {
-		return new NodeSelection($startPos);
-	} else if (nodeName === 'mediaGroup' && node?.childCount === 1) {
-		const $mediaStartPos = tr.doc.resolve(start + 1);
-		return new NodeSelection($mediaStartPos);
-	} else if (
-		// Even though mediaGroup is not selectable,
-		// we need a quick way to make all child media nodes appear as selected without the need for a custom selection
-		nodeName === 'mediaGroup'
-	) {
-		return new NodeSelection($startPos);
-	} else if (nodeName === 'taskList') {
-		return TextSelection.create(tr.doc, start, start + nodeSize);
-	} else {
-		const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr.doc, start, nodeSize);
-		return new TextSelection(tr.doc.resolve(inlineNodePos), tr.doc.resolve(inlineNodeEndPos));
-	}
-};
-
 /**
  * Gets the appropriate selection for the node at the given start position.
  *
@@ -112,83 +63,26 @@ export const newGetSelection = (
 	selectionEmpty: boolean,
 	start: number,
 ): false | TextSelection | NodeSelection => {
-	// Under the gate, delegate to getNodeSelectionForPos only when
-	// platform_editor_block_menu is on — getNodeSelectionForPos matches that
-	// simplified path (NodeSelection for all nodes). When block_menu is off,
-	// fall through to the oldGetSelection branch which handles expand/taskList/
-	// inline nodes correctly with TextSelection.
-	if (
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('platform_editor_maui_jira_updates') &&
-		editorExperiment('platform_editor_block_menu', true)
-	) {
+	if (fg('platform_editor_maui_jira_updates')) {
 		return getNodeSelectionForPos(doc, start) || false;
 	}
 
 	const node = doc.nodeAt(start);
-	const isNodeSelection = node && NodeSelection.isSelectable(node);
-	const nodeSize = node ? node.nodeSize : 1;
 	const nodeName = node?.type.name;
 
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		// if mediaGroup only has a single child, we want to select the child
-		if (nodeName === 'mediaGroup' && node?.childCount === 1) {
-			const $mediaStartPos = doc.resolve(start + 1);
-			return new NodeSelection($mediaStartPos);
-		}
-		return new NodeSelection(doc.resolve(start));
-	}
-
-	// this is a fix for empty paragraph selection - put first to avoid any extra work
-	if (nodeName === 'paragraph' && selectionEmpty && node?.childCount === 0) {
-		return false;
-	}
-
-	const isBlockQuoteWithMediaOrExtension =
-		nodeName === 'blockquote' && isNodeWithMediaOrExtension(doc, start, nodeSize);
-
-	const isListWithMediaOrExtension =
-		(nodeName === 'bulletList' && isNodeWithMediaOrExtension(doc, start, nodeSize)) ||
-		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(doc, start, nodeSize));
-
-	if (
-		(isNodeSelection && nodeName !== 'blockquote') ||
-		isListWithMediaOrExtension ||
-		isBlockQuoteWithMediaOrExtension ||
-		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text
-		['decisionList', 'layoutColumn'].includes(nodeName || '') ||
-		(nodeName === 'mediaGroup' && typeof node?.childCount === 'number' && node?.childCount > 1)
-	) {
-		return new NodeSelection(doc.resolve(start));
-	}
-
 	// if mediaGroup only has a single child, we want to select the child
-	if (nodeName === 'mediaGroup') {
+	if (nodeName === 'mediaGroup' && node?.childCount === 1) {
 		const $mediaStartPos = doc.resolve(start + 1);
 		return new NodeSelection($mediaStartPos);
 	}
-
-	if (nodeName === 'taskList') {
-		return TextSelection.create(doc, start, start + nodeSize);
-	}
-
-	const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(doc, start, nodeSize);
-	return new TextSelection(doc.resolve(inlineNodePos), doc.resolve(inlineNodeEndPos));
+	return new NodeSelection(doc.resolve(start));
 };
 
 export const getSelection = (
 	tr: Transaction,
 	start: number,
-	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ): false | TextSelection | NodeSelection => {
-	if (
-		areToolbarFlagsEnabled(Boolean(api?.toolbar)) ||
-		editorExperiment('platform_editor_block_menu', true)
-	) {
-		return newGetSelection(tr.doc, tr.selection.empty, start);
-	}
-
-	return oldGetSelection(tr, start);
+	return newGetSelection(tr.doc, tr.selection.empty, start);
 };
 
 export const selectNode = (
@@ -197,15 +91,7 @@ export const selectNode = (
 	nodeType: string,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ): Transaction => {
-	// Only use the platform path when already on the simplified newGetSelection
-	// branch — i.e. when platform_editor_block_menu is on or toolbar flags are
-	// enabled. This preserves oldGetSelection behaviour (e.g. taskList →
-	// TextSelection) in legacy contexts where those flags are off.
-	if (
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('platform_editor_maui_jira_updates') &&
-		editorExperiment('platform_editor_block_menu', true)
-	) {
+	if (fg('platform_editor_maui_jira_updates')) {
 		return selectNodeAtPos(tr, start, nodeType);
 	}
 
@@ -214,7 +100,7 @@ export const selectNode = (
 		return tr;
 	}
 
-	const selection = getSelection(tr, start, api);
+	const selection = getSelection(tr, start);
 
 	if (selection) {
 		tr.setSelection(selection);

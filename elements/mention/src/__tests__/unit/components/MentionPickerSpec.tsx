@@ -1,18 +1,21 @@
+import React from 'react';
+
+import { screen, render, act, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { mentionTestResult as mentions } from '@atlaskit/util-data-test/mention-test-data';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { mentionTestResult as mentions } from '@atlaskit/util-data-test/mention-test-data';
-import React from 'react';
+
 import MentionPicker, {
 	type OnClose,
 	type OnOpen,
 	type Props,
 } from '../../../components/MentionPicker';
 import * as fireSliAnalyticsEventModule from '../../../util/fire-sli-analytics-event';
-import { screen, render, act, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
-import userEvent from '@testing-library/user-event';
 
 const MAX_NOTIFIED_ITEMS = 20;
 

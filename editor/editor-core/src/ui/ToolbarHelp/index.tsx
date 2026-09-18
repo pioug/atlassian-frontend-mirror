@@ -11,7 +11,6 @@ import QuestionIcon from '@atlaskit/icon/core/question-circle';
 import type { PositionType } from '@atlaskit/tooltip/types';
 
 import { useEditorContext } from '../EditorContext';
-
 import { messages } from './messages';
 
 interface Props {

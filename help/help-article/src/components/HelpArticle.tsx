@@ -1,12 +1,13 @@
 import React from 'react';
-import ShortcutIcon from '@atlaskit/icon/core/link-external';
+
 import Heading from '@atlaskit/heading/heading';
-import { BODY_FORMAT_TYPES } from '../model/HelpArticle';
-import type { HelpArticle as HelpArticleType } from '../model/HelpArticle';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { Text } from '@atlaskit/primitives/compiled';
 
-import { ArticleContentInner, ArticleContentTitle, ArticleContentTitleLink } from './styled';
+import { BODY_FORMAT_TYPES } from '../model/HelpArticle';
+import type { HelpArticle as HelpArticleType } from '../model/HelpArticle';
 import ArticleBody from './ArticleBody';
+import { ArticleContentInner, ArticleContentTitle, ArticleContentTitleLink } from './styled';
 
 const HelpArticle = (props: HelpArticleType): React.JSX.Element => {
 	const {

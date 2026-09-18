@@ -1,6 +1,9 @@
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { render } from '@testing-library/react';
 import React from 'react';
+
+import { render } from '@testing-library/react';
+
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+
 import createNamespaceContext from '../helper/createNamespaceContext';
 
 jest.mock('@atlaskit/analytics-next/AnalyticsContext', () => ({

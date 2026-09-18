@@ -1,6 +1,7 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { LINK_TEXT_REGEXP } from '../tokenize/link-text';
+
 import type { Context } from '../../interfaces';
+import { LINK_TEXT_REGEXP } from '../tokenize/link-text';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

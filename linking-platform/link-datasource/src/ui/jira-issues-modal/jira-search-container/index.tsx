@@ -32,7 +32,6 @@ import {
 	type JiraIssueDatasourceParameters,
 	type JiraIssueDatasourceParametersQuery,
 } from '../types';
-
 import { buildJQL } from './buildJQL';
 import { modeSwitcherMessages } from './messages';
 

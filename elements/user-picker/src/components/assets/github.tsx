@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { token } from '@atlaskit/tokens';
 
 export function GitHubIcon(props: React.SVGProps<SVGSVGElement>): React.JSX.Element {

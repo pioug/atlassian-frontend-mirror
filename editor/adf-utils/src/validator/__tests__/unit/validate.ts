@@ -4,6 +4,7 @@ import {
 	stage0InvalidJsonSchema,
 	stage0ValidJsonSchema,
 } from '@atlassian/adf-schema-json';
+
 import { validator } from '../../validator';
 
 describe('validate full schema', () => {

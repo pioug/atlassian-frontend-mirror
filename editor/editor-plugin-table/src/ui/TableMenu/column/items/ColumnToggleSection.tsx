@@ -6,7 +6,6 @@ import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import type { TableSharedStateInternal } from '../../../../types';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
-
 import { shouldShowHeaderColumnToggle } from './HeaderColumnToggleItem';
 
 /**

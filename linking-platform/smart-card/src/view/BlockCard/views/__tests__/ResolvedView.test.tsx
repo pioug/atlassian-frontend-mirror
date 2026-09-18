@@ -7,7 +7,6 @@ import { screen, within } from '@atlassian/testing-library';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
 import ResolvedView from '../ResolvedView';
-
 import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
 
 describe('ResolvedView', () => {

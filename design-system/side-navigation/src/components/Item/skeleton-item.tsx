@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { SkeletonItemProps } from '@atlaskit/menu/types';
 import SkelItem from '@atlaskit/menu/skeleton-item';
+import type { SkeletonItemProps } from '@atlaskit/menu/types';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 

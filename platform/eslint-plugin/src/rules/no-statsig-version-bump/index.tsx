@@ -2,6 +2,7 @@
 import type { Rule } from 'eslint';
 import type { ObjectExpression } from 'estree';
 import semver from 'semver';
+
 import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 
 /**

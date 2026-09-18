@@ -4,7 +4,6 @@ import type { EnhancedUFOInteractionContextType, ReactProfilerTiming } from '../
 import { getConfig } from '../../config';
 import { sanitizeLabelStackName } from '../../create-payload/common/utils/sanitize-label-stack-name';
 import { getActiveInteraction } from '../../interaction-metrics';
-
 import { clearState } from './clear-state';
 import { ProfilerMarker } from './profiler-marker';
 import state from './state';

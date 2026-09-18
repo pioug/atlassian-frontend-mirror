@@ -4,6 +4,7 @@ import {
 	type LazyExoticComponent,
 	type RefAttributes,
 } from 'react';
+
 import type { InlinePlayerProps } from './inlinePlayer';
 
 export const InlinePlayerLazy: LazyExoticComponent<

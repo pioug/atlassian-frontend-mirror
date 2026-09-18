@@ -1,6 +1,6 @@
 import { type ClientConfig } from '../base-client';
 import { RestClient } from '../rest-client';
-
+import { PRODUCT_JOIN_OR_REQUEST_BULK, PRODUCT_RECCOMENDATIONS } from './index';
 import {
 	type AccessRequestBulk,
 	type AccessRequestBulkSimplified,
@@ -11,8 +11,6 @@ import {
 	type Resource,
 } from './types';
 import { removeDuplicateRecommendations } from './utils';
-
-import { PRODUCT_JOIN_OR_REQUEST_BULK, PRODUCT_RECCOMENDATIONS } from './index';
 
 const ALL_SUPPORTED_PRODUCTS: Product[] = [
 	'confluence',

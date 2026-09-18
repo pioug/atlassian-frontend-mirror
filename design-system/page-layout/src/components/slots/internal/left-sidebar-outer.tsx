@@ -32,7 +32,6 @@ import {
 import { getPageLayoutSlotSelector } from '../../../common/get-page-layout-slot-selector';
 import { useIsSidebarDragging } from '../../../common/hooks';
 import { SidebarResizeContext } from '../../../controllers';
-
 import SlotFocusRing from './slot-focus-ring';
 
 type LeftSidebarOuterProps = {

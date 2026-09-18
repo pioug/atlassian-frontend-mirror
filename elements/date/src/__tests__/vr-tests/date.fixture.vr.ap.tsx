@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Date } from '../../index';
 
 export const DateWithDefaultColor = (): React.JSX.Element => {

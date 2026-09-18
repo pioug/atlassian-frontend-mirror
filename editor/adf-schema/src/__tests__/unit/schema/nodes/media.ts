@@ -1,5 +1,4 @@
 import { fromHTML, toDOM, schema } from '@af/adf-test-helpers/src/adf-schema';
-
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 import { camelCaseToKebabCase } from '../../../../schema/nodes/camel-case-to-kebab-case';

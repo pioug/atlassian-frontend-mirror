@@ -1,5 +1,4 @@
 import { normalizeLocale } from '../common';
-
 import { isValid } from './is-valid';
 import { normalizeDate } from './normalize-date';
 import { toDate } from './to-date';

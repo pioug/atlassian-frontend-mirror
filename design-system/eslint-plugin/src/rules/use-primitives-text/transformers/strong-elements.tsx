@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
@@ -6,7 +7,6 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { JSXElementHelper } from '../../../ast-nodes/jsx-element-helper';
 import { Root } from '../../../ast-nodes/root';
-
 import { addColorInheritAttributeFix } from './add-color-inherit-attribute-fix';
 import { allowedAttrs } from './allowed-attrs';
 import type { MetaData } from './common';

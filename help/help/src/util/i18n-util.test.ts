@@ -1,5 +1,4 @@
 import { tr, zh_TW } from '../i18n';
-
 import { getMessagesForLocale } from './i18n-util';
 
 describe('getMessagesForLocale', () => {

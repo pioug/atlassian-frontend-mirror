@@ -22,7 +22,6 @@ import { isSurfaceColorToken } from '../xcss/is-surface-color-token';
 import { paddingStylesMap } from '../xcss/padding-styles-map';
 import { parseXcss } from '../xcss/parse-xcss';
 import { surfaceColorStylesMap } from '../xcss/surface-color-styles-map';
-
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 // Can either Exclude or Extract - here we're excluding all SVG-related elements, <button> elements (handled by Pressable), and <a> elements (handled by Anchor)

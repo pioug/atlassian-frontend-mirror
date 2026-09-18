@@ -3,13 +3,15 @@
  * @jsx jsx
  */
 import { css, cssMap, jsx } from '@compiled/react';
+
 import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
-import { token } from '@atlaskit/tokens';
-import { deleteEmojiLabel } from '../../util/constants';
-import { emojiDeleteButton } from './styles';
 import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+import { deleteEmojiLabel } from '../../util/constants';
 import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
+import { emojiDeleteButton } from './styles';
 
 const styles = cssMap({
 	boxWrapperStyle: {

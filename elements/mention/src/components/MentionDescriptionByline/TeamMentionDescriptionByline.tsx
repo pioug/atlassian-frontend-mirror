@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl';
-import { type DescriptionBylineProps } from './types';
-import { DescriptionBylineStyle } from './styles';
+
 import { messages } from '../i18n';
+import { DescriptionBylineStyle } from './styles';
+import { type DescriptionBylineProps } from './types';
 
 export default class TeamMentionDescriptionByline extends React.PureComponent<DescriptionBylineProps> {
 	private renderByline = (memberCount: number, includesYou: boolean) => {

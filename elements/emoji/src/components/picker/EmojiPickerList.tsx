@@ -55,6 +55,7 @@ import { CategoryHeadingItem } from './CategoryHeadingItem';
 import CategoryTracker from './CategoryTracker';
 import type { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
 import type { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
+import { emojiPickerHeightOffset } from './emojiPickerHeightOffset';
 import { sizes } from './EmojiPickerSizes';
 import EmojiPickerTabPanel from './EmojiPickerTabPanel';
 import type * as Items from './EmojiPickerVirtualItems';
@@ -62,10 +63,9 @@ import type { VirtualItem } from './EmojiPickerVirtualItems';
 import { EmojisRowItem } from './EmojisRowItem';
 import { LoadingItem } from './LoadingItem';
 import { NoResultsItem } from './NoResultsItem';
-import { type ListRef, VirtualList } from './VirtualList';
-import { emojiPickerHeightOffset } from './emojiPickerHeightOffset';
 import { scrollToRow } from './scrollToRow';
 import { virtualItemRenderer } from './virtualItemRenderer';
+import { type ListRef, VirtualList } from './VirtualList';
 
 /**
  * Test id for wrapper Emoji Picker List div

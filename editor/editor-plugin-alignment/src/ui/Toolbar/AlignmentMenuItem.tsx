@@ -12,7 +12,6 @@ import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import type { AlignmentPlugin } from '../../alignmentPluginType';
 import { changeAlignmentTr } from '../../editor-commands';
 import type { AlignmentState } from '../../pm-plugins/types';
-
 import type { OptionInfo } from './types';
 
 export const AlignmentMenuItem = ({

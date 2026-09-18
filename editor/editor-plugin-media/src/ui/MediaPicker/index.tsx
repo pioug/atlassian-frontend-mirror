@@ -7,7 +7,6 @@ import {
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
-
 import { BrowserWrapper } from './BrowserWrapper';
 import { ClipboardWrapper } from './ClipboardWrapper';
 import { DropzoneWrapper } from './DropzoneWrapper';

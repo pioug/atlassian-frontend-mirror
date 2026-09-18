@@ -1,5 +1,4 @@
 import { type ShadowToken } from '../types';
-
 import { hexToRGBAValues } from './hex-to-rgba-values';
 /**
  * Returns a box shadow formatted for CSS from a ShadowToken raw value.

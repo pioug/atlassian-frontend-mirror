@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import CodeBlock from '@atlaskit/code/code-block'` instead.
  */
+
 export { default } from '../code-block';
 /**
  * @deprecated Use `import type { CodeBlockProps } from '@atlaskit/code/types'` instead.

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+
 import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils';
 import type { Rule } from 'eslint';
 

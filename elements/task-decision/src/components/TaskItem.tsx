@@ -3,22 +3,23 @@
  * @jsx jsx
  */
 import React, { useMemo, useRef, type Ref } from 'react';
-import { useIntl } from 'react-intl';
 
 import { css, jsx } from '@compiled/react';
-import { Icon } from '@atlaskit/icon/components/icon-new';
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import CheckboxCheckedIcon from '@atlaskit/icon/core/checkbox-checked';
+import { useIntl } from 'react-intl';
+import { useMergeRefs } from 'use-callback-ref';
 
-import { messages } from './i18n';
-import Item from './Item';
-import { type Appearance, type ContentRef } from '../types';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { createAndFireEventInElementsChannel } from '../analytics';
+import { Icon } from '@atlaskit/icon/components/icon-new';
+import CheckboxCheckedIcon from '@atlaskit/icon/core/checkbox-checked';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
-import { useMergeRefs } from 'use-callback-ref';
+
+import { createAndFireEventInElementsChannel } from '../analytics';
+import { type Appearance, type ContentRef } from '../types';
+import { messages } from './i18n';
+import Item from './Item';
 
 const CheckboxUncheckedIcon = (props: NewCoreIconProps) => (
 	<Icon

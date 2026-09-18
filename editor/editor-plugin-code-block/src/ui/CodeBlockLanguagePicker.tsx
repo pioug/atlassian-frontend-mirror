@@ -5,7 +5,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { changeLanguage, detectLanguage } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
-
 import {
 	DETECT_LANGUAGE_VALUE,
 	type LanguagePickerOption,

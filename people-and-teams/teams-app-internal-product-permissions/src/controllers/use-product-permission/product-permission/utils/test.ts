@@ -1,5 +1,4 @@
 import type { ProductPermissionsResponse } from '../types';
-
 import { fetchPermissionForProduct } from './fetch-permission-for-product';
 import { getEndpoint } from './get-endpoint';
 import { getProductPermissionRequestBody } from './get-product-permission-request-body';

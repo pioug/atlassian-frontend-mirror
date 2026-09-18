@@ -5,7 +5,6 @@ import { CheckboxField } from '@atlaskit/form/checkbox-field';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { type ChangeParams, handleOnChange } from '../../utils';
-
 import CustomLabel from './custom-label';
 
 type Props<T extends object> = {

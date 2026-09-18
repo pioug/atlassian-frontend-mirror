@@ -9,7 +9,6 @@ import { evaluateDocBuilderExpression } from '../example-helpers/evaluate-doc-bu
 import type { EditorActions } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
-
 import { ExampleEditor as FullPageEditor } from './5-full-page';
 
 interface DocBuilderState {

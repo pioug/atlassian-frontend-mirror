@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import AllAssetsExample from './00-all-assets';
 import WithAvatarExample from './01-with-avatar';
 import WithBackgroundColorExample from './02-with-background-color';

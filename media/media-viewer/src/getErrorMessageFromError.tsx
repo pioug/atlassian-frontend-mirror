@@ -1,9 +1,9 @@
 import { type MessageDescriptor } from 'react-intl';
 
-import type { MediaViewerError } from './MediaViewerError';
 import { errorReasonToMessages } from './errorMessage';
 import { getPrimaryErrorReason } from './getPrimaryErrorReason';
 import { getSecondaryErrorReason } from './getSecondaryErrorReason';
+import type { MediaViewerError } from './MediaViewerError';
 
 export const getErrorMessageFromError = (
 	error: MediaViewerError,

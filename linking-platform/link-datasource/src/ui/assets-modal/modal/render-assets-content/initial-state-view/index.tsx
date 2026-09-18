@@ -10,7 +10,6 @@ import Link from '@atlaskit/link/link';
 import { token } from '@atlaskit/tokens';
 
 import { RichIconSearch } from '../../../../../common/ui/rich-icon/search';
-
 import { initialStateViewMessages } from './messages';
 
 const initialStateViewContainerStyles = css({

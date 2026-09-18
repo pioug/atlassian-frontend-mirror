@@ -1,8 +1,8 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { DiffStepAttribution, StepWithAttribution } from '../../showDiffPluginType';
 import { getAttributionKey } from '../decorations/colorSchemes/attributions';

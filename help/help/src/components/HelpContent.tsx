@@ -1,31 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import HelpLayout from '@atlaskit/help-layout';
+
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import HelpLayout from '@atlaskit/help-layout';
+import AiChatIcon from '@atlaskit/icon/core/ai-chat';
+import SearchIcon from '@atlaskit/icon/core/search';
 
+import { messages } from '../messages';
+import ArticleComponent from './Article';
+import BackButton from './BackButton';
 import { HIDE_CONTENT_DELAY } from './constants';
-import { useNavigationContext } from './contexts/navigationContext';
-import { useHomeContext } from './contexts/homeContext';
-import { useHeaderContext } from './contexts/headerContext';
-import { useSearchContext } from './contexts/searchContext';
 import { useAiContext } from './contexts/aiAgentContext';
+import { useHeaderContext } from './contexts/headerContext';
+import { useHomeContext } from './contexts/homeContext';
+import { useNavigationContext } from './contexts/navigationContext';
+import { useSearchContext } from './contexts/searchContext';
 import { useWhatsNewArticleContext } from './contexts/whatsNewArticleContext';
+import HelpContentButton from './HelpContentButton';
+import type { Props as HelpContentButtonProps } from './HelpContentButton';
+import { NeedMoreHelp } from './NeedMoreHelp';
 import SearchInput from './Search/SearchInput';
 import SearchResults from './Search/SearchResults';
-import ArticleComponent from './Article';
-import WhatsNewButton from './WhatsNew/WhatsNewButton';
-import WhatsNewResults from './WhatsNew/WhatsNewResults';
-import HelpContentButton from './HelpContentButton';
-import BackButton from './BackButton';
-import { NeedMoreHelp } from './NeedMoreHelp';
-import type { Props as HelpContentButtonProps } from './HelpContentButton';
 import { HelpBodyContainer, HelpBody, Home, HomeAi, HelpBodyAi, StyledUl } from './styled';
 import { HelpFooter } from './styled';
 import { Tabs } from './Tabs';
-import AiChatIcon from '@atlaskit/icon/core/ai-chat';
-import SearchIcon from '@atlaskit/icon/core/search';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { messages } from '../messages';
+import WhatsNewButton from './WhatsNew/WhatsNewButton';
+import WhatsNewResults from './WhatsNew/WhatsNewResults';
 
 interface HelpContentInterface {
 	footer?: React.ReactNode;

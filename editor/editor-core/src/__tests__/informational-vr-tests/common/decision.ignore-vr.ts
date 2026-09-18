@@ -9,7 +9,6 @@ import {
 import { snapshotInformational } from '@af/visual-regression';
 
 import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
-
 import { EditorWithDecision } from './decision.fixtures';
 
 snapshotInformational(EditorWithDecision, {

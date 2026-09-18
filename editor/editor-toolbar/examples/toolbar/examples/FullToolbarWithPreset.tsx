@@ -43,7 +43,6 @@ import { ToolbarDropdownItemSection } from '../../../src/ui/ToolbarDropdownItemS
 import { ToolbarDropdownMenu } from '../../../src/ui/ToolbarDropdownMenu';
 import { ToolbarSection } from '../../../src/ui/ToolbarSection';
 import { ToolbarTooltip } from '../../../src/ui/ToolbarTooltip';
-
 import { useExampleToolbarState } from './useExampleToolbarState';
 
 interface FullToolbarWithPresetProps {

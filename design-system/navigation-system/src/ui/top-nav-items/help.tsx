@@ -6,7 +6,6 @@ import React, { type ComponentType, forwardRef } from 'react';
 import HelpIcon from '@atlaskit/icon/core/question-circle';
 
 import { BadgeContainer } from '../../components/badge-container';
-
 import { EndItem, type EndItemProps } from './end-item';
 
 const HELP_NOTIFICATION_BADGE_ID = 'atlassian-navigation-help-notification-count';

@@ -7,7 +7,6 @@ import { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
 
 import { RovoAgentSelector } from '../src';
 import { generateMockAgentEdges } from '../src/common/utils/generate-mock-agent-edges';
-
 import type { basicRovoAgentSelectorQuery } from './__generated__/basicRovoAgentSelectorQuery.graphql';
 
 const TestRenderer = () => {

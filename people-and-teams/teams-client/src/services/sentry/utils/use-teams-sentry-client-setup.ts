@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import type { SentryClient } from '../types';
-
 import { type SentryClientConfig } from './sentry-client';
 import { sentryClientRef } from './sentry-client-ref';
 import { setupSentryClient } from './setup-sentry-client';

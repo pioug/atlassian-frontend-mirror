@@ -1,6 +1,7 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML as fromHTML_, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import { emoji } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 
 const schema = makeSchema();
 const fromHTML = (html: string) => fromHTML_(html, schema);

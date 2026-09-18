@@ -1,7 +1,8 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { decisionItem as decisionItemFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { Inline } from './types/inline-content';
-import { decisionItem as decisionItemFactory } from '../../next-schema/generated/nodeTypes';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name decisionItem_node

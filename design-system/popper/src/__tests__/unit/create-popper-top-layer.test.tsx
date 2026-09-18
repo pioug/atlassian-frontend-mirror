@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import type { Instance, VirtualElement } from '@popperjs/core';
+
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { createPopperTopLayer } from '../../create-popper-top-layer';

@@ -2,7 +2,6 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { VCObserverEntry } from '../types';
-
 import AbstractVCCalculatorBase from './abstract-base-vc-calculator';
 import { calculateTTVCPercentilesWithDebugInfo } from './percentile-calc/canvas-heatmap';
 import * as percentileCalc from './percentile-calc/canvas-heatmap';

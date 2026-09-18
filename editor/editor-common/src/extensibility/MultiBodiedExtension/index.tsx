@@ -36,7 +36,6 @@ import ExtensionLozenge from '../Extension/Lozenge';
 import { ExtensionFloatingLabel } from '../Extension/Lozenge/ExtensionFloatingLabel';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../types';
 import { shouldExtensionBreakout } from '../utils/should-extension-breakout';
-
 import { useMultiBodiedExtensionActions } from './action-api';
 import {
 	mbeExtensionWrapperCSSStyles,

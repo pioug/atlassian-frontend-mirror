@@ -6,7 +6,6 @@ import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
 import type { CardInfo, CardPluginAction, Request, ToolbarResolvedAttributes } from '../types';
 import type { DatasourceTableLayout } from '../ui/LayoutButton/types';
-
 import { pluginKey } from './plugin-key';
 
 export const cardAction = (tr: Transaction, action: CardPluginAction): Transaction => {

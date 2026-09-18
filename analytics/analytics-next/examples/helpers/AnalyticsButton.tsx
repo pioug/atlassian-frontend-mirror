@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
-import { useAnalyticsEvents } from '../../src/hooks/useAnalyticsEvents';
-import type UIAnalyticsEvent from '../../src/events/UIAnalyticsEvent';
 import { type AnalyticsEventPayload } from '../../src/events/AnalyticsEvent';
+import type UIAnalyticsEvent from '../../src/events/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '../../src/hooks/useAnalyticsEvents';
 
 type AnalyticsButtonProps = {
 	analyticsEventPayload: AnalyticsEventPayload;

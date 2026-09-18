@@ -7,7 +7,6 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 import { EVENT_CHANNEL } from '../../analytics/constants';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
-
 import { TableFooter, type TableFooterProps } from './index';
 
 const onAnalyticFireEvent = jest.fn();

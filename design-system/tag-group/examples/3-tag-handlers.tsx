@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Tag from '@atlaskit/tag/removable-tag';
 import TagGroup from '@atlaskit/tag-group/tag-group';
+import Tag from '@atlaskit/tag/removable-tag';
 
 interface MyTagGroupProps {
 	alignment: 'start' | 'end';

@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
-
 import { loadingErrorMessages } from './messages';
 
 const styles = cssMap({

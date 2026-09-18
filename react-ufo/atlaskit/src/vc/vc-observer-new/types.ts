@@ -1,5 +1,4 @@
 import type { AbortReasonType, InteractionType } from '../../common/common/types';
-
 import type { ObservedWindowEventExtended } from './window-event-observer';
 
 export type VCObserverEntryType =

@@ -40,7 +40,6 @@ import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { isTableNested, tablesHaveDifferentColumnWidths } from '../pm-plugins/utils/nodes';
 import { isContentModeSupported } from '../pm-plugins/utils/tableMode/is-content-mode-supported';
 import type { PluginInjectionAPI } from '../types';
-
 import { RoundedTableEdges } from './rounded-table-edges';
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
 import { TableSSRReactContextsProvider } from './TableSSRReactContextsProvider';

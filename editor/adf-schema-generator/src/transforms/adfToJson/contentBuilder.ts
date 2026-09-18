@@ -1,5 +1,6 @@
-import uniqBy from 'lodash/uniqBy';
 import type { JSONSchema4 } from 'json-schema';
+import uniqBy from 'lodash/uniqBy';
+
 import { ADFNode } from '../../adfNode';
 import type { ADFNodeGroup } from '../../types/ADFNodeGroup';
 import type { ADFNodeContentSpec, ADFNodeSpec } from '../../types/ADFNodeSpec';

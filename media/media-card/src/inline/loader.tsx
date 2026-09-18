@@ -1,8 +1,10 @@
 import React, { type PropsWithChildren } from 'react';
+
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react/with-media-client';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
+
 import { type MediaInlineCardProps } from './mediaInlineCard';
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 
 export type MediaInlineCardWithMediaClientConfigProps =
 	WithMediaClientConfigProps<MediaInlineCardProps>;

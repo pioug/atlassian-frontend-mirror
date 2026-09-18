@@ -1,7 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import coinflip from '../../../../coinflip';
-
 import { cacheCleanupState } from './cache-cleanup-state';
 import checkFiberWithinComponent from './check-fiber-within-component';
 import { cleanupCaches } from './cleanup-caches';

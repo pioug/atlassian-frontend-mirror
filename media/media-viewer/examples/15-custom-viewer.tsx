@@ -2,9 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React, { useEffect, useRef, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
-import React, { useEffect, useRef, useState } from 'react';
+
 import { type Identifier, MediaClient } from '@atlaskit/media-client';
 import {
 	createStorybookMediaClientConfig,
@@ -12,13 +15,13 @@ import {
 	htmlFileId,
 	I18NWrapper,
 } from '@atlaskit/media-test-helpers';
-
-import { type CustomRendererStateProps, type ViewerOptionsProps, MediaViewer } from '../src';
-import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
-import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
-import { type CustomRendererProps } from '../src/viewerOptions';
 import { zipFileWithHtmlId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+
+import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
+import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
+import { type CustomRendererStateProps, type ViewerOptionsProps, MediaViewer } from '../src';
 import { Spinner } from '../src/loading';
+import { type CustomRendererProps } from '../src/viewerOptions';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);

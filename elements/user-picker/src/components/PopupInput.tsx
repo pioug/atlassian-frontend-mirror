@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Input, type Props } from './Input';
 
 export class PopupInput extends React.Component<Props> {

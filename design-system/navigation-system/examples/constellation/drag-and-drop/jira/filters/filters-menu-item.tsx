@@ -49,7 +49,6 @@ import {
 import { RegistryContext } from '../registry';
 import { useGetData, useLastAction } from '../state-context';
 import { TopLevelSharedMoreMenu } from '../top-level-shared-more-menu';
-
 import { FilterMoveModal } from './filter-move-modal';
 import { getPathToFilter } from './filter-tree-utils';
 

@@ -11,7 +11,6 @@ import { VAR_LEFT_SIDEBAR_WIDTH } from '../../common/constants';
 import { resolveDimension } from '../../common/resolve-dimension';
 import type { SlotWidthProps } from '../../common/types';
 import { publishGridState, useSkipLink } from '../../controllers';
-
 import LeftSidebarInner from './internal/left-sidebar-inner';
 import LeftSidebarOuter from './internal/left-sidebar-outer';
 import SlotDimensions from './slot-dimensions';

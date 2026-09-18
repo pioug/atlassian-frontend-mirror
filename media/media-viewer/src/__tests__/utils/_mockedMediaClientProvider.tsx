@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { MediaApi } from '@atlaskit/media-client';
 import {
 	isUploadingFileState,
@@ -7,6 +8,7 @@ import {
 	type ResponseFileItem,
 	type UploadingFileState,
 } from '@atlaskit/media-client';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import {
 	createEmptyFileItem,
 	createErrorFileState,
@@ -17,11 +19,9 @@ import {
 	type SetItems,
 	createMockedMediaApi,
 } from '@atlaskit/media-client/test-helpers';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import type { MediaStore } from '@atlaskit/media-state/media-store';
 import type { Store } from '@atlaskit/media-state/store';
-import { createMediaStore } from '@atlaskit/media-state/create-media-store';
-
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 
 export const dataURItoBlob = (dataURI: string): Blob => {
 	const byteString = atob(dataURI.split(',')[1]);

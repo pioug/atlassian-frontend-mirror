@@ -20,7 +20,6 @@ import { token } from '@atlaskit/tokens';
 
 import { type Space } from '../xcss/positive-space';
 import { type XCSS, xcss } from '../xcss/xcss';
-
 import { Flex } from './flex';
 import type { AlignBlock, AlignInline, BasePrimitiveProps, Grow, Spread } from './types';
 

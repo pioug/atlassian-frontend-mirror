@@ -18,7 +18,6 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import { toolbarBlockTypesWithRank } from '../block-types';
-
 import { HeadingButton } from './ToolbarBlockType/HeadingButton';
 import { QuoteButton } from './ToolbarBlockType/QuoteButton';
 import { TextStylesMenuButton } from './ToolbarBlockType/TextStylesMenuButton';

@@ -1,8 +1,8 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { zodToJsonSchema } from '../../helpers/zod-to-json-schema';
-
 import { searchIconsInputSchema } from './search-icons-input-schema';
 
 export const listSearchIconsTool: Tool = {

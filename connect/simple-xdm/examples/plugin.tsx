@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react';
-
 import { createPortal } from 'react-dom';
 // import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 

@@ -11,7 +11,6 @@ import type {
 
 import { YouTubeVideoUrl } from '../../index';
 import { type GenerateDataResponse } from '../types';
-
 import { defaultInitialVisibleColumnKeys, mockJiraData } from './data';
 
 export { defaultInitialVisibleColumnKeys };

@@ -33,17 +33,16 @@ import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types
 import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
 import type { Breakpoint } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { InsertBlockPlugin } from '../insertBlockPluginType';
 import type { InsertBlockPluginOptions } from '../types';
-
+import { RegisteredInsertButton } from './registered-insert-menu/RegisteredInsertButton';
 import { CodeBlockButton } from './toolbar-components/CodeBlockButton';
 import { resolveToolbarConfig } from './toolbar-components/config-resolver';
 import { EmojiButton } from './toolbar-components/EmojiButton';
 import { ImageButton } from './toolbar-components/ImageButton';
 import { InsertButton } from './toolbar-components/InsertButton';
-import { RegisteredInsertButton } from './registered-insert-menu/RegisteredInsertButton';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { LayoutButton } from './toolbar-components/LayoutButton';
 import { MediaButton } from './toolbar-components/MediaButton';
 import { MentionButton } from './toolbar-components/MentionButton';

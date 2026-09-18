@@ -8,13 +8,13 @@ import invariant from 'tiny-invariant';
 
 import Code from '@atlaskit/code/code';
 import { cssMap, cx } from '@atlaskit/css';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
+import { dropTargetForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-text-selection';
 import {
 	draggable,
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
-import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
-import { dropTargetForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-text-selection';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { Box, Flex, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

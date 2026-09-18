@@ -1,4 +1,5 @@
 import { Device, snapshot } from '@af/visual-regression';
+
 import {
 	MediaImageInlineDefault,
 	MediaImageInlineError,

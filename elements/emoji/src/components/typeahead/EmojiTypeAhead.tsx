@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ComponentClass } from 'react';
+
 import type { EmojiProvider } from '../../api/EmojiResource';
 import type { RelativePosition } from '../../types';
 import debug from '../../util/logger';

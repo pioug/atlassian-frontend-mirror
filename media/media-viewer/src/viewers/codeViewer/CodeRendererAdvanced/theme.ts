@@ -1,9 +1,9 @@
-import { EditorView as CodeMirror } from '@codemirror/view';
-
 import { HighlightStyle } from '@codemirror/language';
-import { token } from '@atlaskit/tokens';
-import { tags } from '@lezer/highlight';
 import type { Extension } from '@codemirror/state';
+import { EditorView as CodeMirror } from '@codemirror/view';
+import { tags } from '@lezer/highlight';
+
+import { token } from '@atlaskit/tokens';
 
 /**
  * These styles are copied directly from

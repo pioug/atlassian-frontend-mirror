@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
 
-import { render, renderHook } from '@atlassian/testing-library';
-
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
+import { render, renderHook } from '@atlassian/testing-library';
 
 import { mockByUrl } from '../../mock-by-url';
 import { mocks } from '../../mocks';
-import { SmartLinkAnalyticsContext } from '../SmartLinkAnalyticsContext';
 import { context } from '../analytics';
+import { SmartLinkAnalyticsContext } from '../SmartLinkAnalyticsContext';
 import { useSmartLinkAnalyticsContext } from '../useSmartLinkAnalyticsContext';
 import { useSmartLinkAnalyticsUtils } from '../useSmartLinkAnalyticsUtils';
 

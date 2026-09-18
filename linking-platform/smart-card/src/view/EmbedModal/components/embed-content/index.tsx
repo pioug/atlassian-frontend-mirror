@@ -7,7 +7,6 @@ import { di } from 'react-magnetic-di';
 
 import { getIframeSandboxAttribute } from '../../../../utils/get-iframe-sandbox-attribute';
 import { IFrame } from '../../../EmbedCard/components/IFrame';
-
 import { type EmbedProps } from './types';
 
 const iframeCss = css({

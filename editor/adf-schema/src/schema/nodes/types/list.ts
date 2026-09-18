@@ -1,6 +1,6 @@
-import type { ParagraphDefinition as Paragraph } from '../paragraph';
-import type { MediaSingleDefinition as MediaSingle } from '../media-single';
 import type { CodeBlockDefinition as CodeBlock } from '../code-block';
+import type { MediaSingleDefinition as MediaSingle } from '../media-single';
+import type { ParagraphDefinition as Paragraph } from '../paragraph';
 import type { TaskListDefinition as TaskList } from '../task-list';
 
 export interface ListItemArray extends Array<

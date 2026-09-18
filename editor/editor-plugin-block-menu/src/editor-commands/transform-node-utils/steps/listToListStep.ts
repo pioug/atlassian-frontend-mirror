@@ -1,5 +1,6 @@
 import { createBlockTaskItem } from '@atlaskit/editor-common/transforms';
 import { type Schema, Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import { isListWithIndentation } from '../nodeChecks';
 import type { TransformStep, TransformStepContext } from '../types';
 

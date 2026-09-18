@@ -2,7 +2,6 @@ import { getEarliestHiddenTiming } from '../../../hidden-timing';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
 import getViewportWidth from '../metric-calculator/utils/get-viewport-width';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../types';
-
 import RawDataHandler from './index';
 
 // Mock viewport utilities

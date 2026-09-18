@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { GroupOptionProps } from './main';
 
 const AsyncGroupOption = React.lazy(() =>

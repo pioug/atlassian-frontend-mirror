@@ -11,7 +11,6 @@ import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { createLintRule } from '../utils/create-lint-rule';
 import { getImportName } from '../utils/get-import-name';
 import type { Fix } from '../utils/types';
-
 import { getUniqueButtonItemName } from './get-unique-button-item-name';
 import { hasImportOfName } from './has-import-of-name';
 import { insertButtonItemDefaultImport } from './insert-button-item-default-import';

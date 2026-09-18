@@ -3,7 +3,6 @@ import { screen } from '@testing-library/react';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { useDatasourceCrossProductAttribution } from '../../../../analytics/xpc/useDatasourceCrossProductAttribution';
-
 import { setup } from './_utils';
 
 jest.mock('../../../../analytics/xpc/useDatasourceCrossProductAttribution', () => ({

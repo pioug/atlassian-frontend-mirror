@@ -1,5 +1,4 @@
 import { JastBuilder } from '../api';
-
 import { computeJqlInsights, type JqlInsightsAttributes } from './jql-insights-listener';
 
 type TestCase = {

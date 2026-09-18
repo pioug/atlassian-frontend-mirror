@@ -4,9 +4,9 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import type { ButtonItemProps } from '@atlaskit/menu/types';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
-import type { ButtonItemProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 
 const itemStyles = css({

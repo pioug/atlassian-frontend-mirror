@@ -19,7 +19,6 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { MediaInlineCardRelay } from '../src';
-
 import RelayMock, {
 	MOCK_FAILED_ITEM,
 	MOCK_PROCESSING_ITEM,

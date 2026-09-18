@@ -5,13 +5,15 @@
   See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
   */
 
-import fetchMock from 'fetch-mock/es5/client';
-import { graphql, buildSchema } from 'graphql';
-import { promisify } from 'util';
 import * as fs from 'fs';
 import { join } from 'path';
-import ActivityResource, { makeGetRecentItemBody } from '../ActivityResource';
+import { promisify } from 'util';
+
+import fetchMock from 'fetch-mock/es5/client';
+import { graphql, buildSchema } from 'graphql';
+
 import type { ActivityResponse } from '../../types';
+import ActivityResource, { makeGetRecentItemBody } from '../ActivityResource';
 
 const readFile = promisify(fs.readFile);
 

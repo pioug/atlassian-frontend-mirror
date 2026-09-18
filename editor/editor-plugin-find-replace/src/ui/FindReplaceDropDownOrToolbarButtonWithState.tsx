@@ -14,7 +14,6 @@ import {
 	replaceWithAnalytics,
 } from '../pm-plugins/commands-with-analytics';
 import type { FindReplaceToolbarButtonWithStateProps } from '../types';
-
 import FindReplaceDropdown from './FindReplaceDropdown';
 import FindReplaceToolbarButton from './FindReplaceToolbarButton';
 

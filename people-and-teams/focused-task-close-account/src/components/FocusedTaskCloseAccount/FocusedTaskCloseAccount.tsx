@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl';
+
 import Button from '@atlaskit/button/button';
 import { Drawer } from '@atlaskit/drawer/drawer';
 import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
@@ -7,10 +9,10 @@ import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import CrossIcon from '@atlaskit/icon/core/cross';
 
-import * as Styled from './styled';
-import Footer from '../Footer';
 import { commonMessages } from '../../messages';
+import Footer from '../Footer';
 import MessagesIntlProvider from '../MessagesIntlProvider';
+import * as Styled from './styled';
 
 export interface Props {
 	isOpen: boolean;

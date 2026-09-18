@@ -4,12 +4,12 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "01-basicAvatar.tsx",
-    "03-basicAvatarItem.tsx",
-    "04-basicPresence.tsx",
-    "05-basicStatus.tsx",
-    "15-skeleton.vr.ap.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"01-basicAvatar.tsx",
+		"03-basicAvatarItem.tsx",
+		"04-basicPresence.tsx",
+		"05-basicStatus.tsx",
+		"15-skeleton.vr.ap.tsx",
+	],
+	"exampleDependencies": [],
 }

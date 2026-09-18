@@ -12,7 +12,6 @@ import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginTyp
 import type { ExtensionConfiguration, ExtensionMenuItemConfiguration } from '../../types';
 import { SelectionExtensionMenuItems } from '../menu/SelectionExtensionMenuItems';
 import { SelectionExtensionComponentContextProvider } from '../SelectionExtensionComponentContext';
-
 import { ToolbarButton } from './ToolbarButton';
 import { ToolbarMenu } from './ToolbarMenu';
 

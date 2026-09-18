@@ -5,20 +5,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { forwardRef, useMemo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
 	akEditorTableCellMinWidth,
 	blockNodesVerticalMargin,
 	overflowShadow,
 } from '@atlaskit/editor-shared-styles';
-import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { token } from '@atlaskit/tokens';
 
 import { RendererCssClassName } from '../../../../consts';
 import type { Props as CodeBlockProps } from '../codeBlock';
-import { token } from '@atlaskit/tokens';
 
 const codeBlockSharedStyles = css({
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED}

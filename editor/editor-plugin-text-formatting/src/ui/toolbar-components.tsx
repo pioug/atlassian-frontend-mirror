@@ -5,7 +5,6 @@ import type {
 	TextFormattingPlugin,
 	TextFormattingPluginOptions,
 } from '../textFormattingPluginType';
-
 import { boldButtonGroup } from './Toolbar/components/BoldButtonGroup';
 import { textFormattingGroupForInlineToolbar } from './Toolbar/components/TextFormattingGroupForInlineToolbar';
 import { textFormattingGroupForPrimaryToolbar } from './Toolbar/components/TextFormattingGroups';

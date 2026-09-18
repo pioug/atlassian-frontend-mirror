@@ -1,8 +1,9 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { extension, dataConsumer } from '../../../..';
-import { extensionRootOnlyStage0 } from '../../../../schema/nodes/extension';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
+import { extension, dataConsumer } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
+import { extensionRootOnlyStage0 } from '../../../../schema/nodes/extension';
 
 const packageName = process.env.npm_package_name as string;
 

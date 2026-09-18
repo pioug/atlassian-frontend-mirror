@@ -10,7 +10,6 @@ import { type SelectedOptionsMap } from '../types';
 import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
 import { mapHydrateResponseData } from '../utils/mapHydrateResponseData';
 import { removeFuzzyCharacter } from '../utils/removeFuzzyCharacter';
-
 import { getAssigneeUnassignedFilterOption } from './getAssigneeUnassignedFilterOption';
 
 export interface HydrateJqlState extends CommonBasicFilterHookState {

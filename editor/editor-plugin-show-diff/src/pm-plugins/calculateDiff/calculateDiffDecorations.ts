@@ -8,9 +8,10 @@ import { areDocsEqualByBlockStructureAndText } from '@atlaskit/editor-common/uti
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { Mapping, type StepMap } from '@atlaskit/editor-prosemirror/transform';
-import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -26,11 +27,6 @@ import type {
 	ShowDiffPlugin,
 	SmartDiffThresholds,
 } from '../../showDiffPluginType';
-import { createDocMarginAnchorWidget } from '../decorations/createAnchorDecorationWidgets';
-import { createBlockChangedDecoration } from '../decorations/createBlockChangedDecoration';
-import type { ContributorTagMountContext } from '../decorations/createContributorTagWidget';
-import { createInlineChangedDecoration } from '../decorations/createInlineChangedDecoration';
-import { createNodeChangedDecorationWidget } from '../decorations/createNodeChangedDecorationWidget';
 import {
 	createAttributionColorMap,
 	type DiffAttributionSpanData,
@@ -41,21 +37,33 @@ import {
 	isContributorTagsEnabled,
 } from '../decorations/colorSchemes/attributions';
 import type { ColorScheme as DecorationColorScheme } from '../decorations/colorSchemes/types';
+import { createDocMarginAnchorWidget } from '../decorations/createAnchorDecorationWidgets';
+import { createBlockChangedDecoration } from '../decorations/createBlockChangedDecoration';
+import type { ContributorTagMountContext } from '../decorations/createContributorTagWidget';
+import { createInlineChangedDecoration } from '../decorations/createInlineChangedDecoration';
+import { createNodeChangedDecorationWidget } from '../decorations/createNodeChangedDecorationWidget';
 import { extractDiffDescriptors } from '../decorations/decorationKeys';
 import { extractContributorTags } from '../decorations/extractContributorTags';
+import { createDeletedLineBreakDecoration } from '../decorations/utils/createDeletedLineBreakWidget';
 import {
 	type AttrStepContext,
 	getAttrChangeRanges,
 	stepIsValidAttrChange,
 } from '../decorations/utils/getAttrChangeRanges';
 import { getMarkChangeRanges } from '../decorations/utils/getMarkChangeRanges';
+import { createRemovedLozenge } from '../decorations/utils/wrapBlockNodeView';
 import { getScrollableDecorations } from '../getScrollableDecorations';
 import { getDefaultDiffType, isExtendedEnabled } from '../isExtendedEnabled';
 import type { ShowDiffPluginState } from '../main';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
-
+import { emptyTextBlockContentPositions } from '../utils/emptyTextBlocks';
 import { diffBySteps } from './diffBySteps';
 import { groupChangesByBlock } from './groupChangesByBlock';
+import {
+	CELL_CONTENT_OFFSET,
+	type ColumnAwareChange,
+	groupDeletedColumnChanges,
+} from './groupDeletedColumnChanges';
 import { isMarkOnlyChange } from './isMarkOnlyChange';
 import { isOpenTokenOnlyChange } from './isOpenTokenOnlyChange';
 import { optimizeChanges } from './optimizeChanges';
@@ -65,6 +73,8 @@ import {
 	collapseOverlappingChanges,
 	simplifyChangesWithAttribution,
 } from './simplifyChangesWithAttribution';
+
+type AttributedColumnAwareChange = AttributedChange & ColumnAwareChange;
 import { simplifySteps, simplifyStepsWithAttribution } from './simplifySteps';
 import { classifySmartChanges } from './smart/classifySmartChanges';
 import { smartChangeLevel } from './smart/helpers';
@@ -583,7 +593,7 @@ const calculateDiffDecorationsInner = ({
 	const { tokenEncoder, shouldHideMarkOnlyDeletions } = selectTokenEncoder(
 		diffType === 'smart' && fg('platform_editor_ai_smart_diff'),
 	);
-	let changes: AttributedChange[];
+	let changes: AttributedColumnAwareChange[];
 	let attributedChanges: Change[] = [];
 	let attributionColors: ReturnType<typeof createAttributionColorMap> | undefined;
 
@@ -656,8 +666,22 @@ const calculateDiffDecorationsInner = ({
 
 	// Our default operations are insertions, so it should match the opposite of isInverted.
 	const isInserted = !isInverted;
+	if (isExtendedEnabled(diffType)) {
+		changes = groupDeletedColumnChanges(
+			changes,
+			originalDoc,
+			tr.doc,
+			new Mapping(stepMaps),
+			isInverted,
+		);
+	}
+	// A whole-table change owns every mark and attribute range inside its bounds, so those ranges
+	// do not also get their own decoration.
+	const tableChanges = changes.filter((change) => change.deletedColumns !== undefined);
+	const isHandledByTable = (from: number, to: number) =>
+		tableChanges.some((change) => from >= change.fromB && to <= change.toB);
 
-	const createDecorationsForChange = (change: AttributedChange): void => {
+	const createDecorationsForChange = (change: AttributedColumnAwareChange): void => {
 		const changeColorScheme = attributionColors
 			? getColorSchemeForChange(change, attributedChanges, attributionColors, colorScheme)
 			: colorScheme;
@@ -665,6 +689,23 @@ const calculateDiffDecorationsInner = ({
 			? getAttributionKeyForChange(change, attributedChanges)
 			: undefined;
 		const isActive = isRangeActive(activeIndexPos, change.fromB, change.toB);
+		const { deletedColumns } = change;
+		// On an inverted diff the table that lost columns is the one in `tr.doc`, so the column
+		// indices address it directly and each label anchors inside its own cell.
+		const table = tr.doc.nodeAt(change.fromB);
+		if (isInverted && !hideDeletedDiffs && deletedColumns?.length && table?.type.name === 'table') {
+			const tableMap = TableMap.get(table);
+			deletedColumns.forEach((column) => {
+				const offset = tableMap.positionAt(0, column, table);
+				decorations.push(
+					Decoration.widget(
+						change.fromB + CELL_CONTENT_OFFSET + offset,
+						() => createRemovedLozenge(intl, isActive, changeColorScheme, true),
+						{ side: -1 },
+					),
+				);
+			});
+		}
 
 		// The deleted side of a mark-only change is a byte-identical copy of the new text, so it is
 		// suppressed in the clean view. `hideDeletedDiffs` is load-bearing: when false the reviewer
@@ -699,6 +740,34 @@ const calculateDiffDecorationsInner = ({
 			const shouldHideDeleted = isExtendedEnabled(diffType)
 				? isInverted && hideDeletedDiffs
 				: false;
+
+			// A removed blank line — an empty paragraph or heading — has nothing to mark up. On an
+			// inverted diff, the shape AI suggested edits renders, the block is still in the displayed
+			// document, so the removal lands here on the inserted side rather than on the deleted side,
+			// and both the inline and the block decoration paint nothing: an empty textblock has no
+			// inline content to cover, and block decorations return no style for a paragraph or heading.
+			// The reviewer sees an unmarked blank line. Stand the struck-through return glyph in for each
+			// one, anchored inside the block so it renders on the blank line itself.
+			//
+			// One decoration per blank line rather than one per change: a run of adjacent blank lines is
+			// reported as a single change spanning all of them.
+			//
+			// Withheld in the clean view, where removals are hidden rather than struck through.
+			if (fg('platform_editor_ai_show_diff_patch_2') && !isInserted && !shouldHideDeleted) {
+				for (const pos of emptyTextBlockContentPositions(tr.doc, change.fromB, change.toB)) {
+					decorations.push(
+						createDeletedLineBreakDecoration({
+							attributionKey,
+							colorScheme: changeColorScheme,
+							diffType,
+							isActive,
+							pos,
+							reveal,
+							side: -1,
+						}),
+					);
+				}
+			}
 
 			// For `smart` NODE-level promotions the change range spans a whole container
 			// (e.g. an entire list/table/layout, using outer node bounds). Applying a SINGLE
@@ -825,6 +894,7 @@ const calculateDiffDecorationsInner = ({
 			if (!shouldHideDeleted) {
 				decorations.push(
 					...createNodeChangedDecorationWidget({
+						deletedColumns,
 						// The deleted side has no inline decoration, so the widget carries the actor.
 						attributionKey,
 						// Extended pipeline only, matching the inline path: the non-extended styles have no
@@ -864,6 +934,7 @@ const calculateDiffDecorationsInner = ({
 		simplifiedStepAttributions,
 		fg('confluence_ncs_step_diffing_version_history') ? stepMaps : undefined,
 	)
+		.filter(({ fromB, toB }) => !isHandledByTable(fromB, toB))
 		.filter(
 			({ fromB, toB }) =>
 				!fg('confluence_ncs_step_diffing_version_history') ||
@@ -891,6 +962,7 @@ const calculateDiffDecorationsInner = ({
 			);
 		});
 	getAttrChangeRanges(tr.doc, attrStepContexts, originalDoc)
+		.filter(({ fromB, toB }) => !isHandledByTable(fromB, toB))
 		.filter(
 			({ fromB, toB }) =>
 				!fg('confluence_ncs_step_diffing_version_history') ||

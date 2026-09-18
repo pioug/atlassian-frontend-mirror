@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { startLighthouseObserver } from '@atlaskit/react-ufo/startLighthouseObserver'` instead.
  */
+
 export { startLighthouseObserver } from './startLighthouseObserver';
 /**
  * @deprecated Use `import { getLighthouseMetrics } from '@atlaskit/react-ufo/getLighthouseMetrics'` instead.

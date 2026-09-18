@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export const blockExtensionWithParagraphAboveNodeAdf: DocNode = {

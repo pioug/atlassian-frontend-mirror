@@ -7,7 +7,6 @@ import type {
 
 import { internalCreators } from '../creators';
 import { type Argument, type Field, type Property } from '../types';
-
 import { ArgumentVisitor } from './argument';
 import { getPositionFromContext, JastBuildingVisitor } from './common';
 import { StringVisitor } from './string';

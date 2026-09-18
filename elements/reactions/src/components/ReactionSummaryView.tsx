@@ -4,30 +4,29 @@
  */
 import { useCallback, useState } from 'react';
 
+import { cssMap, jsx } from '@compiled/react';
+
+import { EmojiPicker } from '@atlaskit/emoji/picker';
+import { type OnEmojiEvent } from '@atlaskit/emoji/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { Placement } from '@atlaskit/popper/main';
 import { Popup } from '@atlaskit/popup/popup';
-import { type OnEmojiEvent } from '@atlaskit/emoji/types';
-import { EmojiPicker } from '@atlaskit/emoji/picker';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
+import { useDelayedState } from '../hooks/useDelayedState';
 import {
 	type ReactionClick,
 	type ReactionFocused,
 	type ReactionMouseEnter,
 	type ReactionSource,
 } from '../types';
-import { useDelayedState } from '../hooks/useDelayedState';
+import { PickerRender } from '../ufo';
 import { Reaction } from './Reaction';
 import { type ReactionsProps, type OpenReactionsDialogOptions } from './Reactions';
+import { ReactionSummaryButton } from './ReactionSummaryButton';
 import { type TriggerProps } from './Trigger';
 import { Trigger as EmojiPickerTrigger } from './Trigger';
-
-import { ReactionSummaryButton } from './ReactionSummaryButton';
-import { PickerRender } from '../ufo';
-
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
-import { cssMap, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	summaryList: {

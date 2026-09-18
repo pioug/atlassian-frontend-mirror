@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 
 import { isEntityPresent } from '@atlaskit/link-extractors/is-entity-present';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
-import type { CardAppearance } from '@atlaskit/linking-common/types';
 import type { CardState } from '@atlaskit/linking-common/store';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SmartLinkStatus } from '../../../constants';

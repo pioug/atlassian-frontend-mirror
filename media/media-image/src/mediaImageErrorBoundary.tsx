@@ -1,7 +1,9 @@
 import React, { type PropsWithChildren } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
-import { type MediaImageWithMediaClientConfigProps } from './types';
+
 import { MediaImageWithMediaClient } from './mediaImage';
+import { type MediaImageWithMediaClientConfigProps } from './types';
 
 export type MediaViewerAnalyticsErrorBoundaryProps = PropsWithChildren<{
 	data?: { [k: string]: any };

@@ -3,11 +3,11 @@ import { type MediaTraceContext } from '@atlaskit/media-common';
 import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
 
 import type { MediaViewerFailureAttributes } from '../..';
-import type { MediaViewerError } from '../../../MediaViewerError';
 import { getErrorDetail } from '../../../getErrorDetail';
 import { getPrimaryErrorReason } from '../../../getPrimaryErrorReason';
 import { getRequestMetadata } from '../../../getRequestMetadata';
 import { getSecondaryErrorReason } from '../../../getSecondaryErrorReason';
+import type { MediaViewerError } from '../../../MediaViewerError';
 import { getFileAttributes } from '../../getFileAttributes';
 import { type MediaFileEventPayload } from './_mediaFile';
 

@@ -4,8 +4,5 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "01-default.vr.ap.tsx",
-    "06-responsive-wrapping.vr.ap.tsx"
-  ]
+	"testExamples": ["01-default.vr.ap.tsx", "06-responsive-wrapping.vr.ap.tsx"],
 }

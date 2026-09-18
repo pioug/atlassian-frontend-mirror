@@ -16,7 +16,6 @@ import { OverflowProvider } from '../../controllers/overflow/overflow-provider';
 import { useOverflowController } from '../../controllers/overflow/use-overflow-controller';
 import { type NavigationTheme } from '../../theme';
 import { PrimaryDropdownButton } from '../PrimaryDropdownButton';
-
 import { type PrimaryItemsContainerProps } from './types';
 
 const containerStyles = css({

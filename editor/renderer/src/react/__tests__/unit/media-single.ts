@@ -1,6 +1,7 @@
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { mediaSingleWithCaptionsFixture } from './__fixtures__/media-single-with-captions';
+
 import { ReactSerializer } from '../../../index';
+import { mediaSingleWithCaptionsFixture } from './__fixtures__/media-single-with-captions';
 
 describe('Renderer - ReactSerializer - MediaSingle', () => {
 	const createSerializedFragment = (reactSerializer: ReactSerializer) => {

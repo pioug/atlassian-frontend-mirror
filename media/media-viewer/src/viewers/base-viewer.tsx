@@ -7,11 +7,11 @@ import { type MediaClient, type FileState, globalMediaEventEmitter } from '@atla
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { messages } from '@atlaskit/media-ui/messages';
 
-import { ErrorViewDownloadButton } from '../ErrorViewDownloadButton';
-import type { MediaViewerError } from '../MediaViewerError';
 import type { Outcome } from '../domain/outcome';
 import ErrorMessage from '../errorMessageWithAnalytics';
+import { ErrorViewDownloadButton } from '../ErrorViewDownloadButton';
 import { Spinner } from '../loading';
+import type { MediaViewerError } from '../MediaViewerError';
 
 export type BaseProps = {
 	mediaClient: MediaClient;

@@ -1,7 +1,7 @@
-import { adfNestedExpandInsideExpand } from './__fixtures__';
+import type { ComponentType } from 'react';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
-import type { ComponentType } from 'react';
+import { adfNestedExpandInsideExpand } from './__fixtures__';
 
 export const NestedExpandRenderer: ComponentType<any> = generateRendererComponent({
 	document: adfNestedExpandInsideExpand,

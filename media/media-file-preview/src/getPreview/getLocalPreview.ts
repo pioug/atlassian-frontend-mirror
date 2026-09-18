@@ -4,7 +4,6 @@ import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation'
 
 import { LocalPreviewError } from '../LocalPreviewError';
 import { type MediaFilePreview } from '../types';
-
 import { takeSnapshot } from './videoSnapshot';
 
 const getImageLocalPreview = async (value: Blob): Promise<MediaFilePreview> => {

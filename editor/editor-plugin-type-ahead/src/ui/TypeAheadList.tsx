@@ -33,7 +33,6 @@ import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler, TypeAheadResolvedSection } from '../types';
-
 import { ListRow } from './ListRow';
 import { MoreOptions } from './MoreOptions';
 import { TypeAheadListItem } from './TypeAheadListItem';

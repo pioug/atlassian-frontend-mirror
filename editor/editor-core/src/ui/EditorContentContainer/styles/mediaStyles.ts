@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
 	@repo/internal/deprecations/deprecation-ticket-required,
 	@atlaskit/ui-styling-standard/no-exported-styles */
+
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
@@ -16,8 +17,8 @@ import {
 	akEditorWrappedNodeZIndex,
 } from '@atlaskit/editor-shared-styles';
 import { fileCardImageViewSelector } from '@atlaskit/media-card/card/classnames';
-import { inlinePlayerClassName } from '@atlaskit/media-card/inlinePlayerWrapperStyles';
 import { newFileExperienceClassName } from '@atlaskit/media-card/cardConstants';
+import { inlinePlayerClassName } from '@atlaskit/media-card/inlinePlayerWrapperStyles';
 import { token } from '@atlaskit/tokens';
 
 import { dangerBorderStyles } from './selectionStyles';

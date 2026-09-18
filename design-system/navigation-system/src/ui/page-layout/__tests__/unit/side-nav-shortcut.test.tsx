@@ -7,15 +7,14 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Popup } from '@atlaskit/popup/popup';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Main } from '../../main/main';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
-
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,

@@ -1,5 +1,4 @@
 import { DEFAULT_CONFIG } from '../constants';
-
 import { UserPreferencesClient } from './UserPreferencesClient';
 
 const _default_1: UserPreferencesClient = new UserPreferencesClient({

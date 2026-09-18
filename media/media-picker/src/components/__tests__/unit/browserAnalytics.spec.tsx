@@ -1,9 +1,7 @@
 import React from 'react';
-import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import {
 	RequestError,
 	type TouchFileDescriptor,
@@ -11,16 +9,18 @@ import {
 	fromObservable,
 } from '@atlaskit/media-client';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
-import { Browser } from '../../browser/browser';
-import { type BrowserConfig } from '../../../../src/types';
 import { type LocalUploadConfig } from '../../../../src/components/types';
+import { type BrowserConfig } from '../../../../src/types';
+import * as failUfoWrapper from '../../../util/failMediaUploadUfoExperience';
 // Spy on the individual UFO experience modules rather than the aggregating '../util/ufoExperiences'
 // barrel: localUploadReact now imports these functions directly from their own modules, so spying the
 // barrel's re-exports would not intercept the calls made by the component under test.
 import * as startUfoWrapper from '../../../util/startMediaUploadUfoExperience';
 import * as succeedUfoWrapper from '../../../util/succeedMediaUploadUfoExperience';
-import * as failUfoWrapper from '../../../util/failMediaUploadUfoExperience';
+import { Browser } from '../../browser/browser';
 
 jest.mock('@atlaskit/platform-feature-flags/fg');
 

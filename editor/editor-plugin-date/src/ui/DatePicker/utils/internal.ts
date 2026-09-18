@@ -5,7 +5,6 @@ import addYears from 'date-fns/addYears';
 import * as locales from 'date-fns/locale';
 
 import type { DateSegment, DateType } from '../../../types';
-
 import { dateToDateType, dateTypeToDate, formatDateType } from './formatParse';
 
 function isDigit(c: string): boolean {

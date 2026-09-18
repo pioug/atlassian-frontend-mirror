@@ -1,6 +1,7 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import { confluenceInlineComment } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 
 const packageName = process.env.npm_package_name as string;
 

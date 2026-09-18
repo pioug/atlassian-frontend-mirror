@@ -1,13 +1,13 @@
 import React from 'react';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, waitFor, fireEvent, act, within } from '@testing-library/react';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
-import { getMockArticle, getMockArticleItemList } from '../../../util/testing/mock';
 import { messages } from '../../../messages';
-
-import { SLIDEIN_OVERLAY_TRANSITION_DURATION_MS, HIDE_CONTENT_DELAY } from '../../constants';
 import { ARTICLE_TYPE } from '../../../model/Help';
+import { getMockArticle, getMockArticleItemList } from '../../../util/testing/mock';
+import { SLIDEIN_OVERLAY_TRANSITION_DURATION_MS, HIDE_CONTENT_DELAY } from '../../constants';
 import { Help } from '../../Help';
 
 // Messages

@@ -1,9 +1,8 @@
-import type { MediaApiConfig, MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MediaClient } from '@atlaskit/media-client';
-
-import { asMock } from './jestHelpers';
+import type { MediaApiConfig, MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import getJest from './getJest';
+import { asMock } from './jestHelpers';
 
 const jestHelper = getJest<any, unknown>();
 

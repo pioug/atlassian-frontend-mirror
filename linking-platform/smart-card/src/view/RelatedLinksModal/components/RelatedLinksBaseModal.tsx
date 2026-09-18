@@ -8,8 +8,8 @@ import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
@@ -17,7 +17,6 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
-
 import { type RelatedLinksBaseModalProps } from './types';
 
 const fixedWidth = 'small'; // pre-defined 400px by Atlaskit

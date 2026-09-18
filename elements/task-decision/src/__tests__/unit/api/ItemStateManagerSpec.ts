@@ -1,4 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
+
 import {
 	ItemStateManager,
 	ACTION_STATE_CHANGED_FPS_EVENT,

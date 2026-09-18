@@ -24,7 +24,6 @@ import {
 	type TerminalErrorContext,
 	type TerminalErrorData,
 } from '../set-terminal-error';
-
 import scheduleIdleCallback from './schedule-idle-callback';
 
 export interface GenericAnalyticWebClientInstance {

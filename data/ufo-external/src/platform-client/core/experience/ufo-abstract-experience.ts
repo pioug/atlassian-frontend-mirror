@@ -23,7 +23,6 @@ import {
 	type Timing,
 } from '../../../types';
 import { isWindowObjectAvailable } from '../../utils/window-helper';
-
 import { type AbstractExperienceConfig, type EndStateConfig } from './abstract-experience';
 import { UFOExperienceState, type UFOExperienceStateType } from './experience-state';
 import { canTransition } from './experience-state-transitions';

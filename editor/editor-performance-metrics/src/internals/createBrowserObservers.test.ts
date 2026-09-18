@@ -1,4 +1,5 @@
 /* eslint-disable compat/compat */
+
 import {
 	convertPhysicalToLogicalResolution,
 	createIntersectionObserver,

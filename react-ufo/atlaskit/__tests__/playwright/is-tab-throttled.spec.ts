@@ -2,6 +2,7 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
 /* eslint-disable playwright/no-standalone-expect */
+
 import { expect, test } from './fixtures';
 
 test.describe('React UFO: isTabThrottled detection', () => {

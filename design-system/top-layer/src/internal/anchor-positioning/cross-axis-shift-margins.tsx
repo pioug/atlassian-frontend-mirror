@@ -4,7 +4,6 @@ import {
 	type TPlacementAxis,
 } from '../resolve-placement';
 import { type TStyleDeclaration } from '../set-style';
-
 import { type TLogicalMarginProperty } from './fit-margins';
 
 /**

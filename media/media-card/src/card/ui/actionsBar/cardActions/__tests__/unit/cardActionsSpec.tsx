@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { createEvent, fireEvent, render, type RenderResult, within } from '@testing-library/react';
 import { screen } from '@testing-library/react';
 
-import AnnotateIcon from '@atlaskit/icon/core/edit';
-import CrossIcon from '@atlaskit/icon/core/cross';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type { UIAnalyticsEventHandler } from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import CrossIcon from '@atlaskit/icon/core/cross';
+import AnnotateIcon from '@atlaskit/icon/core/edit';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { type CardAction } from '../../../../../actions';

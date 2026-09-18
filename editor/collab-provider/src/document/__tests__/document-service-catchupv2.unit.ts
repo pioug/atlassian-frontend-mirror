@@ -1,6 +1,8 @@
 import { createMockService } from './document-service.mock';
-import { catchupv2 } from '../catchupv2';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { catchupv2 } from '../catchupv2';
 
 jest.mock('../catchupv2', () => {
 	return {

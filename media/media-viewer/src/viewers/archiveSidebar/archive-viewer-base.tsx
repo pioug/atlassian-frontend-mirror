@@ -13,11 +13,11 @@ import { messages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 
-import { type ArchiveViewerErrorReason, ArchiveViewerError } from '../../ArchiveViewerError';
 import { createPreviewUnsupportedEvent } from '../../analytics/events/operational/previewUnsupported';
 import { createZipEntryLoadFailedEvent } from '../../analytics/events/operational/zipEntryLoadFailed';
 import { createZipEntryLoadSucceededEvent } from '../../analytics/events/operational/zipEntryLoadSucceeded';
 import { fireAnalytics } from '../../analytics/fireAnalytics';
+import { type ArchiveViewerErrorReason, ArchiveViewerError } from '../../ArchiveViewerError';
 import { buildVideoErrorDiagnostics } from '../../buildVideoErrorDiagnostics';
 import { Outcome } from '../../domain/outcome';
 import ErrorMessage from '../../errorMessageWithAnalytics';

@@ -1,7 +1,6 @@
 import escapeRegExp from 'lodash/escapeRegExp';
 
 import { type SelectableAutocompleteOptions } from '../plugins/autocomplete/components/types';
-
 import { getAutocompleteOptionId } from './getAutocompleteOptionId';
 import { type ContextAwareTokenSuggestions } from './types';
 

@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import type { RetryConfig } from '@atlaskit/frontend-utilities/retry-operation/types'` instead.
  */
+
 export { type RetryConfig } from './types';
 /**
  * @deprecated Use `import { wait } from '@atlaskit/frontend-utilities/retry-operation/wait'` instead.

@@ -9,9 +9,9 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
 
 import { jsx, css } from '@compiled/react';
+import { defineMessages, useIntl } from 'react-intl';
 
 import InteractionContext from '@atlaskit/interaction-context';
 import { token } from '@atlaskit/tokens';

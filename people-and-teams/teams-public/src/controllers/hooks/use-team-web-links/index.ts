@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { actions } from '@atlaskit/teams-public/use-team-web-links/actions'` instead.
  */
+
 export { actions } from './actions';
 /**
  * @deprecated Use `import { useTeamWebLinks } from '@atlaskit/teams-public/use-team-web-links/use-team-web-links'` instead.

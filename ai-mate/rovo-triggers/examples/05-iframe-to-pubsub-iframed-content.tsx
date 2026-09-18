@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
+
 import React from 'react';
 
 import { useRovoPostMessageToPubsub } from '../src/common/utils/post-message-to-pubsub';

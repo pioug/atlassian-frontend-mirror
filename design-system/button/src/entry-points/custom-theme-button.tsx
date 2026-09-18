@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import Theme from '@atlaskit/button/theme'` instead.
  */
+
 export { default as Theme } from '../old-button/custom-theme-button/theme';
 /**
  * @deprecated Use `import CustomThemeButton from '@atlaskit/button/custom-theme-button/custom-theme-button'` instead.

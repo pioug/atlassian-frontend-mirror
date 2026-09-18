@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type {
 	Mark,

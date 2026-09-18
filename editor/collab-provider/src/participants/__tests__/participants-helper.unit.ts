@@ -1,4 +1,5 @@
 import type { ProviderParticipant, PresenceActivity } from '@atlaskit/editor-common/collab';
+
 import {
 	createParticipantFromPayload,
 	fetchParticipants,

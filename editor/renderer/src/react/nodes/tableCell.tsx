@@ -1,24 +1,26 @@
 import type { CSSProperties } from 'react';
 import React from 'react';
+
+import { useIntl } from 'react-intl';
+import type { IntlShape } from 'react-intl';
+
+import { getDarkModeLCHColor } from '@atlaskit/adf-schema/get-dark-mode-lch-color';
 import {
 	tableBackgroundColorNameByHex,
 	type CellAttributes,
 } from '@atlaskit/adf-schema/tableNodes';
-import { getDarkModeLCHColor } from '@atlaskit/adf-schema/get-dark-mode-lch-color';
-import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { SortingIcon } from '@atlaskit/editor-common/table';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
-
-import { SortingIcon } from '@atlaskit/editor-common/table';
-import type { AnalyticsEventPayload } from '../../analytics/events';
-import { MODE, PLATFORM } from '../../analytics/events';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { RendererCssClassName } from '../../consts';
-import { useIntl } from 'react-intl';
-import type { IntlShape } from 'react-intl';
-import { tableCellMessages } from '../../messages';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+
+import type { AnalyticsEventPayload } from '../../analytics/events';
+import { MODE, PLATFORM } from '../../analytics/events';
+import { RendererCssClassName } from '../../consts';
+import { tableCellMessages } from '../../messages';
 
 export type TableCellEdgeProps = {
 	reachesBottom?: boolean;

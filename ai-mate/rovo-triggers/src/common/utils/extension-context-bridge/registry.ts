@@ -1,6 +1,5 @@
 import { type Payload } from '../../../types';
 import { type ChatContextPayload } from '../chat-context/types';
-
 import { type SerializationDropReason } from './analytics';
 import { BRIDGE_SOURCE } from './constants';
 import { isRelayableContextKey } from './policy';

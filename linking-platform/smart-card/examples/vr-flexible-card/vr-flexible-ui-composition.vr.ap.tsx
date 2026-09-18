@@ -28,7 +28,6 @@ import { default as SnippetBlock } from '../../src/view/FlexibleCard/components/
 import { default as TitleBlock } from '../../src/view/FlexibleCard/components/blocks/title-block';
 import { type CustomActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
 import '../utils/vr-preload-metadata-icons';
 
 const listStyles = css({

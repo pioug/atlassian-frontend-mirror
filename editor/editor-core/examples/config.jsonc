@@ -4,24 +4,24 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "30-jira-clone.tsx",
-    "33-jira-clone-right-panel.tsx",
-    "40-quick-insert-icons.tsx",
-    "5-full-page-template-context-panel.tsx"
-  ],
-  "exampleDependencies": [
-    "@af/editor-examples-helpers",
-    "@atlaskit/collab-provider",
-    "@atlaskit/editor-plugin-editor-viewmode",
-    "@atlaskit/media-core",
-    "@atlaskit/smart-card",
-    "@atlaskit/synchrony-test-helpers",
-    "@atlassian/link-picker-plugins",
-    "@atlassian/search-provider",
-    "@atlassian/ufo",
-    "clipboard-polyfill",
-    "diff",
-    "url-search-params"
-  ]
+	"testExamples": [
+		"30-jira-clone.tsx",
+		"33-jira-clone-right-panel.tsx",
+		"40-quick-insert-icons.tsx",
+		"5-full-page-template-context-panel.tsx",
+	],
+	"exampleDependencies": [
+		"@af/editor-examples-helpers",
+		"@atlaskit/collab-provider",
+		"@atlaskit/editor-plugin-editor-viewmode",
+		"@atlaskit/media-core",
+		"@atlaskit/smart-card",
+		"@atlaskit/synchrony-test-helpers",
+		"@atlassian/link-picker-plugins",
+		"@atlassian/search-provider",
+		"@atlassian/ufo",
+		"clipboard-polyfill",
+		"diff",
+		"url-search-params",
+	],
 }

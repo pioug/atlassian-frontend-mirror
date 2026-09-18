@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ConfluenceInlineComment from '../../../../react/marks/confluence-inline-comment';
 
 describe('Renderer - React/Marks/ConfluenceInlineComment', () => {

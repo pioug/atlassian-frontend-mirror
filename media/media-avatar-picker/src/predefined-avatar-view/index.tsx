@@ -2,17 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { messages } from '@atlaskit/media-ui/messages';
-import { type Avatar } from '../avatar-list';
-
-import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
-import Button from '@atlaskit/button/standard-button';
 
 import { forwardRef, useState, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
+import { jsx, css } from '@compiled/react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
+import Button from '@atlaskit/button/standard-button';
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
+import { messages } from '@atlaskit/media-ui/messages';
+import { token } from '@atlaskit/tokens';
+
+import { type Avatar } from '../avatar-list';
 export interface PredefinedAvatarViewProps {
 	avatars: Array<Avatar>;
 	onGoBack?: () => void;

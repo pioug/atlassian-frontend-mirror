@@ -21,25 +21,27 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
 	};
 });
 
+import { createMockService } from './document-service.mock';
+
 import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { CollabInitPayload } from '@atlaskit/editor-common/collab';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+
 import type AnalyticsHelper from '../../analytics/analytics-helper';
-import { ACK_MAX_TRY } from '../../helpers/const';
 import step from '../../helpers/__tests__/__fixtures__/clean-step-for-empty-doc.json';
 import emptyDoc from '../../helpers/__tests__/__fixtures__/empty-document.json';
+import { ACK_MAX_TRY } from '../../helpers/const';
 import { MAX_STEP_REJECTED_ERROR } from '../../provider';
 import type { StepsPayload } from '../../types';
-import type { DocumentService } from '../document-service';
-import { createMockService } from './document-service.mock';
 import { catchupv2 } from '../catchupv2';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import type { DocumentService } from '../document-service';
 
 const proseMirrorStep = ProseMirrorStep.fromJSON(getSchemaBasedOnStage('stage0'), step);
 

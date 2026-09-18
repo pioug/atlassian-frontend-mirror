@@ -1,8 +1,9 @@
 import React, { type ChangeEvent } from 'react';
+
+import { sha1Hasher } from '../example-helpers/Sha1Hasher';
+import { type HashedBlob } from '../src/domain';
 import { hashinator } from '../src/hashinator';
 import { slicenator } from '../src/slicenator';
-import { type HashedBlob } from '../src/domain';
-import { sha1Hasher } from '../example-helpers/Sha1Hasher';
 
 const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 	const { currentTarget } = e;

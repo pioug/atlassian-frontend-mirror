@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { annotation as annotationFactory } from '../../next-schema/generated/markTypes';
 
 /**

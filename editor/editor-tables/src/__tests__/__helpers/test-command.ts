@@ -3,7 +3,6 @@ import type { RefsNode } from '@atlaskit/editor-common/types';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { Command } from '../../types';
-
 import { selectionFor } from './selection-for';
 
 export function testCommand(doc: RefsNode, command: Command, result: RefsNode | null): void {

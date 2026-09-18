@@ -8,15 +8,14 @@
  */
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-
 // Import from @atlassian/experiment-test-utils/exp-val directly — this is what consumers use.
 // In real consumer tests, expVal is also from @atlassian/experiment-test-utils/exp-val via moduleNameMapper.
 import { expVal } from '@atlassian/experiment-test-utils/exp-val';
-import { UNSAFE_expValNoExposure } from '@atlassian/experiment-test-utils/unsafe-exp-val-no-exposure';
 import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
+import { UNSAFE_expValNoExposure } from '@atlassian/experiment-test-utils/unsafe-exp-val-no-exposure';
 import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
 
 // Also import production expVal for the FeatureGates path tests.

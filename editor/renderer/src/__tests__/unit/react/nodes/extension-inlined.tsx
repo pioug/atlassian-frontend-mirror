@@ -1,20 +1,22 @@
 /* eslint-disable @atlaskit/editor/no-as-casting */
+
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import Extension from '../../../../react/nodes/extension';
-import BodiedExtension from '../../../../react/nodes/bodiedExtension';
-import type { RendererContext } from '../../../../react/types';
-import ReactSerializer from '../../../../react';
 import { RendererCssClassName } from '../../../../consts';
+import ReactSerializer from '../../../../react';
+import BodiedExtension from '../../../../react/nodes/bodiedExtension';
+import Extension from '../../../../react/nodes/extension';
+import type { RendererContext } from '../../../../react/types';
 
 describe('Renderer - React/Nodes/Extension Inlined', () => {
 	const providerFactory = ProviderFactory.create({});

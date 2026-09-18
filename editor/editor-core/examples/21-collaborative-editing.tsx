@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { Fragment, useEffect } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
@@ -39,7 +40,6 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
-
 import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
 
 // This was created to generate steps debugging collab-provider/ncs

@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+
 import type { ComponentType, ReactNode } from 'react';
 
 import type { GlobalThemeTokens } from '../types';

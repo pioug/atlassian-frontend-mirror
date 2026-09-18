@@ -6,7 +6,6 @@ import { getFirstFocusable } from '../focus/get-first-focusable';
 import { getLastFocusable } from '../focus/get-last-focusable';
 import { getNextFocusable } from '../focus/get-next-focusable';
 import { isNestedLayerFocused } from '../focus/is-nested-layer-focused';
-
 import { type TPhase } from './use-animated-visibility';
 
 /**

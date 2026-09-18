@@ -7,7 +7,6 @@ import {
 } from '@atlaskit/editor-test-helpers/example-helpers';
 
 import { exampleDocumentWithText } from '../example-helpers/example-doc-with-text';
-
 import { default as FullPageExample } from './5-full-page';
 
 const emitter = new AnnotationUpdateEmitter();

@@ -1,5 +1,5 @@
-import type { LatchDetails } from './latch-policy-types';
 import type { LatchPolicy } from './latch-policy';
+import type { LatchDetails } from './latch-policy-types';
 
 export type LatchDetector = {
 	destroy: () => void;

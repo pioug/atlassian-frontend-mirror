@@ -1,7 +1,7 @@
-import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Returns true when documents have the same text and block structure, while ignoring marks and

@@ -14,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 
 import { DialogActionItem, DialogActionItemContainer } from '../styled/dialog';
 import { type SpotlightCardProps } from '../types';
-
 import { spotlightButtonTheme } from './theme';
 
 const bodyStyles = css({

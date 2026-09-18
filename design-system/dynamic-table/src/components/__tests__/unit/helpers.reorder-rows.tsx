@@ -1,7 +1,6 @@
 import { computeIndex } from '../../../internal/compute-index';
 import { reorderRows } from '../../../internal/reorder-rows';
 import { type RankEnd, type RowType } from '../../../types';
-
 import { rowsWithKeys } from './_data';
 
 const getKey = (rowIndex: number) => rowsWithKeys[rowIndex].key || '';

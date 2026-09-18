@@ -1,18 +1,19 @@
-import { EditorCardProvider } from '../../provider';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
-import type { SmartCardLocalCacheClient } from '../../smart-card-local-cache-client';
 import type {
 	BlockCardAdf,
 	EmbedCardAdf,
 	InlineCardAdf,
 	DatasourceAdfTableView,
 } from '@atlaskit/linking-common/types';
-import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import type { CallbackPayload } from '@atlaskit/node-data-provider';
-import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { EditorCardProvider } from '../../provider';
+import type { SmartCardLocalCacheClient } from '../../smart-card-local-cache-client';
 
 jest.spyOn(CardClient.prototype, 'fetchData').mockRejectedValue({});
 

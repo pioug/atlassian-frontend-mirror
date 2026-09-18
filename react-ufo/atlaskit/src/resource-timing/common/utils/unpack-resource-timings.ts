@@ -1,5 +1,4 @@
 import type { ResourceTiming } from '../types';
-
 import type { CompactResourceTimings, LegacyResourceTimingEntry } from './compact-resource-timing';
 
 const RESOURCE_CODE_TO_TYPE = ['script', 'link', 'fetch', 'other', 'xmlhttprequest'] as const;

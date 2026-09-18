@@ -6,7 +6,6 @@ import { failUfoExperience, ufoExperience } from '../../common/analytics/experie
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { useLinkPickerSessionId } from '../../controllers/session-provider';
-
 import { BaseErrorBoundary } from './error-boundary-base';
 import { ErrorBoundaryFallback } from './error-boundary-fallback';
 

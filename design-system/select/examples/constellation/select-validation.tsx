@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import Select from '@atlaskit/select/default';
 
 import { cities } from '../common/data';

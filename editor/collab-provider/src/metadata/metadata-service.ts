@@ -1,6 +1,6 @@
-import type { Metadata, CollabEvents } from '@atlaskit/editor-common/collab';
-
 import isEqual from 'lodash/isEqual';
+
+import type { Metadata, CollabEvents } from '@atlaskit/editor-common/collab';
 
 export class MetadataService {
 	private metadata: Metadata = {};

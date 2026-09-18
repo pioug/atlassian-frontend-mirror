@@ -33,11 +33,9 @@ import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
-
 import { getKeyboardNavigationConfig } from './keyboard-config';
 import type { Position } from './types';
 import { getDomRefFromSelection } from './utils';
@@ -164,8 +162,7 @@ export const SelectionToolbar = ({
 		!(isTextSelection || isCellSelection || isAllSelection) ||
 		currentUserIntent === 'dragging' ||
 		!shouldShowToolbar ||
-		(currentUserIntent === 'blockMenuOpen' &&
-			editorExperiment('platform_editor_block_menu', true)) ||
+		currentUserIntent === 'blockMenuOpen' ||
 		// hide toolbar when user intent is not default, except when it's dragHandleSelected without cell selection
 		isSelectionToolbarSuppressedByUserIntent(currentUserIntent, isCellSelection) ||
 		isSSR()

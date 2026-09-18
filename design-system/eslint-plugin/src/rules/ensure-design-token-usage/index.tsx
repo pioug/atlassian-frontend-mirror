@@ -16,7 +16,6 @@ import { isDecendantOfGlobalToken } from '../utils/is-decendant-of-global-token'
 import { isDecendantOfStyleBlock } from '../utils/is-decendant-of-style-block';
 import { isDecendantOfType } from '../utils/is-decendant-of-type';
 import { isDecendantOfXcssBlock } from '../utils/is-decendant-of-xcss-block';
-
 import { convertHyphenatedNameToCamelCase } from './convert-hyphenated-name-to-camel-case';
 import { emToPixels } from './em-to-pixels';
 import { getDomainsForProperty } from './get-domains-for-property';

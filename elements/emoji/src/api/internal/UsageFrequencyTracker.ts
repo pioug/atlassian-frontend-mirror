@@ -1,9 +1,9 @@
 import type { EmojiDescription } from '../../types';
-import DuplicateLimitedQueue from '../../util/DuplicateLimitedQueue';
-import StoredDuplicateLimitedQueue from '../../util/StoredDuplicateLimitedQueue';
 import { localStoragePrefix } from '../../util/constants';
+import DuplicateLimitedQueue from '../../util/DuplicateLimitedQueue';
 import { isEmojiVariationDescription } from '../../util/is-emoji-variation-description';
 import storageAvailable from '../../util/storage-available';
+import StoredDuplicateLimitedQueue from '../../util/StoredDuplicateLimitedQueue';
 import { Gateway } from './Gateway';
 
 /**

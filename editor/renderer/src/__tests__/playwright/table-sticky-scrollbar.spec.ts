@@ -1,4 +1,5 @@
 import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
+
 import { selectors } from '../__helpers/page-objects/_renderer';
 import { rendererTestCase as test, expect } from './not-libra';
 import { tableWith30rows5ColsWithNestedTable } from './table-sticky-scrollbar.spec.ts-fixtures';

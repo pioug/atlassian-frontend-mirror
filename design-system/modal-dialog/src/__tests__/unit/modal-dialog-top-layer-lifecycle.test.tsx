@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { act, fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { act, fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 
 import ModalDialog from '../../modal-dialog';
 import ModalTransition from '../../modal-transition';

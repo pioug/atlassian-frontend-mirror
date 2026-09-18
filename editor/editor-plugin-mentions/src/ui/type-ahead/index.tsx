@@ -16,21 +16,20 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import Lozenge from '@atlaskit/lozenge/lozenge';
+import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
+import MentionItem from '@atlaskit/mention/mention-item';
+import {
+	MENTION_ITEM_HEIGHT,
+	MENTION_ITEM_HEIGHT_REFRESHED,
+} from '@atlaskit/mention/mention-item/styles';
 import type {
 	MentionStats,
 	MentionDescription,
 	MentionProvider,
 	TeamMember,
 } from '@atlaskit/mention/types';
-import {
-	MENTION_ITEM_HEIGHT,
-	MENTION_ITEM_HEIGHT_REFRESHED,
-} from '@atlaskit/mention/mention-item/styles';
-import MentionItem from '@atlaskit/mention/mention-item';
-import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { createSingleMentionFragment } from '../../editor-commands';
@@ -41,7 +40,7 @@ import { getMentionPluginState } from '../../pm-plugins/utils';
 import type { FireElementsChannelEvent, MentionChange, TeamInfoAttrAnalytics } from '../../types';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../InviteItem';
 import InviteItemWithEmailDomain from '../InviteItem/InviteItemWithEmailDomain';
-
+import { AgentMentionLoadErrorItem } from './AgentMentionLoadErrorItem';
 import {
 	buildTypeAheadCancelPayload,
 	buildTypeAheadInsertedPayload,
@@ -49,7 +48,6 @@ import {
 	buildTypeAheadInviteItemViewedPayload,
 	buildTypeAheadRenderedPayload,
 } from './analytics';
-import { AgentMentionLoadErrorItem } from './AgentMentionLoadErrorItem';
 import { MentionItemWithProfileCard } from './MentionItemWithProfileCard';
 import {
 	isAgentMention,

@@ -22,7 +22,6 @@ import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AvatarGroupPlugin } from '../index';
-
 import AvatarsWithPluginState from './avatars-with-plugin-state';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

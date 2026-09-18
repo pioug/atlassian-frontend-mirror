@@ -26,7 +26,6 @@ import checkThemePairContrasts, {
 } from '../utils/check-pair-contrasts';
 import { downloadResultsAsCSV } from '../utils/csv-generator';
 import { type ColorMode, type Theme, type TokenName } from '../utils/types';
-
 import Accordion from './accordion';
 import { baseTokens } from './base-token-editor';
 import ContrastCard from './contrast-card';

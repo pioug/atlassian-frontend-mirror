@@ -14,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 
 import { type DrawerContentProps } from '../types';
 import { useEnsureIsInsideDrawer } from '../use-ensure-is-inside-drawer';
-
 import usePreventProgrammaticScroll from './hooks/use-prevent-programmatic-scroll';
 
 const styles = cssMap({

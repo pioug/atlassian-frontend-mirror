@@ -1,4 +1,5 @@
 import { type MockResponse } from 'xhr-mock';
+
 import { type ResponseData } from '.';
 
 export const dataURItoBlob = (dataURI: string): Blob => {

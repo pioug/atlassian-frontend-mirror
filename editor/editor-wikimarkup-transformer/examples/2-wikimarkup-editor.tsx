@@ -3,12 +3,14 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
+
 import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
+import { token } from '@atlaskit/tokens';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { token } from '@atlaskit/tokens';
 
 import { WikiMarkupTransformer } from '../src';
 

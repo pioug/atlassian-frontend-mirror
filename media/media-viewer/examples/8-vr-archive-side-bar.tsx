@@ -7,10 +7,10 @@ import {
 	I18NWrapper,
 } from '@atlaskit/media-test-helpers';
 
-import { MediaViewer } from '../src';
 import { zipItem } from '../example-helpers';
-import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
+import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
+import { MediaViewer } from '../src';
 
 interface State {
 	selectedIdentifier?: Identifier;

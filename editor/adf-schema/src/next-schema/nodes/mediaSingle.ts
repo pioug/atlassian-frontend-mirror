@@ -1,5 +1,6 @@
 import type { ADFNode, ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator';
 import { $or, $range, adfNode } from '@atlaskit/adf-schema-generator';
+
 import { link } from '../marks/link';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';

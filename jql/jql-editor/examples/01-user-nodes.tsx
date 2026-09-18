@@ -14,8 +14,8 @@ import {
 	users,
 } from '../examples-utils/data';
 import { Container } from '../examples-utils/styled';
-import { type HydratedUser, type HydratedValues } from '../src/ui/jql-editor/types';
 import JQLEditor from '../src/ui';
+import { type HydratedUser, type HydratedValues } from '../src/ui/jql-editor/types';
 
 const getAutocompleteInitialData: GetAutocompleteInitialData = () =>
 	// Simulate fetching initial data from an API

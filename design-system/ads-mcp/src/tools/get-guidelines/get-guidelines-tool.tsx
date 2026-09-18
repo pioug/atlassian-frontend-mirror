@@ -1,9 +1,9 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import Fuse from 'fuse.js';
 import { type z } from 'zod';
 
 import { cleanQuery } from '../../helpers/clean-query';
-
 import { type getGuidelinesInputSchema } from './get-guidelines-input-schema';
 import {
 	guidelinesStructuredContent,

@@ -1,5 +1,4 @@
 import type { InteractionType } from '../../common';
-
 import getPaintMetrics, { type LegacyPaintMetrics } from './get-paint-metrics';
 
 // Helper function to get paint metrics in legacy colon format for backward compatibility

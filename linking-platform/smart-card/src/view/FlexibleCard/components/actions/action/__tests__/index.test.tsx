@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import '@testing-library/jest-dom';
-
 import { css, jsx } from '@compiled/react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';

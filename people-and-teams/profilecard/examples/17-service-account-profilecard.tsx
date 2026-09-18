@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ProfilecardInternal as ProfileCard } from '../src/components/User/ProfilecardInternal';
 import profiles from '../src/mocks/profile-data';
-
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 

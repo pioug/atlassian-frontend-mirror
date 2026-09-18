@@ -1,4 +1,6 @@
 import * as assert from 'assert';
+
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 import {
 	doc,
 	mediaInline,
@@ -7,10 +9,9 @@ import {
 	media,
 	p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { checkParse, checkEncode, checkParseEncodeRoundTrips } from './_test-helpers';
-import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 
 import { JIRATransformer } from '../../index';
+import { checkParse, checkEncode, checkParseEncodeRoundTrips } from './_test-helpers';
 
 const schema = createJIRASchema({ allowMedia: true });
 

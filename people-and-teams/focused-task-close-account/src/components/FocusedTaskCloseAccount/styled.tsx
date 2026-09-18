@@ -1,6 +1,8 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766 */
-import { styled, type StyledProps } from '@compiled/react';
+
 import type { ComponentType, ClassAttributes, HTMLAttributes } from 'react';
+
+import { styled, type StyledProps } from '@compiled/react';
 
 export const DrawerInner: ComponentType<
 	ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps

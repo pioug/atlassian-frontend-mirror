@@ -17,15 +17,14 @@ import {
 import { STRUCTURE_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
-import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
-import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
-import NoteIcon from '@atlaskit/icon/core/note';
 import PencilIcon from '@atlaskit/icon-lab/core/pencil';
 import StatusWorkflowCancelledIcon from '@atlaskit/icon-lab/core/status-workflow-cancelled';
 import WarningOutlineIcon from '@atlaskit/icon-lab/core/warning-outline';
+import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
+import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
+import NoteIcon from '@atlaskit/icon/core/note';
 
 import type { PanelPlugin } from '../../panelPluginType';
-
 import type { QuickInsertPanelType } from './PanelQuickInsertMenuItem';
 import { PanelQuickInsertMenuItem } from './PanelQuickInsertMenuItem';
 

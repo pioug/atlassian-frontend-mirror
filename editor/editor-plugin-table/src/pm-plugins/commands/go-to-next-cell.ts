@@ -18,7 +18,6 @@ import {
 } from '@atlaskit/editor-tables/utils';
 
 import { getPluginState } from '../plugin-factory';
-
 import { stopKeyboardColumnResizing } from './column-resize';
 import { insertRowWithAnalytics } from './commands-with-analytics';
 

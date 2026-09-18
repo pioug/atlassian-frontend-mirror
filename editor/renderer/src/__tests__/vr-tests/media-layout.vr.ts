@@ -1,4 +1,5 @@
 import { snapshot, Device } from '@af/visual-regression';
+
 import {
 	MediaWrappedLayout,
 	MediaWrappedLayoutSplit,

@@ -1,16 +1,19 @@
 import React from 'react';
 import { Component } from 'react';
-import CrossIcon from '@atlaskit/icon/core/cross';
+
 import { type WrappedComponentProps, injectIntl } from 'react-intl';
-import { messages } from '@atlaskit/media-ui/messages';
-import { MediaImage } from '@atlaskit/media-ui/mediaImage';
-import { isImageRemote } from './isImageRemote';
-import { token } from '@atlaskit/tokens';
+
 import IconButton from '@atlaskit/button/icon/button';
-import { Box } from '@atlaskit/primitives/compiled';
 import { cx, cssMap } from '@atlaskit/css';
+import CrossIcon from '@atlaskit/icon/core/cross';
+import { MediaImage } from '@atlaskit/media-ui/mediaImage';
+import { messages } from '@atlaskit/media-ui/messages';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
 import { ERROR } from '../avatar-picker-dialog';
 import { CONTAINER_INNER_SIZE } from '../avatar-picker-dialog/layout-const';
+import { isImageRemote } from './isImageRemote';
 
 const CONTAINER_PADDING = 28;
 

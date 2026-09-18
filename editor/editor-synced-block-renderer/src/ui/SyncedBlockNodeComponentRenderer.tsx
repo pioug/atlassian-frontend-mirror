@@ -12,7 +12,6 @@ import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-b
 import type { MediaSSR, NodeProps } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
-
 import { renderSyncedBlockContent } from './renderSyncedBlockContent';
 
 export interface SyncedBlockProps {

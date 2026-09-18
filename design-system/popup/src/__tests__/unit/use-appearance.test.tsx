@@ -1,6 +1,6 @@
+import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library';
-import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 
 import { usePopupAppearance } from '../../use-appearance';
 

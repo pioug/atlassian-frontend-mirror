@@ -1,7 +1,6 @@
 import React from 'react';
 
 import withDimensions, { type State } from '../../hoc/with-dimensions';
-
 import { RankableTableCell, type RankableTableCellProps } from './rankable-table-cell';
 
 // eslint-disable-next-line import/no-anonymous-default-export

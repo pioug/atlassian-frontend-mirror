@@ -5,7 +5,6 @@ import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '../analytics';
 import type { InputRuleHandler, InputRuleWrapper } from '../types';
-
 import { createRule } from './createRule';
 type GetPayload =
 	| AnalyticsEventPayload

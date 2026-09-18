@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
+
 import { getObjectPropertyAsLiteral, getObjectPropertyAsObject } from '../util/handle-ast-object';
 
 type RuleOptions = {

@@ -1,3 +1,7 @@
+import type { EmojiId, WithSamplingUFOExperience } from '@atlaskit/emoji';
+import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
+
 import {
 	DefaultReactions,
 	DefaultReactionsByShortName,
@@ -19,10 +23,6 @@ import {
 	ReactionsRendered,
 	sampledReactionsRendered,
 } from './ufo';
-
-import type { EmojiId, WithSamplingUFOExperience } from '@atlaskit/emoji';
-import type { UFOExperience } from '@atlaskit/ufo/experience';
-import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 export const constants: {
 	DefaultReactions: EmojiId[];

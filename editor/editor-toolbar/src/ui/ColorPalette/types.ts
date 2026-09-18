@@ -55,6 +55,8 @@ export interface PaletteOptions {
  * Props for the main ColorPalette component
  */
 export interface ColorPaletteProps {
+	/** Id of the element whose text labels the palette's radio group */
+	ariaLabelledBy?: string;
 	/** Optional CSS class name */
 	className?: string;
 	/** Number of columns in the palette grid */

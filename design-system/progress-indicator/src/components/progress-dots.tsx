@@ -14,7 +14,6 @@ import noop from '@atlaskit/ds-lib/noop';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 import type { ProgressDotsProps } from '../types';
-
 import { ButtonIndicator } from './button-indicator';
 import { PresentationalIndicator } from './presentational-indicator';
 

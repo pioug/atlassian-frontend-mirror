@@ -19,9 +19,10 @@ jest.mock('@atlaskit/media-client', () => {
 	};
 });
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+
+import { failMediaUploadUfoExperience } from '../failMediaUploadUfoExperience';
 import { startMediaUploadUfoExperience } from '../startMediaUploadUfoExperience';
 import { succeedMediaUploadUfoExperience } from '../succeedMediaUploadUfoExperience';
-import { failMediaUploadUfoExperience } from '../failMediaUploadUfoExperience';
 
 jest.mock('@atlaskit/media-common/mediaFeatureFlags', () => {
 	const actualUfo = jest.requireActual('@atlaskit/media-common/mediaFeatureFlags');

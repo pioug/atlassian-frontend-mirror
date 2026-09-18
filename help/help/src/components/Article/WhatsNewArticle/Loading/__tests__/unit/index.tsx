@@ -1,10 +1,11 @@
 import React from 'react';
-import { render } from '@atlassian/testing-library/render';
-import { screen } from '@atlassian/testing-library/screen';
+
 import { createIntl, createIntlCache } from 'react-intl';
 
-import { messages } from '../../../../../../messages';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
+import { messages } from '../../../../../../messages';
 import { Loading } from '../../index';
 
 // Messages

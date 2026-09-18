@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import type { FC } from 'react';
 
 import type { MessageDescriptor } from 'react-intl';

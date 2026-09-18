@@ -7,7 +7,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 
 import { getSelectedTableInfo } from '../../utils/analytics';
-
 import { getColWidthFix, hasTableBeenResized, insertColgroupFromNode } from './colgroup';
 import type { ColumnState } from './column-state';
 import { getCellsRefsInColumn, getColumnStateFromDOM } from './column-state';

@@ -10,7 +10,6 @@ import { ProviderFactory, WithProviders } from '../provider-factory';
 import type { Providers } from '../provider-factory';
 import type { ProsemirrorGetPosHandler } from '../react-node-view';
 import type { EditorAppearance } from '../types';
-
 import { ExtensionComponent } from './ExtensionComponent';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from './types';
 

@@ -1,17 +1,18 @@
 import './image-placer.mock';
 import React from 'react';
-import { render, screen, act, waitFor } from '@atlassian/testing-library';
+
 import { IntlProvider } from 'react-intl';
+
 import {
 	mockLoadImage,
 	mockLoadImageError,
 	unMockLoadImage,
 } from '@atlaskit/media-test-helpers/mockLoadImage';
-
-import { Vector2 } from '@atlaskit/media-ui/vector2';
-import { Rectangle } from '@atlaskit/media-ui/rectangle';
 import { Bounds } from '@atlaskit/media-ui/bounds';
 import type { FileInfo } from '@atlaskit/media-ui/imageMetaData/types';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
+import { render, screen, act, waitFor } from '@atlassian/testing-library';
 
 import {
 	ImagePlacer,

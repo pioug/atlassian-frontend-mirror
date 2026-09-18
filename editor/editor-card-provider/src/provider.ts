@@ -1,12 +1,14 @@
 /* eslint-disable require-unicode-regexp,prefer-regex-literals */
+
+import DataLoader from 'dataloader';
+
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/types';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import { extractSmartLinkUrl } from '@atlaskit/link-extractors/extract-smart-link-url';
-import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
-import type { CallbackPayload } from '@atlaskit/node-data-provider';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeDataProvider } from '@atlaskit/node-data-provider';
-import { getStatus } from '@atlaskit/linking-common/utils/get-status';
+import CardClient from '@atlaskit/link-provider/client';
 import { getBaseUrl } from '@atlaskit/linking-common/get-base-url';
 import { getResolverUrl } from '@atlaskit/linking-common/get-resolver-url';
 import type {
@@ -19,9 +21,15 @@ import type {
 	ProductType,
 	EnvironmentsKeys,
 } from '@atlaskit/linking-common/types';
-import DataLoader from 'dataloader';
+import { getStatus } from '@atlaskit/linking-common/utils/get-status';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import type { CallbackPayload } from '@atlaskit/node-data-provider';
+import { NodeDataProvider } from '@atlaskit/node-data-provider';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { request } from './api';
+import { SmartCardLocalCacheClient } from './smart-card-local-cache-client';
 import { Transformer } from './transformer';
-import { isConfluenceSlideUrl } from './url-checkers';
 import type {
 	CardProvider,
 	LinkAppearance,
@@ -29,12 +37,7 @@ import type {
 	ProviderPattern,
 	ProvidersData,
 } from './types';
-import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/types';
-import CardClient from '@atlaskit/link-provider/client';
-import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { request } from './api';
-import { SmartCardLocalCacheClient } from './smart-card-local-cache-client';
+import { isConfluenceSlideUrl } from './url-checkers';
 
 const BATCH_WAIT_TIME = 50;
 type UrlChecker = (url: string) => RegExpMatchArray | null;

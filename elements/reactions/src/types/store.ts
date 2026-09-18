@@ -1,4 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+
 import { type Actions } from './Actions';
 import { type ReactionsState } from './reaction';
 

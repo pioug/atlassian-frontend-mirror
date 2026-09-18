@@ -1,5 +1,4 @@
 import { type COMPOUND_OPERATOR_AND, type COMPOUND_OPERATOR_OR } from '../../constants';
-
 import { type AstNode, type Position } from './common';
 
 export type CompoundOperatorValue = typeof COMPOUND_OPERATOR_AND | typeof COMPOUND_OPERATOR_OR;

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
 import Avatar from '@atlaskit/avatar/avatar';
+import { render } from '@atlassian/testing-library';
 
 import { default as RemovableTag } from '../../internal/removable';
 import { default as Tag } from '../../internal/simple';

@@ -5,8 +5,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, Global, jsx } from '@emotion/react';
 
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-
 /**
  * Unset the selection background color as we are using our own
  * Otherwise we might have a mix of grey + our selection marker depending on the state.
@@ -34,10 +32,7 @@ export const GlobalStylesWrapper = (): jsx.JSX.Element => {
 	return (
 		<Global
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			styles={[
-				globalStyles,
-				editorExperiment('platform_editor_block_menu', true) && hideSelectionStyles,
-			]}
+			styles={[globalStyles, hideSelectionStyles]}
 		/>
 	);
 };

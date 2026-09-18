@@ -15,7 +15,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
-
 import ConfigPanel from './ConfigPanel';
 import { useStateFromPromise } from './use-state-from-promise';
 

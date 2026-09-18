@@ -8,7 +8,6 @@ import { JQLSyntaxError } from '@atlaskit/jql-ast';
 import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';
 import { getJastFromState } from '../jql-ast/getJastFromState';
-
 import { ERROR_NODE, RICH_INLINE_NODE, SELECTED_NODE } from './constants';
 import { richInlineNodes } from './nodes';
 import { type RichInlineNodeDecoration } from './types';

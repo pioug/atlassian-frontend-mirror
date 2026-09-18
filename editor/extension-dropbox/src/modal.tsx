@@ -3,23 +3,23 @@
  * @jsx jsx
  */
 import React, { useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx, css } from '@emotion/react';
 
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
-import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import Heading from '@atlaskit/heading/heading';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
 import { useModal } from '@atlaskit/modal-dialog/hooks';
 import AKModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-
-import Heading from '@atlaskit/heading/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss, Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { DROPBOX_IFRAME_NAME } from './constants';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss, Box } from '@atlaskit/primitives';
 
 const ModalBody = React.forwardRef<HTMLDivElement, React.AllHTMLAttributes<HTMLDivElement>>(
 	(props, ref) => {

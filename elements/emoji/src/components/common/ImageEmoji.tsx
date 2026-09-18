@@ -8,6 +8,7 @@ import React, { useEffect, useCallback, useMemo, type SyntheticEvent } from 'rea
 import { jsx } from '@compiled/react';
 
 import { getDocument } from '@atlaskit/browser-apis';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { shouldUseAltRepresentation } from '../../api/shouldUseAltRepresentation';
@@ -33,7 +34,6 @@ import {
 	emojiImage,
 	deletableEmoji,
 } from './styles';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const handleImageError = (
 	props: Pick<Props, 'emoji' | 'onLoadError'>,

@@ -52,7 +52,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { PluginInjectionAPI, PluginInjectionAPIWithA11y } from '../types';
-
 import { goToNextCell, moveCursorBackward, setFocusToCellMenu } from './commands';
 import {
 	activateNextResizeArea,

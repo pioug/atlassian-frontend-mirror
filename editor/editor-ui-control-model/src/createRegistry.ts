@@ -1,8 +1,8 @@
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
+import type { ComponentIdentifier, RegisterComponent } from './types';
 import type { SurfaceIdentifier } from './ui/surface-renderer/types';
 import { resolveSurface } from './ui/surface-renderer/utils';
-import type { ComponentIdentifier, RegisterComponent } from './types';
 
 export type RegisterOptions = {
 	replaceExisting?: boolean;

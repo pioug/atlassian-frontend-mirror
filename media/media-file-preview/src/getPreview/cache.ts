@@ -1,7 +1,6 @@
 import { type MediaStoreGetFileImageParams } from '@atlaskit/media-client';
 
 import { type MediaFilePreview } from '../types';
-
 import { CardPreviewCacheImpl } from './CardPreviewCacheImpl';
 import { createObjectURLCache } from './createObjectURLCache';
 

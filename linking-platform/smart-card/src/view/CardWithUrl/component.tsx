@@ -1,9 +1,8 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
-
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -25,17 +24,17 @@ import { useSmartLinkCrossProductUrlWrapper } from '../../state/hooks/use-smart-
 import { useSmartLink } from '../../state/hooks/useSmartLink';
 import { isFinalState } from '../../state/isFinalState';
 import { SmartLinkModalProvider } from '../../state/modal/SmartLinkModalProvider';
+import { combineActionOptions } from '../../utils/actions/combine-action-options';
+import { fireLinkClickedEvent } from '../../utils/analytics/fireLinkClickedEvent';
+import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
+import { create } from '../../utils/create';
+import { getAnchorAttributesFromEvent } from '../../utils/get-anchor-attributes-from-event';
+import { getMeasure } from '../../utils/get-measure';
+import { isAuxClick } from '../../utils/is-aux-click';
+import { isFlexibleUiCard } from '../../utils/is-flexible-ui-card';
 import { isSpecialClick } from '../../utils/is-special-click';
 import { isSpecialEvent } from '../../utils/is-special-event';
 import { isSpecialKey } from '../../utils/is-special-key';
-import { combineActionOptions } from '../../utils/actions/combine-action-options';
-import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
-import { fireLinkClickedEvent } from '../../utils/analytics/fireLinkClickedEvent';
-import { getAnchorAttributesFromEvent } from '../../utils/get-anchor-attributes-from-event';
-import { isAuxClick } from '../../utils/is-aux-click';
-import { isFlexibleUiCard } from '../../utils/is-flexible-ui-card';
-import { create } from '../../utils/create';
-import { getMeasure } from '../../utils/get-measure';
 import { mark } from '../../utils/mark';
 import { updateAnchorHref } from '../../utils/update-anchor-href';
 import { BlockCard } from '../BlockCard';

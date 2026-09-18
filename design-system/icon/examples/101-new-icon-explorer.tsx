@@ -9,8 +9,8 @@ import { css, jsx } from '@compiled/react';
 
 import Code from '@atlaskit/code/code';
 import Heading from '@atlaskit/heading/heading';
-import IconTile from '@atlaskit/icon/icon-tile';
 import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
+import IconTile from '@atlaskit/icon/icon-tile';
 import coreIconMetadata from '@atlaskit/icon/metadata-core';
 // Legacy metadata / migration map removed - DSP-24516
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
@@ -18,7 +18,6 @@ import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import FlaskIcon from '../core/flask';
-
 import IconExplorerCell from './utils/new-icon-explorer-cell';
 import type { IconExplorerCellProps } from './utils/new-icon-explorer-cell';
 

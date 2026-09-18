@@ -14,8 +14,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
 import { nodeMargins } from '../ui/consts';
@@ -27,7 +27,6 @@ import {
 import type { DropTargetProps } from '../ui/drop-target';
 import { DropTargetLayout, DropTargetLayoutNativeAnchorSupport } from '../ui/drop-target-layout';
 import type { DropTargetLayoutProps } from '../ui/drop-target-layout';
-
 import { NESTED_DEPTH, TYPE_DROP_TARGET_DEC } from './decorations-common';
 import type { AnchorRectCache } from './utils/anchor-utils';
 import { maxLayoutColumnSupported } from './utils/consts';

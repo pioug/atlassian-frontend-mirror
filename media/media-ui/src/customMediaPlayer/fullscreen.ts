@@ -9,6 +9,7 @@
 /**
  * @deprecated Import from `src/customMediaPlayer/findVendorSpecificProp` instead.
  */
+
 export { findVendorSpecificProp } from './findVendorSpecificProp';
 /**
  * @deprecated Import from `src/customMediaPlayer/requestFullscreen` instead.

@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { Popper } from '@atlaskit/popper/main';
 import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
-import { Popper } from '@atlaskit/popper/main';
 
 export default (): React.JSX.Element => (
 	<Manager>

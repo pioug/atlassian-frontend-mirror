@@ -1,4 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
+
 import { Client, MAX_RETRY, RETRY_STEP_IN_MILLISECONDS } from '../../client';
 import { EventType, type Protocol } from '../../types';
 

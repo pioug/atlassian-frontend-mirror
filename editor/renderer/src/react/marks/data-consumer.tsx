@@ -1,5 +1,7 @@
 import React from 'react';
+
 import type { DataConsumerAttributes } from '@atlaskit/adf-schema/data-consumer';
+
 import type { MarkProps } from '../types';
 
 export default function DataConsumer(props: MarkProps<DataConsumerAttributes>): React.JSX.Element {

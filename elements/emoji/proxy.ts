@@ -1,3 +1,6 @@
+import path from 'path';
+
+import { config } from 'dotenv';
 /**
  * Proxy options for webpack
  *
@@ -14,8 +17,6 @@
  * session cookie for staging: goes to https://id.stg.internal.atlassian.com/, copy value of cookie cloud.session.token.stg, and create same cookie under localhost domain. (cookie expiry is 1 month)
  */
 import type WebpackDevServer from 'webpack-dev-server';
-import { config } from 'dotenv';
-import path from 'path';
 
 // load env in the package
 config({ path: path.join(__dirname, '.env') });

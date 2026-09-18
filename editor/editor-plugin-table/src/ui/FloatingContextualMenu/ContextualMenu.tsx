@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import type { PointerEvent } from 'react';
 import React, { Component } from 'react';
 
@@ -57,8 +58,8 @@ import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	clearHoverSelection,
@@ -93,7 +94,6 @@ import {
 	colorPalletteColumns,
 	contextualMenuDropdownWidthDnD,
 } from '../consts';
-
 import { cellColourPreviewStyles } from './styles';
 
 interface Props {

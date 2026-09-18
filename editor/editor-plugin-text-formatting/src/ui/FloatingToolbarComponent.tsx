@@ -18,7 +18,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
-
 import { ToolbarButtonsStrong } from './Toolbar/constants';
 import { FormattingTextDropdownMenu } from './Toolbar/dropdown-menu';
 import { useClearIcon } from './Toolbar/hooks/clear-formatting-icon';

@@ -1,5 +1,6 @@
-import ReactSerializer from '..';
 import type { Mark, Node } from '@atlaskit/editor-prosemirror/model';
+
+import ReactSerializer from '..';
 
 /**
  * Returns an array of **backgroundColor marks** that should be considered "standalone"

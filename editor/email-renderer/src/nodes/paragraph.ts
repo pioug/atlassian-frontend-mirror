@@ -1,8 +1,8 @@
 import { applyMarks } from '../apply-marks';
 import { createTag } from '../create-tag';
-import { createClassName } from '../styles/util';
 import type { NodeSerializerOpts } from '../interfaces';
 import { lineHeight, fontSize } from '../styles/common';
+import { createClassName } from '../styles/util';
 import { className as panelClassName } from './panel';
 
 const className = createClassName('p');

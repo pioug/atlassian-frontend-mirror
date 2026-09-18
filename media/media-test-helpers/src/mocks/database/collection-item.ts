@@ -1,10 +1,13 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import * as uuid from 'uuid';
+
 import {
 	type MediaType,
 	type MediaItemDetails,
 	type MediaFileProcessingStatus,
 } from '@atlaskit/media-client';
+
+import { mapDataUriToBlob } from '../../utils';
 import {
 	getHackerNoun,
 	getPastDate,
@@ -12,8 +15,6 @@ import {
 	getFakeFileName,
 	getTextFileType,
 } from '../../utils/mockData';
-
-import { mapDataUriToBlob } from '../../utils';
 
 export type MediaItemMinimalDetails = {
 	readonly name: string;

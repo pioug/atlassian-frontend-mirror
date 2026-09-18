@@ -1,7 +1,6 @@
 import tokenValuesDark from '../artifacts/atlassian-dark-token-value-for-contrast-check';
 import tokenValuesLight from '../artifacts/atlassian-light-token-value-for-contrast-check';
 import type tokens from '../artifacts/token-names';
-
 import { additionalChecks } from './custom-theme-token-contrast-check';
 import { getContrastRatio } from './get-contrast-ratio';
 

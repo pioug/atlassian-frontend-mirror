@@ -6,7 +6,6 @@ import { useElementRef } from '../utils/use-element-ref';
 import { useLayoutEffect } from '../utils/use-layout-effect';
 import { useRequestAnimationFrame } from '../utils/use-request-animation-frame';
 import { useSetTimeout } from '../utils/use-set-timeout';
-
 import { type MotionProps } from './types';
 import { useExitingPersistence } from './use-exiting-persistence';
 

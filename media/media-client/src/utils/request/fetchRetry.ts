@@ -1,9 +1,9 @@
-import { RequestError } from './RequestError';
 import { cloneRequestError } from './cloneRequestError';
 import { defaultShouldRetryError } from './defaultShouldRetryError';
 import { DEFAULT_RETRY_OPTIONS } from './helpers';
 import { isAbortedRequestError } from './isAbortedRequestError';
 import { isRequestError } from './isRequestError';
+import { RequestError } from './RequestError';
 import { type RequestMetadata, type RetryOptions } from './types';
 import { waitPromise } from './waitPromise';
 

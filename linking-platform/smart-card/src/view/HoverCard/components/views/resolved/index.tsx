@@ -23,7 +23,6 @@ import { default as SnippetBlock } from '../../../../FlexibleCard/components/blo
 import { default as TitleBlock } from '../../../../FlexibleCard/components/blocks/title-block';
 import { getMetadata } from '../../../utils';
 import ImagePreview from '../../ImagePreview';
-
 import { type HoverCardResolvedProps } from './types';
 
 const hiddenSnippetStyles = css({

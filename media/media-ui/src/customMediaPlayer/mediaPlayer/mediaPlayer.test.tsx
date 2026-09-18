@@ -9,24 +9,27 @@ jest.mock('../getFullscreenElement', () => ({
 }));
 
 jest.mock('../simultaneousPlayManager');
-import * as useMediaSettingsModule from '@atlaskit/media-client-react/use-media-settings';
-import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
-import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
-import { MediaPlayer } from './mediaPlayer';
-import { type MediaPlayerProps } from './types';
-import { toggleFullscreen } from '../toggleFullscreen';
-import { getFullscreenElement } from '../getFullscreenElement';
-import simultaneousPlayManager from '../simultaneousPlayManager';
-import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
 import { act } from 'react';
+
 import { waitFor, render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import { keyCodes } from '../../shortcut';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { createMockedMediaProvider } from './testHelpers/_MockedMediaProvider';
+
 import * as analyticsNextModule from '@atlaskit/analytics-next/useAnalyticsEvents';
+import * as useMediaSettingsModule from '@atlaskit/media-client-react/use-media-settings';
+import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
+import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+import { keyCodes } from '../../shortcut';
+import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
+import { getFullscreenElement } from '../getFullscreenElement';
+import simultaneousPlayManager from '../simultaneousPlayManager';
+import { toggleFullscreen } from '../toggleFullscreen';
+import { MediaPlayer } from './mediaPlayer';
+import { createMockedMediaProvider } from './testHelpers/_MockedMediaProvider';
+import { type MediaPlayerProps } from './types';
 // import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpers';
 
 const useMediaSettingsSpy = jest.spyOn(useMediaSettingsModule, 'useMediaSettings');

@@ -1,5 +1,7 @@
+import { EventEmitter2 } from 'eventemitter2';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidV4 } from 'uuid';
+
 import {
 	UploadController,
 	type TouchFileDescriptor,
@@ -13,18 +15,6 @@ import {
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { toFileReaderError } from '@atlaskit/media-client/hashing/file-reader-error';
-import { EventEmitter2 } from 'eventemitter2';
-import { type FileEmptyData, type MediaFile, type UploadParams } from '../types';
-
-import { getPreviewFromImage } from '../util/getPreviewFromImage';
-import { type MediaErrorName, type UploadRejectionData } from '../types';
-import {
-	type UploadService,
-	type UploadServiceEventListener,
-	type UploadServiceEventPayloadTypes,
-} from './types';
-import { LocalFileSource, type LocalFileWithSource } from '../service/types';
-import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
 import {
 	type MediaTraceContext,
 	isMimeTypeSupportedByBrowser,
@@ -32,6 +22,17 @@ import {
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { LocalFileSource, type LocalFileWithSource } from '../service/types';
+import { type FileEmptyData, type MediaFile, type UploadParams } from '../types';
+import { type MediaErrorName, type UploadRejectionData } from '../types';
+import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
+import { getPreviewFromImage } from '../util/getPreviewFromImage';
+import {
+	type UploadService,
+	type UploadServiceEventListener,
+	type UploadServiceEventPayloadTypes,
+} from './types';
 
 export interface CancellableFileUpload {
 	mediaFile: MediaFile;

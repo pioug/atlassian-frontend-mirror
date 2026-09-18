@@ -1,13 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
 	UI_EVENT_TYPE,
 	OPERATIONAL_EVENT_TYPE,
 	type EventType,
 } from '@atlaskit/analytics-gas-types';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
 import { type ReactionSummary, type ReactionSource } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;

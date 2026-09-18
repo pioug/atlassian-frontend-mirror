@@ -1,4 +1,5 @@
 import { fromHTML, toDOM, schema } from '@af/adf-test-helpers/src/adf-schema';
+
 import { mediaInline } from '../../../..';
 
 const packageName = process.env.npm_package_name as string;

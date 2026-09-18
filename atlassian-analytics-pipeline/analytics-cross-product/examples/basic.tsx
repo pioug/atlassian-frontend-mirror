@@ -1,9 +1,9 @@
 import React from 'react';
 
+import { INTERNAL_CLIENT_WINDOW_KEY } from '../src/globalInteractionSessionTracking';
 import useCrossProductUrlWrapper, {
 	INTERACTION_SESSION_ID_UPDATED_EVENT,
 } from '../src/useCrossProductUrlWrapper';
-import { INTERNAL_CLIENT_WINDOW_KEY } from '../src/globalInteractionSessionTracking';
 
 // Superficial implementation of @atlassiansox/analytics-cross-product-interaction-client - InteractionSessionTracking
 // class for the purposes of testing the hook in this public package

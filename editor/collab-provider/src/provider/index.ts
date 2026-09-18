@@ -1,12 +1,6 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Emitter } from '../emitter';
-import { Channel } from '../channel';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import type { Config, InitialDraft, PresenceData } from '../types';
+
 import type {
 	CollabEditProvider,
 	CollabEvents,
@@ -21,10 +15,20 @@ import type {
 	PresenceActivity,
 	ProviderParticipant,
 } from '@atlaskit/editor-common/collab';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { createLogger, logObfuscatedSteps } from '../helpers/utils';
 import AnalyticsHelper from '../analytics/analytics-helper';
-import { telepointerCallback } from '../participants/telepointers-helper';
+import { shouldTelepointerBeSampled } from '../analytics/performance';
+import { Api } from '../api/api';
+import { NullApi } from '../api/null-api';
+import { Channel } from '../channel';
+import { DocumentService } from '../document/document-service';
+import { NullDocumentService } from '../document/null-document-service';
+import { Emitter } from '../emitter';
 import {
 	CustomError,
 	DestroyError,
@@ -38,21 +42,17 @@ import {
 	SetMetadataError,
 	SetTitleError,
 } from '../errors/custom-errors';
-import { NCS_ERROR_CODE } from '../errors/ncs-errors';
-import { MetadataService } from '../metadata/metadata-service';
-import { DocumentService } from '../document/document-service';
-import { NullDocumentService } from '../document/null-document-service';
-import { NamespaceService } from '../namespace/namespace-service';
-import { ParticipantsService } from '../participants/participants-service';
 import { errorCodeMapper } from '../errors/error-code-mapper';
 import type { InternalError, ViewOnlyStepsError } from '../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
+import { NCS_ERROR_CODE } from '../errors/ncs-errors';
 import { EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
-import { Api } from '../api/api';
-import { shouldTelepointerBeSampled } from '../analytics/performance';
-import { NullApi } from '../api/null-api';
-import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
-
+import { createLogger, logObfuscatedSteps } from '../helpers/utils';
+import { MetadataService } from '../metadata/metadata-service';
+import { NamespaceService } from '../namespace/namespace-service';
+import { ParticipantsService } from '../participants/participants-service';
+import { telepointerCallback } from '../participants/telepointers-helper';
+import type { Config, InitialDraft, PresenceData } from '../types';
 import { getOfflineStepsLength, getOfflineReplaceStepsLength } from './get-offline-steps-length';
 import { acquireSleepDetector, getMaxGapSince } from './sleep-detector';
 
@@ -176,6 +176,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 		this.channel = new Channel(config, this.analyticsHelper);
 		this.isChannelInitialized = false;
 		this.initialDraft = this.config.initialDraft;
+		this.userId = this.config.userId;
 		this.isBufferingEnabled = Boolean(this.config.isBufferingEnabled);
 		this.isProviderInitialized = false;
 		this.participantsService = new ParticipantsService(
@@ -310,6 +311,11 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 				this.emit('permission', permit);
 			})
 			.on('steps:added', this.documentService.onStepsAdded)
+			.on('recovery:required', (payload) => {
+				if (typeof payload?.reason === 'string') {
+					this.emit('recovery:required', payload);
+				}
+			})
 			.on('metadata:changed', this.metadataService.onMetadataChanged)
 			.on('participant:telepointer', (payload) =>
 				this.participantsService.onParticipantTelepointer(payload, this.sessionId),

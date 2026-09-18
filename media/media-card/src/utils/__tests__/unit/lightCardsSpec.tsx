@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
+
 import { IntlProvider } from 'react-intl';
 
-import { CardLoading } from '../../lightCards/cardLoading';
+import { render, screen } from '@atlassian/testing-library';
+
 import { CardError } from '../../lightCards/cardError';
+import { CardLoading } from '../../lightCards/cardLoading';
 import { getDimensionsWithDefault } from '../../lightCards/getDimensionsWithDefault';
 
 // `CardLoading` renders `LoadingBar`, which localises its aria-label via `useIntl`.

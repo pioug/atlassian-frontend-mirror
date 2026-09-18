@@ -4,7 +4,9 @@
  */
 
 import React from 'react';
+
 import { css, jsx } from '@compiled/react';
+
 import Heading from '@atlaskit/heading/heading';
 import { token } from '@atlaskit/tokens';
 

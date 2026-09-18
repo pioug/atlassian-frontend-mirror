@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
 import { useConfluencePageData } from '../../../hooks/useConfluencePageData';
-
 import { useEmbeddedConfluencePage } from './embedded-confluence-page-context';
 import { loadEmbeddedConfluencePage } from './loadEmbeddedConfluencePage';
 

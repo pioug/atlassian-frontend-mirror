@@ -1,7 +1,6 @@
 import { type RefObject, useEffect, useRef } from 'react';
 
 import { getFirstFocusable } from '../focus/get-first-focusable';
-
 import { type TPhase } from './use-animated-visibility';
 
 /**

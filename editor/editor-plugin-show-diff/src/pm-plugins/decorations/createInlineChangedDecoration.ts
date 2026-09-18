@@ -8,7 +8,6 @@ import type { DiffType, RevealOptions } from '../../showDiffPluginType';
 import { CONTRIBUTOR_TAG_Z_INDEX } from '../../ui/ContributorTag/buildContributorTagDom';
 import { isExtendedEnabled } from '../isExtendedEnabled';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
-
 import {
 	buildAtomicInlineChangedCSSVariables,
 	buildDeletedInlineContentStyleExtended,

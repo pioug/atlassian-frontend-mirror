@@ -1,11 +1,13 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl';
+
 import { UserType } from '../../types';
+import { messages } from '../i18n';
+import { DescriptionBylineStyle } from './styles';
+import TeamMentionDescriptionByline from './TeamMentionDescriptionByline';
 import { type DescriptionBylineProps } from './types';
 import UserMentionDescriptionByline from './UserMentionDescriptionByline';
-import TeamMentionDescriptionByline from './TeamMentionDescriptionByline';
-import { DescriptionBylineStyle } from './styles';
-import { messages } from '../i18n';
 
 export default class MentionDescriptionByline extends React.PureComponent<
 	DescriptionBylineProps,

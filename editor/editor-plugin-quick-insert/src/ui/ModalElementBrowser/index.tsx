@@ -17,7 +17,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { closeElementBrowser, closeElementBrowserModal } from '../../pm-plugins/commands';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import type { QuickInsertPlugin } from '../../quickInsertPluginType';
-
 import ModalElementBrowser from './ModalElementBrowser';
 
 type Props = {

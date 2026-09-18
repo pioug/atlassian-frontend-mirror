@@ -18,7 +18,6 @@ import {
 	updateColgroup,
 } from '../utils/resize-state';
 import type { ResizeState } from '../utils/types';
-
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
 import { syncStickyRowToTable } from './dom';
 

@@ -3,7 +3,6 @@ import React, { type MutableRefObject } from 'react';
 import { fireEvent, render } from '@atlassian/testing-library';
 
 import { SpotlightContext, type SpotlightContextType } from '../../controllers/context';
-
 import { useOnClickOutside } from './index';
 
 // Test component to expose hook behavior

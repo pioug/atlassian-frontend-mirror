@@ -6,9 +6,9 @@
 import { css, jsx } from '@compiled/react';
 
 import { Box } from '@atlaskit/primitives/compiled';
-import Tabs from '@atlaskit/tabs/tabs';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
+import Tabs from '@atlaskit/tabs/tabs';
 import useTabPanel from '@atlaskit/tabs/use-tab-panel';
 import { token } from '@atlaskit/tokens';
 

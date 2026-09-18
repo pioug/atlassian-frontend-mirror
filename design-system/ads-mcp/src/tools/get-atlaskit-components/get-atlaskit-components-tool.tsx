@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import { atlaskitComponents } from './atlaskit-components.codegen';
 
 export const getAtlaskitComponentsTool = async (): Promise<{

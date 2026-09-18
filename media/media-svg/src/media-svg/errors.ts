@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { MediaSVGError } from '@atlaskit/media-svg/media-svg-error'` instead.
  */
+
 export { MediaSVGError } from './MediaSVGError';
 /**
  * @deprecated Use `import { type MediaSVGErrorReason } from '@atlaskit/media-svg/media-svg-error'` instead.

@@ -16,7 +16,6 @@ import type {
 import { hideDatasourceModal } from '../../pm-plugins/actions';
 import { insertDatasource, updateCardViaDatasource } from '../../pm-plugins/doc';
 import { useFetchDatasourceInfo } from '../useFetchDatasourceInfo';
-
 import type { ModalTypeToComponentMap } from './ModalWithState';
 
 type DatasourceModalProps = {

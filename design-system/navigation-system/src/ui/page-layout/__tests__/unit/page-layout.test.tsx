@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library/render';
-import { screen } from '@atlassian/testing-library/screen';
 import noop from '@atlaskit/ds-lib/noop';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { Aside } from '../../aside';
 import { Banner } from '../../banner';

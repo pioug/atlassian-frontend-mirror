@@ -10,7 +10,6 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
 import toItemId from '../utils/to-item-id';
-
 import Chevron from './internal/chevron';
 import { TreeRowContainer } from './internal/tree-row-container';
 

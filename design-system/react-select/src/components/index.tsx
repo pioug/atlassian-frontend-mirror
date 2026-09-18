@@ -1,7 +1,6 @@
 import type { ComponentType } from 'react';
 
 import type { GroupBase, MultiValueGenericProps, NoticeProps } from '../types';
-
 import {
 	IndicatorsContainer,
 	type IndicatorsContainerProps,

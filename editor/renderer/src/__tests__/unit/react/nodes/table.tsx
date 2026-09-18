@@ -1,27 +1,30 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
+import { inlineCard, p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorTableNumberColumnWidth,
 	akEditorDefaultLayoutWidth,
 	akEditorTableLegacyCellMinWidth as tableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
-import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import { inlineCard, p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
+import { RendererCssClassName } from '../../../../consts';
 import Table from '../../../../react/nodes/table';
 import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
-import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
-import type { RendererAppearance } from '../../../../ui/Renderer/types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
-import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { RendererContextProvider } from '../../../../renderer-context';
 import type { RendererContextProps } from '../../../../renderer-context';
-import { RendererCssClassName } from '../../../../consts';
+import type { RendererAppearance } from '../../../../ui/Renderer/types';
+import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
 
 const getTableContainer = (container: HTMLElement): HTMLElement => {
 	const tableContainer = container.querySelector<HTMLElement>(

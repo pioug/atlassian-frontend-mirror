@@ -1,9 +1,12 @@
 import React, { Suspense, useContext } from 'react';
+
 import Loadable from 'react-loadable';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
+
 import { CardLoading } from '../utils/lightCards/cardLoading';
 import { type CardWithMediaClientConfigProps } from './types';
-import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 const MediaCardContext = React.createContext({});
 

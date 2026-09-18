@@ -1,23 +1,38 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
+import type Dataloader from 'dataloader';
+import { getExtension } from 'mime';
 import { map } from 'rxjs/operators/map';
 import { type ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
-import { getExtension } from 'mime';
-import type Dataloader from 'dataloader';
+
+import { type MediaTraceContext } from '@atlaskit/media-common';
+import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
+import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
 import type { AuthProvider } from '@atlaskit/media-core/auth';
 import { authToOwner } from '@atlaskit/media-core/auth-to-owner';
-import { type MediaTraceContext } from '@atlaskit/media-common';
-import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
-import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
+import type {
+	ErrorFileState,
+	UploadingFileState,
+	FilePreview,
+	FileState,
+	ProcessingFileState,
+} from '@atlaskit/media-state/file-state';
+import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { RECENTS_COLLECTION } from '../../constants';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import { globalMediaEventEmitter } from '../../globalMediaEventEmitter';
+import type { MediaClientErrorReason } from '../../models/errors';
+import { CommonMediaClientError } from '../../models/errors/CommonMediaClientError';
+import { fromCommonMediaClientError } from '../../models/errors/fromCommonMediaClientError';
+import { isCommonMediaClientError } from '../../models/errors/isCommonMediaClientError';
 import type { GetFileOptions } from '../../models/file-state';
 import { isErrorFileState } from '../../models/is-error-file-state';
 import { isFinalFileState } from '../../models/is-final-file-state';
@@ -29,15 +44,23 @@ import type { MediaItemDetails, MediaFile } from '../../models/media';
 import { type UploadController } from '../../upload-controller';
 import { type UploadableFile, type UploadableFileUpfrontIds, uploadFile } from '../../uploader';
 import { convertBase64ToBlob } from '../../utils/convertBase64ToBlob';
+import {
+	type CopyIntentKey,
+	createCopyIntentRegisterationBatcher,
+} from '../../utils/createCopyIntentRegisterationBatcher';
 import type { DataloaderKey, DataloaderResult } from '../../utils/createFileDataLoader';
 import { createFileDataloader } from '../../utils/createFileDataloader-2';
 import { createMediaSubject } from '../../utils/createMediaSubject';
+import { isEmptyFile } from '../../utils/detectEmptyFile';
 import { getDimensionsFromBlob, type Dimensions } from '../../utils/getDimensionsFromBlob';
 import { getMediaTypeFromUploadableFile } from '../../utils/getMediaTypeFromUploadableFile';
 import { fromObservable } from '../../utils/mediaSubscribable/fromObservable';
 import { toPromise } from '../../utils/mediaSubscribable/toPromise';
 import type { MediaSubscribable } from '../../utils/mediaSubscribable/types';
 import { overrideMediaTypeIfUnknown } from '../../utils/overrideMediaTypeIfUnknown';
+import { PollingFunction } from '../../utils/polling';
+import { defaultShouldRetryError } from '../../utils/request/defaultShouldRetryError';
+import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
 import { MediaStore as MediaApi } from '../media-store/MediaStore';
 import type {
 	MediaStoreCopyFileWithTokenBody,
@@ -45,29 +68,8 @@ import type {
 	TouchedFiles,
 	TouchFileDescriptor,
 } from '../media-store/types';
-import { FileFetcherError } from './FileFetcherError';
-import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
-import { isEmptyFile } from '../../utils/detectEmptyFile';
-import { PollingFunction } from '../../utils/polling';
-import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
-import type {
-	ErrorFileState,
-	UploadingFileState,
-	FilePreview,
-	FileState,
-	ProcessingFileState,
-} from '@atlaskit/media-state/file-state';
-import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
-import {
-	type CopyIntentKey,
-	createCopyIntentRegisterationBatcher,
-} from '../../utils/createCopyIntentRegisterationBatcher';
-import type { MediaClientErrorReason } from '../../models/errors';
-import { CommonMediaClientError } from '../../models/errors/CommonMediaClientError';
-import { fromCommonMediaClientError } from '../../models/errors/fromCommonMediaClientError';
-import { isCommonMediaClientError } from '../../models/errors/isCommonMediaClientError';
-import { defaultShouldRetryError } from '../../utils/request/defaultShouldRetryError';
 import { type UploadArtifactParams } from '../media-store/types';
+import { FileFetcherError } from './FileFetcherError';
 
 export type { FileFetcherErrorAttributes, FileFetcherErrorReason } from './FileFetcherError';
 /**

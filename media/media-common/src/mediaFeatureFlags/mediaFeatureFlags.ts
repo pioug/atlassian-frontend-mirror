@@ -1,7 +1,6 @@
-import { type RequiredMediaFeatureFlags, type MediaFeatureFlags, supportedProducts } from './types';
-
-import { getProductKeys } from './productKeys';
 import { getGenericFeatureFlag } from './genericFeatureFlag';
+import { getProductKeys } from './productKeys';
+import { type RequiredMediaFeatureFlags, type MediaFeatureFlags, supportedProducts } from './types';
 
 export const filterFeatureFlagNames = (
 	flags: RequiredMediaFeatureFlags,

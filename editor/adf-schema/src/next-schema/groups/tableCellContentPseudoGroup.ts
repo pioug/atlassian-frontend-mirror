@@ -1,8 +1,9 @@
 import type { ADFNode, ADFNodeContentOneOrMoreSpec } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or } from '@atlaskit/adf-schema-generator';
+
 import { blockCard } from '../nodes/blockCard';
-import { bodiedRule } from '../nodes/bodiedRule';
 import { blockquote } from '../nodes/blockquote';
+import { bodiedRule } from '../nodes/bodiedRule';
 import { codeBlock } from '../nodes/codeBlock';
 import { decisionList } from '../nodes/decisionList';
 import { embedCard } from '../nodes/embedCard';

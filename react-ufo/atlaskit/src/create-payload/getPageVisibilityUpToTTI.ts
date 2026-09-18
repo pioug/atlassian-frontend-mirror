@@ -1,7 +1,6 @@
 import type { InteractionMetrics } from '../common';
 import { getPageVisibilityState } from '../hidden-timing';
 import type { LabelStack } from '../interaction-context';
-
 import { getEarliestLegacyStopTime } from './getEarliestLegacyStopTime';
 
 function getBm3EndTimeOrFallbackValue(

@@ -18,8 +18,8 @@ import {
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import ExpandElementIcon from '@atlaskit/icon-lab/core/expand-element';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { createExpandNode as createLegacyExpandNode } from '../../legacyExpand/commands';
 import {

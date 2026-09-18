@@ -4,30 +4,17 @@
  */
 import type { PropsWithChildren, SyntheticEvent } from 'react';
 import React, { PureComponent, Fragment, useEffect, useState, useMemo } from 'react';
+
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type {
-	ContextIdentifierProvider,
-	ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import type { MediaCardProps, MediaProvider } from '../../../ui/MediaCard';
-import { MediaCard } from '../../../ui/MediaCard';
-import type { LinkDefinition } from '@atlaskit/adf-schema/link';
-import type { BorderMarkDefinition } from '@atlaskit/adf-schema/border';
+
 import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema/annotation';
-import type { DataConsumerDefinition } from '@atlaskit/adf-schema/data-consumer';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
-import { token } from '@atlaskit/tokens';
-import { getEventHandler } from '../../../utils';
-import type { MediaRenderEvent, MediaRenderEventPayload } from '../../../types/mediaOptions';
+import type { BorderMarkDefinition } from '@atlaskit/adf-schema/border';
+import type { DataConsumerDefinition } from '@atlaskit/adf-schema/data-consumer';
+import type { LinkDefinition } from '@atlaskit/adf-schema/link';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -35,19 +22,34 @@ import {
 	EVENT_TYPE,
 	VIEW_METHOD,
 } from '@atlaskit/editor-common/analytics';
-
-import type { AnalyticsEventPayload } from '../../../analytics/events';
-import { MODE, PLATFORM } from '../../../analytics/events';
-import AnnotationComponent from '../../marks/annotation';
 import {
 	CommentBadgeNext,
 	ExternalImageBadge,
 	MediaBadges,
 } from '@atlaskit/editor-common/media-single';
-import { useInlineCommentsFilter } from '../../../ui/annotations/hooks/use-inline-comments-filter';
-import { useInlineCommentSubscriberContext } from '../../../ui/annotations/hooks/use-inline-comment-subscriber';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type {
+	ContextIdentifierProvider,
+	ProviderFactory,
+} from '@atlaskit/editor-common/provider-factory';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
+import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { token } from '@atlaskit/tokens';
+
+import type { AnalyticsEventPayload } from '../../../analytics/events';
+import { MODE, PLATFORM } from '../../../analytics/events';
+import type { MediaRenderEvent, MediaRenderEventPayload } from '../../../types/mediaOptions';
 import { useAnnotationRangeState } from '../../../ui/annotations/contexts/AnnotationRangeContext';
+import { useInlineCommentSubscriberContext } from '../../../ui/annotations/hooks/use-inline-comment-subscriber';
+import { useInlineCommentsFilter } from '../../../ui/annotations/hooks/use-inline-comments-filter';
+import type { MediaCardProps, MediaProvider } from '../../../ui/MediaCard';
+import { MediaCard } from '../../../ui/MediaCard';
+import { getEventHandler } from '../../../utils';
+import AnnotationComponent from '../../marks/annotation';
 
 export type MediaProps = MediaCardProps & {
 	allowAltTextOnImages?: boolean;

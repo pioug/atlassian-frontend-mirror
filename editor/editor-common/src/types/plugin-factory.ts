@@ -8,7 +8,6 @@ import type { PortalProviderAPI } from '../portal';
 import type { ProviderFactory } from '../provider-factory';
 import type { SafePlugin } from '../safe-plugin';
 import type { ErrorReporter } from '../utils';
-
 import type { FeatureFlags } from './feature-flags';
 
 export type PMPluginFactoryParams = {

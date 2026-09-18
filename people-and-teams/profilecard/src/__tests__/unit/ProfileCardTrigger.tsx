@@ -7,7 +7,6 @@ import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import ProfileCardTrigger from '../../components/User/ProfileCardTrigger';
 import { type ProfileClient } from '../../types';
-
 import { flexiTime } from './helper/_mock-analytics';
 
 const mockFireEvent = jest.fn();

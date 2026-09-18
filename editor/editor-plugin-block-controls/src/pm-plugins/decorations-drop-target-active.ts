@@ -11,15 +11,14 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	ActiveDropTargetNode,
 	ActiveNode,
 	BlockControlsPlugin,
 } from '../blockControlsPluginType';
-
 import { getNodeAnchor } from './decorations-common';
 import {
 	createDropTargetDecoration,

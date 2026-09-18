@@ -1,7 +1,5 @@
 import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import WikiMarkupTransformer from '../../../index';
-
 import {
 	doc,
 	li,
@@ -12,6 +10,8 @@ import {
 	taskList,
 	taskItem,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import WikiMarkupTransformer from '../../../index';
 
 describe('ADF => WikiMarkup - List', () => {
 	const transformer = new WikiMarkupTransformer();

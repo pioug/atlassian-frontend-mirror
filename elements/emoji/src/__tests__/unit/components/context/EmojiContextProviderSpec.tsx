@@ -1,9 +1,11 @@
 import React, { PureComponent, type ContextType, useContext } from 'react';
-import * as sinon from 'sinon';
+
 import { render } from '@testing-library/react';
-import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
-import { EmojiContext } from '../../../../context/EmojiContext';
+import * as sinon from 'sinon';
+
 import EmojiResource from '../../../../api/EmojiResource';
+import { EmojiContext } from '../../../../context/EmojiContext';
+import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
 
 jest.mock('../../../../api/EmojiResource');
 

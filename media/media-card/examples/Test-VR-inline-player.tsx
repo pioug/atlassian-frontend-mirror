@@ -3,15 +3,17 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { InlinePlayer } from '../src/card/inlinePlayer';
+import { IntlProvider } from 'react-intl';
+
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { createStorybookMediaClient, videoSquareFileId } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
-import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 
-import { IntlProvider } from 'react-intl';
 import { MainWrapper } from '../example-helpers';
+import { InlinePlayer } from '../src/card/inlinePlayer';
 
 type WrapperDimensions = {
 	width: string;

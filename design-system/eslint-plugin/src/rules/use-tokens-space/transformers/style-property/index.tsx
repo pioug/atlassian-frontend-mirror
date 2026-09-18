@@ -1,11 +1,11 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+
 import type { Rule } from 'eslint';
 import { isNodeOfType, type Property } from 'eslint-codemod-utils';
 
 import { ObjectEntry } from '../../../../ast-nodes/object-entry';
 import { Root } from '../../../../ast-nodes/root';
 import { isStringOrNumber } from '../../utils/is-string-or-number';
-
 import { styleMap } from './style-map';
 import supported from './supported';
 

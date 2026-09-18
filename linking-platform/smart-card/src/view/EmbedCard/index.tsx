@@ -15,9 +15,9 @@ import BlockCardResolvedView from '../BlockCard/views/ResolvedView';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
 import { type EmbedCardProps } from './types';
 import { EmbedCardErroredView } from './views/ErroredView';
-import { EmbedCardResolvedView } from './views/ResolvedView';
 import ForbiddenView from './views/forbidden-view';
 import NotFoundView from './views/not-found-view';
+import { EmbedCardResolvedView } from './views/ResolvedView';
 import UnauthorizedView from './views/unauthorized-view';
 
 const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => (

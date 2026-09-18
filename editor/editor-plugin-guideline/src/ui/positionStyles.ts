@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
+
 import type { CSSProperties } from 'react';
 
 import { isVerticalPosition, type Position } from '@atlaskit/editor-common/guideline';

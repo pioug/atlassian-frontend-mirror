@@ -1,21 +1,23 @@
-import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
-import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers';
-import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
+import { MockCardComponent } from './card.mock';
 
+import React from 'react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers';
+import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { Pressable } from '@atlaskit/primitives/compiled';
 
-import InlineCard from '../../../../react/nodes/inlineCard';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
+import InlineCard from '../../../../react/nodes/inlineCard';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { MockCardComponent } from './card.mock';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 jest.mock('@atlaskit/smart-card', () => {
 	const originalModule = jest.requireActual('@atlaskit/smart-card');

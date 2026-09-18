@@ -5,14 +5,14 @@ import { createStore, type Reducer } from 'redux';
 
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import type { LinkPreview, CardPlatform } from '@atlaskit/link-extractors/types';
-import { type CardStore, getUrl } from '@atlaskit/linking-common/store';
 import { ACTION_RELOADING, ACTION_ERROR, cardAction } from '@atlaskit/linking-common/actions';
 import { APIError } from '@atlaskit/linking-common/api-error';
+import { type CardStore, getUrl } from '@atlaskit/linking-common/store';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import CardClient from './client';
-import { SMART_CARD_EXTERNAL_AUTH_EVENT } from './smart-card-external-auth-event';
 import { cardReducer } from './reducers';
+import { SMART_CARD_EXTERNAL_AUTH_EVENT } from './smart-card-external-auth-event';
 import { SmartCardContext } from './state/context';
 import { type CardProviderProps } from './state/context/types';
 

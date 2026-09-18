@@ -1,7 +1,9 @@
 import React from 'react';
-import RendererDemo from './helper/RendererDemo';
+
 import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import { defaultSchemaConfig } from '@atlaskit/adf-schema/schema-default';
+
+import RendererDemo from './helper/RendererDemo';
 
 const schemaWithoutExpand = createSchema({
 	nodes: defaultSchemaConfig.nodes.filter((node) => node !== 'expand'),

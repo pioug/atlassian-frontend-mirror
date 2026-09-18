@@ -26,7 +26,6 @@ import { type TextSize } from '../xcss/text-size';
 import { textSizeStylesMap } from '../xcss/text-size-styles-map';
 import { type TextWeight } from '../xcss/text-weight';
 import { textWeightStylesMap } from '../xcss/text-weight-styles-map';
-
 import type { BasePrimitiveProps } from './types';
 
 const asAllowlist = ['span', 'p', 'strong', 'em'] as const;

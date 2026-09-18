@@ -8,12 +8,11 @@ import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-com
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import type { DropzoneConfig } from '@atlaskit/media-picker/types';
 import { DropzoneLoader as Dropzone } from '@atlaskit/media-picker/dropzone';
+import type { DropzoneConfig } from '@atlaskit/media-picker/types';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type PickerFacade from '../../pm-plugins/picker-facade';
-
 import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {

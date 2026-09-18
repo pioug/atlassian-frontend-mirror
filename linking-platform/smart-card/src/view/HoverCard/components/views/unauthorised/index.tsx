@@ -16,10 +16,10 @@ import { ActionName, CardDisplay } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useSmartCardActions } from '../../../../../state/actions';
 import { hasAuthScopeOverrides } from '../../../../../state/hasAuthScopeOverrides';
+import UnauthorisedViewContent from '../../../../common/UnauthorisedViewContent';
 import FlexibleCard from '../../../../FlexibleCard';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
 import { default as CustomBlock } from '../../../../FlexibleCard/components/blocks/block';
-import UnauthorisedViewContent from '../../../../common/UnauthorisedViewContent';
 import {
 	type ActionItem,
 	type CustomActionItem,

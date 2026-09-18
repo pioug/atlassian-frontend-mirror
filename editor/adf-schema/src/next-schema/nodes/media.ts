@@ -1,5 +1,6 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
+
 import { annotation } from '../marks/annotation';
 import { border } from '../marks/border';
 import { dataConsumer } from '../marks/dataConsumer';

@@ -6,6 +6,10 @@ jest.mock('uuid', () => ({
 	v4: jest.fn().mockReturnValue('some-scope'),
 }));
 
+import { waitFor } from '@testing-library/react';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuidV4 } from 'uuid';
+
 import {
 	type MediaClient,
 	type UploadableFile,
@@ -18,21 +22,19 @@ import {
 	fromObservable,
 	RequestError,
 } from '@atlaskit/media-client';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import { v4 as uuidV4 } from 'uuid';
 import { asMock, fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { UploadServiceImpl } from '../../uploadServiceImpl';
-import * as getPreviewModule from '../../../util/getPreviewFromBlob';
-import * as getPreviewFromImage from '../../../util/getPreviewFromImage';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { LocalFileSource, type LocalFileWithSource } from '../../../service/types';
 import {
 	type Preview,
 	type UploadParams,
 	type UploadPreviewUpdateEventPayload,
 	type UploadsStartEventPayload,
 } from '../../../types';
-import { LocalFileSource, type LocalFileWithSource } from '../../../service/types';
-import { waitFor } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import * as getPreviewModule from '../../../util/getPreviewFromBlob';
+import * as getPreviewFromImage from '../../../util/getPreviewFromImage';
+import { UploadServiceImpl } from '../../uploadServiceImpl';
 
 describe('UploadService', () => {
 	const baseUrl = 'some-api-url';

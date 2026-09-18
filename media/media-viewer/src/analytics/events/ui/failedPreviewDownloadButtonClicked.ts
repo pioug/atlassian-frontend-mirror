@@ -1,9 +1,9 @@
 import { type FileStatus, type FileState } from '@atlaskit/media-client';
 import { type WithFileAttributes } from '@atlaskit/media-common';
 
-import type { MediaViewerError } from '../../../MediaViewerError';
 import type { PrimaryErrorReason } from '../../../errors';
 import { getPrimaryErrorReason } from '../../../getPrimaryErrorReason';
+import type { MediaViewerError } from '../../../MediaViewerError';
 import { getFileAttributes } from '../../getFileAttributes';
 import { type ButtonClickEventPayload } from './_clickedButton';
 

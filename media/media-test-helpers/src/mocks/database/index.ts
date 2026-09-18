@@ -2,16 +2,16 @@ import { Database } from 'kakapo';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidV4 } from 'uuid';
 
+import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import type { ClientBasedAuth } from '@atlaskit/media-core/auth';
 
+import { defaultCollectionName } from '../../collectionNames';
+import { defaultBaseUrl } from '../../mediaClientProvider';
+import { type MockCollections } from '../media-mock';
+import { type Chunk, createChunk } from './chunk';
 import { createCollection, type MediaCollection } from './collection';
 import { type CollectionItem, createCollectionItem } from './collection-item';
 import { createUpload, type Upload } from './upload';
-import { type Chunk, createChunk } from './chunk';
-import { defaultBaseUrl } from '../../mediaClientProvider';
-import { type MockCollections } from '../media-mock';
-import { defaultCollectionName } from '../../collectionNames';
-import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 
 export { createCollection } from './collection';
 export {

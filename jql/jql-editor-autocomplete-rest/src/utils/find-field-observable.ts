@@ -3,7 +3,6 @@ import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 
 import { type JQLFieldResponse } from '../common/types';
-
 import { areStringsEquivalent } from './are-strings-equivalent';
 import { normalize } from './normalize';
 

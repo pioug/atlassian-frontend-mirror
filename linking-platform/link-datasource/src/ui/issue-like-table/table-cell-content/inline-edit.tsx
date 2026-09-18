@@ -19,7 +19,6 @@ import { editType } from '../edit-type/editType';
 import { getFieldLabelById } from '../get-field-label-by-id';
 import { EmptyAvatar } from '../shared-components/avatar';
 import type { DatasourceTypeWithOnlyValues } from '../types';
-
 import { tableCellMessages } from './messages';
 import { newGetBackendUpdateValue } from './new-get-backend-update-value';
 

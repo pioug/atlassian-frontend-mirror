@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import Badge from '@atlaskit/badge/badge-new'` instead.
  */
+
 export { default } from '../badge-new';
 /**
  * @deprecated Use `import type { BadgeProps } from '@atlaskit/badge/types';` instead.

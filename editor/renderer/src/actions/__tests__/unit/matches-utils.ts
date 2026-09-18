@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { schema } from '@atlaskit/editor-test-helpers/adf-schema';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -15,7 +16,7 @@ import {
 	th,
 	tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+
 import { countMatches, getIndexMatch } from '../../matches-utils';
 
 describe('RendererActions matches', () => {

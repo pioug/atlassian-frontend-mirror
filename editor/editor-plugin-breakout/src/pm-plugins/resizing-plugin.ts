@@ -33,7 +33,6 @@ import type {
 	BreakoutPluginOptions,
 	BreakoutPluginState,
 } from '../breakoutPluginType';
-
 import type { GUIDELINE_KEYS } from './get-guidelines';
 import { handleKeyDown } from './handle-key-down';
 import { ResizingMarkView } from './resizing-mark-view';

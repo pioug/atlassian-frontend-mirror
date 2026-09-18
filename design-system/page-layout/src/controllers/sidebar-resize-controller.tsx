@@ -23,7 +23,6 @@ import {
 } from '../common/constants';
 import { getPageLayoutSlotCSSSelector } from '../common/get-page-layout-slot-css-selector';
 import type { SidebarResizeControllerProps } from '../common/types';
-
 import { SidebarResizeContext, type SidebarResizeContextValue } from './sidebar-resize-context';
 import type { LeftSidebarState } from './types';
 

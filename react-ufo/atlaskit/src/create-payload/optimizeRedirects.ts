@@ -1,5 +1,4 @@
 import type { InteractionMetrics } from '../common';
-
 import type { OptimizedLabelStack } from './common/types';
 
 export function optimizeRedirects(

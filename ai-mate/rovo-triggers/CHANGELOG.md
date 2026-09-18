@@ -1,5 +1,20 @@
 # @atlaskit/rovo-triggers
 
+## 11.2.1
+
+### Patch Changes
+
+- [`f401be7e92f87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f401be7e92f87) -
+  [ux] Treat null UPDATE_TRANSITION link fields as absent so workflow builder cards do not crash
+  when `sprt_hix_9681_workflow_agent_edit_status` is on.
+
+## 11.2.0
+
+### Minor Changes
+
+- [`c15e5da572957`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c15e5da572957) -
+  Add 'cwr-dev-docs' creation experience to ChatCreationContextParams
+
 ## 11.1.0
 
 ### Minor Changes

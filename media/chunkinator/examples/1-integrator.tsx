@@ -1,9 +1,10 @@
 import React, { type ChangeEvent, useState } from 'react';
-import { Subject } from 'rxjs/Subject';
+
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Subject } from 'rxjs/Subject';
+
 import { smallImage } from '@atlaskit/media-common/test-helpers';
-import { chunkinator } from '../src/chunkinator';
-import { type Chunk, type ChunkinatorFile } from '../src/domain';
+
 import {
 	transformAuthHeaders,
 	createAuthSession,
@@ -11,6 +12,8 @@ import {
 	type AuthSessionHelper,
 } from '../example-helpers/authProvider';
 import { sha1Hasher } from '../example-helpers/Sha1Hasher';
+import { chunkinator } from '../src/chunkinator';
+import { type Chunk, type ChunkinatorFile } from '../src/domain';
 
 const createUploadingFunction = (
 	deferredUploadId: Promise<string>,

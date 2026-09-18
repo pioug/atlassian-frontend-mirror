@@ -7,9 +7,9 @@
 */
 
 import { createSchema } from '@atlaskit/adf-schema/create-schema';
-import { uuid } from '@atlaskit/adf-schema/uuid';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -66,10 +66,10 @@ import {
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { JSONTransformer } from '../../JSONTransformer-2';
-import { SchemaStage } from '../../SchemaStage';
-import type { JSONDocNode, JSONNode } from '../../types';
 import * as markOverride from '../../markOverrideRules';
 import { sanitizeNode } from '../../sanitize/sanitize-node';
+import { SchemaStage } from '../../SchemaStage';
+import type { JSONDocNode, JSONNode } from '../../types';
 
 jest.mock('../../sanitize/sanitize-node');
 

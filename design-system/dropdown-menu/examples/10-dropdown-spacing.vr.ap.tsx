@@ -1,8 +1,8 @@
 import React from 'react';
 
+import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Inline from '@atlaskit/primitives/inline';

@@ -1,4 +1,5 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { unsupportedInline as unsupportedInlineFactory } from '../../next-schema/generated/nodeTypes';
 
 export const unsupportedInline: NodeSpec = unsupportedInlineFactory({

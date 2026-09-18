@@ -6,7 +6,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 
 import type { MetricsState } from '../main';
-
 import { checkTrActionType } from './check-tr-actions/check-tr-action-type';
 import { ActionType } from './check-tr-actions/types';
 import type {

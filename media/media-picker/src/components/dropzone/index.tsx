@@ -1,7 +1,9 @@
 import React from 'react';
+
 import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react/with-media-client';
-import { type DropzoneProps } from './dropzone';
+
 import { type MediaPickerAnalyticsErrorBoundaryProps } from '../media-picker-analytics-error-boundary';
+import { type DropzoneProps } from './dropzone';
 
 export type DropzoneWithMediaClientConfigProps = WithMediaClientConfigProps<DropzoneProps>;
 type DropzoneWithMediaClientConfigComponent =

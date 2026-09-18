@@ -1,9 +1,10 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import CachingClient from './CachingClient';
+import { modifyResponse } from './modifyResponse';
 import ProfileCardClient from './ProfileCardClient';
 import TeamProfileClient from './TeamProfileCardClient';
 import UserProfileClient from './UserProfileCardClient';
-import { modifyResponse } from './modifyResponse';
 
 /**
  * @deprecated Use `import CachingClient from '@atlaskit/profilecard/caching-client'` instead.

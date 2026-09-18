@@ -11,7 +11,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 
 import type { MarkdownToPmConverter } from '../../pasteOptionsToolbarPluginType';
 import type { PasteOptionsPluginState } from '../../types/types';
-
 import { escapeLinks } from './index';
 
 // Ignored via go/ees005

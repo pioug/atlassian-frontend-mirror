@@ -2,11 +2,10 @@ import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { AddMarkStep, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { LastOrganicChangeMetadata } from '../types';
-
 import { isOrganicChange } from './utils';
 
 export const trackLastOrganicChangePluginKey: PluginKey<LastOrganicChangeMetadata> =

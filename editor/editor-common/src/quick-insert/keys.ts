@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+
 export const MENU = {
 	key: 'quick-insert-menu',
 	type: 'menu',

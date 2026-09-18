@@ -1,7 +1,8 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
 import { dataConsumer } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 
 const packageName = process.env.npm_package_name as string;
 

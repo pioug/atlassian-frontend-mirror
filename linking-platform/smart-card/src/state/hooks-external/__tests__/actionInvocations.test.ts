@@ -1,4 +1,5 @@
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook } from '@atlassian/testing-library';
@@ -14,7 +15,6 @@ import { openUrl } from '../../../utils/open-url';
 import { EmbedModalSize } from '../../../view/EmbedModal/types';
 import { openEmbedModal } from '../../../view/EmbedModal/utils';
 import { useSmartCardState } from '../../store';
-import type { CardState } from '@atlaskit/linking-common/store';
 import { useSmartLinkActions } from '../useSmartLinkActions';
 
 const url = 'https://start.atlassian.com';

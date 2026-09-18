@@ -7,7 +7,6 @@ import {
 	getRendererRangeInlineNodeNames,
 	getRendererRangeAncestorNodeNames,
 } from '../../get-renderer-range-inline-node-names';
-
 import type RendererActions from '../../index';
 
 describe('getRendererRangeInlineNodeNames', () => {

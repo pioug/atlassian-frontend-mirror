@@ -3,9 +3,11 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
-import { fileCardImageViewSelector } from '../../classnames';
+
 import type { MediaCardCursor } from '../../../types';
+import { fileCardImageViewSelector } from '../../classnames';
 
 const imageContainerStyles = css({
 	display: 'flex',

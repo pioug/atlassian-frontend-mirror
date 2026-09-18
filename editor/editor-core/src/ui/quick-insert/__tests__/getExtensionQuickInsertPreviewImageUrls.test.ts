@@ -43,6 +43,77 @@ describe('getExtensionQuickInsertPreviewImageUrls', () => {
 	});
 
 	it.each([
+		['blog-posts', '5n54qb4j1pn588ud6604eh4c8hj5422v'],
+		['change-history', 'u83vu4k3if5kh4a12e34pr5jf833e71l'],
+		['children', 'ttbt2qi6tkl6cgdyig1th4x837g3c018'],
+		['details', '857b0i4hxk3pxeq3h5v2ykfav4niv5hx'],
+		['detailssummary', '07k170i7odd417hvcpkp800353211gwi'],
+		['content-report-table', '060xk53i83jkbc5m5op8v44887tv3038'],
+		['pagetree', 'kji77816l70343e211ll54222q3i0m57'],
+		['contributors', '22801wwe6yf82mcfcrd7vg54620p5e0g'],
+		['contentbylabel', '8hy8d25516esmq4q267bf15483851454'],
+		['listlabels', '1a51b87u6bvsq84pup1wy1n32pg2s6c7'],
+		['livesearch', '0n8ie724cnnvl62w1m521k8eq5v73u76'],
+		['pagetreesearch', 'w7o6smtuy41bg08327dy2ai0fht2lc6m'],
+		['popular-labels', 'a2x44n7aasba646mlmqht7cqfq6k8783'],
+		['recently-updated', 'g2vqf86yj16fi74mny6b265mw5l181fx'],
+		['tasks-report-macro', 'e7qda5xter48ao38ieq82jgv3m7j3g8c'],
+		['calendar', 'g7v75uv8mw0i7hw36181xx2nly2674pi'],
+		['userlister', '4883g3sm4pdy8w3mmphdqj81588c37gf'],
+		['profile', 'o2kexap23ijq8jeqhpvi8lgc51dex3wj'],
+	] as const)(
+		'uses the Data and charts preview registered for extension key %s',
+		(extensionKey, lightAssetId) => {
+			expect(
+				getExtensionQuickInsertPreviewImageUrls({
+					extensionKey,
+					key: `manifest:${extensionKey}`,
+					title: 'Unrelated title',
+				}),
+			).toMatchObject({
+				light: expect.stringContaining(lightAssetId),
+			});
+		},
+	);
+
+	it.each([
+		['Database', 'database-extension:create-database', 'lqqxkx57ue3ws60m642br54ss6m3neow'],
+		['Embed database', 'database-extension:reference-database', 'he1vu1p7ngbjcy6lw8i8vh601aw14ct1'],
+		['Decision report', 'decisionreport:decisionreport', '3347ejx66xy7y375s232mbeg0ia1rdm8'],
+		[
+			'Questions List Native',
+			'questionslist-macro-native:questionslist-macro-native',
+			'4f6f51758m5m6nu06x557nm115613233',
+		],
+	] as const)(
+		'uses the Data and charts preview for %s by runtime key',
+		(title, key, lightAssetId) => {
+			expect(getExtensionQuickInsertPreviewImageUrls({ key, title })).toMatchObject({
+				light: expect.stringContaining(lightAssetId),
+			});
+		},
+	);
+
+	it('uses the Spaces preview for the environment-specific Spaces gadget runtime key', () => {
+		expect(
+			getExtensionQuickInsertPreviewImageUrls({
+				extensionKey: 'gadget',
+				key: 'gadget:gadget-077a293d126313a494b9137894f60bda03d2df22dbb69c8b1c6a345922b501ec',
+				title: 'Spaces',
+			}),
+		).toMatchObject({
+			light: expect.stringContaining('b3py8prmf21tl73nb42gc67a0i437o1q'),
+		});
+		expect(
+			getExtensionQuickInsertPreviewImageUrls({
+				extensionKey: 'gadget',
+				key: 'gadget:gadget-another-gadget',
+				title: 'Another gadget',
+			}),
+		).toBeUndefined();
+	});
+
+	it.each([
 		[
 			'Amplitude',
 			'https://dam-cdn.atl.orangelogic.com/AssetLink/2r34o120k40e0us4w66oqpud63o4lef4.png',

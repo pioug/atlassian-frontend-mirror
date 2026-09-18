@@ -35,7 +35,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import { isVideo } from '../../pm-plugins/utils/media-single';
-
 import { changeMediaInlineToMediaSingle, changeMediaSingleToMediaInline } from './commands';
 
 export const isExternalMedia = (attrs: MediaADFAttrs): attrs is ExternalMediaAttributes => {

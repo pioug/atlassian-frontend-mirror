@@ -18,7 +18,6 @@ import messages from '../../common/messages';
 import { useLinkCreateCallback } from '../../controllers/callback-context/main';
 import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
 import { useFormContext } from '../../controllers/form-context/main';
-
 import { CreateFormFooter } from './form-footer/main';
 import { CreateFormLoader } from './form-loader/main';
 

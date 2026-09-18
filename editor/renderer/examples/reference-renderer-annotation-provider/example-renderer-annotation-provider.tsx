@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
+
 import React, { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -16,10 +17,10 @@ import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { HighlightBar } from './HighlightBar';
 import { AttachedComment } from './AttachedComment';
-import { popupPortalContainerId } from './shared';
+import { HighlightBar } from './HighlightBar';
 import { ExampleHighlightMenu } from './mock-ui';
+import { popupPortalContainerId } from './shared';
 
 type AnnotationEventEmitterFn = () => any;
 

@@ -38,7 +38,6 @@ import {
 } from '../colorSchemes/factory';
 import { colorSchemeRegistry, getLegacyColorScheme, standardScheme } from '../colorSchemes/schemes';
 import type { ColorScheme, DiffColorScheme } from '../colorSchemes/types';
-
 import {
 	getChangedContentStyleLegacy,
 	getChangedNodeStyleLegacy,

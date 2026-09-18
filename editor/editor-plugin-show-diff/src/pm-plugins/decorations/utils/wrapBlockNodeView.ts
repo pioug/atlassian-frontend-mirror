@@ -11,12 +11,11 @@ import { token } from '@atlaskit/tokens';
 
 import type { DiffType, RevealOptions } from '../../../showDiffPluginType';
 import { isExtendedEnabled } from '../../isExtendedEnabled';
-import { applyRevealToElement } from '../revealStyles';
 import type { ColorScheme } from '../colorSchemes/types';
 import { getAtomicInlineChangedAttrs } from '../createInlineChangedDecoration';
-
-import { applyTableCellEdgeAttrs } from './tableCellEdgeAttrs';
+import { applyRevealToElement } from '../revealStyles';
 import { isInlineAttrChangeNodeName } from './getAttrChangeRanges';
+import { applyTableCellEdgeAttrs } from './tableCellEdgeAttrs';
 import {
 	getChangedContentStyle,
 	getChangedNodeStyle,
@@ -177,10 +176,11 @@ const applyCellOverlayStyles = ({
 /**
  * Creates a "Removed" lozenge to be displayed at the top right corner of deleted block nodes
  */
-const createRemovedLozenge = (
+export const createRemovedLozenge = (
 	intl: IntlShape,
 	isActive: boolean = false,
 	colorScheme?: ColorScheme,
+	inCell = false,
 ): HTMLElement => {
 	const container = document.createElement('span');
 
@@ -188,21 +188,30 @@ const createRemovedLozenge = (
 		position: 'absolute',
 		top: token('space.075'),
 		right: token('space.075'),
-		zIndex: 2,
+		// Rounded table-cell overlays use z-index 2 and are appended after the cell content.
+		// Keep the lozenge above them so the overlay cannot tint or obscure it.
+		zIndex: 3,
 		pointerEvents: 'none',
 		display: 'flex',
 	});
 
-	container.setAttribute('style', containerStyle);
-	container.setAttribute('data-testid', 'show-diff-removed-lozenge');
-
 	// Create vanilla HTML lozenge element with Atlaskit Lozenge styling (visual refresh)
 	const lozengeElement = document.createElement('span');
 
-	const lozengeInnerStyle = resolveRemovedLozengeStyle(colorScheme, isActive);
+	// A column label sits over an already-grey deleted cell, so use the red Removed treatment.
+	const lozengeInnerStyle = resolveRemovedLozengeStyle(colorScheme, inCell || isActive);
 	lozengeElement.setAttribute('style', lozengeInnerStyle);
 	lozengeElement.textContent = intl.formatMessage(trackChangesMessages.removed).toUpperCase();
 
+	if (inCell) {
+		lozengeElement.setAttribute('style', `${lozengeInnerStyle};${containerStyle}`);
+		lozengeElement.setAttribute('data-testid', 'show-diff-removed-lozenge');
+		lozengeElement.contentEditable = 'false';
+		return lozengeElement;
+	}
+
+	container.setAttribute('style', containerStyle);
+	container.setAttribute('data-testid', 'show-diff-removed-lozenge');
 	container.appendChild(lozengeElement);
 
 	return container;

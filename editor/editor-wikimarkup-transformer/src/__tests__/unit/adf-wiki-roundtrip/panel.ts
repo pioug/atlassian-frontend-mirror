@@ -1,7 +1,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import WikiMarkupTransformer from '../../../index';
-
 import { doc, h1, li, p, panel, ul } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import WikiMarkupTransformer from '../../../index';
 
 describe('ADF => WikiMarkup - Panel', () => {
 	const transformer = new WikiMarkupTransformer();

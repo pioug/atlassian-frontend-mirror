@@ -8,7 +8,6 @@ import { includesHardCodedColor } from '../utils/includes-hard-coded-color';
 import { isHardCodedColor } from '../utils/is-hard-coded-color';
 import { isLegacyColor } from '../utils/is-legacy-color';
 import { isLegacyNamedColor } from '../utils/is-legacy-named-color';
-
 import { getTokenSuggestion } from './get-token-suggestion';
 import type { RuleConfig } from './types';
 

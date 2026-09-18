@@ -1,6 +1,7 @@
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import ReactSerializer from '../../../react';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+
+import ReactSerializer from '../../../react';
 
 const schema = getSchemaBasedOnStage('stage0');
 

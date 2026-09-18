@@ -83,6 +83,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/ufo": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@babel/plugin-proposal-numeric-separator": "root:*",
 		"@emotion/react": "root:*",
 		"@testing-library/dom": "root:*",

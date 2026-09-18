@@ -17,7 +17,6 @@ import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-exper
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table/issue-like-data-table-view';
 import { type JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
-
 import SmartLinkClient from './smartLinkCustomClient';
 import { useCommonTableProps } from './useCommonTableProps';
 

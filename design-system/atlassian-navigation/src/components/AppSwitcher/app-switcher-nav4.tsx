@@ -4,7 +4,6 @@ import AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
 import { token } from '@atlaskit/tokens';
 
 import { IconButton } from '../IconButton';
-
 import { type AppSwitcherProps } from './types';
 
 /**

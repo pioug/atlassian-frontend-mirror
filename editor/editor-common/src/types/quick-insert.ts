@@ -3,7 +3,6 @@ import type { IntlShape } from 'react-intl';
 
 import type { QuickInsertItem, QuickInsertProvider } from '../provider-factory';
 import type { IsRecommendedItem } from '../quick-insert/is-recommended-item';
-
 import type { EmptyStateHandler } from './empty-state-handler';
 
 export type QuickInsertOptions =

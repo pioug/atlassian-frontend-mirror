@@ -1,7 +1,8 @@
-import { Provider } from '../..';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+
+import { Provider } from '../..';
 
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',

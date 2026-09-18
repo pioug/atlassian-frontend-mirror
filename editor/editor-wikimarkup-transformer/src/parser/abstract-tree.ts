@@ -1,7 +1,8 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
+import type { Context } from '../interfaces';
 import { parseString } from './text';
 import { normalizePMNodes } from './utils/normalize';
-import type { Context } from '../interfaces';
 
 export default class AbstractTree {
 	private schema: Schema;

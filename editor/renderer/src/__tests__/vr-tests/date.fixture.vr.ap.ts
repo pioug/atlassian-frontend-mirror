@@ -1,8 +1,8 @@
-import * as adfWithDate from '../__fixtures__/date.adf.json';
-import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
-
-import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 import type { ComponentType } from 'react';
+
+import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
+import * as adfWithDate from '../__fixtures__/date.adf.json';
+import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 export const DateRenderer: ComponentType<any> = generateRendererComponent({
 	document: adfWithDate,

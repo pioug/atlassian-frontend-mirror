@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import { BreakoutSSRInlineScript } from '../../breakout-ssr';
 describe('BreakoutSSRInlineScript', () => {
 	it('should capture and report a11y violations', async () => {

@@ -12,8 +12,8 @@ import { useIntl } from 'react-intl';
 import Button from '@atlaskit/button/default/button';
 import Field from '@atlaskit/form/field';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import type { InputActionMeta } from '@atlaskit/select/types';
 import { PopupSelect } from '@atlaskit/select/popup-select';
+import type { InputActionMeta } from '@atlaskit/select/types';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -23,7 +23,6 @@ import {
 	objectSchemaKey,
 	type ObjectSchemaOption,
 } from '../../../../types/assets/types';
-
 import { objectSchemaSelectMessages } from './messages';
 import { objectSchemaToSelectOption } from './utils';
 

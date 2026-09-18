@@ -3,7 +3,6 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { INPUT_METHOD } from '../analytics';
 import type { EditorAppearance } from '../types';
-
 import type { InsertStatus } from './InsertStatus';
 
 export type InsertState = {

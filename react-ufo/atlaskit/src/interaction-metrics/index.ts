@@ -58,7 +58,6 @@ import { BACKEND_RESOURCE_TIMING_INITIATOR_TYPES } from '../resource-timing/comm
 import { flushSsrRenderProfilerTraces } from '../segment/ssr-render-profiler/flush-traces';
 import { newVCObserver } from '../vc/newVCObserver';
 import { type VCObserverInterface } from '../vc/types';
-
 import { interactions } from './common/constants';
 import PostInteractionLog from './post-interaction-log';
 
@@ -232,6 +231,7 @@ export function addCustomData(
  * raw keyed object (same shape as `customData`), stored in its own `excluded3pSegmentData` map keyed
  * by `segmentId`. This creates no hold and is never read by any metric computation.
  */
+
 export function addExcluded3pSegment(
 	interactionId: string,
 	segmentId: string,

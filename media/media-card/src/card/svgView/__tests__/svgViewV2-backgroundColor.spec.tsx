@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen } from '@atlassian/testing-library';
-import { SvgView } from '../svgViewV2';
+
 import type { FileIdentifier } from '@atlaskit/media-client';
+import { render, screen } from '@atlassian/testing-library';
+
+import { SvgView } from '../svgViewV2';
 
 // Mock useResolveSvg to return a valid SVG URL
 jest.mock('@atlaskit/media-svg/use-resolve-svg', () => ({

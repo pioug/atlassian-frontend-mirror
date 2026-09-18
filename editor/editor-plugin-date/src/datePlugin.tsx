@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Loadable from 'react-loadable';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { date, dateWithLocalId } from '@atlaskit/adf-schema/date';
 import type { WeekDay } from '@atlaskit/calendar/types';
@@ -43,13 +45,37 @@ import type { DateType } from './types';
 import type { Props as DatePickerProps } from './ui/DatePicker';
 import { getDateQuickInsertComponents } from './ui/quick-insert/getDateQuickInsertComponents';
 
-const DatePicker = Loadable({
-	loader: () =>
+const loadDatePicker = () =>
+	import(/* webpackChunkName: "@atlaskit-internal_editor-datepicker" */ './ui/DatePicker').then(
+		(mod) => mod.default,
+	) as Promise<React.ComponentType<React.PropsWithChildren<DatePickerProps>>>;
+
+const DatePickerLazy = lazyForPaint(
+	() =>
 		import(/* webpackChunkName: "@atlaskit-internal_editor-datepicker" */ './ui/DatePicker').then(
 			(mod) => mod.default,
 		) as Promise<React.ComponentType<React.PropsWithChildren<DatePickerProps>>>,
+);
+const DatePickerLoadable = Loadable({
+	loader: loadDatePicker,
 	loading: () => null,
 });
+
+const DatePicker = (props: React.PropsWithChildren<DatePickerProps>) =>
+	isExperimentEnabled('platform_editor_loosely_lazy_migration') ? (
+		<LazySuspense fallback={null}>
+			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+			<DatePickerLazy {...props} />
+		</LazySuspense>
+	) : (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<DatePickerLoadable {...props} />
+	);
+
+DatePicker.preload = () =>
+	isExperimentEnabled('platform_editor_loosely_lazy_migration')
+		? DatePickerLazy.preload()
+		: DatePickerLoadable.preload();
 
 function getDateNode(editorView: EditorView | undefined, showDatePickerAt: number) {
 	if (!editorView) {

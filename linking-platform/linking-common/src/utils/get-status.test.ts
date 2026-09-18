@@ -1,5 +1,4 @@
 import { mocks } from '../__tests__/__mocks__/mockJsonLdResponse';
-
 import { getStatus } from './get-status';
 
 describe('getStatus', () => {

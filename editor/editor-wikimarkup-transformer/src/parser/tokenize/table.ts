@@ -1,16 +1,17 @@
 import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import type { AddCellArgs, Context } from '../../interfaces';
 import { TableBuilder } from '../builder/table-builder';
 import { parseString } from '../text';
 import { normalizePMNodes } from '../utils/normalize';
-import { linkFormat } from './links/link-format';
-import { media } from './media';
-import { emoji } from './emoji';
+import { hasAnyOfMarks } from '../utils/text';
 import type { TokenParser } from './';
 import { TokenType, parseToken } from './';
-import { parseNewlineOnly } from './whitespace';
+import { emoji } from './emoji';
 import { parseMacroKeyword } from './keyword';
-import { hasAnyOfMarks } from '../utils/text';
+import { linkFormat } from './links/link-format';
+import { media } from './media';
+import { parseNewlineOnly } from './whitespace';
 
 /*
   The following are currently NOT supported

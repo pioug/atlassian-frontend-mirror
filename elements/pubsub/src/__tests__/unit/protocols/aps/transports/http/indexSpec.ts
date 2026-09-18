@@ -1,9 +1,11 @@
-import { EventEmitter2 } from 'eventemitter2';
-import HttpTransport from '../../../../../../protocols/aps/transports/http';
 import { TextDecoder as TextDecoderNode, TextEncoder as TextEncoderNode } from 'util';
-import { EventType } from '../../../../../../types';
-import getAnalyticsClient from '../../../../../../protocols/aps/APSAnalyticsClient';
+
+import { EventEmitter2 } from 'eventemitter2';
 import * as sinon from 'sinon';
+
+import getAnalyticsClient from '../../../../../../protocols/aps/APSAnalyticsClient';
+import HttpTransport from '../../../../../../protocols/aps/transports/http';
+import { EventType } from '../../../../../../types';
 
 const textEncoder = new TextEncoderNode();
 

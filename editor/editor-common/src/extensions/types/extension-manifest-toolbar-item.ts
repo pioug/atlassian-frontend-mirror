@@ -1,7 +1,6 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { Command, FloatingToolbarDropdown, FloatingToolbarItem } from '../../types';
-
 import type { ExtensionAPI } from './extension-handler';
 import type { ExtensionIconModule } from './extension-manifest-common';
 

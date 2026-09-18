@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import { default as FeedbackFormExample } from './01-feedback-form';
 import { default as FeedbackCollectorExample } from './02-feedback-collector';
 import { default as FeedbackButtonExample } from './03-feedback-button';

@@ -12,7 +12,6 @@ import { token } from '@atlaskit/tokens';
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 import { stripEmptyProperties } from '../../utils';
-
 import { type ProductHomeProps } from './types';
 import { getTag } from './utils';
 

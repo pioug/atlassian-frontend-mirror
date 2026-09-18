@@ -1,16 +1,19 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import React from 'react';
+
 import { matchers } from '@emotion/jest';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
+
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { createEmojiWithRovoTestId } from '../../../../components/common/CreateEmojiWithRovo';
 import EmojiActions, { emojiActionsTestId } from '../../../../components/common/EmojiActions';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
-import { createEmojiWithRovoTestId } from '../../../../components/common/CreateEmojiWithRovo';
 import { productivityColorSelectorTestId } from '../../../../components/common/ProductivityColorSelector';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';

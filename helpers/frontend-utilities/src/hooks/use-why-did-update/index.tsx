@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { useWhyDidUpdate } from '@atlaskit/frontend-utilities/useWhyDidUpdate'` instead.
  */
+
 export { useWhyDidUpdate } from './useWhyDidUpdate';
 /**
  * @deprecated Use `import { useWhyDidUpdateShallow } from '@atlaskit/frontend-utilities/useWhyDidUpdateShallow'` instead.

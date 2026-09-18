@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { ELEMENTS_CHANNEL } from './_constants';
 import { AbstractMentionResource } from './api/AbstractMentionResource';
 import { AbstractPresenceResource } from './api/AbstractPresenceResource';

@@ -10,8 +10,8 @@ import React, { useEffect, useState } from 'react';
 import { css, jsx, keyframes } from '@compiled/react';
 
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 import traceUFOTransition from '@atlaskit/react-ufo/trace-transition';
+import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 // Define keyframes for spinner animation
 const spinAnimation = keyframes({

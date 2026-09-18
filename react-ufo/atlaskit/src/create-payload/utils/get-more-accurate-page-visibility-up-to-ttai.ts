@@ -1,6 +1,5 @@
 import type { InteractionMetrics } from '../../common';
 import type { PageVisibility } from '../../common/react-ufo-payload-schema';
-
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
 import { getVisibilityStateFromPerformance } from './get-visibility-state-from-performance';
 

@@ -1,7 +1,7 @@
 import type { ThemeColorModes } from './theme-color-modes';
 import type { ThemeContrastModes } from './theme-config';
-import type { ThemeOptionsSchema } from './theme-options-schema';
 import type { ThemeIds } from './theme-ids';
+import type { ThemeOptionsSchema } from './theme-options-schema';
 
 /**
  * ThemeState: the standard representation of an app's current theme and preferences

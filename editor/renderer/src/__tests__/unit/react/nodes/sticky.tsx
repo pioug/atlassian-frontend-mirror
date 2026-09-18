@@ -1,17 +1,19 @@
 import React from 'react';
+
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { p, table, th, tr } from '@atlaskit/adf-utils/builders';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
+import ReactSerializer from '../../../../react';
+import type { HeadingLevels } from '../../../../react/nodes/heading';
+import Heading from '../../../../react/nodes/heading';
 import Table from '../../../../react/nodes/table';
 import { TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { p, table, th, tr } from '@atlaskit/adf-utils/builders';
-import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import type { HeadingLevels } from '../../../../react/nodes/heading';
-import Heading from '../../../../react/nodes/heading';
-import ReactSerializer from '../../../../react';
 import type { RendererAppearance } from '../../../../ui/Renderer/types';
 
 const renderWidth = akEditorDefaultLayoutWidth;

@@ -5,7 +5,6 @@ import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 
 /**
  * Returns a NodeSelection for the node at `start`.
- * Matches the `platform_editor_block_menu=true` path in block-controls:
  * mediaGroup with a single child → select the child; all others → select the node.
  * Returns false when no node exists at `start`.
  */

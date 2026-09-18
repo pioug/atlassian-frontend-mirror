@@ -10,8 +10,8 @@ import Lozenge from '@atlaskit/lozenge/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { colorMapping } from '../../../tag-new/color-mapping';
-import { default as TagNew } from '../../../tag-new/tag-new';
 import { markAsTagMotionCapable } from '../../../tag-new/tag-motion-capability';
+import { default as TagNew } from '../../../tag-new/tag-new';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';

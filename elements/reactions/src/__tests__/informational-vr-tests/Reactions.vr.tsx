@@ -1,10 +1,11 @@
+import { snapshotInformational } from '@af/visual-regression';
+
 import {
 	LoadedReactions,
 	LoadedReactionsDisallowAllEmojis,
 	LoadedReactionsMiniMode,
 	LoadedReactionsWithPickerQuickReactionEmojiIds,
 } from './Reactions.fixtures.vr.ap';
-import { snapshotInformational } from '@af/visual-regression';
 
 const featureFlags = {
 	'platform-component-visual-refresh': true,

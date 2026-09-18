@@ -2,7 +2,6 @@
 import * as attachAbortListenersModule from '../../../attachAbortListeners';
 import { getViewportHeight } from '../../../getViewportHeight';
 import { getViewportWidth } from '../../../getViewportWidth';
-
 import { bindAbortListeners } from './bindAbortListeners';
 
 // Mock dependencies

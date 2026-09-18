@@ -1,6 +1,7 @@
-import type { MediaDefinition as Media } from './media';
-import { mediaGroup as mediaGroupFactory } from '../../next-schema/generated/nodeTypes';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { mediaGroup as mediaGroupFactory } from '../../next-schema/generated/nodeTypes';
+import type { MediaDefinition as Media } from './media';
 
 /**
  * @name mediaGroup_node

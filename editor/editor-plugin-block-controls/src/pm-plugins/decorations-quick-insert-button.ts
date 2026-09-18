@@ -15,7 +15,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { ACTIVE_QUICK_INSERT_ATTR } from '../ui/consts';
 import { QuickInsertWithVisibility } from '../ui/quick-insert-button';
-
 import type { AnchorRectCache } from './utils/anchor-utils';
 import { getMatchingBlockMarks } from './utils/marks';
 

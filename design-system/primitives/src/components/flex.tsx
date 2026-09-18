@@ -19,7 +19,6 @@ import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { parseXcss } from '../xcss/parse-xcss';
 import { type Space } from '../xcss/positive-space';
 import { spaceStylesMap } from '../xcss/space-styles-map';
-
 import type { BasePrimitiveProps } from './types';
 
 export type FlexProps<T extends ElementType = 'div'> = {

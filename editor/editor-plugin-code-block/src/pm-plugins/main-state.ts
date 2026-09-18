@@ -3,7 +3,6 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { FormatResult } from '../types';
 import type { LanguageSource } from '../utils/format-code/formatter';
-
 import { pluginKey } from './plugin-key';
 
 export type PendingFormatRequest = {

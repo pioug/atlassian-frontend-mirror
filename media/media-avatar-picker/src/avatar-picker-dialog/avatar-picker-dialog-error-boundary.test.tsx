@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import AvatarPickerDialogErrorBoundary from './avatar-picker-dialog-error-boundary';
+
 import * as avatarPickerDialogModule from './';
+import AvatarPickerDialogErrorBoundary from './avatar-picker-dialog-error-boundary';
 
 const AvatarPickerDialogSpy = jest
 	.spyOn(avatarPickerDialogModule, 'default')

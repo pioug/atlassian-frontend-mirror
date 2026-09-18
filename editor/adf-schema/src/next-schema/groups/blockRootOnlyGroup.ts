@@ -1,5 +1,6 @@
 import type { ADFNodeGroup } from '@atlaskit/adf-schema-generator';
 import { adfNodeGroup } from '@atlaskit/adf-schema-generator';
+
 import { multiBodiedExtension } from '../nodes/multiBodiedExtension';
 
 export const blockRootOnlyGroup: ADFNodeGroup = adfNodeGroup(

@@ -1,7 +1,7 @@
-import APSProtocol from '../../../../protocols/aps';
-import WebsocketTransport from '../../../../protocols/aps/transports/ws';
-import HttpTransport from '../../../../protocols/aps/transports/http';
 import { APSTransportType } from '../../../../apiTypes';
+import APSProtocol from '../../../../protocols/aps';
+import HttpTransport from '../../../../protocols/aps/transports/http';
+import WebsocketTransport from '../../../../protocols/aps/transports/ws';
 
 jest.mock('../../../../protocols/aps/transports/ws');
 jest.mock('../../../../protocols/aps/transports/http');

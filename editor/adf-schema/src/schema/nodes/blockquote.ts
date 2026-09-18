@@ -1,8 +1,5 @@
-import type { ParagraphDefinition as Paragraph } from './paragraph';
-import type {
-	OrderedListDefinition as OrderedList,
-	BulletListDefinition as BulletList,
-} from './types/list';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import type { BlockquoteNode } from '../../next-schema/generated/nodeTypes';
 import {
 	blockquote as blockquoteFactory,
@@ -14,7 +11,11 @@ import type { CodeBlockDefinition as CodeBlock } from './code-block';
 import type { ExtensionDefinition as Extension } from './extension';
 import type { MediaGroupDefinition as MediaGroup } from './media-group';
 import type { MediaSingleDefinition as MediaSingle } from './media-single';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { ParagraphDefinition as Paragraph } from './paragraph';
+import type {
+	OrderedListDefinition as OrderedList,
+	BulletListDefinition as BulletList,
+} from './types/list';
 
 /**
  * @name blockquote_node

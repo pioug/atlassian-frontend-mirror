@@ -1,6 +1,6 @@
-import type { ExperienceProperties, INSMOptions } from './types';
-import type { INSMSession } from './insm-session';
 import { INSM } from './insm';
+import type { INSMSession } from './insm-session';
+import type { ExperienceProperties, INSMOptions } from './types';
 
 let initialisedInsm: INSM;
 

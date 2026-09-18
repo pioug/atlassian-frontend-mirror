@@ -5,7 +5,6 @@ import { failUfoExperience } from '../../../../state/analytics/failUfoExperience
 import { startUfoExperience } from '../../../../state/analytics/startUfoExperience';
 import { succeedUfoExperience } from '../../../../state/analytics/succeedUfoExperience';
 import { type EmbedModalContext, type EmbedModalProps, EmbedModalSize } from '../../types';
-
 import { type WithAnalytics } from './types';
 
 const getResizeFrom = (size?: EmbedModalSize): EmbedModalSize =>

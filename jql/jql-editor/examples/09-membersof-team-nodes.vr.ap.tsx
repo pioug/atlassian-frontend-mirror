@@ -13,8 +13,8 @@ import {
 	mockTeamAvatarUrl,
 } from '../examples-utils/data';
 import { Container } from '../examples-utils/styled';
-import { type HydratedTeam, type HydratedValues } from '../src/ui/jql-editor/types';
 import JQLEditor from '../src/ui';
+import { type HydratedTeam, type HydratedValues } from '../src/ui/jql-editor/types';
 
 // Mock team data for membersOf function arguments
 const membersOfTeams = [

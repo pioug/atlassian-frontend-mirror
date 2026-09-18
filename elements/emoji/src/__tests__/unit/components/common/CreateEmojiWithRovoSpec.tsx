@@ -1,13 +1,14 @@
 import React from 'react';
+
 import { screen, waitFor, fireEvent } from '@testing-library/react';
 
-import { renderWithIntl } from '../../_testing-library';
+import { generateEmojiImage } from '../../../../api/ai/generateEmojiImage';
 import CreateEmojiWithRovo, {
 	createEmojiWithRovoTestId,
 	createEmojiWithRovoPromptTestId,
 	createEmojiWithRovoGenerateTestId,
 } from '../../../../components/common/CreateEmojiWithRovo';
-import { generateEmojiImage } from '../../../../api/ai/generateEmojiImage';
+import { renderWithIntl } from '../../_testing-library';
 
 jest.mock('../../../../api/ai/generateEmojiImage', () => ({
 	generateEmojiImage: jest.fn(),

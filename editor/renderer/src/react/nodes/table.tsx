@@ -1,18 +1,15 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop, @repo/internal/react/no-class-components */
+
 import React from 'react';
 
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-
-import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import type { UrlType } from '@atlaskit/adf-schema/block-card';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { TableSharedCssClassName, tableMarginTop } from '@atlaskit/editor-common/styles';
+import { isTableInContentMode } from '@atlaskit/editor-common/table';
+import { SortOrder } from '@atlaskit/editor-common/types';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { overflowShadow } from '@atlaskit/editor-common/ui';
-import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { FullPagePadding } from '../../ui/Renderer/style';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { RendererCssClassName } from '../../consts';
-
 import {
 	createCompareNodes,
 	convertProsemirrorTableNodeToArrayOfRows,
@@ -20,24 +17,23 @@ import {
 	compose,
 } from '@atlaskit/editor-common/utils';
 import type { Diff } from '@atlaskit/editor-common/utils';
-import { SortOrder } from '@atlaskit/editor-common/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
+import { RendererCssClassName } from '../../consts';
+import { useRendererContext } from '../../renderer-context';
+import { FullPagePadding } from '../../ui/Renderer/style';
 import type { RendererAppearance, StickyHeaderConfig } from '../../ui/Renderer/types';
-import { TableCell, TableHeader } from './tableCell';
-import type { TableCellEdgeProps } from './tableCell';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
 import { withSmartCardStorage } from '../../ui/SmartCardStorage';
-
-import type { StickyMode } from './table/sticky';
-import { StickyTable, tableStickyPadding, OverflowParent } from './table/sticky';
-import { Table } from './table/table';
-import type { SharedTableProps } from './table/types';
 import {
 	isCommentAppearance,
 	isFullWidthOrFullPageAppearance,
@@ -45,13 +41,14 @@ import {
 	isMaxWidthAppearance,
 	isFullPageAppearance,
 } from '../utils/appearance';
-import { token } from '@atlaskit/tokens';
-
-import { TableStickyScrollbar } from './TableStickyScrollbar';
-import { useRendererContext } from '../../renderer-context';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import { isContentModeSupported } from './table/content-mode';
+import type { StickyMode } from './table/sticky';
+import { StickyTable, tableStickyPadding, OverflowParent } from './table/sticky';
+import { Table } from './table/table';
+import type { SharedTableProps } from './table/types';
+import { TableCell, TableHeader } from './tableCell';
+import type { TableCellEdgeProps } from './tableCell';
+import { TableStickyScrollbar } from './TableStickyScrollbar';
 
 export type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;

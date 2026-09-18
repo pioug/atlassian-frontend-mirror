@@ -8,7 +8,6 @@ import { getDimension } from '../../components/__tests__/unit/__utils__/get-dime
 import * as raf from '../../components/__tests__/unit/__utils__/raf';
 import { triggerTransitionEnd } from '../../components/__tests__/unit/__utils__/transition-end';
 import { SidebarResizeContext } from '../sidebar-resize-context';
-
 import { expectThatFlyoutIsOpenAndValid } from './__utils__/flyout';
 
 const completeAnimations = () => {

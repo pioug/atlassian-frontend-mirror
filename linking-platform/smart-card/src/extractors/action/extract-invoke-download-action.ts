@@ -6,8 +6,8 @@ import { getDefinitionId } from '../../state/getDefinitionId';
 import { getExtensionKey } from '../../state/getExtensionKey';
 import { getResourceType } from '../../state/getResourceType';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
-import { downloadUrl as download } from '../../utils/download-url';
 import { canShowAction } from '../../utils/actions/can-show-action';
+import { downloadUrl as download } from '../../utils/download-url';
 import { getActionsFromJsonLd } from '../common/actions/extractActions';
 import { type ExtractClientActionsParam } from './types';
 

@@ -6,7 +6,6 @@ import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { getDefaultItems } from '../../../__tests__/__helpers';
-
 import { LinkSearchList, type LinkSearchListProps, testIds } from './index';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

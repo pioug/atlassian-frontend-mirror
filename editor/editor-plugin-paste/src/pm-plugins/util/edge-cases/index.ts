@@ -8,7 +8,6 @@ import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import { isCursorSelectionAtTextStartOrEnd, isEmptyNode, isSelectionInsidePanel } from '../index';
-
 import {
 	insertSliceAtNodeEdge,
 	insertSliceInsideOfPanelNodeSelected,

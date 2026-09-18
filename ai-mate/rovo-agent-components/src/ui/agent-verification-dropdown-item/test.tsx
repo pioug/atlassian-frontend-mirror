@@ -8,7 +8,6 @@ import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
 import type { testAgentVerificationDropdownItemQuery } from './__generated__/testAgentVerificationDropdownItemQuery.graphql';
-
 import { AgentVerificationDropdownItem } from './index';
 
 type RenderProps = {

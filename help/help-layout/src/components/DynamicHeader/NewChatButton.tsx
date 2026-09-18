@@ -3,13 +3,15 @@
  * @jsx jsx
  */
 
-import { Inline } from '@atlaskit/primitives/compiled';
 import { jsx } from '@compiled/react';
+import { useIntl } from 'react-intl';
+
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import Button from '@atlaskit/button/default/button';
 import EditIcon from '@atlaskit/icon/core/edit';
-import { useIntl } from 'react-intl';
+import { Inline } from '@atlaskit/primitives/compiled';
+
 import { messages } from '../../messages';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 interface Props {
 	isDisabled?: boolean;

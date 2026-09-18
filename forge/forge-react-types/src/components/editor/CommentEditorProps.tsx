@@ -1,4 +1,5 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+
 import type { EditorProps } from './types';
 
 export type CommentEditorProps = EditorProps & {

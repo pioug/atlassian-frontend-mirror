@@ -1,6 +1,5 @@
 import { type Argument, type JastListener, type JastVisitor, type Position } from '../types';
 import { normaliseJqlString, sanitiseJqlString } from '../utils';
-
 import { noChildren } from './common';
 
 function acceptArgument<Result>(this: Argument, visitor: JastVisitor<Result>) {

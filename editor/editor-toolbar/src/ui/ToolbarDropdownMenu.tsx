@@ -14,7 +14,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
-
 import { ToolbarButton } from './ToolbarButton';
 import { useToolbarDropdownMenu } from './ToolbarDropdownMenuContext';
 

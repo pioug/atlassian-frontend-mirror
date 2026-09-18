@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import React, { Fragment } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { calculateTruncation } from './calculateTruncation';

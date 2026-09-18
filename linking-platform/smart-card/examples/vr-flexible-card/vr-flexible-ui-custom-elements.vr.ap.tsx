@@ -4,6 +4,7 @@
  */
 import { jsx } from '@compiled/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	ErroredClient,
 	ForbiddenClient,
@@ -35,7 +36,6 @@ import {
 	TitleElement,
 } from '@atlaskit/smart-card';
 
-import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 type AccessTypeTextProps = {

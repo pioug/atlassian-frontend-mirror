@@ -3,7 +3,6 @@ import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-
 import type { FeatureFlagKey } from '../../types/feature-flags';
 import type { PropsDifference, ShallowPropsDifference } from '../../utils';
 import type { SEVERITY } from '../../utils/SEVERITY';
-
 import type {
 	ACTION,
 	ACTION_SUBJECT,

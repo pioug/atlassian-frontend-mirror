@@ -1,5 +1,4 @@
 import type { TypeAheadAvailableNodes } from '../../type-ahead';
-
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { OperationalAEP, TrackAEP, UIAEP } from './utils';
 

@@ -5,12 +5,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
 
-import Tabs from '../../components/tabs';
 import Tab from '../../components/tab';
 import TabList from '../../components/tab-list';
 import TabPanel from '../../components/tab-panel';
-import useTab from '../../use-tab';
+import Tabs from '../../components/tabs';
 import { TabContext } from '../../internal/tab-context';
+import useTab from '../../use-tab';
 
 const CustomTab = ({ label }: { label: string }) => {
 	const tabAttributes = useTab();

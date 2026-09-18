@@ -1,3 +1,6 @@
+import type { Comment } from '../model/Comment';
+import type { Conversation } from '../model/Conversation';
+import type { User } from '../model/User';
 import {
 	FETCH_CONVERSATIONS_REQUEST,
 	FETCH_CONVERSATIONS_SUCCESS,
@@ -17,11 +20,8 @@ import {
 	CREATE_CONVERSATION_ERROR,
 	HIGHLIGHT_COMMENT,
 } from './actions';
-import type { Action, State } from './store';
-import type { User } from '../model/User';
-import type { Conversation } from '../model/Conversation';
-import type { Comment } from '../model/Comment';
 import { createReducer } from './create-reducer';
+import type { Action, State } from './store';
 
 export const getNestedDepth = (
 	conversation: Conversation,

@@ -1,5 +1,4 @@
 import { setPreloadHoldAdoptionHook } from '../interaction-metrics';
-
 import { preloadHoldState } from './state';
 
 function clearPendingPreloadHolds(): void {

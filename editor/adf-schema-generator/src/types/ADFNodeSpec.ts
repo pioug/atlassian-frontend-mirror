@@ -1,9 +1,9 @@
-import type { ADFNode } from '../adfNode';
 import type { ADFMark } from '../adfMark';
+import type { ADFNode } from '../adfNode';
 import type { TransformerNames } from '../transforms/transformerNames';
 import type { ADFAttributes } from './ADFAttribute';
-import type { ADFNodeGroup } from './ADFNodeGroup';
 import type { ADFMarkSpec } from './ADFMarkSpec';
+import type { ADFNodeGroup } from './ADFNodeGroup';
 
 export type ADFNodeSpec = ADFCommonNodeSpec | ADFTextNodeSpec;
 

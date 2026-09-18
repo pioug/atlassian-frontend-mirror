@@ -4,19 +4,19 @@
  */
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
+
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema/breakout';
+import type { BreakoutMode } from '@atlaskit/editor-common/types';
 import {
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxLayoutWidth,
 	blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import type { MarkProps } from '../types';
-
-import type { BreakoutMode } from '@atlaskit/editor-common/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { RendererCssClassName } from '../../consts';
+import type { MarkProps } from '../types';
 
 const flexWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

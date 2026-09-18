@@ -25,7 +25,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { ClosingPayload, StatusType } from '../types';
 import { createStatusNode, getDefaultStatusAttrs } from '../utils/createStatusNode';
-
 import { pluginKey } from './plugin-key';
 
 export const verifyAndInsertStatus = (

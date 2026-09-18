@@ -9,7 +9,6 @@ import { token } from '@atlaskit/tokens';
 import { type ContainerTypes } from '../../../common/types';
 import { LinkedContainerCardSkeleton } from '../../../common/ui/team-containers-skeleton/linked-container-card-skeleton';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
-
 import { AddContainerCardButton } from './add-container-card-button';
 
 const styles = cssMap({

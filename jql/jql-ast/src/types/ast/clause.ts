@@ -5,7 +5,6 @@ import {
 	type CLAUSE_TYPE_TERMINAL,
 	type NODE_TYPE_CLAUSE,
 } from '../../constants';
-
 import { type AstNode, type Removable, type Replaceable } from './common';
 import { type CompoundOperator } from './compound-operator';
 import { type Field } from './field';

@@ -47,7 +47,6 @@ import {
 	type ConfluenceSearchDatasourceParameters,
 	type ConnectedConfluenceSearchConfigModalProps,
 } from '../types';
-
 import { confluenceSearchModalMessages } from './messages';
 
 const styles = cssMap({

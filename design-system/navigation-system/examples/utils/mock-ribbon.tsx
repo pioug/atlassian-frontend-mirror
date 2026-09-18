@@ -7,8 +7,8 @@ import React from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import type { LogoProps } from '@atlaskit/logo/types';
 import { ConfluenceIcon, CustomerServiceManagementIcon, JiraIcon, LoomIcon } from '@atlaskit/logo';
+import type { LogoProps } from '@atlaskit/logo/types';
 import { Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

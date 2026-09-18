@@ -25,7 +25,6 @@ import type {
 } from '../types';
 import { useMediaProvider } from '../ui/hooks/useMediaProvider';
 import { MediaSSRReactContextsProvider } from '../ui/MediaSSRReactContextsProvider';
-
 import { MediaGroupNext } from './mediaGroupNext';
 
 interface MediaGroupNodeViewProps {

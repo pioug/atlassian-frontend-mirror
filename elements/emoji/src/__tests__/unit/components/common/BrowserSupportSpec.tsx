@@ -1,9 +1,10 @@
 import React from 'react';
+
 import Emoji from '../../../../components/common/Emoji';
-import { imageEmoji } from '../../_test-data';
+import browserSupport from '../../../../util/browser-support';
 import '@testing-library/jest-dom';
 
-import browserSupport from '../../../../util/browser-support';
+import { imageEmoji } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
 
 describe('<Emoji />', () => {

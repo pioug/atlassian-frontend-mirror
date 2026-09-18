@@ -2,8 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
+
 import React from 'react';
+
+import { jsx, css } from '@compiled/react';
 
 type Props = {
 	src: string;

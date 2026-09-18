@@ -1,33 +1,32 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Mapping file
 import type React from 'react';
+
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { lazyForPaint } from 'react-loosely-lazy';
 
-import Table from './table';
-import TableRow from './tableRow';
-
-import type TaskListComponent from './taskList';
-import type TaskItemComponent from './taskItem';
-import type DecisionListComponent from './decisionList';
-import type DecisionItemComponent from './decisionItem';
+import type ExpandComponent from '../../ui/Expand';
+import type BlockCardComponent from './blockCard';
+import type CodeBlockComponent from './codeBlock/codeBlock';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import type DateComponent from './date';
-import type StatusComponent from './status';
-import type EmojiComponent from './emoji';
-import type PanelComponent from './panel';
+import type DecisionItemComponent from './decisionItem';
+import type DecisionListComponent from './decisionList';
 import type EmbedCardComponent from './embedCard';
+import type EmojiComponent from './emoji';
 import type InlineCardComponent from './inlineCard';
-import type BlockCardComponent from './blockCard';
 import type MediaComponent from './media';
 import type MediaGroupComponent from './mediaGroup';
 import type MediaInlineComponent from './mediaInline';
 import type MediaSingleComponent from './mediaSingle';
 import type MentionComponent from './mention';
-import type ExpandComponent from '../../ui/Expand';
-
-import type CodeBlockComponent from './codeBlock/codeBlock';
+import type PanelComponent from './panel';
+import type StatusComponent from './status';
+import Table from './table';
+import TableRow from './tableRow';
+import type TaskItemComponent from './taskItem';
+import type TaskListComponent from './taskList';
 
 const CodeBlock = lazyForPaint(
 	() =>

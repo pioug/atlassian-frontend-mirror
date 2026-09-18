@@ -63,7 +63,6 @@ import {
 	ViewCountElement,
 	VoteCountElement,
 } from '../src';
-
 import ExampleContainer from './utils/example-container';
 
 export default (): React.JSX.Element => {

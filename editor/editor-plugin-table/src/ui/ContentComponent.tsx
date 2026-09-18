@@ -14,13 +14,12 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type tablePlugin from '../tablePlugin';
 import type { TablePlugin, TablePluginOptions } from '../tablePluginType';
 import type { TableSharedStateInternal } from '../types';
-
 import FloatingContextualButton from './FloatingContextualButton';
 import FloatingContextualMenu from './FloatingContextualMenu';
 import FloatingDragMenu from './FloatingDragMenu';

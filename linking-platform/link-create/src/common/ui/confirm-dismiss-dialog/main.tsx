@@ -11,7 +11,6 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 import { Button } from '../Button';
 import { Modal } from '../ModalDialog';
-
 import messages from './messages';
 
 export type ConfirmDismissDialogProps = {

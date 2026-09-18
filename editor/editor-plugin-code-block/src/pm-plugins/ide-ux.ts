@@ -7,7 +7,6 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 
 import type { CodeBlockPlugin } from '../index';
-
 import { getAutoClosingBracketInfo, shouldAutoCloseBracket } from './ide-ux/bracket-handling';
 import { indent, insertIndent, insertNewlineWithIndent, outdent } from './ide-ux/commands';
 import {

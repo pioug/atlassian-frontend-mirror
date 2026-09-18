@@ -1,6 +1,5 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { hexToEditorTextBackgroundPaletteColor } from '../../../utils/hex-to-editor-text-background-palette-color';
 import { hexToEditorTextPaletteColor } from '../../../utils/hex-to-editor-text-palette-color';

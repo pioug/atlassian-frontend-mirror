@@ -5,7 +5,6 @@ import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TableMenuComponentsParams } from '../shared/types';
-
 import { AddColumnLeftItem } from './items/AddColumnLeftItem';
 import { AddColumnRightItem } from './items/AddColumnRightItem';
 import { ColumnBackgroundSection } from './items/ColumnBackgroundSection';

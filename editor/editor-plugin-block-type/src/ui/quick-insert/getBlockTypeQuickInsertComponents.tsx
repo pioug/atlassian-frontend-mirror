@@ -17,7 +17,6 @@ import type { ExtractInjectionAPI, HeadingLevels } from '@atlaskit/editor-common
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
-
 import {
 	BlockTypeQuickInsertMenuItem,
 	getHeadingQuickInsertMessages,

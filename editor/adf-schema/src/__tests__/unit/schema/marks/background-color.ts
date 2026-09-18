@@ -1,11 +1,12 @@
+import { fromHTML, toHTML, textWithMarks } from '@af/adf-test-helpers/src/adf-schema';
+import { doc, p, textColor, backgroundColor } from '@af/adf-test-helpers/src/doc-builder';
+import { defaultSchema } from '@af/adf-test-helpers/src/schema';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
+import { backgroundColor as backgroundColorNodeSpec } from '../../../..';
 import { createSchema } from '../../../../schema/create-schema';
 import { setGlobalTheme } from '../../../../schema/marks/text-color';
-import { defaultSchema } from '@af/adf-test-helpers/src/schema';
-import { doc, p, textColor, backgroundColor } from '@af/adf-test-helpers/src/doc-builder';
-import { fromHTML, toHTML, textWithMarks } from '@af/adf-test-helpers/src/adf-schema';
-import { backgroundColor as backgroundColorNodeSpec } from '../../../..';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 const testColorObj1 = { color: '#d3f1a7' };
 const testColorObj2 = { color: '#D3F1A7' };

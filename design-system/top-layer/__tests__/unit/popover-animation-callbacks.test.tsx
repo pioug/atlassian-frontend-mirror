@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import { act, render, screen } from '@atlassian/testing-library';
 
+import { usePopoverId } from '../../src/entry-points/use-popover-id';
 import { getAriaForTrigger } from '../../src/internal/get-aria-for-trigger';
 import { Popover } from '../../src/popover/popover';
-import { usePopoverId } from '../../src/entry-points/use-popover-id';
 
 const originalGetAnimations = Object.getOwnPropertyDescriptor(
 	HTMLElement.prototype,

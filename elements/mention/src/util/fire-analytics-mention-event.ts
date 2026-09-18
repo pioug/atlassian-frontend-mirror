@@ -1,6 +1,6 @@
 import { type GasPayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { ELEMENTS_CHANNEL } from '../_constants';
 import { isSpecialMentionText } from '../is-special-mention-text';

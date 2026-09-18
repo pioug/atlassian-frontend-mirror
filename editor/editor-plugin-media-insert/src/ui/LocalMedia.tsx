@@ -22,7 +22,6 @@ import SectionMessage from '@atlaskit/section-message/message';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { InsertFile } from '../types';
-
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 
 type Props = {

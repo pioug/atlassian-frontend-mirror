@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import { z } from 'zod';
 
 export const getLintRulesInputSchema: z.ZodObject<{

@@ -1,5 +1,5 @@
-import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
 const COMPONENT_NAME = 'smart-user-picker';
 

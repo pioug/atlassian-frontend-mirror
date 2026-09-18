@@ -1,4 +1,7 @@
 // @ts-nocheck
+
+import { type Option, OPTIONS } from './constants.mock';
+
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
@@ -8,8 +11,6 @@ import cases from 'jest-in-case';
 import { skipA11yAudit } from '@af/accessibility-testing';
 
 import Creatable from '../../creatable';
-
-import { type Option, OPTIONS } from './constants.mock';
 
 const testId = 'react-select';
 

@@ -4,8 +4,8 @@ import { useIntl } from 'react-intl';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import AkFlag from '@atlaskit/flag/flag';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
+import AkFlag from '@atlaskit/flag/flag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';

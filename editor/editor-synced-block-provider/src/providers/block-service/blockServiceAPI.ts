@@ -1,4 +1,5 @@
 /* eslint-disable require-unicode-regexp  */
+
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';

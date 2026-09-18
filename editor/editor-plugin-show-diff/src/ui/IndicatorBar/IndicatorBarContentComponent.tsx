@@ -16,7 +16,6 @@ import {
 	AnchorTypeKey,
 } from '../../pm-plugins/decorations/decorationKeys';
 import type { DiffDescriptor, ShowDiffPlugin } from '../../showDiffPluginType';
-
 import { IndicatorBar } from './IndicatorBar';
 
 const renderIndicatorBar = (descriptor: DiffDescriptor) => {

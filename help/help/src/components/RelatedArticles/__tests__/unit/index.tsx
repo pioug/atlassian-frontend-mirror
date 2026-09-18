@@ -1,15 +1,15 @@
 import React from 'react';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, waitFor, fireEvent } from '@testing-library/react';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { getMockArticleItemList, getMockArticleItem } from '../../../../util/testing/mock';
 import { messages } from '../../../../messages';
-
-import RelatedArticles from '../../index';
 import { type ArticleItem } from '../../../../model/Article';
+import { getMockArticleItemList, getMockArticleItem } from '../../../../util/testing/mock';
+import RelatedArticles from '../../index';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

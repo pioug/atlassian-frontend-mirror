@@ -4,7 +4,6 @@ import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import type { ImageUploadPluginState } from '../types';
 import { createExternalMediaNode } from '../ui/hooks/utils';
-
 import { startUpload } from './actions';
 import { stateKey } from './plugin-key';
 

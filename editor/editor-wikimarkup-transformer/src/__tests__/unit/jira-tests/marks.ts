@@ -12,6 +12,7 @@ import {
 	subsup,
 	underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { checkParseEncodeRoundTrips } from '../_test-helpers';
 
 // Nodes

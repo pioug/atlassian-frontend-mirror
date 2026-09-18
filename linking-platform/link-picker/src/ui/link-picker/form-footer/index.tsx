@@ -20,7 +20,6 @@ import {
 	type LinkSearchListItemData,
 } from '../../../common/types';
 import { UnauthenticatedError } from '../../../common/utils/errors';
-
 import { LinkPickerSubmitButton } from './link-picker-submit-button';
 
 const formFooterStyles = css({

@@ -3,7 +3,6 @@ import React from 'react';
 import { token } from '@atlaskit/tokens';
 
 import { LINK_PICKER_WIDTH_IN_PX } from '../../common/constants';
-
 import { ErrorBoundaryFallback } from './error-boundary-fallback';
 
 const createExample = (): React.ComponentType => {

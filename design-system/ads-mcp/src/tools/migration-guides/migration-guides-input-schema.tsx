@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import { z } from 'zod';
 
 import { getAvailableMigrationIds } from './get-available-migration-ids';

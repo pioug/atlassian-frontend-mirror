@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
@@ -14,10 +15,10 @@ import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import withAnalyticsContext, {
 	type WithContextProps,
 } from '@atlaskit/analytics-next/withAnalyticsContext';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -40,7 +41,6 @@ import useFocus from '../../hooks/use-focus';
 import commonMessages from '../../messages';
 import type { SelectedItemProps } from '../../types';
 import { Modes } from '../../types';
-
 import EmptyState from './EmptyState';
 import { getColumnCount } from './getColumnCount';
 import { getScrollbarWidth } from './utils';

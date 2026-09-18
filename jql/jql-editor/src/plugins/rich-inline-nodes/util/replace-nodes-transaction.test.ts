@@ -9,7 +9,6 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import { JQLEditorSchema } from '../../../schema';
 import { type HydratedValuesMap } from '../../../state/types';
 import jqlAstPlugin from '../../jql-ast';
-
 import { replaceRichInlineNodes } from './replace-nodes-transaction';
 
 const TEAM_ID = 'id:5653b0ca-138f-454a-9884-eabe847f18df';

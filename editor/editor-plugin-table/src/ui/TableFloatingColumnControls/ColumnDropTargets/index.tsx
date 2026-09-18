@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 
 import { TableCssClassName as ClassName } from '../../../types';
-
 import { ColumnDropTarget } from './ColumnDropTarget';
 
 interface Props {

@@ -16,7 +16,6 @@ import {
 	type PredicateOperator,
 } from '../types';
 import { notUndefined } from '../utils';
-
 import { getPositionFromContext, JastBuildingVisitor } from './common';
 import { OperandVisitor } from './operand';
 

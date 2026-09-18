@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 2.7.0
+
+### Minor Changes
+
+- [`6c8c928766851`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c8c928766851) -
+  Add an optional `ariaLabelledBy` prop to `ColorPalette` and expose all of its swatches as a single
+  radio group named by that element, behind platform_editor_a11y_color_palette_radiogroup
+
+## 2.6.46
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.45
 
 ### Patch Changes

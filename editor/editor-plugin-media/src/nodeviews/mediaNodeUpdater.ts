@@ -43,7 +43,6 @@ import type {
 	MediaPluginState,
 	SupportedMediaAttributes,
 } from '../types';
-
 import { computeReplacementDisplayWidth } from './nodeviewHelpers';
 
 type RemoteDimensions = { height: number; id: string; width: number };

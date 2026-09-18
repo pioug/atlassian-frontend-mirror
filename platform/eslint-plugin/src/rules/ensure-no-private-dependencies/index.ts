@@ -1,8 +1,9 @@
+import { findRootSync } from '@manypkg/find-root';
+import { getPackagesSync, type Package } from '@manypkg/get-packages';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
+
 import { getObjectPropertyAsObject, getObjectPropertyAsLiteral } from '../util/handle-ast-object';
-import { getPackagesSync, type Package } from '@manypkg/get-packages';
-import { findRootSync } from '@manypkg/find-root';
 
 let root: string | undefined;
 let pkgs: Package[] | undefined;

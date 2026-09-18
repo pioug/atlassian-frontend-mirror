@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { isSpriteServiceRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
  */
+
 export { isSpriteServiceRepresentation } from './is-sprite-service-representation';
 /**
  * @deprecated Use `import { isSpriteRepresentation } from '@atlaskit/emoji/type-helpers'` instead.

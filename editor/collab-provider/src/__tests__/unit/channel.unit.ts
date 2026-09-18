@@ -16,8 +16,21 @@ jest.mock('@atlaskit/util-service-support', () => {
 	};
 });
 
+import type { Socket } from 'socket.io-client';
+import { io } from 'socket.io-client';
+
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type { Metadata, CollabSendableSelection, StepJson } from '@atlaskit/editor-common/collab';
 import { utils } from '@atlaskit/util-service-support';
+
+import AnalyticsHelper from '../../analytics/analytics-helper';
+import * as Performance from '../../analytics/performance';
 import { Channel } from '../../channel';
+import Network from '../../connectivity/network';
+import { NotConnectedError, NotInitializedError } from '../../errors/custom-errors';
+import type { InternalError } from '../../errors/internal-errors';
+import { getProduct, getSubProduct } from '../../helpers/utils';
+import { createSocketIOSocket } from '../../socket-io-provider';
 import type {
 	Config,
 	InitPayload,
@@ -28,17 +41,6 @@ import type {
 	InitAndAuthData,
 	AuthCallback,
 } from '../../types';
-import type { Metadata, CollabSendableSelection, StepJson } from '@atlaskit/editor-common/collab';
-import * as Performance from '../../analytics/performance';
-import { createSocketIOSocket } from '../../socket-io-provider';
-import type { Socket } from 'socket.io-client';
-import { io } from 'socket.io-client';
-import AnalyticsHelper from '../../analytics/analytics-helper';
-import { getProduct, getSubProduct } from '../../helpers/utils';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
-import Network from '../../connectivity/network';
-import type { InternalError } from '../../errors/internal-errors';
-import { NotConnectedError, NotInitializedError } from '../../errors/custom-errors';
 
 const expectValidChannel = (channel: Channel): void => {
 	expect(channel).toBeDefined();
@@ -53,6 +55,7 @@ const allExpectedEventNames: string[] = [
 	'connect',
 	'data',
 	'steps:added',
+	'recovery:required',
 	'participant:telepointer',
 	'presence:joined',
 	'participant:left',
@@ -430,6 +433,21 @@ describe('Channel unit tests', () => {
 				title: 'a-title',
 			},
 		} as InitPayload & { type: 'initial' });
+	});
+
+	it('forwards recovery requests from NCS', () => {
+		const channel = getChannel();
+		const onRecoveryRequired = jest.fn();
+		const onStepsAdded = jest.fn();
+		channel.on('recovery:required', onRecoveryRequired);
+		channel.on('steps:added', onStepsAdded);
+
+		const payload = { reason: 'steps_migration' };
+		channel.getSocket()!.emit('recovery:required', payload);
+
+		expect(onRecoveryRequired).toHaveBeenCalledTimes(1);
+		expect(onRecoveryRequired).toHaveBeenCalledWith(payload);
+		expect(onStepsAdded).not.toHaveBeenCalled();
 	});
 
 	it('should handle receiving steps:added from server', (done) => {

@@ -1,11 +1,11 @@
 // oxlint-disable-next-line import/no-duplicates
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
+import { historyKey } from './historyKey';
+import { HistoryState } from './historyState';
 import type { Command, HistoryOptions } from './types';
 import { mapInvertableSteps } from './utils/mapInvertableSteps';
 import { mustPreserveItems } from './utils/mustPreserveItems';
-import { historyKey } from './historyKey';
-import { HistoryState } from './historyState';
 
 // Apply the latest event from one branch to the document and shift the event
 // onto the other branch.

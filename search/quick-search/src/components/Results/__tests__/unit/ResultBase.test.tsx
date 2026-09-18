@@ -1,7 +1,9 @@
-import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import ResultBase from '../../ResultBase';
+
+import { fireEvent, render } from '@testing-library/react';
+
 import { type ResultContextType } from '../../../context';
+import ResultBase from '../../ResultBase';
 
 const createContext = (overrides: Partial<ResultContextType> = {}): ResultContextType => ({
 	registerResult: jest.fn(),

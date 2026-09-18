@@ -1,6 +1,8 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
-import { createSchema } from './create-schema';
+
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
+import { createSchema } from './create-schema';
 
 /**
  * @deprecated [ED-15676] We have stopped supporting product specific schemas. Use `@atlaskit/adf-schema/schema-default` instead.

@@ -1,10 +1,10 @@
 import React from 'react';
 
+import SettingsIcon from '@atlaskit/icon/core/settings';
+import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
-import SettingsIcon from '@atlaskit/icon/core/settings';
-import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 
 import { EndItem } from '../../../top-nav-items/end-item';
 import { TopNavEnd } from '../../top-nav/top-nav-end';

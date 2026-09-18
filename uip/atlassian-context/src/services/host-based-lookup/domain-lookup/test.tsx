@@ -3,7 +3,6 @@ import {
 	type DomainConfig,
 	type DomainKey,
 } from '../../../common/constants/host-based-lookup/types';
-
 import { _getEnvironmentFromDomain } from './_getEnvironmentFromDomain';
 import { configure } from './configure';
 import { getATLContextDomain } from './getATLContextDomain';

@@ -1,12 +1,13 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import { getType as getListType, ListBuilder } from '../builder/list-builder';
 import { parseString } from '../text';
 import { normalizePMNodes } from '../utils/normalize';
-import { parseMacroKeyword } from './keyword';
+import { hasAnyOfMarks } from '../utils/text';
 import { TokenType, parseToken } from './';
 import type { Token, TokenParser } from './';
+import { parseMacroKeyword } from './keyword';
 import { parseNewlineOnly } from './whitespace';
-import { hasAnyOfMarks } from '../utils/text';
 
 export const MAX_LIST_DEPTH = 20;
 

@@ -1,5 +1,3 @@
-import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { expandWithNestedExpand } from '../../../..';
 import {
 	schema,
 	doc,
@@ -10,9 +8,12 @@ import {
 	tr,
 	td,
 } from '@af/adf-test-helpers/src/adf-schema';
-import { normalizeNodeSpec } from '../../_utils';
+import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
+import { expandWithNestedExpand } from '../../../..';
 import type { SchemaConfig } from '../../../../schema/create-schema';
 import { createSchema } from '../../../../schema/create-schema';
+import { normalizeNodeSpec } from '../../_utils';
 
 const packageName = process.env.npm_package_name as string;
 

@@ -45,6 +45,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"relay-test-utils": "root:*"

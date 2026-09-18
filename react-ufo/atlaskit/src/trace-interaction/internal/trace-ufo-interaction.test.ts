@@ -25,7 +25,6 @@ import { setInteractionActiveTrace } from '../../experience-trace-id-context/set
 import DefaultInteractionID from '../../interaction-id-context/defaultInteractionId';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../../interaction-metrics';
 import UFORouteName from '../../route-name-context';
-
 import traceUFOInteraction from './trace-ufo-interaction';
 
 const mockCoinflip = coinflip as jest.MockedFunction<typeof coinflip>;

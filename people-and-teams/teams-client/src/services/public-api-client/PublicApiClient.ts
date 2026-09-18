@@ -1,14 +1,13 @@
 import { HttpError } from '../../common/utils/error/HttpError';
 import { SLOIgnoreHttpError } from '../../common/utils/error/SLOIgnoreHttpError';
 import { RestClient } from '../rest-client';
-
 import type { AddMembershipReponse } from './AddMembershipReponse';
-import type { Member } from './Member';
-import type { RemoveMembershipReponse } from './RemoveMembershipReponse';
 import {
 	type PublicApiTeamResponse,
 	type PublicApiTeamResponseWithMembers,
 } from './generated/data-contracts';
+import type { Member } from './Member';
+import type { RemoveMembershipReponse } from './RemoveMembershipReponse';
 import { V1_URL } from './V1_URL';
 
 const SENTRY_IGNORED_ERROR_MESSAGES_CREATE = ['TEAM_NOT_FOUND'];

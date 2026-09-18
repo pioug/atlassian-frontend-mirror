@@ -3,7 +3,6 @@
 
 import { generateTheme } from '../../../theme/theme-generator';
 import { type GenerateThemeArgs } from '../../../theme/types';
-
 import { expectedThemes } from './_expected-themes';
 import { colorSchemes } from './_theme-data';
 

@@ -3,8 +3,9 @@ import type {
 	IndentationMarkAttributes,
 } from '@atlaskit/adf-schema/indentation';
 import type { ParagraphDefinition } from '@atlaskit/adf-schema/paragraph';
-import { applyMark } from '../utils/apply-mark';
+
 import type { WithMark, WithAppliedMark } from '../types';
+import { applyMark } from '../utils/apply-mark';
 
 export const indentation = (attrs: IndentationMarkAttributes) => (maybeNode: WithMark | string) =>
 	applyMark<IndentationMarkDefinition>(

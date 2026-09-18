@@ -1,8 +1,7 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { type FileIdentifier } from '@atlaskit/media-client';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { type MediaFilePreviewErrorInfo } from '../analytics';
-
 import { generateScriptProps } from './generateScriptProps';
 import { getKey } from './getKey';
 import { getMediaCardSSR } from './getMediaCardSSR';

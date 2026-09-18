@@ -14,7 +14,6 @@ import type { InsertBlockPlugin } from '../../../insertBlockPluginType';
 import type { ToolbarInsertBlockButtonsConfig } from '../../../types';
 import type { BlockMenuItem } from '../../ToolbarInsertBlock/create-items';
 import { createItems } from '../../ToolbarInsertBlock/create-items';
-
 import { filterDropdownItemsByBreakpoint } from './filterDropdownItems';
 
 interface UseInsertButtonStateProps {

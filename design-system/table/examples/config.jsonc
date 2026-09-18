@@ -4,10 +4,5 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "basic-with-actions.tsx",
-    "basic.tsx",
-    "multi-header.tsx",
-    "row.tsx"
-  ]
+	"testExamples": ["basic-with-actions.tsx", "basic.tsx", "multi-header.tsx", "row.tsx"],
 }

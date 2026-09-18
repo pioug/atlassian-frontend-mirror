@@ -2,7 +2,6 @@ import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ContributorTagModel, DiffDescriptor, TagContributor } from '../../showDiffPluginType';
-
 import type {
 	ResolvedDiffContributor,
 	ResolvedDiffContributors,

@@ -1,6 +1,6 @@
-import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import { doc, p, panel } from '@af/adf-test-helpers/src/doc-builder';
 import { defaultSchema } from '@af/adf-test-helpers/src/schema';
+import { Transform } from '@atlaskit/editor-prosemirror/transform';
 
 import { BatchAttrsStep } from '../../batch-attrs-step';
 

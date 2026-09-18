@@ -4,11 +4,6 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "dynamic-stages.tsx",
-    "progress-tracker-default.vr.ap.tsx"
-  ],
-  "exampleDependencies": [
-    "react-router-dom"
-  ]
+	"testExamples": ["dynamic-stages.tsx", "progress-tracker-default.vr.ap.tsx"],
+	"exampleDependencies": ["react-router-dom"],
 }

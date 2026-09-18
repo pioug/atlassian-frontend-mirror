@@ -10,7 +10,6 @@ import { EditorStateContainer } from '../../state';
 import type { ExternalMessage } from '../../state/types';
 import { JQLEditorPortalRenderer } from '../jql-editor-portal-provider';
 import JQLEditorView from '../jql-editor-view';
-
 import { type JQLEditorUIProps } from './types';
 
 export type JQLEditorInnerProps = JQLEditorUIProps & {

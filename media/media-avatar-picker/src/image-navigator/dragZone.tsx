@@ -2,8 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
+
 import { jsx, css, keyframes } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 const dragZoneStyles = css({
 	width: '200px',

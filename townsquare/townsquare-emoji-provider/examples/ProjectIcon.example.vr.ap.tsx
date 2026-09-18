@@ -8,7 +8,6 @@ import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { ProjectIcon } from '../src/ProjectIcon';
-
 import emojiMockData from './__mocks__/emojiData.json';
 
 fetchMock.config.fallbackToNetwork = true;

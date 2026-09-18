@@ -12,7 +12,6 @@ import {
 	mockBaseResponseWithPreview,
 	mockUnauthorisedResponse,
 } from '../__mocks__/mocks';
-
 import { mockUrl } from './common.test-utils';
 import {
 	type setup as hoverCardSetup,

@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { caption } from './__fixtures__/caption-adf';
-import { captionLong } from './__fixtures__/caption-long-adf';
-import { captionComplicated } from './__fixtures__/caption-complicated-adf';
-
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 
-import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { Renderer } from '../../entry-points/renderer-default';
+import { caption } from './__fixtures__/caption-adf';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { captionComplicated } from './__fixtures__/caption-complicated-adf';
+import { captionLong } from './__fixtures__/caption-long-adf';
 
 const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
 	return (

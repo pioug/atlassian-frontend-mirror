@@ -3,7 +3,6 @@ import React from 'react';
 import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 
 import adf from '../example-helpers/templates/media-without-caption.adf.json';
-
 import { default as FullPageExample } from './5-full-page';
 
 // Ignored via go/ees005

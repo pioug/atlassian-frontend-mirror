@@ -7,7 +7,6 @@ import { prioritiseIcon } from '../../common/icon/prioritiseIcon';
 import { extractorPriorityMap as priorityMap } from '../../common/icon/priority';
 import { extractTaskType } from '../../common/lozenge/extractTaskType';
 import { JIRA_GENERATOR_ID } from '../../constants';
-
 import extractDocumentTypeIcon from './extract-document-type-icon';
 import extractFileFormatIcon from './extract-file-formatIcon';
 import extractJiraTaskIcon from './extract-jira-task-icon';

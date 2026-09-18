@@ -23,7 +23,6 @@ import type { FloatingToolbarItem, Command } from '@atlaskit/editor-common/types
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	commitStatusPicker,
@@ -31,7 +30,6 @@ import {
 	removeStatus,
 	updateStatusWithAnalytics,
 } from './pm-plugins/actions';
-import { isStatusTurnIntoHidden } from './utils/turnInto';
 import { keymapPlugin } from './pm-plugins/keymap';
 import createStatusPlugin from './pm-plugins/plugin';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -39,12 +37,10 @@ import type { StatusPlugin } from './statusPluginType';
 import { ContentComponent } from './ui/ContentComponent';
 import { getStatusQuickInsertComponents } from './ui/quick-insert/getStatusQuickInsertComponents';
 import { createStatusBlockMenuItem } from './ui/statusBlockMenuItem';
+import { isStatusTurnIntoHidden } from './utils/turnInto';
 
 export const statusPlugin: StatusPlugin = ({ config: options, api }) => {
-	if (
-		expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
-		isExperimentEnabled('platform_editor_turn_into_status')
-	) {
+	if (isExperimentEnabled('platform_editor_turn_into_status')) {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
 				type: 'block-menu-item',

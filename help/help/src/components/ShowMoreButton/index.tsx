@@ -1,11 +1,12 @@
 import React from 'react';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import Spinner from '@atlaskit/spinner/spinner';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
+
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import Button from '@atlaskit/button/button';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { messages } from '../../messages';
-
 import { ToggleShowMoreArticlesContainer } from '../ArticlesList/styled';
 
 export type ItemsType = 'articles' | 'changes';

@@ -1,8 +1,10 @@
-import { transformUsers } from '../../../service/users-transformer';
-import { EntityType } from '../../../types';
+import type { IntlShape } from 'react-intl';
+
 import { UserType, ExternalUserType, TeamType, GroupType } from '@atlaskit/user-picker/types';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import type { IntlShape } from 'react-intl';
+
+import { transformUsers } from '../../../service/users-transformer';
+import { EntityType } from '../../../types';
 
 const mockIntl: IntlShape = {
 	formatMessage: jest.fn((descriptor) => {

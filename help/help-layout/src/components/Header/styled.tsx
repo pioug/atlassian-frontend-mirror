@@ -3,11 +3,14 @@
  * @jsx jsx
  */
 
-import { Box } from '@atlaskit/primitives/compiled';
 import React from 'react';
-import { cssMap } from '@atlaskit/css';
+
 import { css, jsx } from '@compiled/react';
+
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
 import { type TransitionStatus } from '../constants';
 
 const headerContainerStyles = css({

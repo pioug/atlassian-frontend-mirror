@@ -16,9 +16,9 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import Form from '@atlaskit/form/form';
 import { ErrorMessage } from '@atlaskit/form/error-message';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { HelperMessage } from '@atlaskit/form/helper-message';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
@@ -35,7 +35,6 @@ import type {
 	InsertExternalMediaSingle,
 	InsertMediaSingle,
 } from '../types';
-
 import { MediaCard } from './MediaCard';
 import type { OnInsertAttrs } from './types';
 import { useAnalyticsEvents } from './useAnalyticsEvents';

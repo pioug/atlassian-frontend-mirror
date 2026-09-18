@@ -3,7 +3,6 @@ import { type ErrorInfo } from 'react';
 import { type FireEventFunction } from '../../common/analytics/types';
 import { type Icon } from '../../state/flexible-ui-context/types';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
-
 import { type WithAnalytics } from './components/analytics/types';
 
 export enum EmbedModalSize {

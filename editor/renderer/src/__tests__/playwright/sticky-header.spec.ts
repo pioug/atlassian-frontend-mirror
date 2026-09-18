@@ -1,7 +1,8 @@
 import type { Page } from '@playwright/test';
-import { rendererTestCase as test, expect } from './not-libra';
-import { selectors } from '../__helpers/page-objects/_renderer';
+
 import { stickyHeadersAllTables } from '../__fixtures__/sticky-header-adf';
+import { selectors } from '../__helpers/page-objects/_renderer';
+import { rendererTestCase as test, expect } from './not-libra';
 
 test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
 

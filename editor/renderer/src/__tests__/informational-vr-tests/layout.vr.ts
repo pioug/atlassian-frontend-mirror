@@ -1,14 +1,14 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page } from '@playwright/test';
 
+import { snapshotInformational } from '@af/visual-regression';
+import { flagsForVrTests } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
+
 import {
 	Layout4ColInFullWidthRenderer,
 	Layout5ColRenderer,
 	OverflowLayoutRenderer,
 } from './layout.fixture.vr.ap';
-
-import { snapshotInformational } from '@af/visual-regression';
-import { flagsForVrTests } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
 
 snapshotInformational(OverflowLayoutRenderer, {
 	description: 'layout with overflow on left',

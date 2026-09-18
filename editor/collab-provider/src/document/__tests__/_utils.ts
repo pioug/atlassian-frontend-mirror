@@ -1,3 +1,4 @@
+import type { ConflictChanges } from '@atlaskit/editor-common/collab';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -13,7 +14,6 @@ import {
 	getCollabState,
 	Rebaseable,
 } from '@atlaskit/prosemirror-collab';
-import type { ConflictChanges } from '@atlaskit/editor-common/collab';
 
 const positionExists = (position: number | undefined): boolean => typeof position === 'number';
 

@@ -10,7 +10,6 @@ import type {
 } from '@atlaskit/editor-ui-control-model/types';
 
 import { ListRow } from '../ListRow';
-
 import { TypeAheadItemRow } from './TypeAheadItemRow';
 import type { TypeAheadItemComponent } from './typeAheadMenuTypes';
 import { TypeAheadSectionRow } from './TypeAheadSectionRow';

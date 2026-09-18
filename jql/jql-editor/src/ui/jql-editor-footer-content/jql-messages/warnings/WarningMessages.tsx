@@ -8,7 +8,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { MessageContainer } from '../format/MessageContainer';
-
 import { useFormattedWarningMessage } from './useFormattedWarningMessage';
 
 export const WarningMessages = (): React.JSX.Element | null => {

@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { useDatasourceLifecycleAnalytics } from '@atlaskit/link-analytics/use-datasource-lifecycle-analytics'` instead.
  */
+
 export { useDatasourceLifecycleAnalytics } from '../use-datasource-lifecycle-analytics';
 /**
  * @deprecated Use `import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics/use-smart-link-lifecycle-analytics'` instead.

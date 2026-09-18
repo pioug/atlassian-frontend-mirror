@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import { render } from '@atlassian/testing-library/render';
+
 import { MarkElement } from '../../';
 import { InlineCommentsStateContext } from '../../../context';
 import * as HooksMock from '../../../hooks/use-inline-comment-subscriber';

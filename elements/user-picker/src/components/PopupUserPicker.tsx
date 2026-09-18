@@ -1,10 +1,14 @@
+import React from 'react';
+
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import type { Placement } from '@atlaskit/popper/main';
 import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
 import type { SelectComponentsConfig, StylesConfig } from '@atlaskit/select/types';
-import React from 'react';
+
 import {
 	type Appearance,
 	type BoundariesElement,
@@ -22,13 +26,11 @@ import {
 	type UserPickerRef,
 	type Value,
 } from '../types';
-import { getPopupComponents } from './components';
-import { getPopupStyles } from './styles';
-import { getPopupProps } from './popup';
 import { BaseUserPickerWithoutAnalytics } from './BaseUserPicker';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import type { Placement } from '@atlaskit/popper/main';
+import { getPopupComponents } from './components';
 import type { EmailValidator } from './emailValidation';
+import { getPopupProps } from './popup';
+import { getPopupStyles } from './styles';
 
 interface State {
 	flipped: boolean;

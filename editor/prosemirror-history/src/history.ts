@@ -2,17 +2,17 @@ import { Plugin } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping, StepMap, Transform } from '@atlaskit/editor-prosemirror/transform';
 
-import { historyKey } from './historyKey';
-import type { HistoryOptions } from './types';
-import { HistoryState } from './historyState';
 import { Branch } from './branch';
-import { undo } from './undo';
+import { closeHistoryKey } from './closeHistoryKey';
+import { historyKey } from './historyKey';
+import { HistoryState } from './historyState';
 import { redo } from './redo';
-import { InvertableStep } from './utils/InvertableStep';
+import type { HistoryOptions } from './types';
+import { undo } from './undo';
 import { createTransformFromSteps } from './utils/createTransformFromSteps';
+import { InvertableStep } from './utils/InvertableStep';
 import { mapInvertableSteps } from './utils/mapInvertableSteps';
 import { mustPreserveItems } from './utils/mustPreserveItems';
-import { closeHistoryKey } from './closeHistoryKey';
 
 /// Returns a plugin that enables the undo history for an editor. The
 /// plugin will track undo and redo stacks, which can be used with the

@@ -1,10 +1,9 @@
+import has from 'lodash/has';
+import set from 'lodash/set';
+import unset from 'lodash/unset';
+
 import type { ADFMark } from '../../adfMark';
 import type { ADFNode } from '../../adfNode';
-
-import unset from 'lodash/unset';
-import set from 'lodash/set';
-import has from 'lodash/has';
-
 import type { ADFVisitor } from '../../traverse';
 import { traverse } from '../../traverse';
 import type { ADFNodeSpec } from '../../types/ADFNodeSpec';

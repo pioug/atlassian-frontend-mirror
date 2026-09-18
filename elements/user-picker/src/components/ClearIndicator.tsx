@@ -3,10 +3,12 @@
  * @jsx jsx
  */
 import React from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
+
 import { components } from '@atlaskit/react-select/components';
 import type { ClearIndicatorProps } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
-import { cssMap, jsx } from '@compiled/react';
 
 const AsyncTooltip = React.lazy(() =>
 	import(/* webpackChunkName: "@atlaskit-internal_@atlaskit/tooltip" */ '@atlaskit/tooltip').then(

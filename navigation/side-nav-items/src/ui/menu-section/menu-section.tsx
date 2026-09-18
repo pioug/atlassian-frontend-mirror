@@ -3,7 +3,6 @@ import React, { type ReactNode } from 'react';
 import { useId } from '@atlaskit/ds-lib/use-id';
 
 import { MenuListItem } from '../menu-item/menu-list-item';
-
 import { MenuSectionContext } from './menu-section-context';
 
 type MenuSectionProps = {

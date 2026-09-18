@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
+
 import { screen } from '@testing-library/react';
 
-import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
+import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
 test('should ssr then hydrate correctly', async () => {
 	const examplePath = require.resolve('../../../../examples/0-basic-example');

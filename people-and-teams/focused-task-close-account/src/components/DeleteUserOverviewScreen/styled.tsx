@@ -1,7 +1,10 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766 */
-import { styled, type StyledProps } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+
 import type { ComponentType, ClassAttributes, HTMLAttributes } from 'react';
+
+import { styled, type StyledProps } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 export const Screen: ComponentType<
 	ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps

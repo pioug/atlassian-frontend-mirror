@@ -1,8 +1,9 @@
-import type { MarkSerializerOpts } from '../interfaces';
-import { createTag } from '../create-tag';
-import { createClassName } from '../styles/util';
-import { codeFontFamily } from '../styles/common';
 import { N20 } from '@atlaskit/adf-schema/colors';
+
+import { createTag } from '../create-tag';
+import type { MarkSerializerOpts } from '../interfaces';
+import { codeFontFamily } from '../styles/common';
+import { createClassName } from '../styles/util';
 
 export const styles: string = `
 .${createClassName('mark-code')} {

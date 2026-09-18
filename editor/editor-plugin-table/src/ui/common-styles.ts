@@ -35,12 +35,10 @@ import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { SORTING_ICON_CLASS_NAME } from '../pm-plugins/view-mode-sort/consts';
 import { TableCssClassName as ClassName } from '../types';
-
 import {
 	aboveNativeStickyHeaderZIndex,
 	belowNativeStickyHeaderZIndex,
@@ -102,6 +100,7 @@ const cornerControlHeight = tableToolbarSize + 1;
   that is aligned to the right edge initially on hover of the top right column control when table overflown,
   its center should be aligned with the edge
 */
+
 export const insertColumnButtonOffset: number = tableInsertColumnButtonSize / 2;
 export const tableRowHeight = 44;
 
@@ -1149,8 +1148,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		}
 	}
 
-	${editorExperiment('platform_editor_block_menu', true)
-		? `/* Apply numbered column styling when table is selected via text selection (e.g., block menu) */
+	/* Apply numbered column styling when table is selected via text selection (e.g., block menu) */
 	.${akEditorSelectedNodeClassName} {
 		.${ClassName.NUMBERED_COLUMN} {
 			.${ClassName.NUMBERED_COLUMN_BUTTON} {
@@ -1158,8 +1156,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				${hideNativeBrowserTextSelectionStyles}
 			}
 		}
-	}`
-		: ''}
+	}
 
 	:not(.${ClassName.IS_RESIZING}) .${ClassName.WITH_CONTROLS} {
 		.${ClassName.NUMBERED_COLUMN_BUTTON}:not(.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}) {
@@ -1178,8 +1175,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		}
 	}
 
-	${editorExperiment('platform_editor_block_menu', true)
-		? `.tableView-content-wrap.danger {
+	.tableView-content-wrap.danger {
 		:not(.${ClassName.IS_RESIZING}) .${ClassName.WITH_CONTROLS} {
 			.${ClassName.NUMBERED_COLUMN_BUTTON} {
 				background-color: ${tableToolbarDeleteColor};
@@ -1190,8 +1186,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				z-index: ${akEditorUnitZIndex};
 			}
 		}
-	}`
-		: ''}
+	}
 
 	/* Table */
 	.${ClassName.TABLE_NODE_WRAPPER} > table {

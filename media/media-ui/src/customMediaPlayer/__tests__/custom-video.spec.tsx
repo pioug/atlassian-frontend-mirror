@@ -9,20 +9,23 @@ jest.mock('../getFullscreenElement', () => ({
 }));
 
 jest.mock('../simultaneousPlayManager');
-import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
-import { fakeIntl } from '../../test-helpers/fakeI18n';
-import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
-import { CustomMediaPlayerBase, type CustomMediaPlayerProps } from '..';
-import { toggleFullscreen } from '../toggleFullscreen';
-import { getFullscreenElement } from '../getFullscreenElement';
-import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
-import simultaneousPlayManager from '../simultaneousPlayManager';
 import { act } from 'react';
+
 import { waitFor, render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
+import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
+import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+import { CustomMediaPlayerBase, type CustomMediaPlayerProps } from '..';
 import { keyCodes } from '../../shortcut';
+import { fakeIntl } from '../../test-helpers/fakeI18n';
+import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
+import { getFullscreenElement } from '../getFullscreenElement';
+import simultaneousPlayManager from '../simultaneousPlayManager';
+import { toggleFullscreen } from '../toggleFullscreen';
 
 const getControlsWrapperClassName = jest.spyOn(
 	getControlsWrapperClassNameModule,

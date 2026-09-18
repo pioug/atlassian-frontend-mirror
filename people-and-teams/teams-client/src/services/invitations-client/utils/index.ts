@@ -4,7 +4,6 @@ import {
 	type RecommendationMode,
 	type RecommendationsResponse,
 } from '../types';
-
 import { type RecommendationsByProductAri, type RecommendationWithCapability } from './types';
 
 /**

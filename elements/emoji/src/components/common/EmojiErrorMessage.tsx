@@ -3,13 +3,14 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
-import ErrorIcon from '@atlaskit/icon/core/status-error';
-import { ErrorMessage } from '@atlaskit/form/error-message';
-import type { Message } from '../../types';
 import { useIntl } from 'react-intl';
 
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import type { Message } from '../../types';
 import { messages } from '../i18n';
 import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 

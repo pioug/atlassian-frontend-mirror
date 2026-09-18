@@ -12,10 +12,8 @@ import EditorFileIcon from '@atlaskit/icon/core/file';
 
 import type { ExtensionsPluginInjectionAPI } from '../../types';
 import { placeholderFallback, placeholderFallbackParams } from '../styles';
-
 import { EditToggle } from './EditToggle';
 import { ExtensionLabel } from './ExtensionLabel';
-
 import type { LozengeData } from './index';
 
 export const ICON_SIZE = 24;

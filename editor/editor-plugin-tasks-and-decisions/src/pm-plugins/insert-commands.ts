@@ -35,7 +35,6 @@ import type {
 	TaskDecisionInputMethod,
 	TaskDecisionListType,
 } from '../types';
-
 import { stateKey } from './plugin-key';
 import { ACTIONS } from './types';
 

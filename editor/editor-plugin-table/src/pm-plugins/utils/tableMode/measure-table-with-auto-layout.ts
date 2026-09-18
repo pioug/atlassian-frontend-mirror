@@ -1,7 +1,6 @@
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 import type { TableMeasurement } from '../../transforms/content-mode';
-
 import { restoreResizerContainer, runSmartAdjust } from './smart-adjust/run-smart-adjust';
 
 export const measureTableWithAutoLayout = (

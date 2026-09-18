@@ -5,7 +5,6 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
-
 import { joinListItemWithParagraph } from './join-list-items-scenarios/join-list-item-with-paragraph';
 import { joinListItemWithParentNestedList } from './join-list-items-scenarios/join-list-item-with-parent-nested-list';
 import { joinNestedListWithParentListItem } from './join-list-items-scenarios/join-nested-list-with-parent-list-item';

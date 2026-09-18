@@ -9,7 +9,6 @@ import { type BasicFilterFieldType, type FieldValuesResponse } from '../types';
 import { mapFieldValuesToFilterOptions } from '../utils/mapFieldValuesToFilterOptions';
 import { mapFieldValuesToPageCursor } from '../utils/mapFieldValuesToPageCursor';
 import { mapFieldValuesToTotalCount } from '../utils/mapFieldValuesToTotalCount';
-
 import { getAssigneeUnassignedFilterOption } from './getAssigneeUnassignedFilterOption';
 
 interface FilterOptionsProps {

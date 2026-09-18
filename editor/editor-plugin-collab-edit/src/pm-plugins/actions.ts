@@ -29,8 +29,8 @@ import { receiveTransaction, sendableSteps } from '@atlaskit/prosemirror-collab'
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PrivateCollabEditOptions } from '../types';
-
 import { getAgentEditShimmerNotShownPayload } from './analytics';
+import { getAgentEditRequester } from './main/agent-edit-requester';
 import { getAgentEditSegments } from './main/agent-review-segments';
 import {
 	ADD_AGENT_SHIMMER_META,
@@ -40,7 +40,6 @@ import {
 	HIGHLIGHT_AGENT_SHIMMER_META,
 	REMOVE_AGENT_SHIMMER_META,
 } from './main/agent-shimmer-decorations';
-import { getAgentEditRequester } from './main/agent-edit-requester';
 import { getAgentEditChromeRanges, getAgentShimmerRanges } from './main/agent-shimmer-ranges';
 import { replaceDocument } from './utils';
 

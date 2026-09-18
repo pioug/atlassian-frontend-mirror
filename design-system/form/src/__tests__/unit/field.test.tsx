@@ -8,9 +8,9 @@ import type { ValueType } from '@atlaskit/select/types';
 import TextField from '@atlaskit/textfield/text-field';
 import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
-import Form from '../../form';
 import { ErrorMessage } from '../../error-message';
 import Field from '../../field';
+import Form from '../../form';
 import { HelperMessage } from '../../helper-message';
 import { ValidMessage } from '../../valid-message';
 

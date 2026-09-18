@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import BulletList from '../../../../react/nodes/bulletList';
 
 describe('Renderer - React/Nodes/BulletList', () => {

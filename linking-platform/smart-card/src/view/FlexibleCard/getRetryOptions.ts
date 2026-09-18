@@ -6,8 +6,8 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { type MessageKey, messages } from '../../messages';
-import { handleOnClick } from '../../utils/handle-on-click';
 import { getForbiddenJsonLd } from '../../utils/get-forbidden-json-ld';
+import { handleOnClick } from '../../utils/handle-on-click';
 import { type RetryOptions } from './types';
 
 const getForbiddenMessageKey = (meta: JsonLd.Meta.BaseMeta): MessageKey => {

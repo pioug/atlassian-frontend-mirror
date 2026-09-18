@@ -7,8 +7,8 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import { UFOGenAISegment } from '@atlaskit/react-ufo/gen-ai-segment';
+import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 const sectionOneStyle = css({

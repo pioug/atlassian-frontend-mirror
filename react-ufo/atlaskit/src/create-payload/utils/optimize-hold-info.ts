@@ -4,7 +4,6 @@ import type { InteractionMetrics } from '../../common';
 import type { LabelStackRegistry } from '../common/utils/label-stack-registry';
 import { optimizeLabelStackWithRegistry } from '../common/utils/optimize-label-stack-with-registry';
 import { stringifyLabelStackFully } from '../common/utils/stringify-label-stack-fully';
-
 import type { getReactUFOPayloadVersion } from './get-react-ufo-payload-version';
 
 const PRELOAD_HOLD_NAME_PREFIX = 'preload:';

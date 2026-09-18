@@ -1,6 +1,7 @@
 import { useContext } from 'react';
-import { UserInteractionsContext } from './user-interactions-context';
+
 import { type UserInteractions } from './types';
+import { UserInteractionsContext } from './user-interactions-context';
 
 /**
  * Use this hook to track user activities. This is mainly used to populate analytic events with

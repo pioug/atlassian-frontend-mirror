@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+
 import { TableCell } from '../../../../react/nodes/tableCell';
 
 describe('Renderer - React/Nodes/TableCell', () => {

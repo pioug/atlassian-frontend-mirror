@@ -1,5 +1,16 @@
 # @atlassian/give-kudos
 
+## 6.17.1
+
+### Patch Changes
+
+- [`b787f81ea2fad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b787f81ea2fad) -
+  Return focus to the element that opened the Give Kudos drawer when the drawer is closed from the
+  "Confirm Close" modal. The modal is now dismissed before the drawer is closed, so that focus is
+  back inside the drawer by the time its focus lock is torn down and the lock can return focus as it
+  already does for the other close paths. Gated behind the `teams_a11y_focus_high_priority` feature
+  flag.
+
 ## 6.17.0
 
 ### Minor Changes

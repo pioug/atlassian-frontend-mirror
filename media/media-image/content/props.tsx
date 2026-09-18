@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { md, PropsTable } from '@atlaskit/docs';
 
 export const mediaImageProps: {

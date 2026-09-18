@@ -1,6 +1,5 @@
 import type { LabelStack } from '../../../interaction-context';
 import { type UFOSegmentType } from '../../../segment/segment';
-
 import { isSegmentLabel } from './is-segment-label';
 import { sanitizeLabelStackName } from './sanitize-label-stack-name';
 

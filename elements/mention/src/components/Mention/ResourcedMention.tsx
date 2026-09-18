@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { MentionProvider } from '../../api/MentionResource';
 import { isResolvingMentionProvider } from '../../api/isResolvingMentionProvider';
+import type { MentionProvider } from '../../api/MentionResource';
 import { isPromise } from '../../is-promise';
 import { type MentionEventHandler, type MentionNameDetails, MentionNameStatus } from '../../types';
 import debug from '../../util/logger';

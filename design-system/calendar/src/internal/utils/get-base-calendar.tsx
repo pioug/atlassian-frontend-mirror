@@ -7,7 +7,6 @@
 import type { WeekDay } from '../../types';
 import { daysPerWeek, monthsPerYear } from '../constants';
 import type { CalendarDate } from '../types';
-
 import getDaysInMonth from './get-days-in-month';
 
 export default function getBaseCalendar(

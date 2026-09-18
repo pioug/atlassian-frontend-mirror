@@ -1,5 +1,4 @@
 import type { TaskDecisionPluginState } from '../types';
-
 import type {
 	TaskDecisionFocusByLocalIdAction,
 	TaskDecisionSetProviderAction,

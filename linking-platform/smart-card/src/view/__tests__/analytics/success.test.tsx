@@ -1,9 +1,8 @@
+import './success.test.mock';
 import React from 'react';
 
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl';
-
-import './success.test.mock';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
@@ -24,10 +23,9 @@ import * as startUfoExperienceModule from '../../../state/analytics/startUfoExpe
 import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';
 import * as inlineSocialProofExperimentModule from '../../../state/hooks/use-social-proof-experiment/getInlineSocialProofExperimentMeta';
 import * as socialProofExperimentModule from '../../../state/hooks/use-social-proof-experiment/getSocialProofExperimentMeta';
-
+import { fakeFactory } from '../../../utils/fake-factory';
 import { isSpecialClick } from '../../../utils/is-special-click';
 import { isSpecialKey } from '../../../utils/is-special-key';
-import { fakeFactory } from '../../../utils/fake-factory';
 import { mocks } from '../../../utils/mocks';
 import { shouldSample } from '../../../utils/shouldSample';
 import { Card, type CardAppearance } from '../../Card';

@@ -10,7 +10,6 @@ import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
 import { type CoercedMenuPlacement, type CommonPropsAndClassName, type GroupBase } from '../types';
-
 import type { MenuPlacementProps } from './menu-placer';
 
 export interface MenuProps<

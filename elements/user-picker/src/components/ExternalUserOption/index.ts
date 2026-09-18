@@ -1,5 +1,7 @@
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import React from 'react';
+
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+
 import type { ExternalUser } from '../../types';
 
 const AsyncExternalUserOption: React.LazyExoticComponent<

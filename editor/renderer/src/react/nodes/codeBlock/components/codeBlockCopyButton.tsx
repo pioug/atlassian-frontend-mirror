@@ -2,15 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import { useState, type ComponentType, type FC } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
+
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 import CopyIcon from '@atlaskit/icon/core/copy';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { useState, type ComponentType, type FC } from 'react';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
-import { injectIntl } from 'react-intl';
+
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
 import { copyTextToClipboard } from '../../../utils/clipboard';
@@ -20,12 +26,13 @@ type Props = {
 };
 
 const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
-	const [tooltip, setTooltip] = useState<string>(
-		intl.formatMessage(codeBlockButtonMessages.copyCodeToClipboard),
-	);
+	const copyCodeToClipboardMessage = isExperimentEnabled('platform_editor_a11y_codeblock_copy_name')
+		? codeBlockButtonMessages.copyCodeSnippetToClipboard
+		: codeBlockButtonMessages.copyCodeToClipboard;
+	const [tooltip, setTooltip] = useState<string>(intl.formatMessage(copyCodeToClipboardMessage));
 	const [className, setClassName] = useState<string>('copy-to-clipboard');
 	const onMouseLeave = () => {
-		setTooltip(intl.formatMessage(codeBlockButtonMessages.copyCodeToClipboard));
+		setTooltip(intl.formatMessage(copyCodeToClipboardMessage));
 		setClassName('copy-to-clipboard');
 	};
 	return (
@@ -36,7 +43,7 @@ const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
 						<div onMouseLeave={onMouseLeave} onBlur={onMouseLeave}>
 							<Button
 								appearance="subtle"
-								aria-haspopup={true}
+								aria-haspopup={fg('platform_editor_a11y_codeblock_haspopup') ? undefined : true}
 								aria-label={tooltip}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={className}

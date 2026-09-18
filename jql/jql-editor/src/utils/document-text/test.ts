@@ -1,7 +1,6 @@
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import { JQLEditorSchema } from '../../schema';
-
 import { getFragmentText } from './getFragmentText';
 
 const empty = {

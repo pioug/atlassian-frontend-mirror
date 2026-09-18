@@ -3,12 +3,15 @@
  * @jsx jsx
  */
 import React from 'react';
-import { token } from '@atlaskit/tokens';
-import type { ControlProps } from '@atlaskit/select/types';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import Control from './Control';
+
+import type { ControlProps } from '@atlaskit/select/types';
+import { token } from '@atlaskit/tokens';
+
 import type { UserPickerProps } from '../types';
+import Control from './Control';
 
 const controlWrapper = css({
 	display: 'flex',

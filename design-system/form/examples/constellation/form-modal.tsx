@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import Form from '@atlaskit/form/form';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';

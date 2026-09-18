@@ -1,10 +1,12 @@
 import React from 'react';
-import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/button';
 
-import * as Styled from './styled';
 import { FormattedMessage } from 'react-intl';
+
+import Button from '@atlaskit/button/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+
 import { footerMessages } from '../../messages';
+import * as Styled from './styled';
 
 interface FooterProps {
 	currentScreenIdx: number;

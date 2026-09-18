@@ -1,21 +1,24 @@
 /* eslint-disable no-console */
 
 import React, { useEffect, useState } from 'react';
+
 import { IntlProvider } from 'react-intl';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
-import type { RenderEditorProps } from '../example-helpers/ToolsDrawer';
-import ToolsDrawer from '../example-helpers/ToolsDrawer';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { token } from '@atlaskit/tokens';
+
 import {
 	localStorageFetchProvider,
 	localStorageWriteProvider,
 } from '@af/editor-examples-helpers/utils';
+import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
 import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
 import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
 import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { token } from '@atlaskit/tokens';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
+import type { RenderEditorProps } from '../example-helpers/ToolsDrawer';
+import ToolsDrawer from '../example-helpers/ToolsDrawer';
 
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');

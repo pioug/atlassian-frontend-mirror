@@ -23,7 +23,6 @@ import type { EditorNextProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import { IntlProviderIfMissingWrapper } from '../ui/IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
-
 import { BaseThemeWrapper } from './BaseThemeWrapper';
 import { EditorInternalContainerCompiled } from './editor-internal-compiled';
 import { EditorInternalContainerEmotion } from './editor-internal-emotion';

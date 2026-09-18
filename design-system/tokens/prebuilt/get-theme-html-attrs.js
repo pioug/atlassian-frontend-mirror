@@ -8,8 +8,8 @@ exports.getThemeHtmlAttrs = exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _fg = require("@atlaskit/platform-feature-flags/fg");
 var _constants = require("./constants");
-var _themeStateDefaults = require("./theme-state-defaults");
 var _themeObjectToString = require("./theme-object-to-string");
+var _themeStateDefaults = require("./theme-state-defaults");
 var _hash = require("./utils/hash");
 var _isValidBrandHex = require("./utils/is-valid-brand-hex");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }

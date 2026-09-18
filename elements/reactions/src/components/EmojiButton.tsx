@@ -2,7 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
+
 import {
 	defaultEmojiHeight,
 	type EmojiId,
@@ -11,13 +14,13 @@ import {
 	ResourcedEmoji,
 } from '@atlaskit/emoji';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
+
+import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { isLeftClick } from '../shared/utils';
-import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
-import { Pressable } from '@atlaskit/primitives/compiled';
-import { cssMap, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	emojiButton: {

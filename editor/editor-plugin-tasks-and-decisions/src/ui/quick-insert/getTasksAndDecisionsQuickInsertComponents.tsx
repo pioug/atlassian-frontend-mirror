@@ -12,7 +12,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
-
 import { TasksAndDecisionsQuickInsertMenuItem } from './TasksAndDecisionsQuickInsertMenuItem';
 
 const taskPreviewImageUrls = {

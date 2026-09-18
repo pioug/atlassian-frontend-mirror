@@ -4,7 +4,6 @@ import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation'
 
 import { isLocalPreviewError } from '../isLocalPreviewError';
 import { isRemotePreviewError } from '../isRemotePreviewError';
-
 import { getLocalPreview } from './getLocalPreview';
 import { getRemotePreview } from './getRemotePreview';
 import * as videoSnapshot from './videoSnapshot';

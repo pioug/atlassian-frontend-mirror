@@ -6,7 +6,6 @@
  */
 import { type TPlacement } from '../resolve-placement';
 import { setStyle, type TStyleDeclaration } from '../set-style';
-
 import { crossAxisShiftMargins } from './cross-axis-shift-margins';
 import { edgeMargin } from './edge-margin';
 import { getFitMarginDeclarations } from './fit-margins';

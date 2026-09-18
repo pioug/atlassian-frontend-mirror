@@ -7,7 +7,6 @@ import withDimensions, { type State, type WithDimensionsProps } from '../../hoc/
 import { inlineStylesIfRanking } from '../../internal/inline-styles-if-ranking';
 import { RankableTableBodyRow } from '../../styled/rankable/table-row';
 import { type HeadType, type RowType } from '../../types';
-
 import TableCell from './table-cell';
 
 interface RankableTableRowProps extends WithDimensionsProps {

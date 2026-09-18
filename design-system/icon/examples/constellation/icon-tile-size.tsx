@@ -1,8 +1,8 @@
 import React from 'react';
 
+import GlobeIcon from '@atlaskit/icon/core/globe';
 import IconTile from '@atlaskit/icon/icon-tile';
 import type { IconTileProps } from '@atlaskit/icon/types';
-import GlobeIcon from '@atlaskit/icon/core/globe';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
 const sizes: IconTileProps['size'][] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];

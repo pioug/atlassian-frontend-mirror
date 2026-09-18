@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+
 import React, {
 	type FC,
 	type MutableRefObject,
@@ -9,7 +10,6 @@ import React, {
 } from 'react';
 
 import { LayerNode } from '../classes/layer-node';
-
 import { LevelContext } from './level-context';
 import { LevelNodeContext } from './level-node-context';
 import { RootNodeContext } from './root-node-context';

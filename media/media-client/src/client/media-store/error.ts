@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { MediaStoreError } from '@atlaskit/media-client'` instead.
  */
+
 export { MediaStoreError } from './MediaStoreError';
 export type { MediaStoreErrorReason, MediaStoreErrorAttributes } from './MediaStoreError';
 /**

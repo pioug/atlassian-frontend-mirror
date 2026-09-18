@@ -2,7 +2,6 @@
 // for typing `process`
 
 import type { Team } from '../types';
-
 import { extractIdFromAri } from './extractIdFromAri';
 import type { AGGResult } from './getTeamFromAGG';
 

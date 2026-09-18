@@ -14,7 +14,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import { isVideo } from '../../pm-plugins/utils/is-type';
 import { getSelectedNearestMediaContainerNodeAttrsFunction } from '../../ui/toolbar/utils';
-
 import { RenderMediaViewer } from './PortalWrapper';
 
 const interactiveStyles = css({

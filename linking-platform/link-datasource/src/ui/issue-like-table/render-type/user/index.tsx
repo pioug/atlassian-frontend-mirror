@@ -7,10 +7,10 @@ import React, { useState } from 'react';
 import { css, cssMap, jsx, styled } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import Avatar from '@atlaskit/avatar/avatar';
-import type { SizeType } from '@atlaskit/avatar/types';
 import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
 import type { AvatarProps } from '@atlaskit/avatar-group/types';
+import Avatar from '@atlaskit/avatar/avatar';
+import type { SizeType } from '@atlaskit/avatar/types';
 import type { User } from '@atlaskit/linking-types/datasource';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

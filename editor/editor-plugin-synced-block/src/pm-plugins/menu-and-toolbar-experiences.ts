@@ -17,7 +17,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
-
 import { syncedBlockPluginKey } from './main';
 
 const TIMEOUT_DURATION = 30000;

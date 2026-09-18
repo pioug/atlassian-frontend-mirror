@@ -8,7 +8,6 @@ import { blockTaskItem, taskItem } from '@atlaskit/adf-schema/task-item';
 import { taskList } from '@atlaskit/adf-schema/task-list';
 import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM,
@@ -25,9 +24,9 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { closeRequestEditPopupAt, getCurrentIndentLevel, isInsideTask } from './pm-plugins/helpers';
 // Ignored via go/ees005
@@ -46,10 +45,10 @@ import { toggleTaskList } from './pm-plugins/toggle-tasklist-commands';
 import type { TasksAndDecisionsPlugin } from './tasksAndDecisionsPluginType';
 import type { TaskDecisionListType } from './types';
 import { DecisionListBlockMenuItem } from './ui/DecisionListBlockMenuItem/DecisionListBlockMenuItem';
+import { getTasksAndDecisionsQuickInsertComponents } from './ui/quick-insert/getTasksAndDecisionsQuickInsertComponents';
 import { RequestToEditPopup } from './ui/Task/RequestToEditPopup';
 import { TaskListBlockMenuItem } from './ui/TaskListBlockMenuItem/TaskListBlockMenuItem';
 import { getTasksAndDecisionsToolbarComponents } from './ui/toolbar-components';
-import { getTasksAndDecisionsQuickInsertComponents } from './ui/quick-insert/getTasksAndDecisionsQuickInsertComponents';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 
@@ -170,42 +169,40 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		});
 	}
 
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents([
-			{
-				type: 'block-menu-item',
-				key: TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key,
-				parent: {
-					type: 'block-menu-section' as const,
-					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
-						TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key
-					],
-				},
-				component: ({ isSuggested }: BlockMenuItemComponentProps = {}) => {
-					return <TaskListBlockMenuItem api={api} isSuggested={isSuggested} />;
-				},
-				isHidden: () =>
-					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(TASK_LIST_NODE_NAME)),
+	api?.blockMenu?.actions.registerBlockMenuComponents([
+		{
+			type: 'block-menu-item',
+			key: TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key,
+			parent: {
+				type: 'block-menu-section' as const,
+				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key
+				],
 			},
-			{
-				type: 'block-menu-item',
-				key: TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key,
-				parent: {
-					type: 'block-menu-section' as const,
-					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
-						TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key
-					],
-				},
-				component: ({ isSuggested }: BlockMenuItemComponentProps = {}) => {
-					return <DecisionListBlockMenuItem api={api} isSuggested={isSuggested} />;
-				},
-				isHidden: () =>
-					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(DECISION_LIST_NODE_NAME)),
+			component: ({ isSuggested }: BlockMenuItemComponentProps = {}) => {
+				return <TaskListBlockMenuItem api={api} isSuggested={isSuggested} />;
 			},
-		]);
-	}
+			isHidden: () =>
+				Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(TASK_LIST_NODE_NAME)),
+		},
+		{
+			type: 'block-menu-item',
+			key: TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key,
+			parent: {
+				type: 'block-menu-section' as const,
+				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key
+				],
+			},
+			component: ({ isSuggested }: BlockMenuItemComponentProps = {}) => {
+				return <DecisionListBlockMenuItem api={api} isSuggested={isSuggested} />;
+			},
+			isHidden: () =>
+				Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(DECISION_LIST_NODE_NAME)),
+		},
+	]);
 
 	return {
 		name: 'taskDecision',

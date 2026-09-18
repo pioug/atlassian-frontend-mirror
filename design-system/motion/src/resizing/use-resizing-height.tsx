@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
+
 import React, { useRef } from 'react';
 
 import { easeInOut } from '../utils/curves';

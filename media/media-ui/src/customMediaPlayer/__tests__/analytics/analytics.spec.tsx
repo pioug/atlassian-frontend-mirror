@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { act } from 'react';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { asMock } from '@atlaskit/media-common/test-helpers';
-import { renderWithIntl } from '../../../test-helpers/renderWithIntl';
 import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
+
+import { CustomMediaPlayer } from '../..';
+import { renderWithIntl } from '../../../test-helpers/renderWithIntl';
+import { type CustomMediaPlayerProps } from '../../index-compiled';
 import {
 	type VideoProps,
 	type VideoState,
 	Video as MediaPlayer,
 } from '../../react-video-renderer/video';
-
-import { CustomMediaPlayer } from '../..';
-import { type CustomMediaPlayerProps } from '../../index-compiled';
 
 type mockWidthObserver = typeof WidthObserver;
 

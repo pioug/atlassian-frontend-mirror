@@ -15,6 +15,7 @@ import extractRovoChatAction from '../../../extractors/flexible/actions/extract-
 import { getExtensionKey } from '../../../state/getExtensionKey';
 import useBlockCardRovoAction from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
+import { RovoChatPromptKey } from '../../common/rovo-chat-utils';
 import FlexibleCard from '../../FlexibleCard';
 import { default as FooterBlock } from '../../FlexibleCard/components/blocks/footer-block';
 import { default as MetadataBlock } from '../../FlexibleCard/components/blocks/metadata-block';
@@ -22,7 +23,6 @@ import { default as PreviewBlock } from '../../FlexibleCard/components/blocks/pr
 import { default as SnippetBlock } from '../../FlexibleCard/components/blocks/snippet-block';
 import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
 import type { ActionItem } from '../../FlexibleCard/components/blocks/types';
-import { RovoChatPromptKey } from '../../common/rovo-chat-utils';
 import { type FlexibleBlockCardProps } from './types';
 import {
 	FlexibleCardUiOptions,

@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';
 import { getResolvedPositionArea } from '../../utils/get-resolved-position-area';
-
 import { Caret } from './caret';
 import type { SpotlightCardProps } from './legacy';
 

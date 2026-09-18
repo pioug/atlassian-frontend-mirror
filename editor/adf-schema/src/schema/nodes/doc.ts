@@ -1,18 +1,19 @@
-import type { CodeBlockWithMarksDefinition as CodeBlockWithMarks } from './code-block';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { doc as docFactory } from '../../next-schema/generated/nodeTypes';
 import type { BodiedExtensionRootOnlyDefinition as BodiedExtensionRootOnly } from './bodied-extension';
+import type { BodiedRuleRootOnlyDefinition as BodiedRuleRootOnly } from './bodied-rule';
+import type { BodiedSyncBlockDefinition as BodiedSyncBlock } from './bodied-sync-block';
+import type { CodeBlockWithMarksDefinition as CodeBlockWithMarks } from './code-block';
 import type { ExpandRootOnlyDefinition as ExpandRootOnly } from './expand';
 import type { ExtensionRootOnlyDefinition as ExtensionRootOnly } from './extension';
 import type { LayoutSectionDefinition as LayoutSection } from './layout-section';
-import type { ParagraphWithIndentationDefinition } from './paragraph';
-import type { BlockContent } from './types/block-content';
 import type { MultiBodiedExtensionRootOnlyDefinition as MultiBodiedExtensionRootOnly } from './multi-bodied-extension';
 import type { PanelRootOnlyDefinition as PanelRootOnly } from './panel';
-import { doc as docFactory } from '../../next-schema/generated/nodeTypes';
+import type { ParagraphWithIndentationDefinition } from './paragraph';
 import type { RuleRootOnlyDefinition as RuleRootOnly } from './rule';
-import type { BodiedRuleRootOnlyDefinition as BodiedRuleRootOnly } from './bodied-rule';
 import type { SyncBlockDefinition as SyncBlock } from './sync-block';
-import type { BodiedSyncBlockDefinition as BodiedSyncBlock } from './bodied-sync-block';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { BlockContent } from './types/block-content';
 
 /**
  * @name doc_node

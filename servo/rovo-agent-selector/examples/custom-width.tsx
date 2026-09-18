@@ -10,7 +10,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import { RovoAgentSelector } from '../src';
 import { generateMockAgentEdges } from '../src/common/utils/generate-mock-agent-edges';
-
 import type { customWidthRovoAgentSelectorQuery } from './__generated__/customWidthRovoAgentSelectorQuery.graphql';
 
 const containerStyles = cssMap({

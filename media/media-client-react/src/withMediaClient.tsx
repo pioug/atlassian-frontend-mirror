@@ -1,8 +1,8 @@
 import React, { useContext, useMemo } from 'react';
 
 import { type Identifier, type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getMediaClient } from './getMediaClient';
 import { MediaClientContext, MediaClientProvider } from './MediaClientProvider';

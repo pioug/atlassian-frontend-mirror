@@ -1,5 +1,6 @@
+import React, { act } from 'react';
+
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -10,14 +11,15 @@ import type {
 	AnnotationActionResult,
 	InlineCommentSelectionComponentProps,
 } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { render } from '@atlassian/testing-library';
-import React, { act } from 'react';
+
 import type { ApplyAnnotation } from '../../../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../../../draft/dom';
 import type { Position } from '../../../types';
 import { Mounter } from '../../mounter';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 
 jest.mock('../../../draft/dom');
 jest.mock('../../../draft/component');

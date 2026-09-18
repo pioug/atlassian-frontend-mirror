@@ -37,7 +37,6 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { highlightStyle } from '../ui/syntaxHighlightingTheme';
 import { cmTheme, codeFoldingTheme } from '../ui/theme';
-
 import { getCodeFoldingAnalyticsPayload, type CodeFoldingTrigger } from './analytics';
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';

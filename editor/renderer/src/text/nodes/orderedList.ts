@@ -1,5 +1,6 @@
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import { reduce } from './';
 import type { NodeReducer } from './';
 

@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import { default as TeamsAnchorExampleSource } from './TeamsAnchor.example';
 import { default as TeamsLinkExampleSource } from './TeamsLink.example';
 import { default as TeamsLinkButtonExampleSource } from './TeamsLinkButton.example';

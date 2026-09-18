@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+
 import { AvatarOrIcon, type AvatarOrIconProps } from '../../../components/AvatarOrIcon';
 import { type Props as SizeableAvatarProps } from '../../../components/SizeableAvatar';
 

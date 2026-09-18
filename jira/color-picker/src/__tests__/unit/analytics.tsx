@@ -1,11 +1,13 @@
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import React from 'react';
-import ColorPicker from '../..';
+
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import ColorPicker from '../..';
 
 jest.mock('@atlaskit/platform-feature-flags/fg');
 const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;

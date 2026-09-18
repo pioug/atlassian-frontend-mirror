@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+
 import { MediaViewerPageObject } from '../utils/_mediaViewerPageObject';
 
 test.describe('MediaViewer', () => {

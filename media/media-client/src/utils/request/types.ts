@@ -1,5 +1,5 @@
-import type { Auth } from '@atlaskit/media-core/auth';
 import type { MediaTraceContext } from '@atlaskit/media-common';
+import type { Auth } from '@atlaskit/media-core/auth';
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD';
 

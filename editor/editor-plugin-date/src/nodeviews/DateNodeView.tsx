@@ -8,7 +8,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Decoration, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import { setDatePickerAt } from '../pm-plugins/actions';
-
 import { dateToDOM } from './dateNodeSpec';
 
 /**

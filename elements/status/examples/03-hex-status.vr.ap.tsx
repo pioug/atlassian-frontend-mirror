@@ -2,8 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Status, type Color } from '../src/element';
+
 import { css, jsx } from '@compiled/react';
+
+import { Status, type Color } from '../src/element';
 
 const containerStyles = css({
 	width: '140px',

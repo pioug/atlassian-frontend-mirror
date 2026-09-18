@@ -29,8 +29,8 @@ import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import { createCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { Dialog } from '@atlaskit/top-layer/dialog-content';
-import type { TDialogCloseReason } from '@atlaskit/top-layer/dialog/types';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
+import type { TDialogCloseReason } from '@atlaskit/top-layer/dialog/types';
 
 import type { KeyboardOrMouseEvent, ModalDialogProps, WidthNames } from '../../types';
 import { ModalContext } from '../context';
@@ -42,7 +42,6 @@ import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmati
 import { ScrollContext } from '../scroll-context';
 import type { InternalModalWrapperProps } from '../types';
 import { width } from '../width';
-
 import { default as ModalDialog } from './modal-dialog';
 
 export type { ModalDialogProps };

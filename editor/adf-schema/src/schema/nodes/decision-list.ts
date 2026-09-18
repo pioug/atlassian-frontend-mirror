@@ -1,7 +1,8 @@
-import type { DecisionItemDefinition as DecisionItemNode } from './decision-item';
-import { uuid } from '../../utils/uuid';
-import { decisionList as decisionListFactory } from '../../next-schema/generated/nodeTypes';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { decisionList as decisionListFactory } from '../../next-schema/generated/nodeTypes';
+import { uuid } from '../../utils/uuid';
+import type { DecisionItemDefinition as DecisionItemNode } from './decision-item';
 
 /**
  * @name decisionList_node

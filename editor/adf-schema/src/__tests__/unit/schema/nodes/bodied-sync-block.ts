@@ -1,4 +1,5 @@
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import { createSchema } from '../../../../schema/create-schema';
 import { bodiedSyncBlock } from '../../../../schema/nodes/bodied-sync-block';
 

@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import React from 'react';
+
 import { css, jsx } from '@compiled/react';
 
 const playPauseBlanketStyles = css({

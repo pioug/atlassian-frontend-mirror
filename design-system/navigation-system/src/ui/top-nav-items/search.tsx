@@ -5,14 +5,13 @@
 import React, { Fragment } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import type { NewIconProps } from '@atlaskit/icon/types';
 import SearchIcon from '@atlaskit/icon/core/search';
+import type { NewIconProps } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable, Show, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
-
 import { IconButton } from './themed/icon-button';
 
 const styles = cssMap({

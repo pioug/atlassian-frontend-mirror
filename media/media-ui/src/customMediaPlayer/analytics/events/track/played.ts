@@ -1,11 +1,11 @@
 import { type TrackAttributes, type TrackEventPayload } from '@atlaskit/media-common';
 
+import { type CustomMediaPlayerType, type WithCustomMediaPlayerType } from '../../../types';
 import {
 	createPlaybackAttributes,
 	type PlaybackState,
 	type WithPlaybackAttributes,
 } from '../../utils/playbackAttributes';
-import { type CustomMediaPlayerType, type WithCustomMediaPlayerType } from '../../../types';
 
 export type PlayedTrackEventPayload = TrackEventPayload<
 	TrackAttributes & WithPlaybackAttributes & WithCustomMediaPlayerType,

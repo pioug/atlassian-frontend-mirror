@@ -1,7 +1,8 @@
 import fetchMock from 'fetch-mock/cjs/client';
 import { meros } from 'meros/browser';
-import type { ServiceConfig } from '../types';
+
 import { requestServiceMultipart } from '../multipartServiceUtils';
+import type { ServiceConfig } from '../types';
 
 // Defined locally because the meros package's `exports` field doesn't expose Part
 type Part<Body, Fallback> =

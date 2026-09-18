@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import type { TeamAvatarImage, TeamWithImageUrls, Team, TeamPermission, TeamsPermissionFromApi, TeamsPermissionApi, TeamRestriction, TeamDiscoverability, TeamMembershipSettings, ScopeMode, OrgScope, LinkedTeam, Scope, AssignedTeam, AssignedTeamsResponse, UnassignedTeam, UnassignedTeamsResponse, TeamEnabledSitesResponse, AlignmentPermission, TeamSiteAssignmentOrgDetailsResponse, TeamsToBeClonedToJsmSitesResponse, TeamState } from '@atlaskit/teams-client/types/team'` instead.
  */
+
 export type {
 	TeamAvatarImage,
 	TeamWithImageUrls,

@@ -2,6 +2,7 @@
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
+
 export { isReducedMotion } from '../utils/is-reduced-motion';
 /**
  * @deprecated Import from the generated per-export subpath instead.

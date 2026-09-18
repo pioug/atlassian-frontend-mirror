@@ -5,7 +5,6 @@ import type { StatusDefinition } from '@atlaskit/adf-schema/status';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { SortOrder } from '../types';
-
 import { ContentType } from './ContentType';
 
 interface CompareOptions {

@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
-import MediaCardAnalyticsErrorBoundary from '../../media-card-analytics-error-boundary';
+
 import * as analyticsModule from '../../../utils/analytics/fireMediaCardEvent';
+import MediaCardAnalyticsErrorBoundary from '../../media-card-analytics-error-boundary';
 
 const fireOperationalEvent = jest.spyOn(analyticsModule, 'fireMediaCardEvent');
 

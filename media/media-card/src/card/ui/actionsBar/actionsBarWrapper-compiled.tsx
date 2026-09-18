@@ -3,10 +3,11 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
 
-import { type ActionBarWrapperProps } from './types';
 import { actionsBarClassName } from './styles';
+import { type ActionBarWrapperProps } from './types';
 
 const wrapperStyles = css({
 	position: 'absolute',

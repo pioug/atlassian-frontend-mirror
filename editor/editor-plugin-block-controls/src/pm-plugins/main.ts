@@ -39,12 +39,12 @@ import type { ResolvedSurface } from '@atlaskit/editor-ui-control-model/surface-
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	ActiveDropTargetNode,
@@ -56,7 +56,6 @@ import type {
 } from '../blockControlsPluginType';
 import { BLOCK_CONTROLS_SURFACE_SELECTOR } from '../ui/consts';
 import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
-
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
 import {
 	createActiveDragHandleNodeDecoration,
@@ -516,7 +515,7 @@ export const apply = (
 				// Which caused the drag handle onClick event not firing, then block menu wouldn't be opened
 				// This is caused by the mappedPos.deletedAfter sometimes returning true in webkit browsers even though the active node still exists
 				// This is likely a prosemirror and safari integration bug, but to unblock the issue, we are going to use mappedPos.deleted in safari for now
-				if (browser.webkit && editorExperiment('platform_editor_block_menu', true)) {
+				if (browser.webkit) {
 					mappedPos = tr.mapping.mapResult(activeNode.pos);
 					isActiveNodeDeleted = mappedPos.deleted;
 				} else {
@@ -1118,10 +1117,7 @@ export const apply = (
 			(isViewMode && rightSideControlsEnabled) ||
 			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length > 0;
 		// Keep the registry surface mounted while its Block Menu owns focus.
-		const keepActiveNodeForOpenBlockMenu =
-			!flags.legacyDragHandleEnabled &&
-			isMenuOpen &&
-			editorExperiment('platform_editor_block_menu', true);
+		const keepActiveNodeForOpenBlockMenu = !flags.legacyDragHandleEnabled && isMenuOpen;
 		newActiveNode =
 			(meta?.editorBlurred && !keepActiveNodeForOpenBlockMenu) ||
 			(!meta?.activeNode && !hasHandleOrViewModeControls)
@@ -1151,18 +1147,14 @@ export const apply = (
 	}
 
 	let isMenuOpenNew = isMenuOpen;
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		if (meta?.closeMenu) {
-			isMenuOpenNew = false;
-		} else if (meta?.toggleMenu) {
-			const isSameAnchor = meta?.toggleMenu.anchorName === menuTriggerBy;
-			isMenuOpenNew =
-				menuTriggerBy === undefined || isSameAnchor || (!isMenuOpen && !isSameAnchor)
-					? !isMenuOpen
-					: isMenuOpen;
-		}
+	if (meta?.closeMenu) {
+		isMenuOpenNew = false;
 	} else if (meta?.toggleMenu) {
-		isMenuOpenNew = !isMenuOpen;
+		const isSameAnchor = meta?.toggleMenu.anchorName === menuTriggerBy;
+		isMenuOpenNew =
+			menuTriggerBy === undefined || isSameAnchor || (!isMenuOpen && !isSameAnchor)
+				? !isMenuOpen
+				: isMenuOpen;
 	}
 
 	let isSelectedViaDragHandleNew;
@@ -1185,27 +1177,22 @@ export const apply = (
 		activeDropTargetNode: currentActiveDropTargetNode,
 		isDragging: meta?.isDragging ?? isDragging,
 		isMenuOpen: isMenuOpenNew,
-		menuTriggerBy:
-			flags.toolbarFlagsEnabled || editorExperiment('platform_editor_block_menu', true)
-				? meta?.toggleMenu?.anchorName || menuTriggerBy
-				: undefined,
+		menuTriggerBy: meta?.toggleMenu?.anchorName || menuTriggerBy,
 		menuTriggerByNode: meta?.toggleMenu?.triggerByNode || menuTriggerByNode,
-		blockMenuOptions: editorExperiment('platform_editor_block_menu', true)
-			? {
-					canMoveUp:
-						meta?.toggleMenu?.moveUp !== undefined
-							? meta?.toggleMenu?.moveUp
-							: blockMenuOptions?.canMoveUp,
-					canMoveDown:
-						meta?.toggleMenu?.moveDown !== undefined
-							? meta?.toggleMenu?.moveDown
-							: blockMenuOptions?.canMoveDown,
-					openedViaKeyboard:
-						meta?.toggleMenu?.openedViaKeyboard !== undefined
-							? meta?.toggleMenu?.openedViaKeyboard
-							: blockMenuOptions?.openedViaKeyboard,
-				}
-			: undefined,
+		blockMenuOptions: {
+			canMoveUp:
+				meta?.toggleMenu?.moveUp !== undefined
+					? meta?.toggleMenu?.moveUp
+					: blockMenuOptions?.canMoveUp,
+			canMoveDown:
+				meta?.toggleMenu?.moveDown !== undefined
+					? meta?.toggleMenu?.moveDown
+					: blockMenuOptions?.canMoveDown,
+			openedViaKeyboard:
+				meta?.toggleMenu?.openedViaKeyboard !== undefined
+					? meta?.toggleMenu?.openedViaKeyboard
+					: blockMenuOptions?.openedViaKeyboard,
+		},
 		editorHeight: meta?.editorHeight ?? editorHeight,
 		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
 		editorWidthRight: meta?.editorWidthRight ?? editorWidthRight,
@@ -1570,12 +1557,7 @@ export const createPlugin = (
 						event.target instanceof HTMLElement &&
 						editorExperiment('platform_editor_controls', 'variant1')
 					) {
-						const isDragHandle =
-							event.target.closest(
-								editorExperiment('platform_editor_block_menu', true)
-									? DRAG_HANDLE_SELECTOR
-									: '[data-editor-block-ctrl-drag-handle="true"]',
-							) !== null;
+						const isDragHandle = event.target.closest(DRAG_HANDLE_SELECTOR) !== null;
 						api?.core.actions.execute(
 							api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
 						);
@@ -1588,9 +1570,7 @@ export const createPlugin = (
 							event.key === 'ArrowUp') &&
 						editorExperiment('platform_editor_controls', 'variant1')
 					) {
-						const isBlockMenuOpen =
-							api?.blockControls.sharedState.currentState()?.isMenuOpen &&
-							editorExperiment('platform_editor_block_menu', true);
+						const isBlockMenuOpen = api?.blockControls.sharedState.currentState()?.isMenuOpen;
 						// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
 						// in this scenario, isSelectedViaDragHandle should not be set to false
 						if (

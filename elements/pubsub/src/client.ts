@@ -1,4 +1,7 @@
 import { EventEmitter2 } from 'eventemitter2';
+
+import { utils as serviceUtils } from '@atlaskit/util-service-support';
+
 import {
 	type ActionablePubSubClient,
 	type ARI,
@@ -7,11 +10,10 @@ import {
 	type PubSubClientConfig,
 	SpecialEventType,
 } from './apiTypes';
-import { EventType, type Protocol, type SubscribeServiceResponse } from './types';
-import NoopProtocol from './protocols/noop';
 import APSProtocol from './protocols/aps';
+import NoopProtocol from './protocols/noop';
+import { EventType, type Protocol, type SubscribeServiceResponse } from './types';
 import { logDebug, logError, logInfo } from './util/logger';
-import { utils as serviceUtils } from '@atlaskit/util-service-support';
 
 const PLATFORM = 'WEB';
 const version = process.env._PACKAGE_VERSION_;

@@ -26,17 +26,10 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
-import MediaButton from '../../MediaButton';
 import { formatDuration } from '../../formatDuration';
+import MediaButton from '../../MediaButton';
 import { messages } from '../../messages';
 import { Shortcut, keyCodes } from '../../shortcut';
-import { CurrentTime } from '../CurrentTime-2';
-import { LeftControls } from '../LeftControls-2';
-import { MutedIndicator } from '../MutedIndicator-2';
-import { RightControls } from '../RightControls-2';
-import { VolumeTimeRangeWrapper } from '../VolumeTimeRangeWrapper-2';
-import { VolumeToggleWrapper } from '../VolumeToggleWrapper-2';
-import { VolumeWrapper } from '../VolumeWrapper-2';
 import { createCaptionDeleteFailedEventPayload } from '../analytics/events/operational/createCaptionDeleteFailedEventPayload';
 import { createCaptionDeleteSucceededEventPayload } from '../analytics/events/operational/createCaptionDeleteSucceededEventPayload';
 import { createCaptionDisplayFailedEventPayload } from '../analytics/events/operational/createCaptionDisplayFailedEventPayload';
@@ -47,8 +40,8 @@ import { createCustomMediaPlayerScreenEvent } from '../analytics/events/screen/c
 import { createFirstPlayedTrackEvent } from '../analytics/events/track/playCount';
 import { createPlayedTrackEvent } from '../analytics/events/track/played';
 import { createMediaButtonClickedEvent } from '../analytics/events/ui/mediaButtonClicked';
-import { createPlayPauseBlanketClickedEvent } from '../analytics/events/ui/playPauseBlanketClicked';
 import { createPlaybackSpeedChangedEvent } from '../analytics/events/ui/playbackSpeedChanged';
+import { createPlayPauseBlanketClickedEvent } from '../analytics/events/ui/playPauseBlanketClicked';
 import { createMediaShortcutPressedEvent } from '../analytics/events/ui/shortcutPressed';
 import { createTimeRangeNavigatedEvent } from '../analytics/events/ui/timeRangeNavigated';
 import type {
@@ -57,20 +50,27 @@ import type {
 } from '../analytics/utils/analytics';
 import { fireAnalyticsEvent } from '../analytics/utils/fireAnalyticsEvent';
 import type { PlaybackState } from '../analytics/utils/playbackAttributes';
-import { toggleFullscreen } from '../toggleFullscreen';
+import { CurrentTime } from '../CurrentTime-2';
 import { getFullscreenElement } from '../getFullscreenElement';
-import { PlayPauseBlanket } from '../playPauseBlanket';
+import { LeftControls } from '../LeftControls-2';
+import { MutedIndicator } from '../MutedIndicator-2';
 import PlaybackSpeedControls from '../playbackSpeedControls';
+import { PlayPauseBlanket } from '../playPauseBlanket';
 import {
 	type VideoState,
 	type VideoActions,
 	Video as MediaPlayer,
 } from '../react-video-renderer/video';
+import { RightControls } from '../RightControls-2';
 import simultaneousPlayManager from '../simultaneousPlayManager';
 import { ControlsWrapper } from '../styled-compiled';
 import { TimeRange } from '../timeRange';
 import { TimeSaver } from '../timeSaver';
+import { toggleFullscreen } from '../toggleFullscreen';
 import VolumeRange from '../volumeRange';
+import { VolumeTimeRangeWrapper } from '../VolumeTimeRangeWrapper-2';
+import { VolumeToggleWrapper } from '../VolumeToggleWrapper-2';
+import { VolumeWrapper } from '../VolumeWrapper-2';
 import CaptionsUploaderBrowser from './captions/artifactUploader/captionsUploaderBrowser';
 import CaptionDeleteConfirmationModal from './captions/captionDeleteConfirmationModal';
 import { CaptionsAdminControls } from './captionsAdminControls';

@@ -4,8 +4,8 @@
 
 import React, { useState } from 'react';
 
-import { ManualRulesContainer } from '../../manual-triggers-container/ManualRulesContainer';
 import type { ManualRulesData } from '../../manual-triggers-container/main';
+import { ManualRulesContainer } from '../../manual-triggers-container/ManualRulesContainer';
 import { AutomationMenuProvider } from './AutomationMenuProvider';
 import type { MenuContext, RuleExecutionState } from './main';
 

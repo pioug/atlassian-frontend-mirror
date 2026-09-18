@@ -1,6 +1,7 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+
 import type { RenderResult } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
 
 /**
  * Lazy require to avoid loading @testing-library/react during SSR tests.

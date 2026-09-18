@@ -1,11 +1,9 @@
 import type { LabelStack } from '../../../interaction-context';
 import { type UFOSegmentType } from '../../../segment/segment';
 import type { getReactUFOPayloadVersion } from '../../utils/get-react-ufo-payload-version';
-
+import { getLabelStackReference } from './index';
 import type { LabelStackRegistry } from './label-stack-registry';
 import { optimizeLabelStack } from './optimize-label-stack';
-
-import { getLabelStackReference } from './index';
 
 /**
  * Optimizes a labelStack with registry-based deduplication.

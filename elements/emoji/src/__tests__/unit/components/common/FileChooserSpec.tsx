@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
 import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/get-files';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import FileChooser, { dropzoneTestId } from '../../../../components/common/FileChooser';
 
 jest.mock('@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external', () => ({

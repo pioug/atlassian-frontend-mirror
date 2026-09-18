@@ -14,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
 import type { AdditionalDefaultLinkVariantProps, CommonLinkVariantProps } from '../types';
-
 import type { CommonDefaultButtonProps } from './types';
 
 export type LinkButtonProps<RouterLinkConfig extends Record<string, any> = never> =

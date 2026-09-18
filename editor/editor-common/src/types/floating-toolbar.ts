@@ -12,7 +12,6 @@ import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analyti
 import type { DropdownMenuItemProps } from '../floating-toolbar';
 import type { ProviderFactory } from '../provider-factory';
 import type { PaletteColor } from '../ui-color/ColorPalette/Palettes/type';
-
 import type { Command, CommandDispatch } from './command';
 import type { MarkOptions, NodeOptions } from './copy-button';
 

@@ -4,12 +4,10 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-default-tabs.vr.ap.tsx",
-    "20-custom-tab-components.tsx",
-    "70-no-space-for-tabs.vr.ap.tsx"
-  ],
-  "exampleDependencies": [
-    "lorem-ipsum"
-  ]
+	"testExamples": [
+		"00-default-tabs.vr.ap.tsx",
+		"20-custom-tab-components.tsx",
+		"70-no-space-for-tabs.vr.ap.tsx",
+	],
+	"exampleDependencies": ["lorem-ipsum"],
 }

@@ -2,11 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+
 import React, { useCallback, useImperativeHandle } from 'react';
+
+import { css, jsx } from '@compiled/react';
+import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import { useVirtualizer } from '@tanstack/react-virtual';
+
+import { token } from '@atlaskit/tokens';
+
 import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
 import {
 	EMOJIPICKERLIST_KEYBOARD_KEYS_SUPPORTED,

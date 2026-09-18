@@ -54,8 +54,7 @@ class WithOutsideClick extends PureComponent<
 		if (
 			this.props.handleEscapeKeydown ||
 			this.props.handleBackspaceDeleteKeydown ||
-			(this.props.handleKeyDown &&
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }))
+			this.props.handleKeyDown
 		) {
 			// Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
 			// Ignored via go/ees005
@@ -85,8 +84,7 @@ class WithOutsideClick extends PureComponent<
 		if (
 			this.props.handleEscapeKeydown ||
 			this.props.handleBackspaceDeleteKeydown ||
-			(this.props.handleKeyDown &&
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }))
+			this.props.handleKeyDown
 		) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -140,9 +138,7 @@ class WithOutsideClick extends PureComponent<
 			this.props.handleBackspaceDeleteKeydown(evt);
 		}
 
-		if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
-			this.props.handleKeyDown?.(evt);
-		}
+		this.props.handleKeyDown?.(evt);
 	};
 
 	render() {

@@ -7,18 +7,17 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
-import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
+import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import type { EmptyStateHandler, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
-import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 
 import { closeElementBrowser } from '../../pm-plugins/commands';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import type { QuickInsertPlugin } from '../../quickInsertPluginType';
-
 import { RegistryElementBrowser } from './RegistryElementBrowser';
 
 export const RegistryElementBrowserContainer = ({

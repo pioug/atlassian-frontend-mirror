@@ -2,8 +2,8 @@ import React from 'react';
 
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Text } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import {
 	act,

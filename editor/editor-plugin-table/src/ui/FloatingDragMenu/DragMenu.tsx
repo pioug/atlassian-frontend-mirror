@@ -4,6 +4,7 @@
  * @jsx jsx
  */
 /** @jsxFrag */
+
 import React, { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -81,7 +82,6 @@ import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginConfig, TableDirection } from '../../types';
 import { colorPaletteColumns, colorPalletteColumns } from '../consts';
-
 import { DropdownMenu } from './DropdownMenu';
 import { cellColourPreviewStyles, dragMenuBackgroundColorStyles, toggleStyles } from './styles';
 

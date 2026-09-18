@@ -9,7 +9,6 @@ import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/e
 import { TableCssClassName as ClassName } from '../../types';
 import type { ColumnResizingPluginState, PluginInjectionAPI } from '../../types';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
-
 import { setResizeHandlePos } from './commands';
 import { handleMouseDown } from './event-handlers';
 import { createPluginState, getPluginState } from './plugin-factory';

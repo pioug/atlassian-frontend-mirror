@@ -4,8 +4,6 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const decorationStateKey: PluginKey = new PluginKey('decorationPlugin');
 
@@ -104,11 +102,7 @@ export default (): SafePlugin<DecorationState> => {
 					}
 				}
 
-				if (
-					pluginState.decoration &&
-					pluginState.decoration instanceof DecorationSet &&
-					editorExperiment('platform_editor_block_menu', true)
-				) {
+				if (pluginState.decoration && pluginState.decoration instanceof DecorationSet) {
 					pluginState.decoration = pluginState.decoration.map(tr.mapping, tr.doc);
 				}
 
@@ -121,13 +115,7 @@ export default (): SafePlugin<DecorationState> => {
 					case ACTIONS.DECORATION_ADD:
 						return {
 							decoration: meta.data,
-							hasDangerDecorations: expValEqualsNoExposure(
-								'platform_editor_block_menu',
-								'isEnabled',
-								true,
-							)
-								? meta.hasDangerDecorations
-								: undefined,
+							hasDangerDecorations: meta.hasDangerDecorations,
 						};
 					case ACTIONS.DECORATION_REMOVE:
 						return { decoration: undefined, hasDangerDecorations: undefined };
@@ -146,10 +134,7 @@ export default (): SafePlugin<DecorationState> => {
 					return DecorationSet.create(doc, [decoration]);
 				}
 
-				if (
-					decoration instanceof DecorationSet &&
-					editorExperiment('platform_editor_block_menu', true)
-				) {
+				if (decoration instanceof DecorationSet) {
 					return decoration;
 				}
 

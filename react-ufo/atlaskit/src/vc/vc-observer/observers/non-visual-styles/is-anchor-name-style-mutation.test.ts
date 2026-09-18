@@ -1,7 +1,6 @@
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { MutationRecordWithTimestamp } from '../types';
-
 import isAnchorNameStyleMutation from './is-anchor-name-style-mutation';
 
 const GATE = 'platform_ufo_exclude_anchor_name_from_ttvc';

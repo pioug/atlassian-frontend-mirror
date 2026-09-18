@@ -1,6 +1,5 @@
 jest.mock('../../../utils/shouldSample');
 import './unauthorized.test.mock';
-
 import React from 'react';
 
 import * as jestExtendedMatchers from 'jest-extended';
@@ -27,7 +26,6 @@ import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfo
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mocks } from '../../../utils/mocks';
 import { Card, type CardAppearance } from '../../Card';
-
 // ShouldSample needs to be loaded for beforeEach inside to be picked up before test runs
 import '../../../utils/shouldSample';
 

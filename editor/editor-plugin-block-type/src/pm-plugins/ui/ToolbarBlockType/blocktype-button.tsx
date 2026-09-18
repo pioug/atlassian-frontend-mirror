@@ -21,7 +21,6 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import { token } from '@atlaskit/tokens';
 
 import { NORMAL_TEXT } from '../../block-types';
-
 import { wrapperSmallStyle } from './styled';
 
 const buttonContentStyle = xcss({

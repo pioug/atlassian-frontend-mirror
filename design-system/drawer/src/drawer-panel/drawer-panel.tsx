@@ -7,8 +7,8 @@ import { useCallback, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import type { Transition } from '@atlaskit/motion/entering/types';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn, { type SlideInProps } from '@atlaskit/motion/slide-in';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
@@ -16,7 +16,6 @@ import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import { EnsureIsInsideDrawerContext } from '../ensure-is-inside-drawer-context';
 import { OnCloseContext } from '../on-close-context';
 import { type DrawerPanelProps } from '../types';
-
 import FocusLock from './focus-lock';
 
 const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =

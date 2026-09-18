@@ -8,9 +8,9 @@ import {
 } from '@atlaskit/user-picker/types';
 
 import { config } from '../config';
-import getHydratedUsersFromPrs from './users-client';
-import hydrateTeamFromLegion from './teams-client';
 import { UNKNOWN } from './constants';
+import hydrateTeamFromLegion from './teams-client';
+import getHydratedUsersFromPrs from './users-client';
 
 export interface UsersRequest {
 	baseUrl: string | undefined;

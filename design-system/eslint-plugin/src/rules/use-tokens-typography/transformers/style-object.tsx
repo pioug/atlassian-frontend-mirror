@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+
 import type { Rule } from 'eslint';
 import {
 	type ImportDeclaration,

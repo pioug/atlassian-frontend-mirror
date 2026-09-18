@@ -4,7 +4,6 @@ import { fireEvent, render } from '@testing-library/react';
 import noop from 'lodash/noop';
 
 import { type SelectableAutocompleteOption } from '../types';
-
 import AutocompleteOption from './index';
 
 const testOption: SelectableAutocompleteOption = {

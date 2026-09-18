@@ -3,7 +3,6 @@ import type { ExtractInjectionAPI, FloatingToolbarHandler } from '@atlaskit/edit
 import DeleteIcon from '@atlaskit/icon/core/delete';
 
 import type { ExpandPlugin } from '../types';
-
 import { deleteExpand } from './commands';
 import { getPluginState } from './pm-plugins/plugin-factory';
 

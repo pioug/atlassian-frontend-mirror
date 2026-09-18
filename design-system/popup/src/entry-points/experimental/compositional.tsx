@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { Popup } from '@atlaskit/popup/compositional/popup'` instead.
  */
+
 export { Popup } from '../../compositional/popup';
 /**
  * @deprecated Use `import { PopupContent } from '@atlaskit/popup/compositional/popup-content'` instead.

@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+
 import { DEFAULT_LOCALE } from '@atlassian/embedded-confluence-common';
 
 import { ViewPage, type ViewPageProps } from '../';

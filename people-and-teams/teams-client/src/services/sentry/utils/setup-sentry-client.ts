@@ -1,6 +1,5 @@
 import { SENTRY_DSN } from '../constants';
 import { type SentryClient } from '../types';
-
 import { initialiseSentry } from './initialise-sentry';
 import type { SentryClientConfig } from './sentry-client';
 

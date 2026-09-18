@@ -6,16 +6,15 @@
 
 import { ATN } from 'antlr4ts/atn/ATN';
 import { ATNDeserializer } from 'antlr4ts/atn/ATNDeserializer';
-import { CharStream } from 'antlr4ts/CharStream';
-import { Lexer } from 'antlr4ts/Lexer';
 import { LexerATNSimulator } from 'antlr4ts/atn/LexerATNSimulator';
+import { CharStream } from 'antlr4ts/CharStream';
 import { NotNull } from 'antlr4ts/Decorators';
 import { Override } from 'antlr4ts/Decorators';
+import { Lexer } from 'antlr4ts/Lexer';
+import * as Utils from 'antlr4ts/misc/Utils';
 import { RuleContext } from 'antlr4ts/RuleContext';
 import { Vocabulary } from 'antlr4ts/Vocabulary';
 import { VocabularyImpl } from 'antlr4ts/VocabularyImpl';
-
-import * as Utils from 'antlr4ts/misc/Utils';
 
 export class JQLLexer extends Lexer {
 	public static readonly LPAREN = 1;

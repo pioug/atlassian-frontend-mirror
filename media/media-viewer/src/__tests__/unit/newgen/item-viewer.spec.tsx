@@ -1,17 +1,20 @@
 /* Imports */
 
 import React from 'react';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
 import Loadable from 'react-loadable';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import {
 	createMockedMediaApi,
 	createRateLimitedError,
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ItemViewer } from '../../../item-viewer';

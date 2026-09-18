@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import VrHoverCardActionsExample from './vr-hover-card-actions.vr.ap';
 import VrHoverCardCanOpenPositioningExample from './vr-hover-card-can-open-positioning.vr.ap';
 import VrHoverCardsEntitiesExample from './vr-hover-cards-entities.vr.ap';

@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen, userEvent } from '@atlassian/testing-library';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { type FileIdentifier } from '@atlaskit/media-client';
-import { Navigation, NavigationBase, prevNavButtonId, nextNavButtonId } from '../../../navigation';
 import { KeyboardEventWithKeyCode } from '@atlaskit/media-test-helpers';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render, screen, userEvent } from '@atlassian/testing-library';
+
+import { Navigation, NavigationBase, prevNavButtonId, nextNavButtonId } from '../../../navigation';
 
 /**
  * Skipped two tests in here that are failing due to an issue with synthetic keyboard events

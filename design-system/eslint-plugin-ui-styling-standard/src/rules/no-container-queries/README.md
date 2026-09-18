@@ -11,8 +11,7 @@ Container queries are unsafe because they:
 - aren't type-safe
 - aren't fully supported across our frontend tech stacks
 
-Use [media queries](https://atlassian.design/components/primitives/responsive/breakpoints/examples),
-a
+Use [typed media queries](https://atlassian.design/components/css/overview), a
 [WidthObserver](https://atlaskit.atlassian.com/packages/design-system/width-detector/docs/migration-guide),
 or a custom [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
 instead.
@@ -62,12 +61,12 @@ const headingStyles = css({
 #### Media queries
 
 ```tsx
-import { css } from '@compiled/react';
-import { media } from '@atlaskit/primitives/responsive';
+import { css } from '@atlaskit/css';
+import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
 import { token } from '@atlaskit/tokens';
 
 const headingStyles = css({
-	[media.above.sm]: {
+	['@media (min-width: 48rem)' satisfies MediaAboveSm]: {
 		font: token('font.heading.large'),
 	},
 });

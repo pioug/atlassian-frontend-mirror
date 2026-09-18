@@ -1,19 +1,19 @@
+import './card-states.card.test.mock';
 import React from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type CardClient from '@atlaskit/link-provider/client';
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { render, screen } from '@atlassian/testing-library';
 
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mockGenerator, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
-import './card-states.card.test.mock';
 
 mockSimpleIntersectionObserver();
 

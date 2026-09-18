@@ -7,7 +7,6 @@ import {
 	NON_VISUAL_ARIA_ATTRIBUTES,
 	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
-
 import VCCalculator_FY26_04 from './index';
 
 // Mock feature flags

@@ -11,12 +11,11 @@ import { renderHook } from '@atlassian/testing-library';
 import type { FireEventFunction } from '../../../../common/analytics/types';
 import { CardDisplay } from '../../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../../utils/analytics/SmartLinkAnalyticsContext';
+import * as markModule from '../../../../utils/mark';
 import { mockByUrl } from '../../../../utils/mock-by-url';
 import * as failUfoExperienceModule from '../../../analytics/failUfoExperience';
 import * as startUfoExperienceModule from '../../../analytics/startUfoExperience';
 import * as succeedUfoExperienceModule from '../../../analytics/succeedUfoExperience';
-import * as markModule from '../../../../utils/mark';
-
 import useInvokeClientAction from '../index';
 
 jest.mock('uuid', () => ({

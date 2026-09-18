@@ -21,10 +21,12 @@ jest.mock('@atlaskit/media-client', () => {
 });
 
 import React from 'react';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+
 import { IntlProvider } from 'react-intl';
+
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 jest.mock('unzipit', () => ({
 	unzip: () => ({

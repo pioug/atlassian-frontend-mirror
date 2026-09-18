@@ -1,9 +1,9 @@
 import { ChangeSet } from 'prosemirror-changeset';
 
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ConflictChange, ConflictChanges } from '@atlaskit/editor-common/collab';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { rebaseSteps as collabRebaseSteps } from '@atlaskit/prosemirror-collab';
 import type { Rebaseable } from '@atlaskit/prosemirror-collab';
 

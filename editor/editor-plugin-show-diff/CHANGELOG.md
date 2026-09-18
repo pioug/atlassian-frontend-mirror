@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 17.0.2
+
+### Patch Changes
+
+- [`df446e0eda630`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df446e0eda630) -
+  The extended diff view now compares whole tables after a column deletion. Reliably tracked deleted
+  columns use strikethrough text and a Removed lozenge, with contributor tags aligned directly above
+  the table. Deleted table rows also carry a Removed lozenge in their top-right corner.
+- [`885418b21ca4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/885418b21ca4d) -
+  Show a struck-through return glyph (⤶) where a removed blank line was — an empty paragraph or an
+  empty heading — instead of rendering nothing. One glyph per removed line, including runs of
+  adjacent ones. Covers both diff directions: the deleted side of a forward diff, and the inserted
+  side of an inverted diff (AI suggested edits). Behind `platform_editor_ai_show_diff_patch_2`.
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.0
 
 ### Patch Changes

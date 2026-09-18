@@ -1,9 +1,10 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { render } from '@atlassian/testing-library/render';
+
 import { IntlProvider } from 'react-intl';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { render } from '@atlassian/testing-library/render';
 
 import RelatedArticlesLoading from '../../RelatedArticlesLoading';
 

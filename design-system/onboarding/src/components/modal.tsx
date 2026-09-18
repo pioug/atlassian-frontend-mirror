@@ -2,11 +2,11 @@ import React, { Component, type ElementType, type ReactNode } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import ButtonTheme from '@atlaskit/button/theme';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import type { ModalFooterProps as FooterComponentProps } from '@atlaskit/modal-dialog/modal-footer';
 import type { ModalHeaderProps as HeaderComponentProps } from '@atlaskit/modal-dialog/modal-header';
-import ModalBody from '@atlaskit/modal-dialog/modal-body';
-import { useModal } from '@atlaskit/modal-dialog/hooks';
 
 import {
 	ModalBody as Body,
@@ -16,7 +16,6 @@ import {
 	ModalImage,
 } from '../styled/modal';
 import { type Actions } from '../types';
-
 import { modalButtonTheme } from './theme';
 
 // TODO: DSP-1250 - use a composable API consistent with normal modal dialog

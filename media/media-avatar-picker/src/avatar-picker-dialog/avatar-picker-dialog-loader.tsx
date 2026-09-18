@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useCallback } from 'react';
+
 import { type AvatarPickerDialogErrorBoundaryProps } from './avatar-picker-dialog-error-boundary';
 import { CustomSpinner } from './custom-spinner';
 

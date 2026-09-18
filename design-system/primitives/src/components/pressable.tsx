@@ -26,7 +26,6 @@ import { borderWidthMap } from '../xcss/border-width';
 import { paddingStylesMap } from '../xcss/padding-styles-map';
 import { parseXcss } from '../xcss/parse-xcss';
 import { positiveSpaceMap, type Space } from '../xcss/positive-space';
-
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BasePressableProps = {

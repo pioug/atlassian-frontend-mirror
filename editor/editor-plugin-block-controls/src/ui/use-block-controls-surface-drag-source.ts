@@ -22,12 +22,11 @@ import {
 	prepareCollapsedHeadingSelection,
 } from '../pm-plugins/utils/collapsed-heading';
 import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
-
-import { dragPreview, type DragPreviewContent } from './drag-preview';
 import {
 	getNodeMarginsForDragPreview,
 	getNodeSpacingForDragPreview,
 } from './block-controls-surface-drag-handle-utils';
+import { dragPreview, type DragPreviewContent } from './drag-preview';
 
 const EDITOR_BLOCKS_DRAG_INIT = 'Editor Blocks Drag Initialization Time';
 

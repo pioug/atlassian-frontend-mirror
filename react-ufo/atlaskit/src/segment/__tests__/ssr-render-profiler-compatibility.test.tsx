@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render } from '@atlassian/testing-library/render';
 
 import { getConfig } from '../../config';

@@ -7,7 +7,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type FormFields, type SelectOptionDetails, type SelectValue } from '../types';
 import { isApiGatewayUrl } from '../utils/is-api-gateway-url';
 import truncate from '../utils/Truncate';
-
 import FeedbackForm, { type OptionType } from './FeedbackForm';
 
 type FieldValueType = string | Object | Object[];

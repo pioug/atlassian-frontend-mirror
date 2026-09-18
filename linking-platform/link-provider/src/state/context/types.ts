@@ -1,7 +1,9 @@
 import { type Store } from 'redux';
-import type { CardAppearance, ProductType } from '@atlaskit/linking-common/types';
-import type { CardStore } from '@atlaskit/linking-common/store';
+
 import type { LinkPreview, CardPlatform } from '@atlaskit/link-extractors/types';
+import type { CardStore } from '@atlaskit/linking-common/store';
+import type { CardAppearance, ProductType } from '@atlaskit/linking-common/types';
+
 import type CardClient from '../../client';
 import { type CardConnections } from '../store/types';
 

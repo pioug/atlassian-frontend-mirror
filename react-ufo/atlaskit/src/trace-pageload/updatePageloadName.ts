@@ -7,7 +7,6 @@ import {
 	updatePageLoadInteractionName,
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
-
 import { AWAITING_PAGELOAD_NAME } from './index';
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports

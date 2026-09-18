@@ -1,20 +1,20 @@
 import React from 'react';
+
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-
-import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import type { DropdownItemProps } from '@atlaskit/dropdown-menu/types';
-
-import { type CardAction } from '../../../actions';
-import { type CardActionIconButtonVariant } from './styles';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import type { DropdownItemProps } from '@atlaskit/dropdown-menu/types';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+
 import { createAndFireMediaCardEvent } from '../../../../utils/analytics/createAndFireMediaCardEvent';
 import { fireMediaCardEvent } from '../../../../utils/analytics/fireMediaCardEvent';
+import { type CardAction } from '../../../actions';
 import { CardActionButton } from './cardActionButton';
+import { type CardActionIconButtonVariant } from './styles';
 
 export type CardActionsDropdownMenuProps = {
 	readonly actions: CardAction[];

@@ -1,7 +1,6 @@
 import type { HttpError } from './HttpError';
-import { isErrorStatusCode } from './isErrorStatusCode';
-
 import { StatusCode } from './index';
+import { isErrorStatusCode } from './isErrorStatusCode';
 
 export function isAuthError(error?: Error | HttpError): boolean {
 	return (

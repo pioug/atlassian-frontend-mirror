@@ -1,12 +1,15 @@
 import React from 'react';
+
+import { type Identifier, MediaClient } from '@atlaskit/media-client';
+import { svgFileIds } from '@atlaskit/media-client/test-helpers';
 import {
 	externalImageIdentifier,
 	defaultCollectionName,
 	createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
-import { type Identifier, MediaClient } from '@atlaskit/media-client';
-import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
-import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
+import { I18NWrapper } from '@atlaskit/media-test-helpers';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
+
 import {
 	archiveItem,
 	audioItem,
@@ -35,10 +38,9 @@ import {
 	emailItem,
 	emailFailedItem,
 } from '../example-helpers';
+import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
+import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
 import { MediaViewer } from '../src';
-import { I18NWrapper } from '@atlaskit/media-test-helpers';
-import { svgFileIds } from '@atlaskit/media-client/test-helpers';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
 addGlobalEventEmitterListeners();
 
 const mediaClientConfig = createStorybookMediaClientConfig();

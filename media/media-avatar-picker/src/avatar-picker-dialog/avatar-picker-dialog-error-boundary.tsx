@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react';
 import { type ReactNode } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
-import { type AvatarPickerDialogProps } from './types';
+
 import AvatarPickerDialog from './';
 import { CustomSpinner } from './custom-spinner';
+import { type AvatarPickerDialogProps } from './types';
 
 export type AvatarPickerDialogErrorBoundaryProps = AvatarPickerDialogProps & {
 	placeholder?: ReactNode;

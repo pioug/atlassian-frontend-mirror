@@ -2,7 +2,6 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { GapCursorSelection } from '../selection';
-
 import type { FlattenedItem } from './flatten-list';
 
 interface ComputeSelectionOffsetsOptions {

@@ -1,11 +1,13 @@
+import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
+
 import React from 'react';
+
+import { ACTION, EVENT_TYPE, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { render } from '@atlassian/testing-library';
 
-import { ErrorBoundary } from '../../ErrorBoundary';
 import type { ComponentCaughtDomErrorAEP } from '../../../../analytics/events';
 import { PLATFORM } from '../../../../analytics/events';
-import { ACTION, EVENT_TYPE, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
-import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
+import { ErrorBoundary } from '../../ErrorBoundary';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('When error boundary for dom errors flag is enabled it should call fireAnalyticsEvent again with ComponentCaughtDomErrorAEP', () => {

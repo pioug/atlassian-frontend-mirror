@@ -4,7 +4,6 @@ import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { pluginKey as tablePluginKey } from '../plugin-key';
-
 import type { DragAndDropPluginAction } from './actions';
 import { pluginKey } from './plugin-key';
 import reducer from './reducer';

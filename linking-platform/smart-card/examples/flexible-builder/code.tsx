@@ -7,7 +7,6 @@ import CodeBlock from '@atlaskit/code/code-block';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { toComponentProps, toObjectString } from '../utils/common';
-
 import { type BlockTemplate, type FlexibleTemplate } from './types';
 
 const codeStyles = xcss({

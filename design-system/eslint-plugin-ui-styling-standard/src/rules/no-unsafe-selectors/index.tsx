@@ -8,10 +8,9 @@ import { isSimpleSelector } from '../utils/is-simple-selector';
 import { parseSelector } from '../utils/parse-selector';
 import { getStyleCalls } from '../utils/style-calls';
 import { walkStyleCallProperties } from '../utils/walk-style-call-properties';
-
+import { allowedPseudos } from './constants';
 import { lintSelector } from './lint-selector';
 import { walkCssMapCall } from './walk-css-map';
-import { allowedPseudos } from './constants';
 
 const ignoredAtRules: Set<string> = new Set([
 	'@container', // ignored because it's covered by `no-container-queries`

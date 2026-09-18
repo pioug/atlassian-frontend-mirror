@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated compatibility re-export shims. */
+
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 import type { LinkDefinition } from '../marks/link';

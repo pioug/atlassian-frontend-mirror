@@ -9,11 +9,11 @@ import Avatar from '@atlaskit/avatar/avatar';
 import { css } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import TagIcon from '@atlaskit/icon/core/tag';
-import Tag from '@atlaskit/tag/removable-tag';
 import AvatarTag from '@atlaskit/tag/avatar-tag';
-import type { TagColor } from '@atlaskit/tag/types';
+import Tag from '@atlaskit/tag/removable-tag';
 import TagNew from '@atlaskit/tag/tag-new';
 import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
+import type { TagColor } from '@atlaskit/tag/types';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import { token } from '@atlaskit/tokens';
 

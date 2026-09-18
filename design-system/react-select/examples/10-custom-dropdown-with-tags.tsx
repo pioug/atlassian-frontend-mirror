@@ -8,8 +8,8 @@ import React from 'react';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form/label/default';
 import PersonIcon from '@atlaskit/icon/core/person';
-import Select from '@atlaskit/react-select/state-manager';
 import { components } from '@atlaskit/react-select/components';
+import Select from '@atlaskit/react-select/state-manager';
 import Tag from '@atlaskit/tag/removable-tag';
 import { token } from '@atlaskit/tokens';
 

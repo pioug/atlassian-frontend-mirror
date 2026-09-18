@@ -1,5 +1,4 @@
 import { type TeamsClientUser as User } from '../types/user';
-
 import type { MockConfig } from './user';
 
 export const randomUser = ({ faker }: MockConfig, customProps = {}): User => ({

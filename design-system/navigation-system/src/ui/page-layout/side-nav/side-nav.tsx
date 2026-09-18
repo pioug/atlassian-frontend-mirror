@@ -13,10 +13,10 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
+import { flushSync } from 'react-dom';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
-import { flushSync } from 'react-dom';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -33,16 +33,16 @@ import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-i
 import { TopNavStartElement } from '../../../context/top-nav-start/top-nav-start-element';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import {
-	bannerMountedVar,
-	contentHeightWhenFixed,
-	contentInsetBlockStart,
-	localSlotLayers,
+	UNSAFE_sideNavLayoutVar,
+	type bannerMountedVar,
+	type contentHeightWhenFixed,
+	type contentInsetBlockStart,
+	type localSlotLayers,
 	openLayerObserverSideNavNamespace,
 	openLayerObserverTopNavStartNamespace,
 	sideNavLiveWidthVar,
 	sideNavPanelSplitterId,
 	sideNavVar,
-	UNSAFE_sideNavLayoutVar,
 } from '../constants';
 import { DangerouslyHoistCssVarToDocumentRoot } from '../dangerously-hoist-css-var-to-document-root';
 import { DangerouslyHoistSlotSizes } from '../hoist-slot-sizes-context';
@@ -52,7 +52,6 @@ import type { CommonSlotProps } from '../types';
 import { useLayoutId } from '../use-layout-id';
 import { useResizingWidthCssVarOnRootElement } from '../use-resizing-width-css-var-on-root-element';
 import { useSafeDefaultWidth } from '../use-safe-default-width';
-
 import { sideNavFlyoutCloseDelayMs } from './flyout-close-delay-ms';
 import { SetSideNavVisibilityState } from './set-side-nav-visibility-state';
 import { SideNavToggleButtonElement } from './side-nav-toggle-button-element';
@@ -64,8 +63,8 @@ import { useSideNavRef } from './use-side-nav-ref';
 import { useSideNavToggleKeyboardShortcut } from './use-side-nav-toggle-keyboard-shortcut';
 import { useSideNavVisibility } from './use-side-nav-visibility';
 import {
-	useSideNavVisibilityCallbacks,
 	type VisibilityCallback,
+	useSideNavVisibilityCallbacks,
 } from './use-side-nav-visibility-callbacks';
 import { useToggleSideNav } from './use-toggle-side-nav';
 
@@ -99,17 +98,18 @@ const panelSplitterPortalTargetStyles = cssMap({
 	root: {
 		position: 'fixed',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		zIndex: localSlotLayers.sideNavPanelSplitterFHS,
+		zIndex: 4 satisfies typeof localSlotLayers.sideNavPanelSplitterFHS,
 		insetBlockEnd: 0,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		transform: `translateX(calc(var(${panelSplitterResizingVar}, var(${sideNavClampedWidthVar}, 0px))))`,
 		// On small viewports, the panel splitter has the same height as the side nav (all of the available viewport space minus top bar + banner)
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height: contentHeightWhenFixed,
+		height:
+			'calc(100vh - var(--n_bnrM, 0px) - var(--n_tNvM, 0px))' satisfies typeof contentHeightWhenFixed,
 		'@media (min-width: 64rem)': {
 			// On large viewports, the panel splitter overlays the top nav (takes all available viewport space, minus the banner)
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			height: `calc(100vh - var(${bannerMountedVar}, 0px))`,
+			height: `calc(100vh - var(${'--n_bnrM' satisfies typeof bannerMountedVar}, 0px))`,
 			// On large viewports, we need to factor in the side nav's border, and shift the panel splitter so it is centered over the border.
 			transform: `translateX(calc(var(${panelSplitterResizingVar}, var(${sideNavClampedWidthVar}, 0px)) - ${token(
 				'border.width',
@@ -127,12 +127,14 @@ const styles = cssMap({
 		// Since the side nav is always rendered ontop of other grid items across all viewports height is
 		// always set.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height: contentHeightWhenFixed,
+		height:
+			'calc(100vh - var(--n_bnrM, 0px) - var(--n_tNvM, 0px))' satisfies typeof contentHeightWhenFixed,
 		// This sets the sticky point to be just below top bar + banner. It's needed to ensure the stick
 		// point is exactly where this element is rendered to with no wiggle room. Unfortunately the CSS
 		// spec for sticky doesn't support "stick to where I'm initially rendered" so we need to tell it.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		insetBlockStart: contentInsetBlockStart,
+		insetBlockStart:
+			'calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px))' satisfies typeof contentInsetBlockStart,
 		position: 'sticky',
 		// For mobile viewports, the side nav will take up 90% of the screen width, up to a maximum of 320px (the default SideNav width)
 		width: 'min(90%, 320px)',
@@ -142,7 +144,7 @@ const styles = cssMap({
 		// menu dialogs rendered with "shouldRenderToParent" they could be cut off unintentionally.
 		// Unfortunately this is the best of bad solutions.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		zIndex: localSlotLayers.sideNav,
+		zIndex: 2 satisfies typeof localSlotLayers.sideNav,
 		// Not required, but declaring explicitly because we really don't want a border at small sizes
 		// Previously we had a transparent border to maintain width, but this unintentionally acted as padding
 		borderInlineStart: 'none',
@@ -156,7 +158,7 @@ const styles = cssMap({
 		},
 		'@media (min-width: 48rem)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			width: `var(${panelSplitterResizingVar}, var(${sideNavVar}))`,
+			width: `var(${panelSplitterResizingVar}, var(${'--n_sNvw' satisfies typeof sideNavVar}))`,
 		},
 		'@media (min-width: 64rem)': {
 			backgroundColor: token('elevation.surface'),
@@ -469,7 +471,7 @@ const motionUpliftStyles = cssMap({
 			animation: 'var(--enter-animation)',
 			transitionProperty: 'grid-area',
 			transitionDuration: token('motion.duration.instant'),
-			transitionDelay: token('motion.duration.short'),
+			transitionDelay: '24ms', // Snaps main content when 60% of the side nav has entered
 			'@starting-style': {
 				gridArea: 'main',
 			},
@@ -479,6 +481,9 @@ const motionUpliftStyles = cssMap({
 		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
 			gridArea: 'main',
 			animation: 'var(--exit-animation)',
+			transitionProperty: 'grid-area, display',
+			transitionDuration: `${token('motion.duration.instant')}, ${token('motion.duration.medium')}`,
+			transitionDelay: `19ms, ${token('motion.duration.instant')}`, // Snaps main content when 60% of the side nav has exited
 		},
 	},
 });

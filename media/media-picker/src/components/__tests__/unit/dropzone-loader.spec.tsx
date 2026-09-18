@@ -1,6 +1,7 @@
 import React from 'react';
-import { act, render } from '@atlassian/testing-library';
+
 import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
+import { act, render } from '@atlassian/testing-library';
 
 import { DropzoneLoader } from '../../dropzone';
 

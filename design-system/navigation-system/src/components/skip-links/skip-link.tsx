@@ -12,7 +12,6 @@ import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { SkipLinkData } from '../../context/skip-links/types';
-
 import { focusElement } from './focus-element';
 
 const styles = cssMap({

@@ -3,7 +3,6 @@ import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state'
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { isEmptyDocument } from '../utils';
-
 import { DynamicBitArray } from './dynamic-bit-array';
 
 // The slice of `@atlaskit/editor-plugin-limited-mode`'s state read below. Declared

@@ -1,4 +1,5 @@
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+
 import { LightWeightCodeBlockCssClassName } from '../../../react/nodes/codeBlock/components/lightWeightCodeBlock';
 
 export const selectors: {

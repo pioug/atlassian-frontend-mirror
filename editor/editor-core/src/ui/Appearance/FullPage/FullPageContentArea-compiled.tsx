@@ -31,11 +31,11 @@ import type { ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorGutterPaddingDynamic,
-	akEditorGutterPaddingReduced,
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import type { akEditorGutterPaddingReduced as AkEditorGutterPaddingReducedType } from '@atlaskit/editor-shared-styles/consts';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 // Ignored via go/ees005
@@ -48,8 +48,10 @@ import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/content
 import { ContextPanel } from '../../ContextPanel';
 import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
-
 import type { ScrollContainerRefs } from './types';
+const akLayoutGutterOffsetStatic = 12 satisfies typeof akLayoutGutterOffset;
+
+const akEditorGutterPaddingReducedStatic = 24 satisfies typeof AkEditorGutterPaddingReducedType;
 
 const akEditorFullWidthLayoutWidth = 1800;
 const akEditorUltraWideLayoutWidth = 4000;
@@ -221,7 +223,7 @@ const compiledStyles = cssMap({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'[data-layout-section]': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `calc(100% + ${akLayoutGutterOffset * 2}px)`,
+				maxWidth: `calc(100% + ${akLayoutGutterOffsetStatic * 2}px)`,
 			},
 		},
 	},
@@ -244,7 +246,7 @@ const compiledStyles = cssMap({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'[data-layout-section]': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `calc(100% + ${akLayoutGutterOffset * 2}px)`,
+				maxWidth: `calc(100% + ${akLayoutGutterOffsetStatic * 2}px)`,
 			},
 		},
 	},
@@ -260,7 +262,7 @@ const compiledStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
 		'@container editor-area (max-width: 600px)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			padding: `0 ${akEditorGutterPaddingReduced}px`,
+			padding: `0 ${akEditorGutterPaddingReducedStatic}px`,
 		},
 	},
 	contentAreaNew: {

@@ -38,6 +38,9 @@
 		},
 		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		}
 	]
 }

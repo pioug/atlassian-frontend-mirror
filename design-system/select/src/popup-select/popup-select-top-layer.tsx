@@ -20,14 +20,14 @@ import {
 import { css, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
-import type { GroupBase } from '@atlaskit/react-select/types';
 import { mergeStyles } from '@atlaskit/react-select/styles';
+import type { GroupBase } from '@atlaskit/react-select/types';
 import { token } from '@atlaskit/tokens';
 import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
-import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
@@ -40,7 +40,6 @@ import {
 	type StylesConfig,
 	type ValueType,
 } from '../types';
-
 import { defaultComponents } from './components';
 import { DummyControl } from './dummy-control';
 import type { PopupSelectHandle, PopupSelectProps } from './popup-select';

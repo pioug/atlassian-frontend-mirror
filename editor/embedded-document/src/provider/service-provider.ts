@@ -1,7 +1,8 @@
 import { utils } from '@atlaskit/util-service-support';
 import type { ServiceConfig } from '@atlaskit/util-service-support';
-import type { Provider } from './provider';
+
 import type { Document, BatchDocumentResponse } from '../model';
+import type { Provider } from './provider';
 
 export type Config = ServiceConfig;
 

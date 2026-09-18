@@ -1,5 +1,5 @@
-import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionParams, Parameters } from '@atlaskit/editor-common/extensions';
+import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export function markBlockAsInline({

@@ -2,7 +2,6 @@ import { type IntlShape } from 'react-intl';
 
 import { type DateRangeType } from '../../../../common/modal/popup-select/types';
 import { getFormattedDate } from '../../../../issue-like-table/render-type/date-time/getFormattedDate';
-
 import { getDropdownLabel } from './getDropdownLabel';
 import { dateRangeMessages } from './messages';
 

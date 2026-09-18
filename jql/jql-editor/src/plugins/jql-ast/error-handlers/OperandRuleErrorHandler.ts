@@ -9,7 +9,6 @@ import type { JQLParser } from '@atlaskit/jql-parser/JQLParser';
 import { getExpectedTokensFromParserOrException } from '../getExpectedTokensFromParserOrException';
 import { getTokenDisplayNames } from '../getTokenDisplayNames';
 import { errorMessages } from '../messages';
-
 import { handleExpectedTokensError } from './ExpectedTokensErrorHandler';
 
 /**

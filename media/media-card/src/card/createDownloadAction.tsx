@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type MessageDescriptor } from 'react-intl';
 
 import DownloadIcon from '@atlaskit/icon/core/download';

@@ -1,11 +1,8 @@
-/* eslint-disable @atlaskit/design-system/no-html-button */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
+
 import {
 	forwardRef,
 	type ForwardRefExoticComponent,
@@ -13,9 +10,14 @@ import {
 	type RefAttributes,
 } from 'react';
 
-import { mentionStyle } from './mention-style';
-import type { MentionType } from '../../types';
+/* eslint-disable @atlaskit/design-system/no-html-button */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx, css } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
+import type { MentionType } from '../../types';
+import { mentionStyle } from './mention-style';
 export interface PrimitiveMentionProps extends HTMLAttributes<HTMLSpanElement> {
 	isAvatarVisible?: boolean;
 	mentionType: MentionType;

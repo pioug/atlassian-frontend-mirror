@@ -1,6 +1,6 @@
-import { JSONSchemaTransformerName } from '../../../transforms/transformerNames';
 import { adfMark } from '../../../adfMark';
 import { buildMarks } from '../../../transforms/adfToJson/marksBuilder';
+import { JSONSchemaTransformerName } from '../../../transforms/transformerNames';
 
 const testMark = adfMark('testMark').define({
 	attrs: {

@@ -1,4 +1,3 @@
-import { BitbucketTransformer } from '../..';
 import {
 	doc,
 	mediaSingle,
@@ -10,6 +9,8 @@ import {
 	strike,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
+
+import { BitbucketTransformer } from '../..';
 
 describe('Caption HTML Parsing Tests', () => {
 	const transformer = new BitbucketTransformer(defaultSchema);

@@ -1,7 +1,6 @@
 import { EXPONENTIAL_BACKOFF_RETRY_POLICY } from '../../../common/utils/http';
 import { handleResponse } from '../../../common/utils/status-code-handlers-provider';
 import { withExponentialBackoff } from '../../../common/utils/with-exponential-backoff';
-
 import { handleGraphQLRequest } from './handleGraphQLRequest';
 import { makeGraphQLRequestWithoutRetries } from './makeGraphQLRequestWithoutRetries';
 

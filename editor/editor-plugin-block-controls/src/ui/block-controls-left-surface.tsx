@@ -18,11 +18,10 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-
 import { getBlockControlsSurfaceControlSide } from './block-controls-surface-context';
 import type { BlockControlsSurfaceTarget } from './block-controls-surface-targets';
-import { partitionComponentsByPersistence } from './utils/partition-components-by-persistence';
 import type { SurfaceWrapperPlacement } from './utils/get-surface-placement';
+import { partitionComponentsByPersistence } from './utils/partition-components-by-persistence';
 import { VisibilityContainer } from './visibility-container';
 
 const leftSurfaceOuterStyles = css({

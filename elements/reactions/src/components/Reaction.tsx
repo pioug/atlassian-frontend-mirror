@@ -3,12 +3,16 @@
  * @jsx jsx
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useIntl } from 'react-intl';
-import { cx } from '@atlaskit/css';
+
 import { css, cssMap, jsx } from '@compiled/react';
+import { useIntl } from 'react-intl';
+
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { cx } from '@atlaskit/css';
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import {
 	createAndFireSafe,
@@ -16,20 +20,17 @@ import {
 	createReactionFocusedEvent,
 	createReactionHoveredEvent,
 } from '../analytics';
-import { type ReactionSummary, type ReactionClick, type ReactionMouseEnter } from '../types';
-import { Counter } from './Counter';
-import { ReactionParticleEffect } from './ReactionParticleEffect';
-import { ReactionTooltip } from './ReactionTooltip';
+import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { isLeftClick } from '../shared/utils';
-import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
+import { type ReactionSummary, type ReactionClick, type ReactionMouseEnter } from '../types';
 import { type ReactionFocused } from '../types/reaction';
+import { Counter } from './Counter';
 import { ReactionButton } from './ReactionButton';
-import { StaticReaction } from './StaticReaction';
+import { ReactionParticleEffect } from './ReactionParticleEffect';
 import { type OpenReactionsDialogOptions } from './Reactions';
-import { token } from '@atlaskit/tokens';
-
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { ReactionTooltip } from './ReactionTooltip';
+import { StaticReaction } from './StaticReaction';
 
 const styles = cssMap({
 	container: {

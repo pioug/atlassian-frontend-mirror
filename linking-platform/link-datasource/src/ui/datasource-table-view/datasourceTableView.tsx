@@ -45,7 +45,6 @@ import { IssueLikeDataTableView } from '../issue-like-table/issue-like-data-tabl
 import type { IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import type { DatasourceTableSortState } from '../issue-like-table/types';
 import { TableFooter } from '../table-footer';
-
 import { getDatasourceColumnSortGetter } from './datasource-column-sort';
 import { type DatasourceTableViewProps } from './types';
 

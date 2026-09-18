@@ -9,7 +9,6 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';
-
 import { default as FullPageExample } from './5-full-page';
 
 const emitter = new AnnotationUpdateEmitter();

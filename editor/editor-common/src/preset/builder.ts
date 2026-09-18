@@ -11,7 +11,6 @@ import type {
 	PluginDependenciesAPI,
 } from '../types';
 import type { EditorPlugin } from '../types/editor-plugin';
-
 import type { EditorPluginInjectionAPI } from './plugin-injection-api';
 
 /*********************

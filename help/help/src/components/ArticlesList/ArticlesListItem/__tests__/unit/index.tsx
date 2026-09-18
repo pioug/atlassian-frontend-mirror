@@ -1,13 +1,14 @@
 import React from 'react';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { createIntl, createIntlCache } from 'react-intl';
 
-import { getMockArticleItem } from '../../../../../util/testing/mock';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
-import { ArticlesListItem } from '../../index';
 import { messages } from '../../../../../messages';
+import { getMockArticleItem } from '../../../../../util/testing/mock';
+import { ArticlesListItem } from '../../index';
 
 // Messages
 const cache = createIntlCache();

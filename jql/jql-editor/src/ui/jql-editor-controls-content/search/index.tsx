@@ -6,7 +6,6 @@ import { TooltipContent } from '../../../common/styled';
 import { useIntl, useIsSearching, useStoreActions } from '../../../state';
 import { TooltipTag } from '../../tooltip-tag';
 import { BaseSearch } from '../base-search';
-
 import { messages } from './messages';
 
 export const Search = (): React.JSX.Element => {

@@ -1,13 +1,16 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
+
 import {
 	type EmojiDescription,
 	type EmojiProvider,
 	type OnEmojiEvent,
 	toEmojiId,
 } from '@atlaskit/emoji';
-import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { EmojiButton, RENDER_BUTTON_TESTID } from './EmojiButton';
 

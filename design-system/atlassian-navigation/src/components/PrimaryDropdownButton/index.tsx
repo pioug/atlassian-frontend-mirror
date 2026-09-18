@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
 import { PrimaryButton } from '../PrimaryButton';
-
 import { type PrimaryDropdownButtonProps } from './types';
 
 const buttonNoOpStyle = css({

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type CallbackRef } from '../utils/use-element-ref';
-
 import { type ResizingOpts, useResizing } from './use-resizing';
 
 /**

@@ -1,15 +1,18 @@
+import React, { useState } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import type { Theme } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import styled, { type StyledComponent } from '@emotion/styled';
+import { IntlProvider } from 'react-intl';
+
 import type { Placement } from '@atlaskit/popper/main';
 import Range from '@atlaskit/range/range';
 import Select from '@atlaskit/select/default';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled, { type StyledComponent } from '@emotion/styled';
-import React, { useState } from 'react';
-import { IntlProvider } from 'react-intl';
+import { token } from '@atlaskit/tokens';
+
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { PopupUserPicker } from '../src/components/PopupUserPicker';
-import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import type { Theme } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const MenuPlaceholder: StyledComponent<

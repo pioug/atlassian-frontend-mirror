@@ -3,8 +3,8 @@ import {
 	isPerformanceObserverLongTaskAvailable,
 } from '@atlaskit/editor-common/is-performance-api-available';
 
-import type { LatchPolicy } from './latch-policy';
 import type { CreateLatchDetectorOptions, LatchDetector } from './latch-detector-types';
+import type { LatchPolicy } from './latch-policy';
 
 /**
  * Wires browser performance signals into the supplied {@link LatchPolicy}.

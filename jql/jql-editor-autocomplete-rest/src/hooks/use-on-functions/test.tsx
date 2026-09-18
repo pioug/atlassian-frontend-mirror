@@ -25,7 +25,6 @@ import {
 	updatedByFunction,
 } from '../../common/mocks';
 import { type JQLFieldResponse, type JQLFunctionResponse } from '../../common/types';
-
 import useOnFunctions from './index';
 
 const agentSessionsAgentApplicationUserField: JQLFieldResponse = {

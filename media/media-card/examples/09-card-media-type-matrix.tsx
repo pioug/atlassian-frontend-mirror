@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Matrix } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
+
 import { MainWrapper } from '../example-helpers';
 import {
 	videoFileCard,

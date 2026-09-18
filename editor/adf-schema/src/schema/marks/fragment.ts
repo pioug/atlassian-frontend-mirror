@@ -1,4 +1,5 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { fragment as fragmentFactory } from '../../next-schema/generated/markTypes';
 import { isDOMElement } from '../../utils/parseDOM';
 

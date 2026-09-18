@@ -14,7 +14,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { useMouseDownEvent } from '../../../state/analytics/useMouseDownEvent';
 import { handleClickCommon } from '../../common/utils';
 import { type FrameStyle } from '../types';
-
 import { className } from './styled';
 
 export interface ExpandedFrameProps {

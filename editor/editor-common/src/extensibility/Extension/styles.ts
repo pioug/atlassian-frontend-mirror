@@ -17,6 +17,7 @@ import { token } from '@atlaskit/tokens';
  * disabled centrally and its SSR/layout performance impact can be tracked. Setting this property
  * has no effect while the experiment is off.
  */
+
 export const EXTENSION_BLOCK_SPACING_VAR = '--ak-editor-extension-block-spacing';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

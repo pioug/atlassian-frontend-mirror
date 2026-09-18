@@ -2,12 +2,10 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
 import { mapPreservedSelection } from '../pm-plugins/utils/selection';
-
 import { moveNode } from './move-node';
 import { canMoveNodeUpOrDown, getNodeBoundsFromSelection } from './utils/move-node-utils';
 
@@ -29,10 +27,6 @@ export const moveNodeWithBlockMenu = (
 	direction: DIRECTION.UP | DIRECTION.DOWN,
 ): EditorCommand => {
 	return ({ tr }) => {
-		if (!editorExperiment('platform_editor_block_menu', true)) {
-			return tr;
-		}
-
 		const preservedSelection = api?.blockControls.sharedState.currentState()?.preservedSelection;
 		const selection = preservedSelection ?? tr.selection;
 

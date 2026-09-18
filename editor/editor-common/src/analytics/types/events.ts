@@ -8,7 +8,6 @@ import type {
 	UserBrowserExtensionResults,
 } from '../../utils';
 import type { FireAnalyticsEventOptions } from '../api';
-
 import type { ActiveSessionEventPayload } from './activity-session-events';
 import type { AgentEditShimmerNotShownAEP } from './agent-edit-shimmer-events';
 import type { AiAutocompleteEventPayload } from './ai-autocomplete-events';

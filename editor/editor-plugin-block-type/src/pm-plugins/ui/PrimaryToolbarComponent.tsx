@@ -6,7 +6,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import type { TextBlockTypes } from '../block-types';
-
 import ToolbarBlockType from './ToolbarBlockType';
 
 interface PrimaryToolbarComponentProps {

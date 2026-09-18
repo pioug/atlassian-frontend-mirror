@@ -2,19 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
 
-import { token } from '@atlaskit/tokens';
-import { useIntl } from 'react-intl';
-import { messages } from '@atlaskit/media-ui/messages';
 import { useState } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { jsx, css } from '@compiled/react';
+import { useIntl } from 'react-intl';
+
+import { messages } from '@atlaskit/media-ui/messages';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { token } from '@atlaskit/tokens';
 export interface Avatar {
 	dataURI: string;
 	name?: string;
 }
-
 export interface AvatarListProps {
 	avatars: Array<Avatar>;
 	onItemClick?: (avatar: Avatar) => void;

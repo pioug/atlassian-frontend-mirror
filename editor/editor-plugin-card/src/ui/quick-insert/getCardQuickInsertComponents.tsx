@@ -19,12 +19,26 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { CardPlugin } from '../../cardPluginType';
 import { isDatasourceConfigEditable } from '../../pm-plugins/utils';
 import type { CardPluginOptions } from '../../types';
-
 import { DatasourceQuickInsertMenuItem } from './DatasourceQuickInsertMenuItem';
 
 type Params = {
 	api: ExtractInjectionAPI<CardPlugin> | undefined;
 	options: CardPluginOptions;
+};
+
+const datasourcePreviewImageUrlsByKey: Readonly<Record<string, { dark: string; light: string }>> = {
+	[JIRA_WORK_ITEMS_MENU_ITEM.key]: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/m284qw5066530tr5yd11473uq1l8t86t.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/4b1455q46emetd0jxv70xuo7i7lwo574.png',
+	},
+	[CONFLUENCE_LIST_MENU_ITEM.key]: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/8jh31f0k143b475y5tun230v166c7087.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/6co68akkw56t83fql3m823qi21k8776u.png',
+	},
+	[ASSETS_MENU_ITEM.key]: {
+		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/64d41r462m2343iomn821ver0g4ohh37.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/0w58rc60jh54m68224qqinuk52d6lldt.png',
+	},
 };
 
 export const getCardQuickInsertComponents = ({ api, options }: Params): RegisterMenuItem[] => {
@@ -56,7 +70,13 @@ export const getCardQuickInsertComponents = ({ api, options }: Params): Register
 						: messages.datasourceJiraIssue,
 				),
 			})),
-			component: () => <DatasourceQuickInsertMenuItem api={api} type="jira" />,
+			component: () => (
+				<DatasourceQuickInsertMenuItem
+					api={api}
+					previewImageUrls={datasourcePreviewImageUrlsByKey[JIRA_WORK_ITEMS_MENU_ITEM.key]}
+					type="jira"
+				/>
+			),
 		},
 	];
 
@@ -76,7 +96,13 @@ export const getCardQuickInsertComponents = ({ api, options }: Params): Register
 				keywords: ['assets'],
 				title: formatMessage(messages.datasourceAssetsObjectsGeneralAvailability),
 			})),
-			component: () => <DatasourceQuickInsertMenuItem api={api} type="assets" />,
+			component: () => (
+				<DatasourceQuickInsertMenuItem
+					api={api}
+					previewImageUrls={datasourcePreviewImageUrlsByKey[ASSETS_MENU_ITEM.key]}
+					type="assets"
+				/>
+			),
 		});
 	}
 
@@ -96,7 +122,13 @@ export const getCardQuickInsertComponents = ({ api, options }: Params): Register
 				keywords: ['confluence'],
 				title: formatMessage(messages.datasourceConfluenceSearch),
 			})),
-			component: () => <DatasourceQuickInsertMenuItem api={api} type="confluence-search" />,
+			component: () => (
+				<DatasourceQuickInsertMenuItem
+					api={api}
+					previewImageUrls={datasourcePreviewImageUrlsByKey[CONFLUENCE_LIST_MENU_ITEM.key]}
+					type="confluence-search"
+				/>
+			),
 		});
 	}
 

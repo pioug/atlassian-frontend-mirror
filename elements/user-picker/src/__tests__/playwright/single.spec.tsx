@@ -1,4 +1,5 @@
 import { expect } from '@af/integration-testing';
+
 import { test } from './user-picker';
 
 const EXAMPLE = 'single';

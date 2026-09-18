@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { PositionType } from '@atlaskit/tooltip/types';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { PositionType } from '@atlaskit/tooltip/types';
 
 type ToolbarTooltipProps = {
 	children?: React.ReactNode;

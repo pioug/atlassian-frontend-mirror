@@ -1,12 +1,14 @@
+import { useEffect, useMemo, useState } from 'react';
+
 import {
 	type MediaClientConfig,
 	type MediaApi,
 	type FileIdentifier,
 	getFileStreamsCache,
 } from '@atlaskit/media-client';
-import type { MediaStore } from '@atlaskit/media-state/media-store';
-import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import type { MediaSettings } from '@atlaskit/media-client-react/media-parsed-settings';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
+import type { MediaStore } from '@atlaskit/media-state/media-store';
 // TODO: these types should be exported from here (the public package), and imported in test-data
 import {
 	type Binaries,
@@ -15,14 +17,13 @@ import {
 } from '@atlaskit/media-test-data';
 
 import { dataURItoBlob, normaliseInput } from './_helpers';
+import { extendMediaApiWithBinaries } from './_MockedMediaApiWithBinaries';
 import {
 	createMockedMediaProvider,
 	type GetLocalPreviewHelper,
 	type ProcessHelper as ProcessHelperBase,
 	type UploadHelper as UploadHelperBase,
 } from './_MockedMediaProvider';
-import { useEffect, useMemo, useState } from 'react';
-import { extendMediaApiWithBinaries } from './_MockedMediaApiWithBinaries';
 
 interface SetItems {
 	(itemsWithBinaries?: ItemWithBinaries | ItemWithBinaries[]): void;

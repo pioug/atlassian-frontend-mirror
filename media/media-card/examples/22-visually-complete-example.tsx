@@ -1,13 +1,14 @@
-import CardLoader from '../src/card/cardLoader';
 import React, { useEffect, useState } from 'react';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { getVCObserver } from '@atlaskit/react-ufo/get-vc-observer';
+
 import { type FileIdentifier } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data';
+import { getVCObserver } from '@atlaskit/react-ufo/get-vc-observer';
 
 import { MainWrapper } from '../example-helpers';
-import { createMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 import { closeAction, deleteAction } from '../example-helpers';
+import CardLoader from '../src/card/cardLoader';
+import { createMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const setup = async () => {
 	const [fileItem, identifier] =

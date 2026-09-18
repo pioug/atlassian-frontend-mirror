@@ -38,7 +38,6 @@ import Title from '../view/FlexibleCard/components/elements/title-element';
 import UserAttributes from '../view/FlexibleCard/components/elements/user-attributes-element';
 import ViewCount from '../view/FlexibleCard/components/elements/view-count-element';
 import VoteCount from '../view/FlexibleCard/components/elements/vote-count-element';
-
 import { isStyleCacheProvider } from './is-style-cache-provider';
 
 const Elements = {

@@ -9,7 +9,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 
 import { addMissingLocalIds } from '../editor-commands';
 import type { LocalIdPlugin } from '../localIdPluginType';
-
 import { batchAddLocalIdToNodes, localIdNotEmpty } from './add-missing-local-ids';
 import { generateShortUUID, generatedShortUUIDs } from './generateShortUUID';
 

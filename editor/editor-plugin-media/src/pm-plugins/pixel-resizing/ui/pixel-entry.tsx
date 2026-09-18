@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useEffect, useMemo, useState, useRef, Fragment } from 'react';
 import type { ChangeEvent } from 'react';
 
@@ -12,8 +13,8 @@ import { jsx, css } from '@emotion/react';
 import Button from '@atlaskit/button/button';
 import IconButton from '@atlaskit/button/icon/button';
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives, @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Box, Text, xcss } from '@atlaskit/primitives';

@@ -1,4 +1,5 @@
 import type { MarkSpec, DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { strong as strongFactory } from '../../next-schema/generated/markTypes';
 
 /**

@@ -16,7 +16,6 @@ import { default as InternalFooterBlock } from '../../../FlexibleCard/components
 import { default as PreviewBlock } from '../../../FlexibleCard/components/blocks/preview-block';
 import { default as TitleBlock } from '../../../FlexibleCard/components/blocks/title-block';
 import { FlexibleCardUiOptions, PreviewBlockOptions, titleBlockOptions } from '../utils';
-
 import { type UnresolvedViewProps } from './types';
 
 const customBlockStyles = css({

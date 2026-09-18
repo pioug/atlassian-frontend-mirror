@@ -1,8 +1,8 @@
-import type { CardAppearance } from '@atlaskit/linking-common/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardState } from '@atlaskit/linking-common/store';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { getExtensionKey } from '../../../state/getExtensionKey';
 import type { EmbedRovoActionsFooterExperimentMeta } from '../../../state/hooks/use-embed-rovo-actions-footer-experiment';
 import { getEmbedRovoActionsFooterExperimentMeta } from '../../../state/hooks/use-embed-rovo-actions-footer-experiment/getEmbedRovoActionsFooterExperimentMeta';

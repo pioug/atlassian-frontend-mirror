@@ -1,13 +1,14 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
+
 import React from 'react';
 import type { ComponentType, JSX } from 'react';
 
 import { nodes } from '../react/nodes/nodes';
-import type { NodeComponentsProps } from '../ui/Renderer/types';
 import RenderLegacy, {
 	RendererFunctionalComponent as RendererFunctionalComponentLegacy,
 	RendererWithAnalytics as RendererWithAnalyticsLegacy,
 } from '../ui/Renderer/index';
+import type { NodeComponentsProps } from '../ui/Renderer/types';
 
 export { DEGRADED_SEVERITY_THRESHOLD, NORMAL_SEVERITY_THRESHOLD } from '../ui/Renderer/index';
 export type { RendererWrapperProps } from '../ui/Renderer/index';

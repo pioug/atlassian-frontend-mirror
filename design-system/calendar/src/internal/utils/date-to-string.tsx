@@ -1,5 +1,4 @@
 import type { DateObj } from '../types';
-
 import pad from './pad';
 
 interface DateToStringOptions {

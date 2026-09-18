@@ -9,7 +9,6 @@ import { mark } from '../../../utils/mark';
 import { failUfoExperience } from '../../analytics/failUfoExperience';
 import { startUfoExperience } from '../../analytics/startUfoExperience';
 import { succeedUfoExperience } from '../../analytics/succeedUfoExperience';
-
 import { type InvokeClientActionHandler, type UseInvokeClientActionProps } from './types';
 
 const ACTION_EXPERIENCE_NAME = 'smart-link-action-invocation';

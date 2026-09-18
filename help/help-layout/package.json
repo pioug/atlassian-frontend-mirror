@@ -48,6 +48,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@types/react-transition-group": "root:*",
 		"algoliasearch": "root:*",
 		"react": "^19.0.0",

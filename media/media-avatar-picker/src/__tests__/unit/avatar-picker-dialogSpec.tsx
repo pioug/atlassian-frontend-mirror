@@ -13,9 +13,12 @@ jest.mock('@atlaskit/media-ui/dataURItoFile', () => ({
 }));
 
 import React from 'react';
-import { smallImage } from '@atlaskit/media-test-helpers';
+
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { smallImage } from '@atlaskit/media-test-helpers';
+
 import { type Avatar } from '../../avatar-list';
 import { AvatarPickerDialog, fixedCrop } from '../../avatar-picker-dialog';
 import { DEFAULT_VISIBLE_PREDEFINED_AVATARS } from '../../avatar-picker-dialog/layout-const';

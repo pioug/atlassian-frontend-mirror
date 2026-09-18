@@ -9,10 +9,8 @@ import { useExternalMessages, useHydratedDeprecations, useIntl } from '../../../
 import { type ExternalWarning } from '../../../../state/types';
 import { type HydratedDeprecatedField } from '../../../jql-editor/types';
 import { FormatMessages } from '../format/FormatMessages';
-
-import { messages } from './messages';
-
 import { softDeprecateEpicParentDocsLink } from './index';
+import { messages } from './messages';
 
 const getEpicLinkDeprecationTerm = (
 	hydratedDeprecations: HydratedDeprecatedField[],

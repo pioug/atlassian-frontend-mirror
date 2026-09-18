@@ -8,8 +8,8 @@ import { Pressable, xcss } from '@atlaskit/primitives';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
 import { QuickInsertHoverPreview } from './QuickInsertHoverPreview';
+import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
 import { useQuickInsertMenuItemSelection } from './quickInsertMenuItemUtils';
 import { useQuickInsertContext } from './useQuickInsertContext';
 

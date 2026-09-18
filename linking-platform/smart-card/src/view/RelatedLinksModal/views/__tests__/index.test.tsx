@@ -7,8 +7,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import type { CardStore } from '@atlaskit/linking-common/store';
 import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
-
 import '@atlaskit/link-test-helpers/jest';
+
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import { mockSuccessResponse } from '../../__tests__/__mocks__/mocks';
 import RelatedLinksBaseModal from '../../components/RelatedLinksBaseModal';

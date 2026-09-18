@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 import TextField from '@atlaskit/textfield/text-field';
+import { render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
 import { CharacterCounter } from '../../character-counter';
 

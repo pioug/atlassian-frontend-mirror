@@ -1,11 +1,11 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import React, { type FocusEvent, type ReactNode } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { JQL_EDITOR_MAIN_ID } from '../../common/constants';
 import { useEditorThemeContext } from '../../hooks/use-editor-theme/useEditorThemeContext';
-
 import {
 	EditorControls,
 	EditorFooter,

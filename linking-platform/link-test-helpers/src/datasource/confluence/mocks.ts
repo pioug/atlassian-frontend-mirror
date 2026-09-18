@@ -4,7 +4,6 @@ import type {
 } from '@atlaskit/linking-types/datasource';
 
 import { type GenerateDataResponse } from '../types';
-
 import { defaultInitialVisibleColumnKeys, mockConfluenceData } from './data';
 
 const defaultDetailsResponse: DatasourceDetailsResponse = {

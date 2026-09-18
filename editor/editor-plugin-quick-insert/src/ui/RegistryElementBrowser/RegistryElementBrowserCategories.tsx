@@ -7,8 +7,8 @@ import React from 'react';
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { jsx } from '@atlaskit/css';
 import Button from '@atlaskit/button/default/button';
+import { jsx } from '@atlaskit/css';
 import {
 	BLOCK_TEMPLATES_SECTION,
 	DATA_AND_CHARTS_SECTION,

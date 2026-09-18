@@ -4,20 +4,22 @@
  */
 import type React from 'react';
 import { useMemo, useCallback } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { useIntl } from 'react-intl';
 
-import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import type {
 	AnnotationId,
 	AnnotationDataAttributes,
 	AnnotationTypes,
 } from '@atlaskit/adf-schema/annotation';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
+import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { useIntl } from 'react-intl';
-import { inlineCommentMessages } from '../../../messages';
 import { token } from '@atlaskit/tokens';
+
+import { inlineCommentMessages } from '../../../messages';
 import {
 	useAnnotationManagerDispatch,
 	useAnnotationManagerState,

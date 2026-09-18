@@ -1,20 +1,21 @@
 import { Component, type ChangeEvent } from 'react';
 import React from 'react';
 
-import { tallImage } from '@atlaskit/media-common/test-helpers';
-
-import { defaultMediaPickerAuthProvider } from '../src/test-helpers';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
+
+import { getRandomTelemetryId } from '@atlaskit/media-common';
+import { tallImage } from '@atlaskit/media-common/test-helpers';
+
 import { FileInput } from '../example-helpers/FileInput';
 import { ImagePreview } from '../example-helpers/ImagePreview';
 import { MetadataWrapper } from '../example-helpers/MetadataWrapper';
 import { PreviewWrapper } from '../example-helpers/PreviewWrapper';
 import { Wrapper } from '../example-helpers/Wrapper';
 import { uploadFile, MediaStore, type UploadableFileUpfrontIds } from '../src';
+import { defaultMediaPickerAuthProvider } from '../src/test-helpers';
 import { type UploadableFile, type UploadFileCallbacks } from '../src/uploader';
 import { convertBase64ToBlob } from '../src/utils/convertBase64ToBlob';
-import { getRandomTelemetryId } from '@atlaskit/media-common';
 
 type UploaderExampleProps = {};
 export interface UploaderExampleState {

@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import type { TraceIdContext } from '@atlaskit/react-ufo/types'` instead.
  */
+
 export type { TraceIdContext } from './types';
 
 /**

@@ -3,7 +3,6 @@ import type { Change } from 'prosemirror-changeset';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { buildCharsByOffset } from '../../utils/charsByOffset';
-
 import { makePromotedChange, mergeOverlappingByNewDocRange, rangesOverlap } from './helpers';
 import { countWords, segmentSentences, segmentWordSpans } from './segmentText';
 import { resolveThresholds, type SmartDiffThresholds } from './thresholds';

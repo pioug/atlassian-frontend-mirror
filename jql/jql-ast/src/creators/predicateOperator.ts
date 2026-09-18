@@ -5,7 +5,6 @@ import {
 	type PredicateOperator,
 	type PredicateOperatorValue,
 } from '../types';
-
 import { noChildren } from './common';
 
 function acceptPredicateOperator<Result>(this: PredicateOperator, visitor: JastVisitor<Result>) {

@@ -5,7 +5,6 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 
 import { ANALYTICS_CHANNEL } from '../constants';
-
 import { withLinkPickerAnalyticsContext } from './index';
 
 describe('withLinkPickerAnalyticsContext', () => {

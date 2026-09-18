@@ -1,5 +1,4 @@
 import { STORAGE_MOCK } from '../local-storage/main';
-
 import { StorageClient } from './StorageClient';
 
 const CLIENT_KEY = 'storage_client';

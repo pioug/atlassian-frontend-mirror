@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library/render';
-import { screen } from '@atlassian/testing-library/screen';
-
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { media } from '@atlaskit/primitives/responsive';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { DangerouslyHoistCssVarToDocumentRoot } from '../../dangerously-hoist-css-var-to-document-root';
 import { HoistCssVarToLocalGrid } from '../../hoist-css-var-to-local-grid';

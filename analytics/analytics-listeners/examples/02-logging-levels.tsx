@@ -1,14 +1,16 @@
+import React from 'react';
+
 import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
-import React from 'react';
+
+import FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';
+import { LOG_LEVEL } from '../src/helpers/logger';
+import { FabricChannel } from '../src/types';
 import {
 	createAnalyticsWebClientMock,
 	createComponentWithAnalytics,
 	IncorrectEventType,
 } from './helpers';
-import { LOG_LEVEL } from '../src/helpers/logger';
-import FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';
-import { FabricChannel } from '../src/types';
 
 const DummyElementsComponentWithAnalytics = createComponentWithAnalytics(FabricChannel.elements);
 const DummyAtlaskitComponentWithAnalytics = createComponentWithAnalytics(FabricChannel.atlaskit);

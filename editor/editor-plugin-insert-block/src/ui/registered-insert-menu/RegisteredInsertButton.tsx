@@ -2,13 +2,13 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	getAriaKeyshortcuts,
 	insertElements,
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { TOOLBAR_BUTTON_TEST_ID, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -20,7 +20,6 @@ import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
-
 import { RegisteredInsertMenuContent } from './RegisteredInsertMenuContent';
 
 const DEFAULT_MENU_MAX_HEIGHT = 520;

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { AnalyticsEventPayload } from './events';
 
 const AnalyticsContext: React.Context<{

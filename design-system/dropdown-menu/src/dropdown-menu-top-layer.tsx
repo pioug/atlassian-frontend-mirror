@@ -17,12 +17,12 @@ import MenuGroup from '@atlaskit/menu/menu-group';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { isAtCurrentMenuLevel } from '@atlaskit/top-layer/is-at-current-menu-level';
 import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
-import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
-import { isAtCurrentMenuLevel } from '@atlaskit/top-layer/is-at-current-menu-level';
 import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 

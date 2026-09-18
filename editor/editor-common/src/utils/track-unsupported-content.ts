@@ -1,7 +1,6 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
-
 import type {
 	UnsupportedContentPayload,
 	UnsupportedContentTooltipPayload,

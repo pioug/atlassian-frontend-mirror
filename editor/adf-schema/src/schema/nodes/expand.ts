@@ -1,12 +1,13 @@
 import type { NodeSpec, Node as PMNode, Attrs } from '@atlaskit/editor-prosemirror/model';
-import type { BreakoutMarkDefinition } from '../marks';
-import type { MarksObject, NoMark } from './types/mark';
-import type { NonNestableBlockContent } from './types/non-nestable-block-content';
+
 import type { ExpandNode } from '../../next-schema/generated/nodeTypes';
 import { expand as expandFactory } from '../../next-schema/generated/nodeTypes';
-import type { NodeSpecOptions } from '../createPMSpecFactory';
-import type { NestedExpandDefinition } from './nested-expand';
 import { uuid } from '../../utils/uuid';
+import type { NodeSpecOptions } from '../createPMSpecFactory';
+import type { BreakoutMarkDefinition } from '../marks';
+import type { NestedExpandDefinition } from './nested-expand';
+import type { MarksObject, NoMark } from './types/mark';
+import type { NonNestableBlockContent } from './types/non-nestable-block-content';
 
 /**
  * @name expand_node

@@ -8,7 +8,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/transform';
 
 import type { AnnotationManager } from '../../annotation';
-
 import type { AnnotationState, AnnotationUpdateEmitter } from './emitter';
 
 export type AnnotationByMatches = {

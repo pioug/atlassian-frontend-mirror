@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+
 import type { TSESTree } from '@typescript-eslint/utils';
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';

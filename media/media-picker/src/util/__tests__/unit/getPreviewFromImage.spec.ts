@@ -1,11 +1,12 @@
 jest.mock('@atlaskit/media-ui/getFileInfo');
 jest.mock('@atlaskit/media-ui/imageMetaData/getImageInfo');
 
+import { asMock } from '@atlaskit/media-test-helpers';
 import { getFileInfo } from '@atlaskit/media-ui/getFileInfo';
 import { getImageInfo } from '@atlaskit/media-ui/imageMetaData/getImageInfo';
-import { asMock } from '@atlaskit/media-test-helpers';
-import { getPreviewFromImage } from '../../getPreviewFromImage';
+
 import { type ImagePreview, type Preview } from '../../../types';
+import { getPreviewFromImage } from '../../getPreviewFromImage';
 
 describe('getPreviewFromImage()', () => {
 	const file = new File([], 'some-filename');

@@ -13,7 +13,6 @@ import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import type { TextColorInputMethod } from '../../types';
 import { pluginKey } from '../main';
 import { getActiveColor } from '../utils/color';
-
 import { removeColor } from './remove-color';
 import { toggleColor } from './toggle-color';
 

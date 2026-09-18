@@ -1,8 +1,10 @@
 import React from 'react';
-import RendererDemo from './helper/RendererDemo';
-import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
+
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
+
 import adf from './helper/media-without-caption.adf.json';
+import RendererDemo from './helper/RendererDemo';
 
 const Example = (): React.JSX.Element => {
 	const mediaOptions: MediaOptions = { allowCaptions: false };

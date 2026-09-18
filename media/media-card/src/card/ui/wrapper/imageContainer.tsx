@@ -1,6 +1,7 @@
 import React from 'react';
-import { ImageContainer as CompiledImageContainer } from './imageContainer-compiled';
+
 import type { MediaCardCursor } from '../../../types';
+import { ImageContainer as CompiledImageContainer } from './imageContainer-compiled';
 
 type ImageContainerProps = {
 	children: React.ReactNode;

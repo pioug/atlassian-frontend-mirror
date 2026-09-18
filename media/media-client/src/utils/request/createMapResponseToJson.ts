@@ -1,5 +1,5 @@
-import { RequestError } from './RequestError';
 import { extractMediaHeaders } from './extractMediaHeaders';
+import { RequestError } from './RequestError';
 import { type RequestMetadata } from './types';
 
 export function createMapResponseToJson(

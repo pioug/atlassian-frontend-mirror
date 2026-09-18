@@ -1,3 +1,6 @@
+import { snapshot } from '@af/visual-regression';
+import type { ErrorFilterOption } from '@af/visual-regression';
+
 import {
 	RendererSSRTable,
 	RendererSSRLayout,
@@ -12,8 +15,6 @@ import {
 	RendererSSRResizedMediaInTable,
 	RendererSSRSmartCardUrlIcon,
 } from './ssr.fixture.vr.ap';
-import { snapshot } from '@af/visual-regression';
-import type { ErrorFilterOption } from '@af/visual-regression';
 
 const ignoredErrors: ErrorFilterOption[] = [
 	{

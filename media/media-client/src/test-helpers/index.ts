@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { StoryBookAuthProvider } from '@atlaskit/media-client/test-helpers/auth-provider'` instead.
  */
+
 export { StoryBookAuthProvider } from './authProvider';
 /**
  * @deprecated Use `import { createStorybookMediaClient } from '@atlaskit/media-client/test-helpers/media-client-provider'` instead.

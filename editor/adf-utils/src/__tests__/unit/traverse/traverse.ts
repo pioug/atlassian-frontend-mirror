@@ -1,7 +1,7 @@
 import { traverse } from '../../../traverse/traverse';
-import mentionsDoc from './__fixtures__/mentions.json';
-import emojiDoc from './__fixtures__/emoji.json';
 import deepDoc from './__fixtures__/deep-adf.json';
+import emojiDoc from './__fixtures__/emoji.json';
+import mentionsDoc from './__fixtures__/mentions.json';
 
 describe('Traverse', () => {
 	it('should call a callback for all nodes of a given type', () => {

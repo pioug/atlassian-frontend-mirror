@@ -1,5 +1,4 @@
 import { type Config, setUFOConfig } from '../../../config';
-
 import { buildSegmentTree } from './build-segment-tree';
 import { getOldSegmentsLabelStack } from './get-old-segments-label-stack';
 

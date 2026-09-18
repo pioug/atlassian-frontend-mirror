@@ -5,6 +5,11 @@ import { LRUMap } from 'lru_map';
 import pThrottle from 'p-throttle';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { request } from '@atlaskit/linking-common/api';
+import { APIError } from '@atlaskit/linking-common/api-error';
+import { getResolverUrl } from '@atlaskit/linking-common/get-resolver-url';
+import { InvalidUrlError } from '@atlaskit/linking-common/invalid-url-error';
+import { NetworkError } from '@atlaskit/linking-common/network-error';
 import type {
 	InvokePayload,
 	InvocationSearchPayload,
@@ -12,12 +17,7 @@ import type {
 	ProductType,
 	CardAppearance,
 } from '@atlaskit/linking-common/types';
-import { request } from '@atlaskit/linking-common/api';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
-import { APIError } from '@atlaskit/linking-common/api-error';
-import { InvalidUrlError } from '@atlaskit/linking-common/invalid-url-error';
-import { getResolverUrl } from '@atlaskit/linking-common/get-resolver-url';
-import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type CardClient as CardClientInterface } from './types';

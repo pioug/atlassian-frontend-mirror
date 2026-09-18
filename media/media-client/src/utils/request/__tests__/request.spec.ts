@@ -1,12 +1,11 @@
+import { nextTick } from '@atlaskit/media-common/test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { nextTick } from '@atlaskit/media-common/test-helpers';
-
-import { RequestError } from '../RequestError';
+import { request } from '..';
 import { fetchRetry } from '../fetchRetry';
 import { isRequestError } from '../isRequestError';
+import { RequestError } from '../RequestError';
 import { type RequestMetadata } from '../types';
-import { request } from '..';
 
 // Mock dependencies for Edge retry functionality
 jest.mock('../../isPathBasedEnabled');

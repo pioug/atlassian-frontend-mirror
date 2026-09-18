@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { MultiValue } from '../../../components/MultiValue';
 import { scrollToValue } from '../../../components/scrollToValue';

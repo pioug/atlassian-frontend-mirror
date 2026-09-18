@@ -9,7 +9,6 @@ import { fullDomainOverride } from '../../common/constants/fullDomainOverride';
 import { globalDomains } from '../../common/constants/globalDomains';
 import { cloudEnvironment } from '../perimeter/cloudEnvironment';
 import { isolatedCloudDomain } from '../perimeter/isolatedCloudDomain';
-
 import {
 	AtlDomainMapping,
 	isolatedCloudFunctions,

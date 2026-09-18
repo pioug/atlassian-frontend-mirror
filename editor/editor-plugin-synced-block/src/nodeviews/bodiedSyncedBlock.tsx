@@ -17,17 +17,16 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type {
 	SyncBlockSourceInfo,
 	SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SourceSyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { getUnpublishedSourceType } from '../ui/getUnpublishedSourceType';
 import { SyncBlockLabel } from '../ui/SyncBlockLabel';
-
 import { isEmptySourceSyncBlock } from './isEmptySourceSyncBlock';
 
 export interface BodiedSyncBlockNodeViewProperties {

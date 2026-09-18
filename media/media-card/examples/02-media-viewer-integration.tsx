@@ -3,10 +3,11 @@
  * @jsx jsx
  */
 import React from 'react';
+import { Component } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { Component } from 'react';
-import Card from '../src/card/cardLoader';
+
 import {
 	createStorybookMediaClientConfig,
 	imageFileId,
@@ -15,11 +16,12 @@ import {
 	largeImageFileId,
 } from '@atlaskit/media-test-helpers';
 
+import { MainWrapper } from '../example-helpers';
 import {
 	mediaViewerExampleWrapperStyles,
 	mediaViewerExampleColumnStyles,
 } from '../example-helpers/styles';
-import { MainWrapper } from '../example-helpers';
+import Card from '../src/card/cardLoader';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 const mediaViewerItems = [imageFileId, gifFileId, largeImageFileId, videoFileId];

@@ -4,7 +4,6 @@ import type { InteractionTaskArgs, PublicInteractionTask } from 'storybook-addon
 import invariant from 'tiny-invariant';
 
 import { DragDropContext, Draggable, Droppable } from '../src';
-
 import Board from './pieces/board';
 import { type RbdApi } from './pieces/types';
 import { getColumn, getColumnItems, getColumnOrder, getItem } from './utils/board-utils';

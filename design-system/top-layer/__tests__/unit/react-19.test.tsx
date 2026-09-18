@@ -3,21 +3,21 @@ import React, { useRef } from 'react';
 import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
 import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 
+import { DialogScrollLock } from '../../src/dialog-scroll-lock';
 import { createCloseEvent } from '../../src/dialog/create-close-event';
 import { Dialog } from '../../src/dialog/dialog-content';
-import { DialogScrollLock } from '../../src/dialog-scroll-lock';
+import { usePopoverId } from '../../src/entry-points/use-popover-id';
 import { getFirstFocusable } from '../../src/focus/get-first-focusable';
 import { getLastFocusable } from '../../src/focus/get-last-focusable';
 import { getNextFocusable } from '../../src/focus/get-next-focusable';
-import { fromLegacyPlacement } from '../../src/placement-map';
-import { isAtCurrentMenuLevel } from '../../src/use-arrow-navigation/is-at-current-menu-level';
-import { useArrowNavigation } from '../../src/use-arrow-navigation/use-arrow-navigation';
-import { usePopoverId } from '../../src/entry-points/use-popover-id';
 import { getAriaForTrigger } from '../../src/internal/get-aria-for-trigger';
 import { useAnchoredPopover } from '../../src/internal/use-anchored-popover';
+import { fromLegacyPlacement } from '../../src/placement-map';
+import { PopoverSurface } from '../../src/popover-surface/popover-surface';
 import { createPopoverCloseEvent } from '../../src/popover/create-close-event';
 import { Popover } from '../../src/popover/popover';
-import { PopoverSurface } from '../../src/popover-surface/popover-surface';
+import { isAtCurrentMenuLevel } from '../../src/use-arrow-navigation/is-at-current-menu-level';
+import { useArrowNavigation } from '../../src/use-arrow-navigation/use-arrow-navigation';
 import { useSimpleLightDismiss } from '../../src/use-simple-light-dismiss';
 
 function noop() {}

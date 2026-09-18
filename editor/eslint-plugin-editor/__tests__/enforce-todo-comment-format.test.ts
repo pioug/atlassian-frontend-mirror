@@ -1,7 +1,8 @@
 /** @jest-environment node */
+
+import { rule } from '../rules/enforce-todo-comment-format';
 /* eslint-disable */
 import { tsRuleTester } from './utils/_tester';
-import { rule } from '../rules/enforce-todo-comment-format';
 
 describe('enforce-todo-comment-format', () => {
 	tsRuleTester.run('invalid-todo-comment-format', rule, {

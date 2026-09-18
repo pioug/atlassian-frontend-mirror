@@ -3,18 +3,17 @@
  * @jsx jsx
  */
 import React, { useCallback } from 'react';
-import { useIntl } from 'react-intl';
 
 import { css, jsx } from '@compiled/react';
+import { useIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
+import { cssMap } from '@atlaskit/css';
 import { ruleMessages as messages } from '@atlaskit/editor-common/messages/rule';
 import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
 import StrokeWeightMediumIcon from '@atlaskit/icon/core/stroke-weight-medium';
 import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
 import type { IconProps } from '@atlaskit/icon/types';
-
-import { cssMap } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -24,11 +23,11 @@ import {
 	type DividerStyle,
 	type DividerWeight,
 } from './constants';
+import { DashedStrokeIcon } from './icons/DashedStrokeIcon';
+import { DottedStrokeIcon } from './icons/DottedStrokeIcon';
 import { FadeStrokeIcon } from './icons/FadeStrokeIcon';
 import { SketchStrokeIcon } from './icons/SketchStrokeIcon';
 import { SolidStrokeIcon } from './icons/SolidStrokeIcon';
-import { DashedStrokeIcon } from './icons/DashedStrokeIcon';
-import { DottedStrokeIcon } from './icons/DottedStrokeIcon';
 
 type DividerOptionsProps = {
 	onStyleChange?: (style: DividerStyle) => void;

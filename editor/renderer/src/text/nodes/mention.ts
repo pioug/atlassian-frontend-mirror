@@ -1,4 +1,5 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import type { NodeReducer } from './';
 
 const mention: NodeReducer = (node: PMNode, _schema: Schema) => {

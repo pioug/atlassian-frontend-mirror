@@ -1,8 +1,11 @@
 // eslint-disable-line no-console
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { MediaImage } from '../src/mediaImage';
+
+import { token } from '@atlaskit/tokens';
+
 import {
 	orientation_1,
 	orientation_2,
@@ -13,7 +16,7 @@ import {
 	orientation_7,
 	orientation_8,
 } from '../example-helpers/exif-dataUri';
-import { token } from '@atlaskit/tokens';
+import { MediaImage } from '../src/mediaImage';
 
 const LONG = 80;
 const SHORT = 60;

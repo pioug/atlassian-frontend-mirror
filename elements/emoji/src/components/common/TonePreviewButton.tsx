@@ -11,12 +11,15 @@ import {
 	type MouseEventHandler,
 	type RefAttributes,
 } from 'react';
+
 import { css, jsx } from '@compiled/react';
+
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
+
 import type { EmojiDescription } from '../../types';
 import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
 import Emoji from './Emoji';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export const tonePreviewTestId = 'tone-preview';
 

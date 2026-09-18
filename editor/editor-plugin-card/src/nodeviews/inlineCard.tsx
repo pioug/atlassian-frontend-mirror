@@ -20,7 +20,6 @@ import {
 import type { cardPlugin } from '../cardPlugin';
 import { getAwarenessProps } from '../pm-plugins/utils';
 import { SmartCardSSRReactContextsProvider } from '../ui/SmartCardSSRReactContextsProvider';
-
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
 import { InlineCardWithAwareness } from './inlineCardWithAwareness';

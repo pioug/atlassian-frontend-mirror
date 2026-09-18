@@ -13,9 +13,9 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
+import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { ActionButton } from '../common/action-button';
 
 export interface InlineCardErroredViewProps {
 	/* Icon to be provided to show this error state */

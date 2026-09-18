@@ -12,7 +12,6 @@ import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provid
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
-
 import { SyncedBlockQuickInsertMenuItem } from './SyncedBlockQuickInsertMenuItem';
 
 const previewImageUrls = {

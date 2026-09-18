@@ -7,8 +7,8 @@ import React, { useMemo } from 'react';
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { jsx } from '@atlaskit/css';
 import LinkButton from '@atlaskit/button/link';
+import { jsx } from '@atlaskit/css';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';

@@ -4,8 +4,8 @@ import { bind } from 'bind-event-listener';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';

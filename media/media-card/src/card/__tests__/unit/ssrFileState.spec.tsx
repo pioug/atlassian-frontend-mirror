@@ -12,13 +12,13 @@
  */
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { mapSsrMediaItemToFileState } from '@atlaskit/media-client/ssr-media-item';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render } from '@atlassian/testing-library';
 
 // ─── Mocks ───────────────────────────────────────────────────────────────────
 

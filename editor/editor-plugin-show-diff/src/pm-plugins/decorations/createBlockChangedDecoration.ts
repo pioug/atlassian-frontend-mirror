@@ -8,7 +8,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
 import { isTaggableBlockNode } from '../utils/taggableBlockNodes';
-
 import {
 	buildAddedCellOverlayRoundedStyle,
 	buildAddedCellOverlayStyle,
@@ -23,6 +22,10 @@ import { colorSchemeRegistry, getLegacyColorScheme } from './colorSchemes/scheme
 import type { ColorScheme } from './colorSchemes/types';
 import { createBlockIndicatorAnchorWidgets } from './createAnchorDecorationWidgets';
 import {
+	getBlockNodeStyleLegacy,
+	resolveCellOverlayStyleLegacy,
+} from './createBlockChangedDecoration.styles.legacy';
+import {
 	type ContributorTagMountContext,
 	createContributorTagWidget,
 	isContributorTagWidgetEnabled,
@@ -33,10 +36,6 @@ import {
 	buildAnchorDecorationKey,
 	scrollMarginTopStyle,
 } from './decorationKeys';
-import {
-	getBlockNodeStyleLegacy,
-	resolveCellOverlayStyleLegacy,
-} from './createBlockChangedDecoration.styles.legacy';
 
 const displayNoneStyle = convertToInlineCss({
 	display: 'none',

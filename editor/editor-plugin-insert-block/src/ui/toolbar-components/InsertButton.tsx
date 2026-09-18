@@ -32,7 +32,6 @@ import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import type { ToolbarInsertBlockButtonsConfig } from '../../types';
 import InsertMenu, { DEFAULT_HEIGHT } from '../ElementBrowser/InsertMenu';
 import type { OnInsert } from '../ElementBrowser/types';
-
 import { LINK_BUTTON_KEY } from './hooks/filterDropdownItems';
 import { useEmojiPickerPopup } from './hooks/useEmojiPickerPopup';
 import { useInsertButtonState } from './hooks/useInsertButtonState';

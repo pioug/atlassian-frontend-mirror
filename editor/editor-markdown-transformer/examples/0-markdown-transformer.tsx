@@ -4,15 +4,19 @@
  * @jsx jsx
  */
 /* eslint-enable jsdoc/check-tag-names */
+
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@compiled/react';
+
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports -- Example file, requires core
 import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { token } from '@atlaskit/tokens';
-import { MarkdownTransformer } from '../src';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
 import exampleMarkdown from '../example-helpers/exampleMarkdown';
+import { MarkdownTransformer } from '../src';
 
 const container = css({
 	display: 'grid',

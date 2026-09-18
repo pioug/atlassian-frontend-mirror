@@ -9,9 +9,8 @@ import {
 	type PlaygroundConfig,
 } from '@atlassian/teams-app-internal-playground/playground';
 
-import { TeamsAppAnalyticsContext } from '../src/ui/analytics-context';
 import { useAnalyticsEvents } from '../src/common/utils/generated/use-analytics-events';
-
+import { TeamsAppAnalyticsContext } from '../src/ui/analytics-context';
 import { createAnalyticsWebClientMock } from './mocks/mockAnalyticsClient';
 
 const analyticsClient = createAnalyticsWebClientMock();

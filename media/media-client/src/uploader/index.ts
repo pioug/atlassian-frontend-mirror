@@ -9,8 +9,8 @@ import type { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorit
 import type { MediaStore } from '../client/media-store/MediaStore';
 import { CHUNK_SIZE, PROCESSING_BATCH_SIZE } from '../constants';
 import { createHasher } from '../utils/hashing/hasherCreator';
-import { UploaderError } from './UploaderError';
 import { calculateChunkSize, fileSizeError } from './calculateChunkSize';
+import { UploaderError } from './UploaderError';
 
 // TODO: Allow to pass multiple files
 export type UploadableFile = {

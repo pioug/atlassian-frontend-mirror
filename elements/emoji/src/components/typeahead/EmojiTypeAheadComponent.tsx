@@ -1,10 +1,13 @@
 import React from 'react';
 import { PureComponent } from 'react';
 import { flushSync } from 'react-dom';
+
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
+
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+
 import type { EmojiProvider, OnEmojiProviderChange } from '../../api/EmojiResource';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import {
@@ -24,7 +27,6 @@ import { defaultListLimit } from '../../util/constants';
 import debug from '../../util/logger';
 import { toEmojiId } from '../../util/to-emoji-id';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
-
 import EmojiList from './EmojiTypeAheadList';
 import { emojiTypeAhead } from './styles';
 export interface OnLifecycle {

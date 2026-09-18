@@ -2,7 +2,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import type { MentionPluginState } from '../types';
-
 import { mentionPluginKey } from './key';
 
 export function getMentionPluginState(state: EditorState) {

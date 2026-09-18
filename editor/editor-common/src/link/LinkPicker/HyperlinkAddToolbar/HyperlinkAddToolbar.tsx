@@ -3,14 +3,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { PureComponent } from 'react';
+import { flushSync } from 'react-dom';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 import debounce from 'lodash/debounce';
-import { flushSync } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
@@ -47,7 +48,6 @@ import LinkSearchList from '../../LinkSearch/LinkSearchList';
 import { container, narrowContainerWidth, inputWrapper } from '../../LinkSearch/ToolbarComponents';
 import { transformTimeStamp } from '../../LinkSearch/transformTimeStamp';
 import type { LinkSearchListItemData } from '../../LinkSearch/types';
-
 import { filterUniqueItems } from './filterUniqueItems';
 import { messages } from './messages';
 import { sha1 } from './sha1';

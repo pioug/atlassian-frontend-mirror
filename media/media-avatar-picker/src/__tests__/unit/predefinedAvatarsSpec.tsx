@@ -1,6 +1,9 @@
 import React from 'react';
-import { renderWithIntl } from '@atlaskit/media-test-helpers';
+
 import { screen } from '@testing-library/react';
+
+import { renderWithIntl } from '@atlaskit/media-test-helpers';
+
 import { PredefinedAvatarView } from '../../predefined-avatar-view';
 
 describe('PredefinedAvatarView', () => {

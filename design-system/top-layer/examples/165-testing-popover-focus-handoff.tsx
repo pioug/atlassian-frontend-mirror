@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-
 import { flushSync } from 'react-dom';
+
 import { bind } from 'bind-event-listener';
 
 import { Popover } from '@atlaskit/top-layer/popover/popover';

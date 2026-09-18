@@ -15,9 +15,7 @@ import {
 	isMediaSingleOrInlineNodeSelected,
 } from '../../pm-plugins/utils/media-common';
 import { getNodeType } from '../../ui/toolbar/commands';
-
 import type { CloseMediaAltTextMenu, OpenMediaAltTextMenu, UpdateAltText } from './actions';
-
 import { createCommand } from './index';
 
 const createCommandWithAnalytics = (

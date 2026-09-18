@@ -3,14 +3,13 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import isEqual from 'lodash/isEqual';
 import { useIntl } from 'react-intl';
 
-import type { InputActionMeta, ValueType } from '@atlaskit/select/types';
 import { PopupSelect } from '@atlaskit/select/popup-select';
+import type { InputActionMeta, ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
-
-import { CustomControl } from './CustomControl';
 import { CustomCheckboxOption } from './custom-checkbox-option';
+import { CustomControl } from './CustomControl';
 import CustomDropdownIndicator from './dropdownIndicator';
 import PopupFooter from './footer';
 import formatOptionLabel from './formatOptionLabel';

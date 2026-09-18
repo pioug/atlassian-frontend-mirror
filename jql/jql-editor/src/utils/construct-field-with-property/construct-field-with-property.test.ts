@@ -1,6 +1,6 @@
+import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
 
 import { constructFieldWithProperty } from './constructFieldWithProperty';
 import { constructFieldWithPropertyFG } from './constructFieldWithPropertyFG';

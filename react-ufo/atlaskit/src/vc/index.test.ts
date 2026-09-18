@@ -1,10 +1,9 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import * as configModule from '../config';
-
-import { VCObserverWrapper } from './VCObserverWrapper';
 import { VCObserver } from './vc-observer';
 import { default as VCObserverNew } from './vc-observer-new/index';
+import { VCObserverWrapper } from './VCObserverWrapper';
 
 // Mock dependencies
 jest.mock('./vc-observer');

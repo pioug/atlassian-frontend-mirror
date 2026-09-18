@@ -12,7 +12,6 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { LayoutPlugin } from '../layoutPluginType';
-
 import { deleteLayoutColumn, insertLayoutColumn } from './actions';
 
 type Shortcut = string | undefined;

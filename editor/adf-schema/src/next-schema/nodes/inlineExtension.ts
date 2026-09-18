@@ -1,5 +1,6 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
+
 import { dataConsumer } from '../marks/dataConsumer';
 import { fragment } from '../marks/fragment';
 import { unsupportedMark } from '../marks/unsupportedMark';

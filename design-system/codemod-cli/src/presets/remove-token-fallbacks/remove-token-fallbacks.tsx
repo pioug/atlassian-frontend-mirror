@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import path from 'path';
 
 import { hasImportDeclaration } from '@hypermod/utils';

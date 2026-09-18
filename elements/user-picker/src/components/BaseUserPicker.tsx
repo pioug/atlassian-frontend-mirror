@@ -1,15 +1,19 @@
 import React from 'react';
+import type { AriaAttributes } from 'react';
 
 import debounce from 'lodash/debounce';
 import { FormattedMessage } from 'react-intl';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuidv4 } from 'uuid';
 
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { PopupSelectProps } from '@atlaskit/select/popup-select';
+import type { SelectComponentsConfig, StylesConfig } from '@atlaskit/select/types';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
 import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import { v4 as uuidv4 } from 'uuid';
+
 import {
 	createAndFireEventInElementsChannel,
 	type EventCreator,
@@ -46,6 +50,7 @@ import { groupOptionsByType } from '../util/group-options-by-type';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
 import { batchByKey } from './batch';
 import { callCallback } from './callCallback';
+import type { EmailValidator } from './emailValidation';
 import { extractOptionValue } from './extractOptionValue';
 import { messages } from './i18n';
 import { isDefaultValuePopulated } from './isDefaultValuePopulated';
@@ -53,10 +58,6 @@ import { isIterable } from './isIterable';
 import { isPopupUserPickerByComponent } from './isPopupUserPickerByComponent';
 import { isSingleValue } from './isSingleValue';
 import { getOptions, optionToSelectableOptions } from './utils';
-import type { AriaAttributes } from 'react';
-import type { SelectComponentsConfig, StylesConfig } from '@atlaskit/select/types';
-import type { PopupSelectProps } from '@atlaskit/select/popup-select';
-import type { EmailValidator } from './emailValidation';
 
 export type BaseUserPickerProps = UserPickerProps & {
 	components: any;

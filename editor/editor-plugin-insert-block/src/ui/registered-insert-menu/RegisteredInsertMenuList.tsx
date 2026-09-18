@@ -1,17 +1,17 @@
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
-import { cssMap } from '@atlaskit/css';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import { List } from 'react-virtualized/dist/commonjs/List';
 import type { ListRowRenderer, ListProps } from 'react-virtualized/dist/commonjs/List';
 
+import { cssMap } from '@atlaskit/css';
 import type { QuickInsertMenuModel } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
 	RegisterMenuItem,
 	RegisterMenuSection,
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

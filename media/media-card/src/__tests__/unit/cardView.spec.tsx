@@ -21,26 +21,29 @@ jest.mock('@atlaskit/tooltip/Tooltip', () => ({
 }));
 
 import React from 'react';
-import { CardView, CardViewBase, type CardViewProps } from '../../card/cardView';
-import { type CardStatus } from '../../types';
+
+import { fireEvent, render as rtlRender, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl';
+
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import { type FileDetails } from '@atlaskit/media-client';
-import { getDefaultCardDimensions } from '../../utils/cardDimensions';
-import { getElementDimension } from '../../utils/getElementDimension';
 import {
 	createPollingMaxAttemptsError,
 	createMediaStoreError,
 } from '@atlaskit/media-client/test-helpers';
-import { MediaCardError } from '../../MediaCardError';
-import { imgTestId, spinnerTestId, cardTestId, cardBlanketTestId } from '../utils/_testIDs';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import { fireEvent, render as rtlRender, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl';
-import DownloadIcon from '@atlaskit/icon/core/download';
-import { LOCAL_WIDTH_VARIABLE } from '../../card/ui/wrapper/wrapper-compiled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { CardView, CardViewBase, type CardViewProps } from '../../card/cardView';
+import { LOCAL_WIDTH_VARIABLE } from '../../card/ui/wrapper/wrapper-compiled';
+import { MediaCardError } from '../../MediaCardError';
+import { type CardStatus } from '../../types';
+import { getDefaultCardDimensions } from '../../utils/cardDimensions';
+import { getElementDimension } from '../../utils/getElementDimension';
+import { imgTestId, spinnerTestId, cardTestId, cardBlanketTestId } from '../utils/_testIDs';
 
 const identifier = {
 	id: 'some-id',

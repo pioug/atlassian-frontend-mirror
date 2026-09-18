@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+
 import { type MessageDescriptor } from 'react-intl';
 
 export type InternalIconMessageProps = {

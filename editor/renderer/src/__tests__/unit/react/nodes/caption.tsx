@@ -1,6 +1,7 @@
 import React from 'react';
-import { renderWithIntl } from '../../../__helpers/render';
+
 import Caption from '../../../../react/nodes/caption';
+import { renderWithIntl } from '../../../__helpers/render';
 
 describe('Renderer - React/Nodes/Caption', () => {
 	it('renders data-renderer-start-pos', () => {

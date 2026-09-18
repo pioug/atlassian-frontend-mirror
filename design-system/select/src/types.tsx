@@ -1,7 +1,23 @@
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { AriaOnFocusProps } from '@atlaskit/react-select/accessibility';
+import type { FormatOptionLabelMeta, default as BaseSelect } from '@atlaskit/react-select/base';
 import type { ClearIndicatorProps } from '@atlaskit/react-select/clear-indicator';
+import type { SelectComponentsConfig as RSSelectComponentsConfig } from '@atlaskit/react-select/components';
+import type { ControlProps as RSControlProps } from '@atlaskit/react-select/control';
+import type { CreatableProps } from '@atlaskit/react-select/creatable/default';
 import type { DropdownIndicatorProps } from '@atlaskit/react-select/dropdown-indicator';
+import type { GroupProps as RSGroupProps } from '@atlaskit/react-select/group';
+import type { IndicatorsContainerProps } from '@atlaskit/react-select/indicators-container';
+import type { InputProps } from '@atlaskit/react-select/input';
+import type { LoadingIndicatorProps } from '@atlaskit/react-select/loading-indicator';
+import type { MenuProps as RSMenuProps } from '@atlaskit/react-select/menu';
+import type { MenuListProps as RSMenuListComponentProps } from '@atlaskit/react-select/menu-list';
+import type { MultiValueProps } from '@atlaskit/react-select/multi-value';
+import type { MultiValueRemoveProps } from '@atlaskit/react-select/multi-value-remove';
+import type { OptionProps as ReactSelectOptionProps } from '@atlaskit/react-select/option';
+import type { PlaceholderProps as RSPlaceholderProps } from '@atlaskit/react-select/placeholder';
+import type { SingleValueProps } from '@atlaskit/react-select/single-value';
+import type { StylesConfig as RSStylesConfig } from '@atlaskit/react-select/styles';
 import type {
 	GroupBase as GroupType,
 	InputActionMeta,
@@ -12,25 +28,9 @@ import type {
 	OnChangeValue as RSValueType,
 	SelectInstance,
 } from '@atlaskit/react-select/types';
-import type { IndicatorsContainerProps } from '@atlaskit/react-select/indicators-container';
-import type { InputProps } from '@atlaskit/react-select/input';
-import type { LoadingIndicatorProps } from '@atlaskit/react-select/loading-indicator';
-import type { MultiValueProps } from '@atlaskit/react-select/multi-value';
-import type { MultiValueRemoveProps } from '@atlaskit/react-select/multi-value-remove';
-import type { ControlProps as RSControlProps } from '@atlaskit/react-select/control';
-import type { GroupProps as RSGroupProps } from '@atlaskit/react-select/group';
-import type { MenuListProps as RSMenuListComponentProps } from '@atlaskit/react-select/menu-list';
-import type { MenuProps as RSMenuProps } from '@atlaskit/react-select/menu';
-import type { PlaceholderProps as RSPlaceholderProps } from '@atlaskit/react-select/placeholder';
-import type { SelectComponentsConfig as RSSelectComponentsConfig } from '@atlaskit/react-select/components';
-import type { StylesConfig as RSStylesConfig } from '@atlaskit/react-select/styles';
-import type { ValueContainerProps as RSValueContainerProps } from '@atlaskit/react-select/value-container';
-import type { OptionProps as ReactSelectOptionProps } from '@atlaskit/react-select/option';
-import type { StateManagerProps as ReactSelectProps } from '@atlaskit/react-select/use-state-manager';
-import type { SingleValueProps } from '@atlaskit/react-select/single-value';
 import type { AsyncProps } from '@atlaskit/react-select/use-async';
-import type { FormatOptionLabelMeta, default as BaseSelect } from '@atlaskit/react-select/base';
-import type { CreatableProps } from '@atlaskit/react-select/creatable/default';
+import type { StateManagerProps as ReactSelectProps } from '@atlaskit/react-select/use-state-manager';
+import type { ValueContainerProps as RSValueContainerProps } from '@atlaskit/react-select/value-container';
 
 export type ValidationState = 'default' | 'error' | 'success';
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions

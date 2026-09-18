@@ -3,7 +3,6 @@ import { themeImportMap } from '@atlaskit/tokens/artifacts/theme-import-map';
 import type { ThemeIds } from '@atlaskit/tokens/theme-ids';
 
 import { type Theme } from '../context/theme';
-
 import { isThemeMounted } from './is-theme-mounted';
 
 const loadThemeCss = async (themeId: ThemeIds) => {

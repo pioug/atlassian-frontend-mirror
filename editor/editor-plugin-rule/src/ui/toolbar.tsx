@@ -1,31 +1,31 @@
 import React from 'react';
+
 import type { IntlShape } from 'react-intl';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { ruleMessages } from '@atlaskit/editor-common/messages/rule';
 import type {
 	Command,
 	ExtractInjectionAPI,
 	FloatingToolbarConfig,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import commonMessages from '@atlaskit/editor-common/messages';
-import { ruleMessages } from '@atlaskit/editor-common/messages/rule';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
-
 import CopyIcon from '@atlaskit/icon/core/copy';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 
-import type { RulePlugin } from '../rulePluginType';
 import {
 	removeHorizontalRule,
 	updateHorizontalRuleStyle,
 	updateHorizontalRuleWeight,
 } from '../pm-plugins/commands';
+import type { RulePlugin } from '../rulePluginType';
 import type { DividerStyle, DividerWeight } from './constants';
 import { DividerOptions } from './DividerOptions';
 

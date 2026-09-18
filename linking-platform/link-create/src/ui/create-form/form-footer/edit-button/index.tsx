@@ -13,7 +13,6 @@ import {
 import createEventPayload from '../../../../common/utils/analytics/analytics.codegen';
 import { useFormContext } from '../../../../controllers/form-context/main';
 import { FormSpy } from '../../form-spy';
-
 import { messages } from './messages';
 
 export const EditButton = (): React.JSX.Element | null => {

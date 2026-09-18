@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
+import { render } from '@atlassian/testing-library';
 
 import Lozenge from '../../lozenge';
 

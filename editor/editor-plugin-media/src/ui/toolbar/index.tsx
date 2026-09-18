@@ -77,7 +77,6 @@ import { currentMediaOrInlineNodeBorderMark } from '../../pm-plugins/utils/curre
 import { isVideo } from '../../pm-plugins/utils/media-single';
 import type { MediaFloatingToolbarOptions, MediaToolbarBaseConfig } from '../../types';
 import ImageBorderItem from '../../ui/ImageBorder';
-
 import { altTextButton, getAltTextDropdownOption, getAltTextToolbar } from './alt-text';
 import {
 	changeMediaCardToInline,

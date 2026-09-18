@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render, screen, userEvent } from '@atlassian/testing-library';
 import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
-import Form from '../../form';
 import { CheckboxField } from '../../checkbox-field';
+import Form from '../../form';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CheckboxField', () => {

@@ -9,7 +9,6 @@ import {
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
 } from '../utils/constants';
-
 import VCCalculator_FY25_03 from './index';
 
 // Mock feature flags

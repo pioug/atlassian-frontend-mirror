@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client/types';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
@@ -20,7 +20,6 @@ import {
 
 import { Card } from '../../src';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
 // Statically import the lazy footer so the snapshot captures the loaded state.
 import '../../src/view/EmbedCard/components/rovo-actions-footer';
 

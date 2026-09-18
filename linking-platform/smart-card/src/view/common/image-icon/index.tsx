@@ -13,7 +13,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { LoadingSkeleton } from '../loading-skeleton';
-
 import { type ImageIconProps } from './types';
 
 const styles = cssMap({

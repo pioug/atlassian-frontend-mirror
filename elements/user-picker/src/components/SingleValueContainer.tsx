@@ -3,15 +3,18 @@
  * @jsx jsx
  */
 import React from 'react';
+
+import { css, cssMap, jsx } from '@compiled/react';
+
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 import { components } from '@atlaskit/react-select/components';
 import type { ValueContainerProps } from '@atlaskit/select/types';
+import { token } from '@atlaskit/tokens';
+
 import { type Option, type User } from '../types';
 import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import ValueContainerWrapper from './ValueContainerWrapper';
-import { token } from '@atlaskit/tokens';
-import { css, cssMap, jsx } from '@compiled/react';
-import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 
 const valueContainerStyles = cssMap({
 	root: {

@@ -3,10 +3,13 @@
  * @jsx jsx
  */
 import { type MouseEvent, useCallback } from 'react';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { css, jsx } from '@atlaskit/css';
+
 import { css as cssUnbounded } from '@compiled/react';
+
+import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import { type SwatchSize, type ColorCardVariant } from '../types';
 
 export interface Props {

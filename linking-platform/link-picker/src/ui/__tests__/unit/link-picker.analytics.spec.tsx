@@ -1,29 +1,30 @@
 /* eslint-disable */
+
 import React from 'react';
+
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/dom';
 import { act } from '@testing-library/react';
 
-import * as jestExtendedMatchers from 'jest-extended';
-
 import '@atlaskit/link-test-helpers/jest';
-import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/dom';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import * as jestExtendedMatchers from 'jest-extended';
 import '@testing-library/jest-dom';
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';
-import { MockLinkPickerPlugin } from '../../../__tests__/__helpers/mock-plugins';
-import mockedPluginData from '../../../__tests__/__helpers/mock-plugin-data';
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
+import mockedPluginData from '../../../__tests__/__helpers/mock-plugin-data';
+import { MockLinkPickerPlugin } from '../../../__tests__/__helpers/mock-plugins';
+import { MockLinkPickerPromisePlugin } from '../../../__tests__/__helpers/mock-plugins';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import type { LinkPickerProps } from '../../../common/types';
 import LinkPicker from '../../index';
-import { PACKAGE_DATA as ROOT_CONTEXT } from '../../main';
 import { testIds } from '../../link-picker';
-import { MockLinkPickerPromisePlugin } from '../../../__tests__/__helpers/mock-plugins';
+import { PACKAGE_DATA as ROOT_CONTEXT } from '../../main';
 
 const mockUfoStart = jest.fn();
 const mockUfoSuccess = jest.fn();

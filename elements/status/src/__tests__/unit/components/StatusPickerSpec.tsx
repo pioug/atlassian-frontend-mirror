@@ -1,8 +1,11 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
-import { fireEvent, screen } from '@testing-library/react';
-import { renderWithIntl } from '../helpers/_testing-library';
+
 import React from 'react';
+
+import { fireEvent, screen } from '@testing-library/react';
+
 import { StatusPicker } from '../../..';
+import { renderWithIntl } from '../helpers/_testing-library';
 
 describe('StatusPicker', () => {
 	it('should render color palette', () => {

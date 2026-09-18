@@ -15,7 +15,6 @@ import { clearEditingContext, forceAutoSave, updateState } from '../editor-comma
 import type { ExtensionPlugin, ExtensionState } from '../extensionPluginType';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { getSelectedExtension } from '../pm-plugins/utils';
-
 import ConfigPanelLoader from './ConfigPanel/ConfigPanelLoader';
 import { SaveIndicator } from './SaveIndicator/SaveIndicator';
 

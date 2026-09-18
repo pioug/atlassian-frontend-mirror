@@ -23,7 +23,6 @@ import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracke
 import { isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
 import type { AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
 import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
-
 import { getAnchorAttrName } from './utils/dom-attr-name';
 
 // 8px gap + 16px on left and right

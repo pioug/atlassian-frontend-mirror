@@ -1,23 +1,23 @@
 import React, { useCallback, useState } from 'react';
 
-import PlaceholderContent from './placeholder-content';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading/heading';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { useModal } from '@atlaskit/modal-dialog/hooks';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import PlaceholderContent from './placeholder-content';
 
 const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];

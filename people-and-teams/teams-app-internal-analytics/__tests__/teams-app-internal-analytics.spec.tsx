@@ -4,11 +4,11 @@ import { act, screen } from '@testing-library/react';
 
 import type { EventType } from '@atlaskit/analytics-gas-types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import Button from '@atlaskit/button/default/button';
 import {
 	createMockAnalyticsClient,

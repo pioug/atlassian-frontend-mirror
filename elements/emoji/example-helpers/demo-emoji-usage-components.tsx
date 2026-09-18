@@ -1,13 +1,13 @@
 import React from 'react';
 import { PureComponent } from 'react';
 
-import { Text, Pressable } from '@atlaskit/primitives/compiled';
 import Heading from '@atlaskit/heading/heading';
+import { Text, Pressable } from '@atlaskit/primitives/compiled';
 
-import type { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
-import { localStoragePrefix } from '../src/util/constants';
+import type { EmojiProvider } from '../src/resource';
 import type { EmojiDescription } from '../src/types';
+import { localStoragePrefix } from '../src/util/constants';
 
 export interface EmojiUsageProps {
 	emojiList: Array<EmojiDescription>;

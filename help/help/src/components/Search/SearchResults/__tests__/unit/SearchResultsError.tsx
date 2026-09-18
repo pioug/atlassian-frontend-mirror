@@ -1,8 +1,10 @@
 import React from 'react';
+
+import { createIntl, createIntlCache } from 'react-intl';
+
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
-import { createIntl, createIntlCache } from 'react-intl';
 
 import { messages } from '../../../../../messages';
 import { SearchResultsError } from '../../SearchResultsError';

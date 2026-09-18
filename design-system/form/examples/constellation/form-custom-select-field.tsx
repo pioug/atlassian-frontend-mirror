@@ -6,8 +6,8 @@ import { Fragment } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { Flex } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select/default';

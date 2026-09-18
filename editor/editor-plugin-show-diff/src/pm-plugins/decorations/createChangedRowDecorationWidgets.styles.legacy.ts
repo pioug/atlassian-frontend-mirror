@@ -10,7 +10,6 @@
  * Do not modify. Delete this file at experiment cleanup (EDITOR-8281).
  */
 import type { ColorScheme } from '../../showDiffPluginType';
-
 import {
 	addedCellOverlayRoundedStyle,
 	addedCellOverlayStyle,

@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+
 import type { EmojiPickerListContextType } from '../components/common/internal-types';
 
 export const EmojiPickerListContext: React.Context<EmojiPickerListContextType> =

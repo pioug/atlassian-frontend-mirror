@@ -16,7 +16,6 @@ import { token } from '@atlaskit/tokens';
 
 import type { AlignmentState } from '../../pm-plugins/types';
 import { IconMap } from '../ToolbarAlignment/icon-map';
-
 import AlignmentButton from './AlignmentButton';
 
 const alignmentWrapper = css({

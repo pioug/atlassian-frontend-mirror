@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@atlassian/testing-library';
 import __noop from '@atlaskit/ds-lib/noop';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import Avatar from '../../avatar';
 import AvatarItem from '../../avatar-item';

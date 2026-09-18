@@ -1,4 +1,4 @@
-import populateProduct from '../product';
+import { DEFAULT_TAG } from '../../../constants';
 import { sendAnalytics } from '../../../util/analytics';
 import {
 	showFile,
@@ -8,9 +8,9 @@ import {
 	getHash,
 	tagCommit,
 } from '../../../util/git';
-import { DEFAULT_TAG } from '../../../constants';
 import { getMeta, uploadMeta } from '../../../util/statlas';
 import { generateLogs, generateLogsWithFiles } from '../__fixtures__/git';
+import populateProduct from '../product';
 
 type TLogs = Record<string, Record<string, Record<string, string>>>;
 

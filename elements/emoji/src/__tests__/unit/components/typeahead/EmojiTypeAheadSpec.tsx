@@ -1,25 +1,12 @@
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import React, { createRef } from 'react';
-import waitForExpect from 'wait-for-expect';
-
-import {
-	getEmojiTypeAheadItemById,
-	getSelectedEmojiTypeAheadItem,
-	isEmojiTypeAheadItemSelected,
-} from '../../_emoji-selectors';
-import {
-	atlassianBoomEmoji,
-	blackFlagEmoji,
-	getEmojiResourcePromise,
-	grinEmoji,
-	newEmojiRepository,
-	openMouthEmoji,
-	standardBoomEmoji,
-} from '../../_test-data';
 
 import { type RenderResult, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import waitForExpect from 'wait-for-expect';
+
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+
 import EmojiTypeAhead, { type Props } from '../../../../components/typeahead/EmojiTypeAhead';
 import type { OnLifecycle } from '../../../../components/typeahead/EmojiTypeAheadComponent';
 import {
@@ -34,6 +21,20 @@ import { typeaheadRenderedEvent } from '../../../../util/analytics/typeaheadRend
 import { typeaheadSelectedEvent } from '../../../../util/analytics/typeaheadSelectedEvent';
 import { ufoExperiences } from '../../../../util/analytics/ufoExperiences';
 import { defaultListLimit } from '../../../../util/constants';
+import {
+	getEmojiTypeAheadItemById,
+	getSelectedEmojiTypeAheadItem,
+	isEmojiTypeAheadItemSelected,
+} from '../../_emoji-selectors';
+import {
+	atlassianBoomEmoji,
+	blackFlagEmoji,
+	getEmojiResourcePromise,
+	grinEmoji,
+	newEmojiRepository,
+	openMouthEmoji,
+	standardBoomEmoji,
+} from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
 
 const emojiTypeAheadRef = createRef<EmojiTypeAhead>();

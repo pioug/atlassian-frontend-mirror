@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { type z } from 'zod';
@@ -7,7 +8,6 @@ import { type Token, tokens } from '@atlaskit/tokens/token-metadata';
 
 import { mergeMultiTermFuseResults } from '../../helpers';
 import { cleanQuery } from '../../helpers/clean-query';
-
 import { type searchTokensInputSchema } from './search-tokens-input-schema';
 
 export const searchTokensTool = async ({

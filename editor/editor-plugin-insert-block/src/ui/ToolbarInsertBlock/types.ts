@@ -14,7 +14,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiProvider } from '@atlaskit/emoji';
 
 import type { InsertBlockPlugin } from '../../index';
-
 import type { BlockMenuItem } from './create-items';
 
 export interface Props {

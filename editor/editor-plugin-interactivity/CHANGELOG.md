@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 4.0.1
+
+### Patch Changes
+
+- [`a069fe25a55ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a069fe25a55ec) -
+  Remove the `slowest` records from the `editor interactivity` event. The event now carries the
+  histograms only: `page`, `editor`, `editorTyping`, `editorPointer` and `editorOther`.
+
+  Everything that existed only to produce those records is gone with them: the Long Animation Frame
+  observer, the document-wide capture listener that kept event paths so a target could be named, and
+  the paint layer in the tracker that divided a latency into input delay, processing and
+  presentation. No histogram read any of it, so every count, bucket and percentile stays as it was.
+  The `platform_editor_editor_interactivity_slowest` experiment is no longer read.
+
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

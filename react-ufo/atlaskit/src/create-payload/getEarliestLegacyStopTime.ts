@@ -1,6 +1,5 @@
 import type { InteractionMetrics } from '../common';
 import type { LabelStack } from '../interaction-context';
-
 import { labelStackStartWith } from './common/utils/label-stack-start-with';
 
 export function getEarliestLegacyStopTime(

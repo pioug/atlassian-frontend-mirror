@@ -1,4 +1,6 @@
-import { MarkdownTransformer } from '../index';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	doc,
@@ -16,9 +18,8 @@ import {
 	td,
 	ol,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
+import { MarkdownTransformer } from '../index';
 
 describe('MarkdownTransformer', () => {
 	const transformer = new MarkdownTransformer();

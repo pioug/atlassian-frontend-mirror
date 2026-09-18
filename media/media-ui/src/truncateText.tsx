@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { calculateTruncation } from '@atlaskit/media-ui/calculateTruncation'` instead.
  */
+
 export { calculateTruncation } from './calculateTruncation';
 
 /**

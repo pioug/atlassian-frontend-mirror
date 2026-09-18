@@ -7,7 +7,6 @@ import type { UnlinkContainerMutationError } from '@atlaskit/teams-client/unlink
 
 import { type TeamContainer } from '../../../common/types';
 import { usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
-
 import type { ConnectedTeams } from './connected-teams';
 import { getErrorDetails } from './get-error-details';
 import { getInitialTeamState } from './get-initial-team-state';

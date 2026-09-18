@@ -9,8 +9,8 @@ import ActionsVrExample from './06-actions.vr.ap';
 import ExplicitFontStylesVrExample from './07-explicit-font-styles.vr.ap';
 import DismissibleVrExample from './08-dismissible.vr.ap';
 import HeadingLevelExample from './09-heading-level';
-import SsrTestingExample from './100-ssr-testing';
 import TestingVrExample from './99-testing.vr.ap';
+import SsrTestingExample from './100-ssr-testing';
 
 const BasicExampleVr: WorkbenchExample = wb(BasicExampleVrExample);
 

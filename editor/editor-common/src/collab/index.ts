@@ -1,5 +1,6 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
+
 import type { ReactElement } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -587,6 +588,11 @@ export interface CollabEventConflictPayload extends ConflictChanges {
 	offlineDoc: PMNode;
 }
 
+export type CollabRecoveryRequiredPayload = {
+	/** NCS recovery reason, for example `steps_migration`. The socket identifies the document. */
+	reason: string;
+};
+
 export interface CollabEvents {
 	'commit-status': CollabCommitStatusEventPayload;
 	connected: CollabConnectedPayload;
@@ -605,6 +611,8 @@ export interface CollabEvents {
 	permission: CollabPermissionEventPayload;
 	presence: CollabPresencePayload;
 	'presence:changed': CollabPresenceActivityChangePayload;
+	/** NCS requests that the host product recover this document. */
+	'recovery:required': CollabRecoveryRequiredPayload;
 	telepointer: CollabTelepointerPayload;
 }
 

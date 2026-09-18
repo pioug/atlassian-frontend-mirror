@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 11.4.0
+
+### Minor Changes
+
+- [`5823d13c89a5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5823d13c89a5f) -
+  Add CodeDiff full-mode pull request links and route privacy-safe, host-attributed A2UI analytics
+  through a dedicated listener.
+
 ## 11.3.0
 
 ### Minor Changes

@@ -8,7 +8,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomPluginOptions } from '../types';
-
 import { setupLoom } from './commands';
 
 export interface LoomPluginState {

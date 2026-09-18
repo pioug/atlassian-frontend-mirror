@@ -3,25 +3,28 @@
  * @jsx jsx
  */
 import { Component, type ComponentType, type FC, type MouseEvent } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+import FocusLock from 'react-focus-lock';
 import {
 	FormattedMessage,
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl';
+
 import AkButton from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import FocusLock from 'react-focus-lock';
+import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
+
 import type { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage, { emojiErrorScreenreaderTestId } from './EmojiErrorMessage';
-import RetryableButton from './RetryableButton';
-import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
+import RetryableButton from './RetryableButton';
 
 const deleteFooter = css({
 	display: 'flex',

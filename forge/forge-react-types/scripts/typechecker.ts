@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 import {
 	type BadgeProps,
 	type CalendarProps,
@@ -12,6 +13,7 @@ import {
 	type RangeProps,
 	type IconProps,
 } from '@atlassian/forge-ui/UIKit';
+
 import { type BadgeProps as GeneratedBadgeProps } from '../src/components/__generated__/BadgeProps.codegen';
 import { type CalendarProps as GeneratedCalendarProps } from '../src/components/__generated__/CalendarProps.codegen';
 import { type CheckboxProps as GeneratedCheckboxProps } from '../src/components/__generated__/CheckboxProps.codegen';
@@ -20,9 +22,9 @@ import { type CodeProps as GeneratedCodeProps } from '../src/components/__genera
 import { type EmptyStateProps as GeneratedEmptyStateProps } from '../src/components/__generated__/EmptyStateProps.codegen';
 import { type ErrorMessageProps as GeneratedErrorMessageProps } from '../src/components/__generated__/ErrorMessageProps.codegen';
 import { type HeadingProps as GeneratedHeadingProps } from '../src/components/__generated__/HeadingProps.codegen';
+import { type IconProps as GeneratedIconProps } from '../src/components/__generated__/IconProps.codegen';
 import { type LozengeProps as GeneratedLozengeProps } from '../src/components/__generated__/LozengeProps.codegen';
 import { type RangeProps as GeneratedRangeProps } from '../src/components/__generated__/RangeProps.codegen';
-import { type IconProps as GeneratedIconProps } from '../src/components/__generated__/IconProps.codegen';
 
 const assertAssignable = <A, B extends A>() => {};
 

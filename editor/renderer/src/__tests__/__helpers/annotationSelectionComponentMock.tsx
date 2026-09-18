@@ -1,11 +1,13 @@
 import React from 'react';
-import Button from '@atlaskit/button/standard-button';
-import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import AddCommentIcon from '@atlaskit/icon/core/comment';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
+
+import Button from '@atlaskit/button/standard-button';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
+import { Popup } from '@atlaskit/editor-common/ui';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import AddCommentIcon from '@atlaskit/icon/core/comment';
 
 type Callback = (doc: JSONDocNode) => void;
 

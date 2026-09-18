@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import Button from '@atlaskit/button/default/button';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
-
 import { asyncPopupSelectMessages } from './messages';
 
 type ShowMoreButtonProps = {

@@ -19,7 +19,6 @@ import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { errorFileId, imageFileId } from '@atlaskit/media-test-helpers';
 
 import { MediaCardRelay } from '../src';
-
 import RelayMock, {
 	useMockMediaItemRef,
 	MOCK_PROCESSING_ITEM,

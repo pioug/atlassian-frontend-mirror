@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import { loadAllComponents } from './load-all-components';
 
 export const getAllComponentsTool = async (): Promise<{

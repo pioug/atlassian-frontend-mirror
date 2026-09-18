@@ -12,7 +12,6 @@ import { token } from '@atlaskit/tokens';
 
 import { Message } from '../../common/ui/message';
 import { shouldShowValidationErrors } from '../../common/utils/form';
-
 import { type CreateFieldProps } from './types';
 
 const fieldWrapperStyles = css({

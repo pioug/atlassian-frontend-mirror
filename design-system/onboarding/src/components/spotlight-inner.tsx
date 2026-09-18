@@ -12,7 +12,6 @@ import Portal from '@atlaskit/portal/portal';
 
 import { type ScrollLogicalPosition, type SpotlightProps } from '../types';
 import { type ElementBoundingBox, ElementBox } from '../utils/use-element-box';
-
 import Clone from './clone';
 import NodeResolverSpotlightInner from './node-resolver-spotlight-inner';
 import SpotlightDialog from './spotlight-dialog';

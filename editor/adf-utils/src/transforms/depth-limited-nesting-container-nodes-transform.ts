@@ -1,7 +1,8 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { ADFEntity } from '../types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import { traverse } from '../traverse/traverse';
+import type { ADFEntity } from '../types';
 import { panelC1FallbackTransform } from './panel-c1-fallback-transform';
 import { panelC1FallbackTransformV2 } from './panel-c1-fallback-transform-v2';
 

@@ -53,8 +53,8 @@ import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
 import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type {
 	BeforeAndAfterToolbarComponents,
@@ -66,7 +66,6 @@ import type {
 } from '../types/editor-props';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { version as coreVersion } from '../version-wrapper';
-
 import type { DefaultPresetPluginOptions } from './default';
 import { createDefaultPreset } from './default';
 

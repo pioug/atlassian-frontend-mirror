@@ -1,7 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import type { NodeEncoder, NodeEncoderOpts } from '..';
 import { macroKeywordTokenMap } from '../../parser/tokenize/keyword';
-
 import { code } from '../marks/code';
 import { textColor } from '../marks/color';
 import { em } from '../marks/em';

@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
+
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 

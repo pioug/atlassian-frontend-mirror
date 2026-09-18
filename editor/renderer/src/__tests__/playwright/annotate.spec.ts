@@ -1,4 +1,3 @@
-import { rendererTestCase as test, expect } from './not-libra';
 import {
 	helloEmojiAdf,
 	helloAdf,
@@ -8,6 +7,7 @@ import {
 	bigNestedAdf,
 	helloMateEmojiAdf,
 } from './annotate.spec.ts-fixtures';
+import { rendererTestCase as test, expect } from './not-libra';
 
 test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
 

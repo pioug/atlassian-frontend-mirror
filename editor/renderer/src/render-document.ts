@@ -1,6 +1,8 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
+import memoizeOne from 'memoize-one';
+
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
 	nativeEmbedsFallbackTransform,
@@ -19,7 +21,7 @@ import { getValidDocument } from '@atlaskit/editor-common/validator';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import memoizeOne from 'memoize-one';
+
 import { PLATFORM } from './analytics/events';
 import type { AnalyticsEventPayload } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';

@@ -1,28 +1,16 @@
 import React, { useState } from 'react';
+
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
+import Field from '@atlaskit/form/field';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import ShipIcon from '@atlaskit/icon/core/release';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
-import ShipIcon from '@atlaskit/icon/core/release';
-import Field from '@atlaskit/form/field';
-import { HelperMessage } from '@atlaskit/form/helper-message';
-
-import {
-	ExampleWrapper,
-	HelpWrapper,
-	ControlsWrapper,
-	ButtonsWrapper,
-	FooterContent,
-	HelpContainer,
-} from './utils/styled';
-
-import { useContentPlatformApi } from './utils/services/cpapi';
-import { useAlgolia } from './utils/services/algolia';
-import type { FilterConfiguration } from './utils/services/cpapi';
 
 import Help, {
 	RelatedArticles,
@@ -31,6 +19,17 @@ import Help, {
 	type WHATS_NEW_ITEM_TYPES,
 } from '../src';
 import type { ArticleItem, ArticleFeedback, articleId, WhatsNewArticle, HistoryItem } from '../src';
+import { useAlgolia } from './utils/services/algolia';
+import { useContentPlatformApi } from './utils/services/cpapi';
+import type { FilterConfiguration } from './utils/services/cpapi';
+import {
+	ExampleWrapper,
+	HelpWrapper,
+	ControlsWrapper,
+	ButtonsWrapper,
+	FooterContent,
+	HelpContainer,
+} from './utils/styled';
 
 const SEARCH_EXTERNAL_URL = 'https://support.atlassian.com/';
 

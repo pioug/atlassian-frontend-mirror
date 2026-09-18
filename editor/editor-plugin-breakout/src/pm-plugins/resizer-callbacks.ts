@@ -13,7 +13,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
-
 import { getGuidelines } from './get-guidelines';
 import { clampWidthToResizeBounds, getResizeContainerWidth, WIDTHS } from './resize-width';
 import { LOCAL_RESIZE_PROPERTY } from './resizing-mark-view';

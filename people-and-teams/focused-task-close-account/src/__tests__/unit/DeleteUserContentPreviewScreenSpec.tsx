@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
+
 import { render, screen, userEvent } from '@atlassian/testing-library';
+
 import { DeleteUserContentPreviewScreen } from '../../components/DeleteUserContentPreviewScreen';
-import { catherineHirons } from '../../mocks/users';
 import { type DeleteUserContentPreviewScreenProps } from '../../components/DeleteUserContentPreviewScreen/types';
+import { catherineHirons } from '../../mocks/users';
 
 const defaultProps: DeleteUserContentPreviewScreenProps = {
 	isCurrentUser: false,

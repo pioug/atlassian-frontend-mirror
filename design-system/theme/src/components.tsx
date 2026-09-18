@@ -8,6 +8,7 @@
 /**
  * @deprecated Use `import { getTheme } from '@atlaskit/theme/get-theme'` instead.
  */
+
 export { getTheme } from './utils/get-theme';
 
 /**

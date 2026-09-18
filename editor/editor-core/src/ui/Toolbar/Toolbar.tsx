@@ -20,7 +20,6 @@ import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolba
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MarkdownModePlugin } from '../../types/markdown-mode';
-
 import type { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
 

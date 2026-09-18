@@ -10,8 +10,8 @@ import { jsx, css } from '@compiled/react';
 import { MediaSVGError, type MediaSVGErrorReason } from '@atlaskit/media-svg/media-svg-error';
 import { useResolveSvg } from '@atlaskit/media-svg/use-resolve-svg';
 
-import { MediaCardError } from '../../MediaCardError';
 import type { SvgPrimaryReason } from '../../errors';
+import { MediaCardError } from '../../MediaCardError';
 import { calculateSvgDimensions } from './helpers';
 import type { SvgViewProps } from './types';
 

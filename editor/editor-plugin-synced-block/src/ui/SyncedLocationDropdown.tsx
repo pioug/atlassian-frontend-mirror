@@ -31,7 +31,6 @@ import type {
 	SyncBlockProduct,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockJiraIssueType } from '@atlaskit/editor-synced-block-provider/types';
-import IconTile from '@atlaskit/icon/icon-tile';
 // eslint-disable-next-line import/order -- CI requires icon-lab imports before core icon imports.
 import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import BugIcon from '@atlaskit/icon/core/bug';
@@ -43,8 +42,9 @@ import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import StoryIcon from '@atlaskit/icon/core/story';
 import SubtaskIcon from '@atlaskit/icon/core/subtasks';
 import TaskIcon from '@atlaskit/icon/core/task';
-import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import IconTile from '@atlaskit/icon/icon-tile';
 import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
@@ -55,7 +55,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
-
 import { SyncedLocationsEmptyStateIllustration } from './assets/SyncedLocationsEmptyStateIllustration';
 
 interface Props {

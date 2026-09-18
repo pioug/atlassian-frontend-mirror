@@ -20,7 +20,6 @@ import { getPageLayoutSlotSelector } from '../../common/get-page-layout-slot-sel
 import { resolveDimension } from '../../common/resolve-dimension';
 import type { SlotHeightProps } from '../../common/types';
 import { publishGridState, useSkipLink } from '../../controllers';
-
 import SlotFocusRing from './internal/slot-focus-ring';
 import SlotDimensions from './slot-dimensions';
 

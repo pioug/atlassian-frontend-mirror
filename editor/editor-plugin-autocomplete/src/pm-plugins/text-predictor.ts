@@ -19,7 +19,6 @@
  */
 
 import { EXPERIENCE_NAME, failExp, startExp, succeedExp } from '../analytics/ufo';
-
 import { fetchAutocompleteArtifactBinary, fetchAutocompleteArtifactJson } from './artifact-loader';
 import { ARTIFACT_NAME, type ArtifactName } from './artifacts-manifest';
 import {

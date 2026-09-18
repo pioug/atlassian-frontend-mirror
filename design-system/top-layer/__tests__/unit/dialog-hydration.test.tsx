@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
 // The top-layer polyfill that adds `HTMLDialogElement.prototype.showModal` to

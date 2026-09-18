@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import { default as CollapsedExample } from './01-collapsed';
 import { default as DefaultExpandedExample } from './02-default-expanded';
 import { default as ComponentBasedHeaderExample } from './03-component-based-header';

@@ -9,6 +9,7 @@ const JIRA_ISSUE_FIELD_VALUE_ARI_REGEX = /ari:cloud:jira:([^:]+):issuefieldvalue
  * @param cloudId - the cloud ID
  * @returns the Jira work item ARI
  */
+
 export const getJiraWorkItemAri = ({
 	cloudId,
 	workItemId,

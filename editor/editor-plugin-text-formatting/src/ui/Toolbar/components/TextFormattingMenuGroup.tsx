@@ -21,7 +21,6 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { TextFormattingPlugin } from '../../../textFormattingPluginType';
 import type { FormatOptions } from '../types';
-
 import { ClearFormatMenuItem, MoreFormattingMenu, MenuSection, FormatMenuItem } from './Component';
 import { formatOptions } from './utils';
 

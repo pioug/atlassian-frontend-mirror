@@ -3,10 +3,13 @@
  * @jsx jsx
  */
 
-import { token } from '@atlaskit/tokens';
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
-import React from 'react';
+
+import { token } from '@atlaskit/tokens';
+
 import { type Custom } from '../../types';
 import { AvatarItemOption } from '../AvatarItemOption';
 import { AvatarOrIcon } from '../AvatarOrIcon';

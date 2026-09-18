@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { SmartLinkSize } from '../../../../../constants';
-
 import ActionButton from './action-button';
 import ActionDropdownItem from './action-dropdown-item';
 import ActionIcon from './action-icon';

@@ -1,7 +1,6 @@
+import invitationsClient from './index';
 import { type AccessRequestBulkSimplified } from './types';
 import { removeDuplicateRecommendations } from './utils';
-
-import invitationsClient from './index';
 
 jest.mock('./utils', () => ({
 	...jest.requireActual('./utils'),

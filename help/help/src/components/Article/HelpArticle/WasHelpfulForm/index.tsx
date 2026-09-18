@@ -4,35 +4,37 @@
  */
 
 import React, { useRef, useState } from 'react';
+
+import { css, jsx } from '@compiled/react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import SectionMessage from '@atlaskit/section-message/message';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
-import Form from '@atlaskit/form/form';
-import Field from '@atlaskit/form/field';
-import { CheckboxField } from '@atlaskit/form/checkbox-field';
-import { FormFooter } from '@atlaskit/form/form-footer';
-import RadioGroup from '@atlaskit/radio/radio-group';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import CheckCircleIcon from '@atlaskit/icon/core/status-success';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Text } from '@atlaskit/primitives/compiled';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import SectionMessage from '@atlaskit/section-message/message';
 import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
-import CheckCircleIcon from '@atlaskit/icon/core/status-success';
-import { css, jsx } from '@compiled/react';
-import { Text } from '@atlaskit/primitives/compiled';
 
 import { messages } from '../../../../messages';
 import { type ArticleFeedback } from '../../../../model/Article';
-import ArticleWasHelpfulYesButton from './WasHelpfulYesButton';
-import ArticleWasHelpfulNoButton from './WasHelpfulNoButton';
 import {
 	ArticleFeedbackContainer,
 	ArticleFeedbackText,
 	ArticleFeedbackAnswerWrapper,
 } from './styled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import ArticleWasHelpfulNoButton from './WasHelpfulNoButton';
+import ArticleWasHelpfulYesButton from './WasHelpfulYesButton';
 
 const FEEDBACK_REASON_TEXT_MAX_LENGTH = '16000';
 const ANALYTICS_CONTEXT_DATA = {

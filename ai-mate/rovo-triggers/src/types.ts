@@ -140,6 +140,7 @@ export type ChatCreationContextParams = {
 		| 'cwr_type'
 		| 'cwr_edit'
 		| 'cwr_existing'
+		| 'cwr-dev-docs'
 		| 'inline_edit'
 		| 'remix'
 		| 'remix_edit'
@@ -721,20 +722,24 @@ export type UpdateTransitionRovoPayload = {
 	toStatusId: StatusId;
 	toStatusName: string;
 	toStatusCategory: StatusCategory;
-	links: {
-		fromStatusId: StatusId;
-		fromStatusName: string;
-		fromStatusCategory: StatusCategory;
-	}[];
-	existingName?: string;
-	existingToStatusId?: StatusId;
-	existingToStatusName?: string;
-	existingToStatusCategory?: StatusCategory;
-	existingLinks?: {
-		fromStatusId: StatusId;
-		fromStatusName: string;
-		fromStatusCategory: StatusCategory;
-	}[];
+	links:
+		| {
+				fromStatusId: StatusId;
+				fromStatusName: string;
+				fromStatusCategory: StatusCategory;
+		  }[]
+		| null;
+	existingName?: string | null;
+	existingToStatusId?: StatusId | null;
+	existingToStatusName?: string | null;
+	existingToStatusCategory?: StatusCategory | null;
+	existingLinks?:
+		| {
+				fromStatusId: StatusId;
+				fromStatusName: string;
+				fromStatusCategory: StatusCategory;
+		  }[]
+		| null;
 };
 export type DeleteTransitionRovoPayloadOld = {
 	transitionId: TransitionId;

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { render, fireEvent } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
 
 import Slider from '../../image-navigator/slider';
-import { IntlProvider } from 'react-intl';
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
 	<IntlProvider locale="en">{children}</IntlProvider>

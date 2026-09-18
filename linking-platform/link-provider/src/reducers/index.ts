@@ -1,5 +1,6 @@
-import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { type AnyAction } from 'redux';
 
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import {
 	ACTION_PENDING,
 	ACTION_RESOLVING,
@@ -12,8 +13,8 @@ import {
 import type { CardStore, CardState } from '@atlaskit/linking-common/store';
 import type { CardActionType, CardAction } from '@atlaskit/linking-common/types';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
+
 import { type CardReducer } from '../types';
-import { type AnyAction } from 'redux';
 
 const isCardAction = (action: AnyAction): action is CardAction => {
 	return [

@@ -7,7 +7,6 @@ import { getAllComments } from '@atlaskit/eslint-utils/context-compat';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 
 import { createLintRule } from '../utils/create-rule';
-
 import { isImportDefaultSpecifier } from './is-import-default-specifier';
 import { isImportNamespaceSpecifier } from './is-import-namespace-specifier';
 import { isImportSpecifier } from './is-import-specifier';

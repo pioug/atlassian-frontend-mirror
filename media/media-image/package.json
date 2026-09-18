@@ -62,6 +62,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*"

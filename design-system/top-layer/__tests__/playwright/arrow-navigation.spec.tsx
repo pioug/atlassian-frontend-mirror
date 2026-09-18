@@ -1,4 +1,5 @@
 /* eslint-disable testing-library/prefer-screen-queries */
+
 import { expect, test } from '@af/integration-testing';
 
 const exampleName = 'testing-arrow-navigation';

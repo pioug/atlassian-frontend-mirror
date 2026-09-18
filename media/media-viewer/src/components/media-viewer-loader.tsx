@@ -1,7 +1,8 @@
 import React, { lazy, Suspense } from 'react';
+
 import ModalSpinner from '../viewers/modalSpinner';
-import type { MediaViewerWithMediaClientConfigProps } from './types';
 import { MediaViewerPortal } from './portal';
+import type { MediaViewerWithMediaClientConfigProps } from './types';
 
 const MediaViewer = lazy(() =>
 	import(

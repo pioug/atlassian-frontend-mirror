@@ -8,7 +8,6 @@ import type {
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { CodeBidiWarningPlugin } from '../codeBidiWarningPluginType';
-
 import { codeBidiWarningPluginKey } from './plugin-key';
 import {
 	createBidiWarningsDecorationSetFromDoc as reactCreateBidiWarningsDecorationSetFromDoc,

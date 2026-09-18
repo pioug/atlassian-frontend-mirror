@@ -57,6 +57,7 @@
 		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "^19.0.0"
 	},

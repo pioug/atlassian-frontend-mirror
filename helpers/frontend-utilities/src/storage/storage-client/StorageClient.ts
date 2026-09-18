@@ -1,5 +1,4 @@
 import { mockWindowStorage } from '../local-storage/main';
-
 import { DEFAULT_STORAGE_ENGINE } from './constants';
 import type { GetStoredItemOptions } from './types';
 

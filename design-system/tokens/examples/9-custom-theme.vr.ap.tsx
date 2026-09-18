@@ -29,7 +29,6 @@ import { generateColors } from '../src/utils/generate-colors';
 import { generateTokenMapWithContrastCheck } from '../src/utils/generate-token-map-with-contrast-check';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getContrastRatio } from '../src/utils/get-contrast-ratio';
-
 import Accordion from './contrast-checker-utils/components/accordion';
 import ContrastCard from './contrast-checker-utils/components/contrast-card';
 import CopyButton from './utils/copy-button';

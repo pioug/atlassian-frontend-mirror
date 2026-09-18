@@ -11,8 +11,8 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
 import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
-
-import { bannerMountedVar, localSlotLayers, UNSAFE_bannerVar } from './constants';
+import type { localSlotLayers } from './constants';
+import { bannerMountedVar, UNSAFE_bannerVar } from './constants';
 import { DangerouslyHoistCssVarToDocumentRoot } from './dangerously-hoist-css-var-to-document-root';
 import { HoistCssVarToLocalGrid } from './hoist-css-var-to-local-grid';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
@@ -23,16 +23,16 @@ const styles = cssMap({
 	root: {
 		gridArea: 'banner',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height: `var(${bannerMountedVar})`,
+		height: `var(${'--n_bnrM' satisfies typeof bannerMountedVar})`,
 		insetBlockStart: 0,
 		position: 'sticky',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		zIndex: localSlotLayers.banner,
+		zIndex: 4 satisfies typeof localSlotLayers.banner,
 		overflow: 'hidden',
 	},
 	fullHeightSidebar: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		zIndex: localSlotLayers.bannerFHS,
+		zIndex: 3 satisfies typeof localSlotLayers.bannerFHS,
 	},
 });
 

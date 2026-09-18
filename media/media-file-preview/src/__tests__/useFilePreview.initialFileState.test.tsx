@@ -12,7 +12,6 @@ import { renderHook } from '@testing-library/react';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
 import { useFilePreview } from '../useFilePreview';
-
 import { createMockedMediaClientProvider } from './helpers/_MockedMediaClientProvider';
 
 describe('useFilePreview — initialFileState', () => {

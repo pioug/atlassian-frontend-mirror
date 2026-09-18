@@ -1,4 +1,5 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
 import { traverse } from '../traverse/traverse';
 import type { ADFEntity } from '../types';
 

@@ -3,13 +3,14 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { testingEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import EmojiDeletePreviewComponent from '../../components/common/EmojiDeletePreview';
-import EmojiUploadPreviewComponent from '../../components/common/EmojiUploadPreview';
 import EmojiUploadPicker from '../../components/common/EmojiUploadPicker';
+import EmojiUploadPreviewComponent from '../../components/common/EmojiUploadPreview';
 import { type EmojiDescription, type ImageRepresentation } from '../../types';
 
 const wrapperStyles = css({ width: '350px' });

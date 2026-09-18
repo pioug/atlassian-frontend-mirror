@@ -1,7 +1,7 @@
 import { EditorCardProvider } from '..';
-import { type LinkAppearance, type ORSProvidersResponse, type UserPreferences } from '../types';
-import { mocks } from '../../client/__tests__/__fixtures__/mocks';
 import { urlResponsePromiseCache } from '../../client';
+import { mocks } from '../../client/__tests__/__fixtures__/mocks';
+import { type LinkAppearance, type ORSProvidersResponse, type UserPreferences } from '../types';
 
 const getMockProvidersResponse = ({
 	userPreferences,

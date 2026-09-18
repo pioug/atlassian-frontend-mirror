@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ActionName, ElementName, SmartLinkDirection, TitleBlock } from '../../src';
-
 import ExampleContainer from './example-container';
 
 export default (): React.JSX.Element => (

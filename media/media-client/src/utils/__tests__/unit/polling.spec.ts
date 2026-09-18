@@ -1,6 +1,6 @@
 import { defaultPollingOptions, PollingFunction, type PollingOptions } from '../../polling';
-import { PollingError } from '../../polling/PollingError';
 import { isPollingError } from '../../polling/isPollingError';
+import { PollingError } from '../../polling/PollingError';
 
 const simulateTimeout = (poll_intervalMs: number) =>
 	new Promise((resolve) => {

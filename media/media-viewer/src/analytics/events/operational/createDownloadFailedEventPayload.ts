@@ -1,11 +1,11 @@
 import { type FileState } from '@atlaskit/media-client';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 
-import type { MediaViewerError } from '../../../MediaViewerError';
 import { getErrorDetail } from '../../../getErrorDetail';
 import { getPrimaryErrorReason } from '../../../getPrimaryErrorReason';
 import { getRequestMetadata } from '../../../getRequestMetadata';
 import { getSecondaryErrorReason } from '../../../getSecondaryErrorReason';
+import type { MediaViewerError } from '../../../MediaViewerError';
 import { getFileAttributes } from '../../getFileAttributes';
 import type { DownloadFailedEventPayload } from './download';
 

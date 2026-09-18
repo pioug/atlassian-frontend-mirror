@@ -2,7 +2,6 @@ import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-lint-rule';
 import { errorBoundary } from '../utils/error-boundary';
-
 import { getConfig, type RuleConfig } from './config';
 import { NativeElements } from './transformers/native-elements';
 

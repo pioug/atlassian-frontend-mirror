@@ -33,7 +33,6 @@ import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
-
 import { SELECTION_TOOLBAR_LABEL } from './consts';
 import { OverflowMenu } from './OverflowMenu';
 import { OverflowMenuSection } from './OverflowMenuSection';

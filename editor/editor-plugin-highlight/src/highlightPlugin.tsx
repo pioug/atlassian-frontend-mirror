@@ -7,8 +7,8 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changeColor } from './editor-commands/change-color';
 import type { HighlightPlugin } from './highlightPluginType';

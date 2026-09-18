@@ -1,3 +1,4 @@
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
 	doc,
 	p,
@@ -7,8 +8,8 @@ import {
 	media,
 	mediaGroup,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { checkParse, checkParseEncodeRoundTrips } from './_test-helpers';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 describe('JIRATransformer', () => {
 	describe('blockquote', () => {

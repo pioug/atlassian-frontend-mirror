@@ -11,7 +11,6 @@ import type { OptionsType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import { type CardAppearance } from '../../src';
-
 import { type ExampleUIConfig } from './types';
 
 interface ViewTypeOption {

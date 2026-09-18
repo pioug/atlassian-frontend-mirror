@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 
 import type { SelectOption } from '@atlaskit/editor-common/types';
-import type { ValueType } from '@atlaskit/select/types';
 import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
 
 export interface Props {
 	ariaLabel?: string;

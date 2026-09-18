@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import { default as BasicExample } from './01-basic';
 import { default as WithContentExample } from './02-with-content';
 import { default as WithBannerExample } from './03-with-banner';

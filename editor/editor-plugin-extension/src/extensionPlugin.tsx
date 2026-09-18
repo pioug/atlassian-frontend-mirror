@@ -2,8 +2,8 @@
 import { v4 as uuid } from 'uuid';
 
 import { extension } from '@atlaskit/adf-schema/extension';
-import { extensionFrame, multiBodiedExtension } from '@atlaskit/adf-schema/multi-bodied-extension';
 import { inlineExtension } from '@atlaskit/adf-schema/inline-extension';
+import { extensionFrame, multiBodiedExtension } from '@atlaskit/adf-schema/multi-bodied-extension';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';

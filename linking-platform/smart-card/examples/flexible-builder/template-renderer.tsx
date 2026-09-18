@@ -3,9 +3,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import Button from '@atlaskit/button/standard-button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
@@ -18,15 +18,13 @@ import { Card } from '../../src';
 import ActionBlock from '../../src/view/FlexibleCard/components/blocks/action-block';
 import AIFooterBlock from '../../src/view/FlexibleCard/components/blocks/ai-footer-block';
 import FooterBlock from '../../src/view/FlexibleCard/components/blocks/footer-block';
+import ResolvedHoverCardFooterBlock from '../../src/view/FlexibleCard/components/blocks/hover-card-footer-block';
 import MetadataBlock from '../../src/view/FlexibleCard/components/blocks/metadata-block';
 import PreviewBlock from '../../src/view/FlexibleCard/components/blocks/preview-block';
 import SnippetBlock from '../../src/view/FlexibleCard/components/blocks/snippet-block';
 import TitleBlock from '../../src/view/FlexibleCard/components/blocks/title-block';
-import ResolvedHoverCardFooterBlock from '../../src/view/FlexibleCard/components/blocks/hover-card-footer-block';
-
 import withJsonldEditorProvider from '../jsonld-editor/jsonld-editor-provider';
 import FlexibleDataView from '../utils/flexible-data-view';
-
 import { type BlockTemplate, type FlexibleTemplate } from './types';
 
 const backColor = token('color.background.neutral.subtle');

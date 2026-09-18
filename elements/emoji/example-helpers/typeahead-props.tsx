@@ -1,5 +1,5 @@
-import type { OnEmojiEvent, RelativePosition } from '../src/types';
 import type { EmojiProvider } from '../src/resource';
+import type { OnEmojiEvent, RelativePosition } from '../src/types';
 
 export interface TypeaheadProps {
 	emojiProvider: Promise<EmojiProvider>;

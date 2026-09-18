@@ -1,7 +1,9 @@
 import * as sinon from 'sinon';
+
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import { mergeTextNodes, isText, isTextWrapper, isEmojiDoc } from '../../../../react/nodes';
 import { grinEmoji } from '@atlaskit/util-data-test/emoji-samples';
+
+import { mergeTextNodes, isText, isTextWrapper, isEmojiDoc } from '../../../../react/nodes';
 
 type EmojiAttrs = {
 	fallback?: string;

@@ -3,8 +3,8 @@ import React from 'react';
 
 import type { FileState, MediaClient, NonErrorFileState } from '@atlaskit/media-client';
 
-import { MediaViewerError } from '../../MediaViewerError';
 import { Spinner } from '../../loading';
+import { MediaViewerError } from '../../MediaViewerError';
 import type { CustomRendererConfig } from '../../viewerOptions';
 
 export type Props = {

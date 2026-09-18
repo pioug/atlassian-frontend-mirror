@@ -39,7 +39,6 @@ import {
 	shouldBeSticky,
 } from '../pm-plugins/utils/drag-handle-positions';
 import { getLeftPositionForRootElement } from '../pm-plugins/utils/widget-positions';
-
 import {
 	ACTIVE_QUICK_INSERT_ATTR,
 	ACTIVE_QUICK_INSERT_FALLBACK_ANCHOR_NAME,

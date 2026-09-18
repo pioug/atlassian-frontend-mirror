@@ -1,13 +1,14 @@
+import { snapshotInformational } from '@af/visual-regression';
+
+import mockBlueStarImage from './assets/blue_star_64.png';
+import mockNatureSpriteImage from './assets/nature.png';
+import mockPeopleSpriteImage from './assets/people.png';
+import mockSymbolSpriteImage from './assets/symbols.png';
+import mockWtfImage from './assets/wtf.png';
 import {
 	LoadedReactionsWithModal,
 	MoreLoadedReactionsWithModal,
 } from './ReactionsDialog.fixtures.vr.ap';
-import { snapshotInformational } from '@af/visual-regression';
-import mockPeopleSpriteImage from './assets/people.png';
-import mockSymbolSpriteImage from './assets/symbols.png';
-import mockNatureSpriteImage from './assets/nature.png';
-import mockBlueStarImage from './assets/blue_star_64.png';
-import mockWtfImage from './assets/wtf.png';
 
 const mockRequests = [
 	{

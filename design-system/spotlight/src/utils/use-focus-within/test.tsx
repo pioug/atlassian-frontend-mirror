@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 
-import { act, render, screen } from '@atlassian/testing-library';
-
 import { skipA11yAudit } from '@af/accessibility-testing';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { act, render, screen } from '@atlassian/testing-library';
 
 import { useFocusWithin } from './index';
 

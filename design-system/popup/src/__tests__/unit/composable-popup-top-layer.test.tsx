@@ -1,9 +1,10 @@
 /* eslint-disable testing-library/no-node-access */
+
 import React from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { cssMap } from '@atlaskit/css';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen } from '@atlassian/testing-library';
 
 import { Popup } from '../../compositional/popup';
 import { PopupContent } from '../../compositional/popup-content';

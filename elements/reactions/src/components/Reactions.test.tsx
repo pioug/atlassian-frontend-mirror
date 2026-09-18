@@ -1,6 +1,5 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import React from 'react';
+
 import { act, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -8,23 +7,19 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
-import { getReactionSummary, ari, containerAri } from '../MockReactionsClient';
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import type { FakeUFOInstance } from '../__tests__/_testing-library';
+import { getReactionSummary, ari, containerAri } from '../MockReactionsClient';
 import { DefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { type QuickReactionEmojiSummary, ReactionStatus, type ReactionSummary } from '../types';
-import { RENDER_REACTIONPICKER_TESTID } from './ReactionPicker';
 import { RENDER_REACTION_TESTID } from './Reaction';
-import { RENDER_MODAL_TESTID } from './ReactionsDialog';
-import { RENDER_SELECTOR_TESTID } from './Selector';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { RENDER_SHOWMORE_TESTID } from './ShowMore';
+import { RENDER_REACTIONPICKER_TESTID } from './ReactionPicker';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
-import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
-import { RENDER_TRIGGER_BUTTON_TESTID } from './Trigger';
-
 import {
 	type ReactionsProps,
 	Reactions,
@@ -34,6 +29,11 @@ import {
 	RENDER_REACTIONS_SUMMARY_TESTID,
 	RENDER_VIEWALL_REACTED_USERS_DIALOG,
 } from './Reactions';
+import { RENDER_MODAL_TESTID } from './ReactionsDialog';
+import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
+import { RENDER_SELECTOR_TESTID } from './Selector';
+import { RENDER_SHOWMORE_TESTID } from './ShowMore';
+import { RENDER_TRIGGER_BUTTON_TESTID } from './Trigger';
 
 jest.mock('../shared/constants', () => ({
 	...jest.requireActual('../shared/constants'),

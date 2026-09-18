@@ -16,7 +16,6 @@ import { token } from '@atlaskit/tokens';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import TableSearchCount from '../common/modal/search-count';
 import { AssetsItemCount } from '../common/modal/search-count/AssetsItemCount';
-
 import { footerMessages } from './messages';
 import { ProviderLink } from './provider-link';
 import { SyncInfo } from './sync-info';

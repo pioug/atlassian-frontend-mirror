@@ -1,4 +1,5 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
 import type { Token, TokenParser } from '.';
 import type { Context } from '../../interfaces';
 import { commonMacro } from './common-macro';

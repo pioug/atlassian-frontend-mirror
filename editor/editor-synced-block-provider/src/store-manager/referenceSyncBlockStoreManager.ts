@@ -39,19 +39,18 @@ import {
 	getFetchSourceInfoExperience,
 	getSaveReferenceExperience,
 } from '../utils/experienceTracking';
-import { parseResourceId } from '../utils/resourceId';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
+import { parseResourceId } from '../utils/resourceId';
 import {
 	createSyncBlockNode,
 	getSourceProductFromResourceIdSafe,
 	normalizeSyncBlockJSONContent,
 } from '../utils/utils';
-
+import type { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
 import { SyncBlockBatchFetcher } from './syncBlockBatchFetcher';
 import { syncBlockInMemorySessionCache } from './syncBlockInMemorySessionCache';
 import { SyncBlockProviderFactoryManager } from './syncBlockProviderFactoryManager';
 import { SyncBlockSubscriptionManager } from './syncBlockSubscriptionManager';
-import type { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
 
 const CACHE_KEY_PREFIX = 'sync-block-data-';
 

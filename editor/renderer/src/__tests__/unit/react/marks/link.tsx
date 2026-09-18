@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Link from '../../../../react/marks/link';
+
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+
+import Link from '../../../../react/marks/link';
 import '@atlaskit/link-test-helpers/jest';
 
 describe('Renderer - React/Marks/Link', () => {

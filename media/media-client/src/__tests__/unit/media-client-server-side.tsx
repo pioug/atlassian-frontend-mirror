@@ -1,7 +1,8 @@
 import React from 'react';
-import * as ReactDOMServer from 'react-dom/server';
-import { MediaClient } from '../..';
 
+import * as ReactDOMServer from 'react-dom/server';
+
+import { MediaClient } from '../..';
 import Example1 from '../../../examples/1-get-file';
 import Example2 from '../../../examples/1-uploader';
 import Example3 from '../../../examples/2-get-items';

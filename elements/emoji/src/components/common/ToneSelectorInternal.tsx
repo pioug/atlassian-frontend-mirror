@@ -8,8 +8,8 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 import type { EmojiDescription, EmojiDescriptionWithVariations, ToneValueType } from '../../types';
 import { createAndFireEventInElementsChannel } from '../../util/analytics/analytics';
@@ -17,10 +17,10 @@ import { toneSelectedEvent } from '../../util/analytics/toneSelectedEvent';
 import { toneSelectorOpenedEvent } from '../../util/analytics/toneSelectorOpenedEvent';
 import { messages } from '../i18n';
 import EmojiRadioButton from './EmojiRadioButton';
+import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
+import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import { toneSelectorTestId } from './ToneSelector';
 import type { Props } from './ToneSelector';
-import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 const hidden = css({
 	opacity: 0,

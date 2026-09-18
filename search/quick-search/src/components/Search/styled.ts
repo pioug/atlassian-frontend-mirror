@@ -1,10 +1,12 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled, { type StyledComponentClass } from 'styled-components';
-import { token } from '@atlaskit/tokens';
 import type { DetailedHTMLProps, HTMLAttributes, InputHTMLAttributes } from 'react';
 
-import { getPlaceholderStyle } from './get-placeholder-style';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import styled, { type StyledComponentClass } from 'styled-components';
+
+import { token } from '@atlaskit/tokens';
+
 import { getPlaceholderColor } from './get-placeholder-color';
+import { getPlaceholderStyle } from './get-placeholder-style';
 import { SearchInputControlsContainer } from './search-input-controls-container';
 // eslint-disable-next-line no-barrel-files/no-barrel-files
 export { SearchInner } from './search-inner';

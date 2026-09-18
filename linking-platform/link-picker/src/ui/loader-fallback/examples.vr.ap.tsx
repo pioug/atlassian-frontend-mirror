@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 import { MockLinkPickerPromisePlugin } from '../../__tests__/__helpers/mock-plugins';
 import { LINK_PICKER_WIDTH_IN_PX } from '../../common/constants';
 import { default as LinkPicker } from '../index';
-
 import { LoaderFallback } from './index';
 
 const plugins = [

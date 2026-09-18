@@ -5,10 +5,11 @@
 import React from 'react';
 
 import { jsx, css } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
 
-import { typeAheadListContainer } from './styles';
 import { type EmojiTypeAheadWidth } from '../../util/shared-styles';
+import { typeAheadListContainer } from './styles';
 
 const typeAheadEmpty = css({
 	display: 'none',

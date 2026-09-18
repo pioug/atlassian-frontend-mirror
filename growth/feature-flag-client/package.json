@@ -37,6 +37,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"react": "root:*",
 		"react-dom": "root:*"
 	}

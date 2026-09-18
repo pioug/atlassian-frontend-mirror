@@ -1,6 +1,8 @@
 import React from 'react';
-import { createRendererWindowBindings } from './helper/testing-setup';
+
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+
+import { createRendererWindowBindings } from './helper/testing-setup';
 
 mockDatasourceFetchRequests({ shouldMockORSBatch: true });
 

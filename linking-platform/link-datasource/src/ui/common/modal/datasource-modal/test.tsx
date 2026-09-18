@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl';
 
@@ -13,7 +14,6 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { InlineEdit } from '../../../issue-like-table/table-cell-content/inline-edit';
-
 import { DatasourceModal } from './index';
 
 const testIds = {

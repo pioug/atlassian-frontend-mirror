@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { Vector2 } from '@atlaskit/media-ui/vector2'` instead.
  */
+
 export { Vector2 } from './Vector2';
 /**
  * @deprecated Use `import { Rectangle } from '@atlaskit/media-ui/rectangle'` instead.

@@ -1,7 +1,6 @@
 import type React from 'react';
 
 import { themedLogoIcon, themedLogoText } from '../nav-logo/logo-renderer';
-
 import {
 	type ColorMode,
 	getColorMode,

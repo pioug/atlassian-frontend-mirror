@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
-import Status from '../../../../react/nodes/status';
+
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
+import Status from '../../../../react/nodes/status';
 
 describe('Status Component', () => {
 	it('Accessibility attributes', () => {

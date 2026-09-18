@@ -1,7 +1,9 @@
 import React from 'react';
+
+import Page from '@atlaskit/page';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
-import Page from '@atlaskit/page';
+
 import { RightSidePanel, FlexContainer, ContentWrapper } from '../../index';
 
 describe('RightSidePanel', () => {

@@ -1,9 +1,8 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
-
-import CachingClient, { type CacheConfig } from './CachingClient';
 import { buildReportingLinesQuery } from './buildReportingLinesQuery';
+import CachingClient, { type CacheConfig } from './CachingClient';
 import { directoryGraphqlQuery } from './directoryGraphqlQuery';
 import { getOrgIdForCloudIdFromAGG } from './getOrgIdForCloudIdFromAGG';
 

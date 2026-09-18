@@ -1,5 +1,14 @@
 # @atlaskit/townsquare-emoji-provider
 
+## 2.2.0
+
+### Minor Changes
+
+- [`9d782fa78d4e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d782fa78d4e5) -
+  Add a `for-cloud-id` entry point that exposes `getEmojiProviderForCloudId` without the package
+  barrel's import-time construction of the standard emoji resource. It shares the per-cloudId
+  resource cache with the barrel, and existing imports from the barrel are unchanged.
+
 ## 2.1.8
 
 ### Patch Changes

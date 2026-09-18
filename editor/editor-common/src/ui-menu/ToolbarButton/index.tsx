@@ -12,15 +12,14 @@ import { css, jsx } from '@emotion/react';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { ButtonProps } from '@atlaskit/button/button';
-import type { PositionType } from '@atlaskit/tooltip/types';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { PositionType } from '@atlaskit/tooltip/types';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics';
 import type { TOOLBAR_ACTION_SUBJECT_ID } from '../../analytics';
 import { ToolTipContent } from '../../keymaps';
 import type { Keymap } from '../../keymaps';
 import type { MenuItem } from '../DropdownMenu/types';
-
 import Button from './styles';
 
 export type Props = {

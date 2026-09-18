@@ -17,7 +17,6 @@ import { token } from '@atlaskit/tokens';
 
 import type { ExtensionNestedDropdownMenuConfiguration } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
-
 import { SelectionExtensionDropdownItem } from './SelectionExtensionDropdownItem';
 
 const BLOCK_MENU_TEMPLATES_SPOTLIGHT_PORTAL_SELECTOR =

@@ -1,6 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
+import { FormattedMessage } from 'react-intl';
+
 import { messages } from '../../components/i18n';
 import type { OptionData, Option, GroupedOptions } from '../../types';
 

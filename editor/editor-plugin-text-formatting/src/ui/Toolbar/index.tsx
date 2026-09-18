@@ -25,7 +25,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import { compareItemsArrays, isArrayContainsContent } from '../../editor-commands/utils';
 import type { TextFormattingPlugin } from '../../textFormattingPluginType';
-
 import { FormattingTextDropdownMenu } from './dropdown-menu';
 import { useClearIcon } from './hooks/clear-formatting-icon';
 import { useFormattingIcons, useHasFormattingActived } from './hooks/formatting-icons';

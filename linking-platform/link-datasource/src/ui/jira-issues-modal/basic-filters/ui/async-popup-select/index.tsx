@@ -12,7 +12,6 @@ import { SEARCH_DEBOUNCE_MS } from '../../../../common/modal/popup-select/consta
 import { type SelectOption } from '../../../../common/modal/popup-select/types';
 import { useFilterOptions } from '../../hooks/useFilterOptions';
 import { type BasicFilterFieldType } from '../../types';
-
 import { asyncPopupSelectMessages } from './messages';
 
 export interface AsyncPopupSelectProps {

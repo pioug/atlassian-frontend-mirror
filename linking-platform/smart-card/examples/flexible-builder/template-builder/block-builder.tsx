@@ -12,7 +12,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { type SmartLinkSize } from '../../../src';
 import { BlockName } from '../constants';
 import { type BlockTemplate } from '../types';
-
 import ActionBlockBuilder from './action-block-builder';
 import BlockBuilderContainer from './block-builder-container';
 import Fieldset from './fieldset';

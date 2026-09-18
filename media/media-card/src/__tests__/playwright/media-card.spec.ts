@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+
 import { MediaCardPageObject } from '../utils/_mediaCardPageObject';
 
 const cardStandardSelector = '[data-testid="media-card-standard"]';

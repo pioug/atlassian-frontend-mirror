@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import AvatarStatus from '@atlaskit/avatar/status'` instead.
  */
+
 export { default } from '../status';
 /**
  * @deprecated Use `import type { StatusProps } from '@atlaskit/avatar/status'` instead.

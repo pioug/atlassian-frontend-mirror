@@ -13,9 +13,9 @@ import { type MediaTraceContext } from '@atlaskit/media-common';
 import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { MediaViewerError } from '../../MediaViewerError';
 import { buildImgErrorDiagnostics } from '../../buildImgErrorDiagnostics';
 import { Outcome } from '../../domain/outcome';
+import { MediaViewerError } from '../../MediaViewerError';
 import { BaseViewer } from '../base-viewer';
 import { InteractiveImg } from './interactive-img';
 

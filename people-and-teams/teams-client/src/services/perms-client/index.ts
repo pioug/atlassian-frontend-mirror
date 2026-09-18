@@ -1,5 +1,4 @@
 import { DEFAULT_CONFIG } from '../constants';
-
 import { PermsClient } from './PermsClient';
 
 /**

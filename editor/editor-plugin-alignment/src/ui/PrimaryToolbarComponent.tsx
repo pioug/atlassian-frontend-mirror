@@ -9,7 +9,6 @@ import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
 import { ToolbarType } from '../pm-plugins/types';
 import type { AlignmentState } from '../pm-plugins/types';
-
 import ToolbarAlignment from './ToolbarAlignment';
 
 interface PrimaryToolbarComponentProps {

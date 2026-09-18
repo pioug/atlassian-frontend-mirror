@@ -16,7 +16,6 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
 import { hasTableBeenResized } from '../table-resizing/utils/colgroup';
-
 import { getTableWidth } from './nodes';
 
 export function getSelectedTableInfo(selection: Selection): {

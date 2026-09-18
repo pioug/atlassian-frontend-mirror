@@ -1,7 +1,7 @@
-import { MockMentionResource as MentionResource } from './mock-mention-resource';
-import { createMockMentionNameResolver } from './create-mock-mention-name-resolver';
-import { MockMentionResourceWithInfoHints as MentionResourceWithInfoHints } from './mock-mention-resource-with-info-hints';
 import { enableLogger } from '../logger';
+import { createMockMentionNameResolver } from './create-mock-mention-name-resolver';
+import { MockMentionResource as MentionResource } from './mock-mention-resource';
+import { MockMentionResourceWithInfoHints as MentionResourceWithInfoHints } from './mock-mention-resource-with-info-hints';
 
 enableLogger(true);
 

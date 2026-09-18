@@ -15,7 +15,6 @@ import { EventType } from '@atlaskit/jql-editor-common/constants';
 
 import { Action, ActionSubject } from '../analytics/types';
 import { type JQLFieldResponse, type JQLFunctionResponse } from '../common/types';
-
 import { type Actions, type Store as JqlAutocompleteStoreModel } from './types';
 
 const initialData = {

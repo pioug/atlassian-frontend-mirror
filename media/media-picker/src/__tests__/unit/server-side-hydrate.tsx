@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import { screen } from '@testing-library/react';
 
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';

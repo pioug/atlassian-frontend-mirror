@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { defaultInlineEmojiHeight } from '@atlaskit/emoji/constants'` instead.
  */
+
 export { defaultInlineEmojiHeight } from './util/constants';
 /**
  * @deprecated Use `import { toEmojiId, toOptionalEmojiId } from '@atlaskit/emoji/type-helpers'` instead.

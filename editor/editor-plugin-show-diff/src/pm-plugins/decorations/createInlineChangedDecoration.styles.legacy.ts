@@ -9,7 +9,6 @@
  */
 import type { ColorScheme, DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
-
 import {
 	deletedInlineContentStyleExtended,
 	editingStyle,

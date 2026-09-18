@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@compiled/react';
+
 import {
 	forwardRef,
 	type ClassAttributes,
@@ -10,6 +10,8 @@ import {
 	type HTMLAttributes,
 	type RefAttributes,
 } from 'react';
+
+import { css, jsx } from '@compiled/react';
 export interface ContentWrapperProps {
 	controlsAreVisible: boolean;
 }

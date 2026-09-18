@@ -4,7 +4,9 @@
  */
 
 import React from 'react';
+
 import { css, jsx } from '@compiled/react';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 

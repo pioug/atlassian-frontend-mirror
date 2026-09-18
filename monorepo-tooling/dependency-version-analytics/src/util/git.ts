@@ -7,6 +7,7 @@ import type {
 	FetchResult,
 	Response,
 } from 'simple-git';
+
 import { assert } from './assert';
 
 export async function getChangesSince(since?: string): Promise<LogResult> {

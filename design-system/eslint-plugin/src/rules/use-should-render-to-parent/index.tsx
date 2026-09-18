@@ -3,7 +3,6 @@ import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
-
 import { addProp } from './add-prop';
 import { setPropToTrue } from './set-prop-to-true';
 

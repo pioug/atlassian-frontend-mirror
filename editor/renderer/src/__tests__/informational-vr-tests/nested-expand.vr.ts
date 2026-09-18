@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page } from '@playwright/test';
 
-import { NestedExpandRenderer } from './nested-expand.fixture.vr.ap';
-
 import { snapshotInformational } from '@af/visual-regression';
+
+import { NestedExpandRenderer } from './nested-expand.fixture.vr.ap';
 
 snapshotInformational(NestedExpandRenderer, {
 	description: 'should render nested expand in expand in default mode - collapsed',

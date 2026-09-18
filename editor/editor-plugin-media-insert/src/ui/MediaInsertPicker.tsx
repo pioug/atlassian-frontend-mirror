@@ -27,15 +27,14 @@ import {
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box, Focusable, Text } from '@atlaskit/primitives/compiled';
-import Tabs from '@atlaskit/tabs/tabs';
 import TabList from '@atlaskit/tabs/tab-list';
+import Tabs from '@atlaskit/tabs/tabs';
 import useTab from '@atlaskit/tabs/use-tab';
 import useTabPanel from '@atlaskit/tabs/use-tab-panel';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { RegisterInsertTab } from '../mediaInsertPluginType';
 import type { MediaInsertPickerProps } from '../types';
-
 import { useFocus } from './hooks/use-focus';
 import { useUnholyAutofocus } from './hooks/use-unholy-autofocus';
 import { LocalMedia } from './LocalMedia';

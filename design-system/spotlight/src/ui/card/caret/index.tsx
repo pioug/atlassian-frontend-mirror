@@ -8,7 +8,6 @@ import { jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { Placement } from '../../../types';
-
 import { Caret as Legacy } from './legacy';
 import { Caret as TopLayer } from './top-layer';
 

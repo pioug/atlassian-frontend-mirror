@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
-
 import ReactDOM, { flushSync } from 'react-dom';
+
 import { createRoot, type Root } from 'react-dom/client';
 
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { renderHook } from '@atlassian/testing-library';
-
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { renderHook } from '@atlassian/testing-library';
 
 import type { SocialProof } from '../../use-social-proof';
 import { getInlineSocialProofExperimentMeta } from '../getInlineSocialProofExperimentMeta';

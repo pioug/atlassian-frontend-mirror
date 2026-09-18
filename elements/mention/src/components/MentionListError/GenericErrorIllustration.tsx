@@ -1,5 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
 import React from 'react';
+
 import { GenericErrorVisualStyle } from './styles';
 
 export interface Props {

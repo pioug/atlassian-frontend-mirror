@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { zodToJsonSchema as zodToJsonSchemaHelper } from 'zod-to-json-schema';
 

@@ -1,5 +1,6 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
+
 import { tableCellContentPseudoGroup } from '../groups/tableCellContentPseudoGroup';
 
 // @DSLCompatibilityException This is only used by JSON schema to group the table cell content into a definition.

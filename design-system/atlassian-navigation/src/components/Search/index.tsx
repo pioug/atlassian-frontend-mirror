@@ -21,7 +21,6 @@ import {
 import { useTheme } from '../../theme';
 import { stripEmptyProperties } from '../../utils';
 import { IconButton } from '../IconButton';
-
 import { type SearchProps } from './types';
 
 const searchInputContainerStyles = css({

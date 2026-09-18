@@ -51,9 +51,9 @@ import { insm } from '@atlaskit/insm';
 import { extractClientIdsFromHtml } from '@atlaskit/media-common';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { PastePluginActionTypes } from '../editor-actions/actions';
 import { splitParagraphs, upgradeTextToLists } from '../editor-commands/commands';
@@ -69,7 +69,6 @@ import {
 	transformSliceToMediaSingleWithNewExperience,
 	unwrapNestedMediaElements,
 } from '../pm-plugins/media';
-
 import {
 	createPasteMeasurePayload,
 	getContentNodeTypes,

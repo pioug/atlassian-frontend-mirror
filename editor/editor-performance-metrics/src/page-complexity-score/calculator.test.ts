@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { DocumentComplexityCalculator } from './calculator';
 import type { AdfNode, LeafNodeDebugInfo } from './types';
 

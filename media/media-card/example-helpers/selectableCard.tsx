@@ -1,7 +1,9 @@
 import React from 'react';
 import { Component } from 'react';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+
 import { type Identifier } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+
 import Card from '../src/card/cardLoader';
 
 export interface SelectableCardProps {

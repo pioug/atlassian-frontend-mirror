@@ -1,17 +1,19 @@
 // File to be removed after migration: projected to end Dec 2026
 
+import React from 'react';
+import type { ComponentType } from 'react';
+
 import { PanelType } from '@atlaskit/adf-schema/panel';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { screen } from '@atlassian/testing-library/screen';
-import React from 'react';
-import type { ComponentType } from 'react';
+
 import { nodeToReact as looselyLazyNodeToReact } from '../../../entry-points/loosely-lazy';
+import { nodes as newNodeToReact } from '../../../entry-points/nodes-default';
 import { Renderer as RendererLegacy } from '../../../entry-points/renderer';
 import { Renderer as RendererSync } from '../../../entry-points/renderer-default';
 import ReactSerializer from '../../../react';
 import { nodeToReact as legacyNodeToReact } from '../../../react/nodes';
-import { nodes as newNodeToReact } from '../../../entry-points/nodes-default';
 import type { RendererProps } from '../../../ui/renderer-props';
 
 const schema = getSchemaBasedOnStage('stage0');

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/default/button';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render } from '@atlassian/testing-library';
 
 import { Popup } from '../../popup';
 

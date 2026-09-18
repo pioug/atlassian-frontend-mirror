@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/order
+import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { AnalyticPluginTypes } from './actions';
@@ -6,8 +8,6 @@ import { pluginKey } from './plugin-key';
 import type { ActionType, RowOrColumnMovedState } from './types';
 // eslint-disable-next-line import/order
 import { getMovedPayload } from './utils/moved-event';
-// eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
 
 export const updateRowOrColumnMoved = (
 	nextState: Omit<RowOrColumnMovedState, 'currentActions'>,

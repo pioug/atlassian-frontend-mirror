@@ -10,7 +10,6 @@ import { EntityType, fetchUserRecommendations, type UserSearchItem } from '@atla
 
 import type { UseUserRecommendationsProps } from '../../types';
 import useFunctionUsageTracking from '../use-function-usage-tracking';
-
 import { createDefaultAttributes, findUserPosition, fireUserSelectedEvent } from './analytics';
 import { UsersFetchedUfoExperience } from './ufoExperiences';
 

@@ -1,18 +1,20 @@
 import React from 'react';
-import BodiedExtension from '../../../../react/nodes/bodiedExtension';
-import { Renderer } from '../../../../entry-points/renderer-default';
 
-import type { RendererContext } from '../../../../react/types';
-import ReactSerializer from '../../../../react';
+import { act, render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+import Loadable from 'react-loadable';
+
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
-import { IntlProvider } from 'react-intl';
-import Loadable from 'react-loadable';
-import { act, render, screen } from '@testing-library/react';
+
+import { Renderer } from '../../../../entry-points/renderer-default';
+import ReactSerializer from '../../../../react';
+import BodiedExtension from '../../../../react/nodes/bodiedExtension';
+import type { RendererContext } from '../../../../react/types';
 import { adfNestedTableData } from '../../../__fixtures__/nested-tables';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

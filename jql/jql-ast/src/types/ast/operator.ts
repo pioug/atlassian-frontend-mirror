@@ -10,7 +10,6 @@ import {
 	WAS_IN_OPERATORS,
 	WAS_OPERATORS,
 } from '../../constants';
-
 import { type AstNode } from './common';
 
 export type OperatorValue = (typeof OPERATORS)[number];

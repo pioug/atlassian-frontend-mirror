@@ -5,7 +5,9 @@ import * as fs from 'fs';
 // eslint-disable-next-line import/no-namespace
 import * as path from 'path';
 import { promisify } from 'util';
+
 import makeDir from 'mkdirp';
+
 import styleSheet from '../src/styles';
 
 const writeFile = promisify(fs.writeFile);

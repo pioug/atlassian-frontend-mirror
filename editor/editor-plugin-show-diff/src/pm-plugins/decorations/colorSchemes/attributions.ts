@@ -9,7 +9,6 @@ import type {
 	DiffStepAttribution,
 	TagContributor,
 } from '../../../showDiffPluginType';
-
 import { PARTICIPANT_COLOR_SCHEMES, type AdsAccentColor, type ColorScheme } from './types';
 
 export type DiffAttributionSpanData = DiffStepAttribution & {

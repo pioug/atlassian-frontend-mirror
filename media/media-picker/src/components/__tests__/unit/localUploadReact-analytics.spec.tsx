@@ -1,7 +1,8 @@
 import { RequestError } from '@atlaskit/media-client';
-import { LocalUploadComponentReact } from '../../localUploadReact';
+
 import { type UploadErrorEventPayload } from '../../../types';
 import { failMediaUploadUfoExperience } from '../../../util/failMediaUploadUfoExperience';
+import { LocalUploadComponentReact } from '../../localUploadReact';
 
 // Mock the feature flag
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({

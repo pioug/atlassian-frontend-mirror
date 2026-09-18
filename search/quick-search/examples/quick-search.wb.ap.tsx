@@ -2,7 +2,6 @@ import { wb, type WorkbenchExample } from '@atlassian/workbench';
 
 import NavigationExampleExample from './0-Navigation-Example';
 import ObjectResultsExample from './1-Object-Results';
-import AutocompleteExample from './10-Autocomplete';
 import PeopleResultsExample from './2-People-Results';
 import ContainerResultsExample from './3-Container-Results';
 import CustomResultsExample from './4-Custom-Results';
@@ -10,6 +9,7 @@ import KeyboardNavigationWithNestedDOMExample from './5-Keyboard-Navigation-with
 import AnalyticsLoggingExample from './6-Analytics-Logging';
 import ResultsWithOnSelectedIconExample from './8-Results-with-onSelectedIcon';
 import InputControlsExample from './9-Input-Controls';
+import AutocompleteExample from './10-Autocomplete';
 
 export const NavigationExample: WorkbenchExample = wb(NavigationExampleExample);
 export const ObjectResults: WorkbenchExample = wb(ObjectResultsExample);

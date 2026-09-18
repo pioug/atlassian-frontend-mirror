@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Page from '@atlaskit/page';
 
 import Help, { ARTICLE_TYPE } from '../src';
 import type { Article, articleId, HistoryItem } from '../src';
-
 import { getArticle } from './utils/mockData';
 import {
 	ExampleWrapper,

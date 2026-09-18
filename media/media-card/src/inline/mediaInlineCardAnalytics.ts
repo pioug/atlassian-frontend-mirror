@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { getSucceededStatusPayload } from '@atlaskit/media-card/mediaInlineCardAnalytics'` instead.
  */
+
 export { getSucceededStatusPayload } from './getSucceededStatusPayload';
 /**
  * @deprecated Use `import { getErrorStatusPayload } from '@atlaskit/media-card/mediaInlineCardAnalytics'` instead.

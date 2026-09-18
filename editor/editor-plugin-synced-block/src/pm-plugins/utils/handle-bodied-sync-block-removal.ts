@@ -13,7 +13,6 @@ import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 import { FLAG_ID } from '../../types';
 import type { ActiveFlag, SyncBlockAttrs, SyncBlockInfo } from '../../types';
 import { syncedBlockPluginKey } from '../main';
-
 import {
 	matchesRequestedBlock,
 	recomputeDeleteTransaction,

@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import type { ResourceTiming, ResourceTimings, ResourceTimingsConfig } from '@atlaskit/react-ufo/resource-timing/types'` instead.
  */
+
 export type { ResourceTiming, ResourceTimings, ResourceTimingsConfig } from './common/types';
 /**
  * @deprecated Use `import { configure } from '@atlaskit/react-ufo/resource-timing/config'` instead.

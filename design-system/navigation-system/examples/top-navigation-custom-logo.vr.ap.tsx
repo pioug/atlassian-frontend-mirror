@@ -26,10 +26,10 @@ import {
 	Search,
 } from '@atlaskit/navigation-system/top-nav-items';
 
-import placeholder200x20 from './images/200x20.png';
-import placeholder200x200 from './images/200x200.png';
 import placeholder20x20 from './images/20x20.png';
 import placeholder20x200 from './images/20x200.png';
+import placeholder200x20 from './images/200x20.png';
+import placeholder200x200 from './images/200x200.png';
 import { WithResponsiveViewport } from './utils/example-utils';
 
 const TopNavigationCustomLogoInstance = ({

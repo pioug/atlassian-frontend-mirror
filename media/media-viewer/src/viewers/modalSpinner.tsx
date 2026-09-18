@@ -4,6 +4,7 @@
  * */
 
 import React from 'react';
+
 import { default as Modal } from '@atlaskit/media-ui/modalSpinner';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 

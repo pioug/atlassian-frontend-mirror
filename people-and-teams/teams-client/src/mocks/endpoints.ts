@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { mockTeamsClientEndpoints } from '@atlaskit/teams-client/mock-teams-client-endpoints'` instead.
  */
+
 export { mockTeamsClientEndpoints } from './mock-teams-client-endpoints';
 /**
  * @deprecated Use `import { mockTeamsClientRequestingToJoinEndpoints } from '@atlaskit/teams-client/mock-teams-client-requesting-to-join-endpoints'` instead.

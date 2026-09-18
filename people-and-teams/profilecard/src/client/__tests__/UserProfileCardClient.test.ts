@@ -4,8 +4,8 @@ import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-je
 
 import { AGGErrors } from '../../util/AGGErrors';
 import { AGGQuery } from '../AGGQuery';
-import UserProfileCardClient from '../UserProfileCardClient';
 import { buildAggUserQuery } from '../buildAggUserQuery';
+import UserProfileCardClient from '../UserProfileCardClient';
 
 jest.mock('../../util/performance', () => ({
 	getPageTime: jest.fn(() => 1000),

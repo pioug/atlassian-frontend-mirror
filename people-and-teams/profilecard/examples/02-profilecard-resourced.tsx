@@ -7,7 +7,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardResourced from '../src/components/User/ProfileCardResourced';
-
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 import { getMockProfileClient } from './helper/util';

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 import { default as Renderer } from '../src/ui/Renderer';

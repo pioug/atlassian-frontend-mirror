@@ -1,6 +1,6 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
-import { zodToJsonSchema } from '../../helpers/zod-to-json-schema';
 
+import { zodToJsonSchema } from '../../helpers/zod-to-json-schema';
 import { getLintRulesInputSchema } from './get-lint-rules-input-schema';
 
 export const listGetLintRulesTool: {

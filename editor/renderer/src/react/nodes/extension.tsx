@@ -3,21 +3,18 @@
  * @jsx jsx
  */
 
+import React, { useEffect, useRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 
-import React, { useEffect, useRef } from 'react';
-import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { RendererContext, ExtensionViewportSize } from '../types';
-import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
-import ExtensionRenderer from '../../ui/ExtensionRenderer';
-
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
@@ -27,13 +24,17 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { overflowShadow, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps, OverflowShadowState } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
-import { RendererCssClassName } from '../../consts';
+import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { calcBreakoutWidthCss } from '../utils/breakout';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import type { RendererAppearance } from '../../ui/Renderer/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import type { AnalyticsEventPayload } from '../../analytics/events';
+import { RendererCssClassName } from '../../consts';
+import ExtensionRenderer from '../../ui/ExtensionRenderer';
+import type { RendererAppearance } from '../../ui/Renderer/types';
+import type { RendererContext, ExtensionViewportSize } from '../types';
+import { calcBreakoutWidthCss } from '../utils/breakout';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;

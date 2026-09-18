@@ -17,7 +17,6 @@ import { token } from '@atlaskit/tokens';
 
 import { withReactEditorViewOuterListeners as withOuterListeners } from '../../ui-react';
 import Popup from '../Popup';
-
 import tableSelectorPopup, {
 	TABLE_SELECTOR_BUTTON_GAP,
 	TABLE_SELECTOR_BUTTON_SIZE,

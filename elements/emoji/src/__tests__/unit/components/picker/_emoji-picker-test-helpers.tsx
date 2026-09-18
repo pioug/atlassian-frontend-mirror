@@ -1,13 +1,16 @@
+import React from 'react';
+
+import { type RenderResult, screen, within } from '@testing-library/react';
+
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import React from 'react';
-import type { CategoryGroupKey } from '../../../../components/picker/categories';
-import EmojiPicker, { type Props } from '../../../../components/picker/EmojiPicker';
-import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { MockEmojiResourceConfig } from '@atlaskit/util-data-test/emoji-types';
-import { type RenderResult, screen, within } from '@testing-library/react';
+
+import type { CategoryGroupKey } from '../../../../components/picker/categories';
+import EmojiPicker, { type Props } from '../../../../components/picker/EmojiPicker';
+import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
 
 export function setupPickerWithoutToneSelector(): Promise<RenderResult> {

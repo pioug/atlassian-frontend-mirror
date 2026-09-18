@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardAuthFlowOpts, CardProviderRenderers } from '@atlaskit/link-provider/types';
-import type { CardAppearance } from '@atlaskit/linking-common/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardState } from '@atlaskit/linking-common/store';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { renderHook } from '@atlassian/testing-library/render-hook';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { IsFhsEnabledProvider } from '../../is-fhs-enabled-provider';
 import { useIsFhsEnabled } from '../../use-is-fhs-enabled';

@@ -4,13 +4,13 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "TeamContainers.example.tsx",
-    "TeamLinkCard.example.tsx",
-    "ContainerIcon.example.tsx",
-    "Separator.example.tsx",
-    "AddContainerCard.example.tsx",
-    "CustomComponents.example.tsx",
-    "TeamContainerSkeleton.example.tsx"
-  ]
+	"testExamples": [
+		"TeamContainers.example.tsx",
+		"TeamLinkCard.example.tsx",
+		"ContainerIcon.example.tsx",
+		"Separator.example.tsx",
+		"AddContainerCard.example.tsx",
+		"CustomComponents.example.tsx",
+		"TeamContainerSkeleton.example.tsx",
+	],
 }

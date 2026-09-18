@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "141.0.0",
+	"version": "141.0.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -147,6 +147,9 @@
 		"worker-plugin": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform_editor_a11y_codeblock_haspopup": {
+			"type": "boolean"
+		},
 		"platform_renderer_table_row_functional": {
 			"type": "boolean"
 		},

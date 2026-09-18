@@ -2,7 +2,7 @@ import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import type { VCObserverEntryType } from '../types';
-
+import ViewportObserver from './index';
 import {
 	createIntersectionObserver,
 	type IntersectionObserverArgs,
@@ -15,8 +15,6 @@ import {
 } from './performance-observer/index';
 import type { AttributeMutationData } from './types';
 import { isContainedWithinSmartAnswers } from './utils/is-contained-within-smart-answers';
-
-import ViewportObserver from './index';
 
 jest.mock('../../vc-observer/media-wrapper/vc-utils', () => ({
 	isContainedWithinMediaWrapper: jest.fn(),

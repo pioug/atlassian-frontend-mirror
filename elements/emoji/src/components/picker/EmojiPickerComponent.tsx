@@ -23,12 +23,12 @@ import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { getDocument } from '@atlaskit/browser-apis';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
 import { monitorForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/monitor-for-external';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/contains-files';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/utils/prevent-unhandled';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import type { OnEmojiProviderChange } from '../../api/EmojiResource';
@@ -82,13 +82,13 @@ import {
 	storeProductivityColor,
 	type ProductivityColor,
 } from '../../util/productivity-colors';
+import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import { uploadEmoji } from '../common/UploadEmoji';
-import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 import { messages } from '../i18n';
+import type { CategoryId } from './categories';
 import CategorySelector from './CategorySelector';
 import EmojiPickerFooter from './EmojiPickerFooter';
-import type { CategoryId } from './categories';
 import {
 	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type PickerListRef,

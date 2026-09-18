@@ -1,10 +1,12 @@
+import React from 'react';
+
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { token } from '@atlaskit/tokens';
-import React from 'react';
+
 import type Logger from '../helpers/logger';
 import { LOG_LEVEL } from '../helpers/logger';
 

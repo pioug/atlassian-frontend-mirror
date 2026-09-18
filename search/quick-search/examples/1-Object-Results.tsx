@@ -1,8 +1,10 @@
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar/avatar';
-import { randomJiraIconUrl, randomConfluenceIconUrl } from './utils/mockData';
-import ObjectResult from '../src/components/Results/ObjectResult';
+
 import ResultItemGroup from '../src/components/ResultItem/ResultItemGroup';
+import ObjectResult from '../src/components/Results/ObjectResult';
+import { randomJiraIconUrl, randomConfluenceIconUrl } from './utils/mockData';
 
 const defaultProps = {
 	resultId: 'result_id',

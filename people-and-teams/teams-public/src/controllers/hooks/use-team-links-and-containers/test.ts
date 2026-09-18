@@ -3,7 +3,6 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { type TeamContainer, type TeamWebLink } from '../../../common/types';
 import * as useTeamContainersModule from '../use-team-containers/use-team-containers';
 import * as useTeamWebLinksModule from '../use-team-web-links/use-team-web-links';
-
 import { useTeamLinksAndContainers } from './index';
 
 describe('useTeamLinksAndContainers', () => {

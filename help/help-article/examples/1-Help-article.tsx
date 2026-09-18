@@ -1,6 +1,8 @@
 import React from 'react';
+
 import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
+
 import HelpArticle from '../src';
 
 interface Props {}

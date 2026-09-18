@@ -10,7 +10,6 @@ import { useEditorThemeContext } from '../../hooks/use-editor-theme/useEditorThe
 import { splitTextByNewLine } from '../../utils/split-text-by-new-line';
 import { ReadOnlyControlsContent } from '../jql-editor-controls-content/read-only-controls-content';
 import { messages } from '../messages';
-
 import {
 	EditorControls,
 	EditorFooter,

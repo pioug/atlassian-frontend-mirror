@@ -1,5 +1,6 @@
-import { appendRows, prependRows, generateEmptyRow } from '../generateRowValues';
 import { type HeadCellType, type RowCellType } from '@atlaskit/dynamic-table/types';
+
+import { appendRows, prependRows, generateEmptyRow } from '../generateRowValues';
 
 const headerCells: HeadCellType[] = [
 	{

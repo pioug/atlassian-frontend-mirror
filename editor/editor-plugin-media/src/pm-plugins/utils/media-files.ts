@@ -42,7 +42,6 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { MediaState } from '../../types';
-
 import { isImage } from './is-type';
 import {
 	copyOptionalAttrsFromMediaState,

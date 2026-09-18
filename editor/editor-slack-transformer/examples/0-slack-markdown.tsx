@@ -4,13 +4,12 @@ import {
 	localStorageFetchProvider,
 	localStorageWriteProvider,
 } from '@af/editor-examples-helpers/utils';
-import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
 import { CollapsedEditor, Editor, EditorContext } from '@atlaskit/editor-core';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
 import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
 import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { token } from '@atlaskit/tokens';
-
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';

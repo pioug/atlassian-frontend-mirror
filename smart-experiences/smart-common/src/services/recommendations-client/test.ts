@@ -1,5 +1,4 @@
 import { PRD_CONFIG } from '../../config';
-
 import fetchUserRecommendations from './index';
 
 jest.mock('../../config', () => ({

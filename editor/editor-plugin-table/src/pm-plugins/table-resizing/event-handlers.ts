@@ -23,7 +23,6 @@ import { META_KEYS } from '../table-analytics';
 import { updateColumnWidths } from '../transforms/column-width';
 import { tablesHaveDifferentNoOfColumns } from '../utils/nodes';
 import { getSelectedColumnIndexes } from '../utils/selection';
-
 import { evenColumns, setDragging, stopResizing } from './commands';
 import { getPluginState } from './plugin-factory';
 import { TABLE_OFFSET_IN_COMMENT_EDITOR } from './utils/consts';

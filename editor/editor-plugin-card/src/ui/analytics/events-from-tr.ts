@@ -14,7 +14,6 @@ import { AddMarkStep, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transf
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import { getPluginState } from '../../pm-plugins/util/state';
 import type { Queue, Resolve } from '../../types';
-
 import type { CardPluginEvent, Entity } from './types';
 import { EVENT, EVENT_SUBJECT } from './types';
 import {

@@ -10,7 +10,6 @@ import type { PressableProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import IconRenderer from '../icon-renderer';
-
 import { ThemedPressable } from './themed-pressable';
 import type { CommonProps, OverriddenPrimitiveProps, TextButtonCommonProps } from './types';
 

@@ -5,7 +5,6 @@ import {
 	type OrderByDirectionValue,
 	type Position,
 } from '../types';
-
 import { noChildren } from './common';
 
 function acceptOrderByDirection<Result>(this: OrderByDirection, visitor: JastVisitor<Result>) {

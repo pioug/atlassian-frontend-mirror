@@ -1,3 +1,9 @@
+import { Device, snapshot } from '@af/visual-regression';
+import {
+	flagsForVrTests,
+	flagsForVrTestsWithReducedPadding,
+} from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
+
 import {
 	OverflowLayoutRenderer,
 	Layout2ColRenderer,
@@ -18,11 +24,6 @@ import {
 	Layout5ColWithWidthAndLayout5ColWithWideRenderer,
 	Layout5ColWithWidthInFullWidthRenderer,
 } from './layout.fixture.vr.ap';
-import { Device, snapshot } from '@af/visual-regression';
-import {
-	flagsForVrTests,
-	flagsForVrTestsWithReducedPadding,
-} from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
 
 snapshot(OverflowLayoutRenderer);
 snapshot(Layout2ColRenderer);

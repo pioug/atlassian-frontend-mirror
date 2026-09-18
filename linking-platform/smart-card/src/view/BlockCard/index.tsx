@@ -6,7 +6,6 @@ import { useControlDataExportConfig } from '../../state/hooks/use-control-data-e
 import { getIsDataExportEnabled } from '../../utils/should-data-export';
 import { handleClickCommon } from '../common/utils';
 import { CardLinkView } from '../LinkView';
-
 import { type BlockCardProps } from './types';
 import ErroredView from './views/ErroredView';
 import ForbiddenView from './views/ForbiddenView';

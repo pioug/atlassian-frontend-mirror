@@ -1,12 +1,14 @@
 import React from 'react';
-import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
-import { Inline } from '@atlaskit/primitives/compiled';
+
 import { useIntl } from 'react-intl';
 
-import { NeedMoreHelpContainer, NeedMoreHelpContent, HelpAskAI } from './styled';
-import { VIEW } from '../constants';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
+import { Inline } from '@atlaskit/primitives/compiled';
+
 import { messages } from '../../messages';
+import { VIEW } from '../constants';
 import { useNavigationContext } from '../contexts/navigationContext';
+import { NeedMoreHelpContainer, NeedMoreHelpContent, HelpAskAI } from './styled';
 
 interface NeedMoreHelpProps {
 	label: string;

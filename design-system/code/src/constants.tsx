@@ -445,6 +445,7 @@ export const SUPPORTED_LANGUAGES = [
 /**
  * @deprecated Use `import { CODE_BLOCK_SELECTOR } from '@atlaskit/code/constants'` instead.
  */
+
 export { CODE_BLOCK_SELECTOR } from './internal/theme/constants';
 
 export type Language = (typeof SUPPORTED_LANGUAGES)[number];

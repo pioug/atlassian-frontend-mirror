@@ -10,11 +10,26 @@ import { cssMap, jsx } from '@compiled/react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { media } from '@atlaskit/primitives/responsive';
 
-import { localSlotLayers, UNSAFE_ribbonVar } from './constants';
+import { UNSAFE_ribbonVar } from './constants';
+import type { localSlotLayers as LocalSlotLayersType } from './constants';
 import { DangerouslyHoistCssVarToDocumentRoot } from './dangerously-hoist-css-var-to-document-root';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import type { CommonSlotProps } from './types';
 import { useLayoutId } from './use-layout-id';
+const localSlotLayersStatic = {
+	ribbon: 4,
+	// The side nav panel splitter is layered above the top nav when FHS is enabled.
+	// It has the same z-index value, but is rendered after the top nav in the DOM so is stacked above.
+	sideNavPanelSplitterFHS: 4,
+	topBar: 4,
+	banner: 4,
+	// When FHS is enabled, the side nav is layered below the top nav,
+	// but above the panel
+	bannerFHS: 3,
+	topNavFHS: 3,
+	sideNav: 2,
+	panelSmallViewports: 1,
+} satisfies typeof LocalSlotLayersType;
 
 const styles = cssMap({
 	root: {
@@ -28,7 +43,7 @@ const styles = cssMap({
 		boxSizing: 'border-box',
 		overflow: 'hidden',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		zIndex: localSlotLayers.ribbon,
+		zIndex: localSlotLayersStatic.ribbon,
 		display: 'none',
 		'@media (min-width: 64rem)': {
 			display: 'initial',

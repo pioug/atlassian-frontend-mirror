@@ -15,6 +15,7 @@ import React, {
 import { css, jsx } from '@compiled/react';
 import { IntlContext } from 'react-intl';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -44,7 +45,6 @@ import { handleDelete } from './handleDelete';
 import { ImageEmoji } from './ImageEmoji';
 import { SpriteEmoji } from './SpriteEmoji';
 import { UnicodeEmoji } from './UnicodeEmoji';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const emojiSpriteContainer = css({
 	display: 'inline-block',

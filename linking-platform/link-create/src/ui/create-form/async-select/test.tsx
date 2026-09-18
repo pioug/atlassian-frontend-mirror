@@ -9,7 +9,6 @@ import AkAsyncSelect from '@atlaskit/select/async-select';
 
 import { LinkCreateCallbackProvider } from '../../../controllers/callback-context/main';
 import { FormContextProvider } from '../../../controllers/form-context/main';
-
 import { AsyncSelect, TEST_ID } from './main';
 
 jest.mock('@atlaskit/select/async-select', () => {

@@ -1,4 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
+
 import { snapshotInformational } from '@af/visual-regression';
 
 import { BackgroundColorYellow, HighlightPadding } from './highlight.fixture.vr.ap';

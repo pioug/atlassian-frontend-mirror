@@ -1,6 +1,5 @@
 import { DEFAULT_CONFIG } from '../constants';
 import { logException } from '../sentry/logException';
-
 import { InvitationsClient } from './InvitationsClient';
 
 export const PRODUCT_RECCOMENDATIONS: any = '/v1/product-recommendations';

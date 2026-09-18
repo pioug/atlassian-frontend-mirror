@@ -8,7 +8,6 @@ import type { CardProps } from '../../../src';
 import { type FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
 import { BlockName, DefaultTemplate, FlexibleDefaultTemplate } from '../constants';
 import type { BlockTemplate, FlexibleTemplate } from '../types';
-
 import BlockBuilder from './block-builder';
 import CardBuilder from './card-builder';
 import FlexibleToggle from './flexible-toggle';

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 20.0.2
+
+### Patch Changes
+
+- [`4acfc5de0ce75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4acfc5de0ce75) -
+  Stop registering the `firstNodeDec` ProseMirror plugin when
+  the`platform_editor_block_control_migration` experiment is enabled. It is no longer needed after
+  migration, and causing issues with diffing margins.
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- [`8d37dc7e55d62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d37dc7e55d62) -
+  Clean up shipped experiment `platform_editor_block_menu`
+- Updated dependencies
+
 ## 20.0.0
 
 ### Patch Changes

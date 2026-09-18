@@ -3,7 +3,6 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PMPluginCreateConfig } from '../types/pm-plugin-list';
-
 import { createEditorNativeAnchorSupportPlugin } from './editorNativeAnchorSupportPlugin';
 import { createEditorStateNotificationPlugin } from './editorStateNotificationPlugin';
 

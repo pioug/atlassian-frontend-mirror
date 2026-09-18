@@ -1,5 +1,5 @@
-import { tallImage } from '../../images';
-import { dataURItoBlob } from '../../mockData';
+import { type ReplaySubject } from 'rxjs/ReplaySubject';
+
 import {
 	type FileIdentifier,
 	type FileState,
@@ -7,17 +7,19 @@ import {
 	createMediaSubject,
 	type FileDetails,
 } from '@atlaskit/media-client';
-import { type ReplaySubject } from 'rxjs/ReplaySubject';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { mediaStore } from '@atlaskit/media-state/media-store';
+
+import { tallImage } from '../../images';
+import { dataURItoBlob } from '../../mockData';
+import { sleep } from '../../nextTick';
 import {
 	createFileState,
 	type CreateFileStateOptions,
 	type FileStateStatus,
 } from './createFileState';
 import { createFileDetails } from './helpers';
-import { sleep } from '../../nextTick';
-import { mediaStore } from '@atlaskit/media-state/media-store';
 
 export type MediaClientMockOptions = {
 	getImageDelay?: number;

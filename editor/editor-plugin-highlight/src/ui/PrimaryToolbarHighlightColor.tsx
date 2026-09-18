@@ -36,7 +36,6 @@ import { Flex } from '@atlaskit/primitives/compiled';
 
 import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';
-
 import { PaletteDropdown } from './shared/PaletteDropdown';
 import { useDropdownEvents } from './shared/useDropdownEvents';
 

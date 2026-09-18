@@ -13,7 +13,6 @@ import {
 import UFOLoadHold from '../load-hold/UFOLoadHold';
 import { shapeNavigationTimingData } from '../resource-timing/common/utils/shape-navigation-timing-data';
 import { shapeResourceTimingData } from '../resource-timing/common/utils/shape-resource-timing-data';
-
 import { isDomMutationsFinalBatch } from './is-dom-mutations-final-batch';
 import UFOSegment, { type Props as SegmentProps } from './segment';
 import { shapeDomMutationsData } from './shape-dom-mutations-data';

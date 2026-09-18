@@ -7,7 +7,6 @@ import Heading from '@atlaskit/heading/heading';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 import { AgentAvatar } from '../src/ui/agent-avatar';
-
 import { imageAgentAvatar } from './helpers';
 
 export default function (): React.JSX.Element {

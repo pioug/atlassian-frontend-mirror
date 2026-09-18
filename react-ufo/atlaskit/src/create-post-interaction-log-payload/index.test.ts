@@ -1,6 +1,5 @@
 import type { PostInteractionLogOutput } from '../common';
 import { setUFOConfig } from '../config';
-
 import createPostInteractionLogPayload from './index';
 const createPostInteractionLogOutput = (): PostInteractionLogOutput => ({
 	lastInteractionFinish: {

@@ -2,7 +2,6 @@ import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { ElementName } from '../../../constants';
 import { getMetadata } from '../utils';
-
 import {
 	mockBaseResponseAtlasProject,
 	mockBaseResponseWithPreview,

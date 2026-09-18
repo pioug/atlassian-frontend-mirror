@@ -1,12 +1,14 @@
 import { useEffect, useRef, useCallback } from 'react';
+
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 import {
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
 import type { RangeType } from '../contexts/AnnotationRangeContext';
 import { isRangeInsideOfRendererContainer } from './utils';
-import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type Props = {
 	rendererRef: React.RefObject<HTMLDivElement>;

@@ -14,8 +14,8 @@ import { InlineCardErroredView } from './ErroredView';
 import { InlineCardForbiddenView } from './ForbiddenView';
 import { InlineCardResolvedView } from './ResolvedView';
 import { InlineCardResolvingView } from './ResolvingView';
-import { InlineCardUnauthorizedView } from './UnauthorisedView';
 import { type InlineCardProps } from './types';
+import { InlineCardUnauthorizedView } from './UnauthorisedView';
 
 export {
 	InlineCardResolvedView,

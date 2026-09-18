@@ -3,7 +3,6 @@ import { node as generate, isNodeOfType } from 'eslint-codemod-utils';
 
 import { isLegacyColor } from '../utils/is-legacy-color';
 import { isLegacyNamedColor } from '../utils/is-legacy-named-color';
-
 import { getTokenSuggestion } from './get-token-suggestion';
 import type { RuleConfig } from './types';
 

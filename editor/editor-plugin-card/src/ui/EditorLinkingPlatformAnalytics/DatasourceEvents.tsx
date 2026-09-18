@@ -10,7 +10,6 @@ import type {
 	DatasourceUpdatedEvent,
 } from '../analytics/types';
 import { EVENT, EVENT_SUBJECT } from '../analytics/types';
-
 import type { AnalyticsBindingsProps } from './common';
 import { getMethod } from './common';
 

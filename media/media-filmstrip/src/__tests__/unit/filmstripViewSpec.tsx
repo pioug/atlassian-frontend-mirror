@@ -1,7 +1,9 @@
 declare var global: any;
 declare var window: any;
 import React from 'react';
+
 import { render, screen, act, fireEvent } from '@atlassian/testing-library';
+
 import { FilmstripView } from '../../filmstripView';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({

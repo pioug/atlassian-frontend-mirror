@@ -11,9 +11,15 @@ import type { StrictXCSSProp } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useSkipLink } from '../../../context/skip-links/use-skip-link';
-import { contentHeightWhenFixed, contentInsetBlockStart } from '../constants';
+import type { contentInsetBlockStart as ContentInsetBlockStartType } from '../constants';
+import type { contentHeightWhenFixed as ContentHeightWhenFixedType } from '../constants';
 import type { CommonSlotProps } from '../types';
 import { useLayoutId } from '../use-layout-id';
+const contentInsetBlockStartStatic =
+	`calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px))` satisfies typeof ContentInsetBlockStartType;
+
+const contentHeightWhenFixedStatic =
+	`calc(100vh - var(--n_bnrM, 0px) - var(--n_tNvM, 0px))` satisfies typeof ContentHeightWhenFixedType;
 
 const mainElementStyles = cssMap({
 	root: {
@@ -23,12 +29,12 @@ const mainElementStyles = cssMap({
 		// point is exactly where this element is rendered to with no wiggle room. Unfortunately the CSS
 		// spec for sticky doesn't support "stick to where I'm initially rendered" so we need to tell it.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		insetBlockStart: contentInsetBlockStart,
+		insetBlockStart: contentInsetBlockStartStatic,
 		overflow: 'auto',
 		// Height is set so it takes up all of the available viewport space minus top bar + banner.
 		// Set for all sizes of viewports to allow for in-app panels (panels that live inside Main).
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height: contentHeightWhenFixed,
+		height: contentHeightWhenFixedStatic,
 		'@media (min-width: 64rem)': {
 			isolation: 'auto',
 			position: 'sticky',

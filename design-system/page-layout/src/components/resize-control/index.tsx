@@ -36,7 +36,6 @@ import { getLeftSidebarPercentage } from '../../common/get-left-sidebar-percenta
 import { SidebarResizeContext } from '../../controllers/sidebar-resize-context';
 import type { LeftSidebarState } from '../../controllers/types';
 /* import useUpdateCssVar from '../../controllers/use-update-css-vars'; */
-
 import GrabArea from './grab-area';
 import ResizeButton from './resize-button';
 import Shadow from './shadow';

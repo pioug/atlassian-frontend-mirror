@@ -12,7 +12,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import IconRenderer from '../icon-renderer';
-
 import { ThemedPressable } from './themed-pressable';
 import type { CommonProps, IconButtonCommonProps, OverriddenPrimitiveProps } from './types';
 

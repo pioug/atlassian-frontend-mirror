@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type UnhandledErrorCardProps } from './types';
 import { UnhandledErrorCard as CompiledUnhanldedErrorCard } from './unhandledErrorCard-compiled';
 

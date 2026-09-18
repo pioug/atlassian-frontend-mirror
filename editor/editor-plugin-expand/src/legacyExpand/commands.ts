@@ -24,7 +24,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
-
 import { createCommand } from './pm-plugins/plugin-factory';
 
 export const setExpandRef = (ref?: HTMLDivElement | null): Command =>

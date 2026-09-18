@@ -5,7 +5,6 @@ import { isConfluenceGenerator } from '@atlaskit/link-extractors/is-confluence-g
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getIconForFileType } from '../../../utils/get-icon-for-file-type';
-
 import { type IconOpts } from './extractIcon';
 import { prioritiseIcon } from './prioritiseIcon';
 

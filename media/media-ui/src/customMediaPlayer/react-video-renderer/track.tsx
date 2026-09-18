@@ -1,4 +1,5 @@
 import React, { createRef, useEffect, memo, useCallback } from 'react';
+
 import {
 	getVideoTextTrackId,
 	type VideoTextTrack,

@@ -1,20 +1,22 @@
+import type { Manager, Socket as SocketIOSocket } from 'socket.io-client';
+
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { AnonymousAsset } from '@atlaskit/anonymous-assets';
-
-import type { Manager, Socket as SocketIOSocket } from 'socket.io-client';
-import type { InternalError } from './errors/internal-errors';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import type { BatchProps, GetUserType } from './participants/participants-helper';
-import type AnalyticsHelper from './analytics/analytics-helper';
 import type {
 	StepJson,
 	CollabSendableSelection,
 	Metadata,
 	UserPermitType,
 	PresenceActivity,
+	CollabRecoveryRequiredPayload,
 } from '@atlaskit/editor-common/collab';
-import type { CatchupEventReason } from './helpers/const';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+
+import type AnalyticsHelper from './analytics/analytics-helper';
+import type { InternalError } from './errors/internal-errors';
+import type { CatchupEventReason } from './helpers/const';
+import type { BatchProps, GetUserType } from './participants/participants-helper';
 
 export interface CollabEventDisconnectedData {
 	reason:
@@ -119,6 +121,8 @@ export interface Config {
 	 * multiple websocket connections, the presenceId is used to correlate the two.
 	 */
 	presenceId?: string;
+	/** The authenticated account ID used to attribute locally committed steps. */
+	userId?: string;
 	productInfo?: ProductInformation;
 
 	/**
@@ -310,6 +314,7 @@ export type ChannelEvent = {
 	presence: PresencePayload;
 	'presence:joined': PresencePayload;
 	reconnected: null;
+	'recovery:required': CollabRecoveryRequiredPayload;
 	restore: InitPayload;
 	status: NamespaceStatus;
 	'steps:added': StepsPayload;

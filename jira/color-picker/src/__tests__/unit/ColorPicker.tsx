@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { ColorPickerWithoutAnalytics as ColorPicker, type ColorPickerProps } from '../..';
-import Trigger from '../../components/Trigger';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
+
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { ColorPickerWithoutAnalytics as ColorPicker, type ColorPickerProps } from '../..';
+import Trigger from '../../components/Trigger';
 
 jest.mock('@atlaskit/platform-feature-flags/fg');
 const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;

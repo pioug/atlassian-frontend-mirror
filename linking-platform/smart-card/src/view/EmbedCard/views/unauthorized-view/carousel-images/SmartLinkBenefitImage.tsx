@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
+
 import React from 'react';
 
 import IconSlot from './IconSlot';

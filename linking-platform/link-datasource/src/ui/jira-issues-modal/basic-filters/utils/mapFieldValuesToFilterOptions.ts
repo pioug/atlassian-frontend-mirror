@@ -1,6 +1,5 @@
 import { type SelectOption } from '../../../common/modal/popup-select/types';
 import { type FieldValuesResponse } from '../types';
-
 import { isNonNullSelectOption } from './isNonNullSelectOption';
 import { mapNodeToOption } from './mapNodeToOption';
 

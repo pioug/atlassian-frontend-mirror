@@ -1,22 +1,24 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
+
+import Button from '@atlaskit/button/default/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	defaultCollectionName,
 	defaultMediaPickerCollectionName,
 	mediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button/default/button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+
+import { MainWrapper } from '../example-helpers/mainWrapper';
 import { PopupContainer } from '../example-helpers/PopupContainer';
 import { PopupHeader } from '../example-helpers/PopupHeader';
-import { MainWrapper } from '../example-helpers/mainWrapper';
 import type { AuthEnvironment } from '../example-helpers/types';
 import { UploadPreviews } from '../example-helpers/upload-previews';
 import { BrowserLoader as Browser } from '../src/components/browser';
 import { type UploadParams, type BrowserConfig } from '../src/types';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 export interface BrowserWrapperState {
 	collectionName: string;

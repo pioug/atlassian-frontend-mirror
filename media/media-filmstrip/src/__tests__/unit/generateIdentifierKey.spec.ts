@@ -1,4 +1,5 @@
 import { type FileIdentifier, type ExternalImageIdentifier } from '@atlaskit/media-client';
+
 import { generateIdentifierKey } from '../../utils/generateIdentifierKey';
 
 describe('generateIdentifierKey()', () => {

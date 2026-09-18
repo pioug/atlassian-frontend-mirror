@@ -3,14 +3,13 @@ import React, { type PropsWithChildren } from 'react';
 import { useIntl } from 'react-intl';
 
 import { Inline } from '@atlaskit/primitives/compiled';
-import AkSelect from '@atlaskit/select/default';
 import { components } from '@atlaskit/react-select/components';
+import AkSelect from '@atlaskit/select/default';
 import type { OptionProps, OptionType, SingleValueProps } from '@atlaskit/select/types';
 import { layers } from '@atlaskit/theme/constants';
 
 import { UrlIcon } from '../../../common/ui/icon';
 import { CreateField } from '../../../controllers/create-field/main';
-
 import { messages } from './messages';
 import { type SelectProps, type SitePickerOptionType } from './types';
 

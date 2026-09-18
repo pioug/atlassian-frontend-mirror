@@ -2,11 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React, { Component, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { Component, useState } from 'react';
-import { unhandledErrorCardWrapperStyles } from '../example-helpers/styles';
+
 import { MainWrapper } from '../example-helpers';
+import { unhandledErrorCardWrapperStyles } from '../example-helpers/styles';
 import MediaCardAnalyticsErrorBoundary from '../src/card/media-card-analytics-error-boundary';
 
 class MockComponentThrown extends Component {

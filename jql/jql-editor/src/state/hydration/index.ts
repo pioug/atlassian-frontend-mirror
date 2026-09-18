@@ -6,9 +6,8 @@ import { getJastFromState } from '../../plugins/jql-ast/getJastFromState';
 import { replaceRichInlineNodes } from '../../plugins/rich-inline-nodes/util/replace-nodes-transaction';
 import { actions } from '../index';
 import { type HydratedValuesMap, type Props, type State } from '../types';
-
-import { ValidQueryVisitor } from './ValidQueryVisitor';
 import { normaliseHydrationKey } from './normaliseHydrationKey';
+import { ValidQueryVisitor } from './ValidQueryVisitor';
 
 export const hydrateQuery =
 	(): Action<State, Props, Promise<void>> =>

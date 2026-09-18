@@ -11,7 +11,6 @@ import { Experience } from '../../common/ui/experience-tracker';
 import { withLinkCreateAnalyticsContext } from '../../common/utils/analytics/context';
 import { fetchMessagesForLocale } from '../../common/utils/locale/fetch-messages-for-locale';
 import i18nEN from '../../i18n/en';
-
 import LinkCreate from './main';
 
 const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(

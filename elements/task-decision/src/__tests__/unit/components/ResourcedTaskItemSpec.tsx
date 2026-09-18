@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import FabricAnalyticsListener from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
-import { renderWithIntl } from '../_testing-library';
+
 import ResourcedTaskItem from '../../../components/ResourcedTaskItem';
 import { type TaskDecisionProvider } from '../../../types';
 import { asMock } from '../_mock';
+import { renderWithIntl } from '../_testing-library';
 
 describe('<ResourcedTaskItem/>', () => {
 	let provider: TaskDecisionProvider;

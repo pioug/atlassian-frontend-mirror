@@ -1,5 +1,4 @@
 import { type SelectableAutocompleteOption } from '../types';
-
 import { getAutocompleteAnalyticsAttributes } from './getAutocompleteAnalyticsAttributes';
 import { getOptionFunctionName } from './getOptionFunctionName';
 import { groupAutocompleteOptionsByKey } from './groupAutocompleteOptionsByKey';

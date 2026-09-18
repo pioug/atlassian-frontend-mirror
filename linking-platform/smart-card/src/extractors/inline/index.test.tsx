@@ -4,7 +4,6 @@ import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enable
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { JIRA_GENERATOR_ID } from '../constants';
-
 import { extractInlineProps } from './index';
 
 jest.mock('@atlaskit/link-extractors/extract-smart-link-inline-icon', () => ({

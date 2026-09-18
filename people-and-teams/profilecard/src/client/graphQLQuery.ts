@@ -1,9 +1,8 @@
 import { HttpError } from '../util/HttpError';
-
-import type { HeaderProcessor } from './HeaderProcessor';
-import type { Query } from './Query';
 import { buildHeaders } from './buildHeaders';
+import type { HeaderProcessor } from './HeaderProcessor';
 import { id } from './id';
+import type { Query } from './Query';
 
 export async function graphQLQuery(
 	serviceUrl: string,

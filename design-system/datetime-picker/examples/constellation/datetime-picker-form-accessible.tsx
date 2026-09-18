@@ -2,8 +2,8 @@ import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 
 const DateTimePickerFormAccessibleExample = (): React.JSX.Element => (

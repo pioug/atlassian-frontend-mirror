@@ -6,7 +6,6 @@ import {
 	type Position,
 	type Property,
 } from '../types';
-
 import { assignParent } from './common';
 
 function acceptProperty<Result>(this: Property, visitor: JastVisitor<Result>) {

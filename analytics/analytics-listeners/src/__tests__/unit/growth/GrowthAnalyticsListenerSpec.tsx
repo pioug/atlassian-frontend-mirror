@@ -1,3 +1,8 @@
+import React from 'react';
+
+import { render, screen, fireEvent } from '@testing-library/react';
+import cases from 'jest-in-case';
+
 import {
 	type GasPurePayload,
 	OPERATIONAL_EVENT_TYPE,
@@ -6,12 +11,10 @@ import {
 	SCREEN_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { render, screen, fireEvent } from '@testing-library/react';
-import cases from 'jest-in-case';
-import React from 'react';
+
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
-import type Logger from '../../../helpers/logger';
 import GrowthAnalyticsListener from '../../../growth/GrowthAnalyticsListener';
+import type Logger from '../../../helpers/logger';
 import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 

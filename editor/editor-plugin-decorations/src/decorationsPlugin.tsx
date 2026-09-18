@@ -1,5 +1,3 @@
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-
 import type { DecorationsPlugin, HoverDecorationProps } from './decorationsPluginType';
 import { hoverDecorationCommand, removeDecorationCommand } from './pm-plugins/commands';
 import decorationPlugin, {
@@ -32,11 +30,8 @@ export const decorationsPlugin: DecorationsPlugin = () => ({
 	},
 
 	commands: {
-		hoverDecoration: editorExperiment('platform_editor_block_menu', true)
-			? ({ add, className }: HoverDecorationProps) => hoverDecorationCommand({ add, className })
-			: undefined,
-		removeDecoration: editorExperiment('platform_editor_block_menu', true)
-			? () => removeDecorationCommand()
-			: undefined,
+		hoverDecoration: ({ add, className }: HoverDecorationProps) =>
+			hoverDecorationCommand({ add, className }),
+		removeDecoration: () => removeDecorationCommand(),
 	},
 });

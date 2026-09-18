@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	doc,
 	p,
@@ -9,7 +11,6 @@ import {
 	layoutSection,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import ReactSerializer from '../../../../react';

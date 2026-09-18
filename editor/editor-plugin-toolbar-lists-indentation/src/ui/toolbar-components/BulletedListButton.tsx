@@ -10,7 +10,6 @@ import { ListBulletedIcon, ToolbarButton, ToolbarTooltip } from '@atlaskit/edito
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
-
 import { useBulletedListInfo } from './BulletedListMenuItem';
 
 type BulletedListType = {

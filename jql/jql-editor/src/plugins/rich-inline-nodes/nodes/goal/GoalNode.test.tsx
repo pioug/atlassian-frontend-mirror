@@ -6,7 +6,6 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { useHydratedGoal } from '../../../../state';
 import type { HydratedGoal } from '../../../../ui/jql-editor/types';
-
 import { GoalNode } from './goal-node';
 
 const useHydratedGoalMock = jest.fn<[HydratedGoal | undefined, any], []>();

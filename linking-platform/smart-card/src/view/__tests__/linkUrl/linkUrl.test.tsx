@@ -1,7 +1,6 @@
 import React, { type ComponentProps } from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
-
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import {
 	act,

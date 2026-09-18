@@ -1,8 +1,8 @@
 jest.mock('../../../mediaFeatureFlag-local', () => ({
 	getLocalMediaFeatureFlag: jest.fn().mockReturnValue(null),
 }));
-import { getGenericFeatureFlag } from '../../genericFeatureFlag';
 import { getLocalMediaFeatureFlag } from '../../../mediaFeatureFlag-local';
+import { getGenericFeatureFlag } from '../../genericFeatureFlag';
 
 const defaultFlags = {
 	'my-first-flag': true,

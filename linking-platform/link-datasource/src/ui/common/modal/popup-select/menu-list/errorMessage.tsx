@@ -7,7 +7,6 @@ import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { type ErrorShownBasicSearchDropdownAttributesType } from '../../../../../analytics/generated/analytics.types';
 import { SpotError } from '../../../../../common/ui/spot/error-state/error';
 import { SEARCH_DEBOUNCE_MS } from '../constants';
-
 import { asyncPopupSelectMessages } from './messages';
 import CustomSelectMessage from './selectMessage';
 

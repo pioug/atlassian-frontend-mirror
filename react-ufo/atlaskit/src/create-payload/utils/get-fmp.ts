@@ -1,6 +1,5 @@
 import type { InteractionMetrics } from '../../common';
 import { getConfig } from '../../config';
-
 import { findMatchingLegacyMetric } from './find-matching-legacy-metric';
 
 /**

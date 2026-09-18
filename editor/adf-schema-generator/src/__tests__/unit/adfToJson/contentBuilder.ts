@@ -1,3 +1,5 @@
+import { ADFNode } from '../../../adfNode';
+import type { ContentVisitorReturnType } from '../../../transforms/adfToJson/adfToJsonVisitor';
 import {
 	buildContent,
 	determineItems,
@@ -10,10 +12,8 @@ import {
 	flattenArray,
 	flattenContent,
 } from '../../../transforms/adfToJson/contentBuilder';
-import type { ADFNodeContentRangeSpec } from '../../../types/ADFNodeSpec';
-import { ADFNode } from '../../../adfNode';
 import type { ADFNodeGroup } from '../../../types/ADFNodeGroup';
-import type { ContentVisitorReturnType } from '../../../transforms/adfToJson/adfToJsonVisitor';
+import type { ADFNodeContentRangeSpec } from '../../../types/ADFNodeSpec';
 
 describe('buildContent', () => {
 	it('should return empty object if content is empty', () => {

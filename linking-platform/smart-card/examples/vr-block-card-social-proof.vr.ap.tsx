@@ -14,7 +14,6 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { Card } from '../src';
 import { default as useSocialProofExperiment } from '../src/state/hooks/use-social-proof-experiment/index';
 import { mocks } from '../src/utils/mocks';
-
 import ExampleContainer from './utils/example-container';
 import VRTestWrapper from './utils/vr-test-wrapper';
 

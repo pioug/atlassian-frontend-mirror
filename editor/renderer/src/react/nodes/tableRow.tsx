@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
-import { compose } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { compose } from '@atlaskit/editor-common/utils';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { RendererCssClassName } from '../../consts';
 

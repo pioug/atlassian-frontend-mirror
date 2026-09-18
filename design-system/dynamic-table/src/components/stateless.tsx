@@ -21,7 +21,6 @@ import {
 	type RowType,
 	type SortOrderType,
 } from '../types';
-
 import Body from './body';
 import { ErrorBoundary } from './error-boundary';
 import LoadingContainer from './loading-container';

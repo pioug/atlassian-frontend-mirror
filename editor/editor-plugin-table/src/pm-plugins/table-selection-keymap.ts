@@ -14,7 +14,6 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import type { PluginInjectionAPI } from '../types';
-
 import {
 	arrowLeftFromTable,
 	arrowRightFromTable,

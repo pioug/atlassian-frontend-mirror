@@ -44,7 +44,6 @@ import { currentMediaOrInlineNodeBorderMark } from '../../pm-plugins/utils/curre
 import { isImage } from '../../pm-plugins/utils/is-type';
 import type { MediaFloatingToolbarOptions } from '../../types';
 import ImageBorderItem from '../../ui/ImageBorder';
-
 import { altTextButton } from './alt-text';
 import {
 	changeInlineToMediaCard,
@@ -54,6 +53,7 @@ import {
 	toggleBorderMark,
 } from './commands';
 import { shouldShowImageBorder } from './imageBorder';
+import { handleShowMediaViewer } from './index';
 import { getOpenLinkToolbarButtonOption, shouldShowMediaLinkToolbar } from './linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import {
@@ -61,8 +61,6 @@ import {
 	getIsDownloadDisabledByDataSecurityPolicy,
 	getMediaSingleAndMediaInlineSwitcherDropdown,
 } from './utils';
-
-import { handleShowMediaViewer } from './index';
 
 export const generateMediaInlineFloatingToolbar = (
 	state: EditorState,

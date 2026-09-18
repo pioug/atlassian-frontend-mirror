@@ -2,15 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import { useEffect, useState } from 'react';
+
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
+
 import Button from '@atlaskit/button/default/button';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import type { OptionsPropType } from '@atlaskit/radio/types';
-/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
-import { jsx, css } from '@emotion/react';
-import { useEffect, useState } from 'react';
+import { token } from '@atlaskit/tokens';
+
 import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';
 import RendererDemo from './helper/RendererDemo';
-import { token } from '@atlaskit/tokens';
 
 const getHeaderIdsAsRadioOptions = () =>
 	Array.from(document.querySelectorAll('.heading-anchor-wrapper')).map(({ parentElement }) => {

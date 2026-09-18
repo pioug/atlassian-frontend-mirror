@@ -1,6 +1,5 @@
 import { type ClientConfig } from '../base-client';
 import { BaseGraphQlClient } from '../graphql-client/main';
-
 import { getTeamCentralGraphqlUrl } from './getTeamCentralGraphqlUrl';
 import { getUnshardedTeamCentralGraphqlUrl } from './getUnshardedTeamCentralGraphqlUrl';
 import {

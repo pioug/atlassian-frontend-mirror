@@ -5,7 +5,6 @@ import {
 	type JastVisitor,
 	type Position,
 } from '../types';
-
 import { noChildren } from './common';
 
 function acceptCompoundOperator<Result>(this: CompoundOperator, visitor: JastVisitor<Result>) {

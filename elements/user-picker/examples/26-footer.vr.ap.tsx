@@ -1,7 +1,10 @@
+import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
 import Button from '@atlaskit/button/default/button';
 import { Flex } from '@atlaskit/primitives/compiled';
-import React from 'react';
-import { IntlProvider } from 'react-intl';
+
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { UserPicker } from '../src/components/UserPicker';
 

@@ -4,20 +4,19 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/utils/constants';
+import { shouldUseUnitCompliantApi } from '../../units-rollout/shouldUseUnitCompliantApi';
 import { getOperationFailedAttributes } from './getOperationFailedAttributes';
 import {
 	AVAILABLE_SITES_PATH,
 	AVAILABLE_SITES_UNIT_COMPLIANT_PATH,
 	defaultProducts,
 } from './index';
+import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
 import {
 	type AvailableSite,
 	type AvailableSitesRequest,
 	type AvailableSitesResponse,
 } from './types';
-import { shouldUseUnitCompliantApi } from '../../units-rollout/shouldUseUnitCompliantApi';
-
-import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
 
 async function getAvailableSites({
 	products,

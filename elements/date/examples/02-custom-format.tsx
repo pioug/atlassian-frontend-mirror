@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Date } from '../src';
 
 export default (): React.JSX.Element => (

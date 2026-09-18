@@ -12,7 +12,6 @@ import {
 import { getConfig } from '../utils/get-deprecated-config';
 import { isDeprecatedImportConfig } from '../utils/is-deprecated-import-config';
 import type { DeprecatedImportConfig, DeprecatedJSXAttributeConfig } from '../utils/types';
-
 import { importNameWithCustomMessageId, pathWithCustomMessageId } from './constants';
 import { getDeprecationIconHandler } from './handlers/icon';
 

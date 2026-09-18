@@ -1,6 +1,8 @@
 import React from 'react';
+
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
 import Code from '../../../../react/marks/code';
 import InlineComment from '../../../../react/marks/confluence-inline-comment';
 

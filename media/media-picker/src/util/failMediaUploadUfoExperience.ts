@@ -1,7 +1,7 @@
 import { getMediaEnvironment, getMediaRegion } from '@atlaskit/media-client';
 
-import type { UFOFailedEventPayload } from './UFOFailedEventPayload';
 import { getMediaUploadUfoExperience } from './getMediaUploadUfoExperience';
+import type { UFOFailedEventPayload } from './UFOFailedEventPayload';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

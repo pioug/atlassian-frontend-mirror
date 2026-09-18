@@ -28,8 +28,8 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import type { MediaCardError } from '../MediaCardError';
 import { isUploadError } from '../isUploadError';
+import type { MediaCardError } from '../MediaCardError';
 import {
 	type CardStatus,
 	type CardPreview,

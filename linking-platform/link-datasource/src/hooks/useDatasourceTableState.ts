@@ -21,7 +21,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
 import { useDiscoverActions } from '../state/actions/useDiscoverActions';
-
 import useErrorLogger from './useErrorLogger';
 import { useIsInPDFRender } from './useIsInPDFRender';
 

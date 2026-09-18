@@ -10,9 +10,6 @@ import {
 	type JQLFieldResponse,
 	type JQLFunctionResponse,
 } from '../common/types';
-
-import { type Actions, type Store } from './types';
-
 import {
 	actions,
 	store,
@@ -21,6 +18,7 @@ import {
 	useJqlOrderableFieldsObservable,
 	useJqlSearchableFieldsObservable,
 } from './index';
+import { type Actions, type Store } from './types';
 
 const mockGetInitialData = jest.fn<Promise<AutocompleteInitialDataResponse>, [string]>();
 

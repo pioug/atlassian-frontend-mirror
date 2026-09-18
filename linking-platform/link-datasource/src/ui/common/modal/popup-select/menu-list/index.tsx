@@ -10,7 +10,6 @@ import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from '../types';
-
 import CustomErrorMessage from './errorMessage';
 import CustomDropdownLoadingMessage from './loadingMessage';
 import CustomNoOptionsMessage from './noOptionsMessage';

@@ -4,8 +4,8 @@
  */
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import IconTile from '@atlaskit/icon/icon-tile';
 import GlobeIcon from '@atlaskit/icon/core/globe';
+import IconTile from '@atlaskit/icon/icon-tile';
 import { type IconTileProps } from '@atlaskit/icon/types';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

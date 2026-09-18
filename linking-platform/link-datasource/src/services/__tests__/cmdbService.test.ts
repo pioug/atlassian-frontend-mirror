@@ -1,11 +1,11 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import { FetchError } from '../FetchError';
-import { PermissionError } from '../PermissionError';
 import { fetchObjectSchema } from '../fetchObjectSchema';
 import { fetchObjectSchemas } from '../fetchObjectSchemas';
 import { getStatusCodeGroup } from '../getStatusCodeGroup';
 import { getWorkspaceId } from '../getWorkspaceId';
+import { PermissionError } from '../PermissionError';
 import { resolvePrimaryWorkspace } from '../resolvePrimaryWorkspace';
 import { validateAql } from '../validateAql';
 

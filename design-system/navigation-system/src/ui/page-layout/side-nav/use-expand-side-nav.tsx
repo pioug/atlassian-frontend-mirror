@@ -1,7 +1,7 @@
 import { useCallback, useContext } from 'react';
+import { flushSync } from 'react-dom';
 
 import { bind } from 'bind-event-listener';
-import { flushSync } from 'react-dom';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

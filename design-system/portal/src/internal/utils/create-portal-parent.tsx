@@ -1,5 +1,4 @@
 import { portalParentClassName, portalParentSelector } from '../constants';
-
 import { getBody } from './get-body';
 
 const isDocumentDefined = () => {

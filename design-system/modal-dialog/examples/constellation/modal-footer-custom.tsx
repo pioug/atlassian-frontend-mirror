@@ -9,12 +9,12 @@ import { jsx } from '@compiled/react';
 import Avatar from '@atlaskit/avatar/avatar';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { useModal } from '@atlaskit/modal-dialog/hooks';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({

@@ -9,8 +9,8 @@ import useResolveHyperlink from '../../../state/hooks/use-resolve-hyperlink';
 import { default as useResolveHyperlinkValidator } from '../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkValidator';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { isAuxClick } from '../../../utils/is-aux-click';
-import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';
 import withIntlProvider from '../../common/intl-provider';
+import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';
 import Hyperlink from '../Hyperlink';
 import type { LinkUrlProps } from '../types';
 

@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { normaliseInput } from '@atlaskit/media-client/test-helpers/mocked-media-api/helpers'` instead.
  */
+
 export { normaliseInput } from './normaliseInput';
 /**
  * @deprecated Use `import { getMediaFile } from '@atlaskit/media-client/test-helpers/mocked-media-api/helpers'` instead.

@@ -1,12 +1,14 @@
-import type { MarkSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import merge from 'lodash/merge';
+
+import type { MarkSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { ADFMark } from '../../adfMark';
+import type { ADFAttributes } from '../../types/ADFAttribute';
 import type { ADFMarkSpec } from '../../types/ADFMarkSpec';
 import { MarkExcludesAll, MarkExcludesNone } from '../../types/ADFMarkSpec';
-import type { ADFAttributes } from '../../types/ADFAttribute';
-import type { ContentVisitorReturnType } from './types';
-import { buildContentExpression } from './buildContentExpression';
 import type { ADFNodeSpec } from '../../types/ADFNodeSpec';
+import { buildContentExpression } from './buildContentExpression';
+import type { ContentVisitorReturnType } from './types';
 
 // @DSLCompatibilityException
 const excludesLinkMarksNodes = ['doc', 'layoutColumn'];

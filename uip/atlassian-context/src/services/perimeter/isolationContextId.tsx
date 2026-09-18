@@ -1,5 +1,4 @@
 import { type AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-lookup';
-
 import { isIsolatedCloud } from './isIsolatedCloud';
 
 export function isolationContextId(): string | undefined {

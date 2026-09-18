@@ -3,15 +3,15 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
+import { IntlProvider } from 'react-intl';
 
 import { token } from '@atlaskit/tokens';
+
+import { generateAvatars } from '../example-helpers';
 import { type Avatar } from '../src';
 import { AvatarList } from '../src/avatar-list';
 import { PredefinedAvatarList } from '../src/predefined-avatar-list';
 import { PredefinedAvatarView } from '../src/predefined-avatar-view';
-
-import { generateAvatars } from '../example-helpers';
-import { IntlProvider } from 'react-intl';
 
 const avatars: Array<Avatar> = generateAvatars(5);
 

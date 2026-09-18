@@ -1,6 +1,5 @@
 import type { InteractionMetrics } from '../../common';
 import * as getPageVisibilityUpToTTAI from '../utils/get-page-visibility-up-to-ttai';
-
 import getTTAI from './get-ttai';
 
 // Mock the utility function

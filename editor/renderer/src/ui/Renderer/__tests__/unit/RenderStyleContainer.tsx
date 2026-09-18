@@ -1,12 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { RendererStyleContainer } from '../../RendererStyleContainer';
+import { render, screen } from '@testing-library/react';
+
 import { tableBackgroundColorNameByHex } from '@atlaskit/adf-schema/tableNodes';
 import { BaseTheme } from '@atlaskit/editor-common/ui';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { RendererStyleContainer } from '../../RendererStyleContainer';
 
 // Emotion retains styles from earlier renders, including other feature-gate variants.
 // Read only rules scoped to this container so those variants cannot affect assertions.

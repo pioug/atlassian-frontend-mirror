@@ -1,24 +1,25 @@
-import type { NoMark } from './types/mark';
-import type { ParagraphDefinition as Paragraph } from './paragraph';
-import type { HeadingDefinition as Heading } from './heading';
-import type { MediaSingleDefinition as MediaSingle } from './media-single';
-import type { MediaGroupDefinition as MediaGroup } from './media-group';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import type { NestedExpandNode } from '../../next-schema/generated/nodeTypes';
+import { nestedExpand as nestedExpandFactory } from '../../next-schema/generated/nodeTypes';
+import { uuid } from '../../utils/uuid';
+import type { NodeSpecOptions } from '../createPMSpecFactory';
+import type { BlockQuoteDefinition as BlockQuote } from './blockquote';
+import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type { CodeBlockDefinition as CodeBlock } from './code-block';
+import type { DecisionListDefinition as DecisionList } from './decision-list';
+import type { HeadingDefinition as Heading } from './heading';
+import type { MediaGroupDefinition as MediaGroup } from './media-group';
+import type { MediaSingleDefinition as MediaSingle } from './media-single';
+import type { PanelDefinition as Panel } from './panel';
+import type { ParagraphDefinition as Paragraph } from './paragraph';
+import type { RuleDefinition as Rule } from './rule';
+import type { TaskListDefinition as TaskList } from './task-list';
 import type {
 	BulletListDefinition as BulletList,
 	OrderedListDefinition as OrderedList,
 } from './types/list';
-import type { TaskListDefinition as TaskList } from './task-list';
-import type { DecisionListDefinition as DecisionList } from './decision-list';
-import type { RuleDefinition as Rule } from './rule';
-import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
-import type { PanelDefinition as Panel } from './panel';
-import type { BlockQuoteDefinition as BlockQuote } from './blockquote';
-import type { NestedExpandNode } from '../../next-schema/generated/nodeTypes';
-import { nestedExpand as nestedExpandFactory } from '../../next-schema/generated/nodeTypes';
-import type { NodeSpecOptions } from '../createPMSpecFactory';
-import { uuid } from '../../utils/uuid';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { NoMark } from './types/mark';
 
 /**
  * @name nestedExpand_content

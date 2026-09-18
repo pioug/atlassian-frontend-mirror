@@ -4,11 +4,11 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-customizable-page-layout.tsx",
-    "03-integration-example.tsx",
-    "10-resize-sidebar.tsx",
-    "15-stickied-element.tsx",
-    "20-controlled-left-sidebar.tsx"
-  ]
+	"testExamples": [
+		"00-customizable-page-layout.tsx",
+		"03-integration-example.tsx",
+		"10-resize-sidebar.tsx",
+		"15-stickied-element.tsx",
+		"20-controlled-left-sidebar.tsx",
+	],
 }

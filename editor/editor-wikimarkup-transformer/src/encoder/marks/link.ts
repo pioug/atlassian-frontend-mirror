@@ -1,4 +1,5 @@
 import type { LinkAttributes } from '@atlaskit/adf-schema/link';
+
 import type { MarkEncoder } from '..';
 
 export const link: MarkEncoder = (text: string, attrs: LinkAttributes): string => {

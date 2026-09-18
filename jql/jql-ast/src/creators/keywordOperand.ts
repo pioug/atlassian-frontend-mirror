@@ -6,7 +6,6 @@ import {
 	type KeywordOperandValue,
 	type Position,
 } from '../types';
-
 import { noChildren } from './common';
 
 function acceptKeywordOperand<Result>(this: KeywordOperand, visitor: JastVisitor<Result>) {

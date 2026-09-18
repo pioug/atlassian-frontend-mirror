@@ -1,6 +1,5 @@
 import type { VCAbortReason } from '../../../common/vc/types';
 import type { VCObserverEntry, VCObserverEntryType } from '../types';
-
 import AbstractVCCalculatorBase from './abstract-base-vc-calculator';
 import * as calculateTTVCPercentiles from './percentile-calc/canvas-heatmap';
 import * as getViewportHeight from './utils/get-viewport-height';

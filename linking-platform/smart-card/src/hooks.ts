@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { useSmartLinkActions } from '@atlaskit/smart-card/hook/use-smart-link-actions'` instead.
  */
+
 export { useSmartLinkActions } from './state/hooks-external/useSmartLinkActions';
 
 /** @deprecated Use @atlaskit/smart-card/hook/use-smart-link-reload */

@@ -14,6 +14,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { IconHeading, IconQuote } from '@atlaskit/editor-common/assets';
 import { keymap, tooltip } from '@atlaskit/editor-common/keymaps';
 import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
@@ -21,7 +22,6 @@ import type {
 	QuickInsertItem,
 	QuickInsertItemId,
 } from '@atlaskit/editor-common/provider-factory';
-import { IconHeading, IconQuote } from '@atlaskit/editor-common/assets';
 import type {
 	Command,
 	FloatingToolbarCustom,
@@ -183,11 +183,9 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		});
 	}
 
-	if (editorExperiment('platform_editor_block_menu', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents(
-			getBlockTypeComponents(api, { allowFontSize: options?.allowFontSize }),
-		);
-	}
+	api?.blockMenu?.actions.registerBlockMenuComponents(
+		getBlockTypeComponents(api, { allowFontSize: options?.allowFontSize }),
+	);
 
 	if (isRegisteredSlashCommandEnabled) {
 		api?.uiControlRegistry?.actions.register(

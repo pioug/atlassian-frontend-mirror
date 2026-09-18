@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type Actions, type State, type StorePropInput, type Store } from '../types';
 
 /**

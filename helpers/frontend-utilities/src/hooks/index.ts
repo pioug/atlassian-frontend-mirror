@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { usePrevious } from '@atlaskit/frontend-utilities/hooks/use-previous'` instead.
  */
+
 export { usePrevious } from './use-previous/usePrevious';
 /**
  * @deprecated Use `import { useLocalStorage } from '@atlaskit/frontend-utilities/useLocalStorage'` instead.

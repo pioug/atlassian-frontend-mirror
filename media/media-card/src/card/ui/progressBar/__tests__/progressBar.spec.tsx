@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
-import { ProgressBar } from '../progressBar';
+
 import { Breakpoint } from '../../common';
+import { ProgressBar } from '../progressBar';
 
 describe('Progress Bar', () => {
 	it('should capture and report a11y violations', async () => {

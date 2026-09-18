@@ -13,7 +13,6 @@ import type {
 	TypeAheadInputMethod,
 	TypeAheadPluginState,
 } from '../types';
-
 import { ACTIONS } from './actions';
 import { pluginKey } from './key';
 import { isTypeAheadHandler } from './utils';

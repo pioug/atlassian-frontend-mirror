@@ -3,17 +3,18 @@ jest.mock('@atlaskit/linking-common/api', () => ({
 	request: (...args: any) => mockRequest(...args),
 }));
 
-import { mocks } from './__fixtures__/mocks';
-import SmartCardClient, { urlResponsePromiseCache } from '..';
-import { isSuccessfulResponse } from '../types/isSuccessfulResponse';
-import type { ErrorResponseBody, SuccessResponse } from '../types/responses';
-import type { ErrorType } from '@atlaskit/linking-common/api/errors';
 import { APIError } from '@atlaskit/linking-common/api-error';
+import type { ErrorType } from '@atlaskit/linking-common/api/errors';
 import { InvalidUrlError } from '@atlaskit/linking-common/invalid-url-error';
 import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { flushPromises } from '@atlaskit/media-test-helpers/flushPromises';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
+import SmartCardClient, { urlResponsePromiseCache } from '..';
+import { isSuccessfulResponse } from '../types/isSuccessfulResponse';
+import type { ErrorResponseBody, SuccessResponse } from '../types/responses';
+import { mocks } from './__fixtures__/mocks';
 
 // Mock response quick-references:
 const errorResponse = {

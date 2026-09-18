@@ -1,7 +1,8 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML, textWithMarks } from '@af/adf-test-helpers/src/adf-schema';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+
 import { link } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 
 const href = 'http://atlassian.com';
 const href2 = 'http://atlassian.com/test';

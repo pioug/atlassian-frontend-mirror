@@ -1,4 +1,5 @@
 /* eslint-disable require-unicode-regexp */
+
 import type { SyncBlockProduct } from '../../common/types';
 
 const GET_LOCAL_ID_FROM_BLOCK_RESOURCE_ID_REGEX =

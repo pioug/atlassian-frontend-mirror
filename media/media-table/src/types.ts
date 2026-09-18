@@ -1,8 +1,8 @@
-import { type Identifier, type FileIdentifier, type MediaClient } from '@atlaskit/media-client';
-import { type HeadType } from '@atlaskit/dynamic-table/types';
-import { type SortOrderType } from '@atlaskit/dynamic-table/types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { type HeadType } from '@atlaskit/dynamic-table/types';
+import { type SortOrderType } from '@atlaskit/dynamic-table/types';
+import { type Identifier, type FileIdentifier, type MediaClient } from '@atlaskit/media-client';
 import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
 
 export type { SortOrderType };

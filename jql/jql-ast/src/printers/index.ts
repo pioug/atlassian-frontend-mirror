@@ -1,7 +1,6 @@
 import pick from 'lodash/pick';
 
 import { type Jast } from '../types';
-
 import { printAstToDoc, type PrintOptions as PrintAstToDocOptions } from './print-ast-to-doc';
 import {
 	printDocToString,

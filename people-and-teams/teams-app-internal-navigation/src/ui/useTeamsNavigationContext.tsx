@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 
 import { type NavigationContext } from '../common/utils/getNavigationProps';
-
 import { NavigationContextReact } from './NavigationContextReact';
 
 /**

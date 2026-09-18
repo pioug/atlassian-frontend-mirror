@@ -3,12 +3,11 @@ import React, { useMemo } from 'react';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import { isFullPage } from '../../utils/is-full-page';
-
 import { useElementWidth } from './hooks';
 import { Toolbar } from './Toolbar';
 import { toolbarSizeToWidth, widthToToolbarSize } from './toolbar-size';

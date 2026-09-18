@@ -1,5 +1,4 @@
 import { type SentryClient, type SentryInstallConfig } from '../types';
-
 import { getSentryConfig } from './get-sentry-config';
 import { sentryClientRef } from './sentry-client-ref';
 import { setSentryClient } from './set-sentry-client';

@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import JsonLdEditorExample from './00-json-ld-editor';
 import ShowcaseExample from './01-showcase';
 import FlexibleSmartLinksBuilderExample from './03-flexible-smart-links-builder';

@@ -5,6 +5,7 @@
 /**
  * @deprecated Use `import { SchemaStage } from '@atlaskit/editor-json-transformer'` instead.
  */
+
 export { SchemaStage } from './SchemaStage';
 /**
  * @deprecated Use `import { toJSON } from '@atlaskit/editor-json-transformer/jsonTransformer'` instead.

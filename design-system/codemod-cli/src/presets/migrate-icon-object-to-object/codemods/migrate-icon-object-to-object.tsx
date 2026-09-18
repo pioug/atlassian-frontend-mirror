@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
+
 import type { API, FileInfo, ImportDeclaration, ImportDefaultSpecifier } from 'jscodeshift';
 
 import { OLD_ICON_OBJECT_ENTRY_POINT } from '../utils/constants';

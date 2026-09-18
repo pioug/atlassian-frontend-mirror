@@ -1,7 +1,7 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { paragraph } from '../../../..';
 
+import { paragraph } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 import { normalizeNodeSpec } from '../../_utils';
 
 const packageName = process.env.npm_package_name as string;

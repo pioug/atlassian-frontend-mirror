@@ -1,11 +1,12 @@
+import { type FileIdentifier, type FileState } from '@atlaskit/media-client';
+import type { MediaParsedSettings } from '@atlaskit/media-client-react/media-parsed-settings';
 import { type MediaFeatureFlags, type NumericalCardDimensions } from '@atlaskit/media-common';
+
 import { type WithShowControlMethodProp } from '../../types';
 import type { WithPlaybackProps } from '../analytics/utils/playbackAttributes';
 import type { VideoTextTracks } from '../react-video-renderer/text';
 import { type TimeSaverConfig } from '../timeSaver';
 import { type CustomMediaPlayerType } from '../types';
-import { type FileIdentifier, type FileState } from '@atlaskit/media-client';
-import type { MediaParsedSettings } from '@atlaskit/media-client-react/media-parsed-settings';
 
 export interface MediaPlayerProps extends WithPlaybackProps, WithShowControlMethodProp {
 	readonly type: CustomMediaPlayerType;

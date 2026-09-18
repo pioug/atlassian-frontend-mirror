@@ -12,9 +12,9 @@ import { getExtension } from '@atlaskit/media-ui/getExtension';
 import { getLanguageType } from '@atlaskit/media-ui/getLanguageType';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { MediaViewerError } from '../../MediaViewerError';
 import { Outcome } from '../../domain/outcome';
 import { Spinner } from '../../loading';
+import { MediaViewerError } from '../../MediaViewerError';
 import { BaseViewer } from '../base-viewer';
 import { CodeRendererAdvanced } from './CodeRendererAdvanced/CodeRendererAdvanced';
 import { type Props as RendererProps } from './codeViewerRenderer';

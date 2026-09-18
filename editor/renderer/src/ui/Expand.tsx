@@ -2,10 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { bind } from 'bind-event-listener';
+import _uniqueId from 'lodash/uniqueId';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
+
 import { getDocument } from '@atlaskit/browser-apis';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
@@ -14,25 +20,22 @@ import {
 	expandMessages,
 	WidthProvider,
 } from '@atlaskit/editor-common/ui';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorLineHeight,
 	akEditorSwoopCubicBezier,
 	akLayoutGutterOffset,
 } from '@atlaskit/editor-shared-styles';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { ExpandBodyProvider, useExpandBody } from './utils/expand-body';
 
-import _uniqueId from 'lodash/uniqueId';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
-import { injectIntl } from 'react-intl';
 import type { AnalyticsEventPayload } from '../analytics/events';
 import { MODE, PLATFORM } from '../analytics/events';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import type { RendererAppearance, RendererContentMode } from './Renderer/types';
+import { ExpandBodyProvider, useExpandBody } from './utils/expand-body';
 
 type StyleProps = {
 	children?: React.ReactNode;

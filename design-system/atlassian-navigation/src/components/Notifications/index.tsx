@@ -7,7 +7,6 @@ import { token } from '@atlaskit/tokens';
 
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
-
 import { type NotificationsProps } from './types';
 
 const iconSpacingStyles = cssMap({

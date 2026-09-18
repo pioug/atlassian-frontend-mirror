@@ -4,10 +4,10 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-simple-status.vr.ap.tsx",
-    "01-status-picker.vr.ap.tsx",
-    "03-hex-status.vr.ap.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"00-simple-status.vr.ap.tsx",
+		"01-status-picker.vr.ap.tsx",
+		"03-hex-status.vr.ap.tsx",
+	],
+	"exampleDependencies": [],
 }

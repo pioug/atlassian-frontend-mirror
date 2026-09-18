@@ -25,7 +25,6 @@ import AltTextEdit from '../../pm-plugins/alt-text/ui/AltTextEdit';
 import { isImage } from '../../pm-plugins/utils/is-type';
 import { getMediaSingleOrInlineNodeFromSelection } from '../../pm-plugins/utils/media-common';
 import type { MediaToolbarBaseConfig } from '../../types';
-
 import { getNodeType } from './commands';
 
 const testId = 'alt-text-edit-button';

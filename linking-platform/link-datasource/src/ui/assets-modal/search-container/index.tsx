@@ -12,7 +12,6 @@ import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { ObjectSchema, SearchForm } from '../../../types/assets/types';
-
 import { AqlSearchInput } from './aql-search-input';
 import { AssetsObjectSchemaSelect } from './object-schema-select';
 import { FormRowContainer } from './styled';

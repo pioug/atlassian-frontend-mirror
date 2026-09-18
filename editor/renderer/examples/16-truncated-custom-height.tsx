@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import RendererDemo from './helper/RendererDemo';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
+
+import RendererDemo from './helper/RendererDemo';
 
 interface State {
 	fadeHeight: number;

@@ -48,7 +48,6 @@ import type {
 	RetryCreationPosEntry,
 	RetryCreationPosMap,
 } from '../types';
-
 import { handleBodiedSyncBlockCreation } from './utils/handle-bodied-sync-block-creation';
 import { handleBodiedSyncBlockRemoval } from './utils/handle-bodied-sync-block-removal';
 import type {

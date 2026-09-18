@@ -1,17 +1,17 @@
 import React, { useCallback, useState } from 'react';
 
-import PlaceholderContent from './placeholder-content';
-
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import PlaceholderContent from './placeholder-content';
 
 const styles = cssMap({
 	header: {

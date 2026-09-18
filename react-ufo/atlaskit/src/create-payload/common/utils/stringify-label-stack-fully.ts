@@ -1,5 +1,4 @@
 import type { LabelStack } from '../../../interaction-context';
-
 import { isSegmentLabel } from './is-segment-label';
 import { sanitizeLabelStackName } from './sanitize-label-stack-name';
 

@@ -20,8 +20,8 @@ import LoadingEmojiComponent, { type State as LoadingState } from '../common/Loa
 import { UfoErrorBoundary } from '../common/UfoErrorBoundary';
 import type { Props } from './EmojiPicker';
 import type { Props as ComponentProps } from './EmojiPickerComponent';
-import { LoadingItem } from './LoadingItem';
 import { emojiPickerLoader } from './emojiPickerLoader';
+import { LoadingItem } from './LoadingItem';
 
 const isRefreshEmojiPickerEnabled = (): boolean => {
 	return isTeamoji26RefreshEmojiPickerEnabled();

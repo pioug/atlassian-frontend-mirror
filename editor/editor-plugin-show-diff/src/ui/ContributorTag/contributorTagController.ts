@@ -15,7 +15,6 @@ import {
 import { colorSchemeRegistry } from '../../pm-plugins/decorations/colorSchemes/schemes';
 import type { ColorScheme } from '../../pm-plugins/decorations/colorSchemes/types';
 import type { ContributorTagModel, ShowDiffPlugin, TagContributor } from '../../showDiffPluginType';
-
 import {
 	buildContributorTagDom,
 	CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE,

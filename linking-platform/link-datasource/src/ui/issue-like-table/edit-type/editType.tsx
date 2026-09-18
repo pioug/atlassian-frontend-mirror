@@ -8,14 +8,12 @@ import {
 	type DatasourceTypeWithOnlyTypeValues,
 	type DatasourceTypeWithOnlyValues,
 } from '../types';
-
 import IconEditType from './icon';
+import { ACTIVE_INLINE_EDIT_ID } from './index';
 import StatusEditType from './status';
 import TextEditType from './text';
 import { toValueType } from './toValueType';
 import UserEditType from './user';
-
-import { ACTIVE_INLINE_EDIT_ID } from './index';
 
 export const editType = ({
 	defaultValue,

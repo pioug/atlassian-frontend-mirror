@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-selectors */
 /* eslint-disable @atlaskit/ui-styling-standard/no-container-queries */
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
+
 import React from 'react';
 import type { ReactNode } from 'react';
 

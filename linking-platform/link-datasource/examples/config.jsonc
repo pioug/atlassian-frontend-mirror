@@ -4,12 +4,12 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "issue-like-table-3p-unauth.vr.ap.tsx",
-    "issue-like-table-readonly.vr.ap.tsx",
-    "issue-like-table-j2ws.tsx",
-	"issue-like-table.vr.ap.tsx",
-    "jira-issues-config-modal-no-results.vr.ap.tsx",
-    "with-issues-modal.vr.ap.tsx"
-  ]
+	"testExamples": [
+		"issue-like-table-3p-unauth.vr.ap.tsx",
+		"issue-like-table-readonly.vr.ap.tsx",
+		"issue-like-table-j2ws.tsx",
+		"issue-like-table.vr.ap.tsx",
+		"jira-issues-config-modal-no-results.vr.ap.tsx",
+		"with-issues-modal.vr.ap.tsx",
+	],
 }

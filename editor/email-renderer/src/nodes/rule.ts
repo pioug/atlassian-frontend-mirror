@@ -1,4 +1,5 @@
 import { N30 } from '@atlaskit/adf-schema/colors';
+
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 

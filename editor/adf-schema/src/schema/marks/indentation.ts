@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { indentation as indentationFactory } from '../../next-schema/generated/markTypes';
 
 export interface IndentationMarkAttributes {

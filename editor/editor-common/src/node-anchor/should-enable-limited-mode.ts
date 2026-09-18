@@ -19,8 +19,7 @@ const LEGACY_CONTENT_EXTENSION_KEY = 'legacy-content';
  * 3. node count exceeds the node-count threshold
  *
  * Thresholds default to `getLimitedModeThresholds()` but can be passed in, which is how the
- * limited-mode plugin's latch policy supplies them from its own config. That default is where the
- * `platform_editor_limited_threshold_tweaks` cohort is resolved — see
+ * limited-mode plugin's latch policy supplies them from its own config. See
  * `limited-mode-document-thresholds.ts` for the values and the data behind them.
  *
  * Performance: doc size is checked first so an oversized document skips the traversal entirely.

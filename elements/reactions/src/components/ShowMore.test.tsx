@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
+
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { type ShowMoreProps, ShowMore, RENDER_SHOWMORE_TESTID } from './ShowMore';
 

@@ -9,7 +9,6 @@ import { TableColumnsDistributeIcon, ToolbarDropdownItem } from '@atlaskit/edito
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { isDistributedUniformly } from '../../pm-plugins/utils/layout-column-distribution';
-
 import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 
 type DistributeColumnsDropdownItemProps = {

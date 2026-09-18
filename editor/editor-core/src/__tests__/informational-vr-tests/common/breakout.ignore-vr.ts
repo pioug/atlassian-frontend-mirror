@@ -10,7 +10,6 @@ import {
 import { snapshotInformational } from '@af/visual-regression';
 
 import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
-
 import { EditorWithBeakout } from './breakout.fixtures';
 
 snapshotInformational(EditorWithBeakout, {

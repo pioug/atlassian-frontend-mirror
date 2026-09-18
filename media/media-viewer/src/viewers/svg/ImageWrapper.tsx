@@ -1,4 +1,5 @@
 import React, { type ReactNode, forwardRef } from 'react';
+
 import { ImageWrapper as CompiledImageWrapper } from './ImageWrapper-compiled';
 
 export type ImageWrapperProps = {

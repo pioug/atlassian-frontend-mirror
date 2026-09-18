@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import SubSup from '../../../../react/marks/subsup';
 
 describe('Renderer - React/Marks/Subsup', () => {

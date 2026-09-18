@@ -15,7 +15,6 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { fireEvent, render, waitFor } from '@atlassian/testing-library';
 
 import { ActionName, Card, TitleBlock } from '../../../index';
-
 import * as failUfoExperienceUtils from '../../../state/analytics/failUfoExperience';
 import * as startUfoExperienceUtils from '../../../state/analytics/startUfoExperience';
 import * as succeedUfoExperienceUtils from '../../../state/analytics/succeedUfoExperience';

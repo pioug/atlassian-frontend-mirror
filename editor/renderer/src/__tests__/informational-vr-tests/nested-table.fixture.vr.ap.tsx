@@ -1,12 +1,11 @@
 import React from 'react';
 
+import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 import {
 	adfNestedTableInsideTable,
 	adfNestedTableWithLotsOfRows,
 	adfNestedTableInsideTableWithNumberedColumn,
 } from './__fixtures__';
-
-import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
 export const NestedTableRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: adfNestedTableInsideTable,

@@ -4,6 +4,7 @@
 /**
  * @deprecated Use `import { logException } from '@atlaskit/teams-client/log-exception'` instead.
  */
+
 export { logException } from './logException';
 /**
  * @deprecated Use `import { logErrorMessage } from '@atlaskit/teams-client/log-error-message'` instead.

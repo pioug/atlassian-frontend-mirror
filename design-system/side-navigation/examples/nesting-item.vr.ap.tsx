@@ -8,9 +8,9 @@ import { cssMap, jsx } from '@compiled/react';
 
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { GoBackItem } from '@atlaskit/side-navigation/go-back-item';
 import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
 import { NestingItem } from '@atlaskit/side-navigation/nesting-item';

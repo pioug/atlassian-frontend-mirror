@@ -1,5 +1,42 @@
 # @atlaskit/editor-common
 
+## 123.1.1
+
+### Patch Changes
+
+- [`208977ffd8e5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/208977ffd8e5f) -
+  Clean up feature gate `platform_editor_fix_limited_mode_leaking`
+- Updated dependencies
+
+## 123.1.0
+
+### Minor Changes
+
+- [`9461b21b24472`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9461b21b24472) -
+  Add the recovery:required provider event with a reason payload so Confluence can reset an NCS
+  document on request. NCS sends the event to the document's current socket. Rollout is controlled
+  by NCS emitting the event.
+
+## 123.0.2
+
+### Patch Changes
+
+- [`38bbb9af238e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38bbb9af238e1) -
+  Clean up experiment `platform_editor_limited_threshold_tweaks`
+- [`8d37dc7e55d62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d37dc7e55d62) -
+  Clean up shipped experiment `platform_editor_block_menu`
+- [`8864ef7070f02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8864ef7070f02) -
+  Use the precise code-block copy accessible name behind platform_editor_a11y_codeblock_copy_name.
+- Updated dependencies
+
+## 123.0.1
+
+### Patch Changes
+
+- [`5c5d8787bebca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c5d8787bebca) -
+  clean up feature gate tinymce_display_unknown_macro_body_content
+- Updated dependencies
+
 ## 123.0.0
 
 ### Major Changes

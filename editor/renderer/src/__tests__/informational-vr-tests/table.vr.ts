@@ -1,5 +1,6 @@
-import { snapshotInformational } from '@af/visual-regression';
 import type { Page } from '@playwright/test';
+
+import { snapshotInformational } from '@af/visual-regression';
 
 import { BrokenTable, TableWithParagraph } from './table.fixture.vr.ap';
 

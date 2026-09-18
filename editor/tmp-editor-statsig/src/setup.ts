@@ -1,12 +1,12 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import { editorExperimentsConfig } from './experiments-config';
 import { testBooleanOverrides, testMultivariateOverrides } from './exp-test-overrides';
 import type {
 	EditorExperimentOverridesBoolean,
 	EditorExperimentOverridesMultivariate,
 } from './exp-test-overrides';
+import { editorExperimentsConfig } from './experiments-config';
 
 export type EditorExperimentOverrides = Partial<{
 	[ExperimentName in keyof typeof editorExperimentsConfig]: (typeof editorExperimentsConfig)[ExperimentName]['defaultValue'];
@@ -32,6 +32,7 @@ export let _product: 'bitbucket' | 'confluence' | 'jira' | 'test' | undefined;
  * });
  * ```
  */
+
 export function setupEditorExperiments(
 	product: 'bitbucket' | 'confluence' | 'jira' | 'test',
 	/**

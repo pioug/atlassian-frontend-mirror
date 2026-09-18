@@ -1,4 +1,5 @@
 import type { Mark, MarkSpec, Attrs } from '@atlaskit/editor-prosemirror/model';
+
 import { dataConsumer as dataConsumerFactory } from '../../next-schema/generated/markTypes';
 import { isDOMElement } from '../../utils/parseDOM';
 

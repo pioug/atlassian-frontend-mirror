@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
@@ -17,7 +18,6 @@ import {
 	SnippetBlock,
 	TitleBlock,
 } from '../../src';
-
 import { actionNames, metadataElements } from './flexible-ui';
 
 const flexStyles = css({

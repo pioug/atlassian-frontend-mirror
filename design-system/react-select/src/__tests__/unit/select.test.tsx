@@ -2,24 +2,6 @@
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
 /* eslint-disable testing-library/no-container,testing-library/no-node-access */
 // @ts-nocheck
-import React, { type KeyboardEvent } from 'react';
-
-import { type EventType, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import cases from 'jest-in-case';
-
-import { act } from '@atlassian/testing-library/testing-library/react';
-import { skipA11yAudit } from '@af/accessibility-testing';
-import __noop from '@atlaskit/ds-lib/noop';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
-import ModalHeader from '@atlaskit/modal-dialog/modal-header';
-import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
-import type { FilterOptionOption } from '../../filters';
-import Select, { type FormatOptionLabelMeta } from '../../select';
 
 import {
 	type GroupedOption,
@@ -33,6 +15,25 @@ import {
 	OPTIONS_GROUPED,
 	OPTIONS_NUMBER_VALUE,
 } from './constants.mock';
+
+import React, { type KeyboardEvent } from 'react';
+
+import { type EventType, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import cases from 'jest-in-case';
+
+import { skipA11yAudit } from '@af/accessibility-testing';
+import __noop from '@atlaskit/ds-lib/noop';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { act } from '@atlassian/testing-library/testing-library/react';
+
+import type { FilterOptionOption } from '../../filters';
+import Select, { type FormatOptionLabelMeta } from '../../select';
 
 const testId = 'react-select';
 

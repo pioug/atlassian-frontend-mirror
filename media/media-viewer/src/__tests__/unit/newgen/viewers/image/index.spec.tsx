@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
 import { awaitError, fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { MediaViewerError } from '../../../../../MediaViewerError';
 import * as buildImgErrorDiagnosticsModule from '../../../../../buildImgErrorDiagnostics';
 import { getErrorDetail } from '../../../../../getErrorDetail';
 import { getSecondaryErrorReason } from '../../../../../getSecondaryErrorReason';
+import { MediaViewerError } from '../../../../../MediaViewerError';
 import { ImageViewer, type ImageViewerProps } from '../../../../../viewers/image';
 
 const collectionName = 'some-collection';

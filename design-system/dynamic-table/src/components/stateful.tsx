@@ -5,7 +5,6 @@ import noop from '@atlaskit/ds-lib/noop';
 
 import { reorderRows } from '../internal/reorder-rows';
 import { type RankEnd, type RowType, type SortOrderType, type StatefulProps } from '../types';
-
 import DynamicTableStateless from './stateless';
 
 interface State {

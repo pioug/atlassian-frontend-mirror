@@ -1,6 +1,6 @@
-import { type ProductKeys } from '../../types';
 import * as genericFeatureFlagModule from '../../genericFeatureFlag';
 import * as productKeys from '../../productKeys';
+import { type ProductKeys } from '../../types';
 jest.mock('../../../mediaFeatureFlag-local', () => ({
 	getLocalMediaFeatureFlag: jest.fn().mockReturnValue(null),
 }));

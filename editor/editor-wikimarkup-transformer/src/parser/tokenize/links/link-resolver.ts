@@ -1,11 +1,12 @@
-import type { ContentLink } from './link-parser';
-import type { Token } from '../index';
-import type { Context } from '../../../interfaces';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { mentionLinkResolver } from './mention-link';
+
+import type { Context } from '../../../interfaces';
+import type { Token } from '../index';
 import { attachmentLinkResolver } from './attachment-link';
-import { urlLinkResolver } from './url-link';
 import { issueLinkResolver } from './issue-link';
+import type { ContentLink } from './link-parser';
+import { mentionLinkResolver } from './mention-link';
+import { urlLinkResolver } from './url-link';
 
 /**
  * Given some parsed link text, convert it into a link object that can then be rendered into

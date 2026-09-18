@@ -17,7 +17,6 @@ import type {
 	DatasourceNode,
 	ToolbarResolvedAttributes,
 } from '../types';
-
 import { pluginKey } from './plugin-key';
 
 export const appearanceForNodeType = (spec: NodeType): CardAppearance | undefined => {

@@ -4,6 +4,7 @@ import type {
 	InvokePayload,
 	ServerActionOpts,
 } from '@atlaskit/linking-common/types';
+
 import { type BatchResponse } from './responses';
 
 export interface CardClient {

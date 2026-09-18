@@ -15,7 +15,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomProviderOptions, PositionType, VideoMeta } from '../types';
 import { getQuickInsertItem } from '../ui/quickInsert';
-
 import { LoomPluginAction, loomPluginKey } from './main';
 
 export const enableLoom =

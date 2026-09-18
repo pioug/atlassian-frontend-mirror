@@ -1,4 +1,5 @@
 import type { Change } from 'prosemirror-changeset';
+import type { IntlShape } from 'react-intl';
 
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -12,7 +13,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
-
 import {
 	buildAddedCellOverlayRoundedStyle,
 	buildAddedCellOverlayStyle,
@@ -45,6 +45,7 @@ import {
 	getTableTopAndBottomCellEdgeAttrs,
 	type CellEdgeAttrs,
 } from './utils/tableCellEdgeAttrs';
+import { createRemovedLozenge } from './utils/wrapBlockNodeView';
 
 interface RowInfo {
 	cellEdgeAttrs?: Array<CellEdgeAttrs | undefined>;
@@ -235,28 +236,43 @@ const isEmptyRow = (rowNode: PMNode): boolean => {
 	return isEmpty;
 };
 
+type CreateChangedRowDOMProps = {
+	cellEdgeAttrs: Array<CellEdgeAttrs | undefined> | undefined;
+	colorScheme?: ColorScheme;
+	diffType?: DiffType;
+	hasAnchoredRemovedLozenge?: boolean;
+	intl?: IntlShape;
+	isActive?: boolean;
+	isInserted?: boolean;
+	nodeViewSerializer: NodeViewSerializer;
+	rowNode: PMNode;
+};
+
 /**
  * Creates a DOM representation of a deleted table row
  */
-const createChangedRowDOM = (
-	rowNode: PMNode,
-	cellEdgeAttrs: Array<CellEdgeAttrs | undefined> | undefined,
-	nodeViewSerializer: NodeViewSerializer,
-	colorScheme?: ColorScheme,
-	isInserted?: boolean,
-	diffType?: DiffType,
-): HTMLTableRowElement => {
+const createChangedRowDOM = ({
+	rowNode,
+	cellEdgeAttrs,
+	nodeViewSerializer,
+	colorScheme,
+	isInserted,
+	diffType,
+	hasAnchoredRemovedLozenge,
+	intl,
+	isActive,
+}: CreateChangedRowDOMProps): HTMLTableRowElement => {
 	const tr = document.createElement('tr');
 	const colors = colorSchemeRegistry[colorScheme ?? 'standard'];
+	const deletedTreatment = isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
+		? buildDeletedRowStyle(colors)
+		: resolveDeletedRowStyleLegacy(getLegacyColorScheme(colorScheme));
+	const hostsRemovedLozenge =
+		Boolean(intl) && isExtendedEnabled(diffType) && !isInserted && !hasAnchoredRemovedLozenge;
 
 	// Inserted rows keep their natural styling; the row strikethrough is deletions only.
 	if (!isExtendedEnabled(diffType) || !isInserted) {
-		tr.setAttribute(
-			'style',
-			isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-				? buildDeletedRowStyle(colors)
-				: resolveDeletedRowStyleLegacy(getLegacyColorScheme(colorScheme)),
-		);
+		tr.setAttribute('style', deletedTreatment);
 	}
 	// Mirrors the strikethrough condition above: under the extended experience an `isInserted` row
 	// is ADDED content, so it must not claim the "deleted" testid — page models match that as
@@ -318,7 +334,51 @@ const createChangedRowDOM = (
 		}
 	});
 
+	// A "Removed" label on the row's last cell, so it reads at the row's top right corner. Deletions
+	// only: an inserted row is added content and carries no removal label.
+	if (intl && hostsRemovedLozenge) {
+		const lastCell = tr.lastElementChild;
+		if (lastCell instanceof HTMLElement) {
+			lastCell.style.position = 'relative';
+			// Append, never prepend. Editor CSS resets the top margin of a cell's first child, so a
+			// prepended label pushes the paragraph out of that reset and the row grows taller.
+			lastCell.append(createRemovedLozenge(intl, isActive, colorScheme, true));
+		}
+	}
+
 	return tr;
+};
+
+const supportsAnchorPositioning = (): boolean =>
+	typeof CSS !== 'undefined' &&
+	typeof CSS.supports === 'function' &&
+	CSS.supports('top', 'anchor(--a top)');
+
+const createAnchoredRemovedLozengeWidget = ({
+	anchorName,
+	colorScheme,
+	from,
+	intl,
+	isActive,
+}: {
+	anchorName: string;
+	colorScheme?: ColorScheme;
+	from: number;
+	intl: IntlShape;
+	isActive?: boolean;
+}): Decoration => {
+	const lozenge = createRemovedLozenge(intl, isActive, colorScheme, true);
+	const inset = lozenge.style.top;
+	lozenge.style.setProperty('position', 'fixed');
+	lozenge.style.setProperty('top', `calc(anchor(--${anchorName} top) + ${inset})`);
+	lozenge.style.setProperty('left', `calc(anchor(--${anchorName} right) - ${inset})`);
+	lozenge.style.setProperty('right', 'auto');
+	lozenge.style.setProperty('transform', 'translateX(-100%)');
+
+	return Decoration.widget(from, lozenge, {
+		key: `removed-lozenge-${anchorName}`,
+		side: -1,
+	});
 };
 
 /**
@@ -366,6 +426,7 @@ export const createChangedRowDecorationWidgets = ({
 	isActive,
 	isInserted = false,
 	diffType,
+	intl,
 	showIndicators = false,
 	showContributorTags = false,
 	tagMountContext,
@@ -374,6 +435,7 @@ export const createChangedRowDecorationWidgets = ({
 	changes: SimpleChange[];
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
+	intl?: IntlShape;
 	isActive?: boolean;
 	isInserted?: boolean;
 	newDoc: PMNode;
@@ -392,14 +454,23 @@ export const createChangedRowDecorationWidgets = ({
 	});
 
 	return changedRows.flatMap((changedRow) => {
-		const rowDOM = createChangedRowDOM(
-			changedRow.rowNode,
-			changedRow.cellEdgeAttrs,
+		// Keep the ID stable while contributor tags are enabled so recalculation preserves their state.
+		const diffId = showContributorTags
+			? `widget-row-${changedRow.fromA}-${changedRow.toA}`
+			: crypto.randomUUID();
+		const hasAnchoredRemovedLozenge =
+			Boolean(intl) && isExtendedEnabled(diffType) && !isInserted && supportsAnchorPositioning();
+		const rowDOM = createChangedRowDOM({
+			rowNode: changedRow.rowNode,
+			cellEdgeAttrs: changedRow.cellEdgeAttrs,
 			nodeViewSerializer,
 			colorScheme,
 			isInserted,
 			diffType,
-		);
+			hasAnchoredRemovedLozenge,
+			intl,
+			isActive,
+		});
 
 		// Find safe insertion position for the deleted row
 		const safeInsertPos = findSafeInsertPos(
@@ -408,11 +479,6 @@ export const createChangedRowDecorationWidgets = ({
 			originalDoc.slice(changedRow.fromA, changedRow.toA),
 		);
 
-		// Stable while contributor tags are enabled so a decoration recalculation preserves the tag's
-		// identity and controller state.
-		const diffId = showContributorTags
-			? `widget-row-${changedRow.fromA}-${changedRow.toA}`
-			: crypto.randomUUID();
 		const decorations: Decoration[] = [];
 		const rowAnchorNames: string[] = [];
 
@@ -440,6 +506,10 @@ export const createChangedRowDecorationWidgets = ({
 			showContributorTags && isContributorTagWidgetEnabled()
 				? buildAnchorDecorationKey({ diffId, anchorType: AnchorTypeKey.tag })
 				: undefined;
+		const removedLozengeAnchorName = hasAnchoredRemovedLozenge
+			? (tagAnchorName ?? buildAnchorDecorationKey({ diffId, anchorType: AnchorTypeKey.tag }))
+			: undefined;
+		const rowLabelAnchorName = tagAnchorName ?? removedLozengeAnchorName;
 		const tagWidget = tagAnchorName
 			? createContributorTagWidget({
 					anchorAtRangeStart: true,
@@ -452,11 +522,9 @@ export const createChangedRowDecorationWidgets = ({
 				})
 			: undefined;
 
-		if (tagAnchorName) {
-			// The tag host is a separate, table-safe widget. CSS anchor positioning aligns it to this
-			// synthetic row without placing non-cell DOM inside the `<tr>` or inheriting its deletion
-			// opacity and strikethrough.
-			rowAnchorNames.push(tagAnchorName);
+		if (rowLabelAnchorName) {
+			// Labels stay outside the table row so they do not inherit its deletion treatment.
+			rowAnchorNames.push(rowLabelAnchorName);
 		}
 		if (rowAnchorNames.length > 0) {
 			rowDOM.style.setProperty(
@@ -482,6 +550,17 @@ export const createChangedRowDecorationWidgets = ({
 		});
 
 		decorations.push(rowWidget);
+		if (intl && removedLozengeAnchorName) {
+			decorations.push(
+				createAnchoredRemovedLozengeWidget({
+					anchorName: removedLozengeAnchorName,
+					colorScheme,
+					from: safeInsertPos,
+					intl,
+					isActive,
+				}),
+			);
+		}
 		if (tagWidget) {
 			decorations.push(tagWidget);
 		}

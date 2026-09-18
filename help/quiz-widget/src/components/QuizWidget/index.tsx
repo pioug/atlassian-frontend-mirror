@@ -5,8 +5,12 @@ import CheckIcon from '@atlaskit/icon/core/check-mark';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';
 import CrossIcon from '@atlaskit/icon/core/cross';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Flex, xcss } from '@atlaskit/primitives';
 import Radio from '@atlaskit/radio/radio';
 import Spinner from '@atlaskit/spinner/spinner';
+import { token } from '@atlaskit/tokens';
+
 import {
 	Answer,
 	Footer,
@@ -20,9 +24,6 @@ import {
 	NavAction,
 } from './styled';
 import { type QuizElement, type QuizInterface } from './types';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Flex, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 const boxWrapperStyles = xcss({
 	width: '32px',

@@ -1,9 +1,7 @@
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
-
 import fetchMock from 'fetch-mock/cjs/client';
 
 import TokenManager from '../../../../api/media/TokenManager';
-
 import { defaultMediaApiToken, expiresAt, siteServiceConfig, siteUrl } from '../../_test-data';
 
 const tokenReadUrl = `${siteUrl}/token/read`;

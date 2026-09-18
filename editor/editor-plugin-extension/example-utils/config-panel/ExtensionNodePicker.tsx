@@ -1,8 +1,11 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
 import type { ReactNode } from 'react';
 import React, { useState } from 'react';
 
 import Loadable from 'react-loadable';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import type {
 	ExtensionManifest,
@@ -19,8 +22,6 @@ import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
-// oxlint-disable-next-line @atlassian/no-restricted-imports
-import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { useStateFromPromise } from '../../src/ui/ConfigPanel/use-state-from-promise';
 

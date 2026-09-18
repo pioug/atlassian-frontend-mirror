@@ -1,27 +1,30 @@
 /* eslint-disable @atlaskit/design-system/no-deprecated-imports, @atlassian/testing-library/prefer-atlassian-testing-library, testing-library/no-container -- Preserve existing mention test coverage while focus-ring usage is reviewed separately. */
 
+import React from 'react';
+
+import { fireEvent, screen, render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { renderToString } from 'react-dom/server';
+import { IntlProvider } from 'react-intl';
+
 import AnalyticsListenerNext from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // Commented due to HOT-111922
 // import { type ConcurrentExperience } from '@atlaskit/ufo';
 import FocusRing from '@atlaskit/focus-ring/focus-ring';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
+
 import { ELEMENTS_CHANNEL } from '../../../_constants';
-import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
-import { MentionInternal } from '../../../components/Mention/MentionInternal';
-import ResourcedMention from '../../../components/Mention/ResourcedMention';
-import { mentionStyle } from '../../../components/Mention/mention-style';
-import { IntlProvider } from 'react-intl';
 import { type MentionNameResolver } from '../../../api/MentionNameResolver';
 import { MentionResource, type MentionProvider } from '../../../api/MentionResource';
+import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
+import { mentionStyle } from '../../../components/Mention/mention-style';
+import { MentionInternal } from '../../../components/Mention/MentionInternal';
+import ResourcedMention from '../../../components/Mention/ResourcedMention';
 import { MentionType, MentionNameStatus } from '../../../types';
 import {
 	mockMentionData as mentionData,
 	mockMentionProvider as mentionProvider,
 } from '../_test-helpers';
-import { fireEvent, screen, render, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 

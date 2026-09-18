@@ -1,8 +1,7 @@
 import type { AssetsConfig, AssetsData } from '../common';
 import type { ResourceEntry } from '../resource-timing/common/types';
-
-import { CHRSummary } from './CHRSummary';
 import { checkIfTimingsAvailable } from './checkIfTimingsAvailable';
+import { CHRSummary } from './CHRSummary';
 import { getTypeOfRequest } from './getTypeOfRequest';
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports

@@ -1,44 +1,43 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 import type { NodeSerializer } from './interfaces';
-
-import blockquote from './nodes/blockquote';
 import blockCard from './nodes/block-card';
+import blockquote from './nodes/blockquote';
+import bodiedExtension from './nodes/bodiedExtension';
+import bodiedSyncBlock from './nodes/bodiedSyncBlock';
 import bulletList from './nodes/bullet-list';
+import caption from './nodes/caption';
 import codeBlock from './nodes/code-block';
+import date from './nodes/date';
 import decisionItem from './nodes/decision-item';
 import decisionList from './nodes/decision-list';
 import emoji from './nodes/emoji';
+import expand from './nodes/expand';
 import hardBreak from './nodes/hard-break';
 import heading from './nodes/heading';
 import inlineCard from './nodes/inline-card';
+import inlineExtension from './nodes/inlineExtension';
+import layoutColumn from './nodes/layoutColumn';
+import layoutSection from './nodes/layoutSection';
 import listItem from './nodes/list-item';
-import mention from './nodes/mention';
 import media from './nodes/media';
 import mediaGroup from './nodes/media-group';
 import mediaInline from './nodes/media-inline';
 import mediaSingle from './nodes/media-single';
+import mention from './nodes/mention';
 import orderedList from './nodes/ordered-list';
 import panel from './nodes/panel';
 import paragraph from './nodes/paragraph';
 import rule from './nodes/rule';
+import status from './nodes/status';
 import table from './nodes/table';
 import tableCell from './nodes/table-cell';
 import tableHeader from './nodes/table-header';
 import tableRow from './nodes/table-row';
-import taskList from './nodes/task-list';
 import taskItem from './nodes/task-item';
+import taskList from './nodes/task-list';
 import text from './nodes/text';
 import unknownBlock from './nodes/unknown-block';
-import status from './nodes/status';
-import layoutColumn from './nodes/layoutColumn';
-import layoutSection from './nodes/layoutSection';
-import bodiedExtension from './nodes/bodiedExtension';
-import inlineExtension from './nodes/inlineExtension';
-import date from './nodes/date';
-import expand from './nodes/expand';
-import caption from './nodes/caption';
-import bodiedSyncBlock from './nodes/bodiedSyncBlock';
 
 const renderNothing = (): string => '';
 

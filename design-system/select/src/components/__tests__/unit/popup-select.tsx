@@ -1,12 +1,12 @@
 /* eslint-disable testing-library/no-node-access,testing-library/no-container */
+
 import React from 'react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { fireEvent, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
-
-import { type OptionsType } from '../../../types';
 import { PopupSelect } from '../../../popup-select/popup-select';
+import { type OptionsType } from '../../../types';
 
 const user = userEvent.setup();
 

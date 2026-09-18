@@ -1,5 +1,4 @@
 import type { VCObserverEntry, ViewportEntryData } from '../../types';
-
 import { detectLayoutShiftCause } from './detect-layout-shift-cause';
 
 /**

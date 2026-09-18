@@ -1,8 +1,8 @@
 import type { CardAction } from '@atlaskit/media-card/actions';
 import type { CardOnClickCallback, CardEvent } from '@atlaskit/media-card/types';
 import { type Identifier } from '@atlaskit/media-client';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
 
 export interface FilmstripItem {

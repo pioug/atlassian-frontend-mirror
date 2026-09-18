@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { forwardRef, type HTMLProps } from 'react';
 
 import { css, jsx } from '@compiled/react';
@@ -10,7 +11,6 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import type { SortOrderType } from '../types';
-
 import { getTruncationStyleVars, type TruncateStyleProps } from './constants';
 
 const CSS_VAR_TEXT_COLOR = '--local-dynamic-table-text-color';

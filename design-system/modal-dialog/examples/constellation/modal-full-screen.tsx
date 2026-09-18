@@ -7,11 +7,11 @@ import { Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
+import { FullScreenModalDialog } from '@atlaskit/modal-dialog/full-screen';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { FullScreenModalDialog } from '@atlaskit/modal-dialog/full-screen';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

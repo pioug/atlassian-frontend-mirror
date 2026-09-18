@@ -1,5 +1,4 @@
 import type { CustomAutoformatAction, Reducer } from '../types';
-
 import { finish, matched, resolved, setProvider } from './actions';
 
 const reduce: Reducer<CustomAutoformatAction> = (state, action) => {

@@ -4,12 +4,10 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "controlled-expanded-state.vr.ap.tsx",
-    "vr-loading-nested.vr.ap.tsx",
-    "vr-loading.vr.ap.tsx"
-  ],
-  "exampleDependencies": [
-    "@atlaskit/visually-hidden"
-  ]
+	"testExamples": [
+		"controlled-expanded-state.vr.ap.tsx",
+		"vr-loading-nested.vr.ap.tsx",
+		"vr-loading.vr.ap.tsx",
+	],
+	"exampleDependencies": ["@atlaskit/visually-hidden"],
 }

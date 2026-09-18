@@ -35,7 +35,6 @@ import {
 import useContainerWidth from '../hooks/use-container-width';
 import useSelectAndFocusOnArrowNavigation from '../hooks/use-select-and-focus-on-arrow-navigation';
 import type { Category, Modes, SelectedItemProps } from '../types';
-
 import CategoryList from './CategoryList';
 import ElementList from './ElementList/ElementList';
 import ElementSearch from './ElementSearch';

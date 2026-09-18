@@ -1,8 +1,8 @@
+import { verifyDarkColor, verifyLightColor } from './brand-refresh-assertion-helper.mock';
+
 import { THEME_DATA_ATTRIBUTE } from '../../constants';
 import { type ThemeIdsWithOverrides } from '../../theme-config';
 import { loadAndAppendThemeCss } from '../../utils/theme-loading';
-
-import { verifyDarkColor, verifyLightColor } from './brand-refresh-assertion-helper.mock';
 
 describe('loadAndAppendThemeCss', () => {
 	beforeEach(() => {

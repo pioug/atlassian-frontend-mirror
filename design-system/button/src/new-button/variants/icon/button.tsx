@@ -8,7 +8,6 @@ import ButtonBase from '../shared/button-base';
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
 import { type CommonButtonVariantProps } from '../types';
-
 import { type CommonIconButtonProps } from './types';
 export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
 

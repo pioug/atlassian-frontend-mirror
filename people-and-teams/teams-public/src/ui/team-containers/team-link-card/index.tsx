@@ -14,7 +14,6 @@ import { Separator } from '../../../common/ui/separator';
 import { TeamLinkCardActions } from '../../../common/ui/team-link-card-actions';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 import { getDomainFromLinkUri } from '../../../common/utils/get-domain-from-link-uri';
-
 import { TeamLinkCardTitle } from './team-link-card-title';
 
 const styles = cssMap({

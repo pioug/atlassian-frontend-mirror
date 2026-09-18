@@ -16,7 +16,6 @@ import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-
 import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 import {

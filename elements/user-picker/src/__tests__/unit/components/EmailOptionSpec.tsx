@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
 import { EmailOption } from '../../../components/EmailOption/main';
 import { type Email, EmailType } from '../../../types';
 

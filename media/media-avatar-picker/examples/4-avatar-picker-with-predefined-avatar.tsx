@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
+
 import React from 'react';
-import { type Avatar, AvatarPickerDialog } from '../src';
+
 import { generateAvatars } from '../example-helpers';
+import { type Avatar, AvatarPickerDialog } from '../src';
 
 const avatars: Array<Avatar> = generateAvatars(30);
 

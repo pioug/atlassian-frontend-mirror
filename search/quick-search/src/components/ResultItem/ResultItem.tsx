@@ -1,11 +1,12 @@
 import React from 'react';
+
 import LinkItem from '@atlaskit/menu/link-item';
 
 import { ResultItemAfter } from './result-item-after';
 import { ResultItemAfterWrapper } from './result-item-after-wrapper';
-import { ResultItemCaption, ResultItemSubText } from './styled';
 import { ResultItemIcon } from './result-item-icon';
 import { ResultItemTextAfter } from './result-item-text-after';
+import { ResultItemCaption, ResultItemSubText } from './styled';
 
 type Props = {
 	/** Text to appear to the right of the text. It has a lower font-weight. */

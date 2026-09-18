@@ -10,7 +10,6 @@ import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
 import type { AlignmentState } from '../pm-plugins/types';
 import { ToolbarType } from '../pm-plugins/types';
-
 import ToolbarAlignment from './ToolbarAlignment';
 
 interface FloatingToolbarComponentProps {

@@ -3,12 +3,15 @@ jest.mock('../../../../../utils/isIE', () => ({
 }));
 
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+
 import { render, screen, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
 import { type ProcessedFileState } from '@atlaskit/media-client';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { AudioViewer } from '../../../../../viewers/audio';
 import type { Auth } from '@atlaskit/media-core/auth';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+
+import { AudioViewer } from '../../../../../viewers/audio';
 
 const token = 'some-token';
 const clientId = 'some-client-id';

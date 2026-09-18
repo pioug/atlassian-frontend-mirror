@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
+
 import { NameCell } from '../component/nameCell';
 
 jest.mock('@atlaskit/tooltip/Tooltip', () => ({

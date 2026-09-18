@@ -20,7 +20,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { messages } from '../../../../messages';
 import { Icon } from '../../../common/Icon';
 import { MAX_MODAL_SIZE } from '../../constants';
-
 import LinkInfoButton from './link-info-button';
 import { type LinkInfoProps } from './types';
 

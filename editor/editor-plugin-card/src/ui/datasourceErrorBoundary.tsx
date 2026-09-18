@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/no-class-components */
+
 import React from 'react';
 
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';

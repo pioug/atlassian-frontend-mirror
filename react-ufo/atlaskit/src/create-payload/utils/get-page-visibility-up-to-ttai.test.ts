@@ -1,6 +1,5 @@
 import type { InteractionMetrics } from '../../common';
 import { getPageVisibilityState } from '../../hidden-timing';
-
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
 
 // Mock the external dependency

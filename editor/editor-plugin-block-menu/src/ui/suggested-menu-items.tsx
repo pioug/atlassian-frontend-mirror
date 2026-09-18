@@ -3,7 +3,6 @@ import React from 'react';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-
 import { useSuggestedItems } from './hooks/useSuggestedItems';
 
 type SuggestedMenuItemsProps = {

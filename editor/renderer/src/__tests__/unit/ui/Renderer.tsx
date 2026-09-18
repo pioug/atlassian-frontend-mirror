@@ -29,10 +29,13 @@ jest.mock('@atlaskit/editor-common/performance/measure-tti', () => ({
 
 import React from 'react';
 
+import { render, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -40,8 +43,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { render, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+
 import * as renderDocumentModule from '../../../render-document';
 import Renderer from '../../../ui/Renderer';
 import type { RendererProps } from '../../../ui/renderer-props';

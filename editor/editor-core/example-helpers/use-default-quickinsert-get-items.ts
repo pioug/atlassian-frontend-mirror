@@ -14,7 +14,6 @@ import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/exam
 import type EditorActions from '../src/actions';
 import { usePresetContext } from '../src/presets/context';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
-
 import { useStateFromPromise } from './useStateFromPromise';
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 

@@ -3,7 +3,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { getLighthouseMetrics } from '../additional-payload/utils/lighthouse-metrics/getLighthouseMetrics';
 import type { InteractionMetrics } from '../common';
 import { getConfig } from '../config';
-
 import getInteractionStatus from './utils/get-interaction-status';
 import getPageVisibilityUpToTTAI from './utils/get-page-visibility-up-to-ttai';
 

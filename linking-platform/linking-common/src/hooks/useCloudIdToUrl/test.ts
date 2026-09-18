@@ -1,9 +1,9 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 
+import { useCloudIdToUrl } from '.';
 import { mockAvailableSites } from '../../common/mocks/mock-available-sites';
 import { mockAvailableSitesForGatewayUrl } from '../../common/mocks/mock-available-sites-for-gateway-url';
-import { useCloudIdToUrl } from '.';
 
 describe('useCloudIdToUrl', () => {
 	beforeEach(() => {

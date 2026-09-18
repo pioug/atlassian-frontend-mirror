@@ -8,9 +8,8 @@ import { Box, xcss } from '@atlaskit/primitives';
 
 import { SmartLinkModalContext } from '../src/state/modal';
 import type { SmartLinkModalAPI } from '../src/state/modal/types';
-import { default as AutomationAction } from '../src/view/FlexibleCard/components/actions/automation-action';
 import { StopPropagation } from '../src/view/common/stop-propagation';
-
+import { default as AutomationAction } from '../src/view/FlexibleCard/components/actions/automation-action';
 import ExampleContainer from './content/example-container';
 
 const containerStyles = xcss({

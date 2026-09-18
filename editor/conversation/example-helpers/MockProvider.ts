@@ -3,6 +3,7 @@ import { MemoryReactionsStore } from '@atlaskit/reactions';
 import { MockReactionsClient } from '@atlaskit/reactions/MockReactionsClient';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+
 import { AbstractConversationResource } from '../src/api/ConversationResource';
 import type { ResourceProvider, ConversationResourceConfig } from '../src/api/ConversationResource';
 import { HttpError } from '../src/api/HttpError';

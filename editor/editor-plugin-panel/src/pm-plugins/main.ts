@@ -10,7 +10,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { getPanelNodeView } from '../nodeviews/panel';
 import { pluginKey } from '../panelPluginType';
 import type { PanelPlugin, PanelPluginOptions } from '../panelPluginType';
-
 import { handleCut } from './utils/utils';
 
 export type PanelOptions = {

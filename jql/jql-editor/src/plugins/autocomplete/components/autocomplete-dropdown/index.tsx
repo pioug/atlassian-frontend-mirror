@@ -32,7 +32,6 @@ import {
 import { messages } from '../../messages';
 import AutocompleteOption from '../autocomplete-option';
 import { type AutocompleteAnalyticsAttributes, type SelectableAutocompleteOption } from '../types';
-
 import { getAutocompleteAnalyticsAttributes } from './getAutocompleteAnalyticsAttributes';
 import { groupAutocompleteOptionsByKey } from './groupAutocompleteOptionsByKey';
 import {

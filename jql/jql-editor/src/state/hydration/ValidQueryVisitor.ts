@@ -14,7 +14,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { constructFieldWithProperty } from '../../utils/construct-field-with-property/constructFieldWithProperty';
 import { isHydratableTeamFunction } from '../../utils/team-jql-functions/isHydratableTeamFunction';
-
 import { normaliseHydrationKey } from './normaliseHydrationKey';
 
 /**

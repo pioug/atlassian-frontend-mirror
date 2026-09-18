@@ -3,7 +3,6 @@ import { type IntlShape } from 'react-intl';
 
 import { isMoreThanOneWeekAgo } from '../../common/utils/date';
 import { selectUnit } from '../../common/utils/dateUtils';
-
 import { timeMessages } from './messages';
 
 const formatTime = (timeStamp: Date, intl: IntlShape): string => {

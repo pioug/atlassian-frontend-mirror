@@ -17,7 +17,6 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
-
 import GlobalStyleSimulator from './utils/global-style-simulator';
 
 const styles = cssMap({

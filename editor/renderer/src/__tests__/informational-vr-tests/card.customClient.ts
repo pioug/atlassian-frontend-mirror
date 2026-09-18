@@ -2,16 +2,14 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 
+import { iconAtlas } from './images/atlas';
+import { avatarImage } from './images/avatar';
 import { dropboxImage } from './images/dropbox';
 import { forbidden } from './images/forbidden';
+import imageForbiddenJiraEmbed from './images/forbidden-jira-embed.svg';
+import forbiddenJira from './images/forbidden-jira.svg';
 import { notFound } from './images/notFound';
 import { unauthorized } from './images/unauthorized';
-
-import { avatarImage } from './images/avatar';
-import { iconAtlas } from './images/atlas';
-
-import forbiddenJira from './images/forbidden-jira.svg';
-import imageForbiddenJiraEmbed from './images/forbidden-jira-embed.svg';
 
 export const embedContent = `
 <html>

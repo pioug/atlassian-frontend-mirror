@@ -1,6 +1,7 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { orderedList as orderedListFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export const orderedListSelector = '.ak-ol';
 

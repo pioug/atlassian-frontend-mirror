@@ -3,22 +3,22 @@
  * @jsx jsx
  */
 import React from 'react';
+
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, type SerializedStyles, css } from '@emotion/react';
 
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
-import { token } from '@atlaskit/tokens';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
-import { Table } from './table';
-import { recursivelyInjectProps } from '../../utils/inject-props';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
+import { recursivelyInjectProps } from '../../utils/inject-props';
+import { Table } from './table';
 export type StickyMode = 'none' | 'stick' | 'pin-bottom';
 
 export const tableStickyPadding = 8;

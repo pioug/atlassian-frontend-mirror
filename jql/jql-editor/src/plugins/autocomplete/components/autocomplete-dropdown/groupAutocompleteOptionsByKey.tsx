@@ -1,7 +1,6 @@
 import { type GroupKey } from '@atlaskit/jql-editor-common/autocomplete/types';
 
 import { type SelectableAutocompleteOption } from '../types';
-
 import { UNGROUPED_KEY } from './index';
 import type { AutocompleteOptionsByGroupKey } from './index';
 

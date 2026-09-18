@@ -16,7 +16,6 @@ import {
 	heading,
 	indentation,
 } from '../../../builders';
-
 import expectedAdfs from './__fixtures__/expected-adf.json';
 
 describe('Builders', () => {

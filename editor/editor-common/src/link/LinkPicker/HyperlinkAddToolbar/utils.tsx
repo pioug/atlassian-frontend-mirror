@@ -12,7 +12,6 @@ import WorkItemObject from '@atlaskit/object/work-item';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { LinkContentType } from '../../../provider-factory';
-
 import { utilMessages } from './utilMessages';
 
 const Issue16 = (props: WrappedComponentProps) => {

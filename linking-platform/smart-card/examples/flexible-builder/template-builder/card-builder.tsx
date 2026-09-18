@@ -9,7 +9,6 @@ import { type CardProps } from '@atlaskit/smart-card';
 import { type CardActionOptions } from '../../../src/view/Card/types';
 import { EmbedModalSize } from '../../../src/view/EmbedModal/types';
 import { type TemplateDisplay } from '../types';
-
 import Fieldset from './fieldset';
 import CheckboxOption from './inputs/checkbox-option';
 import CustomLabel from './inputs/custom-label';

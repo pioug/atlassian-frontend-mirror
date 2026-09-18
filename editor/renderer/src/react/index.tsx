@@ -2,32 +2,6 @@ import type { ComponentType } from 'react';
 import React from 'react';
 
 import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
-import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
-import { MarkType } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
-import type { AnalyticsEventPayload } from '../analytics/events';
-import type { Serializer } from '../serializer';
-import type {
-	HeadingAnchorLinksProps,
-	NodeComponentsProps,
-	RendererAppearance,
-	RendererContentMode,
-	StickyHeaderConfig,
-} from '../ui/Renderer/types';
-import { mergeExpandBodyText, withExpandBodyBlock } from '../ui/utils/expand-body';
-import type { TextWrapper } from './nodes';
-import {
-	Doc,
-	DocWithSelectAllTrap,
-	isTextNode,
-	isTextWrapper,
-	mergeTextNodes,
-	toReact,
-} from './nodes';
-import TextWrapperComponent from './nodes/text-wrapper';
-import { isNestedHeaderLinksEnabled } from './utils/links';
-
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
@@ -38,15 +12,39 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { getColumnWidths } from '@atlaskit/editor-common/utils';
 import { getMarksByOrder, isSameMark } from '@atlaskit/editor-common/validator';
+import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
+import { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { EmojiProviderLookupOrder, EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import type { AnalyticsEventPayload } from '../analytics/events';
+import type { Serializer } from '../serializer';
 import type { MediaOptions } from '../types/mediaOptions';
 import type { SmartLinksOptions } from '../types/smartLinksOptions';
+import type {
+	HeadingAnchorLinksProps,
+	NodeComponentsProps,
+	RendererAppearance,
+	RendererContentMode,
+	StickyHeaderConfig,
+} from '../ui/Renderer/types';
+import { mergeExpandBodyText, withExpandBodyBlock } from '../ui/utils/expand-body';
 import { getText } from '../utils';
 import { isAnnotationMark, toReact as markToReact } from './marks';
 import { isCodeMark } from './marks/code';
+import type { TextWrapper } from './nodes';
+import {
+	Doc,
+	DocWithSelectAllTrap,
+	isTextNode,
+	isTextWrapper,
+	mergeTextNodes,
+	toReact,
+} from './nodes';
+import TextWrapperComponent from './nodes/text-wrapper';
 import {
 	getNestedUnderNodes,
 	insideBlockNode,
@@ -61,11 +59,12 @@ import type {
 	RendererContext,
 	TextHighlighter,
 } from './types';
+import { createContentGetter } from './utils/content-getter';
+import { getStandaloneBackgroundColorMarks } from './utils/getStandaloneBackgroundColorMarks';
+import { isNestedHeaderLinksEnabled } from './utils/links';
+import { markBlockAsInline } from './utils/markBlockAsInline';
 import { renderTextSegments } from './utils/render-text-segments';
 import { segmentText } from './utils/segment-text';
-import { getStandaloneBackgroundColorMarks } from './utils/getStandaloneBackgroundColorMarks';
-import { createContentGetter } from './utils/content-getter';
-import { markBlockAsInline } from './utils/markBlockAsInline';
 
 export interface ReactSerializerInit {
 	allowAltTextOnImages?: boolean;

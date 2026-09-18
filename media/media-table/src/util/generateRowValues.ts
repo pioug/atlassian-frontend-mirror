@@ -1,6 +1,7 @@
-import { type RowType, type HeadCellType, type RowCellType } from '@atlaskit/dynamic-table/types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
+
+import { type RowType, type HeadCellType, type RowCellType } from '@atlaskit/dynamic-table/types';
 
 function generateEmptyRows(emptyCells: RowCellType[], length: number): RowType[] {
 	const itemsArray = Array.from({ length });

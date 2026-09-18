@@ -9,13 +9,12 @@ import { css, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
-import Tabs from '@atlaskit/tabs/tabs';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
+import Tabs from '@atlaskit/tabs/tabs';
 import { token } from '@atlaskit/tokens';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../common/types';
-
 import { LinkSearchError, testIds as searchErrorTestIds } from './link-search-error';
 import { LinkSearchList, testIds as listTestIds } from './link-search-list';
 import { ScrollingTabList } from './scrolling-tabs';

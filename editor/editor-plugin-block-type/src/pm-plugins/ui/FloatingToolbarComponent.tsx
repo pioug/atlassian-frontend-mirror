@@ -7,7 +7,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import type { TextBlockTypes } from '../block-types';
-
 import ToolbarBlockType from './ToolbarBlockType';
 
 interface FloatingToolbarComponentProps {

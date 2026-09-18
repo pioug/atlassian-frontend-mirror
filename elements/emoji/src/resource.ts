@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 export { AbstractResource } from '@atlaskit/util-service-support';
 /**
  * @deprecated Use `import { EmojiResource } from '@atlaskit/emoji/emoji-resource'` instead.

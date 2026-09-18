@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import type { Appearance, Spacing, BaseOwnProps, BaseProps } from '@atlaskit/button/old-button/types'` instead.
  */
+
 export type { Appearance, Spacing, BaseOwnProps, BaseProps } from './old-button/types';
 /**
  * @deprecated Use `import Button from '@atlaskit/button/button'` instead.

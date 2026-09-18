@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
 import type { SyntheticEvent } from 'react';
 import React from 'react';
 

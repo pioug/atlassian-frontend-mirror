@@ -1,4 +1,5 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+
 import { transformMediaSingleWidth } from '../../../transforms/transform-media-single-width';
 
 describe('transformMediaSingleWidth', () => {

@@ -5,7 +5,6 @@ import LazilyRender from 'react-lazily-render';
 import { startUfoExperience } from '../../../state/analytics/startUfoExperience';
 import { CardWithUrlContent } from '../component';
 import { type CardWithUrlContentProps } from '../types';
-
 import { LoadingCardLink } from './LoadingCardLink';
 
 export function LazyLazilyRenderCard(props: CardWithUrlContentProps): React.JSX.Element {

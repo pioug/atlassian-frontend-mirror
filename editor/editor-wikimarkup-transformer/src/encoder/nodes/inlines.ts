@@ -1,15 +1,15 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { NodeEncoder, NodeEncoderOpts } from '..';
 
+import type { NodeEncoder, NodeEncoderOpts } from '..';
+import { date } from './date';
 import { emoji } from './emoji';
 import { hardBreak } from './hard-break';
+import { inlineCard } from './inline-card';
 import { mediaInline } from './media-inline';
 import { mention } from './mention';
-import { text } from './text';
-import { inlineCard } from './inline-card';
 import { status } from './status';
+import { text } from './text';
 import { unknown } from './unknown';
-import { date } from './date';
 
 const inlinesEncoderMapping: { [key: string]: NodeEncoder } = {
 	emoji,

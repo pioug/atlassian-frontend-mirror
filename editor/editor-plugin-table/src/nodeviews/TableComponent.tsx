@@ -23,8 +23,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -73,7 +73,6 @@ import TableFloatingColumnControls from '../ui/TableFloatingColumnControls';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import TableFloatingControls from '../ui/TableFloatingControls';
-
 import { ExternalDropTargets } from './ExternalDropTargets';
 import { TableContainer } from './TableContainer';
 import { TableStickyScrollbar } from './TableStickyScrollbar';

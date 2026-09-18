@@ -1,5 +1,4 @@
 import { type TeamMembershipSettings, type TeamPermission } from '../../../types/team';
-
 import { type TeamAction } from './types';
 import { userCan } from './user-can';
 

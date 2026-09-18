@@ -26,24 +26,28 @@ jest.mock('@atlaskit/media-card/cardSync', () => {
 	};
 });
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import * as mocks from './media.mock';
+
 import React from 'react';
+
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Loadable from 'react-loadable';
 
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { MediaType } from '@atlaskit/adf-schema/media';
-import type { CardEvent } from '@atlaskit/media-card/types';
-import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { sleep, nextTick, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { createPlaceholderImageDataUrl } from '@atlaskit/editor-test-helpers/placeholder-images';
+import type { CardEvent } from '@atlaskit/media-card/types';
+import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { sleep, nextTick, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import * as mocks from './media.mock';
+
 import Media from '../../../../react/nodes/media';
+import type { MediaSSR } from '../../../../types/mediaOptions';
 import type { MediaCardProps } from '../../../../ui/MediaCard';
 import {
 	MediaCard,
@@ -51,17 +55,17 @@ import {
 	getClipboardAttrs,
 	mediaIdentifierMap,
 } from '../../../../ui/MediaCard';
-import type { MediaSSR } from '../../../../types/mediaOptions';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-commonjs
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
 
+import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
 	MediaClientContext,
 	MediaClientProvider,
 } from '@atlaskit/media-client-react/media-client-provider';
-import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
+
 import { renderWithIntl } from '../../../__helpers/render';
 
 jest.mock('../../../../ui/annotations/hooks/use-inline-comments-filter', () => ({

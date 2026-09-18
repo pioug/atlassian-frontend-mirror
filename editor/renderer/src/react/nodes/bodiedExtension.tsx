@@ -1,24 +1,26 @@
 import React, { useMemo } from 'react';
-import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { RendererContext, ExtensionViewportSize } from '../types';
-import type { Serializer } from '../../serializer';
+
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { renderExtension } from './extension';
-import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
-import ExtensionRenderer from '../../ui/ExtensionRenderer';
+import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import { ACTION_SUBJECT } from '../../analytics/enums';
-import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import { AnnotationsPositionContext } from '../../ui/annotations';
-import { ValidationContextProvider } from '../../ui/Renderer/ValidationContext';
-import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { AnalyticsEventPayload } from '../../analytics/events';
+import type { Serializer } from '../../serializer';
+import { AnnotationsPositionContext } from '../../ui/annotations';
+import ExtensionRenderer from '../../ui/ExtensionRenderer';
+import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
+import type { RendererAppearance } from '../../ui/Renderer/types';
+import { ValidationContextProvider } from '../../ui/Renderer/ValidationContext';
+import type { RendererContext, ExtensionViewportSize } from '../types';
+import { renderExtension } from './extension';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;

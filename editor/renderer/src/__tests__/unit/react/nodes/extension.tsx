@@ -1,15 +1,18 @@
 import React from 'react';
-import Extension from '../../../../react/nodes/extension';
-import type { RendererContext } from '../../../../react/types';
+
+import { act, render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+import Loadable from 'react-loadable';
+
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
-import { act, render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
-import Loadable from 'react-loadable';
+
+import Extension from '../../../../react/nodes/extension';
+import type { RendererContext } from '../../../../react/types';
 
 describe('Renderer - React/Nodes/Extension', () => {
 	const providerFactory = ProviderFactory.create({});

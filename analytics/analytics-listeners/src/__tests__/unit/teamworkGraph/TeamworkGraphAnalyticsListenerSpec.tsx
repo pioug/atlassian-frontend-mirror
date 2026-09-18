@@ -1,9 +1,12 @@
-import { DEFAULT_SOURCE, type GasPayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen, fireEvent } from '@testing-library/react';
+
+import { DEFAULT_SOURCE, type GasPayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
 import type Logger from '../../../helpers/logger';
 import TeamworkGraphAnalyticsListener from '../../../teamworkGraph/TeamworkGraphAnalyticsListener';

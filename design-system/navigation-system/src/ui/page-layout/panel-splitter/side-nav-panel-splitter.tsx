@@ -13,7 +13,6 @@ import {
 	sideNavPanelSplitterId,
 } from '../constants';
 import { useToggleSideNav } from '../side-nav/use-toggle-side-nav';
-
 import { OnDoubleClickContext } from './on-double-click-context';
 import { PanelSplitter, type PanelSplitterProps } from './panel-splitter';
 import { PanelSplitterContext } from './panel-splitter-context';

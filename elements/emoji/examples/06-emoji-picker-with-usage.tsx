@@ -1,12 +1,14 @@
 import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
 import {
 	UsageShowAndClearComponent,
 	type UsagingShowingProps,
 } from '../example-helpers/demo-emoji-usage-components';
-import type { EmojiProvider } from '../src/resource';
-import { EmojiPicker } from '../src/picker';
 import { EmojiResource } from '../src/api/EmojiResource';
-import { IntlProvider } from 'react-intl';
+import { EmojiPicker } from '../src/picker';
+import type { EmojiProvider } from '../src/resource';
 
 const config = {
 	providers: [{ url: 'https://api-private.stg.atlassian.com/emoji/standard' }],

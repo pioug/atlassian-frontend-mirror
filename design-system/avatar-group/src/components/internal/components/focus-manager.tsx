@@ -4,7 +4,6 @@ import { bind, type UnbindFn } from 'bind-event-listener';
 
 import { type FocusableElement } from '../../types';
 import handleFocus from '../utiles/handle-focus';
-
 import { FocusManagerContext } from './focus-manager-context';
 
 // TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.

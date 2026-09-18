@@ -1,8 +1,10 @@
 import React from 'react';
-import { MediaTable, type MediaTableItem } from '../src';
-import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { RenderMediaTableWithFieldRange } from '../example-helpers/helpers';
+
 import { type HeadType } from '@atlaskit/dynamic-table/types';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
+
+import { RenderMediaTableWithFieldRange } from '../example-helpers/helpers';
+import { MediaTable, type MediaTableItem } from '../src';
 
 const items: MediaTableItem[] = [];
 

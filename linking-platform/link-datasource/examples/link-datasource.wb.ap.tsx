@@ -1,18 +1,19 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import BasicAssetsIssuesTableExample from './basic-assets-issues-table';
+import BasicJiraIssuesTableExample from './basic-jira-issues-table';
 import BasicJiraIssuesTablePdfExportExample from './basic-jira-issues-table-pdf-export';
 import BasicJiraIssuesTableSingleLineExample from './basic-jira-issues-table-single-line';
-import BasicJiraIssuesTableExample from './basic-jira-issues-table';
 import ErrorStateExample from './error-state';
+import IssueLikeTableExample from './issue-like-table';
 import IssueLikeTable3pUnauthExample from './issue-like-table-3p-unauth.vr.ap';
 import IssueLikeTableJ2wsExample from './issue-like-table-j2ws';
 import IssueLikeTableLoadingErrorExample from './issue-like-table-loading-error';
-import IssueLikeTableExample from './issue-like-table';
 import JiraIssuesConfigModalNoResultsExample from './jira-issues-config-modal-no-results.vr.ap';
 import PopupSelectExample from './popup-select';
 import SortableJiraIssuesTableExample from './sortable-jira-issues-table.vr.ap';
-import WithAssetsModalBackendIntegrationExample from './with-assets-modal-backend-integration';
 import WithAssetsModalExample from './with-assets-modal';
+import WithAssetsModalBackendIntegrationExample from './with-assets-modal-backend-integration';
 import WithConfluenceSearchModalBackendIntegrationExample from './with-confluence-search-modal-backend-integration';
 import WithConfluenceSearchModalExample from './with-confluence-search-modal.vr.ap';
 import WithIssuesModalBackendIntegrationExample from './with-issues-modal-backend-integration';

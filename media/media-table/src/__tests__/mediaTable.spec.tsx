@@ -1,6 +1,10 @@
 import React from 'react';
+
+import { act, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createIntl } from 'react-intl';
+
 import { type HeadType } from '@atlaskit/dynamic-table/types';
 import {
 	type MediaClient,
@@ -24,11 +28,10 @@ import {
 	asMock,
 } from '@atlaskit/media-test-helpers';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
-import { type MediaTableProps, type MediaTableItem } from '../types';
+
 import { MediaTable } from '../component/mediaTable';
 import { NameCell } from '../component/nameCell';
-import { act, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { type MediaTableProps, type MediaTableItem } from '../types';
 
 let mockMediaClient: MediaClient;
 

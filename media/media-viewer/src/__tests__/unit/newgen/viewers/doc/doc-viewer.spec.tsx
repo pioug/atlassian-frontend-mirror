@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
@@ -13,6 +12,7 @@ import {
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { DocViewer } from '../../../../../viewers/doc/DocViewer';
 

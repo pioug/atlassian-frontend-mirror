@@ -4,15 +4,12 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "Test-VR-SSR-cases.tsx",
-    "Test-VR-card-view.tsx",
-    "Test-VR-inline-player.tsx",
-    "Test-VR-inline-video-card.tsx",
-    "Test-VR-media-inline.tsx"
-  ],
-  "exampleDependencies": [
-    "@atlaskit/media-picker",
-    "exenv"
-  ]
+	"testExamples": [
+		"Test-VR-SSR-cases.tsx",
+		"Test-VR-card-view.tsx",
+		"Test-VR-inline-player.tsx",
+		"Test-VR-inline-video-card.tsx",
+		"Test-VR-media-inline.tsx",
+	],
+	"exampleDependencies": ["@atlaskit/media-picker", "exenv"],
 }

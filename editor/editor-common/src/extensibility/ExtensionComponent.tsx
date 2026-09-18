@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/no-class-components */
+
 import React, { Component, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import memoizeOne from 'memoize-one';
@@ -26,7 +27,6 @@ import type {
 import type { ProsemirrorGetPosHandler } from '../react-node-view';
 import type { EditorAppearance } from '../types';
 import { getExtensionRenderer, nodeToJSON, toJSON } from '../utils';
-
 import Extension from './Extension/Extension';
 import { isEmptyBodiedMacro } from './Extension/Extension/extension-utils';
 import InlineExtension from './Extension/InlineExtension';
@@ -498,7 +498,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 						references={this.props.references}
 						isSelected={isSelected}
 						loadingFallback={loadingFallback}
-						showUnknownMacroPlaceholder={fg('tinymce_display_unknown_macro_body_content')}
+						showUnknownMacroPlaceholder
 					/>
 				);
 			}

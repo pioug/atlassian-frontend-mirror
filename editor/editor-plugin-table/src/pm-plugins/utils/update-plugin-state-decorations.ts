@@ -3,7 +3,6 @@ import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/vie
 
 import type { TableDecorations } from '../../types';
 import { getDecorations } from '../decorations/plugin';
-
 import { updateDecorations } from './decoration';
 
 export const updatePluginStateDecorations = (

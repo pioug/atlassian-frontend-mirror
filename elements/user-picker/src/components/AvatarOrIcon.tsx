@@ -5,12 +5,13 @@
 
 import { type ReactNode } from 'react';
 
-import type { AppearanceType } from '@atlaskit/avatar/types';
-
-import { SizeableAvatar } from './SizeableAvatar';
-import { getAvatarSize } from './getAvatarSize';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
+
+import type { AppearanceType } from '@atlaskit/avatar/types';
+
+import { getAvatarSize } from './getAvatarSize';
+import { SizeableAvatar } from './SizeableAvatar';
 
 export type AvatarOrIconProps = {
 	appearance?: string;

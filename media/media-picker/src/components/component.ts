@@ -1,3 +1,7 @@
+import { type MediaTraceContext } from '@atlaskit/media-common';
+
+import { type PluginItemPayload } from '../domain/plugin';
+import { type SelectedItem } from '../popup/domain';
 import {
 	type MediaFile,
 	type Preview,
@@ -5,9 +9,6 @@ import {
 	type UploadEventPayloadMap,
 } from '../types';
 import { GenericEventEmitter } from '../util/eventEmitter';
-import { type SelectedItem } from '../popup/domain';
-import { type PluginItemPayload } from '../domain/plugin';
-import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export interface UploadEventEmitter {
 	emitPluginItemsInserted(selectedPluginItems: SelectedItem[]): void;

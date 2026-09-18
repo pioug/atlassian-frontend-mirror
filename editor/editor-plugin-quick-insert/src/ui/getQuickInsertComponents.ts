@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
+import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
 import {
 	BLOCK_TEMPLATES_SECTION,
 	DATA_AND_CHARTS_SECTION,
@@ -30,18 +31,16 @@ import type {
 	IsHiddenOptions,
 	RegisterComponent,
 } from '@atlaskit/editor-ui-control-model/types';
-import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
 
 import type { QuickInsertPlugin } from '../quickInsertPluginType';
-
-import { QuickInsertMenuFooterItem } from './QuickInsertMenuFooterItem';
-import { QuickInsertRecommendedSlot } from './QuickInsertRecommendedSlot';
-import { QuickInsertSectionOverflowMenuItem } from './QuickInsertSectionOverflowMenuItem';
 import {
 	createRecommendedSnapshotCache,
 	MAX_RECOMMENDED_ITEMS,
 	RECOMMENDED_SLOT_KEY_PREFIX,
 } from './getRecommendedComponents';
+import { QuickInsertMenuFooterItem } from './QuickInsertMenuFooterItem';
+import { QuickInsertRecommendedSlot } from './QuickInsertRecommendedSlot';
+import { QuickInsertSectionOverflowMenuItem } from './QuickInsertSectionOverflowMenuItem';
 
 const categories = [
 	{ message: messages.categoryRecommended, section: RECOMMENDED_SECTION },

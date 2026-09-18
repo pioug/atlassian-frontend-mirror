@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import VrInlineCardAllExamplesInTextExample from './vr-inline-card-all-examples-in-text.vr.ap';
 import VrInlineCardDefaultEntitiesExample from './vr-inline-card-default-entities.vr.ap';
 import VrInlineCardDefaultIconExample from './vr-inline-card-default-icon.vr.ap';

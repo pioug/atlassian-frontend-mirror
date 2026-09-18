@@ -1,8 +1,9 @@
 import React from 'react';
-import { randomJiraIconUrl, randomConfluenceIconUrl } from './utils/mockData';
+
 import QuickSearch from '../src/components/QuickSearch';
 import ResultItemGroup from '../src/components/ResultItem/ResultItemGroup';
 import ObjectResult from '../src/components/Results/ObjectResult';
+import { randomJiraIconUrl, randomConfluenceIconUrl } from './utils/mockData';
 
 const ResultWrapperStateless = () => (
 	<ObjectResult

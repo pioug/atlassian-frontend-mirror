@@ -5,7 +5,6 @@ import type { IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { isSingleEmoji } from '@atlaskit/editor-common/utils/isSingleEmoji';
 import {
 	messages,
 	EmojiSharedCssClassName,
@@ -13,6 +12,7 @@ import {
 } from '@atlaskit/editor-common/emoji';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isSingleEmoji } from '@atlaskit/editor-common/utils/isSingleEmoji';
 import {
 	VANILLA_TOOLTIP_DEFAULT_CLASS,
 	VanillaTooltip,
@@ -35,12 +35,10 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-
 import { token } from '@atlaskit/tokens';
 
 import type { EmojiPlugin } from '../emojiPluginType';
 import type { EmojiNodeDataProvider } from '../pm-plugins/providers/EmojiNodeDataProvider';
-
 import { emojiToDom } from './emojiNodeSpec';
 
 interface Params {

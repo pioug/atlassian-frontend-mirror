@@ -1,8 +1,7 @@
 import rawTokensDark from '../artifacts/atlassian-dark-token-value-for-contrast-check';
 import type tokens from '../artifacts/token-names';
-import { type CSSColor } from '../theme-options-schema';
 import { type ThemeColorModes } from '../theme-color-modes';
-
+import { type CSSColor } from '../theme-options-schema';
 import { generateColors } from './generate-colors';
 import { getClosestColorIndex } from './get-closest-color-index';
 import { getContrastRatio } from './get-contrast-ratio';

@@ -1,7 +1,8 @@
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Token, TokenParser } from './';
+
 import type { Context, ConversionMap } from '../../interfaces';
 import { isNotBlank } from '../utils/text';
+import type { Token, TokenParser } from './';
 
 /**
  * Inline Card From Text (ICFT).

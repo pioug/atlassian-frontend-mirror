@@ -1,7 +1,9 @@
 import React, { createContext, isValidElement, useContext } from 'react';
 import type { Provider, ReactNode } from 'react';
+
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import {
 	BLOCK_SEPARATOR,
 	getBlockSearchText,

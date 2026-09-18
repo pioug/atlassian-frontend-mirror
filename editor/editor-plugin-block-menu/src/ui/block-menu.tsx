@@ -41,7 +41,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-
 import { useBlockMenu } from './block-menu-provider';
 import { BlockMenuRenderer } from './block-menu-renderer/BlockMenuRenderer';
 

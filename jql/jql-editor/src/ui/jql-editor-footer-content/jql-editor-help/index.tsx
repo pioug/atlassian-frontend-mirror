@@ -6,7 +6,6 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { JQL_EDITOR_HELP_CONTENT_ID } from '../../../common/constants';
 import { useEditorThemeContext } from '../../../hooks/use-editor-theme/useEditorThemeContext';
 import { useEditorViewHasFocus, useIntl, useScopedId } from '../../../state';
-
 import { messages } from './messages';
 import { HelpContainer } from './styled';
 

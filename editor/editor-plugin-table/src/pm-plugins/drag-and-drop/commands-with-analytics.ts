@@ -19,7 +19,6 @@ import type { DraggableData, DraggableType, TableDirection } from '../../types';
 import { getSelectedTableInfo, withEditorAnalyticsAPI } from '../utils/analytics';
 import { canMove, getTargetIndex } from '../utils/drag-menu';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../utils/selection';
-
 import { clearDropTarget, cloneSource, moveSource, toggleDragMenu } from './commands';
 import { getPluginState } from './plugin-factory';
 import type { TriggerType } from './types';

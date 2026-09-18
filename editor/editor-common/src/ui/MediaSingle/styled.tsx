@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import type { RefObject } from 'react';
 import React from 'react';
 
@@ -21,7 +22,6 @@ import { token } from '@atlaskit/tokens';
 
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
-
 import { calcResizedWidth } from './calcResizedWidth';
 import { roundToClosestEvenPxValue } from './roundToClosestEvenPxValue';
 function float(layout: MediaSingleLayout): string {

@@ -1,19 +1,21 @@
 import type { ReactElement } from 'react';
 import React, { PureComponent } from 'react';
-import type { CardEvent } from '@atlaskit/media-card/types';
-import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
-import type { SizeEvent, ScrollEvent } from '@atlaskit/media-filmstrip';
-import { FilmstripView } from '@atlaskit/media-filmstrip';
+
 import type {
 	EventHandlers,
 	CardSurroundings,
 	CardEventClickHandler,
 } from '@atlaskit/editor-common/ui';
+import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
+import type { CardEvent } from '@atlaskit/media-card/types';
 import type { Identifier } from '@atlaskit/media-client';
-import type { MediaProps } from './media';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { SizeEvent, ScrollEvent } from '@atlaskit/media-filmstrip';
+import { FilmstripView } from '@atlaskit/media-filmstrip';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
+
+import type { MediaProps } from './media';
 
 export interface MediaGroupProps {
 	children?: React.ReactNode;

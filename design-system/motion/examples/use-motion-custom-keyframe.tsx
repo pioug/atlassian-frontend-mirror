@@ -9,10 +9,10 @@ import { keyframes } from '@compiled/react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Reanimate } from '@atlaskit/motion/reanimate';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
-import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

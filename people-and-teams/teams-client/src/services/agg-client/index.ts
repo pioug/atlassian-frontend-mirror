@@ -1,17 +1,18 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { toTeamARI } from '../../common/utils/to-team-ari';
 import { toUserId } from '../../common/utils/to-user-id';
+import { type TeamAgentAssociation } from '../../types/association';
 import {
 	type MembershipState,
 	type TeamMembership,
 	type TeamWithMemberships,
 } from '../../types/membership';
-import { type TeamAgentAssociation } from '../../types/association';
 import { type ClientConfig } from '../base-client';
 import { DEFAULT_CONFIG } from '../constants';
 import { BaseGraphQlClient } from '../graphql-client/main';
 import { logException } from '../sentry/logException';
-
+import { type TeamContainers } from './TeamContainers';
 import { type AGGPageInfoVariables, type ResultWithPageInfo } from './types';
 import {
 	UnlinkContainerMutation,
@@ -48,7 +49,6 @@ import {
 	type TeamsUserQueryVariables,
 } from './utils/queries/user-query';
 import { toUserType } from './utils/user-type';
-import { type TeamContainers } from './TeamContainers';
 
 export class AGGClient extends BaseGraphQlClient {
 	constructor(baseUrl: string, config: ClientConfig) {

@@ -4,15 +4,15 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import Form from '@atlaskit/form/form';
 import { ErrorMessage } from '@atlaskit/form/error-message';
 import Field from '@atlaskit/form/field';
 import { Fieldset } from '@atlaskit/form/fieldset';
+import Form from '@atlaskit/form/form';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import Link from '@atlaskit/link/link';
-import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
@@ -24,7 +24,6 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
 import { type FormFields, type SelectOptionDetails, type SelectValue } from '../types';
-
 import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 
 interface Props {

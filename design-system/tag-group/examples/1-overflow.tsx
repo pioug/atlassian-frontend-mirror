@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Tag from '@atlaskit/tag/removable-tag';
 import TagGroup from '@atlaskit/tag-group/tag-group';
+import Tag from '@atlaskit/tag/removable-tag';
 
 const tagNames = [
 	'liquorice',

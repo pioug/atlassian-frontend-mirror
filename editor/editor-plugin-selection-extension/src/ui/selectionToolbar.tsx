@@ -8,7 +8,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 
 import type { ExtensionConfiguration } from '../types';
-
 import { getToolbarItemExtensions } from './extensions';
 import { LegacyExtensionToolbarItem } from './LegacyToolbarComponent';
 

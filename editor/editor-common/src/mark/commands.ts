@@ -6,7 +6,6 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EditorCommand } from '../types';
-
 import { entireSelectionContainsMark } from './entireSelectionContainsMark';
 
 const SMART_TO_ASCII: { [char: string]: string } = {

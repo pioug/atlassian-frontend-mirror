@@ -12,7 +12,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';
 import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-context-provider';
-
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import { IsSideNavShortcutEnabledProvider } from './side-nav/is-side-nav-shortcut-enabled-provider';
 import { SideNavElementProvider } from './side-nav/side-nav-element-provider';

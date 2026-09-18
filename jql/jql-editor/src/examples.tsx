@@ -6,12 +6,10 @@ import { Text } from '@atlaskit/primitives/compiled';
 
 import { Template } from '../examples-utils/template';
 import { TemplateReadOnly } from '../examples-utils/template-read-only';
-
-import JQLEditorView from './ui/jql-editor-view';
-
-import { type JQLEditorProps } from './ui/types';
-import JQLEditor from './ui';
 import { JQLEditorAsync } from './async';
+import JQLEditor from './ui';
+import JQLEditorView from './ui/jql-editor-view';
+import { type JQLEditorProps } from './ui/types';
 
 const _default_1: {
 	args: {

@@ -6,7 +6,6 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { Match } from '../types';
-
 import type { FindReplaceAction } from './actions';
 import { FindReplaceActionTypes } from './actions';
 import { createCommand, getPluginState } from './plugin-factory';

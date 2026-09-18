@@ -23,7 +23,6 @@ import type { CodeBlockPlugin } from '../index';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { codeBlockClassNames } from '../ui/class-names';
 import { applyFormatCodeMeta, mapPendingFormats } from '../utils/format-code/format-code-state';
-
 import { ACTIONS } from './actions';
 import {
 	generateInitialDecorations,

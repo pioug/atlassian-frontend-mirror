@@ -5,7 +5,6 @@ import PageLiveDocObjectTile from '@atlaskit/object/tile/page-live-doc';
 import type { ObjectProps } from '@atlaskit/object/types';
 
 import type { SmartLinkSize } from '../../../constants';
-
 import { renderIconPerSize } from './render-icon-per-size';
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-types

@@ -1,7 +1,9 @@
+import React from 'react';
+
 import { act, render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
-import React from 'react';
 import { IntlProvider } from 'react-intl';
+
 import { MultiValueContainer } from '../../../components/MultiValueContainer';
 
 describe('MultiValueContainer', () => {

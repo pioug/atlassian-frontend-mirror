@@ -3,10 +3,10 @@ import { type ZipEntry } from 'unzipit';
 import { type FileState } from '@atlaskit/media-client';
 
 import type { MediaViewerFailureAttributes } from '../..';
-import type { MediaViewerError } from '../../../MediaViewerError';
 import { getErrorDetail } from '../../../getErrorDetail';
 import { getPrimaryErrorReason } from '../../../getPrimaryErrorReason';
 import { getSecondaryErrorReason } from '../../../getSecondaryErrorReason';
+import type { MediaViewerError } from '../../../MediaViewerError';
 import { getMimeTypeFromFilename } from '../../../utils/getMimeTypeFromFilename';
 import { getFileAttributes } from '../../getFileAttributes';
 import { type MediaFileEventPayload } from './_mediaFile';

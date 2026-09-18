@@ -1,5 +1,5 @@
-import { isEmptyFile, EMPTY_FILE_HOURS_ELAPSED_TOLERANCE_MS } from '../../detectEmptyFile';
 import { type MediaItemDetails } from '../../../models/media';
+import { isEmptyFile, EMPTY_FILE_HOURS_ELAPSED_TOLERANCE_MS } from '../../detectEmptyFile';
 
 describe('Detect Empty Files', () => {
 	const NOW = 1613978306455;

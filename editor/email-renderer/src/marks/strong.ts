@@ -1,6 +1,6 @@
 import { createTag } from '../create-tag';
-import { createClassName } from '../styles/util';
 import type { MarkSerializerOpts } from '../interfaces';
+import { createClassName } from '../styles/util';
 
 export const styles: string = `
 .${createClassName('mark-strong')} {

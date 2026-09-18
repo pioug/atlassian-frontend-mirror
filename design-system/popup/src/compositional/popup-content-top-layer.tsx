@@ -22,16 +22,15 @@ import { jsx } from '@compiled/react';
 import noop from '@atlaskit/ds-lib/noop';
 import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
-import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 import { getPopupAxisSizes } from '../internal/get-popup-axis-sizes';
 import { useRoleProps } from '../internal/top-layer-bridge';
 import { type ContentProps, type PopupComponentProps, type PopupProps } from '../types';
-
 import { TriggerRefObjectContext } from './trigger-ref-object-context';
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.

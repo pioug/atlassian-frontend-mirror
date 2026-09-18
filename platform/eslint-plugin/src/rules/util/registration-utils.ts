@@ -1,6 +1,7 @@
-import readPkgUp from 'read-pkg-up';
 import path from 'path';
+
 import Fuse from 'fuse.js';
+import readPkgUp from 'read-pkg-up';
 
 // defines a "getter" to "type" map, if more types are required for feature flags (like string) add it here!
 // if you don't want to verify the type use `null` as the value

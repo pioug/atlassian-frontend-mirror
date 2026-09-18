@@ -53,9 +53,9 @@ import { getActiveTrace } from '@atlaskit/react-ufo/get-active-trace';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { MediaCardError, type MediaCardErrorPrimaryReason } from '../MediaCardError';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { isSSRPreview } from '../isSSRPreview';
+import { MediaCardError, type MediaCardErrorPrimaryReason } from '../MediaCardError';
 import type {
 	CardAppearance,
 	CardDimensions,
@@ -65,8 +65,8 @@ import type {
 	TitleBoxIcon,
 } from '../types';
 import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
-import { getAuthProviderSucceededPayload } from '../utils/analytics/getAuthProviderSucceededPayload';
 import { getAuthProviderFailedPayload } from '../utils/analytics/getAuthProviderFailedPayload';
+import { getAuthProviderSucceededPayload } from '../utils/analytics/getAuthProviderSucceededPayload';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';

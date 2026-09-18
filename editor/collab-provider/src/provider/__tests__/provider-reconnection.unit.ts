@@ -1,17 +1,17 @@
-import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { replaceRaf } from 'raf-stub';
-import { Channel } from '../../channel';
-import AnalyticsHelper from '../../analytics/analytics-helper';
+
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-
-import { catchupv2 } from '../../document/catchupv2';
-import * as getConflictChanges from '../../document/getConflictChanges';
-
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
+import AnalyticsHelper from '../../analytics/analytics-helper';
+import { Channel } from '../../channel';
+import { catchupv2 } from '../../document/catchupv2';
+import * as getConflictChanges from '../../document/getConflictChanges';
 import { CatchupEventReason } from '../../helpers/const';
+import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { getMaxGapSince } from '../sleep-detector';
 
 replaceRaf();

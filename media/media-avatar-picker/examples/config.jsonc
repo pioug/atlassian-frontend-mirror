@@ -4,11 +4,9 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "4-avatar-picker-with-predefined-avatar.tsx",
-    "9-avatar-picker-with-viewport-debug.tsx"
-  ],
-  "exampleDependencies": [
-    "react-intl"
-  ]
+	"testExamples": [
+		"4-avatar-picker-with-predefined-avatar.tsx",
+		"9-avatar-picker-with-viewport-debug.tsx",
+	],
+	"exampleDependencies": ["react-intl"],
 }

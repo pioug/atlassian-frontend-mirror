@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 22.0.1
+
+### Patch Changes
+
+- [`8d37dc7e55d62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d37dc7e55d62) -
+  Clean up shipped experiment `platform_editor_block_menu`
+- Updated dependencies
+
 ## 22.0.0
 
 ### Patch Changes

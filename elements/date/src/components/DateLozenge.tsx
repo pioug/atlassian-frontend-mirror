@@ -3,9 +3,10 @@
  * @jsx jsx
  */
 import React from 'react';
-import { token } from '@atlaskit/tokens';
 
 import { css, cssMap, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 export type Color = 'grey' | 'red' | 'blue' | 'green' | 'purple' | 'yellow';
 

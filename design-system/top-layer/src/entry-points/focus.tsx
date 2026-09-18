@@ -2,6 +2,7 @@
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
+
 export type { TFocusableFilter } from '../focus/types';
 /**
  * @deprecated Import from the generated per-export subpath instead.

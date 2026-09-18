@@ -10,7 +10,6 @@ import {
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type {
@@ -30,7 +29,6 @@ export const SelectionExtensionComponentWrapper = ({
 	editorAnalyticsAPI,
 }: SelectionExtensionComponentWrapperProps): React.JSX.Element | null => {
 	const componentRef = useRef<React.ComponentType<SelectionExtensionComponentProps>>();
-	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const { activeExtension, mode } = useSharedPluginStateWithSelector(
 		api,
@@ -69,38 +67,14 @@ export const SelectionExtensionComponentWrapper = ({
 		if (!extension) {
 			return;
 		}
-		if (
-			isToolbarAIFCEnabled ||
-			editorExperiment('platform_editor_block_menu', true, { exposure: true })
-		) {
-			let currentComponent: React.ComponentType<SelectionExtensionComponentProps> | undefined;
+		let currentComponent: React.ComponentType<SelectionExtensionComponentProps> | undefined;
 
-			if ('contentComponent' in extension && extension.contentComponent !== undefined) {
-				currentComponent = extension.contentComponent;
-			} else if ('component' in extension && extension.component !== undefined) {
-				currentComponent = extension.component;
-			}
-			if (componentRef.current !== currentComponent && currentComponent !== undefined) {
-				if (editorAnalyticsAPI) {
-					editorAnalyticsAPI.fireAnalyticsEvent({
-						action: ACTION.VIEWED,
-						actionSubject: ACTION_SUBJECT.EDITOR_PLUGIN_SELECTION_EXTENSION,
-						actionSubjectId: ACTION_SUBJECT_ID.EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT,
-						eventType: EVENT_TYPE.TRACK,
-					});
-				}
-				// Sets reference to active component
-				componentRef.current = currentComponent;
-			}
-			return;
+		if ('contentComponent' in extension && extension.contentComponent !== undefined) {
+			currentComponent = extension.contentComponent;
+		} else if ('component' in extension && extension.component !== undefined) {
+			currentComponent = extension.component;
 		}
-		// delete this when cleaning up platform_editor_toolbar_aifc
-		if (
-			extension &&
-			'component' in extension &&
-			componentRef.current !== extension.component &&
-			extension.component !== undefined
-		) {
+		if (componentRef.current !== currentComponent && currentComponent !== undefined) {
 			if (editorAnalyticsAPI) {
 				editorAnalyticsAPI.fireAnalyticsEvent({
 					action: ACTION.VIEWED,
@@ -110,47 +84,32 @@ export const SelectionExtensionComponentWrapper = ({
 				});
 			}
 			// Sets reference to active component
-			componentRef.current = extension.component;
+			componentRef.current = currentComponent;
 		}
-	}, [activeExtension, editorAnalyticsAPI, isToolbarAIFCEnabled]);
+	}, [activeExtension, editorAnalyticsAPI]);
 	const extension = activeExtension?.extension;
 	if (!extension) {
 		return null;
 	}
-	if (
-		isToolbarAIFCEnabled ||
-		editorExperiment('platform_editor_block_menu', true, { exposure: true })
-	) {
-		const hasContentComponent = (ext: typeof extension): ext is ExtensionMenuItemConfiguration => {
-			return 'contentComponent' in ext && ext.contentComponent !== undefined;
-		};
+	const hasContentComponent = (ext: typeof extension): ext is ExtensionMenuItemConfiguration => {
+		return 'contentComponent' in ext && ext.contentComponent !== undefined;
+	};
 
-		const hasComponent = (ext: typeof extension): ext is SelectionExtension => {
-			return 'component' in ext && ext.component !== undefined;
-		};
+	const hasComponent = (ext: typeof extension): ext is SelectionExtension => {
+		return 'component' in ext && ext.component !== undefined;
+	};
 
-		let ExtensionComponent: React.ComponentType<SelectionExtensionComponentProps> | undefined;
+	let ExtensionComponent: React.ComponentType<SelectionExtensionComponentProps> | undefined;
 
-		if (hasContentComponent(extension)) {
-			ExtensionComponent = extension.contentComponent;
-		} else if (hasComponent(extension)) {
-			ExtensionComponent = extension.component;
-		}
-
-		if (!ExtensionComponent) {
-			return null;
-		}
-		return (
-			<ExtensionComponent closeExtension={handleOnClose} selection={activeExtension.selection} />
-		);
+	if (hasContentComponent(extension)) {
+		ExtensionComponent = extension.contentComponent;
+	} else if (hasComponent(extension)) {
+		ExtensionComponent = extension.component;
 	}
 
-	// delete this when cleaning up platform_editor_toolbar_aifc
-	if (!('component' in extension) || !extension.component) {
+	if (!ExtensionComponent) {
 		return null;
 	}
-
-	const ExtensionComponent = extension.component;
 	return (
 		<ExtensionComponent closeExtension={handleOnClose} selection={activeExtension.selection} />
 	);

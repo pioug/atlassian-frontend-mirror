@@ -20,7 +20,6 @@ import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
 import { getMediaSinglePixelWidth } from '../../media-single/getMediaSinglePixelWidth';
 import type { EditorAppearance } from '../../types';
 import { shouldAddDefaultWrappedWidth } from '../../utils/shouldAddDefaultWrappedWidth';
-
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
 import type { MediaSingleSize } from './types';
 export interface Props {

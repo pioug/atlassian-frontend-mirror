@@ -1,13 +1,13 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { resetMatchMedia } from '@atlassian/test-utils';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { waitFor } from '@atlassian/testing-library/wait-for';
 import { within } from '@atlassian/testing-library/within';
-import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { resetMatchMedia } from '@atlassian/test-utils';
 
 import { useSkipLink } from '../../../../context/skip-links/use-skip-link';
 import { useSkipLinkInternal } from '../../../../context/skip-links/use-skip-link-internal';

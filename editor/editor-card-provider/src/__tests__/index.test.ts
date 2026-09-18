@@ -1,10 +1,10 @@
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import type { Datasource } from '@atlaskit/linking-common/types';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { EditorCardProvider, isJiraWorkItem } from '../provider';
 import type { LinkAppearance, UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
-import { EditorCardProvider, isJiraWorkItem } from '../provider';
 import {
 	getMockProvidersResponse,
 	expectedInlineAdf,

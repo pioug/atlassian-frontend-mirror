@@ -11,10 +11,12 @@ import {
 	type RefObject,
 	type MediaHTMLAttributes,
 } from 'react';
-import { type VideoTextTracks, type VideoTextTrackKind, getVideoTextTrackId } from './text';
-import { requestFullScreen } from './utils';
-import { TextTracks } from './track';
+
 import { jsx } from '@atlaskit/css';
+
+import { type VideoTextTracks, type VideoTextTrackKind, getVideoTextTrackId } from './text';
+import { TextTracks } from './track';
+import { requestFullScreen } from './utils';
 
 export type VideoStatus = 'playing' | 'paused' | 'errored';
 export type VideoError = MediaError | null;

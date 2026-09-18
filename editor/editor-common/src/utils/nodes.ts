@@ -1,6 +1,6 @@
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
-import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { SanitizeNodeOptions } from '@atlaskit/editor-json-transformer/sanitize/sanitize-node';
+import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type {
 	MarkType,
 	NodeType,

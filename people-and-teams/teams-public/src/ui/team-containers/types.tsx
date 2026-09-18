@@ -3,7 +3,6 @@ import { type ComponentType } from 'react';
 import type { GridProps } from '@atlaskit/primitives/compiled';
 
 import { type TeamContainersSkeletonProps } from '../../common/ui/team-containers-skeleton';
-
 import type { AddContainerCardProps } from './add-container-card/AddContainerCard';
 import { type TeamLinkCardProps } from './team-link-card';
 

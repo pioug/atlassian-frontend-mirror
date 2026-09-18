@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { IntlProvider as ReactIntlProvider } from 'react-intl';
 import {
 	IntlProvider as ReactIntlNextProvider,

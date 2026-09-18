@@ -1,22 +1,21 @@
 import React, { useCallback, useId, useMemo, useState } from 'react';
 
-import { getDocument } from '@atlaskit/browser-apis';
-import { cssMap } from '@atlaskit/css';
 import { useIntl } from 'react-intl';
 
+import { getDocument } from '@atlaskit/browser-apis';
+import { cssMap } from '@atlaskit/css';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-
+import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import {
 	buildQuickInsertMenuModel,
 	getMatchingQuickInsertComponents,
 	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
-import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
 import { TYPE_AHEAD_SURFACE_CONTEXT } from '@atlaskit/editor-common/type-ahead-surface-context';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';

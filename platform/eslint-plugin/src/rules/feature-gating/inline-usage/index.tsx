@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+
 import { isAPIimport, type Node } from '../utils';
 
 const FUNCTION_NAMES = new Set([

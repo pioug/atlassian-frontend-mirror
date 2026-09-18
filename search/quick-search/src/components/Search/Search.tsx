@@ -1,7 +1,13 @@
 import React from 'react';
-import Spinner from '@atlaskit/spinner/spinner';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
+
+import Spinner from '@atlaskit/spinner/spinner';
+import { token } from '@atlaskit/tokens';
+
+import { SearchInner } from './search-inner';
+import { SearchInputControlsContainer } from './search-input-controls-container';
 import {
 	SearchBox,
 	SearchFieldBaseInner,
@@ -9,9 +15,6 @@ import {
 	SearchFieldBaseOuter,
 	SearchInputTypeAhead,
 } from './styled';
-import { SearchInner } from './search-inner';
-import { SearchInputControlsContainer } from './search-input-controls-container';
-import { token } from '@atlaskit/tokens';
 
 export const controlKeys: string[] = ['ArrowUp', 'ArrowDown', 'Enter', 'Tab', 'ArrowRight'];
 

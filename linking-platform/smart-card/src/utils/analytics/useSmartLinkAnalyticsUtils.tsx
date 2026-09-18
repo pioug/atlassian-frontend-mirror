@@ -3,11 +3,11 @@ import { useCallback, useMemo } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { getUrl } from '@atlaskit/linking-common/store';
 
+import { getSmartLinkAnalyticsContext } from './getSmartLinkAnalyticsContext';
 import type {
 	SmartLinkAnalyticsContextProps,
 	SmartLinkAnalyticsContextType,
 } from './SmartLinkAnalyticsContext';
-import { getSmartLinkAnalyticsContext } from './getSmartLinkAnalyticsContext';
 
 type GetByUrlFn = (
 	url: string,

@@ -13,7 +13,6 @@ import type { ContentRef } from '@atlaskit/task-decision';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 import type { TaskAndDecisionsSharedState } from '../../types';
-
 import TaskItemWithProviders from './task-item-with-providers';
 
 export interface TaskProps {

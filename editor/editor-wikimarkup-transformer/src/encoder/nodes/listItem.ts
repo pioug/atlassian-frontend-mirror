@@ -1,12 +1,12 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { encode } from '..';
 
-import { paragraph } from './paragraph';
-import { unknown } from './unknown';
+import { encode } from '..';
+import type { Context } from '../../interfaces';
 import { codeBlock } from './code-block';
 import { mediaGroup } from './media-group';
 import { mediaInline } from './media-inline';
-import type { Context } from '../../interfaces';
+import { paragraph } from './paragraph';
+import { unknown } from './unknown';
 
 export const listItem = (node: PMNode, prefix: string, context?: Context): string => {
 	const result: string[] = [];

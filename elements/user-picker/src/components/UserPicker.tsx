@@ -6,10 +6,13 @@
 import React from 'react';
 
 import { jsx } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuidv4 } from 'uuid';
 
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import CreatableSelect from '@atlaskit/select/creatable-select';
 import Select from '@atlaskit/select/default';
 import type { PopupSelectProps } from '@atlaskit/select/popup-select';
@@ -36,15 +39,12 @@ import {
 	UfoErrorBoundary,
 } from '../util/ufoExperiences';
 import { BaseUserPickerWithoutAnalytics } from './BaseUserPicker';
-import MessagesIntlProvider from './MessagesIntlProvider';
 import { getComponents } from './components';
 import { getCreatableProps } from './creatable';
 import { getCreatableSuggestedEmailProps } from './creatableEmailSuggestion';
-import { getStyles } from './styles';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import { v4 as uuidv4 } from 'uuid';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { EmailValidator } from './emailValidation';
+import MessagesIntlProvider from './MessagesIntlProvider';
+import { getStyles } from './styles';
 
 export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps> {
 	ufoId: string;

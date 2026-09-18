@@ -3,19 +3,22 @@
  * @jsx jsx
  */
 import { PureComponent, type ComponentType, type FC } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import AkButton from '@atlaskit/button/standard-button';
-import Heading from '@atlaskit/heading/heading';
-import { Stack } from '@atlaskit/primitives/compiled';
 import {
 	FormattedMessage,
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl';
-import { customCategory } from '../../util/constants';
+
+import AkButton from '@atlaskit/button/standard-button';
+import Heading from '@atlaskit/heading/heading';
+import { Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
 import type { EmojiDescription, Message } from '../../types';
+import { customCategory } from '../../util/constants';
 import { messages } from '../i18n';
 import Emoji from './Emoji';
 import EmojiErrorMessage from './EmojiErrorMessage';

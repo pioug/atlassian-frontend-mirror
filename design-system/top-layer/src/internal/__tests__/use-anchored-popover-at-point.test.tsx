@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 
 import { render, screen } from '@atlassian/testing-library';
 
-import { type TAnchorPoint, useAnchoredPopoverAtPoint } from '../use-anchored-popover-at-point';
 import { useAnchoredPopover } from '../use-anchored-popover';
+import { type TAnchorPoint, useAnchoredPopoverAtPoint } from '../use-anchored-popover-at-point';
 
 // JSDOM does not implement `window.CSS`, and the hook caches its feature detect
 // via `once()`, so a real `CSS.supports` has to exist BEFORE any test renders the

@@ -52,7 +52,6 @@ import {
 } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { FLAG_ID } from '../types';
-
 import { findBodiedSyncBlockByLocalId, pasteSyncBlockHTMLContent } from './utils';
 
 type createSyncedBlockProps = {

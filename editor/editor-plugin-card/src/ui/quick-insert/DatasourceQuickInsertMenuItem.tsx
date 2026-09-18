@@ -6,6 +6,7 @@ import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -19,10 +20,14 @@ import { showDatasourceModal } from '../../pm-plugins/actions';
 
 type Props = {
 	api: ExtractInjectionAPI<CardPlugin> | undefined;
+	previewImageUrls: QuickInsertMenuItemProps['previewImageUrls'];
 	type: 'assets' | 'confluence-search' | 'jira';
 };
 
-export const DatasourceQuickInsertMenuItem = ({ type }: Props): React.JSX.Element => {
+export const DatasourceQuickInsertMenuItem = ({
+	previewImageUrls,
+	type,
+}: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { isOffline } = useQuickInsertContext();
 	const isJira = type === 'jira';
@@ -49,6 +54,7 @@ export const DatasourceQuickInsertMenuItem = ({ type }: Props): React.JSX.Elemen
 			}
 			isDisabled={isOffline}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			title={formatMessage(
 				isJira
 					? fg('confluence-issue-terminology-refresh')

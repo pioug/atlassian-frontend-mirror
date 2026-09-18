@@ -1,7 +1,8 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { status as statusFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { AnnotationMarkDefinition } from '../marks/annotation';
-import { status as statusFactory } from '../../next-schema/generated/nodeTypes';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 const NEWLINE_REGEX = /\n/u;
 

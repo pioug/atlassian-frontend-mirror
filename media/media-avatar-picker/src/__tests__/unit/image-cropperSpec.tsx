@@ -1,8 +1,11 @@
 import React from 'react';
-import ImageCropper, { type ImageCropperProp } from '../../image-cropper';
-import { ERROR } from '../../avatar-picker-dialog';
-import { smallImage, renderWithIntl } from '@atlaskit/media-test-helpers';
+
 import { fireEvent } from '@testing-library/react';
+
+import { smallImage, renderWithIntl } from '@atlaskit/media-test-helpers';
+
+import { ERROR } from '../../avatar-picker-dialog';
+import ImageCropper, { type ImageCropperProp } from '../../image-cropper';
 
 const imageWidth = 600;
 const imageHeight = 400;

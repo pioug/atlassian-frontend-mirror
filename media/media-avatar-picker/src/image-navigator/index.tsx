@@ -3,33 +3,36 @@
  * @jsx jsx
  */
 import React from 'react';
-import { jsx, css } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
 import { Component } from 'react';
+
+import { jsx, css } from '@compiled/react';
+import * as exenv from 'exenv';
 import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl';
+
 import Button from '@atlaskit/button/standard-button';
-import ImageCropper from '../image-cropper';
-import Spinner from '@atlaskit/spinner/spinner';
-import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
 import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile';
+import { Ellipsify } from '@atlaskit/media-ui/ellipsify/ellipsify';
+import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
 import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation';
 import { isRotated } from '@atlaskit/media-ui/imageMetaData/isRotated';
-import { Ellipsify } from '@atlaskit/media-ui/ellipsify/ellipsify';
-import { Vector2 } from '@atlaskit/media-ui/vector2';
 import { messages } from '@atlaskit/media-ui/messages';
-import * as exenv from 'exenv';
-import { uploadPlaceholder, errorIcon } from './images';
-import { fileSizeMb } from '../util';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
+import Spinner from '@atlaskit/spinner/spinner';
+import { token } from '@atlaskit/tokens';
+
 import { ERROR, MAX_SIZE_MB, ACCEPT } from '../avatar-picker-dialog';
-import { Viewport } from '../viewport';
-import Slider from './slider';
 import {
 	CONTAINER_SIZE,
 	CONTAINER_PADDING,
 	IMAGE_MOVE_UNIT,
 } from '../avatar-picker-dialog/layout-const';
+import ImageCropper from '../image-cropper';
+import { fileSizeMb } from '../util';
+import { Viewport } from '../viewport';
 import { DragZone } from './dragZone';
 import { exportCroppedImage } from './exportCroppedImage';
+import { uploadPlaceholder, errorIcon } from './images';
+import Slider from './slider';
 
 const checkeredBg =
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAABCJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOmV4aWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vZXhpZi8xLjAvIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyI+CiAgICAgICAgIDx0aWZmOlJlc29sdXRpb25Vbml0PjI8L3RpZmY6UmVzb2x1dGlvblVuaXQ+CiAgICAgICAgIDx0aWZmOkNvbXByZXNzaW9uPjU8L3RpZmY6Q29tcHJlc3Npb24+CiAgICAgICAgIDx0aWZmOlhSZXNvbHV0aW9uPjcyPC90aWZmOlhSZXNvbHV0aW9uPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICAgICA8dGlmZjpZUmVzb2x1dGlvbj43MjwvdGlmZjpZUmVzb2x1dGlvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxYRGltZW5zaW9uPjg8L2V4aWY6UGl4ZWxYRGltZW5zaW9uPgogICAgICAgICA8ZXhpZjpDb2xvclNwYWNlPjE8L2V4aWY6Q29sb3JTcGFjZT4KICAgICAgICAgPGV4aWY6UGl4ZWxZRGltZW5zaW9uPjg8L2V4aWY6UGl4ZWxZRGltZW5zaW9uPgogICAgICAgICA8ZGM6c3ViamVjdD4KICAgICAgICAgICAgPHJkZjpTZXEvPgogICAgICAgICA8L2RjOnN1YmplY3Q+CiAgICAgICAgIDx4bXA6TW9kaWZ5RGF0ZT4yMDE4OjA3OjE4IDEwOjA3OjUwPC94bXA6TW9kaWZ5RGF0ZT4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5QaXhlbG1hdG9yIDMuNy4zPC94bXA6Q3JlYXRvclRvb2w+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgrsp//0AAAAKUlEQVQIHWP8//8/Aww8ffoUxmRggrPQGKRLsCCbKy0tDTeQdKNw6gAAbSMIvvnXfF4AAAAASUVORK5CYII=';

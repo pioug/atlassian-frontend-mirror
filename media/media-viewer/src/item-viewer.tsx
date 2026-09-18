@@ -7,9 +7,9 @@ import { type FileState, type Identifier, isFileIdentifier } from '@atlaskit/med
 import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 
+import type { Outcome } from './domain/outcome';
 import { ItemViewerBase } from './ItemViewerBase';
 import type { MediaViewerError } from './MediaViewerError';
-import type { Outcome } from './domain/outcome';
 import { type ViewerOptionsProps } from './viewerOptions';
 
 export type Props = Readonly<{

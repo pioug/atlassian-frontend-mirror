@@ -1,25 +1,27 @@
 import React, { useCallback, useRef, useState, Fragment, forwardRef } from 'react';
+
+import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl';
+
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import Button from '@atlaskit/button/default/button';
-import { Popup } from '@atlaskit/popup/popup';
-import type { PopupProps } from '@atlaskit/popup/types';
 import {
 	LinkPicker,
 	type LinkPickerProps,
 	type LinkSearchListItemData,
 } from '@atlaskit/link-picker';
-import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-
-import { FooterBlock, Card, SmartLinkSize, TitleBlock, ActionName } from '@atlaskit/smart-card';
-import fetchMock from 'fetch-mock/cjs/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { Popup } from '@atlaskit/popup/popup';
+import type { PopupProps } from '@atlaskit/popup/types';
+import { FooterBlock, Card, SmartLinkSize, TitleBlock, ActionName } from '@atlaskit/smart-card';
 
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
 
-import { useSmartLinkLifecycleAnalytics } from '../src/use-smart-link-lifecycle-analytics';
 import { icon } from '@atlaskit/link-test-helpers/images';
 import { token } from '@atlaskit/tokens';
+
+import { useSmartLinkLifecycleAnalytics } from '../src/use-smart-link-lifecycle-analytics';
 
 const linkPickerResults: LinkSearchListItemData[] = [
 	{

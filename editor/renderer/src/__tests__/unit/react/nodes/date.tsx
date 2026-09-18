@@ -1,11 +1,13 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
-import { DateComponent } from '../../../../react/nodes/date';
 import { createIntl, IntlProvider } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { timestampToString, todayTimestampInUTC } from '@atlaskit/editor-common/utils';
+
+import { DateComponent } from '../../../../react/nodes/date';
 import { RendererContextProvider } from '../../../../renderer-context';
 
 describe('Renderer - React/Nodes/Date', () => {

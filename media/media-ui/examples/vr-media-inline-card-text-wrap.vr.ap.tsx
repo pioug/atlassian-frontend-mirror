@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { smallImage } from '@atlaskit/media-common/test-helpers';
 
 import { MediaInlineCardLoadedView } from '../src/MediaInlineCard/LoadedView';

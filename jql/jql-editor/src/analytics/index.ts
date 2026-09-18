@@ -3,6 +3,7 @@
 /**
  * @deprecated Use `import { ActionSubject, ActionSubjectId, Action } from '@atlaskit/jql-editor/analytics'` instead.
  */
+
 export { ActionSubject, ActionSubjectId, Action } from './constants';
 /**
  * @deprecated Use `import { JQLEditorAnalyticsListener } from '@atlaskit/jql-editor/jql-editor-analytics-listener'` instead.

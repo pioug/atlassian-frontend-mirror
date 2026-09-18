@@ -1,6 +1,7 @@
-import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { inlineExtension } from '../../../..';
 import { schema } from '@af/adf-test-helpers/src/adf-schema';
+import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
+import { inlineExtension } from '../../../..';
 
 const packageName = process.env.npm_package_name as string;
 

@@ -1,11 +1,12 @@
 import React from 'react';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import { TaskItem } from '../../../src';
 import { dumpRef, action } from '../../../example-helpers/story-utils';
+import { TaskItem } from '../../../src';
 
 export const TaskItemEditor = (): React.JSX.Element => (
 	<TaskItem taskId="task-1" contentRef={dumpRef} onChange={action('onChange')}>

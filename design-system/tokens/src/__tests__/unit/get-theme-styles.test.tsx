@@ -1,11 +1,11 @@
+import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
+
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import getThemeStyles, { type ThemeStyles } from '../../get-theme-styles';
 import { type ThemeIdsWithOverrides } from '../../theme-config';
 import { type ThemeOptionsSchema } from '../../theme-options-schema';
 import { hash } from '../../utils/hash';
-
-import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
 
 const UNSAFE_themeOptions: ThemeOptionsSchema = {
 	brandColor: '#ff0000',

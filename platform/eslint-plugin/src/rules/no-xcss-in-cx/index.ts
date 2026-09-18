@@ -6,6 +6,7 @@ import type { Node } from 'estree';
 import type {} from 'estree-jsx';
 
 import { getImportSources, isCxFunction, isXcss } from '@atlaskit/eslint-utils/is-supported-import';
+
 import { getScope } from '../util/context-compat';
 
 /**

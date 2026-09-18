@@ -1,9 +1,8 @@
 import type { IntlShape } from 'react-intl';
-import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
@@ -19,6 +18,7 @@ import type {
 	ReadonlyTransaction,
 	Selection,
 } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
 

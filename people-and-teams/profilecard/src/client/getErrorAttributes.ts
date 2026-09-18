@@ -2,7 +2,6 @@ import { AGGError } from '../util/AGGError';
 import { AGGErrors } from '../util/AGGErrors';
 import { DirectoryGraphQLError } from '../util/DirectoryGraphQLError';
 import { DirectoryGraphQLErrors } from '../util/DirectoryGraphQLErrors';
-
 import { type ErrorAttributes } from './types';
 
 const IGNORED_ERROR_REASONS_DIRECTORY = [

@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import * as mediaViewerWithMediaClientModule from './media-viewer-with-media-client';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateSampleFileItem } from '@atlaskit/media-test-data';
+
 import { MediaViewerWithErrorBoundary } from './media-viewer-error-boundary';
+import * as mediaViewerWithMediaClientModule from './media-viewer-with-media-client';
 
 const MediaViewerWithMediaClientSpy = jest
 	.spyOn(mediaViewerWithMediaClientModule, 'MediaViewerWithMediaClient')

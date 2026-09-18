@@ -10,7 +10,6 @@ import { COMPOUND_OPERATOR_AND, COMPOUND_OPERATOR_OR } from '../constants';
 import { internalCreators } from '../creators';
 import { type Clause } from '../types';
 import { notUndefined } from '../utils';
-
 import {
 	getPositionFromContext,
 	getPositionFromToken,

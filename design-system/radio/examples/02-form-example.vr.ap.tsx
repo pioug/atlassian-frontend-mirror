@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import Form from '@atlaskit/form/form';
 import { CheckboxField } from '@atlaskit/form/checkbox-field';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import Radio from '@atlaskit/radio/radio';
 import RadioGroup from '@atlaskit/radio/radio-group';

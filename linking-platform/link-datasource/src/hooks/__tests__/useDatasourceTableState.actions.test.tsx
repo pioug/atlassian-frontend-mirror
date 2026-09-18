@@ -4,11 +4,11 @@ import { renderHook, type RenderHookOptions, waitFor } from '@testing-library/re
 import { defaultRegistry } from 'react-sweet-state';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { useDatasourceClientExtension } from '@atlaskit/link-client-extension/use-data-source-client-extension';
 import { mockActionsDiscoveryResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockActionsDiscoveryResponse';
 import { mockDatasourceDataNoActionsResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataNoActionsResponse';
 import { mockDatasourceDataResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponse';
 import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponseWithSchema';
-import { useDatasourceClientExtension } from '@atlaskit/link-client-extension/use-data-source-client-extension';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest';

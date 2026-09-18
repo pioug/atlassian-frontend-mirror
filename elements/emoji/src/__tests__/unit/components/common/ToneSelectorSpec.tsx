@@ -1,13 +1,16 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
 import ToneSelector from '../../../../components/common/ToneSelector';
 import type { EmojiDescription, EmojiDescriptionWithVariations } from '../../../../types';
-import { imageEmoji, generateSkinVariation } from '../../_test-data';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { toneSelectedEvent } from '../../../../util/analytics/toneSelectedEvent';
 import { toneSelectorOpenedEvent } from '../../../../util/analytics/toneSelectorOpenedEvent';
+import { imageEmoji, generateSkinVariation } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

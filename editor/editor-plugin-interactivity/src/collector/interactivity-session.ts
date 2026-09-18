@@ -1,11 +1,7 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-
 import type { SessionMode } from '../analytics/interactivity-snapshot';
-
+import { InteractionGroup } from './interaction-group';
 import { InteractionObserver } from './interaction-observer';
 import { InteractionTracker } from './interaction-tracker';
-import { InteractionGroup } from './interaction-group';
-import { SlowInteractionList } from './slow-interaction-list';
 
 function createSessionId(): string {
 	if (typeof crypto.randomUUID === 'function') {
@@ -41,11 +37,6 @@ export class InteractivitySession {
 	readonly editorTyping: InteractionGroup = new InteractionGroup();
 	readonly editorPointer: InteractionGroup = new InteractionGroup();
 	readonly editorOther: InteractionGroup = new InteractionGroup();
-	readonly slowest: SlowInteractionList | undefined = isExperimentEnabled(
-		'platform_editor_editor_interactivity_slowest',
-	)
-		? new SlowInteractionList()
-		: undefined;
 
 	/** Increments per snapshot; a query takes the highest one per session. */
 	seq = 0;

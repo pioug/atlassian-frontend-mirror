@@ -1,16 +1,14 @@
 import React, { Fragment } from 'react';
-import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 
+import type { LinkAttributes } from '@atlaskit/adf-schema/link';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 
-import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { getEventHandler } from '../../utils';
 import type { MarkProps } from '../types';
-
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-
 import { LinkUrlCompiled } from './link-compiled';
 import { LinkUrlEmotion } from './link-emotion';
 

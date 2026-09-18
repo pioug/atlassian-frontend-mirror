@@ -3,9 +3,9 @@ import { type FileAttributes, type MediaTraceContext } from '@atlaskit/media-com
 
 import { MediaCardError } from '../MediaCardError';
 import { type CardStatus } from '../types';
+import type { SSRStatus } from '../utils/analytics/analytics';
 import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
 import { getErrorEventPayload } from '../utils/analytics/getErrorEventPayload';
-import type { SSRStatus } from '../utils/analytics/analytics';
 
 export const fireNonCriticalErrorEvent = (
 	createAnalyticsEvent: CreateUIAnalyticsEvent,

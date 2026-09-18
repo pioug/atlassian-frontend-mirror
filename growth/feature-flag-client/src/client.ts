@@ -1,3 +1,12 @@
+import BasicFlag from './basic-flag';
+import {
+	checkForReservedAttributes,
+	enforceAttributes,
+	isObject,
+	isObjectEmptyOrUndefined,
+	validateFlags,
+} from './lib';
+import MissingFlag from './missing-flag';
 import {
 	type AnalyticsHandler,
 	type ClientOptions,
@@ -13,17 +22,6 @@ import {
 	type ReservedAttributes,
 	type TrackFeatureFlagOptions,
 } from './types';
-
-import {
-	checkForReservedAttributes,
-	enforceAttributes,
-	isObject,
-	isObjectEmptyOrUndefined,
-	validateFlags,
-} from './lib';
-
-import MissingFlag from './missing-flag';
-import BasicFlag from './basic-flag';
 
 export default class FeatureFlagClient {
 	private readonly flags: Map<string, FlagShape>;

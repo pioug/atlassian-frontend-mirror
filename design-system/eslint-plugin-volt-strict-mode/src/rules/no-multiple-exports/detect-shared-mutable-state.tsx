@@ -1,8 +1,8 @@
 import { AST_NODE_TYPES, type TSESLint, type TSESTree } from '@typescript-eslint/utils';
 
 import { classifyMutableSharing } from './utils/classify-mutable-sharing';
-import { type ExportedUnitRange } from './utils/exported-unit-range';
 import { expandTransitiveReaders } from './utils/expand-transitive-readers';
+import { type ExportedUnitRange } from './utils/exported-unit-range';
 import { isContainedBy } from './utils/is-contained-by';
 
 /**

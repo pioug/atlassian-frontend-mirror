@@ -6,7 +6,6 @@ import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type
 import type { DefaultPresetPluginOptions } from '../../src/presets/default';
 import type { EditorPluginFeatureProps, EditorProps } from '../types/editor-props';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
-
 import { getScrollGutterOptions } from './getScrollGutterOptions';
 const isCodeBlockAllowed = (options?: Pick<BlockTypePluginOptions, 'allowBlockType'>) => {
 	const exclude =

@@ -7,7 +7,6 @@ import type { MediaClientConfig } from '@atlaskit/media-client';
 import { MediaClient } from '@atlaskit/media-client';
 
 import { isExternalMedia } from '../../pm-plugins/utils';
-
 import { ImageEditor } from './index';
 
 interface RenderImageEditorProps {

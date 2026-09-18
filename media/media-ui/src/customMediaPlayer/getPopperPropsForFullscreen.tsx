@@ -70,6 +70,7 @@ const fullscreenPopperProps: PopupSelect['props']['popperProps'] = {
  * When in fullscreen, includes an `onFirstUpdate` callback that repositions the popup
  * after Popper's initial (incorrect) positioning.
  */
+
 export const getPopperPropsForFullscreen = (
 	isFullScreen: boolean,
 ): PopupSelect['props']['popperProps'] => {

@@ -44,18 +44,17 @@ import {
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
 import type { CardContext } from '@atlaskit/link-provider/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { cardPlugin } from '../index';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import ResizableEmbedCard from '../ui/ResizableEmbedCard';
 import { SmartCardSSRReactContextsProvider } from '../ui/SmartCardSSRReactContextsProvider';
-
 import { BlockCardComponent } from './blockCard';
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';

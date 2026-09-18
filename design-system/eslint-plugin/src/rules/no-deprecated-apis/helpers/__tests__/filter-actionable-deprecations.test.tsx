@@ -1,5 +1,4 @@
 import { filterActionableDeprecations } from '../filter-actionable-deprecations';
-
 import mockedDeprecatedAPIsConfig from './__fixtures__/mocked-deprecated-apis.json';
 import mockedPackgeJson from './__fixtures__/mocked-package.json';
 

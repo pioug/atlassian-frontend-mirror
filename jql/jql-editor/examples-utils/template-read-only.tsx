@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { JQLEditorReadOnly } from '../src/ui/jql-editor-layout/JQLEditorReadOnly';
-
 import { Container } from './styled';
 
 // These were used for the knobs addon, but stopped working after the Storybook 8 migration.

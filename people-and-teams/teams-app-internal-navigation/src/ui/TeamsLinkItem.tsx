@@ -6,7 +6,6 @@ import type { LinkItemProps } from '@atlaskit/menu/types';
 import { buildNavigationInput } from '../common/utils/buildNavigationInput';
 import type { NavigationIntentProps } from '../common/utils/getNavigationProps';
 import { getNavigationProps } from '../common/utils/getNavigationProps';
-
 import { useTeamsNavigationContext } from './useTeamsNavigationContext';
 
 type BaseLinkItemProps = Omit<LinkItemProps, 'target' | 'rel'>;

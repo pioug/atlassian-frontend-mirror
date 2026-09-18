@@ -4,14 +4,17 @@
  */
 
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { createAndFireEventInElementsChannel } from '../../analytics';
 import { type ExternalUser } from '../../types';
@@ -23,7 +26,6 @@ import { textWrapper } from '../textWrapper';
 import { ExternalAvatarItemOption } from './ExternalAvatarItemOption';
 import InfoIcon from './InfoIcon';
 import { SourcesTooltipContent } from './SourcesTooltipContent';
-import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const imageContainer: SerializedStyles = css({

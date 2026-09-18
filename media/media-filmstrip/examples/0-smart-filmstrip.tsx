@@ -3,9 +3,22 @@
  * @jsx jsx
  */
 import React from 'react';
+import { Component, type SyntheticEvent } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { Component, type SyntheticEvent } from 'react';
+
+import Button from '@atlaskit/button/default/button';
+import EditorCloseIcon from '@atlaskit/icon/core/cross';
+import type { CardAction } from '@atlaskit/media-card/actions';
+import type { CardEvent } from '@atlaskit/media-card/types';
+import {
+	type FileItem,
+	type FileState,
+	type UploadableFile,
+	type MediaClient,
+	type FileIdentifier,
+} from '@atlaskit/media-client';
 import {
 	createUploadMediaClient,
 	genericFileId,
@@ -15,17 +28,7 @@ import {
 	externalImageIdentifier,
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import type { CardEvent } from '@atlaskit/media-card/types';
-import type { CardAction } from '@atlaskit/media-card/actions';
-import EditorCloseIcon from '@atlaskit/icon/core/cross';
-import {
-	type FileItem,
-	type FileState,
-	type UploadableFile,
-	type MediaClient,
-	type FileIdentifier,
-} from '@atlaskit/media-client';
-import Button from '@atlaskit/button/default/button';
+
 import { filmstripWrapperStyles } from '../example-helpers/styles';
 import { Filmstrip, type FilmstripItem } from '../src';
 

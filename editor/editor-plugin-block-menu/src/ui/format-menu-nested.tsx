@@ -12,7 +12,6 @@ import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 
 const BLOCK_MENU_TRANSFORM_SPOTLIGHT_PORTAL_SELECTOR =

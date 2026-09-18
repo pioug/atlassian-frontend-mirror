@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 
@@ -6,7 +7,6 @@ import { searchAtlaskitComponentsTool } from '../search-atlaskit-components/sear
 import { searchComponentsTool } from '../search-components/search-components-tool';
 import { searchIconsTool } from '../search-icons/search-icons-tool';
 import { searchTokensTool } from '../search-tokens/search-tokens-tool';
-
 import type { planInputSchema } from './plan-input-schema';
 
 export const planTool = async ({

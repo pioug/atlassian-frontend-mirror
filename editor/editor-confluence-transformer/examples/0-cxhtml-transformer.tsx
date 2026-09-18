@@ -2,32 +2,37 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import { Component, createRef } from 'react';
+
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports */
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
-import { Component, createRef } from 'react';
 import { pd } from 'pretty-data';
+
+// eslint-disable-next-line  no-restricted-imports -- Legacy package outside of AFM lacks entry points
+import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorProps, EditorActions } from '@atlaskit/editor-core';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import { EditorContext, WithEditorActions } from '@atlaskit/editor-core';
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-// eslint-disable-next-line  no-restricted-imports -- Legacy package outside of AFM lacks entry points
-import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
-import Spinner from '@atlaskit/spinner/spinner';
-import { token } from '@atlaskit/tokens';
-import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
-import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import Spinner from '@atlaskit/spinner/spinner';
+import { token } from '@atlaskit/tokens';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
 import {
 	CODE_MACRO,
 	JIRA_ISSUE,
@@ -40,8 +45,6 @@ import {
 	DATE,
 } from '../example-helpers/cxhtml-test-data';
 import { ConfluenceTransformer } from '../src';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const content: SerializedStyles = css({
 	padding: `0 ${token('space.250')}`,

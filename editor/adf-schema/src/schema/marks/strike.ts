@@ -1,4 +1,5 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { strike as strikeFactory } from '../../next-schema/generated/markTypes';
 
 /**

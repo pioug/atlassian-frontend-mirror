@@ -10,6 +10,7 @@ import type { BreakoutMarkDefinition } from '../marks/breakout';
 import type { BlockCardDefinition as BlockCard } from './block-card';
 import type { BlockQuoteDefinition as Blockquote } from './blockquote';
 import type { BodiedExtensionDefinition as BodiedExtension } from './bodied-extension';
+import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type { CodeBlockDefinition as CodeBlock } from './code-block';
 import type { DecisionListDefinition as DecisionList } from './decision-list';
 import type { EmbedCardDefinition as EmbedCard } from './embed-card';
@@ -23,7 +24,6 @@ import type { RuleDefinition as Rule } from './rule';
 import type { TableDefinition as Table } from './tableNodes';
 import type { TaskListDefinition as TaskList } from './task-list';
 import type { ExtensionAttributes } from './types/extensions';
-import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type {
 	OrderedListDefinition as OrderedList,
 	BulletListDefinition as BulletList,

@@ -1,8 +1,9 @@
 import MockDate from 'mockdate';
-import { uploadinator } from '../../uploadinator';
 import { empty } from 'rxjs/observable/empty';
-import { toArray } from 'rxjs/operators/toArray';
 import { from } from 'rxjs/observable/from';
+import { toArray } from 'rxjs/operators/toArray';
+
+import { uploadinator } from '../../uploadinator';
 
 const delayPromise = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

@@ -4,11 +4,11 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "TeamsAnchor.example.tsx",
-    "TeamsLink.example.tsx",
-    "TeamsLinkButton.example.tsx",
-    "TeamsLinkItem.example.tsx",
-    "TeamsNavigationProvider.example.tsx"
-  ]
+	"testExamples": [
+		"TeamsAnchor.example.tsx",
+		"TeamsLink.example.tsx",
+		"TeamsLinkButton.example.tsx",
+		"TeamsLinkItem.example.tsx",
+		"TeamsNavigationProvider.example.tsx",
+	],
 }

@@ -3,6 +3,7 @@
 // are necessary for the main render of the trigger component to help maintain bundle size.
 
 /* eslint-disable @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation */
+
 import React, { type ReactNode } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';

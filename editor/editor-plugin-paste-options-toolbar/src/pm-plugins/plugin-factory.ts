@@ -11,7 +11,6 @@ import type {
 import { PastePluginActionTypes, type PastePluginAction } from '../editor-actions/actions';
 import type { PasteOptionsPluginState } from '../types/types';
 import { pasteOptionsPluginKey } from '../types/types';
-
 import { PASTE_OPTIONS_META_ID } from './constants';
 import { reducer } from './reducer';
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { type DescriptionBylineProps } from './types';
+
 import { renderHighlight } from '../MentionItem/MentionHighlightHelpers';
 import { DescriptionBylineStyle } from './styles';
+import { type DescriptionBylineProps } from './types';
 
 export default class UserMentionDescriptionByline extends React.PureComponent<
 	DescriptionBylineProps,

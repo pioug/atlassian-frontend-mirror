@@ -2,7 +2,6 @@ import type { JqlArgumentContext } from '@atlaskit/jql-parser/JQLParser';
 
 import { internalCreators } from '../creators';
 import { type Argument } from '../types';
-
 import { getPositionFromContext, JastBuildingVisitor } from './common';
 import { StringVisitor } from './string';
 

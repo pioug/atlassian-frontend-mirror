@@ -2,7 +2,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { normalizeLocale } from '../common';
 import { createDateParser, type CreateDateParserOptions, type DateParser } from '../date-parser';
-
 import { type FormattedParts, toFormattedParts } from './to-formatted-parts';
 
 export type DateFormatter = (date: Date) => string;

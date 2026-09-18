@@ -1,7 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import PlaceholderContent from './placeholder-content';
-
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
@@ -12,6 +10,8 @@ import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import PlaceholderContent from './placeholder-content';
 
 const styles = cssMap({
 	modalBody: {

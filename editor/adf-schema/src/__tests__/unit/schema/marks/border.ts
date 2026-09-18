@@ -1,7 +1,8 @@
-import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+
 import { border } from '../../../..';
+import { createSchema } from '../../../../schema/create-schema';
 
 const testAttr = { color: '#172B4D', size: 1 };
 const testAttrFalse = { color: '#12345', size: 0 };

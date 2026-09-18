@@ -41,6 +41,7 @@ export const appOrder: string[] = [
 	'Search',
 	'Studio',
 	'Analytics',
+	'Insights',
 	'Admin',
 	'Jira Data Center',
 	'Jira Service Management Data Center',

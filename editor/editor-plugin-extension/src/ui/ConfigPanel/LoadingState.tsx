@@ -12,7 +12,6 @@ import type { LoadingComponentProps } from 'react-loadable';
 import { messages } from '@atlaskit/editor-common/extensions';
 import SectionMessage from '@atlaskit/section-message/message';
 import Spinner from '@atlaskit/spinner/spinner';
-
 import { token } from '@atlaskit/tokens';
 
 const spinnerWrapperStyles = css({

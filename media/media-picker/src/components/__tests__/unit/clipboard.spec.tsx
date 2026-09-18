@@ -2,16 +2,16 @@ import React from 'react';
 
 jest.mock('../../../service/uploadServiceImpl');
 
-import { render } from '@atlassian/testing-library';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { ClipboardMockFile, fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { render } from '@atlassian/testing-library';
 
 import { LocalFileSource } from '../../../service/types';
-import { Clipboard } from '../../clipboard/clipboard';
-import { type ClipboardConfig } from '../../../types';
 import { UploadServiceImpl } from '../../../service/uploadServiceImpl';
+import { type ClipboardConfig } from '../../../types';
+import { Clipboard } from '../../clipboard/clipboard';
 
 const MockedUploadServiceImpl = jest.mocked(UploadServiceImpl);
 

@@ -1,6 +1,6 @@
-import AnalyticsHelper from '../analytics-helper';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 
+import AnalyticsHelper from '../analytics-helper';
 import {
 	startMeasure,
 	stopMeasure,

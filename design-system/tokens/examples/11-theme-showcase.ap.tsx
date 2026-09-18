@@ -7,13 +7,13 @@ import { useEffect, useState } from 'react';
 
 import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
+import { Label } from '@atlaskit/form/label/default';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
+import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import { Label } from '@atlaskit/form/label/default';
-import Select from '@atlaskit/select/default';
 import type { ThemeState } from '@atlaskit/tokens/theme-state';
 
 const iconSpacingStyles = cssMap({

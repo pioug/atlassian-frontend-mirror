@@ -11,7 +11,6 @@ import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { Card } from '../../src';
 import { HoverCard } from '../../src/hoverCard';
 import HoverCardBox from '../utils/hover-card-box';
-
 import withJsonldEditorProvider from './jsonld-editor-provider';
 
 const CardExample = ({

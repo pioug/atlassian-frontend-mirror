@@ -1,12 +1,13 @@
 import React from 'react';
+
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { render } from '@atlassian/testing-library/render';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { render } from '@atlassian/testing-library/render';
 
 import { initialDoc } from '../../../../__tests__/__fixtures__/initial-doc';
-import { RendererActionsContext, RendererContext } from '../../index';
-import { Renderer } from '../../../../entry-points/renderer-default';
 import RendererActions from '../../../../actions/index';
+import { Renderer } from '../../../../entry-points/renderer-default';
+import { RendererActionsContext, RendererContext } from '../../index';
 
 describe('Registering renderer actions', () => {
 	it('should capture and report a11y violations', async () => {

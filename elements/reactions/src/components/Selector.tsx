@@ -3,19 +3,20 @@
  * @jsx jsx
  */
 import { Fragment, useEffect, useState } from 'react';
+
 import { keyframes } from '@compiled/react';
 
 import { css, jsx, cssMap } from '@atlaskit/css';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import { messages } from '../shared/i18n';
 import { getDefaultReactions } from '../shared/constants';
+import { messages } from '../shared/i18n';
 import { EmojiButton } from './EmojiButton';
 import { ShowMore } from './ShowMore';
 import { Trigger } from './Trigger';

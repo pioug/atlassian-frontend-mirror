@@ -14,12 +14,11 @@ import { css, cssMapScoped, jsx, keyframes } from '@compiled/react';
 
 // eslint-disable-next-line import/order
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: add back tableSharedStyle when migrate table styles
 // import { richMediaClassName, tableSharedStyle } from '@atlaskit/editor-common/styles';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
-import {
+import type { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
+import type {
 	AnnotationSharedClassNames,
 	richMediaClassName,
 	expandClassNames,
@@ -30,7 +29,7 @@ import {
 	tableMarginTop,
 	TaskDecisionSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
-import {
+import type {
 	BodiedSyncBlockSharedCssClassName,
 	SyncBlockSharedCssClassName,
 	SyncBlockLabelSharedCssClassName,
@@ -44,19 +43,19 @@ import type {
 } from '@atlaskit/editor-common/types';
 import {
 	akEditorFullPageDefaultFontSize,
-	akEditorFullPageDenseFontSize,
+	type akEditorFullPageDenseFontSize,
 	akEditorGutterPaddingDynamic,
-	akEditorShadowZIndex,
-	akEditorSwoopCubicBezier,
-	akEditorTableNumberColumnWidth,
+	type akEditorShadowZIndex,
+	type akEditorSwoopCubicBezier,
+	type akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
 import { overflowShadowForCompiled } from '@atlaskit/editor-shared-styles/overflow-shadow-for-compiled';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
@@ -643,7 +642,7 @@ const editorContentStyles = cssMapScoped({
 	annotationStyles: {
 		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${AnnotationSharedClassNames.blur}, .${AnnotationSharedClassNames.focus}, .${AnnotationSharedClassNames.draft}, .${AnnotationSharedClassNames.hover}`]:
+			[`.${'ak-editor-annotation-blur' satisfies typeof AnnotationSharedClassNames.blur}, .${'ak-editor-annotation-focus' satisfies typeof AnnotationSharedClassNames.focus}, .${'ak-editor-annotation-draft' satisfies typeof AnnotationSharedClassNames.draft}, .${'ak-editor-annotation-hover' satisfies typeof AnnotationSharedClassNames.hover}`]:
 				{
 					borderBottom: '2px solid transparent',
 					cursor: 'pointer',
@@ -658,7 +657,7 @@ const editorContentStyles = cssMapScoped({
 					},
 				},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
-			[`.${AnnotationSharedClassNames.focus}`]: {
+			[`.${'ak-editor-annotation-focus' satisfies typeof AnnotationSharedClassNames.focus}`]: {
 				// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
 				background: token('color.background.accent.yellow.subtlest.pressed'),
 				borderBottomColor: token('color.border.accent.yellow'),
@@ -666,7 +665,7 @@ const editorContentStyles = cssMapScoped({
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
-			[`.${AnnotationSharedClassNames.draft}`]: {
+			[`.${'ak-editor-annotation-draft' satisfies typeof AnnotationSharedClassNames.draft}`]: {
 				// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
 				background: token('color.background.accent.yellow.subtlest.pressed'),
 				borderBottomColor: token('color.border.accent.yellow'),
@@ -675,14 +674,14 @@ const editorContentStyles = cssMapScoped({
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
-			[`.${AnnotationSharedClassNames.blur}`]: {
+			[`.${'ak-editor-annotation-blur' satisfies typeof AnnotationSharedClassNames.blur}`]: {
 				// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
 				background: token('color.background.accent.yellow.subtlest'),
 				borderBottomColor: token('color.border.accent.yellow'),
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
-			[`.${AnnotationSharedClassNames.hover}`]: {
+			[`.${'ak-editor-annotation-hover' satisfies typeof AnnotationSharedClassNames.hover}`]: {
 				// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
 				background: token('color.background.accent.yellow.subtlest.hovered'),
 				borderBottomColor: token('color.border.accent.yellow'),
@@ -810,7 +809,7 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 			// code blocks
-			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+			[`.${'code-block' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
 				marginTop: blockNodesVerticalMarginVar,
 			},
 			li: {
@@ -1091,7 +1090,7 @@ const editorContentStyles = cssMapScoped({
 	},
 	codeBlockStyles: {
 		'.ProseMirror': {
-			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED} > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
+			[`.${'code-content--wrapped' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED} > .${'code-block-content-wrapper' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
 				{
 					marginRight: token('space.100'),
 
@@ -1102,7 +1101,7 @@ const editorContentStyles = cssMapScoped({
 					},
 				},
 
-			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
+			[`.${'code-block-content-wrapper' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
 				{
 					display: 'flex',
 					flex: 1,
@@ -1113,7 +1112,7 @@ const editorContentStyles = cssMapScoped({
 					},
 				},
 
-			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+			[`.${'code-block' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
 				position: 'relative',
 				backgroundColor: token('elevation.surface.raised'),
 				borderRadius: token('radius.small', '3px'),
@@ -1129,7 +1128,7 @@ const editorContentStyles = cssMapScoped({
 					content: 'attr(data-label)',
 				},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_START}`]: {
+				[`.${'code-block--start' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_START}`]: {
 					position: 'absolute',
 					visibility: 'hidden',
 					height: '1.5rem',
@@ -1137,7 +1136,7 @@ const editorContentStyles = cssMapScoped({
 					left: 0,
 				},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_END}`]: {
+				[`.${'code-block--end' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_END}`]: {
 					position: 'absolute',
 					visibility: 'hidden',
 					height: '1.5rem',
@@ -1145,18 +1144,19 @@ const editorContentStyles = cssMapScoped({
 					right: 0,
 				},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}`]: {
-					...overflowShadowStyles,
-					position: 'relative',
-					backgroundColor: token('color.background.neutral'),
-					display: 'flex',
-					borderRadius: token('radius.small', '3px'),
-					width: '100%',
-					counterReset: 'line',
-					overflowX: 'auto',
-					backgroundRepeat: 'no-repeat',
-					backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
-					backgroundSize: `${token('space.300')} 100%,
+				[`.${'code-block-content-wrapper' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}`]:
+					{
+						...overflowShadowStyles,
+						position: 'relative',
+						backgroundColor: token('color.background.neutral'),
+						display: 'flex',
+						borderRadius: token('radius.small', '3px'),
+						width: '100%',
+						counterReset: 'line',
+						overflowX: 'auto',
+						backgroundRepeat: 'no-repeat',
+						backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
+						backgroundSize: `${token('space.300')} 100%,
 							${token('space.300')} 100%,
 							${token('space.100')} 100%,
 							${token('space.100')} 100%,
@@ -1164,7 +1164,7 @@ const editorContentStyles = cssMapScoped({
 							1px 100%,
 							${token('space.100')} 100%,
 							1px 100%`,
-					backgroundPosition: `0 0,
+						backgroundPosition: `0 0,
 								0 0,
 							100% 0,
 							100% 0,
@@ -1172,36 +1172,38 @@ const editorContentStyles = cssMapScoped({
 							100% 0,
 								0 0,
 								0 0`,
-					// Be careful if refactoring this; it is needed to keep arrow key navigation in Firefox consistent with other browsers.
-					overflowY: 'hidden',
-				},
+						// Be careful if refactoring this; it is needed to keep arrow key navigation in Firefox consistent with other browsers.
+						overflowY: 'hidden',
+					},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]: {
-					backgroundColor: token('color.background.neutral'),
-					position: 'relative',
-					width: 'var(--lineNumberGutterWidth, 2rem)',
-					padding: token('space.100'),
-					flexShrink: 0,
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-					fontSize: fontSize14px,
-					boxSizing: 'content-box',
-				},
+				[`.${'line-number-gutter' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]:
+					{
+						backgroundColor: token('color.background.neutral'),
+						position: 'relative',
+						width: 'var(--lineNumberGutterWidth, 2rem)',
+						padding: token('space.100'),
+						flexShrink: 0,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: fontSize14px,
+						boxSizing: 'content-box',
+					},
 
 				// This is a fix of marker of list item with code block.
 				// The list item marker in Chrome is aligned by the baseline of the text,
 				// that's why we need to add a text (content: "1") to the line number gutter to align
 				// the list item marker with the text.
 				// Without it, the list item marker will be aligned by the bottom of the code block. */
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}::before`]: {
-					content: "'1'",
-					visibility: 'hidden',
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-					fontSize: fontSize14px,
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-					lineHeight: '1.5rem',
-				},
+				[`.${'line-number-gutter' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}::before`]:
+					{
+						content: "'1'",
+						visibility: 'hidden',
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: fontSize14px,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						lineHeight: '1.5rem',
+					},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+				[`.${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
 					code: {
 						tabSize: 4,
 						cursor: 'text',
@@ -1215,21 +1217,22 @@ const editorContentStyles = cssMapScoped({
 					},
 				},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET}`]: {
-					pointerEvents: 'none',
-					userSelect: 'none',
-					width: 'var(--lineNumberGutterWidth, 2rem)',
-					left: 0,
-					position: 'absolute',
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-					fontSize: fontSize14px,
-					padding: `0px ${token('space.100')}`,
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-					lineHeight: '1.5rem',
-					textAlign: 'right',
-					color: token('color.text.subtlest'),
-					boxSizing: 'content-box',
-				},
+				[`.${'code-content__line-number--wrapped' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET}`]:
+					{
+						pointerEvents: 'none',
+						userSelect: 'none',
+						width: 'var(--lineNumberGutterWidth, 2rem)',
+						left: 0,
+						position: 'absolute',
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: fontSize14px,
+						padding: `0px ${token('space.100')}`,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						lineHeight: '1.5rem',
+						textAlign: 'right',
+						color: token('color.text.subtlest'),
+						boxSizing: 'content-box',
+					},
 			},
 
 			li: {
@@ -1256,26 +1259,28 @@ const editorContentStyles = cssMapScoped({
 			'.danger.code-block': {
 				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]: {
-					backgroundColor: token('color.background.danger'),
-					color: token('color.text.danger'),
-					...gutterDangerOverlay,
-				},
+				[`.${'line-number-gutter' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]:
+					{
+						backgroundColor: token('color.background.danger'),
+						color: token('color.text.danger'),
+						...gutterDangerOverlay,
+					},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+				[`.${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
 					backgroundColor: token('color.blanket.danger'),
 				},
 			},
 
 			// Danger when nested node
 			'.danger .code-block': {
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]: {
-					backgroundColor: token('color.background.danger'),
-					color: token('color.text.danger'),
-					...gutterDangerOverlay,
-				},
+				[`.${'line-number-gutter' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]:
+					{
+						backgroundColor: token('color.background.danger'),
+						color: token('color.text.danger'),
+						...gutterDangerOverlay,
+					},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+				[`.${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
 					backgroundColor: token('color.blanket.danger'),
 				},
 			},
@@ -1283,14 +1288,14 @@ const editorContentStyles = cssMapScoped({
 	},
 	codeBlockStylesWithEmUnits: {
 		'.ProseMirror': {
-			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+			[`.${'code-block' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
 				'.code-block-gutter-pseudo-element::before': {
 					display: 'flow',
 					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 					lineHeight: '1.5em',
 				},
 
-				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+				[`.${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
 					code: {
 						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 						fontSize: '0.875em',
@@ -2021,7 +2026,7 @@ const editorContentStyles = cssMapScoped({
 				color: token('color.icon.subtle'),
 				transform: 'rotate(0deg)',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				transition: `transform 0.2s ${akEditorSwoopCubicBezier};`,
+				transition: `transform 0.2s ${'cubic-bezier(0.15, 1, 0.3, 1)' satisfies typeof akEditorSwoopCubicBezier};`,
 			},
 		},
 
@@ -2793,7 +2798,7 @@ const editorContentStyles = cssMapScoped({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-			[`> .${PanelSharedCssClassName.prefix}, > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}, > .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}, > div[data-task-list-local-id], > div[data-layout-section], > .${expandClassNames.prefix}`]:
+			[`> .${'ak-editor-panel' satisfies typeof PanelSharedCssClassName.prefix}, > .${'code-block' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}, > .${'blockCardView-content-wrap' satisfies typeof SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}, > div[data-task-list-local-id], > div[data-layout-section], > .${'ak-editor-expand' satisfies typeof expandClassNames.prefix}`]:
 				{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 					'&:first-child': {
@@ -2854,7 +2859,7 @@ const editorContentStyles = cssMapScoped({
 			"& [layout^='wrap-']:has(+ [layout^='wrap-']), & [layout^='wrap-']:has(+ .ProseMirror-gapcursor + [layout^='wrap-'])":
 				{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`& .${richMediaClassName}`]: {
+					[`& .${'rich-media-item' satisfies typeof richMediaClassName}`]: {
 						marginLeft: 0,
 						marginRight: 0,
 					},
@@ -3804,7 +3809,7 @@ const editorContentStyles = cssMapScoped({
 	listDangerStyles: {
 		// only apply danger styles to the outermost list to avoid nested danger styles for lists within lists
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		['.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *).danger']:
+		'.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *).danger':
 			{
 				background: token('color.background.danger'),
 			},
@@ -3844,7 +3849,7 @@ const editorContentStyles = cssMapScoped({
 	listSelectedNodeStyles: {
 		// only apply selected styles to the outermost list to avoid nested selection styles for lists within lists
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		['.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *)']:
+		'.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *)':
 			{
 				background: token('color.background.accent.blue.subtler'),
 				WebkitUserSelect: 'text',
@@ -4037,12 +4042,12 @@ const editorContentStyles = cssMapScoped({
 			// Adjacent list items
 			'li + li': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
 			},
 			// Nested lists directly under an li (unordered and ordered)
 			'li > ul, li > ol, .ak-ul li > ul, .ak-ul li > ol, .ak-ol li > ul, .ak-ol li > ol': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
 			},
 		},
 	},
@@ -6444,9 +6449,10 @@ const editorContentStyles = cssMapScoped({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		'.ProseMirror > .fabric-editor-breakout-mark:first-child': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
-				marginTop: 0,
-			},
+			[`.${'ak-editor-sync-block' satisfies typeof SyncBlockSharedCssClassName.prefix}, .${'ak-editor-bodied-sync-block' satisfies typeof BodiedSyncBlockSharedCssClassName.prefix}`]:
+				{
+					marginTop: 0,
+				},
 		},
 	},
 	syncBlockTextSelectionStyles: {
@@ -6484,40 +6490,45 @@ const editorContentStyles = cssMapScoped({
 		// cssMap requires its immediate property keys to be static strings.
 		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${SyncBlockSharedCssClassName.renderer}`]: {
-				'a[href], button, [role="button"], [role="link"]': {
-					cursor: 'pointer',
+			[`.${'ak-editor-sync-block__renderer' satisfies typeof SyncBlockSharedCssClassName.renderer}`]:
+				{
+					'a[href], button, [role="button"], [role="link"]': {
+						cursor: 'pointer',
+					},
 				},
-			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-				maxWidth: `min(300px, calc(100% - ${token('space.300')}))`,
-			},
+			[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+				{
+					maxWidth: `min(300px, calc(100% - ${token('space.300')}))`,
+				},
 		},
 	},
 	syncBlockOverflowStyles: {
 		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
-				// Contain floated elements (wrap-left/wrap-right) within synced block borders
-				// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
-				display: 'flow-root',
-			},
+			[`.${'ak-editor-bodied-sync-block__content' satisfies typeof BodiedSyncBlockSharedCssClassName.content}`]:
+				{
+					// Contain floated elements (wrap-left/wrap-right) within synced block borders
+					// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
+					display: 'flow-root',
+				},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${SyncBlockSharedCssClassName.renderer}`]: {
-				// Contain floated elements (wrap-left/wrap-right) within synced block borders
-				// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
-				display: 'flow-root',
-			},
+			[`.${'ak-editor-sync-block__renderer' satisfies typeof SyncBlockSharedCssClassName.renderer}`]:
+				{
+					// Contain floated elements (wrap-left/wrap-right) within synced block borders
+					// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
+					display: 'flow-root',
+				},
 		},
 	},
 	syncBlockStyles: {
 		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
-				marginRight: `-19px`,
-				marginLeft: `-19px`,
-			},
+			[`.${'ak-editor-sync-block' satisfies typeof SyncBlockSharedCssClassName.prefix}, .${'ak-editor-bodied-sync-block' satisfies typeof BodiedSyncBlockSharedCssClassName.prefix}`]:
+				{
+					marginRight: `-19px`,
+					marginLeft: `-19px`,
+				},
 		},
 	},
 	syncBlockSelectedStyles: {
@@ -6532,206 +6543,225 @@ const editorContentStyles = cssMapScoped({
 		},
 		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
-				position: 'relative',
-				cursor: 'pointer',
-				borderRadius: token('radius.small', '3px'),
-				marginBottom: 0,
-				marginTop: token('space.075'),
-				paddingBlock: token('space.150'),
-				color: 'inherit',
+			[`.${'ak-editor-sync-block' satisfies typeof SyncBlockSharedCssClassName.prefix}, .${'ak-editor-bodied-sync-block' satisfies typeof BodiedSyncBlockSharedCssClassName.prefix}`]:
+				{
+					position: 'relative',
+					cursor: 'pointer',
+					borderRadius: token('radius.small', '3px'),
+					marginBottom: 0,
+					marginTop: token('space.075'),
+					paddingBlock: token('space.150'),
+					color: 'inherit',
 
-				/* Hover state */
-				'&:hover': {
-					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-					boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
-					transition: 'box-shadow 200ms ease-in',
+					/* Hover state */
+					'&:hover': {
+						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+						boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
+						transition: 'box-shadow 200ms ease-in',
 
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						opacity: 1,
-						visibility: 'visible',
-						transition: 'opacity 200ms ease-in, visibility 200ms ease-in',
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								opacity: 1,
+								visibility: 'visible',
+								transition: 'opacity 200ms ease-in, visibility 200ms ease-in',
+							},
 					},
-				},
 
-				/* Selection state when cursor inside sync block */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`&.${BodiedSyncBlockSharedCssClassName.selectionInside}`]: {
-					boxShadow: `0 0 0 1px ${token('color.border')}`,
-
+					/* Selection state when cursor inside sync block */
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						opacity: 1,
-						visibility: 'visible',
-					},
-				},
+					[`&.${'ak-editor-bodied-sync-block__selection_inside' satisfies typeof BodiedSyncBlockSharedCssClassName.selectionInside}`]:
+						{
+							boxShadow: `0 0 0 1px ${token('color.border')}`,
 
-				/* Node selection state */
-				'&.ak-editor-selected-node': {
-					boxShadow: `0 0 0 1px var(--ak-editor-sync-block-selected-border-color, ${token(
-						'color.border.focused',
-					)})`,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+								{
+									opacity: 1,
+									visibility: 'visible',
+								},
+						},
 
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						opacity: 1,
-						visibility: 'visible',
-						backgroundColor: `var(--ak-editor-sync-block-selected-label-background-color, ${token(
-							'color.background.selected',
+					/* Node selection state */
+					'&.ak-editor-selected-node': {
+						boxShadow: `0 0 0 1px var(--ak-editor-sync-block-selected-border-color, ${token(
+							'color.border.focused',
 						)})`,
-						top: '-14px',
-						paddingBottom: token('space.050'),
-						paddingTop: token('space.050'),
-						'> span': {
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								opacity: 1,
+								visibility: 'visible',
+								backgroundColor: `var(--ak-editor-sync-block-selected-label-background-color, ${token(
+									'color.background.selected',
+								)})`,
+								top: '-14px',
+								paddingBottom: token('space.050'),
+								paddingTop: token('space.050'),
+								'> span': {
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+									color: `${token('color.text.selected')} !important`,
+								},
+							},
+					},
+
+					/* Danger state */
+					'&.danger': {
+						boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+
+						'.ak-editor-panel__icon': {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-							color: `${token('color.text.selected')} !important`,
+							color: `${token('color.icon.danger')} !important`,
 						},
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								backgroundColor: token('color.background.danger'),
+								top: '-14px',
+								paddingBottom: token('space.050'),
+								paddingTop: token('space.050'),
+								'> span': {
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+									color: `${token('color.text.danger')} !important`,
+								},
+							},
 					},
-				},
 
-				/* Danger state */
-				'&.danger': {
-					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
-
-					'.ak-editor-panel__icon': {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-						color: `${token('color.icon.danger')} !important`,
-					},
-
+					/* Node disabled state */
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						backgroundColor: token('color.background.danger'),
-						top: '-14px',
-						paddingBottom: token('space.050'),
-						paddingTop: token('space.050'),
-						'> span': {
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-							color: `${token('color.text.danger')} !important`,
+					[`&.${'disabled' satisfies typeof SyncBlockStateCssClassName.disabledClassName}`]: {
+						backgroundColor: token('color.background.disabled'),
+						boxShadow: `0 0 0 1px ${token('color.border.disabled')}`,
+						userSelect: 'none',
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								backgroundColor: token('elevation.surface'),
+
+								'&::before': {
+									border: 'none',
+								},
+							},
+					},
+
+					/* Creation loading state */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${'creation-loading' satisfies typeof SyncBlockStateCssClassName.creationLoadingClassName}`]:
+						{
+							animationName: syncBlockCreationLoadingKeyframes,
+							animationDuration: '2s',
+							animationTimingFunction: 'linear',
+							animationIterationCount: 'infinite',
+							border: '1px solid transparent',
+							background: `linear-gradient(${token('elevation.surface')}, ${token(
+								'elevation.surface',
+							)}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token(
+								'color.background.accent.purple.subtlest.pressed',
+							)}, #3279E0, #1868DB) border-box`,
+							backgroundClip: 'padding-box, border-box',
+
+							boxShadow: 'none',
+							transition: 'box-shadow 200ms ease-in',
+
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+								{
+									display: 'none',
+								},
 						},
-					},
-				},
 
-				/* Node disabled state */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`&.${SyncBlockStateCssClassName.disabledClassName}`]: {
-					backgroundColor: token('color.background.disabled'),
-					boxShadow: `0 0 0 1px ${token('color.border.disabled')}`,
-					userSelect: 'none',
-
+					/* Error state */
+					/* In error state sync block should have disabled background colour */
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						backgroundColor: token('elevation.surface'),
-
-						'&::before': {
-							border: 'none',
+					[`:has(.${'ak-editor-sync-block__error_state' satisfies typeof SyncBlockSharedCssClassName.error})`]:
+						{
+							backgroundColor: token('color.background.disabled'),
 						},
-					},
-				},
-
-				/* Creation loading state */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`&.${SyncBlockStateCssClassName.creationLoadingClassName}`]: {
-					animationName: syncBlockCreationLoadingKeyframes,
-					animationDuration: '2s',
-					animationTimingFunction: 'linear',
-					animationIterationCount: 'infinite',
-					border: '1px solid transparent',
-					background: `linear-gradient(${token('elevation.surface')}, ${token(
-						'elevation.surface',
-					)}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token(
-						'color.background.accent.purple.subtlest.pressed',
-					)}, #3279E0, #1868DB) border-box`,
-					backgroundClip: 'padding-box, border-box',
-
-					boxShadow: 'none',
-					transition: 'box-shadow 200ms ease-in',
 
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						display: 'none',
+					[`:has(.${'ak-editor-sync-block__loading_state' satisfies typeof SyncBlockSharedCssClassName.loading})`]:
+						{
+							boxShadow: `0 0 0 1px ${token('color.border')}`,
+
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+								{
+									opacity: 0,
+									visibility: 'hidden',
+								},
+						},
+
+					/* Live doc view mode state */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${'view-mode' satisfies typeof SyncBlockStateCssClassName.viewModeClassName}`]: {
+						boxShadow: 'none',
+						backgroundColor: 'unset',
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								opacity: 0,
+								visibility: 'hidden',
+							},
 					},
-				},
 
-				/* Error state */
-				/* In error state sync block should have disabled background colour */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`:has(.${SyncBlockSharedCssClassName.error})`]: {
-					backgroundColor: token('color.background.disabled'),
-				},
+					/* Dragging state */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${'user-is-dragging' satisfies typeof SyncBlockStateCssClassName.draggingClassName}`]:
+						{
+							boxShadow: `0 0 0 1px ${token('color.border')}`,
 
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`:has(.${SyncBlockSharedCssClassName.loading})`]: {
-					boxShadow: `0 0 0 1px ${token('color.border')}`,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+								{
+									opacity: 1,
+									visibility: 'visible',
+								},
+						},
 
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						opacity: 0,
-						visibility: 'hidden',
-					},
-				},
-
-				/* Live doc view mode state */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`&.${SyncBlockStateCssClassName.viewModeClassName}`]: {
-					boxShadow: 'none',
-					backgroundColor: 'unset',
-
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						opacity: 0,
-						visibility: 'hidden',
-					},
-				},
-
-				/* Dragging state */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`&.${SyncBlockStateCssClassName.draggingClassName}`]: {
-					boxShadow: `0 0 0 1px ${token('color.border')}`,
+					[`.${'ak-editor-bodied-sync-block__content' satisfies typeof BodiedSyncBlockSharedCssClassName.content}`]:
+						{
+							paddingTop: 0,
+							paddingBottom: 0,
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingLeft: '19px',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingRight: '18px',
+							cursor: 'text',
+						},
 
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-						opacity: 1,
-						visibility: 'visible',
-					},
+					[`.${'ak-editor-sync-block__renderer' satisfies typeof SyncBlockSharedCssClassName.renderer}`]:
+						{
+							paddingTop: 0,
+							paddingBottom: 0,
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingLeft: '19px',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingRight: '18px',
+						},
 				},
-
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
-					paddingTop: 0,
-					paddingBottom: 0,
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-					paddingLeft: '19px',
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-					paddingRight: '18px',
-					cursor: 'text',
-				},
-
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`.${SyncBlockSharedCssClassName.renderer}`]: {
-					paddingTop: 0,
-					paddingBottom: 0,
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-					paddingLeft: '19px',
-					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-					paddingRight: '18px',
-				},
-			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
-				// First child node that has drag handle widget next to it is overridden with marginTop: 0, see globalStyles in editor-plugin-block-controls/src/ui/global-styles.tsx
-				// Hence we set marginTop: 0 when by default to avoid flickering when hovering on and off the first node
-				'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
-					marginTop: 0,
+			[`.${'ak-editor-bodied-sync-block__content' satisfies typeof BodiedSyncBlockSharedCssClassName.content}`]:
+				{
+					// First child node that has drag handle widget next to it is overridden with marginTop: 0, see globalStyles in editor-plugin-block-controls/src/ui/global-styles.tsx
+					// Hence we set marginTop: 0 when by default to avoid flickering when hovering on and off the first node
+					'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+						marginTop: 0,
+					},
 				},
-			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${SyncBlockSharedCssClassName.renderer}`]: {
-				// First child node in bodiedSyncBlock is overridden with marginTop: 0, hence apply the same style to syncBlock for consistency
-				'.ak-renderer-document > :first-child': {
-					marginTop: 0,
+			[`.${'ak-editor-sync-block__renderer' satisfies typeof SyncBlockSharedCssClassName.renderer}`]:
+				{
+					// First child node in bodiedSyncBlock is overridden with marginTop: 0, hence apply the same style to syncBlock for consistency
+					'.ak-renderer-document > :first-child': {
+						marginTop: 0,
+					},
 				},
-			},
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -6977,8 +7007,8 @@ const editorContentStyles = cssMapScoped({
 		},
 		'.ProseMirror .pm-table-container > [data-table-overflow-shadow]': {
 			position: 'absolute',
-			zIndex: akEditorShadowZIndex,
-			top: tableMarginTop,
+			zIndex: 2 satisfies typeof akEditorShadowZIndex,
+			top: 24 satisfies typeof tableMarginTop,
 			bottom: 0,
 			width: tableOverflowShadowWidthWide,
 			opacity: 0,
@@ -7004,7 +7034,7 @@ const editorContentStyles = cssMapScoped({
 		},
 		".ProseMirror .pm-table-container[data-number-column='true'] > [data-table-overflow-shadow='start']":
 			{
-				left: akEditorTableNumberColumnWidth - 1,
+				left: (42 satisfies typeof akEditorTableNumberColumnWidth) - 1,
 			},
 		".ProseMirror .pm-table-container > [data-table-overflow-shadow='end']": {
 			right: 0,
@@ -7202,7 +7232,7 @@ const editorContentStyles = cssMapScoped({
 		},
 		'.pm-table-container[data-number-column="true"]': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			paddingLeft: `${akEditorTableNumberColumnWidth - 1}px`,
+			paddingLeft: `${(42 satisfies typeof akEditorTableNumberColumnWidth) - 1}px`,
 			clear: 'both',
 		},
 		'.pm-table-resizer-container': {
@@ -7243,7 +7273,7 @@ const editorContentStyles = cssMapScoped({
 			},
 			'& > tbody > tr > th, & > tbody > tr > td': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				minWidth: `${tableCellMinWidth}px`,
+				minWidth: `${48 satisfies typeof tableCellMinWidth}px`,
 				fontWeight: token('font.weight.regular'),
 				verticalAlign: 'top',
 				border: `1px solid ${token('color.background.accent.gray.subtler')}`,
@@ -7309,13 +7339,13 @@ const editorContentStyles = cssMapScoped({
 			},
 		},
 		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
-			border: `${tableCellBorderWidth}px solid transparent`,
+			border: `${1 satisfies typeof tableCellBorderWidth}px solid transparent`,
 			position: 'relative',
 			'&::after': {
 				content: "''",
 				position: 'absolute',
 				inset: '-0.5px',
-				border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
+				border: `${1 satisfies typeof tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
 				borderRadius: token('radius.xlarge'),
 				pointerEvents: 'none',
 				zIndex: 1,
@@ -7379,12 +7409,12 @@ const editorContentStyles = cssMapScoped({
 			},
 			'.pm-table-left-border[data-with-numbered-table="true"]': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				left: `${akEditorTableNumberColumnWidth - 1}px`,
+				left: `${(42 satisfies typeof akEditorTableNumberColumnWidth) - 1}px`,
 			},
 		},
 		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
+			border: `${1 satisfies typeof tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
 			borderLeftColor: 'transparent',
 			borderRightColor: 'transparent',
 		},
@@ -7634,20 +7664,22 @@ const editorContentStyles = cssMapScoped({
 		'.ProseMirror': {
 			// Task lists
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			[TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER]: {
-				// Task lists: container top margin
-				marginTop: `max(0px, calc(10px + (var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (2 / 3)))`,
-			},
+			['[data-node-type="actionList"]' satisfies typeof TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER]:
+				{
+					// Task lists: container top margin
+					marginTop: `max(0px, calc(10px + (var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (2 / 3)))`,
+				},
 
 			// Task lists: sibling items and nested lists
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			[`${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} > * + *`]: {
-				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			[`${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} ${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER}, .${TaskDecisionSharedCssClassName.TASK_CONTAINER} .${TaskDecisionSharedCssClassName.TASK_CONTAINER}`]:
+			[`${'[data-node-type="actionList"]' satisfies typeof TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} > * + *`]:
 				{
-					marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+					marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			[`${'[data-node-type="actionList"]' satisfies typeof TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} ${'[data-node-type="actionList"]' satisfies typeof TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER}, .${'taskItemView-content-wrap' satisfies typeof TaskDecisionSharedCssClassName.TASK_CONTAINER} .${'taskItemView-content-wrap' satisfies typeof TaskDecisionSharedCssClassName.TASK_CONTAINER}`]:
+				{
+					marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
 				},
 		},
 	},
@@ -8254,7 +8286,7 @@ const editorContentStyles = cssMapScoped({
 	textDangerStyles: {
 		// Apply styles if isRootText && isOuterMostSelectedNode && .danger
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		['.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *).danger']:
+		'.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *).danger':
 			{
 				background: token('color.background.danger'),
 				boxShadow: `0 -4px 0 ${token('color.background.danger')}, 0 4px 0 ${token(
@@ -8283,7 +8315,7 @@ const editorContentStyles = cssMapScoped({
 	textSelectedNodeStyles: {
 		// Apply styles if isRootText && isOuterMostSelectedNode
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		['.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *)']:
+		'.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *)':
 			{
 				background: token('color.background.accent.blue.subtler'),
 				WebkitUserSelect: 'text',
@@ -8616,12 +8648,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.blocktypeStyles,
 				editorContentStyles.blocktypeStylesRtlBlockquote,
 				isFloatingTocEnabled && editorContentStyles.headingScrollMarginStyles,
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-					editorContentStyles.blockquoteSelectedNodeStyles,
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-					editorContentStyles.listSelectedNodeStyles,
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-					editorContentStyles.textSelectedNodeStyles,
+				editorContentStyles.blockquoteSelectedNodeStyles,
+				editorContentStyles.listSelectedNodeStyles,
+				editorContentStyles.textSelectedNodeStyles,
 				editorContentStyles.blocktypeStyles_fg_platform_editor_typography_ugc,
 				editorContentStyles.blocktypeStylesNestedDnd,
 				editorContentStyles.codeMarkStyles,
@@ -8709,9 +8738,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				(fg('platform_editor_gracefully_render_status_color') || isUpdateStatusColorsEnabled) &&
 					editorContentStyles.statusStylesHexAccent,
 				editorContentStyles.annotationStyles,
-				editorExperiment('platform_editor_block_menu', true)
-					? editorContentStyles.smartCardStylesWithSearchMatchAndBlockMenuDangerStyles
-					: editorContentStyles.smartCardStylesWithSearchMatch,
+				editorContentStyles.smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 					editorContentStyles.smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 				editorContentStyles.editorControlsSmartCardStyles,
@@ -8860,19 +8887,17 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.tableCellBackgroundColorOverrides,
 				editorContentStyles.hyperLinkFloatingToolbarStyles,
 				editorContentStyles.selectionToolbarAnimationStyles,
-				editorExperiment('platform_editor_block_menu', true) && [
-					editorContentStyles.blockquoteDangerStyles,
-					editorContentStyles.textDangerStyles,
-					editorContentStyles.listDangerStyles,
-					editorContentStyles.dangerDateStyles,
-					editorContentStyles.emojiDangerStyles,
-					editorContentStyles.mentionDangerStyles,
-					editorContentStyles.decisionDangerStyles,
-					editorContentStyles.statusDangerStyles,
-					editorContentStyles.dangerRuleStyles,
-					editorContentStyles.mediaDangerStyles,
-					editorContentStyles.nestedPanelDangerStyles,
-				],
+				editorContentStyles.blockquoteDangerStyles,
+				editorContentStyles.textDangerStyles,
+				editorContentStyles.listDangerStyles,
+				editorContentStyles.dangerDateStyles,
+				editorContentStyles.emojiDangerStyles,
+				editorContentStyles.mentionDangerStyles,
+				editorContentStyles.decisionDangerStyles,
+				editorContentStyles.statusDangerStyles,
+				editorContentStyles.dangerRuleStyles,
+				editorContentStyles.mediaDangerStyles,
+				editorContentStyles.nestedPanelDangerStyles,
 				// Block spacing hook — opt-in via --ak-editor-extension-block-spacing.
 				// Applied last so the var-based margins override the base block margins by source
 				// order. Gated by an experiment so it can be disabled and SSR/layout perf tracked.

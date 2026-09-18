@@ -1,4 +1,5 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+
 import { getText } from '../../utils';
 import type { NodeReducer } from './';
 

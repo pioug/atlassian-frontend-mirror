@@ -4,17 +4,19 @@
  * @jsxFrag React.Fragment
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type { KeyboardOrMouseEvent, OnCloseHandler } from '@atlaskit/modal-dialog/types';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import type { KeyboardOrMouseEvent, OnCloseHandler } from '@atlaskit/modal-dialog/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { Placement } from '@atlaskit/popper/main';
 import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
 
 import {
 	createAndFireSafe,
@@ -37,11 +39,10 @@ import {
 } from '../types';
 import { ReactionDialogOpened, ReactionDialogSelectedReactionChanged } from '../ufo';
 import { Reaction } from './Reaction';
-import { ReactionsDialog } from './ReactionsDialog';
 import { ReactionPicker, type ReactionPickerProps } from './ReactionPicker';
-import { type SelectorProps } from './Selector';
+import { ReactionsDialog } from './ReactionsDialog';
 import { ReactionSummaryView } from './ReactionSummaryView';
-import type { UFOExperience } from '@atlaskit/ufo/experience';
+import { type SelectorProps } from './Selector';
 
 const wrapperStyle = css({
 	display: 'flex',

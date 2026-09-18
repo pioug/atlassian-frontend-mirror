@@ -3,10 +3,10 @@
  * @jsx jsx
  */
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
-import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl';
 import { createIntl, injectIntl } from 'react-intl';
 
@@ -22,7 +22,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { messages } from '../messages/media-inline-card';
-
 import { referenceHeights } from './constants';
 import { InlineImageCard } from './inline-image-card';
 import { InlineImageWrapper } from './inline-image-wrapper';

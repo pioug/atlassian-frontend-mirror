@@ -4,42 +4,43 @@
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
+
 import { IntlProvider } from 'react-intl';
 
-import { css, jsx } from '@atlaskit/css';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import { css, jsx } from '@atlaskit/css';
 import type { AnnotationSelectedChangeData } from '@atlaskit/editor-common/annotation';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import {
 	AnnotationsProvider,
 	CommentsContentProvider,
 	RendererAnnotationComponents,
 	useRendererAnnotationProviders,
 } from '@atlaskit/editor-test-helpers/annotation-example';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import {
 	useUpdateDocument,
 	UpdateDocumentProvider,
 } from '@atlaskit/editor-test-helpers/update-document-context';
 import type { UpdateDocument } from '@atlaskit/editor-test-helpers/update-document-context';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import DeleteIcon from '@atlaskit/icon/core/delete';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
+import { Inline } from '@atlaskit/primitives/compiled';
 import { AnnotationsWrapper, RendererWithAnalytics } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
-import { token } from '@atlaskit/tokens';
-import { Inline } from '@atlaskit/primitives/compiled';
-import Toggle from '@atlaskit/toggle';
-import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/default/button';
-import IconButton from '@atlaskit/button/icon/button';
-import DeleteIcon from '@atlaskit/icon/core/delete';
 import SectionMessage from '@atlaskit/section-message/message';
+import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
 import { exampleDocumentWithComments } from './helper/annotations/example-doc-with-comments';
 

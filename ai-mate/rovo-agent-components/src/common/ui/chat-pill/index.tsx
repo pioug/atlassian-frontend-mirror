@@ -10,12 +10,11 @@ import { useIntl } from 'react-intl';
 import type { ButtonProps } from '@atlaskit/button/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import AgentIcon from '@atlaskit/icon/core/ai-agent';
-import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { ChatPillIcon } from '../chat-icon';
-
 import messages from './messages';
 
 const stylesCompiled = cssMapCompiled({

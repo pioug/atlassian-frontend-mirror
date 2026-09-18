@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+
 import { type TeamMembership } from '../../../types/membership';
 import {
 	type ExternalReferenceSource,
@@ -7,7 +8,6 @@ import {
 	type TeamState,
 } from '../../../types/team';
 import { isMember } from '../is-member';
-
 import { vanityActions } from './constants';
 import { type TeamAction, type TeamPermissions } from './types';
 import { userCan } from './user-can';

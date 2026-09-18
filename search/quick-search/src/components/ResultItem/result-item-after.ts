@@ -1,6 +1,7 @@
+import type { ClassAttributes, HTMLAttributes } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled, { type StyledComponentClass } from 'styled-components';
-import type { ClassAttributes, HTMLAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const ResultItemAfter: StyledComponentClass<

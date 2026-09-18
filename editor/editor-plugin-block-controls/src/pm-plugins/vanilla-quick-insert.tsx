@@ -20,7 +20,6 @@ import {
 	isSelectionInNode,
 } from '../ui/utils/document-checks';
 import { createNewLine } from '../ui/utils/editor-commands';
-
 import { calculatePosition } from './quick-insert-calculate-position';
 import type { AnchorRectCache } from './utils/anchor-utils';
 

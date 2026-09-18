@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { Option } from '@atlaskit/user-picker/components/option'` instead.
  */
+
 export { Option } from './components/Option';
 /**
  * @deprecated Use `import type { OptionProps } from '@atlaskit/user-picker/components/option'` instead.

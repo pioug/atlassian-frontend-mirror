@@ -4,7 +4,6 @@ import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { useTheme } from '../../theme';
-
 import { getIconButtonTheme } from './styles';
 import { type IconButtonProps } from './types';
 

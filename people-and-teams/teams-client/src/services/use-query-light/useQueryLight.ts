@@ -5,9 +5,8 @@ import isEqual from 'lodash/isEqual';
 
 import { fetchWithExponentialBackoff } from '../../common/utils/http';
 import { logException } from '../sentry/logException';
-
-import { UseQueryLightError } from './UseQueryLightError';
 import type { FetchMoreArgs, QueryOptions, QueryResponse, QueryResult } from './types';
+import { UseQueryLightError } from './UseQueryLightError';
 
 const transformError = ({
 	error,

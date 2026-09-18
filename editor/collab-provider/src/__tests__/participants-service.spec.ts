@@ -1,17 +1,17 @@
 import './jest_mocks/socket.io-client.mock';
-
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { collab } from '@atlaskit/prosemirror-collab';
-import { createSocketIOCollabProvider } from '../socket-io-provider';
-import type { Config } from '../types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { collab } from '@atlaskit/prosemirror-collab';
+
 import type { Channel } from '../channel';
 import type { ParticipantsService } from '../participants/participants-service';
 import type { Provider } from '../provider';
+import { createSocketIOCollabProvider } from '../socket-io-provider';
+import type { Config } from '../types';
 
 describe('participantsService integration tests', () => {
 	let provider: Provider;

@@ -1,7 +1,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 import type { InsertNodeAPI } from '../types';
-
 import { handleInsertContent } from './insert-content-handlers';
 
 export type CreateInsertNodeAPIProps = Object;

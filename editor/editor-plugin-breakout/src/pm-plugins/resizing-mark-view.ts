@@ -10,7 +10,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
-
 import { createPragmaticResizer } from './pragmatic-resizer';
 import { createResizerCallbacks } from './resizer-callbacks';
 

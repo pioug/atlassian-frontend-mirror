@@ -15,7 +15,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { CREATE_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 import { IconButton } from '../IconButton';
-
 import { getCreateButtonTheme } from './styles';
 import { type CreateProps } from './types';
 

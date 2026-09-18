@@ -1,9 +1,9 @@
 import type { EmojiDescription, OptionalEmojiDescription } from '../../types';
 import { isMediaRepresentation } from '../../util/is-media-representation';
 import debug from '../../util/logger';
+import { getRequiredRepresentation } from './getRequiredRepresentation';
 import type { EmojiCacheStrategy } from './MediaEmojiCache';
 import type MediaImageLoader from './MediaImageLoader';
-import { getRequiredRepresentation } from './getRequiredRepresentation';
 
 const isUnsupportedBrowser = () => {
 	const isIE = /*@cc_on!@*/ false || !!(document as any).documentMode; // Internet Explorer 6-11

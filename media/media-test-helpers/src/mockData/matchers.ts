@@ -1,6 +1,8 @@
 import { type MockRequest } from 'xhr-mock';
-import { type RequestData } from '.';
+
 import { matches } from '@atlaskit/media-common';
+
+import { type RequestData } from '.';
 
 export const matchMethod = (req: MockRequest, data: RequestData): boolean => {
 	return data.method ? data.method === req.method() : true;

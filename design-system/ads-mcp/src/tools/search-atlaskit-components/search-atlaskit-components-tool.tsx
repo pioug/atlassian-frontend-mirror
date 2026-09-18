@@ -1,4 +1,5 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { type z } from 'zod';
@@ -6,7 +7,6 @@ import { type z } from 'zod';
 import { cleanQuery, mergeMultiTermFuseResults } from '../../helpers';
 import type { ComponentMcpPayload } from '../get-all-components/types';
 import { atlaskitComponents } from '../get-atlaskit-components/atlaskit-components.codegen';
-
 import type { searchAtlaskitComponentsInputSchema } from './search-atlaskit-components-input-schema';
 
 const buildComponentResult = (result: ComponentMcpPayload) => {

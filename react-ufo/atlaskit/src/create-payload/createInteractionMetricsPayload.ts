@@ -16,8 +16,6 @@ import type { ResourceTimings } from '../resource-timing';
 import { roundEpsilon } from '../round-number';
 import * as ssr from '../ssr';
 import { getHasAbortingEventDuringSSR } from '../vc/vc-observer-new/get-has-aborting-event-during-ssr';
-
-import type { InteractionMetricsPayloadResult } from './InteractionMetricsPayloadResult';
 import type { OptimizedLabelStack } from './common/types';
 import { buildSegmentTree } from './common/utils/build-segment-tree';
 import { getOldSegmentsLabelStack } from './common/utils/get-old-segments-label-stack';
@@ -29,19 +27,22 @@ import { getBm3TrackerTimings } from './getBm3TrackerTimings';
 import { getBundleEvalTimings } from './getBundleEvalTimings';
 import { getErrorCounts } from './getErrorCounts';
 import { getMetricVariantHoldInfo } from './getMetricVariantHoldInfo';
-import { getPreloadInfoPayload } from './getPreloadInfoPayload';
 import { getMoreAccuratePageVisibilityUpToTTI } from './getMoreAccuratePageVisibilityUpToTTI';
-import { getPPSMetrics } from './getPPSMetrics';
 import { getPageVisibilityUpToTTI } from './getPageVisibilityUpToTTI';
 import { getPayloadSizeAndAnnotate } from './getPayloadSizeAndAnnotate';
+import { getPPSMetrics } from './getPPSMetrics';
+import { getPreloadInfoPayload } from './getPreloadInfoPayload';
 import { getReactProfilerTimingsByMetricWindow } from './getReactProfilerTimingsByMetricWindow';
 import { getReactProfilerTimingsForWindow } from './getReactProfilerTimingsForWindow';
 import { getResourceTimings } from './getResourceTimings';
 import { getResourceTimingsPayload } from './getResourceTimingsPayload';
-import { getSSRProperties } from './getSSRProperties';
 import { getSegment3pTimingAbortMarkers } from './getSegment3pTimingAbortMarkers';
+import { getSSRProperties } from './getSSRProperties';
 import { getStylesheetMetrics } from './getStylesheetMetrics';
 import { getTracingContextData } from './getTracingContextData';
+import type { PageLoadInitialSSRMetrics } from './index';
+import { MAX_PAYLOAD_SIZE } from './index';
+import type { InteractionMetricsPayloadResult } from './InteractionMetricsPayloadResult';
 import { objectToArray } from './objectToArray';
 import { optimizeCustomData } from './optimizeCustomData';
 import { optimizeRedirects } from './optimizeRedirects';
@@ -66,9 +67,6 @@ import { optimizeReactProfilerTimings } from './utils/optimize-react-profiler-ti
 import { optimizeRequestInfo } from './utils/optimize-request-info';
 import { optimizeSpans } from './utils/optimize-spans';
 import { trimVcDebugData } from './utils/trim-vc-debug-data';
-
-import type { PageLoadInitialSSRMetrics } from './index';
-import { MAX_PAYLOAD_SIZE } from './index';
 
 export async function createInteractionMetricsPayload(
 	interaction: InteractionMetrics,

@@ -1,5 +1,4 @@
 import type { FloatingToolbarPluginData } from '../../floatingToolbarPluginType';
-
 import type { FloatingToolbarPluginAction } from './types';
 
 export const reducer = (

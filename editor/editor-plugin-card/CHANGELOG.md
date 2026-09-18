@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 25.0.2
+
+### Patch Changes
+
+- [`38952a4383a53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38952a4383a53) -
+  Add Data and charts slash-command hover previews behind platform_editor_slash_command.
+- Updated dependencies
+
+## 25.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.0
 
 ### Patch Changes

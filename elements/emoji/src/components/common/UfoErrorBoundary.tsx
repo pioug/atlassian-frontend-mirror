@@ -1,4 +1,5 @@
 import React, { type ErrorInfo } from 'react';
+
 import type { UFOExperience } from '@atlaskit/ufo/experience';
 
 export class UfoErrorBoundary extends React.Component<{

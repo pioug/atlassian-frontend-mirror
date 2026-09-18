@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension/use-data-source-client-extension';
 
 import createEventPayload from './common/utils/analytics/create-event-payload';

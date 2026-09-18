@@ -14,7 +14,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { getActiveColorNew } from '../pm-plugins/utils/color';
 import type { TextColorPlugin } from '../textColorPluginType';
 import type { TextColorInputMethod } from '../types';
-
 import { removeColor } from './remove-color';
 import { toggleColor } from './toggle-color';
 

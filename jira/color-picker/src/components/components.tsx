@@ -2,16 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { MenuListComponentProps, OptionProps } from '@atlaskit/select/types';
-import { type Color } from '../types';
-import ColorCard from './ColorCard';
-import { getWidth } from '../utils';
-import { token } from '@atlaskit/tokens';
-import { css, jsx } from '@atlaskit/css';
-import { COLOR_PICKER } from '../constants';
-import { useIntl } from 'react-intl';
-import messages from '../messages';
 
+import { useIntl } from 'react-intl';
+
+import { css, jsx } from '@atlaskit/css';
+import type { MenuListComponentProps, OptionProps } from '@atlaskit/select/types';
+import { token } from '@atlaskit/tokens';
+
+import { COLOR_PICKER } from '../constants';
+import messages from '../messages';
+import { type Color } from '../types';
+import { getWidth } from '../utils';
+import ColorCard from './ColorCard';
 export const MenuList = (props: MenuListComponentProps<Color>): JSX.Element => {
 	const {
 		selectProps: { cols },
@@ -36,7 +38,6 @@ export const MenuList = (props: MenuListComponentProps<Color>): JSX.Element => {
 		</div>
 	);
 };
-
 export const Option = (props: OptionProps<Color>): JSX.Element => {
 	const {
 		data: { value, label },
@@ -70,9 +71,7 @@ export const Option = (props: OptionProps<Color>): JSX.Element => {
 		</div>
 	);
 };
-
 export const DropdownIndicator = () => null;
-
 export const Placeholder = () => null;
 
 const colorCardWrapperStyles = css({

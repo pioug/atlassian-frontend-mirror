@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 
 import { type CardAction } from '../../../actions';
 import { CardActionIconButton } from './cardActionIconButton';
-import { type CardActionIconButtonVariant } from './styles';
 import { CardActionsDropdownMenu } from './cardActionsDropdownMenu';
+import { type CardActionIconButtonVariant } from './styles';
 
 export interface CardActionsViewProps {
 	readonly actions: CardAction[];

@@ -6,6 +6,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx, keyframes } from '@emotion/react';
+
 import { token } from '@atlaskit/tokens';
 
 type Props = { children: React.ReactNode; left: number; top: number };

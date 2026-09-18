@@ -9,7 +9,6 @@ import {
 	type JqlEditorAutocompleteAnalyticsEvent,
 } from '../../analytics/types';
 import { type GetAutocompleteSuggestions } from '../../common/types';
-
 import { getAutocompleteSuggestionsUrl } from './getAutocompleteSuggestionsUrl';
 
 export const useFetchFieldValues = (

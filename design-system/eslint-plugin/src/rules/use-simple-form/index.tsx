@@ -3,7 +3,6 @@ import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
 import { getFormImportLocalNames } from '../utils/get-form-import-local-names';
-
 import { topLevelAttributeNames } from './top-level-attribute-names';
 
 export const convertForm = 'Convert form to simple form';

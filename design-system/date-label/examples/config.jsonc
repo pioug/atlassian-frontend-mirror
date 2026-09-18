@@ -4,11 +4,11 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time.
  */
 {
-  "testExamples": [
-    "0-basic.vr.ap.tsx",
-    "1-no-icon.vr.ap.tsx",
-    "2-max-width.vr.ap.tsx",
-    "3-spacious.vr.ap.tsx",
-    "4-dropdown-trigger.vr.ap.tsx"
-  ]
+	"testExamples": [
+		"0-basic.vr.ap.tsx",
+		"1-no-icon.vr.ap.tsx",
+		"2-max-width.vr.ap.tsx",
+		"3-spacious.vr.ap.tsx",
+		"4-dropdown-trigger.vr.ap.tsx",
+	],
 }

@@ -1,9 +1,9 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { INPTracker } from './inp-measurers/inp';
 import { INSMSession } from './insm-session';
 import type { ExperienceProperties, INSMOptions } from './types';
-import { INPTracker } from './inp-measurers/inp';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export class INSM {
 	analyticsWebClient?: AnalyticsWebClient;

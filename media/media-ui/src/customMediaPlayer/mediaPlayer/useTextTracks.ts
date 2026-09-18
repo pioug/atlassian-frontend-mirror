@@ -1,9 +1,3 @@
-import type {
-	FileState,
-	MediaUserArtifact,
-	MediaUserArtifactCaptionKey,
-} from '@atlaskit/media-state/file-state';
-import { hasArtifacts } from '@atlaskit/media-client';
 import {
 	useState,
 	useEffect,
@@ -13,21 +7,29 @@ import {
 	type Dispatch,
 	type SetStateAction,
 } from 'react';
-import type { VideoTextTrack, VideoTextTracks } from '../react-video-renderer/text';
+
+import { useIntl } from 'react-intl';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { hasArtifacts } from '@atlaskit/media-client';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
+import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
+import type {
+	FileState,
+	MediaUserArtifact,
+	MediaUserArtifactCaptionKey,
+} from '@atlaskit/media-state/file-state';
+
+import { createCaptionDisplayFailedEventPayload } from '../analytics/events/operational/createCaptionDisplayFailedEventPayload';
+import { fireAnalyticsEvent } from '../analytics/utils/fireAnalyticsEvent';
+import type { VideoTextTrack, VideoTextTracks } from '../react-video-renderer/text';
+import { type CustomMediaPlayerType } from '../types';
 import { getUserCaptionsEnabled } from './captions/getUserCaptionsEnabled';
 import { getUserCaptionsLocale } from './captions/getUserCaptionsLocale';
 import { findPreselectedTrackIndex } from './captions/selectTracks';
 import { setUserCaptionsEnabled } from './captions/setUserCaptionsEnabled';
 import { setUserCaptionsLocale } from './captions/setUserCaptionsLocale';
-import { useIntl } from 'react-intl';
-
-import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
-import { createCaptionDisplayFailedEventPayload } from '../analytics/events/operational/createCaptionDisplayFailedEventPayload';
-import { fireAnalyticsEvent } from '../analytics/utils/fireAnalyticsEvent';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { type CustomMediaPlayerType } from '../types';
 
 type CaptionsRawMetadata = { l?: string; n?: string };
 type CaptionsMetadata = { lang: string; fileName: string; label: string };

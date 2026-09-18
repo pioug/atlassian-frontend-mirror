@@ -1,5 +1,7 @@
 import type { Locator, Page } from '@playwright/test';
+
 import { snapshotInformational } from '@af/visual-regression';
+
 import {
 	StickyHeaderRowWithOnlyNonHeader,
 	StickyHeaderRowWithOnlyHeader,

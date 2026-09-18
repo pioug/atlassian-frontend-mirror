@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -21,7 +22,6 @@ import Textfield from '@atlaskit/textfield/text-field';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MatchCaseProps } from '../types';
-
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 import {
 	afterInputSection,

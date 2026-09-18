@@ -1,7 +1,8 @@
 import React from 'react';
 import type { ReactNode } from 'react';
-import { RendererActionsContextConsumer } from './index';
+
 import type RendererActions from '../../actions/index';
+import { RendererActionsContextConsumer } from './index';
 
 interface WithRendererActionsProps {
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)

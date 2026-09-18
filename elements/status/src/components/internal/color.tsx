@@ -2,12 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
-import { token } from '@atlaskit/tokens';
-import { Pressable } from '@atlaskit/primitives/compiled';
+
 import { PureComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+
 import { css, cssMap, jsx } from '@compiled/react';
+import { FormattedMessage } from 'react-intl';
+
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
 import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
 import { type Color as ColorType } from '../Status';

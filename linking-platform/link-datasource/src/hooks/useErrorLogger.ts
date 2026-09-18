@@ -5,7 +5,6 @@ import { getTraceId } from '@atlaskit/linking-common/utils/get-trace-id';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { type DatasourceOperationFailedAttributesType } from '../analytics/generated/analytics.types';
-
 import { logToSentry } from './logToSentry';
 
 const getNetworkFields = (

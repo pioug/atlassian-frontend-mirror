@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
+
 import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: Custom Cohort Data', () => {

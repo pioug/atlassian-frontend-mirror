@@ -5,8 +5,8 @@
 
 import Banner from '@atlaskit/banner';
 import { cssMap, jsx } from '@atlaskit/css';
-import Form from '@atlaskit/form/form';
 import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
 import { useFormState } from '@atlaskit/form/use-form-state';
 import Select from '@atlaskit/select/default';
 import type { ValueType as Value } from '@atlaskit/select/types';

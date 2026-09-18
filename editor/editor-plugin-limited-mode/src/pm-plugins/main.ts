@@ -5,14 +5,13 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { LimitedModePlugin, LimitedModePluginState } from '../limitedModePluginType';
-
 import { limitedModePluginKey } from './plugin-key';
-import type { LatchDetector } from './utils/latch-detector-types';
 import { createLatchDetector } from './utils/latch-detector';
+import type { LatchDetector } from './utils/latch-detector-types';
 import { LatchPolicy } from './utils/latch-policy';
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];

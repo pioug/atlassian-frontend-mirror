@@ -1,7 +1,6 @@
 import React, { type ReactElement, useState } from 'react';
 
 import { type RowProps } from '../row';
-
 import Item from './item';
 import LoaderItem from './loader-item';
 

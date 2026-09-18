@@ -7,7 +7,6 @@ import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-car
 import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
 import '../utils/vr-preload-metadata-icons';
 
 class CustomClient extends Client {

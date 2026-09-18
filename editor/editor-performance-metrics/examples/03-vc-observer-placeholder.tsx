@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useEffect } from 'react';
 
 function hyphenate(property: string): string {

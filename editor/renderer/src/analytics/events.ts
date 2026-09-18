@@ -10,9 +10,6 @@ import type {
 	ExtensionType,
 	MediaRenderedAEP,
 } from '@atlaskit/editor-common/analytics';
-
-import type { AEP } from './enums';
-
 import type { SortOrder } from '@atlaskit/editor-common/types';
 import type {
 	SEVERITY,
@@ -21,7 +18,9 @@ import type {
 	UnsupportedContentTooltipPayload,
 } from '@atlaskit/editor-common/utils';
 import type { EditorBreakpointKey } from '@atlaskit/editor-common/utils/analytics';
+
 import type { NestedRendererType } from '../ui/Renderer/types';
+import type { AEP } from './enums';
 
 export enum PLATFORM {
 	NATIVE = 'mobileNative',

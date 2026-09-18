@@ -3,8 +3,8 @@ import React, { useCallback, useRef, useState } from 'react';
 import Button from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
-import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';

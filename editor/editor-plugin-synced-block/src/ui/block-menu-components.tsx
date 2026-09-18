@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
-
 import { CreateOrCopySyncedBlockDropdownItem } from './CreateSyncedBlockDropdownItem';
 
 export const getBlockMenuComponents = (

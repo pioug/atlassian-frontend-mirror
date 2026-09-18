@@ -1,14 +1,15 @@
 import React from 'react';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import Button from '@atlaskit/button/standard-button';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { messages } from '../../messages';
-
 import { CloseButtonContainer } from './styled';
 
 interface Props {

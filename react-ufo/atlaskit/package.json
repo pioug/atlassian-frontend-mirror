@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "7.12.0",
+	"version": "7.13.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -51,6 +51,7 @@
 		"./custom-spans": "./src/custom-spans/index.ts",
 		"./custom-timings": "./src/custom-timings/index.ts",
 		"./default-interaction-id": "./src/interaction-id-context/defaultInteractionId.ts",
+		"./data-fetch-hold": "./src/data-fetch-hold/index.ts",
 		"./experience-trace-id-context": "./src/experience-trace-id-context/index.ts",
 		"./experience-type-key": "./src/experience-trace-id-context/experience-type-key.ts",
 		"./feature-flags-accessed": "./src/feature-flags-accessed/index.ts",

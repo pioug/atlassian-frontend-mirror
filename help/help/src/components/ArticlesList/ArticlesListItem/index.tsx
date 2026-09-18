@@ -1,13 +1,15 @@
 import React, { forwardRef } from 'react';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import ShortcutIcon from '@atlaskit/icon/core/link-external';
-import { token } from '@atlaskit/tokens';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
-import { type ArticleItem } from '../../../model/Article';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import LikeIcon from '@atlaskit/icon/core/thumbs-up';
+import { token } from '@atlaskit/tokens';
+
+import { type ArticleItem } from '../../../model/Article';
 import {
 	ArticlesListItemWrapper,
 	ArticlesListItemContainer,

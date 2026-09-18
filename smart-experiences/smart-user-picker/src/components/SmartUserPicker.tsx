@@ -1,22 +1,24 @@
 import React from 'react';
 
+import type { DebouncedFunc } from 'lodash';
 import debounce from 'lodash/debounce';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import { v4 as uuidV4 } from 'uuid';
-import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { type WrappedComponentProps, injectIntl } from 'react-intl';
-import type { CustomData } from '@atlaskit/ufo/types';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuidV4 } from 'uuid';
+
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
 import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
-import { UserPicker } from '@atlaskit/user-picker/components/user-picker';
-import type { OptionData } from '@atlaskit/user-picker/types';
-import { isExternalUser } from '@atlaskit/user-picker/is-external-user';
-import { isTeam } from '@atlaskit/user-picker/is-team';
-import { isGroup } from '@atlaskit/user-picker/is-group';
-import { isUser } from '@atlaskit/user-picker/is-user';
+import type { CustomData } from '@atlaskit/ufo/types';
 import { isValidEmail } from '@atlaskit/user-picker/components/email-validation';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { UserPicker } from '@atlaskit/user-picker/components/user-picker';
+import { isExternalUser } from '@atlaskit/user-picker/is-external-user';
+import { isGroup } from '@atlaskit/user-picker/is-group';
+import { isTeam } from '@atlaskit/user-picker/is-team';
+import { isUser } from '@atlaskit/user-picker/is-user';
+import type { OptionData } from '@atlaskit/user-picker/types';
 
 import { createAndFireEventInElementsChannel, type SmartEventCreator } from '../analytics';
 import { failedRequestUsersEvent } from '../failedRequestUsersEvent';
@@ -25,8 +27,10 @@ import { filterUsersEvent } from '../filterUsersEvent';
 import { mountedWithPrefetchEvent } from '../mountedWithPrefetchEvent';
 import { preparedUsersLoadedEvent } from '../preparedUsersLoadedEvent';
 import { requestUsersEvent } from '../requestUsersEvent';
+import hydrateDefaultValues from '../service/default-value-hydration-client';
+import getUserRecommendations from '../service/recommendation-client';
+import { type SUPError } from '../service/recommendation-client';
 import { successfulRequestUsersEvent } from '../successfulRequestUsersEvent';
-import MessagesIntlProvider from './MessagesIntlProvider';
 import {
 	type SmartProps,
 	type Props,
@@ -34,11 +38,8 @@ import {
 	type FilterOptions,
 	UserEntityType,
 } from '../types';
-import getUserRecommendations from '../service/recommendation-client';
-import hydrateDefaultValues from '../service/default-value-hydration-client';
-import { type SUPError } from '../service/recommendation-client';
 import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
-import type { DebouncedFunc } from 'lodash';
+import MessagesIntlProvider from './MessagesIntlProvider';
 
 const DEFAULT_DEBOUNCE_TIME_MS = 150;
 

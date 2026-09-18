@@ -4,7 +4,6 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../../../types';
 import { applyTableMeasurement } from '../../transforms/content-mode';
-
 import { measureTableWithAutoLayout } from './measure-table-with-auto-layout';
 
 /**

@@ -14,7 +14,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 import type { CardPlugin } from '../cardPluginType';
-
 import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 

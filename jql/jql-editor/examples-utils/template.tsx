@@ -6,10 +6,9 @@ import { defaults as stateDefaults } from 'react-sweet-state';
 
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider';
 
-import JQLEditor from '../src/ui/';
 import { JQLEditorAnalyticsListener } from '../src/analytics/listener/jql-editor-analytics-listener';
 import { type ExternalMessage } from '../src/state/types';
-
+import JQLEditor from '../src/ui/';
 import { getAutocompleteInitialData } from './get-autocomplete-initial-data';
 import { getAutocompleteSuggestions } from './get-autocomplete-suggestions';
 import { onHydrate } from './hydration';

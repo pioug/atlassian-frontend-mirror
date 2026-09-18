@@ -2,6 +2,7 @@
 /**
  * @deprecated Use `import { transformPermissions } from '@atlaskit/teams-public/product-permission/transform-permissions'` instead.
  */
+
 export { transformPermissions } from './transformPermissions';
 /**
  * @deprecated Use `import { getProductPermissionRequestBody } from '@atlaskit/teams-public/product-permission/get-product-permission-request-body'` instead.

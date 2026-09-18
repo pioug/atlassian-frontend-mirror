@@ -1,5 +1,4 @@
 import type { FlatSegment3pTimingEntry } from '../../common';
-
 import { SEGMENT_3P_SOFT_BUDGET_KB } from './flatten-segment-3p-timings';
 
 /**

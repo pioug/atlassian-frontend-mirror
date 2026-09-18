@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
+import { render, screen } from '@atlassian/testing-library';
 
 import AddIcon from '../../../../../core/add';
 import type { IconTileAppearance } from '../../../../types';

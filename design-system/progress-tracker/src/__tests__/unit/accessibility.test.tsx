@@ -1,9 +1,9 @@
 import React, { type ReactElement } from 'react';
 
-import { render } from '@atlassian/testing-library';
 import cases from 'jest-in-case';
 
 import { axe } from '@af/accessibility-testing';
+import { render } from '@atlassian/testing-library';
 
 import { ProgressTracker, type Stages } from '../../index';
 

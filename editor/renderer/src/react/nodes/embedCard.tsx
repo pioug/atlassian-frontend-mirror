@@ -2,23 +2,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
+import { useContext, useState, useRef } from 'react';
+import type { ComponentProps, FC } from 'react';
+
 /* eslint-disable jsdoc/check-tag-names */
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
-import { useContext, useState, useRef } from 'react';
-import type { ComponentProps, FC } from 'react';
-import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
-import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { SmartCardContext } from '@atlaskit/link-provider/context';
-import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import {
 	WidthConsumer,
 	UnsupportedBlock,
 	MediaSingle as UIMediaSingle,
 	WidthContext,
 } from '@atlaskit/editor-common/ui';
-
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import {
 	akEditorDefaultLayoutWidth,
@@ -27,26 +26,27 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-
-import { CardErrorBoundary } from './fallback';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
-import { RendererCssClassName } from '../../consts';
+import { SmartCardContext } from '@atlaskit/link-provider/context';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
-import type { RendererAppearance } from '../../ui/Renderer/types';
-import { FullPagePadding } from '../../ui/Renderer/style';
-import { getCardClickHandler } from '../utils/getCardClickHandler';
-import { getEventHandler } from '../../utils';
-import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import { RendererCssClassName } from '../../consts';
+import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 import { usePortal } from '../../ui/Renderer/PortalContext';
+import { FullPagePadding } from '../../ui/Renderer/style';
+import type { RendererAppearance } from '../../ui/Renderer/types';
+import { getEventHandler } from '../../utils';
+import { getCardClickHandler } from '../utils/getCardClickHandler';
 import BlockCard from './blockCard';
+import { CardErrorBoundary } from './fallback';
 
 const embedCardWrapperStyles = css({
 	width: '100%',

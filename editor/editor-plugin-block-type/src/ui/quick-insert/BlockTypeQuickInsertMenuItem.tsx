@@ -25,13 +25,13 @@ import {
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import type { ExtractInjectionAPI, HeadingLevels } from '@atlaskit/editor-common/types';
-import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
 import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
 import TextHeadingOneIcon from '@atlaskit/icon-lab/core/text-heading-one';
 import TextHeadingSixIcon from '@atlaskit/icon-lab/core/text-heading-six';
 import TextHeadingThreeIcon from '@atlaskit/icon-lab/core/text-heading-three';
 import TextHeadingTwoIcon from '@atlaskit/icon-lab/core/text-heading-two';
+import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 

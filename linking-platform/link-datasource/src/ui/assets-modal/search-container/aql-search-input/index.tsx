@@ -24,7 +24,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { type AqlValidationResult, useValidateAqlText } from '../../../../hooks/useValidateAqlText';
 import { aqlKey } from '../../../../types/assets/types';
-
 import { searchInputMessages } from './messages';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled

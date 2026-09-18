@@ -13,7 +13,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { MetricsPlugin } from '../metricsPluginType';
-
 import { ActiveSessionTimer } from './utils/active-session-timer';
 import { getAnalyticsPayload } from './utils/analytics';
 import type { TrActionType } from './utils/check-tr-actions/types';

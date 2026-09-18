@@ -2,6 +2,7 @@
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
+
 export { Resizing } from '../resizing/resizing';
 /**
  * @deprecated Import from the generated per-export subpath instead.

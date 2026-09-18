@@ -1,8 +1,9 @@
 import type { DOMOutputSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
-import type { BreakoutMarkDefinition } from '../marks';
-import type { MarksObject } from './types/mark';
+
 import { rule as ruleFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
+import type { BreakoutMarkDefinition } from '../marks';
+import type { MarksObject } from './types/mark';
 
 export type RuleStyle = 'solid' | 'dashed' | 'dotted' | 'sketch' | 'fade';
 

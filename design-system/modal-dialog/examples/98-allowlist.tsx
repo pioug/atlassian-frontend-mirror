@@ -1,19 +1,19 @@
 import React, { useCallback, useState } from 'react';
 
-import PlaceholderContent from './placeholder-content';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import Code from '@atlaskit/code/code';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
-import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield/text-field';
+
+import PlaceholderContent from './placeholder-content';
 
 const allowlistElement = (element: HTMLElement) => {
 	if (element.closest('[data-allowlist-container="true"]')) {

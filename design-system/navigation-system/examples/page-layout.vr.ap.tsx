@@ -16,13 +16,10 @@ import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
-import {
-	Main,
-	MainStickyHeader,
-	UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY,
-	UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY,
-	UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY,
-} from '@atlaskit/navigation-system/layout/main';
+import { Main, MainStickyHeader } from '@atlaskit/navigation-system/layout/main';
+import type { UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY as UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_TYPE } from '@atlaskit/navigation-system/layout/main';
+import type { UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY as UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_TYPE } from '@atlaskit/navigation-system/layout/main';
+import type { UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY as UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY_TYPE } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
 import { Root } from '@atlaskit/navigation-system/layout/root';
@@ -32,14 +29,12 @@ import {
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	BANNER_HEIGHT,
-	LEFT_PANEL_WIDTH,
-	LEFT_SIDEBAR_WIDTH,
-	RIGHT_PANEL_WIDTH,
-	RIGHT_SIDEBAR_WIDTH,
-	TOP_NAVIGATION_HEIGHT,
-} from '@atlaskit/navigation-system/legacy/css-variables';
+import type { BANNER_HEIGHT as BANNER_HEIGHT_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
+import type { TOP_NAVIGATION_HEIGHT as TOP_NAVIGATION_HEIGHT_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
+import type { LEFT_PANEL_WIDTH as LEFT_PANEL_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
+import type { LEFT_SIDEBAR_WIDTH as LEFT_SIDEBAR_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
+import type { RIGHT_PANEL_WIDTH as RIGHT_PANEL_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
+import type { RIGHT_SIDEBAR_WIDTH as RIGHT_SIDEBAR_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
 import { Help } from '@atlaskit/navigation-system/top-nav-items';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
@@ -55,6 +50,30 @@ import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+const BANNER_HEIGHT_STATIC = 'var(--bannerHeight, 0px)' satisfies typeof BANNER_HEIGHT_TYPE;
+
+const TOP_NAVIGATION_HEIGHT_STATIC =
+	'var(--topNavigationHeight, 0px)' satisfies typeof TOP_NAVIGATION_HEIGHT_TYPE;
+
+const LEFT_PANEL_WIDTH_STATIC = 'var(--leftPanelWidth, 0px)' satisfies typeof LEFT_PANEL_WIDTH_TYPE;
+
+const LEFT_SIDEBAR_WIDTH_STATIC =
+	'var(--leftSidebarWidth, 0px)' satisfies typeof LEFT_SIDEBAR_WIDTH_TYPE;
+
+const RIGHT_PANEL_WIDTH_STATIC =
+	'var(--rightPanelWidth, 0px)' satisfies typeof RIGHT_PANEL_WIDTH_TYPE;
+
+const RIGHT_SIDEBAR_WIDTH_STATIC =
+	'var(--rightSidebarWidth, 0px)' satisfies typeof RIGHT_SIDEBAR_WIDTH_TYPE;
+
+const UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_STATIC =
+	`calc(var(${'--bannerHeight'}, 0px) + var(${'--topNavigationHeight'}, 0px))` satisfies typeof UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_TYPE;
+
+const UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_STATIC =
+	`calc(var(${'--leftPanelWidth'}, 0px) + var(${'--leftSidebarWidth'}, 0px))` satisfies typeof UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_TYPE;
+
+const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY_STATIC =
+	`calc(var(${'--rightSidebarWidth'}, 0px) + var(${'--rightPanelWidth'}, 0px))` satisfies typeof UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY_TYPE;
 
 const iconSpacingStyles = cssMap({
 	space050: {
@@ -82,24 +101,24 @@ const styles = cssMap({
 	legacyPositionedSibling: {
 		position: 'absolute',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		insetBlockStart: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
+		insetBlockStart: `calc(${BANNER_HEIGHT_STATIC} + ${TOP_NAVIGATION_HEIGHT_STATIC})`,
 		insetBlockEnd: 0,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		insetInlineStart: `calc(${LEFT_PANEL_WIDTH} + ${LEFT_SIDEBAR_WIDTH})`,
+		insetInlineStart: `calc(${LEFT_PANEL_WIDTH_STATIC} + ${LEFT_SIDEBAR_WIDTH_STATIC})`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		insetInlineEnd: `calc(${RIGHT_PANEL_WIDTH} + ${RIGHT_SIDEBAR_WIDTH})`,
+		insetInlineEnd: `calc(${RIGHT_PANEL_WIDTH_STATIC} + ${RIGHT_SIDEBAR_WIDTH_STATIC})`,
 		backgroundColor: token('color.background.neutral'),
 		overflow: 'auto',
 	},
 	dangerouslyPositionedSibling: {
 		position: 'absolute',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		insetBlockStart: UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY,
+		insetBlockStart: UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_STATIC,
 		insetBlockEnd: 0,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		insetInlineStart: UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY,
+		insetInlineStart: UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_STATIC,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		insetInlineEnd: UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY,
+		insetInlineEnd: UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY_STATIC,
 		backgroundColor: token('color.background.neutral'),
 		overflow: 'auto',
 	},

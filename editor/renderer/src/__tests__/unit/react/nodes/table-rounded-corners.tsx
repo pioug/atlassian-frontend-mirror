@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -7,8 +8,8 @@ import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
-import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import { TableProcessorWithContainerStyles } from '../../../../react/nodes/table';
+import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { RendererStyleContainer } from '../../../../ui/Renderer/RendererStyleContainer';
 

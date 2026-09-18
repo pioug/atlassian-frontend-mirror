@@ -1,12 +1,13 @@
 import React from 'react';
 
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+
 import { Renderer } from '../../entry-points/renderer-default';
-import { borderADF } from './__fixtures__/media-border.adf';
-import { borderADFWithinTable } from './__fixtures__/media-border-within-table.adf';
 import { borderADFWithLink } from './__fixtures__/media-border-with-link.adf';
-import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { borderADFWithinTable } from './__fixtures__/media-border-within-table.adf';
+import { borderADF } from './__fixtures__/media-border.adf';
 
 const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
 	return (

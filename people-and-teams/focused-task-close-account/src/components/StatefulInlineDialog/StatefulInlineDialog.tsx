@@ -1,6 +1,8 @@
 import React from 'react';
+
 import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 import type { Placement } from '@atlaskit/inline-dialog/types';
+
 import { TriggerButton } from './styled';
 
 interface Props {

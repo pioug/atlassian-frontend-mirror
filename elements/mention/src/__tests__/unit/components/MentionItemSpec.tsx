@@ -1,11 +1,14 @@
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import React from 'react';
+
+import { screen, render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import MentionItem from '../../../components/MentionItem';
 import { type Props } from '../../../components/MentionList';
 import { type MentionDescription, type LozengeProps } from '../../../types';
-import { screen, render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
 
 const mentionWithNickname = {
 	id: '0',

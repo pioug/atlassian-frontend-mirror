@@ -1,4 +1,5 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
 import { default as ProfilecardExample } from './01-profilecard';
 import { default as ProfilecardResourcedExample } from './02-profilecard-resourced';
 import { default as ProfilecardOverviewVrExample } from './03-profilecard-overview.vr.ap';

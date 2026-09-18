@@ -1,7 +1,8 @@
-import type { RichMediaAttributes } from './types/rich-media-common';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { embedCard as embedCardFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { RichMediaAttributes } from './types/rich-media-common';
 
 export interface EmbedCardAttributes extends RichMediaAttributes {
 	localId?: string;

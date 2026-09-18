@@ -39,9 +39,9 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import type EditorActions from '../../../actions';
@@ -54,7 +54,6 @@ import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/content
 import { ContextPanel } from '../../ContextPanel';
 import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
-
 import { contentAreaWrapper, sidebarArea } from './StyledComponents';
 import type { ScrollContainerRefs } from './types';
 

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import EmojiUploader from '../src/components/uploader/EmojiUploader';
-import Button from '@atlaskit/button/standard-button';
 
+import { IntlProvider } from 'react-intl';
+
+import Button from '@atlaskit/button/standard-button';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 
+import EmojiUploader from '../src/components/uploader/EmojiUploader';
 import type { EmojiProvider } from '../src/resource';
-import { IntlProvider } from 'react-intl';
 
 export default function EmojiUploaderDisableFocusLock(): React.JSX.Element {
 	const [disableFocusLock, setDisableFocusLock] = useState(false);

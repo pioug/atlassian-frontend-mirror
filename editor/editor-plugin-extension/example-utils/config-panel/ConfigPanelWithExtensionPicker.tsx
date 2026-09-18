@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
@@ -24,7 +25,6 @@ import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 
 import { useStateFromPromise } from '../../src/ui/ConfigPanel/use-state-from-promise';
-
 import ConfigPanelWithProviders from './ConfigPanelWithProviders';
 import type { CallbackParams } from './ExtensionNodePicker';
 import ExtensionNodePicker from './ExtensionNodePicker';

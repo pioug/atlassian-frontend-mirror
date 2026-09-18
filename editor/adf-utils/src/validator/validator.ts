@@ -1,16 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ADFEntity, ADFEntityMark } from '../types';
-import { copy } from './copy';
-import { isBoolean } from './isBoolean';
-import { isDefined } from './isDefined';
-import { isInteger } from './isInteger';
-import { isNumber } from './isNumber';
-import { isPlainObject } from './isPlainObject';
-import { isString } from './isString';
-import { makeArray } from './makeArray';
-import { specs } from './specs';
-
 import type {
 	AttributesSpec,
 	Content,
@@ -29,8 +19,17 @@ import type {
 	ValidatorSpec,
 	ValidatorSpecAttrs,
 } from '../types/validatorTypes';
+import { copy } from './copy';
 import { extractAllowedContent } from './extractAllowedContent';
+import { isBoolean } from './isBoolean';
+import { isDefined } from './isDefined';
+import { isInteger } from './isInteger';
+import { isNumber } from './isNumber';
+import { isPlainObject } from './isPlainObject';
+import { isString } from './isString';
+import { makeArray } from './makeArray';
 import { validatorFnMap } from './rules';
+import { specs } from './specs';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

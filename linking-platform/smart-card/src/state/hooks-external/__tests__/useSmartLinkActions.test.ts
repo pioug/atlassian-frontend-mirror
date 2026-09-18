@@ -1,5 +1,6 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { renderHook } from '@atlassian/testing-library';
 
 import { extractInvokePreviewAction } from '../../../extractors/action/extract-invoke-preview-action';
@@ -10,7 +11,6 @@ import useInvokeClientAction from '../../hooks/use-invoke-client-action';
 import useResolve from '../../hooks/use-resolve';
 import { useSmartLinkCrossProductUrlWrapper } from '../../hooks/use-smart-link-cross-product-url-wrapper';
 import { useSmartCardState } from '../../store';
-import type { CardState } from '@atlaskit/linking-common/store';
 import { useSmartLinkActions } from '../useSmartLinkActions';
 
 jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({

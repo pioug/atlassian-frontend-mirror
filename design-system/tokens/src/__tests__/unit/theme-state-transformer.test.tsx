@@ -1,5 +1,5 @@
-import { type ThemeState } from '../../theme-state';
 import { themeObjectToString } from '../../theme-object-to-string';
+import { type ThemeState } from '../../theme-state';
 import { themeStringToObject } from '../../theme-string-to-object';
 
 describe('themeObjectToString', () => {

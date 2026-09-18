@@ -1,9 +1,9 @@
+import { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { errorCodeMapper } from '../error-code-mapper';
 import type { InternalError } from '../internal-errors';
 import { NCS_ERROR_CODE } from '../ncs-errors';
-import { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';
 
 describe('Error code mapper', () => {
 	it.each([

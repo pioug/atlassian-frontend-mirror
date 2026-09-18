@@ -20,7 +20,6 @@ import { setExpandRef } from '../commands';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ExpandNodeView from '../nodeviews';
-
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
 
 export function containsClass(element: Element | null, className: string): boolean {

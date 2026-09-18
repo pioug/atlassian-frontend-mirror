@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { DeactivateUserOverviewScreen } from '../../components/DeactivateUserOverviewScreen';
+import { type DeactivateUserOverviewScreenProps } from '../../components/DeactivateUserOverviewScreen/types';
 import accessibleSites from '../../mocks/accessibleSites';
 import { catherineHirons } from '../../mocks/users';
-import { type DeactivateUserOverviewScreenProps } from '../../components/DeactivateUserOverviewScreen/types';
 
 const defaultProps: Partial<DeactivateUserOverviewScreenProps> = {
 	accessibleSites,

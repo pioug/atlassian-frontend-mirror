@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { CustomOptionProps } from './main';
 
 const AsyncCustomOption = React.lazy(() =>

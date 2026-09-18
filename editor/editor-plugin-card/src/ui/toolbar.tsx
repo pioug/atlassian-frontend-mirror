@@ -74,7 +74,6 @@ import {
 	titleUrlPairFromNode,
 } from '../pm-plugins/utils';
 import type { CardPluginOptions, CardPluginState, ToolbarResolvedAttributes } from '../types';
-
 import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';
 import {
 	buildEditLinkToolbar,

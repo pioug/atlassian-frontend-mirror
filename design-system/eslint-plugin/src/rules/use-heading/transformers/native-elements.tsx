@@ -1,4 +1,5 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+
 import type { Rule } from 'eslint';
 import {
 	isNodeOfType,
@@ -9,7 +10,6 @@ import {
 
 import { JSXElementHelper } from '../../../ast-nodes/jsx-element-helper';
 import { Root } from '../../../ast-nodes/root';
-
 import { allowedAttrs } from './allowed-attrs';
 import type { MetaData } from './common';
 import { updateTestIdAttributeFix } from './update-test-id-attribute-fix';

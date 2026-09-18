@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-lint-rule';
-
 import { getCssMapObject } from './get-css-map-object';
 import { UnusedCssMapChecker } from './unused-css-map-checker';
 

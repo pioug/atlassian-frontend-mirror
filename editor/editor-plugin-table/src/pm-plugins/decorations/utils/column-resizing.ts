@@ -5,7 +5,6 @@ import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/vie
 
 import { TableDecorations } from '../../../types';
 import { createResizeHandleDecoration, updateDecorations } from '../../utils/decoration';
-
 import { composeDecorations } from './compose-decorations';
 import type { DecorationTransformer } from './types';
 

@@ -1,7 +1,7 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { SmartCardProvider } from './smart-card-provider';
 import { SMART_CARD_EXTERNAL_AUTH_EVENT } from './smart-card-external-auth-event';
+import { SmartCardProvider } from './smart-card-provider';
 import { type CardProviderProps } from './state/context/types';
 
 /**

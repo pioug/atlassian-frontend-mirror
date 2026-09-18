@@ -1,7 +1,6 @@
 import React, { forwardRef, type Ref } from 'react';
 
 import { IconButton } from '../IconButton';
-
 import { type ProfileProps } from './types';
 
 /**

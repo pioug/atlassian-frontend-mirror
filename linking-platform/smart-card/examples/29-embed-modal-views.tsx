@@ -7,10 +7,9 @@ import Heading from '@atlaskit/heading/heading';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { ActionName, IconType } from '../src/constants';
+import { StopPropagation } from '../src/view/common/stop-propagation';
 import EmbedModal from '../src/view/EmbedModal';
 import { default as PreviewAction } from '../src/view/FlexibleCard/components/actions/preview-action';
-import { StopPropagation } from '../src/view/common/stop-propagation';
-
 import ExampleContainer from './content/example-container';
 import { overrideEmbedContent } from './utils/common';
 

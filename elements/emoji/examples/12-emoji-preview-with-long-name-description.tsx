@@ -1,13 +1,15 @@
 import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
 import { token } from '@atlaskit/tokens';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 
+import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';
 import { emojiPickerWidth } from '../src/util/constants';
 import filters from '../src/util/filters';
-import { IntlProvider } from 'react-intl';
-import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';
 
 const emojis = getEmojis();
 

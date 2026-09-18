@@ -8,7 +8,6 @@ import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 import { FLAG_ID } from '../../types';
 import type { SyncBlockInfo } from '../../types';
 import { syncedBlockPluginKey } from '../main';
-
 import { deferDispatch } from './utils';
 
 const onRetry = (

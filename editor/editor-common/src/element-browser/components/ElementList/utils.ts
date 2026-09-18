@@ -1,5 +1,4 @@
 import { ELEMENT_LIST_PADDING, SCROLLBAR_WIDTH } from '../../constants';
-
 import { getColumnCount } from './getColumnCount';
 
 type DatumReturnType = {

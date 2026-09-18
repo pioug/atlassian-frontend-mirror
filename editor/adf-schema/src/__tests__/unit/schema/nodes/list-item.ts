@@ -1,8 +1,7 @@
+import { schema } from '@af/adf-test-helpers/src/adf-schema';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-
 import { doc, nodeFactory, ol, p, ul } from '@af/adf-test-helpers/src/adf-schema/schema-builder';
 
-import { schema } from '@af/adf-test-helpers/src/adf-schema';
 import { listItem, uuid } from '../../../..';
 import { createSchema } from '../../../../schema/create-schema';
 

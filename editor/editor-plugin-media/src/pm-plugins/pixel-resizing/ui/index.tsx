@@ -32,7 +32,6 @@ import { updateMediaSingleWidthTr } from '../../../ui/toolbar/commands';
 import { getPixelWidthOfElement, calcNewLayout } from '../../../ui/toolbar/utils';
 import { isVideo } from '../../utils/media-single';
 import { closePixelEditorAndSave } from '../commands';
-
 import { PixelEntryComponent } from './pixel-entry';
 import { pixelSizingFullWidthLabelStyles } from './styles';
 import type { PixelEntryValidation } from './types';

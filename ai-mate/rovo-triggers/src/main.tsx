@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/platform/one-value-export-per-file -- command callers cannot use hooks */
+
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
 import type { Callback, Payload, Topic } from './types';

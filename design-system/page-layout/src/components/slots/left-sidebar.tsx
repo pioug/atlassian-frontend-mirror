@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import {
 	Fragment,
 	type MouseEvent as ReactMouseEvent,
@@ -37,7 +38,6 @@ import { resolveDimension } from '../../common/resolve-dimension';
 import type { LeftSidebarProps } from '../../common/types';
 import { publishGridState, SidebarResizeContext, useSkipLink } from '../../controllers';
 import ResizeControl from '../resize-control';
-
 import LeftSidebarInner from './internal/left-sidebar-inner';
 import LeftSidebarOuter from './internal/left-sidebar-outer';
 import ResizableChildrenWrapper from './internal/resizable-children-wrapper';

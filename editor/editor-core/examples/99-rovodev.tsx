@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { Profiler, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
@@ -23,7 +24,6 @@ import SidebarContainer from '../example-helpers/SidebarContainer';
 import { PresetContextProvider } from '../src/presets/context';
 import type { EditorNextProps } from '../src/types/editor-props';
 import { version } from '../src/version-wrapper';
-
 import FullPageExample, { getAppearance } from './5-full-page';
 
 type ReactPerformanceEntry = {

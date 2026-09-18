@@ -1,7 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
 import VisitedExample from '../../../../../examples/04-visited.vr.ap';
-
 import { themeVariants } from './utils';
 
 snapshot(VisitedExample, {

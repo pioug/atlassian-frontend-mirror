@@ -1,7 +1,9 @@
 import React from 'react';
-import { Status, type Color } from '../src/element';
-import { Box } from '@atlaskit/primitives/compiled';
+
 import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+
+import { Status, type Color } from '../src/element';
 
 const styles = cssMap({
 	containerStyles: {

@@ -6,14 +6,16 @@
   and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
 */
 
-import step from './__fixtures__/clean-step-for-empty-doc.json';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { collab as collabPlugin, sendableSteps } from '@atlaskit/prosemirror-collab';
+
 import {
 	getAgentProviderId,
 	getStepUGCFreeDetails,
@@ -22,9 +24,7 @@ import {
 	logObfuscatedSteps,
 	normalizeAgentId,
 } from '../utils';
-
-import { collab as collabPlugin, sendableSteps } from '@atlaskit/prosemirror-collab';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import step from './__fixtures__/clean-step-for-empty-doc.json';
 
 jest.mock<typeof import('@atlaskit/prosemirror-collab')>('@atlaskit/prosemirror-collab', () => {
 	const originPC = jest.requireActual<typeof import('@atlaskit/prosemirror-collab')>(

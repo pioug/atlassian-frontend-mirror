@@ -6,6 +6,7 @@
  */
 
 import React, { useEffect, useMemo } from 'react';
+
 import { hydrateRoot } from 'react-dom/client';
 import ReactDOMServer from 'react-dom/server';
 
@@ -18,8 +19,8 @@ import { imageFileId } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';
-import type { CardBaseProps } from '../src/card/CardBase';
 import { Card } from '../src/card/card';
+import type { CardBaseProps } from '../src/card/CardBase';
 
 const dimensions = { width: 250, height: 150 };
 

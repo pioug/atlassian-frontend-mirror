@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { parseXcss } from '../xcss/parse-xcss';
-
 import type { BasePrimitiveProps } from './types';
 
 export type BleedProps = {

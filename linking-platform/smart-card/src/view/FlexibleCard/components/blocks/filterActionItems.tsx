@@ -2,7 +2,6 @@ import type { ProductType } from '@atlaskit/linking-common/types';
 
 import { ActionName } from '../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
-
 import { type ActionItem } from './types';
 
 export const filterActionItems = (

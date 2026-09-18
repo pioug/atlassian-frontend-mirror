@@ -18,8 +18,8 @@ import type {
 	FloatingToolbarOverflowDropdownOptions,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { ButtonItemProps } from '@atlaskit/menu/types';
 import HeadingItem from '@atlaskit/menu/heading-item';
+import type { ButtonItemProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 
 export const menuItemDimensions = {

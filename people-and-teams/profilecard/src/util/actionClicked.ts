@@ -1,5 +1,4 @@
 import { type ProfileType } from '../types';
-
 import type { AnalyticsEventPayload } from './AnalyticsEventPayload';
 import { createEvent } from './createEvent';
 import { getActionSubject } from './getActionSubject';

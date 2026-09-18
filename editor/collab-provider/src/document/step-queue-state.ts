@@ -1,5 +1,5 @@
-import type { StepsPayload } from '../types';
 import { createLogger } from '../helpers/utils';
+import type { StepsPayload } from '../types';
 
 const logger = createLogger('documentService-queue', 'black');
 

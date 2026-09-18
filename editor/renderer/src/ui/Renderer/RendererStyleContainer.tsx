@@ -7,12 +7,45 @@
  */
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
-import { token } from '@atlaskit/tokens';
-import type { RendererWrapperProps } from './index';
-import { FullPagePadding } from './style';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { RendererCssClassName } from '../../consts';
+
+import { bulletListSelector } from '@atlaskit/adf-schema/bullet-list';
+import { orderedListSelector } from '@atlaskit/adf-schema/ordered-list';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import {
+	EmojiSharedCssClassName,
+	defaultEmojiHeight,
+	defaultDenseEmojiHeight,
+	defaultInlineEmojiHeight,
+	scaledEmojiHeightH1,
+	scaledEmojiHeightH2,
+	scaledEmojiHeightH3,
+	scaledEmojiHeightH4,
+	denseEmojiHeightH1,
+	denseEmojiHeightH2,
+	denseEmojiHeightH3,
+	denseEmojiHeightH4,
+} from '@atlaskit/editor-common/emoji';
+import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline';
+import {
+	CodeBlockSharedCssClassName,
+	DateSharedCssClassName,
+	listItemCounterPadding,
+	richMediaClassName,
+	SmartCardSharedCssClassName,
+	tableCellBorderWidth,
+	tableCellMinWidth,
+	tableCellPadding,
+	tableMarginTop,
+	TableSharedCssClassName,
+	TaskDecisionSharedCssClassName,
+} from '@atlaskit/editor-common/styles';
+import {
+	BodiedSyncBlockSharedCssClassName,
+	SyncBlockSharedCssClassName,
+} from '@atlaskit/editor-common/sync-block';
+import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
+import { editorUGCTokensRefreshed } from '@atlaskit/editor-common/ugc-tokens';
+import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
@@ -34,53 +67,21 @@ import {
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
 } from '@atlaskit/editor-shared-styles';
-import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline';
-import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
-import {
-	CodeBlockSharedCssClassName,
-	DateSharedCssClassName,
-	listItemCounterPadding,
-	richMediaClassName,
-	SmartCardSharedCssClassName,
-	tableCellBorderWidth,
-	tableCellMinWidth,
-	tableCellPadding,
-	tableMarginTop,
-	TableSharedCssClassName,
-	TaskDecisionSharedCssClassName,
-} from '@atlaskit/editor-common/styles';
-import { bulletListSelector } from '@atlaskit/adf-schema/bullet-list';
-import { orderedListSelector } from '@atlaskit/adf-schema/ordered-list';
-import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
-import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { isStickyScrollbarEnabled, isTableResizingEnabled } from '../../react/nodes/table';
-import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
-import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
-import { editorUGCTokensRefreshed } from '@atlaskit/editor-common/ugc-tokens';
-import { getBaseFontSize } from './get-base-font-size';
-import {
-	EmojiSharedCssClassName,
-	defaultEmojiHeight,
-	defaultDenseEmojiHeight,
-	defaultInlineEmojiHeight,
-	scaledEmojiHeightH1,
-	scaledEmojiHeightH2,
-	scaledEmojiHeightH3,
-	scaledEmojiHeightH4,
-	denseEmojiHeightH1,
-	denseEmojiHeightH2,
-	denseEmojiHeightH3,
-	denseEmojiHeightH4,
-} from '@atlaskit/editor-common/emoji';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import {
-	BodiedSyncBlockSharedCssClassName,
-	SyncBlockSharedCssClassName,
-} from '@atlaskit/editor-common/sync-block';
+import { token } from '@atlaskit/tokens';
 
+import { RendererCssClassName } from '../../consts';
+import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
+import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
+import { isStickyScrollbarEnabled, isTableResizingEnabled } from '../../react/nodes/table';
 import { COLLAPSED_CONTENT_OWNERS_ATTRIBUTE } from '../collapsible-headings-dom';
+import { getBaseFontSize } from './get-base-font-size';
+import type { RendererWrapperProps } from './index';
+import { FullPagePadding } from './style';
 
 const wrappedMediaBreakoutPoint = 410;
 const TELEPOINTER_ID = 'ai-streaming-telepointer';

@@ -1,14 +1,16 @@
-import type { NotificationLogProvider } from '@atlaskit/notification-log-client';
 import type { ForwardRefExoticComponent, RefAttributes } from 'react';
+
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client';
+
 import NotificationIndicator, {
 	type Props,
 	type ValueUpdatedParams,
 	type ValueUpdatingParams,
 	type ValueUpdatingResult,
 } from './NotificationIndicator';
-import withAnalyticsEvents, {
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 const NotificationIndicatorWithAnalytics: ForwardRefExoticComponent<
 	Pick<Omit<Props, keyof WithAnalyticsEventsProps>, never> & {

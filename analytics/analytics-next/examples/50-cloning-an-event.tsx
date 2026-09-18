@@ -1,11 +1,11 @@
 import React, { type FC, type MouseEvent, type PropsWithChildren, useCallback } from 'react';
 
 import AnalyticsListener from '../src/components/AnalyticsListener';
-import { type CreateUIAnalyticsEvent } from '../src/types';
 import type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '../src/hocs/withAnalyticsEvents';
+import { type CreateUIAnalyticsEvent } from '../src/types';
 
 interface ButtonProps extends WithAnalyticsEventsProps {
 	onClick?: (e: MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void;

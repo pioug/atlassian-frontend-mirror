@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { renderHook } from '@atlassian/testing-library';
-
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { renderHook } from '@atlassian/testing-library';
 
 import { getEmbedRovoActionsFooterExperimentMeta } from '../getEmbedRovoActionsFooterExperimentMeta';
 import useEmbedRovoActionsFooterExperiment from '../index';

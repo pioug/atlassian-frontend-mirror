@@ -8,7 +8,6 @@ import {
 	type Operand,
 	type Position,
 } from '../types';
-
 import { assignParent } from './common';
 
 function acceptListOperand<Result>(this: ListOperand, visitor: JastVisitor<Result>) {

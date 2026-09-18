@@ -1,7 +1,9 @@
 import React, { type ChangeEvent } from 'react';
+
 import { map } from 'rxjs/operators/map';
-import { slicenator } from '../src/slicenator';
+
 import { type SlicedBlob } from '../src/domain';
+import { slicenator } from '../src/slicenator';
 
 const createHash = (slicedBlob: SlicedBlob) => {
 	console.log('createHash', slicedBlob.blob.size);

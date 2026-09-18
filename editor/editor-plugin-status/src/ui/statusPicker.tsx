@@ -32,10 +32,9 @@ import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
-import { DEFAULT_STATUS } from '../utils/createStatusNode';
 import type { StatusPlugin } from '../statusPluginType';
 import type { ClosingPayload, StatusType } from '../types';
-
+import { DEFAULT_STATUS } from '../utils/createStatusNode';
 import { analyticsState, createStatusAnalyticsAndFire } from './analytics';
 import type { SuggestedStatus } from './getSuggestedStatuses';
 const PopupWithListeners = withOuterListeners(Popup);

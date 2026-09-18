@@ -1,9 +1,8 @@
 import type FakerType from 'faker';
 
-import type { Team, TeamWithImageUrls } from '../types/team';
-import type { TeamWithMemberships } from '../types/membership';
 import type { TeamLink } from '../types/links';
-
+import type { TeamWithMemberships } from '../types/membership';
+import type { Team, TeamWithImageUrls } from '../types/team';
 import { randomBasicTeam } from './random-basic-team';
 import { randomFullTeam } from './random-full-team';
 import { randomTeamWithMemberships } from './random-team-with-memberships';

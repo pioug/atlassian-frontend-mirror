@@ -9,11 +9,11 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { MediaCardError } from '../MediaCardError';
 import { type CardStatus } from '../types';
+import type { MediaCardAnalyticsEventPayload, SSRStatus } from '../utils/analytics/analytics';
 import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
-import { getRenderSucceededEventPayload } from '../utils/analytics/getRenderSucceededEventPayload';
 import { getRenderErrorEventPayload } from '../utils/analytics/getRenderErrorEventPayload';
 import { getRenderFailedFileStatusPayload } from '../utils/analytics/getRenderFailedFileStatusPayload';
-import type { MediaCardAnalyticsEventPayload, SSRStatus } from '../utils/analytics/analytics';
+import { getRenderSucceededEventPayload } from '../utils/analytics/getRenderSucceededEventPayload';
 
 // Sampling rate for mediaCardRender success events (10%)
 const MEDIA_CARD_RENDER_SUCCESS_SAMPLE_RATE: number = 0.1;

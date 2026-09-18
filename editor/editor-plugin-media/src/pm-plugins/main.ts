@@ -86,7 +86,6 @@ import type {
 import type { MediaPluginOptions } from '../types/media-plugin-options';
 import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
 import DropPlaceholder from '../ui/Media/DropPlaceholder';
-
 import { ACTIONS } from './actions';
 import { MediaTaskManager } from './mediaTaskManager';
 import type { PickerFacadeConfig } from './picker-facade';

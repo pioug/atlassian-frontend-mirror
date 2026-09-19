@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "5.7.0",
+	"version": "5.7.1",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -85,9 +85,6 @@
 		"confluence_ep_shim_macro_links_v2": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"navx-smartcard-auth-event-listener-killswitch-fg": {
-			"type": "boolean"
 		},
 		"platform_lp_navx_5358_dont_throw_error": {
 			"type": "boolean"

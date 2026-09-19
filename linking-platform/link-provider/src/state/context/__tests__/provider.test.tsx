@@ -308,57 +308,55 @@ describe('Provider', () => {
 			return store;
 		};
 
-		ffTest.on('navx-smartcard-auth-event-listener-killswitch-fg', '', () => {
-			ffTest.on('platform_lp_navx_5358_dont_throw_error', '', () => {
-				it('does not turn an unauthorized card into a fatal error when the URL is unsupported', async () => {
-					// Regression test for NAVX-5358.
-					//
-					// When an external auth event fires, the provider re-fetches every unauthorized
-					// card. If the resolver reports the URL as unsupported (a benign, expected state),
-					// fetchData rejects with a fatal `APIError` of type `UnsupportedError`. Writing that
-					// error into the store flips the card to `errored`, which downstream non-flexible
-					// smart-card rendering re-throws to the CardErrorBoundary -> Sentry
-					// (`APIError: URL not supported`).
-					//
-					// With `platform_lp_navx_5358_dont_throw_error` enabled, the card should instead
-					// stay `unauthorized` and no error should be stored.
-					const client = new CardClient();
-					jest
-						.spyOn(client, 'fetchData')
-						.mockRejectedValue(
-							new APIError('fatal', 'www.figma.com', 'URL not supported', 'UnsupportedError'),
-						);
-
-					const store = renderWithUnauthorizedCard(client);
-
-					await dispatchExternalAuthEvent();
-
-					const cardState = store.getState()[UNAUTHORIZED_URL];
-					expect(client.fetchData).toHaveBeenCalledWith(UNAUTHORIZED_URL, true);
-					expect(cardState.status).toBe('unauthorized');
-					expect(cardState.error).toBeUndefined();
-				});
-			});
-
-			ffTest.both('platform_lp_navx_5358_dont_throw_error', '', () => {
-				it('still errors an unauthorized card when the fetch fails with a non-unsupported error', async () => {
-					const client = new CardClient();
-					const error = new APIError(
-						'fatal',
-						'www.figma.com',
-						'Something went wrong',
-						'TimeoutError',
+		ffTest.on('platform_lp_navx_5358_dont_throw_error', '', () => {
+			it('does not turn an unauthorized card into a fatal error when the URL is unsupported', async () => {
+				// Regression test for NAVX-5358.
+				//
+				// When an external auth event fires, the provider re-fetches every unauthorized
+				// card. If the resolver reports the URL as unsupported (a benign, expected state),
+				// fetchData rejects with a fatal `APIError` of type `UnsupportedError`. Writing that
+				// error into the store flips the card to `errored`, which downstream non-flexible
+				// smart-card rendering re-throws to the CardErrorBoundary -> Sentry
+				// (`APIError: URL not supported`).
+				//
+				// With `platform_lp_navx_5358_dont_throw_error` enabled, the card should instead
+				// stay `unauthorized` and no error should be stored.
+				const client = new CardClient();
+				jest
+					.spyOn(client, 'fetchData')
+					.mockRejectedValue(
+						new APIError('fatal', 'www.figma.com', 'URL not supported', 'UnsupportedError'),
 					);
-					jest.spyOn(client, 'fetchData').mockRejectedValue(error);
 
-					const store = renderWithUnauthorizedCard(client);
+				const store = renderWithUnauthorizedCard(client);
 
-					await dispatchExternalAuthEvent();
+				await dispatchExternalAuthEvent();
 
-					const cardState = store.getState()[UNAUTHORIZED_URL];
-					expect(cardState.status).toBe('errored');
-					expect(cardState.error).toBe(error);
-				});
+				const cardState = store.getState()[UNAUTHORIZED_URL];
+				expect(client.fetchData).toHaveBeenCalledWith(UNAUTHORIZED_URL, true);
+				expect(cardState.status).toBe('unauthorized');
+				expect(cardState.error).toBeUndefined();
+			});
+		});
+
+		ffTest.both('platform_lp_navx_5358_dont_throw_error', '', () => {
+			it('still errors an unauthorized card when the fetch fails with a non-unsupported error', async () => {
+				const client = new CardClient();
+				const error = new APIError(
+					'fatal',
+					'www.figma.com',
+					'Something went wrong',
+					'TimeoutError',
+				);
+				jest.spyOn(client, 'fetchData').mockRejectedValue(error);
+
+				const store = renderWithUnauthorizedCard(client);
+
+				await dispatchExternalAuthEvent();
+
+				const cardState = store.getState()[UNAUTHORIZED_URL];
+				expect(cardState.status).toBe('errored');
+				expect(cardState.error).toBe(error);
 			});
 		});
 	});

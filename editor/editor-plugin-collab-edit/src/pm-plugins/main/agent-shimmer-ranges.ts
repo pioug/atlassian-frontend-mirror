@@ -8,9 +8,11 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { getCollabState } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { getAgentEditRequester, isStepFromAgentEdit } from './agent-edit-requester';
 import type { AgentShimmerPhase, AgentShimmerRange } from './agent-shimmer-decorations';
 
 // When an agent step lands we cover the top-level block(s) it wrote with a skeleton-loader shimmer
@@ -307,9 +309,13 @@ export const getAgentEditChromeRanges = (
 		// rolls back unconfirmed local steps before applying these remote steps, and
 		// replays the local steps afterwards. Select the actual applied remote indexes;
 		// the shared extractor maps them through every later step into tr.doc.
+		const requester = isExperimentEnabled('platform_editor_ai_streaming_ux_experience_m1')
+			? getAgentEditRequester(json, view)
+			: null;
 		const includedStepIndexes: number[] = [];
 		json.forEach((rawStep, index) => {
-			if (typeof rawStep?.agentType === 'string' && steps[index]) {
+			const belongsToSelectedAgent = !requester || isStepFromAgentEdit(rawStep, requester);
+			if (typeof rawStep?.agentType === 'string' && steps[index] && belongsToSelectedAgent) {
 				includedStepIndexes.push(rebasedSteps + index);
 			}
 		});

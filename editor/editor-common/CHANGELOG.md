@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 123.2.0
+
+### Minor Changes
+
+- [`fcc5d229eacdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcc5d229eacdb) -
+  Resolve consistent agent labels and colours for collaborators, filter local acknowledgements under
+  M1, and use shared display defaults instead of legacy streaming settings.
+- [`fcc5d229eacdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcc5d229eacdb) -
+  Keep agent highlights associated with their actor and invocation under
+  platform_editor_ai_streaming_ux_experience_m1.
+- [`fcc5d229eacdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcc5d229eacdb) -
+  Carry complete agent display identity through the shared update-command adapter and collaboration
+  step attribution while preserving account ID semantics.
+
+## 123.1.2
+
+### Patch Changes
+
+- [`9f7cd1aefe2ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f7cd1aefe2ed) -
+  EDITOR-8566 Fix stale `isDisplayed` guard when a hint popover is light-dismissed.
+
+  In the experiment arm (`platform_editor_use_vanilla_components`) the browser can close a hint
+  popover without going through `hide()`, which left the guard in `show()` believing a closed
+  tooltip was still on screen, so later hovers returned early against it. A completed hide cleared
+  the flag on its way out, so this only persisted while no hide got to finish — the pointer never
+  leaving the trigger, or returning inside the hide delay and cancelling the pending hide.
+
+  Fixed by listening to the popover's `toggle` event: a browser-initiated close now resets
+  `isDisplayed` and cancels any pending show, so a dismissal during the open delay cannot re-stale
+  the guard or report an `onShow` for a tooltip that never became visible. The browser is the
+  authoritative source for the closed state, so the flag can no longer go stale.
+
 ## 123.1.1
 
 ### Patch Changes

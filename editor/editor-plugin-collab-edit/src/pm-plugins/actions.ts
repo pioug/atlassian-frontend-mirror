@@ -41,6 +41,7 @@ import {
 	REMOVE_AGENT_SHIMMER_META,
 } from './main/agent-shimmer-decorations';
 import { getAgentEditChromeRanges, getAgentShimmerRanges } from './main/agent-shimmer-ranges';
+import { getRemoteAgentChromeIdentity } from './main/remote-agent-chrome-identity';
 import { replaceDocument } from './utils';
 
 /*
@@ -148,7 +149,8 @@ export const applyRemoteSteps = (
 		if (
 			options?.useNativePlugin &&
 			userIds &&
-			isExperimentEnabled('platform_editor_agent_be_streaming')
+			(isExperimentEnabled('platform_editor_ai_streaming_ux_experience_m1') ||
+				isExperimentEnabled('platform_editor_agent_be_streaming'))
 		) {
 			// Read the client ID before applying the acknowledgement, while the local steps
 			// are still unconfirmed. receiveTransaction removes this same local prefix.
@@ -169,12 +171,15 @@ export const applyRemoteSteps = (
 			visualJson = json.slice(acknowledgedSteps);
 			visualSteps = steps.slice(acknowledgedSteps);
 		}
+		const isM1StreamingEnabled = isExperimentEnabled(
+			'platform_editor_ai_streaming_ux_experience_m1',
+		);
 		const isUnifiedPostApplyChromeEnabled = isExperimentEnabled(
 			'platform_editor_ai_unified_post_apply_chrome',
 		);
 		if (
 			isUnifiedPostApplyChromeEnabled &&
-			isExperimentEnabled('platform_editor_agent_be_streaming')
+			(isM1StreamingEnabled || isExperimentEnabled('platform_editor_agent_be_streaming'))
 		) {
 			const ranges = getAgentEditChromeRanges(
 				visualJson,
@@ -189,10 +194,12 @@ export const applyRemoteSteps = (
 			const requester = getAgentEditRequester(visualJson, view);
 			if (ranges.length && requester) {
 				// Collab supplies a machine agent type, not a display name; preserve the legacy
-				// uppercase telepointer label.
+				// uppercase telepointer label as the fallback for observers that cannot resolve a
+				// redesigned presentation from the forwarded identity.
 				const telepointerLabel = requester.agentType.trim().toUpperCase();
 				tr.setMeta(AGENT_EDIT_CHROME_DATA, {
-					...getAgentEditChromeDynamicConfig(),
+					...(!isM1StreamingEnabled ? getAgentEditChromeDynamicConfig() : {}),
+					...getRemoteAgentChromeIdentity(requester),
 					...(telepointerLabel ? { telepointerLabel } : {}),
 					ranges,
 				});

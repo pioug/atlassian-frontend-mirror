@@ -568,11 +568,6 @@ export function validator(
 	// once for the same reasons as above. Gate off keeps such a node rejected.
 	const acceptEmptyMarks = fg('platform_editor_adf_validator_empty_marks');
 
-	// Whether entities are deep-copied before validation. Read once per node and per mark before, so
-	// tens of thousands of Statsig lookups plus their UFO exposure bookkeeping for a value fixed for
-	// the whole validation. Resolved once for the same reasons as `rejectStage0Specs` above.
-	const fixMutationBug = fg('platform_editor_fix_adf-validator_mutation_bug');
-
 	const validatorSpecs = createSpec(nodes, marks);
 	applyVariantSpecOverrides(validatorSpecs);
 
@@ -616,7 +611,7 @@ export function validator(
 		isMark: boolean = false,
 	): NodeValidationResult => {
 		const { type } = entity;
-		const newEntity: ADFEntity = fixMutationBug ? cloneEntityForValidation(entity) : { ...entity };
+		const newEntity: ADFEntity = cloneEntityForValidation(entity);
 
 		const err = <T extends ValidationErrorType>(
 			code: T,
@@ -817,9 +812,9 @@ export function validator(
 		// unknown attribute. The check above only covers the mark being on the original entity, which
 		// held while the validated entity still aliased the caller's marks array.
 		const prevMarkTypes = new Set(currentMarks.map((mark: ADFEntityMark) => mark.type));
-		const synthesizedMarks = fixMutationBug
-			? (newEntity.marks ?? []).filter((mark) => !prevMarkTypes.has(mark.type))
-			: [];
+		const synthesizedMarks = (newEntity.marks ?? []).filter(
+			(mark) => !prevMarkTypes.has(mark.type),
+		);
 		const allMarks = newMarks.concat(synthesizedMarks);
 		if (allMarks.length) {
 			newEntity.marks = allMarks;
@@ -1338,9 +1333,9 @@ export function validator(
 							const validatedMarkTypes = new Set(
 								marksValidationOutput.map((markResult) => markResult.originalMark?.type),
 							);
-							const synthesizedMarks = fixMutationBug
-								? childEntity.marks.filter((mark) => !validatedMarkTypes.has(mark.type))
-								: [];
+							const synthesizedMarks = childEntity.marks.filter(
+								(mark) => !validatedMarkTypes.has(mark.type),
+							);
 							const allMarks = finalMarks.concat(synthesizedMarks);
 							if (allMarks.length) {
 								childEntity.marks = allMarks;

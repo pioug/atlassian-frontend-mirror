@@ -116,10 +116,12 @@ export class CommitStepService {
 				userId,
 				...(agentAttribution
 					? {
+							agentId: agentAttribution.agentId,
+							agentName: agentAttribution.agentName,
+							agentNamedId: agentAttribution.agentNamedId,
+							agentSourceId: agentAttribution.agentSourceId,
 							agentType: agentAttribution.agentType,
-							...(agentAttribution.agentId !== undefined
-								? { agentId: agentAttribution.agentId }
-								: {}),
+							isThirdPartyAgent: agentAttribution.isThirdParty,
 						}
 					: {}),
 			};

@@ -65,9 +65,8 @@ export function SmartCardProvider({
 	}, [customClient, product]);
 
 	// Listen for external auth completion events and re-resolve any matching unauthorized cards in this store.
-	// Used as guardrail killswitch for synchronized-post-office-and-smartcard-auth-exp in Post Office
 	useEffect(() => {
-		if (typeof window === 'undefined' || !fg('navx-smartcard-auth-event-listener-killswitch-fg')) {
+		if (typeof window === 'undefined') {
 			return;
 		}
 		const handler = (event: Event) => {

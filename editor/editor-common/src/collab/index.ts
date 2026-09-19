@@ -395,7 +395,15 @@ export interface BaseStepPM extends StepMetadata {
 	// user; `agentId` is the agent's AAID when available. See the NCS↔Editor agent steps contract.
 	// Both are optional/additive so human steps are unchanged.
 	agentId?: string;
+	/** Agent display name, so collaborators can label the agent without an async lookup. */
+	agentName?: string;
+	/** External config reference (named_id) for OOTB agent avatar and brand colour lookup. */
+	agentNamedId?: string;
+	/** The agent's own id, as opposed to `agentId`, which carries its Atlassian account id. */
+	agentSourceId?: string;
 	agentType?: string;
+	/** True for a Forge / third-party / remote agent, so collaborators match its presentation. */
+	isThirdPartyAgent?: boolean;
 	clientId: number | string;
 	from?: number;
 	/**

@@ -1,5 +1,15 @@
 # @atlaskit/rovo-agent-components
 
+## 8.13.1
+
+### Patch Changes
+
+- [`7ab7f5213c65b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ab7f5213c65b) -
+  Fixed `ResolvedAgentAvatar` drawing a white hexagon border around the fetched picture when
+  `showBorder` is false. `Avatar`'s hexagon appearance always paints a border ring from
+  `borderColor`, which defaults to `elevation.surface`, so the picture now passes
+  `borderColor="transparent"` in that case to match the borderless look callers expect.
+
 ## 8.13.0
 
 ### Minor Changes

@@ -1,5 +1,3 @@
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { validator } from '../../validator';
 
 /**
@@ -106,14 +104,13 @@ const docWithNestedUnsupportedAttr = () => ({
 		},
 	],
 });
-
-describe('platform_editor_fix_adf-validator_mutation_bug', () => {
+describe('validator input mutation', () => {
 	const repairMark = {
 		type: 'unsupportedNodeAttribute',
 		attrs: { type: { nodeType: 'heading' }, unsupported: {} },
 	};
 
-	describe('when the gate is enabled', () => {
+	describe('when validation repairs invalid attributes', () => {
 		it('does not delete unsupported attributes from the input document', () => {
 			const input = docWithUnsupportedNodeAttribute();
 
@@ -215,21 +212,6 @@ describe('platform_editor_fix_adf-validator_mutation_bug', () => {
 				'breakout',
 				'unsupportedNodeAttribute',
 			]);
-		});
-	});
-
-	describe('when the gate is disabled', () => {
-		beforeEach(() => {
-			failGate('platform_editor_fix_adf-validator_mutation_bug');
-		});
-
-		// Pins the gate-off path so the rollback behaviour stays defined.
-		it('mutates the input document', () => {
-			const input = docWithUnsupportedNodeAttribute();
-
-			validator()(input, () => repairMark);
-
-			expect(input.content[0].attrs).not.toHaveProperty('unknownAttribute');
 		});
 	});
 });

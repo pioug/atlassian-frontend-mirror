@@ -77,7 +77,16 @@ const FetchedAgentAvatar = ({
 
 	const name = data.user?.name?.trim() || agentName;
 	if (!showBorder) {
-		return <Avatar appearance="hexagon" src={picture} name={name} label={name} size={size} />;
+		return (
+			<Avatar
+				appearance="hexagon"
+				src={picture}
+				name={name}
+				label={name}
+				size={size}
+				borderColor="transparent"
+			/>
+		);
 	}
 
 	return (

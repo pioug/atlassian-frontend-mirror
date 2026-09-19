@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 5.7.1
+
+### Patch Changes
+
+- [`f298f8a122eed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f298f8a122eed) -
+  Remove the `navx-smartcard-auth-event-listener-killswitch-fg` feature gate. The external auth
+  event listener that re-resolves unauthorized cards is now always registered.
+
 ## 5.7.0
 
 ### Minor Changes

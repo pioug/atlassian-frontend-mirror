@@ -127,6 +127,18 @@ describe('ResolvedAgentAvatar', () => {
 		expect(screen.queryByTestId('resolved-agent-avatar-border')).not.toBeInTheDocument();
 	});
 
+	it('renders the picture without Avatar’s own hexagon border ring by default', async () => {
+		const environment = createMockEnvironment();
+		const { container } = renderAvatar(IDENTITY_ACCOUNT_ARI, environment);
+
+		await act(async () => {
+			environment.mock.resolveMostRecentOperation((op) => MockPayloadGenerator.generate(op));
+		});
+
+		const hexagonContainer = container.querySelector('[style*="--avatar-box-shadow"]');
+		expect(hexagonContainer).toHaveStyle({ '--avatar-box-shadow': '0 0 0 2px transparent' });
+	});
+
 	it('wraps the resolved avatar with a background when showBorder is set', async () => {
 		const environment = createMockEnvironment();
 		renderAvatarWithBorder(environment);

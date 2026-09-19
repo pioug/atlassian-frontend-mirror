@@ -15,6 +15,8 @@ export type AgentEditChromeRange = {
 };
 
 export type AgentEditChromeData = {
+	actorUserId?: string;
+	invocationId?: string;
 	/**
 	 * The agent's own id in its source system (e.g. Rovo's fixed agent UUID). Distinct from
 	 * `agentIdentityAccountId`: this identifies *which agent*, not an Atlassian identity.
@@ -29,8 +31,19 @@ export type AgentEditChromeData = {
 	 * out-of-the-box and third-party agents their own avatar.
 	 */
 	agentNamedId?: string;
+	/**
+	 * The agent's machine type from collab step attribution (e.g. `convo-ai`). Lets observers that
+	 * only receive attribution identify the default Rovo agent, which streams with this type and no
+	 * agent ids.
+	 */
+	agentType?: string;
 	/** Lifetime of both the highlight and telepointer. Omission uses the shared static default; 0 prevents rendering. */
 	autoDismissAfterMs?: number;
+	/**
+	 * True for a Forge / third-party / remote agent. Drives the third-party telepointer treatment
+	 * (neutral pill plus the agent name) for producers that only observe step attribution.
+	 */
+	isThirdParty?: boolean;
 	/** Runtime CSS color value. Consumers should pass an ADS token value. */
 	highlightBackgroundColor?: string;
 	/** Runtime CSS color value. Consumers should pass an ADS token value. */

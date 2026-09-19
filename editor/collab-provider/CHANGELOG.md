@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 28.3.0
+
+### Minor Changes
+
+- [`fcc5d229eacdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcc5d229eacdb) -
+  Carry complete agent display identity through the shared update-command adapter and collaboration
+  step attribution while preserving account ID semantics.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.2.1
 
 ### Patch Changes

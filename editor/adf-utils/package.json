@@ -133,9 +133,6 @@
 		"platform_editor_adf_validator_stage0": {
 			"type": "boolean"
 		},
-		"platform_editor_fix_adf-validator_mutation_bug": {
-			"type": "boolean"
-		},
 		"platform_editor_lovability_resize_gracefully": {
 			"type": "boolean"
 		},

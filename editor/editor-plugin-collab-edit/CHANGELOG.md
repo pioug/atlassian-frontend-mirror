@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 20.1.0
+
+### Minor Changes
+
+- [`fcc5d229eacdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcc5d229eacdb) -
+  Resolve consistent agent labels and colours for collaborators, filter local acknowledgements under
+  M1, and use shared display defaults instead of legacy streaming settings.
+- [`fcc5d229eacdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcc5d229eacdb) -
+  Keep agent highlights associated with their actor and invocation under
+  platform_editor_ai_streaming_ux_experience_m1.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.1
 
 ### Patch Changes

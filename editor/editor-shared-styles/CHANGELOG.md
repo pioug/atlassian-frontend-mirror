@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 4.3.15
+
+### Patch Changes
+
+- [`1351b0fb49e7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1351b0fb49e7d) -
+  Support branded Claude and ChatGPT contributor tags, use the ChatGPT Presence artwork, and assign
+  Claude and ChatGPT their fixed orange and gray diff colours.
+
 ## 4.3.14
 
 ### Patch Changes

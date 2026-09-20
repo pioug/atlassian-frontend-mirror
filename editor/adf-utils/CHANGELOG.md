@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 20.9.30
+
+### Patch Changes
+
+- [`dbd54db18d753`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbd54db18d753) -
+  Clean up the shipped ADF validator input mutation fix.
+
 ## 20.9.29
 
 ### Patch Changes

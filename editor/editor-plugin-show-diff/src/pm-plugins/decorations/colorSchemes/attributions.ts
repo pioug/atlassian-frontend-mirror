@@ -4,10 +4,12 @@ import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type {
-	DiffContributors,
-	DiffStepAttribution,
-	TagContributor,
+import {
+	DIFF_AGENT_BRANDS,
+	type DiffAgentBrand,
+	type DiffContributors,
+	type DiffStepAttribution,
+	type TagContributor,
 } from '../../../showDiffPluginType';
 import { PARTICIPANT_COLOR_SCHEMES, type AdsAccentColor, type ColorScheme } from './types';
 
@@ -122,6 +124,20 @@ export const getAttributionKey = (
 	attribution: DiffStepAttribution | undefined,
 ): string | undefined => getAttributionIdentity(attribution)?.key;
 
+const isDiffAgentBrand = (
+	agentBrand: TagContributor['agentKind'] | undefined,
+): agentBrand is DiffAgentBrand =>
+	agentBrand !== undefined && DIFF_AGENT_BRANDS.has(agentBrand as DiffAgentBrand);
+
+/** Prefers the resolved branded profile over the raw attribution agent type. */
+const getAgentBrandForColor = (
+	attribution: DiffStepAttribution | undefined,
+	contributors: ResolvedDiffContributors | undefined,
+): string | undefined => {
+	const agentBrand = contributors?.[getAttributionKey(attribution) ?? '']?.agentKind;
+	return isDiffAgentBrand(agentBrand) ? agentBrand : attribution?.agentType;
+};
+
 /**
  * Public contributor list to internal key-addressed record. A contributor whose attribution carries
  * no identity is dropped, since it could never match a step. Later entries win.
@@ -183,6 +199,7 @@ export const isContributorTagsEnabled = (
 
 export const createAttributionColorMap = (
 	stepAttributions: Array<DiffStepAttribution | undefined>,
+	contributors?: ResolvedDiffContributors,
 ): Map<string, AdsAccentColor> => {
 	const colors = new Map<string, AdsAccentColor>();
 	const allocatedColors = new Set<AdsAccentColor>();
@@ -194,7 +211,10 @@ export const createAttributionColorMap = (
 		if (!identity) {
 			continue;
 		}
-		const { index, isFixed } = getParticipantColor(identity.colorSeed, attribution?.agentType);
+		const { index, isFixed } = getParticipantColor(
+			identity.colorSeed,
+			getAgentBrandForColor(attribution, contributors),
+		);
 		const color = HASHED_PARTICIPANT_COLOR_SCHEMES[index];
 		if (isFixed && color) {
 			colors.set(identity.key, color);
@@ -209,7 +229,10 @@ export const createAttributionColorMap = (
 			continue;
 		}
 
-		const { index } = getParticipantColor(identity.colorSeed, attribution?.agentType);
+		const { index } = getParticipantColor(
+			identity.colorSeed,
+			getAgentBrandForColor(attribution, contributors),
+		);
 		const hashedColor = getSlotColor(index);
 		if (!hashedColor) {
 			continue;

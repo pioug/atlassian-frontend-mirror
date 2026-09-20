@@ -76,7 +76,7 @@ const resolveAgent = (
 
 	if (agentProfile) {
 		return {
-			agentKind: 'identified',
+			...(agentProfile.agentBrand ? { agentKind: agentProfile.agentBrand } : {}),
 			avatarUrl: agentProfile.avatarUrl,
 			kind: 'agent',
 			name: agentProfile.name,

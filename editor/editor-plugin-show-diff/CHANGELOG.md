@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 17.1.0
+
+### Minor Changes
+
+- [`1351b0fb49e7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1351b0fb49e7d) -
+  Support branded Claude and ChatGPT contributor tags, use the ChatGPT Presence artwork, and assign
+  Claude and ChatGPT their fixed orange and gray diff colours.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.2
 
 ### Patch Changes

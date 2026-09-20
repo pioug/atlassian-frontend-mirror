@@ -47,10 +47,20 @@ export type StepWithAttribution<TStep> = {
 	stepAttribution?: DiffStepAttribution;
 };
 
+/** Branded agent presentations supported by contributor tags. */
+export type DiffAgentBrand = 'rovo' | 'claude' | 'chatgpt';
+export const DIFF_AGENT_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
+	'rovo',
+	'claude',
+	'chatgpt',
+]);
+
 /** A complete identity for one of the accounts named by a step attribution. */
 export type DiffContributorProfile = {
 	/** Matched against the `userId` and `agentId` on step attributions. */
 	accountId: string;
+	/** Optional brand for an agent profile, supplied by the host product. */
+	agentBrand?: DiffAgentBrand;
 	avatarUrl?: string;
 	name: string;
 };
@@ -58,7 +68,7 @@ export type DiffContributorProfile = {
 type DiffContributorKind = 'user' | 'agent';
 
 /** Agent presentation: branded, identified by profile, or a generic external agent. */
-type DiffAgentKind = 'rovo' | 'claude' | 'identified' | 'external';
+type DiffAgentKind = DiffAgentBrand | 'identified' | 'external';
 
 /**
  * A contributor the plugin has resolved from a step attribution and a supplied profile. Internal:

@@ -4,13 +4,15 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type ParticipantColor, participantColors } from './consts';
 
 /**
- * Agent types with a fixed participant colour instead of an identity-derived colour.
+ * Agent types and brands with a fixed participant colour instead of an identity-derived colour.
  *
- * Claude uses orange, which is `participantColors[7]`. The palette's numbered positions also
- * back the telepointer CSS classes, so preserve this position when editing the palette.
+ * Claude uses orange and ChatGPT uses gray. The palette's numbered positions also back the
+ * telepointer CSS classes, so preserve these positions when editing the palette.
  */
 const AGENT_PARTICIPANT_COLOR_OVERRIDES: Readonly<Record<string, number>> = {
 	claude: 7,
+	chatgpt: 9,
+	rovo: 4,
 	rovo_chat: 4,
 };
 

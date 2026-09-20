@@ -36,8 +36,25 @@ describe('utils', () => {
 			},
 		);
 
-		it.each(['rovo_chat'])(
-			'uses fixed purple for Rovo agent type %s regardless of participant ID',
+		it.each(['chatgpt', ' ChatGPT '])(
+			'uses fixed gray for %s regardless of participant ID',
+			(agentType) => {
+				for (const id of ['first-agent', 'second-agent', '']) {
+					expect(getParticipantColor(id, agentType)).toEqual({
+						index: 9,
+						isFixed: true,
+						color: {
+							backgroundColor: token('color.background.accent.gray.bolder'),
+							svgBackgroundColor: token('color.background.accent.gray.subtler'),
+							textColor: token('color.text.inverse'),
+						},
+					});
+				}
+			},
+		);
+
+		it.each(['rovo', 'rovo_chat'])(
+			'uses fixed purple for Rovo agent type or brand %s regardless of participant ID',
 			(agentType) => {
 				for (const id of ['first-agent', 'second-agent', '']) {
 					expect(getParticipantColor(id, agentType)).toMatchObject({
@@ -45,6 +62,13 @@ describe('utils', () => {
 						isFixed: true,
 					});
 				}
+			},
+		);
+
+		it.each(['first-agent', 'second-agent', ''])(
+			'treats the Rovo agent type and brand identically for participant %s',
+			(id) => {
+				expect(getParticipantColor(id, 'rovo')).toEqual(getParticipantColor(id, 'rovo_chat'));
 			},
 		);
 

@@ -13,6 +13,7 @@ const AGENT_KIND_ICONS: Readonly<
 	Partial<Record<NonNullable<TagContributor['agentKind']>, ContributorTagIcon>>
 > = {
 	claude: 'claude',
+	chatgpt: 'chatgpt',
 	rovo: 'rovoHex',
 };
 
@@ -115,7 +116,7 @@ export const contributorAvatarRenderer = ({
 	let image: HTMLImageElement | undefined;
 	let unbindImageError: (() => void) | undefined;
 
-	const showFallback = () => {
+	const showContributorIcon = () => {
 		unbindImageError?.();
 		unbindImageError = undefined;
 		image?.remove();
@@ -138,17 +139,26 @@ export const contributorAvatarRenderer = ({
 	};
 
 	if (contributor.avatarUrl) {
-		image = doc.createElement('img');
-		image.alt = '';
-		image.decoding = 'async';
-		image.draggable = false;
-		image.loading = 'lazy';
-		image.setAttribute('style', imageStyle);
-		unbindImageError = bind(image, { type: 'error', listener: showFallback });
-		shape.appendChild(image);
-		image.src = contributor.avatarUrl;
+		// Known brands use their fixed glyph even when the profile also has an avatar URL.
+		const brandedAgentIcon = isAgent
+			? AGENT_KIND_ICONS[contributor.agentKind ?? 'external']
+			: undefined;
+
+		if (brandedAgentIcon) {
+			showContributorIcon();
+		} else {
+			image = doc.createElement('img');
+			image.alt = '';
+			image.decoding = 'async';
+			image.draggable = false;
+			image.loading = 'lazy';
+			image.setAttribute('style', imageStyle);
+			unbindImageError = bind(image, { type: 'error', listener: showContributorIcon });
+			shape.appendChild(image);
+			image.src = contributor.avatarUrl;
+		}
 	} else {
-		showFallback();
+		showContributorIcon();
 	}
 
 	const setRingColor = (nextRingColor: string) => {

@@ -4,6 +4,7 @@ export type {
 	ColorScheme,
 	DeletedDiffPlacement,
 	DeletedDiffWidget,
+	DiffAgentBrand,
 	DiffContributorProfile,
 	DiffParams,
 	DiffStepAttribution,
@@ -16,3 +17,5 @@ export type {
 	SmartDiffThresholds,
 	StepWithAttribution,
 } from '../showDiffPluginType';
+
+export { DIFF_AGENT_BRANDS } from '../showDiffPluginType';

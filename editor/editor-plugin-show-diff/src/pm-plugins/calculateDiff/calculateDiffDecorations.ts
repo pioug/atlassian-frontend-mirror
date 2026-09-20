@@ -635,7 +635,7 @@ const calculateDiffDecorationsInner = ({
 
 		// Still colours-only: a tags-only diff keeps the plain colour scheme.
 		if (attributionColoringEnabled) {
-			attributionColors = createAttributionColorMap(simplifiedStepAttributions);
+			attributionColors = createAttributionColorMap(simplifiedStepAttributions, contributors);
 		}
 	} else {
 		const changeset = ChangeSet.create(originalDoc, undefined, tokenEncoder).addSteps(

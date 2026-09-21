@@ -1,11 +1,9 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
 	package: {
 		package: '@atlaskit/motion',
-		packagePath: path.resolve(__dirname),
+		packagePath: __dirname,
 		packageJson: require('./package.json'),
 		overview:
 			'Utilities for applying entry and exit animations. The Motion primitive is the recommended way to animate an element in or out, and the useMotion hook does the same without rendering a wrapper element. Pair either with ExitingPersistence to play exit animations before removal, and StaggeredEntrance to cascade a group. Motion tokens supply the durations, easings, and keyframes so animation stays consistent across products.',
@@ -20,7 +18,7 @@ const documentation: StructuredContentSource = {
 				name: 'Motion',
 				package: '@atlaskit/motion/motion',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -42,19 +40,19 @@ const documentation: StructuredContentSource = {
 					name: 'Motion with tokens',
 					description:
 						'The simplest way to use the Motion primitive is with pre-defined motion tokens. Pass a motion token to enteringAnimation and exitingAnimation to apply a paired entering and exiting animation.',
-					source: path.resolve(__dirname, './examples/ai/motion-primitive.tsx'),
+					source: `${__dirname}/examples/ai/motion-primitive.tsx`,
 				},
 				{
 					name: 'Motion with custom animation tokens',
 					description:
 						'For more control, use enteringAnimationXcss and exitingAnimationXcss with cssMap styles that set animationName, animationDuration, and animationTimingFunction using motion tokens.',
-					source: path.resolve(__dirname, './examples/ai/motion-primitive-custom.tsx'),
+					source: `${__dirname}/examples/ai/motion-primitive-custom.tsx`,
 				},
 				{
 					name: 'Motion with custom CSS keyframes',
 					description:
 						'For animations not covered by the built-in keyframe tokens, define your own CSS keyframes using keyframes() from @compiled/react and reference them directly in the animationName property of a cssMap style.',
-					source: path.resolve(__dirname, './examples/ai/motion-primitive-custom-keyframe.tsx'),
+					source: `${__dirname}/examples/ai/motion-primitive-custom-keyframe.tsx`,
 				},
 			],
 			keywords: ['motion', 'animation', 'enter', 'exit', 'transition', 'primitive', 'fade', 'css'],
@@ -69,7 +67,7 @@ const documentation: StructuredContentSource = {
 				name: 'ExitingPersistence',
 				package: '@atlaskit/motion/exiting-persistence',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -84,7 +82,7 @@ const documentation: StructuredContentSource = {
 					name: 'Single element',
 					description:
 						'ExitingPersistence keeps a single element mounted while its exit animation plays before it is removed from the DOM.',
-					source: path.resolve(__dirname, './examples/ai/exiting-persistence.tsx'),
+					source: `${__dirname}/examples/ai/exiting-persistence.tsx`,
 				},
 			],
 			keywords: ['motion', 'animation', 'exit', 'persistence', 'unmount', 'transition', 'fade'],
@@ -99,7 +97,7 @@ const documentation: StructuredContentSource = {
 				name: 'StaggeredEntrance',
 				package: '@atlaskit/motion/staggered-entrance',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -115,7 +113,7 @@ const documentation: StructuredContentSource = {
 					name: 'List of elements',
 					description:
 						'StaggeredEntrance staggers the entering animation of a list of elements in sequence.',
-					source: path.resolve(__dirname, './examples/ai/staggered-entrance-list.tsx'),
+					source: `${__dirname}/examples/ai/staggered-entrance-list.tsx`,
 				},
 			],
 			keywords: ['motion', 'animation', 'stagger', 'entrance', 'list', 'grid', 'cascade', 'delay'],
@@ -132,7 +130,7 @@ const documentation: StructuredContentSource = {
 				name: 'useMotion',
 				package: '@atlaskit/motion/use-motion',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			parameters: [
@@ -174,25 +172,25 @@ const documentation: StructuredContentSource = {
 					name: 'useMotion with tokens',
 					description:
 						'A motion token carries the animation name, duration, and easing together, so it can be assigned to the animation shorthand for the entering and exiting states. The state returned by the hook selects which style applies, and the ref is attached to the element being animated — no extra wrapper element is created.',
-					source: path.resolve(__dirname, './examples/ai/use-motion.tsx'),
+					source: `${__dirname}/examples/ai/use-motion.tsx`,
 				},
 				{
 					name: 'useMotion with custom animation tokens',
 					description:
 						'For more control, build the animation from separate tokens — animationName with keyframe tokens, plus animationDuration and animationTimingFunction — and select them by state. Multiple keyframes can be composed by joining them in animationName (for example combining scale and fade).',
-					source: path.resolve(__dirname, './examples/ai/use-motion-custom.tsx'),
+					source: `${__dirname}/examples/ai/use-motion-custom.tsx`,
 				},
 				{
 					name: 'useMotion with staggered entrance',
 					description:
 						'Render each animated element as its own component so each useMotion call can read its stagger delay from the surrounding StaggeredEntrance. Each element applies its own state-derived styles, so no wrapper element is added. The init state must be styled as not visible so elements do not appear before their delay elapses.',
-					source: path.resolve(__dirname, './examples/ai/use-motion-staggered.tsx'),
+					source: `${__dirname}/examples/ai/use-motion-staggered.tsx`,
 				},
 				{
 					name: 'useMotion with custom CSS keyframes',
 					description:
 						'For animations not covered by the built-in keyframe tokens, define your own CSS keyframes using keyframes() from @compiled/react and reference them in the animationName property of a cssMap style, keeping the duration and easing from motion tokens.',
-					source: path.resolve(__dirname, './examples/ai/use-motion-custom-keyframe.tsx'),
+					source: `${__dirname}/examples/ai/use-motion-custom-keyframe.tsx`,
 				},
 			],
 			keywords: [

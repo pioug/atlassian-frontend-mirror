@@ -1,8 +1,6 @@
-import path from 'path';
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: ComponentStructuredContentSource[] = [
 	{
@@ -56,25 +54,19 @@ const documentation: ComponentStructuredContentSource[] = [
 				name: 'Expandable menu - non-selectable top-level',
 				description:
 					'A non-selectable expandable menu button for a top-level section (e.g., Projects) with Starred and Recent groups, a directory link, and a flyout for overflow items.',
-				source: path.resolve(
-					packagePath,
-					'./examples/docs/expandable-menu-item-default-variant.tsx',
-				),
+				source: `${packagePath}/examples/docs/expandable-menu-item-default-variant.tsx`,
 			},
 			{
 				name: 'Expandable menu - selectable with landing page',
 				description:
 					'A selectable expandable menu link where the label navigates to a landing page and the chevron toggles expansion of child items.',
-				source: path.resolve(packagePath, './examples/docs/expandable-menu-item-link-variant.tsx'),
+				source: `${packagePath}/examples/docs/expandable-menu-item-link-variant.tsx`,
 			},
 			{
 				name: 'Expandable menu - loading and empty states',
 				description:
 					'Expandable menu showing skeleton loading placeholders and an inline empty state with a create action.',
-				source: path.resolve(
-					packagePath,
-					'./examples/docs/expandable-menu-item-default-variant.tsx',
-				),
+				source: `${packagePath}/examples/docs/expandable-menu-item-default-variant.tsx`,
 			},
 		],
 		keywords: [

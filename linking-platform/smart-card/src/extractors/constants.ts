@@ -19,5 +19,8 @@ export const PROVIDER_KEYS_WITH_THEMING: string[] = [
 	'confluence-object-provider',
 	'watermelon-object-provider',
 	'legion-object-provider',
-	'avpviz-object-provider',
+	'avpplatform-object-provider',
 ];
+
+// List of provider keys that receive the product hosting the embedded content.
+export const PROVIDER_KEYS_WITH_HOSTPRODUCT_CONTEXT: string[] = ['avpplatform-object-provider'];

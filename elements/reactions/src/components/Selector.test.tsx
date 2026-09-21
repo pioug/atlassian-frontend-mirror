@@ -156,7 +156,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 
 	it('should render hoverable selector with add reaction trigger contained when hoverableReactionPickerSelector is true', async () => {
 		renderWithIntl(renderSelector(jest.fn(), false, jest.fn(), true));
-		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		const triggerPickerButton = await screen.findByLabelText('Add a reaction');
 		expect(triggerPickerButton).toBeInTheDocument();
 	});
 

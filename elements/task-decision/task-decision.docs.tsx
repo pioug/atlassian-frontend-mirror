@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -27,7 +25,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic Task',
 					description: 'Standard task item display.',
-					source: path.resolve(packagePath, './examples/02-task-item.tsx'),
+					source: `${packagePath}/examples/02-task-item.tsx`,
 				},
 			],
 			keywords: ['task', 'action-item', 'checkbox', 'todo'],
@@ -52,7 +50,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic Decision',
 					description: 'Standard decision item display.',
-					source: path.resolve(packagePath, './examples/00-decision-item.tsx'),
+					source: `${packagePath}/examples/00-decision-item.tsx`,
 				},
 			],
 			keywords: ['decision', 'outcome', 'icon', 'meeting-notes'],

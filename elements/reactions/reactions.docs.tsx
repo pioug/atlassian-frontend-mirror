@@ -2,15 +2,20 @@
  * Structured MCP docs for `@atlaskit/reactions`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
+	config: {
+		componentPages: false,
+		packageTabs: {
+			examples: false,
+			usage: false,
+		},
+	},
 	package: {
 		package: '@atlaskit/reactions',
 		packagePath,
@@ -40,7 +45,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Connected reaction picker',
 					description: 'Basic usage of ConnectedReactionPicker.',
-					source: path.resolve(packagePath, './examples/00-connected-reaction-picker.tsx'),
+					source: `${packagePath}/examples/00-connected-reaction-picker.tsx`,
 				},
 			],
 		},
@@ -64,7 +69,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Connected reactions view',
 					description: 'Basic usage of ConnectedReactionsView.',
-					source: path.resolve(packagePath, './examples/01-connected-reactions-view.tsx'),
+					source: `${packagePath}/examples/01-connected-reactions-view.tsx`,
 				},
 			],
 		},

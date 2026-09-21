@@ -16,13 +16,13 @@ import {
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
+import type MediaAboveLg from '@atlaskit/css/at-rules/media-above-lg';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Reanimate } from '@atlaskit/motion/reanimate';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
@@ -420,7 +420,7 @@ export function Panel({
 				<DangerouslyHoistCssVarToDocumentRoot
 					variableName={UNSAFE_panelLayoutVar}
 					value="0px"
-					mediaQuery={media.above.lg}
+					mediaQuery={'@media (min-width: 90rem)' satisfies MediaAboveLg}
 					responsiveValue={`var(${panelSplitterResizingVar}, ${panelVariableWidth})`}
 				/>
 				// ------ END UNSAFE STYLES ------

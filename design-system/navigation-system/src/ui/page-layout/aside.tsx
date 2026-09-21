@@ -7,10 +7,10 @@ import { type CSSProperties, useContext, useEffect, useRef, useState } from 'rea
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
+import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { media } from '@atlaskit/primitives/responsive';
 
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
 import {
@@ -199,7 +199,7 @@ export function Aside({
 				<DangerouslyHoistCssVarToDocumentRoot
 					variableName={UNSAFE_asideLayoutVar}
 					value="0px"
-					mediaQuery={media.above.md}
+					mediaQuery={'@media (min-width: 64rem)' satisfies MediaAboveMd}
 					responsiveValue={`var(${panelSplitterResizingVar}, ${asideVariableWidth})`}
 				/>
 				// ------ END UNSAFE STYLES ------

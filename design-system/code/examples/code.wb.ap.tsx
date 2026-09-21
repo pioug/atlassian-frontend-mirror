@@ -33,7 +33,8 @@ import VrPythonTestIdAndWrappingVrExample from './vr-python-test-id-and-wrapping
 const Basic: WorkbenchExample = wb(BasicExample);
 
 export default Basic;
-export const InlineCodeBasicVr: WorkbenchExample = wb(InlineCodeBasicVrExample);
+// Named "InlineCodeBasic" to match the Workbench URL used by existing integration tests.
+export const InlineCodeBasic: WorkbenchExample = wb(InlineCodeBasicVrExample);
 export const CodeBlockBasicVr: WorkbenchExample = wb(CodeBlockBasicVrExample);
 export const CodeBlockBasicWithTabsVr: WorkbenchExample = wb(CodeBlockBasicWithTabsVrExample);
 export const CodeBlockWrapLongLines: WorkbenchExample = wb(CodeBlockWrapLongLinesExample);
@@ -42,7 +43,8 @@ export const CodeBlockHighlightingLongLinesVr: WorkbenchExample = wb(
 );
 export const CodeBlockInDocs: WorkbenchExample = wb(CodeBlockInDocsExample);
 export const CodeBlockEmptyVr: WorkbenchExample = wb(CodeBlockEmptyVrExample);
-export const CodeBidiCharactersVr: WorkbenchExample = wb(CodeBidiCharactersVrExample);
+// Named "CodeBidiCharacters" to match the Workbench URL used by existing integration tests.
+export const CodeBidiCharacters: WorkbenchExample = wb(CodeBidiCharactersVrExample);
 export const CodeOverrideBackgroundVr: WorkbenchExample = wb(CodeOverrideBackgroundVrExample);
 export const AbapVr: WorkbenchExample = wb(AbapVrExample);
 export const ApplescriptVr: WorkbenchExample = wb(ApplescriptVrExample);

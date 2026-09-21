@@ -109,6 +109,11 @@ export type CommonAnchorProps<RouterLinkConfig extends Record<string, any> = nev
 		 * URL to navigate to.
 		 */
 		href?: string | RouterLinkConfig;
+		/**
+		 * Override the default text used to announce that the link opens in a new window.
+		 * This should be localized when the product is displayed in a non-English locale.
+		 */
+		newWindowLabel?: string;
 	};
 
 type SupportedElementAttributes =

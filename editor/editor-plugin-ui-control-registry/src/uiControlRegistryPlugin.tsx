@@ -1,5 +1,4 @@
 import { createRegistry } from '@atlaskit/editor-ui-control-model/create-registry';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import type { UiControlRegistryPlugin } from './uiControlRegistryPluginType';
 
@@ -10,14 +9,10 @@ export const uiControlRegistryPlugin: UiControlRegistryPlugin = () => {
 		name: 'uiControlRegistry',
 
 		actions: {
-			getComponent: (component) => registry.getComponent(component),
-
-			register: (components: RegisterComponent[], options): void => {
-				registry.register(components, options);
-			},
-
+			getComponent: registry.getComponent,
+			register: registry.register,
+			subscribe: registry.subscribe,
 			unregister: registry.unregister,
-
 			getComponents: registry.getComponents,
 		},
 	};

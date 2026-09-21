@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,19 +14,19 @@ const documentation: StructuredContentSource = {
 				name: 'DynamicTable',
 				package: '@atlaskit/dynamic-table',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			examples: [
 				{
 					name: 'Stateful',
 					description: 'Stateful dynamic table example',
-					source: path.resolve(__dirname, './examples/0-stateful.vr.ap.tsx'),
+					source: `${__dirname}/examples/0-stateful.vr.ap.tsx`,
 				},
 				{
 					name: 'Stateless',
 					description: 'Stateless dynamic table example',
-					source: path.resolve(__dirname, './examples/1-stateless.tsx'),
+					source: `${__dirname}/examples/1-stateless.tsx`,
 				},
 			],
 			keywords: [
@@ -54,7 +52,7 @@ const documentation: StructuredContentSource = {
 				name: 'DynamicTableStateless',
 				package: '@atlaskit/dynamic-table',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -65,7 +63,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Stateless',
 					description: 'Stateless dynamic table example',
-					source: path.resolve(__dirname, './examples/1-stateless.tsx'),
+					source: `${__dirname}/examples/1-stateless.tsx`,
 				},
 			],
 			keywords: ['table', 'dynamic-table', 'stateless', 'controlled', 'pagination', 'sorting'],

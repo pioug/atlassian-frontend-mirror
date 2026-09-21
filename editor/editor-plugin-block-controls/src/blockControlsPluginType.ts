@@ -20,7 +20,7 @@ import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
+import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin-type';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
@@ -32,6 +32,7 @@ import type { Decoration, DecorationSet, EditorView } from '@atlaskit/editor-pro
 
 export type ActiveNode = {
 	anchorName: string;
+	controlKey?: string;
 	handleOptions?: HandleOptions;
 	nodeType: string;
 	pos: number;
@@ -128,11 +129,14 @@ export type BlockControlsSharedState =
 			preservedSelection?: Selection;
 			/** Whether left/right hover split is enabled (from plugin config) */
 			rightSideControlsEnabled?: boolean;
-			surfaceNodePositions?: number[];
+			surfaceActiveNodes?: ReadonlyMap<number, ActiveNode>;
+			surfaceAnchors?: ReadonlyMap<number, string>;
+			surfaceNodePositions?: readonly number[];
 	  }
 	| undefined;
 
-export type HandleOptions = { isFocused: boolean } | undefined;
+export type ControlOptions = { isFocused: boolean } | undefined;
+export type HandleOptions = ControlOptions;
 
 /**
  * Props passed to custom right-edge button components (e.g. config.rightEdgeButton).
@@ -253,6 +257,11 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				nodeType: string,
 			) => EditorCommand;
 			setSelectedViaDragHandle: (isSelectedViaDragHandle?: boolean) => EditorCommand;
+			showControlAtPosition: (
+				pos: number,
+				control: { key: string },
+				options?: ControlOptions,
+			) => EditorCommand;
 			showDragHandleAt: (
 				pos: number,
 				anchorName: string,

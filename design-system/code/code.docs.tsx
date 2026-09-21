@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'Code',
 				package: '@atlaskit/code/code',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -37,7 +35,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Code',
 					description: 'Code example',
-					source: path.resolve(__dirname, './examples/ai/code.tsx'),
+					source: `${__dirname}/examples/ai/code.tsx`,
 				},
 			],
 			keywords: ['code', 'snippet', 'inline', 'syntax', 'programming'],
@@ -51,7 +49,7 @@ const documentation: StructuredContentSource = {
 				name: 'CodeBlock',
 				package: '@atlaskit/code/code-block',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -76,7 +74,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Code Block',
 					description: 'Code Block example',
-					source: path.resolve(__dirname, './examples/ai/code-block.tsx'),
+					source: `${__dirname}/examples/ai/code-block.tsx`,
 				},
 			],
 			keywords: ['code', 'block', 'syntax', 'highlighting', 'multiline'],

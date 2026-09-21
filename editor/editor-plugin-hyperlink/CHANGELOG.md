@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 21.1.0
+
+### Minor Changes
+
+- [`9df8889f51f21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9df8889f51f21) -
+  Add an opt-in LinkPickerOptions.popupContainerSurface ('default' | 'none') that lets a custom link
+  picker component (e.g. RovoLinkPicker) suppress the editor's floating toolbar popup surface
+  (background, box-shadow, border-radius, padding) when it renders its own complete surface.
+  Threaded through FloatingToolbarConfig/Toolbar's new containerSurface prop. Defaults to the
+  existing wrapper surface; only a caller that explicitly opts in is affected.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.1
 
 ### Patch Changes

@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -12,7 +10,7 @@ const documentation: StructuredContentSource = {
 				name: 'AtlassianIcon',
 				package: '@atlaskit/logo/atlassian-icon',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -31,7 +29,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Atlassian Icon',
 					description: 'Atlassian Icon example',
-					source: path.resolve(__dirname, './examples/ai/atlassian-icon.tsx'),
+					source: `${__dirname}/examples/ai/atlassian-icon.tsx`,
 				},
 			],
 			keywords: ['logo', 'brand', 'atlassian', 'identity', 'header'],

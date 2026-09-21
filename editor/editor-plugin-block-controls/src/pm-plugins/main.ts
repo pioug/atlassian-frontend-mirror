@@ -8,10 +8,6 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import {
-	BLOCK_CONTROLS_LEFT_SURFACE,
-	BLOCK_CONTROLS_RIGHT_SURFACE,
-} from '@atlaskit/editor-common/block-controls/surface-keys';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
 import {
@@ -34,8 +30,6 @@ import type {
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { resolveSurface } from '@atlaskit/editor-ui-control-model/surface-renderer';
-import type { ResolvedSurface } from '@atlaskit/editor-ui-control-model/surface-renderer/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
@@ -57,6 +51,7 @@ import type {
 import { BLOCK_CONTROLS_SURFACE_SELECTOR } from '../ui/consts';
 import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
+import { getNodeTypeWithLevel } from './decorations-common';
 import {
 	createActiveDragHandleNodeDecoration,
 	dragHandleDecoration,
@@ -76,16 +71,13 @@ import {
 } from './decorations-quick-insert-button';
 import { handleMouseDown } from './handle-mouse-down';
 import { handleMouseOver } from './handle-mouse-over';
+import { handleSparseMouseOver } from './handle-sparse-mouse-over';
 import { boundKeydownHandler } from './keymap';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
 import { getMultiSelectAnalyticsAttributes } from './utils/analytics';
 import { AnchorRectCache, isAnchorSupported } from './utils/anchor-utils';
 import { selectNode } from './utils/getSelection';
 import { getSelectedSlicePosition } from './utils/selection';
-import {
-	getSurfaceNodePositions,
-	updateSurfaceNodePositions,
-} from './utils/surface-node-positions';
 import { getTrMetadata } from './utils/transactions';
 
 export const key: PluginKey<PluginState> = new PluginKey<PluginState>('blockControls');
@@ -280,12 +272,6 @@ const initialState: PluginState = {
 };
 
 export interface FlagType {
-	/**
-	 * Whether the legacy widget-decoration drag handle is rendered. The registry surface renders
-	 * its replacement when this is false.
-	 */
-	legacyDragHandleEnabled: boolean;
-	surfaceNodePositionsEnabled: boolean;
 	toolbarFlagsEnabled: boolean;
 }
 
@@ -324,7 +310,6 @@ export const apply = (
 	anchorRectCache?: AnchorRectCache,
 	resizeObserverWidth?: ResizeObserver,
 	pragmaticCleanup?: (() => void) | null,
-	resolvedSurfaces: readonly ResolvedSurface[] = [],
 	limitedModeTeardown?: { done: boolean },
 ):
 	| PluginState
@@ -369,9 +354,8 @@ export const apply = (
 			multiSelectDnD: MultiSelectDnD | undefined;
 			surfaceNodePositions: number[];
 	  } => {
-	let { activeNode, decorations, isResizerResizing, multiSelectDnD, surfaceNodePositions } =
-		currentState;
-	const previousActiveNode = activeNode;
+	let { activeNode, decorations, isResizerResizing, multiSelectDnD } = currentState;
+	const { surfaceNodePositions } = currentState;
 	const {
 		editorHeight,
 		editorWidthLeft,
@@ -528,13 +512,33 @@ export const apply = (
 					mappedRootPos = tr.mapping.mapResult(activeNode.rootPos, -1);
 				}
 
+				let mappedNodeType = activeNode.nodeType;
+				let mappedRootNodeType = activeNode.rootNodeType;
+				// Sparse mode does not redraw the old decorations. A block-type transaction may report
+				// a text range that excludes the active block position, so always refresh the already
+				// active node and root from the new document (for example, paragraph → heading-1).
+				if (isExperimentEnabled('platform_editor_block_control_migration')) {
+					const mappedNode = newState.doc.nodeAt(mappedPos.pos);
+					if (mappedNode?.isBlock) {
+						mappedNodeType = getNodeTypeWithLevel(mappedNode);
+					}
+					const mappedRootNode = mappedRootPos
+						? mappedRootPos.pos === mappedPos.pos && mappedNode
+							? mappedNode
+							: newState.doc.nodeAt(mappedRootPos.pos)
+						: undefined;
+					if (mappedRootNode?.isBlock) {
+						mappedRootNodeType = getNodeTypeWithLevel(mappedRootNode);
+					}
+				}
+
 				activeNode = {
 					pos: mappedPos.pos,
 					anchorName: activeNode.anchorName,
-					nodeType: activeNode.nodeType,
+					nodeType: mappedNodeType,
 					rootPos: mappedRootPos?.pos ?? activeNode.rootPos,
 					rootAnchorName: activeNode.rootAnchorName,
-					rootNodeType: activeNode.rootNodeType,
+					rootNodeType: mappedRootNodeType,
 				};
 			}
 		}
@@ -584,7 +588,10 @@ export const apply = (
 		!isResizerResizing &&
 		(isNodeDecsMissing || meta?.isDragging) &&
 		// Skip expensive anchor node decoration recalculations when native anchor support is enabled
-		!expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true);
+		!(
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_block_control_migration')
+		);
 
 	let isActiveNodeModified = false;
 
@@ -694,7 +701,11 @@ export const apply = (
 	// In view mode with right-side controls, remove any lingering drag handle decorations
 	// (they may carry over from edit mode). Only remove drag handles specifically, not
 	// the remix button decorations (those are managed separately via showInViewMode).
-	if (flags.legacyDragHandleEnabled && isViewMode && rightSideControlsEnabled) {
+	if (
+		!isExperimentEnabled('platform_editor_block_control_migration') &&
+		isViewMode &&
+		rightSideControlsEnabled
+	) {
 		const allHandleDecs = findHandleDec(decorations, 0, newState.doc.content.size);
 		if (allHandleDecs.length > 0) {
 			decorations = decorations.remove(allHandleDecs);
@@ -702,7 +713,7 @@ export const apply = (
 	}
 
 	if (shouldRemoveHandle) {
-		if (flags.legacyDragHandleEnabled) {
+		if (!isExperimentEnabled('platform_editor_block_control_migration')) {
 			const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 			decorations = decorations.remove(oldHandle);
 		}
@@ -714,7 +725,8 @@ export const apply = (
 		// decoration to a different position, so a point-range search would miss it and leave a stale
 		// attribute on the wrong DOM node.
 		if (
-			(flags.legacyDragHandleEnabled || nodeDecorationRegistry.length > 0) &&
+			(!isExperimentEnabled('platform_editor_block_control_migration') ||
+				nodeDecorationRegistry.length > 0) &&
 			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)
 		) {
 			const oldActiveNodeDec = findActiveDragHandleNodeDec(
@@ -771,7 +783,7 @@ export const apply = (
 	} else if (api) {
 		// The registry surface replaces the legacy drag-handle decorations during migration.
 		if (
-			flags.legacyDragHandleEnabled &&
+			!isExperimentEnabled('platform_editor_block_control_migration') &&
 			shouldRecreateHandle &&
 			(!rightSideControlsEnabled || !isViewMode)
 		) {
@@ -794,7 +806,7 @@ export const apply = (
 		}
 
 		if (
-			(flags.legacyDragHandleEnabled ||
+			(!isExperimentEnabled('platform_editor_block_control_migration') ||
 				// nodeDecorationRegistry consumers (e.g. the legacy Remix button) rely
 				// on that same anchor-name for their own CSS anchor() positioning, so this must still run
 				// when such a consumer exists even if the legacy drag handle itself is disabled.
@@ -1099,7 +1111,19 @@ export const apply = (
 	}
 
 	const isEmptyDoc = isEmptyDocument(newState.doc);
-	if (isEmptyDoc && !expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+	if (
+		isExperimentEnabled('platform_editor_block_control_migration') &&
+		meta?.isDragging === false
+	) {
+		decorations = decorations.remove(findNodeDecs(newState, decorations));
+	}
+	if (
+		isEmptyDoc &&
+		!(
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_block_control_migration')
+		)
+	) {
 		const hasNodeDecoration = !!findNodeDecs(newState, decorations).length;
 		if (!hasNodeDecoration) {
 			decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
@@ -1113,11 +1137,12 @@ export const apply = (
 		// In view mode with right-side controls we render node decorations (right-edge button), not the
 		// handle - so findHandleDec is always empty. Don't clear activeNode in that case.
 		const hasHandleOrViewModeControls =
-			!flags.legacyDragHandleEnabled ||
+			isExperimentEnabled('platform_editor_block_control_migration') ||
 			(isViewMode && rightSideControlsEnabled) ||
 			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length > 0;
 		// Keep the registry surface mounted while its Block Menu owns focus.
-		const keepActiveNodeForOpenBlockMenu = !flags.legacyDragHandleEnabled && isMenuOpen;
+		const keepActiveNodeForOpenBlockMenu =
+			isExperimentEnabled('platform_editor_block_control_migration') && isMenuOpen;
 		newActiveNode =
 			(meta?.editorBlurred && !keepActiveNodeForOpenBlockMenu) ||
 			(!meta?.activeNode && !hasHandleOrViewModeControls)
@@ -1127,26 +1152,29 @@ export const apply = (
 		newActiveNode =
 			isEmptyDoc ||
 			(!meta?.activeNode &&
-				flags.legacyDragHandleEnabled &&
+				!isExperimentEnabled('platform_editor_block_control_migration') &&
 				findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
 				? null
 				: latestActiveNode;
 	}
 
-	if (flags.surfaceNodePositionsEnabled && resolvedSurfaces.length > 0) {
-		surfaceNodePositions = updateSurfaceNodePositions({
-			activeNode: newActiveNode,
-			currentPositions: surfaceNodePositions,
-			from,
-			newState,
-			previousActiveNode,
-			resolvedSurfaces,
-			to,
-			tr,
-		});
-	}
-
 	let isMenuOpenNew = isMenuOpen;
+	let nextMenuTriggerByNode = meta?.toggleMenu?.triggerByNode || menuTriggerByNode;
+	if (
+		isExperimentEnabled('platform_editor_block_control_migration') &&
+		tr.docChanged &&
+		menuTriggerByNode &&
+		!meta?.toggleMenu
+	) {
+		const mapped = tr.mapping.mapResult(menuTriggerByNode.pos, 1);
+		const mappedRoot = tr.mapping.mapResult(menuTriggerByNode.rootPos ?? menuTriggerByNode.pos, 1);
+		if (mapped.deleted || mappedRoot.deleted || !newState.doc.nodeAt(mapped.pos)?.isBlock) {
+			nextMenuTriggerByNode = undefined;
+			isMenuOpenNew = false;
+		} else {
+			nextMenuTriggerByNode = { ...menuTriggerByNode, pos: mapped.pos, rootPos: mappedRoot.pos };
+		}
+	}
 	if (meta?.closeMenu) {
 		isMenuOpenNew = false;
 	} else if (meta?.toggleMenu) {
@@ -1178,7 +1206,7 @@ export const apply = (
 		isDragging: meta?.isDragging ?? isDragging,
 		isMenuOpen: isMenuOpenNew,
 		menuTriggerBy: meta?.toggleMenu?.anchorName || menuTriggerBy,
-		menuTriggerByNode: meta?.toggleMenu?.triggerByNode || menuTriggerByNode,
+		menuTriggerByNode: nextMenuTriggerByNode,
 		blockMenuOptions: {
 			canMoveUp:
 				meta?.toggleMenu?.moveUp !== undefined
@@ -1213,7 +1241,6 @@ export const createPlugin = (
 	nodeDecorationRegistry: NodeDecorationFactory[],
 	rightSideControlsEnabled = false,
 	quickInsertButtonEnabled = true,
-	legacyDragHandleEnabled = true,
 ): SafePlugin<
 	| PluginState
 	| {
@@ -1261,26 +1288,9 @@ export const createPlugin = (
 	const { formatMessage } = getIntl();
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
-	// Mirrors `registryBlockControlsEnabled` in blockControlsPlugin.tsx: `legacyDragHandleEnabled` is
-	// only false once that gate is on.
-	const surfaceNodePositionsEnabled = !legacyDragHandleEnabled;
 	const flags: FlagType = {
-		legacyDragHandleEnabled,
-		surfaceNodePositionsEnabled,
 		toolbarFlagsEnabled,
 	};
-	const resolvedSurfaces: ResolvedSurface[] = surfaceNodePositionsEnabled
-		? [
-				resolveSurface(
-					api?.uiControlRegistry?.actions.getComponents(BLOCK_CONTROLS_LEFT_SURFACE) ?? [],
-					BLOCK_CONTROLS_LEFT_SURFACE,
-				),
-				resolveSurface(
-					api?.uiControlRegistry?.actions.getComponents(BLOCK_CONTROLS_RIGHT_SURFACE) ?? [],
-					BLOCK_CONTROLS_RIGHT_SURFACE,
-				),
-			]
-		: [];
 
 	let anchorRectCache: AnchorRectCache | undefined;
 
@@ -1296,15 +1306,7 @@ export const createPlugin = (
 	return new SafePlugin({
 		key,
 		state: {
-			init(_config: unknown, editorState: EditorState) {
-				return {
-					...initialState,
-					surfaceNodePositions:
-						resolvedSurfaces.length > 0
-							? getSurfaceNodePositions(editorState, resolvedSurfaces)
-							: [],
-				};
-			},
+			init: () => ({ ...initialState }),
 			apply: (
 				tr: ReadonlyTransaction,
 				currentState: PluginState,
@@ -1325,7 +1327,6 @@ export const createPlugin = (
 					anchorRectCache,
 					resizeObserverWidth,
 					pragmaticCleanup,
-					resolvedSurfaces,
 					limitedModeTeardown,
 				),
 		},
@@ -1353,7 +1354,7 @@ export const createPlugin = (
 				// (created in edit mode) that may not have been cleaned up on mode switch.
 				if (
 					decorationSet &&
-					legacyDragHandleEnabled &&
+					!isExperimentEnabled('platform_editor_block_control_migration') &&
 					rightSideControlsEnabled &&
 					api?.editorViewMode?.sharedState.currentState()?.mode === 'view'
 				) {
@@ -1521,12 +1522,17 @@ export const createPlugin = (
 					// in case there are descripancies between getNodeIdProvider limited mode state
 					if (
 						getNodeIdProvider(view)?.isLimitedMode() &&
-						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+						(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+							isExperimentEnabled('platform_editor_block_control_migration'))
 					) {
 						return;
 					}
 
-					handleMouseOver(view, event, api);
+					if (isExperimentEnabled('platform_editor_block_control_migration')) {
+						handleSparseMouseOver(view, event, api);
+					} else {
+						handleMouseOver(view, event, api);
+					}
 
 					return false;
 				},
@@ -1612,7 +1618,7 @@ export const createPlugin = (
 					if (editorExperiment('platform_editor_controls', 'variant1')) {
 						// Focus moving into the registry surface remains inside the editor experience.
 						const isChildOfSurface =
-							!flags.legacyDragHandleEnabled &&
+							isExperimentEnabled('platform_editor_block_control_migration') &&
 							event.relatedTarget instanceof HTMLElement &&
 							event.relatedTarget.closest(BLOCK_CONTROLS_SURFACE_SELECTOR) !== null;
 						const shouldPreserveRemixInlineDropdownFocus =
@@ -1670,7 +1676,10 @@ export const createPlugin = (
 
 						// Registry surfaces have their own ResizeObservers and absolute placement.
 						// Width metadata only drives legacy widget recreation.
-						if (legacyDragHandleEnabled && !isResizerResizing) {
+						if (
+							!isExperimentEnabled('platform_editor_block_control_migration') &&
+							!isResizerResizing
+						) {
 							const editorContentArea = entries[0].target;
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -1692,13 +1701,11 @@ export const createPlugin = (
 				}),
 			);
 
-			const shouldObserve = expValEquals(
-				'platform_editor_native_anchor_with_dnd',
-				'isEnabled',
-				true,
-			)
-				? !isAnchorSupported()
-				: true;
+			const shouldObserve =
+				!(
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
+				) || !isAnchorSupported();
 
 			if (editorContentArea && shouldObserve) {
 				resizeObserverWidth.observe(editorContentArea);

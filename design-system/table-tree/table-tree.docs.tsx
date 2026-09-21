@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,14 +11,14 @@ const documentation: StructuredContentSource = {
 				name: 'TableTree',
 				package: '@atlaskit/table-tree/table-tree',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			examples: [
 				{
 					name: 'Controlled Expanded State',
 					description: 'Controlled expanded state example',
-					source: path.resolve(__dirname, './examples/controlled-expanded-state.vr.ap.tsx'),
+					source: `${__dirname}/examples/controlled-expanded-state.vr.ap.tsx`,
 				},
 			],
 			keywords: ['table-tree', 'table', 'tree', 'expandable', 'nested', 'hierarchy', 'rows'],
@@ -35,7 +33,7 @@ const documentation: StructuredContentSource = {
 				name: 'Headers',
 				package: '@atlaskit/table-tree/headers',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -55,7 +53,7 @@ const documentation: StructuredContentSource = {
 				name: 'Header',
 				package: '@atlaskit/table-tree/header',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Use for structured tabular data only—never for layout'],
@@ -71,7 +69,7 @@ const documentation: StructuredContentSource = {
 				name: 'Rows',
 				package: '@atlaskit/table-tree/rows',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -91,7 +89,7 @@ const documentation: StructuredContentSource = {
 				name: 'Row',
 				package: '@atlaskit/table-tree/row',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -109,7 +107,7 @@ const documentation: StructuredContentSource = {
 				name: 'Cell',
 				package: '@atlaskit/table-tree/cell',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [

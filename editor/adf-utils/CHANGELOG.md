@@ -1,5 +1,18 @@
 # @atlaskit/adf-utils
 
+## 20.9.32
+
+### Patch Changes
+
+- [`23c8ebef4a389`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23c8ebef4a389) -
+  FFCLEANUP-197356 Cleanup `platform_editor_adf_validator_no_base_override`
+
+## 20.9.31
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.9.30
 
 ### Patch Changes

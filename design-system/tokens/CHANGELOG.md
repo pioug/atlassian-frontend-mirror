@@ -1,5 +1,20 @@
 # @atlaskit/tokens
 
+## 18.2.1
+
+### Patch Changes
+
+- [`e9115c37cd99c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9115c37cd99c) -
+  Improve static theme loading for server-rendered applications. When
+  `platform-static-theme-loading` is enabled with React 19 streaming SSR, `ThemeProvider` streams
+  the CSS required by the active standard themes and finesse overrides before the themed subtree.
+  During hydration, it reuses the server-rendered CSS before hoisting styles to the document head,
+  avoiding a flash of unthemed content and hydration mismatches. React 18 continues to use the
+  existing no-inline-CSS fallback.
+
+  Expose the Tokens theme preference resolvers used to select the standard and finesse override
+  theme styles.
+
 ## 18.2.0
 
 ### Minor Changes

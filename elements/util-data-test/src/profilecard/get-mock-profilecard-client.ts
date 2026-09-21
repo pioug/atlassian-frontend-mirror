@@ -1,5 +1,9 @@
 import { modifyResponse } from '@atlaskit/profilecard/modify-response';
-import { type AgentIdType, type ProfileClient } from '@atlaskit/profilecard/types';
+import {
+	type AgentIdType,
+	type ProfileClient,
+	type RovoAgentCardClientResult,
+} from '@atlaskit/profilecard/types';
 import {
 	type ProfileCardClientData,
 	type ReportingLinesUser,
@@ -76,6 +80,20 @@ interface ProfileCardClientProps {
 	stableData?: boolean;
 }
 
+const mockRovoAgentProfile: RovoAgentCardClientResult['restData'] = {
+	id: 'agent-default-1',
+	identity_account_id: 'agent-default-1',
+	named_id: 'raina-agent',
+	name: 'Raina Agent',
+	description: 'A test agent',
+	creator_type: 'SYSTEM',
+	is_default: false,
+	actor_type: 'AGENT',
+	user_defined_conversation_starters: [],
+	favourite: false,
+	favourite_count: 0,
+};
+
 // TODO: This function will replace getMockProfilecardClient() on line 13 once the latest `master` branch containing this code has been merged to `develop`
 export function simpleMockProfilecardClient(props?: ProfileCardClientProps): ProfileClient {
 	return {
@@ -118,8 +136,15 @@ export function simpleMockProfilecardClient(props?: ProfileCardClientProps): Pro
 
 		shouldShowGiveKudos: () => Promise.resolve(true),
 
-		getRovoAgentProfile: (_Id: AgentIdType, _analytics?) => {
-			return Promise.reject({ reason: 'not built yet' });
+		getRovoAgentProfile: (id: AgentIdType, _analytics?) => {
+			return Promise.resolve({
+				restData: {
+					...mockRovoAgentProfile,
+					id: id.value,
+					identity_account_id: id.value,
+				},
+				aggData: null,
+			});
 		},
 		deleteAgent: (_id: string, _analytics?) => {
 			return Promise.reject({ reason: 'not built yet' });

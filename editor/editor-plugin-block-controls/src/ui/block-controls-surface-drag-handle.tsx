@@ -214,6 +214,13 @@ export const BlockControlsSurfaceDragHandle = ({
 	}, [api, isLayoutColumn, isShiftDown, isTopLevelNode, view]);
 
 	const getAnchorName = useCallback((): string => {
+		const surfaceAnchor =
+			posRef.current === undefined
+				? undefined
+				: api?.blockControls.sharedState.currentState()?.surfaceAnchors?.get(posRef.current);
+		if (surfaceAnchor) {
+			return surfaceAnchor;
+		}
 		if (activeNodeAnchorName) {
 			return activeNodeAnchorName;
 		}
@@ -232,7 +239,7 @@ export const BlockControlsSurfaceDragHandle = ({
 			dom.closest(`[${anchorAttrName}]`)?.getAttribute(anchorAttrName) ??
 			''
 		);
-	}, [activeNodeAnchorName, view]);
+	}, [activeNodeAnchorName, api, view]);
 
 	useLayoutEffect(() => {
 		const element = buttonRef.current;

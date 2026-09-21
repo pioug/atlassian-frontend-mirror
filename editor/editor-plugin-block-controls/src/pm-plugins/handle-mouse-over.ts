@@ -4,6 +4,7 @@ import { isMultiBlockSelection } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -196,11 +197,9 @@ export const handleMouseOver = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const target = event.target as HTMLElement;
-	const isNativeAnchorSupported = expValEquals(
-		'platform_editor_native_anchor_with_dnd',
-		'isEnabled',
-		true,
-	);
+	const isNativeAnchorSupported =
+		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+		isExperimentEnabled('platform_editor_block_control_migration');
 
 	if (target?.classList?.contains('ProseMirror')) {
 		return false;
@@ -303,7 +302,10 @@ export const handleMouseOver = (
 		rootElement = redirectParagraphToWrappedMedia(rootElement, isNativeAnchorSupported);
 
 		let anchorName;
-		if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+		if (
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_block_control_migration')
+		) {
 			anchorName = rootElement.getAttribute(getAnchorAttrName());
 
 			// don't show handles if we can't find an anchor

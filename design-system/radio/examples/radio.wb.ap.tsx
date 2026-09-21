@@ -12,7 +12,8 @@ const RadioDefault: WorkbenchExample = wb(RadioDefaultExample);
 
 export default RadioDefault;
 export const ControlledExample: WorkbenchExample = wb(ControlledExampleSource);
-export const FormExampleVr: WorkbenchExample = wb(FormExampleVrExample);
+// Named "FormExample" to match the Workbench URL used by existing integration tests.
+export const FormExample: WorkbenchExample = wb(FormExampleVrExample);
 export const DefaultCheckedValue: WorkbenchExample = wb(DefaultCheckedValueExample);
 export const RadioWithoutGroup: WorkbenchExample = wb(RadioWithoutGroupExample);
 export const RadioInvalid: WorkbenchExample = wb(RadioInvalidExample);

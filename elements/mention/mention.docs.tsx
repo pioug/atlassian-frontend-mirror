@@ -2,13 +2,11 @@
  * Structured MCP docs for `@atlaskit/mention`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	package: {
@@ -37,7 +35,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Simple mention',
 					description: 'Basic usage of the Mention component.',
-					source: path.resolve(packagePath, './examples/07-simple-mention.vr.ap.tsx'),
+					source: `${packagePath}/examples/07-simple-mention.vr.ap.tsx`,
 				},
 			],
 		},
@@ -62,7 +60,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Mention list picker',
 					description: 'Basic usage of MentionPicker.',
-					source: path.resolve(packagePath, './examples/05-mention-list-picker.tsx'),
+					source: `${packagePath}/examples/05-mention-list-picker.tsx`,
 				},
 			],
 		},

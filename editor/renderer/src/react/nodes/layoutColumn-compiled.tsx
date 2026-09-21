@@ -14,6 +14,7 @@ import { css, jsx } from '@compiled/react';
 
 import type { Valign } from '@atlaskit/adf-schema/valign';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // localized styles, was from clearNextSiblingMarginTopStyle in @atlaskit/editor-common/ui
@@ -90,7 +91,12 @@ export const LayoutSectionCompiled = (
 			]}
 		>
 			<WidthProvider>
-				<div css={[clearNextSiblingMarginTopStyle, clearNextSiblingBlockMarkMarginTopStyle]} />
+				<div
+					data-layout-column-start={
+						fg('platform_renderer_ssr_block_margin_fix') ? 'true' : undefined
+					}
+					css={[clearNextSiblingMarginTopStyle, clearNextSiblingBlockMarkMarginTopStyle]}
+				/>
 				{props.children}
 			</WidthProvider>
 		</div>

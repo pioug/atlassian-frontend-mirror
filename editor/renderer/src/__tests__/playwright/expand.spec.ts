@@ -95,15 +95,12 @@ test.describe('expand', () => {
 	});
 });
 
-for (const { gateEnabled, expectedMargin } of [
-	{ gateEnabled: false, expectedMargin: 4 },
-	{ gateEnabled: true, expectedMargin: 0 },
-]) {
+for (const blockMarginFixEnabled of [false, true]) {
 	for (const headingExperimentEnabled of [false, true]) {
-		test.describe(`SSR Expand margin: gate=${gateEnabled}, heading experiment=${headingExperimentEnabled}`, () => {
+		test.describe(`SSR Expand margin: block margin fix=${blockMarginFixEnabled}, heading experiment=${headingExperimentEnabled}`, () => {
 			test.use({
 				platformFeatureFlags: {
-					platform_renderer_expand_ssr_margin_fix: gateEnabled,
+					platform_renderer_ssr_block_margin_fix: blockMarginFixEnabled,
 				},
 				editorExperiments: {
 					platform_editor_copy_link_a11y_inconsistency_fix: headingExperimentEnabled,
@@ -157,11 +154,7 @@ for (const { gateEnabled, expectedMargin } of [
 						});
 
 						for (const before of [measurements.singleStyle, measurements.streamed]) {
-							expect(before.marginTop).toBe(`${expectedMargin}px`);
-							expect(before.top - measurements.hydrated.top).toBe(expectedMargin);
-							expect(before.wrapperHeight - measurements.hydrated.wrapperHeight).toBe(
-								expectedMargin,
-							);
+							expect(before).toEqual(measurements.client);
 						}
 						expect(measurements.hydrated).toEqual(measurements.client);
 						expect(measurements.afterContent.marginTop).toBe('4px');

@@ -2,13 +2,11 @@
  * Structured MCP docs for `@atlaskit/navigation-system`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	package: {
@@ -39,7 +37,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Top navigation',
 					description: 'Basic usage of the top navigation bar.',
-					source: path.resolve(packagePath, './examples/top-navigation.vr.ap.tsx'),
+					source: `${packagePath}/examples/top-navigation.vr.ap.tsx`,
 				},
 			],
 		},

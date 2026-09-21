@@ -14,6 +14,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -207,13 +208,11 @@ export const createLayoutDropTargetDecoration = (
 			element.setAttribute('data-blocks-drop-target-container', 'true');
 			element.setAttribute('data-blocks-drop-target-key', key);
 			element.style.clear = 'unset';
-			const DropTargetLayoutComponent = expValEquals(
-				'platform_editor_native_anchor_with_dnd',
-				'isEnabled',
-				true,
-			)
-				? DropTargetLayoutNativeAnchorSupport
-				: DropTargetLayout;
+			const DropTargetLayoutComponent =
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+				isExperimentEnabled('platform_editor_block_control_migration')
+					? DropTargetLayoutNativeAnchorSupport
+					: DropTargetLayout;
 
 			nodeViewPortalProviderAPI.render(
 				() => createElement(DropTargetLayoutComponent, { ...props, getPos, anchorRectCache }),

@@ -14,20 +14,23 @@ import FlagTopLayerEscapeExample from './11-flag-top-layer-escape';
 import FlagImperativeCreatePopperVrExample from './12-flag-imperative-create-popper.vr.ap';
 import FlagClippedAnchorExample from './13-flag-clipped-anchor';
 
-const BasicPositioningVr: WorkbenchExample = wb(BasicPositioningVrExample);
+// Explicit named export Used to generate integration-test URLs.
+export const BasicPositioning: WorkbenchExample = wb(BasicPositioningVrExample);
 
-export default BasicPositioningVr;
+// Default export required by accessibility tooling.
+export default BasicPositioning;
 export const ScrollContainer: WorkbenchExample = wb(ScrollContainerExample);
 export const AdvancedBehaviorsVr: WorkbenchExample = wb(AdvancedBehaviorsVrExample);
-export const MaxSizeVr: WorkbenchExample = wb(MaxSizeVrExample);
+// Named "MaxSize" to match the Workbench URL used by existing integration tests.
+export const MaxSize: WorkbenchExample = wb(MaxSizeVrExample);
 export const FlagReferenceHidden: WorkbenchExample = wb(FlagReferenceHiddenExample);
 export const FlagReferenceVisible: WorkbenchExample = wb(FlagReferenceVisibleExample);
-export const FlagFitViewportRightVr: WorkbenchExample = wb(FlagFitViewportRightVrExample);
+// Named "FlagFitViewportRight" to match the Workbench URL used by existing integration tests.
+export const FlagFitViewportRight: WorkbenchExample = wb(FlagFitViewportRightVrExample);
 export const FlagPopperEscaped: WorkbenchExample = wb(FlagPopperEscapedExample);
 export const FlagVirtualElement: WorkbenchExample = wb(FlagVirtualElementExample);
 export const FlagAnchorToggle: WorkbenchExample = wb(FlagAnchorToggleExample);
 export const FlagTopLayerEscape: WorkbenchExample = wb(FlagTopLayerEscapeExample);
-export const FlagImperativeCreatePopperVr: WorkbenchExample = wb(
-	FlagImperativeCreatePopperVrExample,
-);
+// Named "FlagImperativeCreatePopper" to match the Workbench URL used by existing integration tests.
+export const FlagImperativeCreatePopper: WorkbenchExample = wb(FlagImperativeCreatePopperVrExample);
 export const FlagClippedAnchor: WorkbenchExample = wb(FlagClippedAnchorExample);

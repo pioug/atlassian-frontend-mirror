@@ -96,6 +96,13 @@ export const scrollToDecoration = (
 			// @ts-expect-error - decoration.type is not typed public API
 			const widgetDom = target?.type?.toDOM;
 			scrollToSelection(widgetDom);
+		} else if (isDiffDecoration(target) && fg('platform_editor_ai_show_diff_patch_2')) {
+			const targetNode =
+				Array.from(view.dom.querySelectorAll<HTMLElement>('[data-diff-id]')).find(
+					(element) => element.dataset.diffId === target.spec.diffId,
+				) ?? view.nodeDOM(target?.from);
+
+			scrollToSelection(targetNode);
 		} else {
 			const targetNode = view.nodeDOM(target?.from);
 			const node = targetNode instanceof Element ? targetNode : view.domAtPos(target?.from)?.node;

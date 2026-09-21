@@ -114,7 +114,8 @@ export const BoxSurfaceDetectionVr: WorkbenchExample = wb(BoxSurfaceDetectionVrE
 export const BoxClassname: WorkbenchExample = wb(BoxClassnameExample);
 export const BoxClassnameCompiled: WorkbenchExample = wb(BoxClassnameCompiledExample);
 export const InlineBasicCompiledVr: WorkbenchExample = wb(InlineBasicCompiledVrExample);
-export const InlineBasicVr: WorkbenchExample = wb(InlineBasicVrExample);
+// Named "InlineBasic" to match the Workbench URL used by existing integration tests.
+export const InlineBasic: WorkbenchExample = wb(InlineBasicVrExample);
 export const Inline: WorkbenchExample = wb(InlineExample);
 export const InlineSeparatorCompiledVr: WorkbenchExample = wb(InlineSeparatorCompiledVrExample);
 export const InlineSeparatorVr: WorkbenchExample = wb(InlineSeparatorVrExample);
@@ -130,7 +131,8 @@ export const InlineShouldWrapCompiledVr: WorkbenchExample = wb(InlineShouldWrapC
 export const InlineShouldWrapVr: WorkbenchExample = wb(InlineShouldWrapVrExample);
 export const InlineGrowCompiledVr: WorkbenchExample = wb(InlineGrowCompiledVrExample);
 export const InlineGrowVr: WorkbenchExample = wb(InlineGrowVrExample);
-export const StackBasicCompiledVr: WorkbenchExample = wb(StackBasicCompiledVrExample);
+// Named "StackBasicCompiled" to match the Workbench URL used by existing integration tests.
+export const StackBasicCompiled: WorkbenchExample = wb(StackBasicCompiledVrExample);
 export const StackBasicVr: WorkbenchExample = wb(StackBasicVrExample);
 export const Stack: WorkbenchExample = wb(StackExample);
 export const StackCompiled: WorkbenchExample = wb(StackCompiledExample);
@@ -177,12 +179,14 @@ export const ResponsiveShowHideVr: WorkbenchExample = wb(ResponsiveShowHideVrExa
 export const Grid: WorkbenchExample = wb(GridExample);
 export const GridCompiled: WorkbenchExample = wb(GridCompiledExample);
 export const FlexCompiledVr: WorkbenchExample = wb(FlexCompiledVrExample);
-export const FlexVr: WorkbenchExample = wb(FlexVrExample);
+// Named "Flex" to match the Workbench URL used by existing integration tests.
+export const Flex: WorkbenchExample = wb(FlexVrExample);
 export const GridGapCompiledVr: WorkbenchExample = wb(GridGapCompiledVrExample);
 export const GridGapVr: WorkbenchExample = wb(GridGapVrExample);
 export const BleedCompiledVr: WorkbenchExample = wb(BleedCompiledVrExample);
 export const BleedVr: WorkbenchExample = wb(BleedVrExample);
-export const TextCompiledVr: WorkbenchExample = wb(TextCompiledVrExample);
+// Named "TextCompiled" to match the Workbench URL used by existing integration tests.
+export const TextCompiled: WorkbenchExample = wb(TextCompiledVrExample);
 export const TextVr: WorkbenchExample = wb(TextVrExample);
 export const TextColorCompiledVr: WorkbenchExample = wb(TextColorCompiledVrExample);
 export const TextColorVr: WorkbenchExample = wb(TextColorVrExample);

@@ -84,7 +84,7 @@ const PageLayout = ({
 	testId,
 	onLeftSidebarExpand,
 	onLeftSidebarCollapse,
-}: PageLayoutProps): jsx.JSX.Element => {
+}: PageLayoutProps): JSX.Element => {
 	if (
 		typeof process !== 'undefined' &&
 		process.env.NODE_ENV !== 'production' &&

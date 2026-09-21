@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'ProgressTracker',
 				package: '@atlaskit/progress-tracker',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Progress Tracker',
 					description: 'Progress Tracker example',
-					source: path.resolve(__dirname, './examples/ai/progress-tracker.tsx'),
+					source: `${__dirname}/examples/ai/progress-tracker.tsx`,
 				},
 			],
 			keywords: ['progress', 'tracker', 'steps', 'completion', 'workflow'],

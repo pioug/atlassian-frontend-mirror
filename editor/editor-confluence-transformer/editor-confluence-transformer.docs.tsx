@@ -3,13 +3,11 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -33,7 +31,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Confluence XHTML transformer',
 					description: 'Transform Confluence XHTML to ADF.',
-					source: path.resolve(packagePath, './examples/0-cxhtml-transformer.tsx'),
+					source: `${packagePath}/examples/0-cxhtml-transformer.tsx`,
 				},
 			],
 		},

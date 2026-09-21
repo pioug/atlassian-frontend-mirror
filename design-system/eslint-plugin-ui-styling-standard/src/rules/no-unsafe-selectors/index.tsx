@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { importSources } from '@atlaskit/eslint-utils/schema';
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
@@ -19,6 +20,105 @@ const ignoredAtRules: Set<string> = new Set([
 	'@property',
 	'@starting-style',
 ]);
+
+const canonicalMediaQueries = new Map([
+	['media-above-xxs', '@media all'],
+	['media-above-xs', '@media (min-width: 30rem)'],
+	['media-above-sm', '@media (min-width: 48rem)'],
+	['media-above-md', '@media (min-width: 64rem)'],
+	['media-above-lg', '@media (min-width: 90rem)'],
+	['media-above-xl', '@media (min-width: 110.5rem)'],
+	['media-below-xs', '@media not all and (min-width: 30rem)'],
+	['media-below-sm', '@media not all and (min-width: 48rem)'],
+	['media-below-md', '@media not all and (min-width: 64rem)'],
+	['media-below-lg', '@media not all and (min-width: 90rem)'],
+	['media-below-xl', '@media not all and (min-width: 110.5rem)'],
+	['media-only-xxs', '@media (min-width: 0rem) and (max-width: 29.99rem)'],
+	['media-only-xs', '@media (min-width: 30rem) and (max-width: 47.99rem)'],
+	['media-only-sm', '@media (min-width: 48rem) and (max-width: 63.99rem)'],
+	['media-only-md', '@media (min-width: 64rem) and (max-width: 89.99rem)'],
+	['media-only-lg', '@media (min-width: 90rem) and (max-width: 110.49rem)'],
+	['media-only-xl', '@media (min-width: 110.5rem)'],
+	['media-dark-mode', '@media (prefers-color-scheme: dark)'],
+	['media-light-mode', '@media (prefers-color-scheme: light)'],
+	['media-reduced-motion', '@media (prefers-reduced-motion: reduce)'],
+	['media-reduced-transparency', '@media (prefers-reduced-transparency: reduce)'],
+	['media-forced-colors-active', '@media screen and (forced-colors: active)'],
+	['media-legacy-high-contrast', '@media screen and (-ms-high-contrast: active)'],
+	[
+		'media-forced-colors-or-legacy-high-contrast',
+		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)',
+	],
+]);
+
+type TypeScriptExpression = {
+	type: string;
+	expression?: TypeScriptExpression;
+	typeAnnotation?: {
+		type: string;
+		typeName?: { type: string; name?: string };
+	};
+	value?: unknown;
+};
+
+const unwrapTypeScriptExpression = (node: TypeScriptExpression): TypeScriptExpression => {
+	let expression = node;
+	while (
+		expression.type === 'TSAsExpression' ||
+		expression.type === 'TSTypeAssertion' ||
+		expression.type === 'TSNonNullExpression' ||
+		expression.type === 'TSSatisfiesExpression'
+	) {
+		expression = expression.expression as TypeScriptExpression;
+	}
+	return expression;
+};
+
+const isCanonicalTypedMediaKey = (
+	node: TypeScriptExpression,
+	importedMediaTypes: Map<string, string>,
+): boolean => {
+	if (node.type !== 'TSSatisfiesExpression') {
+		return false;
+	}
+
+	const expression = unwrapTypeScriptExpression(node);
+	if (expression.type !== 'Literal' || typeof expression.value !== 'string') {
+		return false;
+	}
+
+	let satisfiesExpression: TypeScriptExpression | undefined = node;
+	while (satisfiesExpression?.type === 'TSSatisfiesExpression') {
+		const typeName = satisfiesExpression.typeAnnotation?.typeName?.name;
+		if (satisfiesExpression.typeAnnotation?.type === 'TSTypeReference' && typeName) {
+			const source = importedMediaTypes.get(typeName);
+			if (source && canonicalMediaQueries.get(source) === expression.value) {
+				return true;
+			}
+		}
+		satisfiesExpression = satisfiesExpression.expression;
+	}
+
+	return false;
+};
+
+const getImportedMediaTypeSources = (context: Rule.RuleContext): Map<string, string> => {
+	const importedMediaTypes = new Map<string, string>();
+	for (const statement of getSourceCode(context).ast.body) {
+		if (statement.type !== 'ImportDeclaration' || typeof statement.source.value !== 'string') {
+			continue;
+		}
+		const match = statement.source.value.match(/^@atlaskit\/css\/at-rules\/(media-[a-z-]+)$/);
+		if (match) {
+			for (const specifier of statement.specifiers) {
+				if (specifier.type === 'ImportDefaultSpecifier') {
+					importedMediaTypes.set(specifier.local.name, match[1]);
+				}
+			}
+		}
+	}
+	return importedMediaTypes;
+};
 
 const rule: Rule.RuleModule = createLintRuleWithTypedConfig({
 	meta: {
@@ -60,6 +160,9 @@ const rule: Rule.RuleModule = createLintRuleWithTypedConfig({
 
 			'no-grouped-at-rules': 'Do not group at-rules. Write flattened at-rules instead.',
 
+			'no-noncanonical-media-query':
+				'Use the exact media query represented by the imported @atlaskit/css/at-rules type.',
+
 			/**
 			 * Suggestion messages
 			 */
@@ -82,6 +185,7 @@ const rule: Rule.RuleModule = createLintRuleWithTypedConfig({
 	create(context, config) {
 		return {
 			Program() {
+				const importedMediaTypes = getImportedMediaTypeSources(context);
 				for (const styleCall of getStyleCalls(context)) {
 					if (!config.importSources.includes(styleCall.importSource)) {
 						continue;
@@ -99,15 +203,32 @@ const rule: Rule.RuleModule = createLintRuleWithTypedConfig({
 					}
 
 					walkStyleCallProperties(styleCall, ({ key, value }) => {
+						const keyType = (key as { type: string }).type;
 						if (
 							value.type !== 'ObjectExpression' ||
-							key.type !== 'Literal' ||
-							typeof key.value !== 'string'
+							(keyType !== 'Literal' && keyType !== 'TSSatisfiesExpression')
 						) {
 							return;
 						}
 
-						const selectorText = key.value;
+						if (keyType === 'TSSatisfiesExpression') {
+							const unwrappedKey = unwrapTypeScriptExpression(key as TypeScriptExpression);
+							if (unwrappedKey.type === 'Literal' && typeof unwrappedKey.value === 'string') {
+								if (
+									unwrappedKey.value.startsWith('@media') &&
+									!isCanonicalTypedMediaKey(key as TypeScriptExpression, importedMediaTypes)
+								) {
+									context.report({ node: key, messageId: 'no-noncanonical-media-query' });
+								}
+								return;
+							}
+							return;
+						}
+
+						const selectorText = (key as { value: unknown }).value;
+						if (typeof selectorText !== 'string') {
+							return;
+						}
 						if (selectorText.includes('@')) {
 							lintAtRule({ context, sourceNode: key, atRule: selectorText });
 							return;

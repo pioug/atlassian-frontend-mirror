@@ -30,6 +30,7 @@ export type {
 	RegisterSection,
 	RegisterToolbar,
 	RegisteredComponent,
+	RegistryListener,
 	SectionType,
 	SurfaceContext,
 	ToolbarType,

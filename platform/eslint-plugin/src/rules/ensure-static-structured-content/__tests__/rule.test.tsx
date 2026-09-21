@@ -23,11 +23,10 @@ tester.run('ensure-static-structured-content', rule, {
 			filename: 'button.docs.tsx',
 			code: `
 				import { type StructuredContentSource } from '@atlassian/structured-docs-types/types';
-				import path from 'path';
 				import packageJson from './package.json';
 				import { type SharedContent } from './shared.docs.tsx';
 
-				const packagePath = path.resolve(__dirname);
+				const packagePath = __dirname;
 				const documentation: StructuredContentSource = {
 					components: [{ name: 'Button', packageJson, packagePath }],
 				};
@@ -102,6 +101,16 @@ tester.run('ensure-static-structured-content', rule, {
 			filename: 'dynamic-join.docs.tsx',
 			code: `const values = ['one', 'two']; export default { value: values.join('\\n') };`,
 			errors: [{ messageId: 'dynamicStructuredContent', data: { nodeType: 'CallExpression' } }],
+		},
+		{
+			filename: 'platform-labs.docs.tsx',
+			code: `import path from 'path'; export default { packagePath: path.resolve(__dirname) };`,
+			errors: [{ messageId: 'nodeBuiltin' }, { messageId: 'nodeBuiltin' }],
+		},
+		{
+			filename: 'platform-labs-node-protocol.docs.tsx',
+			code: `import path from 'node:path'; export default { packagePath: path.resolve(__dirname) };`,
+			errors: [{ messageId: 'nodeBuiltin' }, { messageId: 'nodeBuiltin' }],
 		},
 	],
 });

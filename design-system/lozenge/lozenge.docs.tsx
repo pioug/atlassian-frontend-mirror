@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'Lozenge',
 				package: '@atlaskit/lozenge/lozenge',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -46,7 +44,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Lozenge',
 					description: 'Lozenge example',
-					source: path.resolve(__dirname, './examples/ai/lozenge.tsx'),
+					source: `${__dirname}/examples/ai/lozenge.tsx`,
 				},
 			],
 			keywords: ['lozenge', 'badge', 'label', 'status', 'indicator', 'pill'],
@@ -61,7 +59,7 @@ const documentation: StructuredContentSource = {
 				name: 'LozengeDropdownTrigger',
 				package: '@atlaskit/lozenge/lozenge-dropdown-trigger',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -82,10 +80,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Lozenge Dropdown Trigger',
 					description: 'LozengeDropdownTrigger example',
-					source: path.resolve(
-						__dirname,
-						'./examples/constellation/lozenge-dropdown-trigger-basic.tsx',
-					),
+					source: `${__dirname}/examples/constellation/lozenge-dropdown-trigger-basic.tsx`,
 				},
 			],
 			keywords: ['lozenge', 'dropdown', 'trigger', 'status', 'menu', 'interactive'],

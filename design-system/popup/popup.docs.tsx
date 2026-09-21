@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'Popup',
 				package: '@atlaskit/popup/popup',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Popup',
 					description: 'Popup example',
-					source: path.resolve(__dirname, './examples/ai/popup.tsx'),
+					source: `${__dirname}/examples/ai/popup.tsx`,
 				},
 			],
 			keywords: ['popup', 'overlay', 'floating', 'content', 'trigger'],

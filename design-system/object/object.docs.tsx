@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,14 +13,14 @@ const documentation: StructuredContentSource = {
 				name: 'StoryObject',
 				package: '@atlaskit/object/story',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			examples: [
 				{
 					name: 'Object',
 					description: 'Object example',
-					source: path.resolve(__dirname, './examples/object.vr.ap.tsx'),
+					source: `${__dirname}/examples/object.vr.ap.tsx`,
 				},
 			],
 			keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
@@ -36,14 +34,14 @@ const documentation: StructuredContentSource = {
 				name: 'WhiteboardObjectTile',
 				package: '@atlaskit/object/tile/whiteboard',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			examples: [
 				{
 					name: 'Object Tile',
 					description: 'Object tile example',
-					source: path.resolve(__dirname, './examples/object-tile.vr.ap.tsx'),
+					source: `${__dirname}/examples/object-tile.vr.ap.tsx`,
 				},
 			],
 			keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],

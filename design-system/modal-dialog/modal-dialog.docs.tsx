@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'Modal',
 				package: '@atlaskit/modal-dialog',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -47,7 +45,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Default',
 					description: 'The default form of a modal dialog.',
-					source: path.resolve(__dirname, './examples/constellation/modal-default.tsx'),
+					source: `${__dirname}/examples/constellation/modal-default.tsx`,
 				},
 			],
 			keywords: [
@@ -71,7 +69,7 @@ const documentation: StructuredContentSource = {
 				name: 'ModalHeader',
 				package: '@atlaskit/modal-dialog/modal-header',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -85,7 +83,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Modal Header',
 					description: 'ModalHeader example',
-					source: path.resolve(__dirname, './examples/constellation/modal-header-default.tsx'),
+					source: `${__dirname}/examples/constellation/modal-header-default.tsx`,
 				},
 			],
 			keywords: ['modal', 'header', 'title', 'close'],
@@ -99,7 +97,7 @@ const documentation: StructuredContentSource = {
 				name: 'ModalTitle',
 				package: '@atlaskit/modal-dialog/modal-title',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -112,7 +110,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Modal Title',
 					description: 'ModalTitle example',
-					source: path.resolve(__dirname, './examples/constellation/modal-default.tsx'),
+					source: `${__dirname}/examples/constellation/modal-default.tsx`,
 				},
 			],
 			keywords: ['modal', 'title', 'heading'],
@@ -126,7 +124,7 @@ const documentation: StructuredContentSource = {
 				name: 'ModalBody',
 				package: '@atlaskit/modal-dialog/modal-body',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -139,7 +137,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Modal Body',
 					description: 'ModalBody example',
-					source: path.resolve(__dirname, './examples/constellation/modal-default.tsx'),
+					source: `${__dirname}/examples/constellation/modal-default.tsx`,
 				},
 			],
 			keywords: ['modal', 'body', 'content'],
@@ -153,7 +151,7 @@ const documentation: StructuredContentSource = {
 				name: 'ModalFooter',
 				package: '@atlaskit/modal-dialog/modal-footer',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -170,7 +168,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Modal Footer',
 					description: 'ModalFooter example',
-					source: path.resolve(__dirname, './examples/constellation/modal-footer-default.tsx'),
+					source: `${__dirname}/examples/constellation/modal-footer-default.tsx`,
 				},
 			],
 			keywords: ['modal', 'footer', 'actions', 'buttons'],
@@ -184,7 +182,7 @@ const documentation: StructuredContentSource = {
 				name: 'ModalTransition',
 				package: '@atlaskit/modal-dialog/modal-transition',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -196,7 +194,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Modal Transition',
 					description: 'ModalTransition example',
-					source: path.resolve(__dirname, './examples/constellation/modal-default.tsx'),
+					source: `${__dirname}/examples/constellation/modal-default.tsx`,
 				},
 			],
 			keywords: ['modal', 'transition', 'animation'],
@@ -211,7 +209,7 @@ const documentation: StructuredContentSource = {
 				name: 'CloseButton',
 				package: '@atlaskit/modal-dialog/close-button',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -228,7 +226,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Close Button',
 					description: 'CloseButton example',
-					source: path.resolve(__dirname, './examples/constellation/modal-header-custom.tsx'),
+					source: `${__dirname}/examples/constellation/modal-header-custom.tsx`,
 				},
 			],
 			keywords: ['modal', 'close', 'button', 'dismiss'],

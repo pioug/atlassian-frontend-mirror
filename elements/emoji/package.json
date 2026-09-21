@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "72.4.10",
+	"version": "72.4.12",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -188,6 +188,10 @@
 			"defaultValue": false
 		},
 		"platform_teamoji_26_refresh_emoji_picker": {
+			"param": "isEnabled",
+			"defaultValue": false
+		},
+		"platform_teamoji_26_refresh_emoji_picker_canvas": {
 			"param": "isEnabled",
 			"defaultValue": false
 		}

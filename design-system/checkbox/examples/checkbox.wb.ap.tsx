@@ -11,9 +11,10 @@ import InFormExample from './07-in-form';
 import MultilineLabelVrExample from './09-multiline-label.vr.ap';
 import TestingExample from './99-testing';
 
-const BasicUsageVr: WorkbenchExample = wb(BasicUsageVrExample);
-
-export default BasicUsageVr;
+// Explicit named export Used to generate integration-test URLs.
+export const BasicUsage: WorkbenchExample = wb(BasicUsageVrExample);
+// Default export required by accessibility tooling.
+export default BasicUsage;
 export const Controlled: WorkbenchExample = wb(ControlledExample);
 export const Uncontrolled: WorkbenchExample = wb(UncontrolledExample);
 export const IndeterminateVr: WorkbenchExample = wb(IndeterminateVrExample);

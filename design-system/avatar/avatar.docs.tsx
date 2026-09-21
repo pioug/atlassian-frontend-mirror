@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'Avatar',
 				package: '@atlaskit/avatar/avatar',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -41,7 +39,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Avatar',
 					description: 'Avatar example',
-					source: path.resolve(__dirname, './examples/ai/avatar.tsx'),
+					source: `${__dirname}/examples/ai/avatar.tsx`,
 				},
 			],
 			designSource: {
@@ -70,7 +68,7 @@ const documentation: StructuredContentSource = {
 				name: 'AvatarItem',
 				package: '@atlaskit/avatar/avatar-item',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -95,7 +93,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Avatar Item',
 					description: 'Avatar Item example',
-					source: path.resolve(__dirname, './examples/ai/avatar-item.tsx'),
+					source: `${__dirname}/examples/ai/avatar-item.tsx`,
 				},
 			],
 			keywords: ['avatar', 'item', 'list', 'user', 'profile', 'interactive'],
@@ -110,7 +108,7 @@ const documentation: StructuredContentSource = {
 				name: 'Presence',
 				package: '@atlaskit/avatar/presence',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -134,7 +132,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Presence',
 					description: 'Presence example',
-					source: path.resolve(__dirname, './examples/ai/presence.tsx'),
+					source: `${__dirname}/examples/ai/presence.tsx`,
 				},
 			],
 			keywords: ['presence', 'status', 'online', 'offline', 'busy', 'focus', 'indicator'],
@@ -149,7 +147,7 @@ const documentation: StructuredContentSource = {
 				name: 'Status',
 				package: '@atlaskit/avatar/status',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -172,7 +170,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Status',
 					description: 'Status example',
-					source: path.resolve(__dirname, './examples/ai/status.tsx'),
+					source: `${__dirname}/examples/ai/status.tsx`,
 				},
 			],
 			keywords: ['status', 'approved', 'declined', 'locked', 'indicator', 'permission'],
@@ -187,7 +185,7 @@ const documentation: StructuredContentSource = {
 				name: 'Skeleton',
 				package: '@atlaskit/avatar/skeleton',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -209,7 +207,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Skeleton',
 					description: 'Skeleton example',
-					source: path.resolve(__dirname, './examples/ai/skeleton.tsx'),
+					source: `${__dirname}/examples/ai/skeleton.tsx`,
 				},
 			],
 			keywords: ['skeleton', 'loading', 'placeholder', 'shimmer', 'avatar'],
@@ -224,7 +222,7 @@ const documentation: StructuredContentSource = {
 				name: 'AvatarContent',
 				package: '@atlaskit/avatar/avatar-content',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -242,7 +240,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Avatar Content',
 					description: 'Avatar Content example',
-					source: path.resolve(__dirname, './examples/ai/avatar-content.tsx'),
+					source: `${__dirname}/examples/ai/avatar-content.tsx`,
 				},
 			],
 			keywords: ['avatar', 'content', 'custom', 'children', 'wrapper'],

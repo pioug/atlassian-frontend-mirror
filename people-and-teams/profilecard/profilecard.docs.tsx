@@ -2,15 +2,20 @@
  * Structured MCP docs for `@atlaskit/profilecard`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
+	config: {
+		componentPages: false,
+		packageTabs: {
+			examples: false,
+			usage: false,
+		},
+	},
 	package: {
 		package: '@atlaskit/profilecard',
 		packagePath,
@@ -39,7 +44,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Profile card',
 					description: 'Basic usage of ProfileCard.',
-					source: path.resolve(packagePath, './examples/01-profilecard.tsx'),
+					source: `${packagePath}/examples/01-profilecard.tsx`,
 				},
 			],
 		},
@@ -63,7 +68,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Profile card trigger',
 					description: 'Basic usage of ProfileCardTrigger.',
-					source: path.resolve(packagePath, './examples/05-profilecard-trigger.tsx'),
+					source: `${packagePath}/examples/05-profilecard-trigger.tsx`,
 				},
 			],
 		},

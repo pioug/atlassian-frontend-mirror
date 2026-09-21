@@ -6,13 +6,17 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 import Loadable from 'react-loadable';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { Placement } from '@atlaskit/popper/main';
+import type { AgentProfileCardResourcedProps } from '@atlaskit/profilecard/agent-profile-card-resourced';
 import { ProfileCardLazy } from '@atlaskit/profilecard/lazy-profile-card';
 import type {
 	ProfileCardClientData,
@@ -27,14 +31,33 @@ import { Popup } from './PopperWrapper';
 // eslint-disable-next-line require-unicode-regexp
 const LEADING_AT_SIGN_RE = /^@/;
 
-const AgentProfileCardResourcedLazy = Loadable({
-	loader: () =>
-		import(
-			/* webpackChunkName: "@atlaskit-internal_editor-plugin-mentions-agent-profile-card-resourced" */
-			'@atlaskit/profilecard/agent-profile-card-resourced'
-		).then(({ AgentProfileCardResourced }) => AgentProfileCardResourced),
+const loadAgentProfileCardResourced = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_editor-plugin-mentions-agent-profile-card-resourced" */
+		'@atlaskit/profilecard/agent-profile-card-resourced'
+	).then(({ AgentProfileCardResourced }) => AgentProfileCardResourced);
+
+const AgentProfileCardResourcedLazy = lazyForPaint(() =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_editor-plugin-mentions-agent-profile-card-resourced" */
+		'@atlaskit/profilecard/agent-profile-card-resourced'
+	).then(({ AgentProfileCardResourced }) => AgentProfileCardResourced),
+);
+const AgentProfileCardResourcedLoadable = Loadable<AgentProfileCardResourcedProps, never>({
+	loader: loadAgentProfileCardResourced,
 	loading: () => null,
 });
+
+const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps) =>
+	isExperimentEnabled('platform_editor_loosely_lazy_migration') ? (
+		<LazySuspense fallback={null}>
+			{/* eslint-disable-next-line react/jsx-props-no-spreading -- forward the loader props to the profile card */}
+			<AgentProfileCardResourcedLazy {...props} />
+		</LazySuspense>
+	) : (
+		// eslint-disable-next-line react/jsx-props-no-spreading -- forward the loader props to the profile card
+		<AgentProfileCardResourcedLoadable {...props} />
+	);
 
 const styles = cssMap({
 	loadingStyles: {
@@ -298,7 +321,7 @@ const AgentProfileCardContent = ({
 }): JSX.Element => {
 	const agentName = (text ?? '').replace(LEADING_AT_SIGN_RE, '');
 	return expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false) ? (
-		<AgentProfileCardResourcedLazy
+		<AgentProfileCardResourced
 			accountId={accountId}
 			cloudId={provider.cloudId}
 			resourceClient={provider.resourceClient}
@@ -311,7 +334,7 @@ const AgentProfileCardContent = ({
 			showCreatorNameWithoutLink={hideActions}
 		/>
 	) : (
-		<AgentProfileCardResourcedLazy
+		<AgentProfileCardResourced
 			accountId={accountId}
 			cloudId={provider.cloudId}
 			resourceClient={provider.resourceClient}

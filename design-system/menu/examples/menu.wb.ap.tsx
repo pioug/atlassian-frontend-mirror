@@ -23,14 +23,19 @@ import SkeletonItemExample from './skeleton-item';
 const ItemVariations: WorkbenchExample = wb(ItemVariationsExample);
 
 export default ItemVariations;
-export const MenuGroupVr: WorkbenchExample = wb(MenuGroupVrExample);
-export const SkeletonItemsVr: WorkbenchExample = wb(SkeletonItemsVrExample);
-export const ButtonItemVr: WorkbenchExample = wb(ButtonItemVrExample);
-export const CustomItemVr: WorkbenchExample = wb(CustomItemVrExample);
+// Named "MenuGroup" to match the Workbench URL used by existing integration tests.
+export const MenuGroup: WorkbenchExample = wb(MenuGroupVrExample);
+// Named "SkeletonItems" to match the Workbench URL used by existing integration tests.
+export const SkeletonItems: WorkbenchExample = wb(SkeletonItemsVrExample);
+// Named "ButtonItem" to match the Workbench URL used by existing integration tests.
+export const ButtonItem: WorkbenchExample = wb(ButtonItemVrExample);
+// Named "CustomItem" to match the Workbench URL used by existing integration tests.
+export const CustomItem: WorkbenchExample = wb(CustomItemVrExample);
 export const GrowingMenu: WorkbenchExample = wb(GrowingMenuExample);
 export const HeadingItem: WorkbenchExample = wb(HeadingItemExample);
 export const IconSizingVr: WorkbenchExample = wb(IconSizingVrExample);
-export const LinkItemVr: WorkbenchExample = wb(LinkItemVrExample);
+// Named "LinkItem" to match the Workbench URL used by existing integration tests.
+export const LinkItem: WorkbenchExample = wb(LinkItemVrExample);
 export const LoadingSkeleton: WorkbenchExample = wb(LoadingSkeletonExample);
 export const Menu: WorkbenchExample = wb(MenuExample);
 export const MenuWithoutHeading: WorkbenchExample = wb(MenuWithoutHeadingExample);
@@ -38,6 +43,7 @@ export const OverridingStyles: WorkbenchExample = wb(OverridingStylesExample);
 export const ScrollableMenu: WorkbenchExample = wb(ScrollableMenuExample);
 export const ScrollableSections: WorkbenchExample = wb(ScrollableSectionsExample);
 export const SectionWithHeading: WorkbenchExample = wb(SectionWithHeadingExample);
-export const SelectionStatesVr: WorkbenchExample = wb(SelectionStatesVrExample);
+// Named "SelectionStates" to match the Workbench URL used by existing integration tests.
+export const SelectionStates: WorkbenchExample = wb(SelectionStatesVrExample);
 export const SkeletonHeadingItem: WorkbenchExample = wb(SkeletonHeadingItemExample);
 export const SkeletonItem: WorkbenchExample = wb(SkeletonItemExample);

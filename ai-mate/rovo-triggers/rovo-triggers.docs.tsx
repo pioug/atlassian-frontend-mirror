@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 const packageName = '@atlaskit/rovo-triggers';
 
 // TODO: Add a vetted public-entrypoint example when one is available.
@@ -30,7 +28,7 @@ const documentation: StructuredContentSource = {
 					name: 'Subscribe a chat host to Rovo events',
 					description:
 						'Mounts a renderless subscription at the product boundary that owns event handling.',
-					source: path.resolve(packagePath, './examples/ai/subscriber.tsx'),
+					source: `${packagePath}/examples/ai/subscriber.tsx`,
 				},
 			],
 			keywords: ['rovo', 'trigger', 'subscriber', 'pubsub'],
@@ -54,7 +52,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Listen for cross-window Rovo events',
 					description: 'Mounts the allowlisted postMessage listener once at a chat host boundary.',
-					source: path.resolve(packagePath, './examples/ai/post-message-listener.tsx'),
+					source: `${packagePath}/examples/ai/post-message-listener.tsx`,
 				},
 			],
 			keywords: ['rovo', 'postmessage', 'listener', 'pubsub'],

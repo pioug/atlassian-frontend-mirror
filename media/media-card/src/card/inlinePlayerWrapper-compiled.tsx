@@ -5,7 +5,6 @@
 
 import { jsx, css } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 import { token } from '@atlaskit/tokens';
@@ -43,19 +42,6 @@ const borderStyle = css({
 		top: '0',
 		boxSizing: 'border-box',
 		pointerEvents: 'none',
-		borderRadius: token('radius.small', '3px'),
-	},
-});
-
-const updatedBorderStyle = css({
-	'&::after': {
-		content: '',
-		width: '100%',
-		height: '100%',
-		position: 'absolute',
-		top: '0',
-		boxSizing: 'border-box',
-		pointerEvents: 'none',
 		borderRadius: 'inherit',
 	},
 });
@@ -65,22 +51,6 @@ export const LOCAL_WIDTH_VARIABLE = '--media-inline-player-wrapper-width';
 export const LOCAL_HEIGHT_VARIABLE = '--media-inline-player-wrapper-height';
 
 const inlinePlayerWrapperStyles = css({
-	overflow: 'hidden',
-	borderRadius: token('radius.small', '3px'),
-	position: 'relative',
-	maxWidth: '100%',
-	maxHeight: '100%',
-	width: `var(${LOCAL_WIDTH_VARIABLE})`,
-	height: `var(${LOCAL_HEIGHT_VARIABLE})`,
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	video: {
-		width: '100%',
-		height: '100%',
-	},
-});
-
-const updatedInlinePlayerWrapperStyles = css({
 	overflow: 'hidden',
 	borderRadius: token('radius.large', '8px'),
 	position: 'relative',
@@ -97,7 +67,6 @@ const updatedInlinePlayerWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-
 export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps): JSX.Element => {
 	const { testId, selected, dimensions, onClick, innerRef } = props;
 	return (
@@ -112,11 +81,9 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps): JSX.Elemen
 				[LOCAL_HEIGHT_VARIABLE as any]: getDimensionsWithDefault(dimensions).height || 'auto',
 			}}
 			css={[
-				fg('platform_editor_media_border_radius_fix')
-					? updatedInlinePlayerWrapperStyles
-					: inlinePlayerWrapperStyles,
+				inlinePlayerWrapperStyles,
 				selected && hideNativeBrowserTextSelectionStyles,
-				fg('platform_editor_media_border_radius_fix') ? updatedBorderStyle : borderStyle,
+				borderStyle,
 				selected && selectedBorderStyle,
 			]}
 			onClick={onClick}

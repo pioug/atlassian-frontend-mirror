@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'InlineEdit',
 				package: '@atlaskit/inline-edit/inline-edit',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Inline Edit',
 					description: 'Inline Edit example',
-					source: path.resolve(__dirname, './examples/ai/inline-edit.tsx'),
+					source: `${__dirname}/examples/ai/inline-edit.tsx`,
 				},
 			],
 			keywords: ['inline', 'edit', 'editable', 'text', 'input'],
@@ -55,7 +53,7 @@ const documentation: StructuredContentSource = {
 				name: 'InlineEditableTextfield',
 				package: '@atlaskit/inline-edit/inline-editable-textfield',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -78,10 +76,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Inline Editable Textfield',
 					description: 'InlineEditableTextfield example',
-					source: path.resolve(
-						__dirname,
-						'./examples/constellation/inline-editable-textfield-default.tsx',
-					),
+					source: `${__dirname}/examples/constellation/inline-editable-textfield-default.tsx`,
 				},
 			],
 			keywords: ['inline', 'edit', 'editable', 'textfield', 'text', 'input'],

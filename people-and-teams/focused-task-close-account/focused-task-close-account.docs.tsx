@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -29,7 +27,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Basic drawer assembly for account closure.',
-					source: path.resolve(packagePath, './examples/00-BasicDrawerAssembly.tsx'),
+					source: `${packagePath}/examples/00-BasicDrawerAssembly.tsx`,
 				},
 			],
 			keywords: ['gdpr', 'account', 'close', 'delete', 'deactivate', 'focused-task'],

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 19.1.0
+
+### Minor Changes
+
+- [`e8a5fc45d426e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8a5fc45d426e) -
+  Migrate the editor help dialog loader to react-loosely-lazy behind the
+  `platform_editor_loosely_lazy_migration` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.1
 
 ### Patch Changes

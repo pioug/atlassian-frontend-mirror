@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'Checkbox',
 				package: '@atlaskit/checkbox/checkbox',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -46,7 +44,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Checkbox',
 					description: 'Checkbox example',
-					source: path.resolve(__dirname, './examples/ai/checkbox.tsx'),
+					source: `${__dirname}/examples/ai/checkbox.tsx`,
 				},
 			],
 			keywords: ['checkbox', 'input', 'form', 'selection', 'choice', 'option', 'multiple'],

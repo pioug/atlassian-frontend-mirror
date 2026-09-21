@@ -3,13 +3,11 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -34,17 +32,17 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'VC observer next',
 					description: 'Viewport visibility observer (next API).',
-					source: path.resolve(packagePath, './examples/01-vc-observer-next.tsx'),
+					source: `${packagePath}/examples/01-vc-observer-next.tsx`,
 				},
 				{
 					name: 'Editor full page',
 					description: 'Full page editor with performance metrics.',
-					source: path.resolve(packagePath, './examples/05-editor-full-page.tsx'),
+					source: `${packagePath}/examples/05-editor-full-page.tsx`,
 				},
 				{
 					name: 'Basic React',
 					description: 'Basic React render performance example.',
-					source: path.resolve(packagePath, './examples/06-basic-react.tsx'),
+					source: `${packagePath}/examples/06-basic-react.tsx`,
 				},
 			],
 		},

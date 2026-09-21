@@ -8,12 +8,14 @@ import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { getSnippetPreviewImageUrls } from '@atlaskit/editor-common/quick-insert/snippet-preview-image-urls';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type {
 	CommonComponentProps,
 	RegisterMenuItem,
 } from '@atlaskit/editor-ui-control-model/types';
 import AppsIcon from '@atlaskit/icon/core/apps';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 type LegacyCompatibleComponentProps = CommonComponentProps & {
 	onInsert?: () => void;
@@ -47,12 +49,22 @@ const LegacyQuickInsertProviderMenuItem = ({
 		return result;
 	};
 	const Icon = item.icon;
+	const itemKey = item.key === undefined ? undefined : String(item.key);
+	const snippetKeyPrefix = 'snippet-extension:snippet-';
+	const previewKey = itemKey?.startsWith(snippetKeyPrefix)
+		? itemKey.slice(snippetKeyPrefix.length)
+		: undefined;
+	const previewImageUrls =
+		isExperimentEnabled('platform_editor_slash_command') && previewKey
+			? getSnippetPreviewImageUrls(previewKey)
+			: undefined;
 
 	return (
 		<QuickInsertMenuItem
 			iconBefore={Icon ? <Icon /> : <AppsIcon label="" />}
 			isDisabled={isDisabled}
 			onSelect={onSelect}
+			previewImageUrls={previewImageUrls}
 			shortcut={item.keyshortcut}
 			title={item.title}
 		/>

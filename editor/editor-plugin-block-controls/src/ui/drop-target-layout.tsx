@@ -12,6 +12,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { layoutBreakpointWidth } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -143,7 +144,8 @@ export const DropTargetLayout = (
 				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
 			) : (
 				(isActiveAnchor ||
-					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) && (
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')) && (
 					<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
 				)
 			)}
@@ -257,7 +259,8 @@ export const DropTargetLayoutNativeAnchorSupport = (
 				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
 			) : (
 				(isActiveAnchor ||
-					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) && (
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')) && (
 					<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
 				)
 			)}

@@ -236,6 +236,22 @@ describe('Link button" Accessibility', () => {
 describe('Link icon button" Accessibility', () => {
 	describe(`"${OPENS_NEW_WINDOW_LABEL}" announcements`, () => {
 		describe(`should be appended when \`target="_blank"\``, () => {
+			it('uses a localized label when provided', () => {
+				render(
+					<LinkIconButton
+						href="https://www.atlassian.com"
+						testId="button"
+						target="_blank"
+						icon={SettingsIcon}
+						label="Paramètres"
+						newWindowLabel="s’ouvre dans une nouvelle fenêtre"
+					/>,
+				);
+
+				const button = screen.getByTestId('button');
+				expect(button).toHaveAccessibleName('Paramètres , s’ouvre dans une nouvelle fenêtre');
+			});
+
 			it('to `children` as visually hidden text', () => {
 				render(
 					<LinkIconButton

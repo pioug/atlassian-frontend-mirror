@@ -26,7 +26,11 @@ import {
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
-skipAutoA11yFile();
+skipAutoA11yFile({
+	exceptTests: [
+		'should preserve top margin on the second paragraph with small font size applied within a panel',
+	],
+});
 
 test.describe('first block node styles', () => {
 	test.use({

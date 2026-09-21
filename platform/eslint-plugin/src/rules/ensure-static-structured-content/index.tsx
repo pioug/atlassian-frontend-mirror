@@ -39,7 +39,7 @@ const isAllowedImport = (node: TSESTree.ImportDeclaration): boolean => {
 			node.specifiers.every(
 				(specifier) => specifier.type === 'ImportSpecifier' && specifier.importKind === 'type',
 			));
-	return isTypeOnlyImport || isPackageJson(source) || source === 'path';
+	return isTypeOnlyImport || isPackageJson(source);
 };
 
 const isAllowedPackageJsonRequire = (node: TSESTree.CallExpression): boolean =>
@@ -49,7 +49,7 @@ const isAllowedPackageJsonRequire = (node: TSESTree.CallExpression): boolean =>
 	node.arguments[0]?.type === 'Literal' &&
 	isPackageJson(node.arguments[0].value);
 
-const isAllowedPathResolve = (node: TSESTree.CallExpression): boolean => {
+const isPathResolveCall = (node: TSESTree.CallExpression): boolean => {
 	if (node.callee.type !== 'MemberExpression' || node.callee.object.type !== 'Identifier') {
 		return false;
 	}
@@ -80,6 +80,13 @@ const reportMessage = (context: Rule.RuleContext, node: TSESTree.Node): void => 
 	});
 };
 
+const reportNodeBuiltin = (context: Rule.RuleContext, node: TSESTree.Node): void => {
+	context.report({
+		node: node as Rule.Node,
+		messageId: 'nodeBuiltin',
+	});
+};
+
 const rule: Rule.RuleModule = {
 	meta: {
 		type: 'problem',
@@ -91,7 +98,9 @@ const rule: Rule.RuleModule = {
 		schema: [],
 		messages: {
 			dynamicStructuredContent:
-				'Structured content files may only contain static declarations. Remove this dynamic {{nodeType}} or use an allowlisted package.json import or path.resolve call.',
+				'Structured content files may only contain static declarations. Remove this dynamic {{nodeType}} or use an allowlisted package.json import or array literal join.',
+			nodeBuiltin:
+				'Browser-loaded structured content must not import Node-only builtins. Use __dirname and static paths instead.',
 		},
 	},
 	create(context) {
@@ -99,11 +108,17 @@ const rule: Rule.RuleModule = {
 		if (!filename.endsWith('.docs.tsx')) {
 			return {};
 		}
-
 		const listeners: Rule.RuleListener = {
 			ImportDeclaration(node) {
 				const importDeclaration = node as unknown as TSESTree.ImportDeclaration;
 				if (!isAllowedImport(importDeclaration)) {
+					if (
+						importDeclaration.source.value === 'path' ||
+						importDeclaration.source.value === 'node:path'
+					) {
+						reportNodeBuiltin(context, importDeclaration);
+						return;
+					}
 					reportMessage(context, importDeclaration);
 				}
 			},
@@ -115,11 +130,11 @@ const rule: Rule.RuleModule = {
 			},
 			CallExpression(node) {
 				const call = node as unknown as TSESTree.CallExpression;
-				if (
-					!isAllowedPackageJsonRequire(call) &&
-					!isAllowedPathResolve(call) &&
-					!isAllowedLiteralArrayJoin(call)
-				) {
+				if (!isAllowedPackageJsonRequire(call) && !isAllowedLiteralArrayJoin(call)) {
+					if (isPathResolveCall(call)) {
+						reportNodeBuiltin(context, call);
+						return;
+					}
 					reportMessage(context, call);
 				}
 			},

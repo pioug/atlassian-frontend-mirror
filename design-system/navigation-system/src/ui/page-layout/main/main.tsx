@@ -11,10 +11,13 @@ import type { StrictXCSSProp } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useSkipLink } from '../../../context/skip-links/use-skip-link';
-import type { contentInsetBlockStart as ContentInsetBlockStartType } from '../constants';
-import type { contentHeightWhenFixed as ContentHeightWhenFixedType } from '../constants';
+import type {
+	contentInsetBlockStart as ContentInsetBlockStartType,
+	contentHeightWhenFixed as ContentHeightWhenFixedType,
+} from '../constants';
 import type { CommonSlotProps } from '../types';
 import { useLayoutId } from '../use-layout-id';
+
 const contentInsetBlockStartStatic =
 	`calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px))` satisfies typeof ContentInsetBlockStartType;
 
@@ -39,8 +42,6 @@ const mainElementStyles = cssMap({
 			isolation: 'auto',
 			position: 'sticky',
 		},
-	},
-	print: {
 		'@media print': {
 			height: 'auto',
 		},
@@ -78,10 +79,7 @@ export function Main({
 				data-layout-slot
 				className={xcss}
 				role="main"
-				css={[
-					mainElementStyles.root,
-					fg('platform-dst-main-print-styles') && mainElementStyles.print,
-				]}
+				css={[mainElementStyles.root]}
 				data-testid={testId}
 			>
 				{children}

@@ -1,6 +1,7 @@
 import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LimitedModePlugin } from './limitedModePluginType';
@@ -31,7 +32,10 @@ export const limitedModePlugin: LimitedModePlugin = ({ api }) => {
 		},
 		usePluginHook: ({ editorView }) => {
 			usePluginStateEffect(api, ['limitedMode'], ({ limitedModeState }) => {
-				if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+				if (
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
+				) {
 					const isEnabled = limitedModeState?.enabled ?? false;
 
 					const nodeIdProvider = getNodeIdProvider(editorView);

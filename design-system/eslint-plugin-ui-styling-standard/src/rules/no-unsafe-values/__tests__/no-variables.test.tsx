@@ -16,6 +16,18 @@ typescriptEslintTester.run(
           const styles = css({
             margin
           })
+				`,
+			},
+			{
+				name: 'identifier resolves to a literal wrapped in a satisfies expression',
+				code: `
+          import { css } from '@compiled/react';
+          import type { Height } from './types';
+
+          const height = 56 as const satisfies Height;
+          const styles = css({
+            height,
+          });
         `,
 			},
 			{

@@ -232,7 +232,9 @@ export class MentionNodeView implements NodeView {
 			Boolean(options?.mentionNodeDataProvider) &&
 			node.attrs.userType !== 'SPECIAL' &&
 			!genericMentionIds.includes(node.attrs.id) &&
-			isExperimentEnabled('platform_editor_mention_node_avatar');
+			(isExperimentEnabled('platform_editor_mention_node_avatar') ||
+				isExperimentEnabled('platform_editor_mention_node_graphql_provider'));
+
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node, this.hasAvatarSlot));
 		this.dom = dom;
 		this.contentDOM = contentDOM;

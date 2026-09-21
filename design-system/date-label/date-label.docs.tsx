@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'DateLabel',
 				package: '@atlaskit/date-label/date-label',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -38,7 +36,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Date label',
 					description: 'Basic date label example',
-					source: path.resolve(__dirname, './examples/0-basic.vr.ap.tsx'),
+					source: `${__dirname}/examples/0-basic.vr.ap.tsx`,
 				},
 			],
 			keywords: ['date', 'label', 'date label', 'due date', 'overdue', 'lozenge'],
@@ -53,7 +51,7 @@ const documentation: StructuredContentSource = {
 				name: 'DateLabelDropdownTrigger',
 				package: '@atlaskit/date-label/date-label-dropdown-trigger',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -74,7 +72,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Date label dropdown trigger',
 					description: 'DateLabelDropdownTrigger example',
-					source: path.resolve(__dirname, './examples/4-dropdown-trigger.vr.ap.tsx'),
+					source: `${__dirname}/examples/4-dropdown-trigger.vr.ap.tsx`,
 				},
 			],
 			keywords: ['date', 'label', 'dropdown', 'trigger', 'date label', 'menu', 'interactive'],

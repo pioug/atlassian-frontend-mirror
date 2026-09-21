@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -12,7 +10,7 @@ const documentation: StructuredContentSource = {
 				name: 'Form',
 				package: '@atlaskit/form/form',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -45,7 +43,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Form',
 					description: 'Form example',
-					source: path.resolve(__dirname, './examples/ai/form.tsx'),
+					source: `${__dirname}/examples/ai/form.tsx`,
 				},
 			],
 			keywords: ['form', 'validation', 'field', 'input', 'submit', 'state'],
@@ -60,7 +58,7 @@ const documentation: StructuredContentSource = {
 				name: 'FormHeader',
 				package: '@atlaskit/form/form-header',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -76,7 +74,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Form Header',
 					description: 'FormHeader example',
-					source: path.resolve(__dirname, './examples/constellation/form-default-complex.tsx'),
+					source: `${__dirname}/examples/constellation/form-default-complex.tsx`,
 				},
 			],
 			keywords: ['form', 'header', 'title', 'description'],
@@ -90,7 +88,7 @@ const documentation: StructuredContentSource = {
 				name: 'FormFooter',
 				package: '@atlaskit/form/form-footer',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -110,7 +108,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Form Footer',
 					description: 'FormFooter example',
-					source: path.resolve(__dirname, './examples/constellation/form-default-complex.tsx'),
+					source: `${__dirname}/examples/constellation/form-default-complex.tsx`,
 				},
 			],
 			keywords: ['form', 'footer', 'actions', 'buttons'],
@@ -124,7 +122,7 @@ const documentation: StructuredContentSource = {
 				name: 'FormSection',
 				package: '@atlaskit/form/form-section',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -140,7 +138,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Form Section',
 					description: 'FormSection example',
-					source: path.resolve(__dirname, './examples/constellation/form-default-complex.tsx'),
+					source: `${__dirname}/examples/constellation/form-default-complex.tsx`,
 				},
 			],
 			keywords: ['form', 'section', 'group', 'fields'],
@@ -155,7 +153,7 @@ const documentation: StructuredContentSource = {
 				name: 'Field',
 				package: '@atlaskit/form/field',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -173,7 +171,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Field',
 					description: 'Field example',
-					source: path.resolve(__dirname, './examples/constellation/form-field-simple.tsx'),
+					source: `${__dirname}/examples/constellation/form-field-simple.tsx`,
 				},
 			],
 			keywords: ['form', 'field', 'input', 'validation'],
@@ -188,7 +186,7 @@ const documentation: StructuredContentSource = {
 				name: 'Label',
 				package: '@atlaskit/form/label',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -200,7 +198,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Label',
 					description: 'Standalone label associated with a text field via htmlFor / id',
-					source: path.resolve(__dirname, './examples/ai/label-standalone.tsx'),
+					source: `${__dirname}/examples/ai/label-standalone.tsx`,
 				},
 			],
 			keywords: ['form', 'label'],
@@ -215,7 +213,7 @@ const documentation: StructuredContentSource = {
 				name: 'Legend',
 				package: '@atlaskit/form',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -227,7 +225,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Legend',
 					description: 'Legend example',
-					source: path.resolve(__dirname, './examples/constellation/form-fieldset.tsx'),
+					source: `${__dirname}/examples/constellation/form-fieldset.tsx`,
 				},
 			],
 			keywords: ['form', 'legend', 'fieldset'],
@@ -241,7 +239,7 @@ const documentation: StructuredContentSource = {
 				name: 'HelperMessage',
 				package: '@atlaskit/form/messages',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -254,7 +252,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Helper Message',
 					description: 'HelperMessage example',
-					source: path.resolve(__dirname, './examples/constellation/form-default-complex.tsx'),
+					source: `${__dirname}/examples/constellation/form-default-complex.tsx`,
 				},
 			],
 			keywords: ['form', 'helper', 'message', 'help', 'hint'],
@@ -268,7 +266,7 @@ const documentation: StructuredContentSource = {
 				name: 'ErrorMessage',
 				package: '@atlaskit/form/messages',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -281,10 +279,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Error Message',
 					description: 'ErrorMessage example',
-					source: path.resolve(
-						__dirname,
-						'./examples/constellation/form-field-level-validation.tsx',
-					),
+					source: `${__dirname}/examples/constellation/form-field-level-validation.tsx`,
 				},
 			],
 			keywords: ['form', 'error', 'message', 'validation'],
@@ -298,7 +293,7 @@ const documentation: StructuredContentSource = {
 				name: 'ValidMessage',
 				package: '@atlaskit/form/messages',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -311,7 +306,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Valid Message',
 					description: 'ValidMessage example',
-					source: path.resolve(__dirname, './examples/constellation/form-default-complex.tsx'),
+					source: `${__dirname}/examples/constellation/form-default-complex.tsx`,
 				},
 			],
 			keywords: ['form', 'valid', 'message', 'success'],
@@ -326,7 +321,7 @@ const documentation: StructuredContentSource = {
 				name: 'MessageWrapper',
 				package: '@atlaskit/form/messages',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -337,7 +332,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Message wrapper',
 					description: 'MessageWrapper grouping helper, error, and valid messages',
-					source: path.resolve(__dirname, './examples/21-messages.vr.ap.tsx'),
+					source: `${__dirname}/examples/21-messages.vr.ap.tsx`,
 				},
 			],
 			keywords: ['form', 'message', 'wrapper'],
@@ -351,7 +346,7 @@ const documentation: StructuredContentSource = {
 				name: 'CheckboxField',
 				package: '@atlaskit/form/checkbox-field',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -363,7 +358,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Checkbox Field',
 					description: 'CheckboxField example',
-					source: path.resolve(__dirname, './examples/constellation/form-checkbox-field.tsx'),
+					source: `${__dirname}/examples/constellation/form-checkbox-field.tsx`,
 				},
 			],
 			keywords: ['form', 'checkbox', 'field'],
@@ -377,7 +372,7 @@ const documentation: StructuredContentSource = {
 				name: 'RangeField',
 				package: '@atlaskit/form/range-field',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -389,7 +384,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Range Field',
 					description: 'RangeField example',
-					source: path.resolve(__dirname, './examples/constellation/form-range-field.tsx'),
+					source: `${__dirname}/examples/constellation/form-range-field.tsx`,
 				},
 			],
 			keywords: ['form', 'range', 'field', 'slider'],
@@ -404,7 +399,7 @@ const documentation: StructuredContentSource = {
 				name: 'Fieldset',
 				package: '@atlaskit/form/fieldset',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -416,7 +411,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Fieldset',
 					description: 'Fieldset example',
-					source: path.resolve(__dirname, './examples/constellation/form-fieldset.tsx'),
+					source: `${__dirname}/examples/constellation/form-fieldset.tsx`,
 				},
 			],
 			keywords: ['form', 'fieldset', 'group'],
@@ -431,7 +426,7 @@ const documentation: StructuredContentSource = {
 				name: 'RequiredAsterisk',
 				package: '@atlaskit/form/required-asterisk',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -443,7 +438,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Required Asterisk',
 					description: 'RequiredAsterisk example',
-					source: path.resolve(__dirname, './examples/constellation/form-default-complex.tsx'),
+					source: `${__dirname}/examples/constellation/form-default-complex.tsx`,
 				},
 			],
 			keywords: ['form', 'required', 'asterisk'],
@@ -458,7 +453,7 @@ const documentation: StructuredContentSource = {
 				name: 'CharacterCounterField',
 				package: '@atlaskit/form/character-counter-field',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -470,7 +465,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Character Counter Field',
 					description: 'CharacterCounterField example',
-					source: path.resolve(__dirname, './examples/constellation/form-character-counter.tsx'),
+					source: `${__dirname}/examples/constellation/form-character-counter.tsx`,
 				},
 			],
 			keywords: ['form', 'character', 'counter', 'field'],
@@ -485,7 +480,7 @@ const documentation: StructuredContentSource = {
 				name: 'CharacterCounter',
 				package: '@atlaskit/form/character-counter',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -497,10 +492,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Character Counter',
 					description: 'CharacterCounter example',
-					source: path.resolve(
-						__dirname,
-						'./examples/constellation/form-character-counter-standalone.tsx',
-					),
+					source: `${__dirname}/examples/constellation/form-character-counter-standalone.tsx`,
 				},
 			],
 			keywords: ['form', 'character', 'counter'],

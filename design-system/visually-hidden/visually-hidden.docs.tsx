@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'VisuallyHidden',
 				package: '@atlaskit/visually-hidden/visually-hidden',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -36,7 +34,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: '00 Basic',
 					description: '00 Basic example',
-					source: path.resolve(__dirname, './examples/00-basic.vr.ap.tsx'),
+					source: `${__dirname}/examples/00-basic.vr.ap.tsx`,
 				},
 			],
 			keywords: ['hidden', 'accessibility', 'screen-reader', 'aria', 'utility'],

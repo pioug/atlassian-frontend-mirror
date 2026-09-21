@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 81.12.10
+
+### Patch Changes
+
+- [`22e02fb26ca02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22e02fb26ca02) -
+  Make the shipped media border radius styling permanent and remove the obsolete feature gate.
+
+## 81.12.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 81.12.8
 
 ### Patch Changes

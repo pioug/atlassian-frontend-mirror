@@ -5,6 +5,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import {
 	isTeamoji26RefreshEmojiPickerEnabled,
 	isTeamoji26RefreshEmojiPickerEnabledNoExposure,
+	teamoji26RefreshEmojiPickerCanvasExperimentName,
 	teamoji26RefreshEmojiPickerExperimentName,
 	teamoji26RefreshEmojiPickerShortNameAndOrderingGateName,
 	teamoji26RefreshEmojiPickerUserIdGateName,
@@ -21,8 +22,16 @@ describe('teamoji26RefreshEmojiPicker', () => {
 		expect(isTeamoji26RefreshEmojiPickerEnabled()).toBe(true);
 	});
 
+	it('returns true when the canvas refresh experiment is enabled', () => {
+		mockExpDisabled(teamoji26RefreshEmojiPickerExperimentName);
+		mockExpEnabled(teamoji26RefreshEmojiPickerCanvasExperimentName);
+
+		expect(isTeamoji26RefreshEmojiPickerEnabled()).toBe(true);
+	});
+
 	it('returns true when the user id gate is enabled', () => {
 		mockExpDisabled(teamoji26RefreshEmojiPickerExperimentName);
+		mockExpDisabled(teamoji26RefreshEmojiPickerCanvasExperimentName);
 		passGate(teamoji26RefreshEmojiPickerUserIdGateName);
 
 		expect(isTeamoji26RefreshEmojiPickerEnabled()).toBe(true);
@@ -30,6 +39,7 @@ describe('teamoji26RefreshEmojiPicker', () => {
 
 	it('returns true when the shortname and ordering gate is enabled', () => {
 		mockExpDisabled(teamoji26RefreshEmojiPickerExperimentName);
+		mockExpDisabled(teamoji26RefreshEmojiPickerCanvasExperimentName);
 		failGate(teamoji26RefreshEmojiPickerUserIdGateName);
 		passGate(teamoji26RefreshEmojiPickerShortNameAndOrderingGateName);
 
@@ -42,8 +52,16 @@ describe('teamoji26RefreshEmojiPicker', () => {
 		expect(isTeamoji26RefreshEmojiPickerEnabledNoExposure()).toBe(true);
 	});
 
+	it('returns true in no-exposure checks when the canvas refresh experiment is enabled', () => {
+		mockExpDisabled(teamoji26RefreshEmojiPickerExperimentName);
+		mockExpEnabled(teamoji26RefreshEmojiPickerCanvasExperimentName);
+
+		expect(isTeamoji26RefreshEmojiPickerEnabledNoExposure()).toBe(true);
+	});
+
 	it('returns true in no-exposure checks when the user id gate is enabled', () => {
 		mockExpDisabled(teamoji26RefreshEmojiPickerExperimentName);
+		mockExpDisabled(teamoji26RefreshEmojiPickerCanvasExperimentName);
 		passGate(teamoji26RefreshEmojiPickerUserIdGateName);
 
 		expect(isTeamoji26RefreshEmojiPickerEnabledNoExposure()).toBe(true);
@@ -51,6 +69,7 @@ describe('teamoji26RefreshEmojiPicker', () => {
 
 	it('returns true in no-exposure checks when the shortname and ordering gate is enabled', () => {
 		mockExpDisabled(teamoji26RefreshEmojiPickerExperimentName);
+		mockExpDisabled(teamoji26RefreshEmojiPickerCanvasExperimentName);
 		failGate(teamoji26RefreshEmojiPickerUserIdGateName);
 		passGate(teamoji26RefreshEmojiPickerShortNameAndOrderingGateName);
 
@@ -59,6 +78,7 @@ describe('teamoji26RefreshEmojiPicker', () => {
 
 	it('returns false when the refresh experiment and user id gate are disabled', () => {
 		mockExpDisabled(teamoji26RefreshEmojiPickerExperimentName);
+		mockExpDisabled(teamoji26RefreshEmojiPickerCanvasExperimentName);
 		failGate(teamoji26RefreshEmojiPickerUserIdGateName);
 		failGate(teamoji26RefreshEmojiPickerShortNameAndOrderingGateName);
 

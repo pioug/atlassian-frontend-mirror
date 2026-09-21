@@ -18,6 +18,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { getLayoutColumnMenuAnchorPos } from '../../pm-plugins/utils/layout-column-selection';
@@ -64,7 +65,6 @@ type LayoutColumnMenuProps = {
 	editorView: EditorView;
 	mountTo?: HTMLElement;
 	scrollableElement?: HTMLElement;
-	useRegistryAnchor: boolean;
 };
 
 export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps> = React.memo(
@@ -74,7 +74,6 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 		mountTo,
 		boundariesElement,
 		scrollableElement,
-		useRegistryAnchor,
 	}: LayoutColumnMenuProps): React.JSX.Element | null {
 		const { isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, openedViaKeyboard, selection } =
 			useSharedPluginStateWithSelector(api, ['layout', 'selection'], (states) => ({
@@ -162,17 +161,24 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 		}, [handleMenuKeyDown, isLayoutColumnMenuOpen]);
 
 		const components = api?.uiControlRegistry?.actions.getComponents(LAYOUT_COLUMN_MENU.key) ?? [];
+		const hasValidMenuSelection =
+			!isExperimentEnabled('platform_editor_block_control_migration') ||
+			(selection !== undefined &&
+				getLayoutColumnMenuAnchorPos(selection, layoutColumnMenuAnchorPos) !== undefined);
 
 		const legacyTarget = useMemo(
 			() =>
-				isLayoutColumnMenuOpen && !useRegistryAnchor
+				isLayoutColumnMenuOpen && !isExperimentEnabled('platform_editor_block_control_migration')
 					? getLayoutColumnMenuTarget(editorView, selection, layoutColumnMenuAnchorPos)
 					: null,
-			[editorView, isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, selection, useRegistryAnchor],
+			[editorView, isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, selection],
 		);
 		const surfaceTargetRef = useRef<HTMLElement | null>(null);
 		const surfaceAnchorPosRef = useRef<number | undefined>(undefined);
-		if (!useRegistryAnchor || !isLayoutColumnMenuOpen) {
+		if (
+			!isExperimentEnabled('platform_editor_block_control_migration') ||
+			!isLayoutColumnMenuOpen
+		) {
 			surfaceTargetRef.current = null;
 			surfaceAnchorPosRef.current = undefined;
 		} else if (
@@ -183,7 +189,9 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				surfaceDragHandleElementStore.get(editorView) ?? surfaceTargetRef.current;
 			surfaceAnchorPosRef.current = layoutColumnMenuAnchorPos;
 		}
-		const target = useRegistryAnchor ? surfaceTargetRef.current : legacyTarget;
+		const target = isExperimentEnabled('platform_editor_block_control_migration')
+			? surfaceTargetRef.current
+			: legacyTarget;
 
 		const hasValidTarget = target instanceof HTMLElement;
 
@@ -204,17 +212,31 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 		);
 
 		useEffect(() => {
-			if (isLayoutColumnMenuOpen && (!hasValidTarget || components.length === 0)) {
+			if (
+				isLayoutColumnMenuOpen &&
+				(!hasValidMenuSelection || !hasValidTarget || components.length === 0)
+			) {
 				closeLayoutColumnMenu();
 			}
-		}, [closeLayoutColumnMenu, components.length, hasValidTarget, isLayoutColumnMenuOpen]);
+		}, [
+			closeLayoutColumnMenu,
+			components.length,
+			hasValidMenuSelection,
+			hasValidTarget,
+			isLayoutColumnMenuOpen,
+		]);
 
 		const { alignX, alignY, offset, useManualBelowFlip } = useMemo(
 			() => getLayoutColumnMenuPositioningProps(),
 			[],
 		);
 
-		if (!isLayoutColumnMenuOpen || components.length === 0 || !hasValidTarget) {
+		if (
+			!isLayoutColumnMenuOpen ||
+			!hasValidMenuSelection ||
+			components.length === 0 ||
+			!hasValidTarget
+		) {
 			return null;
 		}
 

@@ -2,13 +2,11 @@
  * Structured MCP docs for `@atlaskit/user-picker`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	package: {
@@ -40,12 +38,12 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Single user picker',
 					description: 'Basic usage of UserPicker in single-select mode.',
-					source: path.resolve(packagePath, './examples/00-single.tsx'),
+					source: `${packagePath}/examples/00-single.tsx`,
 				},
 				{
 					name: 'Multi user picker',
 					description: 'Basic usage of UserPicker in multi-select mode.',
-					source: path.resolve(packagePath, './examples/01-multi.vr.ap.tsx'),
+					source: `${packagePath}/examples/01-multi.vr.ap.tsx`,
 				},
 			],
 		},

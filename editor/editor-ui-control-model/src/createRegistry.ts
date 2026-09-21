@@ -1,6 +1,6 @@
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
-import type { ComponentIdentifier, RegisterComponent } from './types';
+import type { ComponentIdentifier, RegisterComponent, RegistryListener } from './types';
 import type { SurfaceIdentifier } from './ui/surface-renderer/types';
 import { resolveSurface } from './ui/surface-renderer/utils';
 
@@ -77,11 +77,13 @@ export const createRegistry = (): {
 	getComponent: (component: ComponentIdentifier) => RegisterComponent | undefined;
 	getComponents: (surface: string | SurfaceIdentifier) => RegisterComponent[];
 	register: (newComponents: RegisterComponent[], options?: RegisterOptions) => void;
+	subscribe: (listener: RegistryListener) => () => void;
 	unregister: (components: ComponentIdentifier[]) => void;
 } => {
 	const components: RegisterComponent[] = [];
 	const registeredComponents = new Map<string, RegisterComponent>();
 	const surfaceCache = new Map<string, RegisterComponent[]>();
+	const listeners = new Set<RegistryListener>();
 	// Replacement and deduplication are part of the existing slash-command registration contract.
 	const supportsMutableRegistration = isExperimentEnabled('platform_editor_slash_command');
 	// Either registry-backed experience can opt the shared model into indexed, cached surface lookup.
@@ -100,6 +102,10 @@ export const createRegistry = (): {
 		surfaceCache.clear();
 	};
 
+	const notifyListeners = (): void => {
+		listeners.forEach((listener) => listener());
+	};
+
 	const register = (
 		newComponents: RegisterComponent[],
 		{ replaceExisting = false }: RegisterOptions = {},
@@ -107,6 +113,9 @@ export const createRegistry = (): {
 		if (!supportsMutableRegistration) {
 			components.push(...newComponents);
 			invalidateSurfaceCache();
+			if (newComponents.length > 0) {
+				notifyListeners();
+			}
 			return;
 		}
 
@@ -136,6 +145,7 @@ export const createRegistry = (): {
 		if (hasChanged) {
 			updateIndexes();
 			invalidateSurfaceCache();
+			notifyListeners();
 		}
 	};
 
@@ -177,6 +187,12 @@ export const createRegistry = (): {
 		getComponent: (component) => registeredComponents.get(getComponentKey(component)),
 		getComponents,
 		register,
+		subscribe: (listener) => {
+			listeners.add(listener);
+			return () => {
+				listeners.delete(listener);
+			};
+		},
 		unregister: (componentsToRemove) => {
 			let hasChanged = false;
 			componentsToRemove.forEach((component) => {
@@ -194,6 +210,7 @@ export const createRegistry = (): {
 					updateIndexes();
 				}
 				invalidateSurfaceCache();
+				notifyListeners();
 			}
 		},
 		components,

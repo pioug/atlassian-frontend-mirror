@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::7e02a549182b49dabd2707b9bb8727bc>>
+ * @codegen <<SignedSource::6e12bc86d2698847f19cf97b10a31abb>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1015,7 +1015,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ colorScheme?: PublicColorScheme; originalDoc: JSONDocNode; steps: StepJson[]; }',
+				type: '{ colorScheme?: ColorScheme; originalDoc: JSONDocNode; steps: StepJson[]; }',
 				isRequired: true,
 			},
 		],
@@ -3866,6 +3866,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Optional callback establishing whether previewing the given linked resource is restricted\n(e.g. cross-unit). When it returns `true`, the entire preview affordance is suppressed\n(neither a preview panel nor a fallback preview modal is shown).',
 			},
 			{
+				name: 'linkNavigation',
+				type: '(url: string) => { target?: "_blank" | "_self" | "_top" | "_parent"; url: string; }',
+				description: 'Resolve a Flexible Card destination without changing its metadata address.',
+			},
+			{
 				name: 'openPreviewPanel',
 				type: '(props: { ari: string; iconUrl: string; name: string; url: string; }) => void',
 				description:
@@ -3970,6 +3975,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '(props: { ari: string; }) => boolean',
 				description:
 					'Optional callback establishing whether previewing the given linked resource is restricted\n(e.g. cross-unit). When it returns `true`, the entire preview affordance is suppressed\n(neither a preview panel nor a fallback preview modal is shown).',
+			},
+			{
+				name: 'linkNavigation',
+				type: '(url: string) => { target?: "_blank" | "_self" | "_top" | "_parent"; url: string; }',
+				description: 'Resolve a Flexible Card destination without changing its metadata address.',
 			},
 			{
 				name: 'openPreviewPanel',
@@ -4078,6 +4088,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Optional callback establishing whether previewing the given linked resource is restricted\n(e.g. cross-unit). When it returns `true`, the entire preview affordance is suppressed\n(neither a preview panel nor a fallback preview modal is shown).',
 			},
 			{
+				name: 'linkNavigation',
+				type: '(url: string) => { target?: "_blank" | "_self" | "_top" | "_parent"; url: string; }',
+				description: 'Resolve a Flexible Card destination without changing its metadata address.',
+			},
+			{
 				name: 'openPreviewPanel',
 				type: '(props: { ari: string; iconUrl: string; name: string; url: string; }) => void',
 				description:
@@ -4184,6 +4199,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '(props: { ari: string; }) => boolean',
 				description:
 					'Optional callback establishing whether previewing the given linked resource is restricted\n(e.g. cross-unit). When it returns `true`, the entire preview affordance is suppressed\n(neither a preview panel nor a fallback preview modal is shown).',
+			},
+			{
+				name: 'linkNavigation',
+				type: '(url: string) => { target?: "_blank" | "_self" | "_top" | "_parent"; url: string; }',
+				description: 'Resolve a Flexible Card destination without changing its metadata address.',
 			},
 			{
 				name: 'openPreviewPanel',
@@ -4591,7 +4611,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['media', 'card', 'file', 'display'],
 		category: 'media',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@emotion/react';\nimport { Component, type SyntheticEvent } from 'react';\nimport {\n\tdefaultCollectionName,\n\tgenericFileId,\n\taudioFileId,\n\taudioNoCoverFileId,\n\tvideoFileId,\n\tvideoProcessingFailedId,\n\tdocFileId,\n\tlargePdfFileId,\n\tarchiveFileId,\n\tunknownFileId,\n\terrorFileId,\n\tgifFileId,\n\tnoMetadataFileId,\n\tcreateUploadMediaClientConfig,\n\temptyImageFileId,\n} from '@atlaskit/media-test-helpers';\nimport Button from '@atlaskit/button/default/button';\nimport { Card } from '../src';\nimport {\n\tUploadController,\n\ttype FileIdentifier,\n\tMediaClient,\n\ttype MediaSubscribable,\n} from '@atlaskit/media-client';\nimport { cardWrapperStyles, cardFlowHeaderStyles } from '../example-helpers/styles';\nimport { MainWrapper } from '../example-helpers';\nconst mediaClientConfig = createUploadMediaClientConfig();\nconst mediaClient = new MediaClient(mediaClientConfig);\nexport interface ComponentProps {}\ntype fileId = {\n\tid: string;\n\tname?: string;\n};\nexport interface ComponentState {\n\tfileIds: fileId[];\n}\nconst fileIds = [\n\t{ id: genericFileId.id, name: 'Generic file' },\n\t{ id: audioFileId.id, name: 'Audio file' },\n\t{ id: audioNoCoverFileId.id, name: 'Audio no cover file' },\n\t{ id: videoFileId.id, name: 'Video file' },\n\t{ id: gifFileId.id, name: 'Gif file' },\n\t{ id: videoProcessingFailedId.id, name: 'Video processing failed' },\n\t{ id: errorFileId.id, name: 'Error file' },\n\t{ id: docFileId.id, name: 'Doc file' },\n\t{ id: largePdfFileId.id, name: 'Large pdf file' },\n\t{ id: archiveFileId.id, name: 'Archive file' },\n\t{ id: unknownFileId.id, name: 'Unknown file' },\n\t{ id: noMetadataFileId.id, name: 'No metadata file' },\n\t{ id: emptyImageFileId.id, name: 'Empty image file' },\n];\nclass Example extends Component<ComponentProps, ComponentState> {\n\tuploadController?: UploadController;\n\tstate: ComponentState = {\n\t\tfileIds,\n\t};\n\trenderCards() {\n\t\tconst { fileIds } = this.state;\n\t\tconst cards = fileIds.map(({ id, name }) => {\n\t\t\tconst identifier: FileIdentifier = {\n\t\t\t\tid,\n\t\t\t\tmediaItemType: 'file',\n\t\t\t\tcollectionName: defaultCollectionName,\n\t\t\t};\n\t\t\treturn (\n\t\t\t\t<div css={cardWrapperStyles} key={id}>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<h3>{name}</h3>\n\t\t\t\t\t\t<Card\n\t\t\t\t\t\t\tmediaClientConfig={mediaClientConfig}\n\t\t\t\t\t\t\tidentifier={identifier}\n\t\t\t\t\t\t\tshouldEnableDownloadButton\n\t\t\t\t\t\t\tshouldOpenMediaViewer\n\t\t\t\t\t\t/>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t);\n\t\t});\n\t\treturn <div>{cards}</div>;\n\t}\n\tcancelUpload = () => {\n\t\tif (this.uploadController) {\n\t\t\tthis.uploadController.abort();\n\t\t}\n\t};\n\tuploadFile = async (event: SyntheticEvent<HTMLInputElement>) => {\n\t\tif (!event.currentTarget.files || !event.currentTarget.files.length) {\n\t\t\treturn;\n\t\t}\n\t\tconst file = event.currentTarget.files[0];\n\t\tconst uplodableFile = {\n\t\t\tcontent: file,\n\t\t\tname: file.name,\n\t\t\tcollection: defaultCollectionName,\n\t\t\tmimeType: file.type,\n\t\t\tsize: file.size,\n\t\t};\n\t\tconst uploadController = new UploadController();\n\t\tconst stream = mediaClient.file.upload(uplodableFile, uploadController);\n\t\tthis.uploadController = uploadController;\n\t\tthis.addStream(stream);\n\t};\n\taddStream = (stream: MediaSubscribable) => {\n\t\tlet isIdSaved = false;\n\t\tconst subscription = stream.subscribe({\n\t\t\tnext: (state) => {\n\t\t\t\tconst { fileIds } = this.state;\n\t\t\t\tif (!isIdSaved && state.status === 'uploading') {\n\t\t\t\t\tisIdSaved = true;\n\t\t\t\t\tthis.setState({\n\t\t\t\t\t\tfileIds: [{ id: state.id }, ...fileIds],\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t\tif (state.status === 'processing') {\n\t\t\t\t\t// here we have the public id, AKA upload is finished\n\t\t\t\t\tconsole.log('public id', state.id);\n\t\t\t\t\tsubscription.unsubscribe();\n\t\t\t\t}\n\t\t\t},\n\t\t\tcomplete() {\n\t\t\t\tconsole.log('stream complete');\n\t\t\t},\n\t\t\terror(error) {\n\t\t\t\tconsole.log('stream error', error);\n\t\t\t},\n\t\t});\n\t};\n\trender() {\n\t\treturn (\n\t\t\t<React.Fragment>\n\t\t\t\t{\n\t\t\t\t<div css={cardFlowHeaderStyles}>\n\t\t\t\t\tUpload file <input type=\"file\" onChange={this.uploadFile} />\n\t\t\t\t\t<Button appearance=\"primary\" onClick={this.cancelUpload}>\n\t\t\t\t\t\tCancel upload\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t\t{this.renderCards()}\n\t\t\t</React.Fragment>\n\t\t);\n\t}\n}\nexport default (): React.JSX.Element => (\n\t<MainWrapper>\n\t\t<Example />\n\t</MainWrapper>\n);\n// We export the example without FFs dropdown for SSR test:\n// packages/media/media-card/src/__tests__/unit/server-side-hydrate.tsx\nexport const SSR = (): React.JSX.Element => <Example />;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@emotion/react';\nimport { Component, type SyntheticEvent } from 'react';\nimport {\n\tdefaultCollectionName,\n\tgenericFileId,\n\taudioFileId,\n\taudioNoCoverFileId,\n\tvideoFileId,\n\tvideoProcessingFailedId,\n\tdocFileId,\n\tlargePdfFileId,\n\tarchiveFileId,\n\tunknownFileId,\n\terrorFileId,\n\tgifFileId,\n\tnoMetadataFileId,\n\tcreateUploadMediaClientConfig,\n\temptyImageFileId,\n} from '@atlaskit/media-test-helpers';\nimport Button from '@atlaskit/button/default/button';\nimport Card from '../src/card/cardLoader';\nimport {\n\tUploadController,\n\ttype FileIdentifier,\n\tMediaClient,\n\ttype MediaSubscribable,\n} from '@atlaskit/media-client';\nimport { cardWrapperStyles, cardFlowHeaderStyles } from '../example-helpers/styles';\nimport { MainWrapper } from '../example-helpers';\nconst mediaClientConfig = createUploadMediaClientConfig();\nconst mediaClient = new MediaClient(mediaClientConfig);\nexport interface ComponentProps {}\ntype fileId = {\n\tid: string;\n\tname?: string;\n};\nexport interface ComponentState {\n\tfileIds: fileId[];\n}\nconst fileIds = [\n\t{ id: genericFileId.id, name: 'Generic file' },\n\t{ id: audioFileId.id, name: 'Audio file' },\n\t{ id: audioNoCoverFileId.id, name: 'Audio no cover file' },\n\t{ id: videoFileId.id, name: 'Video file' },\n\t{ id: gifFileId.id, name: 'Gif file' },\n\t{ id: videoProcessingFailedId.id, name: 'Video processing failed' },\n\t{ id: errorFileId.id, name: 'Error file' },\n\t{ id: docFileId.id, name: 'Doc file' },\n\t{ id: largePdfFileId.id, name: 'Large pdf file' },\n\t{ id: archiveFileId.id, name: 'Archive file' },\n\t{ id: unknownFileId.id, name: 'Unknown file' },\n\t{ id: noMetadataFileId.id, name: 'No metadata file' },\n\t{ id: emptyImageFileId.id, name: 'Empty image file' },\n];\nclass Example extends Component<ComponentProps, ComponentState> {\n\tuploadController?: UploadController;\n\tstate: ComponentState = {\n\t\tfileIds,\n\t};\n\trenderCards() {\n\t\tconst { fileIds } = this.state;\n\t\tconst cards = fileIds.map(({ id, name }) => {\n\t\t\tconst identifier: FileIdentifier = {\n\t\t\t\tid,\n\t\t\t\tmediaItemType: 'file',\n\t\t\t\tcollectionName: defaultCollectionName,\n\t\t\t};\n\t\t\treturn (\n\t\t\t\t<div css={cardWrapperStyles} key={id}>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<h3>{name}</h3>\n\t\t\t\t\t\t<Card\n\t\t\t\t\t\t\tmediaClientConfig={mediaClientConfig}\n\t\t\t\t\t\t\tidentifier={identifier}\n\t\t\t\t\t\t\tshouldEnableDownloadButton\n\t\t\t\t\t\t\tshouldOpenMediaViewer\n\t\t\t\t\t\t/>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t);\n\t\t});\n\t\treturn <div>{cards}</div>;\n\t}\n\tcancelUpload = () => {\n\t\tif (this.uploadController) {\n\t\t\tthis.uploadController.abort();\n\t\t}\n\t};\n\tuploadFile = async (event: SyntheticEvent<HTMLInputElement>) => {\n\t\tif (!event.currentTarget.files || !event.currentTarget.files.length) {\n\t\t\treturn;\n\t\t}\n\t\tconst file = event.currentTarget.files[0];\n\t\tconst uplodableFile = {\n\t\t\tcontent: file,\n\t\t\tname: file.name,\n\t\t\tcollection: defaultCollectionName,\n\t\t\tmimeType: file.type,\n\t\t\tsize: file.size,\n\t\t};\n\t\tconst uploadController = new UploadController();\n\t\tconst stream = mediaClient.file.upload(uplodableFile, uploadController);\n\t\tthis.uploadController = uploadController;\n\t\tthis.addStream(stream);\n\t};\n\taddStream = (stream: MediaSubscribable) => {\n\t\tlet isIdSaved = false;\n\t\tconst subscription = stream.subscribe({\n\t\t\tnext: (state) => {\n\t\t\t\tconst { fileIds } = this.state;\n\t\t\t\tif (!isIdSaved && state.status === 'uploading') {\n\t\t\t\t\tisIdSaved = true;\n\t\t\t\t\tthis.setState({\n\t\t\t\t\t\tfileIds: [{ id: state.id }, ...fileIds],\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t\tif (state.status === 'processing') {\n\t\t\t\t\t// here we have the public id, AKA upload is finished\n\t\t\t\t\tconsole.log('public id', state.id);\n\t\t\t\t\tsubscription.unsubscribe();\n\t\t\t\t}\n\t\t\t},\n\t\t\tcomplete() {\n\t\t\t\tconsole.log('stream complete');\n\t\t\t},\n\t\t\terror(error) {\n\t\t\t\tconsole.log('stream error', error);\n\t\t\t},\n\t\t});\n\t};\n\trender() {\n\t\treturn (\n\t\t\t<React.Fragment>\n\t\t\t\t{\n\t\t\t\t<div css={cardFlowHeaderStyles}>\n\t\t\t\t\tUpload file <input type=\"file\" onChange={this.uploadFile} />\n\t\t\t\t\t<Button appearance=\"primary\" onClick={this.cancelUpload}>\n\t\t\t\t\t\tCancel upload\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t\t{this.renderCards()}\n\t\t\t</React.Fragment>\n\t\t);\n\t}\n}\nexport default (): React.JSX.Element => (\n\t<MainWrapper>\n\t\t<Example />\n\t</MainWrapper>\n);\n// We export the example without FFs dropdown for SSR test:\n// packages/media/media-card/src/__tests__/unit/server-side-hydrate.tsx\nexport const SSR = (): React.JSX.Element => <Example />;",
 		],
 		props: [
 			{
@@ -4849,7 +4869,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['media', 'filmstrip', 'gallery', 'carousel', 'horizontal-scroll'],
 		category: 'media',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@emotion/react';\nimport { Component, type SyntheticEvent } from 'react';\nimport {\n\tcreateUploadMediaClient,\n\tgenericFileId,\n\taudioFileId,\n\terrorFileId,\n\tgifFileId,\n\texternalImageIdentifier,\n\tdefaultCollectionName,\n} from '@atlaskit/media-test-helpers';\nimport { type CardEvent, type CardAction } from '@atlaskit/media-card';\nimport EditorCloseIcon from '@atlaskit/icon/core/cross';\nimport {\n\ttype FileItem,\n\ttype FileState,\n\ttype UploadableFile,\n\ttype MediaClient,\n\ttype FileIdentifier,\n} from '@atlaskit/media-client';\nimport Button from '@atlaskit/button/default/button';\nimport { filmstripWrapperStyles } from '../example-helpers/styles';\nimport { Filmstrip, type FilmstripItem } from '../src';\nexport interface ExampleState {\n\titems: FilmstripItem[];\n\tmediaClient?: MediaClient;\n\tshouldOpenMediaViewer: boolean;\n}\nconst defaultMediaClient = createUploadMediaClient();\nclass Example extends Component<{}, ExampleState> {\n\tonCardClick = (result: CardEvent) => {\n\t\tconst { items } = this.state;\n\t\tif (!result.mediaItemDetails) {\n\t\t\treturn;\n\t\t}\n\t\tconst selectedId = (result.mediaItemDetails as FileIdentifier).id;\n\t\tconst currentItemIndex = this.getItemIndex(selectedId);\n\t\tif (currentItemIndex > -1) {\n\t\t\tconst item = items[currentItemIndex];\n\t\t\tconst newItem = {\n\t\t\t\t...item,\n\t\t\t\tselected: !item.selected,\n\t\t\t};\n\t\t\titems[currentItemIndex] = newItem;\n\t\t\tthis.setState({\n\t\t\t\titems,\n\t\t\t});\n\t\t}\n\t};\n\tgetItemIndex = (id: string | Promise<string>): number => {\n\t\tconst { items } = this.state;\n\t\tconst item = items.find((item) => (item.identifier as FileIdentifier).id === id);\n\t\tif (item) {\n\t\t\treturn items.indexOf(item);\n\t\t}\n\t\treturn -1;\n\t};\n\tonClose = (item?: FileItem) => {\n\t\tif (!item) {\n\t\t\treturn;\n\t\t}\n\t\tconst { items } = this.state;\n\t\tconst index = this.getItemIndex(item.details.id);\n\t\tif (index > -1) {\n\t\t\titems.splice(index, 1);\n\t\t\tthis.setState({\n\t\t\t\titems,\n\t\t\t});\n\t\t}\n\t};\n\tcardProps: Partial<FilmstripItem> = {\n\t\tselectable: true,\n\t\tonClick: this.onCardClick,\n\t\tactions: [\n\t\t\t{\n\t\t\t\thandler: this.onClose,\n\t\t\t\ticon: <EditorCloseIcon color=\"currentColor\" spacing=\"spacious\" label=\"close\" />,\n\t\t\t},\n\t\t],\n\t};\n\tstate: ExampleState = {\n\t\titems: [\n\t\t\t{\n\t\t\t\tidentifier: genericFileId,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t\t{\n\t\t\t\tidentifier: externalImageIdentifier,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t\t{\n\t\t\t\tidentifier: audioFileId,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t\t{\n\t\t\t\tidentifier: errorFileId,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t\t{\n\t\t\t\tidentifier: gifFileId,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t],\n\t\tmediaClient: defaultMediaClient,\n\t\tshouldOpenMediaViewer: false,\n\t};\n\tcreateOnClickFromId = (id: string) => (event: any) => {\n\t\tthis.onCardClick({\n\t\t\tevent,\n\t\t\tmediaItemDetails: {\n\t\t\t\tid,\n\t\t\t},\n\t\t});\n\t};\n\tcreateActionsFromId = (id: string): CardAction[] => {\n\t\tconst handler = () => {\n\t\t\tthis.onClose({\n\t\t\t\ttype: 'file',\n\t\t\t\tdetails: {\n\t\t\t\t\tid,\n\t\t\t\t},\n\t\t\t});\n\t\t};\n\t\treturn [\n\t\t\t{\n\t\t\t\thandler,\n\t\t\t\ticon: <EditorCloseIcon color=\"currentColor\" spacing=\"spacious\" label=\"close\" />,\n\t\t\t},\n\t\t];\n\t};\n\tuploadFile = async (event: SyntheticEvent<HTMLInputElement>) => {\n\t\tconst { mediaClient } = this.state;\n\t\tif (!event.currentTarget.files || !event.currentTarget.files.length || !mediaClient) {\n\t\t\treturn;\n\t\t}\n\t\tconst file = event.currentTarget.files[0];\n\t\tconst uploadableFile: UploadableFile = {\n\t\t\tcontent: file,\n\t\t\tname: file.name,\n\t\t\tcollection: defaultCollectionName,\n\t\t\tsize: file.size,\n\t\t};\n\t\tmediaClient.file.upload(uploadableFile).subscribe({\n\t\t\tnext: (state: FileState) => {\n\t\t\t\tif (state.status === 'uploading') {\n\t\t\t\t\tconst { id } = state;\n\t\t\t\t\t// prevent adding the same file id mutliple times\n\t\t\t\t\tif (\n\t\t\t\t\t\tthis.state.items.some(\n\t\t\t\t\t\t\t(item) => item.identifier.mediaItemType === 'file' && item.identifier.id === id,\n\t\t\t\t\t\t)\n\t\t\t\t\t) {\n\t\t\t\t\t\treturn;\n\t\t\t\t\t}\n\t\t\t\t\tconst { items } = this.state;\n\t\t\t\t\tconst newItem: FilmstripItem = {\n\t\t\t\t\t\t...this.cardProps,\n\t\t\t\t\t\tonClick: this.createOnClickFromId(id),\n\t\t\t\t\t\tactions: this.createActionsFromId(id),\n\t\t\t\t\t\tidentifier: {\n\t\t\t\t\t\t\tid,\n\t\t\t\t\t\t\tmediaItemType: 'file',\n\t\t\t\t\t\t\tcollectionName: defaultCollectionName,\n\t\t\t\t\t\t},\n\t\t\t\t\t\tselected: true,\n\t\t\t\t\t};\n\t\t\t\t\tthis.setState({\n\t\t\t\t\t\titems: [newItem, ...items],\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t},\n\t\t\terror(error: Error) {\n\t\t\t\tconsole.log('subscription', error);\n\t\t\t},\n\t\t});\n\t};\n\ttoggleMediaClient = () => {\n\t\tconst { mediaClient: currentMediaClient } = this.state;\n\t\tthis.setState({\n\t\t\tmediaClient: currentMediaClient ? undefined : defaultMediaClient,\n\t\t});\n\t};\n\ttoggleMediaViewer = () => {\n\t\tconst { shouldOpenMediaViewer } = this.state;\n\t\tthis.setState({\n\t\t\tshouldOpenMediaViewer: !shouldOpenMediaViewer,\n\t\t});\n\t};\n\trender() {\n\t\tconst { items, mediaClient, shouldOpenMediaViewer } = this.state;\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t{\n\t\t\t\t<div css={filmstripWrapperStyles}>\n\t\t\t\t\t<Filmstrip\n\t\t\t\t\t\tmediaClientConfig={mediaClient && mediaClient.config}\n\t\t\t\t\t\titems={items}\n\t\t\t\t\t\tshouldOpenMediaViewer={shouldOpenMediaViewer}\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t\t<div>\n\t\t\t\t\tUpload file <input type=\"file\" onChange={this.uploadFile} />\n\t\t\t\t</div>\n\t\t\t\t<div>\n\t\t\t\t\t<Button appearance=\"primary\" onClick={this.toggleMediaClient}>\n\t\t\t\t\t\ttoggle mediaClient\n\t\t\t\t\t</Button>\n\t\t\t\t\tMediaClient is: {mediaClient ? 'ON' : 'OFF'}\n\t\t\t\t</div>\n\t\t\t\t<div>\n\t\t\t\t\t<Button appearance=\"primary\" onClick={this.toggleMediaViewer}>\n\t\t\t\t\t\ttoggle mediaViewer\n\t\t\t\t\t</Button>\n\t\t\t\t\tMediaClient is: {shouldOpenMediaViewer ? 'ON' : 'OFF'}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t);\n\t}\n}\nexport default (): React.JSX.Element => <Example />;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@emotion/react';\nimport { Component, type SyntheticEvent } from 'react';\nimport {\n\tcreateUploadMediaClient,\n\tgenericFileId,\n\taudioFileId,\n\terrorFileId,\n\tgifFileId,\n\texternalImageIdentifier,\n\tdefaultCollectionName,\n} from '@atlaskit/media-test-helpers';\nimport type { CardEvent } from '@atlaskit/media-card/types';\nimport type { CardAction } from '@atlaskit/media-card/actions';\nimport EditorCloseIcon from '@atlaskit/icon/core/cross';\nimport {\n\ttype FileItem,\n\ttype FileState,\n\ttype UploadableFile,\n\ttype MediaClient,\n\ttype FileIdentifier,\n} from '@atlaskit/media-client';\nimport Button from '@atlaskit/button/default/button';\nimport { filmstripWrapperStyles } from '../example-helpers/styles';\nimport { Filmstrip, type FilmstripItem } from '../src';\nexport interface ExampleState {\n\titems: FilmstripItem[];\n\tmediaClient?: MediaClient;\n\tshouldOpenMediaViewer: boolean;\n}\nconst defaultMediaClient = createUploadMediaClient();\nclass Example extends Component<{}, ExampleState> {\n\tonCardClick = (result: CardEvent) => {\n\t\tconst { items } = this.state;\n\t\tif (!result.mediaItemDetails) {\n\t\t\treturn;\n\t\t}\n\t\tconst selectedId = (result.mediaItemDetails as FileIdentifier).id;\n\t\tconst currentItemIndex = this.getItemIndex(selectedId);\n\t\tif (currentItemIndex > -1) {\n\t\t\tconst item = items[currentItemIndex];\n\t\t\tconst newItem = {\n\t\t\t\t...item,\n\t\t\t\tselected: !item.selected,\n\t\t\t};\n\t\t\titems[currentItemIndex] = newItem;\n\t\t\tthis.setState({\n\t\t\t\titems,\n\t\t\t});\n\t\t}\n\t};\n\tgetItemIndex = (id: string | Promise<string>): number => {\n\t\tconst { items } = this.state;\n\t\tconst item = items.find((item) => (item.identifier as FileIdentifier).id === id);\n\t\tif (item) {\n\t\t\treturn items.indexOf(item);\n\t\t}\n\t\treturn -1;\n\t};\n\tonClose = (item?: FileItem) => {\n\t\tif (!item) {\n\t\t\treturn;\n\t\t}\n\t\tconst { items } = this.state;\n\t\tconst index = this.getItemIndex(item.details.id);\n\t\tif (index > -1) {\n\t\t\titems.splice(index, 1);\n\t\t\tthis.setState({\n\t\t\t\titems,\n\t\t\t});\n\t\t}\n\t};\n\tcardProps: Partial<FilmstripItem> = {\n\t\tselectable: true,\n\t\tonClick: this.onCardClick,\n\t\tactions: [\n\t\t\t{\n\t\t\t\thandler: this.onClose,\n\t\t\t\ticon: <EditorCloseIcon color=\"currentColor\" spacing=\"spacious\" label=\"close\" />,\n\t\t\t},\n\t\t],\n\t};\n\tstate: ExampleState = {\n\t\titems: [\n\t\t\t{\n\t\t\t\tidentifier: genericFileId,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t\t{\n\t\t\t\tidentifier: externalImageIdentifier,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t\t{\n\t\t\t\tidentifier: audioFileId,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t\t{\n\t\t\t\tidentifier: errorFileId,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t\t{\n\t\t\t\tidentifier: gifFileId,\n\t\t\t\t...this.cardProps,\n\t\t\t},\n\t\t],\n\t\tmediaClient: defaultMediaClient,\n\t\tshouldOpenMediaViewer: false,\n\t};\n\tcreateOnClickFromId = (id: string) => (event: any) => {\n\t\tthis.onCardClick({\n\t\t\tevent,\n\t\t\tmediaItemDetails: {\n\t\t\t\tid,\n\t\t\t},\n\t\t});\n\t};\n\tcreateActionsFromId = (id: string): CardAction[] => {\n\t\tconst handler = () => {\n\t\t\tthis.onClose({\n\t\t\t\ttype: 'file',\n\t\t\t\tdetails: {\n\t\t\t\t\tid,\n\t\t\t\t},\n\t\t\t});\n\t\t};\n\t\treturn [\n\t\t\t{\n\t\t\t\thandler,\n\t\t\t\ticon: <EditorCloseIcon color=\"currentColor\" spacing=\"spacious\" label=\"close\" />,\n\t\t\t},\n\t\t];\n\t};\n\tuploadFile = async (event: SyntheticEvent<HTMLInputElement>) => {\n\t\tconst { mediaClient } = this.state;\n\t\tif (!event.currentTarget.files || !event.currentTarget.files.length || !mediaClient) {\n\t\t\treturn;\n\t\t}\n\t\tconst file = event.currentTarget.files[0];\n\t\tconst uploadableFile: UploadableFile = {\n\t\t\tcontent: file,\n\t\t\tname: file.name,\n\t\t\tcollection: defaultCollectionName,\n\t\t\tsize: file.size,\n\t\t};\n\t\tmediaClient.file.upload(uploadableFile).subscribe({\n\t\t\tnext: (state: FileState) => {\n\t\t\t\tif (state.status === 'uploading') {\n\t\t\t\t\tconst { id } = state;\n\t\t\t\t\t// prevent adding the same file id mutliple times\n\t\t\t\t\tif (\n\t\t\t\t\t\tthis.state.items.some(\n\t\t\t\t\t\t\t(item) => item.identifier.mediaItemType === 'file' && item.identifier.id === id,\n\t\t\t\t\t\t)\n\t\t\t\t\t) {\n\t\t\t\t\t\treturn;\n\t\t\t\t\t}\n\t\t\t\t\tconst { items } = this.state;\n\t\t\t\t\tconst newItem: FilmstripItem = {\n\t\t\t\t\t\t...this.cardProps,\n\t\t\t\t\t\tonClick: this.createOnClickFromId(id),\n\t\t\t\t\t\tactions: this.createActionsFromId(id),\n\t\t\t\t\t\tidentifier: {\n\t\t\t\t\t\t\tid,\n\t\t\t\t\t\t\tmediaItemType: 'file',\n\t\t\t\t\t\t\tcollectionName: defaultCollectionName,\n\t\t\t\t\t\t},\n\t\t\t\t\t\tselected: true,\n\t\t\t\t\t};\n\t\t\t\t\tthis.setState({\n\t\t\t\t\t\titems: [newItem, ...items],\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t},\n\t\t\terror(error: Error) {\n\t\t\t\tconsole.log('subscription', error);\n\t\t\t},\n\t\t});\n\t};\n\ttoggleMediaClient = () => {\n\t\tconst { mediaClient: currentMediaClient } = this.state;\n\t\tthis.setState({\n\t\t\tmediaClient: currentMediaClient ? undefined : defaultMediaClient,\n\t\t});\n\t};\n\ttoggleMediaViewer = () => {\n\t\tconst { shouldOpenMediaViewer } = this.state;\n\t\tthis.setState({\n\t\t\tshouldOpenMediaViewer: !shouldOpenMediaViewer,\n\t\t});\n\t};\n\trender() {\n\t\tconst { items, mediaClient, shouldOpenMediaViewer } = this.state;\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t{\n\t\t\t\t<div css={filmstripWrapperStyles}>\n\t\t\t\t\t<Filmstrip\n\t\t\t\t\t\tmediaClientConfig={mediaClient && mediaClient.config}\n\t\t\t\t\t\titems={items}\n\t\t\t\t\t\tshouldOpenMediaViewer={shouldOpenMediaViewer}\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t\t<div>\n\t\t\t\t\tUpload file <input type=\"file\" onChange={this.uploadFile} />\n\t\t\t\t</div>\n\t\t\t\t<div>\n\t\t\t\t\t<Button appearance=\"primary\" onClick={this.toggleMediaClient}>\n\t\t\t\t\t\ttoggle mediaClient\n\t\t\t\t\t</Button>\n\t\t\t\t\tMediaClient is: {mediaClient ? 'ON' : 'OFF'}\n\t\t\t\t</div>\n\t\t\t\t<div>\n\t\t\t\t\t<Button appearance=\"primary\" onClick={this.toggleMediaViewer}>\n\t\t\t\t\t\ttoggle mediaViewer\n\t\t\t\t\t</Button>\n\t\t\t\t\tMediaClient is: {shouldOpenMediaViewer ? 'ON' : 'OFF'}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t);\n\t}\n}\nexport default (): React.JSX.Element => <Example />;",
 		],
 		props: [
 			{
@@ -11768,6 +11788,393 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'AutoSuggest',
+		package: '@atlassian/conversation-assistant-auto-suggest',
+		description: 'Displays prompt suggestions for the current Rovo Chat query.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use beside a Rovo Chat prompt input when suggestions should help people complete an in-progress query.',
+			'Keep selection handling in the host so the selected suggestion can be inserted into the active composer.',
+		],
+		keywords: ['rovo', 'chat', 'suggestions', 'prompt'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'adf',
+				type: 'DocNode',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'onSuggestionSelect',
+				type: '(suggestion: AutoSuggestOption) => void',
+				isRequired: true,
+			},
+			{
+				name: 'pageContextType',
+				type: 'string',
+			},
+			{
+				name: 'position',
+				type: '"top" | "bottom"',
+				defaultValue: '"bottom"',
+			},
+			{
+				name: 'productKey',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'query',
+				type: 'string',
+			},
+			{
+				name: 'source',
+				type: 'AUTOSUGGEST_SOURCE',
+				defaultValue: 'AUTOSUGGEST_SOURCE.CONFLUENCE_AIFC',
+			},
+		],
+	},
+	{
+		name: 'AutoSuggestFloatingMenu',
+		package: '@atlassian/conversation-assistant-auto-suggest',
+		description: 'Renders the floating menu used to present auto-suggest options.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use through AutoSuggest unless the host owns the suggestion menu composition.',
+		],
+		keywords: ['rovo', 'chat', 'suggestions', 'menu'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'emojiProvider',
+				type: 'Promise<EmojiProvider>',
+			},
+			{
+				name: 'items',
+				type: 'AutoSuggestFloatingMenuItem[]',
+				isRequired: true,
+			},
+			{
+				name: 'layout',
+				type: '"sidebar" | "fullscreen"',
+				defaultValue: '"sidebar"',
+			},
+			{
+				name: 'onDismiss',
+				type: '() => void',
+			},
+			{
+				name: 'onSelectItem',
+				type: '(item: AutoSuggestFloatingMenuItem) => void',
+				isRequired: true,
+			},
+			{
+				name: 'searchQuery',
+				type: 'string',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'AutoSuggestScreen',
+		package: '@atlassian/conversation-assistant-auto-suggest',
+		description: 'Provides the screen-level auto-suggest presentation for a conversation surface.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when the host needs the complete auto-suggest screen rather than only the floating menu.',
+		],
+		keywords: ['rovo', 'chat', 'suggestions', 'screen'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'items',
+				type: 'AutoSuggestItem[]',
+				isRequired: true,
+			},
+			{
+				name: 'layout',
+				type: '"sidebar" | "fullscreen"',
+				defaultValue: '"sidebar"',
+			},
+			{
+				name: 'onDismiss',
+				type: '() => void',
+			},
+			{
+				name: 'onItemHover',
+				type: '(item: AutoSuggestItem) => void',
+			},
+			{
+				name: 'onSelectItem',
+				type: '(item: AutoSuggestItem) => void',
+				isRequired: true,
+			},
+			{
+				name: 'onViewAllSkills',
+				type: '() => void',
+			},
+			{
+				name: 'renderHoverCardContent',
+				type: '(item: AutoSuggestItem) => React.ReactNode',
+			},
+			{
+				name: 'searchQuery',
+				type: 'string',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'BlankObjectExperienceInlineModal',
+		package: '@atlassian/conversation-assistant-blank-object-experience',
+		description:
+			'Public blank-object-experience-inline-modal entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public blank-object-experience-inline-modal entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'blankObjectExperienceProps',
+				type: 'ConversationAssistantBlankObjectExperienceProps',
+				description:
+					'Props passed through to the inner ConversationAssistantBlankObjectExperience.\nIncludes siteId, onSubmit, smartPrompts, etc.',
+				isRequired: true,
+			},
+			{
+				name: 'contentId',
+				type: 'string',
+				description:
+					"contentId of the freshly-staged content. When provided with `contentType`, the\nexperience registers it as the 'staging-area' target while mounted so AFM gathers\nthe correct editor/whiteboard/database context for the BPOE first prompt.",
+			},
+			{
+				name: 'contentType',
+				type: '"liveDoc" | "page" | "whiteboard" | "database"',
+				description: 'The current content type being created.',
+			},
+			{
+				name: 'headerText',
+				type: 'string',
+				description: 'Heading text displayed at the top.\ne.g. "Let\'s create a whiteboard"',
+				isRequired: true,
+			},
+			{
+				name: 'illustration',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description:
+					'Illustration shown at the top in the default (idle) state.\nOn prompt hover, this crossfades to the prompt\'s icon.\nOn prompt click, the prompt\'s icon is "set" (persisted).',
+				isRequired: true,
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+				description:
+					'Called when the experience is dismissed. Unlike the modal, there is no in-component\nclose button — the parent controls when this experience is removed. This fires on\nunmount so the parent is notified and the dismiss analytics event is captured.',
+			},
+			{
+				name: 'onImport',
+				type: '() => void',
+				description: 'Optional callback for an "Import" action (e.g. import from file).',
+			},
+			{
+				name: 'onTemplateSelect',
+				type: '() => void',
+				description: 'Optional callback for a "Start from a template" action.',
+			},
+			{
+				name: 'variant',
+				type: 'string',
+				description:
+					'The experiment variant the user is assigned to for cwr_blank_object_experiment.',
+			},
+		],
+	},
+	{
+		name: 'BlankObjectExperienceInlineModalTypes',
+		package: '@atlassian/conversation-assistant-blank-object-experience',
+		description:
+			'Public blank-object-experience-inline-modal/types entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public blank-object-experience-inline-modal/types entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'BlankObjectExperienceModal',
+		package: '@atlassian/conversation-assistant-blank-object-experience',
+		description:
+			'Public blank-object-experience-modal entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public blank-object-experience-modal entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'blankObjectExperienceProps',
+				type: 'ConversationAssistantBlankObjectExperienceProps',
+				description:
+					'Props passed through to the inner ConversationAssistantBlankObjectExperience.\nIncludes siteId, onSubmit, smartPrompts, etc.',
+				isRequired: true,
+			},
+			{
+				name: 'contentId',
+				type: 'string',
+				description:
+					"contentId of the freshly-staged content. When provided with `contentType`, the\nmodal registers it as the 'staging-area' target while open so AFM gathers\nthe correct editor/whiteboard/database context for the BPOE first prompt",
+			},
+			{
+				name: 'contentType',
+				type: '"liveDoc" | "page" | "whiteboard" | "database"',
+				description: 'The current content type being created.',
+			},
+			{
+				name: 'headerText',
+				type: 'string',
+				description:
+					'Heading text displayed at the top of the modal.\ne.g. "Let\'s create a database"',
+				isRequired: true,
+			},
+			{
+				name: 'illustration',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Illustration shown at the top of the modal in the default (idle) state.\nOn prompt hover, this crossfades to the prompt\'s icon.\nOn prompt click, the prompt\'s icon is "set" (persisted).',
+				isRequired: true,
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+				description:
+					'Called when the user closes the modal (via X button, escape, or overlay click).',
+				isRequired: true,
+			},
+			{
+				name: 'onImport',
+				type: '() => void',
+				description: 'Optional callback for an "Import" action (e.g. import from file).',
+			},
+			{
+				name: 'onTemplateSelect',
+				type: '() => void',
+				description: 'Optional callback for a "Start from a template" action.',
+			},
+			{
+				name: 'variant',
+				type: 'string',
+				description:
+					'The experiment variant the user is assigned to for cwr_blank_object_experiment.',
+			},
+		],
+	},
+	{
+		name: 'BlankObjectExperienceModalTypes',
+		package: '@atlassian/conversation-assistant-blank-object-experience',
+		description:
+			'Public blank-object-experience-modal/types entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public blank-object-experience-modal/types entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'BlankObjectExperienceSideModal',
+		package: '@atlassian/conversation-assistant-blank-object-experience',
+		description:
+			'Public blank-object-experience-side-modal entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public blank-object-experience-side-modal entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'blankObjectExperienceProps',
+				type: 'ConversationAssistantBlankObjectExperienceProps',
+				description:
+					'Props passed through to the inner ConversationAssistantBlankObjectExperience.\nIncludes siteId, onSubmit, smartPrompts, etc.',
+				isRequired: true,
+			},
+			{
+				name: 'contentId',
+				type: 'string',
+				description:
+					"contentId of the freshly-staged content. When provided with `contentType`, the\nside modal registers it as the 'staging-area' target while open so AFM gathers\nthe correct editor/whiteboard/database context for the BPOE first prompt.",
+			},
+			{
+				name: 'contentType',
+				type: '"liveDoc" | "page" | "whiteboard" | "database"',
+				description: 'The current content type being created.',
+			},
+			{
+				name: 'headerText',
+				type: 'string',
+				description:
+					'Heading text displayed at the top of the side modal.\ne.g. "What do you want to create?"',
+				isRequired: true,
+			},
+			{
+				name: 'illustration',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Illustration shown at the top of the side modal in the default (idle) state.\nOn prompt hover, this crossfades to the prompt\'s icon.\nOn prompt click, the prompt\'s icon is "set" (persisted).',
+				isRequired: true,
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+				description: 'Called when the user closes the side modal (via the X button).',
+				isRequired: true,
+			},
+			{
+				name: 'onTemplateSelect',
+				type: '() => void',
+				description: 'Optional callback for the "Start from template" action.',
+			},
+			{
+				name: 'variant',
+				type: '"variant1" | "variant2"',
+				description: 'The controlled experiment variant assigned by cwr_blank_object_experiment.',
+			},
+		],
+	},
+	{
+		name: 'BlankObjectExperienceSideModalTypes',
+		package: '@atlassian/conversation-assistant-blank-object-experience',
+		description:
+			'Public blank-object-experience-side-modal/types entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public blank-object-experience-side-modal/types entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
 		name: 'GoogleCalendarIconBorderless',
 		package: '@atlassian/conversation-assistant-chat-prompt-input',
 		description: 'Renders the borderless Google Calendar icon used in app-selection surfaces.',
@@ -11950,7 +12357,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'actionsMenuItemsVisibility',
-				type: '{ fileUpload?: boolean; mention?: boolean; format?: boolean; deepResearch?: boolean; link?: boolean; }',
+				type: '{ fileUpload?: boolean; mention?: boolean; format?: boolean; deepResearch?: boolean; concierge?: boolean; link?: boolean; }',
 			},
 			{
 				name: 'adaptiveHeight',
@@ -12109,6 +12516,13 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Controls whether the Work mode (task mode) option is shown in the reasoning mode selector. Defaults to true. Set to false for CWR entry points.',
 			},
 			{
+				name: 'enableProgrammaticAgentSelection',
+				type: 'boolean',
+				description:
+					'Enables host-controlled selected-agent routing without adding agent rows to\nthe @mention picker. Used by constrained surfaces that seed a draft agent\nthemselves. Also requires the `sltns-1529-draft-agent-non-consequential`\nfeature gate; it does not depend on `rovo_chat_mention_agents`.',
+				defaultValue: 'false',
+			},
+			{
 				name: 'enableSkills',
 				type: 'boolean',
 				description: 'Enables skills API call and rendering of skills related UI.',
@@ -12233,6 +12647,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '() => void',
 			},
 			{
+				name: 'onConciergeDismiss',
+				type: '() => void',
+				description:
+					'Agent Concierge (RSA-1424 mockup): called when the user dismisses (X) a\nconcierge-driven ("Auto") input hat. Lets the host clear the concierge\nselection and suppress concierge routing for the current conversation.',
+			},
+			{
 				name: 'onContextAvailable',
 				type: '(context: PromptInputContext[]) => void',
 			},
@@ -12280,7 +12700,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onSubmit',
-				type: '(prompt: DocNode, mode: { autoActionApprovalMode?: AutoActionApprovalMode; deepResearchEnabled: boolean; thinkDeeperEnabled?: boolean; alphaExtendedThinkingMode?: AlphaExtendedThinkingMode; ... 12 more ...; messageAgentIdentity?: MessageAgentIdentity; }, files?: UploadedFile[], externalContexts?: TemplateRepresentat...',
+				type: '(prompt: DocNode, mode: { autoActionApprovalMode?: AutoActionApprovalMode; deepResearchEnabled: boolean; thinkDeeperEnabled?: boolean; alphaExtendedThinkingMode?: AlphaExtendedThinkingMode; ... 14 more ...; agentVersion?: AgentVersionInput; }, files?: UploadedFile[], externalContexts?: TemplateRepresentation[]) => v...',
 				isRequired: true,
 			},
 			{
@@ -12335,11 +12755,16 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'selectedAgentForInputHat',
-				type: '{ id: string; name?: string; namedId?: string; identityAccountId?: string; creatorType?: string; iconUrl?: string; }',
+				type: '{ id: string; name?: string; namedId?: string; identityAccountId?: string; creatorType?: string; iconUrl?: string; isConcierge?: boolean; }',
 			},
 			{
 				name: 'shouldBeCentered',
 				type: 'boolean',
+			},
+			{
+				name: 'shouldFlipQuickActions',
+				type: 'boolean',
+				description: 'Enables responsive fallback placement for the quick actions popup.',
 			},
 			{
 				name: 'shouldFocusOnMount',
@@ -12376,6 +12801,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'boolean',
 				description:
 					'Whether this input consumes prompt insertions from the shared editor-placeholder store.\nInputs that use a surface-local prompt selection flow can opt out to avoid consuming an\ninsertion intended for another open chat surface.\n\nDefaults to true.',
+			},
+			{
+				name: 'shouldUseMenuPositionForSources',
+				type: 'boolean',
+				description: 'Applies menuPosition to the Sources menu instead of its top-start default.',
 			},
 			{
 				name: 'showActionsButton',
@@ -13259,7 +13689,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'name',
-				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 145 more ... | "aiMateAifcDeepLinkLaunch"',
+				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 146 more ... | "aiMateAifcDeepLinkLaunch"',
 				isRequired: true,
 			},
 		],
@@ -13282,7 +13712,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'name',
-				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 145 more ... | "aiMateAifcDeepLinkLaunch"',
+				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 146 more ... | "aiMateAifcDeepLinkLaunch"',
 				isRequired: true,
 			},
 		],
@@ -13307,7 +13737,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'name',
-				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 145 more ... | "aiMateAifcDeepLinkLaunch"',
+				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 146 more ... | "aiMateAifcDeepLinkLaunch"',
 				isRequired: true,
 			},
 			{
@@ -14668,6 +15098,331 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 		],
+	},
+	{
+		name: 'ConstantsSpotlight',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public constants/spotlight entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public constants/spotlight entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'ControllersSpotlight',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public controllers/spotlight entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public controllers/spotlight entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiAtlasHomeFomoSpotlight',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/AtlasHomeFomoSpotlight entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/AtlasHomeFomoSpotlight entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiAtlasHomeFomoSpotlightAsync',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/AtlasHomeFomoSpotlightAsync entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/AtlasHomeFomoSpotlightAsync entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiAtlasHomeFomoSpotlightConsumer',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/AtlasHomeFomoSpotlightConsumer entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/AtlasHomeFomoSpotlightConsumer entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiAtlasHomeFomoSpotlightPlacement',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/AtlasHomeFomoSpotlightPlacement entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/AtlasHomeFomoSpotlightPlacement entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiGettingStartedTour',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/GettingStartedTour entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/GettingStartedTour entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiRovoFullPageSpotlight',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/RovoFullPageSpotlight entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/RovoFullPageSpotlight entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiRovoFullPageSpotlightAsync',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/RovoFullPageSpotlightAsync entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/RovoFullPageSpotlightAsync entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiRovoFullPageSpotlightConsumer',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/RovoFullPageSpotlightConsumer entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/RovoFullPageSpotlightConsumer entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiRovoFullPageSpotlightPlacement',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/RovoFullPageSpotlightPlacement entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/RovoFullPageSpotlightPlacement entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiSmartLink3PPostAuthActions',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description:
+			'Public ui/SmartLink3PPostAuthActions entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/SmartLink3PPostAuthActions entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiSpotlight',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description: 'Public ui/Spotlight entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/Spotlight entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiStartTour',
+		package: '@atlassian/conversation-assistant-onboarding',
+		description: 'Public ui/StartTour entrypoint for @atlassian/conversation-assistant-onboarding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/StartTour entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'ConversationAssistantPreviewCard',
+		package: '@atlassian/conversation-assistant-preview-card',
+		description:
+			'Public conversation-assistant-preview-card entrypoint for @atlassian/conversation-assistant-preview-card.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public conversation-assistant-preview-card entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'JiraCreateWithRovoPreviewCard',
+		package: '@atlassian/conversation-assistant-preview-card',
+		description:
+			'Public jira-create-with-rovo-preview-card entrypoint for @atlassian/conversation-assistant-preview-card.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public jira-create-with-rovo-preview-card entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'actions',
+				type: 'MessageAction[]',
+				isRequired: true,
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'conversationId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'invokedActions',
+				type: '{ [invocationId: string]: MessageActionInvocationStatus; }',
+			},
+			{
+				name: 'isEnabled',
+				type: 'boolean',
+			},
+			{
+				name: 'isLastMessage',
+				type: 'boolean',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				isRequired: true,
+			},
+			{
+				name: 'isStagingArea',
+				type: 'boolean',
+				isRequired: true,
+			},
+			{
+				name: 'messageId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'onPreviewClick',
+				type: '(e: React.MouseEvent<HTMLButtonElement>) => void',
+				isRequired: true,
+			},
+			{
+				name: 'product',
+				type: 'string',
+			},
+			{
+				name: 'resolveActions',
+				type: '(actionKey: string, actionResolution: MessageActionResolutions, invocationIds: string[], invocationIdToCreatedIssueKey?: Record<string, string>) => void',
+				isRequired: true,
+			},
+			{
+				name: 'showSuccessFlagOnCreate',
+				type: 'boolean',
+			},
+		],
+	},
+	{
+		name: 'ScheduledChatsPreviewCard',
+		package: '@atlassian/conversation-assistant-preview-card',
+		description:
+			'Public scheduled-chats-preview-card entrypoint for @atlassian/conversation-assistant-preview-card.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public scheduled-chats-preview-card entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'ConversationAssistantSitePicker',
+		package: '@atlassian/conversation-assistant-site-picker',
+		description:
+			'Public conversation-assistant-site-picker entrypoint for @atlassian/conversation-assistant-site-picker.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public conversation-assistant-site-picker entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'SitePickerRefresh',
+		package: '@atlassian/conversation-assistant-site-picker',
+		description:
+			'Public site-picker-refresh entrypoint for @atlassian/conversation-assistant-site-picker.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public site-picker-refresh entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
 	},
 	{
 		name: 'ChatHeaderRefresh',
@@ -17788,6 +18543,117 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [],
 	},
 	{
+		name: 'UiVisualizationChartChartActionChartTypes',
+		package: '@atlassian/conversation-assistant-viz',
+		description:
+			'Public ui/visualization-chart/chart-action/chart-types entrypoint for @atlassian/conversation-assistant-viz.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/visualization-chart/chart-action/chart-types entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiVisualizationChartChartError',
+		package: '@atlassian/conversation-assistant-viz',
+		description:
+			'Public ui/visualization-chart/ChartError entrypoint for @atlassian/conversation-assistant-viz.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/visualization-chart/ChartError entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiVisualizationChartChartLoader',
+		package: '@atlassian/conversation-assistant-viz',
+		description:
+			'Public ui/visualization-chart/ChartLoader entrypoint for @atlassian/conversation-assistant-viz.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/visualization-chart/ChartLoader entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiVisualizationChartChartRendererStreamableAnimated',
+		package: '@atlassian/conversation-assistant-viz',
+		description:
+			'Public ui/visualization-chart/ChartRendererStreamableAnimated entrypoint for @atlassian/conversation-assistant-viz.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/visualization-chart/ChartRendererStreamableAnimated entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiVisualizationChartMain',
+		package: '@atlassian/conversation-assistant-viz',
+		description:
+			'Public ui/visualization-chart/main entrypoint for @atlassian/conversation-assistant-viz.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/visualization-chart/main entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiVisualizationChartVisualizationChart',
+		package: '@atlassian/conversation-assistant-viz',
+		description:
+			'Public ui/visualization-chart/VisualizationChart entrypoint for @atlassian/conversation-assistant-viz.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/visualization-chart/VisualizationChart entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiWidgetWrapper',
+		package: '@atlassian/conversation-assistant-viz',
+		description: 'Public ui/widget-wrapper entrypoint for @atlassian/conversation-assistant-viz.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/widget-wrapper entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiWidgetWrapperChartPropSchema',
+		package: '@atlassian/conversation-assistant-viz',
+		description:
+			'Public ui/widget-wrapper/chart-prop-schema entrypoint for @atlassian/conversation-assistant-viz.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/widget-wrapper/chart-prop-schema entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
 		name: 'AsyncConversationAssistantWidget',
 		package: '@atlassian/conversation-assistant-widget',
 		description: 'Loads and renders the Conversation Assistant widget asynchronously.',
@@ -19729,7 +20595,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onClick',
-				type: '() => void',
+				type: '(correlationId: string) => void',
 			},
 			{
 				name: 'onError',
@@ -21893,7 +22759,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"color" | "clipPath" | "filter" | "marker" | "mask" | "translate" | "content" | "grid" | "flex" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "translate" | "content" | "color" | "grid" | "flex" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -22201,6 +23067,94 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 		],
+	},
+	{
+		name: 'CreditsBanner',
+		package: '@atlassian/rovo-credits',
+		description: 'Public credits-banner entrypoint for @atlassian/rovo-credits.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public credits-banner entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'budgetType',
+				type: '"individual" | "organization"',
+			},
+			{
+				name: 'onDismiss',
+				type: '() => void',
+				description:
+					'Optional notification fired when the user clicks dismiss. Use it for analytics,\ntelemetry, or parent-side cleanup. The banner manages its own visibility\nvia `localStorage` regardless of whether this is provided.',
+			},
+			{
+				name: 'onError',
+				type: '(error: Error) => void',
+				description:
+					'Optional notification fired when best-effort dismissal persistence fails.\nUse it for telemetry or production diagnostics; failures do not block the\nbanner from rendering.',
+			},
+			{
+				name: 'resetDate',
+				type: 'number',
+				description:
+					'Unix ms timestamp; surfaced only by `depleted-degrade`. Invalid dates are ignored.\nCurrently unused; the backend does not yet supply this value (see GIZMO-53).',
+			},
+		],
+	},
+	{
+		name: 'CreditsUiState',
+		package: '@atlassian/rovo-credits',
+		description: 'Public credits-ui-state entrypoint for @atlassian/rovo-credits.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public credits-ui-state entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'CreditsUiStateTypes',
+		package: '@atlassian/rovo-credits',
+		description: 'Public credits-ui-state/types entrypoint for @atlassian/rovo-credits.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public credits-ui-state/types entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiFomoNudgeContent',
+		package: '@atlassian/rovo-fomo-nudge',
+		description: 'Public ui/FomoNudgeContent entrypoint for @atlassian/rovo-fomo-nudge.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/FomoNudgeContent entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'UiFomoNudgeIcon',
+		package: '@atlassian/rovo-fomo-nudge',
+		description: 'Public ui/FomoNudgeIcon entrypoint for @atlassian/rovo-fomo-nudge.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ui/FomoNudgeIcon entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
 	},
 	{
 		name: 'ForYouPanel',
@@ -22824,7 +23778,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'experienceName',
-				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 145 more ... | "aiMateAifcDeepLinkLaunch"',
+				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 146 more ... | "aiMateAifcDeepLinkLaunch"',
 				isRequired: true,
 			},
 			{
@@ -23222,7 +24176,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'conversations',
-				type: '({ id: string; name: string; messages: StoreChatItem[]; status: CHAT_STORE_STATUS; traces: Trace[]; storeAbortController?: StoreAbortController; ... 28 more ...; targetTaskMessageId?: string; } & { isEmpty: boolean; currentTask?: ApiTaskSSEUpdate; })[]',
+				type: '({ id: string; name: string; messages: StoreChatItem[]; status: CHAT_STORE_STATUS; traces: Trace[]; storeAbortController?: StoreAbortController; ... 29 more ...; conciergeSelectedAgent?: AgentMetadata; } & { isEmpty: boolean; currentTask?: ApiTaskSSEUpdate; })[]',
 				defaultValue: '[]',
 				isRequired: true,
 			},
@@ -23349,7 +24303,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'conversations',
-				type: '({ id: string; name: string; messages: StoreChatItem[]; status: CHAT_STORE_STATUS; traces: Trace[]; storeAbortController?: StoreAbortController; ... 28 more ...; targetTaskMessageId?: string; } & { isEmpty: boolean; currentTask?: ApiTaskSSEUpdate; })[]',
+				type: '({ id: string; name: string; messages: StoreChatItem[]; status: CHAT_STORE_STATUS; traces: Trace[]; storeAbortController?: StoreAbortController; ... 29 more ...; conciergeSelectedAgent?: AgentMetadata; } & { isEmpty: boolean; currentTask?: ApiTaskSSEUpdate; })[]',
 				isRequired: true,
 			},
 			{
@@ -23607,6 +24561,290 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '"rovo_default" | "professional" | "creative" | "empathetic"',
 				description:
 					'The writing-style tone shown as selected. Defaults to "Rovo default" when\nomitted, keeping the component usable as a purely presentational entry point.',
+			},
+		],
+	},
+	{
+		name: 'PinnedItemInsightsBanner',
+		package: '@atlassian/rovo-pins',
+		description: 'Public PinnedItemInsightsBanner entrypoint for @atlassian/rovo-pins.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public PinnedItemInsightsBanner entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'href',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'onOpen',
+				type: '(payload: PinnedItemInsightsOpenPayload) => void',
+			},
+			{
+				name: 'pinType',
+				type: '"AtlasGoal" | "AtlasProject" | "JiraIssue"',
+				isRequired: true,
+			},
+			{
+				name: 'targetAri',
+				type: 'string',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'PinnedWorkSection',
+		package: '@atlassian/rovo-pins',
+		description: 'Public PinnedWorkSection entrypoint for @atlassian/rovo-pins.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public PinnedWorkSection entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'isActive',
+				type: 'boolean',
+				description: 'Whether the containing Your Work view is currently visible.',
+				defaultValue: 'true',
+			},
+			{
+				name: 'onOpenInsights',
+				type: '(item: PinnedItem, payload: PinnedItemInsightsOpenPayload) => void',
+				description: "Called when a pinned item's available updates count is clicked.",
+			},
+			{
+				name: 'onPinWorkClick',
+				type: '() => void',
+				description:
+					'Called when the "+" button or, in the empty state, the "Pin work" button is clicked.',
+				isRequired: true,
+			},
+			{
+				name: 'onStartChat',
+				type: '(item: PinnedItem) => void',
+				description: 'Called when a pinned item\'s "Start chat" button is clicked.',
+				isRequired: true,
+			},
+			{
+				name: 'product',
+				type: 'string',
+			},
+		],
+	},
+	{
+		name: 'ProactiveInsightBanner',
+		package: '@atlassian/rovo-pins',
+		description: 'Public ProactiveInsightBanner entrypoint for @atlassian/rovo-pins.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ProactiveInsightBanner entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'ariaControls',
+				type: 'string',
+				description: 'Identifies the hover-card content controlled by the banner.',
+			},
+			{
+				name: 'ariaHasPopup',
+				type: 'boolean | "dialog"',
+				description: 'Describes the popup exposed by the banner.',
+			},
+			{
+				name: 'count',
+				type: 'number',
+				description: 'The number of proactive updates available for the pinned item.',
+				isRequired: true,
+			},
+			{
+				name: 'href',
+				type: 'string',
+				description: 'The destination for the proactive insight details.',
+				isRequired: true,
+			},
+			{
+				name: 'isExpanded',
+				type: 'boolean',
+				description: "Whether the banner's hover-card content is currently visible.",
+			},
+			{
+				name: 'onClick',
+				type: '(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void',
+				description:
+					'Lets a host open an in-product detail surface while preserving link semantics.',
+			},
+			{
+				name: 'targetType',
+				type: '"project" | "goal" | "epic"',
+				description: 'The pinned item type associated with the available updates.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'ProactiveInsightCard',
+		package: '@atlassian/rovo-pins',
+		description: 'Public ProactiveInsightCard entrypoint for @atlassian/rovo-pins.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ProactiveInsightCard entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'density',
+				type: '"collapsed" | "expanded" | "compact"',
+				defaultValue: '"collapsed"',
+			},
+			{
+				name: 'insight',
+				type: '{ id: string; insightType: string; title: string; content: string; contentFormat: string; confidenceScore?: number; subtype?: string; createdAt?: string; updatedAt?: string; associatedEntities: readonly { entityType: string; id: string; }[]; sources: readonly { ...; }[]; }',
+				isRequired: true,
+			},
+			{
+				name: 'onExpandedChange',
+				type: '(expanded: boolean) => void',
+			},
+		],
+	},
+	{
+		name: 'ProactiveInsightCardStack',
+		package: '@atlassian/rovo-pins',
+		description: 'Public ProactiveInsightCardStack entrypoint for @atlassian/rovo-pins.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ProactiveInsightCardStack entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'insights',
+				type: 'readonly ProactiveInsight[]',
+				isRequired: true,
+			},
+			{
+				name: 'renderInsightFooter',
+				type: '(insight: ProactiveInsight) => React.ReactNode',
+			},
+		],
+	},
+	{
+		name: 'ProactiveInsightsHoverCard',
+		package: '@atlassian/rovo-pins',
+		description: 'Public ProactiveInsightsHoverCard entrypoint for @atlassian/rovo-pins.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public ProactiveInsightsHoverCard entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'insights',
+				type: 'readonly HoverCardInsight[]',
+				description:
+					'Host-provided insights that have already passed authorization and privacy checks.',
+				isRequired: true,
+			},
+			{
+				name: 'onDismiss',
+				type: '() => void',
+				description: 'Optional close action for hosts that render a dismissible popup.',
+			},
+			{
+				name: 'onInsightClick',
+				type: '(insight: HoverCardInsight) => void',
+				description: 'Optional host or example action. This component does not navigate.',
+			},
+			{
+				name: 'onSeeMore',
+				type: '() => void',
+				description: 'Opens the host-owned expanded insights surface.',
+			},
+		],
+	},
+	{
+		name: 'SearchWorkPage',
+		package: '@atlassian/rovo-pins',
+		description: 'Public SearchWorkPage entrypoint for @atlassian/rovo-pins.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public SearchWorkPage entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'chatRefreshHeader',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				description:
+					'Tenant cloud id (aka siteId), threaded from the host panel (rovo-for-you already owns this\nas a prop). Passed as a prop rather than read from a cross-package config context so this\npackage stays a self-contained leaf with no dependency on conversation-assistant internals.',
+				isRequired: true,
+			},
+			{
+				name: 'fullScreen',
+				type: 'boolean',
+				description:
+					'Whether the host panel is in full-screen mode; hides the shared chat header when true.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'product',
+				type: 'string',
+			},
+		],
+	},
+	{
+		name: 'SearchWorkPageLoading',
+		package: '@atlassian/rovo-pins',
+		description: 'Public SearchWorkPageLoading entrypoint for @atlassian/rovo-pins.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public SearchWorkPageLoading entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'chatRefreshHeader',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'fullScreen',
+				type: 'boolean',
+				defaultValue: 'false',
 			},
 		],
 	},
@@ -27302,6 +28540,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'Whether to render the ready-state check icon. Defaults to `true`.',
 				defaultValue: 'true',
 			},
+			{
+				name: 'successIcon',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+			},
 		],
 	},
 	{
@@ -27367,7 +28609,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'thinkingReadyProps',
-				type: '{ onView?: () => void; onClose: () => void; readyText?: string; showCheckIcon?: boolean; }',
+				type: '{ onView?: () => void; onClose: () => void; readyText?: string; showCheckIcon?: boolean; successIcon?: ReactNode; }',
 				description:
 					'Props forwarded to `RovoThinkingReady` (displayed once the transition completes).',
 				isRequired: true,
@@ -27517,7 +28759,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 			},
 		],
 	},
@@ -27547,7 +28789,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 			},
 		],
 	},
@@ -27581,7 +28823,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				defaultValue: '"compact"',
 			},
 		],
@@ -28262,14 +29504,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
-				name: 'compactFirstSeparator',
-				type: 'boolean',
-				description: 'Tightens the first separator when the first detail includes a visible label.',
-				defaultValue: 'false',
-			},
-			{
 				name: 'separator',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string',
 				defaultValue: '"·"',
 			},
 		],
@@ -28311,25 +29547,34 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 	{
 		name: 'SessionList',
 		package: '@atlassian/rovo-platform-ui-components',
-		description: 'A semantic list for display-ready, source-neutral agent sessions.',
+		description: 'A semantic list that presents normalized agent session data.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Pass stable identities and display-ready props; keep data fetching, ordering, navigation, analytics, and localization in the consuming feature.',
+			'Pass normalized sessions and an optional onOpenConversation callback inside an IntlProvider. The list owns row formatting and accessible labels.',
+			'Keep fetching, filtering, ordering, limits, pagination, page states, navigation, and analytics in the consuming feature. Sessions render in caller order without filtering or limiting.',
 			'Use SessionListItem directly only when a source-neutral row is needed outside a mapped collection.',
 		],
 		keywords: ['rovo', 'agent', 'session', 'list', 'collection'],
 		category: 'rovo',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionListEmpty } from '@atlassian/rovo-platform-ui-components/session-list/SessionListEmpty';\nimport { SessionListError } from '@atlassian/rovo-platform-ui-components/session-list/SessionListError';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nimport { SessionListLoading } from '@atlassian/rovo-platform-ui-components/session-list/SessionListLoading';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tmaxWidth: '1000px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Stack xcss={styles.wrapper} space=\"space.400\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Populated</Heading>\n\t\t\t\t<SessionList\n\t\t\t\t\tariaLabel=\"Agent sessions\"\n\t\t\t\t\titems={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'full',\n\t\t\t\t\t\t\ttitle: 'Prepare the quarterly review',\n\t\t\t\t\t\t\tisUnread: true,\n\t\t\t\t\t\t\tunreadLabel: 'Unread',\n\t\t\t\t\t\t\tagents: [\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tid: 'planning-agent',\n\t\t\t\t\t\t\t\t\tname: 'Planning agent',\n\t\t\t\t\t\t\t\t\tagentIdentityAccountId: 'planning-agent',\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\tadditionalAgentCount: 2,\n\t\t\t\t\t\t\tcontext: 'DS-204',\n\t\t\t\t\t\t\trelativeTime: '5m',\n\t\t\t\t\t\t\tstatus: 'needs-input',\n\t\t\t\t\t\t\tonActivate: () => {},\n\t\t\t\t\t\t\tactivationLabel: 'Open session: Prepare the quarterly review',\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{ id: 'sparse', title: 'Summarize the planning notes' },\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<SessionListFooter state=\"end\" label=\"You have reached the end\" />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Loading</Heading>\n\t\t\t\t<SessionListLoading label=\"Loading items\" rowCount={3} />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Empty</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListEmpty\n\t\t\t\t\t\theader=\"Nothing needs your input\"\n\t\t\t\t\t\tdescription=\"When an agent needs a decision or confirmation from you, it'll show up here.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error with retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Check your connection and try again.\"\n\t\t\t\t\t\tretryLabel=\"Try again\"\n\t\t\t\t\t\tonRetry={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error without retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Retrying isn't available for this page.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionListEmpty } from '@atlassian/rovo-platform-ui-components/session-list/SessionListEmpty';\nimport { SessionListError } from '@atlassian/rovo-platform-ui-components/session-list/SessionListError';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nimport { SessionListLoading } from '@atlassian/rovo-platform-ui-components/session-list/SessionListLoading';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tmaxWidth: '1000px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Stack xcss={styles.wrapper} space=\"space.400\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Populated</Heading>\n\t\t\t\t<SessionList\n\t\t\t\t\tariaLabel=\"Agent sessions\"\n\t\t\t\t\tonOpenConversation={() => {}}\n\t\t\t\t\tsessions={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'full',\n\t\t\t\t\t\t\ttitle: 'Prepare the quarterly review',\n\t\t\t\t\t\t\tisUnread: true,\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tcontext: 'DS-204',\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t\trequiresInput: true,\n\t\t\t\t\t\t\tconversationId: 'conversation-full',\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{ id: 'sparse', title: 'Summarize the planning notes' },\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<SessionListFooter state=\"end\" label=\"You have reached the end\" />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Loading</Heading>\n\t\t\t\t<SessionListLoading label=\"Loading items\" rowCount={3} />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Empty</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListEmpty\n\t\t\t\t\t\theader=\"Nothing needs your input\"\n\t\t\t\t\t\tdescription=\"When an agent needs a decision or confirmation from you, it'll show up here.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error with retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Check your connection and try again.\"\n\t\t\t\t\t\tretryLabel=\"Try again\"\n\t\t\t\t\t\tonRetry={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error without retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Retrying isn't available for this page.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
 				name: 'ariaLabel',
 				type: 'string',
+				description: 'Overrides the localized default list name.',
 			},
 			{
-				name: 'items',
-				type: 'readonly SessionListEntry[]',
+				name: 'onOpenConversation',
+				type: '(conversationId: string) => void',
+				description:
+					'Enables activation for sessions with a conversation ID. Omit for a static list.',
+			},
+			{
+				name: 'sessions',
+				type: 'readonly Readonly<{ id: string; conversationId?: string; title?: string; displayAgent?: Readonly<{ id: string; name: string; }>; context?: string; lastStateChangeAt?: number; requiresInput?: boolean; isUnread?: boolean; }>[]',
+				description: 'Sessions in display order. The caller owns filtering, limits and pagination.',
 				isRequired: true,
 			},
 		],
@@ -28347,7 +29592,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'session', 'pagination', 'loading', 'error'],
 		category: 'rovo',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionListEmpty } from '@atlassian/rovo-platform-ui-components/session-list/SessionListEmpty';\nimport { SessionListError } from '@atlassian/rovo-platform-ui-components/session-list/SessionListError';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nimport { SessionListLoading } from '@atlassian/rovo-platform-ui-components/session-list/SessionListLoading';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tmaxWidth: '1000px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Stack xcss={styles.wrapper} space=\"space.400\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Populated</Heading>\n\t\t\t\t<SessionList\n\t\t\t\t\tariaLabel=\"Agent sessions\"\n\t\t\t\t\titems={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'full',\n\t\t\t\t\t\t\ttitle: 'Prepare the quarterly review',\n\t\t\t\t\t\t\tisUnread: true,\n\t\t\t\t\t\t\tunreadLabel: 'Unread',\n\t\t\t\t\t\t\tagents: [\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tid: 'planning-agent',\n\t\t\t\t\t\t\t\t\tname: 'Planning agent',\n\t\t\t\t\t\t\t\t\tagentIdentityAccountId: 'planning-agent',\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\tadditionalAgentCount: 2,\n\t\t\t\t\t\t\tcontext: 'DS-204',\n\t\t\t\t\t\t\trelativeTime: '5m',\n\t\t\t\t\t\t\tstatus: 'needs-input',\n\t\t\t\t\t\t\tonActivate: () => {},\n\t\t\t\t\t\t\tactivationLabel: 'Open session: Prepare the quarterly review',\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{ id: 'sparse', title: 'Summarize the planning notes' },\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<SessionListFooter state=\"end\" label=\"You have reached the end\" />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Loading</Heading>\n\t\t\t\t<SessionListLoading label=\"Loading items\" rowCount={3} />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Empty</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListEmpty\n\t\t\t\t\t\theader=\"Nothing needs your input\"\n\t\t\t\t\t\tdescription=\"When an agent needs a decision or confirmation from you, it'll show up here.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error with retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Check your connection and try again.\"\n\t\t\t\t\t\tretryLabel=\"Try again\"\n\t\t\t\t\t\tonRetry={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error without retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Retrying isn't available for this page.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionListEmpty } from '@atlassian/rovo-platform-ui-components/session-list/SessionListEmpty';\nimport { SessionListError } from '@atlassian/rovo-platform-ui-components/session-list/SessionListError';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nimport { SessionListLoading } from '@atlassian/rovo-platform-ui-components/session-list/SessionListLoading';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tmaxWidth: '1000px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Stack xcss={styles.wrapper} space=\"space.400\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Populated</Heading>\n\t\t\t\t<SessionList\n\t\t\t\t\tariaLabel=\"Agent sessions\"\n\t\t\t\t\tonOpenConversation={() => {}}\n\t\t\t\t\tsessions={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'full',\n\t\t\t\t\t\t\ttitle: 'Prepare the quarterly review',\n\t\t\t\t\t\t\tisUnread: true,\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tcontext: 'DS-204',\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t\trequiresInput: true,\n\t\t\t\t\t\t\tconversationId: 'conversation-full',\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{ id: 'sparse', title: 'Summarize the planning notes' },\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<SessionListFooter state=\"end\" label=\"You have reached the end\" />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Loading</Heading>\n\t\t\t\t<SessionListLoading label=\"Loading items\" rowCount={3} />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Empty</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListEmpty\n\t\t\t\t\t\theader=\"Nothing needs your input\"\n\t\t\t\t\t\tdescription=\"When an agent needs a decision or confirmation from you, it'll show up here.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error with retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Check your connection and try again.\"\n\t\t\t\t\t\tretryLabel=\"Try again\"\n\t\t\t\t\t\tonRetry={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error without retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Retrying isn't available for this page.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -28377,7 +29622,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'session', 'row', 'unread'],
 		category: 'rovo',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nconst styles = cssMap({\n\tpage: {\n\t\twidth: '100%',\n\t\tmaxWidth: '720px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n});\nconst ITEMS = [\n\t{\n\t\tid: 'full',\n\t\ttitle: 'Prepare the quarterly customer insights review',\n\t\tisUnread: true as const,\n\t\tunreadLabel: 'Unread',\n\t\tagents: [\n\t\t\t{\n\t\t\t\tid: 'insights-agent',\n\t\t\t\tname: 'Insights agent',\n\t\t\t\tagentIdentityAccountId: 'insights-agent',\n\t\t\t},\n\t\t],\n\t\tadditionalAgentCount: 2,\n\t\tcontext: 'DS-204',\n\t\trelativeTime: '5m',\n\t\tstatus: 'needs-input' as const,\n\t\tonActivate: () => {},\n\t\tactivationLabel: 'Open session: Prepare the quarterly customer insights review',\n\t},\n\t{\n\t\tid: 'sparse',\n\t\ttitle: 'Summarize the planning notes',\n\t},\n];\nexport default function SessionListPopulatedExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.page}>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<SessionList ariaLabel=\"Agent sessions\" items={ITEMS} />\n\t\t\t\t\t<SessionListFooter state=\"loading\" label=\"Loading more sessions\" />\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nconst styles = cssMap({\n\tpage: {\n\t\twidth: '100%',\n\t\tmaxWidth: '720px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n});\nconst SESSIONS = [\n\t{\n\t\tid: 'full',\n\t\ttitle: 'Prepare the quarterly customer insights review',\n\t\tisUnread: true as const,\n\t\tdisplayAgent: { id: 'insights-agent', name: 'Insights agent' },\n\t\tcontext: 'DS-204',\n\t\trequiresInput: true,\n\t\tconversationId: 'conversation-full',\n\t},\n\t{\n\t\tid: 'sparse',\n\t\ttitle: 'Summarize the planning notes',\n\t},\n];\nexport default function SessionListPopulatedExample(): React.JSX.Element {\n\tconst sessions = React.useMemo(\n\t\t() =>\n\t\t\tSESSIONS.map((session) => ({\n\t\t\t\t...session,\n\t\t\t\tlastStateChangeAt: session.id === 'full' ? Date.now() - 300_000 : undefined,\n\t\t\t})),\n\t\t[],\n\t);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.page}>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<SessionList sessions={sessions} onOpenConversation={() => {}} />\n\t\t\t\t\t<SessionListFooter state=\"loading\" label=\"Loading more sessions\" />\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -28444,20 +29689,24 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'SkillCard',
+		name: 'SkillCardView',
 		package: '@atlassian/rovo-platform-ui-components',
 		description: 'A card that presents a Rovo skill and its summary.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Import SkillCard from its explicit package entrypoint; avoid reaching into package source paths.',
+			'Import SkillCardView from its explicit package entrypoint; avoid reaching into package source paths.',
 			'Keep this stateless building block composed with the consuming product state and data-fetching layer.',
 		],
 		keywords: ['rovo', 'skill', 'card'],
 		category: 'data-display',
 		examples: [
-			'import React, { useState } from \'react\';\nimport { IntlProvider } from \'react-intl\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { SkillCard } from \'@atlassian/rovo-platform-ui-components/skills/skill-card\';\nexport default function SkillCardExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [hasReadDetails, setHasReadDetails] = useState(false);\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack space="space.100">\n\t\t\t\t<SkillCard\n\t\t\t\t\ttitle="Create work items"\n\t\t\t\t\tcontent={<span>Turn a request into a Jira work item.</span>}\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((current) => !current)}\n\t\t\t\t\tonRead={() => setHasReadDetails(true)}\n\t\t\t\t/>\n\t\t\t\t{hasReadDetails && (\n\t\t\t\t\t<Text color="color.text.subtlest">Skill details opened for review.</Text>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
+			'import React, { useState } from \'react\';\nimport { IntlProvider } from \'react-intl\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { SkillCardView } from \'@atlassian/rovo-platform-ui-components/skills/skill-card\';\nexport default function SkillCardExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [hasReadDetails, setHasReadDetails] = useState(false);\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack space="space.100">\n\t\t\t\t<SkillCardView\n\t\t\t\t\ttitle="Create work items"\n\t\t\t\t\tcontent={<span>Turn a request into a Jira work item.</span>}\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((current) => !current)}\n\t\t\t\t\tonRead={() => setHasReadDetails(true)}\n\t\t\t\t/>\n\t\t\t\t{hasReadDetails && (\n\t\t\t\t\t<Text color="color.text.subtlest">Skill details opened for review.</Text>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
 		],
 		props: [
+			{
+				name: 'attribution',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
 			{
 				name: 'content',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
@@ -29010,6 +30259,52 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [],
 	},
 	{
+		name: 'Launcher',
+		package: '@atlassian/rovo-reintroduction-modal',
+		description: 'Public launcher entrypoint for @atlassian/rovo-reintroduction-modal.',
+		status: 'general-availability',
+		usageGuidelines: ['Use the public launcher entrypoint when integrating this Rovo capability.'],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'RovoReintroductionModal',
+		package: '@atlassian/rovo-reintroduction-modal',
+		description:
+			'Public rovo-reintroduction-modal entrypoint for @atlassian/rovo-reintroduction-modal.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public rovo-reintroduction-modal entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'analyticsAttributes',
+				type: 'AnalyticsAttributes',
+				description:
+					'Attributes attached to the screen and UI analytics events fired by the modal.',
+			},
+			{
+				name: 'onClickPrimary',
+				type: '() => void',
+				description:
+					'Called when the user clicks the primary CTA ("Tell me how to improve my workflow with Rovo").',
+				isRequired: true,
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+				description:
+					'Called when the modal requests to be closed (close button, blanket click, or ESC).',
+				isRequired: true,
+			},
+		],
+	},
+	{
 		name: 'ConnectAppButton',
 		package: '@atlassian/rovo-settings-modal',
 		description: 'Starts the connection flow for a supported app from Rovo settings.',
@@ -29402,7 +30697,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'localSpaceConversations',
-				type: '({ id: string; name: string; messages: StoreChatItem[]; status: CHAT_STORE_STATUS; traces: Trace[]; storeAbortController?: StoreAbortController; ... 28 more ...; targetTaskMessageId?: string; } & { isEmpty: boolean; currentTask?: ApiTaskSSEUpdate; })[]',
+				type: '({ id: string; name: string; messages: StoreChatItem[]; status: CHAT_STORE_STATUS; traces: Trace[]; storeAbortController?: StoreAbortController; ... 29 more ...; conciergeSelectedAgent?: AgentMetadata; } & { isEmpty: boolean; currentTask?: ApiTaskSSEUpdate; })[]',
 				description:
 					'Host-local conversations that have been associated with spaces in the current session.',
 			},
@@ -29825,7 +31120,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'chats',
-				type: '({ id: string; name: string; messages: StoreChatItem[]; status: CHAT_STORE_STATUS; traces: Trace[]; storeAbortController?: StoreAbortController; ... 28 more ...; targetTaskMessageId?: string; } & { isEmpty: boolean; currentTask?: ApiTaskSSEUpdate; })[]',
+				type: '({ id: string; name: string; messages: StoreChatItem[]; status: CHAT_STORE_STATUS; traces: Trace[]; storeAbortController?: StoreAbortController; ... 29 more ...; conciergeSelectedAgent?: AgentMetadata; } & { isEmpty: boolean; currentTask?: ApiTaskSSEUpdate; })[]',
 			},
 			{
 				name: 'cloudId',
@@ -30597,12 +31892,18 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'Token representing background color with a built-in fallback value.',
 			},
 			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: "Disables the card's primary action and removes its hover feedback.",
+			},
+			{
 				name: 'onClick',
 				type: '(agentId: string) => void',
 			},
 			{
 				name: 'slots',
 				type: '{ cover?: React.ComponentType<CardCoverProps>; content?: React.ComponentType<CardContentProps>; metadata?: React.ComponentType<AgentMetadataProps>; badge?: React.ComponentType<...>; footer?: React.ComponentType<...>; }',
+				defaultValue: '{}',
 			},
 			{
 				name: 'xcss',
@@ -30644,6 +31945,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'cloudId',
 				type: 'string',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: "Disables the card's primary action and removes its hover feedback.",
+			},
+			{
+				name: 'onChat',
+				type: '(agentId: string) => void',
 			},
 			{
 				name: 'onClick',
@@ -30705,6 +32015,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'cloudId',
 				type: 'string',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: "Disables the card's primary action and removes its hover feedback.",
+			},
+			{
+				name: 'onChat',
+				type: '(agentId: string) => void',
 			},
 			{
 				name: 'onClick',
@@ -30775,7 +32094,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'columns',
 				type: '2 | 3 | 4',
-				defaultValue: '3',
+				defaultValue: "fg('rovo_agents_studio_browse_kit_uplift') ? 4 : 3",
 			},
 			{
 				name: 'emptyState',
@@ -30798,6 +32117,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'loadMore',
 				type: '() => void',
+			},
+			{
+				name: 'onChat',
+				type: '(agentId: string) => void',
 			},
 			{
 				name: 'onFavouriteChange',
@@ -30939,6 +32262,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'Token representing background color with a built-in fallback value.',
 			},
 			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: "Disables the card's primary action and removes its hover feedback.",
+			},
+			{
 				name: 'isPopular',
 				type: 'boolean',
 			},
@@ -30976,7 +32304,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'columns',
 				type: '2 | 3 | 4',
-				defaultValue: '3',
+				defaultValue: "fg('rovo_agents_studio_browse_kit_uplift') ? 4 : 3",
 			},
 			{
 				name: 'emptyState',
@@ -31040,6 +32368,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'children',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				isRequired: true,
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: "Disables the card's primary action and removes its hover feedback.",
 			},
 			{
 				name: 'onClick',
@@ -31119,7 +32452,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'coverStyle',
 				type: '"grid" | "gradient" | "plain"',
-				defaultValue: '"grid"',
 			},
 			{
 				name: 'iconUrl',
@@ -31207,7 +32539,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'isInteractive',
 				type: 'boolean',
-				defaultValue: 'false',
 			},
 			{
 				name: 'items',

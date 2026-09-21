@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.1.9
+
+### Patch Changes
+
+- [`a4c26c5edfc0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4c26c5edfc0b) -
+  Allow local literal style values constrained with TypeScript `satisfies` expressions.
+- [`1715d48a722a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1715d48a722a2) -
+  Migrate responsive styling to typed canonical CSS media-query keys. Allow those keys in the UI
+  Styling Standard and report non-canonical queries used with `satisfies`.
+
 ## 2.1.8
 
 ### Patch Changes

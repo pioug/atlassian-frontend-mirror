@@ -20,4 +20,5 @@ export const WithManyVr: WorkbenchExample = wb(WithManyVrExample);
 export const WithFlexContentVr: WorkbenchExample = wb(WithFlexContentVrExample);
 export const NoSpaceForTabsVr: WorkbenchExample = wb(NoSpaceForTabsVrExample);
 export const OverflowVr: WorkbenchExample = wb(OverflowVrExample);
-export const TestingVr: WorkbenchExample = wb(TestingVrExample);
+// Named "Testing" to match the Workbench URL used by existing integration tests.
+export const Testing: WorkbenchExample = wb(TestingVrExample);

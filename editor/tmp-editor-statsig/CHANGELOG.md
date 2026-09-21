@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 201.0.0
+
+### Major Changes
+
+- [`1e8d2aad8e882`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e8d2aad8e882) -
+  Remove the permanent `platform_editor_layout_typeahead_reorder` experiment and its temporary
+  Editor Statsig registration.
+
 ## 200.0.0
 
 ### Major Changes

@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -12,7 +10,7 @@ const documentation: StructuredContentSource = {
 				name: 'TagGroup',
 				package: '@atlaskit/tag-group/tag-group',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -37,7 +35,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Tag Group',
 					description: 'Tag Group example',
-					source: path.resolve(__dirname, './examples/ai/tag-group.tsx'),
+					source: `${__dirname}/examples/ai/tag-group.tsx`,
 				},
 			],
 			keywords: ['tag', 'group', 'multiple', 'labels', 'chips'],

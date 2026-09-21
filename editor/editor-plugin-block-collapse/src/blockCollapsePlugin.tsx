@@ -1,9 +1,10 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { invalidateBlockControlsSurfaces } from '@atlaskit/editor-common/block-controls/surface-candidate-invalidation';
 
 import type { BlockCollapsePlugin } from './blockCollapsePluginType';
-import { toggleHeadingInTransaction } from './pm-plugins/commands';
+import { invalidateHeadingSurface, toggleHeadingInTransaction } from './pm-plugins/commands';
 import { createPlugin } from './pm-plugins/main';
 import { blockCollapsePluginKey } from './pm-plugins/plugin-key';
+import { getBlockCollapseSection } from './pm-plugins/section-model';
 import { getBlockCollapseButtonComponents } from './ui/block-collapse-button-registration';
 
 /**
@@ -25,13 +26,7 @@ import { getBlockCollapseButtonComponents } from './ui/block-collapse-button-reg
  * from entering nodes hidden by the collapse decorations.
  */
 export const blockCollapsePlugin: BlockCollapsePlugin = ({ api }) => {
-	const collapseButtonEnabled =
-		isExperimentEnabled('platform_editor_block_control_migration') &&
-		isExperimentEnabled('platform_editor_collapsible_headings');
-
-	if (collapseButtonEnabled) {
-		api?.uiControlRegistry?.actions.register(getBlockCollapseButtonComponents({ api }));
-	}
+	api?.uiControlRegistry?.actions.register(getBlockCollapseButtonComponents({ api }));
 
 	return {
 		name: 'blockCollapse',
@@ -63,26 +58,53 @@ export const blockCollapsePlugin: BlockCollapsePlugin = ({ api }) => {
 					toggleHeadingInTransaction(tr, headingPos),
 			expandHeading:
 				(headingPos) =>
-				({ tr }) =>
-					tr.setMeta(blockCollapsePluginKey, {
+				({ tr }) => {
+					const section = getBlockCollapseSection(tr.doc, headingPos);
+					invalidateHeadingSurface(tr, headingPos, section);
+					return tr.setMeta(blockCollapsePluginKey, {
 						headingPos,
 						type: 'expand',
-					}),
+					});
+				},
 			expandHeadingsContainingRange:
 				(from, to) =>
-				({ tr }) =>
-					tr.setMeta(blockCollapsePluginKey, {
+				({ tr }) => {
+					const collapseState = api?.blockCollapse?.sharedState.currentState();
+					const headingPositions = [...(collapseState?.collapsedHeadingPositions ?? [])].filter(
+						(headingPos) => {
+							const sectionEnd = collapseState?.collapsedSectionEnds.get(headingPos);
+							const headingNode = tr.doc.nodeAt(headingPos);
+							return (
+								sectionEnd !== undefined &&
+								headingNode !== null &&
+								from >= headingPos + headingNode.nodeSize &&
+								to <= sectionEnd
+							);
+						},
+					);
+					invalidateBlockControlsSurfaces(tr, {
+						ranges: [{ from, to }],
+						positions: headingPositions,
+					});
+					return tr.setMeta(blockCollapsePluginKey, {
 						from,
 						to,
 						type: 'expandContainingRange',
-					}),
+					});
+				},
 			collapseHeadingsAtPositions:
 				(positions) =>
-				({ tr }) =>
-					tr.setMeta(blockCollapsePluginKey, {
+				({ tr }) => {
+					const ranges = positions.flatMap((position) => {
+						const section = getBlockCollapseSection(tr.doc, position);
+						return section ? [{ from: section.from, to: section.to }] : [];
+					});
+					invalidateBlockControlsSurfaces(tr, { positions, ranges });
+					return tr.setMeta(blockCollapsePluginKey, {
 						positions,
 						type: 'collapsePositions',
-					}),
+					});
+				},
 		},
 	};
 };

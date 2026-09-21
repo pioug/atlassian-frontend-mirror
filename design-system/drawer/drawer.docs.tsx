@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'Drawer',
 				package: '@atlaskit/drawer/drawer',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Drawer',
 					description: 'Drawer example',
-					source: path.resolve(__dirname, './examples/ai/drawer.tsx'),
+					source: `${__dirname}/examples/ai/drawer.tsx`,
 				},
 			],
 			keywords: ['drawer', 'panel', 'slide', 'overlay', 'navigation', 'sidebar'],
@@ -54,7 +52,7 @@ const documentation: StructuredContentSource = {
 				name: 'DrawerContent',
 				package: '@atlaskit/drawer/drawer-content',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -71,7 +69,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Drawer Content',
 					description: 'Drawer Content example',
-					source: path.resolve(__dirname, './examples/ai/drawer-content.tsx'),
+					source: `${__dirname}/examples/ai/drawer-content.tsx`,
 				},
 			],
 			keywords: ['drawer', 'content', 'panel', 'body'],
@@ -85,7 +83,7 @@ const documentation: StructuredContentSource = {
 				name: 'DrawerSidebar',
 				package: '@atlaskit/drawer/drawer-sidebar',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -102,7 +100,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Drawer Sidebar',
 					description: 'Drawer Sidebar example',
-					source: path.resolve(__dirname, './examples/ai/drawer-sidebar.tsx'),
+					source: `${__dirname}/examples/ai/drawer-sidebar.tsx`,
 				},
 			],
 			keywords: ['drawer', 'sidebar', 'navigation', 'panel'],
@@ -116,7 +114,7 @@ const documentation: StructuredContentSource = {
 				name: 'DrawerCloseButton',
 				package: '@atlaskit/drawer/drawer-close-button',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -133,7 +131,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Drawer Close Button',
 					description: 'Drawer Close Button example',
-					source: path.resolve(__dirname, './examples/ai/drawer-close-button.tsx'),
+					source: `${__dirname}/examples/ai/drawer-close-button.tsx`,
 				},
 			],
 			keywords: ['drawer', 'close', 'button', 'action'],

@@ -1,6 +1,7 @@
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -22,7 +23,10 @@ export const handleMouseDown =
 				return false;
 			}
 
-			if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+			if (
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+				isExperimentEnabled('platform_editor_block_control_migration')
+			) {
 				const anchorName = api?.core.actions.getAnchorIdForNode(rootNode, rootPos);
 
 				// don't show the handles if we can't find an anchor

@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'EmptyState',
 				package: '@atlaskit/empty-state/empty-state',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -47,7 +45,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Empty State',
 					description: 'Empty State example',
-					source: path.resolve(__dirname, './examples/ai/empty-state.tsx'),
+					source: `${__dirname}/examples/ai/empty-state.tsx`,
 				},
 			],
 			keywords: ['empty', 'state', 'results', 'placeholder', 'no-content', 'void'],

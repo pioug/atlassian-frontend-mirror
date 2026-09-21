@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.4.5
+
+### Patch Changes
+
+- [`c4bdf98d5a6c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4bdf98d5a6c2) -
+  Reject Node built-ins in structured content by default
+- Updated dependencies
+
 ## 4.4.4
 
 ### Patch Changes

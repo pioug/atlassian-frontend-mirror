@@ -5,6 +5,7 @@ import type { IntlShape } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 import { keyName } from 'w3c-keyname';
 
+import { BLOCK_CONTROLS_DRAG_HANDLE } from '@atlaskit/editor-common/block-controls/surface-keys';
 import { expandedState, isExpandCollapsed } from '@atlaskit/editor-common/expand';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
@@ -41,7 +42,7 @@ import {
 	updateExpandTitle,
 } from '../commands';
 import { ExpandButton } from '../ui/ExpandButton';
-import { buildExpandClassName, toDOM } from '../ui/NodeView';
+import { buildExpandClassName, getExpandBodyAriaLabel, toDOM } from '../ui/NodeView';
 import { findReplaceExpandDecorations } from '../utils';
 
 export class ExpandNodeView implements NodeView {
@@ -323,10 +324,22 @@ export class ExpandNodeView implements NodeView {
 					this.view.focus();
 					this.api?.core.actions.execute(({ tr }) => {
 						tr.setSelection(NodeSelection.create(state.doc, pos));
-						// Show the drag handle on the selected expand node
+						if (isExperimentEnabled('platform_editor_block_control_migration')) {
+							const command = this.api?.blockControls?.commands.showControlAtPosition(
+								pos,
+								BLOCK_CONTROLS_DRAG_HANDLE,
+								{
+									isFocused: true,
+								},
+							);
+							if (command) {
+								return command({ tr });
+							}
+							return null;
+						}
+
 						const node = state.doc.nodeAt(pos);
 						if (node) {
-							// Find the anchor name from the DOM
 							const dom = this.view.nodeDOM(pos);
 							if (dom instanceof HTMLElement) {
 								const anchorName = expValEquals(
@@ -336,7 +349,6 @@ export class ExpandNodeView implements NodeView {
 								)
 									? dom.getAttribute('data-node-anchor')
 									: dom.getAttribute('data-drag-handler-anchor-name');
-								// Only proceed if we found a valid anchor name
 								if (anchorName) {
 									const command = this.api?.blockControls?.commands.showDragHandleAt(
 										pos,
@@ -684,6 +696,18 @@ export class ExpandNodeView implements NodeView {
 					this.input.value = this.node.attrs.title;
 				}
 			});
+
+			// Sync up the aria-label with the current expand title.
+			if (
+				isExperimentEnabled('platform_editor_expand_content_a11y_2') &&
+				this.node.attrs.title !== node.attrs.title &&
+				this.content
+			) {
+				this.content.setAttribute(
+					'aria-label',
+					getExpandBodyAriaLabel(node.attrs.title ?? '', this.intl),
+				);
+			}
 
 			// This checks if the node has been replaced with a different version
 			// and updates the state of the new node to match the old one

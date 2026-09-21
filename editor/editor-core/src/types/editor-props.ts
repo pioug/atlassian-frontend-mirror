@@ -34,7 +34,7 @@ import type { DatePluginOptions } from '@atlaskit/editor-plugins/date';
 import type { FindReplaceOptions } from '@atlaskit/editor-plugins/find-replace';
 import type { LayoutPluginOptions } from '@atlaskit/editor-plugins/layout';
 import type { MediaPluginOptions, MediaState } from '@atlaskit/editor-plugins/media/types';
-import type { MentionPluginConfig } from '@atlaskit/editor-plugins/mentions';
+import type { MentionPluginConfig, MentionsPluginOptions } from '@atlaskit/editor-plugins/mentions';
 import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
 import type { PlaceholderTextPluginOptions } from '@atlaskit/editor-plugins/placeholder-text';
 import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugins/synced-block';
@@ -76,6 +76,9 @@ export type BeforeAndAfterContentComponents = {
 };
 
 export type ContentComponents = BeforeAndAfterContentComponents | ReactComponents;
+
+type EditorMentionOptions = MentionPluginConfig &
+	Pick<MentionsPluginOptions, 'mentionNodeDataProvider'>;
 
 interface EditorBaseProps {
 	/**
@@ -518,7 +521,7 @@ export interface EditorPluginFeatureProps {
 	// which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
 	media?: MediaPluginOptions;
 
-	mention?: MentionPluginConfig;
+	mention?: EditorMentionOptions;
 
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**

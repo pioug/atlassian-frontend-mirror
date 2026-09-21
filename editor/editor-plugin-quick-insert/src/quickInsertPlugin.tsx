@@ -60,13 +60,9 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		options?.onInsert?.(item);
 	};
 
-	const typeAheadPrioritySortingFn = expValEquals(
-		'platform_editor_layout_typeahead_reorder',
-		'isEnabled',
-		true,
-	)
-		? withLayoutQuickInsertPrioritySorting(options?.prioritySortingFn)
-		: options?.prioritySortingFn;
+	const typeAheadPrioritySortingFn = withLayoutQuickInsertPrioritySorting(
+		options?.prioritySortingFn,
+	);
 
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.QUICK_INSERT,
@@ -280,16 +276,12 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 				const { lazyDefaultItems, providedItems } =
 					api?.quickInsert?.sharedState.currentState() ?? {};
 
-				if (expValEquals('platform_editor_layout_typeahead_reorder', 'isEnabled', true)) {
-					searchOptions = {
-						...searchOptions,
-						prioritySortingFn: withLayoutQuickInsertPrioritySorting(
-							options?.prioritySortingFn ?? searchOptions.prioritySortingFn,
-						),
-					};
-				} else if (options?.prioritySortingFn) {
-					searchOptions = { ...searchOptions, prioritySortingFn: options.prioritySortingFn };
-				}
+				searchOptions = {
+					...searchOptions,
+					prioritySortingFn: withLayoutQuickInsertPrioritySorting(
+						options?.prioritySortingFn ?? searchOptions.prioritySortingFn,
+					),
+				};
 
 				// EDITOR-6558: layer the consumer-supplied filter (e.g. Markdown Mode allowlist)
 				// over any caller-supplied filter so both apply.

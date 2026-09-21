@@ -82,7 +82,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 	it('should render a trigger button', async () => {
 		renderWithIntl(renderPicker());
-		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		const triggerPickerButton = await screen.findByLabelText('Add a reaction');
 
 		const btn = triggerPickerButton.closest('button');
 		expect(btn).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 	it('should render selector options when trigger button is clicked, and should not auto focus the first emoji', async () => {
 		renderWithIntl(renderPicker());
-		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		const triggerPickerButton = await screen.findByLabelText('Add a reaction');
 
 		const btn = triggerPickerButton.closest('button');
 		expect(btn).toBeInTheDocument();
@@ -105,7 +105,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 	it('should render hoverable selector when hoverableReactionPicker is true and reaction trigger is hovered', async () => {
 		renderWithIntl(renderPicker(() => {}, false, jest.fn(), true, true));
-		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		const triggerPickerButton = await screen.findByLabelText('Add a reaction');
 		expect(triggerPickerButton).toBeInTheDocument();
 		user.hover(triggerPickerButton);
 		const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
@@ -116,7 +116,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 	it('should render the hoverable selector when hoverableReactionPicker is true and reaction trigger is clicked', async () => {
 		renderWithIntl(renderPicker(() => {}, false, jest.fn(), true, true));
-		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		const triggerPickerButton = await screen.findByLabelText('Add a reaction');
 		expect(triggerPickerButton).toBeInTheDocument();
 		user.click(triggerPickerButton);
 		const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
@@ -127,7 +127,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 	it('should call "onSelection" when an emoji is selected', async () => {
 		renderWithIntl(renderPicker(onSelectionSpy));
-		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		const triggerPickerButton = await screen.findByLabelText('Add a reaction');
 		const btn = triggerPickerButton.closest('button');
 		expect(btn).toBeInTheDocument();
 		if (btn) {
@@ -169,7 +169,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 	it('should disable trigger', async () => {
 		renderWithIntl(renderPicker(onSelectionSpy, true));
 
-		const triggerPickerButton = screen.getByLabelText('Add reaction').closest('button');
+		const triggerPickerButton = screen.getByLabelText('Add a reaction').closest('button');
 		expect(triggerPickerButton).toBeInTheDocument();
 		if (triggerPickerButton) {
 			const prop = triggerPickerButton.getAttribute('disabled');

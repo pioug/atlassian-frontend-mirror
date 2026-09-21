@@ -3,8 +3,6 @@ import React from 'react';
 import { screen, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { Trigger } from './Trigger';
 
@@ -52,7 +50,7 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		renderWithIntl(
 			<Trigger tooltipContent="" showAddReactionText reactionPickerTriggerText="Add new" />,
 		);
-		await screen.findByLabelText('Add reaction');
+		await screen.findByLabelText('Add a reaction');
 		const customReactionText = screen.getByText('Add new');
 		expect(customReactionText).toBeInTheDocument();
 	});
@@ -81,7 +79,7 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 	it('should call "onClick" when clicked', async () => {
 		const mockOnClick = jest.fn();
 		renderWithIntl(<Trigger tooltipContent="" onClick={mockOnClick} />);
-		const button = await screen.findByLabelText('Add reaction');
+		const button = await screen.findByLabelText('Add a reaction');
 		fireEvent.click(button);
 		expect(mockOnClick).toHaveBeenCalled();
 	});
@@ -89,7 +87,7 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 	it('should disable button', async () => {
 		const mockOnClick = jest.fn();
 		renderWithIntl(<Trigger tooltipContent="" disabled onClick={mockOnClick} />);
-		fireEvent.click(await screen.findByLabelText('Add reaction'));
+		fireEvent.click(await screen.findByLabelText('Add a reaction'));
 		expect(mockOnClick).not.toHaveBeenCalled();
 	});
 
@@ -136,9 +134,7 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		});
 	});
 
-	it('should use the localized accessible label when tef_fix_a11y_add_reaction_button_language_support is enabled', async () => {
-		passGate('tef_fix_a11y_add_reaction_button_language_support');
-
+	it('should use the localized accessible label', async () => {
 		render(
 			<IntlProvider
 				locale="ja"
@@ -151,13 +147,5 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		const icon = await screen.findByTestId('emoji-add-icon');
 		expect(icon).toHaveAttribute('aria-label', 'リアクションを追加');
 		expect(icon).not.toHaveAttribute('lang');
-	});
-
-	it('should retain the existing accessible label when tef_fix_a11y_add_reaction_button_language_support is disabled', async () => {
-		failGate('tef_fix_a11y_add_reaction_button_language_support');
-
-		renderWithIntl(<Trigger tooltipContent="" />);
-		const icon = await screen.findByTestId('emoji-add-icon');
-		expect(icon).toHaveAttribute('aria-label', 'Add reaction');
 	});
 });

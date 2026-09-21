@@ -2,13 +2,11 @@
  * Structured MCP docs for `@atlaskit/analytics-listeners`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	package: {
@@ -42,17 +40,17 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Fabric listener example',
 					description: 'Basic usage of FabricAnalyticsListeners with a client.',
-					source: path.resolve(packagePath, './examples/00-fabric-listener-example.tsx'),
+					source: `${packagePath}/examples/00-fabric-listener-example.tsx`,
 				},
 				{
 					name: 'Excluding listeners',
 					description: 'How to exclude specific channels from being listened to.',
-					source: path.resolve(packagePath, './examples/01-excluding-listener.tsx'),
+					source: `${packagePath}/examples/01-excluding-listener.tsx`,
 				},
 				{
 					name: 'Logging levels',
 					description: 'How to configure the logging level for the listeners.',
-					source: path.resolve(packagePath, './examples/02-logging-levels.tsx'),
+					source: `${packagePath}/examples/02-logging-levels.tsx`,
 				},
 			],
 		},

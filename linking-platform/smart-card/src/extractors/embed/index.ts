@@ -8,6 +8,7 @@ import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { getEmptyJsonLd } from '../../utils/get-empty-json-ld';
 import { type CardPlatform, type EmbedIframeUrlType } from '../../view/Card/types';
 import { type EmbedCardResolvedViewProps } from '../../view/EmbedCard/views/ResolvedView';
+import { extractIsSupportProductContext } from '../common/meta/extractIsSupportProductContext';
 import { extractIsSupportTheming } from '../common/meta/extractIsSupportTheming';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 import { extractSmartLinkContext } from './extract-smart-link-context';
@@ -26,6 +27,7 @@ export const extractEmbedProps = (
 		context: extractSmartLinkContext(response),
 		preview: extractSmartLinkEmbed(response, iframeUrlType),
 		isTrusted: extractIsTrusted(meta),
+		isSupportProductContext: extractIsSupportProductContext(meta),
 		isSupportTheming: extractIsSupportTheming(meta),
 		type: extractType(jsonLd),
 	};

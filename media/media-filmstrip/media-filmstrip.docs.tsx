@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -29,7 +27,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'A basic filmstrip with several media cards.',
-					source: path.resolve(packagePath, './examples/0-smart-filmstrip.tsx'),
+					source: `${packagePath}/examples/0-smart-filmstrip.tsx`,
 				},
 			],
 			keywords: ['media', 'filmstrip', 'gallery', 'carousel', 'horizontal-scroll'],

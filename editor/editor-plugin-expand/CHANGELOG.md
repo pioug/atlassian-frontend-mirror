@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-expand
 
+## 20.0.3
+
+### Patch Changes
+
+- [`ad905e52e6f1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad905e52e6f1b) -
+  CONFCLOUD-84260: Include the expand title in body accessible names, localize the macro role
+  description, and keep them updated behind `platform_editor_expand_content_a11y_2`.
+- [`fc26bfc51dd5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc26bfc51dd5c) -
+  Add sparse block-control surface anchors, intersection-driven candidates, and explicit visibility
+  invalidation for registry-backed block controls. Expose registration change subscriptions from the
+  UI control registry model, and refresh cached visibility from suggestion and collapse transaction
+  metadata. Under `platform_editor_block_control_migration`, use native node-anchor identity across
+  Editor and Block Controls, and route expand keyboard focus through the shared Block Controls
+  command. Preserve Show Diff visibility checks in both migration cohorts so block controls stay
+  hidden while a diff is displayed. Keep the block menu closed when a migrated layout-column handle
+  opens the layout menu, and close the layout menu when the selection moves away from its selected
+  columns.
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.1
 
 ### Patch Changes

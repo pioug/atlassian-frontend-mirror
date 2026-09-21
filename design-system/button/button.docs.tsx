@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -49,27 +47,18 @@ const documentation: StructuredContentSource = {
 					name: 'Disabled',
 					description:
 						"Set `isDisabled` to disable a button that shouldn't be actionable. The button will appear faded and won't respond to user interaction. Disabled buttons can cause accessibility issues (disabled elements are not in the tab order) so wherever possible, avoid using `isDisabled`. Instead, use [validation](/components/button/usage) or other techniques to show users how to proceed.",
-					source: path.resolve(
-						packagePath,
-						'./examples/constellation/new-button/button/button-disabled.tsx',
-					),
+					source: `${packagePath}/examples/constellation/new-button/button/button-disabled.tsx`,
 				},
 				{
 					name: 'Danger',
 					description:
 						'A danger button appears as a final confirmation for a destructive and irreversible action, such as deleting.',
-					source: path.resolve(
-						packagePath,
-						'./examples/constellation/new-button/button/button-danger.tsx',
-					),
+					source: `${packagePath}/examples/constellation/new-button/button/button-danger.tsx`,
 				},
 				{
 					name: 'Icon after',
 					description: 'Display an icon after the text.',
-					source: path.resolve(
-						packagePath,
-						'./examples/constellation/new-button/button/button-with-icon-after.tsx',
-					),
+					source: `${packagePath}/examples/constellation/new-button/button/button-with-icon-after.tsx`,
 				},
 			],
 			designSource: {
@@ -110,7 +99,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Icon Button',
 					description: 'Icon Button example',
-					source: path.resolve(packagePath, './examples/ai/icon-button.tsx'),
+					source: `${packagePath}/examples/ai/icon-button.tsx`,
 				},
 			],
 			keywords: ['button', 'icon', 'action', 'click', 'interactive', 'toolbar'],
@@ -146,10 +135,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Link Icon Button',
 					description: 'Link Icon Button example',
-					source: path.resolve(
-						packagePath,
-						'./examples/constellation/new-button/link-icon-button/link-icon-button.tsx',
-					),
+					source: `${packagePath}/examples/constellation/new-button/link-icon-button/link-icon-button.tsx`,
 				},
 			],
 			keywords: ['button', 'icon', 'link', 'navigation', 'href', 'anchor'],
@@ -187,7 +173,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Split Button',
 					description: 'Split Button example',
-					source: path.resolve(packagePath, './examples/ai/split-button.tsx'),
+					source: `${packagePath}/examples/ai/split-button.tsx`,
 				},
 			],
 			keywords: ['button', 'split', 'dropdown', 'menu', 'action', 'options'],
@@ -224,7 +210,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Link Button',
 					description: 'Link Button example',
-					source: path.resolve(packagePath, './examples/ai/link-button.tsx'),
+					source: `${packagePath}/examples/ai/link-button.tsx`,
 				},
 			],
 			keywords: ['button', 'link', 'navigation', 'href', 'anchor'],
@@ -261,7 +247,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Button Group',
 					description: 'Button Group example',
-					source: path.resolve(packagePath, './examples/ai/button-group.tsx'),
+					source: `${packagePath}/examples/ai/button-group.tsx`,
 				},
 			],
 			keywords: ['button', 'group', 'container', 'layout', 'spacing'],

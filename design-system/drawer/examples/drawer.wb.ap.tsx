@@ -23,14 +23,16 @@ const BasicDrawer: WorkbenchExample = wb(BasicDrawerExample);
 
 export default BasicDrawer;
 export const DrawerMenuVr: WorkbenchExample = wb(DrawerMenuVrExample);
-export const DrawerDefaultVr: WorkbenchExample = wb(DrawerDefaultVrExample);
+// Named "DrawerDefault" to match the Workbench URL used by existing integration tests.
+export const DrawerDefault: WorkbenchExample = wb(DrawerDefaultVrExample);
 export const DrawerWidthsVr: WorkbenchExample = wb(DrawerWidthsVrExample);
 export const LongContentDrawer: WorkbenchExample = wb(LongContentDrawerExample);
 export const Scroll: WorkbenchExample = wb(ScrollExample);
 export const DrawerFocusToRefOnClose: WorkbenchExample = wb(DrawerFocusToRefOnCloseExample);
 export const DrawerWithFixedContents: WorkbenchExample = wb(DrawerWithFixedContentsExample);
 export const ToggleDrawerWidth: WorkbenchExample = wb(ToggleDrawerWidthExample);
-export const StackedDrawersVr: WorkbenchExample = wb(StackedDrawersVrExample);
+// Named "StackedDrawers" to match the Workbench URL used by existing integration tests.
+export const StackedDrawers: WorkbenchExample = wb(StackedDrawersVrExample);
 export const DrawerWithZIndex: WorkbenchExample = wb(DrawerWithZIndexExample);
 export const DrawerStackingContextsVr: WorkbenchExample = wb(DrawerStackingContextsVrExample);
 export const Xcss: WorkbenchExample = wb(XcssExample);

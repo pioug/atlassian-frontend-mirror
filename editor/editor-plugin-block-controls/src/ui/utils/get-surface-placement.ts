@@ -125,8 +125,9 @@ const INVALID_ANCHOR_FALLBACK_TOP = `-${INVALID_ANCHOR_OFFSCREEN_PX}px`;
 const INVALID_ANCHOR_FALLBACK_BOTTOM = `${INVALID_ANCHOR_OFFSCREEN_PX}px`;
 
 export type AnchoredSurfacePlacementOptions = {
-	/** The target node's CSS anchor name, i.e. its `data-node-anchor` value. */
+	/** The target node's CSS anchor name, from a sparse marker or native `data-node-anchor`. */
 	anchorName: string;
+	layout?: string;
 	nodeType: string;
 	nodeTypeWithLevel: string;
 	parentNodeType?: string;
@@ -135,6 +136,7 @@ export type AnchoredSurfacePlacementOptions = {
 
 export const getAnchoredSurfacePlacement = ({
 	anchorName,
+	layout,
 	nodeType,
 	nodeTypeWithLevel,
 	parentNodeType,
@@ -171,7 +173,7 @@ export const getAnchoredSurfacePlacement = ({
 					? `calc(anchor(${anchorName} right) + ${gap}px)`
 					: `anchor(${anchorName} left)`,
 			positionAnchor: anchorName,
-			top: `calc(anchor(${anchorName} top, ${INVALID_ANCHOR_FALLBACK_TOP}) + ${topPositionAdjustment(nodeTypeWithLevel)}px)`,
+			top: `calc(anchor(${anchorName} top, ${INVALID_ANCHOR_FALLBACK_TOP}) + ${topPositionAdjustment(nodeTypeWithLevel, layout)}px)`,
 			// The left side grows away from the node without knowing its own width, so it pulls itself
 			// back past its own box and the gap. The right side grows into the margin, so the gap is
 			// already folded into `left` above.

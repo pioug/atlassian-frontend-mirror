@@ -15,9 +15,11 @@ import HeadingLineHeightExample from './12-heading-line-height';
 import InlineEditWithDatepickerExample from './13-inline-edit-with-datepicker';
 import ReactNodeLabelExample from './14-react-node-label';
 
-const BasicUsage: WorkbenchExample = wb(BasicUsageExample);
-
+// Explicit named export Used to generate integration-test URLs.
+export const BasicUsage: WorkbenchExample = wb(BasicUsageExample);
+// Default export required by accessibility tooling.
 export default BasicUsage;
+
 export const TextareaUsage: WorkbenchExample = wb(TextareaUsageExample);
 export const SelectUsage: WorkbenchExample = wb(SelectUsageExample);
 export const Validation: WorkbenchExample = wb(ValidationExample);

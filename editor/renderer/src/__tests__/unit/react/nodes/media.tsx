@@ -1245,38 +1245,7 @@ describe('Media', () => {
 	});
 
 	describe('Media Border Mark', () => {
-		it('should render border mark with right color and size (old behavior) - should use borderWidth as borderRadius', () => {
-			failGate('platform_editor_media_border_radius_fix');
-			const { container } = renderWithIntl(
-				<Media
-					type={mediaNode.attrs.type as MediaType}
-					id={mediaNode.attrs.id}
-					collection={mediaNode.attrs.collection}
-					alt="test"
-					marks={[
-						{
-							type: 'border',
-							attrs: {
-								color: '#091E4224',
-								size: 3,
-							},
-						},
-					]}
-					isLinkMark={() => false}
-					isBorderMark={() => true}
-					allowAltTextOnImages={false}
-					isDrafting={false}
-				/>,
-			);
-
-			const borders = container.querySelectorAll('div[data-mark-type="border"]');
-			expect(borders).toHaveLength(1);
-			expect(getComputedStyle(borders[0]).getPropertyValue('box-shadow')).toContain('3px');
-			expect(getComputedStyle(borders[0])).toHaveProperty('borderRadius', '3px');
-		});
-
-		it('should render border mark with right color and size (new behavior) - should use 8px as borderRadius', () => {
-			passGate('platform_editor_media_border_radius_fix');
+		it('should render border marks with the specified width and large radius token', () => {
 			const { container } = renderWithIntl(
 				<Media
 					type={mediaNode.attrs.type as MediaType}

@@ -13,19 +13,17 @@ export default { components: [buildDoc('Button')] };
 ```
 
 Functions, calls, conditionals, mutable bindings, dynamic imports, and arbitrary imports are
-rejected. The only call exceptions are `path.resolve(...)` and `.join(...)` directly on a literal
-array. The only module-data exception is importing or requiring a `package.json`. Type-only imports
-and the `path` module are also allowed so docs can retain their type annotations and package-path
-metadata.
+rejected. The only call exception is `.join(...)` directly on a literal array. The only module-data
+exception is importing or requiring a `package.json`. Type-only imports are allowed, but Node
+built-ins must not be used because structured docs are loaded in browser bundles.
 
 ## Correct
 
 ```tsx
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
-import path from 'path';
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 const components = [
 	{
 		name: 'Button',
@@ -37,6 +35,6 @@ const documentation: StructuredContentSource = { components };
 export default documentation;
 ```
 
-Static const composition, object/array literals, `__dirname`, `path.resolve(...)`, literal-array
+Static const composition, object/array literals, `__dirname`, template-string paths, literal-array
 `.join(...)`, and direct imports or `require()` calls for package JSON are supported. Keep every
 documented entry explicit so it remains easy to review and extract.

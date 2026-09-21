@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "10.17.3",
+	"version": "10.17.5",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -160,9 +160,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-dst-tokens-finesse": {
-			"type": "boolean"
-		},
-		"platform-dst-main-print-styles": {
 			"type": "boolean"
 		},
 		"platform-dst-top-layer": {

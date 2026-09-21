@@ -6,9 +6,11 @@ import BasicPortalExample from './3-basic-portal';
 import PortalReRenderVrExample from './4-portal-re-render.vr.ap';
 import SubTreeThemedPortalVrExample from './sub-tree-themed-portal.vr.ap';
 
-const ComplexLayeringVr: WorkbenchExample = wb(ComplexLayeringVrExample);
+// Explicit named export Used to generate integration-test URLs.
+export const ComplexLayering: WorkbenchExample = wb(ComplexLayeringVrExample);
 
-export default ComplexLayeringVr;
+// Default export required by accessibility tooling.
+export default ComplexLayering;
 export const StackingContextVr: WorkbenchExample = wb(StackingContextVrExample);
 export const BasicPortal: WorkbenchExample = wb(BasicPortalExample);
 export const PortalReRenderVr: WorkbenchExample = wb(PortalReRenderVrExample);

@@ -33,7 +33,8 @@ const AvoidTitleInTooltip: WorkbenchExample = wb(AvoidTitleInTooltipExample);
 export default AvoidTitleInTooltip;
 export const ComponentPropVr: WorkbenchExample = wb(ComponentPropVrExample);
 export const CssPosition: WorkbenchExample = wb(CssPositionExample);
-export const DefaultTooltipVr: WorkbenchExample = wb(DefaultTooltipVrExample);
+// Named "DefaultTooltip" to match the Workbench URL used by existing integration tests.
+export const DefaultTooltip: WorkbenchExample = wb(DefaultTooltipVrExample);
 export const Delay: WorkbenchExample = wb(DelayExample);
 export const HideOnClick: WorkbenchExample = wb(HideOnClickExample);
 export const HideOnMousedown: WorkbenchExample = wb(HideOnMousedownExample);
@@ -44,7 +45,8 @@ export const KeyboardShortcutGlobalStylesVr: WorkbenchExample = wb(
 );
 export const KeyboardShortcutVr: WorkbenchExample = wb(KeyboardShortcutVrExample);
 export const Nesting: WorkbenchExample = wb(NestingExample);
-export const PositionMouseVr: WorkbenchExample = wb(PositionMouseVrExample);
+// Named "PositionMouse" to match the Workbench URL used by existing integration tests.
+export const PositionMouse: WorkbenchExample = wb(PositionMouseVrExample);
 export const PositionVr: WorkbenchExample<ComponentProps<typeof PositionVrExample>> =
 	wb(PositionVrExample);
 export const RenderProps: WorkbenchExample = wb(RenderPropsExample);

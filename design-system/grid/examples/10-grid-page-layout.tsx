@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 
+import type MediaAboveLg from '@atlaskit/css/at-rules/media-above-lg';
+import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
+import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
+import type MediaAboveXl from '@atlaskit/css/at-rules/media-above-xl';
+import type MediaAboveXs from '@atlaskit/css/at-rules/media-above-xs';
 import { type GridProps } from '@atlaskit/grid';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
@@ -13,34 +18,34 @@ import {
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { media, UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
+import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 
 import GridCards from './01-grid-cards.vr.ap';
 
 const dynamicSizedVerticalPaddingStyles = xcss({
-	[media.above.sm]: {
+	['@media (min-width: 48rem)' satisfies MediaAboveSm]: {
 		// @ts-expect-error
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.sm.gridMargin,
 	},
-	[media.above.md]: {
+	['@media (min-width: 64rem)' satisfies MediaAboveMd]: {
 		// @ts-expect-error
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.md.gridMargin,
 	},
-	[media.above.lg]: {
+	['@media (min-width: 90rem)' satisfies MediaAboveLg]: {
 		// @ts-expect-error
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.lg.gridMargin,
 	},
-	[media.above.xs]: {
+	['@media (min-width: 30rem)' satisfies MediaAboveXs]: {
 		// @ts-expect-error
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.xs.gridMargin,
 	},
-	[media.above.xl]: {
+	['@media (min-width: 110.5rem)' satisfies MediaAboveXl]: {
 		// @ts-expect-error
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.xl.gridMargin,

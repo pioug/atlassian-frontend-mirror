@@ -2832,6 +2832,37 @@ const codeBlockAndLayoutStyles = css({
 	},
 });
 
+// Match the first content sibling throughout streaming SSR and hydration. Emotion moves
+// style elements to the head, which must not change code block or media group spacing.
+// Keep these selectors less specific than the top-level lightweight code block override.
+const blockSsrMarginStyles = css({
+	'& .MediaGroup:not(:not(style, script) ~ *), & .code-block:not(:not(style, script) ~ *)': {
+		marginTop: 0,
+	},
+	'& [data-layout-section] .MediaGroup:not(:not(style, script) ~ *), & [data-layout-section] .code-block:not(:not(style, script) ~ *), & li > .code-block:not(:not(style, script) ~ *)':
+		{
+			marginTop: 0,
+		},
+});
+
+// Layout columns start with an empty margin-reset element. Ignore only streamed siblings
+// between that element and the first code block/media group, preserving later block spacing.
+const layoutBlockSsrMarginStyles = css({
+	'& [data-layout-column-start] ~ .code-block:not([data-layout-column-start] ~ :not(style, script) ~ *), & [data-layout-column-start] ~ .MediaGroup:not([data-layout-column-start] ~ :not(style, script) ~ *)':
+		{
+			marginTop: 0,
+		},
+});
+
+const codeBlockInListSsrMarginSafariFixStyles = css({
+	[`&:not([data-node-type='decisionList']) > li,
+		&:not(.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}) > li`]: {
+		'> .code-block:not(:not(style, script) ~ *)': {
+			marginTop: `-${akEditorLineHeight}em !important`,
+		},
+	},
+});
+
 const layoutSectionForAdvancedLayoutsStyles = css({
 	'& [data-layout-section]': {
 		'& > div + div': {
@@ -3434,7 +3465,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? baseOtherStyles
 					: baseOtherStylesDuplicateAnchor,
-				fg('platform_renderer_expand_ssr_margin_fix') && expandSsrMarginStyles,
+				expandSsrMarginStyles,
 				// this should be placed after baseOtherStyles
 				expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
 					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
@@ -3488,6 +3519,11 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				isAdvancedLayoutsOn && layoutSectionForAdvancedLayoutsStyles,
 				!useBlockRenderForCodeBlock && gridRenderForCodeBlockStyles,
 				browser.safari && codeBlockInListSafariFixStyles,
+				fg('platform_renderer_ssr_block_margin_fix') && [
+					blockSsrMarginStyles,
+					layoutBlockSsrMarginStyles,
+					browser.safari && codeBlockInListSsrMarginSafariFixStyles,
+				],
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && responsiveBreakoutWidth,
 				appearance === 'full-page' &&
 					isPreviewPanelResponsivenessOn &&

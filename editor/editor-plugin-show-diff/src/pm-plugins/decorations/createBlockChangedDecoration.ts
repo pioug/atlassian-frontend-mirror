@@ -346,8 +346,10 @@ export const createBlockChangedDecoration = ({
 					style,
 					'data-testid': 'show-diff-changed-decoration-node',
 					class: className,
-					// Lets the contributor tag find the block it captions on hover.
-					...(shouldTagBlock && { 'data-diff-id': diffId }),
+					// Lets navigation select this exact diff, and contributor tags find it on hover.
+					...((shouldTagBlock || fg('platform_editor_ai_show_diff_patch_2')) && {
+						'data-diff-id': diffId,
+					}),
 				},
 				buildDiffDecorationSpec({
 					attributionKey: shouldTagBlock ? attributionKey : undefined,

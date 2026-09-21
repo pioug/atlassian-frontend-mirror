@@ -9,9 +9,11 @@ import FixedLayoutVrExample from './06-fixed-layout.vr.ap';
 import FluidLayoutVrExample from './07-fluid-layout.vr.ap';
 import EdgeCasesVrExample from './08-edge-cases.vr.ap';
 
-const BasicUsageVr: WorkbenchExample = wb(BasicUsageVrExample);
+// Explicit named export Used to generate integration-test URLs.
+export const BasicUsage: WorkbenchExample = wb(BasicUsageVrExample);
 
-export default BasicUsageVr;
+// Default export required by accessibility tooling.
+export default BasicUsage;
 export const LayoutExampleVr: WorkbenchExample = wb(LayoutExampleVrExample);
 export const NestedGridExampleVr: WorkbenchExample = wb(NestedGridExampleVrExample);
 export const SpacingExampleVr: WorkbenchExample = wb(SpacingExampleVrExample);

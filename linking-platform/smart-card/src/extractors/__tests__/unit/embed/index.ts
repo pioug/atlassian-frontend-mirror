@@ -11,6 +11,7 @@ describe('extractEmbedProps', () => {
 
 		expect(props).toEqual({
 			isTrusted: true,
+			isSupportProductContext: false,
 			link: 'https://some.url',
 			title: 'I love cheese',
 			isSupportTheming: false,
@@ -45,12 +46,25 @@ describe('extractEmbedProps', () => {
 				text: 'provider-name',
 			},
 			isTrusted: true,
+			isSupportProductContext: false,
 			isSupportTheming: false,
 			link: 'https://some.url',
 			preview: undefined,
 			title: 'I love cheese',
 			type: ['Object'],
 		});
+	});
+
+	it('supports host product context for the AVP Platform provider', () => {
+		const props = extractEmbedProps(
+			{
+				...mocks.unauthorized,
+				meta: { ...mocks.unauthorized.meta, key: 'avpplatform-object-provider' },
+			},
+			'web',
+		);
+
+		expect(props.isSupportProductContext).toBe(true);
 	});
 });
 
@@ -125,6 +139,7 @@ describe('entity support', () => {
 				image: 'https://www.ilovecheese.com',
 			},
 			isTrusted: true,
+			isSupportProductContext: false,
 			isSupportTheming: false,
 			link: 'https://some.url',
 			title: 'I love cheese',

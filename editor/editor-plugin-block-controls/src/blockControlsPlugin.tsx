@@ -23,6 +23,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type {
 	BlockControlsPlugin,
 	BlockControlsSharedState,
+	ControlOptions,
 	HandleOptions,
 	MultiSelectDnD,
 	NodeDecorationFactory,
@@ -34,6 +35,7 @@ import { moveNode } from './editor-commands/move-node';
 import { moveNodeWithBlockMenu } from './editor-commands/move-node-with-block-menu';
 import { moveToLayout } from './editor-commands/move-to-layout';
 import { canMoveNodeUpOrDown } from './editor-commands/utils/move-node-utils';
+import { getNodeTypeWithLevel } from './pm-plugins/decorations-common';
 import { firstNodeDecPlugin } from './pm-plugins/first-node-dec-plugin';
 import {
 	createInteractionTrackingPlugin,
@@ -46,6 +48,7 @@ import {
 } from './pm-plugins/selection-preservation/editor-commands';
 import { selectionPreservationPluginKey } from './pm-plugins/selection-preservation/plugin-key';
 import { createSelectionPreservationPlugin } from './pm-plugins/selection-preservation/pm-plugin';
+import { createSparseSurfacesPlugin, sparseSurfacesKey } from './pm-plugins/sparse-surfaces';
 import { expandAndUpdateSelection } from './pm-plugins/utils/expand-and-update-selection';
 import { selectNode } from './pm-plugins/utils/getSelection';
 import { BlockControlsLeftSurfaces } from './ui/block-controls-left-surfaces';
@@ -61,7 +64,6 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 	const registryBlockControlsEnabled = isExperimentEnabled(
 		'platform_editor_block_control_migration',
 	);
-	const legacyBlockControlsEnabled = !registryBlockControlsEnabled;
 	if (registryBlockControlsEnabled) {
 		api?.uiControlRegistry?.actions.register([
 			BLOCK_CONTROLS_LEFT_SURFACE,
@@ -159,13 +161,18 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 							api,
 							getIntl,
 							nodeViewPortalProviderAPI,
-							nodeDecorationRegistry,
+							registryBlockControlsEnabled ? [] : nodeDecorationRegistry,
 							rightSideControlsEnabled,
-							quickInsertButtonEnabled && legacyBlockControlsEnabled,
-							legacyBlockControlsEnabled,
+							quickInsertButtonEnabled && !registryBlockControlsEnabled,
 						),
 				},
 			];
+			if (registryBlockControlsEnabled) {
+				pmPlugins.push({
+					name: 'blockControlsSparseSurfaces',
+					plugin: () => createSparseSurfacesPlugin(api),
+				});
+			}
 
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				pmPlugins.push({
@@ -184,7 +191,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 			// Not registered under the registry migration: the decoration puts an inline
 			// `margin-top: 0` on the first document node, which fights features that render their own
 			// content above it — a leading show-diff widget is left flush against the node below.
-			if (areToolbarFlagsEnabled(Boolean(api?.toolbar)) && legacyBlockControlsEnabled) {
+			if (areToolbarFlagsEnabled(Boolean(api?.toolbar)) && !registryBlockControlsEnabled) {
 				pmPlugins.push({
 					name: 'firstNodeDec',
 					plugin: firstNodeDecPlugin,
@@ -237,6 +244,30 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					});
 					return tr;
 				},
+			showControlAtPosition:
+				(pos: number, control: { key: string }, options?: ControlOptions) =>
+				({ tr }: { tr: Transaction }) => {
+					const node = tr.doc.nodeAt(pos);
+					if (!node) {
+						return tr;
+					}
+					const anchorName = api?.core.actions.getAnchorIdForNode(node, pos);
+					if (!anchorName) {
+						return tr;
+					}
+					const currMeta = tr.getMeta(key);
+					tr.setMeta(key, {
+						...currMeta,
+						activeNode: {
+							pos,
+							anchorName,
+							controlKey: control.key,
+							nodeType: getNodeTypeWithLevel(node),
+							handleOptions: options,
+						},
+					});
+					return tr;
+				},
 			toggleBlockMenu:
 				(options?: {
 					anchorName?: string;
@@ -263,8 +294,12 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 						return tr;
 					}
 
-					// Do not open menu on layoutColumn and close opened menu when layoutColumn drag handle is clicked
-					if (options?.anchorName?.includes('layoutColumn')) {
+					// Do not open the block menu for layout columns. Anchor resolution can lag behind
+					// a migrated surface click, so prefer the explicit node metadata when available.
+					if (
+						options?.triggerByNode?.nodeType === 'layoutColumn' ||
+						options?.anchorName?.includes('layoutColumn')
+					) {
 						if (currentUserIntent === 'blockMenuOpen') {
 							api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 						}
@@ -459,7 +494,10 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 			};
 
 			if (registryBlockControlsEnabled) {
-				sharedState.surfaceNodePositions = key.getState(editorState)?.surfaceNodePositions ?? [];
+				const surfaces = sparseSurfacesKey.getState(editorState);
+				sharedState.surfaceNodePositions = surfaces?.candidates.positions;
+				sharedState.surfaceAnchors = surfaces?.anchors;
+				sharedState.surfaceActiveNodes = surfaces?.activeNodesByPosition;
 			}
 
 			if (editorExperiment('platform_editor_controls', 'variant1')) {

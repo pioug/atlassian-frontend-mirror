@@ -266,11 +266,7 @@ export const Trigger: React.ForwardRefExoticComponent<
 				<EmojiAddIcon
 					testId="emoji-add-icon"
 					color={disabled ? token('color.icon.disabled') : token('color.icon')}
-					label={
-						fg('tef_fix_a11y_add_reaction_button_language_support')
-							? formatMessage(i18n.addReaction)
-							: 'Add reaction'
-					}
+					label={formatMessage(i18n.addReaction)}
 					aria-hidden
 					size={emojiPickerSize === 'small' ? 'small' : 'medium'}
 				/>

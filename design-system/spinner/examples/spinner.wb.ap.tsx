@@ -13,9 +13,11 @@ import VrSizesVrExample from './vr-sizes.vr.ap';
 import VrTableCellAlignmentVrExample from './vr-table-cell-alignment.vr.ap';
 import VrTextAlignmentVrExample from './vr-text-alignment.vr.ap';
 
-const Basic: WorkbenchExample = wb(BasicExample);
-
+// Explicit named export Used to generate integration-test URLs.
+export const Basic: WorkbenchExample = wb(BasicExample);
+// Default export required by accessibility tooling.
 export default Basic;
+
 export const Sizes: WorkbenchExample = wb(SizesExample);
 export const WithInteractionContext: WorkbenchExample = wb(WithInteractionContextExample);
 export const Testing: WorkbenchExample = wb(TestingExample);

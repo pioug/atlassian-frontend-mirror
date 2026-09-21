@@ -4,7 +4,7 @@ Public editor presets for Atlassian Editor containing base configurations for Co
 
 ## Overview
 
-This package provides standardized, open-source, and easily consumable presets for the Atlassian Editor. It enables rapid prototyping, experimentation, and integration in external environments such as Replit, Figma Make, and other designer and developer tools.
+This package provides standardized, open-source, and easily consumable presets for the Atlassian Editor. It enables rapid prototyping, experimentation, and integration in external environments.
 
 ## Available Presets
 

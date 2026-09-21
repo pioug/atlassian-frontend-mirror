@@ -24,9 +24,11 @@ import SplitButtonSlotsExample from './95-split-button-slots';
 import SplitButtonExample from './95-split-button.vr.ap';
 import AsDropdownTriggerExample from './98-as-dropdown-trigger';
 
+// Explicit named export Used to generate integration-test URLs.
 export const Button: WorkbenchExample = wb(ButtonExample);
-
+// Default export required by accessibility tooling.
 export default Button;
+
 export const LinkButtons: WorkbenchExample = wb(LinkButtonsExample);
 export const IconButton: WorkbenchExample = wb(IconButtonExample);
 export const AllCombinations: WorkbenchExample = wb(AllCombinationsExample);

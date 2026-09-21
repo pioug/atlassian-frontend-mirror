@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "123.2.0",
+	"version": "123.4.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,6 +35,7 @@
 		"./block-controls/block-control-ui-context": "./src/block-controls/block-control-ui-context.ts",
 		"./block-controls/surface-drag-handle-element": "./src/block-controls/surface-drag-handle-element.ts",
 		"./block-controls/surface-keys": "./src/block-controls/surface-keys.ts",
+		"./block-controls/surface-candidate-invalidation": "./src/block-controls/surface-candidate-invalidation.ts",
 		"./block-menu": "./src/block-menu/index.ts",
 		"./browser": "./src/utils/browser.ts",
 		"./card": "./src/card/index.ts",
@@ -123,6 +124,7 @@
 		"./quick-insert/is-recommended-item": "./src/quick-insert/is-recommended-item.ts",
 		"./quick-insert/create-quick-insert-matcher": "./src/quick-insert/createQuickInsertMatcher.ts",
 		"./quick-insert/menu-item": "./src/quick-insert/QuickInsertMenuItem.tsx",
+		"./quick-insert/snippet-preview-image-urls": "./src/quick-insert/snippetPreviewImageUrls.ts",
 		"./quick-insert/registered-menu-model": "./src/quick-insert/registered-menu-model.ts",
 		"./quick-insert/menu-root": "./src/quick-insert/QuickInsertMenuRoot.tsx",
 		"./quick-insert/menu-section": "./src/quick-insert/QuickInsertMenuSection.tsx",
@@ -841,9 +843,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_sanitize_selection_fragments": {
-			"type": "boolean"
-		},
 		"platform-dst-popper-consolidation": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -895,9 +894,6 @@
 			"type": "boolean"
 		},
 		"jim-lower-ranking-in-jira-macro-search": {
-			"type": "boolean"
-		},
-		"platform_editor_media_border_radius_fix": {
 			"type": "boolean"
 		},
 		"people-teams_migrate-user-profile-card": {

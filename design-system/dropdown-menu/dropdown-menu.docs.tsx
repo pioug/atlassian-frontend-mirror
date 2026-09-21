@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'DropdownMenu',
 				package: '@atlaskit/dropdown-menu/dropdown-menu',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -47,7 +45,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Dropdown Menu',
 					description: 'Dropdown Menu example',
-					source: path.resolve(__dirname, './examples/ai/dropdown-menu.tsx'),
+					source: `${__dirname}/examples/ai/dropdown-menu.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'overflow', 'actions', 'options', 'popup', 'contextual'],
@@ -62,7 +60,7 @@ const documentation: StructuredContentSource = {
 				name: 'DropdownItem',
 				package: '@atlaskit/dropdown-menu',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -83,7 +81,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Dropdown Menu',
 					description: 'Dropdown Menu with DropdownItem example',
-					source: path.resolve(__dirname, './examples/ai/dropdown-menu.tsx'),
+					source: `${__dirname}/examples/ai/dropdown-menu.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'item', 'action', 'link', 'menuitem'],
@@ -98,7 +96,7 @@ const documentation: StructuredContentSource = {
 				name: 'DropdownItemGroup',
 				package: '@atlaskit/dropdown-menu',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -115,7 +113,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Dropdown Menu',
 					description: 'Dropdown Menu with DropdownItemGroup example',
-					source: path.resolve(__dirname, './examples/ai/dropdown-menu.tsx'),
+					source: `${__dirname}/examples/ai/dropdown-menu.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'group', 'section', 'title'],
@@ -130,7 +128,7 @@ const documentation: StructuredContentSource = {
 				name: 'DropdownItemCheckbox',
 				package: '@atlaskit/dropdown-menu/dropdown-item-checkbox',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -147,7 +145,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Dropdown Menu',
 					description: 'Dropdown Menu with checkbox items example',
-					source: path.resolve(__dirname, './examples/ai/dropdown-menu.tsx'),
+					source: `${__dirname}/examples/ai/dropdown-menu.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'checkbox', 'multi-select', 'toggle'],
@@ -162,7 +160,7 @@ const documentation: StructuredContentSource = {
 				name: 'DropdownItemCheckboxGroup',
 				package: '@atlaskit/dropdown-menu/dropdown-item-checkbox-group',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -174,10 +172,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Checkbox group',
 					description: 'DropdownItemCheckboxGroup with titled section and checkbox items.',
-					source: path.resolve(
-						__dirname,
-						'./examples/constellation/dropdown-item-checkbox-selected.tsx',
-					),
+					source: `${__dirname}/examples/constellation/dropdown-item-checkbox-selected.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'checkbox', 'group', 'multi-select'],
@@ -192,7 +187,7 @@ const documentation: StructuredContentSource = {
 				name: 'DropdownItemRadio',
 				package: '@atlaskit/dropdown-menu/dropdown-item-radio',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -209,7 +204,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Dropdown Menu',
 					description: 'Dropdown Menu with radio items example',
-					source: path.resolve(__dirname, './examples/ai/dropdown-menu.tsx'),
+					source: `${__dirname}/examples/ai/dropdown-menu.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'radio', 'single-select', 'choice'],
@@ -224,7 +219,7 @@ const documentation: StructuredContentSource = {
 				name: 'DropdownItemRadioGroup',
 				package: '@atlaskit/dropdown-menu/dropdown-item-radio-group',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -236,10 +231,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Radio group',
 					description: 'DropdownItemRadioGroup with titled section and radio items.',
-					source: path.resolve(
-						__dirname,
-						'./examples/constellation/dropdown-item-radio-selected.tsx',
-					),
+					source: `${__dirname}/examples/constellation/dropdown-item-radio-selected.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'radio', 'group', 'single-select'],

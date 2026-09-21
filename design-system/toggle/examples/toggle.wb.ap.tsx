@@ -12,13 +12,15 @@ import StatefulWithToggleEnabledVrExample from './10-stateful-with-toggle-enable
 import LoadingExample from './11-loading';
 import TestingExample from './99-testing';
 
-const StatefulVr: WorkbenchExample = wb(StatefulVrExample);
-
-export default StatefulVr;
+// Explicit named export Used to generate integration-test URLs.
+export const Stateful: WorkbenchExample = wb(StatefulVrExample);
+// Default export required by accessibility tooling.
+export default Stateful;
 export const Stateless: WorkbenchExample = wb(StatelessExample);
 export const StatefulWithToggleEnabledVr: WorkbenchExample = wb(StatefulWithToggleEnabledVrExample);
 export const Loading: WorkbenchExample = wb(LoadingExample);
-export const DisabledVr: WorkbenchExample = wb(DisabledVrExample);
+// Named "Disabled" to match the Workbench URL used by existing integration tests.
+export const Disabled: WorkbenchExample = wb(DisabledVrExample);
 export const Ref: WorkbenchExample = wb(RefExample);
 export const Bold: WorkbenchExample = wb(BoldExample);
 export const AriaToggle: WorkbenchExample = wb(AriaToggleExample);

@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'Select',
 				package: '@atlaskit/select/select',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -45,7 +43,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Default',
 					description: 'The default select appearance.',
-					source: path.resolve(__dirname, './examples/constellation/select-appearance-default.tsx'),
+					source: `${__dirname}/examples/constellation/select-appearance-default.tsx`,
 				},
 			],
 			keywords: ['select', 'dropdown', 'combobox', 'form', 'input', 'options', 'choice', 'picker'],
@@ -60,7 +58,7 @@ const documentation: StructuredContentSource = {
 				name: 'AsyncSelect',
 				package: '@atlaskit/select/async-select',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -72,7 +70,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Async select',
 					description: 'Async select with loadOptions for remote or deferred options.',
-					source: path.resolve(__dirname, './examples/constellation/select-async.tsx'),
+					source: `${__dirname}/examples/constellation/select-async.tsx`,
 				},
 			],
 			keywords: ['select', 'async', 'dropdown', 'form', 'api'],
@@ -87,7 +85,7 @@ const documentation: StructuredContentSource = {
 				name: 'CreatableSelect',
 				package: '@atlaskit/select/creatable-select',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -98,7 +96,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Creatable select',
 					description: 'Creatable select for adding options not in the list.',
-					source: path.resolve(__dirname, './examples/constellation/select-creatable.tsx'),
+					source: `${__dirname}/examples/constellation/select-creatable.tsx`,
 				},
 			],
 			keywords: ['select', 'creatable', 'dropdown', 'form', 'custom'],
@@ -113,7 +111,7 @@ const documentation: StructuredContentSource = {
 				name: 'PopupSelect',
 				package: '@atlaskit/select/popup-select',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -125,7 +123,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Popup select',
 					description: 'Popup select with filterable options in an overlay.',
-					source: path.resolve(__dirname, './examples/constellation/select-popup.tsx'),
+					source: `${__dirname}/examples/constellation/select-popup.tsx`,
 				},
 			],
 			keywords: ['select', 'popup', 'dropdown', 'overlay', 'portal'],
@@ -140,7 +138,7 @@ const documentation: StructuredContentSource = {
 				name: 'CheckboxSelect',
 				package: '@atlaskit/select/checkbox-select',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Use for multi-select when checkbox affordance improves clarity'],
@@ -148,7 +146,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Checkbox select',
 					description: 'Multi-select with checkbox indicators per option.',
-					source: path.resolve(__dirname, './examples/constellation/select-checkbox.tsx'),
+					source: `${__dirname}/examples/constellation/select-checkbox.tsx`,
 				},
 			],
 			keywords: ['select', 'checkbox', 'multi', 'dropdown', 'form'],
@@ -163,7 +161,7 @@ const documentation: StructuredContentSource = {
 				name: 'RadioSelect',
 				package: '@atlaskit/select/radio-select',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Use for single-select when radio affordance improves clarity'],
@@ -171,7 +169,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Radio select',
 					description: 'Single-select with radio indicators per option.',
-					source: path.resolve(__dirname, './examples/constellation/select-radio.tsx'),
+					source: `${__dirname}/examples/constellation/select-radio.tsx`,
 				},
 			],
 			keywords: ['select', 'radio', 'single', 'dropdown', 'form'],
@@ -185,7 +183,7 @@ const documentation: StructuredContentSource = {
 				name: 'CountrySelect',
 				package: '@atlaskit/select/country-select',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -196,7 +194,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Country select',
 					description: 'Country select with built-in country list and search.',
-					source: path.resolve(__dirname, './examples/constellation/select-country.tsx'),
+					source: `${__dirname}/examples/constellation/select-country.tsx`,
 				},
 			],
 			keywords: ['select', 'country', 'dropdown', 'form', 'localization'],

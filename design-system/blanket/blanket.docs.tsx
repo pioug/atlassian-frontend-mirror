@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'Blanket',
 				package: '@atlaskit/blanket/blanket',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -39,7 +37,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Blanket',
 					description: 'Blanket example',
-					source: path.resolve(__dirname, './examples/ai/blanket.tsx'),
+					source: `${__dirname}/examples/ai/blanket.tsx`,
 				},
 			],
 			keywords: ['blanket', 'overlay', 'backdrop', 'modal', 'layer'],

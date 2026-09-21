@@ -40,12 +40,14 @@ import TestingInitialFocusMatrixExample from './97-testing-initial-focus-matrix'
 import TestingInitialFocusDefaultOpenExample from './98-testing-initial-focus-default-open';
 import TestingPersistentInlineSelectPopoversExample from './99-testing-persistent-inline-select-popovers';
 
-const SingleSelectVr: WorkbenchExample = wb(SingleSelectVrExample);
-
-export default SingleSelectVr;
+// Explicit named export Used to generate integration-test URLs.
+export const SingleSelect: WorkbenchExample = wb(SingleSelectVrExample);
+// Default export required by accessibility tooling.
+export default SingleSelect;
 export const MultiSelect: WorkbenchExample = wb(MultiSelectExample);
 export const RadioSelect: WorkbenchExample = wb(RadioSelectExample);
-export const CheckboxSelectVr: WorkbenchExample = wb(CheckboxSelectVrExample);
+// Named "CheckboxSelect" to match the Workbench URL used by existing integration tests.
+export const CheckboxSelect: WorkbenchExample = wb(CheckboxSelectVrExample);
 export const CountrySelect: WorkbenchExample = wb(CountrySelectExample);
 export const ValidationVr: WorkbenchExample = wb(ValidationVrExample);
 export const AsyncSelectWithCallback: WorkbenchExample = wb(AsyncSelectWithCallbackExample);
@@ -62,7 +64,8 @@ export const MultiLineSearchTextInput: WorkbenchExample = wb(MultiLineSearchText
 export const CompactMultiSelect: WorkbenchExample = wb(CompactMultiSelectExample);
 export const CompactSingleSelect: WorkbenchExample = wb(CompactSingleSelectExample);
 export const ElementBefore: WorkbenchExample = wb(ElementBeforeExample);
-export const PopupSelectVr: WorkbenchExample = wb(PopupSelectVrExample);
+// Named "PopupSelect" to match the Workbench URL used by existing integration tests.
+export const PopupSelect: WorkbenchExample = wb(PopupSelectVrExample);
 export const FilterValues: WorkbenchExample = wb(FilterValuesExample);
 export const OptionsWithDescription: WorkbenchExample = wb(OptionsWithDescriptionExample);
 export const PopupMultiSelect: WorkbenchExample = wb(PopupMultiSelectExample);
@@ -78,7 +81,8 @@ export const UnsafeIsExperimentalGeneric: WorkbenchExample = wb(UnsafeIsExperime
 export const SelectMultiCustomValueTagLike: WorkbenchExample = wb(
 	SelectMultiCustomValueTagLikeExample,
 );
-export const DropdownIndicatorConstrainedWidthVr: WorkbenchExample = wb(
+// Named "DropdownIndicatorConstrainedWidth" to match the Workbench URL used by existing integration tests.
+export const DropdownIndicatorConstrainedWidth: WorkbenchExample = wb(
 	DropdownIndicatorConstrainedWidthVrExample,
 );
 export const PersistentInlineMenu: WorkbenchExample = wb(PersistentInlineMenuExample);

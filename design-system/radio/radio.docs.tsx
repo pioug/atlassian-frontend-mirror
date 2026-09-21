@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'Radio',
 				package: '@atlaskit/radio/radio',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -43,7 +41,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Radio',
 					description: 'Radio example',
-					source: path.resolve(__dirname, './examples/ai/radio.tsx'),
+					source: `${__dirname}/examples/ai/radio.tsx`,
 				},
 			],
 			keywords: ['radio', 'button', 'input', 'form', 'selection', 'choice', 'option'],
@@ -58,7 +56,7 @@ const documentation: StructuredContentSource = {
 				name: 'RadioGroup',
 				package: '@atlaskit/radio/radio-group',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -86,7 +84,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Radio Group',
 					description: 'Radio Group example',
-					source: path.resolve(__dirname, './examples/ai/radio-group.tsx'),
+					source: `${__dirname}/examples/ai/radio-group.tsx`,
 				},
 			],
 			keywords: ['radio', 'group', 'form', 'selection', 'choice', 'options', 'list'],

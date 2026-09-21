@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 229.1.3
+
+### Patch Changes
+
+- [`d28cad9beb783`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d28cad9beb783) -
+  Enable mention avatars when the platform_editor_mention_node_graphql_provider experiment is
+  enabled
+- Updated dependencies
+
+## 229.1.2
+
+### Patch Changes
+
+- [`fc5f24d3c4d3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc5f24d3c4d3f) -
+  [ux] Add hover previews for Other slash-menu items behind `platform_editor_slash_command`.
+- [`fc26bfc51dd5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc26bfc51dd5c) -
+  Add sparse block-control surface anchors, intersection-driven candidates, and explicit visibility
+  invalidation for registry-backed block controls. Expose registration change subscriptions from the
+  UI control registry model, and refresh cached visibility from suggestion and collapse transaction
+  metadata. Under `platform_editor_block_control_migration`, use native node-anchor identity across
+  Editor and Block Controls, and route expand keyboard focus through the shared Block Controls
+  command. Preserve Show Diff visibility checks in both migration cohorts so block controls stay
+  hidden while a diff is displayed. Keep the block menu closed when a migrated layout-column handle
+  opens the layout menu, and close the layout menu when the selection moves away from its selected
+  columns.
+- [`64a76a7487e96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a76a7487e96) -
+  Add block template hover previews keyed by stable snippet IDs behind
+  platform_editor_slash_command, including the legacy Confluence provider path and the direct
+  extension renderer used by the slash menu. Unknown snippet IDs remain without a preview. Use the
+  supplied highest-quality light and dark preview assets for all 21 supported block templates.
+- Updated dependencies
+
+## 229.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 229.1.0
 
 ### Minor Changes

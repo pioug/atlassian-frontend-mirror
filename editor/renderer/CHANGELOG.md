@@ -1,5 +1,35 @@
 # @atlaskit/renderer
 
+## 141.0.4
+
+### Patch Changes
+
+- [`16d6aded8d25a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16d6aded8d25a) -
+  Prevent code block and media group top margins from changing when streaming SSR style elements
+  move to the document head during hydration, behind platform_renderer_ssr_block_margin_fix.
+  Preserve spacing after content and the top-level lightweight code block override.
+
+  Keep the fully rolled-out Expand SSR margin fix enabled unconditionally.
+
+- Updated dependencies
+
+## 141.0.3
+
+### Patch Changes
+
+- [`22e02fb26ca02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22e02fb26ca02) -
+  Make the shipped media border radius styling permanent and remove the obsolete feature gate.
+- [`78074078c4d8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78074078c4d8e) -
+  Increase heading link targets to at least 24 by 24 pixels when
+  platform_editor_heading_link_target_size is enabled.
+- Updated dependencies
+
+## 141.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 141.0.1
 
 ### Patch Changes

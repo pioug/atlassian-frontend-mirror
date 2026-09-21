@@ -43,7 +43,7 @@ describe('@atlaskit/reactions/containers/ConnectedReactionPicker', () => {
 				emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
 			/>,
 		);
-		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		const triggerPickerButton = await screen.findByLabelText('Add a reaction');
 
 		const btn = triggerPickerButton.closest('button');
 		expect(btn).toBeInTheDocument();

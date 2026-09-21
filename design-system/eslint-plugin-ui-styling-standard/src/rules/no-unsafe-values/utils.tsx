@@ -143,7 +143,7 @@ export class Linter {
 				/**
 				 * Variables can be used if they resolve to a literal.
 				 */
-				if (initializer.type === 'Literal') {
+				if (unwrapSatisfiesExpression(initializer).type === 'Literal') {
 					return;
 				}
 
@@ -189,6 +189,18 @@ export class Linter {
 	}
 
 	private isAllowedDynamicKey(expression: Expression) {
+		const typedExpression = expression as unknown as {
+			type: string;
+			expression?: Expression & { type: string; value?: unknown };
+		};
+		if (
+			typedExpression.type === 'TSSatisfiesExpression' &&
+			typedExpression.expression?.type === 'Literal' &&
+			typeof typedExpression.expression.value === 'string'
+		) {
+			return true;
+		}
+
 		const identifier = findIdentifierNode(expression);
 		if (!identifier) {
 			return false;

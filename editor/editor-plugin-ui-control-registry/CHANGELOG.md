@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-ui-control-registry
 
+## 13.1.0
+
+### Minor Changes
+
+- [`fc26bfc51dd5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc26bfc51dd5c) -
+  Add sparse block-control surface anchors, intersection-driven candidates, and explicit visibility
+  invalidation for registry-backed block controls. Expose registration change subscriptions from the
+  UI control registry model, and refresh cached visibility from suggestion and collapse transaction
+  metadata. Under `platform_editor_block_control_migration`, use native node-anchor identity across
+  Editor and Block Controls, and route expand keyboard focus through the shared Block Controls
+  command. Preserve Show Diff visibility checks in both migration cohorts so block controls stay
+  hidden while a diff is displayed. Keep the block menu closed when a migrated layout-column handle
+  opens the layout menu, and close the layout menu when the selection moves away from its selected
+  columns.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.0
 
 ### Patch Changes

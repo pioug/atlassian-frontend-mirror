@@ -44,10 +44,9 @@ describe('getThemeStyles finesse overrides', () => {
 			{ id: 'typography-finesse', attrs: { 'data-theme': 'typography-finesse' } },
 		]);
 
-		const lightFuture = allResults.find(({ id }) => id === 'light-future');
-		expect(lightFuture?.css).toContain('--ds-background-disabled: #28311B');
-		expect(lightFuture?.css).not.toContain('--ds-border-focused');
-
+		const testLight = allResults.find(({ id }) => id === 'UNSAFE-test-light');
+		expect(testLight?.css).toContain('--ds-background-brand-bold: #964AC0');
+		expect(testLight?.css).toContain('--ds-background-selected-bold: #227D9B');
 		const lightFinesse = results.find(({ id }) => id === 'light-finesse');
 		expect(lightFinesse?.css).not.toContain('--ds-border-focused');
 		expect(lightFinesse?.css).toContain('--ds-background-selected: #0515240F');

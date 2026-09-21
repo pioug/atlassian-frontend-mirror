@@ -31,8 +31,41 @@ typescriptEslintTester.run('typed media queries', rule, {
         xcss({ ['@media (min-width: 48rem)' satisfies MediaAboveSm]: {} });
       `,
 		},
+		{
+			name: 'canonical preference and environment media queries',
+			code: `
+        import { css } from '@compiled/react';
+        import type MediaReducedMotion from '@atlaskit/css/at-rules/media-reduced-motion';
+        import type MediaForcedColors from '@atlaskit/css/at-rules/media-forced-colors-active';
+
+        css({
+          ['@media (prefers-reduced-motion: reduce)' satisfies MediaReducedMotion]: {},
+          ['@media screen and (forced-colors: active)' satisfies MediaForcedColors]: {},
+        });
+      `,
+		},
 	],
 	invalid: [
+		{
+			name: 'reports a non-canonical query paired with a canonical type',
+			code: `
+        import { css } from '@compiled/react';
+        import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
+
+        css({ ['@media (min-width: 49rem)' satisfies MediaAboveSm]: {} });
+      `,
+			errors: [{ messageId: 'no-noncanonical-media-query' }],
+		},
+		{
+			name: 'reports a media query with an unrelated satisfies type',
+			code: `
+        import { css } from '@compiled/react';
+        type MediaAboveSm = string;
+
+        css({ ['@media (min-width: 48rem)' satisfies MediaAboveSm]: {} });
+      `,
+			errors: [{ messageId: 'no-noncanonical-media-query' }],
+		},
 		{
 			name: 'still reports restricted non-media at-rules',
 			code: `

@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -27,7 +25,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Standard status label display.',
-					source: path.resolve(packagePath, './examples/00-simple-status.vr.ap.tsx'),
+					source: `${packagePath}/examples/00-simple-status.vr.ap.tsx`,
 				},
 			],
 			keywords: ['status', 'label', 'badge', 'state', 'lozenge'],
@@ -53,7 +51,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Status Picker',
 					description: 'Standard status picker example.',
-					source: path.resolve(packagePath, './examples/01-status-picker.vr.ap.tsx'),
+					source: `${packagePath}/examples/01-status-picker.vr.ap.tsx`,
 				},
 			],
 			keywords: ['status', 'picker', 'select', 'state', 'choice'],

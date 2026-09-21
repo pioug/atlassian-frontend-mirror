@@ -15,9 +15,11 @@ import IconSpacingExample from './12-icon-spacing';
 import TestingVrExample from './99-testing.vr.ap';
 import TestingTopLayerFocusExample from './testing-top-layer-focus';
 
-const BasicVr: WorkbenchExample = wb(BasicVrExample);
+// Explicit named export Used to generate integration-test URLs.
+export const Basic: WorkbenchExample = wb(BasicVrExample);
 
-export default BasicVr;
+// Default export required by accessibility tooling.
+export default Basic;
 export const DifferentTypesVr: WorkbenchExample = wb(DifferentTypesVrExample);
 export const TypeConnectivity: WorkbenchExample = wb(TypeConnectivityExample);
 export const TypeConfirmation: WorkbenchExample = wb(TypeConfirmationExample);
@@ -29,5 +31,6 @@ export const WithDialogOnTheRight: WorkbenchExample = wb(WithDialogOnTheRightExa
 export const InModal: WorkbenchExample = wb(InModalExample);
 export const FallbackPlacementsVr: WorkbenchExample = wb(FallbackPlacementsVrExample);
 export const IconSpacing: WorkbenchExample = wb(IconSpacingExample);
-export const TestingVr: WorkbenchExample = wb(TestingVrExample);
+// Named "Testing" to match the Workbench URL used by existing integration tests.
+export const Testing: WorkbenchExample = wb(TestingVrExample);
 export const TestingTopLayerFocus: WorkbenchExample = wb(TestingTopLayerFocusExample);

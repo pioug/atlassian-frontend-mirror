@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'Tooltip',
 				package: '@atlaskit/tooltip/Tooltip',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -46,7 +44,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Default Tooltip',
 					description: 'Default Tooltip example',
-					source: path.resolve(__dirname, './examples/default-tooltip.vr.ap.tsx'),
+					source: `${__dirname}/examples/default-tooltip.vr.ap.tsx`,
 				},
 			],
 			keywords: ['tooltip', 'hint', 'hover', 'help', 'floating', 'label', 'explanation'],

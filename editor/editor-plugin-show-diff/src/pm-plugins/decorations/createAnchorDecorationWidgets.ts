@@ -49,7 +49,13 @@ const edgeCases = (
 	doc: PMNode,
 	from: number,
 ):
-	| { beforePos: number; leftOffset?: number; measurePos?: number; measureSelector?: string }
+	| {
+			beforePos: number;
+			leftOffset?: number;
+			measureLeft?: boolean;
+			measurePos?: number;
+			measureSelector?: string;
+	  }
 	| undefined => {
 	const resolved = resolveDocLevelNode(doc, from);
 	if (!resolved) {
@@ -85,6 +91,18 @@ const edgeCases = (
 			// A table with no rows has nothing to measure.
 			if (!node.firstChild) {
 				return undefined;
+			}
+
+			if (fg('platform_editor_ai_show_diff_patch_2')) {
+				// The row retains its full width when the table scrolls. Centering that
+				// width against the editor would push the anchor off-screen. Measure the
+				// visible container's edge instead, including start-aligned tables.
+				return {
+					beforePos,
+					measurePos: beforePos,
+					measureSelector: '.pm-table-container',
+					measureLeft: true,
+				};
 			}
 
 			// Measure the first row (`nodeStart` is just inside the table, i.e. the
@@ -182,19 +200,28 @@ export const createLeftAnchorWidget = ({
 						? (nodeDOM.querySelector<HTMLElement>(edgeCase.measureSelector) ?? nodeDOM)
 						: nodeDOM;
 				if (dom instanceof HTMLElement) {
-					// The left anchor only needs the container width so the
-					// IndicatorBar can align against the block's horizontal extent.
-					anchor.style.setProperty('width', `${dom.offsetWidth}px`);
+					const updateAnchor = () => {
+						if (getPos() === undefined) {
+							return;
+						}
+						if (edgeCase.measureLeft) {
+							const left = dom.getBoundingClientRect().left - wrapper.getBoundingClientRect().left;
+							anchor.style.setProperty('left', `${left}px`);
+							anchor.style.setProperty('transform', 'none');
+						}
+						anchor.style.setProperty('width', `${dom.offsetWidth}px`);
+					};
+					// Align against the block's horizontal extent.
+					updateAnchor();
 
 					// Observe the measured element for size changes (e.g. page
 					// resize) so the indicator stays aligned. CCI-17981
 					if (!leftResizeObserver) {
-						leftResizeObserver = new ResizeObserver(() => {
-							if (getPos() !== undefined) {
-								anchor.style.setProperty('width', `${dom.offsetWidth}px`);
-							}
-						});
+						leftResizeObserver = new ResizeObserver(updateAnchor);
 						leftResizeObserver.observe(dom);
+						if (edgeCase.measureLeft) {
+							leftResizeObserver.observe(wrapper);
+						}
 					}
 				}
 			};

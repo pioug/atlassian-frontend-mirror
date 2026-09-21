@@ -1,12 +1,14 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag React.Fragment
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { SUBTREE_THEME_ATTRIBUTE } from '@atlaskit/tokens/constants';
 import { getThemeHtmlAttrs } from '@atlaskit/tokens/get-theme-html-attrs';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
@@ -19,6 +21,7 @@ import { InsideThemeProviderContext } from './context/inside-theme-provider';
 import { SetColorModeContext } from './context/set-color-mode-context';
 import { SetThemeContext, type Theme, ThemeContext } from './context/theme';
 import { useIsInsideThemeProvider } from './hooks/use-is-inside-theme-provider';
+import { getInlineThemeStyles } from './utils/get-inline-theme-styles';
 import { loadAndMountThemes } from './utils/load-and-mount-themes';
 
 const defaultThemeSettings: Theme = {
@@ -76,6 +79,7 @@ export function ThemeProvider({
 		...defaultThemeSettings,
 		...defaultTheme,
 	}));
+	const [hasHoistedInlineThemeStyles, setHasHoistedInlineThemeStyles] = useState(false);
 
 	const setColorMode = useCallback((colorMode: ThemeColorModes) => {
 		setChosenColorMode(colorMode);
@@ -104,6 +108,25 @@ export function ThemeProvider({
 	 */
 	const isRootThemeProvider =
 		isInsideAppProvider && !isInsideThemeProvider && isAppProviderThemingEnabled;
+
+	useLayoutEffect(() => {
+		if (!fg('platform-static-theme-loading') || hasHoistedInlineThemeStyles) {
+			return;
+		}
+
+		getInlineThemeStyles(theme, chosenColorMode).forEach(({ id, css }) => {
+			if (document.head.querySelector(`style[data-theme="${id}"]`)) {
+				return;
+			}
+
+			const style = document.createElement('style');
+			style.dataset.theme = id;
+			style.textContent = css;
+			document.head.appendChild(style);
+		});
+
+		setHasHoistedInlineThemeStyles(true);
+	}, [chosenColorMode, hasHoistedInlineThemeStyles, theme]);
 
 	useEffect(() => {
 		if (isRootThemeProvider) {
@@ -176,6 +199,10 @@ export function ThemeProvider({
 		}),
 		[SUBTREE_THEME_ATTRIBUTE]: true,
 	};
+	const inlineThemeStyles =
+		fg('platform-static-theme-loading') && !hasHoistedInlineThemeStyles
+			? getInlineThemeStyles(theme, chosenColorMode)
+			: [];
 
 	return (
 		<InsideThemeProviderContext.Provider value={true}>
@@ -185,10 +212,24 @@ export function ThemeProvider({
 						<SetThemeContext.Provider value={setPartialTheme}>
 							{!isRootThemeProvider ? (
 								<div {...attrs} css={contentStyles.body}>
+									{inlineThemeStyles.map(({ id, css }) => (
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+										<style data-theme={id} key={id}>
+											{css}
+										</style>
+									))}
 									{children}
 								</div>
 							) : (
-								children
+								<>
+									{inlineThemeStyles.map(({ id, css }) => (
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+										<style data-theme={id} key={id}>
+											{css}
+										</style>
+									))}
+									{children}
+								</>
 							)}
 						</SetThemeContext.Provider>
 					</ThemeContext.Provider>

@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'Tag',
 				package: '@atlaskit/tag/removable-tag',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -43,7 +41,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Tag',
 					description: 'Tag example',
-					source: path.resolve(__dirname, './examples/ai/tag.tsx'),
+					source: `${__dirname}/examples/ai/tag.tsx`,
 				},
 			],
 			keywords: ['tag', 'label', 'category', 'filter', 'chip', 'badge'],
@@ -57,7 +55,7 @@ const documentation: StructuredContentSource = {
 				name: 'RemovableTag',
 				package: '@atlaskit/tag/removable-tag',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -77,7 +75,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Removable Tag',
 					description: 'RemovableTag example',
-					source: path.resolve(__dirname, './examples/constellation/tag-new-removable.tsx'),
+					source: `${__dirname}/examples/constellation/tag-new-removable.tsx`,
 				},
 			],
 			keywords: ['tag', 'removable', 'chip', 'label', 'category', 'close'],
@@ -91,7 +89,7 @@ const documentation: StructuredContentSource = {
 				name: 'SimpleTag',
 				package: '@atlaskit/tag/simple-tag',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -109,7 +107,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Simple Tag',
 					description: 'SimpleTag example',
-					source: path.resolve(__dirname, './examples/9-simple-tag.tsx'),
+					source: `${__dirname}/examples/9-simple-tag.tsx`,
 				},
 			],
 			keywords: ['tag', 'simple', 'label', 'category', 'non-interactive'],
@@ -124,7 +122,7 @@ const documentation: StructuredContentSource = {
 				name: 'AvatarTag',
 				package: '@atlaskit/tag/avatar-tag',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -148,7 +146,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Avatar Tag',
 					description: 'AvatarTag example',
-					source: path.resolve(__dirname, './examples/constellation/avatar-tag-default.tsx'),
+					source: `${__dirname}/examples/constellation/avatar-tag-default.tsx`,
 				},
 			],
 			keywords: ['tag', 'avatar', 'user', 'agent', 'team', 'project', 'space'],

@@ -1,5 +1,5 @@
-import type { SurfaceTokenSchema, ValueSchema } from '../../../src/types';
-import type { BaseToken } from '../../palettes/palette';
+import type { SurfaceTokenSchema, ValueSchema } from '../../../../src/types';
+import type { BaseToken } from '../../../palettes/palette';
 
 const elevation: ValueSchema<SurfaceTokenSchema<BaseToken>> = {
 	elevation: {

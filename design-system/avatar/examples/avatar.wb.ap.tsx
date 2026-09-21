@@ -25,7 +25,8 @@ const BasicAvatarVr: WorkbenchExample = wb(BasicAvatarVrExample);
 
 export default BasicAvatarVr;
 export const CustomAvatar: WorkbenchExample = wb(CustomAvatarExample);
-export const BasicAvatarItemVr: WorkbenchExample = wb(BasicAvatarItemVrExample);
+// Named "BasicAvatarItem" to match the Workbench URL used by existing integration tests.
+export const BasicAvatarItem: WorkbenchExample = wb(BasicAvatarItemVrExample);
 export const BasicPresenceVr: WorkbenchExample = wb(BasicPresenceVrExample);
 export const BasicStatusVr: WorkbenchExample = wb(BasicStatusVrExample);
 export const AvatarCircle: WorkbenchExample = wb(AvatarCircleExample);

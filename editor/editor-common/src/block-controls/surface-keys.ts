@@ -22,6 +22,11 @@ export const BLOCK_CONTROLS_LEFT_GROUP = {
 	type: 'group',
 } as const;
 
+export const BLOCK_CONTROLS_DRAG_HANDLE = {
+	key: 'block-controls-drag-handle',
+	type: 'button',
+} as const;
+
 export const BLOCK_CONTROLS_RIGHT_SECTION = {
 	key: 'block-controls-right-section',
 	type: 'section',

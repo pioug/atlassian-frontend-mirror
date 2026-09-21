@@ -9,6 +9,7 @@ import ResponsiveWrappingVrExample from './06-responsive-wrapping.vr.ap';
 
 const DefaultVr: WorkbenchExample = wb(DefaultVrExample);
 
+// Default export required by accessibility tooling.
 export default DefaultVr;
 export const Complex: WorkbenchExample = wb(ComplexExample);
 export const CustomTitle: WorkbenchExample = wb(CustomTitleExample);

@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -29,7 +27,7 @@ const documentation: StructuredContentSource = {
 					name: 'Render an agent avatar',
 					description:
 						'Uses the built-in Rovo identity to label an agent in a conversation surface. (AI-generated — please review)',
-					source: path.resolve(packagePath, './examples/ai/agent-avatar.tsx'),
+					source: `${packagePath}/examples/ai/agent-avatar.tsx`,
 				},
 			],
 			keywords: ['rovo', 'agent', 'avatar', 'identity', 'ai'],
@@ -56,7 +54,7 @@ const documentation: StructuredContentSource = {
 					name: 'Show an agent profile summary',
 					description:
 						'Composes an agent name, creator, description, and host-controlled star state for a profile surface. (AI-generated — please review)',
-					source: path.resolve(packagePath, './examples/ai/agent-profile-info.tsx'),
+					source: `${packagePath}/examples/ai/agent-profile-info.tsx`,
 				},
 			],
 			keywords: ['rovo', 'agent', 'profile', 'info', 'ai'],

@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'ProgressBar',
 				package: '@atlaskit/progress-bar/progress-bar',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -42,7 +40,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Progress Bar',
 					description: 'Progress Bar example',
-					source: path.resolve(__dirname, './examples/ai/progress-bar.tsx'),
+					source: `${__dirname}/examples/ai/progress-bar.tsx`,
 				},
 			],
 			keywords: ['progress', 'bar', 'loading', 'status', 'completion', 'indeterminate'],
@@ -56,7 +54,7 @@ const documentation: StructuredContentSource = {
 				name: 'SuccessProgressBar',
 				package: '@atlaskit/progress-bar/success-progress-bar',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -74,7 +72,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Success Progress Bar',
 					description: 'Success Progress Bar example',
-					source: path.resolve(__dirname, './examples/ai/success-progress-bar.tsx'),
+					source: `${__dirname}/examples/ai/success-progress-bar.tsx`,
 				},
 			],
 			keywords: ['progress', 'bar', 'success', 'complete', 'finished'],
@@ -88,7 +86,7 @@ const documentation: StructuredContentSource = {
 				name: 'TransparentProgressBar',
 				package: '@atlaskit/progress-bar/transparent-progress-bar',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -106,7 +104,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Transparent Progress Bar',
 					description: 'Transparent Progress Bar example',
-					source: path.resolve(__dirname, './examples/ai/transparent-progress-bar.tsx'),
+					source: `${__dirname}/examples/ai/transparent-progress-bar.tsx`,
 				},
 			],
 			keywords: ['progress', 'bar', 'transparent', 'overlay', 'subtle'],

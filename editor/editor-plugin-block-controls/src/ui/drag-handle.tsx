@@ -866,11 +866,12 @@ export const DragHandle = ({
 
 	const calculatePositionOld = useCallback(() => {
 		const pos = getPos();
-		const $pos = expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-			? typeof pos === 'number' && view.state.doc.resolve(pos)
-			: pos && view.state.doc.resolve(pos);
+		const $pos = typeof pos === 'number' ? view.state.doc.resolve(pos) : undefined;
 		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
 		const node = parentPos !== undefined ? view.state.doc.nodeAt(parentPos) : undefined;
+		const nodeTypeWithLevel = $pos?.nodeAfter?.isBlock
+			? getNodeTypeWithLevel($pos.nodeAfter)
+			: nodeType;
 		const parentNodeType = node?.type.name;
 		const supportsAnchor =
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
@@ -959,9 +960,7 @@ export const DragHandle = ({
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(${anchorTop} - ${DRAG_HANDLE_WIDTH}px)`
 						: `calc(${anchorStart} + ${topPositionAdjustment(
-								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
-									: nodeType,
+								nodeTypeWithLevel,
 								dom?.getAttribute('layout') || '',
 							)}px)`,
 
@@ -982,7 +981,7 @@ export const DragHandle = ({
 			left: isEdgeCase
 				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
 				: getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType),
-			top: getTopPosition(dom, nodeType),
+			top: getTopPosition(dom, nodeTypeWithLevel),
 			...height,
 		};
 	}, [

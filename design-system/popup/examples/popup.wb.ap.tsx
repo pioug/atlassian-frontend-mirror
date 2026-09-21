@@ -17,6 +17,7 @@ import ModalPopupCompositionVrExample from './22-modal-popup-composition.vr.ap';
 import ModalPopupVrExample from './22-modal-popup.vr.ap';
 import PopupCompositionTopLayerVrExample from './23-popup-composition-top-layer.vr.ap';
 import TestingInitialFocusMatrixExample from './97-testing-initial-focus-matrix';
+import TestingFitViewportExample from './98-testing-fit-viewport';
 import ColorInheritanceVrExample from './color-inheritance.vr.ap';
 import ContentUpdatesExample from './content-updates';
 import ContentWithoutPortalExample from './content-without-portal';
@@ -35,12 +36,15 @@ import TestingModalExample from './testing-modal';
 import TestingModalInsidePopupInsideDropdownExample from './testing-modal-inside-popup-inside-dropdown';
 import TestingNestedExample from './testing-nested';
 import TestingPageExample from './testing-page';
+import TestingPopupWithDatetimePickerEscapeExample from './testing-popup-with-datetime-picker-escape';
 import TestingPopupWithDropdownEscapeExample from './testing-popup-with-dropdown-escape';
 import TriggerlessExample from './triggerless';
 
-const PopupVr: WorkbenchExample = wb(PopupVrExample);
+// Explicit named export Used to generate integration-test URLs.
+export const Popup: WorkbenchExample = wb(PopupVrExample);
 
-export default PopupVr;
+// Default export required by accessibility tooling.
+export default Popup;
 export const AsynchronousPopup: WorkbenchExample = wb(AsynchronousPopupExample);
 export const MultiplePopups: WorkbenchExample = wb(MultiplePopupsExample);
 export const SettingFocus: WorkbenchExample = wb(SettingFocusExample);
@@ -49,13 +53,16 @@ export const PopupWithSelectVr: WorkbenchExample = wb(PopupWithSelectVrExample);
 export const PopupComposition: WorkbenchExample = wb(PopupCompositionExample);
 export const PopupWithA11yProps: WorkbenchExample = wb(PopupWithA11yPropsExample);
 export const Experimental: WorkbenchExample = wb(ExperimentalExample);
-export const ShouldFitContainerVr: WorkbenchExample = wb(ShouldFitContainerVrExample);
-export const PopupRoleDialogVr: WorkbenchExample = wb(PopupRoleDialogVrExample);
+// Named "ShouldFitContainer" to match the Workbench URL used by existing integration tests.
+export const ShouldFitContainer: WorkbenchExample = wb(ShouldFitContainerVrExample);
+// Named "PopupRoleDialog" to match the Workbench URL used by existing integration tests.
+export const PopupRoleDialog: WorkbenchExample = wb(PopupRoleDialogVrExample);
 export const PopupShouldCloseOnTab: WorkbenchExample = wb(PopupShouldCloseOnTabExample);
 export const PopupShouldRenderToParent: WorkbenchExample = wb(PopupShouldRenderToParentExample);
 export const ModalPopupCompositionVr: WorkbenchExample = wb(ModalPopupCompositionVrExample);
 export const ModalPopupVr: WorkbenchExample = wb(ModalPopupVrExample);
 export const PopupCompositionTopLayerVr: WorkbenchExample = wb(PopupCompositionTopLayerVrExample);
+export const TestingFitViewport: WorkbenchExample = wb(TestingFitViewportExample);
 export const TestingInitialFocusMatrix: WorkbenchExample = wb(TestingInitialFocusMatrixExample);
 export const ColorInheritanceVr: WorkbenchExample = wb(ColorInheritanceVrExample);
 export const ContentUpdates: WorkbenchExample = wb(ContentUpdatesExample);
@@ -79,6 +86,9 @@ export const TestingModalInsidePopupInsideDropdown: WorkbenchExample = wb(
 );
 export const TestingNested: WorkbenchExample = wb(TestingNestedExample);
 export const TestingPage: WorkbenchExample = wb(TestingPageExample);
+export const TestingPopupWithDatetimePickerEscape: WorkbenchExample = wb(
+	TestingPopupWithDatetimePickerEscapeExample,
+);
 export const TestingPopupWithDropdownEscape: WorkbenchExample = wb(
 	TestingPopupWithDropdownEscapeExample,
 );

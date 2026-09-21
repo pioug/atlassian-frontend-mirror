@@ -1,6 +1,7 @@
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { FlagType } from '../main';
 
@@ -42,6 +43,10 @@ export const isStepDelete = (s: ReplaceStep): boolean => {
 const isStepContentReplacedWithAnotherOfSameSize = (s: Step): boolean => {
 	if (s instanceof ReplaceAroundStep) {
 		const replacedContentSize = s.to - s.from;
+		if (isExperimentEnabled('platform_editor_block_control_migration')) {
+			const insertedContentSize = s.slice.size + (s.gapTo - s.gapFrom);
+			return insertedContentSize === replacedContentSize;
+		}
 		return s.slice.content.size === replacedContentSize;
 	}
 	return false;

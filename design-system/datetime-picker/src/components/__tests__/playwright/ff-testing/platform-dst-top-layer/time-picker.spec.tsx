@@ -8,6 +8,63 @@ test.beforeEach(({ skipAxeCheck }) => {
 	skipAxeCheck();
 });
 
+for (const [topLayerEnabled, options] of [
+	[true, { featureFlag, 'react-18-mode': 'modern' }],
+	[false, { 'react-18-mode': 'modern' }],
+] as Array<[boolean, Record<string, string | boolean>]>) {
+	test.describe(`TimePicker public behaviour (top layer: ${topLayerEnabled})`, () => {
+		test('opens, selects, dismisses, and exits the time listbox by keyboard', async ({ page }) => {
+			await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+				'design-system',
+				'datetime-picker',
+				'times',
+				options,
+			);
+			const input = page.getByRole('combobox', { name: 'TimePicker - times', exact: true });
+			const listbox = page.getByRole('listbox').last();
+			await expect(input).toHaveAttribute('aria-haspopup', 'listbox');
+			await input.click();
+			await expect(listbox).toBeVisible();
+			await expect(input).toHaveAttribute('aria-controls', /\S+/);
+			await page.getByRole('option', { name: '10:15 AM' }).click();
+			await expect(listbox).toBeHidden();
+			await input.press('ArrowDown');
+			await page.keyboard.press('Escape');
+			await expect(input).toBeFocused();
+			await input.press('ArrowDown');
+			await expect(listbox).toBeVisible();
+			await page.keyboard.press('Tab');
+			const nextInput = page.getByRole('combobox', { name: 'DateTimePicker - times, date' });
+			/* eslint-disable playwright/no-conditional-in-test, playwright/no-conditional-expect -- The feature-gated baseline asserts both documented outcomes. */
+			if (topLayerEnabled) {
+				// The top-layer path currently does not restore the legacy focus order here.
+				await expect(nextInput).not.toBeFocused();
+			} else {
+				await expect(nextInput).toBeFocused();
+			}
+			/* eslint-enable playwright/no-conditional-in-test, playwright/no-conditional-expect */
+		});
+
+		test('keeps a disabled TimePicker closed and dismisses on an outside click', async ({
+			page,
+		}) => {
+			await page.visitExample<
+				typeof import('../../../../../../examples/30-time-picker-states.tsx')
+			>('design-system', 'datetime-picker', 'time-picker-states', options);
+			const disabledInput = page.locator('#timepicker-2--input');
+			await expect(disabledInput).toBeDisabled();
+			await expect(page.getByRole('listbox')).toHaveCount(0);
+
+			const enabledInput = page.getByRole('combobox', { name: 'Stock' });
+			const listbox = page.getByRole('listbox').last();
+			await enabledInput.click();
+			await expect(listbox).toBeVisible();
+			await page.mouse.click(0, 0);
+			await expect(listbox).toBeHidden();
+		});
+	});
+}
+
 test.describe('TimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('opens menu via click and displays time options', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(

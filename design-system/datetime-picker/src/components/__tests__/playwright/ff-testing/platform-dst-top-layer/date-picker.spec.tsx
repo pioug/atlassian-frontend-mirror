@@ -8,6 +8,53 @@ test.beforeEach(({ skipAxeCheck }) => {
 	skipAxeCheck();
 });
 
+for (const [topLayerEnabled, options] of [
+	[true, { featureFlag, 'react-18-mode': 'modern' }],
+	[false, { 'react-18-mode': 'modern' }],
+] as Array<[boolean, Record<string, string | boolean>]>) {
+	test.describe(`DatePicker public behaviour (top layer: ${topLayerEnabled})`, () => {
+		test('preserves keyboard, selection, and input-popup behaviour', async ({ page }) => {
+			await page.visitExample<
+				typeof import('../../../../../../examples/10-date-picker-states.tsx')
+			>('design-system', 'datetime-picker', 'date-picker-states', options);
+			const input = page.getByRole('combobox', { name: 'Stock' });
+			const calendar = page.getByRole('grid');
+			await expect(input).toHaveAttribute('aria-haspopup', 'listbox');
+			await input.click();
+			await expect(calendar).toBeVisible();
+			await expect(input).toHaveAttribute('aria-controls', /\S+/);
+			await page.keyboard.press('Escape');
+			await expect(calendar).toBeHidden();
+			await expect(input).toBeFocused();
+			await page.keyboard.press('ArrowDown');
+			await expect(calendar).toBeVisible();
+			await page.getByRole('button', { name: /, / }).nth(7).click();
+			await expect(calendar).toBeHidden();
+		});
+
+		test('keeps disabled DatePicker closed until enabled and restores focus order', async ({
+			page,
+		}) => {
+			await page.visitExample<typeof import('../../../../../../examples/999-disable-toggle.tsx')>(
+				'design-system',
+				'datetime-picker',
+				'disable-toggle',
+				options,
+			);
+			const datePicker = page.getByTestId('datepicker-1--container');
+			const dateInput = datePicker.locator('input[role="combobox"]');
+			const calendar = page.getByRole('grid');
+			await expect(dateInput).toBeDisabled();
+			await expect(calendar).toBeHidden();
+			await page.getByText('DatePicker isDisabled', { exact: true }).click();
+			await datePicker.click();
+			await expect(calendar).toBeVisible();
+			await page.keyboard.press('Escape');
+			await expect(dateInput).toBeFocused();
+		});
+	});
+}
+
 test.describe('DatePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('opens calendar via keyboard and selects date', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../../examples/10-date-picker-states.tsx')>(

@@ -4,7 +4,6 @@ import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common/ui';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { imageFileId } from '@atlaskit/media-test-helpers';
 import { skipAutoA11y } from '@atlassian/a11y-jest-testing';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Caption from '../../../../react/nodes/caption';
 import type { MediaProps } from '../../../../react/nodes/media';
@@ -265,38 +264,7 @@ describe('MediaSingle', () => {
 		});
 	});
 
-	it('with border mark (old behaviour) - should use borderWidth as borderRadius', () => {
-		failGate('platform_editor_media_border_radius_fix');
-		const fireAnalyticsEvent = jest.fn();
-		const mediaOnClick = jest.fn();
-
-		const { container } = renderMediaSingle(
-			{
-				fireAnalyticsEvent,
-			},
-			{
-				marks: [
-					{
-						type: 'border',
-						attrs: {
-							color: '#091E4224',
-							size: 3,
-						},
-					},
-				],
-				isBorderMark: () => true,
-				eventHandlers: { media: { onClick: mediaOnClick } },
-			},
-		);
-
-		const borders = container.querySelectorAll('div[data-mark-type="border"]');
-		expect(borders).toHaveLength(1);
-		expect(getComputedStyle(borders[0]).getPropertyValue('box-shadow')).toContain('3px');
-		expect(getComputedStyle(borders[0])).toHaveProperty('borderRadius', '3px');
-	});
-
-	it('with border mark (new behaviour) - should use 8px as borderRadius', () => {
-		passGate('platform_editor_media_border_radius_fix');
+	it('should render border marks with the large radius token', () => {
 		const fireAnalyticsEvent = jest.fn();
 		const mediaOnClick = jest.fn();
 

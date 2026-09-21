@@ -1,5 +1,5 @@
-import type { TextColorTokenSchema, ValueSchema } from '../../../src/types';
-import type { BaseToken } from '../../palettes/palette';
+import type { TextColorTokenSchema, ValueSchema } from '../../../../src/types';
+import type { BaseToken } from '../../../palettes/palette';
 
 const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
 	color: {

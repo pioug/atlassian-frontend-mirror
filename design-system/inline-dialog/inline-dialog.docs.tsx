@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'InlineDialog',
 				package: '@atlaskit/inline-dialog/inline-dialog',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Inline Dialog',
 					description: 'Inline Dialog example',
-					source: path.resolve(__dirname, './examples/ai/inline-dialog.tsx'),
+					source: `${__dirname}/examples/ai/inline-dialog.tsx`,
 				},
 			],
 			keywords: ['dialog', 'inline', 'popup', 'overlay', 'tooltip'],

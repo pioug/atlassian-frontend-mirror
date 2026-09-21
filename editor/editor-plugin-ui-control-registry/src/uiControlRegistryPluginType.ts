@@ -4,6 +4,7 @@ import type { SurfaceIdentifier } from '@atlaskit/editor-ui-control-model/surfac
 import type {
 	ComponentIdentifier,
 	RegisterComponent,
+	RegistryListener,
 } from '@atlaskit/editor-ui-control-model/types';
 
 export type UiControlRegistryPlugin = NextEditorPlugin<
@@ -13,6 +14,8 @@ export type UiControlRegistryPlugin = NextEditorPlugin<
 			getComponent: (component: ComponentIdentifier) => RegisterComponent | undefined;
 			getComponents: (surface: string | SurfaceIdentifier) => RegisterComponent[];
 			register: (components: RegisterComponent[], options?: RegisterOptions) => void;
+			/** Observes registration changes without coupling the registry to a surface. */
+			subscribe: (listener: RegistryListener) => () => void;
 			unregister: (components: ComponentIdentifier[]) => void;
 		};
 	}

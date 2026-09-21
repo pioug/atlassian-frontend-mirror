@@ -1,5 +1,5 @@
-import type { ShadowTokenSchema, ValueSchema } from '../../../src/types';
-import type { BaseToken } from '../../palettes/palette';
+import type { ShadowTokenSchema, ValueSchema } from '../../../../src/types';
+import type { BaseToken } from '../../../palettes/palette';
 
 const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
 	elevation: {

@@ -59,6 +59,7 @@ export const createBlockControlsSurfaceContextForPosition = (
 	const rootNodeContext = getNodeContext(state, rootPos) ?? targetNodeContext;
 
 	return {
+		activeControlKey: activeNode?.controlKey,
 		activeNode:
 			activeNode && activeNodeContext
 				? {

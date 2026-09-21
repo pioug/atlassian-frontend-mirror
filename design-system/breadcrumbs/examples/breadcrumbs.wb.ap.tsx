@@ -17,9 +17,10 @@ import SkeletonVrExample from './12-skeleton.vr.ap';
 import WithElementNextToBreadcrumbsVrExample from './14-with-element-next-to-breadcrumbs.vr.ap';
 import TestingExample from './99-testing';
 
-const BasicVr: WorkbenchExample = wb(BasicVrExample);
-
-export default BasicVr;
+// Explicit named export Used to generate integration-test URLs.
+export const Basic: WorkbenchExample = wb(BasicVrExample);
+// Default export required by accessibility tooling.
+export default Basic;
 export const LongVr: WorkbenchExample = wb(LongVrExample);
 export const Playground: WorkbenchExample = wb(PlaygroundExample);
 export const Stateful: WorkbenchExample = wb(StatefulExample);

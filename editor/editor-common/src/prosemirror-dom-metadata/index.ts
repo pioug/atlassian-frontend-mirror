@@ -3,6 +3,7 @@
 
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const isPMNode = (nodeOrMark: PMNode | PMMark): nodeOrMark is PMNode => {
@@ -55,7 +56,8 @@ export const createProseMirrorMetadata = (
 
 	if (
 		options?.anchrorId !== undefined &&
-		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+		(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_block_control_migration'))
 	) {
 		commonAttributes['data-node-anchor'] = options.anchrorId;
 	}

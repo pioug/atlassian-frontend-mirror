@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 45.25.0
+
+### Minor Changes
+
+- [`ddf9deb4c8100`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddf9deb4c8100) -
+  Add host product context support to Smart Link embed URLs (gated by
+  platform_avp_smartlink_embed_product_context).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.24.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.24.6
 
 ### Patch Changes

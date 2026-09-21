@@ -15,7 +15,8 @@ const Completed: WorkbenchExample = wb(CompletedExample);
 export default Completed;
 export const DynamicStages: WorkbenchExample = wb(DynamicStagesExample);
 export const NoLink: WorkbenchExample = wb(NoLinkExample);
-export const ProgressTrackerDefaultVr: WorkbenchExample = wb(ProgressTrackerDefaultVrExample);
+// Named "ProgressTrackerDefault" to match the Workbench URL used by existing integration tests.
+export const ProgressTrackerDefault: WorkbenchExample = wb(ProgressTrackerDefaultVrExample);
 export const ProgressTrackerSpacingComfortable: WorkbenchExample = wb(
 	ProgressTrackerSpacingComfortableExample,
 );

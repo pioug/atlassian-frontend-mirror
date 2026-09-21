@@ -1,5 +1,60 @@
 # @atlaskit/editor-common
 
+## 123.4.0
+
+### Minor Changes
+
+- [`9df8889f51f21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9df8889f51f21) -
+  Add an opt-in LinkPickerOptions.popupContainerSurface ('default' | 'none') that lets a custom link
+  picker component (e.g. RovoLinkPicker) suppress the editor's floating toolbar popup surface
+  (background, box-shadow, border-radius, padding) when it renders its own complete surface.
+  Threaded through FloatingToolbarConfig/Toolbar's new containerSurface prop. Defaults to the
+  existing wrapper surface; only a caller that explicitly opts in is affected.
+
+### Patch Changes
+
+- [`d28cad9beb783`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d28cad9beb783) -
+  Enable mention avatars when the platform_editor_mention_node_graphql_provider experiment is
+  enabled
+
+## 123.3.0
+
+### Minor Changes
+
+- [`ad905e52e6f1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad905e52e6f1b) -
+  CONFCLOUD-84260: Include the expand title in body accessible names, localize the macro role
+  description, and keep them updated behind `platform_editor_expand_content_a11y_2`.
+- [`fc26bfc51dd5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc26bfc51dd5c) -
+  Add sparse block-control surface anchors, intersection-driven candidates, and explicit visibility
+  invalidation for registry-backed block controls. Expose registration change subscriptions from the
+  UI control registry model, and refresh cached visibility from suggestion and collapse transaction
+  metadata. Under `platform_editor_block_control_migration`, use native node-anchor identity across
+  Editor and Block Controls, and route expand keyboard focus through the shared Block Controls
+  command. Preserve Show Diff visibility checks in both migration cohorts so block controls stay
+  hidden while a diff is displayed. Keep the block menu closed when a migrated layout-column handle
+  opens the layout menu, and close the layout menu when the selection moves away from its selected
+  columns.
+- [`64a76a7487e96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a76a7487e96) -
+  Add block template hover previews keyed by stable snippet IDs behind
+  platform_editor_slash_command, including the legacy Confluence provider path and the direct
+  extension renderer used by the slash menu. Unknown snippet IDs remain without a preview. Use the
+  supplied highest-quality light and dark preview assets for all 21 supported block templates.
+
+### Patch Changes
+
+- [`22e02fb26ca02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22e02fb26ca02) -
+  Make the shipped media border radius styling permanent and remove the obsolete feature gate.
+- [`3db4caa422c0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3db4caa422c0a) -
+  Make selection fragment sanitization permanent while preserving nested tables, and remove the
+  obsolete feature gate.
+- Updated dependencies
+
+## 123.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 123.2.0
 
 ### Minor Changes

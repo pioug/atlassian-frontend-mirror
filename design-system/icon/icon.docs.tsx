@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'IconNew',
 				package: '@atlaskit/icon/icon-new',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Icon',
 					description: 'Icon example',
-					source: path.resolve(__dirname, './examples/ai/icon.tsx'),
+					source: `${__dirname}/examples/ai/icon.tsx`,
 				},
 			],
 			keywords: ['icon', 'symbol', 'command', 'device', 'directory', 'action', 'visual'],
@@ -55,7 +53,7 @@ const documentation: StructuredContentSource = {
 				name: 'IconTile',
 				package: '@atlaskit/icon/icon-tile',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -79,7 +77,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Icon Tile',
 					description: 'Icon Tile example',
-					source: path.resolve(__dirname, './examples/ai/icon-tile.tsx'),
+					source: `${__dirname}/examples/ai/icon-tile.tsx`,
 				},
 			],
 			keywords: ['icon', 'tile', 'container', 'background', 'shape', 'appearance'],

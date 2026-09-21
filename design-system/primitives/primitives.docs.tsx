@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'Anchor',
 				package: '@atlaskit/primitives/compiled/anchor',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -38,7 +36,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Anchor',
 					description: 'Anchor example',
-					source: path.resolve(__dirname, './examples/ai/anchor.tsx'),
+					source: `${__dirname}/examples/ai/anchor.tsx`,
 				},
 			],
 			keywords: ['anchor', 'link', 'navigation', 'href', 'url', 'primitive', 'compiled'],
@@ -53,7 +51,7 @@ const documentation: StructuredContentSource = {
 				name: 'Bleed',
 				package: '@atlaskit/primitives/compiled/bleed',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -71,7 +69,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Bleed',
 					description: 'Bleed example',
-					source: path.resolve(__dirname, './examples/ai/bleed.tsx'),
+					source: `${__dirname}/examples/ai/bleed.tsx`,
 				},
 			],
 			keywords: ['bleed', 'layout', 'margin', 'spacing', 'edge', 'primitive', 'compiled'],
@@ -86,7 +84,7 @@ const documentation: StructuredContentSource = {
 				name: 'Box',
 				package: '@atlaskit/primitives/compiled/box',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -104,7 +102,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Box',
 					description: 'Box example',
-					source: path.resolve(__dirname, './examples/ai/box.tsx'),
+					source: `${__dirname}/examples/ai/box.tsx`,
 				},
 			],
 			keywords: ['box', 'container', 'div', 'layout', 'primitive', 'compiled'],
@@ -118,7 +116,7 @@ const documentation: StructuredContentSource = {
 				name: 'Flex',
 				package: '@atlaskit/primitives/compiled/flex',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -136,7 +134,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Flex',
 					description: 'Flex example',
-					source: path.resolve(__dirname, './examples/ai/flex.tsx'),
+					source: `${__dirname}/examples/ai/flex.tsx`,
 				},
 			],
 			keywords: ['flex', 'layout', 'flexbox', 'alignment', 'primitive', 'compiled'],
@@ -151,7 +149,7 @@ const documentation: StructuredContentSource = {
 				name: 'Focusable',
 				package: '@atlaskit/primitives/compiled/focusable',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -176,7 +174,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Focusable',
 					description: 'Focusable example',
-					source: path.resolve(__dirname, './examples/ai/focusable.tsx'),
+					source: `${__dirname}/examples/ai/focusable.tsx`,
 				},
 			],
 			keywords: [
@@ -198,7 +196,7 @@ const documentation: StructuredContentSource = {
 				name: 'Grid',
 				package: '@atlaskit/primitives/compiled/grid',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -216,7 +214,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Grid',
 					description: 'Grid example',
-					source: path.resolve(__dirname, './examples/ai/grid.tsx'),
+					source: `${__dirname}/examples/ai/grid.tsx`,
 				},
 			],
 			keywords: ['grid', 'layout', 'css-grid', 'alignment', 'primitive', 'compiled'],
@@ -230,7 +228,7 @@ const documentation: StructuredContentSource = {
 				name: 'Inline',
 				package: '@atlaskit/primitives/compiled/inline',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -248,7 +246,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Inline',
 					description: 'Inline example',
-					source: path.resolve(__dirname, './examples/ai/inline.tsx'),
+					source: `${__dirname}/examples/ai/inline.tsx`,
 				},
 			],
 			keywords: ['inline', 'layout', 'horizontal', 'spacing', 'primitive', 'compiled'],
@@ -262,7 +260,7 @@ const documentation: StructuredContentSource = {
 				name: 'MetricText',
 				package: '@atlaskit/primitives/compiled/metric-text',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -280,7 +278,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Metric Text',
 					description: 'Metric Text example',
-					source: path.resolve(__dirname, './examples/ai/metric-text.tsx'),
+					source: `${__dirname}/examples/ai/metric-text.tsx`,
 				},
 			],
 			keywords: ['text', 'typography', 'font', 'primitive', 'compiled'],
@@ -295,7 +293,7 @@ const documentation: StructuredContentSource = {
 				name: 'Pressable',
 				package: '@atlaskit/primitives/compiled/pressable',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -319,7 +317,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Pressable',
 					description: 'Pressable example',
-					source: path.resolve(__dirname, './examples/ai/pressable.tsx'),
+					source: `${__dirname}/examples/ai/pressable.tsx`,
 				},
 			],
 			keywords: ['pressable', 'interaction', 'touch', 'click', 'primitive', 'compiled'],
@@ -334,7 +332,7 @@ const documentation: StructuredContentSource = {
 				name: 'Stack',
 				package: '@atlaskit/primitives/compiled/stack',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -352,7 +350,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Stack',
 					description: 'Stack example',
-					source: path.resolve(__dirname, './examples/ai/stack.tsx'),
+					source: `${__dirname}/examples/ai/stack.tsx`,
 				},
 			],
 			keywords: ['stack', 'layout', 'vertical', 'horizontal', 'spacing', 'primitive', 'compiled'],
@@ -366,7 +364,7 @@ const documentation: StructuredContentSource = {
 				name: 'Text',
 				package: '@atlaskit/primitives/compiled/text',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -384,7 +382,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Text',
 					description: 'Text example',
-					source: path.resolve(__dirname, './examples/ai/text.tsx'),
+					source: `${__dirname}/examples/ai/text.tsx`,
 				},
 			],
 			keywords: ['text', 'typography', 'font', 'primitive', 'compiled'],

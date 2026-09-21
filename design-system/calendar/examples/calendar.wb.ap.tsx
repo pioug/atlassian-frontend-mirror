@@ -18,4 +18,5 @@ export const Disabled: WorkbenchExample = wb(DisabledExample);
 export const DisabledRange: WorkbenchExample = wb(DisabledRangeExample);
 export const DisabledFilter: WorkbenchExample = wb(DisabledFilterExample);
 export const BasicWithoutFocus: WorkbenchExample = wb(BasicWithoutFocusExample);
-export const TestingVr: WorkbenchExample = wb(TestingVrExample);
+// Named "Testing" to match the Workbench URL used by existing integration tests.
+export const Testing: WorkbenchExample = wb(TestingVrExample);

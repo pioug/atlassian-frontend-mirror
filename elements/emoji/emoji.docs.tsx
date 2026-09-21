@@ -2,15 +2,20 @@
  * Structured MCP docs for `@atlaskit/emoji`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
+	config: {
+		componentPages: false,
+		packageTabs: {
+			examples: false,
+			usage: false,
+		},
+	},
 	package: {
 		package: '@atlaskit/emoji',
 		packagePath,
@@ -37,7 +42,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Simple emoji',
 					description: 'Basic usage of the Emoji component.',
-					source: path.resolve(packagePath, './examples/00-simple-emoji.tsx'),
+					source: `${packagePath}/examples/00-simple-emoji.tsx`,
 				},
 			],
 		},
@@ -62,7 +67,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Emoji picker with usage',
 					description: 'Emoji picker with frequently used emojis tracked.',
-					source: path.resolve(packagePath, './examples/06-emoji-picker-with-usage.tsx'),
+					source: `${packagePath}/examples/06-emoji-picker-with-usage.tsx`,
 				},
 			],
 		},
@@ -86,7 +91,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Standard emoji typeahead',
 					description: 'Basic usage of EmojiTypeAhead.',
-					source: path.resolve(packagePath, './examples/03-standard-emoji-typeahead.tsx'),
+					source: `${packagePath}/examples/03-standard-emoji-typeahead.tsx`,
 				},
 			],
 		},

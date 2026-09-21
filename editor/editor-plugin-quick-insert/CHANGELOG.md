@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 19.0.4
+
+### Patch Changes
+
+- [`50f3c586dbc63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50f3c586dbc63) -
+  Clean up feature gate `platform_editor_fix_space_triggering_ai`
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- [`64a76a7487e96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a76a7487e96) -
+  Add block template hover previews keyed by stable snippet IDs behind
+  platform_editor_slash_command, including the legacy Confluence provider path and the direct
+  extension renderer used by the slash menu. Unknown snippet IDs remain without a preview. Use the
+  supplied highest-quality light and dark preview assets for all 21 supported block templates.
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- [`1e8d2aad8e882`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e8d2aad8e882) -
+  Remove the permanent `platform_editor_layout_typeahead_reorder` experiment and its temporary
+  Editor Statsig registration.
+- Updated dependencies
+
 ## 19.0.1
 
 ### Patch Changes

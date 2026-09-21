@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 17.1.3
+
+### Patch Changes
+
+- [`8598d92a969fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8598d92a969fc) -
+  EDITOR-9000 Fix suggested-edit navigation to scroll to the decorated diff when
+  `platform_editor_ai_show_diff_patch_2` is enabled.
+- Updated dependencies
+
+## 17.1.2
+
+### Patch Changes
+
+- [`fc26bfc51dd5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc26bfc51dd5c) -
+  Add sparse block-control surface anchors, intersection-driven candidates, and explicit visibility
+  invalidation for registry-backed block controls. Expose registration change subscriptions from the
+  UI control registry model, and refresh cached visibility from suggestion and collapse transaction
+  metadata. Under `platform_editor_block_control_migration`, use native node-anchor identity across
+  Editor and Block Controls, and route expand keyboard focus through the shared Block Controls
+  command. Preserve Show Diff visibility checks in both migration cohorts so block controls stay
+  hidden while a diff is displayed. Keep the block menu closed when a migrated layout-column handle
+  opens the layout menu, and close the layout menu when the selection moves away from its selected
+  columns.
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- [`296193f8a499b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/296193f8a499b) -
+  Keep table diff indicators aligned with the visible table edge when the viewport narrows and the
+  table scrolls horizontally, behind platform_editor_ai_show_diff_patch_2.
+- Updated dependencies
+
 ## 17.1.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 72.4.12
+
+### Patch Changes
+
+- [`8dc7c24a6415f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dc7c24a6415f) -
+  Add gating for Canvas emojis
+- Updated dependencies
+
+## 72.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 72.4.10
 
 ### Patch Changes

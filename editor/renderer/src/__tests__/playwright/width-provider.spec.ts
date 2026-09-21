@@ -7,7 +7,12 @@ test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-t
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
-skipAutoA11yFile();
+skipAutoA11yFile({
+	exceptTests: [
+		'should be resized on page width change',
+		'should resize table on page width change',
+	],
+});
 
 test.describe('width-provider when table resizing is disabled', () => {
 	test.use({

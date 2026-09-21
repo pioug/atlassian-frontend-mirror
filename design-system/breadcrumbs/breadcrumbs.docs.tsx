@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'Breadcrumbs',
 				package: '@atlaskit/breadcrumbs/breadcrumbs',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -42,7 +40,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Breadcrumbs',
 					description: 'Breadcrumbs example',
-					source: path.resolve(__dirname, './examples/ai/breadcrumbs.tsx'),
+					source: `${__dirname}/examples/ai/breadcrumbs.tsx`,
 				},
 			],
 			keywords: ['breadcrumbs', 'navigation', 'hierarchy', 'path', 'location'],
@@ -57,7 +55,7 @@ const documentation: StructuredContentSource = {
 				name: 'BreadcrumbsItem',
 				package: '@atlaskit/breadcrumbs/breadcrumbs-item',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -79,7 +77,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Breadcrumbs Item',
 					description: 'BreadcrumbsItem example',
-					source: path.resolve(__dirname, './examples/constellation/breadcrumbs-default.tsx'),
+					source: `${__dirname}/examples/constellation/breadcrumbs-default.tsx`,
 				},
 			],
 			keywords: ['breadcrumbs', 'item', 'navigation', 'link', 'hierarchy'],

@@ -10,7 +10,9 @@ import Loadable from 'react-loadable';
 
 import LinkGlyph from '@atlaskit/icon/core/link';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
@@ -19,7 +21,7 @@ import extractRovoChatAction from '../../../extractors/flexible/actions/extract-
 import { getExtensionKey } from '../../../state/getExtensionKey';
 import useEmbedRovoActionsFooterExperiment from '../../../state/hooks/use-embed-rovo-actions-footer-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
-import { getPreviewUrlWithTheme } from '../../../utils/get-preview-url-with-theme';
+import { getPreviewUrlWithEmbedContext } from '../../../utils/get-preview-url-with-theme';
 import { isProfileType } from '../../../utils/is-profile-type';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
 import { getRovoPostAuthPromptKeys } from '../../common/rovo-post-auth-prompts';
@@ -149,6 +151,8 @@ export interface EmbedCardResolvedViewProps {
 	inheritDimensions?: boolean;
 	/** A flag that determines whether the card is selected in edit mode. */
 	isSelected?: boolean;
+	/** Whether the link source receives the hosting product in its iframe URL. */
+	isSupportProductContext?: boolean;
 	/* It determines whether a link source supports different design theme modes */
 	isSupportTheming?: boolean;
 	/** A flag that determines whether link source can be trusted in iframe **/
@@ -202,6 +206,7 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 			onIframeFocus,
 			onIframeMouseEnter,
 			onIframeMouseLeave,
+			isSupportProductContext,
 			isSupportTheming,
 			type,
 			CompetitorPrompt,
@@ -241,10 +246,18 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 		});
 
 		const themeState = useThemeObserver();
+		const { product } = useSmartLinkContext();
 		let previewUrl = preview?.src;
+		const hostProduct =
+			fg('platform_avp_smartlink_embed_product_context') && isSupportProductContext
+				? product
+				: undefined;
 
-		if (previewUrl && isSupportTheming) {
-			previewUrl = getPreviewUrlWithTheme(previewUrl, themeState);
+		if (previewUrl && (isSupportTheming || hostProduct)) {
+			previewUrl = getPreviewUrlWithEmbedContext(previewUrl, {
+				hostProduct,
+				themeState: isSupportTheming ? themeState : undefined,
+			});
 		}
 
 		const [isMouseOver, setMouseOver] = React.useState(false);

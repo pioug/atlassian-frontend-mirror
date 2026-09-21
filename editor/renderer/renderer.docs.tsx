@@ -3,13 +3,11 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -38,27 +36,27 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Basic ReactRenderer with ADF document.',
-					source: path.resolve(packagePath, './examples/0-basic.tsx'),
+					source: `${packagePath}/examples/0-basic.tsx`,
 				},
 				{
 					name: 'Full page',
 					description: 'Full-page renderer with full ADF.',
-					source: path.resolve(packagePath, './examples/0-full-page.tsx'),
+					source: `${packagePath}/examples/0-full-page.tsx`,
 				},
 				{
 					name: 'With providers',
 					description: 'Renderer with media and other providers.',
-					source: path.resolve(packagePath, './examples/1-with-providers.tsx'),
+					source: `${packagePath}/examples/1-with-providers.tsx`,
 				},
 				{
 					name: 'Full page with media caption',
 					description: 'Renderer with media and captions.',
-					source: path.resolve(packagePath, './examples/0-full-page-with-media-caption.tsx'),
+					source: `${packagePath}/examples/0-full-page-with-media-caption.tsx`,
 				},
 				{
 					name: 'Column layout',
 					description: 'Renderer with column layout.',
-					source: path.resolve(packagePath, './examples/10-column-layout.tsx'),
+					source: `${packagePath}/examples/10-column-layout.tsx`,
 				},
 			],
 		},

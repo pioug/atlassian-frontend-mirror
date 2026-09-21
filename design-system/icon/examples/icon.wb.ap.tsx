@@ -19,5 +19,6 @@ export const Perf: WorkbenchExample = wb(PerfExample);
 export const NewIconExplorer: WorkbenchExample = wb(NewIconExplorerExample);
 export const NewIcons: WorkbenchExample = wb(NewIconsExample);
 export const NewIconInButton: WorkbenchExample = wb(NewIconInButtonExample);
-export const NewIconsSizeVr: WorkbenchExample = wb(NewIconsSizeVrExample);
+// Named "NewIconsSize" to match the Workbench URL used by existing integration tests.
+export const NewIconsSize: WorkbenchExample = wb(NewIconsSizeVrExample);
 export const IconTileVr: WorkbenchExample = wb(IconTileVrExample);

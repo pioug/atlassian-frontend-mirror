@@ -5,6 +5,7 @@ import type { IntlShape } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 import { keyName } from 'w3c-keyname';
 
+import { BLOCK_CONTROLS_DRAG_HANDLE } from '@atlaskit/editor-common/block-controls/surface-keys';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
 import type {
@@ -48,6 +49,19 @@ function buildExpandClassName(type: string, expanded: boolean) {
 	return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
 		expanded ? expandClassNames.expanded : ''
 	}`;
+}
+
+export function getExpandBodyAriaLabel(title: string, intl?: IntlShape): string {
+	const safeTitle =
+		title.trim() ||
+		intl?.formatMessage(expandMessages.expandBodyAriaLabelUntitled) ||
+		expandMessages.expandBodyAriaLabelUntitled.defaultMessage;
+
+	return (
+		intl?.formatMessage(expandMessages.expandBodyAriaLabel, {
+			title: safeTitle,
+		}) || expandMessages.expandBodyAriaLabel.defaultMessage.replace('{title}', safeTitle)
+	);
 }
 
 const toDOM = (
@@ -108,17 +122,28 @@ const toDOM = (
 		],
 	],
 	[
-		'div',
+		isExperimentEnabled('platform_editor_expand_content_a11y_2') ? 'section' : 'div',
 		{
 			// prettier-ignore
 			class: `${expandClassNames.content} ${(__livePage ? !node.attrs.__expanded : node.attrs.__expanded) ? '' : expandClassNames.contentCollapsed}`,
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
-			role: 'textbox',
-			'aria-multiline': 'true',
-			'aria-label':
-				(intl && intl.formatMessage(expandMessages.expandBodyAriaLabel)) ||
-				expandMessages.expandBodyAriaLabel.defaultMessage,
+			...(!isExperimentEnabled('platform_editor_expand_content_a11y_2') && {
+				role: 'textbox',
+				'aria-multiline': 'true',
+				'aria-label':
+					(intl && intl.formatMessage(expandMessages.expandBodyAriaLabelOriginal)) ||
+					expandMessages.expandBodyAriaLabelOriginal.defaultMessage,
+			}),
+			...(isExperimentEnabled('platform_editor_expand_content_a11y_2') && {
+				'aria-label': getExpandBodyAriaLabel(node.attrs.title ?? '', intl),
+				'aria-description':
+					intl?.formatMessage(expandMessages.expandBodyAriaDescription) ||
+					expandMessages.expandBodyAriaDescription.defaultMessage,
+				'aria-roledescription':
+					intl?.formatMessage(expandMessages.expandBodyRoleDescription) ??
+					expandMessages.expandBodyRoleDescription.defaultMessage,
+			}),
 		},
 		0,
 	],
@@ -410,14 +435,25 @@ export class ExpandNodeView implements NodeView {
 					this.view.focus();
 					this.api?.core.actions.execute(({ tr }) => {
 						tr.setSelection(NodeSelection.create(state.doc, pos));
-						// Show the drag handle on the selected expand node
+						if (isExperimentEnabled('platform_editor_block_control_migration')) {
+							const command = this.api?.blockControls?.commands.showControlAtPosition(
+								pos,
+								BLOCK_CONTROLS_DRAG_HANDLE,
+								{
+									isFocused: true,
+								},
+							);
+							if (command) {
+								return command({ tr });
+							}
+							return null;
+						}
+
 						const node = state.doc.nodeAt(pos);
 						if (node) {
-							// Find the anchor name from the DOM
 							const dom = this.view.nodeDOM(pos);
 							if (dom instanceof HTMLElement) {
 								const anchorName = dom.getAttribute('data-node-anchor');
-								// Only proceed if we found a valid anchor name
 								if (anchorName) {
 									const command = this.api?.blockControls?.commands.showDragHandleAt(
 										pos,
@@ -823,6 +859,15 @@ export class ExpandNodeView implements NodeView {
 					this.input.value = this.node.attrs.title;
 				}
 			});
+
+			if (isExperimentEnabled('platform_editor_expand_content_a11y_2')) {
+				if (this.node.attrs.title !== node.attrs.title && this.content) {
+					this.content.setAttribute(
+						'aria-label',
+						getExpandBodyAriaLabel(node.attrs.title ?? '', this.intl),
+					);
+				}
+			}
 
 			this.node = node;
 			return true;

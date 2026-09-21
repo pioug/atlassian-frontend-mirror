@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
 import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const MediaSingleNodeSelector = 'media-single-node';
 
@@ -44,12 +43,7 @@ export const MediaCardWrapper = ({
 	onContextMenu,
 }: MediaCardWrapperProps): jsx.JSX.Element => {
 	const calculatedBorderWidth = selected && borderWidth > 0 ? borderWidth + 1 : borderWidth;
-	// [FEATURE FLAG: platform_editor_media_border_radius_fix]
-	// Fixes border radius calculation to properly fit image with 8px radius
-	// To clean up: keep only flag-on behavior (calculatedBorderWidth + 8)
-	const borderRadius = fg('platform_editor_media_border_radius_fix')
-		? `${calculatedBorderWidth + 8}px`
-		: `${calculatedBorderWidth * 2}px`; // OLD BEHAVIOR (to be removed when flag is cleaned up)
+	const borderRadius = `${calculatedBorderWidth + 8}px`;
 
 	return (
 		<div

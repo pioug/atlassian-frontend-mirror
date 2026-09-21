@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::8622cd207ede8e8e02275cd9e0dfc3cc>>
+ * @codegen <<SignedSource::62df1129cd332cd422134d3da180202d>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -530,6 +530,30 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		examples: [],
 	},
 	{
+		name: 'useAutoSuggest',
+		description: 'Fetches and manages streaming prompt suggestions for a Rovo Chat query.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when a host needs to compose its own suggestion presentation while retaining the package request and cancellation behavior.',
+		],
+		keywords: ['rovo', 'chat', 'suggestions', 'hook'],
+		category: 'rovo',
+		package: '@atlassian/conversation-assistant-auto-suggest',
+		examples: [],
+	},
+	{
+		name: 'useAutoSuggestTracking',
+		description: 'Provides tracking state for auto-suggest interactions.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use with the host analytics lifecycle when tracking suggestion impressions or selections.',
+		],
+		keywords: ['rovo', 'chat', 'suggestions', 'tracking'],
+		category: 'rovo',
+		package: '@atlassian/conversation-assistant-auto-suggest',
+		examples: [],
+	},
+	{
 		name: 'useAllAttachmentsStore',
 		description:
 			'Selects all file and external-context attachments for one prompt-input key and exposes attachment actions.',
@@ -865,6 +889,32 @@ export const atlaskitHooks: HookMcpPayload[] = [
 			type: 'CustomMessageActionBroker',
 		},
 		package: '@atlassian/conversation-assistant-message-actions',
+		examples: [],
+	},
+	{
+		name: 'useProductData',
+		description:
+			'Public useProductData entrypoint for @atlassian/conversation-assistant-preview-card.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public useProductData entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		package: '@atlassian/conversation-assistant-preview-card',
+		examples: [],
+	},
+	{
+		name: 'useTemplateContextProvider',
+		description:
+			'Public use-template-context-provider entrypoint for @atlassian/conversation-assistant-template-selector.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public use-template-context-provider entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		package: '@atlassian/conversation-assistant-template-selector',
 		examples: [],
 	},
 	{
@@ -1694,6 +1744,42 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		keywords: ['rovo', 'experience', 'store actions', 'hook'],
 		category: 'rovo',
 		package: '@atlassian/rovo-experience-api',
+		examples: [],
+	},
+	{
+		name: 'useFomoCollaborators',
+		description: 'Public use-fomo-collaborators entrypoint for @atlassian/rovo-fomo-nudge.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public use-fomo-collaborators entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		package: '@atlassian/rovo-fomo-nudge',
+		examples: [],
+	},
+	{
+		name: 'useFomoCollaboratorsBatched',
+		description: 'Public use-fomo-collaborators-batched entrypoint for @atlassian/rovo-fomo-nudge.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public use-fomo-collaborators-batched entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		package: '@atlassian/rovo-fomo-nudge',
+		examples: [],
+	},
+	{
+		name: 'useFomoCollaboratorsByAaid',
+		description: 'Public use-fomo-collaborators-by-aaid entrypoint for @atlassian/rovo-fomo-nudge.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the public use-fomo-collaborators-by-aaid entrypoint when integrating this Rovo capability.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		package: '@atlassian/rovo-fomo-nudge',
 		examples: [],
 	},
 	{

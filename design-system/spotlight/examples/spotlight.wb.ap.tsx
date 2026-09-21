@@ -31,7 +31,8 @@ const ActionLinksVr: WorkbenchExample = wb(ActionLinksVrExample);
 
 export default ActionLinksVr;
 export const AllPlacementsVr: WorkbenchExample = wb(AllPlacementsVrExample);
-export const CardVr: WorkbenchExample = wb(CardVrExample);
+// Named "Card" to match the Workbench URL used by existing integration tests.
+export const Card: WorkbenchExample = wb(CardVrExample);
 export const CtaAppearance: WorkbenchExample = wb(CtaAppearanceExample);
 export const Customisations: WorkbenchExample = wb(CustomisationsExample);
 export const DisableClickOutside: WorkbenchExample = wb(DisableClickOutsideExample);

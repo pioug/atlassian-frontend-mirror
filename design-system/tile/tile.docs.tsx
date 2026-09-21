@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,14 +14,14 @@ const documentation: StructuredContentSource = {
 				name: 'Tile',
 				package: '@atlaskit/tile/tile',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			examples: [
 				{
 					name: 'Basic',
 					description: 'Basic tile example',
-					source: path.resolve(__dirname, './examples/basic.tsx'),
+					source: `${__dirname}/examples/basic.tsx`,
 				},
 			],
 			keywords: ['tile', 'icon', 'container', 'avatar', 'asset', 'emoji', 'logo', 'shape'],

@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 36.3.14
+
+### Patch Changes
+
+- [`37306b987a271`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37306b987a271) -
+  Remove the tef_fix_a11y_add_reaction_button_language_support feature flag and always localize the
+  add reaction accessible label.
+- Updated dependencies
+
+## 36.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.3.12
 
 ### Patch Changes

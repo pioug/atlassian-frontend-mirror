@@ -88,7 +88,7 @@ const ResizeButton = ({
 	onClick,
 	testId,
 	...props
-}: ResizeButtonProps): jsx.JSX.Element => {
+}: ResizeButtonProps): JSX.Element => {
 	// Extract css from props if it exists to avoid conflicts
 	const { css: _ignoredCss, ...restProps } = props as any;
 

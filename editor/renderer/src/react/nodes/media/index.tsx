@@ -128,12 +128,7 @@ const MediaBorder = ({
 
 	const paletteColorValue = hexToEditorBorderPaletteColor(borderColor) || borderColor;
 
-	// [FEATURE FLAG: platform_editor_media_border_radius_fix]
-	// Fixes border radius to properly match image with 8px radius
-	// To clean up: keep only flag-on behavior ('8px')
-	const borderRadius = fg('platform_editor_media_border_radius_fix')
-		? token('radius.large', '8px')
-		: `${borderWidth}px`; // OLD BEHAVIOR (to be removed when flag is cleaned up)
+	const borderRadius = token('radius.large', '8px');
 
 	return (
 		<div

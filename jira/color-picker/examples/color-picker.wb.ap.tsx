@@ -14,7 +14,8 @@ import { default as ColorPickerOutlineExample } from './11-color-picker-outline'
 import { default as ColorPaletteMenuOutlineVrExample } from './12-color-palette-menu-outline.vr.ap';
 import { default as ColorPickerOutlineOpenVrExample } from './13-color-picker-outline-open.vr.ap';
 
-export const ColorPickerVr: WorkbenchExample = wb(ColorPickerVrExample);
+// Named "ColorPicker" to match the Workbench URL used by existing integration tests.
+export const ColorPicker: WorkbenchExample = wb(ColorPickerVrExample);
 export const MultiColumnsColorPicker: WorkbenchExample = wb(MultiColumnsColorPickerExample);
 export const ColorPickerWithPopperProps: WorkbenchExample = wb(ColorPickerWithPopperPropsExample);
 export const ColorPaletteMenu: WorkbenchExample = wb(ColorPaletteMenuExample);

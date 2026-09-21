@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b5e86817104067f4d4b33c92b079de07>>
+ * @codegen <<SignedSource::d33d0969fc43fd123fe3f35c5de9b383>>
  * @codegenCommand yarn build tokens
  */
 
@@ -3861,7 +3861,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E3E4F21F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3888,7 +3888,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#242528",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3916,7 +3916,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#2B2C2F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3944,7 +3944,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#242528",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3972,7 +3972,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FFFFFF29",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4001,7 +4001,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FFFFFF3D",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4030,7 +4030,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FFFFFF52",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4059,7 +4059,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CECED912",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4088,7 +4088,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E3E4F21F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4117,7 +4117,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E5E9F640",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4146,7 +4146,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#00000000",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4175,7 +4175,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CECED912",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4204,7 +4204,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E3E4F21F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4233,7 +4233,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CECFD2",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4262,7 +4262,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#BFC1C4",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4291,7 +4291,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#A9ABAF",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4320,7 +4320,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#35243F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4349,7 +4349,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#48245D",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4378,7 +4378,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#803FA5",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4407,7 +4407,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#C97CF4",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4436,7 +4436,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#D8A0F7",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4465,7 +4465,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#EED7FC",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4494,7 +4494,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#3D2232",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4523,7 +4523,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#50253F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4552,7 +4552,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#77325B",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4581,7 +4581,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E774BB",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4610,7 +4610,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#F797D2",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4639,7 +4639,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FCB6E1",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4668,7 +4668,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FFECF8",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4697,7 +4697,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FDD0EC",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4726,7 +4726,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FCB6E1",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4755,7 +4755,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#42221F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4784,7 +4784,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#5D1F1A",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4813,7 +4813,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#872821",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4842,7 +4842,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#5D1F1A",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4871,7 +4871,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#872821",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4900,7 +4900,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#AE2E24",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4929,7 +4929,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#AE2E24",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4958,7 +4958,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#F87168",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4987,7 +4987,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FD9891",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5016,7 +5016,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FFB8B2",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5045,7 +5045,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#3A2C1F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5074,7 +5074,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#693200",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5103,7 +5103,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#7A3B00",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5132,7 +5132,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#693200",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5161,7 +5161,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#7A3B00",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5190,7 +5190,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#9E4C00",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5219,7 +5219,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#9E4C00",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5248,7 +5248,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FBC828",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5277,7 +5277,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FCA700",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5306,7 +5306,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#F68909",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5335,7 +5335,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#28311B",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5364,7 +5364,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#37471F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5393,7 +5393,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#3F5224",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5422,7 +5422,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#37471F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5451,7 +5451,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#3F5224",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5480,7 +5480,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#4C6B1F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5509,7 +5509,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#4C6B1F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5538,7 +5538,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#94C748",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5567,7 +5567,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#B3DF72",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5596,7 +5596,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#BDE97C",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5625,7 +5625,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#35243F",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5654,7 +5654,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#48245D",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5683,7 +5683,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#673286",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5712,7 +5712,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#48245D",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5741,7 +5741,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#673286",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5770,7 +5770,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#803FA5",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5799,7 +5799,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#803FA5",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5828,7 +5828,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#C97CF4",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5857,7 +5857,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#D8A0F7",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5886,7 +5886,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E3BDFA",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5915,7 +5915,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#1C2B42",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5944,7 +5944,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#123263",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5973,7 +5973,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#144794",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6002,7 +6002,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#123263",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6031,7 +6031,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#144794",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6060,7 +6060,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#1558BC",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6089,7 +6089,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#1558BC",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6118,7 +6118,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#669DF1",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6147,7 +6147,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#8FB8F6",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6176,7 +6176,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#ADCBFB",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6205,7 +6205,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E3E4F21F",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6839,7 +6839,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CECED912",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6866,7 +6866,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#9DD9EE",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6893,7 +6893,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#7E8188",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6921,7 +6921,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E3E4F21F",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6949,7 +6949,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#18191A",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6976,7 +6976,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#C97CF4",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7003,7 +7003,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E774BB",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7030,7 +7030,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#F15B50",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7058,7 +7058,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#AE2E24",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7086,7 +7086,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#F68909",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7114,7 +7114,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#9E4C00",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7142,7 +7142,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#82B536",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7170,7 +7170,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#4C6B1F",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7198,7 +7198,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#BF63F3",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7226,7 +7226,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#803FA5",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7254,7 +7254,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#4688EC",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7282,7 +7282,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#1558BC",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7310,7 +7310,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#7E8188",
-    "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7337,7 +7337,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CECFD2",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8254,7 +8254,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E5E9F640",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8281,7 +8281,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#1F1F21",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8308,7 +8308,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#D8A0F7",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8335,7 +8335,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#F797D2",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8362,7 +8362,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FD9891",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8390,7 +8390,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FFD5D2",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8418,7 +8418,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FBC828",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8446,7 +8446,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#1F1F21",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8474,7 +8474,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FCE4A6",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8502,7 +8502,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#B3DF72",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8530,7 +8530,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#D3F1A7",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8558,7 +8558,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#D8A0F7",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8586,7 +8586,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#EED7FC",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8614,7 +8614,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#8FB8F6",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8642,7 +8642,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CFE1FD",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8670,7 +8670,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#96999E",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8697,7 +8697,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#A9ABAF",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8724,7 +8724,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CECFD2",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9031,7 +9031,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E5E9F640",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9058,7 +9058,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#1F1F21",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9085,7 +9085,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#D8A0F7",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9112,7 +9112,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#F797D2",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9139,7 +9139,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#F15B50",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9166,7 +9166,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FBC828",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9194,7 +9194,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#1F1F21",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9222,7 +9222,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#82B536",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9249,7 +9249,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#BF63F3",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9276,7 +9276,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#4688EC",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9303,7 +9303,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#96999E",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9330,7 +9330,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#A9ABAF",
-    "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9357,7 +9357,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#9DD9EE",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9384,7 +9384,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#C6EDFB",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9411,7 +9411,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#D8A0F7",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9439,7 +9439,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#EED7FC",
-    "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9575,7 +9575,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#10121499",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9602,7 +9602,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#8F7EE71A",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9629,7 +9629,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E3493514",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12552,7 +12552,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12582,7 +12582,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#E2E3E4",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12612,7 +12612,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CECFD2",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12642,7 +12642,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#82B536",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12670,7 +12670,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FCA700",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12698,7 +12698,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#357DE8",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12726,7 +12726,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#BF63F3",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12754,7 +12754,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#82B536",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12782,7 +12782,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#FCA700",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12810,7 +12810,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#357DE8",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12838,7 +12838,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#BF63F3",
-    "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12866,7 +12866,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#35243F",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12894,7 +12894,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#48245D",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12922,7 +12922,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#673286",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12950,7 +12950,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#BDBDBD0A",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -12978,7 +12978,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#CECED912",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13006,7 +13006,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#D9DAE71A",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13034,7 +13034,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#673286",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13062,7 +13062,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#803FA5",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13090,7 +13090,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#964AC0",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13118,7 +13118,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#48245D",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13146,7 +13146,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#673286",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13174,7 +13174,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#803FA5",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13202,7 +13202,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#3D2232",
-    "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13335,7 +13335,7 @@ const tokens: Token[] = [
         "opacity": 0.5
       }
     ],
-    "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
     "isSource": true,
     "attributes": {
       "group": "shadow",
@@ -13382,7 +13382,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#01040480",
-    "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13410,7 +13410,7 @@ const tokens: Token[] = [
   },
   {
     "value": "#0104048f",
-    "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -13468,7 +13468,7 @@ const tokens: Token[] = [
         "opacity": 0.5
       }
     ],
-    "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
     "isSource": true,
     "attributes": {
       "group": "shadow",
@@ -13554,7 +13554,7 @@ const tokens: Token[] = [
         "opacity": 0.5
       }
     ],
-    "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+    "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
     "isSource": true,
     "attributes": {
       "group": "shadow",

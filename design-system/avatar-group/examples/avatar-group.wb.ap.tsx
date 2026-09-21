@@ -15,9 +15,10 @@ import TestingTopLayerFocusExample from './testing-top-layer-focus';
 import VrAvatarGroupSizesVrExample from './vr-avatar-group-sizes.vr.ap';
 import VrStackingContextVrExample from './vr-stacking-context.vr.ap';
 
-const BasicAvatarGroupVr: WorkbenchExample = wb(BasicAvatarGroupVrExample);
-
-export default BasicAvatarGroupVr;
+// Explicit named export Used to generate integration-test URLs.
+export const BasicAvatarGroup: WorkbenchExample = wb(BasicAvatarGroupVrExample);
+// Default export required by accessibility tooling.
+export default BasicAvatarGroup;
 export const NonInteractiveAvatarGroup: WorkbenchExample = wb(NonInteractiveAvatarGroupExample);
 export const AvatarGroupBorderColorVr: WorkbenchExample = wb(AvatarGroupBorderColorVrExample);
 export const AvatarGroupWithCustomAvatar: WorkbenchExample = wb(AvatarGroupWithCustomAvatarExample);

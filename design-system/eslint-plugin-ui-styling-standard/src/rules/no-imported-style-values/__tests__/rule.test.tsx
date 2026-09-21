@@ -31,6 +31,20 @@ typescriptEslintTester.run(
               height: '5px' satisfies typeof height,
             },
           });
+				`,
+			},
+			{
+				name: 'Local literal constrained by an imported type is not a style value',
+				code: `
+          import { cssMap } from '@atlaskit/css';
+          import type { height } from './constants';
+
+          const panelHeight = 56 as const satisfies typeof height;
+          const styles = cssMap({
+            root: {
+              height: \`\${panelHeight}px\`,
+            },
+          });
         `,
 			},
 			{

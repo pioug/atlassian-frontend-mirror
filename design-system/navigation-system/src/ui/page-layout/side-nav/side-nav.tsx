@@ -19,6 +19,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
@@ -26,7 +27,6 @@ import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';
@@ -1415,7 +1415,7 @@ function SideNavInternal({
 				<DangerouslyHoistCssVarToDocumentRoot
 					variableName={sideNavLiveWidthVar}
 					value="0px"
-					mediaQuery={media.above.md}
+					mediaQuery={'@media (min-width: 64rem)' satisfies MediaAboveMd}
 					responsiveValue={
 						isExpandedOnDesktop ? `var(${panelSplitterResizingVar}, ${clampedWidth})` : 0
 					}

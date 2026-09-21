@@ -104,7 +104,7 @@ const LeftSidebarInner = ({
 	children,
 	isFixed = false,
 	isFlyoutOpen = false,
-}: LeftSidebarInnerProps): jsx.JSX.Element => {
+}: LeftSidebarInnerProps): JSX.Element => {
 	const isDragging = useIsSidebarDragging();
 
 	return (

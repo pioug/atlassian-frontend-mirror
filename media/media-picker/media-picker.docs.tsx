@@ -2,15 +2,20 @@
  * Structured MCP docs for `@atlaskit/media-picker`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
+	config: {
+		componentPages: false,
+		packageTabs: {
+			examples: false,
+			usage: false,
+		},
+	},
 	package: {
 		package: '@atlaskit/media-picker',
 		packagePath,
@@ -37,7 +42,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Browse',
 					description: 'Basic usage of the Browser picker.',
-					source: path.resolve(packagePath, './examples/2-browse.tsx'),
+					source: `${packagePath}/examples/2-browse.tsx`,
 				},
 			],
 		},
@@ -61,7 +66,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Dropzone',
 					description: 'Basic usage of the Dropzone picker.',
-					source: path.resolve(packagePath, './examples/1-dropzone.tsx'),
+					source: `${packagePath}/examples/1-dropzone.tsx`,
 				},
 			],
 		},

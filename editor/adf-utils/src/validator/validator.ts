@@ -134,7 +134,6 @@ const resolveVariantOverrideContentItems = (
  * We denormalised the spec to save bundle size.
  */
 export function createSpec(nodes?: Array<string>, marks?: Array<string>): CreateSpecReturn {
-	const variantOverrides = getVariantSpecOverrides();
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return Object.keys(specs).reduce<CreateSpecReturn>((newSpecs, k) => {
@@ -142,11 +141,7 @@ export function createSpec(nodes?: Array<string>, marks?: Array<string>): Create
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let spec = { ...(specs as any)[k] };
 
-		if (isVariant(spec) && Object.values(variantOverrides).includes(k)) {
-			// When the spec is a variant it will be in the form of ['base_spec_name', { props: { ... } }]
-			// The actual validator spec of the variant will be the second item in the array
-			spec = { ...spec[1] };
-		} else if (isVariant(spec)) {
+		if (isVariant(spec)) {
 			// Their override content items are variant names, which match no child by type, so resolve
 			// them one level or valid content gets wrapped as `unsupportedBlock`. For non-panel variants
 			// like `mediaSingle_full` the names are already plain, so this is a no-op.
@@ -456,77 +451,6 @@ const unsupportedNodeAttributesContent = (
 };
 
 /**
- * Returns a map of base spec names to a preferred variant spec that should be used
- * in their place during validation. Implemented as a getter function so that entries
- * can be conditionally included behind feature gates.
- *
- * WARNING: The variant spec must be a strict superset of the base spec, i.e. any content valid
- * under the base spec must also be valid under the variant.
- *
- * DEPRECATED, being removed behind `platform_editor_adf_validator_no_base_override`. Replacing a
- * base spec with a variant is unnecessary and harmful:
- *
- * - Unnecessary, because `doc`'s content list already names every `*_root_only` variant, so the
- *   candidate loop offers them exactly where they belong. `codeBlock_root_only` and
- *   `expand_root_only` are not in this map and get the same breakout-at-root behaviour from the
- *   content lists alone. Measured: a root panel with `breakout` validates whether or not the
- *   lovability flags are on.
- * - Harmful, because variants are supersets of their base (ADF stays backward compatible), so the
- *   base is the narrowest spec and is what the candidate loop falls back to when it declines a
- *   variant. Merging a variant into it removes that floor: `breakout` becomes valid on a panel at
- *   every position, which is the opposite of what `root_only` means. The merge also copies `props`
- *   without `meta`, so the laundered base spec loses the variant's `meta.stage0`.
- *
- * See `__tests__/unit/root-only-variant-override.ts`.
- */
-const getVariantSpecOverrides = (): Record<string, string> => {
-	if (fg('platform_editor_adf_validator_no_base_override')) {
-		return {};
-	}
-
-	let overrides = {};
-	if (fg('platform_editor_lovability_resize_gracefully')) {
-		overrides = {
-			...overrides,
-			panel: 'panel_root_only',
-			rule: 'rule_root_only',
-		};
-	}
-	if (fg('platform_editor_lovability_resize_exts_gracefully')) {
-		overrides = {
-			...overrides,
-			extension: 'extension_root_only',
-			bodiedExtension: 'bodiedExtension_root_only',
-			multiBodiedExtension: 'multiBodiedExtension_root_only',
-		};
-	}
-	return overrides;
-};
-
-/**
- * Replaces base validator specs with their designated variant overrides.
- */
-const applyVariantSpecOverrides = (validatorSpecs: CreateSpecReturn) => {
-	Object.entries(getVariantSpecOverrides()).forEach(([base, variant]) => {
-		const baseSpec = validatorSpecs[base];
-		const variantOverride = validatorSpecs[variant];
-
-		if (
-			baseSpec?.props &&
-			variantOverride?.props &&
-			typeof baseSpec.props === 'object' &&
-			typeof variantOverride.props === 'object'
-		) {
-			// Merge variant overrides INTO the base spec
-			baseSpec.props = {
-				...baseSpec.props, // keeps type, attrs, marks, etc.
-				...variantOverride.props, // overrides content (and anything else the variant changes)
-			};
-		}
-	});
-};
-
-/**
  * Copies the containers that validation writes to, keeping the caller's document read-only.
  *
  * Repairing unsupported content mutates the entity in place: `wrapUnSupportedNodeAttributes` deletes
@@ -569,7 +493,6 @@ export function validator(
 	const acceptEmptyMarks = fg('platform_editor_adf_validator_empty_marks');
 
 	const validatorSpecs = createSpec(nodes, marks);
-	applyVariantSpecOverrides(validatorSpecs);
 
 	// `extractAllowedContent` scans all of `validatorSpecs` for one node type's candidates, and
 	// `validate` calls it per node. It depends only on `validatorSpecs` — fixed once

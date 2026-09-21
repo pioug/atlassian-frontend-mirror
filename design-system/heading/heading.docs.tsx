@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'Heading',
 				package: '@atlaskit/heading/heading',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -41,7 +39,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Basic example',
-					source: path.resolve(__dirname, './examples/ai/basic.tsx'),
+					source: `${__dirname}/examples/ai/basic.tsx`,
 				},
 			],
 			keywords: [
@@ -68,7 +66,7 @@ const documentation: StructuredContentSource = {
 				name: 'HeadingContextProvider',
 				package: '@atlaskit/heading/heading-context',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -84,7 +82,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Heading Context Provider',
 					description: 'Heading Context Provider example',
-					source: path.resolve(__dirname, './examples/ai/heading-context-provider.tsx'),
+					source: `${__dirname}/examples/ai/heading-context-provider.tsx`,
 				},
 			],
 			keywords: ['heading', 'context', 'provider', 'hierarchy', 'accessibility'],

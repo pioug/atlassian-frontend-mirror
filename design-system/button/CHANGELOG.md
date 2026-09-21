@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 25.4.0
+
+### Minor Changes
+
+- [`eb547a68ff7dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb547a68ff7dc) -
+  [ux] Add a `newWindowLabel` prop to LinkIconButton so products can localize the announcement for
+  links that open in a new window.
+
 ## 25.3.5
 
 ### Patch Changes

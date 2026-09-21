@@ -20,9 +20,11 @@ import NewEntrypointExample from './14-new-entrypoint';
 import AddTagsExample from './15-add-tags';
 import TestingTruncationExample from './99-testing-truncation';
 
-const BasicTag: WorkbenchExample = wb(BasicTagExample);
-
+// Explicit named export Used to generate integration-test URLs.
+export const BasicTag: WorkbenchExample = wb(BasicTagExample);
+// Default export required by accessibility tooling.
 export default BasicTag;
+
 export const RemovableTag: WorkbenchExample = wb(RemovableTagExample);
 export const Appearance: WorkbenchExample = wb(AppearanceExample);
 export const ColorsVr: WorkbenchExample = wb(ColorsVrExample);

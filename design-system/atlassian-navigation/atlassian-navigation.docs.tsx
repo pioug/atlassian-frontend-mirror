@@ -2,13 +2,11 @@
  * Structured MCP docs for `@atlaskit/atlassian-navigation`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	package: {
@@ -41,20 +39,17 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Default navigation',
 					description: 'Basic usage of AtlassianNavigation.',
-					source: path.resolve(
-						packagePath,
-						'./examples/constellation/atlassian-navigation-default.tsx',
-					),
+					source: `${packagePath}/examples/constellation/atlassian-navigation-default.tsx`,
 				},
 				{
 					name: 'Jira integration',
 					description: 'Example of AtlassianNavigation integrated with Jira-like items.',
-					source: path.resolve(packagePath, './examples/00-jira-integration-example.tsx'),
+					source: `${packagePath}/examples/00-jira-integration-example.tsx`,
 				},
 				{
 					name: 'Anonymous example',
 					description: 'Navigation for unauthenticated users.',
-					source: path.resolve(packagePath, './examples/20-anonymous-example.tsx'),
+					source: `${packagePath}/examples/20-anonymous-example.tsx`,
 				},
 			],
 		},
@@ -80,7 +75,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Product home',
 					description: 'Basic usage of ProductHome.',
-					source: path.resolve(packagePath, './examples/product-home.tsx'),
+					source: `${packagePath}/examples/product-home.tsx`,
 				},
 			],
 		},
@@ -104,7 +99,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Primary button',
 					description: 'Basic usage of PrimaryButton.',
-					source: path.resolve(packagePath, './examples/primary-button.tsx'),
+					source: `${packagePath}/examples/primary-button.tsx`,
 				},
 			],
 		},
@@ -126,7 +121,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Search',
 					description: 'Basic usage of Search.',
-					source: path.resolve(packagePath, './examples/search.tsx'),
+					source: `${packagePath}/examples/search.tsx`,
 				},
 			],
 		},

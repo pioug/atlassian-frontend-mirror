@@ -44,22 +44,28 @@ import FocusToRefOnModalCloseExample from './focus-to-ref-on-modal-close';
 import OpenAuiFromPopupInModalExample from './open-aui-from-popup-in-modal';
 import PlaceholderContentExample from './placeholder-content';
 
-const DefaultModalVr: WorkbenchExample = wb(DefaultModalVrExample);
+// Explicit named export Used to generate integration-test URLs.
+export const DefaultModal: WorkbenchExample = wb(DefaultModalVrExample);
 
-export default DefaultModalVr;
+// Default export required by accessibility tooling.
+export default DefaultModal;
 export const ModalOverPopup: WorkbenchExample = wb(ModalOverPopupExample);
 export const ExplicitFontStylesVr: WorkbenchExample = wb(ExplicitFontStylesVrExample);
-export const AppearanceVr: WorkbenchExample = wb(AppearanceVrExample);
+// Named "Appearance" to match the Workbench URL used by existing integration tests.
+export const Appearance: WorkbenchExample = wb(AppearanceVrExample);
 export const DeepSuspense: WorkbenchExample = wb(DeepSuspenseExample);
 export const FullHeightIllustration: WorkbenchExample = wb(FullHeightIllustrationExample);
 export const ModalDisableMotionUplift: WorkbenchExample = wb(ModalDisableMotionUpliftExample);
-export const SsrInitialOpenVr: WorkbenchExample = wb(SsrInitialOpenVrExample);
+// Named "SsrInitialOpen" to match the Workbench URL used by existing integration tests.
+export const SsrInitialOpen: WorkbenchExample = wb(SsrInitialOpenVrExample);
 export const Container: WorkbenchExample = wb(ContainerExample);
 export const Custom: WorkbenchExample = wb(CustomExample);
 export const CompoundTitle: WorkbenchExample = wb(CompoundTitleExample);
-export const AutofocusVr: WorkbenchExample = wb(AutofocusVrExample);
+// Named "Autofocus" to match the Workbench URL used by existing integration tests.
+export const Autofocus: WorkbenchExample = wb(AutofocusVrExample);
 export const HeightVr: WorkbenchExample = wb(HeightVrExample);
-export const MultipleVr: WorkbenchExample = wb(MultipleVrExample);
+// Named "Multiple" to match the Workbench URL used by existing integration tests.
+export const Multiple: WorkbenchExample = wb(MultipleVrExample);
 export const FormVr: WorkbenchExample = wb(FormVrExample);
 export const FormAsContainerVr: WorkbenchExample = wb(FormAsContainerVrExample);
 export const Select: WorkbenchExample = wb(SelectExample);
@@ -68,7 +74,8 @@ export const FullScreenVr: WorkbenchExample = wb(FullScreenVrExample);
 export const ModalBodyWithoutInlinePaddingVr: WorkbenchExample = wb(
 	ModalBodyWithoutInlinePaddingVrExample,
 );
-export const ScrollVr: WorkbenchExample = wb(ScrollVrExample);
+// Named "Scroll" to match the Workbench URL used by existing integration tests.
+export const Scroll: WorkbenchExample = wb(ScrollVrExample);
 export const ScrollHorizontalVr: WorkbenchExample = wb(ScrollHorizontalVrExample);
 export const Label: WorkbenchExample = wb(LabelExample);
 export const MultiLineTitlesVr: WorkbenchExample = wb(MultiLineTitlesVrExample);
@@ -79,7 +86,8 @@ export const WithLayeredComponentsVr: WorkbenchExample = wb(WithLayeredComponent
 export const WithRapidlyChangingParent: WorkbenchExample = wb(WithRapidlyChangingParentExample);
 export const WithHiddenBlanketVr: WorkbenchExample = wb(WithHiddenBlanketVrExample);
 export const MultiColumnVr: WorkbenchExample = wb(MultiColumnVrExample);
-export const CustomChildVr: WorkbenchExample = wb(CustomChildVrExample);
+// Named "CustomChild" to match the Workbench URL used by existing integration tests.
+export const CustomChild: WorkbenchExample = wb(CustomChildVrExample);
 export const TopLayerScrollReproduction: WorkbenchExample = wb(TopLayerScrollReproductionExample);
 export const WithCurrentSurfaceVr: WorkbenchExample = wb(WithCurrentSurfaceVrExample);
 export const Chromeless: WorkbenchExample = wb(ChromelessExample);

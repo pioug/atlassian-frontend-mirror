@@ -4,7 +4,10 @@ import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { IconType } from '../../constants';
 import { getLazyIcons } from '../get-lazy-icons';
-import { getPreviewUrlWithTheme } from '../get-preview-url-with-theme';
+import {
+	getPreviewUrlWithEmbedContext,
+	getPreviewUrlWithTheme,
+} from '../get-preview-url-with-theme';
 import { importWithRetry } from '../import-with-retry';
 import { isProfileType } from '../is-profile-type';
 import { openUrl } from '../open-url';
@@ -93,6 +96,17 @@ describe('getPreviewUrlWithTheme', () => {
 		).toEqual(
 			'http://some-preview-url.com/?spaceKey=something&themeState=colorMode%3Adark#link-url',
 		);
+	});
+
+	it('preserves the query string and fragment while replacing host product context', () => {
+		expect(
+			getPreviewUrlWithEmbedContext(
+				'http://some-preview-url.com?spaceKey=something&hostProduct=JIRA#link-url',
+				{
+					hostProduct: 'CONFLUENCE',
+				},
+			),
+		).toEqual('http://some-preview-url.com/?spaceKey=something&hostProduct=CONFLUENCE#link-url');
 	});
 });
 

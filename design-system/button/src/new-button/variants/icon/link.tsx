@@ -264,6 +264,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 		isSelected,
 		isTooltipDisabled = true,
 		label,
+		newWindowLabel,
 		onClick,
 		onClickCapture,
 		onKeyDownCapture,
@@ -310,6 +311,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 					<Anchor
 						{...saferRest}
 						aria-labelledby={ariaLabelledBy}
+						newWindowLabel={newWindowLabel}
 						testId={testId}
 						componentName="LinkIconButton"
 						analyticsContext={analyticsContext}
@@ -396,6 +398,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 			{...saferRest}
 			// aria-label={preventedAriaLabel}
 			aria-labelledby={ariaLabelledBy}
+			newWindowLabel={newWindowLabel}
 			ref={mergeRefs([localRef, ref])}
 			xcss={cx(
 				styles.base,

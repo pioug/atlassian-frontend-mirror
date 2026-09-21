@@ -32,9 +32,10 @@ import SideNavigationExample from './side-navigation';
 import SkeletonHeadingItemExample from './skeleton-heading-item';
 import SkeletonItemExample from './skeleton-item';
 
-const NestedSideNavigationVr: WorkbenchExample = wb(NestedSideNavigationVrExample);
-
-export default NestedSideNavigationVr;
+// Explicit named export Used to generate integration-test URLs.
+export const NestedSideNavigation: WorkbenchExample = wb(NestedSideNavigationVrExample);
+// Default export required by accessibility tooling.
+export default NestedSideNavigation;
 export const SidebarWithRbd: WorkbenchExample = wb(SidebarWithRbdExample);
 export const CustomisedComponents: WorkbenchExample = wb(CustomisedComponentsExample);
 export const SimpleSidebar: WorkbenchExample = wb(SimpleSidebarExample);

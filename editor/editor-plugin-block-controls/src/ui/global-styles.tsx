@@ -28,9 +28,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import {
-	ACTIVE_DRAG_HANDLE_ATTR,
 	ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,
-	ACTIVE_QUICK_INSERT_ATTR,
 	ACTIVE_QUICK_INSERT_FALLBACK_ANCHOR_NAME,
 	DRAG_HANDLE_MAX_WIDTH_PLUS_GAP,
 } from './consts';
@@ -552,19 +550,55 @@ const staticControlsAnchorStyles = css({
 	},
 });
 
-/**
- * Names the CSS anchor on top-level nodes, so the block controls surfaces can anchor to the blocks
- * they render against. Only top-level at the moment as we don't have use cases yet for persistent controls that are nested.
- */
-const surfaceAnchorStyles = css({
+const sparseSurfaceAnchorName = 'var(--block-controls-surface-anchor-name)';
+
+// Inner node-view boxes own the visible geometry for these nodes. The root arm keeps a sparse
+// marker useful when a node view has not mounted its inner box yet.
+const sparseSurfaceAnchorStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		[`[${NODE_ANCHOR_ATTR_NAME}]:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}]):not([${ACTIVE_DRAG_HANDLE_ATTR}], [${ACTIVE_QUICK_INSERT_ATTR}])`]:
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
-			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="blockCard"]:has(.datasourceView-content-inner-wrap) .datasourceView-content-inner-wrap':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="blockCard"]:not(:has(.datasourceView-content-inner-wrap))':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="bodiedExtension"]:has(.extension-container[data-layout]) .extension-container[data-layout]':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="bodiedExtension"]:not(:has(.extension-container[data-layout]))':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="embedCard"]:has(.rich-media-item) .rich-media-item':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="embedCard"]:not(:has(.rich-media-item))':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="extension"]:has(.extension-container[data-layout]) .extension-container[data-layout]':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="extension"]:not(:has(.extension-container[data-layout]))':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="mediaSingle"]:has(.resizer-item) .resizer-item':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="mediaSingle"]:not(:has(.resizer-item))':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="multiBodiedExtension"]:has(.extension-container[data-layout]) .extension-container[data-layout]':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="multiBodiedExtension"]:not(:has(.extension-container[data-layout]))':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="table"]:has(.resizer-item) .resizer-item':
+			{ anchorName: sparseSurfaceAnchorName },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="table"]:not(:has(.resizer-item))':
+			{ anchorName: sparseSurfaceAnchorName },
 	},
 });
 
@@ -613,28 +647,18 @@ export const GlobalStylesWrapper = ({
 			isDragging: states.blockControlsState?.isDragging,
 		}),
 	);
-	const isDragging = expValEquals(
-		'platform_editor_block_controls_perf_optimization',
-		'isEnabled',
-		true,
-	)
-		? isDraggingFromState
-		: false;
+	const sparseSurfacesEnabled = isExperimentEnabled('platform_editor_block_control_migration');
+	const isDragging =
+		sparseSurfacesEnabled ||
+		expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
+			? isDraggingFromState
+			: false;
 
 	const shouldRenderAnchors =
 		isCSSAnchorSupported() &&
 		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true);
 
-	// The surfaces anchor to blocks they render against rather than only to the hovered one, so they
-	// need a name on every node. Added alongside whichever conditional rule applies rather than
-	// replacing it: this one matches only non-active nodes, so the two sets are disjoint.
-	//
-	// The migration check is what scopes this. Unlike the surfaces, this component renders for every
-	// editor, so without it the rule would name anchors on documents that have no surface to anchor.
-	const shouldRenderSurfaceAnchors =
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning -- browser capability, not a flag: an anchor name is meaningless where `anchor()` cannot resolve
-		Boolean(isCSSAnchorSupported()) &&
-		isExperimentEnabled('platform_editor_block_control_migration');
+	const sparseSurfaceAnchorsEnabled = Boolean(isCSSAnchorSupported()) && sparseSurfacesEnabled;
 
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
@@ -644,17 +668,22 @@ export const GlobalStylesWrapper = ({
 			styles={[
 				globalStyles(),
 				globalDnDStyle,
-				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-					? extendedHoverZoneNext()
-					: extendedHoverZone(),
+				(!sparseSurfacesEnabled || isDragging) &&
+					(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
+						? extendedHoverZoneNext()
+						: extendedHoverZone()),
 				isDragging &&
-					(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+					(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
 						? extendedDragZoneNext
 						: extendedDragZone),
+				(!sparseSurfacesEnabled || isDragging) &&
 				editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 					exposure: true,
 				})
-					? expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+					? expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+						isExperimentEnabled('platform_editor_block_control_migration')
 						? extendHoverZoneReducedNext
 						: extendHoverZoneReduced
 					: undefined,
@@ -667,29 +696,37 @@ export const GlobalStylesWrapper = ({
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				withDividerInPanelStyleFix,
 				withFormatInLayoutStyleFix,
-				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-					? withRelativePosStyleNext
-					: withRelativePosStyle,
-				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-					? withAnchorNameZindexStyleNext
-					: withAnchorNameZindexStyle,
-				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-				expValEquals('advanced_layouts', 'isEnabled', true)
-					? layoutColumnExtendedHoverZone
-					: layoutColumnWithoutHoverZone,
-				expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)
-					? // dragAnchorStyles sets anchor-name on ALL nodes during drag (needed for drop target positioning).
-						// staticControlsAnchorStyles handles anchor-name via node decorations for non-drag state.
-						// shouldRenderAnchors guards both: only apply anchor styles on browsers that support CSS anchor positioning.
-						shouldRenderAnchors
-						? isDragging
-							? dragAnchorStyles
-							: staticControlsAnchorStyles
+				(!sparseSurfacesEnabled || isDragging) &&
+					(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
+						? withRelativePosStyleNext
+						: withRelativePosStyle),
+				(!sparseSurfacesEnabled || isDragging) &&
+					(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
+						? withAnchorNameZindexStyleNext
+						: withAnchorNameZindexStyle),
+				(!sparseSurfacesEnabled || isDragging) &&
+					((expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+						isExperimentEnabled('platform_editor_block_control_migration')) &&
+					expValEquals('advanced_layouts', 'isEnabled', true)
+						? layoutColumnExtendedHoverZone
+						: layoutColumnWithoutHoverZone),
+				sparseSurfaceAnchorsEnabled
+					? isDragging
+						? dragAnchorStyles
 						: false
-					: shouldRenderAnchors && (isDragging ? dragAnchorStyles : dragHandlerAnchorStyles),
-				// Last so that, at equal specificity, the surfaces' own anchor names are the ones that
-				// stand. It cannot overlap the active-node rules above, which this selector excludes.
-				shouldRenderSurfaceAnchors && surfaceAnchorStyles,
+					: expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)
+						? // dragAnchorStyles sets anchor-name on ALL nodes during drag (needed for drop target positioning).
+							// staticControlsAnchorStyles handles anchor-name via node decorations for non-drag state.
+							// shouldRenderAnchors guards both: only apply anchor styles on browsers that support CSS anchor positioning.
+							shouldRenderAnchors
+							? isDragging
+								? dragAnchorStyles
+								: staticControlsAnchorStyles
+							: false
+						: shouldRenderAnchors && (isDragging ? dragAnchorStyles : dragHandlerAnchorStyles),
+				sparseSurfaceAnchorsEnabled && sparseSurfaceAnchorStyles,
 			]}
 		/>
 	);

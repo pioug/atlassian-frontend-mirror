@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -29,12 +27,12 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Default Content',
 					description: 'Help component with default content configuration.',
-					source: path.resolve(packagePath, './examples/0-Help-Default-Content.tsx'),
+					source: `${packagePath}/examples/0-Help-Default-Content.tsx`,
 				},
 				{
 					name: 'Help with AI',
 					description: 'Help component with AI assistance enabled.',
-					source: path.resolve(packagePath, './examples/5-Help-with-ai.tsx'),
+					source: `${packagePath}/examples/5-Help-with-ai.tsx`,
 				},
 			],
 			keywords: ['help', 'support', 'documentation', 'articles', 'search', 'ai'],

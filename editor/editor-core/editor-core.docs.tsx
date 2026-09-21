@@ -3,13 +3,11 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -37,30 +35,27 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic composable editor',
 					description: 'Minimal ComposableEditor with preset.',
-					source: path.resolve(packagePath, './examples/1-basic-composable-editor.tsx'),
+					source: `${packagePath}/examples/1-basic-composable-editor.tsx`,
 				},
 				{
 					name: 'Comment editor',
 					description: 'Comment appearance composable editor.',
-					source: path.resolve(packagePath, './examples/1-comment-editor-component-composable.tsx'),
+					source: `${packagePath}/examples/1-comment-editor-component-composable.tsx`,
 				},
 				{
 					name: 'Full page editor',
 					description: 'Full-page appearance composable editor.',
-					source: path.resolve(packagePath, './examples/1-full-page-editor-composable.tsx'),
+					source: `${packagePath}/examples/1-full-page-editor-composable.tsx`,
 				},
 				{
 					name: 'Chromeless editor',
 					description: 'Chromeless appearance with custom UI.',
-					source: path.resolve(
-						packagePath,
-						'./examples/1-chromeless-editor-component-composable.tsx',
-					),
+					source: `${packagePath}/examples/1-chromeless-editor-component-composable.tsx`,
 				},
 				{
 					name: 'Collapsed editor',
 					description: 'Async collapsed editor (labs).',
-					source: path.resolve(packagePath, './examples/1-labs-async-collapsed-editor.tsx'),
+					source: `${packagePath}/examples/1-labs-async-collapsed-editor.tsx`,
 				},
 			],
 		},

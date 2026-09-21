@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'Toggle',
 				package: '@atlaskit/toggle/toggle',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -42,7 +40,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Toggle',
 					description: 'Toggle example',
-					source: path.resolve(__dirname, './examples/ai/toggle.tsx'),
+					source: `${__dirname}/examples/ai/toggle.tsx`,
 				},
 			],
 			keywords: ['toggle', 'switch', 'on-off', 'enabled', 'disabled', 'state'],

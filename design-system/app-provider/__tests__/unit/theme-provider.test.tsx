@@ -8,6 +8,7 @@ import React from 'react';
 import * as tokensGetGlobalTheme from '@atlaskit/tokens/get-global-theme';
 import * as tokensSetGlobalTheme from '@atlaskit/tokens/set-global-theme';
 import { themeObjectToString } from '@atlaskit/tokens/theme-object-to-string';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import AppProvider from '../../src/app-provider';
@@ -125,6 +126,10 @@ describe('ThemeProvider', () => {
 		let setGlobalThemeSpy: jest.SpyInstance;
 
 		beforeEach(() => {
+			failGate('platform-static-theme-loading');
+			failGate('platform_dst_scrollbar_harmonisation');
+			failGate('platform_dst_scrollbar_harmonisation_transparent');
+			failGate('platform_increased-contrast-themes');
 			setGlobalThemeSpy = jest.spyOn(tokensSetGlobalTheme, 'setGlobalTheme');
 		});
 

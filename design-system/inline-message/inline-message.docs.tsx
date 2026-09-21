@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'InlineMessage',
 				package: '@atlaskit/inline-message/inline-message',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -46,7 +44,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Inline Message',
 					description: 'Inline Message example',
-					source: path.resolve(__dirname, './examples/ai/inline-message.tsx'),
+					source: `${__dirname}/examples/ai/inline-message.tsx`,
 				},
 			],
 			keywords: ['message', 'inline', 'feedback', 'status', 'alert'],

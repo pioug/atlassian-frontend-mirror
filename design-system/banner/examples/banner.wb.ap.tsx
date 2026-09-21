@@ -9,9 +9,10 @@ import OpenCloseExampleSource from './open-close-example';
 import OverflowExampleSource from './overflow-example';
 import TestingExample from './testing';
 
-const BasicUsageVr: WorkbenchExample = wb(BasicUsageVrExample);
-
-export default BasicUsageVr;
+// Explicit named export Used to generate integration-test URLs.
+export const BasicUsage: WorkbenchExample = wb(BasicUsageVrExample);
+// Default export required by accessibility tooling.
+export default BasicUsage;
 export const AnnouncementBannerWithLongTextVr: WorkbenchExample = wb(
 	AnnouncementBannerWithLongTextVrExample,
 );

@@ -11,9 +11,10 @@ import LozengeDropdownTriggerVrExample from './8-lozenge-dropdown-trigger.vr.ap'
 import NewEntrypointExample from './9-new-entrypoint';
 import TestingExample from './99-testing';
 
-const BasicVr: WorkbenchExample = wb(BasicVrExample);
-
-export default BasicVr;
+// Explicit named export Used to generate integration-test URLs.
+export const Basic: WorkbenchExample = wb(BasicVrExample);
+// Default export required by accessibility tooling.
+export default Basic;
 export const Truncation: WorkbenchExample = wb(TruncationExample);
 export const BaselineAlignmentVr: WorkbenchExample = wb(BaselineAlignmentVrExample);
 export const CustomColorVr: WorkbenchExample = wb(CustomColorVrExample);

@@ -754,13 +754,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-21
-	platform_editor_layout_typeahead_reorder: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: {
 		defaultValue: boolean;
@@ -2452,15 +2445,6 @@ export const editorExperimentsConfig: {
 	platform_editor_layout_column_valign_rendering: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_layout_column_valign_rendering',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-21
-	platform_editor_layout_typeahead_reorder: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_layout_typeahead_reorder',
-			jira: 'platform_editor_layout_typeahead_reorder',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

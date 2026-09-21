@@ -1,5 +1,6 @@
 import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PMPluginCreateConfig } from '../types/pm-plugin-list';
@@ -27,7 +28,10 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 		)
 		.filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined');
 
-	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+	if (
+		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+		isExperimentEnabled('platform_editor_block_control_migration')
+	) {
 		pmPlugins.push(createEditorNativeAnchorSupportPlugin(config.schema));
 	}
 

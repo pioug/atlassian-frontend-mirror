@@ -26,7 +26,27 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	expandBodyAriaDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	expandBodyAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	expandBodyAriaLabelOriginal: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	expandBodyAriaLabelUntitled: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	expandBodyRoleDescription: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -86,10 +106,31 @@ export const messages: {
 		defaultMessage: 'Give this expand a title',
 		description: 'aria label for an expand node title input field',
 	},
-	expandBodyAriaLabel: {
+	// Clean up with platform_editor_expand_content_a11y_2.
+	expandBodyAriaLabelOriginal: {
 		id: 'fabric.editor.expandBodyAriaLabel',
 		defaultMessage: 'Expand body content',
 		description: 'Aria label for the body content of an expand node',
+	},
+	expandBodyAriaLabel: {
+		id: 'editor-common.Expand.expandBodyAriaLabel',
+		defaultMessage: 'Body content for {title}',
+		description: 'Aria label for the body content of an expand node',
+	},
+	expandBodyAriaLabelUntitled: {
+		id: 'editor-common.Expand.expandBodyAriaLabelUntitled',
+		defaultMessage: 'untitled expand',
+		description: 'Fallback title for the body content of an expand node without a title',
+	},
+	expandBodyAriaDescription: {
+		id: 'fabric.editor.expandBodyAriaDescription',
+		defaultMessage: 'Enter the content that will be revealed when this expand is opened.',
+		description: 'Aria description for the body content of an expand node',
+	},
+	expandBodyRoleDescription: {
+		id: 'fabric.editor.expandBodyRoleDescription',
+		defaultMessage: 'macro',
+		description: 'Aria role description for the body content of an expand node',
 	},
 });
 

@@ -13,9 +13,11 @@ import CustomSkipLinksExample from './30-custom-skip-links';
 import LockedSidebarExample from './35-locked-sidebar';
 import SidebarControllerExample from './40-sidebar-controller';
 
-const CustomizablePageLayout: WorkbenchExample = wb(CustomizablePageLayoutExample);
-
+// Explicit named export Used to generate integration-test URLs.
+export const CustomizablePageLayout: WorkbenchExample = wb(CustomizablePageLayoutExample);
+// Default export required by accessibility tooling.
 export default CustomizablePageLayout;
+
 export const BasicPageLayout: WorkbenchExample = wb(BasicPageLayoutExample);
 export const IntegrationExample: WorkbenchExample = wb(IntegrationExampleSource);
 export const ResizeSidebar: WorkbenchExample = wb(ResizeSidebarExample);

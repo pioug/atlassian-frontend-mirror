@@ -3,15 +3,21 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+// Structured docs are evaluated by the website in the browser, where Node's `path` is unavailable.
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
+	config: {
+		componentPages: false,
+		packageTabs: {
+			examples: false,
+			usage: false,
+		},
+	},
 	components: [
 		{
 			name: 'Card',
@@ -41,25 +47,25 @@ const documentation: StructuredContentSource = {
 					name: 'Card (basic)',
 					description:
 						'Inline, block, and embed appearances shown side by side. Requires staging login to resolve links.',
-					source: path.resolve(packagePath, './examples/content/card.tsx'),
+					source: `${packagePath}/examples/content/card.tsx`,
 				},
 				{
 					name: 'Card (appearance: block)',
 					description:
 						'Block appearance — card-style preview with detailed view of the linked material. In the editor this is referred to as the "Card".',
-					source: path.resolve(packagePath, './examples/content/block-card.tsx'),
+					source: `${packagePath}/examples/content/block-card.tsx`,
 				},
 				{
 					name: 'Card (appearance: inline)',
 					description:
 						'Inline appearance — link in text like a hyperlink. Use showHoverPreview for hover preview on inline Smart Links.',
-					source: path.resolve(packagePath, './examples/content/inline-card.tsx'),
+					source: `${packagePath}/examples/content/inline-card.tsx`,
 				},
 				{
 					name: 'Card (appearance: embed)',
 					description:
 						'Embed appearance — linked content rendered in place. Requires a resolvable embed URL; not all links support embed.',
-					source: path.resolve(packagePath, './examples/content/embed-card.tsx'),
+					source: `${packagePath}/examples/content/embed-card.tsx`,
 				},
 			],
 		},
@@ -91,7 +97,7 @@ const documentation: StructuredContentSource = {
 					name: 'Hover card',
 					description:
 						'HoverCard wrapping a trigger element; shows Smart Link preview on hover. Requires staging login to resolve.',
-					source: path.resolve(packagePath, './examples/content/hover-card.tsx'),
+					source: `${packagePath}/examples/content/hover-card.tsx`,
 				},
 			],
 		},
@@ -122,7 +128,7 @@ const documentation: StructuredContentSource = {
 					name: 'Link URL',
 					description:
 						'Link safety: when link text looks like a URL but destination differs (warning) vs when text matches or is plain (no warning).',
-					source: path.resolve(packagePath, './examples/content/link-url.tsx'),
+					source: `${packagePath}/examples/content/link-url.tsx`,
 				},
 			],
 		},
@@ -161,7 +167,7 @@ const documentation: StructuredContentSource = {
 					name: 'Flexible UI card',
 					description:
 						'Custom block layout with TitleBlock, PreviewBlock, MetadataBlock, SnippetBlock, and FooterBlock composed inside Card.',
-					source: path.resolve(packagePath, './examples/content/flexible-ui-card.tsx'),
+					source: `${packagePath}/examples/content/flexible-ui-card.tsx`,
 				},
 			],
 		},
@@ -192,7 +198,7 @@ const documentation: StructuredContentSource = {
 					name: 'Title block default',
 					description:
 						'TitleBlock with default props; title and icon come from the resolved link data.',
-					source: path.resolve(packagePath, './examples/content/title-block-default.tsx'),
+					source: `${packagePath}/examples/content/title-block-default.tsx`,
 				},
 			],
 		},
@@ -223,7 +229,7 @@ const documentation: StructuredContentSource = {
 					name: 'Metadata block primary',
 					description:
 						'MetadataBlock with a primary row showing CollaboratorGroup and ModifiedOn elements.',
-					source: path.resolve(packagePath, './examples/content/metadata-block-primary.tsx'),
+					source: `${packagePath}/examples/content/metadata-block-primary.tsx`,
 				},
 			],
 		},
@@ -252,7 +258,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Preview block default',
 					description: "PreviewBlock showing the resolved link's preview image when available.",
-					source: path.resolve(packagePath, './examples/content/preview-block-default.tsx'),
+					source: `${packagePath}/examples/content/preview-block-default.tsx`,
 				},
 			],
 		},
@@ -283,7 +289,7 @@ const documentation: StructuredContentSource = {
 					name: 'Footer block default',
 					description:
 						'FooterBlock with default actions (e.g. copy, open, follow) at the bottom of the card.',
-					source: path.resolve(packagePath, './examples/content/footer-block-default.tsx'),
+					source: `${packagePath}/examples/content/footer-block-default.tsx`,
 				},
 			],
 		},
@@ -314,7 +320,7 @@ const documentation: StructuredContentSource = {
 					name: 'Analytics',
 					description:
 						'Card with AnalyticsListener capturing and displaying Smart Link analytics events (e.g. on click).',
-					source: path.resolve(packagePath, './examples/content/analytics.tsx'),
+					source: `${packagePath}/examples/content/analytics.tsx`,
 				},
 			],
 		},
@@ -343,7 +349,7 @@ const documentation: StructuredContentSource = {
 					name: 'useSmartLinkActions',
 					description:
 						'useSmartLinkActions used to get actions for a URL and invoke one (e.g. Preview) from a custom button.',
-					source: path.resolve(packagePath, './examples/content/useSmartLinkActions.tsx'),
+					source: `${packagePath}/examples/content/useSmartLinkActions.tsx`,
 				},
 			],
 		},

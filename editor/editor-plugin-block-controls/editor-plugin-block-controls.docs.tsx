@@ -3,13 +3,11 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -33,13 +31,13 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Block controls plugin in composable editor.',
-					source: path.resolve(packagePath, './examples/1-basic.tsx'),
+					source: `${packagePath}/examples/1-basic.tsx`,
 				},
 				{
 					name: 'Registry surfaces',
 					description:
 						'Registers example contributors into the registry-backed left and right block-controls surfaces (behind platform_editor_block_control_migration).',
-					source: path.resolve(packagePath, './examples/2-registry-surfaces.tsx'),
+					source: `${packagePath}/examples/2-registry-surfaces.tsx`,
 				},
 			],
 		},

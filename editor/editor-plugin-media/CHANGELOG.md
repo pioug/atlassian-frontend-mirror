@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 21.0.3
+
+### Patch Changes
+
+- [`22e02fb26ca02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22e02fb26ca02) -
+  Make the shipped media border radius styling permanent and remove the obsolete feature gate.
+- Updated dependencies
+
+## 21.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.1
 
 ### Patch Changes

@@ -74,7 +74,11 @@ import TestingSafariFlexCollapseMaxHeightBugVrExample from './156-testing-safari
 import TestingPointerEventsResetExample from './157-testing-pointer-events-reset';
 import TestingPopoverDragAndDropExample from './158-testing-popover-drag-and-drop';
 import TestingDialogDragAndDropExample from './159-testing-dialog-drag-and-drop';
+import TestingPopoverFitAvailableSpaceExample from './160-testing-popover-fit-available-space';
+import TestingPopoverAnchoredSizeExample from './161-testing-popover-anchored-size';
+import TestingPopoverFocusHandoffExample from './165-testing-popover-focus-handoff';
 import AllPlacementsVrExample from './all-placements.vr.ap';
+import TestingDialogAnimationCallbacksExample from './testing-dialog-animation-callbacks';
 import VrMultiplePopoversOnSameAnchorVrExample from './vr-multiple-popovers-on-same-anchor.vr.ap';
 
 const BasicPopover: WorkbenchExample = wb(BasicPopoverExample);
@@ -82,7 +86,8 @@ const BasicPopover: WorkbenchExample = wb(BasicPopoverExample);
 export default BasicPopover;
 export const PlacementVr: WorkbenchExample = wb(PlacementVrExample);
 export const NestedPopoversVr: WorkbenchExample = wb(NestedPopoversVrExample);
-export const BasicDialogVr: WorkbenchExample = wb(BasicDialogVrExample);
+// Named "BasicDialog" to match the Workbench URL used by existing integration tests.
+export const BasicDialog: WorkbenchExample = wb(BasicDialogVrExample);
 export const PopoverInsideDialog: WorkbenchExample = wb(PopoverInsideDialogExample);
 export const PopoverSurfaceVariantsVr: WorkbenchExample = wb(PopoverSurfaceVariantsVrExample);
 export const TestingDomOrder: WorkbenchExample = wb(TestingDomOrderExample);
@@ -141,12 +146,14 @@ export const TestingNativeApiTiming: WorkbenchExample = wb(TestingNativeApiTimin
 export const TestingComboboxPopupInitialFocus: WorkbenchExample = wb(
 	TestingComboboxPopupInitialFocusExample,
 );
-export const TestingDialogSsrInitialOpenVr: WorkbenchExample = wb(
+// Named "TestingDialogSsrInitialOpen" to match the Workbench URL used by existing integration tests.
+export const TestingDialogSsrInitialOpen: WorkbenchExample = wb(
 	TestingDialogSsrInitialOpenVrExample,
 );
 export const TestingNestedDialogEscape: WorkbenchExample = wb(TestingNestedDialogEscapeExample);
 export const TestingSafariFlexCollapseVr: WorkbenchExample = wb(TestingSafariFlexCollapseVrExample);
-export const TestingSafariFlexCollapseMaxHeightVr: WorkbenchExample = wb(
+// Named "TestingSafariFlexCollapseMaxHeight" to match the Workbench URL used by existing integration tests.
+export const TestingSafariFlexCollapseMaxHeight: WorkbenchExample = wb(
 	TestingSafariFlexCollapseMaxHeightVrExample,
 );
 export const TestingSafariFlexCollapseMaxHeightBugVr: WorkbenchExample = wb(
@@ -155,6 +162,11 @@ export const TestingSafariFlexCollapseMaxHeightBugVr: WorkbenchExample = wb(
 export const TestingPointerEventsReset: WorkbenchExample = wb(TestingPointerEventsResetExample);
 export const TestingPopoverDragAndDrop: WorkbenchExample = wb(TestingPopoverDragAndDropExample);
 export const TestingDialogDragAndDrop: WorkbenchExample = wb(TestingDialogDragAndDropExample);
+export const TestingPopoverFitAvailableSpace: WorkbenchExample = wb(
+	TestingPopoverFitAvailableSpaceExample,
+);
+export const TestingPopoverAnchoredSize: WorkbenchExample = wb(TestingPopoverAnchoredSizeExample);
+export const TestingPopoverFocusHandoff: WorkbenchExample = wb(TestingPopoverFocusHandoffExample);
 export const AnimatedPopover: WorkbenchExample = wb(AnimatedPopoverExample);
 export const StandalonePopoverContent: WorkbenchExample = wb(StandalonePopoverContentExample);
 export const AnimatedPopoverRtl: WorkbenchExample = wb(AnimatedPopoverRtlExample);
@@ -179,6 +191,9 @@ export const TestingFocusReturn: WorkbenchExample = wb(TestingFocusReturnExample
 export const TestingDialogFocusTrap: WorkbenchExample = wb(TestingDialogFocusTrapExample);
 export const TestingPopoverInDialog: WorkbenchExample = wb(TestingPopoverInDialogExample);
 export const TestingDialogScrollLock: WorkbenchExample = wb(TestingDialogScrollLockExample);
+export const TestingDialogAnimationCallbacks: WorkbenchExample = wb(
+	TestingDialogAnimationCallbacksExample,
+);
 export const AllPlacementsVr: WorkbenchExample = wb(AllPlacementsVrExample);
 export const VrMultiplePopoversOnSameAnchorVr: WorkbenchExample = wb(
 	VrMultiplePopoversOnSameAnchorVrExample,

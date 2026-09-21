@@ -8,11 +8,13 @@ import ReferenceExample from './4-reference';
 import ValidationExample from './6-validation';
 import TestingExample from './99-testing';
 
-const BasicVr: WorkbenchExample = wb(BasicVrExample);
-
-export default BasicVr;
+// Explicit named export Used to generate integration-test URLs.
+export const Basic: WorkbenchExample = wb(BasicVrExample);
+// Default export required by accessibility tooling.
+export default Basic;
 export const AppearanceVr: WorkbenchExample = wb(AppearanceVrExample);
-export const ResizeVr: WorkbenchExample = wb(ResizeVrExample);
+// Named "Resize" to match the Workbench URL used by existing integration tests.
+export const Resize: WorkbenchExample = wb(ResizeVrExample);
 export const Analytics: WorkbenchExample = wb(AnalyticsExample);
 export const Reference: WorkbenchExample = wb(ReferenceExample);
 export const Validation: WorkbenchExample = wb(ValidationExample);

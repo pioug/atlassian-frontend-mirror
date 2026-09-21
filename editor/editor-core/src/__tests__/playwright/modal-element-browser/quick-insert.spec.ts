@@ -14,10 +14,6 @@ test.use({
 
 test.describe('Quick Insert', () => {
 	test('should set selection to after the inserted node', async ({ editor }) => {
-		// This test exposes one or more accessibility violations. Testing is currently skipped but violations need to
-		// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
-		// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
-		skipAutoA11y();
 		const toolbar = editor.page.getByRole('toolbar', {
 			name: 'Editor',
 		});

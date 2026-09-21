@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -29,12 +27,12 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Basic usage of MediaViewer with a single file.',
-					source: path.resolve(packagePath, './examples/0-basic-example.tsx'),
+					source: `${packagePath}/examples/0-basic-example.tsx`,
 				},
 				{
 					name: 'Multi-file',
 					description: 'MediaViewer with multiple files and navigation.',
-					source: path.resolve(packagePath, './examples/1-multi-file-previews.tsx'),
+					source: `${packagePath}/examples/1-multi-file-previews.tsx`,
 				},
 			],
 			keywords: ['media', 'viewer', 'preview', 'file', 'image', 'video', 'pdf'],

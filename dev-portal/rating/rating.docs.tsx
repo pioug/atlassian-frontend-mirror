@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -29,7 +27,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Star Rating',
 					description: 'Standard star-based rating display.',
-					source: path.resolve(packagePath, './examples/star-rating.tsx'),
+					source: `${packagePath}/examples/star-rating.tsx`,
 				},
 			],
 			keywords: ['rating', 'stars', 'feedback', 'review'],

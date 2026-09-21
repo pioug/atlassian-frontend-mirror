@@ -23,6 +23,7 @@ export type BlockControlUIContextActiveNode = BlockControlUIContextNode & {
 
 /** Context supplied to controls rendered on a block-controls surface. */
 export type BlockControlUIContext = {
+	activeControlKey?: string;
 	activeNode?: BlockControlUIContextActiveNode;
 	rootNode: BlockControlUIContextNode;
 	targetNode: BlockControlUIContextNode;

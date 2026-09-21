@@ -1,6 +1,262 @@
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import { getExtensionQuickInsertPreviewImageUrls } from '../getExtensionQuickInsertPreviewImageUrls';
 
 describe('getExtensionQuickInsertPreviewImageUrls', () => {
+	it('resolves a block template preview by snippet ID independently of its localized title', () => {
+		mockExpEnabled('platform_editor_slash_command');
+		expect(
+			getExtensionQuickInsertPreviewImageUrls({
+				key: 'snippet-extension:snippet-019e5cd9-5ca1-7258-befd-1c3c59b0aa00',
+				title: 'Localized bug report',
+			}),
+		).toEqual({
+			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/221f56s64c186314ka8a7uaj7m4di32l.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1c86e0v3ygh5ct5600luum0w67unpa23.png',
+		});
+	});
+
+	it('does not assign an unrelated title preview to an unknown snippet', () => {
+		mockExpEnabled('platform_editor_slash_command');
+		expect(
+			getExtensionQuickInsertPreviewImageUrls({
+				key: 'snippet-extension:snippet-unknown-id',
+				title: 'Figma',
+			}),
+		).toBeUndefined();
+	});
+
+	it('does not resolve block template previews when slash commands are disabled', () => {
+		mockExpDisabled('platform_editor_slash_command');
+		expect(
+			getExtensionQuickInsertPreviewImageUrls({
+				key: 'snippet-extension:snippet-019e5cd9-5ca1-7258-befd-1c3c59b0aa00',
+				title: 'Bug report',
+			}),
+		).toBeUndefined();
+	});
+
+	it.each([
+		[
+			'Excel',
+			'viewxls:viewxls',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/r426m140lbp7gs2gxbe015e21kf23j8l.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/b11p6ksb8r6j6g2604p67ab53f23u6f5.png',
+		],
+		[
+			'Excerpt',
+			'excerpt:excerpt',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/0j5s4a60jjbrq3yoa7kfnkft28403127.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/1h408wk0e4x6efhby84hbc583nx5b0b5.png',
+		],
+		[
+			'Include content (Include page)',
+			'include:include',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/61yskd00re82i80b8r6pfxp60pi4852s.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/s12155hkaoc81aa0eh58y54402s8t346.png',
+		],
+		[
+			'Insert excerpt',
+			'excerpt-include:excerpt-include',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/y373d21g768gmvjao5db38kw4460m72r.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/dg718ggxcx60dj7ng86fpqmwbv7vauny.png',
+		],
+		[
+			'JIRA Charts',
+			'jirachart:jirachart',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/114de8qe6dy877s65xh1a2dil1r86x73.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/30g82ea1p64616h40s110ysud47dnof6.png',
+		],
+		[
+			'Jira Data Center',
+			'jira:jira',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/pdnn81xj6e8v56nye6rnft3rd4yhnc05.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/8ttib573524136b5lffq3a1go05x507d.png',
+		],
+		[
+			'Jira premium plan',
+			'portfolioforjiraplan:portfolioforjiraplan',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/c2hy8b245yg1dt2776ol5sx57n045nv0.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/24g0yt8c54671463162f5q455qcki3id.png',
+		],
+		[
+			'Opsgenie Incident Timeline EU',
+			'opsgenie-incident-timeline-eu-macro:opsgenie-incident-timeline-eu-macro',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/qnq1bn07a3k0v4m10hoi487p837obx53.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/qo0u146811738ixd6l13nud48pv57510.png',
+		],
+		[
+			'PDF',
+			'viewpdf:viewpdf',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/30u3v86x652ah52ruhqj1ap0s0ve4ey2.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/jt685rp527nfo8jqp6o5o0r31l3rpfux.png',
+		],
+		[
+			'Shared Links Bookmarklet Button',
+			'sharelinks-urlmacro:sharelinks-urlmacro',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/myhw531c3748qn4ro51vf450vk0qg481.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/0028h1741o411uw4qi8icbg138kus32e.png',
+		],
+		[
+			'Table of Content Zone',
+			'toc-zone:toc-zone',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/s4q2ap8q4135r0r3i1tym1d5koxdonb1.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/1p16277ig16wc6kelloa542k33b18mm2.png',
+		],
+	] as const)('uses the approved %s previews only by key', (title, key, light, dark) => {
+		expect(getExtensionQuickInsertPreviewImageUrls({ key, title })).toEqual({ dark, light });
+		expect(getExtensionQuickInsertPreviewImageUrls({ title })).toBeUndefined();
+	});
+
+	it.each([
+		[
+			'Activity Stream',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/nh7404rduyw5tbne4143426evuk7hvg8.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/7v3a1rvva7gxr874o5qah5k61365hod5.png',
+		],
+		[
+			'Agile Wallboard Gadget',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/3o7vtt14rtpe3sna7mras6oih86nssb6.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/n611u81ca8fkyv5nk6cl6j1081e805tr.png',
+		],
+		[
+			'Assigned to Me',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/5c62343jh3411ido38440xx0007cx6ls.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/d72jy2r18q6v06s13k2f6x3fymrr4on7.png',
+		],
+		[
+			'Average Age Chart',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/t136146lvs3x60456gnsghtv730uaftn.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/i53kn1igq64m5dip4eg1030j15yd7xxe.png',
+		],
+		[
+			'Average Number of Times in Status',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/16v2eq2c1df0mrf2jo6xic526527nfh1.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/u4v77u1lwcy5g08y047q33dbiv42dkit.png',
+		],
+		[
+			'Days Remaining in Sprint Gadget',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/41j35y64652g06uru332kt2a0pk77j03.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/805320gvqd6cbr23yrv271oas2u061s5.png',
+		],
+		[
+			'Filter Results',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/j706ug0u5nk40i1lhrt05j63grc36x0u.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/w0n60p750b2275k226gri2j6i366jt0e.png',
+		],
+		[
+			'Heat Map',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/w574xrh77oxbmb18f0ro1bd80x417426.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/qoepx85h21t4u00cht35nc3ssl4i72j5.png',
+		],
+		[
+			'Issues in progress',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/go2d8b1qs7h07b17326lx8r8p28jm011.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/666u7h3tp16ad4k8u24d4u1155n1v7hg.png',
+		],
+		[
+			'Jira Issues Calendar',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/j23063ot2a014a2a51y6i0o1keo0kanr.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/13o0sk45vlf25x1m3w14gsy146k25b14.png',
+		],
+		[
+			'Jira Road Map',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/q23v3a23018y2856kew3fsork63bg6p2.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/h6u3kb7116jr12w3f586stmc850827h3.png',
+		],
+		[
+			'Labels Gadget',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/42hjlte7y364o8y4e5udkl11o22a2ac3.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/7u8gpvv82s3e2833204nm6m1k3301c46.png',
+		],
+		[
+			'Pie Chart',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/pdq60d803b655il4x3m0co608guc56ub.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/v4b6d7to551136834oe1a0xx66n7mv5e.png',
+		],
+		[
+			'Quick links',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/k51qkw636t010l5h1vrs05c7i073y0xp.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/onlh3rc6p0qj15rsysxa3ep5b183hk40.png',
+		],
+		[
+			'Recently Created Chart',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/ia4jrrsg4mw8tu0gtj88d2yr5w6s20fm.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/t5in18tcubtbr18yv1gr0ap26x7d6bh3.png',
+		],
+		[
+			'Resolution Time',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/msw0hn3462vvai4l4jkp50xcm87741j6.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/3dek0066jn31qfkk2l2hn011um087y72.png',
+		],
+		[
+			'Sprint Burndown Gadget',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/qic3bcq5sqhd7r00qpj3i6240n3uw3fp.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/2qqrp3vl4rv2p443566826jadj38rfrj.png',
+		],
+		[
+			'Sprint Health Gadget',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/pnngo5y00g18eos4je3r20ga0c666c68.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/uoqla656675p5wwc3a8v824768lip528.png',
+		],
+		[
+			'Time Since Chart',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/20wj0kb8mjjj7in0hu62j4ska17ug5s3.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/f7g8053ww4deogfid2h2pj2nw6n8582u.png',
+		],
+		[
+			'Time to First Response',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/8kkdphd2l3gb7w06dboc82rmtm86xk7r.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/l4cy50n75hr166cpohxpd3h5038e8sl7.png',
+		],
+		[
+			'Two Dimensional Filter Statistics',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/hjt70wg3tds43ev34nxv1r7l50170f4l.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/6s1x266h56m7p4q758jem2k03hbu15gb.png',
+		],
+		[
+			'Version Report',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/rgi5il8d845k40f65w0f8a678c1rf51q.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/2143nj51e834657316q5n5j6kbq3h3m7.png',
+		],
+		[
+			'Voted Work Items',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/rcn6qrr638k1v5y6xrw8g512f2530244.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/0n262m847lgjj174x658ps04k6j513r6.png',
+		],
+		[
+			'Watched Issues',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/mv0w504r53gvkx38g3y74pd65k5hktop.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/v418o500l40ga5gtq6m23x5t17k47wbe.png',
+		],
+		[
+			'Work Item Statistics',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/l3120n2755pw6r2o2q24tmsgu6658533.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/4315hi70mlh4eqbn6215p10s4il7os34.png',
+		],
+		[
+			'Workload Pie Chart',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/84tce4xo2nqe0712oil1f08n5160a11v.png',
+			'https://dam-cdn.atl.orangelogic.com/AssetLink/v5j8p100viey44g61cdc61d53465gda5.png',
+		],
+	] as const)(
+		'uses the approved %s previews by composed gadget extension key and normalized title',
+		(title, light, dark) => {
+			expect(
+				getExtensionQuickInsertPreviewImageUrls({
+					extensionKey: 'gadget',
+					key: 'gadget:environment-specific-id',
+					title,
+				}),
+			).toEqual({ dark, light });
+			expect(getExtensionQuickInsertPreviewImageUrls({ title })).toBeUndefined();
+			expect(
+				getExtensionQuickInsertPreviewImageUrls({ extensionKey: 'not-gadget', title }),
+			).toBeUndefined();
+		},
+	);
+
 	it.each([
 		[
 			'Amplitude',
@@ -23,12 +279,6 @@ describe('getExtensionQuickInsertPreviewImageUrls', () => {
 		[
 			'Google Drive',
 			'third-party-quick-insert-embeds:third-party-embed-google-drive',
-			'https://dam-cdn.atl.orangelogic.com/AssetLink/wi413m0837rjykg23r6y0256b7377185.png',
-			'https://dam-cdn.atl.orangelogic.com/AssetLink/y01wj4t58w86byx86l6k81a22axud131.png',
-		],
-		[
-			'legacy Google Drive',
-			'google-drive:item',
 			'https://dam-cdn.atl.orangelogic.com/AssetLink/wi413m0837rjykg23r6y0256b7377185.png',
 			'https://dam-cdn.atl.orangelogic.com/AssetLink/y01wj4t58w86byx86l6k81a22axud131.png',
 		],
@@ -113,27 +363,12 @@ describe('getExtensionQuickInsertPreviewImageUrls', () => {
 		).toBeUndefined();
 	});
 
-	it.each([
-		[
-			'Amplitude',
-			'https://dam-cdn.atl.orangelogic.com/AssetLink/2r34o120k40e0us4w66oqpud63o4lef4.png',
-		],
-		[
-			'Dropbox',
-			'https://dam-cdn.atl.orangelogic.com/AssetLink/37v2dk5n1ltwc82j1w76dv1tyr8puwq0.png',
-		],
-		['Figma', 'https://dam-cdn.atl.orangelogic.com/AssetLink/u80s30071b4c10vdjr5rw0uje8cu2pk7.png'],
-		[
-			'Google Drive',
-			'https://dam-cdn.atl.orangelogic.com/AssetLink/wi413m0837rjykg23r6y0256b7377185.png',
-		],
-		[
-			'iframe',
-			'https://dam-cdn.atl.orangelogic.com/AssetLink/72a0j8eddxg82rnp8j48bipi8sq8g0ke.png',
-		],
-	] as const)('uses the %s title fallback', (title, light) => {
-		expect(getExtensionQuickInsertPreviewImageUrls({ title })).toMatchObject({ light });
-	});
+	it.each(['Amplitude', 'Dropbox', 'Figma', 'Google Drive', 'iframe'])(
+		'does not use the %s title as a preview fallback',
+		(title) => {
+			expect(getExtensionQuickInsertPreviewImageUrls({ title })).toBeUndefined();
+		},
+	);
 
 	it.each([
 		[

@@ -47,7 +47,6 @@ import SingleWithAutoFocusVrApExample from './single-with-auto-focus.vr.ap';
 
 export const Single: WorkbenchExample = wb(SingleExample);
 export const Multi: WorkbenchExample = wb(MultiVrApExample);
-export const MultiVrAp: WorkbenchExample = wb(MultiVrApExample);
 export const AsyncOptionsLoading: WorkbenchExample = wb(AsyncOptionsLoadingExample);
 export const SingleCompactVrAp: WorkbenchExample = wb(SingleCompactVrApExample);
 export const SingleSubtleVrAp: WorkbenchExample = wb(SingleSubtleVrApExample);

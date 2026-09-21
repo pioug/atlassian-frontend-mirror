@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-mentions
 
+## 21.1.0
+
+### Minor Changes
+
+- [`1012a17b207ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1012a17b207ba) -
+  Migrate the editor mentions profile card loader to react-loosely-lazy behind the
+  `platform_editor_loosely_lazy_migration` experiment.
+- [`d28cad9beb783`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d28cad9beb783) -
+  Enable mention avatars when the platform_editor_mention_node_graphql_provider experiment is
+  enabled
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.1
 
 ### Patch Changes

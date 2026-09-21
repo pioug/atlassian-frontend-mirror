@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.24.6",
+	"version": "45.25.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -269,6 +269,9 @@
 			"type": "boolean"
 		},
 		"platform_bandicoots-smartlink-unresolved-error-key": {
+			"type": "boolean"
+		},
+		"platform_avp_smartlink_embed_product_context": {
 			"type": "boolean"
 		},
 		"platform-smart-card-shift-key": {

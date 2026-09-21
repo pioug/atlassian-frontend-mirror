@@ -9,6 +9,7 @@ import type {
 	DecorationSource,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isSSR } from '../core-utils/is-ssr';
@@ -58,7 +59,8 @@ export const attachGenericProseMirrorMetadata = ({
 
 		if (
 			name === 'data-node-anchor' &&
-			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+			(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+				isExperimentEnabled('platform_editor_block_control_migration'))
 		) {
 			// if browser doesn't support CSS anchor, won't need the style
 			// Or if it supports CSS attr() function as the value of anchor-name,
@@ -104,7 +106,8 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 
 					if (
 						!nodeIdProvider &&
-						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+						(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+							isExperimentEnabled('platform_editor_block_control_migration'))
 					) {
 						nodeIdProvider = getNodeIdProvider(view);
 					}
@@ -130,7 +133,8 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 						const pos = safeGetPos();
 						const options =
 							pos !== undefined &&
-							expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+							(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+								isExperimentEnabled('platform_editor_block_control_migration'))
 								? {
 										anchrorId: nodeIdProvider?.getOrGenerateId(node, pos) as string,
 									}

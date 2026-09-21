@@ -15,7 +15,8 @@ const Basic: WorkbenchExample = wb(BasicExample);
 
 export default Basic;
 export const HtmlProps: WorkbenchExample = wb(HtmlPropsExample);
-export const VariationsVr: WorkbenchExample = wb(VariationsVrExample);
+// Named "Variations" to match the Workbench URL used by existing integration tests.
+export const Variations: WorkbenchExample = wb(VariationsVrExample);
 export const WidthsVr: WorkbenchExample = wb(WidthsVrExample);
 export const FormExample: WorkbenchExample = wb(FormExampleSource);
 export const ForwardedRefs: WorkbenchExample = wb(ForwardedRefsExample);

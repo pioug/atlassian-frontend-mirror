@@ -1,5 +1,14 @@
 # @atlaskit/page-layout
 
+## 5.5.3
+
+### Patch Changes
+
+- [`1715d48a722a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1715d48a722a2) -
+  Migrate responsive styling to typed canonical CSS media-query keys. Allow those keys in the UI
+  Styling Standard and report non-canonical queries used with `satisfies`.
+- Updated dependencies
+
 ## 5.5.2
 
 ### Patch Changes

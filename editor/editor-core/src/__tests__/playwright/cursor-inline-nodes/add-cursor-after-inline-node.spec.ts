@@ -1,6 +1,5 @@
 import { expect, editorTestCase as test } from '@af/editor-libra';
 import { doc, li, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
-import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -59,10 +58,6 @@ test.describe('Cursor Inline Nodes', () => {
 		test('when the cursor is at the end of the emoji and backspace is pressed the inline node should be deleted', async ({
 			editor,
 		}) => {
-			// This test exposes one or more accessibility violations. Testing is currently skipped but violations need to
-			// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
-			// the skipAutoA11y wrapper and associated import. For more information, see go/afm-a11y-tooling:playwright
-			skipAutoA11y();
 			await editor.selection.set({ anchor: 4, head: 4 });
 			await editor.keyboard.press('Backspace');
 			await expect(editor).toHaveDocument(doc(ul(li(p('')), li(p('LOL')))));

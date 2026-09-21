@@ -140,7 +140,6 @@ export type BlockMenuProps = {
 	editorView: EditorView | undefined;
 	mountTo?: HTMLElement;
 	scrollableElement?: HTMLElement;
-	useRegistryAnchor: boolean;
 };
 
 const isSelectionWithinCodeBlock = (state: EditorState) => {
@@ -271,7 +270,6 @@ const BlockMenu = ({
 	mountTo,
 	boundariesElement,
 	scrollableElement,
-	useRegistryAnchor,
 }: BlockMenuProps & WrappedComponentProps) => {
 	const {
 		menuTriggerBy,
@@ -291,7 +289,7 @@ const BlockMenu = ({
 	isMenuOpenRef.current = isMenuOpen;
 	const [surfaceDragHandle, setSurfaceDragHandle] = React.useState<HTMLElement | null>(null);
 	React.useLayoutEffect(() => {
-		if (!useRegistryAnchor) {
+		if (!isExperimentEnabled('platform_editor_block_control_migration')) {
 			return;
 		}
 
@@ -302,7 +300,7 @@ const BlockMenu = ({
 				readElement();
 			}
 		});
-	}, [editorView, useRegistryAnchor]);
+	}, [editorView]);
 
 	const openMenuHandleRef = React.useRef<HTMLElement | null>(null);
 	const anchoredToRef = React.useRef<string | undefined>(undefined);
@@ -317,7 +315,7 @@ const BlockMenu = ({
 		anchoredToRef.current = menuTriggerBy;
 	}
 
-	const targetHandleRef = useRegistryAnchor
+	const targetHandleRef = isExperimentEnabled('platform_editor_block_control_migration')
 		? (openMenuHandleRef.current ?? surfaceDragHandle)
 		: editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 	const closeMenu = React.useCallback(() => {
@@ -354,6 +352,8 @@ const BlockMenu = ({
 		setMenuHeight(popupRef.current?.clientHeight || FALLBACK_MENU_HEIGHT);
 	}, [isMenuOpen, onDropdownOpenChanged]);
 
+	// Nested dropdowns are portaled outside the block-menu popup. Sparse surface reconciliation
+	// dispatches after the menu opens, so a re-render can occur while focus is inside that portal.
 	const hasFocus =
 		(editorView?.hasFocus() ||
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
@@ -362,7 +362,12 @@ const BlockMenu = ({
 				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 				(popupRef.current.contains(document.activeElement) ||
 					// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-					popupRef.current === document.activeElement))) ??
+					popupRef.current === document.activeElement)) ||
+			(isExperimentEnabled('platform_editor_block_control_migration') &&
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+				document.activeElement instanceof HTMLElement &&
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+				document.activeElement.closest(NESTED_DROPDOWN_MENU) !== null)) ??
 		false;
 
 	const selectedByShortcutOrDragHandle = !!isSelectedViaDragHandle || !!openedViaKeyboard;

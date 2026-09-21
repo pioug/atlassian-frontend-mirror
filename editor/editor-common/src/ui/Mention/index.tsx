@@ -67,7 +67,8 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 			Boolean(mentionNodeDataProvider) &&
 			userType !== 'SPECIAL' &&
 			!GENERIC_MENTION_IDS.includes(id) &&
-			isExperimentEnabled('platform_editor_mention_node_avatar');
+			(isExperimentEnabled('platform_editor_mention_node_avatar') ||
+				isExperimentEnabled('platform_editor_mention_node_graphql_provider'));
 
 		if (isAvatarEnabled && mentionNodeDataProvider) {
 			return (

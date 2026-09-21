@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'DatePicker',
 				package: '@atlaskit/datetime-picker/date-picker',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Date Picker',
 					description: 'Date Picker example',
-					source: path.resolve(__dirname, './examples/ai/date-picker.tsx'),
+					source: `${__dirname}/examples/ai/date-picker.tsx`,
 				},
 			],
 			keywords: ['date', 'picker', 'input', 'calendar', 'selection', 'form'],
@@ -54,7 +52,7 @@ const documentation: StructuredContentSource = {
 				name: 'TimePicker',
 				package: '@atlaskit/datetime-picker/time-picker',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -80,7 +78,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Time Picker',
 					description: 'Time Picker example',
-					source: path.resolve(__dirname, './examples/ai/time-picker.tsx'),
+					source: `${__dirname}/examples/ai/time-picker.tsx`,
 				},
 			],
 			keywords: ['time', 'picker', 'input', 'clock', 'selection', 'form'],
@@ -94,7 +92,7 @@ const documentation: StructuredContentSource = {
 				name: 'DateTimePicker',
 				package: '@atlaskit/datetime-picker/date-time-picker',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -120,7 +118,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Datetime Picker',
 					description: 'Datetime Picker example',
-					source: path.resolve(__dirname, './examples/ai/datetime-picker.tsx'),
+					source: `${__dirname}/examples/ai/datetime-picker.tsx`,
 				},
 			],
 			keywords: ['datetime', 'picker', 'date', 'time', 'input', 'calendar'],

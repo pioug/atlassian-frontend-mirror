@@ -2,13 +2,11 @@
  * Structured MCP docs for `@atlaskit/feedback-collector`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	package: {
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Feedback collector',
 					description: 'Basic usage of FeedbackCollector.',
-					source: path.resolve(packagePath, './examples/02-feedback-collector.tsx'),
+					source: `${packagePath}/examples/02-feedback-collector.tsx`,
 				},
 			],
 		},
@@ -64,7 +62,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Feedback button',
 					description: 'Basic usage of FeedbackButton.',
-					source: path.resolve(packagePath, './examples/03-feedback-button.tsx'),
+					source: `${packagePath}/examples/03-feedback-button.tsx`,
 				},
 			],
 		},

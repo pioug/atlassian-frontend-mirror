@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -15,7 +13,7 @@ const documentation: StructuredContentSource = {
 				name: 'MenuGroup',
 				package: '@atlaskit/menu/menu-group',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Menu',
 					description: 'Menu example',
-					source: path.resolve(__dirname, './examples/ai/menu.tsx'),
+					source: `${__dirname}/examples/ai/menu.tsx`,
 				},
 			],
 			keywords: ['menu', 'group', 'navigation', 'section', 'items'],
@@ -55,7 +53,7 @@ const documentation: StructuredContentSource = {
 				name: 'ButtonItem',
 				package: '@atlaskit/menu/button-item',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -71,7 +69,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Button Item',
 					description: 'ButtonItem example',
-					source: path.resolve(__dirname, './examples/constellation/button-item.tsx'),
+					source: `${__dirname}/examples/constellation/button-item.tsx`,
 				},
 			],
 			keywords: ['menu', 'button', 'item', 'action'],
@@ -86,7 +84,7 @@ const documentation: StructuredContentSource = {
 				name: 'LinkItem',
 				package: '@atlaskit/menu/link-item',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -99,7 +97,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Link Item',
 					description: 'LinkItem example',
-					source: path.resolve(__dirname, './examples/constellation/link-item.tsx'),
+					source: `${__dirname}/examples/constellation/link-item.tsx`,
 				},
 			],
 			keywords: ['menu', 'link', 'item', 'navigation'],
@@ -114,7 +112,7 @@ const documentation: StructuredContentSource = {
 				name: 'CustomItem',
 				package: '@atlaskit/menu/custom-item',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -129,7 +127,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Custom Item',
 					description: 'CustomItem example',
-					source: path.resolve(__dirname, './examples/constellation/custom-item.tsx'),
+					source: `${__dirname}/examples/constellation/custom-item.tsx`,
 				},
 			],
 			keywords: ['menu', 'custom', 'item', 'component'],
@@ -143,7 +141,7 @@ const documentation: StructuredContentSource = {
 				name: 'Section',
 				package: '@atlaskit/menu/section',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -156,7 +154,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Section',
 					description: 'Section example',
-					source: path.resolve(__dirname, './examples/constellation/section-default.tsx'),
+					source: `${__dirname}/examples/constellation/section-default.tsx`,
 				},
 			],
 			keywords: ['menu', 'section', 'group', 'items'],
@@ -171,7 +169,7 @@ const documentation: StructuredContentSource = {
 				name: 'PopupMenuGroup',
 				package: '@atlaskit/menu/popup-menu-group',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -191,7 +189,7 @@ const documentation: StructuredContentSource = {
 				name: 'HeadingItem',
 				package: '@atlaskit/menu/heading-item',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -203,7 +201,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Heading Item',
 					description: 'HeadingItem example',
-					source: path.resolve(__dirname, './examples/constellation/heading-item.tsx'),
+					source: `${__dirname}/examples/constellation/heading-item.tsx`,
 				},
 			],
 			keywords: ['menu', 'heading', 'item', 'label'],
@@ -217,7 +215,7 @@ const documentation: StructuredContentSource = {
 				name: 'SkeletonItem',
 				package: '@atlaskit/menu/skeleton-item',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -228,7 +226,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Skeleton Item',
 					description: 'SkeletonItem example',
-					source: path.resolve(__dirname, './examples/constellation/menu-loading.tsx'),
+					source: `${__dirname}/examples/constellation/menu-loading.tsx`,
 				},
 			],
 			keywords: ['menu', 'skeleton', 'loading', 'placeholder'],
@@ -242,7 +240,7 @@ const documentation: StructuredContentSource = {
 				name: 'SkeletonHeadingItem',
 				package: '@atlaskit/menu/skeleton-heading-item',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Use during loading when a section heading will appear'],
@@ -250,7 +248,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Skeleton Heading Item',
 					description: 'SkeletonHeadingItem example',
-					source: path.resolve(__dirname, './examples/constellation/menu-loading.tsx'),
+					source: `${__dirname}/examples/constellation/menu-loading.tsx`,
 				},
 			],
 			keywords: ['menu', 'skeleton', 'heading', 'loading'],

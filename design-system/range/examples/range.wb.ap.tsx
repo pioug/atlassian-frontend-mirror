@@ -11,9 +11,10 @@ import RefExampleSource from './07-ref-example';
 import RateLimitedExample from './08-rate-limited';
 import DifferentValuesVrExample from './09-different-values.vr.ap';
 
-const BasicExampleUncontrolledVr: WorkbenchExample = wb(BasicExampleUncontrolledVrExample);
-
-export default BasicExampleUncontrolledVr;
+// Explicit named export Used to generate integration-test URLs.
+export const BasicExampleUncontrolled: WorkbenchExample = wb(BasicExampleUncontrolledVrExample);
+// Default export required by accessibility tooling.
+export default BasicExampleUncontrolled;
 export const BasicExampleControlled: WorkbenchExample = wb(BasicExampleControlledExample);
 export const DisabledDisplayVr: WorkbenchExample = wb(DisabledDisplayVrExample);
 export const WithTooltip: WorkbenchExample = wb(WithTooltipExample);

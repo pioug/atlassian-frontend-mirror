@@ -3,15 +3,20 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
+	config: {
+		componentPages: false,
+		packageTabs: {
+			examples: false,
+			usage: false,
+		},
+	},
 	components: [
 		{
 			name: 'ConfluenceSearchConfigModal',
@@ -39,10 +44,7 @@ const documentation: StructuredContentSource = {
 					name: 'Confluence search config modal',
 					description:
 						'ConfluenceSearchConfigModal for configuring a Confluence search datasource.',
-					source: path.resolve(
-						packagePath,
-						'./examples/content/basic-confluence-search-config-modal.tsx',
-					),
+					source: `${packagePath}/examples/content/basic-confluence-search-config-modal.tsx`,
 				},
 			],
 		},
@@ -71,15 +73,12 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Jira issues config modal',
 					description: 'JiraIssuesConfigModal for configuring a Jira issues datasource.',
-					source: path.resolve(
-						packagePath,
-						'./examples/content/basic-jira-issues-config-modal.tsx',
-					),
+					source: `${packagePath}/examples/content/basic-jira-issues-config-modal.tsx`,
 				},
 				{
 					name: 'Jira issues table',
 					description: 'Basic Jira issues table view using datasource.',
-					source: path.resolve(packagePath, './examples/basic-jira-issues-table.tsx'),
+					source: `${packagePath}/examples/basic-jira-issues-table.tsx`,
 				},
 			],
 		},
@@ -108,7 +107,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Assets config modal',
 					description: 'AssetsConfigModal for configuring an Assets datasource.',
-					source: path.resolve(packagePath, './examples/content/basic-assets-config-modal.tsx'),
+					source: `${packagePath}/examples/content/basic-assets-config-modal.tsx`,
 				},
 			],
 		},
@@ -137,7 +136,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Jira issues table',
 					description: 'DatasourceTableView showing Jira issues from a configured datasource.',
-					source: path.resolve(packagePath, './examples/basic-jira-issues-table.tsx'),
+					source: `${packagePath}/examples/basic-jira-issues-table.tsx`,
 				},
 			],
 		},

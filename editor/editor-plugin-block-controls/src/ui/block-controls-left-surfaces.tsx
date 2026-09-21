@@ -21,12 +21,9 @@ import { willSurfaceRender } from '@atlaskit/editor-ui-control-model/surface-ren
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { BlockControlsLeftSurface } from './block-controls-left-surface';
-import {
-	createBlockControlsSurfaceContext,
-	createBlockControlsSurfaceContextForPosition,
-} from './block-controls-surface-context';
+import { createBlockControlsSurfaceContextForPosition } from './block-controls-surface-context';
 import { getBlockControlsSurfaceTargets } from './block-controls-surface-targets';
-import { getNodeContentElement, hasInnerContentContainer } from './utils/get-node-content-element';
+import { getNodeContentElement } from './utils/get-node-content-element';
 import {
 	getAbsoluteSurfacePlacement,
 	getAnchoredSurfacePlacement,
@@ -37,6 +34,7 @@ import {
 import { hasSurfaceControls } from './utils/has-surface-controls';
 
 const EMPTY_SURFACE_POSITIONS: readonly number[] = [];
+const EMPTY_SURFACE_ANCHORS: ReadonlyMap<number, string> = new Map();
 const EMPTY_SURFACE_COMPONENTS: [] = [];
 const EMPTY_MEASURED_SURFACES: never[] = [];
 
@@ -46,33 +44,31 @@ type Props = {
 };
 
 export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX.Element | null => {
-	const { activeNode, surfaceNodePositions } = useSharedPluginStateWithSelector(
-		api,
-		['blockControls'],
-		(states) => ({
+	const { activeNode, surfaceAnchors, surfaceActiveNodes, surfaceNodePositions } =
+		useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
 			activeNode: states.blockControlsState?.activeNode,
+			surfaceActiveNodes: states.blockControlsState?.surfaceActiveNodes,
+			surfaceAnchors: states.blockControlsState?.surfaceAnchors ?? EMPTY_SURFACE_ANCHORS,
 			surfaceNodePositions:
 				states.blockControlsState?.surfaceNodePositions ?? EMPTY_SURFACE_POSITIONS,
-		}),
-	);
+		}));
 	const components =
 		api.uiControlRegistry?.actions.getComponents(BLOCK_CONTROLS_LEFT_SURFACE) ??
 		EMPTY_SURFACE_COMPONENTS;
-	const targets = useMemo(
-		() => getBlockControlsSurfaceTargets(activeNode, surfaceNodePositions),
-		[activeNode, surfaceNodePositions],
-	);
+	const targets = useMemo(() => {
+		const candidates = new Set(surfaceNodePositions);
+		return getBlockControlsSurfaceTargets(activeNode, surfaceNodePositions).filter(({ position }) =>
+			candidates.has(position),
+		);
+	}, [activeNode, surfaceNodePositions]);
 	const surfaces = useMemo(
 		() =>
 			targets.flatMap((target) => {
-				const context =
-					target.source === 'stored'
-						? createBlockControlsSurfaceContextForPosition(
-								editorView.state,
-								target.position,
-								activeNode,
-							)
-						: createBlockControlsSurfaceContext(editorView, activeNode, target.source);
+				const context = createBlockControlsSurfaceContextForPosition(
+					editorView.state,
+					target.position,
+					surfaceActiveNodes?.get(target.position) ?? activeNode,
+				);
 				if (!context) {
 					return [];
 				}
@@ -83,20 +79,11 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 				) {
 					return [];
 				}
-				// Resolved here rather than in the measurement effect so an anchored surface is placed
-				// in the same render that creates it — it never needs a second pass to find its node.
-				//
-				// At the moment, we only expect top-level nodes to have persistent controls.
-				// See surfaceAnchorStyles in global-styles
-				const anchorName =
-					isCSSAnchorSupported() &&
-					context.targetNode.parentType === 'doc' &&
-					!hasInnerContentContainer(context.targetNode.type.name)
-						? api.core?.actions.getAnchorIdForNode(context.targetNode.node, context.targetNode.pos)
-						: undefined;
+				// The cache supplies the same anchor names used by ProseMirror decorations.
+				const anchorName = isCSSAnchorSupported() ? surfaceAnchors.get(target.position) : undefined;
 				return [{ ...target, anchorName, blockControlsContext: context, surfaceContext }];
 			}),
-		[activeNode, api, components, editorView, targets],
+		[activeNode, components, editorView, targets, surfaceAnchors, surfaceActiveNodes],
 	);
 	/**
 	 * Placements that need no measuring, so they are derived rather than stored: every inset is an
@@ -114,6 +101,7 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 										anchorName,
 										nodeType: blockControlsContext.targetNode.type.name,
 										nodeTypeWithLevel: getNodeTypeWithLevel(blockControlsContext.targetNode.node),
+										layout: blockControlsContext.targetNode.node.attrs.layout,
 										parentNodeType:
 											blockControlsContext.targetNode.parentType === 'doc'
 												? undefined

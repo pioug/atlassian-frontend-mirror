@@ -2,10 +2,12 @@ import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { findNodeDecs } from '../pm-plugins/decorations-anchor';
+import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { getDecorations, key } from '../pm-plugins/main';
 import {
 	getNestedNodePosition,
@@ -18,7 +20,6 @@ const findParentPosForHandle = (state: EditorState) => {
 		selection: { $from },
 	} = state;
 	const { activeNode } = key.getState(state) || {};
-
 	// if a node handle is already focused, return the parent pos of that node (with focused handle)
 	if (activeNode && activeNode.handleOptions?.isFocused) {
 		const $activeNodePos = state.doc.resolve(activeNode.pos);
@@ -43,7 +44,8 @@ const findParentPosForHandle = (state: EditorState) => {
 	}
 
 	// else find closest parent node
-	return expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+	return expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+		isExperimentEnabled('platform_editor_block_control_migration')
 		? // With native anchor enabled, all nodes have anchor name attribute despite no drag handle support, e.g. listItem, caption,
 			// as opposed to old approach, node decoration is only added to the node that have drag handle,
 			// hence, we need to return the exact position of the node that can have drag handle
@@ -133,6 +135,20 @@ const findNextAnchorNode = (view: EditorView) => {
 export const showDragHandleAtSelection =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>): Command =>
 	(state, _, view) => {
+		if (api && isExperimentEnabled('platform_editor_block_control_migration')) {
+			const pos = findParentPosForHandle(state);
+			const node = pos === undefined ? undefined : state.doc.nodeAt(pos);
+			const anchorName =
+				node && pos !== undefined ? api.core.actions.getAnchorIdForNode(node, pos) : undefined;
+			if (!node || pos === undefined || !anchorName) {
+				return false;
+			}
+			return api.core.actions.execute(
+				api.blockControls.commands.showDragHandleAt(pos, anchorName, getNodeTypeWithLevel(node), {
+					isFocused: true,
+				}),
+			);
+		}
 		if (view && expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 			const anchorNode = findNextAnchorNode(view);
 

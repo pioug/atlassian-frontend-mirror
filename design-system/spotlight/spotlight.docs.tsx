@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -13,7 +11,7 @@ const documentation: StructuredContentSource = {
 				name: 'SpotlightCard',
 				package: '@atlaskit/spotlight/card',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -30,7 +28,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Spotlight Card',
 					description: 'Spotlight example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'onboarding', 'tour', 'feature', 'discovery', 'card'],
@@ -44,7 +42,7 @@ const documentation: StructuredContentSource = {
 				name: 'SpotlightHeader',
 				package: '@atlaskit/spotlight/header',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Contains the headline and dismiss/control area'],
@@ -52,7 +50,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Spotlight Header',
 					description: 'SpotlightHeader example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'header'],
@@ -66,14 +64,14 @@ const documentation: StructuredContentSource = {
 				name: 'SpotlightBody',
 				package: '@atlaskit/spotlight/body',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			examples: [
 				{
 					name: 'Spotlight Body',
 					description: 'SpotlightBody example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'body', 'content'],
@@ -87,7 +85,7 @@ const documentation: StructuredContentSource = {
 				name: 'SpotlightFooter',
 				package: '@atlaskit/spotlight/footer',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Contains primary and secondary action buttons or links'],
@@ -95,7 +93,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Spotlight Footer',
 					description: 'SpotlightFooter example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'footer', 'actions'],
@@ -110,7 +108,7 @@ const documentation: StructuredContentSource = {
 				name: 'PopoverProvider',
 				package: '@atlaskit/spotlight/popover-provider',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Wraps the target element and spotlight content for positioning'],
@@ -118,7 +116,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Popover Provider',
 					description: 'PopoverProvider example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'popover', 'provider', 'positioning'],
@@ -133,7 +131,7 @@ const documentation: StructuredContentSource = {
 				name: 'PopoverContent',
 				package: '@atlaskit/spotlight/popover-content',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Placement is static—choose placement that prevents overflow'],
@@ -141,7 +139,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Popover Content',
 					description: 'PopoverContent example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'popover', 'content', 'positioning'],
@@ -156,7 +154,7 @@ const documentation: StructuredContentSource = {
 				name: 'PopoverTarget',
 				package: '@atlaskit/spotlight/popover-target',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Wrap the UI element the spotlight points to'],
@@ -164,7 +162,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Popover Target',
 					description: 'PopoverTarget example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'popover', 'target', 'positioning'],
@@ -179,7 +177,7 @@ const documentation: StructuredContentSource = {
 				name: 'SpotlightDismissControl',
 				package: '@atlaskit/spotlight/dismiss-control',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -190,7 +188,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Spotlight Dismiss Control',
 					description: 'SpotlightDismissControl example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'dismiss', 'close', 'control'],
@@ -204,7 +202,7 @@ const documentation: StructuredContentSource = {
 				name: 'SpotlightHeadline',
 				package: '@atlaskit/spotlight/headline',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Keep headlines concise and understandable in seconds'],
@@ -212,7 +210,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Spotlight Headline',
 					description: 'SpotlightHeadline example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'headline', 'title'],
@@ -226,7 +224,7 @@ const documentation: StructuredContentSource = {
 				name: 'SpotlightActions',
 				package: '@atlaskit/spotlight/actions',
 				type: 'named',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: ['Container for primary and secondary action buttons or links'],
@@ -234,7 +232,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Spotlight Actions',
 					description: 'SpotlightActions example',
-					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
+					source: `${__dirname}/examples/constellation/actions.tsx`,
 				},
 			],
 			keywords: ['spotlight', 'actions', 'footer', 'buttons'],

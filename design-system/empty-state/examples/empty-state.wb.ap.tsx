@@ -17,9 +17,10 @@ import WithHeadingLevelExample from './12-with-heading-level';
 import WithButtongGroupLabelExample from './13-with-buttong-group-label';
 import WithHeadingSizeVrExample from './14-with-heading-size.vr.ap';
 
-const BasicVr: WorkbenchExample = wb(BasicVrExample);
-
-export default BasicVr;
+// Explicit named export Used to generate integration-test URLs.
+export const Basic: WorkbenchExample = wb(BasicVrExample);
+// Default export required by accessibility tooling.
+export default Basic;
 export const BasicWithRichDescription: WorkbenchExample = wb(BasicWithRichDescriptionExample);
 export const OnlyMandatoryProps: WorkbenchExample = wb(OnlyMandatoryPropsExample);
 export const WithFixedSizeImage: WorkbenchExample = wb(WithFixedSizeImageExample);

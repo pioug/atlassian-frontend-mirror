@@ -3,7 +3,6 @@ import { find } from '@atlaskit/editor-common/quick-insert';
 import { getActiveQuickInsertCategories } from '@atlaskit/editor-common/quick-insert/get-active-quick-insert-categories';
 import type { QuickInsertSearchOptions } from '@atlaskit/editor-common/types';
 import { dedupe } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 type GetQuickInsertSuggestions = (
 	searchOptions: QuickInsertSearchOptions,
@@ -93,7 +92,7 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	}
 
 	return find(
-		(fg('platform_editor_fix_space_triggering_ai') ? query?.trimEnd() : query) || '',
+		query?.trimEnd() || '',
 		category === 'all' || !category
 			? items
 			: items.filter((item) =>

@@ -6,9 +6,11 @@ import NavigationLogoExample from './2-navigation-logo';
 import SizesVrExample from './5-sizes.vr.ap';
 import DefensiveStylingVrExample from './6-defensive-styling.vr.ap';
 
-const BasicVr: WorkbenchExample = wb(BasicVrExample);
+// Explicit named export Used to generate integration-test URLs.
+export const Basic: WorkbenchExample = wb(BasicVrExample);
 
-export default BasicVr;
+// Default export required by accessibility tooling.
+export default Basic;
 export const AppearanceVr: WorkbenchExample = wb(AppearanceVrExample);
 export const NavigationLogo: WorkbenchExample = wb(NavigationLogoExample);
 export const SizesVr: WorkbenchExample = wb(SizesVrExample);

@@ -13,6 +13,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { layers } from '@atlaskit/theme/constants';
@@ -145,7 +146,10 @@ const HoverZone = ({
 	const isRemainingheight = dropTargetStyle === 'remainingHeight';
 
 	const anchorName = useMemo(() => {
-		if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+		if (
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_block_control_migration')
+		) {
 			if (node && typeof pos === 'number') {
 				const posOffset = position === 'upper' ? -node.nodeSize : 0;
 
@@ -222,7 +226,8 @@ const HoverZone = ({
 		if (isRemainingheight && position === 'upper') {
 			// previous node
 			const anchorName = node
-				? expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+				? expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
 					? api?.core.actions.getAnchorIdForNode(node, pos || -1) || ''
 					: getNodeAnchor(node)
 				: '';

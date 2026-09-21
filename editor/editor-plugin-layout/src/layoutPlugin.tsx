@@ -102,9 +102,6 @@ export const selectIntoLayoutSection = (tr: Transaction): Transaction => {
 };
 
 export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
-	const blockControlMigrationEnabled = isExperimentEnabled(
-		'platform_editor_block_control_migration',
-	);
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true);
 	const allowAdvancedSingleColumnLayout =
 		isAdvancedLayoutEnabled && editorExperiment('single_column_layouts', true, { exposure: true });
@@ -237,6 +234,41 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 						};
 
 						if (editorExperiment('advanced_layouts', true)) {
+							const createAdvancedColumnLayoutOption = ({
+								columnCount,
+								descriptionColumnCount,
+								icon: Icon,
+								id,
+								keyword,
+								title,
+							}: {
+								columnCount: number;
+								descriptionColumnCount: string;
+								icon: QuickInsertItem['icon'];
+								id: QuickInsertItem['id'];
+								keyword: string;
+								title: string;
+							}): QuickInsertItem => ({
+								id,
+								title,
+								description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+									numberOfColumns: descriptionColumnCount,
+								}),
+								keywords: ['layout', 'column', 'section', 'col', keyword],
+								priority: 1100,
+								icon: Icon,
+								action(insert, state) {
+									const tr = insert(createMultiColumnLayoutSection(state, columnCount));
+									if (fg('platform_editor_column_count_analytics')) {
+										withInsertLayoutAnalytics(tr, columnCount);
+									} else {
+										withInsertLayoutAnalytics(tr);
+									}
+									selectIntoLayoutSection(tr);
+									return tr;
+								},
+							});
+
 							const advancedSingleColumnOption: QuickInsertItem[] = allowAdvancedSingleColumnLayout
 								? [
 										{
@@ -261,161 +293,40 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 									]
 								: [];
 
-							if (expValEquals('platform_editor_layout_typeahead_reorder', 'isEnabled', true)) {
-								const createAdvancedColumnLayoutOption = ({
-									columnCount,
-									descriptionColumnCount,
-									icon: Icon,
-									id,
-									keyword,
-									title,
-								}: {
-									columnCount: number;
-									descriptionColumnCount: string;
-									icon: QuickInsertItem['icon'];
-									id: QuickInsertItem['id'];
-									keyword: string;
-									title: string;
-								}): QuickInsertItem => ({
-									id,
-									title,
-									description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-										numberOfColumns: descriptionColumnCount,
-									}),
-									keywords: ['layout', 'column', 'section', 'col', keyword],
-									priority: 1100,
-									icon: Icon,
-									action(insert, state) {
-										const tr = insert(createMultiColumnLayoutSection(state, columnCount));
-										if (fg('platform_editor_column_count_analytics')) {
-											withInsertLayoutAnalytics(tr, columnCount);
-										} else {
-											withInsertLayoutAnalytics(tr);
-										}
-										selectIntoLayoutSection(tr);
-										return tr;
-									},
-								});
-
-								return [
-									createAdvancedColumnLayoutOption({
-										columnCount: 2,
-										descriptionColumnCount: 'two',
-										icon: () => <IconTwoColumnLayout />,
-										id: 'twocolumnslayout',
-										keyword: 'two column',
-										title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
-									}),
-									...advancedSingleColumnOption,
-									createAdvancedColumnLayoutOption({
-										columnCount: 3,
-										descriptionColumnCount: 'three',
-										icon: () => <IconThreeColumnLayout />,
-										id: 'threecolumnslayout',
-										keyword: 'three column',
-										title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
-									}),
-									createAdvancedColumnLayoutOption({
-										columnCount: 4,
-										descriptionColumnCount: 'four',
-										icon: () => <IconFourColumnLayout />,
-										id: 'fourcolumnslayout',
-										keyword: 'four column',
-										title: formatMessage(layoutMessages.fourColumns),
-									}),
-									createAdvancedColumnLayoutOption({
-										columnCount: 5,
-										descriptionColumnCount: 'five',
-										icon: () => <IconFiveColumnLayout />,
-										id: 'fivecolumnslayout',
-										keyword: 'five column',
-										title: formatMessage(layoutMessages.fiveColumns),
-									}),
-								];
-							}
-
 							return [
-								...advancedSingleColumnOption,
-								{
-									id: 'twocolumnslayout',
-									title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
-									description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-										numberOfColumns: 'two',
-									}),
-									keywords: ['layout', 'column', 'section', 'col', 'two column'],
-									priority: 1100,
+								createAdvancedColumnLayoutOption({
+									columnCount: 2,
+									descriptionColumnCount: 'two',
 									icon: () => <IconTwoColumnLayout />,
-									action(insert, state) {
-										const tr = insert(createMultiColumnLayoutSection(state, 2));
-										if (fg('platform_editor_column_count_analytics')) {
-											withInsertLayoutAnalytics(tr, 2);
-										} else {
-											withInsertLayoutAnalytics(tr);
-										}
-										selectIntoLayoutSection(tr);
-										return tr;
-									},
-								},
-								{
-									id: 'threecolumnslayout',
-									title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
-									description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-										numberOfColumns: 'three',
-									}),
-									keywords: ['layout', 'column', 'section', 'col', 'three column'],
-									priority: 1100,
+									id: 'twocolumnslayout',
+									keyword: 'two column',
+									title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
+								}),
+								...advancedSingleColumnOption,
+								createAdvancedColumnLayoutOption({
+									columnCount: 3,
+									descriptionColumnCount: 'three',
 									icon: () => <IconThreeColumnLayout />,
-									action(insert, state) {
-										const tr = insert(createMultiColumnLayoutSection(state, 3));
-										if (fg('platform_editor_column_count_analytics')) {
-											withInsertLayoutAnalytics(tr, 3);
-										} else {
-											withInsertLayoutAnalytics(tr);
-										}
-										selectIntoLayoutSection(tr);
-										return tr;
-									},
-								},
-								{
-									id: 'fourcolumnslayout',
-									title: formatMessage(layoutMessages.fourColumns),
-									description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-										numberOfColumns: 'four',
-									}),
-									keywords: ['layout', 'column', 'section', 'col', 'four column'],
-									priority: 1100,
+									id: 'threecolumnslayout',
+									keyword: 'three column',
+									title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
+								}),
+								createAdvancedColumnLayoutOption({
+									columnCount: 4,
+									descriptionColumnCount: 'four',
 									icon: () => <IconFourColumnLayout />,
-									action(insert, state) {
-										const tr = insert(createMultiColumnLayoutSection(state, 4));
-										if (fg('platform_editor_column_count_analytics')) {
-											withInsertLayoutAnalytics(tr, 4);
-										} else {
-											withInsertLayoutAnalytics(tr);
-										}
-										selectIntoLayoutSection(tr);
-										return tr;
-									},
-								},
-								{
-									id: 'fivecolumnslayout',
-									title: formatMessage(layoutMessages.fiveColumns),
-									description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-										numberOfColumns: 'five',
-									}),
-									keywords: ['layout', 'column', 'section', 'col', 'five column'],
-									priority: 1100,
+									id: 'fourcolumnslayout',
+									keyword: 'four column',
+									title: formatMessage(layoutMessages.fourColumns),
+								}),
+								createAdvancedColumnLayoutOption({
+									columnCount: 5,
+									descriptionColumnCount: 'five',
 									icon: () => <IconFiveColumnLayout />,
-									action(insert, state) {
-										const tr = insert(createMultiColumnLayoutSection(state, 5));
-										if (fg('platform_editor_column_count_analytics')) {
-											withInsertLayoutAnalytics(tr, 5);
-										} else {
-											withInsertLayoutAnalytics(tr);
-										}
-										selectIntoLayoutSection(tr);
-										return tr;
-									},
-								},
+									id: 'fivecolumnslayout',
+									keyword: 'five column',
+									title: formatMessage(layoutMessages.fiveColumns),
+								}),
 							];
 						} else {
 							return [
@@ -460,7 +371,6 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							mountTo={popupsMountPoint}
 							boundariesElement={popupsBoundariesElement}
 							scrollableElement={popupsScrollableElement}
-							useRegistryAnchor={blockControlMigrationEnabled}
 						/>
 					) : null}
 				</>

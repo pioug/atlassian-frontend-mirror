@@ -12,9 +12,10 @@ import HeadingLevelExample from './09-heading-level';
 import TestingVrExample from './99-testing.vr.ap';
 import SsrTestingExample from './100-ssr-testing';
 
-const BasicExampleVr: WorkbenchExample = wb(BasicExampleVrExample);
-
-export default BasicExampleVr;
+// Explicit named export Used to generate integration-test URLs.
+export const BasicExample: WorkbenchExample = wb(BasicExampleVrExample);
+// Default export required by accessibility tooling.
+export default BasicExample;
 export const AppearanceVariationsVr: WorkbenchExample = wb(AppearanceVariationsVrExample);
 export const CustomIcon: WorkbenchExample = wb(CustomIconExample);
 export const QuickCompareFixture: WorkbenchExample = wb(QuickCompareFixtureExample);
@@ -24,4 +25,5 @@ export const ExplicitFontStylesVr: WorkbenchExample = wb(ExplicitFontStylesVrExa
 export const DismissibleVr: WorkbenchExample = wb(DismissibleVrExample);
 export const HeadingLevel: WorkbenchExample = wb(HeadingLevelExample);
 export const SsrTesting: WorkbenchExample = wb(SsrTestingExample);
-export const TestingVr: WorkbenchExample = wb(TestingVrExample);
+// Named "Testing" to match the Workbench URL used by existing integration tests.
+export const Testing: WorkbenchExample = wb(TestingVrExample);

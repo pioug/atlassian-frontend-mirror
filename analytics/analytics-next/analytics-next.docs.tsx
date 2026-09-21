@@ -14,15 +14,20 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
+	config: {
+		componentPages: false,
+		packageTabs: {
+			examples: false,
+			usage: false,
+		},
+	},
 	package: {
 		package: '@atlaskit/analytics-next',
 		packagePath,
@@ -53,7 +58,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic listener',
 					description: 'Subscribe to an entire app and log events.',
-					source: path.resolve(packagePath, './examples/10-basic-create-and-fire.tsx'),
+					source: `${packagePath}/examples/10-basic-create-and-fire.tsx`,
 				},
 			],
 		},
@@ -78,7 +83,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Adding context',
 					description: 'Attach feature area context to all child events.',
-					source: path.resolve(packagePath, './examples/20-adding-analytics-context.tsx'),
+					source: `${packagePath}/examples/20-adding-analytics-context.tsx`,
 				},
 			],
 		},
@@ -104,10 +109,7 @@ const documentation: StructuredContentSource = {
 					name: 'Error boundary with fallback',
 					description:
 						'Render a fallback component and fire an analytics event when a child throws.',
-					source: path.resolve(
-						packagePath,
-						'./examples/11-error-boundary-with-error-component.tsx',
-					),
+					source: `${packagePath}/examples/11-error-boundary-with-error-component.tsx`,
 				},
 			],
 		},
@@ -134,7 +136,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Fire on click',
 					description: 'Create and fire a click event from a button handler.',
-					source: path.resolve(packagePath, './examples/10-basic-create-and-fire.tsx'),
+					source: `${packagePath}/examples/10-basic-create-and-fire.tsx`,
 				},
 			],
 		},

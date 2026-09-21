@@ -32,9 +32,11 @@ import ValueSwitchingBugfixVrExample from './160-value-switching-bugfix.vr.ap';
 import DisableToggleExample from './999-disable-toggle';
 import TestingTopLayerFocusExample from './testing-top-layer-focus';
 
-const BasicVr: WorkbenchExample = wb(BasicVrExample);
+// Explicit named export Used to generate integration-test URLs.
+export const Basic: WorkbenchExample = wb(BasicVrExample);
 
-export default BasicVr;
+// Default export required by accessibility tooling.
+export default Basic;
 export const I18n: WorkbenchExample = wb(I18nExample);
 export const UsingField: WorkbenchExample = wb(UsingFieldExample);
 export const Required: WorkbenchExample = wb(RequiredExample);
@@ -50,7 +52,8 @@ export const DatepickerFormatDisplayLabel: WorkbenchExample = wb(
 export const DatePickerRange: WorkbenchExample = wb(DatePickerRangeExample);
 export const DateTimeLabelExamplesVr: WorkbenchExample = wb(DateTimeLabelExamplesVrExample);
 export const DatePickerTabcheck: WorkbenchExample = wb(DatePickerTabcheckExample);
-export const OverflowVr: WorkbenchExample = wb(OverflowVrExample);
+// Named "Overflow" to match the Workbench URL used by existing integration tests.
+export const Overflow: WorkbenchExample = wb(OverflowVrExample);
 export const CalendarButtonLabeling: WorkbenchExample = wb(CalendarButtonLabelingExample);
 export const ComponentsOverrideVr: WorkbenchExample = wb(ComponentsOverrideVrExample);
 export const Modal: WorkbenchExample = wb(ModalExample);

@@ -4,6 +4,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
+import type { ProductType } from '@atlaskit/linking-common/types';
 import {
 	expectFunctionToHaveBeenCalledWith,
 	type JestFunction,
@@ -11,6 +12,7 @@ import {
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen, within, userEvent } from '@atlassian/testing-library';
 
 import {
@@ -38,7 +40,12 @@ const baseData: JsonLd.Response['data'] = {
 	},
 };
 
-const setup = (cardState: CardState, url: string, props?: Partial<EmbedCardProps>) => {
+const setup = (
+	cardState: CardState,
+	url: string,
+	props?: Partial<EmbedCardProps>,
+	product?: ProductType,
+) => {
 	const handleFrameClickMock = jest.fn();
 	const onResolveMock: JestFunction<Required<EmbedCardProps>['onResolve']> = jest.fn();
 	const ref = React.createRef<HTMLIFrameElement>();
@@ -49,7 +56,7 @@ const setup = (cardState: CardState, url: string, props?: Partial<EmbedCardProps
 
 	const renderResult = renderWithIntl(
 		<AnalyticsListener onEvent={onEventMock} channel={ANALYTICS_CHANNEL}>
-			<SmartCardProvider>
+			<SmartCardProvider product={product}>
 				<EmbedCard
 					url={url}
 					cardState={cardState}
@@ -89,7 +96,7 @@ describe('EmbedCard view component', () => {
 		const expectedName = 'some-name';
 		const expectedPreviewUrl = 'http://some-preview-url.com';
 
-		const cardStateOverride: CardState = {
+		const cardStateOverride = {
 			status: 'resolved',
 			details: {
 				meta: {
@@ -107,7 +114,7 @@ describe('EmbedCard view component', () => {
 					},
 				},
 			},
-		};
+		} satisfies CardState;
 
 		it('should render resolved view', () => {
 			const { getByTestId, iframeEl } = setup(cardStateOverride, expectedUrl);
@@ -160,6 +167,32 @@ describe('EmbedCard view component', () => {
 				};
 				const { iframeEl } = setup(cardStateOverrideWithThemeSupport, expectedUrl);
 				expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
+			});
+
+			const avpPlatformCardState: CardState = {
+				...cardStateOverride,
+				details: {
+					...cardStateOverride.details,
+					meta: {
+						key: 'avpplatform-object-provider',
+						access: 'granted',
+						visibility: 'public',
+					},
+				},
+			};
+
+			it('does not add AVP host product context when the gate is disabled', () => {
+				failGate('platform_avp_smartlink_embed_product_context');
+				const { iframeEl } = setup(avpPlatformCardState, expectedUrl, undefined, 'CONFLUENCE');
+
+				expect(iframeEl.getAttribute('src')).not.toContain('hostProduct=');
+			});
+
+			it('adds AVP host product context when the gate is enabled', () => {
+				passGate('platform_avp_smartlink_embed_product_context');
+				const { iframeEl } = setup(avpPlatformCardState, expectedUrl, undefined, 'CONFLUENCE');
+
+				expect(iframeEl.getAttribute('src')).toContain('hostProduct=CONFLUENCE');
 			});
 		});
 

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b5e86817104067f4d4b33c92b079de07>>
+ * @codegen <<SignedSource::d33d0969fc43fd123fe3f35c5de9b383>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2806,7 +2806,7 @@ var tokens = [{
   "cleanName": "color.background.code.removed.line"
 }, {
   "value": "#E3E4F21F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -2828,7 +2828,7 @@ var tokens = [{
   "cleanName": "color.background.disabled"
 }, {
   "value": "#242528",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -2850,7 +2850,7 @@ var tokens = [{
   "cleanName": "color.background.input"
 }, {
   "value": "#2B2C2F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -2872,7 +2872,7 @@ var tokens = [{
   "cleanName": "color.background.input.hovered"
 }, {
   "value": "#242528",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -2894,7 +2894,7 @@ var tokens = [{
   "cleanName": "color.background.input.pressed"
 }, {
   "value": "#FFFFFF29",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -2916,7 +2916,7 @@ var tokens = [{
   "cleanName": "color.background.inverse.subtle"
 }, {
   "value": "#FFFFFF3D",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -2938,7 +2938,7 @@ var tokens = [{
   "cleanName": "color.background.inverse.subtle.hovered"
 }, {
   "value": "#FFFFFF52",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -2960,7 +2960,7 @@ var tokens = [{
   "cleanName": "color.background.inverse.subtle.pressed"
 }, {
   "value": "#CECED912",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -2982,7 +2982,7 @@ var tokens = [{
   "cleanName": "color.background.neutral"
 }, {
   "value": "#E3E4F21F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3004,7 +3004,7 @@ var tokens = [{
   "cleanName": "color.background.neutral.hovered"
 }, {
   "value": "#E5E9F640",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3026,7 +3026,7 @@ var tokens = [{
   "cleanName": "color.background.neutral.pressed"
 }, {
   "value": "#00000000",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3048,7 +3048,7 @@ var tokens = [{
   "cleanName": "color.background.neutral.subtle"
 }, {
   "value": "#CECED912",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3070,7 +3070,7 @@ var tokens = [{
   "cleanName": "color.background.neutral.subtle.hovered"
 }, {
   "value": "#E3E4F21F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3092,7 +3092,7 @@ var tokens = [{
   "cleanName": "color.background.neutral.subtle.pressed"
 }, {
   "value": "#CECFD2",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3114,7 +3114,7 @@ var tokens = [{
   "cleanName": "color.background.neutral.bold"
 }, {
   "value": "#BFC1C4",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3136,7 +3136,7 @@ var tokens = [{
   "cleanName": "color.background.neutral.bold.hovered"
 }, {
   "value": "#A9ABAF",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3158,7 +3158,7 @@ var tokens = [{
   "cleanName": "color.background.neutral.bold.pressed"
 }, {
   "value": "#35243F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3180,7 +3180,7 @@ var tokens = [{
   "cleanName": "color.background.selected"
 }, {
   "value": "#48245D",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3202,7 +3202,7 @@ var tokens = [{
   "cleanName": "color.background.selected.hovered"
 }, {
   "value": "#803FA5",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3224,7 +3224,7 @@ var tokens = [{
   "cleanName": "color.background.selected.pressed"
 }, {
   "value": "#C97CF4",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3246,7 +3246,7 @@ var tokens = [{
   "cleanName": "color.background.selected.bold"
 }, {
   "value": "#D8A0F7",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3268,7 +3268,7 @@ var tokens = [{
   "cleanName": "color.background.selected.bold.hovered"
 }, {
   "value": "#EED7FC",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3290,7 +3290,7 @@ var tokens = [{
   "cleanName": "color.background.selected.bold.pressed"
 }, {
   "value": "#3D2232",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3312,7 +3312,7 @@ var tokens = [{
   "cleanName": "color.background.brand.subtlest"
 }, {
   "value": "#50253F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3334,7 +3334,7 @@ var tokens = [{
   "cleanName": "color.background.brand.subtlest.hovered"
 }, {
   "value": "#77325B",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3356,7 +3356,7 @@ var tokens = [{
   "cleanName": "color.background.brand.subtlest.pressed"
 }, {
   "value": "#E774BB",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3378,7 +3378,7 @@ var tokens = [{
   "cleanName": "color.background.brand.bold"
 }, {
   "value": "#F797D2",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3400,7 +3400,7 @@ var tokens = [{
   "cleanName": "color.background.brand.bold.hovered"
 }, {
   "value": "#FCB6E1",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3422,7 +3422,7 @@ var tokens = [{
   "cleanName": "color.background.brand.bold.pressed"
 }, {
   "value": "#FFECF8",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3444,7 +3444,7 @@ var tokens = [{
   "cleanName": "color.background.brand.boldest"
 }, {
   "value": "#FDD0EC",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3466,7 +3466,7 @@ var tokens = [{
   "cleanName": "color.background.brand.boldest.hovered"
 }, {
   "value": "#FCB6E1",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3488,7 +3488,7 @@ var tokens = [{
   "cleanName": "color.background.brand.boldest.pressed"
 }, {
   "value": "#42221F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3510,7 +3510,7 @@ var tokens = [{
   "cleanName": "color.background.danger"
 }, {
   "value": "#5D1F1A",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3532,7 +3532,7 @@ var tokens = [{
   "cleanName": "color.background.danger.hovered"
 }, {
   "value": "#872821",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3554,7 +3554,7 @@ var tokens = [{
   "cleanName": "color.background.danger.pressed"
 }, {
   "value": "#5D1F1A",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3576,7 +3576,7 @@ var tokens = [{
   "cleanName": "color.background.danger.subtler"
 }, {
   "value": "#872821",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3598,7 +3598,7 @@ var tokens = [{
   "cleanName": "color.background.danger.subtler.hovered"
 }, {
   "value": "#AE2E24",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3620,7 +3620,7 @@ var tokens = [{
   "cleanName": "color.background.danger.subtler.pressed"
 }, {
   "value": "#AE2E24",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3642,7 +3642,7 @@ var tokens = [{
   "cleanName": "color.background.danger.subtle"
 }, {
   "value": "#F87168",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3664,7 +3664,7 @@ var tokens = [{
   "cleanName": "color.background.danger.bold"
 }, {
   "value": "#FD9891",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3686,7 +3686,7 @@ var tokens = [{
   "cleanName": "color.background.danger.bold.hovered"
 }, {
   "value": "#FFB8B2",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3708,7 +3708,7 @@ var tokens = [{
   "cleanName": "color.background.danger.bold.pressed"
 }, {
   "value": "#3A2C1F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3730,7 +3730,7 @@ var tokens = [{
   "cleanName": "color.background.warning"
 }, {
   "value": "#693200",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3752,7 +3752,7 @@ var tokens = [{
   "cleanName": "color.background.warning.hovered"
 }, {
   "value": "#7A3B00",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3774,7 +3774,7 @@ var tokens = [{
   "cleanName": "color.background.warning.pressed"
 }, {
   "value": "#693200",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3796,7 +3796,7 @@ var tokens = [{
   "cleanName": "color.background.warning.subtler"
 }, {
   "value": "#7A3B00",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3818,7 +3818,7 @@ var tokens = [{
   "cleanName": "color.background.warning.subtler.hovered"
 }, {
   "value": "#9E4C00",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3840,7 +3840,7 @@ var tokens = [{
   "cleanName": "color.background.warning.subtler.pressed"
 }, {
   "value": "#9E4C00",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3862,7 +3862,7 @@ var tokens = [{
   "cleanName": "color.background.warning.subtle"
 }, {
   "value": "#FBC828",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3884,7 +3884,7 @@ var tokens = [{
   "cleanName": "color.background.warning.bold"
 }, {
   "value": "#FCA700",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3906,7 +3906,7 @@ var tokens = [{
   "cleanName": "color.background.warning.bold.hovered"
 }, {
   "value": "#F68909",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3928,7 +3928,7 @@ var tokens = [{
   "cleanName": "color.background.warning.bold.pressed"
 }, {
   "value": "#28311B",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3950,7 +3950,7 @@ var tokens = [{
   "cleanName": "color.background.success"
 }, {
   "value": "#37471F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3972,7 +3972,7 @@ var tokens = [{
   "cleanName": "color.background.success.hovered"
 }, {
   "value": "#3F5224",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -3994,7 +3994,7 @@ var tokens = [{
   "cleanName": "color.background.success.pressed"
 }, {
   "value": "#37471F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4016,7 +4016,7 @@ var tokens = [{
   "cleanName": "color.background.success.subtler"
 }, {
   "value": "#3F5224",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4038,7 +4038,7 @@ var tokens = [{
   "cleanName": "color.background.success.subtler.hovered"
 }, {
   "value": "#4C6B1F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4060,7 +4060,7 @@ var tokens = [{
   "cleanName": "color.background.success.subtler.pressed"
 }, {
   "value": "#4C6B1F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4082,7 +4082,7 @@ var tokens = [{
   "cleanName": "color.background.success.subtle"
 }, {
   "value": "#94C748",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4104,7 +4104,7 @@ var tokens = [{
   "cleanName": "color.background.success.bold"
 }, {
   "value": "#B3DF72",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4126,7 +4126,7 @@ var tokens = [{
   "cleanName": "color.background.success.bold.hovered"
 }, {
   "value": "#BDE97C",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4148,7 +4148,7 @@ var tokens = [{
   "cleanName": "color.background.success.bold.pressed"
 }, {
   "value": "#35243F",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4170,7 +4170,7 @@ var tokens = [{
   "cleanName": "color.background.discovery"
 }, {
   "value": "#48245D",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4192,7 +4192,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.hovered"
 }, {
   "value": "#673286",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4214,7 +4214,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.pressed"
 }, {
   "value": "#48245D",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4236,7 +4236,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.subtler"
 }, {
   "value": "#673286",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4258,7 +4258,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.subtler.hovered"
 }, {
   "value": "#803FA5",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4280,7 +4280,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.subtler.pressed"
 }, {
   "value": "#803FA5",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4302,7 +4302,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.subtle"
 }, {
   "value": "#C97CF4",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4324,7 +4324,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.bold"
 }, {
   "value": "#D8A0F7",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4346,7 +4346,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.bold.hovered"
 }, {
   "value": "#E3BDFA",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4368,7 +4368,7 @@ var tokens = [{
   "cleanName": "color.background.discovery.bold.pressed"
 }, {
   "value": "#1C2B42",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4390,7 +4390,7 @@ var tokens = [{
   "cleanName": "color.background.information"
 }, {
   "value": "#123263",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4412,7 +4412,7 @@ var tokens = [{
   "cleanName": "color.background.information.hovered"
 }, {
   "value": "#144794",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4434,7 +4434,7 @@ var tokens = [{
   "cleanName": "color.background.information.pressed"
 }, {
   "value": "#123263",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4456,7 +4456,7 @@ var tokens = [{
   "cleanName": "color.background.information.subtler"
 }, {
   "value": "#144794",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4478,7 +4478,7 @@ var tokens = [{
   "cleanName": "color.background.information.subtler.hovered"
 }, {
   "value": "#1558BC",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4500,7 +4500,7 @@ var tokens = [{
   "cleanName": "color.background.information.subtler.pressed"
 }, {
   "value": "#1558BC",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4522,7 +4522,7 @@ var tokens = [{
   "cleanName": "color.background.information.subtle"
 }, {
   "value": "#669DF1",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4544,7 +4544,7 @@ var tokens = [{
   "cleanName": "color.background.information.bold"
 }, {
   "value": "#8FB8F6",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4566,7 +4566,7 @@ var tokens = [{
   "cleanName": "color.background.information.bold.hovered"
 }, {
   "value": "#ADCBFB",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -4588,7 +4588,7 @@ var tokens = [{
   "cleanName": "color.background.information.bold.pressed"
 }, {
   "value": "#E3E4F21F",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5072,7 +5072,7 @@ var tokens = [{
   "cleanName": "color.border.code"
 }, {
   "value": "#CECED912",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5094,7 +5094,7 @@ var tokens = [{
   "cleanName": "color.border.disabled"
 }, {
   "value": "#9DD9EE",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5116,7 +5116,7 @@ var tokens = [{
   "cleanName": "color.border.focused"
 }, {
   "value": "#7E8188",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5138,7 +5138,7 @@ var tokens = [{
   "cleanName": "color.border.input"
 }, {
   "value": "#E3E4F21F",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5160,7 +5160,7 @@ var tokens = [{
   "cleanName": "color.border.input.search"
 }, {
   "value": "#18191A",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5182,7 +5182,7 @@ var tokens = [{
   "cleanName": "color.border.inverse"
 }, {
   "value": "#C97CF4",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5204,7 +5204,7 @@ var tokens = [{
   "cleanName": "color.border.selected"
 }, {
   "value": "#E774BB",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5226,7 +5226,7 @@ var tokens = [{
   "cleanName": "color.border.brand"
 }, {
   "value": "#F15B50",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5248,7 +5248,7 @@ var tokens = [{
   "cleanName": "color.border.danger"
 }, {
   "value": "#AE2E24",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5270,7 +5270,7 @@ var tokens = [{
   "cleanName": "color.border.danger.subtle"
 }, {
   "value": "#F68909",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5292,7 +5292,7 @@ var tokens = [{
   "cleanName": "color.border.warning"
 }, {
   "value": "#9E4C00",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5314,7 +5314,7 @@ var tokens = [{
   "cleanName": "color.border.warning.subtle"
 }, {
   "value": "#82B536",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5336,7 +5336,7 @@ var tokens = [{
   "cleanName": "color.border.success"
 }, {
   "value": "#4C6B1F",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5358,7 +5358,7 @@ var tokens = [{
   "cleanName": "color.border.success.subtle"
 }, {
   "value": "#BF63F3",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5380,7 +5380,7 @@ var tokens = [{
   "cleanName": "color.border.discovery"
 }, {
   "value": "#803FA5",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5402,7 +5402,7 @@ var tokens = [{
   "cleanName": "color.border.discovery.subtle"
 }, {
   "value": "#4688EC",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5424,7 +5424,7 @@ var tokens = [{
   "cleanName": "color.border.information"
 }, {
   "value": "#1558BC",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5446,7 +5446,7 @@ var tokens = [{
   "cleanName": "color.border.information.subtle"
 }, {
   "value": "#7E8188",
-  "filePath": "schema/themes/UNSAFE-test-dark/border.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/border.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -5468,7 +5468,7 @@ var tokens = [{
   "cleanName": "color.border.bold"
 }, {
   "value": "#CECFD2",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6172,7 +6172,7 @@ var tokens = [{
   "cleanName": "color.text.code.tags"
 }, {
   "value": "#E5E9F640",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6194,7 +6194,7 @@ var tokens = [{
   "cleanName": "color.text.disabled"
 }, {
   "value": "#1F1F21",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6216,7 +6216,7 @@ var tokens = [{
   "cleanName": "color.text.inverse"
 }, {
   "value": "#D8A0F7",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6238,7 +6238,7 @@ var tokens = [{
   "cleanName": "color.text.selected"
 }, {
   "value": "#F797D2",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6260,7 +6260,7 @@ var tokens = [{
   "cleanName": "color.text.brand"
 }, {
   "value": "#FD9891",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6282,7 +6282,7 @@ var tokens = [{
   "cleanName": "color.text.danger"
 }, {
   "value": "#FFD5D2",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6304,7 +6304,7 @@ var tokens = [{
   "cleanName": "color.text.danger.bolder"
 }, {
   "value": "#FBC828",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6326,7 +6326,7 @@ var tokens = [{
   "cleanName": "color.text.warning"
 }, {
   "value": "#1F1F21",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6348,7 +6348,7 @@ var tokens = [{
   "cleanName": "color.text.warning.inverse"
 }, {
   "value": "#FCE4A6",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6370,7 +6370,7 @@ var tokens = [{
   "cleanName": "color.text.warning.bolder"
 }, {
   "value": "#B3DF72",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6392,7 +6392,7 @@ var tokens = [{
   "cleanName": "color.text.success"
 }, {
   "value": "#D3F1A7",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6414,7 +6414,7 @@ var tokens = [{
   "cleanName": "color.text.success.bolder"
 }, {
   "value": "#D8A0F7",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6436,7 +6436,7 @@ var tokens = [{
   "cleanName": "color.text.discovery"
 }, {
   "value": "#EED7FC",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6458,7 +6458,7 @@ var tokens = [{
   "cleanName": "color.text.discovery.bolder"
 }, {
   "value": "#8FB8F6",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6480,7 +6480,7 @@ var tokens = [{
   "cleanName": "color.text.information"
 }, {
   "value": "#CFE1FD",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6502,7 +6502,7 @@ var tokens = [{
   "cleanName": "color.text.information.bolder"
 }, {
   "value": "#96999E",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6524,7 +6524,7 @@ var tokens = [{
   "cleanName": "color.text.subtlest"
 }, {
   "value": "#A9ABAF",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6546,7 +6546,7 @@ var tokens = [{
   "cleanName": "color.text.subtle"
 }, {
   "value": "#CECFD2",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6788,7 +6788,7 @@ var tokens = [{
   "cleanName": "color.icon.accent.gray"
 }, {
   "value": "#E5E9F640",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6810,7 +6810,7 @@ var tokens = [{
   "cleanName": "color.icon.disabled"
 }, {
   "value": "#1F1F21",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6832,7 +6832,7 @@ var tokens = [{
   "cleanName": "color.icon.inverse"
 }, {
   "value": "#D8A0F7",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6854,7 +6854,7 @@ var tokens = [{
   "cleanName": "color.icon.selected"
 }, {
   "value": "#F797D2",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6876,7 +6876,7 @@ var tokens = [{
   "cleanName": "color.icon.brand"
 }, {
   "value": "#F15B50",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6898,7 +6898,7 @@ var tokens = [{
   "cleanName": "color.icon.danger"
 }, {
   "value": "#FBC828",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6920,7 +6920,7 @@ var tokens = [{
   "cleanName": "color.icon.warning"
 }, {
   "value": "#1F1F21",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6942,7 +6942,7 @@ var tokens = [{
   "cleanName": "color.icon.warning.inverse"
 }, {
   "value": "#82B536",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6964,7 +6964,7 @@ var tokens = [{
   "cleanName": "color.icon.success"
 }, {
   "value": "#BF63F3",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -6986,7 +6986,7 @@ var tokens = [{
   "cleanName": "color.icon.discovery"
 }, {
   "value": "#4688EC",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7008,7 +7008,7 @@ var tokens = [{
   "cleanName": "color.icon.information"
 }, {
   "value": "#96999E",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7030,7 +7030,7 @@ var tokens = [{
   "cleanName": "color.icon.subtlest"
 }, {
   "value": "#A9ABAF",
-  "filePath": "schema/themes/UNSAFE-test-dark/icon.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/icon.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7052,7 +7052,7 @@ var tokens = [{
   "cleanName": "color.icon.subtle"
 }, {
   "value": "#9DD9EE",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7074,7 +7074,7 @@ var tokens = [{
   "cleanName": "color.link"
 }, {
   "value": "#C6EDFB",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7096,7 +7096,7 @@ var tokens = [{
   "cleanName": "color.link.pressed"
 }, {
   "value": "#D8A0F7",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7118,7 +7118,7 @@ var tokens = [{
   "cleanName": "color.link.visited"
 }, {
   "value": "#EED7FC",
-  "filePath": "schema/themes/UNSAFE-test-dark/text.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/text.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7228,7 +7228,7 @@ var tokens = [{
   "cleanName": "color.skeleton.subtle"
 }, {
   "value": "#10121499",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7250,7 +7250,7 @@ var tokens = [{
   "cleanName": "color.blanket"
 }, {
   "value": "#8F7EE71A",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -7272,7 +7272,7 @@ var tokens = [{
   "cleanName": "color.blanket.selected"
 }, {
   "value": "#E3493514",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9494,7 +9494,7 @@ var tokens = [{
   "cleanName": "color.chart.information.bold.hovered"
 }, {
   "value": "#FFFFFF",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9516,7 +9516,7 @@ var tokens = [{
   "cleanName": "color.rovo.background.brand.bold"
 }, {
   "value": "#E2E3E4",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9538,7 +9538,7 @@ var tokens = [{
   "cleanName": "color.rovo.background.brand.bold.hovered"
 }, {
   "value": "#CECFD2",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9560,7 +9560,7 @@ var tokens = [{
   "cleanName": "color.rovo.background.brand.bold.pressed"
 }, {
   "value": "#82B536",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9582,7 +9582,7 @@ var tokens = [{
   "cleanName": "color.rovo.border.lime"
 }, {
   "value": "#FCA700",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9604,7 +9604,7 @@ var tokens = [{
   "cleanName": "color.rovo.border.saffron"
 }, {
   "value": "#357DE8",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9626,7 +9626,7 @@ var tokens = [{
   "cleanName": "color.rovo.border.blue"
 }, {
   "value": "#BF63F3",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9648,7 +9648,7 @@ var tokens = [{
   "cleanName": "color.rovo.border.purple"
 }, {
   "value": "#82B536",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9670,7 +9670,7 @@ var tokens = [{
   "cleanName": "color.rovo.icon.lime"
 }, {
   "value": "#FCA700",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9692,7 +9692,7 @@ var tokens = [{
   "cleanName": "color.rovo.icon.saffron"
 }, {
   "value": "#357DE8",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9714,7 +9714,7 @@ var tokens = [{
   "cleanName": "color.rovo.icon.blue"
 }, {
   "value": "#BF63F3",
-  "filePath": "schema/themes/UNSAFE-test-dark/background.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/background.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9736,7 +9736,7 @@ var tokens = [{
   "cleanName": "color.rovo.icon.purple"
 }, {
   "value": "#35243F",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9758,7 +9758,7 @@ var tokens = [{
   "cleanName": "elevation.surface"
 }, {
   "value": "#48245D",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9780,7 +9780,7 @@ var tokens = [{
   "cleanName": "elevation.surface.hovered"
 }, {
   "value": "#673286",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9802,7 +9802,7 @@ var tokens = [{
   "cleanName": "elevation.surface.pressed"
 }, {
   "value": "#BDBDBD0A",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9824,7 +9824,7 @@ var tokens = [{
   "cleanName": "elevation.surface.container"
 }, {
   "value": "#CECED912",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9846,7 +9846,7 @@ var tokens = [{
   "cleanName": "elevation.surface.container.hovered"
 }, {
   "value": "#D9DAE71A",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9868,7 +9868,7 @@ var tokens = [{
   "cleanName": "elevation.surface.container.pressed"
 }, {
   "value": "#673286",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9890,7 +9890,7 @@ var tokens = [{
   "cleanName": "elevation.surface.overlay"
 }, {
   "value": "#803FA5",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9912,7 +9912,7 @@ var tokens = [{
   "cleanName": "elevation.surface.overlay.hovered"
 }, {
   "value": "#964AC0",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9934,7 +9934,7 @@ var tokens = [{
   "cleanName": "elevation.surface.overlay.pressed"
 }, {
   "value": "#48245D",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9956,7 +9956,7 @@ var tokens = [{
   "cleanName": "elevation.surface.raised"
 }, {
   "value": "#673286",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -9978,7 +9978,7 @@ var tokens = [{
   "cleanName": "elevation.surface.raised.hovered"
 }, {
   "value": "#803FA5",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -10000,7 +10000,7 @@ var tokens = [{
   "cleanName": "elevation.surface.raised.pressed"
 }, {
   "value": "#3D2232",
-  "filePath": "schema/themes/UNSAFE-test-dark/surface.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/surface.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -10104,7 +10104,7 @@ var tokens = [{
     "color": "#01040475",
     "opacity": 0.5
   }],
-  "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
   "isSource": true,
   "attributes": {
     "group": "shadow",
@@ -10142,7 +10142,7 @@ var tokens = [{
   "cleanName": "elevation.shadow.overflow"
 }, {
   "value": "#01040480",
-  "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -10164,7 +10164,7 @@ var tokens = [{
   "cleanName": "elevation.shadow.overflow.perimeter"
 }, {
   "value": "#0104048f",
-  "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
   "isSource": true,
   "attributes": {
     "group": "paint",
@@ -10212,7 +10212,7 @@ var tokens = [{
     "color": "#01040475",
     "opacity": 0.5
   }],
-  "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
   "isSource": true,
   "attributes": {
     "group": "shadow",
@@ -10285,7 +10285,7 @@ var tokens = [{
     "color": "#01040475",
     "opacity": 0.5
   }],
-  "filePath": "schema/themes/UNSAFE-test-dark/shadow.tsx",
+  "filePath": "schema/themes/UNSAFE-test-dark/color/shadow.tsx",
   "isSource": true,
   "attributes": {
     "group": "shadow",

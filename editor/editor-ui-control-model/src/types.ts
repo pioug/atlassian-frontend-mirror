@@ -230,3 +230,5 @@ export type RegisterComponent<TProps extends CommonComponentProps = CommonCompon
 export type ComponentIdentifier = Pick<RegisterComponent, 'key' | 'type'>;
 
 export type RegisterComponentParent = WithRank<ComponentType>;
+
+export type RegistryListener = () => void;

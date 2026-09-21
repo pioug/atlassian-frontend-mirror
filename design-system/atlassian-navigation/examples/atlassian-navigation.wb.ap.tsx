@@ -43,9 +43,11 @@ import SkeletonCreateAndIconButtonsExample from './skeleton-create-and-icon-butt
 import SkeletonPrimaryButtonsExample from './skeleton-primary-buttons';
 import ThemedNavigationExample from './themed-navigation';
 
-const JiraIntegrationExample: WorkbenchExample = wb(JiraIntegrationExampleSource);
-
+// Explicit named export Used to generate integration-test URLs.
+export const JiraIntegrationExample: WorkbenchExample = wb(JiraIntegrationExampleSource);
+// Default export required by accessibility tooling.
 export default JiraIntegrationExample;
+
 export const NestedMenuExample: WorkbenchExample = wb(NestedMenuExampleSource);
 export const AuthenticatedExample: WorkbenchExample = wb(AuthenticatedExampleSource);
 export const CustomLogoWithCustomMaxWidth: WorkbenchExample = wb(

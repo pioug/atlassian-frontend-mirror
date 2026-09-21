@@ -1,10 +1,8 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -29,7 +27,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Standard document viewer example.',
-					source: path.resolve(packagePath, './examples/basic.vr.ap.tsx'),
+					source: `${packagePath}/examples/basic.vr.ap.tsx`,
 				},
 			],
 			keywords: ['media', 'document', 'viewer', 'pdf', 'word', 'excel', 'preview'],

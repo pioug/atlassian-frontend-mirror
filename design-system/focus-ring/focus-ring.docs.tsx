@@ -2,13 +2,11 @@
  * Structured MCP docs for `@atlaskit/focus-ring`.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	package: {
@@ -40,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic focus ring',
 					description: 'Basic usage of FocusRing.',
-					source: path.resolve(packagePath, './examples/00-basic.vr.ap.tsx'),
+					source: `${packagePath}/examples/00-basic.vr.ap.tsx`,
 				},
 			],
 		},

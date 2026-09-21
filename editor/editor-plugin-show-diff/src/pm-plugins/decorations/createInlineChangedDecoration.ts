@@ -324,8 +324,10 @@ export const createInlineChangedDecoration = ({
 				}),
 				...(revealed && { [REVEAL_ATTR]: revealed.role }),
 				'data-testid': 'show-diff-changed-decoration',
-				// Lets the contributor tag find its highlight on hover.
-				...(showContributorTags && { 'data-diff-id': diffId }),
+				// Lets navigation select this exact diff, and contributor tags find it on hover.
+				...((showContributorTags || fg('platform_editor_ai_show_diff_patch_2')) && {
+					'data-diff-id': diffId,
+				}),
 			},
 			buildDiffDecorationSpec({
 				attributionKey: canTagChange ? attributionKey : undefined,

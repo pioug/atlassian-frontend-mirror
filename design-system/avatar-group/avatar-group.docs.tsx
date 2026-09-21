@@ -1,5 +1,3 @@
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
@@ -16,7 +14,7 @@ const documentation: StructuredContentSource = {
 				name: 'AvatarGroup',
 				package: '@atlaskit/avatar-group/avatar-group',
 				type: 'default',
-				packagePath: path.resolve(__dirname),
+				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
@@ -41,7 +39,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Avatar Group',
 					description: 'Avatar Group example',
-					source: path.resolve(__dirname, './examples/ai/avatar-group.tsx'),
+					source: `${__dirname}/examples/ai/avatar-group.tsx`,
 				},
 			],
 			keywords: ['avatar', 'group', 'multiple', 'users', 'team', 'overlap', 'facepile'],

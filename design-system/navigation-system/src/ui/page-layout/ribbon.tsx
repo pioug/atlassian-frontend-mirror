@@ -7,8 +7,7 @@ import { useContext } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { media } from '@atlaskit/primitives/responsive';
+import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
 
 import { UNSAFE_ribbonVar } from './constants';
 import type { localSlotLayers as LocalSlotLayersType } from './constants';
@@ -76,7 +75,7 @@ export function UNSAFE_Ribbon({
 				// But also for the panel resizing constraint to work correctly.
 				<DangerouslyHoistCssVarToDocumentRoot
 					variableName={UNSAFE_ribbonVar}
-					mediaQuery={media.above.md}
+					mediaQuery={'@media (min-width: 64rem)' satisfies MediaAboveMd}
 					value="0px"
 					responsiveValue={width}
 				/>

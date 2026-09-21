@@ -43,9 +43,11 @@ import TestingVrExample from './99-testing.vr.ap';
 import SelectionStatesVrExample from './selection-states.vr.ap';
 import TestingTopLayerFocusExample from './testing-top-layer-focus';
 
-const DefaultDropdownMenu: WorkbenchExample = wb(DefaultDropdownMenuExample);
-
+// Explicit named export Used to generate integration-test URLs.
+export const DefaultDropdownMenu: WorkbenchExample = wb(DefaultDropdownMenuExample);
+// Default export required by accessibility tooling.
 export default DefaultDropdownMenu;
+
 export const ComplexDropdownMenu: WorkbenchExample = wb(ComplexDropdownMenuExample);
 export const StatelessDropdownMenu: WorkbenchExample = wb(StatelessDropdownMenuExample);
 export const DropdownItem: WorkbenchExample = wb(DropdownItemExample);

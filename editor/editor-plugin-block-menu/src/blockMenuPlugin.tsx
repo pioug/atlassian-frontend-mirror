@@ -24,9 +24,6 @@ import { BlockMenuProvider } from './ui/block-menu-provider';
 import { Flag } from './ui/flag';
 
 export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
-	const blockControlMigrationEnabled = isExperimentEnabled(
-		'platform_editor_block_control_migration',
-	);
 	const registry = createBlockMenuRegistry();
 	const transformSourceRegistry = isExperimentEnabled(
 		'platform_editor_block_menu_transform_extensions',
@@ -156,7 +153,6 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 						mountTo={popupsMountPoint}
 						boundariesElement={popupsBoundariesElement}
 						scrollableElement={popupsScrollableElement}
-						useRegistryAnchor={blockControlMigrationEnabled}
 					/>
 					<Flag api={api} />
 				</BlockMenuProvider>

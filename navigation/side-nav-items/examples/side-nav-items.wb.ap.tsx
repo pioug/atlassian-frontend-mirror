@@ -23,7 +23,8 @@ import SkeletonExample from './skeleton.vr.ap';
 import TopLevelSpacerExample from './top-level-spacer.vr.ap';
 
 export const ButtonMenuItem: WorkbenchExample = wb(ButtonMenuItemExample);
-export const DragAndDropJiraScalingVr: WorkbenchExample = wb(DragAndDropJiraScalingVrExample);
+// Named "DragAndDropJira" to match the Workbench URL used by existing integration tests.
+export const DragAndDropJira: WorkbenchExample = wb(DragAndDropJiraScalingVrExample);
 export const ExpandableMenuItem: WorkbenchExample = wb(ExpandableMenuItemExample);
 export const FlyoutMenuItemAsyncContent: WorkbenchExample = wb(FlyoutMenuItemAsyncContentExample);
 export const FlyoutMenuItemLazyLoadedContentFocus: WorkbenchExample = wb(

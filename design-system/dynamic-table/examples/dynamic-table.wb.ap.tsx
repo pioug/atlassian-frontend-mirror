@@ -39,7 +39,8 @@ export const TogglePagination: WorkbenchExample = wb(TogglePaginationExample);
 export const WithLotsOfPagesRankableVr: WorkbenchExample = wb(WithLotsOfPagesRankableVrExample);
 export const Colspan: WorkbenchExample = wb(ColspanExample);
 export const NumericSorting: WorkbenchExample = wb(NumericSortingExample);
-export const HighlightedRowVr: WorkbenchExample = wb(HighlightedRowVrExample);
+// Named "HighlightedRow" to match the Workbench URL used by existing integration tests.
+export const HighlightedRow: WorkbenchExample = wb(HighlightedRowVrExample);
 export const RowClickCallback: WorkbenchExample = wb(RowClickCallbackExample);
 export const FocusedRow: WorkbenchExample = wb(FocusedRowExample);
 export const Sorting: WorkbenchExample = wb(SortingExample);
@@ -66,4 +67,5 @@ export const EmptyViewWithBodyVr: WorkbenchExample = wb(EmptyViewWithBodyVrExamp
 export const EmptyViewWithoutBody: WorkbenchExample = wb(EmptyViewWithoutBodyExample);
 export const FixedSize: WorkbenchExample = wb(FixedSizeExample);
 export const Headless: WorkbenchExample = wb(HeadlessExample);
-export const TestingVr: WorkbenchExample = wb(TestingVrExample);
+// Named "Testing" to match the Workbench URL used by existing integration tests.
+export const Testing: WorkbenchExample = wb(TestingVrExample);

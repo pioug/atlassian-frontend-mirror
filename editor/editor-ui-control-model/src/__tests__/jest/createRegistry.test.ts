@@ -193,4 +193,55 @@ describe('createRegistry', () => {
 			expect(registry.getComponents(right)).toEqual([right, rightSection, rightGroup]);
 		});
 	});
+
+	describe('subscriptions', () => {
+		beforeEach(() => {
+			mockExpEnabled('platform_editor_slash_command');
+			mockExpDisabled('platform_editor_block_control_migration');
+		});
+
+		it('notifies subscribers after registration and unregistration', () => {
+			const registry = createRegistry();
+			const listener = jest.fn();
+			registry.subscribe(listener);
+			const item = component('item');
+
+			registry.register([item]);
+			registry.unregister([{ type: item.type, key: item.key }]);
+
+			expect(listener).toHaveBeenCalledTimes(2);
+		});
+
+		it('stops notifying an unsubscribed listener', () => {
+			const registry = createRegistry();
+			const listener = jest.fn();
+			const unsubscribe = registry.subscribe(listener);
+
+			unsubscribe();
+			registry.register([component('item')]);
+
+			expect(listener).not.toHaveBeenCalled();
+		});
+
+		it('notifies after invalidating the surface cache', () => {
+			const registry = createRegistry();
+			const surface = { key: 'surface', type: 'toolbar' as const };
+			const section = {
+				key: 'section',
+				type: 'section' as const,
+				parents: [{ ...surface, rank: 1 }],
+			};
+			registry.register([surface]);
+			const cachedSurface = registry.getComponents(surface);
+			const listener = jest.fn(() => {
+				expect(registry.getComponents(surface)).toEqual([surface, section]);
+				expect(registry.getComponents(surface)).not.toBe(cachedSurface);
+			});
+			registry.subscribe(listener);
+
+			registry.register([section]);
+
+			expect(listener).toHaveBeenCalledTimes(1);
+		});
+	});
 });

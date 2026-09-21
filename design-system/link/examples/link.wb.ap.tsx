@@ -13,6 +13,7 @@ import LinkConfiguredVrExample from './50-link-configured.vr.ap';
 
 const DefaultVr: WorkbenchExample = wb(DefaultVrExample);
 
+// Default export required by accessibility tooling.
 export default DefaultVr;
 export const SubtleVr: WorkbenchExample = wb(SubtleVrExample);
 export const TargetBlankVr: WorkbenchExample = wb(TargetBlankVrExample);

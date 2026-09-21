@@ -3,13 +3,11 @@
  * Contact #dst-structured-content in Slack with questions.
  */
 
-import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
-const packagePath = path.resolve(__dirname);
+const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	components: [
@@ -33,17 +31,17 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'New conversation',
 					description: 'Create a new conversation with ConversationResource.',
-					source: path.resolve(packagePath, './examples/0-New-Conversation.tsx'),
+					source: `${packagePath}/examples/0-New-Conversation.tsx`,
 				},
 				{
 					name: 'Existing conversation',
 					description: 'Load and display an existing conversation.',
-					source: path.resolve(packagePath, './examples/1-Existing-Conversation.tsx'),
+					source: `${packagePath}/examples/1-Existing-Conversation.tsx`,
 				},
 				{
 					name: 'Customized editor',
 					description: 'Conversation with customized editor (e.g. saveOnEnter).',
-					source: path.resolve(packagePath, './examples/2-Customized-Editor.tsx'),
+					source: `${packagePath}/examples/2-Customized-Editor.tsx`,
 				},
 			],
 		},

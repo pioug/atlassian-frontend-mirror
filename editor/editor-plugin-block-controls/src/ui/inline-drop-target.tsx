@@ -14,6 +14,7 @@ import { css, jsx } from '@emotion/react';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -131,7 +132,10 @@ export const InlineDropTarget = ({
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
 	const anchorName = useMemo(() => {
-		if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+		if (
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_block_control_migration')
+		) {
 			return nextNode ? api?.core.actions.getAnchorIdForNode(nextNode, getPos() ?? -1) || '' : '';
 		}
 
@@ -175,15 +179,13 @@ export const InlineDropTarget = ({
 				innerContainerWidth = `calc(var(--ak-editor--line-length) * ${percentageWidth})`;
 			}
 		} else if (nextNode.type.name === 'table' && nextNode.firstChild) {
-			const tableWidthAnchor = expValEquals(
-				'platform_editor_native_anchor_with_dnd',
-				'isEnabled',
-				true,
-			)
-				? typeof nextNodePos === 'number'
-					? api?.core.actions.getAnchorIdForNode(nextNode.firstChild, nextNodePos + 1) || ''
-					: ''
-				: getNodeAnchor(nextNode.firstChild);
+			const tableWidthAnchor =
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+				isExperimentEnabled('platform_editor_block_control_migration')
+					? typeof nextNodePos === 'number'
+						? api?.core.actions.getAnchorIdForNode(nextNode.firstChild, nextNodePos + 1) || ''
+						: ''
+					: getNodeAnchor(nextNode.firstChild);
 
 			const isNumberColumnEnabled = Boolean(nextNode.attrs.isNumberColumnEnabled);
 			if (isAnchorSupported()) {
@@ -199,7 +201,10 @@ export const InlineDropTarget = ({
 				innerContainerWidth = `min(${nextNode.attrs.width}px, ${innerContainerWidth})`;
 			}
 		} else if (nextNode.type.name === 'mediaSingle' && nextNode.firstChild) {
-			if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+			if (
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+				isExperimentEnabled('platform_editor_block_control_migration')
+			) {
 				// check pos is a number
 				if (typeof nextNodePos === 'number' && nextNode.firstChild?.type.name === 'media') {
 					targetAnchorName =
@@ -214,7 +219,10 @@ export const InlineDropTarget = ({
 		let heightTargetAnchorName = targetAnchorName;
 		if (nextNode.type.name === 'layoutSection' && nextNode.firstChild && nextNode.lastChild) {
 			if (isLeftPosition) {
-				if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+				if (
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
+				) {
 					if (typeof nextNodePos === 'number') {
 						heightTargetAnchorName =
 							api?.core.actions.getAnchorIdForNode(nextNode.firstChild, nextNodePos + 1) || '';
@@ -225,7 +233,10 @@ export const InlineDropTarget = ({
 					heightTargetAnchorName = getNodeAnchor(nextNode.firstChild);
 				}
 			} else {
-				if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+				if (
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
+				) {
 					if (typeof nextNodePos === 'number') {
 						const lastNodeStartPos = nextNode.content.size - nextNode.lastChild.nodeSize;
 						heightTargetAnchorName =

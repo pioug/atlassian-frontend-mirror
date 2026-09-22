@@ -5,8 +5,8 @@ import { render } from '@atlassian/testing-library/render';
 
 import { Renderer } from '../../';
 
-// `validationOverrides` is the 12th argument to renderDocument.
-const VALIDATION_OVERRIDES_ARG = 11;
+// `validationOverrides` is the 11th argument to renderDocument.
+const VALIDATION_OVERRIDES_ARG = 10;
 
 const renderDocumentCalls: unknown[][] = [];
 
@@ -31,7 +31,7 @@ jest.mock('../../../../render-document', () => {
 // Forced on so the `allowTableInPanel` branch runs without needing a schema that permits
 // table-in-panel; that branch is the one which used to build a new object every render.
 jest.mock('@atlaskit/editor-common/nesting', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/nesting'),
+	...jest.requireActual<object>('@atlaskit/editor-common/nesting'),
 	isPanelNestingTableSupported: () => true,
 }));
 

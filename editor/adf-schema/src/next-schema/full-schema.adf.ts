@@ -40,6 +40,7 @@ const doc: ADFNode<[string], ADFCommonNodeSpec> = adfNode('doc').define({
 				rule.use('with_attrs_root_only'),
 				bodiedRule.use('root_only'),
 				extension.use('root_only'),
+				extension.use('root_only_with_annotation'),
 				bodiedExtension.use('root_only'),
 				multiBodiedExtension.use('root_only'),
 				layoutSection,

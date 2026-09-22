@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { extension } from '@atlaskit/adf-schema/extension';
+import { extension, extensionWithAnnotationStage0 } from '@atlaskit/adf-schema/extension';
 import { inlineExtension } from '@atlaskit/adf-schema/inline-extension';
 import { extensionFrame, multiBodiedExtension } from '@atlaskit/adf-schema/multi-bodied-extension';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
@@ -49,7 +49,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 			const extensionNodes = [
 				{
 					name: 'extension',
-					node: extension,
+					node: fg('cc_maui_annotations_on_extensions') ? extensionWithAnnotationStage0 : extension,
 				},
 				{
 					name: 'bodiedExtension',

@@ -49,12 +49,14 @@ import ModalElementBrowser from './ui/ModalElementBrowser';
 import { RegistryElementBrowserContainer } from './ui/RegistryElementBrowser';
 import { getQuickInsertSuggestions, withLayoutQuickInsertPrioritySorting } from './ui/search';
 
+type QuickInsertPluginRefs = {
+	editorView?: EditorView;
+	popupsMountPoint?: HTMLElement;
+	wrapperElement?: HTMLElement;
+};
+
 export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) => {
-	const refs: {
-		editorView?: EditorView;
-		popupsMountPoint?: HTMLElement;
-		wrapperElement?: HTMLElement;
-	} = {};
+	const refs: QuickInsertPluginRefs = {};
 
 	const onInsert = (item: QuickInsertItem) => {
 		options?.onInsert?.(item);
@@ -192,6 +194,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 							getIntl,
 							dispatch,
 							dispatchAnalyticsEvent,
+							refs,
 							options?.emptyStateHandler,
 							onInsert,
 							options?.itemFilter,
@@ -215,7 +218,11 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		},
 
 		contentComponent({ editorView, popupsMountPoint, wrapperElement }) {
-			refs.editorView = editorView || undefined;
+			// using contentComponent to set editorView can cause it to become stale when editor is reconfigured
+			// (e.g. page appearance change)
+			if (!isExperimentEnabled('platform_editor_block_control_migration')) {
+				refs.editorView = editorView || undefined;
+			}
 			refs.popupsMountPoint = popupsMountPoint || undefined;
 			refs.wrapperElement = wrapperElement || undefined;
 
@@ -376,6 +383,7 @@ function quickInsertPluginFactory(
 	getIntl: () => IntlShape,
 	dispatch: Dispatch,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
+	refs: QuickInsertPluginRefs,
 	emptyStateHandler?: EmptyStateHandler,
 	onInsert: (item: QuickInsertItem) => void = () => {},
 	itemFilter?: (item: QuickInsertItem) => boolean,
@@ -417,6 +425,9 @@ function quickInsertPluginFactory(
 		},
 
 		view(editorView) {
+			if (isExperimentEnabled('platform_editor_block_control_migration')) {
+				refs.editorView = editorView;
+			}
 			let quickInsertItemsAnalyticsScheduler:
 				| ReturnType<typeof createQuickInsertItemsAnalyticsScheduler>
 				| undefined;
@@ -464,6 +475,12 @@ function quickInsertPluginFactory(
 
 			return {
 				destroy() {
+					if (
+						isExperimentEnabled('platform_editor_block_control_migration') &&
+						refs.editorView === editorView
+					) {
+						refs.editorView = undefined;
+					}
 					isDestroyed = true;
 					quickInsertItemsAnalyticsScheduler?.destroy();
 					providerFactory.unsubscribe('quickInsertProvider', providerHandler);

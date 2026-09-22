@@ -32,7 +32,6 @@ import {
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
@@ -42,7 +41,6 @@ import { getColgroupChildrenLength } from '../pm-plugins/table-resizing/utils/co
 import {
 	COLUMN_MIN_WIDTH,
 	TABLE_MAX_WIDTH,
-	TABLE_FULL_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 	RESIZE_HANDLE_SPACING,
 } from '../pm-plugins/table-resizing/utils/consts';
@@ -170,10 +168,7 @@ const getTableMaxWidth = (
 			? lineLength
 			: Math.floor(containerWidth - RESIZE_HANDLE_SPACING);
 	} else {
-		return expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-			expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-			? TABLE_MAX_WIDTH
-			: TABLE_FULL_WIDTH;
+		return TABLE_MAX_WIDTH;
 	}
 };
 
@@ -542,10 +537,7 @@ export const TableResizer = ({
 			).filter((guideline) => guideline.isFullWidth)[0];
 
 			const isFullWidthGuidelineActive =
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-					? closestSnap && fullWidthGuideline && closestSnap.keys.includes(fullWidthGuideline.key)
-					: closestSnap && closestSnap.keys.includes(fullWidthGuideline.key);
+				closestSnap && fullWidthGuideline && closestSnap.keys.includes(fullWidthGuideline.key);
 
 			const tableMaxWidth = getTableMaxWidth(
 				containerWidth,
@@ -622,10 +614,7 @@ export const TableResizer = ({
 
 			const tableMaxWidth = !isFullPageAppearance
 				? undefined // Table's full-width in comment appearance inherit the width of the Editor/Renderer
-				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					  expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-					? TABLE_MAX_WIDTH
-					: TABLE_FULL_WIDTH;
+				: TABLE_MAX_WIDTH;
 
 			newWidth =
 				widthToWidest && currentTableNodeLocalId && widthToWidest[currentTableNodeLocalId]

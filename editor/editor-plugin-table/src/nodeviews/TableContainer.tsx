@@ -24,13 +24,11 @@ import {
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
 import { getResizerMinWidth } from '../pm-plugins/table-resizing/utils/colgroup';
 import {
 	TABLE_MAX_WIDTH,
-	TABLE_FULL_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 	RESIZE_HANDLE_SPACING,
 } from '../pm-plugins/table-resizing/utils/consts';
@@ -409,13 +407,7 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 
 			const maxResizerWidth = !isFullPageAppearance
 				? responsiveContainerWidth
-				: Math.min(
-						responsiveContainerWidth,
-						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-							? TABLE_MAX_WIDTH
-							: TABLE_FULL_WIDTH,
-					);
+				: Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
 			return { width, maxResizerWidth };
 		}, [
 			containerWidth,

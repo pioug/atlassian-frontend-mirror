@@ -1,7 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -26,12 +27,19 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__docs/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../../test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/design-system/badge/tsconfig.app.json"
+		},
 		{
 			"path": "../../../packages/design-system/button/tsconfig.app.json"
 		},
@@ -64,7 +72,9 @@
 		},
 		{
 			"path": "../../../packages/design-system/tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/platform/testing-library/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

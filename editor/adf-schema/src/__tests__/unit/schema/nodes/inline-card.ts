@@ -76,7 +76,7 @@ describe(`${packageName}/schema inlineCard node`, () => {
 
 			it('gets annotation marks from html', () => {
 				const doc = fromHTML(
-					`<span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="comment-id"><a data-inline-card href="${url}" /></span>`,
+					`<p><span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="comment-id"><a data-inline-card href="${url}" /></span></p>`,
 					schema,
 				);
 
@@ -114,7 +114,7 @@ describe(`${packageName}/schema inlineCard node`, () => {
 				const dom = toDOM(node, schema).firstChild as HTMLElement;
 				expect(dom.getAttribute('data-mark-type')).toEqual('annotation');
 				expect(dom.getAttribute('data-mark-annotation-type')).toEqual('inlineComment');
-				const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!.firstChild!;
+				const parsedNode = fromHTML(`<p>${dom.outerHTML}</p>`, schema).firstChild!.firstChild!;
 				expect(parsedNode).toEqual(node);
 			});
 		});

@@ -10,7 +10,6 @@ import {
 	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
 
@@ -66,12 +65,7 @@ export const calculateDefaultTablePreserveSnappings = (
 
 	const guides = [dynamicFullWidthLine - lengthOffset];
 
-	if (
-		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-		expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-	) {
-		guides.push(dynamicMaxWidthLine - lengthOffset);
-	}
+	guides.push(dynamicMaxWidthLine - lengthOffset);
 
 	if (!exclude.breakoutPoints) {
 		guides.unshift(

@@ -1,5 +1,11 @@
 # @atlaskit/editor-palette
 
+## 3.5.34
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.33
 
 ### Patch Changes

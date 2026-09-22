@@ -2,6 +2,7 @@ import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 import { extension as extensionFactory } from '../../next-schema/generated/nodeTypes';
 import { getExtensionAttrs } from '../../utils/get-extension-attrs';
+import type { AnnotationMarkDefinition } from '../marks/annotation';
 import type { BreakoutMarkDefinition } from '../marks/breakout';
 import type { DataConsumerDefinition } from '../marks/data-consumer';
 import type { FragmentDefinition } from '../marks/fragment';
@@ -30,6 +31,20 @@ export type ExtensionDefinition = ExtensionBaseDefinition &
 export type ExtensionRootOnlyDefinition = ExtensionBaseDefinition &
 	MarksObject<BreakoutMarkDefinition | DataConsumerDefinition | FragmentDefinition>;
 
+/**
+ * @name extension_with_annotation_node
+ */
+export type ExtensionWithAnnotationDefinition = ExtensionBaseDefinition &
+	MarksObject<AnnotationMarkDefinition | DataConsumerDefinition | FragmentDefinition>;
+
+/**
+ * @name extension_root_only_with_annotation_node
+ */
+export type ExtensionRootOnlyWithAnnotationDefinition = ExtensionBaseDefinition &
+	MarksObject<
+		AnnotationMarkDefinition | BreakoutMarkDefinition | DataConsumerDefinition | FragmentDefinition
+	>;
+
 export const extension: NodeSpec = extensionFactory({
 	parseDOM: [
 		{
@@ -55,4 +70,14 @@ export const extension: NodeSpec = extensionFactory({
 export const extensionRootOnlyStage0: NodeSpec = {
 	...extension,
 	marks: 'breakout dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+};
+
+export const extensionWithAnnotationStage0: NodeSpec = {
+	...extension,
+	marks: 'annotation dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+};
+
+export const extensionRootOnlyWithAnnotationStage0: NodeSpec = {
+	...extension,
+	marks: 'annotation breakout dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 };

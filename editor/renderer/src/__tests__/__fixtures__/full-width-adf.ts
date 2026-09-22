@@ -295,7 +295,7 @@ export const headingNodeAdf: DocNode = {
 						{
 							type: 'link',
 							attrs: {
-								href: 'www.atlassian.com',
+								href: 'https://www.atlassian.com',
 							},
 						},
 					] as const,

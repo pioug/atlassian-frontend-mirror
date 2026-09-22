@@ -25,6 +25,7 @@ const blockQuoteContent = [
 	mediaSingle.use('full'),
 	mediaGroup,
 	extension.use('with_marks'),
+	extension.use('with_annotation'),
 ];
 
 export const blockquote: ADFNode<

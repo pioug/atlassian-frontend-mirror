@@ -155,7 +155,9 @@ export interface MenuItemPrimitiveProps {
 
 export interface MenuItemProps {
 	/**
-	 * Not recommended for general use as it enables unsafe style overrides.
+	 * @deprecated
+	 * This prop must not be used and will be deleted soon. Style overrides are not supported.
+	 * If you need a custom list item, do not use `@atlaskit/menu`.
 	 */
 	className?: string;
 
@@ -295,8 +297,9 @@ export interface CustomItemComponentProps {
 	children: React.ReactNode;
 
 	/**
-	 * Class to apply to the root container of the custom component.
-	 * Ensure this has been applied so the item styling is consistent.
+	 * @deprecated
+	 * This prop must not be used and will be deleted soon. Style overrides are not supported.
+	 * If you need a custom list item, do not use `@atlaskit/menu`.
 	 */
 	className?: string;
 

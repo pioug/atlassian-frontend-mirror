@@ -1,7 +1,12 @@
 import type { Page } from '@playwright/test';
 
 import { expect, test } from '@af/integration-testing';
-import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
+skipAutoA11yFile();
+
 const sitePickerSelector = '[data-testid="jira-datasource-modal--site-selector__control"]';
 
 // eslint-disable-next-line @atlassian/a11y/require-playwright-coverage
@@ -101,7 +106,6 @@ test.describe('JiraIssuesModal', () => {
 	});
 
 	test('should show issues in a table when basic searched', async ({ page }) => {
-		skipAutoA11y();
 		await setup(page);
 		await page.getByTestId('mode-toggle-basic').click();
 		const basicTextField = page.getByTestId('jira-datasource-modal--basic-search-input');
@@ -172,7 +176,6 @@ test.describe('JiraIssuesModal', () => {
 	test('table and table text in dropdown render correctly when table view is selected', async ({
 		page,
 	}) => {
-		skipAutoA11y();
 		await setup(page, 'linking-platform', 'link-datasource', 'with-issues-modal');
 		await page.getByTestId('jira-datasource-modal--basic-search-button').click();
 		await expect(page.getByTestId('datasource-modal--view-drop-down--trigger')).toHaveText('List');

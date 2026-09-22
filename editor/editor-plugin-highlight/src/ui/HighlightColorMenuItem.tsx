@@ -235,7 +235,12 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 			)}
 			testId="highlight-color-menu-item"
 		>
-			<Heading id={labelId} size="xxsmall">
+			<Heading
+				id={labelId}
+				size="xxsmall"
+				// The label names the palette's radio group; a heading inside a menu is skipped and has no stable level here
+				as={fg('platform_editor_a11y_color_palette_radiogroup') ? 'div' : undefined}
+			>
 				{formatMessage(messages.highlight)}
 			</Heading>
 			{isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1') ? (

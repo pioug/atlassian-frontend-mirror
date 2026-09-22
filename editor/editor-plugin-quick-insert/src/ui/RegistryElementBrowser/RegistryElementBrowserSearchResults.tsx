@@ -8,7 +8,7 @@ import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import LinkButton from '@atlaskit/button/link';
-import { jsx } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
@@ -22,6 +22,7 @@ import NotFoundIllustration from './NotFoundIllustration';
 type Props = {
 	editorView: EditorView;
 	emptyStateHandler?: EmptyStateHandler;
+	fallbackItems?: RegistryElementBrowserItem[];
 	isLoading?: boolean;
 	isOffline: boolean;
 	items: RegistryElementBrowserItem[];
@@ -51,6 +52,16 @@ const emptyStateGridItemStyles = css({
 	gridColumn: '1 / -1',
 	minWidth: 0,
 	width: '100%',
+});
+
+const styles = cssMap({
+	fallbackMarketplace: {
+		borderTopColor: token('color.border'),
+		borderTopStyle: 'solid',
+		borderTopWidth: token('border.width'),
+		marginTop: token('space.200'),
+		paddingTop: token('space.200'),
+	},
 });
 
 const emptyStateWrapperStyles = css({
@@ -120,6 +131,7 @@ const RegistryElementBrowserItem = ({
 export const RegistryElementBrowserSearchResults = ({
 	editorView,
 	emptyStateHandler,
+	fallbackItems,
 	isLoading = false,
 	isOffline,
 	items,
@@ -131,71 +143,82 @@ export const RegistryElementBrowserSearchResults = ({
 	onSelect,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const hasFallbackItems = Boolean(
+		!isLoading && items.length === 0 && query.trim().length > 0 && fallbackItems?.length,
+	);
+	const resultsLabel = formatMessage({
+		defaultMessage: 'Element results',
+		id: 'editor.quick-insert.results-label',
+	});
+	const displayedItems = hasFallbackItems ? (fallbackItems ?? []) : items;
+	const shouldRenderEmptyState = items.length === 0 && !isLoading;
+	const emptyState = shouldRenderEmptyState
+		? (emptyStateHandler?.({
+				mode: 'full',
+				searchTerm: query,
+				selectedCategory: section,
+				...(hasFallbackItems ? { showNoResultsMessage: false } : {}),
+			}) ?? (
+				<div css={emptyStateWrapperStyles}>
+					<NotFoundIllustration />
+					<div css={emptyStateHeadingStyles}>
+						{formatMessage({
+							defaultMessage: 'Nothing matches your search',
+							id: 'editor.quick-insert.empty',
+						})}
+					</div>
+					<div css={emptyStateSubheadingStyles}>
+						<Text>
+							{formatMessage({
+								defaultMessage:
+									'Try searching with a different term or discover new apps for Atlassian products.',
+								id: 'editor.quick-insert.empty-description',
+							})}
+						</Text>
+						<div css={emptyStateLinkStyles}>
+							<LinkButton
+								appearance="primary"
+								href="https://marketplace.atlassian.com/search?category=Macros&hosting=cloud&product=confluence"
+								target="_blank"
+							>
+								{formatMessage({
+									defaultMessage: 'Explore Atlassian Marketplace',
+									id: 'editor.quick-insert.explore-marketplace',
+								})}
+							</LinkButton>
+						</div>
+					</div>
+				</div>
+			))
+		: null;
 
 	return (
-		<div
-			aria-label={formatMessage({
-				defaultMessage: 'Element results',
-				id: 'editor.quick-insert.results-label',
-			})}
-			css={resultsGridStyles}
-			data-testid="registry-element-browser-results"
-			id={resultsId}
-			onKeyDown={onKeyDown}
-			tabIndex={-1}
-			role={items.length ? 'listbox' : undefined}
-		>
-			{items.length ? (
-				items.map((item) => (
-					<RegistryElementBrowserItem
-						editorView={editorView}
-						isOffline={isOffline}
-						isSelected={selectedKey === item.registration.key}
-						item={item}
-						key={item.registration.key}
-						onSelect={onSelect}
-					/>
-				))
-			) : !isLoading ? (
-				<div css={emptyStateGridItemStyles}>
-					{emptyStateHandler?.({
-						mode: 'full',
-						searchTerm: query,
-						selectedCategory: section,
-					}) ?? (
-						<div css={emptyStateWrapperStyles}>
-							<NotFoundIllustration />
-							<div css={emptyStateHeadingStyles}>
-								{formatMessage({
-									defaultMessage: 'Nothing matches your search',
-									id: 'editor.quick-insert.empty',
-								})}
-							</div>
-							<div css={emptyStateSubheadingStyles}>
-								<Text>
-									{formatMessage({
-										defaultMessage:
-											'Try searching with a different term or discover new apps for Atlassian products.',
-										id: 'editor.quick-insert.empty-description',
-									})}
-								</Text>
-								<div css={emptyStateLinkStyles}>
-									<LinkButton
-										appearance="primary"
-										href="https://marketplace.atlassian.com/search?category=Macros&hosting=cloud&product=confluence"
-										target="_blank"
-									>
-										{formatMessage({
-											defaultMessage: 'Explore Atlassian Marketplace',
-											id: 'editor.quick-insert.explore-marketplace',
-										})}
-									</LinkButton>
-								</div>
-							</div>
-						</div>
-					)}
+		<div data-testid="registry-element-browser-results" id={resultsId} tabIndex={-1}>
+			{displayedItems.length > 0 && (
+				<div
+					aria-label={resultsLabel}
+					css={resultsGridStyles}
+					onKeyDown={onKeyDown}
+					role="listbox"
+					tabIndex={-1}
+				>
+					{displayedItems.map((item) => (
+						<RegistryElementBrowserItem
+							editorView={editorView}
+							isOffline={isOffline}
+							isSelected={selectedKey === item.registration.key}
+							item={item}
+							key={item.registration.key}
+							onSelect={onSelect}
+						/>
+					))}
 				</div>
-			) : null}
+			)}
+			{emptyState && (
+				<div css={[emptyStateGridItemStyles, hasFallbackItems && styles.fallbackMarketplace]}>
+					{emptyState}
+				</div>
+			)}
 		</div>
 	);
 };

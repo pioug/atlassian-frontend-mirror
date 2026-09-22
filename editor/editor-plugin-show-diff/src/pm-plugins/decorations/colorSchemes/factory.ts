@@ -4,6 +4,7 @@ import type {
 	AgentPresenceColor,
 } from '@atlaskit/agent-color/agent-presence-color-types';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStandardDeletedTextDecorationStyle } from './getStandardDeletedTextDecorationStyle';
@@ -23,6 +24,13 @@ export const DELETED_HIGHLIGHT_BG_VAR = '--show-diff-deleted-highlight-bg';
  * 'underline' scheme can darken the border without darkening the tint behind it.
  */
 export const DELETED_HIGHLIGHT_BORDER_VAR = '--show-diff-deleted-highlight-border';
+
+/**
+ * `border-top` for the strike editor-core redraws on a deleted status lozenge. Carries the whole
+ * shorthand, not just the colour, so the line stays identical to the one the widget path draws —
+ * including its 2px active weight — without editor-core restating either.
+ */
+export const DELETED_INLINE_NODE_STRIKE_VAR = '--show-diff-deleted-inline-node-strike';
 
 // token() is a build-time transform needing static literals, so pre-compute every colour's
 // tokens here and index by name at runtime.
@@ -327,6 +335,30 @@ export function buildDeletedInlineStyle(colors: DiffColorScheme, isActive: boole
 		? convertToInlineCss(deletedInlineStyleActiveBase(colors))
 		: convertToInlineCss(deletedInlineStyleBase(colors));
 }
+
+/**
+ * The strike line's own `border-top` — the only thing that varies between the variants below, and
+ * the single source editor-core reads through `DELETED_INLINE_NODE_STRIKE_VAR`.
+ */
+export function buildDeletedStrikeLineBorder(colors: DiffColorScheme, isActive: boolean): string {
+	if (colors.deletedNodeEmphasis !== 'stateful') {
+		return `1px solid ${textAccent(colors.deleteTextColor ?? colors.deleteColor)}`;
+	}
+
+	return `${isActive ? '2px' : '1px'} solid ${borderAccent(colors.deleteColor)}`;
+}
+
+/** Geometry shared by every strikethrough line, so only the border ever differs. */
+const deletedStrikeLine = (border: string): string =>
+	convertToInlineCss({
+		position: 'absolute',
+		top: '50%',
+		width: '100%',
+		display: 'inline-block',
+		borderTop: border,
+		pointerEvents: 'none',
+		zIndex: 1,
+	});
 
 /** Strikethrough line (unbounded span) for deleted content — default state. */
 export function buildDeletedContentStyleUnbounded(colors: DiffColorScheme): string {
@@ -936,6 +968,13 @@ export function buildDeletedInlineContentStyle(
  * 1px to 2px when active and tints with the border accent; 'static' uses the text accent always.
  */
 export function buildDeletedStrikethroughLine(colors: DiffColorScheme, isActive: boolean): string {
+	// Gated because this is a live widget-path render, even though the two branches are built to
+	// return the same string — the shared helper only exists so the lozenge strike cannot drift
+	// from this one.
+	if (fg('platform_editor_ai_show_diff_patch_2')) {
+		return deletedStrikeLine(buildDeletedStrikeLineBorder(colors, isActive));
+	}
+
 	if (colors.deletedNodeEmphasis !== 'stateful') {
 		return buildDeletedInlineStyleUnbounded(colors);
 	}
@@ -1156,6 +1195,16 @@ export function buildDeletedWrappedBlockOutline(
 export function buildAtomicInlineChangedCSSVariables(colors: DiffColorScheme): string {
 	return convertToInlineCss({
 		'--show-diff-atomic-inline-changed-border-color': borderAccent(colors.insertColor),
+	});
+}
+
+/** Hands editor-core the same strike line the widget path uses, via a custom property. */
+export function buildDeletedInlineNodeCSSVariables(
+	colors: DiffColorScheme,
+	isActive: boolean,
+): string {
+	return convertToInlineCss({
+		[DELETED_INLINE_NODE_STRIKE_VAR]: buildDeletedStrikeLineBorder(colors, isActive),
 	});
 }
 

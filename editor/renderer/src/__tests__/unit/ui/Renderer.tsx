@@ -124,9 +124,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 	});
 
 	it('should catch errors and render unsupported content text', async () => {
-		const { container } = initRenderer(invalidDoc, {
-			useSpecBasedValidator: true,
-		});
+		const { container } = initRenderer(invalidDoc);
 
 		expect(container.querySelectorAll('.unsupported')).toHaveLength(1);
 
@@ -136,7 +134,6 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 	it('should call onError callback when catch error', async () => {
 		const onError = jest.fn();
 		initRenderer(invalidDoc, {
-			useSpecBasedValidator: true,
 			onError,
 		});
 
@@ -149,9 +146,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		describe('when IntlProvider is not in component ancestry', () => {
 			it('should not throw an error', async () => {
 				expect(() => {
-					initRenderer(intlRequiredDoc, {
-						useSpecBasedValidator: true,
-					});
+					initRenderer(intlRequiredDoc);
 				}).not.toThrow();
 
 				await expect(document.body).toBeAccessible();
@@ -162,7 +157,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 			const renderWithProvidedIntl = () =>
 				render(
 					<IntlProvider locale="es">
-						<Renderer document={intlRequiredDoc} useSpecBasedValidator />
+						<Renderer document={intlRequiredDoc} />
 					</IntlProvider>,
 				);
 

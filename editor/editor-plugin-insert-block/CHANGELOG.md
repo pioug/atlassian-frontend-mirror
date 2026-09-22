@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 20.0.4
+
+### Patch Changes
+
+- [`a1df9dd2d8f02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1df9dd2d8f02) -
+  Add the optional `showNoResultsMessage` empty-state handler parameter and
+  `platform_editor_slash_command`-gated Ask Rovo and View more recovery for registered quick insert
+  searches with no matches. Respect registry visibility and keep Marketplace content separate from
+  listbox navigation while preserving its native keyboard controls.
+
+  Show the registered Ask Rovo action alongside Marketplace suggestions in the element browser's
+  no-match state, with a divider separating the fallback action from Marketplace content. Keep the
+  toolbar's View more footer visible while Marketplace content scrolls and preserve native Tab
+  navigation.
+
+  Respect `data-keyboard-navigation-independent` containers in both toolbar keyboard navigation
+  providers. Apply the attribute to the registered insert menu, whose rendering is gated by
+  `platform_editor_slash_command`, so its controls retain their own key handling and native tab
+  stops.
+
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.2
 
 ### Patch Changes

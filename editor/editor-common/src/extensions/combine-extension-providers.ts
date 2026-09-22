@@ -20,7 +20,7 @@ type CombineExtensionProvidersOptions = {
 export default (
 	extensionProviders: (ExtensionProvider | Promise<ExtensionProvider>)[],
 	{ resolveExtension, resolvePreloadedExtension }: CombineExtensionProvidersOptions = {},
-): ExtensionProvider => {
+): ExtensionProvider & { preload: () => Promise<void> } => {
 	let providersCache = [] as ExtensionProvider[];
 	const { invokeSingle, invokeList } = combineProviders<ExtensionProvider>(extensionProviders);
 

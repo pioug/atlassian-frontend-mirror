@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "8.14.0",
+	"version": "8.14.3",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -100,6 +100,7 @@
 		"@atlassian/agent-studio-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/relay-test-utils": "root:*",
@@ -133,9 +134,6 @@
 			"type": "boolean"
 		},
 		"jira_ai_force_rovo_dev_avatar": {
-			"type": "boolean"
-		},
-		"rovo_agents_agent_verification": {
 			"type": "boolean"
 		},
 		"rovo_agent_support_a2a_avatar": {

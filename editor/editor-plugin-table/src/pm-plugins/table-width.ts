@@ -17,9 +17,8 @@ import {
 	akEditorMaxWidthLayoutWidth,
 	akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { TABLE_MAX_WIDTH, TABLE_FULL_WIDTH } from './table-resizing/utils/consts';
+import { TABLE_MAX_WIDTH } from './table-resizing/utils/consts';
 import { ALIGN_START } from './utils/alignment';
 import { isContentModeSupported } from './utils/tableMode/is-content-mode-supported';
 
@@ -155,22 +154,8 @@ const createPlugin = (
 					step.getMap().forEach((_, __, newStart, newEnd) => {
 						newState.doc.nodesBetween(newStart, newEnd, (node, pos) => {
 							if (node.type === table) {
-								if (
-									shouldPatchTableWidth &&
-									node.attrs.width !==
-										(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-										expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-											? TABLE_MAX_WIDTH
-											: TABLE_FULL_WIDTH)
-								) {
-									tr.setNodeAttribute(
-										pos,
-										'width',
-										expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-											expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-											? TABLE_MAX_WIDTH
-											: TABLE_FULL_WIDTH,
-									);
+								if (shouldPatchTableWidth && node.attrs.width !== TABLE_MAX_WIDTH) {
+									tr.setNodeAttribute(pos, 'width', TABLE_MAX_WIDTH);
 								}
 								if (shouldPatchTableAlignment) {
 									tr.setNodeAttribute(pos, 'layout', ALIGN_START);

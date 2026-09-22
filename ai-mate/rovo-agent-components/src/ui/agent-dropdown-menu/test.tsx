@@ -3,7 +3,6 @@ import React, { type ComponentPropsWithoutRef } from 'react';
 import { IntlProvider } from 'react-intl';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { AgentDropdownMenu } from './AgentDropdownMenu';
@@ -364,18 +363,6 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		expect(screen.queryByTestId('agent-actions-menu-verification')).toBeNull();
-	});
-
-	ffTest.off('rovo_agents_agent_verification', 'with rovo_agents_agent_verification off', () => {
-		it('does not show verify agent option if feature flag is off', async () => {
-			const user = userEvent.setup();
-
-			renderComponent({ agentRef: {} as any, userPermissionsRef: {} as any });
-
-			await user.click(moreActions());
-
-			expect(screen.queryByTestId('agent-actions-menu-verification')).toBeNull();
-		});
 	});
 
 	it('should capture and report a11y violations', async () => {

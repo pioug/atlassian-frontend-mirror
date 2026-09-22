@@ -1,7 +1,6 @@
 import type { TableAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { createTable } from '@atlaskit/editor-tables/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { TABLE_MAX_WIDTH, TABLE_FULL_WIDTH } from '../table-resizing/utils/consts';
 const NESTED_TABLE_DEFAULT_ROWS = 2;
@@ -50,11 +49,7 @@ export const createTableWithWidth =
 				: NESTED_TABLE_DEFAULT_COLS;
 		}
 		if (isTableScalingEnabled && !isCommentEditor) {
-			if (
-				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
-				isMaxWidthModeEnabled
-			) {
+			if (isMaxWidthModeEnabled) {
 				attrsOverrides.tableWidth = TABLE_MAX_WIDTH;
 			} else if (isFullWidthModeEnabled) {
 				attrsOverrides.tableWidth = TABLE_FULL_WIDTH;
@@ -62,11 +57,7 @@ export const createTableWithWidth =
 		}
 		if (
 			isTableAlignmentEnabled &&
-			(isFullWidthModeEnabled ||
-				((expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
-					isMaxWidthModeEnabled) ||
-				isCommentEditor)
+			(isFullWidthModeEnabled || isMaxWidthModeEnabled || isCommentEditor)
 		) {
 			attrsOverrides.layout = 'align-start';
 		}

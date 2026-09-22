@@ -1,5 +1,89 @@
 # @atlaskit/editor-common
 
+## 123.7.0
+
+### Minor Changes
+
+- [`a1df9dd2d8f02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1df9dd2d8f02) -
+  Add the optional `showNoResultsMessage` empty-state handler parameter and
+  `platform_editor_slash_command`-gated Ask Rovo and View more recovery for registered quick insert
+  searches with no matches. Respect registry visibility and keep Marketplace content separate from
+  listbox navigation while preserving its native keyboard controls.
+
+  Show the registered Ask Rovo action alongside Marketplace suggestions in the element browser's
+  no-match state, with a divider separating the fallback action from Marketplace content. Keep the
+  toolbar's View more footer visible while Marketplace content scrolls and preserve native Tab
+  navigation.
+
+  Respect `data-keyboard-navigation-independent` containers in both toolbar keyboard navigation
+  providers. Apply the attribute to the registered insert menu, whose rendering is gated by
+  `platform_editor_slash_command`, so its controls retain their own key handling and native tab
+  stops.
+
+### Patch Changes
+
+- [`f11db7a4b4188`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11db7a4b4188) -
+  Fix comment renderer agent mention profile cards, behind experiment
+  `platform_editor_comment_mention_card_fixes`
+- Updated dependencies
+
+## 123.6.0
+
+### Minor Changes
+
+- [`ca3c3208ca55b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca3c3208ca55b) -
+  EDITOR-8673 Add template gallery snippet insertion through the editor snippets plugin, with
+  completion callbacks and a template gallery input source, behind
+  `platform_editor_snippets_plugin_confluence`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 123.5.1
+
+### Patch Changes
+
+- [`74360ce048e56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74360ce048e56) -
+  FFCLEANUP-196833 Cleanup `platform_editor_adf_validator_stage0`
+- Updated dependencies
+
+## 123.5.0
+
+### Minor Changes
+
+- [`c4d3272bbafce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4d3272bbafce) -
+  Add an opt-in LinkPickerOptions.popupContainerSurface ('default' | 'none') that lets a custom link
+  picker component (e.g. RovoLinkPicker) suppress the editor's floating toolbar popup surface
+  (background, box-shadow, border-radius, padding) when it renders its own complete surface.
+  Threaded through FloatingToolbarConfig/Toolbar's new containerSurface prop. Defaults to the
+  existing wrapper surface; only a caller that explicitly opts in is affected.
+
+### Patch Changes
+
+- [`3f8ea6c51b718`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f8ea6c51b718) -
+  Remove the rolled-out `editor_tinymce_full_width_mode` and
+  `confluence_max_width_content_appearance` experiments and make max-width content behavior
+  permanent.
+- Updated dependencies
+
+## 123.4.2
+
+### Patch Changes
+
+- [`64df9f13a541c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64df9f13a541c) -
+  [ux] Use the yellow accent icon token for the media comment badge icon instead of inheriting
+  `currentColor`. Gated behind the `cc_comments_media_viewer_sidebar` experiment; with the
+  experiment off both `CommentBadge` and `CommentBadgeNext` keep the existing `currentColor` icon.
+
+## 123.4.1
+
+### Patch Changes
+
+- [`f335cea2c93d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f335cea2c93d7) -
+  Correct the combined extension provider return type to reflect that `preload` is always available.
+- Updated dependencies
+
 ## 123.4.0
 
 ### Minor Changes

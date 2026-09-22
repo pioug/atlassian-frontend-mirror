@@ -1,35 +1,35 @@
-// To match mocked date
-const mockedDate = new Date(Date.UTC(2017, 7, 16));
+// To match the mocked browser date in the Playwright renderer fixture.
+const mockedDate = Date.UTC(2017, 7, 16).toString();
 
 export const taskWithDateAdf: {
-	version: number;
-	type: string;
 	content: (
 		| {
-				type: string;
+				attrs: {
+					localId: string;
+				};
 				content: {
-					type: string;
-					content: {
-						type: string;
-						attrs: {
-							timestamp: Date;
-						};
-					}[];
 					attrs: {
 						localId: string;
 						state: string;
 					};
+					content: {
+						attrs: {
+							timestamp: string;
+						};
+						type: string;
+					}[];
+					type: string;
 				}[];
-				attrs: {
-					localId: string;
-				};
+				type: string;
 		  }
 		| {
-				type: string;
-				content: never[];
 				attrs?: undefined;
+				content: never[];
+				type: string;
 		  }
 	)[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

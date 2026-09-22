@@ -44,8 +44,6 @@ import {
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { MediaSSR, RendererContext, RenderOutputStat } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
@@ -612,7 +610,6 @@ export const RendererFunctionalComponent = (
 			serializer as Serializer<JSX.Element>,
 			schema,
 			props.adfStage,
-			props.useSpecBasedValidator,
 			id,
 			fireAnalyticsEvent,
 			props.unsupportedContentLevelsTracking,
@@ -623,11 +620,7 @@ export const RendererFunctionalComponent = (
 		);
 
 		if (props.onComplete) {
-			if (isExperimentEnabled('platform_renderer_on_complete_after_commit')) {
-				pendingOnCompleteStatRef.current = stat;
-			} else {
-				props.onComplete(stat);
-			}
+			pendingOnCompleteStatRef.current = stat;
 		}
 
 		const rendererOutput = (
@@ -1005,11 +998,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	// Only apply container-type = inline-size when having a known width in full-page/full-width/comment mode.
 	// Otherwise when appearance is unspecified the renderer size is decided by the content.
 	// In this case we can't set the container-type = inline-size as it will collapse width to 0.
-	return (appearance === 'full-page' ||
-		appearance === 'full-width' ||
-		((expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-			expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
-			appearance === 'max')) &&
+	return (appearance === 'full-page' || appearance === 'full-width' || appearance === 'max') &&
 		// In case of having excerpt-include on page there are multiple renderers nested.
 		// Make sure only the root renderer is set to be query container.
 		isTopLevelRenderer &&
@@ -1075,15 +1064,6 @@ const RendererWithAnnotationSelection = (props: RendererProps): jsx.JSX.Element 
 	const { allowAnnotations, document: adfDocument } = props;
 	const localRef = React.useRef<HTMLDivElement>(null);
 	const innerRef = props.innerRef || localRef;
-
-	// @see https://hello.jira.atlassian.cloud/browse/EDITOR-3389
-	if (
-		props.appearance === 'max' &&
-		!expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
-		!expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-	) {
-		props.appearance = 'full-width';
-	}
 
 	if (!allowAnnotations) {
 		// Ignored via go/ees005

@@ -148,6 +148,7 @@ export type DiffDescriptor = {
 	colorScheme?: ColorScheme;
 	id: string;
 	isInserted?: boolean;
+	leftAnchorId?: string;
 	type: 'inline' | 'block' | 'widget';
 };
 

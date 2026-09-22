@@ -173,6 +173,8 @@ export const ToolbarArrowKeyNavigationProvider = ({
 						?.contains(targetElement)) ||
 				(targetElement instanceof HTMLElement &&
 					document.querySelector('[data-test-id="color-picker-menu"]')?.contains(targetElement)) ||
+				(targetElement instanceof HTMLElement &&
+					targetElement.closest('[data-keyboard-navigation-independent]')) ||
 				event.key === 'ArrowUp' ||
 				event.key === 'ArrowDown' ||
 				disableArrowKeyNavigation
@@ -370,7 +372,7 @@ function isElementOrAncestorHiddenOrDisabled(
 }
 
 function getFilteredFocusableElements(rootNode: HTMLElement | null): Array<HTMLElement> {
-	// The focusable elements from child components such as dropdown menus / popups are ignored
+	// Independent containers and child popups own their key handling and tab stops.
 	return getFocusableElements(rootNode).filter((elm) => {
 		// Check if element or any ancestor is hidden or disabled
 		const isHiddenOrDisabled = isElementOrAncestorHiddenOrDisabled(elm, rootNode);
@@ -379,6 +381,7 @@ function getFilteredFocusableElements(rootNode: HTMLElement | null): Array<HTMLE
 			!elm.closest('[data-role="droplistContent"]') &&
 			!elm.closest('[data-emoji-picker-container="true"]') &&
 			!elm.closest('[data-test-id="color-picker-menu"]') &&
+			!elm.closest('[data-keyboard-navigation-independent]') &&
 			!elm.closest('.scroll-buttons') &&
 			!isHiddenOrDisabled
 		);

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 
@@ -39,6 +40,7 @@ export const HoverCardComponent = ({
 	zIndex = HOVER_CARD_Z_INDEX,
 	noFadeDelay = false,
 	hoverPreviewOptions,
+	placement,
 	role,
 	shouldRenderToParent = false,
 	label,
@@ -46,6 +48,11 @@ export const HoverCardComponent = ({
 	onVisibilityChange,
 }: HoverCardComponentProps): React.JSX.Element => {
 	const fadeInDelay = hoverPreviewOptions?.fadeInDelay ?? FADE_IN_DELAY;
+	const gatedPlacement =
+		placement &&
+		UNSAFE_expValNoExposure('confluence_1p_and_3p_connection_byline_experiment', 'isEnabled', false)
+			? placement
+			: undefined;
 	const [isOpen, setIsOpen] = React.useState(false);
 	const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
 	const fadeInTimeoutId = useRef<ReturnType<typeof setTimeout>>();
@@ -77,6 +84,12 @@ export const HoverCardComponent = ({
 				y: event.clientY,
 			};
 
+			// A caller-chosen placement anchors the card to the trigger, so a cursor-relative offset
+			// would drag it back over the element the placement was picked to keep clear of.
+			if (gatedPlacement) {
+				return;
+			}
+
 			//If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
 			if ((!isOpen || !canOpen) && parentSpan.current && mousePos.current) {
 				const { bottom, left } = parentSpan.current.getBoundingClientRect();
@@ -86,7 +99,7 @@ export const HoverCardComponent = ({
 				];
 			}
 		},
-		[canOpen, isOpen],
+		[canOpen, isOpen, gatedPlacement],
 	);
 
 	const hideCard = useCallback(() => {
@@ -338,8 +351,9 @@ export const HoverCardComponent = ({
 			testId="hover-card"
 			isOpen={isOpen && canOpen}
 			onClose={initHideCard}
-			placement="bottom-start"
-			offset={popupOffset.current}
+			placement={gatedPlacement ?? 'bottom-start'}
+			// A trigger-anchored card keeps the same gap the cursor-anchored one leaves.
+			offset={gatedPlacement ? [0, CARD_GAP_PX] : popupOffset.current}
 			autoFocus={false}
 			content={content}
 			trigger={trigger}

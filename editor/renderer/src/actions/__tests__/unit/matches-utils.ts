@@ -54,6 +54,16 @@ describe('RendererActions matches', () => {
 					'Header 1Header 2Cell 1Cell 2Cell 3Cell 4',
 				],
 				[
+					'annotation-allowing container is not double-counted',
+					doc(panel()(p('One'), p('Two'))),
+					'OneTwo',
+				],
+				[
+					'container descent excludes invalid child and does not double-count',
+					doc(p('A'), panel()(p('B'), code_block()('IGNORED'), p('C')), p('D')),
+					'ABCD',
+				],
+				[
 					'excludes invalid block nodes',
 					doc(p('Muffin'), code_block()('IGNORED TEXT'), p('Lemon Drops')),
 					'MuffinLemon Drops',

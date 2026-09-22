@@ -25,7 +25,6 @@ const Example = (): React.JSX.Element => {
 				allowColumnSorting={true}
 				allowWrapCodeBlock
 				allowCopyToClipboard
-				useSpecBasedValidator={true}
 			/>
 		</IntlProvider>
 	);

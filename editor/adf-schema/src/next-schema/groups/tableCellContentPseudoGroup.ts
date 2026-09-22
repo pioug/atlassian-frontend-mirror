@@ -42,6 +42,7 @@ export const tableCellContentNodes: Array<ADFNode<any, any>> = [
 	blockCard,
 	embedCard,
 	extension.use('with_marks'),
+	extension.use('with_annotation'),
 	nestedExpand.use('content'),
 	nestedExpand.use('with_no_marks'),
 ];

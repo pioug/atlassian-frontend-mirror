@@ -15,6 +15,7 @@ export interface Props {
 	id: string;
 	isAvatarImagePreShaped?: boolean;
 	isDisabled?: boolean;
+	isRovoChat?: boolean;
 	localId?: string;
 	mentionProvider?: Promise<MentionProvider>;
 	onClick?: MentionEventHandler;
@@ -135,6 +136,7 @@ export default class ResourcedMention extends React.PureComponent<Props, State> 
 				onMouseEnter={props.onMouseEnter}
 				onMouseLeave={props.onMouseLeave}
 				renderAvatarSlot={props.renderAvatarSlot}
+				isRovoChat={props.isRovoChat}
 				ssrPlaceholderId={props.ssrPlaceholderId}
 			/>
 		);

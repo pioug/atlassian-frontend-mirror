@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "19.0.3",
+	"version": "19.0.5",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -65,6 +65,9 @@
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",
 			"referenceOnly": "true"
+		},
+		"platform_editor_a11y_color_palette_radiogroup": {
+			"type": "boolean"
 		},
 		"platform_editor_lovability_text_bg_color_patch_1": {
 			"type": "boolean"

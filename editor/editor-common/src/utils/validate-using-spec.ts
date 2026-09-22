@@ -7,7 +7,6 @@ import type {
 	ValidationErrorMap,
 } from '@atlaskit/adf-utils/validatorTypes';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ACTION_SUBJECT_ID } from '../analytics';
 
@@ -137,24 +136,6 @@ export const validationErrorHandler = (
 		}
 	}
 
-	// panel_c1 is a ProseMirror-only variant: on save, table-in-panel documents are stored as
-	// plain ADF `panel` nodes containing a `table`. The base validator-spec does not permit
-	// `table` inside `panel`, so suppress the INVALID_CONTENT error when the experiment is active.
-	// This suppression is blunt, allowing a table in every panel, and applies only while
-	// `platform_editor_adf_validator_stage0` is off. With that gate on, adf-utils offers the stage-0
-	// `panel_c1` variants and accepts table-in-panel positionally instead, in `doc`, a layout column
-	// and a synced block only.
-	if (options.allowTableInPanel && !fg('platform_editor_adf_validator_stage0')) {
-		const meta = error.meta as ValidationErrorMap['INVALID_CONTENT'] | undefined;
-		if (
-			meta?.parentType === 'panel' &&
-			error.code === 'INVALID_CONTENT' &&
-			entity.type === 'table'
-		) {
-			return entity;
-		}
-	}
-
 	// panel_c1 is a ProseMirror-only variant: on save, expand-in-panel documents are stored as
 	// plain ADF `panel` nodes containing an `expand`. The base validator-spec does not permit
 	// `expand` inside `panel` (it's gated behind the consolidated container-in-panel experiment,
@@ -263,7 +244,6 @@ export const validateADFEntity = (
 	// because a document holding a stage-0-only construct, such as a `layoutSection` with one column,
 	// otherwise has that content wrapped as unsupported. Editors carry such constructs by design,
 	// since the editor's own schema enables them, and renderers meet them in stored documents.
-	// `stage0` is only observable while `platform_editor_adf_validator_stage0` is enabled.
 	const validate = validator(nodes, marks, {
 		allowPrivateAttributes: true,
 		stage0: adfStage !== ADFStages.FINAL,

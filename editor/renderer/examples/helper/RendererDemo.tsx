@@ -94,7 +94,6 @@ const extensionHandlers: ExtensionHandlers = {
 		return (
 			<Renderer
 				document={{ type: 'doc', version: 1, content: ext.content as any }}
-				useSpecBasedValidator={true}
 				adfStage="stage0"
 			/>
 		);
@@ -162,7 +161,6 @@ interface DemoRendererProps {
 	UNSTABLE_allowTableAlignment?: boolean;
 	UNSTABLE_allowTableResizing?: boolean;
 	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
-	useSpecBasedValidator?: boolean;
 	withExtension?: boolean;
 	withPortal?: boolean;
 	withProviders?: boolean;
@@ -353,7 +351,6 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 			props.allowAnnotations = this.props.allowAnnotations;
 			props.allowCollapsibleHeadings = this.props.allowCollapsibleHeadings;
 			props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;
-			props.useSpecBasedValidator = this.props.useSpecBasedValidator;
 			props.allowCopyToClipboard = this.props.allowCopyToClipboard;
 			props.allowWrapCodeBlock = this.props.allowWrapCodeBlock;
 			props.allowPlaceholderText = this.props.allowPlaceholderText;

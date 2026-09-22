@@ -18,6 +18,7 @@ import type { QuickInsertCategoryItemSelectionPolicy } from './selectQuickInsert
 export type QuickInsertMenuSection = [RegisterMenuSection, ...RegisterMenuItem[]];
 
 export type QuickInsertMenuModel = {
+	fallbackItems?: RegisterMenuItem[];
 	footer: RegisterMenuItem | undefined;
 	root: RegisterComponent | undefined;
 	sections: QuickInsertMenuSection[];

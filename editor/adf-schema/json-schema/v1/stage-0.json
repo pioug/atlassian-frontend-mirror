@@ -133,6 +133,9 @@
           "$ref": "#/definitions/extension_with_marks_node"
         },
         {
+          "$ref": "#/definitions/extension_with_annotation_node"
+        },
+        {
           "$ref": "#/definitions/embedCard_node"
         },
         {
@@ -279,6 +282,9 @@
               },
               {
                 "$ref": "#/definitions/extension_with_marks_node"
+              },
+              {
+                "$ref": "#/definitions/extension_with_annotation_node"
               }
             ]
           },
@@ -320,6 +326,9 @@
                 },
                 {
                   "$ref": "#/definitions/extension_with_marks_node"
+                },
+                {
+                  "$ref": "#/definitions/extension_with_annotation_node"
                 }
               ]
             },
@@ -333,6 +342,9 @@
                 },
                 {
                   "$ref": "#/definitions/extension_with_marks_node"
+                },
+                {
+                  "$ref": "#/definitions/extension_with_annotation_node"
                 }
               ]
             }
@@ -1101,6 +1113,9 @@
                 "$ref": "#/definitions/extension_with_marks_node"
               },
               {
+                "$ref": "#/definitions/extension_with_annotation_node"
+              },
+              {
                 "$ref": "#/definitions/heading_with_indentation_node"
               },
               {
@@ -1156,6 +1171,9 @@
               },
               {
                 "$ref": "#/definitions/extension_root_only_node"
+              },
+              {
+                "$ref": "#/definitions/extension_root_only_with_annotation_node"
               },
               {
                 "$ref": "#/definitions/bodiedExtension_root_only_node"
@@ -1311,6 +1329,9 @@
                 "$ref": "#/definitions/non_nestable_block_content"
               },
               {
+                "$ref": "#/definitions/extension_with_annotation_node"
+              },
+              {
                 "$ref": "#/definitions/nestedExpand_with_no_marks_node"
               }
             ]
@@ -1351,6 +1372,9 @@
             "anyOf": [
               {
                 "$ref": "#/definitions/non_nestable_block_content"
+              },
+              {
+                "$ref": "#/definitions/extension_with_annotation_node"
               },
               {
                 "$ref": "#/definitions/nestedExpand_with_no_marks_node"
@@ -1416,6 +1440,67 @@
                 "anyOf": [
                   {
                     "$ref": "#/definitions/breakout_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/dataConsumer_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/fragment_mark"
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "extension_root_only_with_annotation_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/extension_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/annotation_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/breakout_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/dataConsumer_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/fragment_mark"
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "extension_with_annotation_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/extension_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/annotation_mark"
                   },
                   {
                     "$ref": "#/definitions/dataConsumer_mark"
@@ -2132,6 +2217,9 @@
               },
               {
                 "$ref": "#/definitions/extension_with_marks_node"
+              },
+              {
+                "$ref": "#/definitions/extension_with_annotation_node"
               }
             ]
           },
@@ -2625,6 +2713,9 @@
           },
           {
             "$ref": "#/definitions/extension_with_marks_node"
+          },
+          {
+            "$ref": "#/definitions/extension_with_annotation_node"
           }
         ]
       },
@@ -2858,6 +2949,9 @@
                 "$ref": "#/definitions/extension_with_marks_node"
               },
               {
+                "$ref": "#/definitions/extension_with_annotation_node"
+              },
+              {
                 "$ref": "#/definitions/table_node"
               }
             ]
@@ -2966,6 +3060,9 @@
                 "$ref": "#/definitions/extension_with_marks_node"
               },
               {
+                "$ref": "#/definitions/extension_with_annotation_node"
+              },
+              {
                 "$ref": "#/definitions/table_node"
               }
             ]
@@ -3066,6 +3163,9 @@
               },
               {
                 "$ref": "#/definitions/extension_with_marks_node"
+              },
+              {
+                "$ref": "#/definitions/extension_with_annotation_node"
               }
             ]
           },
@@ -3140,6 +3240,9 @@
                   },
                   {
                     "$ref": "#/definitions/extension_with_marks_node"
+                  },
+                  {
+                    "$ref": "#/definitions/extension_with_annotation_node"
                   }
                 ]
               },
@@ -3568,6 +3671,9 @@
           },
           {
             "$ref": "#/definitions/extension_with_marks_node"
+          },
+          {
+            "$ref": "#/definitions/extension_with_annotation_node"
           },
           {
             "$ref": "#/definitions/nestedExpand_with_no_marks_node"

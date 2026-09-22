@@ -1,5 +1,27 @@
 # @atlaskit/teams-client
 
+## 5.6.0
+
+### Minor Changes
+
+- [`5b39d8c208f0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b39d8c208f0f) -
+  Migrate `TeamsInSlackClient` to Staffy Global Edge URL with staff auth handling.
+
+  When `ptc-onboard-teams-slack-app-to-global-edge-url` is ON, all `/api/team/{teamId}` calls (GET,
+  POST, DELETE) are routed to `https://teams-slack-app.services.atlassian.com` instead of the
+  Stargate path `/gateway/api/teamsslack/api/team`.
+
+  To handle the case where the user has no Staffy SST cookie (which would cause a silent fetch
+  failure due to a `302 → Okta` redirect being followed inside `fetch()`), a pre-flight
+  `GET /api/authping` probe is made before each call. If the probe fails, the client performs a
+  top-level `window.location.assign()` to `/staffy/login?return_to=<current URL>` so the browser
+  completes the Okta SSO flow and sets the SST cookie before retrying. An in-memory flag prevents
+  infinite redirect loops.
+
+  Falls back to Stargate when the gate is OFF. No changes to `RestClient` or any other client.
+
+  Also adds `teamsInSlackServiceUrl` to `TeamsClientConfig` to allow per-environment URL overrides.
+
 ## 5.5.0
 
 ### Minor Changes

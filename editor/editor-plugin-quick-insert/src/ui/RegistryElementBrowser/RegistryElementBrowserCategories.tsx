@@ -20,6 +20,7 @@ import {
 	TEXT_FORMATTING_SECTION,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import { messages } from '@atlaskit/editor-common/quick-insert/messages';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import type { RegistryElementBrowserSection } from './model';
@@ -43,16 +44,21 @@ const sectionMessages = {
 
 const categoryGridStyles = css({
 	alignContent: 'start',
+	alignSelf: 'start',
 	display: 'grid',
 	gap: token('space.100'),
 	gridTemplateColumns: 'minmax(0, 1fr)',
+	position: 'sticky',
+	top: token('space.025'),
 	'@media (max-width: 599px)': {
+		backgroundColor: token('elevation.surface.overlay'),
 		gridAutoColumns: 'max-content',
 		gridAutoFlow: 'column',
 		gridTemplateColumns: 'none',
 		gridTemplateRows: 'minmax(0, 1fr)',
 		overflowX: 'auto',
 		overflowY: 'hidden',
+		zIndex: 1,
 	},
 });
 
@@ -81,7 +87,9 @@ export const RegistryElementBrowserCategories = ({
 				isSelected={isAllSelected}
 				shouldFitContainer
 			>
-				{formatMessage({ defaultMessage: 'All', id: 'editor.quick-insert.all' })}
+				<Text align="start" color="inherit" maxLines={1} weight="medium">
+					{formatMessage({ defaultMessage: 'All', id: 'editor.quick-insert.all' })}
+				</Text>
 			</Button>
 			{sections.map((entry) => (
 				<Button
@@ -93,9 +101,11 @@ export const RegistryElementBrowserCategories = ({
 					isSelected={section === entry.key}
 					shouldFitContainer
 				>
-					{formatMessage(
-						sectionMessages[entry.key as keyof typeof sectionMessages] ?? messages.categoryOther,
-					)}
+					<Text align="start" color="inherit" maxLines={1} weight="medium">
+						{formatMessage(
+							sectionMessages[entry.key as keyof typeof sectionMessages] ?? messages.categoryOther,
+						)}
+					</Text>
 				</Button>
 			))}
 		</div>

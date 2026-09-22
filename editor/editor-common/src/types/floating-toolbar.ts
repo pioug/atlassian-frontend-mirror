@@ -414,6 +414,14 @@ export interface FloatingToolbarConfig {
 	className?: string;
 
 	/**
+	 * Controls the Toolbar wrapper's own visual surface (background, shadow, border radius,
+	 * padding). Set to `'none'` when a single custom item already renders its own complete
+	 * surface (e.g. a custom link picker component), so the wrapper's surface isn't duplicated
+	 * behind it. Defaults to `'default'` (the wrapper's surface, as today).
+	 */
+	containerSurface?: 'default' | 'none';
+
+	/**
 	 * Enable Popup component's focus trap
 	 */
 	focusTrap?: boolean;

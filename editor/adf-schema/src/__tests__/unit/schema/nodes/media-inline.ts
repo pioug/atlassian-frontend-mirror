@@ -117,18 +117,19 @@ describe(`${packageName}/schema mediaInline node`, () => {
 		it('image type should parse with annotation', () => {
 			const doc = fromHTML(
 				`
-        <span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="comment-id" >
-          <span
-            data-node-type="mediaInline"
-            data-layout="wrap-right"
-            data-type="image"
-          />
-        </span>
-        `,
+	        <p>
+	          <span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="comment-id" >
+	            <span
+	              data-node-type="mediaInline"
+	              data-layout="wrap-right"
+	              data-type="image"
+	            />
+	          </span>
+	        </p>
+	        `,
 				schema,
 			);
-			const media = doc.firstChild!;
-			const mediaInlineNode = media.firstChild!;
+			const mediaInlineNode = doc.firstChild!.firstChild!;
 			expect(mediaInlineNode.type).toEqual(schema.nodes.mediaInline);
 			expect(mediaInlineNode.attrs.type).toEqual('image');
 			expect(mediaInlineNode.marks[0].type.name).toEqual('annotation');

@@ -1,5 +1,18 @@
 # @atlaskit/editor-shared-styles
 
+## 4.3.18
+
+### Patch Changes
+
+- [`05f62aecc1387`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05f62aecc1387) -
+  Use the lime diff colour for agents assigned the lime Agent Studio colour.
+
+## 4.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.16
 
 ### Patch Changes

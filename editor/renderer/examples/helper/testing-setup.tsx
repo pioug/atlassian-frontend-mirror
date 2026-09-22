@@ -26,6 +26,7 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 
 import { default as Renderer } from '../../src/ui/Renderer';
 import type { RendererProps } from '../../src/ui/renderer-props';
+import { ValidationContextProvider } from '../../src/ui/Renderer/ValidationContext';
 import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';
 import { ExampleSelectionInlineComponent } from './annotations/selection';
@@ -62,6 +63,7 @@ const mentionProvider = Promise.resolve({
 const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 
 type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
+	allowNestedTables?: boolean;
 	enableClickToEdit?: boolean;
 	mockInlineComments?: boolean;
 	showSidebar?: boolean;
@@ -87,29 +89,33 @@ function renderRenderer({
 	props: MountProps;
 	setMode?: (mode: boolean) => void;
 }) {
-	const { showSidebar, ...reactProps } = props;
+	const { allowNestedTables, showSidebar, ...reactProps } = props;
 	return (
 		<IntlProvider locale="en">
 			<AnalyticsListeners client={(window as any).__analytics}>
 				<SmartCardProvider client={cardClient}>
-					<Sidebar showSidebar={!!showSidebar}>
-						{(additionalRendererProps: any) => (
-							<Renderer
-								dataProviders={providerFactory}
-								document={adf}
-								extensionHandlers={extensionHandlers}
-								{...reactProps}
-								{...additionalRendererProps}
-								eventHandlers={
-									setMode
-										? {
-												onUnhandledClick: (e) => setMode(true),
-											}
-										: undefined
-								}
-							/>
-						)}
-					</Sidebar>
+					<ValidationContextProvider
+						value={allowNestedTables !== undefined ? { allowNestedTables } : null}
+					>
+						<Sidebar showSidebar={!!showSidebar}>
+							{(additionalRendererProps: any) => (
+								<Renderer
+									dataProviders={providerFactory}
+									document={adf}
+									extensionHandlers={extensionHandlers}
+									{...reactProps}
+									{...additionalRendererProps}
+									eventHandlers={
+										setMode
+											? {
+													onUnhandledClick: (e) => setMode(true),
+												}
+											: undefined
+									}
+								/>
+							)}
+						</Sidebar>
+					</ValidationContextProvider>
 					<EmbedHelper />
 				</SmartCardProvider>
 			</AnalyticsListeners>

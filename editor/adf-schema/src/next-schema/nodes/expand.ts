@@ -5,6 +5,7 @@ import { nonNestableBlockContentGroup } from '../groups/nonNestableBlockContentG
 import { breakout } from '../marks/breakout';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
+import { extension } from './extension';
 import { nestedExpand } from './nestedExpand';
 
 export const expand: ADFNode<
@@ -26,7 +27,15 @@ export const expand: ADFNode<
 			__expanded: { type: 'boolean', default: true, optional: true },
 			localId: { type: 'string', default: null, optional: true },
 		},
-		content: [$onePlus($or(nonNestableBlockContentGroup, nestedExpand.use('with_no_marks')))],
+		content: [
+			$onePlus(
+				$or(
+					nonNestableBlockContentGroup,
+					extension.use('with_annotation'),
+					nestedExpand.use('with_no_marks'),
+				),
+			),
+		],
 	})
 	.variant('root_only', {
 		marks: [breakout, unsupportedMark, unsupportedNodeAttribute],

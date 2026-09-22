@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 229.1.6
+
+### Patch Changes
+
+- [`e824823394e78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e824823394e78) -
+  Use CSS-escaped zero-width-space helpers for mention node views to avoid mojibake in affected
+  editor bundles. The `platform_editor_mention_zero_width_space_escape` experiment controls the
+  rollout.
+- Updated dependencies
+
+## 229.1.5
+
+### Patch Changes
+
+- [`3f8ea6c51b718`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f8ea6c51b718) -
+  Remove the rolled-out `editor_tinymce_full_width_mode` and
+  `confluence_max_width_content_appearance` experiments and make max-width content behavior
+  permanent.
+- Updated dependencies
+
+## 229.1.4
+
+### Patch Changes
+
+- [`5a4cb407816ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a4cb407816ac) -
+  [ux] Strike out a deleted status lozenge in a suggestion diff, behind
+  `platform_editor_ai_show_diff_patch_2`. Its `line-through` was not propagated into the
+  `display: inline-flex` lozenge and painted beneath its background, so the status showed only the
+  deleted highlight.
+- Updated dependencies
+
 ## 229.1.3
 
 ### Patch Changes

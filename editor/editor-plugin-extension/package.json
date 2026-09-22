@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "22.0.2",
+	"version": "22.0.5",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -102,7 +102,7 @@
 		"react-select": "root:*"
 	},
 	"platform-feature-flags": {
-		"platform_editor_adf_validator_stage0": {
+		"cc_maui_annotations_on_extensions": {
 			"type": "boolean"
 		},
 		"platform_forge_inline_bodied_macro": {

@@ -55,6 +55,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/analytics-listeners": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*"
 	},

@@ -18,8 +18,19 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { headingAnchorLinkMessages } from '../../messages';
 import type { MessageDescriptor } from '../../types/i18n';
+import HeadingAnchorButton from './heading-anchor-button';
 
 export const HeadingAnchorWrapperClassName = 'heading-anchor-wrapper';
+
+const headingAnchorWrapperTargetSizeStyles = css({
+	display: 'inline-flex',
+	boxSizing: 'border-box',
+	alignItems: 'center',
+	justifyContent: 'center',
+	width: '24px',
+	height: '24px',
+	verticalAlign: 'middle',
+});
 
 const CopyAnchorWrapperWithRef = React.forwardRef(
 	(props: React.PropsWithChildren<unknown>, ref: Ref<HTMLElement>) => {
@@ -31,6 +42,11 @@ const CopyAnchorWrapperWithRef = React.forwardRef(
 				{...rest}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={HeadingAnchorWrapperClassName}
+				css={
+					isExperimentEnabled('platform_editor_heading_link_target_size')
+						? headingAnchorWrapperTargetSizeStyles
+						: undefined
+				}
 				ref={ref}
 			>
 				{children}
@@ -47,6 +63,12 @@ const copyAnchorButtonStyles = css({
 	color: token('color.icon'),
 	cursor: 'pointer',
 	right: 0,
+});
+
+const scaledLinkIconStyles = css({
+	display: 'inline-flex',
+	transform: 'scale(1.5)',
+	transformOrigin: 'center',
 });
 
 type Props = {
@@ -155,6 +177,33 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 			: hideFromScreenReader
 				? undefined
 				: -1;
+
+		if (isExperimentEnabled('platform_editor_heading_link_target_size')) {
+			return (
+				<HeadingAnchorButton
+					data-testid="anchor-button"
+					id={this.copyLinkId}
+					onMouseLeave={this.resetMessage}
+					onBlur={this.resetMessage}
+					onClick={this.copyToClipboard}
+					aria-hidden={hideFromScreenReader}
+					tabIndex={tabIndex}
+					aria-label={hideFromScreenReader ? undefined : this.state.tooltipMessage}
+					aria-labelledby={hideFromScreenReader ? undefined : labelledBy}
+					type="button"
+				>
+					<span css={scaledLinkIconStyles} data-testid="scaled-link-icon">
+						<LinkIcon
+							label={this.getCopyAriaLabel()}
+							size="medium"
+							color={
+								this.state.isClicked ? token('color.icon.selected') : token('color.icon.subtle')
+							}
+						/>
+					</span>
+				</HeadingAnchorButton>
+			);
+		}
 
 		return (
 			<button

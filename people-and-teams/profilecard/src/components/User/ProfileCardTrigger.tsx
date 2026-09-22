@@ -390,13 +390,15 @@ export default function ProfilecardTriggerNext({
 						onMouseEnter: onMouseEnter,
 						onMouseLeave: hideProfilecard,
 						onBlur: hideProfilecard,
-						onKeyPress: onKeyPress,
+						// A child button activates Space on keyup. Prevent its keydown default before
+						// that click can navigate as well as opening the profile card.
+						...(disabledAriaAttributes ? { onKeyDown: onKeyPress } : { onKeyPress }),
 					}
 				: {
 						onClick: onClick,
 						onKeyPress: onKeyPress,
 					},
-		[hideProfilecard, onClick, onKeyPress, onMouseEnter, trigger],
+		[disabledAriaAttributes, hideProfilecard, onClick, onKeyPress, onMouseEnter, trigger],
 	);
 
 	const filterActions = useCallback((): ProfileCardAction[] => {

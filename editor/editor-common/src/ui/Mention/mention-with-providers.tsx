@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 're
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
 import ResourcedMention from '@atlaskit/mention/resourced-mention';
 import type { MentionNodeData, MentionProvider } from '@atlaskit/mention/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';
@@ -102,6 +103,9 @@ export const MentionWithProviders: React.MemoExoticComponent<
 		const [profilecardProvider, setProfilecardProvider] = useState<ProfilecardProvider | null>(
 			null,
 		);
+		const [isRovoChat, setIsRovoChat] = useState(
+			isExperimentEnabled('platform_editor_mention_rovo') && Boolean(mentionNodeData?.isRovoChat),
+		);
 		const mountedRef = useRef(true);
 
 		useLayoutEffect(() => {
@@ -128,6 +132,38 @@ export const MentionWithProviders: React.MemoExoticComponent<
 					}
 				});
 		}, [profilecardProviderResolver]);
+
+		useEffect(() => {
+			if (mentionNodeData?.isRovoChat) {
+				setIsRovoChat(isExperimentEnabled('platform_editor_mention_rovo'));
+				return;
+			}
+			if (!isExperimentEnabled('platform_editor_mention_rovo') || !mentionProvider) {
+				setIsRovoChat(false);
+				return;
+			}
+
+			let isActive = true;
+			const resolveRovoChatIdentity = async (): Promise<void> => {
+				try {
+					const provider = await mentionProvider;
+					const identityAccountId = await provider.getRovoChatAgentIdentityAccountId?.();
+					if (isActive) {
+						setIsRovoChat(identityAccountId !== undefined && identityAccountId === id);
+					}
+				} catch {
+					if (isActive) {
+						setIsRovoChat(false);
+					}
+				}
+			};
+
+			void resolveRovoChatIdentity();
+
+			return () => {
+				isActive = false;
+			};
+		}, [id, mentionNodeData?.isRovoChat, mentionProvider]);
 
 		const MentionComponent =
 			profilecardProvider && profilecardProviderResolver && GENERIC_USER_IDS.indexOf(id) === -1
@@ -156,6 +192,7 @@ export const MentionWithProviders: React.MemoExoticComponent<
 					onMouseLeave={eventHandlers?.onMouseLeave}
 					renderAvatarSlot={renderAvatarSlot}
 					ssrPlaceholderId={ssrPlaceholderId}
+					isRovoChat={isRovoChat}
 				/>
 			);
 		}
@@ -179,6 +216,7 @@ export const MentionWithProviders: React.MemoExoticComponent<
 				onMouseLeave={eventHandlers?.onMouseLeave}
 				renderAvatarSlot={renderAvatarSlot}
 				ssrPlaceholderId={ssrPlaceholderId}
+				isRovoChat={isRovoChat}
 			/>
 		);
 	},

@@ -9,7 +9,6 @@ import type {
 	DragLocationHistory,
 	ElementDragType,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
@@ -45,14 +44,12 @@ export function getProposedWidth({
 	// the node width may be greater than the container width so we resize using the smaller value
 	const proposedWidth = Math.min(initialWidth, containerWidth) + diffX;
 
-	const snapPoints = [WIDTHS.MIN, WIDTHS.WIDE, Math.min(containerWidth, WIDTHS.FULL)];
-
-	if (
-		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-		expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-	) {
-		snapPoints.push(Math.min(containerWidth, WIDTHS.MAX));
-	}
+	const snapPoints = [
+		WIDTHS.MIN,
+		WIDTHS.WIDE,
+		Math.min(containerWidth, WIDTHS.FULL),
+		Math.min(containerWidth, WIDTHS.MAX),
+	];
 
 	for (const snapPoint of snapPoints) {
 		if (snapPoint - SNAP_GAP < proposedWidth && snapPoint + SNAP_GAP > proposedWidth) {
@@ -158,15 +155,9 @@ export function createResizerCallbacks({
 				(guideline) => guideline.key.startsWith('full_width') && guideline.active,
 			);
 
-			let isResizedToMaxWidth = false;
-			if (
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-			) {
-				isResizedToMaxWidth = !!guidelines.find(
-					(guideline) => guideline.key.startsWith('max_width') && guideline.active,
-				);
-			}
+			const isResizedToMaxWidth = !!guidelines.find(
+				(guideline) => guideline.key.startsWith('max_width') && guideline.active,
+			);
 
 			guidelines = getGuidelines(false, 0, getEditorWidth);
 			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
@@ -178,13 +169,8 @@ export function createResizerCallbacks({
 				? WIDTHS.FULL
 				: getProposedWidth({ initialWidth, location, api, source });
 
-			if (
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-			) {
-				if (isResizedToMaxWidth) {
-					newWidth = WIDTHS.MAX;
-				}
+			if (isResizedToMaxWidth) {
+				newWidth = WIDTHS.MAX;
 			}
 
 			const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';

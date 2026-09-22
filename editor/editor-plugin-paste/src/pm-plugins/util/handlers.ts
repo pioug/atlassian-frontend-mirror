@@ -2215,13 +2215,9 @@ export function splitTablesOutOfPanelHtml(html: string): string {
 		const editorTableWrappers = Array.from(
 			panelDiv.querySelectorAll('[data-prosemirror-node-name="table"]'),
 		);
-		const rendererTableWrappers = isExperimentEnabled(
-			'platform_editor_nest_in_table_renderer_paste',
-		)
-			? Array.from(panelDiv.querySelectorAll('.pm-table-container')).filter(
-					(wrapper) => wrapper.querySelector('table') !== null,
-				)
-			: [];
+		const rendererTableWrappers = Array.from(
+			panelDiv.querySelectorAll('.pm-table-container'),
+		).filter((wrapper) => wrapper.querySelector('table') !== null);
 		const tableWrappers = [...editorTableWrappers, ...rendererTableWrappers];
 		if (tableWrappers.length === 0) {
 			continue;

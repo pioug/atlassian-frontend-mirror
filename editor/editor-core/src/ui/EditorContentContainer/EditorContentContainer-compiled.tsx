@@ -4437,6 +4437,12 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	mentionNodeStyles: {
+		'.mentionNodeViewAddZeroWidthSpace': {
+			'&::after': {
+				content: "'\\200B'",
+			},
+		},
+
 		// Show diff: mention attr change highlight. Keep this with mention node styles so the
 		// highlight targets the mention primitive's rounded shape.
 		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
@@ -7853,6 +7859,28 @@ const editorContentStyles = cssMapScoped({
 			color: token('color.text.success'),
 		},
 	},
+	// Show diff: strike a deleted status. `line-through` from an ancestor paints behind the lozenge's
+	// `display: inline-flex` background, so redraw it here (EDITOR-9123). The class sits on the *same*
+	// element as the attribute — ProseMirror puts an atomic node's inline decoration on the node's own
+	// DOM. Applied only under `platform_editor_ai_show_diff_patch_2`, so the gate-off stylesheet is
+	// unchanged.
+	deletedStatusStrikeStyles: {
+		'.show-diff-deleted-inline-node[data-prosemirror-node-name="status"]': {
+			// The deleted decoration sets this inline too; repeated for the pre-refactor cohort.
+			position: 'relative',
+			'&::after': {
+				content: '""',
+				position: 'absolute',
+				top: '50%',
+				insetInlineStart: 0,
+				insetInlineEnd: 0,
+				// The whole shorthand comes from the plugin, so this line stays identical to the one the
+				// deleted-content widget draws — including its 2px active weight — without restating it.
+				borderTop: `var(--show-diff-deleted-inline-node-strike, ${token('border.width')} solid ${token('color.text.subtlest')})`,
+				pointerEvents: 'none',
+			},
+		},
+	},
 	statusStylesTeam26: {
 		'[data-prosemirror-node-name="status"] .lozenge-wrapper': {
 			paddingBlockStart: token('space.025'),
@@ -8562,11 +8590,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	const { colorMode } = useThemeObserver();
 
 	const isFullPage =
-		appearance === 'full-page' ||
-		appearance === 'full-width' ||
-		((expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-			expValEqualsNoExposure('confluence_max_width_content_appearance', 'isEnabled', true)) &&
-			appearance === 'max');
+		appearance === 'full-page' || appearance === 'full-width' || appearance === 'max';
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';
 
@@ -8737,6 +8761,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.statusStylesNamedSemantic,
 				(fg('platform_editor_gracefully_render_status_color') || isUpdateStatusColorsEnabled) &&
 					editorContentStyles.statusStylesHexAccent,
+				fg('platform_editor_ai_show_diff_patch_2') && editorContentStyles.deletedStatusStrikeStyles,
 				editorContentStyles.annotationStyles,
 				editorContentStyles.smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&

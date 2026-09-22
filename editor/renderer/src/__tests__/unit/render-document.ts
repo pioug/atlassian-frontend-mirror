@@ -25,6 +25,22 @@ const freshDoc = (text: string = 'memoised') => ({
 	content: [{ type: 'paragraph', content: [{ type: 'text', text }] }],
 });
 
+const unsafeInlineCardDoc = {
+	type: 'doc',
+	version: 1,
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'inlineCard',
+					attrs: { url: 'javascript:alert(document.domain)' },
+				},
+			],
+		},
+	],
+};
+
 const serializeSpy = jest.fn(() => 'serialised');
 const serializer: Serializer<string> = { serializeFragment: serializeSpy };
 
@@ -42,7 +58,6 @@ const render = (
 		serializer,
 		defaultSchema,
 		undefined /* adfStage */,
-		true /* useSpecBasedValidator */,
 		'render-document-test',
 		undefined /* dispatchAnalyticsEvent */,
 		undefined /* unsupportedContentLevelsTracking */,
@@ -54,6 +69,22 @@ const render = (
 
 // Each test primes the module-level memo, then clears the spy, so only the *second* render is asserted.
 describe('renderDocument validation memoisation', () => {
+	it('rejects a malformed root object without a node type', () => {
+		const result = render(undefined, {});
+
+		expect(result.result).toBeNull();
+		expect(result.pmDoc).toBeUndefined();
+	});
+
+	it('preserves unsafe card URL rejection without a visual snapshot', () => {
+		const { pmDoc } = render(undefined, unsafeInlineCardDoc);
+		const card = pmDoc?.firstChild?.firstChild;
+
+		expect(card?.type.name).toBe('inlineCard');
+		expect(card?.attrs.url).not.toBe(unsafeInlineCardDoc.content[0].content[0].attrs.url);
+		expect(card?.marks.map((mark) => mark.type.name)).toContain('unsupportedNodeAttribute');
+	});
+
 	describe('given a value-equal overrides object', () => {
 		it('does not re-validate the document', () => {
 			render({ allowNestedTables: true });

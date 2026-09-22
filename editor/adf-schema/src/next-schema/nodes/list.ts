@@ -36,6 +36,7 @@ const listItem = adfNode('listItem').define({
 				codeBlock,
 				unsupportedBlock,
 				extension.use('with_marks'),
+				extension.use('with_annotation'),
 			),
 		),
 	],

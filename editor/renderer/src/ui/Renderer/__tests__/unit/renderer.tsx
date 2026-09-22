@@ -275,7 +275,7 @@ describe('spec based validator', () => {
 		act(() => {
 			({ container } = render(
 				<IntlProvider locale="en">
-					<Renderer document={docWithInvalidBlock} useSpecBasedValidator={true} />
+					<Renderer document={docWithInvalidBlock} />
 				</IntlProvider>,
 			));
 		});
@@ -304,7 +304,7 @@ describe('spec based validator', () => {
 		act(() => {
 			({ container } = render(
 				<IntlProvider locale="en">
-					<Renderer document={docWithValidParagraph} useSpecBasedValidator={true} />
+					<Renderer document={docWithValidParagraph} />
 				</IntlProvider>,
 			));
 		});
@@ -337,7 +337,7 @@ describe('spec based validator', () => {
 		act(() => {
 			({ container } = render(
 				<IntlProvider locale="en">
-					<Renderer document={docWithInvalidInline} useSpecBasedValidator={true} />
+					<Renderer document={docWithInvalidInline} />
 				</IntlProvider>,
 			));
 		});
@@ -369,7 +369,7 @@ describe('spec based validator', () => {
 		act(() => {
 			({ container } = render(
 				<IntlProvider locale="en">
-					<Renderer document={docWithValidInline} useSpecBasedValidator={true} />
+					<Renderer document={docWithValidInline} />
 				</IntlProvider>,
 			));
 		});
@@ -429,7 +429,6 @@ describe('unsupported content levels severity', () => {
 			<IntlProvider locale="en">
 				<RendererIsolated
 					document={doc}
-					useSpecBasedValidator
 					unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
 					createAnalyticsEvent={createAnalyticsEvent}
 					appearance={appearance}
@@ -725,7 +724,6 @@ describe('unsupported content levels severity', () => {
 							<IntlProvider locale="en">
 								<RendererIsolated
 									document={doc}
-									useSpecBasedValidator
 									unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
 									createAnalyticsEvent={createAnalyticsEvent}
 								/>
@@ -914,10 +912,7 @@ describe('ValidationContext', () => {
 			const { container } = render(
 				<ValidationContextProvider value={{ skipValidation: true }}>
 					<IntlProvider locale="en">
-						<RendererDefaultComponent
-							document={adfNestedTableData as DocNode}
-							useSpecBasedValidator={true}
-						/>
+						<RendererDefaultComponent document={adfNestedTableData as DocNode} />
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
@@ -930,10 +925,7 @@ describe('ValidationContext', () => {
 			const { container } = render(
 				<ValidationContextProvider value={{ skipValidation: false }}>
 					<IntlProvider locale="en">
-						<RendererDefaultComponent
-							document={adfNestedTableData as DocNode}
-							useSpecBasedValidator={true}
-						/>
+						<RendererDefaultComponent document={adfNestedTableData as DocNode} />
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
@@ -946,10 +938,7 @@ describe('ValidationContext', () => {
 			const { container } = render(
 				<ValidationContextProvider value={{ allowNestedTables: true }}>
 					<IntlProvider locale="en">
-						<RendererDefaultComponent
-							document={adfNestedTableData as DocNode}
-							useSpecBasedValidator={true}
-						/>
+						<RendererDefaultComponent document={adfNestedTableData as DocNode} />
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
@@ -960,10 +949,7 @@ describe('ValidationContext', () => {
 			const { container } = render(
 				<ValidationContextProvider value={{ allowNestedTables: false }}>
 					<IntlProvider locale="en">
-						<RendererDefaultComponent
-							document={adfNestedTableData as DocNode}
-							useSpecBasedValidator={true}
-						/>
+						<RendererDefaultComponent document={adfNestedTableData as DocNode} />
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);

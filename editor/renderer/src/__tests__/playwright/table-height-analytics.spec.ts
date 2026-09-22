@@ -26,7 +26,9 @@ test.describe('table height information analytics', () => {
 	};
 
 	test.use({
+		rendererMountOptions: { allowNestedTables: true },
 		rendererProps: {
+			adfStage: 'stage0',
 			appearance: 'full-page',
 		},
 	});

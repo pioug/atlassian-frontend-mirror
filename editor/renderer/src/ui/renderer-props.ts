@@ -263,7 +263,4 @@ export interface RendererProps {
 	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-26490 Internal documentation for deprecation (no external access)}  This prop has been marked stable and therefore replaced by the `textHighlighter` prop. Please use `textHighlighter` prop instead. */
 	UNSTABLE_textHighlighter?: TextHighlighter;
 	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
-
-	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3649 Internal documentation for deprecation (no external access)} This prop will be removed and set as default enabled, as the same flag on the Editor is also now default enabled. */
-	useSpecBasedValidator?: boolean;
 }

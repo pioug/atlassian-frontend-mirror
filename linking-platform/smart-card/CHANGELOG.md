@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 45.26.0
+
+### Minor Changes
+
+- [`223c7e6ba956b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/223c7e6ba956b) -
+  Add an optional `placement` prop to the hover card, for callers that need the card beside its
+  trigger rather than under the pointer — a row in a list, say, where the default position covers
+  the row being read. Left unset, positioning is unchanged.
+
+  The prop is gated on the `confluence_1p_and_3p_connection_byline_experiment` experiment that
+  introduced it, so it is inert for other callers until that gate is removed.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.25.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.25.0
 
 ### Minor Changes

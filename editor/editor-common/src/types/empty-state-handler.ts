@@ -6,4 +6,5 @@ export type EmptyStateHandlerParams = {
 	mode: string;
 	searchTerm?: string;
 	selectedCategory?: string;
+	showNoResultsMessage?: boolean;
 };

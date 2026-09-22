@@ -57,6 +57,7 @@ export const blockContentGroup: ADFNodeGroup = adfNodeGroup(
 		panel,
 		blockquote,
 		extension.use('with_marks'),
+		extension.use('with_annotation'),
 		embedCard,
 		table,
 		// @ts-expect-error - types don't deal well with circular references for the variant

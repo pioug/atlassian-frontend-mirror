@@ -97,6 +97,7 @@ export interface BlockquoteDefinition {
   content: Array<
     | BulletListDefinition
     | CodeBlockDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | MediaGroupDefinition
     | MediaSingleCaptionDefinition
@@ -115,7 +116,8 @@ export const blockquote: PMNodeSpecFactoryInstance<BlockquoteNode> =
   createPMNodeSpecFactory<BlockquoteNode>({
     content:
       '(paragraph | orderedList | bulletList | unsupportedBlock | codeBlock | mediaSingle | mediaGroup | extension)+',
-    marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    marks:
+      'unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     group: 'block',
     attrs: { localId: { default: null } },
     selectable: true,
@@ -144,6 +146,8 @@ export const blockquoteLegacy: PMNodeSpecFactoryInstance<BlockquoteLegacyNode> =
 export interface BlockTaskItemDefinition {
   type: 'blockTaskItem';
   content: Array<
+    | ExtensionWithAnnotationStage0Definition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | ExtensionWithMarksDefinition
     | ParagraphWithFontSizeDefinition
@@ -161,7 +165,7 @@ export const blockTaskItem: PMNodeSpecFactoryInstance<BlockTaskItemNode> =
   createPMNodeSpecFactory<BlockTaskItemNode>({
     content: '(paragraph | extension) (paragraph | extension)*',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: { localId: { default: '' }, state: { default: 'TODO' } },
     selectable: false,
     defining: true,
@@ -699,6 +703,7 @@ export interface DocDefinition {
     | CodeBlockRootOnlyDefinition
     | ExpandRootOnlyDefinition
     | ExtensionRootOnlyStage0Definition
+    | ExtensionRootOnlyWithAnnotationStage0Definition
     | LayoutSectionDefinition
     | LayoutSectionFullDefinition
     | LayoutSectionWithSingleColumnStage0Definition
@@ -719,7 +724,7 @@ export const doc: PMNodeSpecFactoryInstance<DocNode> =
     content:
       '(block | panel_c1 | codeBlock | panel | panel_c1_root_only | rule | bodiedRule | extension | bodiedExtension | multiBodiedExtension | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
     marks:
-      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment breakout',
+      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment annotation breakout',
   });
 
 export interface EmbedCardDefinition {
@@ -812,6 +817,7 @@ export interface ExpandDefinition {
     | CodeBlockDefinition
     | DecisionListDefinition
     | EmbedCardDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithNoMarksDefinition
     | MediaGroupDefinition
@@ -839,7 +845,7 @@ export const expand: PMNodeSpecFactoryInstance<ExpandNode> =
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
+      'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer annotation',
     group: 'block',
     attrs: {
       title: { default: '' },
@@ -860,6 +866,7 @@ export interface ExpandRootOnlyDefinition {
     | CodeBlockDefinition
     | DecisionListDefinition
     | EmbedCardDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithNoMarksDefinition
     | MediaGroupDefinition
@@ -890,7 +897,7 @@ export const expandRootOnly: PMNodeSpecFactoryInstance<ExpandRootOnlyNode> =
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
+      'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer annotation',
     attrs: {
       title: { default: '' },
       __expanded: { default: true },
@@ -954,6 +961,80 @@ export type ExtensionRootOnlyStage0Node = PMNode &
 
 export const extensionRootOnlyStage0: PMNodeSpecFactoryInstance<ExtensionRootOnlyStage0Node> =
   createPMNodeSpecFactory<ExtensionRootOnlyStage0Node>({
+    atom: true,
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
+
+export interface ExtensionRootOnlyWithAnnotationStage0Definition {
+  type: 'extension';
+  marks: Array<
+    | AnnotationMark
+    | BreakoutMark
+    | DataConsumerMark
+    | FragmentMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'wide' | 'full-width' | 'default';
+    localId?: string;
+  };
+}
+
+export type ExtensionRootOnlyWithAnnotationStage0Node = PMNode &
+  ExtensionRootOnlyWithAnnotationStage0Definition;
+
+export const extensionRootOnlyWithAnnotationStage0: PMNodeSpecFactoryInstance<ExtensionRootOnlyWithAnnotationStage0Node> =
+  createPMNodeSpecFactory<ExtensionRootOnlyWithAnnotationStage0Node>({
+    atom: true,
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
+
+export interface ExtensionWithAnnotationStage0Definition {
+  type: 'extension';
+  marks: Array<
+    | AnnotationMark
+    | DataConsumerMark
+    | FragmentMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'wide' | 'full-width' | 'default';
+    localId?: string;
+  };
+}
+
+export type ExtensionWithAnnotationStage0Node = PMNode &
+  ExtensionWithAnnotationStage0Definition;
+
+export const extensionWithAnnotationStage0: PMNodeSpecFactoryInstance<ExtensionWithAnnotationStage0Node> =
+  createPMNodeSpecFactory<ExtensionWithAnnotationStage0Node>({
+    group: 'block',
     atom: true,
     attrs: {
       extensionKey: { default: '' },
@@ -1304,7 +1385,7 @@ export const layoutColumn: PMNodeSpecFactoryInstance<LayoutColumnNode> =
   createPMNodeSpecFactory<LayoutColumnNode>({
     content: '(block | panel_c1 | unsupportedBlock)+',
     marks:
-      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment',
+      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment annotation',
     attrs: {
       width: { default: undefined },
       localId: { default: null },
@@ -1385,6 +1466,7 @@ export interface ListItemDefinition {
   content: Array<
     | BulletListDefinition
     | CodeBlockDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | MediaSingleCaptionDefinition
     | MediaSingleFullDefinition
@@ -1405,7 +1487,7 @@ export const listItem: PMNodeSpecFactoryInstance<ListItemNode> =
     content:
       '(paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)+',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: { localId: { default: null } },
     selectable: false,
     defining: true,
@@ -1894,6 +1976,7 @@ export interface NestedExpandDefinition {
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithNoMarksDefinition
     | MediaGroupDefinition
@@ -1919,7 +2002,7 @@ export const nestedExpand: PMNodeSpecFactoryInstance<NestedExpandNode> =
     content:
       '(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | bodiedRule | panel | blockquote | unsupportedBlock | extension)+',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: {
       title: { default: '' },
       __expanded: { default: true },
@@ -1974,6 +2057,7 @@ export interface PanelDefinition {
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithNoMarksDefinition
     | MediaGroupDefinition
@@ -2012,7 +2096,7 @@ export const panel: PMNodeSpecFactoryInstance<PanelNode> =
     content:
       '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     group: 'block',
     attrs: {
       panelType: { default: 'info' },
@@ -2033,6 +2117,7 @@ export interface PanelC1RootOnlyStage0Definition {
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithNoMarksDefinition
     | MediaGroupDefinition
@@ -2075,7 +2160,7 @@ export const panelC1RootOnlyStage0: PMNodeSpecFactoryInstance<PanelC1RootOnlySta
     content:
       '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension | table)+',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: {
       panelType: { default: 'info' },
       panelIcon: { default: null },
@@ -2095,6 +2180,7 @@ export interface PanelC1Stage0Definition {
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithNoMarksDefinition
     | MediaGroupDefinition
@@ -2134,7 +2220,7 @@ export const panelC1Stage0: PMNodeSpecFactoryInstance<PanelC1Stage0Node> =
     content:
       '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension | table)+',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     group: 'block',
     attrs: {
       panelType: { default: 'info' },
@@ -2155,6 +2241,7 @@ export interface PanelRootOnlyStage0Definition {
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithNoMarksDefinition
     | MediaGroupDefinition
@@ -2195,7 +2282,7 @@ export const panelRootOnlyStage0: PMNodeSpecFactoryInstance<PanelRootOnlyStage0N
     content:
       '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
     marks:
-      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: {
       panelType: { default: 'info' },
       panelIcon: { default: null },
@@ -2547,6 +2634,7 @@ export interface TableCellDefinition {
     | CodeBlockDefinition
     | DecisionListDefinition
     | EmbedCardDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithAlignmentDefinition
     | HeadingWithIndentationDefinition
@@ -2582,7 +2670,7 @@ export const tableCell: PMNodeSpecFactoryInstance<TableCellNode> =
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
     marks:
-      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: {
       colspan: { default: 1 },
       rowspan: { default: 1 },
@@ -2606,6 +2694,7 @@ export interface TableCellWithNestedTableDefinition {
     | CodeBlockDefinition
     | DecisionListDefinition
     | EmbedCardDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithAlignmentDefinition
     | HeadingWithIndentationDefinition
@@ -2643,7 +2732,7 @@ export const tableCellWithNestedTable: PMNodeSpecFactoryInstance<TableCellWithNe
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
     marks:
-      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: {
       colspan: { default: 1 },
       rowspan: { default: 1 },
@@ -2667,6 +2756,7 @@ export interface TableHeaderDefinition {
     | CodeBlockDefinition
     | DecisionListDefinition
     | EmbedCardDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithAlignmentDefinition
     | HeadingWithIndentationDefinition
@@ -2702,7 +2792,7 @@ export const tableHeader: PMNodeSpecFactoryInstance<TableHeaderNode> =
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
     marks:
-      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: {
       colspan: { default: 1 },
       rowspan: { default: 1 },
@@ -2726,6 +2816,7 @@ export interface TableHeaderWithNestedTableDefinition {
     | CodeBlockDefinition
     | DecisionListDefinition
     | EmbedCardDefinition
+    | ExtensionWithAnnotationStage0Definition
     | ExtensionWithMarksDefinition
     | HeadingWithAlignmentDefinition
     | HeadingWithIndentationDefinition
@@ -2763,7 +2854,7 @@ export const tableHeaderWithNestedTable: PMNodeSpecFactoryInstance<TableHeaderWi
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
     marks:
-      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
     attrs: {
       colspan: { default: 1 },
       rowspan: { default: 1 },

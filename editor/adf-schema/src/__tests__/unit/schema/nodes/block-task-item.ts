@@ -22,7 +22,7 @@ describe(`${packageName}/schema blockTaskItem node`, () => {
 			},
 			content: '(paragraph | extension) (paragraph | extension)*',
 			defining: true,
-			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),

@@ -51,14 +51,8 @@ import {
 	RendererEmbedCardRequestAccessDeniedRequestExists,
 	RendererEmbedCardForbiddenRequestApprovedRequestExists,
 	RendererEmbedCardRequestAccessAccessExists,
-	RendererInlineCardXSS,
-	RendererBlockCardXSS,
-	RendererEmbedCardXSS,
 } from './card.fixtures.vr.ap';
 
-snapshotInformational(RendererInlineCardXSS, {
-	featureFlags: {},
-});
 snapshotInformational(RendererInlineCard, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-resolved-view').waitFor({ state: 'visible' });
@@ -109,9 +103,6 @@ snapshotInformational(RendererBlockCard, {
 		platform_ssr_smartlink_cards: [true, false],
 	},
 });
-snapshotInformational(RendererBlockCardXSS, {
-	featureFlags: {},
-});
 snapshotInformational(RendererBlockCardResolving, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-resolving-view').waitFor({ state: 'visible' });
@@ -159,9 +150,6 @@ snapshotInformational(RendererEmbedCard, {
 			state: 'hovered',
 		},
 	],
-	featureFlags: {},
-});
-snapshotInformational(RendererEmbedCardXSS, {
 	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardWide, {

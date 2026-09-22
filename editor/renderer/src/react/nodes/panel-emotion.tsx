@@ -241,7 +241,6 @@ export const PanelStyledEmotion: {
 					fg('platform_editor_nest_table_in_panel_patch_3') &&
 					panelBackgroundColorVariableStyles,
 				expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
-					fg('platform_editor_nest_table_in_panel_patch_2') &&
 					panelInfoIconStyles,
 				!hasIcon && panelHasNoIconStyles,
 				props['data-panel-type'] === PanelType.CUSTOM && backgroundColor && panelCustomBackground,

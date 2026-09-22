@@ -61,12 +61,19 @@ const isExpand = isType('expand');
 
 const isNestedExpand = isType('nestedExpand');
 
+const isExtensionNode = isType('extension');
+
 const isUnsupportedNode = (node: PMNode) =>
 	isType('unsupportedBlock')(node) || isType('unsupportedInline')(node);
 
 const isDataConsumer = isType('dataConsumer');
 
 const isFragmentMark = isType('fragment');
+
+const isAnnotationMark = isType('annotation');
+
+const isAllowedNodeForAnnotation = (node: PMNode) =>
+	!node.type.isBlock || isMediaNode(node) || isExtensionNode(node);
 
 const isHardBreak = isType('hardBreak');
 
@@ -190,7 +197,9 @@ export const toJSON = (node: PMNode, mentionMap?: Record<string, string | undefi
 		// Run any custom mark serialisers
 		const parsedMarks = node.marks
 			.map((mark) => {
-				if (isUnsupportedMark(mark)) {
+				if (isAnnotationMark(mark) && !isAllowedNodeForAnnotation(node)) {
+					return null;
+				} else if (isUnsupportedMark(mark)) {
 					return canOverrideMark(mark, node.marks) ? null : mark.attrs.originalValue;
 				} else if (isUnsupportedNodeAttributeMark(mark)) {
 					return null;

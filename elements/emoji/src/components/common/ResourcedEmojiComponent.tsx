@@ -9,7 +9,6 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } fro
 import { css, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -248,27 +247,12 @@ export const ResourcedEmojiComponent = ({
 		}
 	}, [emojiId]);
 
-	// Fetching from `useMemo` runs during render, so a render React later discards (for example a
-	// pass that suspends) still creates a promise whose callbacks set state and schedule yet another
-	// render. The layout effect only runs for committed renders, and being pre-paint it keeps the
-	// synchronous cache-hit path from flashing the placeholder.
-	useMemo(() => {
-		if (
-			!resolvedEmojiProvider ||
-			!emojiId ||
-			isExperimentEnabled('platform_emoji_fetch_in_effect')
-		) {
-			return;
-		}
-		fetchOrGetEmoji(resolvedEmojiProvider, emojiId, optimistic);
-	}, [resolvedEmojiProvider, emojiId, optimistic, fetchOrGetEmoji]);
-
+	// Fetching during render means a render React later discards (for example a pass that suspends)
+	// still creates a promise whose callbacks set state and schedule yet another render. This layout
+	// effect only runs for committed renders, and being pre-paint it keeps the synchronous cache-hit
+	// path from flashing the placeholder.
 	useLayoutEffect(() => {
-		if (
-			!resolvedEmojiProvider ||
-			!emojiId ||
-			!isExperimentEnabled('platform_emoji_fetch_in_effect')
-		) {
+		if (!resolvedEmojiProvider || !emojiId) {
 			return;
 		}
 		fetchOrGetEmoji(resolvedEmojiProvider, emojiId, optimistic);

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-text-color
 
+## 19.0.5
+
+### Patch Changes
+
+- [`590b6a2adcf09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/590b6a2adcf09) -
+  Render the text color palette's label as a non-heading element behind
+  platform_editor_a11y_color_palette_radiogroup, so it no longer reports an out-of-order heading
+  level inside the toolbar menu
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.3
 
 ### Patch Changes

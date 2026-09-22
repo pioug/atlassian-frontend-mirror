@@ -157,5 +157,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "29.2.4"
+	"version": "29.2.6"
 }

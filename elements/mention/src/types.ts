@@ -7,6 +7,7 @@ import { type ServiceConfig } from '@atlaskit/util-service-support/types';
 export interface MentionNodeData {
 	appType?: string | null;
 	avatarUrl?: string;
+	isRovoChat?: boolean;
 	/** The image already contains its intended user/agent shape and must not be clipped again. */
 	isAvatarImagePreShaped?: boolean;
 }
@@ -228,6 +229,8 @@ export interface MentionProvider
 		contextIdentifier?: MentionContextIdentifier,
 	): void;
 	shouldHighlightMention(mention: MentionDescription): boolean;
+	/** Optional async identity for the product's default Rovo Chat agent. */
+	getRovoChatAgentIdentityAccountId?(): Promise<string | undefined>;
 	/**
 	 * Optional. When implemented, lets the rendering surface subscribe to
 	 * changes in the disabled-state predicate so already-rendered chips can

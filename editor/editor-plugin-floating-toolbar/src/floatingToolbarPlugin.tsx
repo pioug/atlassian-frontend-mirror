@@ -361,6 +361,7 @@ export function ContentComponent({
 		getDomRef = getDomRefFromSelection,
 		align = 'center',
 		className = '',
+		containerSurface,
 		height,
 		width,
 		zIndex,
@@ -542,6 +543,7 @@ export function ContentComponent({
 								editorView={editorView}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={className}
+								containerSurface={containerSurface}
 								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								focusEditor={() => editorView.focus()}
 								providerFactory={providerFactory}

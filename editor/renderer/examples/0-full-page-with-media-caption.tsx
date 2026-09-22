@@ -12,7 +12,6 @@ const Example = (): React.JSX.Element => {
 			serializer="react"
 			allowHeadingAnchorLinks
 			allowColumnSorting={true}
-			useSpecBasedValidator={true}
 			adfStage={'stage0'}
 			schema={getSchemaBasedOnStage('stage0')}
 			mediaOptions={{ allowCaptions: true }}

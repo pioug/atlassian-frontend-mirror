@@ -6,6 +6,8 @@ import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardStore } from '@atlaskit/linking-common/store';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import '@atlaskit/link-test-helpers/jest';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
@@ -168,6 +170,40 @@ describe('standalone hover card', () => {
 		const { container } = render(<SetUp />);
 
 		await expect(container).toBeAccessible();
+	});
+
+	describe('placement', () => {
+		it('should open the card below the pointer when no placement is given', async () => {
+			await standaloneSetUp();
+
+			expect(await screen.findByTestId('hover-card')).toHaveAttribute(
+				'data-placement',
+				'bottom-start',
+			);
+		});
+
+		it('should open the card at the given placement when the experiment is enabled', async () => {
+			mockExpEnabled('confluence_1p_and_3p_connection_byline_experiment');
+
+			await standaloneSetUp(undefined, { placement: 'left-start' });
+
+			// jsdom gives the trigger no size, so popper flips to whichever side has room. What the
+			// placement buys is a card beside the trigger instead of one over it, so assert the axis
+			// rather than the side it lands on.
+			const card = await screen.findByTestId('hover-card');
+			expect(card.getAttribute('data-placement')).toMatch(/^(left|right)-start$/);
+		});
+
+		it('should ignore the given placement when the experiment is disabled', async () => {
+			mockExpDisabled('confluence_1p_and_3p_connection_byline_experiment');
+
+			await standaloneSetUp(undefined, { placement: 'left-start' });
+
+			expect(await screen.findByTestId('hover-card')).toHaveAttribute(
+				'data-placement',
+				'bottom-start',
+			);
+		});
 	});
 
 	it('should apply accessibility props to the hover card', async () => {

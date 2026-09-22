@@ -58,6 +58,9 @@
 			"path": "../../design-system/code/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-card-provider/tsconfig.app.json"
 		},
 		{

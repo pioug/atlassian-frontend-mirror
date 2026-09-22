@@ -1,4 +1,5 @@
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
+import { ASK_ROVO_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type {
 	MenuItemMatchContext,
 	RegisterComponent,
@@ -18,6 +19,7 @@ export type RegistryElementBrowserItem = {
 };
 
 export type RegistryElementBrowserModel = {
+	fallbackItems?: RegistryElementBrowserItem[];
 	items: RegistryElementBrowserItem[];
 	sections: RegistryElementBrowserSection[];
 };
@@ -108,8 +110,16 @@ export const createRegistryElementBrowserModel = (
 		);
 	});
 
+	const items = [...itemByKey.values()].sort((left, right) =>
+		compareRanks(left.ranks, right.ranks),
+	);
+	const fallbackItems = items.filter(
+		({ registration }) => registration.key === ASK_ROVO_MENU_ITEM.key,
+	);
+
 	return {
-		items: [...itemByKey.values()].sort((left, right) => compareRanks(left.ranks, right.ranks)),
+		fallbackItems: fallbackItems.length > 0 ? fallbackItems : undefined,
+		items,
 		sections,
 	};
 };

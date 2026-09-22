@@ -81,7 +81,7 @@ describe('utils', () => {
 		it.each([
 			['00000000', 3],
 			['00000001', 4],
-			['00000002', 2],
+			['00000002', 8],
 			['00000003', 1],
 		] as const)('maps agent identity %s to participant colour %d', (agentId, index) => {
 			expect(getParticipantColor(agentId, 'convo-ai')).toMatchObject({ index });

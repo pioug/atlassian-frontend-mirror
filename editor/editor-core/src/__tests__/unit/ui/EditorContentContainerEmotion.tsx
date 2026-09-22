@@ -5,7 +5,6 @@ import { render, screen } from '@testing-library/react';
 import { BaseTheme } from '@atlaskit/editor-common/ui';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
@@ -85,6 +84,22 @@ describe('Editor Content styles', () => {
 		});
 	});
 
+	it('uses a CSS escape for mention zero-width-space helpers', () => {
+		render(
+			<EditorContentContainerEmotion appearance="full-page" viewMode="edit">
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Mention node view class is required to exercise its helper style. */}
+				<div className="mentionNodeViewAddZeroWidthSpace" data-testid="mention-helper" />
+			</EditorContentContainerEmotion>,
+		);
+
+		expect(screen.getByTestId('mention-helper')).toBeInTheDocument();
+		const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
+			.map((style) => style.textContent)
+			.join('');
+
+		expect(emotionStyles).toMatch(/\.mentionNodeViewAddZeroWidthSpace::?after\{content:'\\200B'/u);
+	});
+
 	describe('platform_editor_table_css_overflow_shadow: enabled', () => {
 		it('renders the table overflow shadow styles from the editor content container', () => {
 			mockExpEnabled('platform_editor_table_css_overflow_shadow');
@@ -144,50 +159,39 @@ describe('Editor Content styles', () => {
 		});
 	});
 
-	eeTest
-		.describe('editor_tinymce_full_width_mode', 'when max width mode feature is enabled')
-		.variant(true, () => {
-			eeTest
-				.describe(
-					'confluence_max_width_content_appearance',
-					'when max width mode feature is enabled',
-				)
-				.variant(true, () => {
-					describe('max width editor', () => {
-						it('should render scroll container styles in new editor styles', async () => {
-							render(
-								<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
-									<EditorContentContainerEmotion
-										appearance="max"
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-										className="fabric-editor-popup-scroll-parent"
-										viewMode={'edit'}
-										isScrollable
-									>
-										<div data-testid="child-component">Full page</div>
-									</EditorContentContainerEmotion>
-								</BaseTheme>,
-							);
+	describe('max width editor', () => {
+		it('should render scroll container styles in new editor styles', async () => {
+			render(
+				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
+					<EditorContentContainerEmotion
+						appearance="max"
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						className="fabric-editor-popup-scroll-parent"
+						viewMode={'edit'}
+						isScrollable
+					>
+						<div data-testid="child-component">Full page</div>
+					</EditorContentContainerEmotion>
+				</BaseTheme>,
+			);
 
-							const results = screen.getByTestId('editor-content-container');
-							expect(results).toBeInTheDocument();
-							expect(results).toHaveCompiledCss({
-								flexGrow: '1',
-								height: '100%',
-								overflowY: 'scroll',
-								position: 'relative',
-								display: 'flex',
-								flexDirection: 'column',
-								scrollBehavior: 'smooth',
-								// style from scrollbarStyles
-								'-ms-overflow-style': '-ms-autohiding-scrollbar',
-							});
+			const results = screen.getByTestId('editor-content-container');
+			expect(results).toBeInTheDocument();
+			expect(results).toHaveCompiledCss({
+				flexGrow: '1',
+				height: '100%',
+				overflowY: 'scroll',
+				position: 'relative',
+				display: 'flex',
+				flexDirection: 'column',
+				scrollBehavior: 'smooth',
+				// style from scrollbarStyles
+				'-ms-overflow-style': '-ms-autohiding-scrollbar',
+			});
 
-							await expect(document.body).toBeAccessible();
-						});
-					});
-				});
+			await expect(document.body).toBeAccessible();
 		});
+	});
 
 	describe('comment editor', () => {
 		it('should render comment specific styles in new editor styles', async () => {

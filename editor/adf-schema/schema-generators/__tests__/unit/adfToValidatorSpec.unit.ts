@@ -82,6 +82,7 @@ const panel = {
 					'bodiedRule',
 					'decisionList',
 					'extension_with_marks',
+					'extension_with_annotation',
 				],
 			],
 			minItems: 1,

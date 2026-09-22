@@ -43,7 +43,6 @@ import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box } from '@atlaskit/primitives/compiled';
 import { ReactRenderer } from '@atlaskit/renderer';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
@@ -359,12 +358,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 
 	private setFullWidthMode = (appearance: 'full-page' | 'full-width' | 'max') => {
 		this.setState({
-			appearance:
-				appearance === 'max' &&
-				!expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
-				!expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-					? 'full-width'
-					: appearance,
+			appearance,
 		});
 	};
 

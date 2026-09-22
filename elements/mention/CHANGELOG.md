@@ -1,5 +1,19 @@
 # @atlaskit/mention
 
+## 29.2.6
+
+### Patch Changes
+
+- [`90cc9e3c7fc0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90cc9e3c7fc0c) -
+  Support gated dark-background styling for the configured Rovo Chat agent mention in editors and
+  the renderer.
+
+## 29.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.2.4
 
 ### Patch Changes

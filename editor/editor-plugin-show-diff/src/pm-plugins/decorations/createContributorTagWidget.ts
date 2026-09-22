@@ -9,7 +9,11 @@ import type { ShowDiffPlugin } from '../../showDiffPluginType';
 import { ContributorTagController } from '../../ui/ContributorTag/contributorTagController';
 import { buildCharsByOffset, isWhitespaceChar } from '../utils/charsByOffset';
 import { clampAnchorPosIntoCell } from './createAnchorDecorationWidgets';
-import { buildContributorTagDecorationSpec } from './decorationKeys';
+import {
+	AnchorTypeKey,
+	buildAnchorDecorationKey,
+	buildContributorTagDecorationSpec,
+} from './decorationKeys';
 
 /** Marks the host element of one tag, so a tag can be found in the document by its own diff. */
 export const CONTRIBUTOR_TAG_HOST_ATTRIBUTE = 'data-contributor-tag-host';
@@ -187,13 +191,12 @@ const resolveTagAnchorPos = (doc: PMNode, from: number, to: number): number => {
 };
 
 /**
- * The position just before the code block enclosing `pos`, or `undefined` when nothing does.
+ * Position just before the code block enclosing `pos`, or `undefined` if there is none.
  *
- * `.code-block-content-wrapper` hides its block-axis overflow, so a host left inside the code has
- * its tag clipped away. Hosting it before the block puts the tag on the block's top-left corner,
- * where a whole-code-block change is tagged too (EDITOR-8766).
+ * Code blocks clip/scroll their own content, so a tag hosted inside one gets clipped away. Hoisting
+ * it before the block avoids that (EDITOR-9045, EDITOR-8766).
  */
-const resolveCodeBlockStart = (doc: PMNode, pos: number): number | undefined => {
+export const resolveCodeBlockStart = (doc: PMNode, pos: number): number | undefined => {
 	const $pos = doc.resolve(pos);
 
 	for (let depth = $pos.depth; depth > 0; depth--) {
@@ -206,9 +209,39 @@ const resolveCodeBlockStart = (doc: PMNode, pos: number): number | undefined => 
 };
 
 /**
- * A widget hosting the contributor tag of one diff range, placed on the first visible character the
- * range highlights — or, with `anchorAtRangeStart`, at `from` itself. Either way a host that would
- * land inside a code block is hoisted out in front of it; see `resolveCodeBlockStart`.
+ * If `pos` is inside a code block: a marker decoration to anchor the hoisted tag against, plus the
+ * position just before the block to host that tag at (EDITOR-9045).
+ */
+export const resolveHoistedCodeBlockAnchor = (
+	doc: PMNode,
+	pos: number,
+	diffId: string,
+): { anchorName: string; codeBlockStart: number; marker: Decoration } | undefined => {
+	const codeBlockStart = resolveCodeBlockStart(doc, pos);
+	if (codeBlockStart === undefined) {
+		return undefined;
+	}
+
+	const anchorName = buildAnchorDecorationKey({ diffId, anchorType: AnchorTypeKey.tag });
+	const marker = Decoration.widget(
+		pos,
+		() => {
+			const el = document.createElement('span');
+			el.style.setProperty('anchor-name', `--${anchorName}`);
+			return el;
+		},
+		{ key: `contributor-tag-anchor-${diffId}`, side: -1, marks: [], ignoreSelection: true },
+	);
+
+	return { anchorName, codeBlockStart, marker };
+};
+
+/**
+ * The contributor tag widget for one diff range, placed on the first visible character the range
+ * highlights — or, with `anchorAtRangeStart`, at `from` itself. A host inside a code block is
+ * hoisted in front of it instead, anchored via `resolveHoistedCodeBlockAnchor` (EDITOR-9045).
+ *
+ * Returns one decoration normally, two (marker + tag) when hoisted out of a code block.
  *
  * The tag is mounted in `toDOM` and taken down in `destroy`, so it lives exactly as long as the host
  * element ProseMirror drew it into — see `mountContributorTag`.
@@ -229,8 +262,8 @@ export const createContributorTagWidget = ({
 	anchorAtRangeStart?: boolean;
 	/**
 	 * The `anchor-name` the block's own decoration carries, so the tag positions against that box
-	 * rather than against its host — the block's margin and padding are then the browser's to
-	 * resolve, and the tag sits on the same corner for every node type (EDITOR-8933).
+	 * rather than against its host (EDITOR-8933). Ignored inside a code block, which anchors to its
+	 * own marker instead.
 	 */
 	anchorName?: string;
 	diffId: string;
@@ -238,41 +271,53 @@ export const createContributorTagWidget = ({
 	from: number;
 	mountContext?: ContributorTagMountContext;
 	to: number;
-}): Decoration | undefined => {
+}): Decoration[] | undefined => {
 	if (!isContributorTagWidgetEnabled()) {
 		return undefined;
 	}
-
-	const tagAnchorName = anchorName && supportsAnchorPositioning() ? anchorName : undefined;
 
 	// Reassigned when ProseMirror redraws this decoration, which it may do more than once for the
 	// same `Decoration` instance.
 	let mount: ContributorTagMount | undefined;
 
 	const anchorPos = anchorAtRangeStart ? from : resolveTagAnchorPos(doc, from, to);
-	// A change inside a code block is hoisted out of it; anything else keeps its own anchor.
-	const codeBlockPos = resolveCodeBlockStart(doc, anchorPos);
+	// A change inside a code block is hoisted out of it, anchored to its own marker; anything else
+	// keeps its own anchor.
+	const hoisted = resolveHoistedCodeBlockAnchor(doc, anchorPos, diffId);
 
-	return Decoration.widget(
-		// Keep the host out of the table row's grid (EDITOR-8442).
-		clampAnchorPosIntoCell(doc, codeBlockPos ?? anchorPos, 1),
-		() => {
-			const host = buildContributorTagHost(diffId, tagAnchorName);
-			mount = mountContributorTag({ anchorName: tagAnchorName, diffId, host, mountContext });
-			return host;
-		},
-		{
-			...buildContributorTagDecorationSpec(diffId),
-			side: 1,
-			// The tag is chrome: it inherits no surrounding mark, and its own events are not the
-			// document's to handle.
-			marks: [],
-			ignoreSelection: true,
-			stopEvent: () => true,
-			destroy: () => {
-				unmountContributorTag(mount);
-				mount = undefined;
+	const effectiveAnchorName = hoisted?.anchorName ?? anchorName;
+	const tagAnchorName =
+		effectiveAnchorName && supportsAnchorPositioning() ? effectiveAnchorName : undefined;
+
+	const decorations: Decoration[] = [];
+	if (hoisted) {
+		decorations.push(hoisted.marker);
+	}
+
+	decorations.push(
+		Decoration.widget(
+			// Keep the host out of the table row's grid (EDITOR-8442).
+			clampAnchorPosIntoCell(doc, hoisted?.codeBlockStart ?? anchorPos, 1),
+			() => {
+				const host = buildContributorTagHost(diffId, tagAnchorName);
+				mount = mountContributorTag({ anchorName: tagAnchorName, diffId, host, mountContext });
+				return host;
 			},
-		},
+			{
+				...buildContributorTagDecorationSpec(diffId),
+				side: 1,
+				// The tag is chrome: it inherits no surrounding mark, and its own events are not the
+				// document's to handle.
+				marks: [],
+				ignoreSelection: true,
+				stopEvent: () => true,
+				destroy: () => {
+					unmountContributorTag(mount);
+					mount = undefined;
+				},
+			},
+		),
 	);
+
+	return decorations;
 };

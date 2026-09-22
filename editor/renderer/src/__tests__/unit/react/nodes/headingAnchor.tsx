@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
@@ -169,3 +170,43 @@ describe('Heading Anchor', () => {
 		});
 	});
 });
+
+describe.each([false, true])(
+	'heading target size with copy-link accessibility experiment %s',
+	(copyLinkA11y) => {
+		beforeEach(() => {
+			setupEditorExperiments('test', {
+				platform_editor_copy_link_a11y_inconsistency_fix: copyLinkA11y,
+			});
+		});
+
+		it.each([1, 2, 3, 4, 5, 6])('provides a 24px target and copies H%s links', async (level) => {
+			mockExpEnabled('platform_editor_heading_link_target_size');
+			const onCopyText = jest.fn().mockResolvedValue(undefined);
+			renderWithIntl(<HeadingAnchor level={level} onCopyText={onCopyText} />);
+			const button = screen.getByRole('button');
+			expect(button).toHaveCompiledCss('width', '24px');
+			expect(button).toHaveCompiledCss('height', '24px');
+			const wrapper = button.closest('.heading-anchor-wrapper');
+			expect(wrapper).toHaveCompiledCss('width', '24px');
+			expect(wrapper).toHaveCompiledCss('height', '24px');
+			expect(wrapper).toHaveCompiledCss('vertical-align', 'middle');
+			const iconWrapper = screen.getByTestId('scaled-link-icon');
+			expect(iconWrapper).toHaveCompiledCss('transform', 'scale(1.5)');
+			await userEvent.click(button);
+			expect(onCopyText).toHaveBeenCalledTimes(1);
+		});
+
+		it('preserves the original sizing when the target-size experiment is disabled', () => {
+			mockExpDisabled('platform_editor_heading_link_target_size');
+			renderWithIntl(<HeadingAnchor level={6} onCopyText={jest.fn()} />);
+			const button = screen.getByRole('button');
+			expect(button).not.toHaveCompiledCss('width', '24px');
+			expect(button).not.toHaveCompiledCss('height', '24px');
+			const wrapper = button.closest('.heading-anchor-wrapper');
+			expect(wrapper).not.toHaveCompiledCss('width', '24px');
+			expect(wrapper).not.toHaveCompiledCss('height', '24px');
+			expect(button).toHaveStyleDeclaration('display', 'inline');
+		});
+	},
+);

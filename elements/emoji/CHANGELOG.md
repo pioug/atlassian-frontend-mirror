@@ -1,5 +1,20 @@
 # @atlaskit/emoji
 
+## 72.4.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.4.13
+
+### Patch Changes
+
+- [`c03298c2e2f68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c03298c2e2f68) -
+  Cleanup `experiment` `platform_emoji_fetch_in_effect`. `ResourcedEmoji` now always fetches its
+  emoji from a layout effect instead of during render, so only committed renders fetch and discarded
+  renders (for example a pass that suspends) no longer trigger emoji provider lookups.
+
 ## 72.4.12
 
 ### Patch Changes

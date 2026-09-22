@@ -124,6 +124,7 @@ type RendererPropsOptional = Omit<
 	'document' | 'dataProviders'
 >;
 type MountRendererOptions = {
+	allowNestedTables?: boolean;
 	enableClickToEdit?: boolean;
 	mockInlineComments?: boolean;
 	showSidebar?: boolean;

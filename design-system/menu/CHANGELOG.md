@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 11.0.1
+
+### Patch Changes
+
+- [`a65dbad408fc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a65dbad408fc4) -
+  `CustomItem` is now marked as deprecated. It will be removed in a future release. `className`
+  props on menu items are also now marked as deprecated. Style overrides for menu items are not
+  supported and these props will be removed in a future release.
+
 ## 11.0.0
 
 ### Major Changes

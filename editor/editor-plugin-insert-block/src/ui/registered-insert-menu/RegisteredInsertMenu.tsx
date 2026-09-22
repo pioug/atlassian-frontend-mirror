@@ -1,4 +1,4 @@
-import React, { useCallback, useId, useMemo, useState } from 'react';
+import React, { useCallback, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
 import { TYPE_AHEAD_SURFACE_CONTEXT } from '@atlaskit/editor-common/type-ahead-surface-context';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
@@ -45,6 +46,7 @@ const styles = cssMap({
 type Props = {
 	components: RegisterComponent[];
 	editorView: EditorView;
+	emptyStateHandler?: EmptyStateHandler;
 	isOffline: boolean;
 	onClose: () => void;
 	onSelect: () => void;
@@ -52,6 +54,7 @@ type Props = {
 
 export const RegisteredInsertMenu = ({
 	components,
+	emptyStateHandler,
 	editorView,
 	isOffline,
 	onClose,
@@ -63,6 +66,7 @@ export const RegisteredInsertMenu = ({
 	const [query, setQuery] = useState('');
 	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 	const [renderedItems, setRenderedItems] = useState({ startIndex: -1, stopIndex: -1 });
+	const searchRef = useRef<HTMLInputElement>(null);
 	const surfaceContext = useMemo(
 		() => createSurfaceContext(TYPE_AHEAD_SURFACE_CONTEXT, { menuOpenId }),
 		[menuOpenId],
@@ -92,9 +96,25 @@ export const RegisteredInsertMenu = ({
 	const itemCount = useMemo(
 		() =>
 			model.sections.reduce((count, [, ...items]) => count + items.length, 0) +
+			(model.fallbackItems?.length ?? 0) +
 			(model.footer ? 1 : 0),
-		[model.footer, model.sections],
+		[model.fallbackItems, model.footer, model.sections],
 	);
+	const selectableItemKeys = useMemo(
+		() =>
+			[
+				...model.sections.flatMap(([, ...items]) => items),
+				...(model.fallbackItems ?? []),
+				model.footer,
+			]
+				.filter((item): item is NonNullable<typeof item> => Boolean(item))
+				.map(({ key }) => key)
+				.join(','),
+		[model.fallbackItems, model.footer, model.sections],
+	);
+	useLayoutEffect(() => {
+		setSelectedItemIndex(itemCount > 0 ? 0 : -1);
+	}, [itemCount, query, selectableItemKeys]);
 	const isActiveItemMounted =
 		selectedItemIndex >= 0 &&
 		selectedItemIndex < itemCount &&
@@ -121,6 +141,19 @@ export const RegisteredInsertMenu = ({
 	}, []);
 	const onKeyDown = useCallback(
 		(event: React.KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				event.preventDefault();
+				onClose();
+				return;
+			}
+
+			// The search field owns the composite's arrow-key and Enter behaviour. Other
+			// focusable controls, including consumer-provided empty-state content, need
+			// to retain their native keyboard behaviour.
+			if (event.target !== searchRef.current) {
+				return;
+			}
+
 			switch (event.key) {
 				case 'ArrowDown':
 					event.preventDefault();
@@ -134,10 +167,6 @@ export const RegisteredInsertMenu = ({
 					event.preventDefault();
 					selectActiveItem();
 					break;
-				case 'Escape':
-					event.preventDefault();
-					onClose();
-					break;
 			}
 		},
 		[onClose, selectActiveItem, selectNextItem, selectPreviousItem],
@@ -145,7 +174,7 @@ export const RegisteredInsertMenu = ({
 
 	return (
 		<Box
-			data-registered-insert-menu=""
+			data-keyboard-navigation-independent=""
 			testId="registered-insert-menu"
 			onKeyDownCapture={onKeyDown}
 			xcss={styles.menu}
@@ -157,6 +186,7 @@ export const RegisteredInsertMenu = ({
 					aria-expanded="true"
 					autoFocus
 					placeholder="Search"
+					ref={searchRef}
 					role="combobox"
 					value={query}
 					onChange={onQueryChange}
@@ -164,6 +194,7 @@ export const RegisteredInsertMenu = ({
 			</Box>
 			<RegisteredInsertMenuList
 				editorView={editorView}
+				emptyStateHandler={emptyStateHandler}
 				isOffline={isOffline}
 				listId={listId}
 				listLabel={formatMessage(messages.insertMenu)}
@@ -173,6 +204,7 @@ export const RegisteredInsertMenu = ({
 				onClose={onSelect}
 				onItemHover={setSelectedItemIndex}
 				onRenderedItemsChange={setRenderedItems}
+				query={query}
 				selectedItemIndex={selectedItemIndex}
 				surfaceContext={surfaceContext}
 			/>

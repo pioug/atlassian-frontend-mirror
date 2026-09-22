@@ -40,7 +40,10 @@ export const TypeAheadMenuRenderer = ({
 }: Props): React.JSX.Element | null => {
 	const intl = useIntl();
 	const listRef = useRef<List | null>(null);
-	const rows = useMemo(() => model.sections.flat(), [model.sections]);
+	const rows = useMemo(
+		() => [...model.sections.flat(), ...(model.fallbackItems ?? [])],
+		[model.fallbackItems, model.sections],
+	);
 	const cache = useMemo(
 		() => new CellMeasurerCache({ defaultHeight: ESTIMATED_ROW_HEIGHT, fixedWidth: true }),
 		[],
@@ -104,17 +107,16 @@ export const TypeAheadMenuRenderer = ({
 
 	const RootComponent = model.root.component ?? PassThrough;
 	const listMaxHeight = Math.max(0, maxHeight - (model.footer ? MENU_FOOTER_HEIGHT : 0));
+	const hasListboxContent = rows.length > 0 || model.footer !== undefined;
 
 	return (
 		<RootComponent>
-			<Box aria-label={intl.formatMessage(listLabel)} id={listId} role="listbox">
-				{rows.length === 0 ? (
-					<Box paddingBlock="space.150" paddingInline="space.250">
-						<Text align="center" as="p">
-							{intl.formatMessage(typeAheadListMessages.emptySearchResults)}
-						</Text>
-					</Box>
-				) : (
+			<Box
+				aria-label={hasListboxContent ? intl.formatMessage(listLabel) : undefined}
+				id={listId}
+				role={hasListboxContent ? 'listbox' : undefined}
+			>
+				{rows.length > 0 ? (
 					<List
 						containerRole="presentation"
 						height={Math.min(rows.length * ESTIMATED_ROW_HEIGHT, listMaxHeight)}
@@ -127,7 +129,13 @@ export const TypeAheadMenuRenderer = ({
 						scrollToAlignment="auto"
 						width={LIST_WIDTH}
 					/>
-				)}
+				) : model.fallbackItems === undefined ? (
+					<Box paddingBlock="space.150" paddingInline="space.250" role="group">
+						<Text align="center" as="p">
+							{intl.formatMessage(typeAheadListMessages.emptySearchResults)}
+						</Text>
+					</Box>
+				) : null}
 				{model.footer && (
 					<TypeAheadMenuFooter
 						id={getTypeAheadGlobalViewMoreId(listId)}

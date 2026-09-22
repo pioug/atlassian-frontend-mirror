@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-breakout
 
+## 19.0.3
+
+### Patch Changes
+
+- [`3f8ea6c51b718`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f8ea6c51b718) -
+  Remove the rolled-out `editor_tinymce_full_width_mode` and
+  `confluence_max_width_content_appearance` experiments and make max-width content behavior
+  permanent.
+- Updated dependencies
+
 ## 19.0.2
 
 ### Patch Changes

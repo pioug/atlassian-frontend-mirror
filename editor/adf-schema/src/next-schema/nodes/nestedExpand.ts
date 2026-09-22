@@ -59,7 +59,11 @@ export const nestedExpand: ADFNode<
 			localId: { type: 'string', default: null, optional: true },
 		},
 
-		content: [$onePlus($or(...nestedExpandContent, extension.use('with_marks')))],
+		content: [
+			$onePlus(
+				$or(...nestedExpandContent, extension.use('with_marks'), extension.use('with_annotation')),
+			),
+		],
 
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'validator-spec': {

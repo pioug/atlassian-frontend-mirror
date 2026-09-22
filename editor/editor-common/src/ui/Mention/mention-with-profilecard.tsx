@@ -52,6 +52,7 @@ export interface Props {
 	onMouseLeave?: MentionEventHandler;
 	profilecardProvider: ProfilecardProvider;
 	renderAvatarSlot?: boolean;
+	isRovoChat?: boolean;
 	ssrPlaceholderId?: string;
 	text: string;
 	userType?: MentionUserType;
@@ -76,6 +77,7 @@ export default function MentionWithProfileCard({
 	onMouseEnter,
 	onMouseLeave,
 	renderAvatarSlot,
+	isRovoChat,
 	localId,
 	ssrPlaceholderId,
 	userType,
@@ -101,6 +103,7 @@ export default function MentionWithProfileCard({
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 			renderAvatarSlot={renderAvatarSlot}
+			isRovoChat={isRovoChat}
 			ssrPlaceholderId={ssrPlaceholderId}
 		/>
 	);
@@ -110,6 +113,9 @@ export default function MentionWithProfileCard({
 		return (
 			<AgentProfileCardTrigger
 				agentId={id}
+				agentIdType={
+					isExperimentEnabled('platform_editor_comment_mention_card_fixes') ? 'identity' : undefined
+				}
 				cloudId={cloudId}
 				resourceClient={resourceClient}
 				trigger="click"

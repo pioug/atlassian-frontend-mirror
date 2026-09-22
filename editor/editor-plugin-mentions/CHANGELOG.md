@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-mentions
 
+## 21.1.3
+
+### Patch Changes
+
+- [`90cc9e3c7fc0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90cc9e3c7fc0c) -
+  Support gated dark-background styling for the configured Rovo Chat agent mention in editors and
+  the renderer.
+- Updated dependencies
+
+## 21.1.2
+
+### Patch Changes
+
+- [`e824823394e78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e824823394e78) -
+  Use CSS-escaped zero-width-space helpers for mention node views to avoid mojibake in affected
+  editor bundles. The `platform_editor_mention_zero_width_space_escape` experiment controls the
+  rollout.
+- Updated dependencies
+
+## 21.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.1.0
 
 ### Minor Changes

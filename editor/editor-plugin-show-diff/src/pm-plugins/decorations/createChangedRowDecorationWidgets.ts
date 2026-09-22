@@ -425,6 +425,7 @@ export const createChangedRowDecorationWidgets = ({
 	colorScheme,
 	isActive,
 	isInserted = false,
+	leftAnchorId,
 	diffType,
 	intl,
 	showIndicators = false,
@@ -438,6 +439,7 @@ export const createChangedRowDecorationWidgets = ({
 	intl?: IntlShape;
 	isActive?: boolean;
 	isInserted?: boolean;
+	leftAnchorId?: string;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 	originalDoc: PMNode;
@@ -496,7 +498,12 @@ export const createChangedRowDecorationWidgets = ({
 
 			// A table's content can extend past the doc margin, so the bar also needs a left anchor
 			// measured against the table itself or it is clipped once the table is resized.
-			const leftAnchor = createLeftAnchorWidget({ doc: newDoc, from: safeInsertPos, diffId });
+			const leftAnchor = createLeftAnchorWidget({
+				doc: newDoc,
+				from: safeInsertPos,
+				diffId,
+				leftAnchorId,
+			});
 			if (leftAnchor) {
 				decorations.push(leftAnchor);
 			}
@@ -543,6 +550,7 @@ export const createChangedRowDecorationWidgets = ({
 				colorScheme,
 				decorationType: 'widget',
 				diffId,
+				leftAnchorId,
 				isActive,
 				isInserted,
 				diffType,
@@ -562,7 +570,7 @@ export const createChangedRowDecorationWidgets = ({
 			);
 		}
 		if (tagWidget) {
-			decorations.push(tagWidget);
+			decorations.push(...tagWidget);
 		}
 
 		return decorations;

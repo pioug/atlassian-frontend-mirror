@@ -1,5 +1,23 @@
 # @atlaskit/profilecard
 
+## 26.24.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.24.11
+
+### Patch Changes
+
+- [`df79b6d67b5e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df79b6d67b5e8) -
+  Omit aria-haspopup from the non-interactive hover wrapper under teams_a11y_user_profilecard. Honor
+  fullWidthTrigger and ariaHideProfileTrigger independently so full-width child controls can own
+  hover-trigger semantics.
+
+  Handle keyboard activation on keydown when a legacy hover card wraps a child control with
+  disabledAriaAttributes, preventing Space from also activating that child's navigation.
+
 ## 26.24.10
 
 ### Patch Changes

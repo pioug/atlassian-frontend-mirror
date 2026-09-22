@@ -16,6 +16,7 @@ import type {
 import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
 import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
 import type { QuickInsertMenuModel, QuickInsertMenuSection } from './build-quick-insert-menu-model';
+import { ASK_ROVO_MENU_ITEM } from './keys';
 
 type MatchedItem = {
 	identity: string;
@@ -107,5 +108,38 @@ export const getMatchingQuickInsertComponents = ({
 		}
 	}
 
-	return { footer: undefined, root, sections: Array.from(sectionsByKey.values()) };
+	const sections = Array.from(sectionsByKey.values());
+	if (sections.length > 0 || query === '') {
+		return { footer: undefined, root, sections };
+	}
+
+	const fallbackItem = topLevelChildren
+		.filter(
+			(section): section is RegisterMenuSection =>
+				section.type === 'menu-section' &&
+				!isMenuFooterSectionKey(section.key) &&
+				willComponentRender(section, childrenMap, surfaceContext),
+		)
+		.flatMap((section) => childrenMap.get(getComponentIdentity(section)) ?? [])
+		.find(
+			(component): component is RegisterMenuItem =>
+				component.type === ASK_ROVO_MENU_ITEM.type &&
+				component.key === ASK_ROVO_MENU_ITEM.key &&
+				willComponentRender(component, childrenMap, surfaceContext),
+		);
+	const fallbackItems = fallbackItem ? [fallbackItem] : [];
+	const footerSection = topLevelChildren.find(
+		(section) =>
+			section.type === 'menu-section' &&
+			isMenuFooterSectionKey(section.key) &&
+			willComponentRender(section, childrenMap, surfaceContext),
+	);
+	const footer = footerSection
+		? (childrenMap.get(getComponentIdentity(footerSection)) ?? []).find(
+				(child): child is RegisterMenuItem =>
+					child.type === 'menu-item' && willComponentRender(child, childrenMap, surfaceContext),
+			)
+		: undefined;
+
+	return { fallbackItems, footer, root, sections };
 };

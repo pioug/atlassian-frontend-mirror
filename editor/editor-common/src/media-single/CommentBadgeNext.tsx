@@ -3,8 +3,10 @@ import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
 import CommentIcon from '@atlaskit/icon/core/comment';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { commentMessages as messages } from '../media';
@@ -57,7 +59,15 @@ export const CommentBadgeNext = ({
 				onMouseLeave={onMouseLeave}
 				backgroundColor={colourToken}
 			>
-				<CommentIcon label={title} spacing="spacious" color="currentColor" />
+				<CommentIcon
+					label={title}
+					spacing="spacious"
+					color={
+						isExperimentEnabled('cc_comments_media_viewer_sidebar')
+							? token('color.icon.accent.yellow')
+							: 'currentColor'
+					}
+				/>
 			</Pressable>
 		</Tooltip>
 	);

@@ -19,19 +19,14 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
  *
  * This is a workaround: https://github.com/microsoft/TypeScript/issues/38568#issuecomment-628637477
  */
-jest.mock('@atlaskit/editor-common/validator', () => ({
-	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/editor-common/validator'),
-}));
-
 jest.mock('@atlaskit/editor-common/utils', () => ({
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+	...jest.requireActual<object>('@atlaskit/editor-common/utils'),
 }));
 
 jest.mock('@atlaskit/adf-utils/transforms', () => ({
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/adf-utils/transforms'),
+	...jest.requireActual<object>('@atlaskit/adf-utils/transforms'),
 	nativeEmbedsFallbackTransform: jest.fn((adf) => ({
 		transformedAdf: adf,
 		hasValidTransform: false,
@@ -54,7 +49,6 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import * as commonUtils from '@atlaskit/editor-common/utils';
-import * as common from '@atlaskit/editor-common/validator';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { PLATFORM } from '../../analytics/events';
@@ -73,19 +67,15 @@ class MockSerializer implements Serializer<string> {
 describe('Renderer', () => {
 	describe('renderDocument', () => {
 		const serializer = new MockSerializer();
-		let getValidDocumentSpy: sinon.SinonSpy;
 
-		beforeEach(() => {
-			getValidDocumentSpy = sinon.spy(common, 'getValidDocument');
-		});
-
-		afterEach(() => {
-			getValidDocumentSpy.restore();
-		});
-
-		it('should call getValidDocument', () => {
-			renderDocument(doc, serializer, schema);
-			expect(getValidDocumentSpy.calledWith(doc)).toEqual(true);
+		it('should use the spec-based validator', () => {
+			const validateADFEntitySpy = sinon.spy(commonUtils, 'validateADFEntity');
+			try {
+				renderDocument(doc, serializer, schema);
+				expect(validateADFEntitySpy.calledOnce).toBe(true);
+			} finally {
+				validateADFEntitySpy.restore();
+			}
 		});
 
 		it('should only call schema.nodeFromJSON when needed', () => {
@@ -129,33 +119,8 @@ describe('Renderer', () => {
 			expect(res.result).toBe('dummy');
 		});
 
-		it('should return null if document is invalid', () => {
-			const unexpectedContent = [
-				true,
-				false,
-				new Date(),
-				'',
-				1,
-				[],
-				{},
-				{
-					content: [{}],
-				},
-			];
-
-			unexpectedContent.forEach((content) => {
-				expect(renderDocument(content, serializer).result).toEqual(null);
-			});
-		});
-
-		it('should not call getValidDocument when useSpecBasedValidator is TRUE', () => {
-			renderDocument(doc, serializer, schema, 'final', true);
-			expect(getValidDocumentSpy.called).toEqual(false);
-		});
-
-		it('should return stat when useSpecBasedValidator is TRUE', () => {
-			const result = renderDocument(doc, serializer, schema, 'final', true);
-			expect(getValidDocumentSpy.called).toEqual(false);
+		it('should return stat with spec-based validation', () => {
+			const result = renderDocument(doc, serializer, schema, 'final');
 			expect(result.stat.sanitizeTime).toBeGreaterThan(0);
 			expect(result.stat.buildTreeTime).toBeDefined();
 			expect(result.stat.buildTreeTime).toBeGreaterThan(0);
@@ -164,7 +129,7 @@ describe('Renderer', () => {
 		});
 
 		it.each(['final', 'stage0'] as const)(
-			'should tell validateADFEntity the document is %s when useSpecBasedValidator is TRUE',
+			'should tell validateADFEntity the document is %s with spec-based validation',
 			(adfStage) => {
 				const validateADFEntitySpy = sinon.spy(commonUtils, 'validateADFEntity');
 				// A document unique to this case, otherwise `memoValidation`, which compares documents by
@@ -177,7 +142,7 @@ describe('Renderer', () => {
 					],
 				};
 				try {
-					renderDocument(docForStage, serializer, schema, adfStage, true);
+					renderDocument(docForStage, serializer, schema, adfStage);
 
 					expect(validateADFEntitySpy.callCount).toEqual(1);
 					expect(validateADFEntitySpy.lastCall.args[4]).toEqual(adfStage);
@@ -197,7 +162,7 @@ describe('Renderer', () => {
 				content: [{ type: 'paragraph', content: [{ type: 'text', text: 'no adfStage supplied' }] }],
 			};
 			try {
-				renderDocument(docWithoutStage, serializer, schema, undefined, true);
+				renderDocument(docWithoutStage, serializer, schema);
 
 				expect(validateADFEntitySpy.callCount).toEqual(1);
 				expect(validateADFEntitySpy.lastCall.args[4]).toBeUndefined();
@@ -228,22 +193,12 @@ describe('Renderer', () => {
 				],
 			};
 
-			const result = renderDocument(singleColumnLayout, serializer, schema, undefined, true);
+			const result = renderDocument(singleColumnLayout, serializer, schema);
 
 			expect(JSON.stringify(result.result)).not.toContain('unsupportedBlock');
 		});
 
-		it('should return stat when useSpecBasedValidator is false', () => {
-			const result = renderDocument(doc, serializer, schema, 'final', false);
-			expect(result.stat.sanitizeTime).toBeGreaterThan(0);
-			expect(result.stat.buildTreeTime).toBeDefined();
-			expect(result.stat.buildTreeTime).toBeGreaterThan(0);
-			expect(result.stat.serializeTime).toBeDefined();
-			expect(result.stat.serializeTime).toBeGreaterThan(0);
-		});
-
-		it(`should return prosemirror doc with empty paragraph when useSpecBasedValidator is true
-         and supplied a doc without content`, () => {
+		it(`should return prosemirror doc with empty paragraph when supplied a doc without content`, () => {
 			const initialDoc = {
 				type: 'doc',
 				content: [],
@@ -259,7 +214,7 @@ describe('Renderer', () => {
 					},
 				],
 			};
-			const result = renderDocument(initialDoc, serializer, schema, 'final', true);
+			const result = renderDocument(initialDoc, serializer, schema, 'final');
 			expect(result.pmDoc).toBeDefined();
 			expect(result.pmDoc!.toJSON()).toEqual(expectedDoc);
 		});
@@ -298,7 +253,7 @@ describe('Renderer', () => {
 
 			it('should not throw an ProseMirror error validation', () => {
 				expect(() => {
-					renderDocument(initialDoc, serializer, schema, 'final', true);
+					renderDocument(initialDoc, serializer, schema, 'final');
 				}).not.toThrow();
 			});
 		});
@@ -338,7 +293,7 @@ describe('Renderer', () => {
 
 			it('should not throw an error', () => {
 				expect(() => {
-					renderDocument(getInvalidDoc('no throw'), serializer, schema, 'final', true);
+					renderDocument(getInvalidDoc('no throw'), serializer, schema, 'final');
 				}).not.toThrow();
 			});
 
@@ -350,7 +305,6 @@ describe('Renderer', () => {
 						serializer,
 						schema,
 						'final',
-						true,
 						undefined,
 						dispatchAnalyticsEvent,
 					);
@@ -397,7 +351,6 @@ describe('Renderer', () => {
 					serializer,
 					schema,
 					undefined,
-					true,
 					undefined,
 					mockDispatchAnalyticsEvent,
 				);
@@ -441,7 +394,6 @@ describe('Renderer', () => {
 					serializer,
 					schema,
 					undefined,
-					true,
 					undefined,
 					mockDispatchAnalyticsEvent,
 				);
@@ -477,7 +429,6 @@ describe('Renderer', () => {
 					serializer,
 					schema,
 					undefined,
-					true,
 					undefined,
 					mockDispatchAnalyticsEvent,
 				);
@@ -549,7 +500,6 @@ describe('Renderer', () => {
 					serializer,
 					schema,
 					undefined,
-					true,
 					undefined,
 					mockDispatchAnalyticsEvent,
 				);
@@ -573,7 +523,6 @@ describe('Renderer', () => {
 					serializer,
 					schema,
 					undefined,
-					true,
 					undefined,
 					mockDispatchAnalyticsEvent,
 				);
@@ -594,7 +543,6 @@ describe('Renderer', () => {
 					serializer,
 					schema,
 					undefined,
-					true,
 					undefined,
 					mockDispatchAnalyticsEvent,
 				);
@@ -619,7 +567,6 @@ describe('Renderer', () => {
 					serializer,
 					schema,
 					undefined,
-					true,
 					undefined,
 					mockDispatchAnalyticsEvent,
 				);

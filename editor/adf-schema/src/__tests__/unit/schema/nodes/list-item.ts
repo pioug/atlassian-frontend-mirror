@@ -36,7 +36,7 @@ describe(`${packageName}/schema listItem node`, () => {
 			content:
 				'(paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)+',
 			defining: true,
-			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
 			parseDOM: [
 				{
 					tag: 'li',

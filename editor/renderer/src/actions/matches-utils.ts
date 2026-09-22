@@ -1,8 +1,6 @@
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 
-// getIndexMatch finds the position of a given string within a given document, in accordance to the Confluence Annotation backend
-// The document is serialised into one large string, excluding any nodes that can not have annotations (eg: emojis, media).
-// Finds where the given query string is relative to the serialised partial document
+// Finds a string position using the Confluence annotation backend's serialisation rules.
 export function getIndexMatch(
 	doc: Node,
 	schema: Schema,
@@ -23,11 +21,13 @@ export function getIndexMatch(
 		const nodeType = node.type;
 		const { media } = schema.nodes;
 
-		// Mirrors Confluence backend and doesn't construct textContent if it doesn't allow annotations
-		// Don't skip media node so that block node can be defined its startIndex in within [nodeStart, nodeEnd]
-		if ((node.isText || !nodeType.allowsMarkType(schema.marks.annotation)) && nodeType !== media) {
-			// Note: `return true` as a parent disallowing annotations does not mean a child disallows annotations.
-			// Eg: panel (invalid) > p (valid)
+		const isBlockContainer = nodeType.isBlock && !nodeType.isLeaf && !nodeType.inlineContent;
+
+		// Containers may allow annotations for their children; skip their own text to avoid double-counting.
+		if (
+			(node.isText || !nodeType.allowsMarkType(schema.marks.annotation) || isBlockContainer) &&
+			nodeType !== media
+		) {
 			return true;
 		}
 
@@ -35,8 +35,7 @@ export function getIndexMatch(
 		const nodeEnd = nodeStart + node.nodeSize;
 
 		if (startIndex >= nodeStart && startIndex <= nodeEnd) {
-			// if it's a node block, set position to pos to indicate to the backend
-			// that it's an annotation on a block node
+			// MAUI-1255 will add eligible extensions as block annotation targets.
 			if (nodeType === media) {
 				blockNodePos = pos;
 			}

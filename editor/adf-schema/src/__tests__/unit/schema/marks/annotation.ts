@@ -67,12 +67,12 @@ describe(`${packageName}/schema confluence-inline-comment mark`, () => {
 
 	it('parses annotation correctly for media and mediaInline', () => {
 		const doc = fromHTML(
-			`<span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="comment-id"><div data-node-type="media" data-type="file" data-id="dummy-id"></div></span>`,
+			`<div data-node-type="mediaSingle"><span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="comment-id"><div data-node-type="media" data-type="file" data-id="dummy-id"></div></span></div>`,
 			schema,
 		);
 
 		const inlineDoc = fromHTML(
-			`<span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="comment-id"><span data-node-type="mediaInline" data-type="image" data-id="dummy-id"></span></span>`,
+			`<p><span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="comment-id"><span data-node-type="mediaInline" data-type="image" data-id="dummy-id"></span></span></p>`,
 			schema,
 		);
 

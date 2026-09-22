@@ -57,6 +57,7 @@ export const RegisteredInsertMenuContent = ({
 			<RegisteredInsertMenu
 				components={components}
 				editorView={editorView}
+				emptyStateHandler={api?.quickInsert?.sharedState.currentState()?.emptyStateHandler}
 				isOffline={isOffline}
 				onClose={onClose}
 				onSelect={onSelect}

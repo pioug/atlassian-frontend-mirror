@@ -176,7 +176,7 @@ describe(`${packageName}/schema table node`, () => {
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
 					isolating: true,
 					marks:
-						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute annotation',
 					parseDOM: [
 						{
 							ignore: true,
@@ -223,7 +223,7 @@ describe(`${packageName}/schema table node`, () => {
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
 					isolating: true,
 					marks:
-						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute annotation',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),
@@ -324,7 +324,7 @@ describe(`${packageName}/schema table node`, () => {
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
 					isolating: true,
 					marks:
-						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute annotation',
 					parseDOM: [
 						{
 							ignore: true,
@@ -371,7 +371,7 @@ describe(`${packageName}/schema table node`, () => {
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
 					isolating: true,
 					marks:
-						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute annotation',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),

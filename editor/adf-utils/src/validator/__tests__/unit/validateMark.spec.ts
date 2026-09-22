@@ -534,7 +534,7 @@ describe('validate Mark', () => {
 				],
 			};
 			const validationResult = validate(initialEntity, errorCallbackMock);
-			expect(errorCallbackMock).toHaveBeenCalledTimes(4);
+			expect(errorCallbackMock).toHaveBeenCalledTimes(2);
 			expect(validationResult.valid).toBeTruthy();
 			expect(errorCallbackMock).toHaveBeenNthCalledWith(
 				1,
@@ -624,7 +624,7 @@ describe('validate Mark', () => {
 				],
 			};
 			const validationResult = validate(initialEntity, errorCallbackMock);
-			expect(errorCallbackMock).toHaveBeenCalledTimes(4);
+			expect(errorCallbackMock).toHaveBeenCalledTimes(2);
 			expect(validationResult.valid).toBeTruthy();
 			expect(errorCallbackMock).toHaveBeenNthCalledWith(
 				1,

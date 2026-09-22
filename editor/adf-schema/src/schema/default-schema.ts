@@ -2,6 +2,7 @@ import type { MemoizedFn } from 'memoize-one';
 import memoizeOne from 'memoize-one';
 
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { SchemaConfig } from './create-schema';
 import { createSchema } from './create-schema';
@@ -20,6 +21,7 @@ import {
 import { bodiedRuleRootOnlyStage0 } from './nodes/bodied-rule';
 import { extendedPanelC1RootOnlyStage0 } from './nodes/extended-panel-c1-root-only-stage0';
 import { extendedPanelRootOnlyStage0 } from './nodes/extended-panel-root-only-stage0';
+import { extensionRootOnlyWithAnnotationStage0 } from './nodes/extension';
 import { ruleWithAttrsRootOnlyStage0 } from './nodes/rule';
 
 type DefaultSchemaNodes =
@@ -195,7 +197,9 @@ export const getSchemaBasedOnStage: MemoizedFn<
 		if (stage === 'stage0') {
 			defaultSchemaConfig.customNodeSpecs = {
 				layoutSection: layoutSectionWithSingleColumn,
-				extension: extensionRootOnlyStage0,
+				extension: fg('cc_maui_annotations_on_extensions')
+					? extensionRootOnlyWithAnnotationStage0
+					: extensionRootOnlyStage0,
 				bodiedExtension: bodiedExtensionRootOnlyStage0,
 				multiBodiedExtension: multiBodiedExtensionRootOnlyStage0,
 				extensionFrame: extensionFrame,

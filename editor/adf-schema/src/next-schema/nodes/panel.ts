@@ -57,7 +57,11 @@ export const panel: ADFNode<[string, 'c1', 'root_only', 'c1_root_only'], ADFComm
 				panelColor: { type: 'string', default: null, optional: true },
 				localId: { type: 'string', default: null, optional: true },
 			},
-			content: [$onePlus($or(...panelContent, extension.use('with_marks')))],
+			content: [
+				$onePlus(
+					$or(...panelContent, extension.use('with_marks'), extension.use('with_annotation')),
+				),
+			],
 		})
 		.variant('c1', {
 			// panel_c1 allows all standard panel content plus table. `stage0: true` includes it in the
@@ -67,7 +71,16 @@ export const panel: ADFNode<[string, 'c1', 'root_only', 'c1_root_only'], ADFComm
 			// acceptance is gated in adf-utils behind the patch flag.
 			stage0: true,
 			noExtend: true,
-			content: [$onePlus($or(...panelContent, extension.use('with_marks'), table))],
+			content: [
+				$onePlus(
+					$or(
+						...panelContent,
+						extension.use('with_marks'),
+						extension.use('with_annotation'),
+						table,
+					),
+				),
+			],
 			preserveVariantNameInPm: true,
 		})
 		// this variant is used to support breakout resizing for panel nodes at the document root
@@ -81,6 +94,15 @@ export const panel: ADFNode<[string, 'c1', 'root_only', 'c1_root_only'], ADFComm
 			noExtend: true,
 			marks: [breakout, unsupportedMark, unsupportedNodeAttribute],
 			// panel_c1_root_only allows all standard panel content plus table (see c1 above).
-			content: [$onePlus($or(...panelContent, extension.use('with_marks'), table))],
+			content: [
+				$onePlus(
+					$or(
+						...panelContent,
+						extension.use('with_marks'),
+						extension.use('with_annotation'),
+						table,
+					),
+				),
+			],
 			preserveVariantNameInPm: true,
 		});

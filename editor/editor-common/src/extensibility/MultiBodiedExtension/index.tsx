@@ -410,21 +410,11 @@ const MultiBodiedExtensionWithWidth = ({
 	}, [tryExtensionHandler, actions]);
 
 	const layout = node.attrs.layout;
-	const legacyShouldBreakout =
-		['full-width', 'wide'].includes(layout) && editorAppearance !== 'full-width';
-	const tinymceFullWidthModeEnabled = expValEquals(
-		'confluence_max_width_content_appearance',
-		'isEnabled',
-		true,
-	);
-	const shouldUseBreakoutFix = tinymceFullWidthModeEnabled;
-	const shouldBreakout = shouldUseBreakoutFix
-		? shouldExtensionBreakout({
-				layout,
-				editorAppearance,
-				isTopLevelNode: true,
-			})
-		: legacyShouldBreakout;
+	const shouldBreakout = shouldExtensionBreakout({
+		layout,
+		editorAppearance,
+		isTopLevelNode: true,
+	});
 
 	let mbeWrapperStyles = {};
 	if (shouldBreakout) {

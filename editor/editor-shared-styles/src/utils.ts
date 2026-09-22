@@ -20,7 +20,7 @@ const AGENT_PARTICIPANT_COLOR_OVERRIDES: Readonly<Record<string, number>> = {
 const AGENT_COLOR_TO_PARTICIPANT_COLOR_INDEX: Readonly<Record<AgentColor, number>> = {
 	yellow: 3,
 	purple: 4,
-	lime: 2,
+	lime: 8,
 	blue: 1,
 };
 

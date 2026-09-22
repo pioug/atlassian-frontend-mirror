@@ -378,6 +378,7 @@ export const getToolbarConfig =
 						preventPopupOverflow: true,
 						height: popupHeight,
 						width: popupWidth,
+						containerSurface: options?.linkPicker?.popupContainerSurface,
 						items: [
 							{
 								type: 'custom',

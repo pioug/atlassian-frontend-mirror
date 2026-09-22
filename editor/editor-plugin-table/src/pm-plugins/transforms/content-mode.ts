@@ -1,11 +1,7 @@
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import {
-	akEditorFullWidthLayoutWidth,
-	akEditorMaxLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { akEditorMaxLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 import { updateCellsMarkup } from './table-transform-utils';
 
@@ -15,11 +11,7 @@ export type TableMeasurement = {
 };
 
 export const clampToEditorMaxWidth = (contentWidth: number): number => {
-	const maxEditorWidth =
-		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-		expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-			? akEditorMaxLayoutWidth
-			: akEditorFullWidthLayoutWidth;
+	const maxEditorWidth = akEditorMaxLayoutWidth;
 
 	return Math.min(maxEditorWidth, contentWidth);
 };

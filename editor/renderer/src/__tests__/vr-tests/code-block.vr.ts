@@ -36,9 +36,6 @@ snapshot(CodeBlockRendererWrap, {
 snapshot(CodeBlockRendererWithWrapEnabled, {
 	description:
 		'should initialise wrap from ADF wrap attribute and render wrap button as selected on hover',
-	featureFlags: {
-		platform_editor_renderer_rm_usespecbasedvalidator: true,
-	},
 	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],
 	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
 });

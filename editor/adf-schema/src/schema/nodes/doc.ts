@@ -6,7 +6,10 @@ import type { BodiedRuleRootOnlyDefinition as BodiedRuleRootOnly } from './bodie
 import type { BodiedSyncBlockDefinition as BodiedSyncBlock } from './bodied-sync-block';
 import type { CodeBlockWithMarksDefinition as CodeBlockWithMarks } from './code-block';
 import type { ExpandRootOnlyDefinition as ExpandRootOnly } from './expand';
-import type { ExtensionRootOnlyDefinition as ExtensionRootOnly } from './extension';
+import type {
+	ExtensionRootOnlyDefinition as ExtensionRootOnly,
+	ExtensionRootOnlyWithAnnotationDefinition as ExtensionRootOnlyWithAnnotation,
+} from './extension';
 import type { LayoutSectionDefinition as LayoutSection } from './layout-section';
 import type { MultiBodiedExtensionRootOnlyDefinition as MultiBodiedExtensionRootOnly } from './multi-bodied-extension';
 import type { PanelRootOnlyDefinition as PanelRootOnly } from './panel';
@@ -32,6 +35,7 @@ export interface DocNode {
 		| RuleRootOnly
 		| BodiedRuleRootOnly
 		| ExtensionRootOnly
+		| ExtensionRootOnlyWithAnnotation
 		| BodiedExtensionRootOnly
 		| ParagraphWithIndentationDefinition
 		| MultiBodiedExtensionRootOnly

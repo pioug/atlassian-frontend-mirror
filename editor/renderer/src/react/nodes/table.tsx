@@ -55,7 +55,7 @@ export type TableArrayMapped = {
 	rowReact: React.ReactElement;
 };
 
-const stickyContainerBaseStyles = {
+const stickyContainerStyles: React.CSSProperties = {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	height: token('space.250'), // MAX_BROWSER_SCROLLBAR_HEIGHT
 	// Follow editor to hide by default so it does not show empty gap in SSR
@@ -63,9 +63,6 @@ const stickyContainerBaseStyles = {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	display: 'block',
 	width: '100%',
-};
-
-const stickyContainerAdditionalStyles = {
 	visibility: 'hidden',
 	overflowX: 'auto',
 	position: 'sticky',
@@ -706,12 +703,7 @@ export class TableContainer extends React.Component<
 			rendererAppearance: RendererAppearance,
 			tableNode?: PMNode,
 		): string => {
-			if (
-				rendererAppearance === 'max' &&
-				!tableNode?.attrs.width &&
-				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
-			) {
+			if (rendererAppearance === 'max' && !tableNode?.attrs.width) {
 				return `min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`;
 			} else if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
 				return `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
@@ -743,9 +735,7 @@ export class TableContainer extends React.Component<
 			isCommentAppearance(rendererAppearance) && allowTableAlignment;
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
-			: isMaxWidthAppearance(rendererAppearance) &&
-				  (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
+			: isMaxWidthAppearance(rendererAppearance)
 				? maxWidthLineLengthCSS
 				: isCommentAppearanceAndTableAlignmentEnabled
 					? renderWidthCSS
@@ -758,9 +748,7 @@ export class TableContainer extends React.Component<
 			isTableAlignStart &&
 			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance) ||
-				(isMaxWidthAppearance(rendererAppearance) &&
-					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))) ||
+				isMaxWidthAppearance(rendererAppearance) ||
 				isCommentAppearanceAndTableAlignmentEnabled);
 
 		let leftCSS: string | undefined;
@@ -799,9 +787,7 @@ export class TableContainer extends React.Component<
 		if (
 			rendererAppearance === 'full-page' ||
 			rendererAppearance === 'full-width' ||
-			(rendererAppearance === 'max' &&
-				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))
+			rendererAppearance === 'max'
 		) {
 			finalTableContainerWidth = allowTableResizing ? `calc(${tableWidthCSS})` : 'inherit';
 		}
@@ -936,20 +922,14 @@ export class TableContainer extends React.Component<
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={`${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}${fg('confluence_frontend_table_scrollbar_ttvc_fix') ? '-view-page' : ''}`}
+							className={`${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}-view-page`}
 							ref={this.stickyScrollbarRef}
 							data-vc="table-sticky-scrollbar-container"
-							style={
-								fg('confluence_frontend_table_scrollbar_ttvc_fix')
-									? { ...stickyContainerBaseStyles, ...stickyContainerAdditionalStyles }
-									: stickyContainerBaseStyles
-							}
+							style={stickyContainerStyles}
 						>
 							<div
 								style={{
-									width: fg('confluence_frontend_table_scrollbar_ttvc_fix')
-										? '100%'
-										: this.tableRef.current?.clientWidth,
+									width: '100%',
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									height: '100%',
 								}}

@@ -1,5 +1,46 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 17.1.7
+
+### Patch Changes
+
+- [`597f7ce38c071`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/597f7ce38c071) -
+  Fix contributor tags rendering clipped inside code blocks, and off-position for other
+  deleted-content widgets, in version history diffs.
+
+  Anchor the contributor tag to the code block's own box when an edit inside the block hoists the
+  tag out of it, instead of an approximate host-relative offset, so the tag no longer renders
+  clipped by the code content wrapper.
+
+  Fix deleted headings, lists, and blockquotes missing their background highlight and underline on
+  the active change, behind `confluence_ncs_step_diffing_version_history`.
+
+## 17.1.6
+
+### Patch Changes
+
+- [`188a9259b143b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/188a9259b143b) -
+  EDITOR-9127 [ux] Align the diff indicator outside the visible outer edges of a whole inserted
+  layout.
+- Updated dependencies
+
+## 17.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.4
+
+### Patch Changes
+
+- [`5a4cb407816ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a4cb407816ac) -
+  [ux] Strike out a deleted status lozenge in a suggestion diff, behind
+  `platform_editor_ai_show_diff_patch_2`. Its `line-through` was not propagated into the
+  `display: inline-flex` lozenge and painted beneath its background, so the status showed only the
+  deleted highlight.
+- Updated dependencies
+
 ## 17.1.3
 
 ### Patch Changes

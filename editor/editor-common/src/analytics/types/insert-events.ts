@@ -407,11 +407,14 @@ export type InsertSourceSyncedBlockPayload = InsertAEP<
 	undefined
 >;
 
+export const TEMPLATE_GALLERY_INPUT_SOURCE = 'templateGallery' as const;
+
 export type InsertSnippetInputMethod =
 	| INPUT_METHOD.ELEMENT_BROWSER
 	| INPUT_METHOD.INSERT_MENU
 	| INPUT_METHOD.QUICK_INSERT
-	| INPUT_METHOD.TOOLBAR;
+	| INPUT_METHOD.TOOLBAR
+	| typeof TEMPLATE_GALLERY_INPUT_SOURCE;
 
 type InsertSnippetAEP = InsertAEP<
 	ACTION_SUBJECT_ID.SNIPPET,
@@ -429,7 +432,11 @@ type FailedToInsertSnippetAEP = OperationalAEP<
 	ACTION.FAILED_TO_INSERT,
 	ACTION_SUBJECT.DOCUMENT,
 	ACTION_SUBJECT_ID.SNIPPET,
-	| { reason: 'emptyBody' | 'parseError'; snippetId: string; templateType?: 'atlassian' | 'user' }
+	| {
+			reason: 'emptyBody' | 'insertError' | 'parseError';
+			snippetId: string;
+			templateType?: 'atlassian' | 'user';
+	  }
 	| {
 			numFailedMediaFiles: number;
 			numTotalMediaFiles: number;

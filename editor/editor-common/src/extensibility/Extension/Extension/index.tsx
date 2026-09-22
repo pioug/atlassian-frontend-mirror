@@ -124,20 +124,11 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	}, [view, getPos]);
 
 	const layout = node.attrs.layout;
-	const legacyShouldBreakout =
-		['full-width', 'wide'].includes(layout) && isTopLevelNode && editorAppearance !== 'full-width';
-	const tinymceFullWidthModeEnabled = expValEquals(
-		'confluence_max_width_content_appearance',
-		'isEnabled',
-		true,
-	);
-	const shouldBreakout = tinymceFullWidthModeEnabled
-		? shouldExtensionBreakout({
-				layout,
-				isTopLevelNode,
-				editorAppearance,
-			})
-		: legacyShouldBreakout;
+	const shouldBreakout = shouldExtensionBreakout({
+		layout,
+		isTopLevelNode,
+		editorAppearance,
+	});
 
 	// We don't want to show border for non-empty 1p bodied extensions in live pages
 	const show1PBodiedExtensionBorder = showUpdatedLivePages1PBodiedExtensionUI

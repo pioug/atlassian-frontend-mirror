@@ -31,7 +31,7 @@ describe(`${packageName}/schema layout-column node`, () => {
 				content: '(block | panel_c1 | unsupportedBlock)+',
 				isolating: true,
 				marks:
-					'alignment fontSize dataConsumer fragment indentation unsupportedMark unsupportedNodeAttribute',
+					'alignment fontSize dataConsumer fragment indentation unsupportedMark unsupportedNodeAttribute annotation',
 				parseDOM: [
 					{
 						context: 'layoutColumn//',

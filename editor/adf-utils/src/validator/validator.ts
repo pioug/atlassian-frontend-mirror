@@ -482,11 +482,8 @@ export function validator(
 ): Validate {
 	const { allowPrivateAttributes, mode = 'strict', stage0 } = options;
 
-	// Whether specs that only exist in the stage-0 schema are declined for this caller. Resolved once
-	// here to keep the gate out of the per-node path; note that a validator built at module or
-	// describe scope bakes in `false`, because the jest gate resolver is installed in `beforeAll`.
-	// Gate off is the pre-stage-0 behaviour: every stage-0 spec stays available to every caller.
-	const rejectStage0Specs = !stage0 && fg('platform_editor_adf_validator_stage0');
+	// Whether specs that only exist in the stage-0 schema are declined for this caller.
+	const rejectStage0Specs = !stage0;
 
 	// Whether an empty `marks` array is dropped from a node that only ever takes an empty one. Resolved
 	// once for the same reasons as above. Gate off keeps such a node rejected.

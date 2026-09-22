@@ -232,6 +232,7 @@ export const createBlockChangedDecoration = ({
 	colorScheme,
 	isInserted = true,
 	isActive = false,
+	leftAnchorId,
 	shouldHideDeleted = false,
 	showContributorTags = false,
 	showIndicators = false,
@@ -246,6 +247,7 @@ export const createBlockChangedDecoration = ({
 	doc?: PMNode;
 	isActive?: boolean;
 	isInserted?: boolean;
+	leftAnchorId?: string;
 	shouldHideDeleted?: boolean;
 	showContributorTags?: boolean;
 	showIndicators?: boolean;
@@ -272,6 +274,7 @@ export const createBlockChangedDecoration = ({
 					colorScheme,
 					decorationType: 'block',
 					diffId,
+					leftAnchorId,
 					isActive,
 					isInserted,
 					nodeName: change.name,
@@ -356,6 +359,7 @@ export const createBlockChangedDecoration = ({
 					colorScheme,
 					decorationType: 'block',
 					diffId,
+					leftAnchorId,
 					isActive,
 					isInserted,
 					nodeName: change.name,
@@ -373,7 +377,13 @@ export const createBlockChangedDecoration = ({
 
 	if (showIndicators && doc && isExtendedEnabled(diffType)) {
 		decorations.push(
-			...createBlockIndicatorAnchorWidgets({ doc, from: change.from, to: change.to, diffId }),
+			...createBlockIndicatorAnchorWidgets({
+				doc,
+				from: change.from,
+				to: change.to,
+				diffId,
+				leftAnchorId,
+			}),
 		);
 	}
 
@@ -392,7 +402,7 @@ export const createBlockChangedDecoration = ({
 		});
 
 		if (tagWidget) {
-			decorations.push(tagWidget);
+			decorations.push(...tagWidget);
 		}
 	}
 

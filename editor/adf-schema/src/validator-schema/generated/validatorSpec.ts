@@ -122,6 +122,7 @@ export const block_content: string[] = [
   'panel',
   'blockquote',
   'extension_with_marks',
+  'extension_with_annotation',
   'embedCard',
   'table',
   'expand',
@@ -355,6 +356,7 @@ export const blockquote: {
           'mediaSingle_full',
           'mediaGroup',
           'extension_with_marks',
+          'extension_with_annotation',
         ],
       ],
       minItems: 1,
@@ -413,11 +415,13 @@ export const blockTaskItem: {
           'paragraph_with_no_marks',
           'paragraph_with_font_size',
           'extension_with_marks',
+          'extension_with_annotation',
         ],
         [
           'paragraph_with_no_marks',
           'paragraph_with_font_size',
           'extension_with_marks',
+          'extension_with_annotation',
         ],
       ],
       minItems: 1,
@@ -1364,6 +1368,7 @@ export const doc: {
           'panel',
           'blockquote',
           'extension_with_marks',
+          'extension_with_annotation',
           'embedCard',
           'table',
           'expand',
@@ -1375,6 +1380,7 @@ export const doc: {
           'rule_with_attrs_root_only',
           'bodiedRule_root_only',
           'extension_root_only',
+          'extension_root_only_with_annotation',
           'bodiedExtension_root_only',
           'multiBodiedExtension_root_only',
           'layoutSection_with_single_column',
@@ -1633,6 +1639,7 @@ export const expand: {
           'blockCard',
           'embedCard',
           'extension_with_marks',
+          'extension_with_annotation',
           'nestedExpand_with_no_marks',
         ],
       ],
@@ -1785,6 +1792,66 @@ export const extension_root_only: (
     props: {
       marks: {
         items: [['breakout', 'dataConsumer', 'fragment']],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
+
+export const extension_root_only_with_annotation: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        marks: {
+          items: string[][];
+          optional: boolean;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'extension',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      marks: {
+        items: [['annotation', 'breakout', 'dataConsumer', 'fragment']],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
+
+export const extension_with_annotation: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        marks: {
+          items: string[][];
+          optional: boolean;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'extension',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      marks: {
+        items: [['annotation', 'dataConsumer', 'fragment']],
         optional: true,
         type: 'array',
       },
@@ -2441,6 +2508,7 @@ export const layoutColumn: {
           'panel',
           'blockquote',
           'extension_with_marks',
+          'extension_with_annotation',
           'embedCard',
           'table',
           'expand',
@@ -2735,6 +2803,7 @@ export const listItem: {
           'mediaSingle_full',
           'codeBlock',
           'extension_with_marks',
+          'extension_with_annotation',
         ],
       ],
       minItems: 1,
@@ -3548,6 +3617,7 @@ export const nestedExpand_content: {
       'panel',
       'blockquote',
       'extension_with_marks',
+      'extension_with_annotation',
     ],
   ],
   minItems: 1,
@@ -3756,6 +3826,7 @@ export const panel: {
           'bodiedRule',
           'decisionList',
           'extension_with_marks',
+          'extension_with_annotation',
         ],
       ],
       minItems: 1,
@@ -3810,6 +3881,7 @@ export const panel_c1: (
             'bodiedRule',
             'decisionList',
             'extension_with_marks',
+            'extension_with_annotation',
             'table',
           ],
         ],
@@ -3867,6 +3939,7 @@ export const panel_c1_root_only: (
             'bodiedRule',
             'decisionList',
             'extension_with_marks',
+            'extension_with_annotation',
             'table',
           ],
         ],
@@ -4702,6 +4775,7 @@ export const tableCell: {
           'blockCard',
           'embedCard',
           'extension_with_marks',
+          'extension_with_annotation',
           'nestedExpand_with_no_marks',
         ],
       ],
@@ -4823,6 +4897,7 @@ export const tableHeader: {
           'blockCard',
           'embedCard',
           'extension_with_marks',
+          'extension_with_annotation',
           'nestedExpand_with_no_marks',
           'nestedExpand',
         ],

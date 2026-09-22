@@ -169,6 +169,7 @@ export class MentionInternal extends React.PureComponent<Props, State> {
 			disabledTooltip,
 			isAvatarImagePreShaped,
 			renderAvatarSlot,
+			isRovoChat,
 		} = props;
 		const mentionType: MentionType = this.getMentionType();
 
@@ -207,6 +208,7 @@ export class MentionInternal extends React.PureComponent<Props, State> {
 					data-testid={`mention-${id}`}
 					data-mention-type={mentionType}
 					data-mention-tooltip={showRestrictedTooltip || showDisabledTooltip}
+					isRovoChat={isRovoChat}
 					{...disabledA11yProps}
 				>
 					{failedMention ? (

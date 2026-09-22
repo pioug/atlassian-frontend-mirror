@@ -48,6 +48,7 @@ export type DiffDecorationSpec = BaseDecorationSpec<typeof DecorationFamily.diff
 	 * the inserted one.
 	 */
 	isInserted?: boolean;
+	leftAnchorId?: string;
 	nodeName?: string;
 	/**
 	 * The decoration to scroll to, when it is not the one carrying this spec: the member of a merged
@@ -155,6 +156,7 @@ export const buildDiffDecorationSpec = ({
 	diffId,
 	isActive,
 	isInserted,
+	leftAnchorId,
 	nodeName,
 	side,
 	diffType,
@@ -166,6 +168,7 @@ export const buildDiffDecorationSpec = ({
 	diffType?: DiffType;
 	isActive?: boolean;
 	isInserted?: boolean;
+	leftAnchorId?: string;
 	nodeName?: string;
 	side?: number;
 }): DiffDecorationSpec => ({
@@ -182,6 +185,7 @@ export const buildDiffDecorationSpec = ({
 	// Active state is only needed by contributor tags, so keep it alongside an attribution key.
 	...(attributionKey && isActive !== undefined ? { isActive } : {}),
 	...(isInserted !== undefined ? { isInserted } : {}),
+	...(leftAnchorId ? { leftAnchorId } : {}),
 	...(colorScheme ? { colorScheme } : {}),
 	...(nodeName ? { nodeName } : {}),
 	...(side !== undefined ? { side } : {}),
@@ -264,6 +268,7 @@ export const extractDiffDescriptors = (decorations: DecorationSet): DiffDescript
 			return {
 				...(spec.colorScheme ? { colorScheme: spec.colorScheme } : {}),
 				id: spec.diffId,
+				...(spec.leftAnchorId ? { leftAnchorId: spec.leftAnchorId } : {}),
 				...(spec.isInserted !== undefined ? { isInserted: spec.isInserted } : {}),
 				type: spec.decorationType,
 			};

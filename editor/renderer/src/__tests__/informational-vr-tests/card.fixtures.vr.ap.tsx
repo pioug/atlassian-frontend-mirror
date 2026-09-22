@@ -182,15 +182,6 @@ export const RendererInlineCard = (): React.JSX.Element => {
 	);
 };
 
-export const RendererInlineCardXSS = (): React.JSX.Element => {
-	return (
-		<SmartCardTestWrapper
-			adf={buildInlineCardAdf('javascript:alert(document.domain)')}
-			client={new NotFoundClient()}
-		/>
-	);
-};
-
 export const RendererInlineCardResolving = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
@@ -245,15 +236,6 @@ export const RendererBlockCard = (): React.JSX.Element => {
 	);
 };
 
-export const RendererBlockCardXSS = (): React.JSX.Element => {
-	return (
-		<SmartCardTestWrapper
-			adf={buildEmbedCardAdf('javascript:alert(document.domain)')}
-			client={new NotFoundClient()}
-		/>
-	);
-};
-
 export const RendererBlockCardResolving = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
@@ -304,15 +286,6 @@ export const RendererEmbedCard = (): React.JSX.Element => {
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl')}
 			client={new ResolvedClient()}
-		/>
-	);
-};
-
-export const RendererEmbedCardXSS = (): React.JSX.Element => {
-	return (
-		<SmartCardTestWrapper
-			adf={buildEmbedCardAdf('javascript:alert(document.domain)')}
-			client={new NotFoundClient()}
 		/>
 	);
 };

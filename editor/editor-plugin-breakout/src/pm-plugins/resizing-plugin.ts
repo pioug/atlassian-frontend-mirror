@@ -253,9 +253,7 @@ export const createResizingPlugin = (
 				}
 
 				const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
-				const isMaxWidthEnabled =
-					options?.appearance === 'max' &&
-					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true);
+				const isMaxWidthEnabled = options?.appearance === 'max';
 
 				const { state } = editorView;
 				const breakoutResizableNodes = isExperimentEnabled(
@@ -333,9 +331,7 @@ export const createResizingPlugin = (
 				: getBreakoutResizableNodeTypes(newState.schema, isRuleAndPanelResizingEnabled);
 
 			const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
-			const isMaxWidthEnabled =
-				options?.appearance === 'max' &&
-				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true);
+			const isMaxWidthEnabled = options?.appearance === 'max';
 
 			const isPageLoadNormalizationEnabled =
 				expValEquals('platform_editor_add_breakout_marks_on_page_load', 'isEnabled', true) ||

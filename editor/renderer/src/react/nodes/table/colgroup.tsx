@@ -10,7 +10,6 @@ import {
 	akEditorTableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useRendererContext } from '../../../renderer-context';
 import type { SharedTableProps } from './types';
@@ -448,17 +447,13 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 			isTableScalingEnabled:
 				props.rendererAppearance === 'full-page' ||
 				props.rendererAppearance === 'full-width' ||
-				(props.rendererAppearance === 'max' &&
-					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))) ||
+				props.rendererAppearance === 'max' ||
 				props.rendererAppearance === 'comment',
 			isTableFixedColumnWidthsOptionEnabled:
 				isTableFixedColumnWidthsOptionEnabled &&
 				(props.rendererAppearance === 'full-page' ||
 					props.rendererAppearance === 'full-width' ||
-					(props.rendererAppearance === 'max' &&
-						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))),
+					props.rendererAppearance === 'max'),
 		});
 	if (!colStyles) {
 		return null;

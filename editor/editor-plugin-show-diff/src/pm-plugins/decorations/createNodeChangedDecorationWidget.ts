@@ -12,16 +12,18 @@ import type { NodeViewSerializer } from '../NodeViewSerializer';
 import { countEmptyTextBlockOnlySlice } from '../utils/emptyTextBlocks';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 import type { ColorScheme } from './colorSchemes/types';
-import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
+import { clampAnchorPosIntoCell, createLeftAnchorWidget } from './createAnchorDecorationWidgets';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
 import {
 	type ContributorTagMount,
 	type ContributorTagMountContext,
 	createContributorTagHost,
+	resolveHoistedCodeBlockAnchor,
 	unmountContributorTag,
 } from './createContributorTagWidget';
 import {
 	AnchorTypeKey,
+	buildContributorTagDecorationSpec,
 	buildDiffDecorationSpec,
 	buildAnchorDecorationKey,
 	scrollMarginTopValue,
@@ -55,12 +57,14 @@ const createTableCellContentWidgets = ({
 	nodeViewSerializer,
 	colorScheme,
 	isInserted,
+	leftAnchorId,
 	diffType,
 }: {
 	change: Pick<Change, 'fromB' | 'toB'>;
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
 	isInserted: boolean;
+	leftAnchorId?: string;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 	slice: Slice;
@@ -127,6 +131,7 @@ const createTableCellContentWidgets = ({
 					colorScheme,
 					decorationType: 'widget',
 					diffId: crypto.randomUUID(),
+					leftAnchorId,
 					isInserted,
 					diffType,
 					...(isExtendedEnabled(diffType) && { side: -1 }),
@@ -153,6 +158,7 @@ export const createNodeChangedDecorationWidget = ({
 	activeIndexPos,
 	// This is false by default as this is generally used to show deleted content
 	isInserted = false,
+	leftAnchorId,
 	showContributorTags = false,
 	showIndicators = false,
 	// When true, render the deleted content *after* (below) the new content instead of
@@ -175,6 +181,7 @@ export const createNodeChangedDecorationWidget = ({
 	hideAddedDiffsUnderline?: boolean;
 	intl: IntlShape;
 	isInserted?: boolean;
+	leftAnchorId?: string;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 	placeBelow?: boolean;
@@ -245,6 +252,7 @@ export const createNodeChangedDecorationWidget = ({
 			nodeViewSerializer,
 			colorScheme,
 			isInserted,
+			leftAnchorId,
 			diffType,
 		});
 	}
@@ -261,6 +269,7 @@ export const createNodeChangedDecorationWidget = ({
 			colorScheme,
 			isActive,
 			isInserted,
+			leftAnchorId,
 			diffType,
 			intl,
 			// Needed for the row's own indicator anchor; this path returns before the
@@ -509,7 +518,15 @@ export const createNodeChangedDecorationWidget = ({
 		}
 	});
 
-	let contributorTagAnchorName: string | undefined;
+	// A change inside a code block hoists its tag out of the block (EDITOR-9045).
+	const hoistedCodeBlockAnchor = canTagWidget
+		? resolveHoistedCodeBlockAnchor(newDoc, safeInsertPos, diffId)
+		: undefined;
+	if (hoistedCodeBlockAnchor) {
+		decorations.push(hoistedCodeBlockAnchor.marker);
+	}
+
+	let contributorTagAnchorName: string | undefined = hoistedCodeBlockAnchor?.anchorName;
 	if (!isInserted && deletedColumns?.length) {
 		const table = dom.querySelector('table');
 		const firstRow = table?.rows[0];
@@ -564,6 +581,11 @@ export const createNodeChangedDecorationWidget = ({
 	// widget.
 	if ((showIndicators || showContributorTags) && isExtendedEnabled(diffType)) {
 		dom.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
+		// The tag built below only anchors via `anchor()` if `contributorTagAnchorName` is set; without
+		// it the tag falls back to a non-anchored position (EDITOR-9045).
+		if (fg('confluence_ncs_step_diffing_version_history')) {
+			contributorTagAnchorName ??= buildAnchorDecorationKey({ diffId });
+		}
 	}
 
 	// Taken down in the widget's `destroy` below: `dom` is rebuilt on every recalculation, so the tag
@@ -574,16 +596,46 @@ export const createNodeChangedDecorationWidget = ({
 		// Lets the contributor tag find the deleted content on hover.
 		dom.setAttribute('data-diff-id', diffId);
 
-		// Hosted at the start of the deleted run rather than on `dom` itself: `dom` is inline, so once
-		// the deleted content wraps its box is the union of its line fragments.
-		const tagHost = createContributorTagHost({
-			anchorName: contributorTagAnchorName,
-			diffId,
-			mountContext: tagMountContext,
-		});
-		if (tagHost) {
-			dom.prepend(tagHost.host);
-			tagMount = tagHost.mount;
+		if (hoistedCodeBlockAnchor) {
+			// Own widget just before the code block, anchored to the marker above, not `dom` (EDITOR-9045).
+			let hoistedTagMount: ContributorTagMount | undefined;
+			decorations.push(
+				Decoration.widget(
+					clampAnchorPosIntoCell(newDoc, hoistedCodeBlockAnchor.codeBlockStart, 1),
+					() => {
+						const tagHost = createContributorTagHost({
+							anchorName: contributorTagAnchorName,
+							diffId,
+							mountContext: tagMountContext,
+						});
+						hoistedTagMount = tagHost?.mount;
+						return tagHost?.host ?? document.createElement('span');
+					},
+					{
+						...buildContributorTagDecorationSpec(diffId),
+						side: 1,
+						marks: [],
+						ignoreSelection: true,
+						stopEvent: () => true,
+						destroy: () => {
+							unmountContributorTag(hoistedTagMount);
+							hoistedTagMount = undefined;
+						},
+					},
+				),
+			);
+		} else {
+			// Hosted at the start of the deleted run rather than on `dom` itself: `dom` is inline, so once
+			// the deleted content wraps its box is the union of its line fragments.
+			const tagHost = createContributorTagHost({
+				anchorName: contributorTagAnchorName,
+				diffId,
+				mountContext: tagMountContext,
+			});
+			if (tagHost) {
+				dom.prepend(tagHost.host);
+				tagMount = tagHost.mount;
+			}
 		}
 	}
 
@@ -592,6 +644,12 @@ export const createNodeChangedDecorationWidget = ({
 			doc: newDoc,
 			from: safeInsertPos,
 			diffId,
+			leftAnchorId,
+			measureElement: fg('platform_editor_ai_show_diff_patch_2') ? dom : undefined,
+			sliceOverride: fg('platform_editor_ai_show_diff_patch_2') ? slice : undefined,
+			underlyingRange: fg('platform_editor_ai_show_diff_patch_2')
+				? { from: change.fromB, to: change.toB }
+				: undefined,
 		});
 
 		if (leftAnchor) {
@@ -606,6 +664,7 @@ export const createNodeChangedDecorationWidget = ({
 				colorScheme,
 				decorationType: 'widget',
 				diffId,
+				leftAnchorId,
 				isActive,
 				isInserted,
 				diffType,

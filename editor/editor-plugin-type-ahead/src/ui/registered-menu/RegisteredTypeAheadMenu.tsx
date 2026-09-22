@@ -138,7 +138,10 @@ export const RegisteredTypeAheadMenu = ({
 			surface.root,
 		],
 	);
-	const rows = useMemo(() => menuModel.sections.flat(), [menuModel.sections]);
+	const rows = useMemo(
+		() => [...menuModel.sections.flat(), ...(menuModel.fallbackItems ?? [])],
+		[menuModel.fallbackItems, menuModel.sections],
+	);
 	const selectableRowIndexes = useMemo(
 		() =>
 			rows.flatMap((registration, rowIndex) =>

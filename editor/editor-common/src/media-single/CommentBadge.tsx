@@ -146,7 +146,17 @@ export const CommentBadge: ForwardRefExoticComponent<
 						onClick={onClick}
 						onMouseEnter={onMouseEnter}
 						onMouseLeave={onMouseLeave}
-						iconAfter={<CommentIcon label={title} spacing="spacious" color="currentColor" />}
+						iconAfter={
+							<CommentIcon
+								label={title}
+								spacing="spacious"
+								color={
+									isExperimentEnabled('cc_comments_media_viewer_sidebar')
+										? token('color.icon.accent.yellow')
+										: 'currentColor'
+								}
+							/>
+						}
 					/>
 				</Tooltip>
 			</div>

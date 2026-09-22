@@ -1,5 +1,29 @@
 # @atlaskit/rovo-agent-components
 
+## 8.14.3
+
+### Patch Changes
+
+- [`b724786886a1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b724786886a1f) -
+  Cleanup `feature_gate` `rovo_agents_agent_verification`. Agent verification badges, the verified
+  agents tab, and the agent verification menu items are now always shown, and the
+  `atlassianStudio_userSiteContext` user permissions are always requested.
+- [`7e54df1e977d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e54df1e977d7) -
+  Opt-in component examples to Workbench
+
+## 8.14.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.14.1
+
+### Patch Changes
+
+- [`2d5e3789793e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d5e3789793e9) -
+  Internal changes as part of package refactor.
+
 ## 8.14.0
 
 ### Minor Changes

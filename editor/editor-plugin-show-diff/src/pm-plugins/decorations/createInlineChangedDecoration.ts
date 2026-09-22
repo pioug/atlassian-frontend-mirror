@@ -11,6 +11,7 @@ import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 import {
 	buildAtomicInlineChangedCSSVariables,
 	buildDeletedInlineContentStyleExtended,
+	buildDeletedInlineNodeCSSVariables,
 	buildDeletedInlineStyle,
 	buildDeletedInlineStyleStandard,
 	buildInsertStyle,
@@ -66,6 +67,13 @@ const getColorScheme = (colorScheme: ColorScheme | undefined): DiffColorScheme =
  * Class names for an atomic inline node decoration (date, emoji, mention, status). Scheme-agnostic
  * — `buildAtomicInlineChangedCSSVariables()` supplies the colour inline on the same element.
  */
+/**
+ * Lets editor-core redraw the strike on a deleted status: `line-through` from an ancestor paints
+ * behind the lozenge's own background (EDITOR-9123). Not needed for deleted-content widgets —
+ * `createContentWrapper` appends a real positioned line.
+ */
+const DELETED_INLINE_NODE_CLASS = 'show-diff-deleted-inline-node';
+
 const getAtomicInlineNodeClassName = (
 	inlineNodeName: InlineAttrChangeNodeName | undefined,
 ): string => {
@@ -198,6 +206,7 @@ export const createInlineChangedDecoration = ({
 	colorScheme,
 	isActive = false,
 	isInserted = true,
+	leftAnchorId,
 	isAtomicInlineNode = false,
 	shouldHideDeleted = false,
 	showContributorTags = false,
@@ -223,6 +232,7 @@ export const createInlineChangedDecoration = ({
 	isAtomicInlineNode?: boolean;
 	isDeletedWidgetBelow?: boolean;
 	isInserted?: boolean;
+	leftAnchorId?: string;
 	reveal?: RevealOptions;
 	shouldHideDeleted?: boolean;
 	showContributorTags?: boolean;
@@ -255,6 +265,7 @@ export const createInlineChangedDecoration = ({
 					colorScheme,
 					decorationType: 'inline',
 					diffId,
+					leftAnchorId,
 					isActive,
 					isInserted,
 				}),
@@ -287,6 +298,16 @@ export const createInlineChangedDecoration = ({
 		? resolveAtomicInlineAttrs(inlineNodeName, colorScheme, colors)
 		: undefined;
 
+	// Every deletion: an inverted diff carries no `isAtomicInlineNode`, so editor-core's selectors do
+	// the matching.
+	const deletedInlineNodeAttrs =
+		!isInserted && fg('platform_editor_ai_show_diff_patch_2')
+			? {
+					className: DELETED_INLINE_NODE_CLASS,
+					styleSuffix: buildDeletedInlineNodeCSSVariables(colors, isActive),
+				}
+			: undefined;
+
 	// Built from the raw change range, not the indicator anchors resolved below: a tag lines up with
 	// the changed text, while the bar's anchors are held on a block boundary when a deleted widget
 	// renders beside them.
@@ -307,6 +328,7 @@ export const createInlineChangedDecoration = ({
 	const inlineStyle = [
 		style,
 		atomicInlineAttrs?.styleSuffix,
+		deletedInlineNodeAttrs?.styleSuffix,
 		tagWidget ? stackBelowContributorTagStyle : undefined,
 		fg('platform_editor_ai_show_diff_patch_1') ? scrollMarginTopStyle : undefined,
 	]
@@ -322,6 +344,10 @@ export const createInlineChangedDecoration = ({
 				...(atomicInlineAttrs && {
 					class: atomicInlineAttrs.className,
 				}),
+				// Mutually exclusive with the above: atomic-inline attrs are insertion-only.
+				...(deletedInlineNodeAttrs && {
+					class: deletedInlineNodeAttrs.className,
+				}),
 				...(revealed && { [REVEAL_ATTR]: revealed.role }),
 				'data-testid': 'show-diff-changed-decoration',
 				// Lets navigation select this exact diff, and contributor tags find it on hover.
@@ -334,6 +360,7 @@ export const createInlineChangedDecoration = ({
 				colorScheme,
 				decorationType: 'inline',
 				diffId,
+				leftAnchorId,
 				isActive,
 				isInserted,
 			}),
@@ -367,14 +394,20 @@ export const createInlineChangedDecoration = ({
 			}
 		}
 		decorations.push(
-			...createInlineIndicatorAnchorWidgets({ doc, from: anchorFrom, to: anchorTo, diffId }),
+			...createInlineIndicatorAnchorWidgets({
+				doc,
+				from: anchorFrom,
+				to: anchorTo,
+				diffId,
+				leftAnchorId,
+			}),
 		);
 	}
 
 	// Pushed after the indicator anchors so the decoration order is unchanged — see `tagWidget` above
 	// for why it is built before them.
 	if (tagWidget) {
-		decorations.push(tagWidget);
+		decorations.push(...tagWidget);
 	}
 
 	return decorations;

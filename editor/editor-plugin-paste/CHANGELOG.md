@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste
 
+## 20.0.4
+
+### Patch Changes
+
+- [`c312f08226250`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c312f08226250) -
+  Clean up experiment `platform_editor_nest_in_table_renderer_paste`
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.2
 
 ### Patch Changes

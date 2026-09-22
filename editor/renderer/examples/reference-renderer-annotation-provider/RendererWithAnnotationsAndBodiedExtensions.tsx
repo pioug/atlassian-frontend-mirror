@@ -195,7 +195,6 @@ const App = () => {
 				>
 					{/* This is used instead of the ReactRenderer, as the ReactRenderer overwrites any RendererActionsContext */}
 					<RendererWithAnalytics
-						useSpecBasedValidator={true}
 						extensionHandlers={{
 							'com.atlassian.confluence.macro.core': (ext, doc, actions) => {
 								return (

@@ -52,6 +52,8 @@ import Select from './Select';
 export interface Props {
 	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 	className?: string;
+	/** See `FloatingToolbarConfig.containerSurface`. Defaults to `'default'`. */
+	containerSurface?: 'default' | 'none';
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	dispatchCommand: (command?: Function) => void;
 	editorView?: EditorView;
@@ -524,72 +526,84 @@ const buttonGroupStylesNew = css({
 	gap: token('space.075'),
 });
 
+const toolbarContainerBase = css({
+	display: 'flex',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	lineHeight: 1,
+	boxSizing: 'border-box',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > div > div': {
+		alignItems: 'center',
+	},
+});
+
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const toolbarContainer = (
 	areAnyNewToolbarFlagsEnabled: boolean,
 	scrollable?: boolean,
 	hasSelect?: boolean,
 	firstElementIsSelect?: boolean,
+	// See `FloatingToolbarConfig.containerSurface`: 'none' is for a single custom item that
+	// already renders its own complete surface, so this wrapper's own surface is omitted.
+	containerSurface: 'default' | 'none' = 'default',
 ) =>
 	css(
-		{
-			backgroundColor: token('elevation.surface.overlay'),
-			borderRadius: token('radius.small', '3px'),
-			boxShadow: token('elevation.shadow.overlay'),
-			display: 'flex',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: 1,
-			boxSizing: 'border-box',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'& > div > div': {
-				alignItems: 'center',
-			},
-		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		scrollable
+		containerSurface === 'none'
+			? undefined
+			: {
+					backgroundColor: token('elevation.surface.overlay'),
+					borderRadius: token('radius.small', '3px'),
+					boxShadow: token('elevation.shadow.overlay'),
+				},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		containerSurface === 'none'
 			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css(
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					hasSelect
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							css({
-								height: '40px',
-							})
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							css({
-								height: '32px',
-							}),
-					{
-						overflow: 'hidden',
-					},
-				)
-			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				areAnyNewToolbarFlagsEnabled
-				? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				css({ padding: token('space.0') })
+			: scrollable
+				? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css(
-						{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-							padding: `${token('space.0')} 4px ${token('space.0')} 4px`,
-						},
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						firstElementIsSelect &&
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							css({
-								paddingLeft: token('space.050'),
-							}),
+						hasSelect
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								css({
+									height: '40px',
+								})
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								css({
+									height: '32px',
+								}),
+						{
+							overflow: 'hidden',
+						},
 					)
-				: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css(
-						{
-							padding: `${token('space.050')} ${token('space.100')}`,
-						},
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						firstElementIsSelect &&
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							css({
-								paddingLeft: token('space.050'),
-							}),
-					),
+				: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+					areAnyNewToolbarFlagsEnabled
+					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						css(
+							{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+								padding: `${token('space.0')} 4px ${token('space.0')} 4px`,
+							},
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+							firstElementIsSelect &&
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								css({
+									paddingLeft: token('space.050'),
+								}),
+						)
+					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						css(
+							{
+								padding: `${token('space.050')} ${token('space.100')}`,
+							},
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+							firstElementIsSelect &&
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								css({
+									paddingLeft: token('space.050'),
+								}),
+						),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		areAnyNewToolbarFlagsEnabled
 			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -808,11 +822,13 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 					<div
 						ref={this.toolbarContainerRef}
 						css={() => [
+							toolbarContainerBase,
 							toolbarContainer(
 								areAnyNewToolbarFlagsEnabled,
 								scrollable,
 								hasSelect !== undefined,
 								firstElementIsSelect,
+								this.props.containerSurface,
 							),
 						]}
 						aria-label={intl.formatMessage(messages.floatingToolbarAriaLabel)}

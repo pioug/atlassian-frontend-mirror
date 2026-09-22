@@ -258,7 +258,7 @@ export const AgentDropdownMenu = ({
 						hasBeenCopied ? messages.linkedCopiedToProfile : messages.copyLinkToProfile,
 					)}
 				</DropdownItem>
-				{agentRef && userPermissionsRef && fg('rovo_agents_agent_verification') && (
+				{agentRef && userPermissionsRef && (
 					<AgentVerificationDropdownItem
 						agentRef={agentRef ?? null}
 						userPermissionsRef={userPermissionsRef ?? null}

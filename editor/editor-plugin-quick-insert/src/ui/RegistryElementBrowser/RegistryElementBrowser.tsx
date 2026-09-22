@@ -146,6 +146,8 @@ export const RegistryElementBrowser = ({
 			}),
 		[formatMessage, model, query, section],
 	);
+	const resultCount =
+		items.length || (!isLoading && query.trim() ? (model.fallbackItems?.length ?? 0) : 0);
 	useEffect(() => {
 		if (previousIsOffline.current !== isOffline) {
 			setSelectedKey(undefined);
@@ -305,6 +307,7 @@ export const RegistryElementBrowser = ({
 								isLoading={isLoading}
 								isOffline={isOffline}
 								items={items}
+								fallbackItems={model.fallbackItems}
 								query={query}
 								resultsId={resultsId}
 								section={section}
@@ -320,7 +323,7 @@ export const RegistryElementBrowser = ({
 							isInsertEnabled={Boolean(selectedKey)}
 							onClose={onClose}
 							onConfirmInsert={onConfirmInsert}
-							resultCount={items.length}
+							resultCount={resultCount}
 						/>
 					</ModalFooter>
 				</Modal>

@@ -500,11 +500,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 	const { colorMode } = useThemeObserver();
 
 	const isFullPage =
-		appearance === 'full-page' ||
-		appearance === 'full-width' ||
-		((expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-			expValEqualsNoExposure('confluence_max_width_content_appearance', 'isEnabled', true)) &&
-			appearance === 'max');
+		appearance === 'full-page' || appearance === 'full-width' || appearance === 'max';
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';
 

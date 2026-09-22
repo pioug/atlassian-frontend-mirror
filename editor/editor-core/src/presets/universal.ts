@@ -54,7 +54,6 @@ import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
 import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type {
 	BeforeAndAfterToolbarComponents,
@@ -248,17 +247,7 @@ export default function createUniversalPresetInternal({
 		)
 		.maybeAdd(
 			[breakoutPlugin, { allowBreakoutButton: appearance === 'full-page', appearance: appearance }],
-			Boolean(
-				props.allowBreakout &&
-				(isFullPage ||
-					(appearance === 'max' &&
-						(expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-							expValEqualsNoExposure(
-								'confluence_max_width_content_appearance',
-								'isEnabled',
-								true,
-							)))),
-			),
+			Boolean(props.allowBreakout && (isFullPage || appearance === 'max')),
 		)
 		.maybeAdd(alignmentPlugin, Boolean(props.allowTextAlignment))
 		.maybeAdd([textColorPlugin, props.allowTextColor], Boolean(props.allowTextColor))

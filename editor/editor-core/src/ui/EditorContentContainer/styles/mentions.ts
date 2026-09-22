@@ -76,6 +76,14 @@ export const mentionsStyles: SerializedStyles = css({
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const mentionNodeStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Scoped to mention node view helpers.
+	'.mentionNodeViewAddZeroWidthSpace': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Add a CSS-escaped zero-width space after the helper.
+		'&::after': {
+			content: "'\\200B'",
+		},
+	},
+
 	// Show diff: mention attr change highlight. Keep this with mention node styles so the
 	// highlight targets the mention primitive's rounded shape.
 	// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets

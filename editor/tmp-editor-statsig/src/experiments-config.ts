@@ -252,22 +252,8 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-03
-	editor_tinymce_full_width_mode: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-16
 	platform_editor_remove_important_in_render_ext: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-12-10
-	confluence_max_width_content_appearance: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1381,26 +1367,10 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-11-03
-	editor_tinymce_full_width_mode: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_tinymce_full_width_mode',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-02-16
 	platform_editor_remove_important_in_render_ext: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remove_important_in_render_ext',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-10
-	confluence_max_width_content_appearance: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_max_width_content_appearance',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

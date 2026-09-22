@@ -318,7 +318,6 @@ export default function Example(): React.JSX.Element {
 					schema={schema}
 					actionButtons={toggleCheckbox}
 					withProviders
-					useSpecBasedValidator
 					withExtension
 				/>
 			</IntlProvider>

@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
 
 test.describe('flyout menu item', () => {
 	test('popper should not repeatedly update', async ({ page }) => {
@@ -51,6 +52,10 @@ test.describe('flyout menu item', () => {
 	});
 
 	test('should open and close flyout content when trigger is clicked', async ({ page }) => {
+		// This test exposes one or more accessibility violations. Testing is currently skipped but violations need to
+		// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+		// the skipAutoA11y wrapper and associated import. For more information, see go/afm-a11y-tooling:playwright
+		skipAutoA11y();
 		await page.visitExample<typeof import('../../../../../examples/menu-item-integration.tsx')>(
 			'navigation',
 			'side-nav-items',

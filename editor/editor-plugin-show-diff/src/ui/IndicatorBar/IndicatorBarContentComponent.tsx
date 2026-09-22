@@ -19,6 +19,7 @@ import type { DiffDescriptor, ShowDiffPlugin } from '../../showDiffPluginType';
 import { IndicatorBar } from './IndicatorBar';
 
 const renderIndicatorBar = (descriptor: DiffDescriptor) => {
+	const leftAnchorId = descriptor.leftAnchorId ?? descriptor.id;
 	switch (descriptor.type) {
 		case 'inline': {
 			return (
@@ -35,7 +36,7 @@ const renderIndicatorBar = (descriptor: DiffDescriptor) => {
 						anchorType: AnchorTypeKey.to,
 					})}
 					anchorLeft={buildAnchorDecorationKey({
-						diffId: descriptor.id,
+						diffId: leftAnchorId,
 						anchorType: AnchorTypeKey.left,
 					})}
 				/>
@@ -56,7 +57,7 @@ const renderIndicatorBar = (descriptor: DiffDescriptor) => {
 					anchorTop={blockAnchor}
 					anchorBottom={blockAnchor}
 					anchorLeft={buildAnchorDecorationKey({
-						diffId: descriptor.id,
+						diffId: leftAnchorId,
 						anchorType: AnchorTypeKey.left,
 					})}
 				/>
@@ -75,7 +76,7 @@ const renderIndicatorBar = (descriptor: DiffDescriptor) => {
 						diffId: descriptor.id,
 					})}
 					anchorLeft={buildAnchorDecorationKey({
-						diffId: descriptor.id,
+						diffId: leftAnchorId,
 						anchorType: AnchorTypeKey.left,
 					})}
 					anchorLeftFallback={buildAnchorDecorationKey({

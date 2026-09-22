@@ -24,6 +24,7 @@ import type {
   EmojiStage0Definition,
   ExpandDefinition,
   ExtensionDefinition,
+  ExtensionWithAnnotationStage0Definition,
   ExtensionWithMarksDefinition,
   HardBreakDefinition,
   HeadingDefinition,
@@ -87,6 +88,7 @@ export type BlockDefinition = Array<
   | EmbedCardDefinition
   | ExtensionDefinition
   | ExtensionWithMarksDefinition
+  | ExtensionWithAnnotationStage0Definition
   | HeadingDefinition
   | HeadingWithIndentationDefinition
   | HeadingWithNoMarksDefinition

@@ -10,7 +10,6 @@ import {
 	akEditorMaxLayoutWidth,
 } from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 
@@ -43,13 +42,6 @@ export const getResizeContainerWidth = (
 	return editorWidth - 2 * padding - akEditorGutterPadding;
 };
 
-export const getResizeHardMax = (containerWidth: number): number => {
-	return expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-		expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-		? Math.min(containerWidth, WIDTHS.MAX)
-		: Math.min(containerWidth, WIDTHS.FULL);
-};
-
 export const clampWidthToResizeBounds = (proposedWidth: number, containerWidth: number): number => {
-	return Math.max(WIDTHS.MIN, Math.min(proposedWidth, getResizeHardMax(containerWidth)));
+	return Math.max(WIDTHS.MIN, Math.min(proposedWidth, containerWidth, WIDTHS.MAX));
 };

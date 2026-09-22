@@ -258,6 +258,7 @@ const calculateNodesForBlockDecoration = ({
 	to,
 	colorScheme,
 	isInserted = true,
+	leftAnchorId,
 	activeIndexPos,
 	shouldHideDeleted = false,
 	showContributorTags = false,
@@ -276,6 +277,7 @@ const calculateNodesForBlockDecoration = ({
 	from: number;
 	intl: IntlShape;
 	isInserted?: boolean;
+	leftAnchorId?: string;
 	/**
 	 * The exact nodes to decorate, for one piece of a split change. Given, `from`/`to` are not
 	 * walked: descending a container would also claim the blocks another contributor added inside it.
@@ -305,6 +307,7 @@ const calculateNodesForBlockDecoration = ({
 					change: { from: pos, to: nodeEnd, name: node.type.name },
 					colorScheme,
 					isInserted,
+					leftAnchorId,
 					isActive,
 					shouldHideDeleted,
 					showContributorTags,
@@ -340,6 +343,7 @@ const calculateNodesForBlockDecoration = ({
 					change: { from: pos, to: nodeEnd, name: node.type.name },
 					colorScheme,
 					isInserted,
+					leftAnchorId,
 					isActive,
 					shouldHideDeleted,
 					showContributorTags,
@@ -682,6 +686,12 @@ const calculateDiffDecorationsInner = ({
 		tableChanges.some((change) => from >= change.fromB && to <= change.toB);
 
 	const createDecorationsForChange = (change: AttributedColumnAwareChange): void => {
+		// Patch 2 makes all decorations generated for one replacement share this anchor. Their own
+		// IDs still identify their top/bottom bounds, while this ID makes their bars agree on one
+		// left edge. When the gate is off, factories retain their existing per-decoration anchors.
+		const leftAnchorId = fg('platform_editor_ai_show_diff_patch_2')
+			? `replacement-${change.fromA}-${change.toA}-${change.fromB}-${change.toB}`
+			: undefined;
 		const changeColorScheme = attributionColors
 			? getColorSchemeForChange(change, attributedChanges, attributionColors, colorScheme)
 			: colorScheme;
@@ -819,6 +829,7 @@ const calculateDiffDecorationsInner = ({
 						...createInlineChangedDecoration({
 							attributionKey,
 							change: { fromB: from, toB: to },
+							leftAnchorId,
 							doc: tr.doc,
 							colorScheme: changeColorScheme,
 							isActive,
@@ -842,6 +853,7 @@ const calculateDiffDecorationsInner = ({
 					...createInlineChangedDecoration({
 						attributionKey,
 						change,
+						leftAnchorId,
 						doc: tr.doc,
 						colorScheme: changeColorScheme,
 						isActive,
@@ -881,6 +893,7 @@ const calculateDiffDecorationsInner = ({
 					intl,
 					diffType,
 					coarseTableCellsOnly: useCoarseTableDecoration,
+					leftAnchorId,
 				}),
 			);
 		}
@@ -907,6 +920,7 @@ const calculateDiffDecorationsInner = ({
 						newDoc: tr.doc,
 						intl,
 						activeIndexPos,
+						leftAnchorId,
 						showContributorTags,
 						tagMountContext,
 						...(isExtendedEnabled(diffType) && {

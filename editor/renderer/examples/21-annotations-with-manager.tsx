@@ -362,7 +362,6 @@ const ExampleAnnotationsWithManagerRenderer = React.memo(
 									}}
 									allowCopyToClipboard={true}
 									allowWrapCodeBlock={true}
-									useSpecBasedValidator={true}
 									allowSelectAllTrap
 									// featureFlags={props.featureFlags}
 									allowCustomPanels={true}

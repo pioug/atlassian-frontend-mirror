@@ -772,6 +772,19 @@ const headingWrapperInlineFlowStyles = css({
 	},
 });
 
+const headingAnchorWrapperTargetSizeStyles = css({
+	'& .renderer-heading-wrapper > h1, & .renderer-heading-wrapper > h2, & .renderer-heading-wrapper > h3, & .renderer-heading-wrapper > h4, & .renderer-heading-wrapper > h5, & .renderer-heading-wrapper > h6':
+		{
+			verticalAlign: 'middle',
+		},
+	[`& .renderer-heading-wrapper > .${HeadingAnchorWrapperClassName}`]: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		verticalAlign: 'middle',
+	},
+});
+
 const headingWithAlignmentStylesDuplicateAnchor = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.fabric-editor-block-mark.fabric-editor-alignment:not(:first-child)': {
@@ -3404,15 +3417,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
 						? rendererFullWidthStyles
 						: oldRendererFullWidthStyles),
-				(appearance === 'full-width' ||
-					(appearance === 'max' &&
-						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))) &&
+				(appearance === 'full-width' || appearance === 'max') &&
 					!isTableResizingEnabled(appearance) &&
 					rendererFullWidthStylesForTableResizing,
 				appearance === 'max' &&
-					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
 						? rendererMaxWidthStyles
 						: oldRendererMaxWidthStyles),
@@ -3423,6 +3431,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				headingsSharedStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true) &&
 					headingWrapperInlineFlowStyles,
+				isExperimentEnabled('platform_editor_heading_link_target_size') &&
+					headingAnchorWrapperTargetSizeStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? headingWithAlignmentStyles
 					: headingWithAlignmentStylesDuplicateAnchor,
@@ -3528,11 +3538,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				appearance === 'full-page' &&
 					isPreviewPanelResponsivenessOn &&
 					responsiveBreakoutWidthWithReducedPadding,
-				(appearance === 'full-width' ||
-					(appearance === 'max' &&
-						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))) &&
-					responsiveBreakoutWidthFullWidth,
+				(appearance === 'full-width' || appearance === 'max') && responsiveBreakoutWidthFullWidth,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 					? contentMode === 'compact'
 						? scaledDenseEmojiStyles

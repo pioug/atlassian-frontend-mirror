@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 2.8.3
+
+### Patch Changes
+
+- [`cd622822a8d5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd622822a8d5a) -
+  Add Apache-2.0 license metadata and license notice.
+
 ## 2.8.2
 
 ### Patch Changes

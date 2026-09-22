@@ -9,7 +9,6 @@ export default function Example(): React.JSX.Element {
 			serializer="react"
 			allowHeadingAnchorLinks
 			allowColumnSorting={true}
-			useSpecBasedValidator={true}
 			unsupportedContentLevelsTracking={{
 				enabled: true,
 				thresholds: {

@@ -1,6 +1,8 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 
-export const expandADF: (breakoutMode?: string, title?: string) => DocNode = (
+type ExpandMode = 'default' | 'wide' | 'full-width';
+
+export const expandADF: (breakoutMode?: ExpandMode, title?: string) => DocNode = (
 	breakoutMode = 'default',
 	title = 'Cool cheese',
 ) => ({
@@ -24,14 +26,18 @@ export const expandADF: (breakoutMode?: string, title?: string) => DocNode = (
 			attrs: {
 				title,
 			},
-			marks: [
-				{
-					type: 'breakout',
-					attrs: {
-						mode: breakoutMode,
-					},
-				},
-			],
+			...(breakoutMode === 'default'
+				? {}
+				: {
+						marks: [
+							{
+								type: 'breakout' as const,
+								attrs: {
+									mode: breakoutMode,
+								},
+							},
+						],
+					}),
 			content: [
 				{
 					type: 'paragraph',

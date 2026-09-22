@@ -331,7 +331,6 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 							adfStage="stage0"
 							document={{ type: 'doc', version: 1, content: ext.content as any }}
 							allowAnnotations={false}
-							useSpecBasedValidator
 						/>
 					);
 				},

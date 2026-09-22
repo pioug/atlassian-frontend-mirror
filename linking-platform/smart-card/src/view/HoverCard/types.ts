@@ -4,6 +4,7 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnal
 import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
 import type { CardState } from '@atlaskit/linking-common/store';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import type { PopupProps } from '@atlaskit/popup/types';
 
 import type { ActionName } from '../../constants';
 import { type AnalyticsHandler } from '../../utils/types';
@@ -62,6 +63,14 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	 * Callback function that is called when the hover card is visible or hidden.
 	 */
 	onVisibilityChange?: (isVisible: boolean) => void;
+
+	/**
+	 * Where the card should sit relative to the trigger element. Omitted, the card opens below and
+	 * to the right of the pointer, which is what an inline link in a body of text wants. Set it when
+	 * the card would otherwise cover the content the user is pointing at — for example a row in a
+	 * list, where `"left-start"` keeps the row itself visible.
+	 */
+	placement?: PopupProps['placement'];
 
 	/**
 	 * Use this to set the accessibility role for the hover card.

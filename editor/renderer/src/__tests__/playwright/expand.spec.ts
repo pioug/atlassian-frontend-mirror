@@ -107,7 +107,7 @@ for (const blockMarginFixEnabled of [false, true]) {
 				},
 			});
 
-			for (const mode of ['default', 'wide', 'full-width']) {
+			for (const mode of ['wide', 'full-width'] as const) {
 				test.describe(`${mode} mode`, () => {
 					test.use({ adf: expandADF(mode) });
 

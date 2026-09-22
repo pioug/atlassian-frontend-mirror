@@ -17,7 +17,6 @@ import {
 	validateADFEntity,
 } from '@atlaskit/editor-common/utils';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
-import { getValidDocument } from '@atlaskit/editor-common/validator';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -73,49 +72,43 @@ const _validation = (
 	doc: any,
 	schema: Schema,
 	adfStage: ADFStage | undefined,
-	useSpecBasedValidator: boolean,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	skipValidation?: boolean,
 	validationOverrides?: ValidationOverrides,
 ) => {
-	let result;
-
-	if (useSpecBasedValidator) {
-		// link mark on mediaSingle is deprecated, need to move link mark to child media node
-		// https://product-fabric.atlassian.net/browse/ED-14043
-		const { transformedAdf, isTransformed } = transformMediaLinkMarks(doc);
-		if (isTransformed && dispatchAnalyticsEvent) {
-			dispatchAnalyticsEvent({
-				action: ACTION.MEDIA_LINK_TRANSFORMED,
-				actionSubject: ACTION_SUBJECT.RENDERER,
-				eventType: EVENT_TYPE.OPERATIONAL,
-			});
-		}
-
-		// Forward `adfStage` only when a caller names one. Omitting it keeps stage-0 specs acceptable,
-		// which is what a renderer wants: stored documents can contain them, and wrapping such content
-		// as unsupported is worse than rendering it. A caller that declares `final` asks for full-ADF
-		// strictness and gets it. The legacy branch below reads the same value as a schema selector and
-		// so keeps its own `final` default.
-		result = skipValidation
-			? transformedAdf || doc
-			: validateADFEntity(
-					schema,
-					transformedAdf || doc,
-					dispatchAnalyticsEvent,
-					validationOverrides,
-					adfStage,
-				);
-	} else {
-		result = getValidDocument(doc, schema, adfStage ?? 'final');
+	// link mark on mediaSingle is deprecated, need to move link mark to child media node
+	// https://product-fabric.atlassian.net/browse/ED-14043
+	const { transformedAdf, isTransformed } = transformMediaLinkMarks(doc);
+	if (isTransformed && dispatchAnalyticsEvent) {
+		dispatchAnalyticsEvent({
+			action: ACTION.MEDIA_LINK_TRANSFORMED,
+			actionSubject: ACTION_SUBJECT.RENDERER,
+			eventType: EVENT_TYPE.OPERATIONAL,
+		});
 	}
 
-	if (!result) {
-		return result;
+	// Forward `adfStage` only when a caller names one. Omitting it keeps stage-0 specs acceptable,
+	// which is what a renderer wants: stored documents can contain them, and wrapping such content
+	// as unsupported is worse than rendering it. A caller that declares `final` asks for full-ADF
+	// strictness and gets it.
+	let result = skipValidation
+		? transformedAdf || doc
+		: validateADFEntity(
+				schema,
+				transformedAdf || doc,
+				dispatchAnalyticsEvent,
+				validationOverrides,
+				adfStage,
+			);
+
+	// The spec validator can return the original root object when malformed JSON has no node type.
+	// Reject it here, matching the legacy validator, before ProseMirror attempts to deserialize it.
+	if (!result || typeof result.type !== 'string' || result.type.length === 0) {
+		return null;
 	}
 
 	// ProseMirror always require a child under doc
-	if (result.type === 'doc' && useSpecBasedValidator) {
+	if (result.type === 'doc') {
 		if (Array.isArray(result.content) && result.content.length === 0) {
 			result.content.push({
 				type: 'paragraph',
@@ -214,7 +207,6 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 		doc: any,
 		schema: Schema,
 		stage: ADFStage | undefined,
-		useSpecValidator: boolean,
 		DispatchAnalyticsEvent?: DispatchAnalyticsEvent | undefined,
 		skipValidation?: boolean | undefined,
 		validationOverrides?: ValidationOverrides,
@@ -224,7 +216,6 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 		newDoc,
 		newSchema,
 		newADFStage,
-		newUseSpecValidator,
 		,
 		/* ignoring dispatchAnalyticsEvent */ newSkipValidation,
 		newValidationOverrides,
@@ -233,7 +224,6 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 		oldDoc,
 		oldSchema,
 		oldADFStage,
-		oldUseSpecValidator,
 		,
 		/* ignoring dispatchAnalyticsEvent */ oldSkipValidation,
 		oldValidationOverrides,
@@ -244,7 +234,6 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 	return (
 		newSchema === oldSchema &&
 		newADFStage === oldADFStage &&
-		newUseSpecValidator === oldUseSpecValidator &&
 		newSkipValidation === oldSkipValidation &&
 		areValidationOverridesEqual(newValidationOverrides, oldValidationOverrides) &&
 		areDocsEqual(newDoc, oldDoc)
@@ -348,7 +337,6 @@ export const renderDocument = <T>(
 	serializer: Serializer<T>,
 	schema: Schema = defaultSchema,
 	adfStage?: ADFStage,
-	useSpecBasedValidator: boolean = false,
 	rendererId: string = 'noid',
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking,
@@ -359,16 +347,11 @@ export const renderDocument = <T>(
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 
-	if (fg('platform_editor_renderer_rm_usespecbasedvalidator')) {
-		useSpecBasedValidator = true;
-	}
-
 	const { output: validDoc, time: sanitizeTime } = withStopwatch(() => {
 		return memoValidation(
 			doc,
 			schema,
 			adfStage,
-			useSpecBasedValidator,
 			dispatchAnalyticsEvent,
 			skipValidation,
 			validationOverrides,
@@ -396,7 +379,7 @@ export const renderDocument = <T>(
 	// save serialize tree time to stats
 	stat.serializeTime = serializeTime;
 
-	if (dispatchAnalyticsEvent && useSpecBasedValidator) {
+	if (dispatchAnalyticsEvent) {
 		findAndTrackUnsupportedContentNodes(node, schema, dispatchAnalyticsEvent);
 
 		if (unsupportedContentLevelsTracking?.enabled) {

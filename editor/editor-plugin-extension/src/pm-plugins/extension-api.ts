@@ -97,7 +97,7 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 	const marks = Object.keys(schema.marks);
 	const validate = validator(nodes, marks, {
 		allowPrivateAttributes: true,
-		stage0: fg('platform_editor_adf_validator_stage0'),
+		stage0: true,
 	});
 
 	/**

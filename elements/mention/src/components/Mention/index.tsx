@@ -51,6 +51,8 @@ export type OwnProps = {
 	onMouseLeave?: MentionEventHandler;
 	/** Whether the upstream integration has enabled the avatar treatment for this mention. */
 	renderAvatarSlot?: boolean;
+	/** Whether this mention represents the Rovo Chat agent. */
+	isRovoChat?: boolean;
 	ssrPlaceholderId?: string;
 	text: string;
 };

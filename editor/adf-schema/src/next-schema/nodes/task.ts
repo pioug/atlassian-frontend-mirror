@@ -47,12 +47,14 @@ blockTaskItem.define({
 			paragraph.use('with_no_marks'),
 			paragraph.use('with_font_size'),
 			extension.use('with_marks'),
+			extension.use('with_annotation'),
 		),
 		$zeroPlus(
 			$or(
 				paragraph.use('with_no_marks'),
 				paragraph.use('with_font_size'),
 				extension.use('with_marks'),
+				extension.use('with_annotation'),
 			),
 		),
 	],

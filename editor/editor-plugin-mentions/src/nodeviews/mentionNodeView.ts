@@ -1,3 +1,5 @@
+import { bind, type UnbindFn } from 'bind-event-listener';
+
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type {
@@ -29,6 +31,7 @@ import {
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import { token } from '@atlaskit/tokens';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import type { MentionPluginOptions } from '../types';
@@ -40,6 +43,7 @@ const primitiveClassName = 'editor-mention-primitive';
 const primitiveWithAvatarClassName = 'editor-mention-primitive-with-avatar';
 const avatarContainerClassName = 'editor-mention-avatar';
 const mentionTextClassName = 'editor-mention-text';
+const mentionZeroWidthSpaceClassName = 'mentionNodeViewAddZeroWidthSpace';
 /** Classes applied to the disabled-reason tooltip: the shared default look, plus our own hook. */
 const disabledTooltipClassNames = `${VANILLA_TOOLTIP_DEFAULT_CLASS} mention-disabled-tooltip`;
 const genericMentionIds = ['HipChat', 'all', 'here'];
@@ -133,6 +137,11 @@ const toDOM = (node: PMNode, hasAvatarSlot: boolean): DOMOutputSpec => {
 				},
 				mentionText,
 			];
+	const zeroWidthSpaceHelperClassName = isExperimentEnabled(
+		'platform_editor_mention_zero_width_space_escape',
+	)
+		? mentionZeroWidthSpaceClassName
+		: 'inlineNodeViewAddZeroWidthSpace';
 
 	return [
 		'span',
@@ -140,16 +149,16 @@ const toDOM = (node: PMNode, hasAvatarSlot: boolean): DOMOutputSpec => {
 		[
 			'span',
 			{ class: 'zeroWidthSpaceContainer' },
-			['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+			['span', { class: zeroWidthSpaceHelperClassName }, ZERO_WIDTH_SPACE],
 		],
 		mentionContentSpec,
 		browser.android
 			? [
 					'span',
 					{ class: 'zeroWidthSpaceContainer', contenteditable: 'false' },
-					['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+					['span', { class: zeroWidthSpaceHelperClassName }, ZERO_WIDTH_SPACE],
 				]
-			: ['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+			: ['span', { class: zeroWidthSpaceHelperClassName }, ZERO_WIDTH_SPACE],
 	];
 };
 
@@ -213,6 +222,8 @@ export class MentionNodeView implements NodeView {
 	private mentionPrimitiveElement: HTMLElement | undefined;
 	private mentionTextElement: HTMLElement | undefined;
 	private mentionAvatar: MentionAvatarController | undefined;
+	private cleanupRovoChatStyles: (() => void) | undefined;
+	private rovoChatIdentityProvider: MentionProvider | undefined;
 	private hasAvatarSlot = false;
 	private isDestroyed = false;
 	private disabledTooltip:
@@ -260,10 +271,16 @@ export class MentionNodeView implements NodeView {
 		}
 
 		const { mentionProvider } = api?.mention.sharedState.currentState() ?? {};
+		if (isExperimentEnabled('platform_editor_mention_rovo')) {
+			void this.resolveRovoChatIdentity(mentionProvider);
+		}
 		this.updateState(mentionProvider);
 		this.subscribeToProviderDisabledStateChanges(mentionProvider);
 
 		this.cleanup = api?.mention.sharedState.onChange(({ nextSharedState }) => {
+			if (isExperimentEnabled('platform_editor_mention_rovo')) {
+				void this.resolveRovoChatIdentity(nextSharedState?.mentionProvider);
+			}
 			this.updateState(nextSharedState?.mentionProvider);
 			this.subscribeToProviderDisabledStateChanges(nextSharedState?.mentionProvider);
 		});
@@ -313,6 +330,79 @@ export class MentionNodeView implements NodeView {
 				this.domElement.removeAttribute('aria-label');
 			}
 		}
+	}
+
+	private async resolveRovoChatIdentity(
+		mentionProvider: MentionProvider | undefined,
+	): Promise<void> {
+		if (this.rovoChatIdentityProvider === mentionProvider) {
+			return;
+		}
+		this.rovoChatIdentityProvider = mentionProvider;
+
+		if (
+			!isExperimentEnabled('platform_editor_mention_rovo') ||
+			!mentionProvider?.getRovoChatAgentIdentityAccountId
+		) {
+			this.setRovoChatStyles(false);
+			return;
+		}
+
+		const identityAccountId = await mentionProvider.getRovoChatAgentIdentityAccountId();
+		if (this.rovoChatIdentityProvider !== mentionProvider) {
+			return;
+		}
+		if (identityAccountId === undefined || identityAccountId !== this.node.attrs.id) {
+			this.setRovoChatStyles(false);
+			return;
+		}
+
+		this.setRovoChatStyles(true);
+	}
+
+	private setRovoChatStyles(isRovoChat: boolean): void {
+		this.cleanupRovoChatStyles?.();
+		this.cleanupRovoChatStyles = undefined;
+
+		const primitive = this.mentionPrimitiveElement;
+		if (!primitive) {
+			return;
+		}
+
+		primitive.classList.toggle('mention-rovo-chat', isRovoChat);
+		if (!isRovoChat) {
+			primitive.style.removeProperty('background-color');
+			primitive.style.removeProperty('color');
+			this.mentionTextElement?.style.removeProperty('color');
+			return;
+		}
+
+		const baseBackground = token('color.background.neutral.bold');
+		const hoveredBackground = token('color.background.neutral.bold.hovered');
+		const pressedBackground = token('color.background.neutral.bold.pressed');
+		const inverseText = token('color.text.inverse');
+		const setBackground = (background: string) => {
+			primitive.style.setProperty('background-color', background);
+		};
+
+		setBackground(baseBackground);
+		primitive.style.setProperty('color', inverseText);
+		this.mentionTextElement?.style.setProperty('color', inverseText);
+
+		const onMouseEnter = () => setBackground(hoveredBackground);
+		const onMouseLeave = () => setBackground(baseBackground);
+		const onMouseDown = () => setBackground(pressedBackground);
+		const onMouseUp = () => setBackground(hoveredBackground);
+		const unbinders: UnbindFn[] = [
+			bind(primitive, { type: 'mouseenter', listener: onMouseEnter }),
+			bind(primitive, { type: 'mouseleave', listener: onMouseLeave }),
+			bind(primitive, { type: 'mousedown', listener: onMouseDown }),
+			bind(primitive, { type: 'mouseup', listener: onMouseUp }),
+		];
+
+		this.cleanupRovoChatStyles = () => {
+			unbinders.forEach((unbind) => unbind());
+		};
 	}
 
 	private getDisabledState(
@@ -541,6 +631,8 @@ export class MentionNodeView implements NodeView {
 			// the NodeView from cleaning up its own resources below.
 		}
 		this.cleanup?.();
+		this.cleanupRovoChatStyles?.();
+		this.cleanupRovoChatStyles = undefined;
 		this.destroyProfileCard?.();
 		this.mentionAvatar?.destroy();
 		this.mentionAvatar = undefined;

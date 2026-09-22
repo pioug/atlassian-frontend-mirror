@@ -1,5 +1,78 @@
 # @atlaskit/renderer
 
+## 142.0.1
+
+### Patch Changes
+
+- [`da64bde78a78c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da64bde78a78c) -
+  Increase heading link targets to at least 24 by 24 pixels when
+  platform_editor_heading_link_target_size is enabled.
+
+## 142.0.0
+
+### Major Changes
+
+- [`01047cd51f538`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01047cd51f538) -
+  Clean up `platform_editor_renderer_rm_usespecbasedvalidator` and always use spec-based validation
+  in the renderer.
+
+  Remove the deprecated `useSpecBasedValidator` renderer prop and the fifth `renderDocument`
+  argument. Remove this prop from renderer usages and remove the fifth argument from direct
+  `renderDocument` calls, shifting any subsequent arguments one position to the left. The legacy
+  validator is no longer available through the renderer.
+
+  Update editor AI renderer consumers to use the permanent validation behavior.
+
+### Patch Changes
+
+- [`90cc9e3c7fc0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90cc9e3c7fc0c) -
+  Support gated dark-background styling for the configured Rovo Chat agent mention in editors and
+  the renderer.
+- Updated dependencies
+
+## 141.0.7
+
+### Patch Changes
+
+- [`3f8ea6c51b718`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f8ea6c51b718) -
+  Remove the rolled-out `editor_tinymce_full_width_mode` and
+  `confluence_max_width_content_appearance` experiments and make max-width content behavior
+  permanent.
+- [`a181b8f5541eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a181b8f5541eb) -
+  Clean up feature gate `platform_editor_nest_table_in_panel_patch_2`
+- Updated dependencies
+
+## 141.0.6
+
+### Patch Changes
+
+- [`57bd1cb4e33f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57bd1cb4e33f1) -
+  Clean up feature gate `confluence_frontend_table_scrollbar_ttvc_fix`
+- Updated dependencies
+
+## 141.0.5
+
+### Patch Changes
+
+- [`d8989347c0524`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8989347c0524) -
+  Clean up experiment `platform_renderer_on_complete_after_commit`
+- [`8e4fd6774f6ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e4fd6774f6ec) -
+  Add Stage-0 ADF schema support for the `annotation` mark on `extension` nodes (ADF Change 111).
+  Adds the `with_annotation` and `root_only_with_annotation` Stage-0 variants and wires them into
+  the approved root and nested placements (doc root, panel, blockquote, expand, nestedExpand,
+  listItem, blockTaskItem, table cells), registers the matching validator specs, and adds
+  valid/invalid reference fixtures, with regenerated PM/JSON/validator artifacts. Scoped to
+  `extension` only (not `bodiedExtension`/`multiBodiedExtension`); the full schema is unchanged.
+  Editor/renderer acceptance of the mark is gated by `cc_maui_annotations_on_extensions`.
+
+  Allowing the `annotation` mark on `extension` requires its container nodes (panel, table cells,
+  list items, etc.) to permit the mark too, so they can hold an annotated extension child. This made
+  the renderer's `getIndexMatch` double-count text inside those containers, corrupting inline
+  text-comment anchoring. Fixed by skipping block containers during serialisation (they are still
+  walked through so their inner text is counted once); leaf nodes and media are unaffected.
+
+- Updated dependencies
+
 ## 141.0.4
 
 ### Patch Changes

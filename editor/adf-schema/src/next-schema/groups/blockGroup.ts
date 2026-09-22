@@ -44,6 +44,7 @@ export const blockGroup: ADFNodeGroup = adfNodeGroup(
 		embedCard,
 		extension,
 		extension.use('with_marks'),
+		extension.use('with_annotation'),
 		heading,
 		heading.use('with_indentation'),
 		heading.use('with_no_marks'),

@@ -57,7 +57,7 @@ describe(`${packageName}/schema panel node `, () => {
 			content:
 				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
-			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),
@@ -96,7 +96,7 @@ describe(`${packageName}/schema panel node `, () => {
 			content:
 				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
-			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),
@@ -133,7 +133,8 @@ describe(`${packageName}/schema panel node `, () => {
 			content:
 				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
-			marks: 'breakout fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks:
+				'breakout fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),
@@ -170,7 +171,8 @@ describe(`${packageName}/schema panel node `, () => {
 			content:
 				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension | table)+',
 			group: 'block',
-			marks: 'breakout fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks:
+				'breakout fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),

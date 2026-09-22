@@ -85,14 +85,27 @@ const getChangedContentStyleNext = (
 		return buildInsertedInlineStyle(colors, isActive, hideAddedDiffsUnderline);
 	}
 
-	if (isActive) {
-		return buildDeletedInlineContentStyle(colors, 'active');
+	const base = buildDeletedInlineContentStyle(
+		colors,
+		isActive
+			? 'active'
+			: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+				? 'new'
+				: 'default',
+	);
+
+	// Text-like blocks (heading, lists, blockquote) render their deleted content through this
+	// getter rather than `getDeletedContentStyle`, so without this they never receive the
+	// glyphTint background + underline that plain deleted text already gets.
+	if (
+		fg('confluence_ncs_step_diffing_version_history') &&
+		colors.deletedInlineTreatment === 'glyphTint' &&
+		isExtendedEnabled(diffType)
+	) {
+		return base + buildDeletedInlineContentStyleExtended(colors, isActive);
 	}
 
-	return buildDeletedInlineContentStyle(
-		colors,
-		expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true) ? 'new' : 'default',
-	);
+	return base;
 };
 
 const getChangedNodeStyleNext = (

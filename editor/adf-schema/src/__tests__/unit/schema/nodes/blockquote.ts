@@ -58,7 +58,7 @@ describe(`${packageName}/schema blockquote node`, () => {
 				'(paragraph | orderedList | bulletList | unsupportedBlock | codeBlock | mediaSingle | mediaGroup | extension)+',
 			defining: true,
 			group: 'block',
-			marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment annotation',
 			parseDOM: [
 				{
 					tag: 'blockquote',

@@ -44,6 +44,11 @@ export const ToolbarKeyboardNavigationProvider = ({
 			// 1. Within the child component selector
 			// 2. Visible (not hidden by display:none on itself or any parent)
 			return allFocusable.filter((el) => {
+				// Independent containers own their key handling and tab stops.
+				if (el.closest('[data-keyboard-navigation-independent]')) {
+					return false;
+				}
+
 				if (!el.closest(`${childComponentSelector}`)) {
 					return false;
 				}
@@ -108,6 +113,13 @@ export const ToolbarKeyboardNavigationProvider = ({
 			if (
 				targetElement instanceof HTMLElement &&
 				!targetElement.closest(`${childComponentSelector}`)
+			) {
+				return;
+			}
+
+			if (
+				targetElement instanceof HTMLElement &&
+				targetElement.closest('[data-keyboard-navigation-independent]')
 			) {
 				return;
 			}

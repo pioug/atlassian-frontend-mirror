@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-local-id
 
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.2
 
 ### Patch Changes

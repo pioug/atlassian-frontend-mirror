@@ -21,7 +21,8 @@ const adf: DocNode = {
 		code('root-first'),
 		paragraph,
 		code('root-after-content'),
-		...['default', 'wide', 'full-width'].flatMap((mode) => [
+		// Default-width code blocks above have no breakout mark; only these modes are valid ADF.
+		...(['wide', 'full-width'] as const).flatMap((mode) => [
 			{ ...code(`breakout-${mode}`), marks: [{ type: 'breakout' as const, attrs: { mode } }] },
 			paragraph,
 		]),
@@ -120,7 +121,7 @@ for (const staticCssEnabled of [false, true]) {
 				test('keeps code block spacing stable across renderer contexts', async ({ renderer }) => {
 					await renderer.waitForRendererStable();
 					const blocks = renderer.page.locator('.ak-renderer-document .code-block');
-					await expect(blocks).toHaveCount(10);
+					await expect(blocks).toHaveCount(9);
 					for (const block of await blocks.all()) {
 						const text = await block.locator('code').textContent();
 						const followsContent = text?.includes('after-content');
@@ -145,7 +146,7 @@ for (const staticCssEnabled of [false, true]) {
 					const blocks = renderer.page.locator(
 						'.ak-renderer-sticky-safe-breakout-inner > .code-block',
 					);
-					await expect(blocks).toHaveCount(3);
+					await expect(blocks).toHaveCount(2);
 					for (const block of await blocks.all()) {
 						const measurements = await block.evaluate(measureStreamingSiblings);
 						for (const before of [measurements.singleStyle, measurements.streamed]) {

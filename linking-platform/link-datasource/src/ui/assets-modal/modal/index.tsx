@@ -28,6 +28,7 @@ import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { EVENT_CHANNEL } from '../../../analytics/constants';
 import { componentMetadata } from '../../../analytics/constants';
@@ -98,6 +99,8 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 		apiVersion !== VERSION_TWO ? [] : initialVisibleColumnKeys,
 	);
 	const [isNewSearch, setIsNewSearch] = useState<boolean>(false);
+	// State rather than a ref because the reconciliation below reads it during render
+	const [hasPreservedColumns, setHasPreservedColumns] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorState | undefined>();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const experienceId = useDatasourceExperienceId();
@@ -173,6 +176,26 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 		parameters: isParametersSet ? parameters : undefined,
 		fieldKeys: isNewSearch ? [] : visibleColumnKeys,
 	});
+
+	// A preserved selection must drop whatever the edited query stopped reporting. This is adjusted
+	// during render, not in an effect: the table hook is called before this component's own effects
+	// are registered, so its effects run first and would read the columns still awaiting removal as
+	// newly selected ones - refetching for them, and throwing away the results just received. The
+	// re-render this schedules is discarded before commit, so the hook only ever sees the reconciled
+	// selection.
+	if (
+		fg('platform_lp_sllv_preserve_assets_columns') &&
+		hasPreservedColumns &&
+		status === 'resolved' &&
+		columns.length > 0
+	) {
+		const availableKeys = new Set(columns.map(({ key }) => key));
+		const selectedKeys = visibleColumnKeys ?? [];
+		const retainedKeys = selectedKeys.filter((key) => availableKeys.has(key));
+		if (retainedKeys.length !== selectedKeys.length) {
+			setVisibleColumnKeys(retainedKeys.length > 0 ? retainedKeys : defaultVisibleColumnKeys);
+		}
+	}
 
 	/* ------------------------------ OBSERVABILITY ------------------------------ */
 	const searchCount = useRef(0);
@@ -250,12 +273,34 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 	}, []);
 
 	useEffect(() => {
+		// A preserved selection owns the columns, so restoring the saved or default ones would undo it
+		if (fg('platform_lp_sllv_preserve_assets_columns') && hasPreservedColumns) {
+			return;
+		}
 		const newVisibleColumnKeys =
 			initialVisibleColumnKeys && initialVisibleColumnKeys.length > 0 && apiVersion === VERSION_TWO
 				? initialVisibleColumnKeys
 				: defaultVisibleColumnKeys;
 		setVisibleColumnKeys(newVisibleColumnKeys);
-	}, [initialVisibleColumnKeys, defaultVisibleColumnKeys, apiVersion]);
+	}, [initialVisibleColumnKeys, defaultVisibleColumnKeys, apiVersion, hasPreservedColumns]);
+
+	useEffect(() => {
+		// The response described none of the requested fields, so there is nothing valid to keep and
+		// no reported defaults to fall back to. Give up preserving and re-request the schema's own
+		// defaults. This one has to stay an effect because it issues a request.
+		if (
+			!fg('platform_lp_sllv_preserve_assets_columns') ||
+			!hasPreservedColumns ||
+			status !== 'resolved' ||
+			columns.length > 0
+		) {
+			return;
+		}
+		setHasPreservedColumns(false);
+		setVisibleColumnKeys([]);
+		setIsNewSearch(true);
+		reset({ shouldForceRequest: true, shouldResetColumns: true });
+	}, [columns, hasPreservedColumns, reset, status]);
 
 	useEffect(() => {
 		if (isNewSearch) {
@@ -363,14 +408,23 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 				if (aql !== searchAql) {
 					userInteractions.add(DatasourceAction.QUERY_UPDATED);
 				}
+				// An empty selection has nothing worth preserving, and keeping it would stop the
+				// response's defaults from being adopted
+				const shouldPreserveColumns =
+					fg('platform_lp_sllv_preserve_assets_columns') &&
+					schemaId === searchSchemaId &&
+					(visibleColumnKeys ?? []).length > 0;
+				setHasPreservedColumns(shouldPreserveColumns);
 				setAql(searchAql);
 				setSchemaId(searchSchemaId);
-				setVisibleColumnKeys([]);
-				setIsNewSearch(true);
-				reset({ shouldForceRequest: true, shouldResetColumns: true });
+				if (!shouldPreserveColumns) {
+					setVisibleColumnKeys([]);
+				}
+				setIsNewSearch(!shouldPreserveColumns);
+				reset({ shouldForceRequest: true, shouldResetColumns: !shouldPreserveColumns });
 			}
 		},
-		[aql, reset, schemaId, status, userInteractions],
+		[aql, reset, schemaId, status, userInteractions, visibleColumnKeys],
 	);
 
 	const renderErrorState = useCallback(() => {

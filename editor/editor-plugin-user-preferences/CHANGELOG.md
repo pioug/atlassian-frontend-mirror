@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- [`d2d3703fed89b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d3703fed89b) -
+  Clean up experiment `platform_editor_ai_improve_formatting_toolbar`
+- Updated dependencies
+
 ## 17.0.3
 
 ### Patch Changes

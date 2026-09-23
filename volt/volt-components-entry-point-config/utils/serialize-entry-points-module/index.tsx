@@ -1,7 +1,6 @@
 import type { EntryPointConfig } from '../../src/types';
 
-export const CODEGEN_COMMAND =
-	'yarn workspace @atlaskit/volt-components-entry-point-config codegen';
+export const CODEGEN_COMMAND = 'afm workspace @atlaskit/volt-components-entry-point-config codegen';
 
 /**
  * Serialize the config object as a TypeScript module source string.

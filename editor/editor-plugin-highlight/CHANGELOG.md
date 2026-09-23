@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-highlight
 
+## 19.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- [`2a3bb6864b8fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a3bb6864b8fe) -
+  Clean up the `platform_editor_fix_selection_text_color_change` experiment.
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.5
 
 ### Patch Changes

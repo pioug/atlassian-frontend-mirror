@@ -22,7 +22,7 @@ const sourceFns = [
 	() =>
 		createPartialSignedArtifact(
 			createSpacingStylesFromTemplate,
-			'yarn workspace @atlaskit/eslint-plugin-design-system codegen-token-maps',
+			'afm workspace @atlaskit/eslint-plugin-design-system codegen-token-maps',
 			{
 				id: 'spacing',
 				absoluteFilePath: targetPath,

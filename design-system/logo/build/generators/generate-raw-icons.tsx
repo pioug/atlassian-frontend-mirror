@@ -88,7 +88,7 @@ export default function generateRawIcons(
 		path.resolve(rawIconsDirectory, 'index.tsx'),
 		createSignedArtifact(
 			format(rawIconsString, 'tsx'),
-			'yarn workspace @atlaskit/logo generate:components',
+			'afm workspace @atlaskit/logo generate:components',
 		),
 	);
 }

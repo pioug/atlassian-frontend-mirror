@@ -82,7 +82,7 @@ Jira tickets may be needed for implementation or review.
 9. **Debug failures** using [build-failures.md](references/build-failures.md). Prefer regenerating
    from source over patching generated files.
 10. **Pre-merge gate:** confirm no generated artifacts are stale. Run the repo's own staleness
-    check, `yarn workspace @atlaskit/tokens check-clean-git`, **and** confirm an example using the
+    check, `afm workspace @atlaskit/tokens check-clean-git`, **and** confirm an example using the
     new token compiles (proves `prebuilt/` is fresh). If the full build changes files, commit those
     files before review/merge.
 
@@ -124,5 +124,5 @@ Jira tickets may be needed for implementation or review.
   public token — generated docs data alone is insufficient.
 - Search the whole repo (not just the tokens package) for full-token-set snapshots and proactively
   update them; token codegen does not touch other workspaces such as `help-center/ssr`.
-- Before merge, run `yarn workspace @atlaskit/tokens check-clean-git` and ensure the working tree is
+- Before merge, run `afm workspace @atlaskit/tokens check-clean-git` and ensure the working tree is
   clean.

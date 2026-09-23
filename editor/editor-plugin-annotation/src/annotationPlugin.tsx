@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {
@@ -12,6 +13,8 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import type { AnnotationPlugin } from './annotationPluginType';
 import {
+	createAnnotation,
+	removeInlineCommentFromDoc,
 	setInlineCommentDraftState,
 	setSelectedAnnotation,
 	setPendingSelectedAnnotation,
@@ -88,12 +91,26 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			hasAnyUnResolvedAnnotationInPage,
 			requestCloseInlineComment,
 			stripNonExistingAnnotations,
+			applyInlineCommentDraft: (annotationId: string) =>
+				createAnnotation(api?.analytics?.actions, api)(
+					annotationId,
+					AnnotationTypes.INLINE_COMMENT,
+					annotationProviders?.inlineComment.supportedBlockNodes,
+				),
+			removeInlineCommentAnnotation: (annotationId: string) =>
+				removeInlineCommentFromDoc(api?.analytics?.actions)(
+					annotationId,
+					annotationProviders?.inlineComment.supportedBlockNodes ?? [],
+				),
 			setInlineCommentDraftState: setInlineCommentDraftState(
 				api?.analytics?.actions,
 				annotationProviders?.inlineComment.supportedBlockNodes,
+				undefined,
+				annotationProviders?.inlineComment.isBlockNodeSupported,
 			),
 			showCommentForBlockNode: showInlineCommentForBlockNode(
 				annotationProviders?.inlineComment.supportedBlockNodes,
+				annotationProviders?.inlineComment.isBlockNodeSupported,
 			),
 			setSelectedAnnotation,
 			setPendingSelectedAnnotation,

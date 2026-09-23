@@ -250,7 +250,7 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(lastMenuItem).toHaveFocus();
 	});
 
-	it('should focus the next element on pressing the DOWN arrow for async loaded content', async () => {
+	it('should wrap to asynchronously loaded first content on pressing the DOWN arrow', async () => {
 		let updateAsyncContent: ((show: boolean) => void) | undefined;
 		const AsyncDropdownItem = () => {
 			const [shouldShowAsyncContent, setShowAsyncContent] = React.useState(false);
@@ -287,14 +287,17 @@ describe('dropdown menu keyboard navigation', () => {
 			flushFrames();
 		});
 
-		fireEvent.keyDown(dropdownElement, {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
-		});
-
 		const asyncMenuItems = screen.getAllByRole('menuitem');
 		expect(asyncMenuItems.length).toEqual(5);
 		expect(asyncMenuItems.map((e) => e.textContent)).toEqual(['Async 1', 'Async 2', ...items]);
+
+		// Start from an explicit position rather than relying on deferred initial focus.
+		const lastMenuItem = asyncMenuItems[asyncMenuItems.length - 1];
+		act(() => lastMenuItem.focus());
+		fireEvent.keyDown(lastMenuItem, {
+			key: KEY_DOWN,
+			code: KEY_DOWN,
+		});
 		expect(asyncMenuItems[0]).toHaveFocus();
 	});
 

@@ -147,7 +147,7 @@ const generateComponentPropTypeSourceFiles = (
 
 				const signedSourceCode = createSignedArtifact(
 					sourceCode,
-					'yarn workspace @atlaskit/forge-react-types codegen',
+					'afm workspace @atlaskit/forge-react-types codegen',
 					{
 						description: `Extract component prop types from UIKit 2 components - ${componentSymbol.getName()}`,
 						dependencies: [componentSourceFile.getFilePath()],
@@ -237,7 +237,7 @@ const generateSharedTypesFile = (componentOutputDir: string) => {
 
 	const signedSourceCode = createSignedArtifact(
 		fs.readFileSync(uiKit2TypesFile, 'utf8'),
-		'yarn workspace @atlaskit/forge-react-types codegen',
+		'afm workspace @atlaskit/forge-react-types codegen',
 		{
 			description:
 				'Shared types file for UI Kit components. Add shared types to `packages/forge/forge-ui/src/components/UIKit/types.ts` for it to be code generated here and imported correctly into prop type files',
@@ -262,7 +262,7 @@ const generateSharedTokensFile = (componentOutputDir: string) => {
 
 	const signedSourceCode = createSignedArtifact(
 		fs.readFileSync(uiKitTokensFile, 'utf8'),
-		'yarn workspace @atlaskit/forge-react-types codegen',
+		'afm workspace @atlaskit/forge-react-types codegen',
 		{
 			description:
 				'Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`',

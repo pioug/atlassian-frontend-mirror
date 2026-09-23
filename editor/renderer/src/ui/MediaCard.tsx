@@ -35,6 +35,7 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import AnalyticsContext from '../analytics/analyticsContext';
@@ -133,6 +134,35 @@ export const getListOfIdentifiersFromDoc = (doc?: ADFEntity): Identifier[] => {
 	);
 };
 
+/**
+ * `mediaIdentifierMap` is the Media Viewer's nav list, but a `Map` can only append —
+ * a card that unmounts and re-registers lands last, scrambling nav order. Rebuild it
+ * in document order; entries from other renderers on the page keep their old order.
+ */
+const restoreDocumentOrder = (docIdentifiers: Identifier[]): void => {
+	const documentKeys = new Set(
+		docIdentifiers
+			.map((identifier) =>
+				identifier.mediaItemType === 'file' ? (identifier.id as string) : identifier.dataURI,
+			)
+			.filter((key) => mediaIdentifierMap.has(key)),
+	);
+	const currentKeys = Array.from(mediaIdentifierMap.keys());
+	const orderedKeys = [...documentKeys, ...currentKeys.filter((key) => !documentKeys.has(key))];
+
+	if (orderedKeys.every((key, index) => key === currentKeys[index])) {
+		return;
+	}
+
+	const orderedEntries = orderedKeys.map(
+		(key) => [key, mediaIdentifierMap.get(key)] as [string, Identifier],
+	);
+	mediaIdentifierMap.clear();
+	orderedEntries.forEach(([key, identifier]) => {
+		mediaIdentifierMap.set(key, identifier);
+	});
+};
+
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class MediaCardView extends Component<
@@ -162,7 +192,8 @@ export class MediaCardView extends Component<
 		const nodeIsInCache =
 			(id && mediaIdentifierMap.has(id)) || (url && mediaIdentifierMap.has(url));
 		if (rendererContext && rendererContext.adDoc && !nodeIsInCache) {
-			getListOfIdentifiersFromDoc(rendererContext.adDoc).forEach((identifier) => {
+			const docIdentifiers = getListOfIdentifiersFromDoc(rendererContext.adDoc);
+			docIdentifiers.forEach((identifier) => {
 				if (identifier.mediaItemType === 'file' && identifier.id === id) {
 					mediaIdentifierMap.set(identifier.id as string, {
 						...identifier,
@@ -172,6 +203,11 @@ export class MediaCardView extends Component<
 					mediaIdentifierMap.set(identifier.dataURI as string, identifier);
 				}
 			});
+			// Reordering affects prev/next nav in every overlay viewer on the page, so gate it
+			// to the media-comments sidebar experiment that needs it; otherwise keep legacy order.
+			if (isExperimentEnabled('cc_comments_media_viewer_sidebar')) {
+				restoreDocumentOrder(docIdentifiers);
+			}
 		}
 
 		if (id) {

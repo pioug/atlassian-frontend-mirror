@@ -48,21 +48,11 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			},
 		},
 		input: {
-			hovered: {
-				attributes: {
-					group: 'motion',
-					state: 'active',
-					introduced: '17.1.0',
-					description: 'Use for input hover and return-to-rest state transitions.',
-				},
-			},
-			focused: {
-				attributes: {
-					group: 'motion',
-					state: 'active',
-					introduced: '17.1.0',
-					description: 'Use for input focus state transitions.',
-				},
+			attributes: {
+				group: 'motion',
+				state: 'active',
+				introduced: '19.0.0',
+				description: 'Use for input hover, focus, and error state transitions.',
 			},
 		},
 		listitem: {
@@ -367,6 +357,54 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					state: 'active',
 					introduced: '16.5.0',
 					description: 'Use for label exit transitions (e.g. tag component).',
+				},
+			},
+		},
+		tab: {
+			'[default]': {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '18.3.0',
+					description: 'Use for all tab text color state transitions.',
+				},
+			},
+			indicator: {
+				enter: {
+					left: {
+						attributes: {
+							group: 'motion',
+							state: 'active',
+							introduced: '18.3.0',
+							description: 'Use for tab indicators entering from the left.',
+						},
+					},
+					right: {
+						attributes: {
+							group: 'motion',
+							state: 'active',
+							introduced: '18.3.0',
+							description: 'Use for tab indicators entering from the right.',
+						},
+					},
+				},
+				exit: {
+					left: {
+						attributes: {
+							group: 'motion',
+							state: 'active',
+							introduced: '18.3.0',
+							description: 'Use for tab indicators exiting toward the left.',
+						},
+					},
+					right: {
+						attributes: {
+							group: 'motion',
+							state: 'active',
+							introduced: '18.3.0',
+							description: 'Use for tab indicators exiting toward the right.',
+						},
+					},
 				},
 			},
 		},

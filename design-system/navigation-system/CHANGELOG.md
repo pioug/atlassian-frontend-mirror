@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 10.17.7
+
+### Patch Changes
+
+- [`8d868002eb182`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d868002eb182) -
+  Add Apache-2.0 license
+- Updated dependencies
+
+## 10.17.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.17.5
 
 ### Patch Changes

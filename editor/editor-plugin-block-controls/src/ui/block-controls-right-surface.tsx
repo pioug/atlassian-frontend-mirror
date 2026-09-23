@@ -8,18 +8,15 @@ import React from 'react';
 import { css, jsx } from '@atlaskit/css';
 import { BLOCK_CONTROLS_RIGHT_SURFACE } from '@atlaskit/editor-common/block-controls/surface-keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	SurfaceRenderer,
-	willSurfaceRender,
-} from '@atlaskit/editor-ui-control-model/surface-renderer';
+import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import { BlockControlsVisibilityProvider } from './block-controls-surface-components';
 import type { BlockControlsSurfaceTarget } from './block-controls-surface-targets';
 import type { SurfaceWrapperPlacement } from './utils/get-surface-placement';
-import { partitionComponentsByPersistence } from './utils/partition-components-by-persistence';
-import { VisibilityContainer } from './visibility-container';
+import { useBlockControlsVisibility } from './visibility-container';
 
 const rightSurfaceOuterStyles = css({
 	position: 'absolute',
@@ -51,35 +48,23 @@ type BlockControlsRightSurfaceProps = {
 	surfaceContext: SurfaceContext;
 };
 
-/** Renders one right block-controls surface at a document position. */
-export const BlockControlsRightSurface = ({
+type BlockControlsRightSurfaceContentProps = Omit<BlockControlsRightSurfaceProps, 'placement'> & {
+	placement: SurfaceWrapperPlacement;
+};
+
+const BlockControlsRightSurfaceContent = ({
 	api,
 	components,
 	forceVisibleOnMouseOut,
 	placement,
 	source,
 	surfaceContext,
-}: BlockControlsRightSurfaceProps): React.JSX.Element | null => {
-	if (!placement || !willSurfaceRender(components, BLOCK_CONTROLS_RIGHT_SURFACE, surfaceContext)) {
-		return null;
-	}
-
-	const { hoverOnlyComponents, persistentComponents } = partitionComponentsByPersistence(
-		components,
-		BLOCK_CONTROLS_RIGHT_SURFACE,
-		surfaceContext,
-	);
-	const willRenderPersistent = willSurfaceRender(
-		persistentComponents,
-		BLOCK_CONTROLS_RIGHT_SURFACE,
-		surfaceContext,
-	);
-	const willRenderHoverOnly = willSurfaceRender(
-		hoverOnlyComponents,
-		BLOCK_CONTROLS_RIGHT_SURFACE,
-		surfaceContext,
-	);
-
+}: BlockControlsRightSurfaceContentProps): React.JSX.Element => {
+	const { shouldHide: shouldHideHoverControls, useCssStyles } = useBlockControlsVisibility({
+		api,
+		controlSide: 'right',
+		forceVisibleOnMouseOut,
+	});
 	const isSticky = placement.isSticky;
 
 	return (
@@ -98,30 +83,42 @@ export const BlockControlsRightSurface = ({
 			style={placement.style}
 		>
 			<div css={[rightSurfaceRowStyles, isSticky && rightSurfaceStickyStyles]}>
-				{willRenderPersistent && (
-					<VisibilityContainer api={api} controlSide="right" isPersistent shouldUseDisplayContents>
-						<SurfaceRenderer
-							components={persistentComponents}
-							surface={BLOCK_CONTROLS_RIGHT_SURFACE}
-							surfaceContext={surfaceContext}
-						/>
-					</VisibilityContainer>
-				)}
-				{willRenderHoverOnly && (
-					<VisibilityContainer
-						api={api}
-						controlSide="right"
-						forceVisibleOnMouseOut={forceVisibleOnMouseOut}
-						shouldUseDisplayContents
-					>
-						<SurfaceRenderer
-							components={hoverOnlyComponents}
-							surface={BLOCK_CONTROLS_RIGHT_SURFACE}
-							surfaceContext={surfaceContext}
-						/>
-					</VisibilityContainer>
-				)}
+				<BlockControlsVisibilityProvider
+					shouldHideHoverControls={shouldHideHoverControls}
+					useCssStyles={useCssStyles}
+				>
+					<SurfaceRenderer
+						components={components}
+						surface={BLOCK_CONTROLS_RIGHT_SURFACE}
+						surfaceContext={surfaceContext}
+					/>
+				</BlockControlsVisibilityProvider>
 			</div>
 		</div>
+	);
+};
+
+/** Renders one right block-controls surface at a document position. */
+export const BlockControlsRightSurface = ({
+	api,
+	components,
+	forceVisibleOnMouseOut,
+	placement,
+	source,
+	surfaceContext,
+}: BlockControlsRightSurfaceProps): React.JSX.Element | null => {
+	if (!placement) {
+		return null;
+	}
+
+	return (
+		<BlockControlsRightSurfaceContent
+			api={api}
+			components={components}
+			forceVisibleOnMouseOut={forceVisibleOnMouseOut}
+			placement={placement}
+			source={source}
+			surfaceContext={surfaceContext}
+		/>
 	);
 };

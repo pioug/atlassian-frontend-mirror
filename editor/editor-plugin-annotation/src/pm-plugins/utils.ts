@@ -36,7 +36,13 @@ import {
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type { AnnotationInfo, DraftBookmark, InlineCommentInputMethod, TargetType } from '../types';
+import type {
+	AnnotationInfo,
+	DraftBookmark,
+	InlineCommentAnnotationProvider,
+	InlineCommentInputMethod,
+	TargetType,
+} from '../types';
 import { AnnotationSelectionType } from '../types';
 import type { InlineCommentPluginState } from './types';
 
@@ -227,6 +233,7 @@ export const resolveDraftBookmark = (
 	editorState: EditorState,
 	bookmark?: SelectionBookmark,
 	supportedBlockNodes: string[] = [],
+	isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 ): DraftBookmark => {
 	const { doc } = editorState;
 
@@ -245,7 +252,15 @@ export const resolveDraftBookmark = (
 			}
 			const nodeEndsAt = pos + node.nodeSize;
 
-			if (supportedBlockNodes.includes(node.type.name)) {
+			const isLegacyMediaSingleWrapper =
+				node.type.name === 'mediaSingle' &&
+				supportedBlockNodes.includes('media') &&
+				!supportedBlockNodes.includes('mediaSingle');
+
+			if (
+				isSupportedBlockNode(node, supportedBlockNodes, isBlockNodeSupported) &&
+				!isLegacyMediaSingleWrapper
+			) {
 				draftBookmark = {
 					from: pos,
 					to: nodeEndsAt,
@@ -330,7 +345,8 @@ export const getDraftCommandAnalyticsPayload = (
 
 export const isSelectionValid = (
 	state: EditorState,
-	_supportedNodes: string[] = [],
+	supportedBlockNodes: string[] = [],
+	isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 ): AnnotationSelectionType => {
 	const { selection } = state;
 	const { disallowOnWhitespace } = getPluginState(state) || {};
@@ -338,8 +354,12 @@ export const isSelectionValid = (
 	const isSelectionEmpty = selection.empty;
 	const isTextOrAllSelection =
 		selection instanceof TextSelection || selection instanceof AllSelection;
+	const isSupportedBlockNodeSelection =
+		selection instanceof NodeSelection &&
+		isSupportedBlockNode(selection.node, supportedBlockNodes, isBlockNodeSupported);
 	const isValidNodeSelection =
-		selection instanceof NodeSelection && allowedInlineNodes.includes(selection.node.type.name);
+		selection instanceof NodeSelection &&
+		(allowedInlineNodes.includes(selection.node.type.name) || isSupportedBlockNodeSelection);
 	const isValidSelection = isTextOrAllSelection || isValidNodeSelection;
 
 	// Allow media so that it can enter draft mode
@@ -351,7 +371,7 @@ export const isSelectionValid = (
 		return AnnotationSelectionType.INVALID;
 	}
 
-	const containsInvalidNodes = hasInvalidNodes(state);
+	const containsInvalidNodes = !isSupportedBlockNodeSelection && hasInvalidNodes(state);
 
 	// A selection that only covers 1 pos, and is an invalid node
 	// e.g. a text selection over a mention
@@ -386,10 +406,15 @@ export const hasInvalidNodes = (state: EditorState): boolean => {
 	);
 };
 
-export const isSupportedBlockNode = (node: Node, supportedBlockNodes: string[] = []): boolean => {
+export const isSupportedBlockNode = (
+	node: Node,
+	supportedBlockNodes: string[] = [],
+	isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+): boolean => {
 	return (
 		supportedBlockNodes.indexOf(node.type.name) >= 0 ||
-		(node.type.name === 'mediaSingle' && supportedBlockNodes.indexOf('media') >= 0)
+		(node.type.name === 'mediaSingle' && supportedBlockNodes.indexOf('media') >= 0) ||
+		(fg('cc_maui_annotations_on_extensions') && isBlockNodeSupported?.(node) === true)
 	);
 };
 

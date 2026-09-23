@@ -46,17 +46,17 @@ const motion: ValueSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 				},
 				out: {
 					top: {
-						short: { value: 'SlideOutTop8px' },
+						short: { value: 'SlideOutTop4px' },
 					},
 					bottom: {
-						short: { value: 'SlideOutBottom8px' },
+						short: { value: 'SlideOutBottom4px' },
 					},
 					left: {
-						short: { value: 'SlideOutLeft8px' },
+						short: { value: 'SlideOutLeft4px' },
 						half: { value: 'SlideOut15PercentLeft' },
 					},
 					right: {
-						short: { value: 'SlideOutRight8px' },
+						short: { value: 'SlideOutRight4px' },
 					},
 				},
 			},

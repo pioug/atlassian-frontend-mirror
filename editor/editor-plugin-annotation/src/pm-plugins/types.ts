@@ -52,6 +52,7 @@ export type InlineCommentAction =
 			data: {
 				drafting: boolean;
 				editorState: EditorState;
+				isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'];
 				isOpeningMediaCommentFromToolbar?: boolean;
 				supportedBlockNodes?: string[];
 				targetNodeId?: string;

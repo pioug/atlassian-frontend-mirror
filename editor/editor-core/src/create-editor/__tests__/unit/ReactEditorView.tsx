@@ -88,7 +88,6 @@ jest.mock('@atlaskit/react-ufo/add-ufo-custom-data', () => ({
 import React from 'react';
 
 import { act, fireEvent, screen, cleanup, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { createIntl } from 'react-intl';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
@@ -134,7 +133,6 @@ import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-uti
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { EditorConfig } from '../../../types/editor-config';
 import { getEditorDomSize } from '../../../utils/getEditorDomSize';
@@ -290,6 +288,54 @@ describe('@atlaskit/editor-core', () => {
 		},
 	);
 
+	describe('initial focus', () => {
+		const editingArea = 'Page editing area, start typing to enter text.';
+
+		const renderFullPage = (editorProps: EditorProps) =>
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			renderWithIntl(<ReactEditorView {...requiredProps(editorProps)} />);
+
+		it('should focus a document with content when the interaction plugin is absent', () => {
+			const result = renderFullPage({
+				appearance: 'full-page',
+				shouldFocus: true,
+				defaultValue: toJSON(doc(p('hello'))(defaultSchema)),
+			});
+
+			expect(result.getByLabelText(editingArea)).toHaveFocus();
+		});
+
+		it('should focus an empty document when the interaction plugin is absent', () => {
+			const result = renderFullPage({
+				appearance: 'full-page',
+				shouldFocus: true,
+			});
+
+			expect(result.getByLabelText(editingArea)).toHaveFocus();
+		});
+
+		it('should not focus a document with content when the interaction plugin is present', () => {
+			const result = renderFullPage({
+				appearance: 'full-page',
+				shouldFocus: true,
+				__livePage: true,
+				defaultValue: toJSON(doc(p('hello'))(defaultSchema)),
+			});
+
+			expect(result.getByLabelText(editingArea)).not.toHaveFocus();
+		});
+
+		it('should focus an empty document when the interaction plugin is present', () => {
+			const result = renderFullPage({
+				appearance: 'full-page',
+				shouldFocus: true,
+				__livePage: true,
+			});
+
+			expect(result.getByLabelText(editingArea)).toHaveFocus();
+		});
+	});
+
 	describe('scrolling', () => {
 		afterEach(() => {
 			const querySelectorSpy = jest.spyOn(document, 'querySelector');
@@ -333,58 +379,6 @@ describe('@atlaskit/editor-core', () => {
 
 			expect(mockElement.scrollTo).not.toHaveBeenCalled();
 		});
-
-		eeTest
-			.describe(
-				'platform_editor_no_cursor_on_edit_page_init',
-				'platform_editor_no_cursor_on_edit_page_init is ON',
-			)
-			.variant(true, () => {
-				it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
-					passGate('cc_editor_focus_before_editor_on_load');
-					const document = doc(p('hello'))(defaultSchema);
-					const result = renderWithIntl(
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<ReactEditorView
-							{...{
-								...requiredProps(),
-								editorProps: {
-									appearance: 'full-page',
-									shouldFocus: true,
-									defaultValue: toJSON(document),
-								},
-							}}
-						/>,
-					);
-					expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
-
-					await userEvent.tab();
-					expect(
-						result.getByLabelText('Page editing area, start typing to enter text.'),
-					).toHaveFocus();
-				});
-
-				it('react-editor-view-inital-focus-element should not be in the document when cc_editor_focus_before_editor_on_load is disabled', () => {
-					failGate('cc_editor_focus_before_editor_on_load');
-					const document = doc(p('hello'))(defaultSchema);
-					const result = renderWithIntl(
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<ReactEditorView
-							{...{
-								...requiredProps(),
-								editorProps: {
-									appearance: 'full-page',
-									shouldFocus: true,
-									defaultValue: toJSON(document),
-								},
-							}}
-						/>,
-					);
-					expect(
-						result.queryByTestId('react-editor-view-inital-focus-element'),
-					).not.toBeInTheDocument();
-				});
-			});
 
 		describe('LCE scrollTop mitigation', () => {
 			const ExtensionWrappedEditorView = () => {

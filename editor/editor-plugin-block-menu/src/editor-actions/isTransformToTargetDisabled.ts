@@ -2,7 +2,6 @@ import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { isTransformDisabledBasedOnStepsConfig } from '../editor-commands/transform-node-utils/transform';
 import { toNodeTypeValue } from '../editor-commands/transform-node-utils/types';
@@ -140,16 +139,14 @@ export const isTransformToTargetDisabled = ({
 		return false;
 	}
 
-	if (isExperimentEnabled('platform_editor_block_menu_transform_extensions')) {
-		const sourceNode = getSingleTransformSourceNode(selection, range);
-		if (isExtensionTransformSource(sourceNode)) {
-			return (
-				transformRegistry?.resolve({
-					source: sourceNode.toJSON(),
-					targetTypeName: targetNodeTypeName,
-				}).status !== 'supported'
-			);
-		}
+	const sourceNode = getSingleTransformSourceNode(selection, range);
+	if (isExtensionTransformSource(sourceNode)) {
+		return (
+			transformRegistry?.resolve({
+				source: sourceNode.toJSON(),
+				targetTypeName: targetNodeTypeName,
+			})?.status !== 'supported'
+		);
 	}
 
 	const selectedNodes = getBlockNodesInRange(range);

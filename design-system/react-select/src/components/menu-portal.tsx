@@ -6,6 +6,7 @@ import {
 	type CSSProperties,
 	type JSX,
 	type ReactNode,
+	type RefObject,
 	useCallback,
 	useLayoutEffect,
 	useMemo,
@@ -50,6 +51,7 @@ export interface MenuPortalProps<
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
 > extends CommonPropsAndClassName<Option, IsMulti, Group> {
+	additionalInsideElementRefs?: readonly RefObject<HTMLElement | null>[];
 	appendTo: HTMLElement | undefined;
 	children: ReactNode; // ideally Menu<MenuProps>
 	controlElement: HTMLDivElement | null;

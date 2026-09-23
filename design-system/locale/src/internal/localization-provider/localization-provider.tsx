@@ -2,6 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { normalizeLocale } from '../common';
 import { createDateParser, type CreateDateParserOptions, type DateParser } from '../date-parser';
+import { getWeekInfo } from './get-week-info';
 import { type FormattedParts, toFormattedParts } from './to-formatted-parts';
 
 export type DateFormatter = (date: Date) => string;
@@ -62,20 +63,13 @@ export const createLocalizationProvider = (
 			// If short days, only return first three characters. Else return whole thing
 			if (length === 'short') {
 				return result.substring(0, 3);
-			} else {
-				return result;
 			}
+			return result;
 		});
 	};
 
-	const getDaysShort = (weekStartDay: WeekDay = 0) => {
-		return getDays(weekStartDay, 'short');
-	};
-
-	const getDaysLong = (weekStartDay: WeekDay = 0) => {
-		return getDays(weekStartDay, 'long');
-	};
-
+	const getDaysShort = (weekStartDay: WeekDay = 0) => getDays(weekStartDay, 'short');
+	const getDaysLong = (weekStartDay: WeekDay = 0) => getDays(weekStartDay, 'long');
 	const getMonthsLong = () => {
 		const monthFormatter = Intl.DateTimeFormat(normalizedLocale, {
 			month: 'long',
@@ -131,9 +125,7 @@ export const createLocalizationProvider = (
 			intlLocale = new Intl.Locale(normalizedLocale);
 		}
 
-		// Typed via platform/typings/esnext.intl.d.ts until lib ESNext.Intl is enabled.
-		// See https://github.com/microsoft/TypeScript/issues/61713#issuecomment-5569377698
-		const weekInfo = intlLocale.getWeekInfo();
+		const weekInfo = getWeekInfo(intlLocale);
 		// Intl uses ISO weekdays (1 = Monday … 7 = Sunday).
 		// Calendar / getDays* use JS weekdays (0 = Sunday … 6 = Saturday).
 		return (weekInfo.firstDay % 7) as WeekDay;

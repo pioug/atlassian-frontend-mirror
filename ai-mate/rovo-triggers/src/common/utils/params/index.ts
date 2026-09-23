@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { ROVO_PARAM_PREFIX, ROVO_VALID_PARAMS } from './constants';
 import { type BaseRovoChatParams, type RovoChatParams, type ValidParam } from './types';
 
@@ -96,7 +94,7 @@ export const updatePageRovoParams = (
 ): void => {
 	const updatedUrl = addRovoParamsToUrl(window.location.pathname, params);
 
-	if (historyMode === 'replace' && fg('rovo_chat_replace_url_param_history')) {
+	if (historyMode === 'replace') {
 		window.history.replaceState({}, '', updatedUrl);
 		return;
 	}

@@ -1,3 +1,5 @@
+import { token } from '@atlaskit/tokens';
+
 import type { AgentBrandColorScheme, AgentPresenceColor } from './agent-presence-color-types';
 
 const themed = (light: string, dark: string): string => `light-dark(${light}, ${dark})`;
@@ -67,6 +69,33 @@ const brandColors: Readonly<Record<AgentBrandColorScheme, AgentPresenceColor>> =
 	},
 	'agent-brand-gemini': monochrome,
 	'agent-brand-antigravity': monochrome,
+	/** ADS orange, the fixed telepointer/attribution slot Claude has always used. */
+	'agent-brand-claude': {
+		accentText: token('color.text.accent.orange'),
+		background: token('color.background.accent.orange.subtlest'),
+		bold: token('color.background.accent.orange.bolder'),
+		boldText: token('color.text.inverse'),
+		border: token('color.border.accent.orange'),
+		text: token('color.text'),
+	},
+	/** ADS purple, the fixed telepointer/attribution slot Rovo has always used. */
+	'agent-brand-rovo': {
+		accentText: token('color.text.accent.purple'),
+		background: token('color.background.accent.purple.subtlest'),
+		bold: token('color.background.accent.purple.bolder'),
+		boldText: token('color.text.inverse'),
+		border: token('color.border.accent.purple'),
+		text: token('color.text'),
+	},
+	/** ChatGPT's own brand colour — no ADS token matches it. */
+	'agent-brand-chatgpt': {
+		accentText: themed('#000000', '#E8E8EA'),
+		background: themed('#E5E5E5', '#333335'),
+		bold: themed('#000000', '#E8E8EA'),
+		boldText: themed('#FFFFFF', '#000000'),
+		border: themed('#BEB9B9', '#656567'),
+		text: themed('#292A2E', '#E8E8EA'),
+	},
 };
 export const agentBrandColorSchemes: Readonly<Record<AgentBrandColorScheme, AgentPresenceColor>> =
 	Object.fromEntries(

@@ -5,9 +5,10 @@ import classnames from 'classnames';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { getRowHeights } from '../../../pm-plugins/utils/row-controls';
+import { getRenderedRowNumberLabels, getRowHeights } from '../../../pm-plugins/utils/row-controls';
 import { TableCssClassName as ClassName } from '../../../types';
 import { tableBorderColor } from '../../consts';
 
@@ -33,6 +34,9 @@ export default class NumberColumn extends Component<Props, any> {
 		const { tableRef, hasHeaderRow, isDragAndDropEnabled, tableActive, updateCellHoverLocation } =
 			this.props;
 		const rowHeights = getRowHeights(tableRef);
+		const renderedRowNumberLabels = fg('platform_editor_ai_show_diff_patch_2')
+			? getRenderedRowNumberLabels(tableRef, hasHeaderRow)
+			: undefined;
 
 		const getMarginTop = () => {
 			if (!hasHeaderRow || this.props.stickyTop === undefined) {
@@ -93,22 +97,31 @@ export default class NumberColumn extends Component<Props, any> {
 				}}
 				contentEditable={false}
 			>
-				{rowHeights.map((rowHeight, index) => (
-					<div
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/no-array-index-key
-						key={`wrapper-${index}`}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={this.getClassNames(index, true)}
-						data-index={index}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={this.getCellStyles(index, rowHeight)}
-						onFocus={() => updateCellHoverLocation(index)}
-						onMouseOver={() => updateCellHoverLocation(index)}
-					>
-						{hasHeaderRow ? (index > 0 ? index : null) : index + 1}
-					</div>
-				))}
+				{rowHeights.map((rowHeight, index) => {
+					const rowNumberLabel = fg('platform_editor_ai_show_diff_patch_2')
+						? renderedRowNumberLabels?.[index]
+						: hasHeaderRow
+							? index > 0
+								? index
+								: null
+							: index + 1;
+					return (
+						<div
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
+							key={`wrapper-${index}`}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={this.getClassNames(index, true)}
+							data-index={index}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							style={this.getCellStyles(index, rowHeight)}
+							onFocus={() => updateCellHoverLocation(index)}
+							onMouseOver={() => updateCellHoverLocation(index)}
+						>
+							{rowNumberLabel}
+						</div>
+					);
+				})}
 			</div>
 		);
 	}

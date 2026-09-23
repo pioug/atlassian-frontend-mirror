@@ -147,7 +147,7 @@ const ROVO_AGENT_ID = '712020:e2807db6-b795-41c5-8f0a-272bae594861';
 const STEP_ATTRIBUTIONS: DiffStepAttribution[] = [
 	{ userId: EXAMPLE_USER_ID },
 	{ userId: EXAMPLE_USER_ID, agentType: 'claude', agentId: '' },
-	{ userId: EXAMPLE_USER_ID, agentType: 'codex', agentId: '' },
+	{ userId: EXAMPLE_USER_ID, agentType: 'chatgpt', agentId: '' },
 	{
 		userId: EXAMPLE_USER_ID,
 		agentType: 'convo-ai',
@@ -185,8 +185,8 @@ const SINGLE_COLOR_ATTRIBUTIONS = Object.fromEntries(
  * user actor is unnamed, so every `userId` used above needs an entry here.
  *
  * Agent profiles are deliberately absent: `convo-ai` resolves to Rovo, while `claude` resolves
- * to the Claude name and logo even with an empty `agentId`. Codex uses its name with the generic
- * agent icon.
+ * to the Claude name and logo even with an empty `agentId`. `chatgpt` resolves to the ChatGPT
+ * name and logo the same way.
  */
 const EXAMPLE_CONTRIBUTOR_PROFILES: readonly DiffContributorProfile[] = [
 	{ accountId: EXAMPLE_USER_ID, name: 'Priya Sharma' },

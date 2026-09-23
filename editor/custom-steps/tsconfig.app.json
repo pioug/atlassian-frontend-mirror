@@ -1,10 +1,11 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
-		"**/*.docs.tsx",
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
+		"**/__tests__/**/*.json",
 		"**/vr-tests/**/*",
 		"**/__perf__/**/*",
 		"**/*.test.*",
@@ -26,8 +27,15 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
-		"./src/utils/test-utils.ts"
+		"./src/utils/test-utils.ts",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__custom-steps/app",
@@ -38,11 +46,19 @@
 			"path": "../adf-schema/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-tables/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../prosemirror-history/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

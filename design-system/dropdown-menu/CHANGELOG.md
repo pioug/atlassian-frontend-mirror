@@ -1,5 +1,24 @@
 # @atlaskit/dropdown-menu
 
+## 18.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.5
+
+### Patch Changes
+
+- [`dce0a0ee3dfd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dce0a0ee3dfd4) -
+  Expose dialog popup semantics through modal trigger render props and forward them in the built-in
+  button, icon button, and dropdown item variants. Keep the callback property optional for
+  compatibility with existing consumers while they migrate separately.
+
+  Gate modal trigger popup semantics and dropdown dialog handling behind
+  `platform_dst-a11y_modal-trigger-haspopup`. When enabled, dialog items remain reachable with arrow
+  keys and close the menu when activated. ArrowRight only opens submenu triggers.
+
 ## 18.3.4
 
 ### Patch Changes

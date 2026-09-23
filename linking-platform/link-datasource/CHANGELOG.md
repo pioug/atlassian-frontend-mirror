@@ -1,5 +1,32 @@
 # @atlaskit/link-datasource
 
+## 6.14.2
+
+### Patch Changes
+
+- [`3f172371c9b66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f172371c9b66) -
+  Preserve the selected Assets columns when only the AQL query changes, and persist datasource
+  updates that only change parameters. Both behind feature gate
+  `platform_lp_sllv_preserve_assets_columns`.
+- Updated dependencies
+
+## 6.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.14.0
+
+### Minor Changes
+
+- [`69cbbe9ee0f63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69cbbe9ee0f63) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.13.10
 
 ### Patch Changes

@@ -121,6 +121,15 @@ const hoverStyle = cssMap({
 	},
 });
 
+const inputMotionStyles = cssMap({
+	legacy: {
+		transition: `background-color 0.2s ease-in-out, border-color 0.2s ease-in-out`,
+	},
+	base: {
+		transition: token('motion.input'),
+	},
+});
+
 const getContainerTextBgAndBorderColor = cssMap({
 	standard: {
 		borderColor: token('color.border.input'),
@@ -213,7 +222,6 @@ const containerStyles = css({
 	font: token('font.body'),
 	overflow: 'hidden',
 	pointerEvents: 'auto',
-	transition: `background-color 0.2s ease-in-out, border-color 0.2s ease-in-out`,
 	verticalAlign: 'top',
 	wordWrap: 'break-word',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles
@@ -343,6 +351,8 @@ const Textfield: React.ForwardRefExoticComponent<
 		width,
 		...spreadProps
 	} = props;
+	const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
+	const isInteractive = !isDisabled && !isReadOnly;
 
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -424,6 +434,8 @@ const Textfield: React.ForwardRefExoticComponent<
 			}}
 			css={[
 				containerStyles,
+				!isInputMotionEnabled && inputMotionStyles.legacy,
+				isInputMotionEnabled && isInteractive && inputMotionStyles.base,
 				getContainerTextBgAndBorderColor[appearance],
 				containerStyleAppearance[appearance],
 				!isDisabled && focusWithinStyle[appearance],

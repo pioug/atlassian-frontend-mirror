@@ -1,5 +1,15 @@
 # @atlaskit/rovo-triggers
 
+## 11.2.2
+
+### Patch Changes
+
+- [`d9f55e9a015c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9f55e9a015c8) -
+  Cleanup feature_gate `rovo_chat_replace_url_param_history`. `updatePageRovoParams` now always
+  replaces the current history entry when called with `historyMode: 'replace'`, which was the fully
+  rolled out behaviour behind the gate.
+- Updated dependencies
+
 ## 11.2.1
 
 ### Patch Changes

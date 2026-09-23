@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::019ef8490872403a5cfa3227739b9edc>>
+ * @codegen <<SignedSource::046ad43297b86c109c4a07e8a6556566>>
  * @codegenCommand yarn build tokens
  */
 
@@ -612,8 +612,8 @@ var tokens = [{
   "attributes": {
     "group": "motion",
     "state": "active",
-    "introduced": "17.1.0",
-    "description": "Use for input focus state transitions."
+    "introduced": "19.0.0",
+    "description": "Use for input hover, focus, and error state transitions."
   },
   "value": {
     "duration": 150,
@@ -626,8 +626,8 @@ var tokens = [{
     "attributes": {
       "group": "motion",
       "state": "active",
-      "introduced": "17.1.0",
-      "description": "Use for input focus state transitions."
+      "introduced": "19.0.0",
+      "description": "Use for input hover, focus, and error state transitions."
     },
     "value": {
       "duration": "Duration150",
@@ -635,39 +635,9 @@ var tokens = [{
       "properties": ["BackgroundColor", "BorderColor", "BoxShadow"]
     }
   },
-  "name": "motion.input.focused",
-  "path": ["motion", "input", "focused"],
-  "cleanName": "motion.input.focused"
-}, {
-  "attributes": {
-    "group": "motion",
-    "state": "active",
-    "introduced": "17.1.0",
-    "description": "Use for input hover and return-to-rest state transitions."
-  },
-  "value": {
-    "duration": 150,
-    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "properties": ["background-color", "border-color", "box-shadow"]
-  },
-  "filePath": "schema/themes/atlassian-motion/motion.tsx",
-  "isSource": true,
-  "original": {
-    "attributes": {
-      "group": "motion",
-      "state": "active",
-      "introduced": "17.1.0",
-      "description": "Use for input hover and return-to-rest state transitions."
-    },
-    "value": {
-      "duration": "Duration150",
-      "curve": "EasePracticalOut",
-      "properties": ["BackgroundColor", "BorderColor", "BoxShadow"]
-    }
-  },
-  "name": "motion.input.hovered",
-  "path": ["motion", "input", "hovered"],
-  "cleanName": "motion.input.hovered"
+  "name": "motion.input",
+  "path": ["motion", "input"],
+  "cleanName": "motion.input"
 }, {
   "attributes": {
     "group": "motionKeyframe",
@@ -961,7 +931,7 @@ var tokens = [{
     "introduced": "11.5.0",
     "description": "Use for short slide-out transitions where an element exits downward by 8px from its starting position."
   },
-  "value": "SlideOutBottom8px",
+  "value": "SlideOutBottom4px",
   "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
   "isSource": true,
   "original": {
@@ -971,7 +941,7 @@ var tokens = [{
       "introduced": "11.5.0",
       "description": "Use for short slide-out transitions where an element exits downward by 8px from its starting position."
     },
-    "value": "SlideOutBottom8px"
+    "value": "SlideOutBottom4px"
   },
   "name": "motion.keyframe.slide.out.bottom.short",
   "path": ["motion", "keyframe", "slide", "out", "bottom", "short"],
@@ -1005,7 +975,7 @@ var tokens = [{
     "introduced": "11.5.0",
     "description": "Use for short slide-out transitions where an element exits to the left by 8px from its starting position."
   },
-  "value": "SlideOutLeft8px",
+  "value": "SlideOutLeft4px",
   "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
   "isSource": true,
   "original": {
@@ -1015,7 +985,7 @@ var tokens = [{
       "introduced": "11.5.0",
       "description": "Use for short slide-out transitions where an element exits to the left by 8px from its starting position."
     },
-    "value": "SlideOutLeft8px"
+    "value": "SlideOutLeft4px"
   },
   "name": "motion.keyframe.slide.out.left.short",
   "path": ["motion", "keyframe", "slide", "out", "left", "short"],
@@ -1027,7 +997,7 @@ var tokens = [{
     "introduced": "11.5.0",
     "description": "Use for short slide-out transitions where an element exits to the right by 8px from its starting position."
   },
-  "value": "SlideOutRight8px",
+  "value": "SlideOutRight4px",
   "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
   "isSource": true,
   "original": {
@@ -1037,7 +1007,7 @@ var tokens = [{
       "introduced": "11.5.0",
       "description": "Use for short slide-out transitions where an element exits to the right by 8px from its starting position."
     },
-    "value": "SlideOutRight8px"
+    "value": "SlideOutRight4px"
   },
   "name": "motion.keyframe.slide.out.right.short",
   "path": ["motion", "keyframe", "slide", "out", "right", "short"],
@@ -1049,7 +1019,7 @@ var tokens = [{
     "introduced": "11.5.0",
     "description": "Use for short slide-out transitions where an element exits upward by 8px from its starting position."
   },
-  "value": "SlideOutTop8px",
+  "value": "SlideOutTop4px",
   "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
   "isSource": true,
   "original": {
@@ -1059,7 +1029,7 @@ var tokens = [{
       "introduced": "11.5.0",
       "description": "Use for short slide-out transitions where an element exits upward by 8px from its starting position."
     },
-    "value": "SlideOutTop8px"
+    "value": "SlideOutTop4px"
   },
   "name": "motion.keyframe.slide.out.top.short",
   "path": ["motion", "keyframe", "slide", "out", "top", "short"],
@@ -1676,7 +1646,7 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOutBottom8px", "FadeOut100to0"],
+    "keyframes": ["SlideOutBottom4px", "FadeOut100to0"],
     "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1691,7 +1661,7 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOutBottom8px", "FadeOut100to0"],
+      "keyframes": ["SlideOutBottom4px", "FadeOut100to0"],
       "fill": "AnimationFillModeForwards"
     }
   },
@@ -1708,7 +1678,7 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOutLeft8px", "FadeOut100to0"],
+    "keyframes": ["SlideOutLeft4px", "FadeOut100to0"],
     "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1723,7 +1693,7 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOutLeft8px", "FadeOut100to0"],
+      "keyframes": ["SlideOutLeft4px", "FadeOut100to0"],
       "fill": "AnimationFillModeForwards"
     }
   },
@@ -1740,7 +1710,7 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOutRight8px", "FadeOut100to0"],
+    "keyframes": ["SlideOutRight4px", "FadeOut100to0"],
     "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1755,7 +1725,7 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOutRight8px", "FadeOut100to0"],
+      "keyframes": ["SlideOutRight4px", "FadeOut100to0"],
       "fill": "AnimationFillModeForwards"
     }
   },
@@ -1772,7 +1742,7 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOutTop8px", "FadeOut100to0"],
+    "keyframes": ["SlideOutTop4px", "FadeOut100to0"],
     "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1787,7 +1757,7 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOutTop8px", "FadeOut100to0"],
+      "keyframes": ["SlideOutTop4px", "FadeOut100to0"],
       "fill": "AnimationFillModeForwards"
     }
   },
@@ -1986,5 +1956,163 @@ var tokens = [{
   "name": "motion.spotlight.exit",
   "path": ["motion", "spotlight", "exit"],
   "cleanName": "motion.spotlight.exit"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "18.3.0",
+    "description": "Use for all tab text color state transitions."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "properties": ["color"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "18.3.0",
+      "description": "Use for all tab text color state transitions."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EasePracticalOut",
+      "properties": ["Color"]
+    }
+  },
+  "name": "motion.tab.[default]",
+  "path": ["motion", "tab", "[default]"],
+  "cleanName": "motion.tab"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "18.3.0",
+    "description": "Use for tab indicators entering from the left."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideInRight8px", "FadeIn0to100"],
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "18.3.0",
+      "description": "Use for tab indicators entering from the left."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideInRight8px", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.tab.indicator.enter.left",
+  "path": ["motion", "tab", "indicator", "enter", "left"],
+  "cleanName": "motion.tab.indicator.enter.left"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "18.3.0",
+    "description": "Use for tab indicators entering from the right."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideInLeft8px", "FadeIn0to100"],
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "18.3.0",
+      "description": "Use for tab indicators entering from the right."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideInLeft8px", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.tab.indicator.enter.right",
+  "path": ["motion", "tab", "indicator", "enter", "right"],
+  "cleanName": "motion.tab.indicator.enter.right"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "18.3.0",
+    "description": "Use for tab indicators exiting toward the left."
+  },
+  "value": {
+    "duration": 100,
+    "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+    "keyframes": ["SlideOutLeft8px", "FadeOut100to0"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "18.3.0",
+      "description": "Use for tab indicators exiting toward the left."
+    },
+    "value": {
+      "duration": "Duration100",
+      "curve": "EasePracticalIn",
+      "keyframes": ["SlideOutLeft8px", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.tab.indicator.exit.left",
+  "path": ["motion", "tab", "indicator", "exit", "left"],
+  "cleanName": "motion.tab.indicator.exit.left"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "18.3.0",
+    "description": "Use for tab indicators exiting toward the right."
+  },
+  "value": {
+    "duration": 100,
+    "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+    "keyframes": ["SlideOutRight8px", "FadeOut100to0"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "18.3.0",
+      "description": "Use for tab indicators exiting toward the right."
+    },
+    "value": {
+      "duration": "Duration100",
+      "curve": "EasePracticalIn",
+      "keyframes": ["SlideOutRight8px", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.tab.indicator.exit.right",
+  "path": ["motion", "tab", "indicator", "exit", "right"],
+  "cleanName": "motion.tab.indicator.exit.right"
 }];
 var _default = exports.default = tokens;

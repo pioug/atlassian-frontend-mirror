@@ -3,9 +3,7 @@
 	"include": [
 		"./src/**/*.ts",
 		"./src/**/*.tsx",
-		"./core/**/*.ts"
-	],
-	"exclude": [
+		"./core/**/*.ts",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -28,6 +26,15 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./build/*.tsx"
+	],
+	"exclude": [
 		"./build/**/*"
 	],
 	"compilerOptions": {
@@ -40,8 +47,40 @@
 			"path": "../icon-build-process/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../button/tsconfig.app.json"
+		},
+		{
+			"path": "../code/tsconfig.app.json"
+		},
+		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
 			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

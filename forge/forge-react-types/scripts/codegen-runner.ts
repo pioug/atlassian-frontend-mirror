@@ -17,8 +17,8 @@ const runTypeCheck = () => {
 if (process.argv.length < 3) {
 	generateComponentPropTypes();
 } else {
-	// e.g yarn workspace @atlaskit/forge-react-types codegen Button
-	//     or yarn workspace @atlaskit/forge-react-types codegen Button,Code
+	// e.g afm workspace @atlaskit/forge-react-types codegen Button
+	//     or afm workspace @atlaskit/forge-react-types codegen Button,Code
 	const componentPropTypeFilter = process.argv[2];
 	generateComponentPropTypes(componentPropTypeFilter);
 }

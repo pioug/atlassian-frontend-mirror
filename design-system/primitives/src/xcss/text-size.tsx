@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::610f7a87b5183bc177338e33463cac82>>
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegen <<SignedSource::6fd3eebcc815c6c62e80e08d3ca4f843>>
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
  */

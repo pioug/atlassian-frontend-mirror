@@ -29,10 +29,7 @@ for (const topLayer of [false, true]) {
 			await expect(trigger).toBeFocused();
 		});
 
-		const delayedFocusBehavior = topLayer
-			? 'should preserve automatically focused Search when the delayed header arrives'
-			: 'should move focus from the popup container to the delayed Close button';
-		it(delayedFocusBehavior, async ({ page }) => {
+		it('should focus the expected control when the delayed header arrives', async ({ page }) => {
 			const { trigger, dialog, closeButton, initialFocus, loadedFocus } = await setupComponent(
 				page,
 				{ topLayer, showSearchWhileLoading: true },

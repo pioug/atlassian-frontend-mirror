@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8a252381063c65bbbd7bd21e6a7f99a7>>
- * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
+ * @codegen <<SignedSource::ff4acc6ff3441b1ae527ac8371a3717b>>
+ * @codegenCommand afm workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { Linter } from 'eslint';
 import * as atlaskitDesignSystemPlugin from '@atlaskit/eslint-plugin-design-system';

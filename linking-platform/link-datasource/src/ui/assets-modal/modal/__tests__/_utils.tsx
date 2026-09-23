@@ -242,8 +242,10 @@ export const setup = async (
 	onCancel: jest.Mock<any, any, any>;
 	onInsert: jest.Mock<any, any, any>;
 	queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null;
+	rerenderModal: () => void;
 	searchWithNewAql: (aqlString: string) => void;
 	selectNewSchema: (option: string) => Promise<void>;
+	setDatasourceTableHookState: (state: DatasourceTableState) => void;
 }> => {
 	asMock(useDatasourceTableState).mockReturnValue(
 		args.datasourceTableHookState || getDefaultDataSourceTableHookState(),
@@ -262,31 +264,27 @@ export const setup = async (
 	const onInsert = jest.fn();
 	const onAnalyticFireEvent = jest.fn();
 
-	let renderFunction = render;
-	const renderComponent = (): RenderResult<typeof queries, HTMLElement, HTMLElement> =>
-		renderFunction(
-			<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-				<IntlProvider locale="en">
-					<AssetsConfigModal
-						datasourceId={'some-assets-datasource-id'}
-						parameters={
-							Object.keys(args).includes('parameters') ? args.parameters : getDefaultParameters()
-						}
-						onCancel={onCancel}
-						onInsert={onInsert}
-						visibleColumnKeys={
-							Object.keys(args).includes('visibleColumnKeys')
-								? args.visibleColumnKeys
-								: ['myColumn']
-						}
-					/>
-				</IntlProvider>
-				,
-			</AnalyticsListener>,
-		);
-	const component = renderComponent();
+	const modalTree = () => (
+		<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+			<IntlProvider locale="en">
+				<AssetsConfigModal
+					datasourceId={'some-assets-datasource-id'}
+					parameters={
+						Object.keys(args).includes('parameters') ? args.parameters : getDefaultParameters()
+					}
+					onCancel={onCancel}
+					onInsert={onInsert}
+					visibleColumnKeys={
+						Object.keys(args).includes('visibleColumnKeys') ? args.visibleColumnKeys : ['myColumn']
+					}
+				/>
+			</IntlProvider>
+			,
+		</AnalyticsListener>
+	);
+	const component = render(modalTree());
 
-	// Unfortunately can no longer spread ...renderComponent() due to typing issue
+	// Unfortunately can no longer spread ...component due to typing issue
 	const { findByRole, findByTestId, getByRole, getByTestId, queryByTestId, getByText } = component;
 
 	const assertAnalyticsAfterButtonClick = async (buttonName: string, payload: any) => {
@@ -306,6 +304,17 @@ export const setup = async (
 		fireEvent.click(objectSchemaSelect.children[0]);
 
 		(await findByText(option)).click();
+	};
+
+	// Lets a test change what the hook reports part-way through a journey
+	const setDatasourceTableHookState = (state: DatasourceTableState) => {
+		asMock(useDatasourceTableState).mockReturnValue(state);
+	};
+
+	// Stands in for the modal re-rendering because the hook's own state changed, which is how it
+	// picks up a `setDatasourceTableHookState` that no user interaction triggered
+	const rerenderModal = () => {
+		component.rerender(modalTree());
 	};
 
 	const searchWithNewAql = (aqlString: string) => {
@@ -335,6 +344,8 @@ export const setup = async (
 		assertAnalyticsAfterButtonClick,
 		selectNewSchema,
 		searchWithNewAql,
+		setDatasourceTableHookState,
+		rerenderModal,
 		clickSearchButton,
 	};
 };

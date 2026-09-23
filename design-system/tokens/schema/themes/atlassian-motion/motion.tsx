@@ -49,19 +49,10 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			},
 		},
 		input: {
-			hovered: {
-				value: {
-					duration: 'Duration150',
-					curve: 'EasePracticalOut',
-					properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
-				},
-			},
-			focused: {
-				value: {
-					duration: 'Duration150',
-					curve: 'EasePracticalOut',
-					properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
-				},
+			value: {
+				duration: 'Duration150',
+				curve: 'EasePracticalOut',
+				properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
 			},
 		},
 		listitem: {
@@ -188,7 +179,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
-						keyframes: ['SlideOutTop8px', 'FadeOut100to0'],
+						keyframes: ['SlideOutTop4px', 'FadeOut100to0'],
 						fill: 'AnimationFillModeForwards',
 					},
 				},
@@ -196,7 +187,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
-						keyframes: ['SlideOutBottom8px', 'FadeOut100to0'],
+						keyframes: ['SlideOutBottom4px', 'FadeOut100to0'],
 						fill: 'AnimationFillModeForwards',
 					},
 				},
@@ -204,7 +195,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
-						keyframes: ['SlideOutLeft8px', 'FadeOut100to0'],
+						keyframes: ['SlideOutLeft4px', 'FadeOut100to0'],
 						fill: 'AnimationFillModeForwards',
 					},
 				},
@@ -212,7 +203,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
-						keyframes: ['SlideOutRight8px', 'FadeOut100to0'],
+						keyframes: ['SlideOutRight4px', 'FadeOut100to0'],
 						fill: 'AnimationFillModeForwards',
 					},
 				},
@@ -361,6 +352,53 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					curve: 'EasePracticalIn',
 					keyframes: ['GridColumnOut100to0', 'FadeOut100to0'],
 					fill: 'AnimationFillModeForwards',
+				},
+			},
+		},
+		tab: {
+			'[default]': {
+				value: {
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					properties: ['Color'],
+				},
+			},
+			indicator: {
+				enter: {
+					left: {
+						value: {
+							duration: 'Duration150',
+							curve: 'EaseBoldOut',
+							keyframes: ['SlideInRight8px', 'FadeIn0to100'],
+							fill: 'AnimationFillModeBackwards',
+						},
+					},
+					right: {
+						value: {
+							duration: 'Duration150',
+							curve: 'EaseBoldOut',
+							keyframes: ['SlideInLeft8px', 'FadeIn0to100'],
+							fill: 'AnimationFillModeBackwards',
+						},
+					},
+				},
+				exit: {
+					left: {
+						value: {
+							duration: 'Duration100',
+							curve: 'EasePracticalIn',
+							keyframes: ['SlideOutLeft8px', 'FadeOut100to0'],
+							fill: 'AnimationFillModeForwards',
+						},
+					},
+					right: {
+						value: {
+							duration: 'Duration100',
+							curve: 'EasePracticalIn',
+							keyframes: ['SlideOutRight8px', 'FadeOut100to0'],
+							fill: 'AnimationFillModeForwards',
+						},
+					},
 				},
 			},
 		},

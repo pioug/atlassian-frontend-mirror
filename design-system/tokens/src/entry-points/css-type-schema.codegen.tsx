@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::507c45fbb0d0c528ee4f76a3bf5c42d3>>
+ * @codegen <<SignedSource::ec4bf1f37d8c564b74429b0003da9895>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -522,8 +522,7 @@ export type Motion =
 	| 'var(--ds-flag-enter)'
 	| 'var(--ds-flag-exit)'
 	| 'var(--ds-flag-reposition)'
-	| 'var(--ds-input-focused)'
-	| 'var(--ds-input-hovered)'
+	| 'var(--ds-input)'
 	| 'var(--ds-label-enter)'
 	| 'var(--ds-label-exit)'
 	| 'var(--ds-listitem-hovered)'
@@ -552,7 +551,12 @@ export type Motion =
 	| 'var(--ds-sidenav-exit-left)'
 	| 'var(--ds-sidenav-exit-right)'
 	| 'var(--ds-spotlight-enter)'
-	| 'var(--ds-spotlight-exit)';
+	| 'var(--ds-spotlight-exit)'
+	| 'var(--ds-tab)'
+	| 'var(--ds-tab-indicator-enter-left)'
+	| 'var(--ds-tab-indicator-enter-right)'
+	| 'var(--ds-tab-indicator-exit-left)'
+	| 'var(--ds-tab-indicator-exit-right)';
 
 export interface CSSPropertiesHovered {
 	backgroundColor: BackgroundColorHovered;

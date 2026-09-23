@@ -1,3 +1,4 @@
+import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
 import type { StepJson } from '@atlaskit/editor-common/collab';
 import type {
 	NextEditorPlugin,
@@ -55,6 +56,21 @@ export const DIFF_AGENT_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
 	'chatgpt',
 ]);
 
+/** The brand id `@atlaskit/agent-color` registers each `AgentBrandColorScheme` under. */
+type AgentColorBrandId = AgentBrandColorScheme extends `agent-brand-${infer BrandId}`
+	? BrandId
+	: never;
+
+/**
+ * Compile-time-only: fails to build if `DiffAgentBrand` names a brand `@atlaskit/agent-color`
+ * hasn't registered a colour scheme for. Catches "added a brand here but forgot the colour"
+ * without needing a runtime check. Exported only so the unused check on this module-scope
+ * assertion doesn't fire; no consumer needs its value.
+ */
+export const ASSERT_DIFF_AGENT_BRANDS_ARE_REGISTERED: DiffAgentBrand extends AgentColorBrandId
+	? true
+	: ['DiffAgentBrand is missing from @atlaskit/agent-color', DiffAgentBrand] = true;
+
 /** A complete identity for one of the accounts named by a step attribution. */
 export type DiffContributorProfile = {
 	/** Matched against the `userId` and `agentId` on step attributions. */
@@ -67,7 +83,7 @@ export type DiffContributorProfile = {
 
 type DiffContributorKind = 'user' | 'agent';
 
-/** Agent presentation: branded, identified by profile, or a generic external agent. */
+/** Agent presentation: branded (dedicated icon and reserved participant colour), identified by profile, or a generic external agent. */
 type DiffAgentKind = DiffAgentBrand | 'identified' | 'external';
 
 /**

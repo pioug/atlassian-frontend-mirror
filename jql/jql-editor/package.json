@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor",
-	"version": "7.8.3",
+	"version": "7.9.0",
 	"description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -105,6 +105,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/townsquare-emoji-provider": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
 		"@emotion/styled": "root:*",
 		"@react-loosely-lazy/manifest": "root:*",

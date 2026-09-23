@@ -1,5 +1,27 @@
 # @atlaskit/editor-synced-block-provider
 
+## 15.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`8062c64320986`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8062c64320986) -
+  EDITOR-9184: Resolve the Jira work item field holding a synced block and where each location sits
+  relative to the host document, behind the `editor_synced_blocks_jira_custom_rich_text` experiment.
+  `SyncBlockSourceInfo` gains optional `fieldName` and `locationScope`, `ReferenceSyncBlock` and
+  `SyncBlockData` gain optional `locationScope`, and the new `SyncBlockLocationScope` type is
+  exported from `common/types`; with the experiment off the AGG request and every returned object
+  are unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.3
 
 ### Patch Changes

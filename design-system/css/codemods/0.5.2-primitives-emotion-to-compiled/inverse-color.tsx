@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a28069eff63ae56e4151436b4687b08>>
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegen <<SignedSource::bb3c8afdababe0d0d026bbe5fd96e543>>
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
 export const inverseColorMap: {

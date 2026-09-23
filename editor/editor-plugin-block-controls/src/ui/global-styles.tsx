@@ -593,11 +593,18 @@ const sparseSurfaceAnchorStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="multiBodiedExtension"]:not(:has(.extension-container[data-layout]))':
 			{ anchorName: sparseSurfaceAnchorName },
+		// `.pm-table-resizer-container` wraps the ENTIRE table, including cell content, so a
+		// nested `mediaSingle`/ embed resizer inside a cell is also a descendant of it — a plain
+		// descendant selector can't tell the table's own resize handle apart from a media resizer.
+		// The table's own `.resizer-item.display-handle` is a direct child of
+		// `.pm-table-resizer-container`, while any nested cell content sits many levels deeper, so
+		// the `>` direct child combinator is required to avoid hijacking the table's anchor-name
+		// onto a nested cell's media resizer instead of the table's own resize-handle chrome.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="table"]:has(.resizer-item) .resizer-item':
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="table"]:has(.pm-table-resizer-container > .resizer-item) .pm-table-resizer-container > .resizer-item':
 			{ anchorName: sparseSurfaceAnchorName },
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="table"]:not(:has(.resizer-item))':
+		'[data-block-controls-surface-anchor][data-block-controls-surface-node-type="table"]:not(:has(.pm-table-resizer-container > .resizer-item))':
 			{ anchorName: sparseSurfaceAnchorName },
 	},
 });

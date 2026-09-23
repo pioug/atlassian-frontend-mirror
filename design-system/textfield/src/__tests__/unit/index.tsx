@@ -4,9 +4,15 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import __noop from '@atlaskit/ds-lib/noop';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Textfield from '../../text-field';
 import { type TextfieldProps } from '../../types';
+
+const inputMotionGate = 'platform-dst-motion-uplift-input';
+const inputTransition =
+	'var(--ds-input,background-color border-color box-shadow .15s cubic-bezier(.4,1,.6,1))';
+const legacyTransition = 'background-color .2s ease-in-out,border-color .2s ease-in-out';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Textfield', () => {
@@ -252,6 +258,91 @@ describe('Textfield', () => {
 			expect(container).toHaveAttribute('data-ds--text-field--container', 'true');
 			const input = screen.getByTestId(testId);
 			expect(input).toHaveAttribute('data-ds--text-field--input', 'true');
+		});
+	});
+
+	describe('motion', () => {
+		it('uses the input motion token for rest and focus when the input motion gate is on', () => {
+			passGate(inputMotionGate);
+			render(createTextfield());
+
+			const container = screen.getByTestId(`${testId}-container`);
+			const input = screen.getByTestId(testId);
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+			expect(container).toHaveCompiledCss('border-width', 'var(--ds-border-width,1px)');
+
+			fireEvent.focus(input);
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+
+			fireEvent.blur(input);
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+		});
+
+		it('uses the input motion token when the input becomes invalid', () => {
+			passGate(inputMotionGate);
+			const { rerender } = render(createTextfield());
+
+			const container = screen.getByTestId(`${testId}-container`);
+			const input = screen.getByTestId(testId);
+			fireEvent.focus(input);
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+
+			rerender(createTextfield({ isInvalid: true }));
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+			expect(container).toHaveCompiledCss('border-width', 'var(--ds-border-width,1px)');
+
+			rerender(createTextfield());
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+		});
+
+		it('preserves the legacy transition when the input motion gate is off', () => {
+			failGate(inputMotionGate);
+			render(createTextfield());
+
+			const container = screen.getByTestId(`${testId}-container`);
+			expect(container).toHaveCompiledCss('transition', legacyTransition);
+		});
+
+		it('does not rerender on focus or blur when the input motion gate is off', () => {
+			failGate(inputMotionGate);
+			const onRender = jest.fn();
+			render(
+				<React.Profiler id="textfield" onRender={onRender}>
+					{createTextfield()}
+				</React.Profiler>,
+			);
+
+			const input = screen.getByTestId(testId);
+			onRender.mockClear();
+			fireEvent.focus(input);
+			fireEvent.blur(input);
+
+			expect(onRender).not.toHaveBeenCalled();
+		});
+
+		it('retains non-spatial input transitions under reduced motion', () => {
+			passGate(inputMotionGate);
+			render(createTextfield());
+
+			const container = screen.getByTestId(`${testId}-container`);
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+			expect(container).not.toHaveCompiledCss('transition', 'none', {
+				media: '(prefers-reduced-motion: reduce)',
+			});
+			expect(container).not.toHaveCompiledCss('transition-duration', '0s', {
+				media: '(prefers-reduced-motion: reduce)',
+			});
+		});
+
+		it.each<[string, TextfieldProps]>([
+			['disabled', { isDisabled: true }],
+			['read-only', { isReadOnly: true }],
+		])('does not apply interactive motion to %s inputs', (_, props) => {
+			passGate(inputMotionGate);
+			render(createTextfield(props));
+
+			const container = screen.getByTestId(`${testId}-container`);
+			expect(container).not.toHaveCompiledCss('transition', inputTransition);
 		});
 	});
 });

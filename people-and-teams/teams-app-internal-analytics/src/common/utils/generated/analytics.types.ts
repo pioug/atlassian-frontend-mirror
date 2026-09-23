@@ -3,8 +3,8 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::4dc09a90e4d0fa92c0759202df107ce7>>
- * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
+ * @codegen <<SignedSource::84622cdb103b5b7b1fa62cb7ec3791df>>
+ * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
 	packageName: string;

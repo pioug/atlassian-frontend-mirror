@@ -1,4 +1,8 @@
+import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
+import { getThirdPartyAgentColor } from '@atlaskit/agent-color/get-third-party-agent-color';
+
 import type {
+	DiffAgentBrand,
 	DiffContributor,
 	DiffContributorProfile,
 	DiffContributors,
@@ -15,20 +19,24 @@ const ROVO_AGENT_TYPES: ReadonlySet<string> = new Set(['convo-ai', 'rovo_chat'])
 
 type ResolvedIdentity = Omit<DiffContributor, 'attribution' | 'connectedTo'>;
 
-/** Known external agent types emitted by Confluence's agent identification service. */
-const EXTERNAL_AGENT_PRESENTATIONS: Readonly<
-	Record<string, Pick<ResolvedIdentity, 'agentKind' | 'name'>>
-> = {
-	claude: { agentKind: 'claude', name: 'Claude' },
-	codex: { agentKind: 'external', name: 'Codex' },
-	vscode: { agentKind: 'external', name: 'VS Code' },
-	hermes: { agentKind: 'external', name: 'Hermes' },
-	runlayer: { agentKind: 'external', name: 'Runlayer' },
-	zed: { agentKind: 'external', name: 'Zed' },
-	ampcode: { agentKind: 'external', name: 'Ampcode' },
-	antigravity: { agentKind: 'external', name: 'Antigravity' },
-	devin_cli: { agentKind: 'external', name: 'Devin CLI' },
-	pi_agent: { agentKind: 'external', name: 'Pi Agent' },
+/** `@atlaskit/agent-color` brands show-diff renders with a dedicated presentation. */
+const SHOW_DIFF_AGENT_BRANDS: Readonly<Partial<Record<AgentBrandColorScheme, DiffAgentBrand>>> = {
+	'agent-brand-claude': 'claude',
+	'agent-brand-chatgpt': 'chatgpt',
+	'agent-brand-rovo': 'rovo',
+};
+
+/** Known external agent types emitted by Confluence's agent identification service that carry
+ * no `@atlaskit/agent-color` brand — a generic labelled fallback. */
+const EXTERNAL_AGENT_NAMES: Readonly<Record<string, string>> = {
+	vscode: 'VS Code',
+	hermes: 'Hermes',
+	runlayer: 'Runlayer',
+	zed: 'Zed',
+	ampcode: 'Ampcode',
+	antigravity: 'Antigravity',
+	devin_cli: 'Devin CLI',
+	pi_agent: 'Pi Agent',
 };
 
 const hasAgentIdentity = (attribution: DiffStepAttribution): boolean =>
@@ -65,10 +73,11 @@ const resolveAgent = (
 	profilesByAccountId: Map<string, DiffContributorProfile>,
 ): ResolvedIdentity => {
 	const agentType = attribution.agentType?.trim().toLowerCase();
-	const agentPresentation = agentType ? EXTERNAL_AGENT_PRESENTATIONS[agentType] : undefined;
+	const brand = agentType ? getThirdPartyAgentColor({ agentName: agentType }) : undefined;
+	const diffBrand = brand ? SHOW_DIFF_AGENT_BRANDS[brand.scheme] : undefined;
 
-	if (agentPresentation && agentPresentation.agentKind !== 'external') {
-		return { ...agentPresentation, kind: 'agent' };
+	if (diffBrand && brand) {
+		return { agentKind: diffBrand, kind: 'agent', name: brand.name };
 	}
 
 	const agentId = attribution.agentId?.trim();
@@ -84,11 +93,11 @@ const resolveAgent = (
 	}
 
 	// Unknown types keep an empty name for the tag's localised "External agent" label.
-	return agentType && ROVO_AGENT_TYPES.has(agentType)
-		? { agentKind: 'rovo', kind: 'agent', name: ROVO_AGENT_NAME }
-		: agentPresentation
-			? { ...agentPresentation, kind: 'agent' }
-			: { agentKind: 'external', kind: 'agent', name: '' };
+	if (agentType && ROVO_AGENT_TYPES.has(agentType)) {
+		return { agentKind: 'rovo', kind: 'agent', name: ROVO_AGENT_NAME };
+	}
+	const externalName = agentType ? EXTERNAL_AGENT_NAMES[agentType] : undefined;
+	return { agentKind: 'external', kind: 'agent', name: externalName ?? '' };
 };
 
 /**

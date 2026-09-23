@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-annotation
 
+## 19.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.0
+
+### Minor Changes
+
+- [`c408ac489d43a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c408ac489d43a) -
+  Add an optional node-aware predicate for block annotation eligibility behind
+  `cc_maui_annotations_on_extensions`, while preserving the existing node-name configuration.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.0
+
+### Minor Changes
+
+- [`e1e5846272124`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1e5846272124) -
+  Expose `applyInlineCommentDraft` and `removeInlineCommentAnnotation` so consumers can apply and
+  roll back inline-comment drafts without the annotation manager.
+
 ## 19.0.3
 
 ### Patch Changes

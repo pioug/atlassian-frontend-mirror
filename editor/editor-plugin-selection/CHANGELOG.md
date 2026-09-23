@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-selection
 
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- [`1ee5ac1d4338d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ee5ac1d4338d) -
+  Cleaning up cc_editor_focus_before_editor_on_load and platform_editor_no_cursor_on_edit_page_init
+
+  Cursor suppression on load is now driven by the presence of the interaction plugin rather than the
+  experiment, so only editors that opt into that plugin skip focus on a document with content.
+  `cc_editor_focus_before_editor_on_load` shipped disabled, so the pre-editor focus element has been
+  removed.
+
+- Updated dependencies
+
 ## 19.0.3
 
 ### Patch Changes

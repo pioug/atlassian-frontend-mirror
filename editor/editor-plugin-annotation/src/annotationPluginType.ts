@@ -45,7 +45,19 @@ export type AnnotationPlugin = NextEditorPlugin<
 	'annotation',
 	{
 		actions: {
+			/**
+			 * Applies the current inline-comment draft as an annotation mark on the
+			 * bookmarked selection. Callers must start a draft first via
+			 * `setInlineCommentDraftState`.
+			 * @returns A command that returns true when the draft is applied.
+			 */
+			applyInlineCommentDraft: (annotationId: string) => Command;
 			hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
+			/**
+			 * Removes an inline-comment annotation mark from the document by id.
+			 * @returns A command that returns true when the remove transaction is dispatched.
+			 */
+			removeInlineCommentAnnotation: (annotationId: string) => Command;
 			/**
 			 * Requests that the active inline comment or comment draft be closed.
 			 * Runs the provider's close guard before closing when one is configured.

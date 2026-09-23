@@ -462,7 +462,7 @@ When ADS structured content changes:
 1. From `platform/`, run combined codegen once:
 
 ```bash
-yarn workspace @af/ads-ai-tooling codegen
+afm workspace @af/ads-ai-tooling codegen
 ```
 
 2. Commit updated generated MCP outputs in this package.

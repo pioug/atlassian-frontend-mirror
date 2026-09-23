@@ -70,7 +70,6 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		.map((child) => (React.isValidElement<any>(child) ? child.props.nodeType === 'table' : false))
 		.every(Boolean);
-	const isInsideOfTable = path.some((node) => node.type.name === 'table');
 
 	const validationContextValue = useMemo<{ allowNestedTables: boolean }>(
 		() => ({ allowNestedTables: true }),
@@ -105,7 +104,6 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 										layout,
 										{
 											isTopLevel: path.length < 1,
-											isInsideOfTable,
 											rendererAppearance: props.rendererAppearance,
 											fireAnalyticsEvent,
 										},
@@ -129,7 +127,6 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 								layout,
 								{
 									isTopLevel: path.length < 1,
-									isInsideOfTable,
 									rendererAppearance: props.rendererAppearance,
 									fireAnalyticsEvent,
 								},

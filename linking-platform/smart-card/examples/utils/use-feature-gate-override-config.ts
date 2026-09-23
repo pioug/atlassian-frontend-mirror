@@ -7,6 +7,9 @@ import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/
 type FeatureGateConfig = Parameters<(typeof FeatureGates)['overrideConfig']>[1];
 
 const experimentConfig: Record<string, FeatureGateConfig> = {
+	platform_sl_3p_preauth_value_modal: {
+		variant: 'modal_text_only',
+	},
 	platform_sl_3p_preauth_better_hovercard: {
 		isEnabled: true,
 	},

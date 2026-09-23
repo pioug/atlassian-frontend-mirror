@@ -1,7 +1,6 @@
 import type { CollabEditOptions, CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
 import type { CollabEditPluginOptions } from '@atlaskit/editor-plugin-collab-edit';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 interface Props {
 	options: {
@@ -20,9 +19,7 @@ export function collabEditPluginOptions({ options, providers }: Props): CollabEd
 		userId: options.collabEdit?.userId,
 		useNativePlugin: options.collabEdit?.useNativePlugin,
 		sanitizePrivateContent: true,
-		hideTelecursorOnLoad:
-			options.__livePage ||
-			expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true),
+		hideTelecursorOnLoad: true,
 
 		// Invite to edit related options
 		inviteToEditHandler: options.collabEdit?.inviteToEditHandler,

@@ -56,7 +56,7 @@
 		"react-dom": "^19.0.0"
 	},
 	"name": "@atlaskit/tile",
-	"version": "4.1.2",
+	"version": "4.1.3",
 	"description": "A tile is a rounded square that takes an asset and represents a noun.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

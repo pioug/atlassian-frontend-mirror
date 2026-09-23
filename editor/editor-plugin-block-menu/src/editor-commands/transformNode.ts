@@ -50,81 +50,79 @@ export const transformNode: (
 
 		const analytics = createTransformAnalytics(api, tr, preservedSelection);
 
-		if (isExperimentEnabled('platform_editor_block_menu_transform_extensions')) {
-			const { $from, $to, range } = expandSelectionToBlockRange(preservedSelection);
-			const sourceNode = getSingleTransformSourceNode(preservedSelection, range);
+		const { $from, $to, range } = expandSelectionToBlockRange(preservedSelection);
+		const sourceNode = getSingleTransformSourceNode(preservedSelection, range);
 
-			if (isExtensionTransformSource(sourceNode)) {
-				const context = {
-					source: sourceNode.toJSON(),
-					targetTypeName: metadata?.targetTypeName ?? targetType.name,
-				};
-				const resolution = transformRegistry?.resolve(context);
-				if (!resolution || resolution.status === 'unsupported') {
-					return tr;
-				}
-
-				const measureId = `transformNode_${targetType.name}_${Date.now()}`;
-				startMeasure(measureId);
-
-				try {
-					const transformResult = resolution.transform.transform(context);
-					if (!transformResult) {
-						stopMeasure(measureId);
-						return tr;
-					}
-					if (!Array.isArray(transformResult.output) || transformResult.output.length === 0) {
-						throw new Error('Block menu transform returned no output');
-					}
-
-					const resultNodes = transformResult.output.map((nodeAdf) => {
-						const node = Node.fromJSON(tr.doc.type.schema, nodeAdf);
-						node.check();
-						return node;
-					});
-
-					if (
-						!range ||
-						!range.parent.canReplace(range.startIndex, range.endIndex, Fragment.from(resultNodes))
-					) {
-						throw new Error('Block menu transform output is invalid at the selected position');
-					}
-
-					const sliceStart = $from.pos;
-					tr.replaceWith(sliceStart, $to.pos, resultNodes);
-
-					const insertedNode = tr.doc.nodeAt(sliceStart);
-					const nextSelection =
-						insertedNode && NodeSelection.isSelectable(insertedNode)
-							? NodeSelection.create(tr.doc, sliceStart)
-							: Selection.near(tr.doc.resolve(sliceStart));
-					tr.setSelection(nextSelection);
-					api?.blockControls?.commands.stopPreservingSelection()({ tr });
-					api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
-
-					const { expand, nestedExpand } = tr.doc.type.schema.nodes;
-					resultNodes.forEach((node) => {
-						if (node.type === expand || node.type === nestedExpand) {
-							expandedState.set(node, true);
-						}
-					});
-
-					stopMeasure(measureId, (duration, startTime) => {
-						analytics.transformed(duration, startTime, {
-							isNested: isNestedNode(preservedSelection, ''),
-							isSuggested: Boolean(metadata?.isSuggested),
-							outputNodesCount: resultNodes.length,
-							sourceNodes: [sourceNode],
-							targetNodeType: targetType.name,
-						});
-					});
-				} catch (error) {
-					stopMeasure(measureId);
-					analytics.errored(error, [sourceNode], targetType.name);
-				}
-
+		if (isExtensionTransformSource(sourceNode)) {
+			const context = {
+				source: sourceNode.toJSON(),
+				targetTypeName: metadata?.targetTypeName ?? targetType.name,
+			};
+			const resolution = transformRegistry?.resolve(context);
+			if (!resolution || resolution.status === 'unsupported') {
 				return tr;
 			}
+
+			const measureId = `transformNode_${targetType.name}_${Date.now()}`;
+			startMeasure(measureId);
+
+			try {
+				const transformResult = resolution.transform.transform(context);
+				if (!transformResult) {
+					stopMeasure(measureId);
+					return tr;
+				}
+				if (!Array.isArray(transformResult.output) || transformResult.output.length === 0) {
+					throw new Error('Block menu transform returned no output');
+				}
+
+				const resultNodes = transformResult.output.map((nodeAdf) => {
+					const node = Node.fromJSON(tr.doc.type.schema, nodeAdf);
+					node.check();
+					return node;
+				});
+
+				if (
+					!range ||
+					!range.parent.canReplace(range.startIndex, range.endIndex, Fragment.from(resultNodes))
+				) {
+					throw new Error('Block menu transform output is invalid at the selected position');
+				}
+
+				const sliceStart = $from.pos;
+				tr.replaceWith(sliceStart, $to.pos, resultNodes);
+
+				const insertedNode = tr.doc.nodeAt(sliceStart);
+				const nextSelection =
+					insertedNode && NodeSelection.isSelectable(insertedNode)
+						? NodeSelection.create(tr.doc, sliceStart)
+						: Selection.near(tr.doc.resolve(sliceStart));
+				tr.setSelection(nextSelection);
+				api?.blockControls?.commands.stopPreservingSelection()({ tr });
+				api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
+
+				const { expand, nestedExpand } = tr.doc.type.schema.nodes;
+				resultNodes.forEach((node) => {
+					if (node.type === expand || node.type === nestedExpand) {
+						expandedState.set(node, true);
+					}
+				});
+
+				stopMeasure(measureId, (duration, startTime) => {
+					analytics.transformed(duration, startTime, {
+						isNested: isNestedNode(preservedSelection, ''),
+						isSuggested: Boolean(metadata?.isSuggested),
+						outputNodesCount: resultNodes.length,
+						sourceNodes: [sourceNode],
+						targetNodeType: targetType.name,
+					});
+				});
+			} catch (error) {
+				stopMeasure(measureId);
+				analytics.errored(error, [sourceNode], targetType.name);
+			}
+
+			return tr;
 		}
 
 		const measureId = `transformNode_${targetType.name}_${Date.now()}`;
@@ -132,7 +130,6 @@ export const transformNode: (
 		const docBeforeTransform = tr.doc;
 
 		const { nodes } = tr.doc.type.schema;
-		const { $from, $to } = expandSelectionToBlockRange(preservedSelection);
 
 		const selectedParent = $from.parent;
 		const isParentLayout = selectedParent.type === nodes.layoutColumn;

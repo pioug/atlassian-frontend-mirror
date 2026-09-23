@@ -428,6 +428,8 @@ export class ReferenceSyncBlockStoreManager {
 				sourceURL,
 				sourceTitle,
 				onSameDocument,
+				fieldName,
+				locationScope,
 				sourceSubType,
 				issueType,
 			} = existingSyncBlock.data || {};
@@ -439,6 +441,8 @@ export class ReferenceSyncBlockStoreManager {
 					subType: sourceSubType,
 					sourceAri: sourceAri || '',
 					onSameDocument,
+					...(fieldName !== undefined && { fieldName }),
+					...(locationScope !== undefined && { locationScope }),
 					productType: product,
 					issueType,
 				});
@@ -784,6 +788,8 @@ export class ReferenceSyncBlockStoreManager {
 				sourceURL: sourceInfo?.url,
 				sourceTitle: sourceInfo?.title,
 				onSameDocument: sourceInfo?.onSameDocument,
+				...(sourceInfo?.fieldName !== undefined && { fieldName: sourceInfo.fieldName }),
+				...(sourceInfo?.locationScope !== undefined && { locationScope: sourceInfo.locationScope }),
 				sourceSubType: sourceInfo?.subType,
 				issueType: sourceInfo?.issueType,
 			};

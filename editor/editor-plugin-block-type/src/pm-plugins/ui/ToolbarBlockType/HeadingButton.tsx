@@ -7,7 +7,6 @@
 
 import React from 'react';
 
-import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
@@ -31,7 +30,6 @@ import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -45,63 +43,9 @@ type HeadingButtonProps = {
 	blockType: BlockTypeWithRank;
 };
 
-const smallTextStyle = css({
-	font: editorUGCToken('editor.font.body.small'),
-});
-
-const normalStyle = css({
-	font: editorUGCToken('editor.font.body'),
-});
-
-const heading1Style = css({
-	font: editorUGCToken('editor.font.heading.h1'),
-});
-
-const heading2Style = css({
-	font: editorUGCToken('editor.font.heading.h2'),
-});
-
-const heading3Style = css({
-	font: editorUGCToken('editor.font.heading.h3'),
-});
-
-const heading4Style = css({
-	font: editorUGCToken('editor.font.heading.h4'),
-});
-
-const heading5Style = css({
-	font: editorUGCToken('editor.font.heading.h5'),
-});
-
-const heading6Style = css({
-	font: editorUGCToken('editor.font.heading.h6'),
-});
-
 type HeadingTextProps = {
 	children: React.ReactNode;
 	headingType: TextBlockTypes;
-};
-
-const LegacyHeadingText = ({ children, headingType }: HeadingTextProps): React.JSX.Element => {
-	switch (headingType) {
-		case 'heading1':
-			return <div css={heading1Style}>{children}</div>;
-		case 'heading2':
-			return <div css={heading2Style}>{children}</div>;
-		case 'heading3':
-			return <div css={heading3Style}>{children}</div>;
-		case 'heading4':
-			return <div css={heading4Style}>{children}</div>;
-		case 'heading5':
-			return <div css={heading5Style}>{children}</div>;
-		case 'heading6':
-			return <div css={heading6Style}>{children}</div>;
-		case 'smallText':
-			return <div css={smallTextStyle}>{children}</div>;
-		case 'normal':
-		default:
-			return <div css={normalStyle}>{children}</div>;
-	}
 };
 
 const headingTextProps: Record<TextBlockTypes, { style: React.CSSProperties }> = {
@@ -119,14 +63,6 @@ const headingTextProps: Record<TextBlockTypes, { style: React.CSSProperties }> =
 
 const HeadingText = ({ children, headingType }: HeadingTextProps): React.JSX.Element => {
 	return React.createElement('div', headingTextProps[headingType], children);
-};
-
-const HeadingPreview = ({ children, headingType }: HeadingTextProps): React.JSX.Element => {
-	if (isExperimentEnabled('platform_editor_fix_block_type_dropdown_no_style')) {
-		return <HeadingText headingType={headingType}>{children}</HeadingText>;
-	}
-
-	return <LegacyHeadingText headingType={headingType}>{children}</LegacyHeadingText>;
 };
 
 const shortcuts: Record<TextBlockTypes, Keymap> = {
@@ -263,9 +199,9 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 			isDisabled={isDisabled}
 			ariaKeyshortcuts={shortcut}
 		>
-			<HeadingPreview headingType={blockType.name as TextBlockTypes}>
+			<HeadingText headingType={blockType.name as TextBlockTypes}>
 				{formatMessage(blockType.title)}
-			</HeadingPreview>
+			</HeadingText>
 		</ToolbarDropdownItem>
 	);
 };

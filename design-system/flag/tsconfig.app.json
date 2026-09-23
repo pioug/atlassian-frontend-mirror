@@ -1,7 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -23,14 +24,30 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__flag/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
@@ -44,6 +61,12 @@
 			"path": "../css/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../drawer/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
@@ -51,6 +74,12 @@
 		},
 		{
 			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
+			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
 			"path": "../motion/tsconfig.app.json"
@@ -65,6 +94,18 @@
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../radio/tsconfig.app.json"
+		},
+		{
+			"path": "../section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../spinner/tsconfig.app.json"
+		},
+		{
+			"path": "../textfield/tsconfig.app.json"
+		},
+		{
 			"path": "../theme/tsconfig.app.json"
 		},
 		{
@@ -77,8 +118,16 @@
 			"path": "../visually-hidden/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
 			"path": "../structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

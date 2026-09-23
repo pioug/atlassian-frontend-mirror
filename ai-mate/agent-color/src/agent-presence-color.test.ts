@@ -57,6 +57,29 @@ describe('agent presence colours', () => {
 		);
 	});
 
+	it.each([
+		['claude', 'agent-brand-claude', 'Claude'],
+		['chatgpt', 'agent-brand-chatgpt', 'ChatGPT'],
+		['rovo', 'agent-brand-rovo', 'Rovo'],
+		['rovo_chat', 'agent-brand-rovo', 'Rovo'],
+	])('resolves the %s alias to %s with display name %s', (agentName, scheme, name) => {
+		expect(getThirdPartyAgentColor({ agentName })).toEqual(
+			expect.objectContaining({ scheme, name }),
+		);
+	});
+
+	it('normalises whitespace and casing for first-party brand aliases', () => {
+		expect(getThirdPartyAgentColor({ agentName: '  ChatGPT  ' })?.scheme).toBe(
+			'agent-brand-chatgpt',
+		);
+	});
+
+	it('keeps the fixed ChatGPT brand colour, not an ADS token', () => {
+		expect(getThirdPartyAgentColor({ agentName: 'chatgpt' })?.bold).toBe(
+			'var(--agent-brand-chatgpt-bold, light-dark(#000000, #E8E8EA))',
+		);
+	});
+
 	it('shares the Studio palette for first-party agents', () => {
 		expect(getAgentPresenceColor({ agentNamedId: 'planner_agent' })).toEqual(
 			expect.objectContaining({

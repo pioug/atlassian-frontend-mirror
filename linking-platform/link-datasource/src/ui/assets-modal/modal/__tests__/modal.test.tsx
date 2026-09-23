@@ -1,9 +1,10 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';
+import type { DatasourceTableState } from '../../../../hooks/useDatasourceTableState';
 import { FetchError } from '../../../../services/FetchError';
 import { PermissionError } from '../../../../services/PermissionError';
 import {
@@ -551,7 +552,23 @@ describe('AssetsConfigModal', () => {
 		});
 
 		describe('when handling column resetting in search query', () => {
+			// The hook derives `columns` and `defaultVisibleColumnKeys` from the same schema properties,
+			// so a fixture that lets them disagree describes a state production cannot reach. The
+			// exception is the column picker, which widens `columns` alone.
+			const reporting = ({
+				columnKeys,
+				defaultVisibleColumnKeys = columnKeys,
+			}: {
+				columnKeys: string[];
+				defaultVisibleColumnKeys?: string[];
+			}): DatasourceTableState => ({
+				...getDefaultDataSourceTableHookState(),
+				columns: columnKeys.map((key) => ({ key, title: key, type: 'string' as const })),
+				defaultVisibleColumnKeys,
+			});
+
 			it('should reset columns when search has changed', async () => {
+				failGate('platform_lp_sllv_preserve_assets_columns');
 				const mockReset = jest.fn();
 
 				const { getByTestId } = await setup({
@@ -621,6 +638,328 @@ describe('AssetsConfigModal', () => {
 				await waitFor(() => {
 					expect(mockReset).toHaveBeenCalledTimes(0);
 				});
+			});
+
+			const searchWithNewAqlAndInsert = async ({
+				visibleColumnKeys,
+				mockReset,
+			}: {
+				mockReset: jest.Mock;
+				visibleColumnKeys: string[];
+			}) => {
+				const { onInsert, searchWithNewAql, clickSearchButton, findByRole } = await setup({
+					parameters: {
+						...getDefaultParameters(),
+						aql: 'name like a',
+						version: '2',
+					},
+					visibleColumnKeys,
+					datasourceTableHookState: {
+						...getDefaultDataSourceTableHookState(),
+						reset: mockReset,
+					},
+				});
+
+				searchWithNewAql('objectType = "test aql query"');
+				await clickSearchButton();
+
+				(await findByRole('button', { name: 'Update table' })).click();
+				await waitFor(() => {
+					expect(onInsert).toHaveBeenCalledTimes(1);
+				});
+
+				const [insertedAdf] = onInsert.mock.calls[0];
+				return insertedAdf.attrs.datasource.views[0].properties.columns.map(
+					({ key }: { key: string }) => key,
+				);
+			};
+
+			it('should keep the selected columns for an aql-only change when the gate is on', async () => {
+				passGate('platform_lp_sllv_preserve_assets_columns');
+				const mockReset = jest.fn();
+
+				const insertedColumnKeys = await searchWithNewAqlAndInsert({
+					visibleColumnKeys: ['myColumn', 'otherColumn'],
+					mockReset,
+				});
+
+				expect(mockReset).toHaveBeenCalledWith({
+					shouldResetColumns: false,
+					shouldForceRequest: true,
+				});
+				expect(insertedColumnKeys).toEqual(['myColumn', 'otherColumn']);
+			});
+
+			it('should fall back to the default columns for an aql-only change when the gate is off', async () => {
+				failGate('platform_lp_sllv_preserve_assets_columns');
+				const mockReset = jest.fn();
+
+				const insertedColumnKeys = await searchWithNewAqlAndInsert({
+					visibleColumnKeys: ['myColumn', 'otherColumn'],
+					mockReset,
+				});
+
+				expect(mockReset).toHaveBeenCalledWith({
+					shouldResetColumns: true,
+					shouldForceRequest: true,
+				});
+				expect(insertedColumnKeys).toEqual(['myDefaultColumn', 'otherDefaultColumn']);
+			});
+
+			it('should not restore the columns of a previous object schema after an empty search', async () => {
+				passGate('platform_lp_sllv_preserve_assets_columns');
+
+				// What the macro was saved with, chosen against the original object schema
+				const macroColumnKeys = ['myColumn', 'otherColumn'];
+				const newSchemaColumnKeys = ['myDefaultColumn', 'otherDefaultColumn'];
+
+				const resolvedWith = (columnKeys: string[]) => reporting({ columnKeys });
+				const noResultsWith = (columnKeys: string[]) => ({
+					...resolvedWith(columnKeys),
+					responseItems: [],
+					responseItemIds: [],
+					totalCount: 0,
+				});
+
+				const {
+					onInsert,
+					selectNewSchema,
+					searchWithNewAql,
+					setDatasourceTableHookState,
+					getByTestId,
+					findByRole,
+				} = await setup({
+					parameters: { ...getDefaultParameters(), aql: 'name like a', version: '2' },
+					visibleColumnKeys: macroColumnKeys,
+					datasourceTableHookState: resolvedWith(macroColumnKeys),
+				});
+
+				const search = async (aql: string) => {
+					searchWithNewAql(aql);
+					const searchButton = getByTestId('assets-datasource-modal--aql-search-button');
+					await waitFor(() => {
+						expect(searchButton).toBeEnabled();
+					});
+					searchButton.click();
+				};
+
+				// Switching object schema drops the macro columns for the new schema's defaults
+				setDatasourceTableHookState(resolvedWith(newSchemaColumnKeys));
+				await selectNewSchema('schemaTwo');
+				await search('objectType = "in the new schema"');
+
+				// A search returning nothing does not re-report the schema's columns
+				setDatasourceTableHookState(noResultsWith(newSchemaColumnKeys));
+				await search('objectType = "with no results"');
+
+				// The next search resolves and narrows the reported columns to the requested fields,
+				// which is what makes defaultVisibleColumnKeys change again
+				setDatasourceTableHookState(resolvedWith(['myDefaultColumn']));
+				await search('objectType = "with results"');
+
+				(await findByRole('button', { name: 'Update table' })).click();
+				await waitFor(() => {
+					expect(onInsert).toHaveBeenCalledTimes(1);
+				});
+
+				const [insertedAdf] = onInsert.mock.calls[0];
+				const insertedColumnKeys = insertedAdf.attrs.datasource.views[0].properties.columns.map(
+					({ key }: { key: string }) => key,
+				);
+
+				// Trimmed to what the last search still reported, and crucially not the macro columns
+				expect(insertedColumnKeys).toEqual(['myDefaultColumn']);
+				expect(insertedColumnKeys).not.toEqual(macroColumnKeys);
+			});
+
+			it('should adopt the reported defaults when there was no selection to preserve', async () => {
+				passGate('platform_lp_sllv_preserve_assets_columns');
+				const mockReset = jest.fn();
+
+				const { onInsert, searchWithNewAql, setDatasourceTableHookState, getByTestId, findByRole } =
+					await setup({
+						parameters: { ...getDefaultParameters(), aql: 'name like a', version: '2' },
+						// Nothing was ever selected, and the first response reported nothing either
+						visibleColumnKeys: [],
+						datasourceTableHookState: { ...reporting({ columnKeys: [] }), reset: mockReset },
+					});
+
+				setDatasourceTableHookState(reporting({ columnKeys: ['myDefaultColumn'] }));
+				searchWithNewAql('objectType = "with results"');
+				const searchButton = getByTestId('assets-datasource-modal--aql-search-button');
+				await waitFor(() => {
+					expect(searchButton).toBeEnabled();
+				});
+				searchButton.click();
+
+				(await findByRole('button', { name: 'Update table' })).click();
+				await waitFor(() => {
+					expect(onInsert).toHaveBeenCalledTimes(1);
+				});
+
+				// There is nothing to keep, so the search takes the normal reset path
+				expect(mockReset).toHaveBeenCalledWith({
+					shouldResetColumns: true,
+					shouldForceRequest: true,
+				});
+				const [insertedAdf] = onInsert.mock.calls[0];
+				expect(
+					insertedAdf.attrs.datasource.views[0].properties.columns.map(
+						({ key }: { key: string }) => key,
+					),
+				).toEqual(['myDefaultColumn']);
+			});
+
+			// Opening the picker fetches the rest of the schema, which widens `columns` without changing
+			// the reported defaults. That must not be mistaken for a new search result.
+			describe('when the column picker loads the rest of the schema', () => {
+				// `applySchemaProperties` only calls the setter when the value is not `isEqual`, so the
+				// reported defaults keep their identity while the picker widens `columns`. Handing the
+				// modal a fresh array instead would re-trigger the unrelated new-search effect and hide
+				// whatever the restore effect does.
+				const newSchemaDefaults = ['brandNewColumn'];
+
+				const switchSchemaThenOpenPickerAndInsert = async () => {
+					const {
+						onInsert,
+						selectNewSchema,
+						searchWithNewAql,
+						setDatasourceTableHookState,
+						rerenderModal,
+						getByTestId,
+						findByRole,
+					} = await setup({
+						parameters: { ...getDefaultParameters(), aql: 'name like a', version: '2' },
+						// What the macro was saved with, chosen against the original object schema
+						visibleColumnKeys: ['myColumn'],
+						datasourceTableHookState: reporting({ columnKeys: ['myColumn'] }),
+					});
+
+					// The new object schema reports its own columns
+					setDatasourceTableHookState(reporting({ columnKeys: newSchemaDefaults }));
+					await selectNewSchema('schemaTwo');
+					searchWithNewAql('objectType = "in the new schema"');
+					const searchButton = getByTestId('assets-datasource-modal--aql-search-button');
+					await waitFor(() => {
+						expect(searchButton).toBeEnabled();
+					});
+					searchButton.click();
+
+					// The click's state update lands asynchronously, so the new schema has to finish
+					// rendering before the picker step - otherwise both collapse into one render and the
+					// journey is never actually exercised
+					await act(async () => {});
+
+					// The picker's metadata request makes the old schema's column selectable again
+					setDatasourceTableHookState(
+						reporting({
+							columnKeys: ['brandNewColumn', 'myColumn'],
+							defaultVisibleColumnKeys: newSchemaDefaults,
+						}),
+					);
+					rerenderModal();
+
+					(await findByRole('button', { name: 'Update table' })).click();
+					await waitFor(() => {
+						expect(onInsert).toHaveBeenCalledTimes(1);
+					});
+
+					const [insertedAdf] = onInsert.mock.calls[0];
+					return insertedAdf.attrs.datasource.views[0].properties.columns.map(
+						({ key }: { key: string }) => key,
+					);
+				};
+
+				it("should not restore the previous schema's columns when the gate is on", async () => {
+					passGate('platform_lp_sllv_preserve_assets_columns');
+
+					await expect(switchSchemaThenOpenPickerAndInsert()).resolves.toEqual(['brandNewColumn']);
+				});
+
+				it("should not restore the previous schema's columns when the gate is off", async () => {
+					failGate('platform_lp_sllv_preserve_assets_columns');
+
+					await expect(switchSchemaThenOpenPickerAndInsert()).resolves.toEqual(['brandNewColumn']);
+				});
+			});
+
+			it('should reset columns when the object schema changes even when the gate is on', async () => {
+				passGate('platform_lp_sllv_preserve_assets_columns');
+				const mockReset = jest.fn();
+
+				const { selectNewSchema, clickSearchButton } = await setup({
+					parameters: {
+						...getDefaultParameters(),
+						aql: 'name like a',
+						version: '2',
+					},
+					visibleColumnKeys: ['myColumn', 'otherColumn'],
+					datasourceTableHookState: {
+						...getDefaultDataSourceTableHookState(),
+						reset: mockReset,
+					},
+				});
+
+				await selectNewSchema('schemaTwo');
+				await clickSearchButton();
+
+				await waitFor(() => {
+					expect(mockReset).toHaveBeenCalledWith({
+						shouldResetColumns: true,
+						shouldForceRequest: true,
+					});
+				});
+			});
+		});
+
+		// PCS-3839755: the zero-result search is the path the escalated customer actually hit, and it
+		// behaves differently depending on platform_lp_sllv_ux_improvements, which decides whether the
+		// hook applies the schema when there are no items.
+		describe('when a search within the same object schema returns no results', () => {
+			const macroColumnKeys = ['myColumn', 'otherColumn'];
+
+			const searchToNoResultsAndInsert = async (reportedColumnKeys: string[]) => {
+				const { onInsert, searchWithNewAql, setDatasourceTableHookState, getByTestId, findByRole } =
+					await setup({
+						parameters: { ...getDefaultParameters(), aql: 'name like a', version: '2' },
+						visibleColumnKeys: macroColumnKeys,
+						datasourceTableHookState: getDefaultDataSourceTableHookState(),
+					});
+
+				// The hook derives columns and the defaults from the same properties, so keep them in step
+				setDatasourceTableHookState({
+					...getDefaultDataSourceTableHookState(),
+					columns: reportedColumnKeys.map((key) => ({ key, title: key, type: 'string' as const })),
+					defaultVisibleColumnKeys: reportedColumnKeys,
+					responseItems: [],
+					responseItemIds: [],
+					totalCount: 0,
+				});
+
+				searchWithNewAql('objectType = "matches nothing"');
+				const searchButton = getByTestId('assets-datasource-modal--aql-search-button');
+				await waitFor(() => {
+					expect(searchButton).toBeEnabled();
+				});
+				searchButton.click();
+
+				(await findByRole('button', { name: 'Update table' })).click();
+				await waitFor(() => {
+					expect(onInsert).toHaveBeenCalledTimes(1);
+				});
+
+				const [insertedAdf] = onInsert.mock.calls[0];
+				return insertedAdf.attrs.datasource.views[0].properties.columns.map(
+					({ key }: { key: string }) => key,
+				);
+			};
+
+			it('should keep the selected columns when the schema is applied without items', async () => {
+				passGate('platform_lp_sllv_preserve_assets_columns');
+				passGate('platform_lp_sllv_ux_improvements');
+
+				// The request still asks for the selection, so the schema comes back narrowed to it
+				await expect(searchToNoResultsAndInsert(macroColumnKeys)).resolves.toEqual(macroColumnKeys);
 			});
 		});
 	});

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7e97805092e5ea62d22ebb0b346e7193>>
+ * @codegen <<SignedSource::3a7bbfb26f8aa1f75dacee54d41c90ec>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -26,8 +26,7 @@ export type ActiveTokens =
 	| 'motion.flag.enter'
 	| 'motion.flag.exit'
 	| 'motion.flag.reposition'
-	| 'motion.input.focused'
-	| 'motion.input.hovered'
+	| 'motion.input'
 	| 'motion.keyframe.fade.in'
 	| 'motion.keyframe.fade.out'
 	| 'motion.keyframe.grid.column.in'
@@ -75,6 +74,11 @@ export type ActiveTokens =
 	| 'motion.sidenav.exit.right'
 	| 'motion.spotlight.enter'
 	| 'motion.spotlight.exit'
+	| 'motion.tab'
+	| 'motion.tab.indicator.enter.left'
+	| 'motion.tab.indicator.enter.right'
+	| 'motion.tab.indicator.exit.left'
+	| 'motion.tab.indicator.exit.right'
 	| 'color.background.accent.lime.subtlest'
 	| 'color.background.accent.lime.subtlest.hovered'
 	| 'color.background.accent.lime.subtlest.pressed'

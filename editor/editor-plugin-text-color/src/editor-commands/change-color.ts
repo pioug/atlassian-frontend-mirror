@@ -9,7 +9,6 @@ import { FORMAT_SELECTION_SYNC_META } from '@atlaskit/editor-common/selection';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getActiveColorNew } from '../pm-plugins/utils/color';
 import type { TextColorPlugin } from '../textColorPluginType';
@@ -18,10 +17,7 @@ import { removeColor } from './remove-color';
 import { toggleColor } from './toggle-color';
 
 const maybeSyncSelectionAfterFormat = (tr: Transaction) => {
-	if (
-		tr.docChanged &&
-		expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)
-	) {
+	if (tr.docChanged) {
 		tr.setMeta(FORMAT_SELECTION_SYNC_META, true);
 	}
 };

@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2ee12747fee6f7445e430f52ee1f7b86>>
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegen <<SignedSource::9cc07267bf53de18206960d38ce91e77>>
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::8817f4073995e5dc9c2bb766316632d6>>
  */
 import { token } from '@atlaskit/tokens';

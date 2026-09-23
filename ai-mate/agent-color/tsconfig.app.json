@@ -1,13 +1,15 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts"],
-	"exclude": ["**/*.test.*"],
+	"include": [
+		"./src/**/*.ts",
+		"**/*.test.*"
+	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__agent-color/app",
 		"isolatedDeclarations": true
 	},
-	"files": [],
 	"references": [
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

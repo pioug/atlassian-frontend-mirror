@@ -19,7 +19,7 @@ const { naming }: { naming: ESLintRCNaming } = Legacy;
 const packagePluginName = '@atlaskit/eslint-plugin-ui-styling-standard';
 const pluginName = '@atlaskit/ui-styling-standard';
 const pluginPath = 'eslint-plugin-ui-styling-standard';
-const codegenCommand = `yarn workspace ${packagePluginName} codegen`;
+const codegenCommand = `afm workspace ${packagePluginName} codegen`;
 
 interface FoundRule {
 	module: LintRule | { meta: ExternalRuleMeta };

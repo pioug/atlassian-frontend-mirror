@@ -1,8 +1,9 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.json"],
-	"exclude": [
-		"**/*.docs.tsx",
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./src/**/*.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -27,6 +28,7 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-plugin-autocomplete/app",

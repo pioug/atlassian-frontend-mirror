@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 123.8.1
+
+### Patch Changes
+
+- [`d91ad931789cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d91ad931789cc) -
+  [ux] EDITOR-9220 open all expands for suggestions spanning multiple toolcalls behind
+  platform_editor_ai_show_diff_patch_2
+- Updated dependencies
+
+## 123.8.0
+
+### Minor Changes
+
+- [`ef5742162c47b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef5742162c47b) -
+  EDITOR-9184: Make the synced locations dropdown field-aware for Jira work items, behind the
+  `editor_synced_blocks_jira_custom_rich_text` experiment. Each Jira location's title and tooltip
+  name the work item field holding the block, a location in the field being viewed reads "This work
+  item field" and one in another field of the same work item reads "This work item"; `editor-common`
+  gains the three `syncBlockMessages` descriptors this uses. With the experiment off the dropdown
+  renders as before.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 123.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 123.7.1
+
+### Patch Changes
+
+- [`6d07b4f04155f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d07b4f04155f) -
+  Cleanup `feature gate` `jim-lower-ranking-in-jira-macro-search`. Quick insert search now always
+  ranks the Jira work items (datasource) item above the legacy Jira macro when their scores are
+  close, and the Jira work items quick insert item always has a priority of 500.
+- Updated dependencies
+
 ## 123.7.0
 
 ### Minor Changes

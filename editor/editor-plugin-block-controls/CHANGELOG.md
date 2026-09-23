@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 20.1.5
+
+### Patch Changes
+
+- [`b03ff8f616c5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b03ff8f616c5c) -
+  EDITOR-9229: Fixed the block-controls surface anchor for `table` nodes matching any
+  `.resizer-item` in the table's subtree, which caused the table's anchor-name to be assigned to a
+  nested `mediaSingle`/ embed resizer inside a table cell instead of the table's own resize-handle.
+
+## 20.1.4
+
+### Patch Changes
+
+- [`48f6e385c3e64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48f6e385c3e64) -
+  Wrap visible left and right block controls in registry order and, under
+  platform_editor_collapsible_headings, hide lower-ranked left controls when a top-level gutter only
+  has room for two.
+- Updated dependencies
+
+## 20.1.3
+
+### Patch Changes
+
+- [`2a3bb6864b8fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a3bb6864b8fe) -
+  Clean up the `platform_editor_fix_selection_text_color_change` experiment.
+- Updated dependencies
+
+## 20.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.1
 
 ### Patch Changes

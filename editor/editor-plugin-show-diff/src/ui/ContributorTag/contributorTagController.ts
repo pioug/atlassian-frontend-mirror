@@ -1,6 +1,7 @@
 import { bind, bindAll } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
+import { getThirdPartyAgentColor } from '@atlaskit/agent-color/get-third-party-agent-color';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { VanillaTooltip } from '@atlaskit/editor-common/vanilla-tooltip';
 import { token } from '@atlaskit/tokens';
@@ -14,7 +15,12 @@ import {
 } from '../../pm-plugins/decorations/colorSchemes/factory';
 import { colorSchemeRegistry } from '../../pm-plugins/decorations/colorSchemes/schemes';
 import type { ColorScheme } from '../../pm-plugins/decorations/colorSchemes/types';
-import type { ContributorTagModel, ShowDiffPlugin, TagContributor } from '../../showDiffPluginType';
+import type {
+	ContributorTagModel,
+	DiffAgentBrand,
+	ShowDiffPlugin,
+	TagContributor,
+} from '../../showDiffPluginType';
 import {
 	buildContributorTagDom,
 	CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE,
@@ -69,6 +75,19 @@ const getTagAccent = ({
 
 	return getAccentTokens(accent);
 };
+
+/** ChatGPT's own brand colour, resolved from the shared `@atlaskit/agent-color` registry. */
+const chatgptBrandColor = getThirdPartyAgentColor({ agentName: 'chatgpt' });
+
+/** Brand accents for agent kinds with no ADS token match. New agents opt in by adding an entry. */
+const AGENT_KIND_ACCENT_OVERRIDES: Readonly<Record<string, { background: string; text: string }>> =
+	{
+		...(chatgptBrandColor
+			? {
+					chatgpt: { background: chatgptBrandColor.bold, text: chatgptBrandColor.boldText },
+				}
+			: {}),
+	} satisfies Partial<Record<DiffAgentBrand, { background: string; text: string }>>;
 
 /**
  * Keyboard focus, as a member of `revealSources` alongside the elements the pointer can be over. It
@@ -389,11 +408,16 @@ export class ContributorTagController {
 		background: string;
 		text: string;
 	} {
-		return getTagAccent({
+		const accent = getTagAccent({
 			colorScheme: model.colorScheme,
 			isActive: Boolean(model.isActive),
 			isInserted: model.isInserted ?? true,
 		});
+
+		const agentKind = model.contributor.agentKind ?? model.connectedContributor?.agentKind;
+		const override = agentKind && AGENT_KIND_ACCENT_OVERRIDES[agentKind];
+
+		return override ? { ...accent, ...override } : accent;
 	}
 
 	private applyAccent(model: ContributorTagModel): void {

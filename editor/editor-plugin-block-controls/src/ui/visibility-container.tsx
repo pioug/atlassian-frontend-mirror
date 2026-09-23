@@ -31,6 +31,19 @@ interface VisibilityContainerProps {
 	shouldUseDisplayContents?: boolean;
 }
 
+type VisibilityWrapperProps = Pick<
+	VisibilityContainerProps,
+	'children' | 'shouldUseDisplayContents'
+> & {
+	shouldHide: boolean;
+	useCssStyles: boolean;
+};
+
+type BlockControlsVisibilityOptions = Omit<
+	VisibilityContainerProps,
+	'children' | 'shouldUseDisplayContents'
+>;
+
 const baseStyles = xcss({
 	transition: 'opacity 0.1s ease-in-out, visibility 0.1s ease-in-out',
 });
@@ -73,14 +86,19 @@ const displayContentsStylesCSS = css({
 	display: 'contents',
 });
 
-export const VisibilityContainer = ({
+/**
+ * Resolves visibility once so a surface can apply the same state to each rendered control without
+ * creating a plugin-state subscription and hide-delay timer for every control wrapper.
+ */
+export const useBlockControlsVisibility = ({
 	api,
-	children,
 	controlSide,
 	forceVisibleOnMouseOut,
 	isPersistent,
-	shouldUseDisplayContents,
-}: VisibilityContainerProps): jsx.JSX.Element => {
+}: BlockControlsVisibilityOptions): {
+	shouldHide: boolean;
+	useCssStyles: boolean;
+} => {
 	const {
 		isTypeAheadOpen,
 		isEditing,
@@ -166,12 +184,20 @@ export const VisibilityContainer = ({
 	}, [shouldHideImmediate, isRightControlViewMode]);
 
 	const shouldHide = isRightControlViewMode ? delayedShouldHide : shouldHideImmediate;
+	const useCssStyles = editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+		exposure: true,
+	});
 
-	if (
-		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
-			exposure: true,
-		})
-	) {
+	return { shouldHide, useCssStyles };
+};
+
+export const VisibilityWrapper = ({
+	children,
+	shouldHide,
+	shouldUseDisplayContents,
+	useCssStyles,
+}: VisibilityWrapperProps): jsx.JSX.Element => {
+	if (useCssStyles) {
 		return (
 			<div
 				css={[
@@ -196,5 +222,31 @@ export const VisibilityContainer = ({
 		>
 			{children}
 		</Box>
+	);
+};
+
+export const VisibilityContainer = ({
+	api,
+	children,
+	controlSide,
+	forceVisibleOnMouseOut,
+	isPersistent,
+	shouldUseDisplayContents,
+}: VisibilityContainerProps): jsx.JSX.Element => {
+	const { shouldHide, useCssStyles } = useBlockControlsVisibility({
+		api,
+		controlSide,
+		forceVisibleOnMouseOut,
+		isPersistent,
+	});
+
+	return (
+		<VisibilityWrapper
+			shouldHide={shouldHide}
+			shouldUseDisplayContents={shouldUseDisplayContents}
+			useCssStyles={useCssStyles}
+		>
+			{children}
+		</VisibilityWrapper>
 	);
 };

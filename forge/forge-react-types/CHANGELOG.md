@@ -1,5 +1,22 @@
 # @atlaskit/forge-react-types
 
+## 2.9.0
+
+### Minor Changes
+
+- [`eb05bbc9f6c6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb05bbc9f6c6e) -
+  Add SidebarFooter component
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.3
 
 ### Patch Changes

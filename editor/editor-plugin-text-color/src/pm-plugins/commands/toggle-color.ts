@@ -34,10 +34,7 @@ export const toggleColor =
 
 			toggleMark(textColor, { color })({ tr });
 
-			if (
-				tr.docChanged &&
-				expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)
-			) {
+			if (tr.docChanged) {
 				tr.setMeta(FORMAT_SELECTION_SYNC_META, true);
 			}
 

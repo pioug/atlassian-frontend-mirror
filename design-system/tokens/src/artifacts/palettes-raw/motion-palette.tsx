@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fd17fbd8ad33d40e931895b72f8c9d30>>
+ * @codegen <<SignedSource::d82123aaf6885f7aa3c7c5b28eeddadb>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1065,11 +1065,11 @@ const tokens: Token[] = [
         "group": "motionKeyframe"
       }
     },
-    "name": "motion.keyframe.SlideOutBottom8px",
+    "name": "motion.keyframe.SlideOutBottom4px",
     "path": [
       "motion",
       "keyframe",
-      "SlideOutBottom8px"
+      "SlideOutBottom4px"
     ]
   },
   {
@@ -1093,6 +1093,40 @@ const tokens: Token[] = [
         },
         "100%": {
           "transform": "translateX(4px)"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideOutLeft4px",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideOutLeft4px"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "translateX(0px)"
+      },
+      "100%": {
+        "transform": "translateX(-8px)"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateX(0px)"
+        },
+        "100%": {
+          "transform": "translateX(-8px)"
         }
       },
       "attributes": {
@@ -1133,6 +1167,40 @@ const tokens: Token[] = [
         "group": "motionKeyframe"
       }
     },
+    "name": "motion.keyframe.SlideOutRight4px",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideOutRight4px"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "translateX(0px)"
+      },
+      "100%": {
+        "transform": "translateX(8px)"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateX(0px)"
+        },
+        "100%": {
+          "transform": "translateX(8px)"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
     "name": "motion.keyframe.SlideOutRight8px",
     "path": [
       "motion",
@@ -1167,11 +1235,11 @@ const tokens: Token[] = [
         "group": "motionKeyframe"
       }
     },
-    "name": "motion.keyframe.SlideOutTop8px",
+    "name": "motion.keyframe.SlideOutTop4px",
     "path": [
       "motion",
       "keyframe",
-      "SlideOutTop8px"
+      "SlideOutTop4px"
     ]
   },
   {

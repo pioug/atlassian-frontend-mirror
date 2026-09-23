@@ -3,8 +3,6 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-
 import ProfileCardTrigger from '../../components/User/ProfileCardTrigger';
 import { type ProfileClient } from '../../types';
 import { flexiTime } from './helper/_mock-analytics';
@@ -425,72 +423,25 @@ describe('prop drilling', () => {
 		expect(mockGetReportingLines).toHaveBeenCalledWith(defaultProps.userId);
 	});
 
-	describe('hideAgentConversationStarters', () => {
-		ffTest.on('jira_ai_hide_conversation_starters_profilecard', 'feature gate enabled', () => {
-			it('should drill hideAgentConversationStarters to agent card when profile is agent', async () => {
-				const client = createMockClient({ isAgent: true });
-				renderWithIntl(
-					<ProfileCardTrigger
-						{...defaultProps}
-						resourceClient={client}
-						trigger="click"
-						testId="profilecard-trigger"
-						hideAgentConversationStarters
-					>
-						<span data-testid="test-inner-trigger">trigger</span>
-					</ProfileCardTrigger>,
-				);
+	describe('agent conversation starters', () => {
+		it('should show conversation starters when profile is agent', async () => {
+			const client = createMockClient({ isAgent: true });
+			renderWithIntl(
+				<ProfileCardTrigger
+					{...defaultProps}
+					resourceClient={client}
+					trigger="click"
+					testId="profilecard-trigger"
+				>
+					<span data-testid="test-inner-trigger">trigger</span>
+				</ProfileCardTrigger>,
+			);
 
-				triggerCard('test-inner-trigger');
+			triggerCard('test-inner-trigger');
 
-				await flushAsyncAndTimers();
+			await flushAsyncAndTimers();
 
-				expect(screen.queryByText('Hello starter')).not.toBeInTheDocument();
-			});
-
-			it('should show conversation starters when hideAgentConversationStarters is false', async () => {
-				const client = createMockClient({ isAgent: true });
-				renderWithIntl(
-					<ProfileCardTrigger
-						{...defaultProps}
-						resourceClient={client}
-						trigger="click"
-						testId="profilecard-trigger"
-						hideAgentConversationStarters={false}
-					>
-						<span data-testid="test-inner-trigger">trigger</span>
-					</ProfileCardTrigger>,
-				);
-
-				triggerCard('test-inner-trigger');
-
-				await flushAsyncAndTimers();
-
-				expect(screen.getByText('Hello starter')).toBeInTheDocument();
-			});
-		});
-
-		ffTest.off('jira_ai_hide_conversation_starters_profilecard', 'feature gate disabled', () => {
-			it('should show conversation starters even when hideAgentConversationStarters is true', async () => {
-				const client = createMockClient({ isAgent: true });
-				renderWithIntl(
-					<ProfileCardTrigger
-						{...defaultProps}
-						resourceClient={client}
-						trigger="click"
-						testId="profilecard-trigger"
-						hideAgentConversationStarters
-					>
-						<span data-testid="test-inner-trigger">trigger</span>
-					</ProfileCardTrigger>,
-				);
-
-				triggerCard('test-inner-trigger');
-
-				await flushAsyncAndTimers();
-
-				expect(screen.getByText('Hello starter')).toBeInTheDocument();
-			});
+			expect(screen.getByText('Hello starter')).toBeInTheDocument();
 		});
 	});
 });

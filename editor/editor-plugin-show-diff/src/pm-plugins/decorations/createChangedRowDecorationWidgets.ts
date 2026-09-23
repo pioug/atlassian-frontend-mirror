@@ -51,6 +51,7 @@ interface RowInfo {
 	cellEdgeAttrs?: Array<CellEdgeAttrs | undefined>;
 	fromA: number;
 	fromB: number;
+	isTableRowReplacement: boolean;
 	rowIndex: number;
 	rowNode: PMNode;
 	toA: number;
@@ -137,6 +138,14 @@ const extractChangedRows = ({
 			rowNode.type.name === 'tableRow' &&
 			(isExtendedEnabled(diffType) || !isEmptyRow(rowNode))
 		) {
+			const rowLocalId = rowNode.attrs.localId;
+			const isTableRowReplacement =
+				rowLocalId &&
+				tableNew.node.children.some(
+					(candidateRow) =>
+						candidateRow.type.name === 'tableRow' && candidateRow.attrs.localId === rowLocalId,
+				);
+
 			const cellEdgeAttrs = edgeAttrsByOffset
 				? getRowCellEdgeAttrs({ edgeAttrsByOffset, rowNode, rowStart })
 				: undefined;
@@ -152,6 +161,7 @@ const extractChangedRows = ({
 			changedRows.push({
 				rowIndex,
 				rowNode,
+				isTableRowReplacement,
 				cellEdgeAttrs,
 				fromA: tableOld.pos + 1 + rowStart,
 				toA: tableOld.pos + 1 + rowEnd,
@@ -244,6 +254,7 @@ type CreateChangedRowDOMProps = {
 	intl?: IntlShape;
 	isActive?: boolean;
 	isInserted?: boolean;
+	isTableRowReplacement: boolean;
 	nodeViewSerializer: NodeViewSerializer;
 	rowNode: PMNode;
 };
@@ -255,6 +266,7 @@ const createChangedRowDOM = ({
 	rowNode,
 	cellEdgeAttrs,
 	nodeViewSerializer,
+	isTableRowReplacement,
 	colorScheme,
 	isInserted,
 	diffType,
@@ -263,6 +275,9 @@ const createChangedRowDOM = ({
 	isActive,
 }: CreateChangedRowDOMProps): HTMLTableRowElement => {
 	const tr = document.createElement('tr');
+	if (isTableRowReplacement && fg('platform_editor_ai_show_diff_patch_2')) {
+		tr.dataset.showDiffTableRowReplacement = 'true';
+	}
 	const colors = colorSchemeRegistry[colorScheme ?? 'standard'];
 	const deletedTreatment = isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
 		? buildDeletedRowStyle(colors)
@@ -464,6 +479,7 @@ export const createChangedRowDecorationWidgets = ({
 			Boolean(intl) && isExtendedEnabled(diffType) && !isInserted && supportsAnchorPositioning();
 		const rowDOM = createChangedRowDOM({
 			rowNode: changedRow.rowNode,
+			isTableRowReplacement: changedRow.isTableRowReplacement,
 			cellEdgeAttrs: changedRow.cellEdgeAttrs,
 			nodeViewSerializer,
 			colorScheme,

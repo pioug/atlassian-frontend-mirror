@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-media
 
+## 21.0.7
+
+### Patch Changes
+
+- [`fc379967e4bb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc379967e4bb6) -
+  Behind the shared `platform_editor_reduce_forced_layout` experiment, the media single node view no
+  longer reads `offsetLeft` from `ignoreMutation` when nothing can consume the result — that is,
+  when pixel resizing is enabled (the resizer used in that mode never reads it) or when resizing is
+  disabled. The read forced a synchronous layout recalculation on every DOM mutation and every caret
+  move inside a media single. Percentage-based resizing is unaffected.
+- Updated dependencies
+
+## 21.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.4
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/jql-editor
 
+## 7.9.0
+
+### Minor Changes
+
+- [`d41d848e8255c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d41d848e8255c) -
+  Render local agent sessions with their mapped agent artwork and display names in JQL editor rich
+  user nodes. This behavior is gated by `agent_sessions_in_nin_team_eu`.
+
+## 7.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.8.3
 
 ### Patch Changes

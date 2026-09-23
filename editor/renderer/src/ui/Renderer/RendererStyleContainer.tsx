@@ -3498,8 +3498,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
 					roundedTableRemixBlockHighlightStyles,
 				tableContentModeScopedStyles,
-				isExperimentEnabled('platform_editor_table_fit_to_content_patch_2') &&
-					tableContentModeExtensionContainmentStyles,
+				tableContentModeExtensionContainmentStyles,
 				tableContentModeNestedTableStyles,
 				tableRendererHeaderStylesForTableCellOnly,
 				fg('platform_editor_bordered_panel_nested_in_table') && tableRendererNestedPanelStyles,

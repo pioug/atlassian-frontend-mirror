@@ -7,9 +7,9 @@ import type { CSSTokenMap } from '@atlaskit/tokens/token-names';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::df710bcd99c0a8704ca36bddb12c2154>>
+ * @codegen <<SignedSource::3c43887ece778344c2be4a0e9846366b>>
  * @codegenId dimensions
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["dimensions"]
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  */
@@ -31,9 +31,9 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::28aef5278dd8b8b8fd29a0ba53afb868>>
+ * @codegen <<SignedSource::251c98773249733b143a6771298be0e9>>
  * @codegenId spacing
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::535518e7add48ef24f526d0904f70060>>
  */
 export const positiveSpaceMap: {
@@ -152,9 +152,9 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4fa11fbde24f985817806957f59af36c>>
+ * @codegen <<SignedSource::16159393db3a763c2d61fbb98f2f46fb>>
  * @codegenId inverse-colors
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
 export const inverseColorMap: {
@@ -227,9 +227,9 @@ export const inverseColorMap: {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a342379238abc0c76dbf64023bc9c94b>>
+ * @codegen <<SignedSource::ffd347cefe872abc9a3fe6c945685c75>>
  * @codegenId elevation
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
@@ -306,9 +306,9 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::15ccc765f90765310b5637f046039d10>>
+ * @codegen <<SignedSource::02751ba2340a45b0613509c3cad30a7d>>
  * @codegenId colors
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
@@ -1442,9 +1442,9 @@ export type Fill = keyof typeof fillMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::042cbfe8041c09e3817ae74154994f32>>
+ * @codegen <<SignedSource::728ce950810352b39ae6d35a65c995b2>>
  * @codegenId misc
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["layer"]
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
@@ -1470,9 +1470,9 @@ export type Layer = keyof typeof layerMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6ab2b394dd5a830d6966e333e20b1473>>
+ * @codegen <<SignedSource::728a2e28e4879de9d248f36d94aa2cd4>>
  * @codegenId border
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::8817f4073995e5dc9c2bb766316632d6>>
  */
@@ -1516,9 +1516,9 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6dffa08c1104af4093361cb0f7e37996>>
+ * @codegen <<SignedSource::8d6037c9f2e183dc4da9d365ab855739>>
  * @codegenId typography
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
@@ -1650,9 +1650,9 @@ export type FontFamily = keyof typeof fontFamilyMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b67a50fa5abb078032598ba819a6f691>>
+ * @codegen <<SignedSource::e8ebc6ef93c246a909cd773f5dfbfad8>>
  * @codegenId text
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
  */

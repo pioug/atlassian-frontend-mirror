@@ -461,7 +461,17 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	syncedLocationDropdownTitleNoteForJiraWorkItemField: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	syncedLocationDropdownTitleWithCount: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownTooltipFieldName: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -1006,6 +1016,18 @@ export const syncBlockMessages: {
 		defaultMessage: 'This work item',
 		description:
 			'Note shown next to the work item title in the synced location dropdown option when the sync block is on the current work item',
+	},
+	syncedLocationDropdownTitleNoteForJiraWorkItemField: {
+		id: 'fabric.editor.syncedLocationDropdownTitleNoteForJiraWorkItemField',
+		defaultMessage: 'This work item field',
+		description:
+			'Note shown next to the work item title in the synced location dropdown option when the sync block is in the same field of the current work item',
+	},
+	syncedLocationDropdownTooltipFieldName: {
+		id: 'fabric.editor.syncedLocationDropdownTooltipFieldName',
+		defaultMessage: 'Field: {fieldName}',
+		description:
+			'Second line of the tooltip on a synced location dropdown option, naming the Jira work item field that holds the sync block',
 	},
 	syncedLocationDropdownSourceLozenge: {
 		id: 'fabric.editor.syncedLocationDropdownSourceLozenge',

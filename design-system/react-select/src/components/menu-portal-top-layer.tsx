@@ -2,13 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode, useCallback, useContext, useRef } from 'react';
+import { type ReactNode, useCallback, useContext, useMemo, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
+import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dismiss';
 
 import { getStyleProps } from '../get-style-props';
 import { MenuPortalCloseContext } from '../internal/menu-portal-close-context';
@@ -44,7 +46,15 @@ export function MenuPortalTopLayer<
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
 >(props: MenuPortalProps<Option, IsMulti, Group>): ReactNode {
-	const { children, controlElement, innerProps, menuPlacement, menuPosition, xcss } = props;
+	const {
+		additionalInsideElementRefs: additionalInsideElementRefsProp,
+		children,
+		controlElement,
+		innerProps,
+		menuPlacement,
+		menuPosition,
+		xcss,
+	} = props;
 	// Select's "close the menu" callback, distinct from `Popover.onClose`.
 	const closeSelect = useContext(MenuPortalCloseContext);
 
@@ -60,6 +70,10 @@ export function MenuPortalTopLayer<
 	// its ref into state. While null, every hook below no-ops to avoid DOM
 	// reads or registering an unpositioned popover.
 	const isAnchored = controlElement !== null;
+	const additionalInsideElementRefs = useMemo(
+		() => [anchorRef, ...(additionalInsideElementRefsProp ?? [])],
+		[additionalInsideElementRefsProp, anchorRef],
+	);
 
 	// `'match-anchor'` is what react-select has always done. The block axis is left
 	// on `'content'`; `menuPortalStyles.root` caps it at the viewport.
@@ -81,11 +95,21 @@ export function MenuPortalTopLayer<
 		inlineSize: 'match-anchor',
 	});
 
-	const handlePopoverClose = useCallback(() => {
-		if (closeSelect) {
-			closeSelect();
-		}
-	}, [closeSelect]);
+	const handlePopoverClose = useCallback(
+		(args?: { reason: TPopoverCloseReason }) => {
+			if (closeSelect) {
+				closeSelect(args);
+			}
+		},
+		[closeSelect],
+	);
+
+	useSimpleLightDismiss({
+		popoverRef,
+		additionalInsideElementRefs,
+		isOpen: isAnchored,
+		onClose: handlePopoverClose,
+	});
 
 	// Explicit observer registration: the outer Popover is intentionally
 	// roleless (see Popover comment below), so Popover cannot auto-register
@@ -108,9 +132,7 @@ export function MenuPortalTopLayer<
 	// teardown (`hidePopover`, observer cleanup, position-hook style reset)
 	// runs against a live element. Conditional render would skip that path.
 	//
-	// `mode="auto"` delegates light-dismiss and Escape to the browser. The
-	// `onClose` bridge then synchronizes react-select's `menuIsOpen` state after
-	// native dismissal, keeping this popover available to consume the request.
+	// Select owns dismissal so both its external control and menu count as inside.
 	//
 	// The Popover host is intentionally roleless: the inner `MenuList`
 	// keeps `role="listbox"` and the id referenced by `aria-controls`.
@@ -123,7 +145,7 @@ export function MenuPortalTopLayer<
 	// transition never gets a frame. Needs keeping the portal mounted
 	// through the exit (`onExitFinish`) on the Select side.
 	return (
-		<Popover ref={popoverRef} mode="auto" isOpen={isAnchored} onClose={handlePopoverClose}>
+		<Popover ref={popoverRef} mode="manual" isOpen={isAnchored} onClose={handlePopoverClose}>
 			<div
 				css={menuPortalStyles.root}
 				// `className` carries consumer `styles.menuPortal({...})` output,

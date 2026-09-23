@@ -30,7 +30,11 @@ import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import { ModalTrigger } from '@atlassian/entry-points/modal-trigger';
 
 <ModalTrigger entryPoint={entryPoint} modalProps={{ label: 'Create issue' }}>
-	{({ ref }) => <button ref={ref}>Open</button>}
+	{({ ref, ...triggerProps }) => (
+		<button ref={ref} {...triggerProps}>
+			Open
+		</button>
+	)}
 </ModalTrigger>;
 ```
 

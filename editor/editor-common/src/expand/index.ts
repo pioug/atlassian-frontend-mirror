@@ -2,6 +2,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EditorCommand } from '../types';
 
@@ -35,10 +36,21 @@ export const toggleExpandRange =
 			return null;
 		}
 
+		// preserve positions from earlier calls on the same transaction so callers can target disjoint ranges
+		// without opening unrelated expands between them.
+		const existingMeta: { open: boolean; positions: number[] } | undefined = tr.getMeta(
+			TOGGLE_EXPAND_RANGE_META_KEY,
+		);
+
+		const combinedPositions =
+			existingMeta?.open === open && fg('platform_editor_ai_show_diff_patch_2')
+				? Array.from(new Set([...existingMeta.positions, ...positions]))
+				: positions;
+
 		// Set meta so the expand PM plugin can add node decorations.
 		// This ensures ExpandNodeView.update() receives the decoration and visually
 		// opens or closes the expand.
-		tr.setMeta(TOGGLE_EXPAND_RANGE_META_KEY, { positions, open });
+		tr.setMeta(TOGGLE_EXPAND_RANGE_META_KEY, { positions: combinedPositions, open });
 		return tr;
 	};
 

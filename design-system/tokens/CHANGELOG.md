@@ -1,5 +1,22 @@
 # @atlaskit/tokens
 
+## 19.0.0
+
+### Major Changes
+
+- [`7470fe5b0b5e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7470fe5b0b5e7) -
+  Remove `motion.input.hovered` and `motion.input.focused` in favor of `motion.input`. Consumers
+  using `token('motion.input.hovered')` or `token('motion.input.focused')` must update to
+  `token('motion.input')`. Use `motion.input` for input hover, focus, and error state transitions.
+
+## 18.3.0
+
+### Minor Changes
+
+- [`7356d483a3b72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7356d483a3b72) -
+  Add a shared text color transition and directional indicator motion tokens for Tabs, and correct
+  slide-out keyframe names to match their distances.
+
 ## 18.2.1
 
 ### Patch Changes

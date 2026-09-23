@@ -9,6 +9,7 @@ import {
 	forwardRef,
 	useCallback,
 	useEffect,
+	useMemo,
 	useReducer,
 	useRef,
 	useState,
@@ -121,6 +122,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 	// Track whether focus was caused by an active pointer gesture. Pointer-driven focus must defer
 	// opening a top-layer popover until click, while keyboard and programmatic focus can open it now.
 	const isPointerInteractionRef = useRef(false);
+	const focusRestorationTargetRef = useRef<HTMLElement | null>(null);
 
 	const {
 		appearance = 'default' as Appearance,
@@ -176,7 +178,24 @@ const DatePicker: React.ForwardRefExoticComponent<
 	const [locale, setLocale] = useState(propLocale);
 	const [shouldSetFocusOnCurrentDay, setShouldSetFocusOnCurrentDay] = useState(false);
 	const [isKeyDown, setIsKeyDown] = useState(false);
+	const isTopLayerEnabled = fg('platform-dst-top-layer');
+	const { MenuPortal: customMenuPortal, ...selectComponentOverrides } =
+		selectProps.components ?? {};
+	const { menuRenderMode: _menuRenderMode, ...selectPropsWithoutMenuRenderMode } = selectProps;
+
+	if (
+		process.env.NODE_ENV !== 'production' &&
+		isTopLayerEnabled &&
+		(selectProps.menuRenderMode === 'inline' || customMenuPortal)
+	) {
+		throw new Error(
+			'DatePicker does not support selectProps.menuRenderMode="inline" or selectProps.components.MenuPortal when platform-dst-top-layer is enabled.',
+		);
+	}
+
+	const selectPropsForSelect = isTopLayerEnabled ? selectPropsWithoutMenuRenderMode : selectProps;
 	const [wasOpenedFromCalendarButton, setWasOpenedFromCalendarButton] = useState(false);
+	const additionalInsideElementRefs = useMemo(() => [calendarButtonRef], [calendarButtonRef]);
 
 	// Hack to force update: https://legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate
 	const [, forceUpdate] = useReducer((x) => !x, true);
@@ -324,6 +343,18 @@ const DatePicker: React.ForwardRefExoticComponent<
 			setWasOpenedFromCalendarButton(false);
 		}
 
+		const shouldDeferEscapeHandling = event.key === 'Escape' && isTopLayerEnabled && getIsOpen();
+
+		if (shouldDeferEscapeHandling) {
+			// Select owns Escape cancellation and dismissal for its default top-layer popup.
+			// Defer DatePicker's focus and state cleanup until the menu has closed.
+			const focusRestorationTarget = wasOpenedFromCalendarButton
+				? calendarButtonRef.current
+				: (containerRef.current?.querySelector<HTMLElement>('[role="combobox"]') ?? null);
+			focusRestorationTargetRef.current = event.defaultPrevented ? null : focusRestorationTarget;
+			return;
+		}
+
 		switch (keyPressed) {
 			case 'escape':
 				// Restore focus because it may have moved from the input into the calendar.
@@ -386,6 +417,20 @@ const DatePicker: React.ForwardRefExoticComponent<
 			default:
 				break;
 		}
+	};
+
+	const onMenuClose = () => {
+		const focusTarget = focusRestorationTargetRef.current;
+		focusRestorationTargetRef.current = null;
+
+		if (fg('platform-dst-top-layer') && focusTarget) {
+			focusTarget.focus();
+			setIsOpen(false);
+			setShouldSetFocusOnCurrentDay(false);
+			setWasOpenedFromCalendarButton(false);
+		}
+
+		selectProps.onMenuClose?.();
 	};
 
 	const onCalendarButtonKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -488,7 +533,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 	const SingleValue = makeSingleValue({ id: valueId, lang: propLocale });
 
 	const selectComponents = {
-		...selectProps.components,
+		...(isTopLayerEnabled ? selectComponentOverrides : selectProps.components),
 		DropdownIndicator: shouldShowCalendarButton ? EmptyComponent : dropDownIcon,
 		// Only use this new container component if the calendar button is shown.
 		// Otherwise, it throws errors downstream for some reason
@@ -627,7 +672,9 @@ const DatePicker: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 				styles={mergedStyles}
 				value={initialValue}
-				{...selectProps}
+				{...selectPropsForSelect}
+				additionalInsideElementRefs={isTopLayerEnabled ? additionalInsideElementRefs : undefined}
+				onMenuClose={onMenuClose}
 				// For some reason, this and the below `styles` type error _only_ show
 				// up when you alter some of the properties in the `selectComponents`
 				// object. These errors are still present, and I suspect have always

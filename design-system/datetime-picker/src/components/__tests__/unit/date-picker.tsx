@@ -52,6 +52,7 @@ describe('DatePicker', () => {
 
 	beforeEach(() => {
 		skipA11yAudit();
+		failGate('platform-dst-top-layer');
 	});
 
 	it('should be required when prop is passed', () => {
@@ -1233,5 +1234,27 @@ describe('DatePicker', () => {
 			expect(queryCalendar()).not.toBeInTheDocument();
 			expect(calendarButton).toHaveFocus();
 		});
+	});
+});
+
+describe.each([false, true])('Select blur-close experiment %s', (blurCloseEnabled) => {
+	beforeEach(() => {
+		passGate('platform-dst-top-layer');
+		(blurCloseEnabled ? passGate : failGate)('platform_dst_select_menu_close_on_blur');
+	});
+
+	it('calls onMenuClose once when Escape closes a calendar-focused menu', async () => {
+		const user = userEvent.setup();
+		const onMenuClose = jest.fn();
+		render(createDatePicker({ selectProps: { onMenuClose } }));
+
+		await user.tab();
+		await user.tab();
+		expect(screen.getByTestId(`${testId}--calendar--previous-year`)).toHaveFocus();
+		onMenuClose.mockClear();
+
+		await user.keyboard('{Escape}');
+
+		expect(onMenuClose).toHaveBeenCalledTimes(1);
 	});
 });

@@ -1,5 +1,33 @@
 # @atlaskit/profilecard
 
+## 26.25.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.25.0
+
+### Minor Changes
+
+- [`ad7fc6fbafd28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad7fc6fbafd28) -
+  Cleanup feature gate `jira_ai_hide_conversation_starters_profilecard` in the off state. Removes
+  the `hideAgentConversationStarters` prop from `ProfileCardTrigger` and `ProfilecardProps` - the
+  prop only had an effect behind the removed gate, and all usages have been cleaned up in this PR.
+  Agent profile cards opened from the profile card trigger always show conversation starters.
+- [`d09e13cae1b7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d09e13cae1b7d) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.24.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.24.12
 
 ### Patch Changes

@@ -26,10 +26,7 @@ import { HighlightPluginAction, highlightPluginKey } from '../pm-plugins/main';
 import { getActiveColor } from './color';
 
 const maybeSyncSelectionAfterFormat = (tr: Transaction) => {
-	if (
-		tr.docChanged &&
-		expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)
-	) {
+	if (tr.docChanged) {
 		tr.setMeta(FORMAT_SELECTION_SYNC_META, true);
 	}
 };

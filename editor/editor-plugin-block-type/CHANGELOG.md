@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-type
 
+## 23.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.5
+
+### Patch Changes
+
+- [`f6bcd3f08033d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6bcd3f08033d) -
+  Cleanup `experiment` `platform_editor_fix_block_type_dropdown_no_style`. Block type dropdown
+  heading previews now always use the extracted style.
+- Updated dependencies
+
+## 23.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.3
 
 ### Patch Changes

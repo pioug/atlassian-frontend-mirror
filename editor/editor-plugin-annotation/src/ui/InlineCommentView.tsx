@@ -172,6 +172,7 @@ export function InlineCommentView({
 								id,
 								AnnotationTypes.INLINE_COMMENT,
 								inlineCommentProvider.supportedBlockNodes,
+								inlineCommentProvider.isBlockNodeSupported,
 							)(editorView.state, editorView.dispatch);
 							!editorView.hasFocus() && editorView.focus();
 
@@ -184,10 +185,11 @@ export function InlineCommentView({
 					onCreateError={(id) =>
 						// This is called when optimistic create inline comment encounters an error,
 						// in which case the optimistically added annotation must be removed.
-						removeInlineCommentNearSelection(id, inlineCommentProvider.supportedBlockNodes)(
-							editorView.state,
-							editorView.dispatch,
-						)
+						removeInlineCommentNearSelection(
+							id,
+							inlineCommentProvider.supportedBlockNodes,
+							inlineCommentProvider.isBlockNodeSupported,
+						)(editorView.state, editorView.dispatch)
 					}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClose={() => {
@@ -259,10 +261,11 @@ export function InlineCommentView({
 				dom={dom}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onDelete={(id) =>
-					removeInlineCommentNearSelection(id, inlineCommentProvider.supportedBlockNodes)(
-						editorView.state,
-						dispatch,
-					)
+					removeInlineCommentNearSelection(
+						id,
+						inlineCommentProvider.supportedBlockNodes,
+						inlineCommentProvider.isBlockNodeSupported,
+					)(editorView.state, dispatch)
 				}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onResolve={(id) =>

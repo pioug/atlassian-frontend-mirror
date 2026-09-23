@@ -3,8 +3,8 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::326efd393bebe329396aa4b676d0ff6d>>
- * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
+ * @codegen <<SignedSource::4928ecfae3052d3576f2c17a7af29cc5>>
+ * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
 	packageName: string;
@@ -154,6 +154,11 @@ export type ButtonClickedAutomationActionAttributesType = {};
 export type ButtonClickedRelatedLinksAttributesType = {};
 export type ModalOpenedRelatedLinksAttributesType = {};
 export type ModalClosedRelatedLinksAttributesType = {
+	dwellTime: number;
+};
+export type ModalOpenedPreAuthValuePropositionAttributesType = {};
+export type ModalClosedPreAuthValuePropositionAttributesType = {
+	closeMethod: 'button' | 'escape' | 'overlay';
 	dwellTime: number;
 };
 export type RelatedLinksSuccessAttributesType = {
@@ -463,6 +468,14 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when related links modal is closed */
 	'ui.modal.closed.relatedLinks': ModalClosedRelatedLinksAttributesType;
+	/**
+	 * Fired when the pre-auth value proposition modal is shown after an eligible unauthorized Smart Link is created or converted.
+	 *  */
+	'ui.modal.opened.preAuthValueProposition': ModalOpenedPreAuthValuePropositionAttributesType;
+	/**
+	 * Fired when the user dismisses the pre-auth value proposition modal without connecting.
+	 *  */
+	'ui.modal.closed.preAuthValueProposition': ModalClosedPreAuthValuePropositionAttributesType;
 	/**
 	 * fired when related links are retrieved successfully */
 	'operational.relatedLinks.success': RelatedLinksSuccessAttributesType;

@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9183c00a6ce1b53a46530f6f0a7883ea>>
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegen <<SignedSource::1e4616710c813452a5dda10e6c422716>>
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  */
 export const dimensionMap = {

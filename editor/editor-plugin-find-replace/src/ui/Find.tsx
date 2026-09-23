@@ -19,7 +19,6 @@ import { Label } from '@atlaskit/form/label/default';
 import TextLetterCaseIcon from '@atlaskit/icon-lab/core/text-letter-case';
 import type { IconProps } from '@atlaskit/icon/types';
 import Textfield from '@atlaskit/textfield/text-field';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MatchCaseProps } from '../types';
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
@@ -211,9 +210,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 
 	handleCompositionStart = () => {
 		this.isComposing = true;
-		if (expValEquals('platform_editor_korean_characters_split', 'isEnabled', true)) {
-			this.debouncedFind.cancel();
-		}
+		this.debouncedFind.cancel();
 	};
 
 	handleCompositionEnd = (event: React.CompositionEvent<HTMLInputElement>) => {

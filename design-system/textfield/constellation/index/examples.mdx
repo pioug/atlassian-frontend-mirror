@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import TextFieldBasic from '../../examples/constellation/text-field-basic';
 import TextFieldForm from '../../examples/constellation/text-field-form';
 import TextFieldFormNativeValidation from '../../examples/constellation/text-field-form-native-validation';
@@ -12,19 +13,32 @@ import TextFieldAppearanceSubtle from '../../examples/constellation/text-field-a
 import TextFieldElementsBeforeAndAfter from '../../examples/constellation/text-field-elements-before-and-after';
 import TextFieldOverrideStyles from '../../examples/constellation/text-field-customisation';
 
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Text Field and is in Early Access. The motion updates are currently
+	behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
+
 ## Basic
 
 A basic text field. If you use a text field outside of a form component, always use a label and
 associate the label to the field properly.
 
-<Example Component={TextFieldBasic} packageName="@atlaskit/textfield" />
+<Example
+	Component={TextFieldBasic}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Text field in a form component
 
 You'll often use text fields as a [form field](/components/form/examples#field), which must include
 a visible label.
 
-<Example Component={TextFieldForm} packageName="@atlaskit/textfield" />
+<Example
+	Component={TextFieldForm}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Validation
 
@@ -34,11 +48,19 @@ Validation can display a native error message related to the restrictions of the
 Keep this text as short as possible. Use the [writing guidelines](/foundations/content/voice-tone)
 for more help. For complicated information, provide a link to more information in a new browser tab.
 
-<Example Component={TextFieldFormNativeValidation} packageName="@atlaskit/textfield" />
+<Example
+	Component={TextFieldFormNativeValidation}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### Custom
 
-<Example Component={TextFieldFormValidation} packageName="@atlaskit/textfield" />
+<Example
+	Component={TextFieldFormValidation}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Appearance
 
@@ -46,13 +68,21 @@ for more help. For complicated information, provide a link to more information i
 
 The default text field appearance.
 
-<Example Component={TextFieldAppearanceStandard} packageName="@atlaskit/textfield" />
+<Example
+	Component={TextFieldAppearanceStandard}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### Subtle
 
 A text field that's transparent until interaction or error.
 
-<Example Component={TextFieldAppearanceSubtle} packageName="@atlaskit/textfield" />
+<Example
+	Component={TextFieldAppearanceSubtle}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Character counter
 
@@ -72,11 +102,19 @@ adding elements like icons into the text field.
 
 Don’t nest interactive elements in the text field, as it will cause accessibility and focus issues.
 
-<Example Component={TextFieldElementsBeforeAndAfter} packageName="@atlaskit/textfield" />
+<Example
+	Component={TextFieldElementsBeforeAndAfter}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Customization
 
 Use the data attributes `data-ds--text-field--container` and `data-ds--text-field--input` to
 customize the style of the text field container and input element.
 
-<Example Component={TextFieldOverrideStyles} packageName="@atlaskit/textfield" />
+<Example
+	Component={TextFieldOverrideStyles}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['motionInput']}
+/>

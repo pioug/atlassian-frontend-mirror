@@ -22,7 +22,7 @@ export default md\`
 
 	const signed_content = createSignedArtifact(
 		content,
-		'yarn workspace @atlaskit/teams-client generate:docs:teams-client',
+		'afm workspace @atlaskit/teams-client generate:docs:teams-client',
 	);
 
 	writeFileSync(filePath, signed_content);

@@ -16,22 +16,23 @@ import { isCSSAnchorSupported } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
-import { willSurfaceRender } from '@atlaskit/editor-ui-control-model/surface-renderer';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { BlockControlsLeftSurface } from './block-controls-left-surface';
+import { getBlockControlsLeftSurfaceComponents } from './block-controls-surface-components';
 import { createBlockControlsSurfaceContextForPosition } from './block-controls-surface-context';
 import { getBlockControlsSurfaceTargets } from './block-controls-surface-targets';
 import { getNodeContentElement } from './utils/get-node-content-element';
 import {
 	getAbsoluteSurfacePlacement,
+	getAnchoredLeftGutterSurfacePlacement,
 	getAnchoredSurfacePlacement,
+	getLeftGutterSurfacePlacement,
 	getSurfacePlacement,
 	toMeasuredSurfaceWrapperPlacement,
 	type SurfaceWrapperPlacement,
 } from './utils/get-surface-placement';
-import { hasSurfaceControls } from './utils/has-surface-controls';
 
 const EMPTY_SURFACE_POSITIONS: readonly number[] = [];
 const EMPTY_SURFACE_ANCHORS: ReadonlyMap<number, string> = new Map();
@@ -73,15 +74,25 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 					return [];
 				}
 				const surfaceContext = createSurfaceContext(BLOCK_CONTROL_UI_CONTEXT, context);
-				if (
-					!hasSurfaceControls(components) ||
-					!willSurfaceRender(components, BLOCK_CONTROLS_LEFT_SURFACE, surfaceContext)
-				) {
+				const surfaceComponents = getBlockControlsLeftSurfaceComponents(components, surfaceContext);
+				if (!surfaceComponents) {
 					return [];
 				}
 				// The cache supplies the same anchor names used by ProseMirror decorations.
 				const anchorName = isCSSAnchorSupported() ? surfaceAnchors.get(target.position) : undefined;
-				return [{ ...target, anchorName, blockControlsContext: context, surfaceContext }];
+				// Top-level controls can respond to the available left gutter without the surface
+				// host knowing which controls are registered or how they adapt.
+				const isTopLevel = context.targetNode.parentType === 'doc';
+				return [
+					{
+						...target,
+						anchorName,
+						blockControlsContext: context,
+						isTopLevel,
+						surfaceComponents,
+						surfaceContext,
+					},
+				];
 			}),
 		[activeNode, components, editorView, targets, surfaceAnchors, surfaceActiveNodes],
 	);
@@ -92,26 +103,27 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 	const anchoredPlacements = useMemo(
 		() =>
 			new Map<number, SurfaceWrapperPlacement>(
-				surfaces.flatMap(({ anchorName, blockControlsContext, position }) =>
-					anchorName
-						? [
-								[
-									position,
-									getAnchoredSurfacePlacement({
-										anchorName,
-										nodeType: blockControlsContext.targetNode.type.name,
-										nodeTypeWithLevel: getNodeTypeWithLevel(blockControlsContext.targetNode.node),
-										layout: blockControlsContext.targetNode.node.attrs.layout,
-										parentNodeType:
-											blockControlsContext.targetNode.parentType === 'doc'
-												? undefined
-												: blockControlsContext.targetNode.parentType,
-										side: 'left',
-									}),
-								] as const,
-							]
-						: [],
-				),
+				surfaces.flatMap(({ anchorName, blockControlsContext, isTopLevel, position }) => {
+					if (!anchorName) {
+						return [];
+					}
+
+					const options = {
+						anchorName,
+						layout: blockControlsContext.targetNode.node.attrs.layout,
+						nodeType: blockControlsContext.targetNode.type.name,
+						nodeTypeWithLevel: getNodeTypeWithLevel(blockControlsContext.targetNode.node),
+						parentNodeType:
+							blockControlsContext.targetNode.parentType === 'doc'
+								? undefined
+								: blockControlsContext.targetNode.parentType,
+					};
+					const placement = isTopLevel
+						? getAnchoredLeftGutterSurfacePlacement(options)
+						: getAnchoredSurfacePlacement({ ...options, side: 'left' });
+
+					return [[position, placement] as const];
+				}),
 			),
 		[surfaces],
 	);
@@ -139,28 +151,31 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 			return;
 		}
 
-		const measurementTargets = measuredSurfaces.flatMap(({ blockControlsContext, position }) => {
-			const targetNodeElement = editorView.nodeDOM(blockControlsContext.targetNode.pos);
-			const targetElementRoot =
-				targetNodeElement instanceof HTMLElement
-					? targetNodeElement
-					: targetNodeElement?.parentElement;
-			if (!targetElementRoot) {
-				return [];
-			}
+		const measurementTargets = measuredSurfaces.flatMap(
+			({ blockControlsContext, isTopLevel, position }) => {
+				const targetNodeElement = editorView.nodeDOM(blockControlsContext.targetNode.pos);
+				const targetElementRoot =
+					targetNodeElement instanceof HTMLElement
+						? targetNodeElement
+						: targetNodeElement?.parentElement;
+				if (!targetElementRoot) {
+					return [];
+				}
 
-			return [
-				{
-					blockControlsContext,
-					position,
-					targetElement: getNodeContentElement(
+				return [
+					{
+						blockControlsContext,
+						isTopLevel,
+						position,
+						targetElement: getNodeContentElement(
+							targetElementRoot,
+							blockControlsContext.targetNode.type.name,
+						),
 						targetElementRoot,
-						blockControlsContext.targetNode.type.name,
-					),
-					targetElementRoot,
-				},
-			];
-		});
+					},
+				];
+			},
+		);
 		const offsetParent = editorView.dom.offsetParent;
 		const isDocumentOffsetParent = !offsetParent || offsetParent === getDocument()?.body;
 		const scrollingOffsetParent =
@@ -175,6 +190,7 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 
 			for (const {
 				blockControlsContext,
+				isTopLevel,
 				position,
 				targetElement,
 				targetElementRoot,
@@ -182,7 +198,7 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 				if (!targetElementRoot.isConnected || !targetElement.isConnected) {
 					continue;
 				}
-				const placement = getSurfacePlacement({
+				const options = {
 					layout: targetElementRoot.getAttribute('layout') ?? '',
 					nodeRect: targetElement.getBoundingClientRect(),
 					nodeType: blockControlsContext.targetNode.type.name,
@@ -191,8 +207,13 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 						blockControlsContext.targetNode.parentType === 'doc'
 							? undefined
 							: blockControlsContext.targetNode.parentType,
-					side: 'left',
-				});
+				};
+				const placement = isTopLevel
+					? getLeftGutterSurfacePlacement({
+							...options,
+							leftGutterBoundary: offsetParentRect?.left ?? 0,
+						})
+					: getSurfacePlacement({ ...options, side: 'left' });
 				nextPlacements.set(
 					position,
 					toMeasuredSurfaceWrapperPlacement(
@@ -262,10 +283,10 @@ export const BlockControlsLeftSurfaces = ({ api, editorView }: Props): React.JSX
 
 	return (
 		<>
-			{surfaces.map(({ position, source, surfaceContext }) => (
+			{surfaces.map(({ position, source, surfaceComponents, surfaceContext }) => (
 				<BlockControlsLeftSurface
 					api={api}
-					components={components}
+					components={surfaceComponents}
 					forceVisibleOnMouseOut={Boolean(activeNode?.handleOptions?.isFocused)}
 					key={position}
 					placement={anchoredPlacements.get(position) ?? placements.get(position)}

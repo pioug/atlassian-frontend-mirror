@@ -1406,10 +1406,7 @@ export interface MotionTokenSchema<BaseToken> {
 			hovered: MotionToken<BaseToken>;
 			pressed: MotionToken<BaseToken>;
 		};
-		input: {
-			hovered: MotionToken<BaseToken>;
-			focused: MotionToken<BaseToken>;
-		};
+		input: MotionToken<BaseToken>;
 		listitem: {
 			hovered: MotionToken<BaseToken>;
 			pressed: MotionToken<BaseToken>;
@@ -1475,6 +1472,19 @@ export interface MotionTokenSchema<BaseToken> {
 		label: {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;
+		};
+		tab: {
+			'[default]': MotionToken<BaseToken>;
+			indicator: {
+				enter: {
+					left: MotionToken<BaseToken>;
+					right: MotionToken<BaseToken>;
+				};
+				exit: {
+					left: MotionToken<BaseToken>;
+					right: MotionToken<BaseToken>;
+				};
+			};
 		};
 	};
 }

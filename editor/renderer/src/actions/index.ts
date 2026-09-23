@@ -42,6 +42,19 @@ type ActionResult = { doc: JSONDocNode; step: Step } | false;
 type Position = { from: number; to: number };
 type Annotation = { annotationId: string; annotationType: AnnotationTypes };
 
+export type MediaNodeContext = {
+	annotationIds: AnnotationId[];
+	displayText?: string;
+	fileId: string;
+	occurrenceKey?: string;
+	position: number;
+};
+
+export type MediaNodeContextResult =
+	| { context: MediaNodeContext; status: 'resolved' }
+	| { status: 'missing' }
+	| { status: 'ambiguous' };
+
 interface RendererActionsOptions {
 	annotate: (range: Range, annotationId: string, annotationType: 'inlineComment') => ActionResult;
 	deleteAnnotation: (annotationId: string, annotationType: 'inlineComment') => ActionResult;
@@ -368,6 +381,56 @@ export default class RendererActions
 		});
 
 		return Array.from(uniqueMarks.values());
+	}
+
+	getMediaNodeContext(identifier: { id: string; occurrenceKey?: string }): MediaNodeContextResult {
+		if (!this.doc) {
+			return { status: 'missing' };
+		}
+
+		const candidates: MediaNodeContext[] = [];
+		this.doc.descendants((node, position) => {
+			if (
+				node.type.name !== 'media' ||
+				node.attrs.type !== 'file' ||
+				node.attrs.id !== identifier.id
+			) {
+				return true;
+			}
+
+			candidates.push({
+				fileId: identifier.id,
+				annotationIds: node.marks
+					.filter(
+						(mark) =>
+							mark.type.name === 'annotation' &&
+							mark.attrs.annotationType === AnnotationTypes.INLINE_COMMENT,
+					)
+					.map((mark) => mark.attrs.id)
+					.filter((id): id is AnnotationId => typeof id === 'string'),
+				position,
+				displayText:
+					node.attrs.alt || node.attrs.__fileName || node.attrs.fileName || node.attrs.name,
+				occurrenceKey:
+					typeof node.attrs.occurrenceKey === 'string' ? node.attrs.occurrenceKey : undefined,
+			});
+
+			return false;
+		});
+
+		const exactMatches = identifier.occurrenceKey
+			? candidates.filter((candidate) => candidate.occurrenceKey === identifier.occurrenceKey)
+			: [];
+		const matches = exactMatches.length > 0 ? exactMatches : candidates;
+
+		if (matches.length === 0) {
+			return { status: 'missing' };
+		}
+		if (matches.length > 1) {
+			return { status: 'ambiguous' };
+		}
+
+		return { status: 'resolved', context: matches[0] };
 	}
 
 	getAnnotationsByPosition(range: Range): string[] {

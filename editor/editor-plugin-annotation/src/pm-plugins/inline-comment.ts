@@ -44,7 +44,13 @@ import type {
 	InlineCommentPluginOptions,
 	InlineCommentPluginState,
 } from './types';
-import { decorationKey, getAllAnnotations, getPluginState, inlineCommentPluginKey } from './utils';
+import {
+	decorationKey,
+	getAllAnnotations,
+	getPluginState,
+	inlineCommentPluginKey,
+	isSupportedBlockNode,
+} from './utils';
 
 const fetchProviderStates = async (
 	provider: InlineCommentAnnotationProvider,
@@ -541,8 +547,9 @@ export const inlineCommentPlugin = (
 					if (node.type.name === 'mediaInline') {
 						return false;
 					}
-					const isSupportedBlockNode =
-						node.isBlock && provider.supportedBlockNodes?.includes(node.type.name);
+					const isSupportedBlock =
+						node.isBlock &&
+						isSupportedBlockNode(node, provider.supportedBlockNodes, provider.isBlockNodeSupported);
 
 					node.marks
 						.filter((mark) => mark.type === state.schema.marks.annotation)
@@ -561,7 +568,7 @@ export const inlineCommentPlugin = (
 										(hoveredAnnotation) => hoveredAnnotation.id === mark.attrs.id,
 									);
 
-								if (isSupportedBlockNode) {
+								if (isSupportedBlock) {
 									focusDecorations.push(
 										Decoration.node(
 											pos,

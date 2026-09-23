@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f093781717fb638c834816c790dcfc26>>
- * @codegenCommand yarn workspace @atlaskit/eslint-plugin-volt-strict-mode codegen
+ * @codegen <<SignedSource::23ba3c41bbe2238d914f4103d504c50c>>
+ * @codegenCommand afm workspace @atlaskit/eslint-plugin-volt-strict-mode codegen
  */
 import type { Linter } from 'eslint';
 

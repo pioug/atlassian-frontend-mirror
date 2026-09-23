@@ -10,7 +10,6 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { key } from '../main';
@@ -63,16 +62,10 @@ export const createSelectionPreservationPlugin =
 			key: selectionPreservationPluginKey,
 			state: {
 				init() {
-					if (expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)) {
-						return {
-							preservedSelection: undefined,
-							syncDomSelectionForDoc: undefined,
-						};
-					} else {
-						return {
-							preservedSelection: undefined,
-						};
-					}
+					return {
+						preservedSelection: undefined,
+						syncDomSelectionForDoc: undefined,
+					};
 				},
 
 				apply(tr: ReadonlyTransaction, pluginState: SelectionPreservationPluginState) {
@@ -85,28 +78,16 @@ export const createSelectionPreservationPlugin =
 							tr.doc.resolve(tr.selection.from),
 							tr.doc.resolve(tr.selection.to),
 						);
-						if (
-							expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)
-						) {
-							newState.syncDomSelectionForDoc = undefined;
-						}
+						newState.syncDomSelectionForDoc = undefined;
 					} else if (meta?.type === 'stopPreserving') {
 						newState.preservedSelection = undefined;
-						if (
-							expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)
-						) {
-							newState.syncDomSelectionForDoc = undefined;
-						}
+						newState.syncDomSelectionForDoc = undefined;
 					} else if (tr.docChanged) {
 						if (newState.preservedSelection) {
 							newState.preservedSelection = mapPreservedSelection(newState.preservedSelection, tr);
 						}
 
-						if (
-							expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)
-						) {
-							newState.syncDomSelectionForDoc = hasFormatSelectionSyncMeta(tr) ? tr.doc : undefined;
-						}
+						newState.syncDomSelectionForDoc = hasFormatSelectionSyncMeta(tr) ? tr.doc : undefined;
 					}
 
 					if (!compareSelections(newState.preservedSelection, pluginState.preservedSelection)) {
@@ -239,32 +220,21 @@ export const createSelectionPreservationPlugin =
 							currPluginState?.syncDomSelectionForDoc === view.state.doc;
 						const shouldSyncDOMSelection =
 							((hasPreservedSelection && (preservedSelectionChanged || activeNodeChanged)) ||
-								(expValEquals(
-									'platform_editor_fix_selection_text_color_change',
-									'isEnabled',
-									true,
-								) &&
-									hasFormatSyncRequestForCurrentDoc)) &&
+								hasFormatSyncRequestForCurrentDoc) &&
 							docChanged;
 
 						if (shouldSyncDOMSelection) {
 							const syncSelection = view.state.selection;
 
-							if (
-								expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)
-							) {
-								if (hasFormatSyncRequestForCurrentDoc) {
-									if (pendingFormatSelectionSyncFrame !== undefined) {
-										cancelAnimationFrame(pendingFormatSelectionSyncFrame);
-									}
-
-									pendingFormatSelectionSyncFrame = requestAnimationFrame(() => {
-										pendingFormatSelectionSyncFrame = undefined;
-										syncDOMSelection(syncSelection, view, { focusEditor: true });
-									});
-								} else {
-									syncDOMSelection(syncSelection, view);
+							if (hasFormatSyncRequestForCurrentDoc) {
+								if (pendingFormatSelectionSyncFrame !== undefined) {
+									cancelAnimationFrame(pendingFormatSelectionSyncFrame);
 								}
+
+								pendingFormatSelectionSyncFrame = requestAnimationFrame(() => {
+									pendingFormatSelectionSyncFrame = undefined;
+									syncDOMSelection(syncSelection, view, { focusEditor: true });
+								});
 							} else {
 								syncDOMSelection(syncSelection, view);
 							}

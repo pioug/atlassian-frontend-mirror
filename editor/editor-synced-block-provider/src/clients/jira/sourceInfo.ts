@@ -1,8 +1,10 @@
 /* eslint-disable require-unicode-regexp  */
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import type { SyncBlockSourceInfo } from '../../providers/types';
 import { fetchWithRetry } from '../../utils/retry';
-import { getJiraIssueAriFromSourceAri } from './ari';
+import { getJiraIssueAriFromSourceAri, parseJiraFieldLocation } from './ari';
 
 const COMMON_HEADERS = {
 	'Content-Type': 'application/json',
@@ -21,6 +23,13 @@ type GetSourceInfoResult = {
 	data: {
 		jira: {
 			issueById: {
+				/**
+				 * The connection, the edge list, each edge and each node are all independently
+				 * nullable in AGG.
+				 */
+				fieldsById?: {
+					edges?: Array<{ node?: { fieldId: string; name: string | null } | null } | null> | null;
+				} | null;
 				id: string;
 				/**
 				 * Issue-type metadata used by the SyncedLocationDropdown to render the correct
@@ -64,13 +73,53 @@ const GET_SOURCE_INFO_QUERY = `query ${GET_SOURCE_INFO_OPERATION_NAME} ($id: ID!
 	}
   }}`;
 
-const getJiraWorkItemSourceInfo = async (issueAri: string): Promise<GetSourceInfoResult> => {
+type JiraIssueSourceInfo = NonNullable<GetSourceInfoResult['data']['jira']>['issueById'];
+
+// `fieldsById(ids:)` takes bare field ids, the same shape it returns on `node.fieldId`.
+// Its schema doc gives `issuefieldvalue` ARIs as the example, but AGG resolves those to a
+// null node. Verified against hello.atlassian.net by sending an ARI and a bare id together.
+const GET_SOURCE_INFO_WITH_FIELD_QUERY = `query ${GET_SOURCE_INFO_OPERATION_NAME} ($id: ID!, $fieldIds: [ID!]!) {
+  jira {
+	issueById(id: $id) {
+	id
+	webUrl
+	summary
+	issueType {
+		name
+		avatar {
+		xsmall
+		}
+	}
+	fieldsById(ids: $fieldIds) {
+		edges {
+		node {
+			fieldId
+			name
+		}
+		}
+	}
+	}
+  }}`;
+
+// AGG does not promise `edges` follows the order of the requested ids.
+const getFieldName = (
+	contentData: JiraIssueSourceInfo | undefined,
+	fieldId: string,
+): string | undefined => {
+	const name = contentData?.fieldsById?.edges?.find((edge) => edge?.node?.fieldId === fieldId)?.node
+		?.name;
+
+	return typeof name === 'string' && name.length > 0 ? name : undefined;
+};
+
+const getJiraWorkItemSourceInfo = async (
+	issueAri: string,
+	fieldId: string | undefined,
+): Promise<GetSourceInfoResult> => {
 	const bodyData = {
-		query: GET_SOURCE_INFO_QUERY,
+		query: fieldId ? GET_SOURCE_INFO_WITH_FIELD_QUERY : GET_SOURCE_INFO_QUERY,
 		operationName: GET_SOURCE_INFO_OPERATION_NAME,
-		variables: {
-			id: issueAri,
-		},
+		variables: fieldId ? { id: issueAri, fieldIds: [fieldId] } : { id: issueAri },
 	};
 
 	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
@@ -143,7 +192,10 @@ export const fetchJiraWorkItemInfo = async (
 	const issueAri = getJiraIssueAriFromSourceAri({ ari: workItemAri });
 
 	if (hasAccess) {
-		const response = await getJiraWorkItemSourceInfo(issueAri);
+		const fieldLocation = isExperimentEnabled('editor_synced_blocks_jira_custom_rich_text')
+			? parseJiraFieldLocation({ ari: workItemAri })
+			: undefined;
+		const response = await getJiraWorkItemSourceInfo(issueAri, fieldLocation?.fieldId);
 
 		const contentData = response.data?.jira?.issueById;
 
@@ -165,11 +217,14 @@ export const fetchJiraWorkItemInfo = async (
 					}
 				: undefined;
 
+		const fieldName = fieldLocation && getFieldName(contentData, fieldLocation.fieldId);
+
 		return Promise.resolve({
 			url: webUrl,
 			sourceAri: workItemAri,
 			title: summary,
 			issueType,
+			...(fieldName !== undefined && { fieldName }),
 		});
 	} else {
 		return await resolveNoAccessWorkItemInfo(workItemAri, issueAri);

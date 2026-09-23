@@ -25,7 +25,6 @@ import { overflowShadow, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps, OverflowShadowState } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -68,7 +67,6 @@ type AllOrNone<T> = T | { [K in keyof T]?: never };
 
 type RenderExtensionOptions = {
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-	isInsideOfTable?: boolean;
 	isTopLevel?: boolean;
 	rendererAppearance?: RendererAppearance;
 } & AllOrNone<OverflowShadowProps>;
@@ -167,12 +165,7 @@ export const renderExtension = (
 		: '';
 
 	// by default, we assume the extension is at top level, (direct child of doc node)
-	const {
-		isInsideOfTable = false,
-		isTopLevel = true,
-		rendererAppearance,
-		fireAnalyticsEvent,
-	} = options || {};
+	const { isTopLevel = true, rendererAppearance, fireAnalyticsEvent } = options || {};
 
 	// we should only use custom layout for full-page appearance
 	const canUseCustomLayout = expValEquals(
@@ -291,12 +284,7 @@ export const renderExtension = (
 					tabIndex={options.tabIndex}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
-					css={[
-						(!isInsideOfTable ||
-							isExperimentEnabled('platform_editor_table_fit_to_content_patch_2')) &&
-							!isInsideOfInlineExtension &&
-							containerStyle,
-					]}
+					css={[!isInsideOfInlineExtension && containerStyle]}
 				>
 					{asInlineAnalytics}
 					{content}
@@ -362,12 +350,7 @@ export const renderExtension = (
 							tabIndex={options.tabIndex}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 							className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
-							css={[
-								(!isInsideOfTable ||
-									isExperimentEnabled('platform_editor_table_fit_to_content_patch_2')) &&
-									!isInsideOfInlineExtension &&
-									containerStyle,
-							]}
+							css={[!isInsideOfInlineExtension && containerStyle]}
 						>
 							{asInlineAnalytics}
 							{content}
@@ -406,7 +389,6 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 		localId,
 		isInsideOfInlineExtension,
 	} = props;
-	const isInsideOfTable = path.some((node) => node.type.name === 'table');
 
 	return (
 		<ExtensionRenderer
@@ -424,7 +406,6 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 							layout,
 							{
 								isTopLevel: path.length < 1,
-								isInsideOfTable,
 								handleRef,
 								shadowClassNames,
 								tabIndex: props.tabIndex,
@@ -459,7 +440,6 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 					layout,
 					{
 						isTopLevel: path.length < 1,
-						isInsideOfTable,
 						handleRef,
 						shadowClassNames,
 						tabIndex: props.tabIndex,

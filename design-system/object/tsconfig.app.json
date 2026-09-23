@@ -1,7 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -15,12 +16,6 @@
 		"**/examples/*.tsx",
 		"**/examples/**/*.ts",
 		"**/examples/**/*.tsx",
-		"**/stories.ts",
-		"**/stories.tsx",
-		"**/stories/*.ts",
-		"**/stories/*.tsx",
-		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx",
 		"**/storybook/**/*",
 		"**/constellation/**/*",
 		".storybook/*",
@@ -31,6 +26,12 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
 		"examples-utils/*.ts",
 		"examples-utils/*.tsx",
 		"examples-utils/**/*.ts",
@@ -40,6 +41,7 @@
 		"build/**/*.ts",
 		"build/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__object/app",
@@ -47,10 +49,40 @@
 	},
 	"references": [
 		{
+			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
 			"path": "../icon/tsconfig.app.json"
 		},
 		{
 			"path": "../icon-lab/tsconfig.app.json"
+		},
+		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
 		},
 		{
 			"path": "../tile/tsconfig.app.json"
@@ -59,8 +91,16 @@
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
+			"path": "../codegen/tsconfig.app.json"
+		},
+		{
 			"path": "../structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

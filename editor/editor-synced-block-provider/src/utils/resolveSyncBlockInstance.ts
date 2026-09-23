@@ -33,6 +33,8 @@ export const resolveSyncBlockInstance = (
 	}
 
 	// otherwise, we merge the two results, preserving the sourceURL and sourceTitle from the old result if it exists
+	const fieldName = newResult.data.fieldName ?? oldResult.data.fieldName;
+	const locationScope = newResult.data.locationScope ?? oldResult.data.locationScope;
 	return {
 		...newResult,
 		data: {
@@ -42,6 +44,8 @@ export const resolveSyncBlockInstance = (
 			sourceSubType: mergeSubType(oldResult, newResult),
 			onSameDocument: newResult.data?.onSameDocument || oldResult.data?.onSameDocument || undefined,
 			issueType: newResult.data?.issueType || oldResult.data?.issueType || undefined,
+			...(fieldName !== undefined && { fieldName }),
+			...(locationScope !== undefined && { locationScope }),
 		},
 	};
 };

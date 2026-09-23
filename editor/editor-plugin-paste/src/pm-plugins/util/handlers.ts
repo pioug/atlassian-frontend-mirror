@@ -233,10 +233,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 				node.type === bulletList ||
 				node.type === orderedList ||
 				node.type === expand ||
-				(node.type === heading &&
-					!(
-						selectionIsPanel && isExperimentEnabled('platform_editor_fix_header_paste_in_panel')
-					)) ||
+				(node.type === heading && !selectionIsPanel) ||
 				node.type === listItem
 			) {
 				sliceIsInvalid = true;

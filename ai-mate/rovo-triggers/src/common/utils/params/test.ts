@@ -1,5 +1,3 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { ROVO_PARAM_PREFIX } from './constants';
 import {
 	addPrefix,
@@ -66,10 +64,8 @@ describe('Rovo Query', () => {
 	});
 
 	describe('updatePageRovoParams', () => {
-		// Adding params is a user-initiated navigation, so it must keep pushing a new entry. The
-		// gate is deliberately not consulted on this path, so callers that only ever push are not
-		// counted as exposed to the experiment.
-		it('should push the updated params by default without consulting the gate', () => {
+		// Adding params is a user-initiated navigation, so it must keep pushing a new entry.
+		it('should push the updated params by default', () => {
 			const params: RovoChatParams = { pathway: 'chat' };
 			updatePageRovoParams(params);
 			expect(window.history.pushState).toHaveBeenCalledWith(
@@ -80,7 +76,7 @@ describe('Rovo Query', () => {
 			expect(window.history.replaceState).not.toHaveBeenCalled();
 		});
 
-		it('should push the updated params when historyMode is push without consulting the gate', () => {
+		it('should push the updated params when historyMode is push', () => {
 			const params: RovoChatParams = { pathway: 'chat' };
 			updatePageRovoParams(params, { historyMode: 'push' });
 			expect(window.history.pushState).toHaveBeenCalledWith(
@@ -91,8 +87,7 @@ describe('Rovo Query', () => {
 			expect(window.history.replaceState).not.toHaveBeenCalled();
 		});
 
-		it('should replace the updated params when historyMode is replace and the gate is enabled', () => {
-			passGate('rovo_chat_replace_url_param_history');
+		it('should replace the updated params when historyMode is replace', () => {
 			const params: RovoChatParams = { conversationId: undefined };
 			updatePageRovoParams(params, { historyMode: 'replace' });
 			expect(window.history.replaceState).toHaveBeenCalledWith(
@@ -101,18 +96,6 @@ describe('Rovo Query', () => {
 				addRovoParamsToUrl(window.location.pathname, params),
 			);
 			expect(window.history.pushState).not.toHaveBeenCalled();
-		});
-
-		it('should push the updated params when historyMode is replace but the gate is disabled', () => {
-			failGate('rovo_chat_replace_url_param_history');
-			const params: RovoChatParams = { conversationId: undefined };
-			updatePageRovoParams(params, { historyMode: 'replace' });
-			expect(window.history.pushState).toHaveBeenCalledWith(
-				{},
-				'',
-				addRovoParamsToUrl(window.location.pathname, params),
-			);
-			expect(window.history.replaceState).not.toHaveBeenCalled();
 		});
 	});
 

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
 import type { IntlShape } from 'react-intl';
@@ -46,6 +46,7 @@ import IconTile from '@atlaskit/icon/icon-tile';
 import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import Lozenge from '@atlaskit/lozenge/lozenge';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -140,6 +141,23 @@ const styles = cssMap({
 		marginInline: 'auto',
 		textAlign: 'center',
 	},
+	/**
+	 * Jira rows append a field name to the title, so they need more room than a
+	 * Confluence-only list. Matches the width the activation empty state already uses.
+	 */
+	fieldAwareDropdownContent: {
+		width: '400px',
+	},
+	/**
+	 * The field name gets its own line because appending it to the title lost it entirely.
+	 * The title ellipsises first, so at realistic work item summaries nothing was left of
+	 * the field. See the informational VR baseline for this dropdown.
+	 */
+	fieldSecondLine: {
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+	},
 	dropdownContent: {
 		width: '342px',
 		maxHeight: '304px',
@@ -177,9 +195,38 @@ const styles = cssMap({
 
 type FetchStatus = 'none' | 'loading' | 'success' | 'error';
 
+/**
+ * One field-aware dropdown row. Every string the row shows is composed here from the untouched
+ * provider `reference`. Only built with `editor_synced_blocks_jira_custom_rich_text` on.
+ */
+export type SyncedLocationItem = {
+	/**
+	 * Work item or page title, with the untitled fallback and the block index applied.
+	 * Never carries the field name, so the row and the tooltip can place it differently.
+	 */
+	baseTitle: string;
+	/** Jira field holding the block, when the provider resolved one. */
+	fieldName?: string;
+	/** `sourceAri` plus the block's position within that source. */
+	key: string;
+	/** Same-location note shown after the title. */
+	note?: string;
+	reference: SyncBlockSourceInfo;
+};
+
+/** Decided once per fetch. The control shape is what the dropdown held before the experiment. */
+type SyncedLocations =
+	| { kind: 'control'; references: SyncBlockSourceInfo[] }
+	| { items: SyncedLocationItem[]; kind: 'field-aware' };
+
+const EMPTY_LOCATIONS: SyncedLocations = { kind: 'control', references: [] };
+
+const countLocations = (locations: SyncedLocations): number =>
+	locations.kind === 'control' ? locations.references.length : locations.items.length;
+
 interface ReferenceDataState {
 	fetchStatus: FetchStatus;
-	referenceData: SyncBlockSourceInfo[];
+	locations: SyncedLocations;
 }
 
 const shouldApplyMinHeight = (fetchStatus: FetchStatus, itemCount: number) => {
@@ -417,6 +464,132 @@ export const processReferenceData = (
 	return sortedReferences;
 };
 
+const isFieldAwareLocationList = (references: ReferencesSourceInfo['references']): boolean =>
+	(references?.some((reference) => reference?.productType === 'jira-work-item') ?? false) &&
+	isExperimentEnabled('editor_synced_blocks_jira_custom_rich_text');
+
+const groupBySourceAri = (
+	referenceData: ReferencesSourceInfo['references'],
+): Map<string, SyncBlockSourceInfo[]> => {
+	const groups = new Map<string, SyncBlockSourceInfo[]>();
+	referenceData?.forEach((reference) => {
+		if (!reference) {
+			return;
+		}
+		const group = groups.get(reference.sourceAri);
+		if (group) {
+			group.push(reference);
+		} else {
+			groups.set(reference.sourceAri, [reference]);
+		}
+	});
+	return groups;
+};
+
+/** Sources first, then accessible locations. `0` leaves the title order to the caller. */
+const compareLocationOrder = (a: SyncBlockSourceInfo, b: SyncBlockSourceInfo): number => {
+	if (a.isSource !== b.isSource) {
+		return b.isSource ? 1 : -1;
+	}
+
+	if (a.hasAccess !== b.hasAccess) {
+		return a.hasAccess ? -1 : 1;
+	}
+
+	return 0;
+};
+
+/** The title alone. The field name is placed by the row and the tooltip, not baked in here. */
+const getBaseTitle = ({
+	blockIndex,
+	formatMessage,
+	reference,
+}: {
+	/** 1-based position within the source. Set only when several blocks share a `sourceAri`. */
+	blockIndex: number | undefined;
+	formatMessage: IntlShape['formatMessage'];
+	reference: SyncBlockSourceInfo;
+}): string => {
+	const title =
+		reference.title === '' && reference.hasAccess
+			? formatMessage(messages.syncedLocationDropdownUntitledPage)
+			: reference.title || reference.url || '';
+
+	return blockIndex === undefined
+		? title
+		: `${title}: ${formatMessage(messages.syncedLocationDropdownTitleBlockIndex, {
+				index: blockIndex,
+			})}`;
+};
+
+/** Jira rows are noted from `locationScope`; other rows keep the pre-experiment `onSameDocument` note. */
+const getFieldAwareNote = (
+	reference: SyncBlockSourceInfo,
+	formatMessage: IntlShape['formatMessage'],
+): string | undefined => {
+	if (reference.productType !== 'jira-work-item') {
+		if (!reference.onSameDocument) {
+			return undefined;
+		}
+		return formatMessage(
+			reference.productType === 'confluence-page'
+				? messages.syncedLocationDropdownTitleNoteForConfluencePage
+				: messages.syncedLocationDropdownTitleNoteForJiraWorkItem,
+		);
+	}
+
+	// A provider that computes no scope still reports `onSameDocument`. It is the same host
+	// comparison `getLocationScope` starts with, and in Jira the host document is one field.
+	const locationScope =
+		reference.locationScope ?? (reference.onSameDocument ? 'same-document' : undefined);
+
+	switch (locationScope) {
+		case 'same-document':
+			return formatMessage(messages.syncedLocationDropdownTitleNoteForJiraWorkItemField);
+		case 'same-parent-document':
+			return formatMessage(messages.syncedLocationDropdownTitleNoteForJiraWorkItem);
+		default:
+			return undefined;
+	}
+};
+
+export const buildFieldAwareItems = (
+	referenceData: ReferencesSourceInfo['references'],
+	formatMessage: IntlShape['formatMessage'],
+): SyncedLocationItem[] =>
+	Array.from(groupBySourceAri(referenceData).values())
+		.flatMap((group) =>
+			group.map((reference, index) => {
+				const fieldName =
+					reference.productType === 'jira-work-item' ? reference.fieldName : undefined;
+				const note = getFieldAwareNote(reference, formatMessage);
+
+				return {
+					baseTitle: getBaseTitle({
+						blockIndex: group.length > 1 ? index + 1 : undefined,
+						formatMessage,
+						reference,
+					}),
+					...(fieldName !== undefined && { fieldName }),
+					key: `${reference.sourceAri}#${index}`,
+					...(note !== undefined && { note }),
+					reference,
+				};
+			}),
+		)
+		.sort(
+			(a, b) =>
+				compareLocationOrder(a.reference, b.reference) || a.baseTitle.localeCompare(b.baseTitle),
+		);
+
+const toSyncedLocations = (
+	references: ReferencesSourceInfo['references'],
+	intl: IntlShape,
+): SyncedLocations =>
+	isFieldAwareLocationList(references)
+		? { kind: 'field-aware', items: buildFieldAwareItems(references, intl.formatMessage) }
+		: { kind: 'control', references: processReferenceData(references, intl) };
+
 export const SyncedLocationDropdown = ({
 	syncBlockStore,
 	resourceId,
@@ -530,17 +703,21 @@ export const SyncedLocationDropdownWithCount = ({
 	floatingToolbarRenderContext,
 }: Props): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
-	const { fetchStatus, referenceData } = useReferenceData({
+	const { fetchStatus, locations } = useReferenceData({
 		intl,
 		isSource,
 		localId,
 		resourceId,
 		syncBlockStore,
 	});
-	const referenceCount = useMemo(
-		() => referenceData.filter(({ isSource: isSourceItem }) => !isSourceItem).length,
-		[referenceData],
-	);
+	const referenceCount = useMemo(() => {
+		switch (locations.kind) {
+			case 'control':
+				return locations.references.filter(({ isSource: isSourceItem }) => !isSourceItem).length;
+			case 'field-aware':
+				return locations.items.filter(({ reference }) => !reference.isSource).length;
+		}
+	}, [locations]);
 	const tooltipContent =
 		!isOpen && fetchStatus === 'success' && referenceCount === 0
 			? intl.formatMessage(messages.syncedLocationDropdownNoReferencesTooltip)
@@ -551,7 +728,7 @@ export const SyncedLocationDropdownWithCount = ({
 			intl={intl}
 			api={api}
 			fetchStatus={fetchStatus}
-			referenceData={referenceData}
+			locations={locations}
 		/>
 	) : null;
 
@@ -624,7 +801,7 @@ type SourceInfoMap = Map<string, SyncBlockSourceInfo[]>;
 
 const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, api }: Props) => {
 	const [fetchStatus, setFetchStatus] = useState<FetchStatus>('none');
-	const [referenceData, setReferenceData] = useState<SyncBlockSourceInfo[]>([]);
+	const [locations, setLocations] = useState<SyncedLocations>(EMPTY_LOCATIONS);
 
 	useEffect(() => {
 		setFetchStatus('loading');
@@ -640,7 +817,7 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 				setFetchStatus('error');
 				return;
 			}
-			setReferenceData(processReferenceData(response.references, intl));
+			setLocations(toSyncedLocations(response.references, intl));
 			setFetchStatus('success');
 		};
 		void getReferenceData();
@@ -652,7 +829,7 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 			intl={intl}
 			api={api}
 			fetchStatus={fetchStatus}
-			referenceData={referenceData}
+			locations={locations}
 		/>
 	);
 };
@@ -672,17 +849,17 @@ const useReferenceData = ({
 	);
 	const [state, setState] = useState<{
 		fetchStatus: FetchStatus;
-		referenceData: SyncBlockSourceInfo[];
+		locations: SyncedLocations;
 	}>(() => ({
 		fetchStatus: isNewSourceBlock ? 'success' : 'loading',
-		referenceData: [],
+		locations: EMPTY_LOCATIONS,
 	}));
 
 	useEffect(() => {
 		let isCurrentRequest = true;
 		setState({
 			fetchStatus: isNewSourceBlock ? 'success' : 'loading',
-			referenceData: [],
+			locations: EMPTY_LOCATIONS,
 		});
 
 		const getReferenceData = async () => {
@@ -700,12 +877,12 @@ const useReferenceData = ({
 				syncBlockStore.sourceManager.clearNewSourceBlock(resourceId);
 			}
 			if (response.error) {
-				setState({ fetchStatus: 'error', referenceData: [] });
+				setState({ fetchStatus: 'error', locations: EMPTY_LOCATIONS });
 				return;
 			}
 			setState({
 				fetchStatus: 'success',
-				referenceData: processReferenceData(response.references, intl),
+				locations: toSyncedLocations(response.references, intl),
 			});
 		};
 
@@ -718,7 +895,7 @@ const useReferenceData = ({
 
 	return {
 		fetchStatus: state.fetchStatus,
-		referenceData: state.referenceData,
+		locations: state.locations,
 	};
 };
 
@@ -751,16 +928,17 @@ const SyncedLocationTriggerContent = ({
 };
 
 type DropdownContentProps = Pick<Props, 'resourceId' | 'intl' | 'api'> &
-	Pick<ReferenceDataState, 'fetchStatus' | 'referenceData'>;
+	Pick<ReferenceDataState, 'fetchStatus' | 'locations'>;
 
 const DropdownContentWithReferenceData = ({
 	resourceId,
 	intl,
 	api,
 	fetchStatus,
-	referenceData,
+	locations,
 }: DropdownContentProps) => {
 	const { formatMessage } = intl;
+	const locationCount = countLocations(locations);
 
 	const handleLocationClick = () => {
 		api?.analytics?.actions?.fireAnalyticsEvent({
@@ -781,7 +959,7 @@ const DropdownContentWithReferenceData = ({
 			case 'error':
 				return <ErrorScreen formatMessage={formatMessage} />;
 			case 'success':
-				if (referenceData.length > 0) {
+				if (locationCount > 0) {
 					return (
 						<div
 							css={[styles.contentContainer, headingStyles]}
@@ -789,40 +967,22 @@ const DropdownContentWithReferenceData = ({
 						>
 							<DropdownItemGroup
 								title={formatMessage(messages.syncedLocationDropdownHeading, {
-									count: `${referenceData.length > 99 ? '99+' : referenceData.length}`,
+									count: `${locationCount > 99 ? '99+' : locationCount}`,
 								})}
 							>
-								{referenceData.map((reference) => {
-									const title =
-										reference.title === '' && reference.hasAccess
-											? formatMessage(messages.syncedLocationDropdownUntitledPage)
-											: reference.title || reference.url || '';
-
-									return (
-										<div key={reference.title} css={dropdownItemStyles}>
-											<Tooltip content={title}>
-												<DropdownItem
-													elemBefore={<ItemIcon reference={reference} intl={intl} />}
-													href={reference.url}
-													target="_blank"
-													key={reference.title}
-													rel="noopener noreferrer"
-													// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-													onClick={() => handleLocationClick()}
-												>
-													<ItemTitle
-														title={title}
-														formatMessage={formatMessage}
-														onSameDocument={reference.onSameDocument}
-														isSource={reference.isSource}
-														hasAccess={reference.hasAccess}
-														productType={reference.productType}
-													/>
-												</DropdownItem>
-											</Tooltip>
-										</div>
-									);
-								})}
+								{locations.kind === 'field-aware' ? (
+									<FieldAwareLocationRows
+										items={locations.items}
+										intl={intl}
+										handleLocationClick={handleLocationClick}
+									/>
+								) : (
+									<ControlLocationRows
+										referenceData={locations.references}
+										intl={intl}
+										handleLocationClick={handleLocationClick}
+									/>
+								)}
 							</DropdownItemGroup>
 						</div>
 					);
@@ -836,15 +996,161 @@ const DropdownContentWithReferenceData = ({
 		<Box
 			xcss={cx(
 				styles.dropdownContent,
+				// Read off the discriminant rather than the experiment, so the control cohort
+				// cannot reach this width and no second exposure is fired for a style.
+				locations.kind === 'field-aware' && styles.fieldAwareDropdownContent,
 				expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true) &&
 					fetchStatus === 'success' &&
-					referenceData.length === 0 &&
+					locationCount === 0 &&
 					styles.activationDropdownContent,
-				shouldApplyMinHeight(fetchStatus, referenceData.length) && styles.containerWithMinHeight,
+				shouldApplyMinHeight(fetchStatus, locationCount) && styles.containerWithMinHeight,
 			)}
 		>
 			{content()}
 		</Box>
+	);
+};
+
+type LocationRowsProps = {
+	handleLocationClick: () => void;
+	intl: IntlShape;
+};
+
+// The pre-experiment rows. This block is master's, moved into a component; remove with the experiment.
+const ControlLocationRows = ({
+	referenceData,
+	intl,
+	handleLocationClick,
+}: LocationRowsProps & { referenceData: SyncBlockSourceInfo[] }) => {
+	const { formatMessage } = intl;
+
+	return (
+		<Fragment>
+			{referenceData.map((reference) => {
+				const title =
+					reference.title === '' && reference.hasAccess
+						? formatMessage(messages.syncedLocationDropdownUntitledPage)
+						: reference.title || reference.url || '';
+
+				return (
+					<div key={reference.title} css={dropdownItemStyles}>
+						<Tooltip content={title}>
+							<DropdownItem
+								elemBefore={<ItemIcon reference={reference} intl={intl} />}
+								href={reference.url}
+								target="_blank"
+								key={reference.title}
+								rel="noopener noreferrer"
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+								onClick={() => handleLocationClick()}
+							>
+								<ItemTitle
+									title={title}
+									formatMessage={formatMessage}
+									onSameDocument={reference.onSameDocument}
+									isSource={reference.isSource}
+									hasAccess={reference.hasAccess}
+									productType={reference.productType}
+								/>
+							</DropdownItem>
+						</Tooltip>
+					</div>
+				);
+			})}
+		</Fragment>
+	);
+};
+
+const FieldAwareItemTitle = ({
+	item: { baseTitle, fieldName, note, reference },
+	formatMessage,
+}: {
+	formatMessage: IntlShape['formatMessage'];
+	item: SyncedLocationItem;
+}) => {
+	const titleLine = (
+		<Inline>
+			<Box as="span" xcss={styles.title}>
+				{baseTitle}
+			</Box>
+			{note && (
+				<Box as="span" xcss={styles.note}>
+					&nbsp;- {note}
+				</Box>
+			)}
+			{reference.isSource && (
+				<Box as="span" xcss={styles.lozenge}>
+					<Lozenge>{formatMessage(messages.syncedLocationDropdownSourceLozenge)}</Lozenge>
+				</Box>
+			)}
+			{!reference.hasAccess && (
+				<Box as="span" xcss={styles.requestAccess}>
+					{formatMessage(messages.syncedLocationDropdownRequestAccess)}
+				</Box>
+			)}
+		</Inline>
+	);
+
+	if (fieldName === undefined) {
+		return titleLine;
+	}
+
+	// AGG localises the field name, so it is shown as given rather than wrapped in a message.
+	return (
+		<Stack>
+			{titleLine}
+			<Box as="span" xcss={styles.fieldSecondLine}>
+				<Text size="small" color="color.text.subtlest">
+					{fieldName}
+				</Text>
+			</Box>
+		</Stack>
+	);
+};
+
+const FieldAwareLocationRows = ({
+	items,
+	intl,
+	handleLocationClick,
+}: LocationRowsProps & { items: SyncedLocationItem[] }) => {
+	const { formatMessage } = intl;
+
+	return (
+		<Fragment>
+			{items.map((item) => (
+				<div key={item.key} css={dropdownItemStyles}>
+					<Tooltip
+						content={
+							item.fieldName ? (
+								// Two lines in the tooltip's own text flow. Wrapping them in `Text` would
+								// default to `font.body` and override the container's `font.body.small`,
+								// so the field-aware tooltip would not match every other one.
+								<Fragment>
+									{item.baseTitle}
+									<br />
+									{formatMessage(messages.syncedLocationDropdownTooltipFieldName, {
+										fieldName: item.fieldName,
+									})}
+								</Fragment>
+							) : (
+								item.baseTitle
+							)
+						}
+					>
+						<DropdownItem
+							elemBefore={<ItemIcon reference={item.reference} intl={intl} />}
+							href={item.reference.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+							onClick={() => handleLocationClick()}
+						>
+							<FieldAwareItemTitle item={item} formatMessage={formatMessage} />
+						</DropdownItem>
+					</Tooltip>
+				</div>
+			))}
+		</Fragment>
 	);
 };
 

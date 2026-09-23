@@ -3,8 +3,8 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::acff924d069eafb053d3209818c6810a>>
- * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
+ * @codegen <<SignedSource::50049b97279bd4c80145082104cdbde5>>
+ * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen link-datasource
  */
 import { useCallback } from 'react';
 

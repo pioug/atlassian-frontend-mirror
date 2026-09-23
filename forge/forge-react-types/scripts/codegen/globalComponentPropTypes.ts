@@ -420,7 +420,7 @@ const generateGlobalComponentPropTypes = (): void => {
 		} else {
 			const signedSourceCode = createSignedArtifact(
 				sourceCode,
-				'yarn workspace @atlaskit/forge-react-types codegen-global',
+				'afm workspace @atlaskit/forge-react-types codegen-global',
 				{
 					description: `Generated prop types for Global component - ${componentName}`,
 					dependencies: [GLOBAL_PROPS_SOURCE_PATH, sourceFilePath],
@@ -463,7 +463,7 @@ const generateIndexFile = (interfaceNames: string[]) => {
 
 	const signedSourceCode = createSignedArtifact(
 		sourceCode,
-		'yarn workspace @atlaskit/forge-react-types codegen-global',
+		'afm workspace @atlaskit/forge-react-types codegen-global',
 		{
 			description: 'Index file for generated Global component prop types',
 			dependencies: [GLOBAL_PROPS_SOURCE_PATH],

@@ -1,10 +1,11 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
-		"**/*.docs.tsx",
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
+		"**/__tests__/**/*.json",
 		"**/vr-tests/**/*",
 		"**/__perf__/**/*",
 		"**/*.test.*",
@@ -26,14 +27,25 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
-		"./src/feature-flags/__test__/**/*"
+		"./src/feature-flags/__test__/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./*.ts"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__collab-provider/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
 		{
 			"path": "../adf-utils/tsconfig.app.json"
 		},
@@ -56,6 +68,12 @@
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
@@ -75,6 +93,15 @@
 		},
 		{
 			"path": "../../elements/util-service-support/tsconfig.app.json"
+		},
+		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

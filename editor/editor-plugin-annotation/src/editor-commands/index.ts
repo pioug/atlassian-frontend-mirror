@@ -25,7 +25,11 @@ import {
 	isSupportedBlockNode,
 } from '../pm-plugins/utils';
 import { AnnotationSelectionType } from '../types';
-import type { InlineCommentInputMethod, TargetType } from '../types';
+import type {
+	InlineCommentAnnotationProvider,
+	InlineCommentInputMethod,
+	TargetType,
+} from '../types';
 import transform from './transform';
 import { resetUserIntent, setUserIntent } from './utils';
 
@@ -103,15 +107,23 @@ export const setPendingSelectedAnnotation = (id: string): Command =>
 const removeInlineCommentFromNode = (
 	id: string,
 	supportedBlockNodes: string[] = [],
+	isBlockNodeSupported: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 	state: EditorState,
 	dispatch?: CommandDispatch,
 ) => {
 	const { tr, selection } = state;
-
-	if (
+	const selectedNodeIsSupported =
 		selection instanceof NodeSelection &&
-		isSupportedBlockNode(selection.node, supportedBlockNodes)
-	) {
+		(isSupportedBlockNode(selection.node, supportedBlockNodes, isBlockNodeSupported) ||
+			(selection.node.type === state.schema.nodes.mediaSingle &&
+				!!selection.node.firstChild &&
+				isSupportedBlockNode(
+					selection.node.firstChild,
+					supportedBlockNodes,
+					isBlockNodeSupported,
+				)));
+
+	if (selectedNodeIsSupported) {
 		const { $from } = selection;
 		let currNode = selection.node;
 		let from = $from.start();
@@ -148,14 +160,18 @@ const removeInlineCommentFromNode = (
 };
 
 export const removeInlineCommentNearSelection =
-	(id: string, supportedNodes: string[] = []): Command =>
+	(
+		id: string,
+		supportedNodes: string[] = [],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+	): Command =>
 	(state, dispatch): boolean => {
 		const {
 			tr,
 			selection: { $from },
 		} = state;
 
-		if (removeInlineCommentFromNode(id, supportedNodes, state, dispatch)) {
+		if (removeInlineCommentFromNode(id, supportedNodes, isBlockNodeSupported, state, dispatch)) {
 			return true;
 		}
 
@@ -186,7 +202,11 @@ export const removeInlineCommentNearSelection =
 
 export const removeInlineCommentFromDoc =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(id: string, supportedNodes: string[] = []): Command =>
+	(
+		id: string,
+		supportedNodes: string[] = [],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+	): Command =>
 	(state, dispatch): boolean => {
 		const { tr } = state;
 
@@ -197,12 +217,13 @@ export const removeInlineCommentFromDoc =
 				return false;
 			}
 
-			const isSupportedBlockNode = node.isBlock && supportedNodes?.includes(node.type.name);
+			const isSupportedBlock =
+				node.isBlock && isSupportedBlockNode(node, supportedNodes, isBlockNodeSupported);
 
 			node.marks
 				.filter((mark) => mark.type === state.schema.marks.annotation && mark.attrs.id === id)
 				.forEach((mark) => {
-					if (isSupportedBlockNode) {
+					if (isSupportedBlock) {
 						tr.removeNodeMark(pos, mark);
 					} else {
 						tr.removeMark(pos, pos + node.nodeSize, mark);
@@ -223,17 +244,23 @@ const getDraftCommandAction: (
 	targetType: TargetType,
 	targetNodeId?: string,
 	supportedBlockNodes?: string[],
+	isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 	isOpeningMediaCommentFromToolbar?: boolean,
 ) => (state: Readonly<EditorState>) => InlineCommentAction | false = (
 	drafting: boolean,
 	targetType: TargetType,
 	targetNodeId?: string,
 	supportedBlockNodes?: string[],
+	isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 	isOpeningMediaCommentFromToolbar?: boolean,
 ) => {
 	return (editorState: EditorState) => {
 		// validate selection only when entering draft mode
-		if (drafting && isSelectionValid(editorState) !== AnnotationSelectionType.VALID) {
+		if (
+			drafting &&
+			isSelectionValid(editorState, supportedBlockNodes, isBlockNodeSupported) !==
+				AnnotationSelectionType.VALID
+		) {
 			return false;
 		}
 
@@ -244,6 +271,7 @@ const getDraftCommandAction: (
 				editorState,
 				targetType,
 				supportedBlockNodes,
+				isBlockNodeSupported,
 				targetNodeId,
 				isOpeningMediaCommentFromToolbar,
 			},
@@ -258,7 +286,10 @@ const getDraftCommandAction: (
  * @example
  */
 export const showInlineCommentForBlockNode =
-	(supportedBlockNodes: string[] = []) =>
+	(
+		supportedBlockNodes: string[] = [],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+	) =>
 	(
 		node: PMNode | null,
 		viewMethod?: VIEW_METHOD,
@@ -268,7 +299,11 @@ export const showInlineCommentForBlockNode =
 		const pluginState = getPluginState(state);
 		const { annotation } = state.schema.marks;
 
-		if (node && node.isBlock && supportedBlockNodes.includes(node.type.name)) {
+		if (
+			node &&
+			node.isBlock &&
+			isSupportedBlockNode(node, supportedBlockNodes, isBlockNodeSupported)
+		) {
 			const unresolvedAnnotationMarks = (node?.marks || [])
 				.filter((mark) => mark.type === annotation && !pluginState?.annotations[mark.attrs.id])
 				.map((mark) => ({
@@ -305,6 +340,7 @@ export const setInlineCommentDraftState =
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 		supportedBlockNodes: string[] = [],
 		api?: ExtractInjectionAPI<AnnotationPlugin>,
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 	) =>
 	(
 		drafting: boolean,
@@ -318,6 +354,7 @@ export const setInlineCommentDraftState =
 			targetType,
 			targetNodeId,
 			supportedBlockNodes,
+			isBlockNodeSupported,
 			isOpeningMediaCommentFromToolbar,
 		);
 
@@ -359,7 +396,11 @@ export const addInlineComment =
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 		editorAPI?: ExtractInjectionAPI<AnnotationPlugin> | undefined,
 	) =>
-	(id: string, supportedBlockNodes?: string[]): Command => {
+	(
+		id: string,
+		supportedBlockNodes?: string[],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+	): Command => {
 		const commandAction: (editorState: EditorState) => InlineCommentAction = (
 			editorState: EditorState,
 		) => ({
@@ -379,6 +420,7 @@ export const addInlineComment =
 				const tr = transform.addInlineComment(editorAnalyticsAPI, editorAPI)(
 					id,
 					supportedBlockNodes,
+					isBlockNodeSupported,
 				)(state.tr, state);
 
 				tr.setMeta(inlineCommentPluginKey, commandAction(state));
@@ -395,7 +437,11 @@ export const addInlineComment =
 		} else {
 			return createCommand(
 				commandAction,
-				transform.addInlineComment(editorAnalyticsAPI, editorAPI)(id, supportedBlockNodes),
+				transform.addInlineComment(editorAnalyticsAPI, editorAPI)(
+					id,
+					supportedBlockNodes,
+					isBlockNodeSupported,
+				),
 			);
 		}
 	};
@@ -431,6 +477,7 @@ export const createAnnotation =
 		id: string,
 		annotationType: AnnotationTypes = AnnotationTypes.INLINE_COMMENT,
 		supportedBlockNodes?: string[],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 	): Command =>
 	(state, dispatch) => {
 		// don't try to add if there are is no temp highlight bookmarked
@@ -440,10 +487,11 @@ export const createAnnotation =
 		}
 
 		if (annotationType === AnnotationTypes.INLINE_COMMENT) {
-			return addInlineComment(editorAnalyticsAPI, editorAPI)(id, supportedBlockNodes)(
-				state,
-				dispatch,
-			);
+			return addInlineComment(editorAnalyticsAPI, editorAPI)(
+				id,
+				supportedBlockNodes,
+				isBlockNodeSupported,
+			)(state, dispatch);
 		}
 
 		return false;

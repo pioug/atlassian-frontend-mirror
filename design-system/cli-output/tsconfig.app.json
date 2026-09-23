@@ -1,12 +1,14 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.tsx"],
-	"exclude": ["**/__tests__/**/*"],
+	"include": [
+		"./src/**/*.tsx",
+		"**/*.tsx"
+	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__cli-output/app",
 		"isolatedDeclarations": true
 	},
-	"files": [],
 	"references": []
 }

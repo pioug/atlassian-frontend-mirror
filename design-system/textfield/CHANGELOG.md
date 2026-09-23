@@ -1,5 +1,14 @@
 # @atlaskit/textfield
 
+## 10.2.5
+
+### Patch Changes
+
+- [`7470fe5b0b5e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7470fe5b0b5e7) -
+  [ux] Add input hover, focus, and error motion behind the `platform-dst-motion-uplift-input`
+  feature gate.
+- Updated dependencies
+
 ## 10.2.4
 
 ### Patch Changes

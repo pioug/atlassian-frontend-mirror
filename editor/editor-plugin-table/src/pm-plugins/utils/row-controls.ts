@@ -4,6 +4,7 @@ import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state'
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getSelectionRect, isRowSelected } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { TableCssClassName as ClassName } from '../../types';
 import { tableDeleteButtonSize } from '../../ui/consts';
@@ -18,8 +19,14 @@ export const getRowHeights = (tableRef: HTMLTableElement): number[] => {
 	const heights: number[] = [];
 	const tableBody = tableRef.querySelector('tbody');
 	if (tableBody) {
-		const rows = tableBody.childNodes;
+		// filter out widget children (e.g. anchor widgets) of table body
+		const rows = fg('platform_editor_ai_show_diff_patch_2')
+			? Array.from(tableBody.childNodes).filter(
+					(node): node is HTMLTableRowElement => node instanceof HTMLTableRowElement,
+				)
+			: tableBody.childNodes;
 		for (let i = 0, count = rows.length; i < count; i++) {
+			// remove as cast when cleaning up platform_editor_ai_show_diff_patch_2
 			const row = rows[i] as HTMLTableRowElement;
 			heights[i] = row.getBoundingClientRect().height + 1;
 
@@ -33,6 +40,45 @@ export const getRowHeights = (tableRef: HTMLTableElement): number[] => {
 	}
 
 	return heights;
+};
+
+const getRowNumberLabel = (rowIndex: number, hasHeaderRow?: boolean): number | null => {
+	if (!hasHeaderRow) {
+		return rowIndex + 1;
+	}
+
+	return rowIndex > 0 ? rowIndex : null;
+};
+
+/**
+ * Replacement diff widgets are inserted immediately before their document-row counterpart. Give
+ * the widget the next row number without consuming it, so the counterpart receives the same
+ * label. Other rows consume a number normally.
+ */
+export const getRenderedRowNumberLabels = (
+	tableRef: HTMLTableElement,
+	hasHeaderRow?: boolean,
+): Array<number | null> => {
+	const rowNumberLabels: Array<number | null> = [];
+	const tableBody = tableRef.querySelector('tbody');
+	if (tableBody) {
+		let nextRowIndex = 0;
+		const rows = Array.from(tableBody.childNodes).filter(
+			(node): node is HTMLTableRowElement => node instanceof HTMLTableRowElement,
+		);
+		for (let i = 0, count = rows.length; i < count; i++) {
+			const row = rows[i];
+			if (row.hasAttribute('data-show-diff-table-row-replacement')) {
+				rowNumberLabels.push(getRowNumberLabel(nextRowIndex, hasHeaderRow));
+				continue;
+			}
+
+			const rowIndex = nextRowIndex++;
+			rowNumberLabels.push(getRowNumberLabel(rowIndex, hasHeaderRow));
+		}
+	}
+
+	return rowNumberLabels;
 };
 
 export const getRowDeleteButtonParams = (

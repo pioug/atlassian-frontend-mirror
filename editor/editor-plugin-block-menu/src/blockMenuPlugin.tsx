@@ -25,11 +25,7 @@ import { Flag } from './ui/flag';
 
 export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 	const registry = createBlockMenuRegistry();
-	const transformSourceRegistry = isExperimentEnabled(
-		'platform_editor_block_menu_transform_extensions',
-	)
-		? createBlockMenuTransformSourceRegistry()
-		: undefined;
+	const transformSourceRegistry = createBlockMenuTransformSourceRegistry();
 	registry.register(getBlockMenuComponents({ api, config }));
 
 	const refs: {
@@ -99,13 +95,7 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 					transformRegistry: transformSourceRegistry,
 				});
 			},
-			registerBlockMenuTransforms: (transforms) => {
-				if (isExperimentEnabled('platform_editor_block_menu_transform_extensions')) {
-					return transformSourceRegistry?.register(transforms) ?? (() => {});
-				}
-
-				return () => {};
-			},
+			registerBlockMenuTransforms: (transforms) => transformSourceRegistry.register(transforms),
 		},
 		commands: {
 			transformInlineNode: (metadata: TransformInlineNodeMetadata) =>

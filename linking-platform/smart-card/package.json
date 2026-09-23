@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.26.0",
+	"version": "45.28.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -242,6 +242,7 @@
 		"./link/types": "./src/view/LinkUrl/types.ts",
 		"./link": "./src/view/LinkUrl/index.tsx",
 		"./link-url": "./src/linkUrl.ts",
+		"./pre-auth-value-proposition-modal": "./src/entry-points/pre-auth-value-proposition-modal.ts",
 		"./ssr": "./src/ssr.tsx",
 		"./test-utils/iframe": "./src/view/EmbedCard/components/IFrame.tsx",
 		"./types": "./src/types.ts",

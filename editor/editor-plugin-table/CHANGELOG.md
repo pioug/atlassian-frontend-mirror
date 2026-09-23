@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-table
 
+## 31.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.7
+
+### Patch Changes
+
+- [`6bbecbd2ad0eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bbecbd2ad0eb) -
+  EDITOR-9120 Fix numbered table columns in `platform_editor_ai_show_diff_patch_2` so replacement
+  widgets share an existing row number, added and removed rows remain independently numbered, and
+  anchor widgets do not create phantom entries.
+- Updated dependencies
+
+## 31.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.5
 
 ### Patch Changes

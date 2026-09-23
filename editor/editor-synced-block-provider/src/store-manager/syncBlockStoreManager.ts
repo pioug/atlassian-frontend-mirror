@@ -123,6 +123,7 @@ export class SyncBlockStoreManager {
 				return {
 					...sourceInfo,
 					onSameDocument: reference.onSameDocument,
+					...(reference.locationScope !== undefined && { locationScope: reference.locationScope }),
 					hasAccess: reference.hasAccess,
 					productType: sourceInfo.productType,
 				};

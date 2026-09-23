@@ -28,13 +28,17 @@ import {
 	getPluginState,
 	resolveDraftBookmark,
 } from '../pm-plugins/utils';
-import type { InlineCommentInputMethod } from '../types';
+import type { InlineCommentAnnotationProvider, InlineCommentInputMethod } from '../types';
 
 const isAnnotationStep = (step: Step): step is AddMarkStep =>
 	step instanceof AddMarkStep && step.mark.type.name === 'annotation';
 
 const addAnnotationMark =
-	(id: string, supportedBlockNodes?: string[]) =>
+	(
+		id: string,
+		supportedBlockNodes?: string[],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+	) =>
 	(transaction: Transaction, state: EditorState): Transaction => {
 		const inlineCommentState = getPluginState(state);
 		const { bookmark } = inlineCommentState || {};
@@ -46,6 +50,7 @@ const addAnnotationMark =
 			state,
 			bookmark,
 			supportedBlockNodes,
+			isBlockNodeSupported,
 		);
 
 		let tr = transaction;
@@ -71,9 +76,13 @@ const addInlineComment =
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 		editorAPI: ExtractInjectionAPI<AnnotationPlugin> | undefined,
 	) =>
-	(id: string, supportedBlockNodes?: string[]) =>
+	(
+		id: string,
+		supportedBlockNodes?: string[],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+	) =>
 	(transaction: Transaction, state: EditorState): Transaction => {
-		let tr = addAnnotationMark(id, supportedBlockNodes)(transaction, state);
+		let tr = addAnnotationMark(id, supportedBlockNodes, isBlockNodeSupported)(transaction, state);
 
 		editorAPI?.editorViewModeEffects?.actions.applyViewModeStepAt(tr);
 
@@ -201,6 +210,7 @@ const _default_1: {
 	addAnnotationMark: (
 		id: string,
 		supportedBlockNodes?: string[],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 	) => (transaction: Transaction, state: EditorState) => Transaction;
 	addDeleteAnalytics: (
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -211,6 +221,7 @@ const _default_1: {
 	) => (
 		id: string,
 		supportedBlockNodes?: string[],
+		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
 	) => (transaction: Transaction, state: EditorState) => Transaction;
 	addInsertAnalytics: (
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,

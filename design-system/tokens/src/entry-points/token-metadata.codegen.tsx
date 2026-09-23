@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::ec0c00a7ddc2756d8c58e4c9b8ca417e>>
+ * @codegen <<SignedSource::5ff87c97a91f377d320a3bbcd4276565>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -188,17 +188,9 @@ export const tokens: Token[] = [
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
-		name: 'motion.input.focused',
-		path: ['motion', 'input', 'focused'],
-		description: 'Use for input focus state transitions.',
-		exampleValue:
-			'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
-		usageGuidelines: { usage: '', cssProperties: [] },
-	},
-	{
-		name: 'motion.input.hovered',
-		path: ['motion', 'input', 'hovered'],
-		description: 'Use for input hover and return-to-rest state transitions.',
+		name: 'motion.input',
+		path: ['motion', 'input'],
+		description: 'Use for input hover, focus, and error state transitions.',
 		exampleValue:
 			'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
@@ -310,7 +302,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'keyframe', 'slide', 'out', 'bottom', 'short'],
 		description:
 			'Use for short slide-out transitions where an element exits downward by 8px from its starting position.',
-		exampleValue: 'SlideOutBottom8px',
+		exampleValue: 'SlideOutBottom4px',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -326,7 +318,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'keyframe', 'slide', 'out', 'left', 'short'],
 		description:
 			'Use for short slide-out transitions where an element exits to the left by 8px from its starting position.',
-		exampleValue: 'SlideOutLeft8px',
+		exampleValue: 'SlideOutLeft4px',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -334,7 +326,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'keyframe', 'slide', 'out', 'right', 'short'],
 		description:
 			'Use for short slide-out transitions where an element exits to the right by 8px from its starting position.',
-		exampleValue: 'SlideOutRight8px',
+		exampleValue: 'SlideOutRight4px',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -342,7 +334,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'keyframe', 'slide', 'out', 'top', 'short'],
 		description:
 			'Use for short slide-out transitions where an element exits upward by 8px from its starting position.',
-		exampleValue: 'SlideOutTop8px',
+		exampleValue: 'SlideOutTop4px',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -493,7 +485,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'popup', 'exit', 'bottom'],
 		description: 'Use for popup exit toward the bottom.',
 		exampleValue:
-			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom4px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -501,7 +493,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'popup', 'exit', 'left'],
 		description: 'Use for popup exit toward the left.',
 		exampleValue:
-			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft4px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -509,7 +501,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'popup', 'exit', 'right'],
 		description: 'Use for popup exit toward the right.',
 		exampleValue:
-			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight4px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -517,7 +509,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'popup', 'exit', 'top'],
 		description: 'Use for popup exit toward the top.',
 		exampleValue:
-			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop4px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -562,6 +554,45 @@ export const tokens: Token[] = [
 		description: 'Use for spotlight exit transitions.',
 		exampleValue:
 			'200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.tab',
+		path: ['motion', 'tab', '[default]'],
+		description: 'Use for all tab text color state transitions.',
+		exampleValue: 'color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.tab.indicator.enter.left',
+		path: ['motion', 'tab', 'indicator', 'enter', 'left'],
+		description: 'Use for tab indicators entering from the left.',
+		exampleValue:
+			'150ms cubic-bezier(0, 0.4, 0, 1) SlideInRight8px backwards, 150ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.tab.indicator.enter.right',
+		path: ['motion', 'tab', 'indicator', 'enter', 'right'],
+		description: 'Use for tab indicators entering from the right.',
+		exampleValue:
+			'150ms cubic-bezier(0, 0.4, 0, 1) SlideInLeft8px backwards, 150ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.tab.indicator.exit.left',
+		path: ['motion', 'tab', 'indicator', 'exit', 'left'],
+		description: 'Use for tab indicators exiting toward the left.',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.tab.indicator.exit.right',
+		path: ['motion', 'tab', 'indicator', 'exit', 'right'],
+		description: 'Use for tab indicators exiting toward the right.',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{

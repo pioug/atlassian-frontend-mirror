@@ -37,6 +37,7 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
@@ -70,6 +71,8 @@ export type MediaProps = MediaCardProps & {
 	>;
 	// only used for comment badge, is injected via nodes/mediaSingle
 	mediaSingleElement?: HTMLElement | null;
+	/** Extensions for the media viewer (e.g. sidebar with comment indicator). */
+	mediaViewerExtensions?: MediaViewerExtensions;
 	onMediaRenderEvent?: (event: MediaRenderEvent) => void;
 	providers?: ProviderFactory;
 	// attributes for media node
@@ -402,6 +405,7 @@ class Media extends PureComponent<MediaProps, object> {
 			height,
 			mediaSingleElement,
 			isDrafting = false,
+			mediaViewerExtensions,
 		} = this.props;
 
 		const annotationMarks = (
@@ -482,6 +486,7 @@ class Media extends PureComponent<MediaProps, object> {
 										? this.onPreviewRender
 										: undefined
 								}
+								mediaViewerExtensions={mediaViewerExtensions}
 							/>
 						</AnalyticsContext>
 					</MediaBorder>

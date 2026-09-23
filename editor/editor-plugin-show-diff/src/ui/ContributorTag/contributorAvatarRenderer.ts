@@ -5,17 +5,23 @@ import { BORDER_WIDTH } from '@atlaskit/avatar/constants/default';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { token } from '@atlaskit/tokens';
 
-import type { TagContributor } from '../../showDiffPluginType';
+import type { DiffAgentBrand, TagContributor } from '../../showDiffPluginType';
 import { getContributorTagIcon, type ContributorTagIcon } from './contributorTagIcons';
 
-/** Agent kinds with a custom contributor-tag icon. */
+/**
+ * Agent kinds with a custom contributor-tag icon. The `satisfies` clause fails the build if a
+ * `DiffAgentBrand` is missing an icon here; `ASSERT_DIFF_AGENT_BRANDS_ARE_REGISTERED` in
+ * `showDiffPluginType.ts` similarly fails the build if a brand has no `@atlaskit/agent-color`
+ * colour scheme. The declared type stays the wider `TagContributor['agentKind']` so indexing below
+ * (with `'identified' | 'external'` in play too) stays safely partial.
+ */
 const AGENT_KIND_ICONS: Readonly<
 	Partial<Record<NonNullable<TagContributor['agentKind']>, ContributorTagIcon>>
 > = {
 	claude: 'claude',
 	chatgpt: 'chatgpt',
 	rovo: 'rovoHex',
-};
+} satisfies Record<DiffAgentBrand, ContributorTagIcon>;
 
 /** The size `@atlaskit/avatar`'s `xxsmall` rendered at. */
 const AVATAR_SIZE = AVATAR_SIZES.xxsmall;
@@ -38,12 +44,13 @@ const boxStyle = convertToInlineCss({
 });
 
 const shapeStyle = convertToInlineCss({
-	display: 'inline-flex',
+	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
 	boxSizing: 'border-box',
 	width: `${AVATAR_SIZE}px`,
 	height: `${AVATAR_SIZE}px`,
+	aspectRatio: '1/1',
 	overflow: 'hidden',
 });
 

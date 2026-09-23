@@ -1,6 +1,7 @@
 /* eslint-disable require-unicode-regexp */
 
-import type { SyncBlockProduct } from '../../common/types';
+import type { SyncBlockLocationScope, SyncBlockProduct } from '../../common/types';
+import { parseJiraFieldLocation } from '../jira/ari';
 
 const GET_LOCAL_ID_FROM_BLOCK_RESOURCE_ID_REGEX =
 	/ari:cloud:blocks:[^:]+:synced-block\/([a-zA-Z0-9-]+)/;
@@ -58,6 +59,34 @@ export const getLocalIdFromBlockResourceId = (ari: string): string => {
 		return match[1];
 	}
 	throw new Error(`Invalid block ARI: ${ari}`);
+};
+
+/**
+ * Where `documentAri` sits relative to the document hosting the editor.
+ *
+ * Jira admits two ARI forms for one work item field: `issuefieldvalue/{issueId}/{fieldId}`
+ * names any field, and a plain issue ARI names the description field. Jira's own
+ * `isParentAriValid` accepts either as a host, so the two are compared on the field they
+ * denote rather than as strings.
+ */
+export const getLocationScope = ({
+	documentAri,
+	hostAri,
+}: {
+	documentAri: string;
+	hostAri: string;
+}): SyncBlockLocationScope => {
+	if (documentAri === hostAri) {
+		return 'same-document';
+	}
+
+	const location = parseJiraFieldLocation({ ari: documentAri });
+	const hostLocation = parseJiraFieldLocation({ ari: hostAri });
+	if (!location || !hostLocation || location.issueAri !== hostLocation.issueAri) {
+		return 'elsewhere';
+	}
+
+	return location.fieldId === hostLocation.fieldId ? 'same-document' : 'same-parent-document';
 };
 
 export const getProductFromSourceAri = (ari?: string): SyncBlockProduct | undefined => {

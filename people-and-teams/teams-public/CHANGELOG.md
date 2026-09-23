@@ -1,5 +1,22 @@
 # @atlaskit/teams-public
 
+## 2.13.0
+
+### Minor Changes
+
+- [`d09e13cae1b7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d09e13cae1b7d) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.12.2
 
 ### Patch Changes

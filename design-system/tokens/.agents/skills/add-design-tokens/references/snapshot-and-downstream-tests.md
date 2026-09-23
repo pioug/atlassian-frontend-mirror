@@ -76,7 +76,7 @@ After updating source, codegen, docs, and snapshots, confirm the tree is clean u
 gate:
 
 ```bash
-yarn workspace @atlaskit/tokens check-clean-git
+afm workspace @atlaskit/tokens check-clean-git
 ```
 
 If it reports the tokens are out of date, re-run the full `yarn build tokens` and commit the result.
@@ -90,5 +90,5 @@ If it reports the tokens are out of date, re-run the full `yarn build tokens` an
       (`rg "--ds-" --glob "**/__snapshots__/*.snap"`).
 - [ ] Full-token snapshots in other workspaces (e.g. `help-center/ssr`) regenerated with `-u`.
 - [ ] Downstream package tests run: `primitives`, `ds-explorations`, `css`.
-- [ ] `yarn workspace @atlaskit/tokens check-clean-git` passes.
+- [ ] `afm workspace @atlaskit/tokens check-clean-git` passes.
 - [ ] All regenerated snapshots committed.

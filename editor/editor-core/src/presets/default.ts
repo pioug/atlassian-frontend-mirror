@@ -56,7 +56,6 @@ import { userIntentPlugin } from '@atlaskit/editor-plugins/user-intent';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
@@ -130,11 +129,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 				},
 			},
 		])
-		.maybeAdd(
-			interactionPlugin,
-			Boolean(options?.__livePage) ||
-				expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true),
-		)
+		.maybeAdd(interactionPlugin, Boolean(options?.__livePage))
 		.add(compositionPlugin)
 		.add([
 			contextIdentifierPlugin,

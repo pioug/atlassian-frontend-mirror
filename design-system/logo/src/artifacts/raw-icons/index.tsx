@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63e93dbb4134023b694ed2f881865fa5>>
- * @codegenCommand yarn workspace @atlaskit/logo generate:components
+ * @codegen <<SignedSource::6ee3fdb2ad3f4ce06656fb159800982b>>
+ * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 export const adminIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M10.444 5h3.111l.98 2.61 2.75-.457 1.555 2.694L17.07 12l1.77 2.153-1.555 2.694-2.75-.457-.979 2.61h-3.11l-.98-2.61-2.75.457-1.555-2.694L6.931 12 5.16 9.847l1.555-2.694 2.75.457zM12 14.625a2.625 2.625 0 1 0 0-5.25 2.625 2.625 0 0 0 0 5.25' clip-rule='evenodd'/> </svg> ";

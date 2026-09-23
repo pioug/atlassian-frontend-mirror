@@ -169,7 +169,11 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 				event !== null &&
 				!isTabLeftOrEscapeKey &&
 				event.target instanceof HTMLElement &&
-				event.target.closest?.(`[id^=${PREFIX}] [aria-haspopup]`)
+				event.target.closest?.(
+					fg('platform_dst-a11y_modal-trigger-haspopup')
+						? `[id^=${PREFIX}] [aria-haspopup="menu"], [id^=${PREFIX}] [aria-haspopup="true"]`
+						: `[id^=${PREFIX}] [aria-haspopup]`,
+				)
 			) {
 				// Check if it is within dropdown and it is a trigger button
 				// if it is a nested dropdown, clicking trigger won't close the dropdown
@@ -242,7 +246,11 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 			listener: function openOnKeyDown(e: KeyboardEvent) {
 				let isNestedTriggerButton;
 				if (e.target instanceof HTMLElement) {
-					isNestedTriggerButton = e.target.closest(`[id^=${PREFIX}] [aria-haspopup]`);
+					isNestedTriggerButton = e.target.closest(
+						fg('platform_dst-a11y_modal-trigger-haspopup')
+							? `[id^=${PREFIX}] [aria-haspopup="menu"], [id^=${PREFIX}] [aria-haspopup="true"]`
+							: `[id^=${PREFIX}] [aria-haspopup]`,
+					);
 				}
 
 				if (e.key === KEY_DOWN && !isNestedTriggerButton) {

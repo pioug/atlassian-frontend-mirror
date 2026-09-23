@@ -11,6 +11,12 @@ type TUseSimpleLightDismissOptions = {
 	popoverRef: RefObject<HTMLElement | null>;
 
 	/**
+	 * Optional element refs outside the popover that are still part of its
+	 * dismissal boundary. Clicks inside these elements will not trigger dismiss.
+	 */
+	additionalInsideElementRefs?: readonly RefObject<HTMLElement | null>[];
+
+	/**
 	 * Whether the popover is currently open.
 	 * Listeners are only bound when `isOpen` is `true`.
 	 */
@@ -48,6 +54,7 @@ type TUseSimpleLightDismissOptions = {
  */
 export function useSimpleLightDismiss({
 	popoverRef,
+	additionalInsideElementRefs,
 	isOpen,
 	onClose,
 }: TUseSimpleLightDismissOptions): void {
@@ -64,9 +71,14 @@ export function useSimpleLightDismiss({
 		const unbindEscape = bind(document, {
 			type: 'keydown',
 			listener: (event: KeyboardEvent) => {
-				if (event.key === 'Escape') {
-					onCloseRef.current({ reason: 'escape' });
+				if (event.key !== 'Escape' || event.defaultPrevented) {
+					return;
 				}
+
+				// Preserve JavaScript bubbling while preventing a native/manual
+				// popover ancestor from also handling this Escape key.
+				event.preventDefault();
+				onCloseRef.current({ reason: 'escape' });
 			},
 		});
 
@@ -84,12 +96,18 @@ export function useSimpleLightDismiss({
 			type: 'click',
 			listener: (event: MouseEvent) => {
 				const element = popoverRef.current;
-				if (!element) {
+				const target = event.target;
+				if (!element || !(target instanceof Node)) {
 					return;
 				}
 
-				// If the click target is inside the popover, do not dismiss.
-				if (event.target instanceof Node && element.contains(event.target)) {
+				// Clicks inside the popover or its additional inside elements do not dismiss it.
+				if (
+					element.contains(target) ||
+					additionalInsideElementRefs?.some((insideElementRef) =>
+						insideElementRef.current?.contains(target),
+					)
+				) {
 					return;
 				}
 
@@ -102,7 +120,7 @@ export function useSimpleLightDismiss({
 			unbindEscape();
 			unbindClickOutside();
 		};
-	}, [isOpen, popoverRef]);
+	}, [additionalInsideElementRefs, isOpen, popoverRef]);
 }
 
 export type { TUseSimpleLightDismissOptions };

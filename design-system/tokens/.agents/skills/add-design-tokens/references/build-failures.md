@@ -35,7 +35,7 @@ Root cause:
 
 - The `@atlaskit/tokens` Babel plugin validates every `token('…')` call against an allow-list loaded
   from `prebuilt/artifacts/token-names.js`.
-- `yarn workspace @atlaskit/tokens codegen-tokens` regenerates `src/artifacts/`, style maps, and
+- `afm workspace @atlaskit/tokens codegen-tokens` regenerates `src/artifacts/`, style maps, and
   Figma outputs — but it does **not** rebuild `prebuilt/`. `prebuilt/` is refreshed only by the full
   package build (`yarn build tokens` → `ak-postbuild`, which copies `dist/cjs/*` → `prebuilt/`).
 - `check-clean-git` passes because the stale `prebuilt/` is already committed (no diff), so nothing
@@ -112,7 +112,7 @@ git ls-tree origin/master --name-only platform/packages/design-system/tokens/pre
 # Remove the phantom prebuilt files and clean the stale dist/cjs copies, then rebuild + re-verify
 git rm platform/packages/design-system/tokens/prebuilt/artifacts/themes/<phantom>.js
 rm -f platform/packages/design-system/tokens/dist/cjs/artifacts/themes/<phantom>.js
-yarn workspace @atlaskit/tokens check-clean-git   # EXIT 0
+afm workspace @atlaskit/tokens check-clean-git   # EXIT 0
 ```
 
 Keep files that **lack a `src/artifacts/themes` source but exist on master** (e.g.

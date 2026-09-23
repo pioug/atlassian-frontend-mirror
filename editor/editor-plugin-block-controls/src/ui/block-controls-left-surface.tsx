@@ -5,29 +5,55 @@
  */
 import React from 'react';
 
+import { cssMap } from '@compiled/react';
+
 import { css, jsx } from '@atlaskit/css';
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import { BLOCK_CONTROLS_LEFT_SURFACE } from '@atlaskit/editor-common/block-controls/surface-keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	SurfaceRenderer,
-	willSurfaceRender,
-} from '@atlaskit/editor-ui-control-model/surface-renderer';
+import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import { BlockControlsVisibilityProvider } from './block-controls-surface-components';
 import { getBlockControlsSurfaceControlSide } from './block-controls-surface-context';
 import type { BlockControlsSurfaceTarget } from './block-controls-surface-targets';
 import type { SurfaceWrapperPlacement } from './utils/get-surface-placement';
-import { partitionComponentsByPersistence } from './utils/partition-components-by-persistence';
-import { VisibilityContainer } from './visibility-container';
+import { useBlockControlsVisibility } from './visibility-container';
 
 const leftSurfaceOuterStyles = css({
 	position: 'absolute',
 	positionVisibility: 'anchors-valid',
 	zIndex: 100,
+});
+
+const leftSurfaceGutterStyles = cssMap({
+	container: {
+		containerName: 'block-controls-left-gutter',
+		containerType: 'inline-size',
+		pointerEvents: 'none',
+	},
+	row: {
+		justifyContent: 'flex-end',
+		pointerEvents: 'none',
+		// Restoring pointer events on each control keeps it interactive without making the
+		// full-width gutter a hit target.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > *': {
+			pointerEvents: 'auto',
+		},
+		// The left surface has room for two controls below 68px. Controls are ranked in DOM order,
+		// so keep the final two and remove any lower-ranked controls from layout and keyboard order.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
+		'@container block-controls-left-gutter (max-width: 67px)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'& > [data-editor-block-control-item]:nth-last-child(n+3)': {
+				display: 'none',
+			},
+		},
+	},
 });
 
 const leftSurfaceRowStyles = css({
@@ -54,40 +80,34 @@ type BlockControlsLeftSurfaceProps = {
 	surfaceContext: SurfaceContext;
 };
 
-/** Renders one left block-controls surface at a document position. */
-export const BlockControlsLeftSurface = ({
+type BlockControlsLeftSurfaceContentProps = Omit<BlockControlsLeftSurfaceProps, 'placement'> & {
+	placement: SurfaceWrapperPlacement;
+};
+
+const BlockControlsLeftSurfaceContent = ({
 	api,
 	components,
 	forceVisibleOnMouseOut,
 	placement,
 	source,
 	surfaceContext,
-}: BlockControlsLeftSurfaceProps): React.JSX.Element | null => {
-	if (!placement || !willSurfaceRender(components, BLOCK_CONTROLS_LEFT_SURFACE, surfaceContext)) {
-		return null;
-	}
-
-	const { hoverOnlyComponents, persistentComponents } = partitionComponentsByPersistence(
-		components,
-		BLOCK_CONTROLS_LEFT_SURFACE,
-		surfaceContext,
+}: BlockControlsLeftSurfaceContentProps): React.JSX.Element => {
+	const blockControlsContext = surfaceContext.get(BLOCK_CONTROL_UI_CONTEXT);
+	const controlSide = getBlockControlsSurfaceControlSide(
+		blockControlsContext,
+		isExperimentEnabled('platform_editor_controls_reliable_anchor'),
 	);
-	const willRenderPersistent = willSurfaceRender(
-		persistentComponents,
-		BLOCK_CONTROLS_LEFT_SURFACE,
-		surfaceContext,
-	);
-	const willRenderHoverOnly = willSurfaceRender(
-		hoverOnlyComponents,
-		BLOCK_CONTROLS_LEFT_SURFACE,
-		surfaceContext,
-	);
-
+	const { shouldHide: shouldHideHoverControls, useCssStyles } = useBlockControlsVisibility({
+		api,
+		controlSide,
+		forceVisibleOnMouseOut,
+	});
 	const isSticky = placement.isSticky;
+	const isTopLevel = blockControlsContext?.targetNode.parentType === 'doc';
 
 	return (
 		<div
-			css={leftSurfaceOuterStyles}
+			css={[leftSurfaceOuterStyles, isTopLevel && leftSurfaceGutterStyles.container]}
 			data-editor-block-controls-surface
 			data-editor-block-controls-side="left"
 			data-testid={
@@ -100,46 +120,49 @@ export const BlockControlsLeftSurface = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Placement is resolved per target node, from its runtime DOM geometry or from its CSS anchor.
 			style={placement.style}
 		>
-			<div css={[leftSurfaceRowStyles, isSticky && leftSurfaceStickyStyles]}>
-				{/* The partitions are separate surface trees, so their relative ranks cannot be
-				    resolved together. Left-side hover controls rank before the persistent collapse
-				    control and must therefore render first to keep the button order stable. */}
-				{willRenderHoverOnly && (
-					<VisibilityContainer
-						api={api}
-						controlSide={getBlockControlsSurfaceControlSide(
-							surfaceContext.get(BLOCK_CONTROL_UI_CONTEXT),
-							isExperimentEnabled('platform_editor_controls_reliable_anchor'),
-						)}
-						forceVisibleOnMouseOut={forceVisibleOnMouseOut}
-						shouldUseDisplayContents
-					>
-						<SurfaceRenderer
-							components={hoverOnlyComponents}
-							surface={BLOCK_CONTROLS_LEFT_SURFACE}
-							surfaceContext={surfaceContext}
-						/>
-					</VisibilityContainer>
-				)}
-				{willRenderPersistent && (
-					<VisibilityContainer
-						api={api}
-						controlSide={getBlockControlsSurfaceControlSide(
-							surfaceContext.get(BLOCK_CONTROL_UI_CONTEXT),
-							isExperimentEnabled('platform_editor_controls_reliable_anchor'),
-						)}
-						forceVisibleOnMouseOut={forceVisibleOnMouseOut}
-						isPersistent
-						shouldUseDisplayContents
-					>
-						<SurfaceRenderer
-							components={persistentComponents}
-							surface={BLOCK_CONTROLS_LEFT_SURFACE}
-							surfaceContext={surfaceContext}
-						/>
-					</VisibilityContainer>
-				)}
+			<div
+				css={[
+					leftSurfaceRowStyles,
+					isTopLevel && leftSurfaceGutterStyles.row,
+					isSticky && leftSurfaceStickyStyles,
+				]}
+			>
+				<BlockControlsVisibilityProvider
+					shouldHideHoverControls={shouldHideHoverControls}
+					useCssStyles={useCssStyles}
+				>
+					<SurfaceRenderer
+						components={components}
+						surface={BLOCK_CONTROLS_LEFT_SURFACE}
+						surfaceContext={surfaceContext}
+					/>
+				</BlockControlsVisibilityProvider>
 			</div>
 		</div>
+	);
+};
+
+/** Renders one left block-controls surface at a document position. */
+export const BlockControlsLeftSurface = ({
+	api,
+	components,
+	forceVisibleOnMouseOut,
+	placement,
+	source,
+	surfaceContext,
+}: BlockControlsLeftSurfaceProps): React.JSX.Element | null => {
+	if (!placement) {
+		return null;
+	}
+
+	return (
+		<BlockControlsLeftSurfaceContent
+			api={api}
+			components={components}
+			forceVisibleOnMouseOut={forceVisibleOnMouseOut}
+			placement={placement}
+			source={source}
+			surfaceContext={surfaceContext}
+		/>
 	);
 };

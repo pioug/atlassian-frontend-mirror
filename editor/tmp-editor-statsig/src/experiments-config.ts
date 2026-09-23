@@ -331,13 +331,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-20
-	platform_editor_fix_ai_streaming_race: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-05
 	platform_editor_august_a11y: {
 		defaultValue: boolean;
@@ -479,13 +472,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-08-05
 	platform_editor_native_anchor_with_dnd: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-06-10
-	platform_editor_no_cursor_on_edit_page_init: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1096,13 +1082,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-04-22
-	platform_editor_korean_characters_split: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-28
 	platform_editor_use_markdown_plus_parser: {
 		defaultValue: boolean;
@@ -1154,13 +1133,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-20
 	platform_rovo_support_create_inline_comment: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-19
-	platform_editor_ai_improve_formatting_toolbar: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1224,13 +1196,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-01
 	platform_editor_lovability_text_bg_color: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-25
-	platform_editor_fix_selection_text_color_change: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1660,14 +1625,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-06-10
-	platform_editor_no_cursor_on_edit_page_init: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_no_cursor_on_edit_page_init',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-30
 	platform_editor_code_block_q4_lovability: createBooleanExperiment({
 		productKeys: {
@@ -2043,14 +2000,6 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'new-description', 'orig-description'],
 		defaultValue: 'control',
-	}),
-	// Added 2026-07-20
-	platform_editor_fix_ai_streaming_race: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_ai_streaming_race',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: createBooleanExperiment({
@@ -2525,14 +2474,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-04-22
-	platform_editor_korean_characters_split: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_korean_characters_split',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-07-09
 	platform_editor_sync_block_activation: createBooleanExperiment({
 		productKeys: {
@@ -2604,14 +2545,6 @@ export const editorExperimentsConfig: {
 	confluence_editor_paste_3p_link_actions_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_editor_paste_3p_link_actions_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-19
-	platform_editor_ai_improve_formatting_toolbar: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_improve_formatting_toolbar',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2698,15 +2631,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_lovability_text_bg_color',
 			jira: 'platform_editor_lovability_text_bg_color',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-25
-	platform_editor_fix_selection_text_color_change: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_selection_text_color_change',
-			jira: 'platform_editor_fix_selection_text_color_change',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -21,6 +21,9 @@ export type AgentBrandColorScheme =
 	| 'agent-brand-cortex'
 	| 'agent-brand-manus'
 	| 'agent-brand-gemini'
-	| 'agent-brand-antigravity';
+	| 'agent-brand-antigravity'
+	| 'agent-brand-claude'
+	| 'agent-brand-chatgpt'
+	| 'agent-brand-rovo';
 
 export type AgentPresenceColorScheme = AgentColor | AgentBrandColorScheme;

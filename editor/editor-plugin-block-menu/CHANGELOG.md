@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- [`45f8d6aea7dc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45f8d6aea7dc6) -
+  Clean up the permanently enabled `platform_editor_block_menu_transform_extensions` feature gate.
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-annotation",
-	"version": "19.0.3",
+	"version": "19.2.2",
 	"description": "Annotation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -55,6 +55,10 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
+		"cc_maui_annotations_on_extensions": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_comments_api_manager": {
 			"type": "boolean",
 			"referenceOnly": true

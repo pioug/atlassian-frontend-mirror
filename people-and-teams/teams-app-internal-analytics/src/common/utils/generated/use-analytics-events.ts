@@ -3,8 +3,8 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::8fac3764027ac11183c7483636135d9a>>
- * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
+ * @codegen <<SignedSource::fa8bed61f6afcfe8b9fcb2ceec66fae8>>
+ * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen teams-app-internal-analytics
  */
 import { useCallback } from 'react';
 

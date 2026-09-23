@@ -1,20 +1,33 @@
+import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
 import { getAgentColor, type AgentColor } from '@atlaskit/agent-color/get-agent-color';
+import { getThirdPartyAgentColor } from '@atlaskit/agent-color/get-third-party-agent-color';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type ParticipantColor, participantColors } from './consts';
 
 /**
- * Agent types and brands with a fixed participant colour instead of an identity-derived colour.
+ * Fixed telepointer palette slot for each `@atlaskit/agent-color` brand this editor recognises by
+ * a reserved identity colour rather than a hashed one.
  *
- * Claude uses orange and ChatGPT uses gray. The palette's numbered positions also back the
- * telepointer CSS classes, so preserve these positions when editing the palette.
+ * Claude uses orange (`participantColors[7]`), Rovo purple (`[4]`), ChatGPT gray (`[9]`, but with
+ * its own brand colour rather than the palette's — see `BRAND_EXACT_COLOR_SCHEMES`). The palette's
+ * numbered positions also back the telepointer CSS classes, so preserve these positions when
+ * editing the palette. Brands `@atlaskit/agent-color` resolves but this table omits (e.g. Figma,
+ * Replit) fall through to the identity-hashed colour below.
  */
-const AGENT_PARTICIPANT_COLOR_OVERRIDES: Readonly<Record<string, number>> = {
-	claude: 7,
-	chatgpt: 9,
-	rovo: 4,
-	rovo_chat: 4,
+const BRAND_PARTICIPANT_COLOR_INDEX: Readonly<Partial<Record<AgentBrandColorScheme, number>>> = {
+	'agent-brand-claude': 7,
+	'agent-brand-rovo': 4,
+	'agent-brand-chatgpt': 9,
 };
+
+/**
+ * Brands whose own colour (`getThirdPartyAgentColor`'s `bold`/`boldText`) is used instead of their
+ * palette slot's — no ADS token matches these brands' colour, so the palette slot would be wrong.
+ */
+const BRAND_EXACT_COLOR_SCHEMES: ReadonlySet<AgentBrandColorScheme> = new Set([
+	'agent-brand-chatgpt',
+]);
 
 /** Maps Agent Studio's semantic palette to the established telepointer palette slots. */
 const AGENT_COLOR_TO_PARTICIPANT_COLOR_INDEX: Readonly<Record<AgentColor, number>> = {
@@ -75,12 +88,16 @@ export function getParticipantColor(
 	str: string,
 	agentType?: string,
 ): { color: ParticipantColor; index: number; isFixed?: true } {
-	const fixedColorIndex = agentType
-		? AGENT_PARTICIPANT_COLOR_OVERRIDES[agentType.trim().toLowerCase()]
-		: undefined;
-	if (fixedColorIndex !== undefined) {
-		const index = fixedColorIndex;
-		return { index, color: participantColors[index], isFixed: true };
+	const brand = agentType ? getThirdPartyAgentColor({ agentName: agentType }) : undefined;
+
+	if (brand) {
+		const fixedIndex = BRAND_PARTICIPANT_COLOR_INDEX[brand.scheme];
+		if (fixedIndex !== undefined) {
+			const color: ParticipantColor = BRAND_EXACT_COLOR_SCHEMES.has(brand.scheme)
+				? { backgroundColor: brand.bold, svgBackgroundColor: brand.bold, textColor: brand.boldText }
+				: participantColors[fixedIndex];
+			return { index: fixedIndex, color, isFixed: true };
+		}
 	}
 
 	const agentColor = agentType ? getAgentColor({ agentId: str }) : undefined;

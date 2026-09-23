@@ -12,6 +12,12 @@ export type BlockInstanceId = string;
 export type ResourceId = string;
 export type SyncBlockProduct = (typeof SYNC_BLOCK_PRODUCTS)[number];
 export type SyncBlockStatus = 'active' | 'deleted' | 'unpublished';
+/**
+ * Where a synced block location sits relative to the document hosting the editor.
+ * `same-document` is the host document itself, the same page or the same work item field.
+ * `same-parent-document` is another field of the host work item.
+ */
+export type SyncBlockLocationScope = 'same-document' | 'same-parent-document' | 'elsewhere';
 
 export type SyncBlockAttrs = {
 	localId: BlockInstanceId;
@@ -48,8 +54,13 @@ export interface SyncBlockData {
 	createdAt?: string;
 	createdBy?: string;
 	deletionReason?: DeletionReason;
+	/**
+	 * Name of the Jira work item field holding the source block, as AGG localises it.
+	 */
+	fieldName?: string;
 	issueType?: SyncBlockJiraIssueType;
 	isSynced?: boolean;
+	locationScope?: SyncBlockLocationScope;
 	/**
 	 * Whether the block is on the same page as the source block
 	 */
@@ -78,6 +89,7 @@ export interface ReferenceSyncBlockResponse {
 
 export interface ReferenceSyncBlock extends ReferenceSyncBlockResponse {
 	hasAccess: boolean;
+	locationScope?: SyncBlockLocationScope;
 	onSameDocument: boolean;
 }
 

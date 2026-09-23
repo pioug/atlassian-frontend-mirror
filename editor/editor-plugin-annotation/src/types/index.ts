@@ -6,6 +6,7 @@ import type {
 	AnnotationUpdateEmitter,
 	AnnotationManager,
 } from '@atlaskit/editor-common/annotation';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * type of target that annotation apply to.
@@ -122,6 +123,14 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 	contentType?: string;
 	createComponent?: React.ComponentType<React.PropsWithChildren<InlineCommentCreateComponentProps>>;
 	getCanAddComments?: () => boolean;
+	/**
+	 * @experimental Still under development. Do not use.
+	 *
+	 * Determines whether a specific block node supports inline comments.
+	 * This is additive to `supportedBlockNodes`; a node is supported when either configuration
+	 * matches it.
+	 */
+	isBlockNodeSupported?: (node: PMNode) => boolean;
 
 	// always position toolbar above the selection
 	isToolbarAbove?: boolean;

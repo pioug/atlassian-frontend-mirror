@@ -1,5 +1,41 @@
 # @atlaskit/renderer
 
+## 142.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 142.1.2
+
+### Patch Changes
+
+- [`e2f4dbc97cb24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2f4dbc97cb24) -
+  Clean up experiment `platform_editor_table_fit_to_content_patch_2`
+- Updated dependencies
+
+## 142.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 142.1.0
+
+### Minor Changes
+
+- [`1c57152f89627`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c57152f89627) -
+  Add `RendererActions.getMediaNodeContext`, which resolves a media file id and optional occurrence
+  key to the matching file media node in the rendered document, returning its inline-comment
+  annotation ids, document position, display text and occurrence key. Also threads the existing
+  `mediaViewerExtensions` media option through the media node to the media card, and — behind the
+  `cc_comments_media_viewer_sidebar` experiment — keeps the media identifier map in document order
+  so the Media Viewer's previous/next list stays stable when a media card remounts.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 142.0.1
 
 ### Patch Changes

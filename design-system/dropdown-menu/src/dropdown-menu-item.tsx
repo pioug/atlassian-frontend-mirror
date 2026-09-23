@@ -45,9 +45,11 @@ const DropdownMenuItem: React.ForwardRefExoticComponent<
 		}: DropdownItemProps,
 		ref,
 	) => {
-		// if the dropdown item has aria-haspopup, we won't register with focus manager
-		// since it is a nested trigger, we have registered inside dropdown-menu
-		const isNestedTrigger = !!rest['aria-haspopup'];
+		// Nested submenu triggers register with the focus manager inside DropdownMenu.
+		// Dialog triggers must register here so arrow navigation can reach them.
+		const isNestedTrigger = fg('platform_dst-a11y_modal-trigger-haspopup')
+			? !!rest['aria-haspopup'] && rest['aria-haspopup'] !== 'dialog'
+			: !!rest['aria-haspopup'];
 		const itemRef = useRegisterItemWithFocusManager(isNestedTrigger);
 
 		const handleItemClick = useCallback(

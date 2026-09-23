@@ -3,5 +3,5 @@
 From inside the `platform/` folder
 
 ```
-yarn workspace @atlaskit/editor-performance-metrics build-and-copy-page-score
+afm workspace @atlaskit/editor-performance-metrics build-and-copy-page-score
 ```

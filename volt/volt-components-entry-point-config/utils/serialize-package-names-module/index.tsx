@@ -21,7 +21,7 @@ export function serializePackageNamesModule(
 		' * `consumersMigrated: true` is Stage 2 (reserved for future warn→error).',
 		' *',
 		' * Do not edit by hand — regenerate via:',
-		' * `yarn workspace @atlaskit/volt-components-entry-point-config codegen`',
+		' * `afm workspace @atlaskit/volt-components-entry-point-config codegen`',
 		' */',
 		'export const PACKAGE_NAMES = {',
 		body,

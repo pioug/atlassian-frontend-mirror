@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 19.0.6
+
+### Patch Changes
+
+- [`c59a6b356dc1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c59a6b356dc1b) -
+  Clean up experiment `platform_editor_korean_characters_split`
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.3
 
 ### Patch Changes

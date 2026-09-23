@@ -13,6 +13,7 @@ import React, {
 	type MouseEventHandler,
 	type ReactNode,
 	type RefCallback,
+	type RefObject,
 	type TouchEventHandler,
 } from 'react';
 
@@ -24,6 +25,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
+import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
 import {
@@ -441,6 +443,11 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 * An example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation
 	 */
 	menuPortalTarget?: HTMLElement | null;
+	/**
+	 * Element refs outside the menu that should be treated as inside its light-dismiss boundary.
+	 * Only used by the top-layer menu implementation.
+	 */
+	additionalInsideElementRefs?: readonly RefObject<HTMLElement | null>[];
 	/**
 	 * Whether to block scroll events when the menu is open
 	 *
@@ -2157,9 +2164,7 @@ export default class Select<
 			case 'Escape':
 				if (fg('platform-dst-top-layer')) {
 					if (menuIsOpen) {
-						this.setState({
-							inputIsHiddenAfterUpdate: false,
-						});
+						this.setState({ inputIsHiddenAfterUpdate: false });
 						return;
 					}
 
@@ -2168,9 +2173,7 @@ export default class Select<
 						return;
 					}
 
-					// Native auto popovers own every Escape on the top-layer path.
-					// The active popover consumes the close request and synchronizes
-					// menuIsOpen through its onClose bridge.
+					// With no open menu, leave native dismissal of containing popovers alone.
 					return;
 				}
 
@@ -2601,6 +2604,7 @@ export default class Select<
 			menuPlacement,
 			menuPosition,
 			menuPortalTarget,
+			additionalInsideElementRefs,
 			menuShouldBlockScroll,
 			menuShouldScrollIntoView,
 			noOptionsMessage,
@@ -2811,6 +2815,7 @@ export default class Select<
 			<MenuPortal
 				{...commonProps}
 				appendTo={menuPortalTarget}
+				additionalInsideElementRefs={additionalInsideElementRefs}
 				controlElement={controlElementForPortal}
 				menuPlacement={menuPlacement}
 				menuPosition={menuPosition}
@@ -2824,7 +2829,7 @@ export default class Select<
 			return menuPortal;
 		}
 		return (
-			<MenuPortalCloseContext.Provider value={this.handleOpenLayerObserverCloseSignal}>
+			<MenuPortalCloseContext.Provider value={this.handleMenuCloseSignal}>
 				{menuPortal}
 			</MenuPortalCloseContext.Provider>
 		);
@@ -2896,7 +2901,10 @@ export default class Select<
 		);
 	}
 
-	handleOpenLayerObserverCloseSignal = (): void => {
+	handleMenuCloseSignal = (args?: { reason: TPopoverCloseReason }): void => {
+		if (args?.reason === 'escape') {
+			this.setState({ inputIsHiddenAfterUpdate: false });
+		}
 		this.onMenuClose();
 	};
 
@@ -2997,7 +3005,7 @@ export default class Select<
 					{!fg('platform-dst-top-layer') && (
 						<NotifyOpenLayerObserver
 							isOpen={this.props.menuIsOpen}
-							onClose={this.handleOpenLayerObserverCloseSignal}
+							onClose={this.handleMenuCloseSignal}
 						/>
 					)}
 				</SelectContainer>

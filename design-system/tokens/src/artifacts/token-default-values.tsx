@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::b95b4312082181d68a1de5eea1407b6d>>
+ * @codegen <<SignedSource::2a9959178f531e428ddeecd5e9418bb0>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -42,9 +42,7 @@ const defaultTokenValues = {
 	'motion.flag.exit':
 		'200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.flag.reposition': 'transform 250ms cubic-bezier(0.4, 0, 0, 1)',
-	'motion.input.focused':
-		'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
-	'motion.input.hovered':
+	'motion.input':
 		'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
 	'motion.keyframe.fade.in': 'FadeIn0to100',
 	'motion.keyframe.fade.out': 'FadeOut100to0',
@@ -59,11 +57,11 @@ const defaultTokenValues = {
 	'motion.keyframe.slide.in.left.short': 'SlideInLeft8px',
 	'motion.keyframe.slide.in.right.short': 'SlideInRight8px',
 	'motion.keyframe.slide.in.top.short': 'SlideInTop8px',
-	'motion.keyframe.slide.out.bottom.short': 'SlideOutBottom8px',
+	'motion.keyframe.slide.out.bottom.short': 'SlideOutBottom4px',
 	'motion.keyframe.slide.out.left.half': 'SlideOut15PercentLeft',
-	'motion.keyframe.slide.out.left.short': 'SlideOutLeft8px',
-	'motion.keyframe.slide.out.right.short': 'SlideOutRight8px',
-	'motion.keyframe.slide.out.top.short': 'SlideOutTop8px',
+	'motion.keyframe.slide.out.left.short': 'SlideOutLeft4px',
+	'motion.keyframe.slide.out.right.short': 'SlideOutRight4px',
+	'motion.keyframe.slide.out.top.short': 'SlideOutTop4px',
 	'motion.label.enter':
 		'150ms cubic-bezier(0.4, 1, 0.6, 1) GridColumnIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
 	'motion.label.exit':
@@ -93,13 +91,13 @@ const defaultTokenValues = {
 	'motion.popup.enter.top':
 		'150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInTop8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
 	'motion.popup.exit.bottom':
-		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom4px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.popup.exit.left':
-		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft4px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.popup.exit.right':
-		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight4px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.popup.exit.top':
-		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop4px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.sidenav.enter.left': '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards',
 	'motion.sidenav.enter.right': '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
 	'motion.sidenav.exit.left': '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards',
@@ -108,6 +106,15 @@ const defaultTokenValues = {
 		'250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards, 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100 backwards',
 	'motion.spotlight.exit':
 		'200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+	'motion.tab': 'color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+	'motion.tab.indicator.enter.left':
+		'150ms cubic-bezier(0, 0.4, 0, 1) SlideInRight8px backwards, 150ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards',
+	'motion.tab.indicator.enter.right':
+		'150ms cubic-bezier(0, 0.4, 0, 1) SlideInLeft8px backwards, 150ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards',
+	'motion.tab.indicator.exit.left':
+		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+	'motion.tab.indicator.exit.right':
+		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'color.background.accent.lime.subtlest': '#EFFFD6',
 	'color.background.accent.lime.subtlest.hovered': '#D3F1A7',
 	'color.background.accent.lime.subtlest.pressed': '#BDE97C',

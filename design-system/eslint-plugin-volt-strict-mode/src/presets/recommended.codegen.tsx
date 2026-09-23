@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6c2b049ebb4c4b6cd7cd5491e27c0846>>
- * @codegenCommand yarn workspace @atlaskit/eslint-plugin-volt-strict-mode codegen
+ * @codegen <<SignedSource::d42395ae4e2b4c3cd09bbef59269990b>>
+ * @codegenCommand afm workspace @atlaskit/eslint-plugin-volt-strict-mode codegen
  */
 import type { ESLint } from 'eslint';
 

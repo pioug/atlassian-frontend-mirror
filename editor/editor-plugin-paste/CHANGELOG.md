@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-paste
 
+## 20.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.6
+
+### Patch Changes
+
+- [`56ed7cf145315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56ed7cf145315) -
+  Cleanup experiment platform_editor_fix_header_paste_in_panel and permanently support pasting
+  headings into panels.
+- Updated dependencies
+
+## 20.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.4
 
 ### Patch Changes

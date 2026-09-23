@@ -26,7 +26,7 @@ After package `exports` change (e.g. after a debarrel run), or when you want rea
 entry-point mappings to catch up with `volt-preset-packages.json`:
 
 ```bash
-yarn workspace @atlaskit/volt-components-entry-point-config codegen
+afm workspace @atlaskit/volt-components-entry-point-config codegen
 ```
 
 The Volt preset is **not** a signed-source dependency of the generated files, so flipping

@@ -1,7 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/*.test.*",
@@ -23,6 +24,15 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./build/*.tsx"
+	],
+	"exclude": [
 		"./build/**/*"
 	],
 	"compilerOptions": {
@@ -32,7 +42,37 @@
 	},
 	"references": [
 		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../app-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../banner/tsconfig.app.json"
+		},
+		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../section-message/tsconfig.app.json"
+		},
+		{
 			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

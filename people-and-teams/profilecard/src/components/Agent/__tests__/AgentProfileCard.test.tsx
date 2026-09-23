@@ -253,28 +253,9 @@ describe('ProfileCardTrigger', () => {
 	describe('hideConversationStarters', () => {
 		const conversationStarterText = agent.user_defined_conversation_starters![0];
 
-		ffTest.on('jira_ai_hide_conversation_starters_profilecard', 'feature gate enabled', () => {
-			it('should hide conversation starters when hideConversationStarters is true', () => {
-				renderWithIntl({ hideConversationStarters: true });
-				expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
-			});
-
-			it('should show conversation starters when hideConversationStarters is false', () => {
-				renderWithIntl({ hideConversationStarters: false });
-				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
-			});
-
-			it('should show conversation starters by default', () => {
-				renderWithIntl({});
-				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
-			});
-		});
-
-		ffTest.off('jira_ai_hide_conversation_starters_profilecard', 'feature gate disabled', () => {
-			it('should show conversation starters even when hideConversationStarters is true', () => {
-				renderWithIntl({ hideConversationStarters: true });
-				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
-			});
+		it('should show conversation starters even when hideConversationStarters is true', () => {
+			renderWithIntl({ hideConversationStarters: true });
+			expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
 		});
 	});
 

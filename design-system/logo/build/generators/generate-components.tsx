@@ -95,7 +95,7 @@ export default function generateComponents(
 				path.resolve(root!, 'src', targetDirectory, name, `${type}.tsx`),
 				createSignedArtifact(
 					format(jsx, 'tsx'),
-					'yarn workspace @atlaskit/logo generate:components',
+					'afm workspace @atlaskit/logo generate:components',
 				),
 			);
 

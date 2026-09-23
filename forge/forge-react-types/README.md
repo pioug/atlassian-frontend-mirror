@@ -18,19 +18,19 @@ of being bounded by other dependencies in the Forge mono-repo.
 To generate / update all types, run the following command:
 
 ```bash
-yarn workspace @atlaskit/forge-react-types codegen
+afm workspace @atlaskit/forge-react-types codegen
 ```
 
 During development, the codegen command can be run for a specific component:
 
 ```bash
-yarn workspace @atlaskit/forge-react-types codegen <component-name>
+afm workspace @atlaskit/forge-react-types codegen <component-name>
 ```
 
 e.g.
 
 ```bash
-yarn workspace @atlaskit/forge-react-types codegen Button
+afm workspace @atlaskit/forge-react-types codegen Button
 ```
 
 NOTE: Make sure any new component prop types are being exported from
@@ -41,7 +41,7 @@ NOTE: Make sure any new component prop types are being exported from
 To generate global component types, run the following command:
 
 ```bash
-yarn workspace @atlaskit/forge-react-types codegen-global
+afm workspace @atlaskit/forge-react-types codegen-global
 ```
 
 This will generate the global component types found in `forge-common-app-gateway` package into `/src/components/global/__generated__/index.ts`.

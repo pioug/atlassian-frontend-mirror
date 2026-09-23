@@ -125,7 +125,5 @@ test.describe('width-provider when table resizing is enabled', () => {
 });
 
 test('should capture and report a11y violations', async ({ renderer }) => {
-	renderer.page.getByRole('table');
-
 	await expect(renderer.page).toBeAccessible({ violationCount: 1 });
 });

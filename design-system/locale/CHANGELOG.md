@@ -1,5 +1,13 @@
 # @atlaskit/locale
 
+## 5.3.1
+
+### Patch Changes
+
+- [`ccb5feca573a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccb5feca573a3) -
+  Add a local first-day-of-week fallback for older browsers behind
+  platform-dst-locale-week-start-day.
+
 ## 5.3.0
 
 ### Minor Changes

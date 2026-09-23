@@ -17,7 +17,6 @@ const testConfig = {
 	},
 	editorExperiments: {
 		platform_editor_ssr_toolbar_optimistic: false,
-		platform_editor_no_cursor_on_edit_page_init: true,
 	},
 	platformFeatureFlags: {
 		platform_editor_default_toolbar_state: true,
@@ -30,6 +29,8 @@ test.describe('Initial toolbar should be disabled', () => {
 		adf: headingAndFormattingAdf,
 		editorProps: {
 			appearance: 'full-page',
+			// Adds the interaction plugin, which gates the disabled toolbar state.
+			__livePage: true,
 			allowTextAlignment: true,
 			allowTasksAndDecisions: true,
 			allowTextColor: true,
@@ -59,6 +60,8 @@ test.describe('Block type dropdown', () => {
 		adf: headingAndFormattingAdf,
 		editorProps: {
 			appearance: 'full-page',
+			// Adds the interaction plugin, which gates the disabled toolbar state.
+			__livePage: true,
 			allowTextAlignment: true,
 			allowTasksAndDecisions: true,
 			allowTextColor: true,
@@ -90,6 +93,8 @@ test.describe('Alignment button', () => {
 		adf: rightAlignedAdf,
 		editorProps: {
 			appearance: 'full-page',
+			// Adds the interaction plugin, which gates the disabled toolbar state.
+			__livePage: true,
 			allowTextAlignment: true,
 			allowTasksAndDecisions: true,
 			allowTextColor: true,
@@ -126,6 +131,8 @@ test.describe('List button', () => {
 		adf: taskListAdf,
 		editorProps: {
 			appearance: 'full-page',
+			// Adds the interaction plugin, which gates the disabled toolbar state.
+			__livePage: true,
 			allowTextAlignment: true,
 			allowTasksAndDecisions: true,
 			allowTextColor: true,
@@ -156,6 +163,8 @@ test.describe('Highlight color button', () => {
 		adf: highlightAdf,
 		editorProps: {
 			appearance: 'full-page',
+			// Adds the interaction plugin, which gates the disabled toolbar state.
+			__livePage: true,
 			allowTextAlignment: true,
 			allowTasksAndDecisions: true,
 			allowTextColor: true,

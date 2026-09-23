@@ -3,7 +3,6 @@ import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl';
 
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { QuickInsertItem } from '../provider-factory';
 import type { QuickInsertHandler, QuickInsertHandlerFn } from '../types';
@@ -103,29 +102,27 @@ export function find(
 		? boostNativeResultsAboveSkills(results)
 		: results;
 
-	if (fg('jim-lower-ranking-in-jira-macro-search')) {
-		// searching for jira work items macro first
-		const datasourceIndex = rerankedResults.findIndex(
-			(r) => r.item.id === 'datasource' && r.item.keywords?.includes('jira'),
-		);
+	// searching for jira work items macro first
+	const datasourceIndex = rerankedResults.findIndex(
+		(r) => r.item.id === 'datasource' && r.item.keywords?.includes('jira'),
+	);
 
-		//  then searching for the legacy jira macro
-		const legacyIndex = rerankedResults.findIndex(
-			(r) => typeof r.item.key === 'string' && r.item.key.endsWith(':jira'),
-		);
+	//  then searching for the legacy jira macro
+	const legacyIndex = rerankedResults.findIndex(
+		(r) => typeof r.item.key === 'string' && r.item.key.endsWith(':jira'),
+	);
 
-		// the jira legcy macro is found before the jira work items macro then swap the two
-		if (
-			datasourceIndex > 0 &&
-			legacyIndex >= 0 &&
-			legacyIndex < datasourceIndex &&
-			Math.abs(
-				(rerankedResults[datasourceIndex].score ?? 0) - (rerankedResults[legacyIndex].score ?? 0),
-			) < 0.2
-		) {
-			const [datasource] = rerankedResults.splice(datasourceIndex, 1);
-			rerankedResults.splice(legacyIndex, 0, datasource);
-		}
+	// the jira legcy macro is found before the jira work items macro then swap the two
+	if (
+		datasourceIndex > 0 &&
+		legacyIndex >= 0 &&
+		legacyIndex < datasourceIndex &&
+		Math.abs(
+			(rerankedResults[datasourceIndex].score ?? 0) - (rerankedResults[legacyIndex].score ?? 0),
+		) < 0.2
+	) {
+		const [datasource] = rerankedResults.splice(datasourceIndex, 1);
+		rerankedResults.splice(legacyIndex, 0, datasource);
 	}
 
 	return rerankedResults.map((result) => result.item);

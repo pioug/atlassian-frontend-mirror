@@ -3,8 +3,8 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::3e1ed99ac9944625e5358af3c7ce631d>>
- * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
+ * @codegen <<SignedSource::44f56f27cbbaa6afed5bf9e40ede9ad3>>
+ * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen link-datasource
  */
 import type { AnalyticsEventAttributes, EventKey } from './analytics.types';
 

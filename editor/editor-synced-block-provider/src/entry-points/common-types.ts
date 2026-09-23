@@ -6,6 +6,7 @@ export type {
 	SyncBlockData,
 	SyncBlockNode,
 	SyncBlockProduct,
+	SyncBlockLocationScope,
 	SyncBlockStatus,
 	BlockInstanceId,
 	SyncBlockAttrs,

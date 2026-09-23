@@ -1,5 +1,64 @@
 # @atlaskit/smart-card
 
+## 45.28.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.28.3
+
+### Patch Changes
+
+- [`dd8243b16c264`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd8243b16c264) -
+  Use the entity-type icon in the Smart Link preview modal header, falling back to the existing
+  JSON-LD icon when unavailable. All changes behind feature gate:
+  platform_lp_use_generator_icon_for_provider.
+
+## 45.28.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.28.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.28.0
+
+### Minor Changes
+
+- [`109d353d55cfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/109d353d55cfb) -
+  Add a pre-auth value proposition modal for unauthenticated third-party Smart Links created or
+  converted in the editor. `@atlaskit/smart-card/pre-auth-value-proposition-modal` exports the
+  controlled modal; editor lazy-loads it from Smart Link lifecycle events. Variants
+  `modal_text_only` and `modal_with_image` (plus `control`) are behind experiment
+  `platform_sl_3p_preauth_value_modal` and gate `platform_sl_3p_preauth_value_modal_killswitch`.
+  Connect reuses the existing auth flow. The modal shows once per provider and at most once every
+  seven days across providers. Open/close analytics use `source: 'preAuthValuePropositionModal'`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.27.1
+
+### Patch Changes
+
+- [`27b51e491d701`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27b51e491d701) -
+  Add internal eligibility and suppression utilities for One Click Chat Spotlight V2; production
+  integration under platform_sl_one_click_chat_spotlight_v2_fg follows separately.
+
+## 45.27.0
+
+### Minor Changes
+
+- [`69cbbe9ee0f63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69cbbe9ee0f63) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
 ## 45.26.0
 
 ### Minor Changes

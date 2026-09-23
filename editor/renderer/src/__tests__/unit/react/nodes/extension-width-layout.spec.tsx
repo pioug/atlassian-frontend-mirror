@@ -8,8 +8,6 @@ import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { RendererCssClassName } from '../../../../consts';
 import ReactSerializer from '../../../../react';
@@ -141,20 +139,10 @@ describe('Extension - canUseCustomLayout behavior with rendererAppearance', () =
 				});
 			});
 
-		describe('table fit-to-content containment patches', () => {
+		describe('table fit-to-content containment', () => {
 			const tablePath = [rendererContext.schema!.nodes.table.create()];
 
-			it('does not apply inline-size containment inside a table when patch 2 is disabled', () => {
-				mockExpDisabled('platform_editor_table_fit_to_content_patch_2');
-				render(<Extension {...baseProps} path={tablePath} />);
-
-				const innerWrapper = screen.getByText('Extension content');
-
-				expect(getComputedStyle(innerWrapper).containerType).toBe('');
-			});
-
-			it('does not affect containment inside a regular table when patch 2 is enabled', () => {
-				mockExpEnabled('platform_editor_table_fit_to_content_patch_2');
+			it('does not affect containment inside a regular table', () => {
 				render(<Extension {...baseProps} path={tablePath} />);
 
 				const innerWrapper = screen.getByText('Extension content');
@@ -162,8 +150,7 @@ describe('Extension - canUseCustomLayout behavior with rendererAppearance', () =
 				expect(getComputedStyle(innerWrapper).containerType).toBe('inline-size');
 			});
 
-			it('removes inline-size containment only inside a content-mode table with patch 2', () => {
-				mockExpEnabled('platform_editor_table_fit_to_content_patch_2');
+			it('removes inline-size containment only inside a content-mode table', () => {
 				render(
 					<RendererStyleContainer
 						appearance="full-page"
@@ -192,8 +179,7 @@ describe('Extension - canUseCustomLayout behavior with rendererAppearance', () =
 				expect(getComputedStyle(innerWrapper).containerType).toBe('normal');
 			});
 
-			it('does not affect containment outside tables when patch 2 is enabled', () => {
-				mockExpEnabled('platform_editor_table_fit_to_content_patch_2');
+			it('does not affect containment outside tables', () => {
 				render(<Extension {...baseProps} />);
 
 				const innerWrapper = screen.getByText('Extension content');

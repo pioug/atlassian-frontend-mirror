@@ -115,7 +115,7 @@ refreshes the `prebuilt/` directory. `prebuilt/artifacts/token-names.js` is the 
 new token before consumers/examples can compile.
 
 > ⚠️ **Critical: `codegen-tokens` does NOT refresh `prebuilt/`.**
-> `yarn workspace @atlaskit/tokens codegen-tokens` regenerates `src/artifacts/`, style maps, and
+> `afm workspace @atlaskit/tokens codegen-tokens` regenerates `src/artifacts/`, style maps, and
 > Figma outputs, but it does **not** rebuild `prebuilt/artifacts/`. Worse, `check-clean-git` passes
 > even though `prebuilt/` is stale (the committed file simply isn't updated, so there's no diff to
 > flag). The result is a green local check but failing CI: any file calling a new `token('…')` fails
@@ -143,7 +143,7 @@ re-commit**:
 ```bash
 git merge origin/master   # or: git rebase origin/master
 yarn build tokens         # full build — refreshes src/artifacts AND prebuilt/
-yarn workspace @atlaskit/tokens check-clean-git
+afm workspace @atlaskit/tokens check-clean-git
 # if the build changed files, commit them
 git add -A && git commit -m "Rebuild token artifacts after merging master"
 ```
@@ -290,7 +290,7 @@ pages/examples.
 Finally, run the repo's own staleness gate and confirm a clean tree:
 
 ```bash
-yarn workspace @atlaskit/tokens check-clean-git
+afm workspace @atlaskit/tokens check-clean-git
 ```
 
 Before merge, answer:

@@ -107,7 +107,7 @@ const baseKeyframeTokens = {
 			group: 'motionKeyframe',
 		},
 	},
-	SlideOutTop8px: {
+	SlideOutTop4px: {
 		value: {
 			'0%': { transform: 'translateY(0px)' },
 			'100%': { transform: 'translateY(4px)' },
@@ -116,7 +116,7 @@ const baseKeyframeTokens = {
 			group: 'motionKeyframe',
 		},
 	},
-	SlideOutBottom8px: {
+	SlideOutBottom4px: {
 		value: {
 			'0%': { transform: 'translateY(0px)' },
 			'100%': { transform: 'translateY(-4px)' },
@@ -125,7 +125,7 @@ const baseKeyframeTokens = {
 			group: 'motionKeyframe',
 		},
 	},
-	SlideOutLeft8px: {
+	SlideOutLeft4px: {
 		value: {
 			'0%': { transform: 'translateX(0px)' },
 			'100%': { transform: 'translateX(4px)' },
@@ -134,10 +134,28 @@ const baseKeyframeTokens = {
 			group: 'motionKeyframe',
 		},
 	},
-	SlideOutRight8px: {
+	SlideOutRight4px: {
 		value: {
 			'0%': { transform: 'translateX(0px)' },
 			'100%': { transform: 'translateX(-4px)' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideOutLeft8px: {
+		value: {
+			'0%': { transform: 'translateX(0px)' },
+			'100%': { transform: 'translateX(-8px)' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideOutRight8px: {
+		value: {
+			'0%': { transform: 'translateX(0px)' },
+			'100%': { transform: 'translateX(8px)' },
 		},
 		attributes: {
 			group: 'motionKeyframe',

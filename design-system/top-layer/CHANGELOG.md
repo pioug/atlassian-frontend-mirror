@@ -1,5 +1,23 @@
 # @atlaskit/top-layer
 
+## 5.1.0
+
+### Minor Changes
+
+- [`38dbf5a2b937f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38dbf5a2b937f) -
+  Use a manual popover for Select's built-in menu on the platform-dst-top-layer path so input and
+  menu interactions do not dismiss it. The menu owns Escape dismissal even when focus is outside
+  Select, and leaves already-cancelled Escape events alone. Custom menu portals retain ownership of
+  their dismissal. DatePicker defers top-layer Escape dismissal to Select, then restores focus after
+  the menu closes so an enclosing popup remains open.
+
+  Add `additionalInsideElementRefs` to Select and `useSimpleLightDismiss` so detached controls can
+  participate in a menu's light-dismiss boundary.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

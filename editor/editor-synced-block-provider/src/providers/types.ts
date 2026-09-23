@@ -19,6 +19,7 @@ import type {
 	SyncBlockAttrs,
 	ReferenceSyncBlockData,
 	DeletionReason,
+	SyncBlockLocationScope,
 } from '../common/types';
 
 type SyncBlockErrorInfo = {
@@ -102,6 +103,10 @@ export type SyncBlockJiraIssueType = {
 };
 
 export type SyncBlockSourceInfo = {
+	/**
+	 * Name of the Jira work item field holding the block, as AGG localises it.
+	 */
+	fieldName?: string;
 	hasAccess?: boolean;
 	/**
 	 * Whether the source info is for a source synced block
@@ -112,6 +117,7 @@ export type SyncBlockSourceInfo = {
 	 * `undefined` for Confluence references.
 	 */
 	issueType?: SyncBlockJiraIssueType;
+	locationScope?: SyncBlockLocationScope;
 	onSameDocument?: boolean;
 	productType?: SyncBlockProduct;
 	sourceAri: string;

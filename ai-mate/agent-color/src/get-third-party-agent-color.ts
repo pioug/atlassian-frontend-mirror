@@ -8,9 +8,12 @@ const namedBrands: Record<string, AgentBrandColorScheme | undefined> = {
 	mcp_replit_agent: 'agent-brand-replit',
 };
 
+/** Every alias a brand is identified by, normalised (trimmed, lowercased) before matching. */
 const displayNameBrands: Record<string, AgentBrandColorScheme | undefined> = {
 	amplitude: 'agent-brand-amplitude',
 	antigravity: 'agent-brand-antigravity',
+	chatgpt: 'agent-brand-chatgpt',
+	claude: 'agent-brand-claude',
 	copilot: 'agent-brand-copilot',
 	cortex: 'agent-brand-cortex',
 	databricks: 'agent-brand-databricks',
@@ -20,7 +23,27 @@ const displayNameBrands: Record<string, AgentBrandColorScheme | undefined> = {
 	loveable: 'agent-brand-lovable',
 	manus: 'agent-brand-manus',
 	replit: 'agent-brand-replit',
+	rovo: 'agent-brand-rovo',
+	rovo_chat: 'agent-brand-rovo',
 	slack: 'agent-brand-slack',
+};
+
+/** Canonical display name for each brand, so callers stop maintaining their own copy. */
+const brandDisplayNames: Readonly<Record<AgentBrandColorScheme, string>> = {
+	'agent-brand-amplitude': 'Amplitude',
+	'agent-brand-antigravity': 'Antigravity',
+	'agent-brand-chatgpt': 'ChatGPT',
+	'agent-brand-claude': 'Claude',
+	'agent-brand-copilot': 'Copilot',
+	'agent-brand-cortex': 'Cortex',
+	'agent-brand-databricks': 'Databricks',
+	'agent-brand-figma': 'Figma',
+	'agent-brand-gemini': 'Gemini',
+	'agent-brand-lovable': 'Lovable',
+	'agent-brand-manus': 'Manus',
+	'agent-brand-replit': 'Replit',
+	'agent-brand-rovo': 'Rovo',
+	'agent-brand-slack': 'Slack',
 };
 
 /**
@@ -33,7 +56,7 @@ export const getThirdPartyAgentColor = ({
 }: {
 	agentName?: string;
 	agentNamedId?: string | null;
-}): (AgentPresenceColor & { scheme: AgentBrandColorScheme }) | undefined => {
+}): (AgentPresenceColor & { name: string; scheme: AgentBrandColorScheme }) | undefined => {
 	const namedId = agentNamedId ?? '';
 	const displayName = agentName?.trim().toLowerCase() ?? '';
 	const namedScheme = Object.prototype.hasOwnProperty.call(namedBrands, namedId)
@@ -43,5 +66,7 @@ export const getThirdPartyAgentColor = ({
 		? displayNameBrands[displayName]
 		: undefined;
 	const scheme = namedScheme ?? displayScheme;
-	return scheme ? { ...agentBrandColorSchemes[scheme], scheme } : undefined;
+	return scheme
+		? { ...agentBrandColorSchemes[scheme], name: brandDisplayNames[scheme], scheme }
+		: undefined;
 };

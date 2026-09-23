@@ -65,7 +65,6 @@ import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
 import { createSSREditorState } from '@atlaskit/editor-ssr-renderer/create-ssr-editor-state';
 import { createSSRPMPlugins } from '@atlaskit/editor-ssr-renderer/create-ssr-pm-plugins';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { addUFOCustomData } from '@atlaskit/react-ufo/add-ufo-custom-data';
 import { getInteractionId } from '@atlaskit/react-ufo/get-interaction-id';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
@@ -93,7 +92,6 @@ import { createErrorReporter } from './createErrorReporter';
 import { createPMPlugins } from './createPMPlugins';
 import { filterPluginsForReconfigure } from './filter-plugins-for-reconfigure';
 import { editorMessages } from './messages';
-import { focusEditorElement } from './ReactEditorView/focusEditorElement';
 import { getUAPrefix } from './ReactEditorView/getUAPrefix';
 import { handleEditorFocus } from './ReactEditorView/handleEditorFocus';
 import { useDispatchTransaction } from './ReactEditorView/useDispatchTransaction';
@@ -197,7 +195,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			errorReporterHandler,
 			defaultValue,
 			shouldFocus,
-			__livePage,
 		},
 		onEditorCreated,
 		onEditorDestroyed,
@@ -1042,37 +1039,17 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 		if (shouldFocus && editorView?.props.editable?.(editorView.state)) {
 			if (!mitigateScrollJump) {
-				const liveDocWithContent =
-					(__livePage ||
-						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-					!isEmptyDocument(editorView.state.doc);
+				const focusesImmediately =
+					isChromeless(props.editorProps.appearance) ||
+					isEmptyDocument(editorView.state.doc) ||
+					pluginInjectionAPI.current.api()?.interaction === undefined;
 
-				if (!liveDocWithContent) {
+				if (focusesImmediately) {
 					focusTimeoutId.current = handleEditorFocus(editorView);
-				}
-
-				if (isChromeless(props.editorProps.appearance)) {
-					focusTimeoutId.current = handleEditorFocus(editorView);
-				}
-
-				if (
-					expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
-					fg('cc_editor_focus_before_editor_on_load')
-				) {
-					if (!disabled && shouldFocus && !isEmptyDocument(editorView.state.doc)) {
-						focusEditorElement(editorId.current);
-					}
 				}
 			}
 		}
-	}, [
-		editorView,
-		shouldFocus,
-		__livePage,
-		mitigateScrollJump,
-		disabled,
-		props.editorProps.appearance,
-	]);
+	}, [editorView, shouldFocus, mitigateScrollJump, disabled, props.editorProps.appearance]);
 
 	const scrollElement = React.useRef<Element | null>();
 	const possibleListeners = React.useRef([] as [event: string, handler: (event: Event) => void][]);
@@ -1223,42 +1200,33 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	const createEditor = useCallback(
 		(assistiveLabel?: string, assistiveDescribedBy?: string) => {
 			return (
-				<>
-					{fg('cc_editor_focus_before_editor_on_load') && (
-						<div
-							tabIndex={-1}
-							data-focus-id={editorId.current}
-							data-testid="react-editor-view-inital-focus-element"
-						/>
-					)}
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={`ProseMirror ${getUAPrefix()}`}
-						key="ProseMirror"
-						ref={handleEditorViewRef}
-						aria-label={
-							assistiveLabel ||
-							(isPageAppearance
-								? props.intl.formatMessage(editorMessages.fullPageEditorAssistiveLabel)
-								: props.intl.formatMessage(editorMessages.editorAssistiveLabel))
-						}
-						// setting aria-multiline to true when not mobile appearance.
-						//  because somehow mobile tests are failing when it set.
-						//  don't know why that is happening.
-						// Created https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1675
-						//  to investigate further.
-						aria-multiline={true}
-						role="textbox"
-						id={EDIT_AREA_ID}
-						aria-describedby={assistiveDescribedBy}
-						data-editor-id={editorId.current}
-						data-vc-ignore-if-no-layout-shift={true}
-						data-ssr-placeholder="editor-view"
-						data-ssr-placeholder-replace="editor-view"
-						// eslint-disable-next-line react/no-danger -- needed for SSR and hydration so react keeps the HTML untouched
-						dangerouslySetInnerHTML={{ __html: '' }}
-					/>
-				</>
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={`ProseMirror ${getUAPrefix()}`}
+					key="ProseMirror"
+					ref={handleEditorViewRef}
+					aria-label={
+						assistiveLabel ||
+						(isPageAppearance
+							? props.intl.formatMessage(editorMessages.fullPageEditorAssistiveLabel)
+							: props.intl.formatMessage(editorMessages.editorAssistiveLabel))
+					}
+					// setting aria-multiline to true when not mobile appearance.
+					//  because somehow mobile tests are failing when it set.
+					//  don't know why that is happening.
+					// Created https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1675
+					//  to investigate further.
+					aria-multiline={true}
+					role="textbox"
+					id={EDIT_AREA_ID}
+					aria-describedby={assistiveDescribedBy}
+					data-editor-id={editorId.current}
+					data-vc-ignore-if-no-layout-shift={true}
+					data-ssr-placeholder="editor-view"
+					data-ssr-placeholder-replace="editor-view"
+					// eslint-disable-next-line react/no-danger -- needed for SSR and hydration so react keeps the HTML untouched
+					dangerouslySetInnerHTML={{ __html: '' }}
+				/>
 			);
 		},
 		[handleEditorViewRef, isPageAppearance, props.intl],
@@ -1291,24 +1259,15 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				editable: (_state) => !disabled,
 			} as DirectEditorProps);
 
-			const isLivePageWithContent =
-				(__livePage ||
-					expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-				!isEmptyDocument(viewRef.current.state.doc);
-			if (!disabled && shouldFocus && !isLivePageWithContent) {
+			const focusesImmediately =
+				isEmptyDocument(viewRef.current.state.doc) ||
+				pluginInjectionAPI.current.api()?.interaction === undefined;
+
+			if (!disabled && shouldFocus && focusesImmediately) {
 				focusTimeoutId.current = handleEditorFocus(viewRef.current);
 			}
-
-			if (
-				expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
-				fg('cc_editor_focus_before_editor_on_load')
-			) {
-				if (!disabled && shouldFocus && !isEmptyDocument(viewRef.current.state.doc)) {
-					focusEditorElement(editorId.current);
-				}
-			}
 		}
-	}, [disabled, shouldFocus, previousDisabledState, __livePage]);
+	}, [disabled, shouldFocus, previousDisabledState]);
 
 	useLayoutEffect(() => {
 		pluginInjectionAPI.current.api()?.core?.actions?.updateAppearance(nextAppearance);

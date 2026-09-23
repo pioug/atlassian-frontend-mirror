@@ -7,7 +7,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type Selection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionPlugin } from '../selectionPluginType';
 import type { SelectionPluginOptions } from '../types';
@@ -118,14 +117,9 @@ export const createPlugin = (
 			decorations(state) {
 				const interactionState = api?.interaction?.sharedState.currentState()?.interactionState;
 
-				// Do not show selection decorations for live pages where the user has not
-				// interacted with the page. We do not show cursor until interaction and we do not
-				// want to show selections either.
-				if (
-					(options.__livePage ||
-						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-					interactionState === 'hasNotHadInteraction'
-				) {
+				// The interaction plugin is only present for editors that suppress the cursor
+				// until first interaction, so we suppress selections for the same period.
+				if (interactionState === 'hasNotHadInteraction') {
 					return DecorationSet.empty;
 				}
 

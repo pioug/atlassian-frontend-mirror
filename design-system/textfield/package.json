@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/textfield",
-	"version": "10.2.4",
+	"version": "10.2.5",
 	"description": "A text field is an input that allows a user to write or edit text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -58,6 +58,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
@@ -77,6 +78,9 @@
 		"./types": "./src/types.tsx"
 	},
 	"platform-feature-flags": {
+		"platform-dst-motion-uplift-input": {
+			"type": "boolean"
+		},
 		"platform-dst-tokens-finesse": {
 			"type": "boolean"
 		}

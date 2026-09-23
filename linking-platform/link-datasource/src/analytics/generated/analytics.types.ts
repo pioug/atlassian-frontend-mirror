@@ -3,8 +3,8 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::6e96d8def9547f2a0cd3dfc9cc5efc83>>
- * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
+ * @codegen <<SignedSource::bcbf7e734551d1a973a47e62db84d4cb>>
+ * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
 	component: string;

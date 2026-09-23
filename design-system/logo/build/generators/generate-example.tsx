@@ -95,7 +95,7 @@ ${Object.entries(assets)
 		path.resolve(root!, 'examples', 'internal-logo-component', 'utils', 'all-components.tsx'),
 		createSignedArtifact(
 			format(exampleUsage, 'tsx'),
-			'yarn workspace @atlaskit/logo generate:components',
+			'afm workspace @atlaskit/logo generate:components',
 		),
 	);
 }

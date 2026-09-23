@@ -32,7 +32,6 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { clearEditingContext, updateState } from '../editor-commands/commands';
 import type {
@@ -91,15 +90,13 @@ export const createExtensionProviderHandler =
 				updateState({ extensionProvider })(view.state, view.dispatch);
 				await updateEditButton(view, extensionProvider);
 
-				if (isExperimentEnabled('platform_editor_block_menu_transform_extensions')) {
-					try {
-						const manifests = await extensionProvider.getExtensions();
-						api?.blockMenu?.actions.registerBlockMenuTransforms(
-							buildExtensionBlockTransforms(manifests),
-						);
-					} catch {
-						// Transform registration remains unavailable when manifests cannot be loaded.
-					}
+				try {
+					const manifests = await extensionProvider.getExtensions();
+					api?.blockMenu?.actions.registerBlockMenuTransforms(
+						buildExtensionBlockTransforms(manifests),
+					);
+				} catch {
+					// Transform registration remains unavailable when manifests cannot be loaded.
 				}
 			} catch {
 				updateState({ extensionProvider: undefined })(view.state, view.dispatch);

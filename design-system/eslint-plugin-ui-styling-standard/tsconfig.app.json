@@ -2,9 +2,7 @@
 	"extends": "../../../tsconfig.node.json",
 	"include": [
 		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
-	"exclude": [
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -26,8 +24,17 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"./**/__fixtures__/**/*.json",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./scripts/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"lib": [
 			"ES2021.String",
@@ -39,6 +46,9 @@
 	},
 	"references": [
 		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
 			"path": "../eslint-plugin/tsconfig.app.json"
 		},
 		{
@@ -47,6 +57,5 @@
 		{
 			"path": "../codegen/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

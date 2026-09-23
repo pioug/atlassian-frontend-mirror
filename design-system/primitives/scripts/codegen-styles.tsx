@@ -293,7 +293,7 @@ const generateForgeTokensContent = (): string => {
 const forgeSourceFn = () =>
 	createPartialSignedArtifact(
 		generateForgeTokensContent,
-		'yarn workspace @atlaskit/primitives codegen-styles',
+		'afm workspace @atlaskit/primitives codegen-styles',
 		{
 			id: 'forge-tokens',
 			absoluteFilePath: forgeOutputPath,
@@ -312,7 +312,7 @@ primitiveOutputs.forEach(({ outputPath, dependencies, template, needsTokenImport
 		outputPath,
 		createSignedArtifact(
 			createPrimitiveArtifactSource({ template, needsTokenImport }),
-			'yarn workspace @atlaskit/primitives codegen-styles',
+			'afm workspace @atlaskit/primitives codegen-styles',
 			{
 				dependencies,
 				outputFolder: dirname(outputPath),
@@ -324,7 +324,7 @@ primitiveOutputs.forEach(({ outputPath, dependencies, template, needsTokenImport
 legacyCssCodemodArtifactDefinitions.forEach(({ id, template, dependencies }) => {
 	writeFileSync(
 		legacyCssCodemodOutputPath,
-		createPartialSignedArtifact(template, 'yarn workspace @atlaskit/primitives codegen-styles', {
+		createPartialSignedArtifact(template, 'afm workspace @atlaskit/primitives codegen-styles', {
 			id,
 			absoluteFilePath: legacyCssCodemodOutputPath,
 			dependencies,

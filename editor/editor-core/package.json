@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "229.1.6",
+	"version": "229.1.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -265,9 +265,6 @@
 		"platform_editor_bordered_panel_nested_in_table": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"cc_editor_focus_before_editor_on_load": {
-			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {
 			"type": "boolean",

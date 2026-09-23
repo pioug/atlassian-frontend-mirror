@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import DropdownMenu from '../../dropdown-menu';
 import DropdownItem from '../../dropdown-menu-item';
@@ -439,4 +440,109 @@ describe('dropdown menu', () => {
 			expect(screen.getByTestId(`${testId}--trigger`)).toHaveAttribute('aria-controls', popupId);
 		});
 	});
+});
+
+describe.each([false, true])('popup trigger semantics, top layer: %s', (topLayer) => {
+	beforeEach(() => {
+		(topLayer ? passGate : failGate)('platform-dst-top-layer');
+	});
+
+	it.each(['dialog', 'menu', 'true'] as const)(
+		'closes only for dialog popup items when enabled: %s',
+		(hasPopup) => {
+			passGate('platform_dst-a11y_modal-trigger-haspopup');
+			const onOpenChange = jest.fn();
+			render(
+				<DropdownMenu trigger="Actions" defaultOpen onOpenChange={onOpenChange}>
+					<DropdownItemGroup>
+						<DropdownItem aria-haspopup={hasPopup === 'dialog' ? 'dialog' : true}>
+							Open popup
+						</DropdownItem>
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+			const item = screen.getByRole('menuitem', { name: 'Open popup' });
+			// Top-layer submenu triggers use the equivalent menu value in the DOM.
+			if (hasPopup === 'menu') {
+				item.setAttribute('aria-haspopup', 'menu');
+			}
+			fireEvent.click(item);
+			if (hasPopup === 'dialog') {
+				expect(onOpenChange).toHaveBeenCalledWith(expect.objectContaining({ isOpen: false }));
+			} else {
+				expect(onOpenChange).not.toHaveBeenCalled();
+			}
+		},
+	);
+
+	it('preserves dialog item behavior when disabled', () => {
+		failGate('platform_dst-a11y_modal-trigger-haspopup');
+		const onOpenChange = jest.fn();
+		render(
+			<DropdownMenu trigger="Actions" defaultOpen onOpenChange={onOpenChange}>
+				<DropdownItemGroup>
+					<DropdownItem aria-haspopup="dialog">Open dialog</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+		fireEvent.click(screen.getByRole('menuitem', { name: 'Open dialog' }));
+		expect(onOpenChange).not.toHaveBeenCalled();
+	});
+
+	it.each(['dialog', 'menu', 'true'] as const)(
+		'ArrowRight activates only submenu triggers when enabled: %s',
+		(hasPopup) => {
+			if (topLayer || hasPopup !== 'dialog') {
+				passGate('platform_dst-a11y_modal-trigger-haspopup');
+			}
+			const onClick = jest.fn();
+			render(
+				<DropdownMenu trigger="Actions" defaultOpen>
+					<DropdownItemGroup>
+						<DropdownItem aria-haspopup={hasPopup === 'dialog' ? 'dialog' : true} onClick={onClick}>
+							Open popup
+						</DropdownItem>
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+			const item = screen.getByRole('menuitem', { name: 'Open popup' });
+			if (hasPopup === 'menu') {
+				item.setAttribute('aria-haspopup', 'menu');
+			}
+			item.focus();
+			fireEvent.keyDown(item, { key: 'ArrowRight', code: 'ArrowRight' });
+			expect(onClick).toHaveBeenCalledTimes(hasPopup === 'dialog' ? 0 : 1);
+		},
+	);
+});
+
+describe.each([false, true])('legacy popup selector, gate: %s', (enabled) => {
+	it.each(['menu', 'true', 'dialog', 'false', undefined])(
+		'closes according to popup type: %s',
+		(hasPopup) => {
+			failGate('platform-dst-top-layer');
+			(enabled ? passGate : failGate)('platform_dst-a11y_modal-trigger-haspopup');
+			const onOpenChange = jest.fn();
+			render(
+				<DropdownMenu trigger="Actions" defaultOpen onOpenChange={onOpenChange}>
+					<DropdownItemGroup>
+						<DropdownItem>Open popup</DropdownItem>
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+			const item = screen.getByRole('menuitem', { name: 'Open popup' });
+			if (hasPopup !== undefined) {
+				item.setAttribute('aria-haspopup', hasPopup);
+			}
+			fireEvent.click(item);
+			const shouldClose = enabled
+				? hasPopup !== 'menu' && hasPopup !== 'true'
+				: hasPopup === undefined;
+			if (shouldClose) {
+				expect(onOpenChange).toHaveBeenCalledWith(expect.objectContaining({ isOpen: false }));
+			} else {
+				expect(onOpenChange).not.toHaveBeenCalled();
+			}
+		},
+	);
 });

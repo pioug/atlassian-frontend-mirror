@@ -71,3 +71,45 @@ export const getJiraIssueAriFromSourceAri = ({ ari }: { ari: string }): string =
 
 	return ari;
 };
+
+const JIRA_DESCRIPTION_FIELD_ID = 'description';
+
+/**
+ * One synced block location on a Jira work item, parsed once from its document ARI.
+ * Two locations name the same field when both members match, whichever of the two ARI
+ * forms each was written in.
+ */
+export type JiraFieldLocation = Readonly<{
+	/** Bare field id, the shape AGG `fieldsById(ids:)` takes and returns. */
+	fieldId: string;
+	/** Parent issue ARI. `issueById` and the object resolver take this one. */
+	issueAri: string;
+}>;
+
+const toJiraFieldLocation = ({
+	cloudId,
+	fieldId,
+	issueId,
+}: {
+	cloudId: string;
+	fieldId: string;
+	issueId: string;
+}): JiraFieldLocation => ({
+	fieldId,
+	issueAri: getJiraWorkItemAri({ cloudId, workItemId: issueId }),
+});
+
+/** A plain issue ARI is the work item's description field. */
+export const parseJiraFieldLocation = ({ ari }: { ari: string }): JiraFieldLocation | undefined => {
+	const workItemMatch = ari.match(JIRA_WORK_ITEM_ARI_REGEX);
+	if (workItemMatch?.[1] && workItemMatch[2]) {
+		return toJiraFieldLocation({
+			cloudId: workItemMatch[1],
+			fieldId: JIRA_DESCRIPTION_FIELD_ID,
+			issueId: workItemMatch[2],
+		});
+	}
+
+	const fieldValueParts = getFieldValueAriParts(ari);
+	return fieldValueParts && toJiraFieldLocation(fieldValueParts);
+};

@@ -14,6 +14,7 @@ export type SurfacePlacement = {
 	left: number;
 	top: number;
 	transform: string;
+	width?: number;
 };
 
 export type SurfaceSide = 'left' | 'right';
@@ -74,9 +75,41 @@ export const getSurfacePlacement = ({
 	const top = nodeRect.top + topPositionAdjustment(nodeTypeWithLevel, layout);
 	const height = shouldBeSticky(nodeType) ? nodeRect.height : undefined;
 
-	return side === 'right'
-		? { left: nodeRect.right + gap, top, transform: '', height }
-		: { left: nodeRect.left, top, transform: `translateX(calc(-100% - ${gap}px))`, height };
+	if (side === 'right') {
+		return { left: nodeRect.right + gap, top, transform: '', height };
+	}
+
+	return {
+		left: nodeRect.left,
+		top,
+		transform: `translateX(calc(-100% - ${gap}px))`,
+		height,
+	};
+};
+
+export type LeftGutterSurfacePlacementOptions = Omit<SurfacePlacementOptions, 'side'> & {
+	leftGutterBoundary: number;
+};
+
+/**
+ * Expands a measured left surface from the available gutter boundary to the target node.
+ */
+export const getLeftGutterSurfacePlacement = ({
+	leftGutterBoundary,
+	...options
+}: LeftGutterSurfacePlacementOptions): SurfacePlacement => {
+	const placement = getSurfacePlacement({ ...options, side: 'left' });
+	if (options.nodeType === 'layoutColumn') {
+		return placement;
+	}
+
+	const gap = dragHandleGap(options.nodeType, options.parentNodeType);
+	return {
+		...placement,
+		left: leftGutterBoundary,
+		transform: '',
+		width: Math.max(0, options.nodeRect.left - leftGutterBoundary - gap),
+	};
 };
 
 /**
@@ -108,6 +141,7 @@ export const toMeasuredSurfaceWrapperPlacement = (
 		left: placement.left,
 		top: placement.top,
 		transform: placement.transform,
+		...(placement.width !== undefined ? { width: placement.width } : {}),
 	},
 });
 
@@ -173,11 +207,44 @@ export const getAnchoredSurfacePlacement = ({
 					? `calc(anchor(${anchorName} right) + ${gap}px)`
 					: `anchor(${anchorName} left)`,
 			positionAnchor: anchorName,
-			top: `calc(anchor(${anchorName} top, ${INVALID_ANCHOR_FALLBACK_TOP}) + ${topPositionAdjustment(nodeTypeWithLevel, layout)}px)`,
+			top: `calc(anchor(${anchorName} top, ${INVALID_ANCHOR_FALLBACK_TOP}) + ${topPositionAdjustment(
+				nodeTypeWithLevel,
+				layout,
+			)}px)`,
 			// The left side grows away from the node without knowing its own width, so it pulls itself
 			// back past its own box and the gap. The right side grows into the margin, so the gap is
 			// already folded into `left` above.
 			transform: side === 'right' ? '' : `translateX(calc(-100% - ${gap}px))`,
+		},
+	};
+};
+
+export type AnchoredLeftGutterSurfacePlacementOptions = Omit<
+	AnchoredSurfacePlacementOptions,
+	'side'
+>;
+
+/**
+ * Expands an anchored left surface across the available gutter without runtime measurement.
+ */
+export const getAnchoredLeftGutterSurfacePlacement = (
+	options: AnchoredLeftGutterSurfacePlacementOptions,
+): SurfaceWrapperPlacement => {
+	const placement = getAnchoredSurfacePlacement({ ...options, side: 'left' });
+	if (options.nodeType === 'layoutColumn') {
+		return placement;
+	}
+
+	const gap = dragHandleGap(options.nodeType, options.parentNodeType);
+	return {
+		...placement,
+		style: {
+			...placement.style,
+			left: 0,
+			// In a `right` inset, `anchor(... left)` resolves from the containing block's right edge
+			// to the anchor's left edge. Adding the gap ends this wrapper just before the node.
+			right: `calc(anchor(${options.anchorName} left) + ${gap}px)`,
+			transform: '',
 		},
 	};
 };

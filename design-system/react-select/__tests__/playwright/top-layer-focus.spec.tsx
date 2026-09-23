@@ -52,7 +52,7 @@ test.describe('react-select: top-layer focus contract', () => {
 		await expect(page.getByRole('listbox')).toHaveCount(0);
 	});
 
-	test('clicking the combobox while the menu is open closes the menu', async ({ page }) => {
+	test('clicking the combobox while the menu is open keeps the menu open', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/testing-top-layer-focus.tsx')>(
 			'design-system',
 			'react-select',
@@ -66,8 +66,8 @@ test.describe('react-select: top-layer focus contract', () => {
 		await expect(page.getByRole('listbox')).toBeVisible();
 
 		await combobox.click();
-		await expect(page.getByRole('listbox')).toBeHidden();
-		await expect(combobox).toHaveAttribute('aria-expanded', 'false');
+		await expect(page.getByRole('listbox')).toBeVisible();
+		await expect(combobox).toHaveAttribute('aria-expanded', 'true');
 		await expect(combobox).toBeFocused();
 	});
 

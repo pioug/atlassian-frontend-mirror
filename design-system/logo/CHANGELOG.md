@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 23.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.1.0
 
 ### Minor Changes

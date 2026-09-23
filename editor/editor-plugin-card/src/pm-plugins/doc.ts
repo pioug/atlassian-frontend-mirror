@@ -824,8 +824,11 @@ export const updateCardViaDatasource = (args: UpdateCardArgs): void => {
 
 			const isColumnChange = !isEqual(oldViews?.properties?.columns, newViews?.properties?.columns);
 			const isUrlChange = newAttrs.url !== oldAttrs.url;
+			const isParametersChange =
+				fg('platform_lp_sllv_preserve_assets_columns') &&
+				!isEqual(oldAttrs.datasource.parameters, newAttrs.datasource.parameters);
 
-			if (isColumnChange || isUrlChange) {
+			if (isColumnChange || isUrlChange || isParametersChange) {
 				tr.setNodeMarkup(from, schemaNodes.blockCard, {
 					...oldAttrs,
 					...newAdf.attrs,

@@ -19,7 +19,7 @@ const { naming }: { naming: ESLintRCNaming } = Legacy;
 const packagePluginName = '@atlaskit/eslint-plugin-volt-strict-mode';
 const pluginName = '@atlaskit/volt-strict-mode';
 const pluginPath = 'eslint-plugin-volt-strict-mode';
-const codegenCommand = `yarn workspace ${packagePluginName} codegen`;
+const codegenCommand = `afm workspace ${packagePluginName} codegen`;
 
 interface FoundRule {
 	module: LintRule | { meta: ExternalRuleMeta };

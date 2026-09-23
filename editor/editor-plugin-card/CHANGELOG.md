@@ -1,5 +1,45 @@
 # @atlaskit/editor-plugin-card
 
+## 25.0.8
+
+### Patch Changes
+
+- [`3f172371c9b66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f172371c9b66) -
+  Preserve the selected Assets columns when only the AQL query changes, and persist datasource
+  updates that only change parameters. Both behind feature gate
+  `platform_lp_sllv_preserve_assets_columns`.
+- Updated dependencies
+
+## 25.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.5
+
+### Patch Changes
+
+- [`6d07b4f04155f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d07b4f04155f) -
+  Cleanup `feature gate` `jim-lower-ranking-in-jira-macro-search`. Quick insert search now always
+  ranks the Jira work items (datasource) item above the legacy Jira macro when their scores are
+  close, and the Jira work items quick insert item always has a priority of 500.
+- [`109d353d55cfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/109d353d55cfb) -
+  Add a pre-auth value proposition modal for unauthenticated third-party Smart Links created or
+  converted in the editor. `@atlaskit/smart-card/pre-auth-value-proposition-modal` exports the
+  controlled modal; editor lazy-loads it from Smart Link lifecycle events. Variants
+  `modal_text_only` and `modal_with_image` (plus `control`) are behind experiment
+  `platform_sl_3p_preauth_value_modal` and gate `platform_sl_3p_preauth_value_modal_killswitch`.
+  Connect reuses the existing auth flow. The modal shows once per provider and at most once every
+  seven days across providers. Open/close analytics use `source: 'preAuthValuePropositionModal'`.
+- Updated dependencies
+
 ## 25.0.4
 
 ### Patch Changes

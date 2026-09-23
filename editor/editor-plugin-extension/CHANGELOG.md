@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-extension
 
+## 22.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.8
+
+### Patch Changes
+
+- [`45f8d6aea7dc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45f8d6aea7dc6) -
+  Clean up the permanently enabled `platform_editor_block_menu_transform_extensions` feature gate.
+- Updated dependencies
+
+## 22.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.5
 
 ### Patch Changes

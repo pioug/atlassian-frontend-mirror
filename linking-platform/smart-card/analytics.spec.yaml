@@ -288,6 +288,29 @@ events:
           type: number
           description: total time spent over the related links modal
 
+  - modal opened (preAuthValueProposition):
+      type: ui
+      description: >
+        Fired when the pre-auth value proposition modal is shown after an eligible
+        unauthorized Smart Link is created or converted.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+
+  - modal closed (preAuthValueProposition):
+      type: ui
+      description: >
+        Fired when the user dismisses the pre-auth value proposition modal without connecting.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        closeMethod:
+          required: true
+          type: ['button', 'escape', 'overlay']
+          description: How the user dismissed the modal.
+        dwellTime:
+          required: true
+          type: number
+          description: Time in milliseconds from modal open complete to dismiss.
+
   - relatedLinks success:
       type: operational
       description: fired when related links are retrieved successfully

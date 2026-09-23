@@ -3,7 +3,6 @@ import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } fr
 import { useIntl } from 'react-intl';
 
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
@@ -82,10 +81,6 @@ function ProfileCardContent({
 				onConversationStartersClick={agentActions?.onConversationStartersClick}
 				addFlag={addFlag}
 				hideMoreActions={!!hideAgentMoreActions}
-				hideConversationStarters={
-					fg('jira_ai_hide_conversation_starters_profilecard') &&
-					!!profilecardProps.hideAgentConversationStarters
-				}
 				hideAiDisclaimer={hideAiDisclaimer}
 			/>
 		);
@@ -129,7 +124,6 @@ export default function ProfilecardTriggerNext({
 	agentActions,
 	hideAgentMoreActions,
 	hideAiDisclaimer,
-	hideAgentConversationStarters,
 	ariaHideProfileTrigger = false,
 	isVisible: propsIsVisible,
 	isRenderedInPortal,
@@ -440,8 +434,6 @@ export default function ProfilecardTriggerNext({
 		openKudosDrawer: openKudosDrawer,
 		isTriggeredUsingKeyboard: isTriggeredUsingKeyboard,
 		disabledAriaAttributes: disabledAriaAttributes,
-		hideAgentConversationStarters:
-			fg('jira_ai_hide_conversation_starters_profilecard') && hideAgentConversationStarters,
 	};
 
 	const ssrPlaceholderProp = ssrPlaceholderId

@@ -218,9 +218,8 @@ const AgentProfileCard = ({
 	const shouldShowConversationStarters =
 		!isRovoDevOrJiraCodingAgent &&
 		!(
-			(fg('jira_ai_hide_conversation_starters_profilecard') ||
-				(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-					fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+			((expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+				fg('platform_editor_agent_mentions_drop_one_fixes')) ||
 				fg('platform_editor_agent_card_fixes')) &&
 			hideConversationStarters
 		);

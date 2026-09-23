@@ -5,7 +5,11 @@ import { useMemo } from 'react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
+import {
+	generateBlockAri,
+	generateBlockAriFromReference,
+	getProductFromSourceAri,
+} from '../../clients/block-service/ari';
 import {
 	batchRetrieveSyncedBlocks,
 	BlockError,
@@ -35,6 +39,7 @@ import type {
 	SyncBlockStatus,
 } from '../../common/types';
 import { getPiiSafeOriginalError, stringifyError } from '../../utils/errorHandling';
+import { getFieldAwareLocationScope } from '../../utils/fieldAwareLocations';
 import { createResourceIdForReference } from '../../utils/resourceId';
 import { convertContentUpdatedAt } from '../../utils/utils';
 import type {
@@ -575,12 +580,20 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			});
 			const response = await getReferenceSyncedBlocksByBlockAri({ blockAri });
 
+			const locationScopeOf = (documentAri: string) =>
+				getFieldAwareLocationScope({
+					documentAri,
+					hostAri: this.parentAri,
+					productType: getProductFromSourceAri(documentAri),
+				});
+
 			const references: ReferenceSyncBlockData['references'] = [];
 			response.references.forEach((reference) => {
 				references.push({
 					...reference,
 					hasAccess: true,
 					onSameDocument: this.parentAri === reference.documentAri,
+					...locationScopeOf(reference.documentAri),
 				});
 			});
 			response.errors.forEach((reference) => {
@@ -590,6 +603,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 						documentAri: reference.documentAri,
 						hasAccess: false,
 						onSameDocument: false,
+						...locationScopeOf(reference.documentAri),
 					});
 				}
 			});

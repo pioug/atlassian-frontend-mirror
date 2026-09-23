@@ -48,7 +48,7 @@ const domRefFromPos = (view: EditorView, position: number) => {
 };
 
 export const allowAnnotation =
-	(editorView: EditorView, _options: InlineCommentPluginOptions) => (): boolean => {
+	(editorView: EditorView, options: InlineCommentPluginOptions) => (): boolean => {
 		const { isDrafting, draftDecorationSet } =
 			inlineCommentPluginKey.getState(editorView.state) || {};
 
@@ -63,7 +63,13 @@ export const allowAnnotation =
 			return false;
 		}
 
-		return isSelectionValid(editorView.state) === AnnotationSelectionType.VALID;
+		return (
+			isSelectionValid(
+				editorView.state,
+				options.provider.supportedBlockNodes,
+				options.provider.isBlockNodeSupported,
+			) === AnnotationSelectionType.VALID
+		);
 	};
 
 export const startDraft =
@@ -96,10 +102,12 @@ export const startDraft =
 			});
 		}
 
-		setInlineCommentDraftState(options.editorAnalyticsAPI, undefined, options.api)(true)(
-			editorView.state,
-			editorView.dispatch,
-		);
+		setInlineCommentDraftState(
+			options.editorAnalyticsAPI,
+			options.provider.supportedBlockNodes,
+			options.api,
+			options.provider.isBlockNodeSupported,
+		)(true)(editorView.state, editorView.dispatch);
 
 		const { draftDecorationSet } = inlineCommentPluginKey.getState(editorView.state) || {};
 
@@ -200,6 +208,7 @@ export const applyDraft =
 			id,
 			AnnotationTypes.INLINE_COMMENT,
 			options.provider.supportedBlockNodes,
+			options.provider.isBlockNodeSupported,
 		)(editorView.state, editorView.dispatch);
 
 		!editorView.hasFocus() && editorView.focus();
@@ -392,6 +401,7 @@ export const clearAnnotation =
 		removeInlineCommentFromDoc(options.editorAnalyticsAPI)(
 			id,
 			options.provider.supportedBlockNodes,
+			options.provider.isBlockNodeSupported,
 		)(editorView.state, editorView.dispatch);
 
 		return {

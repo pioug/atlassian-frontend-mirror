@@ -17,6 +17,7 @@ import type {
 	SyncBlockNode,
 	SyncBlockProduct,
 } from '../common/types';
+import { getFieldAwareLocationScope } from '../utils/fieldAwareLocations';
 import { SyncBlockDataProviderInterface } from './types';
 import type {
 	ADFFetchProvider,
@@ -281,6 +282,11 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 				return {
 					...sourceInfo,
 					onSameDocument: this.writeProvider?.parentAri === ari,
+					...getFieldAwareLocationScope({
+						documentAri: ari,
+						hostAri: this.writeProvider?.parentAri,
+						productType: product,
+					}),
 					productType: product,
 				};
 			}

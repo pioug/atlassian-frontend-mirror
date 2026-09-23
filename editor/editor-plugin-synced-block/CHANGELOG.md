@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 17.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- [`ef5742162c47b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef5742162c47b) -
+  EDITOR-9184: Make the synced locations dropdown field-aware for Jira work items, behind the
+  `editor_synced_blocks_jira_custom_rich_text` experiment. Each Jira location's title and tooltip
+  name the work item field holding the block, a location in the field being viewed reads "This work
+  item field" and one in another field of the same work item reads "This work item"; `editor-common`
+  gains the three `syncBlockMessages` descriptors this uses. With the experiment off the dropdown
+  renders as before.
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.5
 
 ### Patch Changes

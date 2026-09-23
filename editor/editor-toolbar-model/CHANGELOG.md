@@ -1,5 +1,23 @@
 # @atlaskit/editor-toolbar-model
 
+## 1.2.70
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.69
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.68
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.67
 
 ### Patch Changes

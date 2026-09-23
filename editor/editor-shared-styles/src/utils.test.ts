@@ -37,16 +37,16 @@ describe('utils', () => {
 		);
 
 		it.each(['chatgpt', ' ChatGPT '])(
-			'uses fixed gray for %s regardless of participant ID',
+			'uses the ChatGPT brand colour for %s regardless of participant ID',
 			(agentType) => {
 				for (const id of ['first-agent', 'second-agent', '']) {
 					expect(getParticipantColor(id, agentType)).toEqual({
 						index: 9,
 						isFixed: true,
 						color: {
-							backgroundColor: token('color.background.accent.gray.bolder'),
-							svgBackgroundColor: token('color.background.accent.gray.subtler'),
-							textColor: token('color.text.inverse'),
+							backgroundColor: 'var(--agent-brand-chatgpt-bold, light-dark(#000000, #E8E8EA))',
+							svgBackgroundColor: 'var(--agent-brand-chatgpt-bold, light-dark(#000000, #E8E8EA))',
+							textColor: 'var(--agent-brand-chatgpt-boldText, light-dark(#FFFFFF, #000000))',
 						},
 					});
 				}

@@ -37,6 +37,7 @@ import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 // eslint-disable-next-line import/no-named-as-default
 import LayoutButton from './ui/LayoutButton';
 import { getPasteDisplayAsMenuComponents } from './ui/PasteDisplayAsMenu';
+import { PreAuthValuePropositionModalListener } from './ui/PreAuthValuePropositionModal';
 import { getCardQuickInsertComponents } from './ui/quick-insert/getCardQuickInsertComponents';
 import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from './ui/toolbar';
 
@@ -185,6 +186,9 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			const breakoutEnabled = options.editorAppearance === 'full-page';
 			return (
 				<>
+					{fg('platform_sl_3p_preauth_value_modal_killswitch') ? (
+						<PreAuthValuePropositionModalListener cardPluginEvents={cardPluginEvents} />
+					) : null}
 					{shouldRegisterPasteDisplayAsMenu && (
 						<PasteMenuSmartCardClientSync clientRef={pasteMenuSmartCardClientRef} />
 					)}
@@ -327,7 +331,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 								categories: ['external-content', 'development'],
 								keywords: ['jira'],
 								featured: true,
-								...(fg('jim-lower-ranking-in-jira-macro-search') && { priority: 500 }),
+								priority: 500,
 								icon: () => <IconDatasourceJiraIssue />,
 								action(insert) {
 									const tr = insert(undefined);

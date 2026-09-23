@@ -36,7 +36,9 @@ export interface MediaOptions {
 	 */
 	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	featureFlags?: MediaFeatureFlags;
-	/** Extensions for the media viewer header (e.g. comment navigation button). */
+	/** Extensions for the media viewer (e.g. header action buttons, sidebar with comment indicator).
+	 * When provided, the media viewer will use these extensions for all media items.
+	 * Use headerActions.isVisible to control per-item header action visibility. */
 	mediaViewerExtensions?: MediaViewerExtensions;
 	/** Receives lifecycle events for each rendered media node. */
 	onMediaRenderEvent?: (event: MediaRenderEvent) => void;

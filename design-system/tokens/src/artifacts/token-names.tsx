@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9bc04a7f63dc23ac693ac49f41cc7cc3>>
+ * @codegen <<SignedSource::c7bf23ec9330aefbe8dbb595dde9d1c3>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -27,8 +27,7 @@ const tokens = {
 	'motion.flag.enter': '--ds-flag-enter',
 	'motion.flag.exit': '--ds-flag-exit',
 	'motion.flag.reposition': '--ds-flag-reposition',
-	'motion.input.focused': '--ds-input-focused',
-	'motion.input.hovered': '--ds-input-hovered',
+	'motion.input': '--ds-input',
 	'motion.keyframe.fade.in': '--ds-keyframe-fade-in',
 	'motion.keyframe.fade.out': '--ds-keyframe-fade-out',
 	'motion.keyframe.grid.column.in': '--ds-keyframe-grid-column-in',
@@ -76,6 +75,11 @@ const tokens = {
 	'motion.sidenav.exit.right': '--ds-sidenav-exit-right',
 	'motion.spotlight.enter': '--ds-spotlight-enter',
 	'motion.spotlight.exit': '--ds-spotlight-exit',
+	'motion.tab': '--ds-tab',
+	'motion.tab.indicator.enter.left': '--ds-tab-indicator-enter-left',
+	'motion.tab.indicator.enter.right': '--ds-tab-indicator-enter-right',
+	'motion.tab.indicator.exit.left': '--ds-tab-indicator-exit-left',
+	'motion.tab.indicator.exit.right': '--ds-tab-indicator-exit-right',
 	'color.background.accent.lime.subtlest': '--ds-background-accent-lime-subtlest',
 	'color.background.accent.lime.subtlest.hovered': '--ds-background-accent-lime-subtlest-hovered',
 	'color.background.accent.lime.subtlest.pressed': '--ds-background-accent-lime-subtlest-pressed',
@@ -636,8 +640,7 @@ export type CSSTokenMap = {
 	'motion.flag.enter': 'var(--ds-flag-enter)';
 	'motion.flag.exit': 'var(--ds-flag-exit)';
 	'motion.flag.reposition': 'var(--ds-flag-reposition)';
-	'motion.input.focused': 'var(--ds-input-focused)';
-	'motion.input.hovered': 'var(--ds-input-hovered)';
+	'motion.input': 'var(--ds-input)';
 	'motion.keyframe.fade.in': 'var(--ds-keyframe-fade-in)';
 	'motion.keyframe.fade.out': 'var(--ds-keyframe-fade-out)';
 	'motion.keyframe.grid.column.in': 'var(--ds-keyframe-grid-column-in)';
@@ -685,6 +688,11 @@ export type CSSTokenMap = {
 	'motion.sidenav.exit.right': 'var(--ds-sidenav-exit-right)';
 	'motion.spotlight.enter': 'var(--ds-spotlight-enter)';
 	'motion.spotlight.exit': 'var(--ds-spotlight-exit)';
+	'motion.tab': 'var(--ds-tab)';
+	'motion.tab.indicator.enter.left': 'var(--ds-tab-indicator-enter-left)';
+	'motion.tab.indicator.enter.right': 'var(--ds-tab-indicator-enter-right)';
+	'motion.tab.indicator.exit.left': 'var(--ds-tab-indicator-exit-left)';
+	'motion.tab.indicator.exit.right': 'var(--ds-tab-indicator-exit-right)';
 	'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
 	'color.background.accent.lime.subtlest.hovered': 'var(--ds-background-accent-lime-subtlest-hovered)';
 	'color.background.accent.lime.subtlest.pressed': 'var(--ds-background-accent-lime-subtlest-pressed)';

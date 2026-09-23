@@ -175,3 +175,20 @@ describe.each(topLayerStates)('public picker behaviour (top layer: %s)', (topLay
 		expect(screen.getByRole('grid')).toBeVisible();
 	});
 });
+
+describe('top-layer unsupported Select options', () => {
+	beforeEach(() => {
+		setTopLayer(true);
+	});
+
+	it.each([{ menuRenderMode: 'inline' }, { components: { MenuPortal: () => null } }])(
+		'throws for %p',
+		(selectProps) => {
+			expect(() =>
+				render(<DatePicker label="Appointment date" selectProps={selectProps} />),
+			).toThrow(
+				'DatePicker does not support selectProps.menuRenderMode="inline" or selectProps.components.MenuPortal when platform-dst-top-layer is enabled.',
+			);
+		},
+	);
+});

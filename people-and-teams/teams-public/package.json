@@ -126,7 +126,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "2.12.2",
+	"version": "2.13.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

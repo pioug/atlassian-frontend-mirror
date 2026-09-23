@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import FormDateTimePicker from '../../examples/constellation/form-date-time-picker.tsx';
 import FormCustomField from '../../examples/constellation/form-custom-field.tsx';
 import FormCharacterCounter from '../../examples/constellation/form-character-counter.tsx';
@@ -24,6 +25,11 @@ import FormAllOptions from '../../examples/constellation/form-all-options.tsx';
 import FormStatePreview from '../../examples/constellation/form-state-preview.tsx';
 import FormConditionalFields from '../../examples/constellation/form-conditional-fields.tsx';
 
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Text Field and is in Early Access. The motion updates are currently
+	behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
+
 ## Building a form
 
 The form component is a wrapper that doesn't render anything itself. Child elements must be added
@@ -38,7 +44,11 @@ is used as a container for form fields and 'Fieldset' groups related fields and 
 People can submit a form when all fields are valid. Submitting the form calls the 'onSubmit'
 function.
 
-<Example Component={FormDefaultComplex} packageName="@atlaskit/form" />
+<Example
+	Component={FormDefaultComplex}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### Simple implementation of a form
 
@@ -53,7 +63,11 @@ other props to `formProps`.
 In the simplified form, all of the form component's children are already wrapped within an HTML
 `<form>` element, including all necessary props as well as those provided on the form component.
 
-<Example Component={FormDefaultSimple} packageName="@atlaskit/form" />
+<Example
+	Component={FormDefaultSimple}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Form structure
 
@@ -92,7 +106,11 @@ last field.
 
 [Read more about button positioning](/components/form/usage#button-positioning).
 
-<Example Component={FormLayout} packageName="@atlaskit/form" />
+<Example
+	Component={FormLayout}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### `Field`
 
@@ -104,7 +122,11 @@ field state, which can be passed on to the inner component.
 
 When a person focuses on a `Field` and starts changing content, the focus color becomes blue.
 
-<Example Component={FormFieldComplex} packageName="@atlaskit/form" />
+<Example
+	Component={FormFieldComplex}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### Simplified `Field`
 
@@ -124,7 +146,11 @@ automatically in an internal `ErrorMessage` component. Content that would previo
 If you need more control of how messaging or labeling renders, don't use this simple implementation
 of a `Field`.
 
-<Example Component={FormFieldSimple} packageName="@atlaskit/form" />
+<Example
+	Component={FormFieldSimple}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### `Fieldset`
 
@@ -192,7 +218,11 @@ For validation beyond character limits, combine the character counter logic with
 to implement custom validation rules (such as checking for specific patterns, forbidden characters,
 or business logic requirements).
 
-<Example Component={FormCharacterCounter} packageName="@atlaskit/form" />
+<Example
+	Component={FormCharacterCounter}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 #### Standalone `CharacterCounter`
 
@@ -208,7 +238,11 @@ When using standalone, you're responsible for:
 - Providing an `inputId` to link the counter with the input via `aria-describedby`
 - Controlling error message styling with `shouldShowAsError` based on your validation logic
 
-<Example Component={FormCharacterCounterStandalone} packageName="@atlaskit/form" />
+<Example
+	Component={FormCharacterCounterStandalone}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Form fields
 
@@ -278,7 +312,11 @@ with, use the `label` prop to tell people who use assistive technology what the 
 This example shows you how a form could look with every possible input included and with required
 fields.
 
-<Example Component={FormAllOptions} packageName="@atlaskit/form" />
+<Example
+	Component={FormAllOptions}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Validation
 
@@ -300,7 +338,11 @@ current field value and is called whenever a field value changes.
 
 Return an error when it is invalid. Otherwise, return `undefined`.
 
-<Example Component={FormFieldLevelValidation} packageName="@atlaskit/form" />
+<Example
+	Component={FormFieldLevelValidation}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### Submission validation
 
@@ -314,7 +356,11 @@ The `onSubmit` handler can return synchronously or return a promise that resolve
 For successful asynchronous validation, the `onSubmit` handler would return a promise that resolves
 to `undefined` as there are no errors.
 
-<Example Component={FormSubmissionValidation} packageName="@atlaskit/form" />
+<Example
+	Component={FormSubmissionValidation}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### Asynchronous validation
 
@@ -327,7 +373,11 @@ Using the `validating` status in the `meta` prop helps with asynchronous validat
 better user experience. For example, a [spinner](/components/spinner/examples) reassures someone
 that validation is happening.
 
-<Example Component={FormAsyncValidation} packageName="@atlaskit/form" />
+<Example
+	Component={FormAsyncValidation}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Types of forms
 
@@ -342,7 +392,11 @@ it's being filled in.
 Buttons to submit the form should be aligned to the right, with the primary button to the right of a
 secondary button.
 
-<Example Component={FormModalDialog} packageName="@atlaskit/form" />
+<Example
+	Component={FormModalDialog}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### Single page forms
 
@@ -370,6 +424,10 @@ Include conditional fields in your form by checking the form state with `useForm
 
 This is particularly useful for building forms that have progressive disclosure.
 
-<Example Component={FormConditionalFields} packageName="@atlaskit/form" />
+<Example
+	Component={FormConditionalFields}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 [def]: #characterCounterField

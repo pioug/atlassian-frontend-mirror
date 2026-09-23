@@ -1,5 +1,35 @@
 # @atlaskit/editor-statsig-tmp
 
+## 204.0.0
+
+### Major Changes
+
+- [`c59a6b356dc1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c59a6b356dc1b) -
+  Clean up experiment `platform_editor_korean_characters_split`
+
+## 203.0.0
+
+### Major Changes
+
+- [`2a3bb6864b8fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a3bb6864b8fe) -
+  Clean up the `platform_editor_fix_selection_text_color_change` experiment.
+- [`d2d3703fed89b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d3703fed89b) -
+  Clean up experiment `platform_editor_ai_improve_formatting_toolbar`
+- [`11bcba8414047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11bcba8414047) -
+  Clean up experiment `platform_editor_fix_ai_streaming_race`
+
+## 202.0.1
+
+### Patch Changes
+
+- [`1ee5ac1d4338d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ee5ac1d4338d) -
+  Cleaning up cc_editor_focus_before_editor_on_load and platform_editor_no_cursor_on_edit_page_init
+
+  Cursor suppression on load is now driven by the presence of the interaction plugin rather than the
+  experiment, so only editors that opt into that plugin skip focus on a document with content.
+  `cc_editor_focus_before_editor_on_load` shipped disabled, so the pre-editor focus element has been
+  removed.
+
 ## 202.0.0
 
 ### Major Changes

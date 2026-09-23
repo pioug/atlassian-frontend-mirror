@@ -241,8 +241,6 @@ export interface ProfileCardTriggerProps {
 	hideDelay?: number;
 	hideAgentMoreActions?: boolean;
 	hideAiDisclaimer?: boolean;
-	/** Hide the conversation starters. Defaults to false (conversation starters are shown by default). */
-	hideAgentConversationStarters?: boolean;
 }
 
 export interface ProfileCardTriggerState {
@@ -467,8 +465,6 @@ export interface ProfilecardProps {
 	disabledAriaAttributes?: boolean;
 	//overriding agent actions
 	agentActions?: AgentActionsType;
-	/** When true (and feature-gated), hide the agent conversation starters section */
-	hideAgentConversationStarters?: boolean;
 }
 
 export type AnalyticsFromDuration = <K extends keyof AnalyticsEventAttributes>(

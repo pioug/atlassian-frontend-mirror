@@ -20,6 +20,7 @@ import { openEmbedModal } from '../../view/EmbedModal/utils';
 import { extractIsSupportTheming } from '../common/meta/extractIsSupportTheming';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 import { extractLinkIcon } from '../flexible/icon/extract-link-icon';
+import { extractSmartLinkIcon } from '../flexible/icon/extract-smart-link-icon';
 import { extractInvokeDownloadAction } from './extract-invoke-download-action';
 import { extractInvokeViewAction } from './extract-invoke-view-action';
 import { type ExtractClientActionsParam, type TransformUrlFn } from './types';
@@ -155,7 +156,9 @@ export const extractInvokePreviewAction = (
 							invokeViewAction: extractInvokeViewAction(param, true),
 							isSupportTheming: extractIsSupportTheming(meta),
 							isTrusted: extractIsTrusted(meta),
-							linkIcon: extractLinkIcon(response),
+							linkIcon: fg('platform_lp_use_generator_icon_for_provider')
+								? extractSmartLinkIcon(response)
+								: extractLinkIcon(response),
 							providerName: extractSmartLinkProvider(response)?.text,
 							onClose,
 							origin,

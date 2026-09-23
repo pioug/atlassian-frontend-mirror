@@ -16,11 +16,11 @@ import { isCSSAnchorSupported } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
-import { willSurfaceRender } from '@atlaskit/editor-ui-control-model/surface-renderer';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { BlockControlsRightSurface } from './block-controls-right-surface';
+import { getBlockControlsRightSurfaceComponents } from './block-controls-surface-components';
 import { createBlockControlsSurfaceContextForPosition } from './block-controls-surface-context';
 import { getBlockControlsSurfaceTargets } from './block-controls-surface-targets';
 import { getNodeContentElement } from './utils/get-node-content-element';
@@ -31,7 +31,6 @@ import {
 	toMeasuredSurfaceWrapperPlacement,
 	type SurfaceWrapperPlacement,
 } from './utils/get-surface-placement';
-import { hasSurfaceControls } from './utils/has-surface-controls';
 
 const EMPTY_SURFACE_POSITIONS: readonly number[] = [];
 const EMPTY_SURFACE_ANCHORS: ReadonlyMap<number, string> = new Map();
@@ -85,15 +84,24 @@ export const BlockControlsRightSurfaces = ({
 					return [];
 				}
 				const surfaceContext = createSurfaceContext(BLOCK_CONTROL_UI_CONTEXT, context);
-				if (
-					!hasSurfaceControls(components) ||
-					!willSurfaceRender(components, BLOCK_CONTROLS_RIGHT_SURFACE, surfaceContext)
-				) {
+				const surfaceComponents = getBlockControlsRightSurfaceComponents(
+					components,
+					surfaceContext,
+				);
+				if (!surfaceComponents) {
 					return [];
 				}
 				// The cache supplies the same anchor names used by ProseMirror decorations.
 				const anchorName = isCSSAnchorSupported() ? surfaceAnchors.get(target.position) : undefined;
-				return [{ ...target, anchorName, blockControlsContext: context, surfaceContext }];
+				return [
+					{
+						...target,
+						anchorName,
+						blockControlsContext: context,
+						surfaceComponents,
+						surfaceContext,
+					},
+				];
 			}),
 		[activeNode, components, editorView, targets, surfaceAnchors, surfaceActiveNodes],
 	);
@@ -274,10 +282,10 @@ export const BlockControlsRightSurfaces = ({
 
 	return (
 		<>
-			{surfaces.map(({ position, source, surfaceContext }) => (
+			{surfaces.map(({ position, source, surfaceComponents, surfaceContext }) => (
 				<BlockControlsRightSurface
 					api={api}
-					components={components}
+					components={surfaceComponents}
 					forceVisibleOnMouseOut={Boolean(activeNode?.handleOptions?.isFocused)}
 					key={position}
 					placement={anchoredPlacements.get(position) ?? placements.get(position)}

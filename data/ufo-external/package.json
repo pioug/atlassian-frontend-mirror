@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ufo",
-	"version": "1.2.0",
+	"version": "2.0.0",
 	"description": "UFO external part",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,6 @@
 		"./logger/ufolog": "./src/logger/ufolog.ts",
 		"./logger/ufowarn": "./src/logger/ufowarn.ts",
 		"./logger": "./src/logger/index.ts",
-		"./platform-client": "./src/platform-client/index.ts",
 		"./types": "./src/types.ts",
 		"./until-helpers": "./src/platform-client/utils/until-helpers.ts",
 		"./visibility-change-observer": "./src/observer/visibility-change-observer.ts"

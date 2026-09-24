@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "8.15.3",
+	"version": "9.0.3",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -114,6 +114,9 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
+		"agent_studio_can_duplicate_permission": {
+			"type": "boolean"
+		},
 		"platform-dst-motion-uplift-custom-button": {
 			"type": "boolean",
 			"referenceOnly": true

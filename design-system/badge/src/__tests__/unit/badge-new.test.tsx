@@ -2,11 +2,9 @@
 
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render as rtlRender, screen } from '@atlassian/testing-library';
 
 import { appearanceMapping } from '../../appearance-mapping';
-import Badge from '../../badge';
 import BadgeNew from '../../badge-new';
 
 const render = (component: React.ReactNode) => {
@@ -222,76 +220,4 @@ describe('BadgeNew component (UI uplift)', () => {
 			expect(badge).toHaveStyle({ color: 'rgb(0, 0, 0)' });
 		});
 	});
-});
-
-describe('Badge with feature flag', () => {
-	const testId = 'test-badge';
-
-	ffTest.off(
-		'platform-dst-lozenge-tag-badge-visual-uplifts',
-		'uses original Badge implementation when flag is off',
-		() => {
-			it('should render original Badge component', () => {
-				render(
-					<Badge appearance="added" testId={testId}>
-						{5}
-					</Badge>,
-				);
-				const badge = screen.getByTestId(testId);
-				expect(badge).toBeInTheDocument();
-				expect(badge).toHaveTextContent('5');
-			});
-
-			it('should use Text component wrapper (original)', () => {
-				render(
-					<Badge appearance="primary" testId={testId}>
-						{10}
-					</Badge>,
-				);
-				expect(screen.getByText('10')).toBeInTheDocument();
-			});
-		},
-	);
-
-	ffTest.on(
-		'platform-dst-lozenge-tag-badge-visual-uplifts',
-		'uses BadgeNew implementation when flag is on',
-		() => {
-			it('should render BadgeNew component', () => {
-				render(
-					<Badge appearance="added" testId={testId}>
-						{5}
-					</Badge>,
-				);
-				const badge = screen.getByTestId(testId);
-				expect(badge).toBeInTheDocument();
-				expect(badge).toHaveTextContent('5');
-			});
-
-			it('should map all appearances correctly', () => {
-				const appearances: Array<
-					'added' | 'removed' | 'default' | 'primary' | 'primaryInverted' | 'important'
-				> = ['added', 'removed', 'default', 'primary', 'primaryInverted', 'important'];
-
-				appearances.forEach((appearance) => {
-					const { unmount } = render(
-						<Badge appearance={appearance} testId={`${testId}-${appearance}`}>
-							{5}
-						</Badge>,
-					);
-					expect(screen.getByTestId(`${testId}-${appearance}`)).toBeInTheDocument();
-					unmount();
-				});
-			});
-
-			it('should respect max value', () => {
-				render(
-					<Badge testId={testId} max={50}>
-						{100}
-					</Badge>,
-				);
-				expect(screen.getByText('50+')).toBeInTheDocument();
-			});
-		},
-	);
 });

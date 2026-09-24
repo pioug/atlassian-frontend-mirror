@@ -1,5 +1,17 @@
 # @atlaskit/email-renderer
 
+## 10.3.0
+
+### Minor Changes
+
+- [`8ea8fcc9c0723`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ea8fcc9c0723) -
+  Add `./main` and `./common` entry points, exposing `EmailSerializer` and `commonStyle`
+  respectively. Both symbols were previously declared inline in the package's root barrel with no
+  subpath export, so consumers had no way to import them without going through the barrel.
+  `EmailSerializer` now lives in `src/main.ts` and `commonStyle` sits alongside the other font
+  constants it is built from in `src/styles/common.ts`. The root barrel re-exports both, so existing
+  imports continue to work unchanged.
+
 ## 10.2.2
 
 ### Patch Changes

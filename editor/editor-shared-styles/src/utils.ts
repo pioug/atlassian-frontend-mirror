@@ -9,11 +9,11 @@ import { type ParticipantColor, participantColors } from './consts';
  * Fixed telepointer palette slot for each `@atlaskit/agent-color` brand this editor recognises by
  * a reserved identity colour rather than a hashed one.
  *
- * Claude uses orange (`participantColors[7]`), Rovo purple (`[4]`), ChatGPT gray (`[9]`, but with
- * its own brand colour rather than the palette's — see `BRAND_EXACT_COLOR_SCHEMES`). The palette's
- * numbered positions also back the telepointer CSS classes, so preserve these positions when
- * editing the palette. Brands `@atlaskit/agent-color` resolves but this table omits (e.g. Figma,
- * Replit) fall through to the identity-hashed colour below.
+ * Claude uses orange (`participantColors[7]`), Rovo purple (`[4]`), and ChatGPT gray (`[9]`).
+ * Brands in `BRAND_EXACT_COLOR_SCHEMES` use their registered brand colours in those fixed slots.
+ * The palette's numbered positions also back the telepointer CSS classes, so preserve these
+ * positions when editing the palette. Brands `@atlaskit/agent-color` resolves but this table omits
+ * (e.g. Figma, Replit) fall through to the identity-hashed colour below.
  */
 const BRAND_PARTICIPANT_COLOR_INDEX: Readonly<Partial<Record<AgentBrandColorScheme, number>>> = {
 	'agent-brand-claude': 7,
@@ -22,11 +22,11 @@ const BRAND_PARTICIPANT_COLOR_INDEX: Readonly<Partial<Record<AgentBrandColorSche
 };
 
 /**
- * Brands whose own colour (`getThirdPartyAgentColor`'s `bold`/`boldText`) is used instead of their
- * palette slot's — no ADS token matches these brands' colour, so the palette slot would be wrong.
+ * Brands whose registered `bold`/`boldText` values take precedence over their palette slot.
  */
 const BRAND_EXACT_COLOR_SCHEMES: ReadonlySet<AgentBrandColorScheme> = new Set([
 	'agent-brand-chatgpt',
+	'agent-brand-rovo',
 ]);
 
 /** Maps Agent Studio's semantic palette to the established telepointer palette slots. */

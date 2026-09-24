@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import { type Presence } from '../types';
 import { buildAtlAttributionHeaderValue } from '../util/atl-attribution';
 import { AbstractPresenceResource } from './AbstractPresenceResource';
@@ -192,18 +190,3 @@ export class PresenceResource extends AbstractPresenceResource {
 		return url;
 	}
 }
-
-/**
- * @deprecated Use `import { DefaultPresenceCache } from '@atlaskit/mention/presence-resource'` instead.
- */
-export { DefaultPresenceCache } from './DefaultPresenceCache';
-
-/**
- * @deprecated Use `import { DefaultPresenceParser } from '@atlaskit/mention/presence-resource'` instead.
- */
-export { DefaultPresenceParser } from './DefaultPresenceParser';
-
-/**
- * @deprecated Use `import { AbstractPresenceResource } from '@atlaskit/mention/presence-resource'` instead.
- */
-export { AbstractPresenceResource } from './AbstractPresenceResource';

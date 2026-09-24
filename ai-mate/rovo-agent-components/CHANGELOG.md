@@ -1,5 +1,51 @@
 # @atlaskit/rovo-agent-components
 
+## 9.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.2
+
+### Patch Changes
+
+- [`421075b740424`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/421075b740424) -
+  Preserve the original Amplitude avatar for existing consumers and register the separate hexagonal
+  v2 avatar as `mcp_amplitude_agent_v2`. Match its avatar, brand, and Studio card cover colors to
+  the original Amplitude mappings. Declare the v2 avatar props locally to avoid a relative type
+  barrel import.
+- Updated dependencies
+
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.0
+
+### Major Changes
+
+- [`0c7c7be927bde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c7c7be927bde) -
+  Remove deprecated Volt re-export shims from public package entry points. Consumers should import
+  from the replacement subpaths or implementation entry points instead.
+
+### Minor Changes
+
+- [`00fad91fb24eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00fad91fb24eb) -
+  Add gated agent duplication permission support and hide unauthorized duplicate actions.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.15.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.15.3
 
 ### Patch Changes

@@ -835,11 +835,11 @@ export class TeamsClient {
 	/**
 	 * Get token to upload media for a team
 	 */
-	async getWriteTeamMediaToken(): Promise<
-		AwaitedReturn<typeof userPreferencesClient.getReadMediaToken>
-	> {
+	async getWriteTeamMediaToken(
+		teamId?: string,
+	): Promise<AwaitedReturn<typeof userPreferencesClient.getReadMediaToken>> {
 		return this.measurePerformance('getWriteTeamMediaToken', () =>
-			this._legionClient.getWriteMediaToken(),
+			this._legionClient.getWriteMediaToken(teamId),
 		);
 	}
 

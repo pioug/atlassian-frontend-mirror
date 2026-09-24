@@ -1,7 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -25,18 +26,32 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./examples-helpers/**/*",
+		"./examples-helpers/**/*.json",
 		"./src/__fixtures__/**/*",
 		"./src/extractors/common/__mocks__/**/*",
 		"./src/utils/analytics/__mocks__/**/*",
 		"./src/utils/mocks.tsx",
-		"./src/utils/test-utils.tsx"
+		"./src/utils/test-utils.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__smart-card/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
 		{
 			"path": "../../editor/adf-schema/tsconfig.app.json"
 		},
@@ -50,13 +65,22 @@
 			"path": "../../analytics/analytics-gas-types/tsconfig.app.json"
 		},
 		{
+			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/avatar-group/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/badge/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/banner/tsconfig.app.json"
 		},
 		{
 			"path": "../../helpers/browser-apis/tsconfig.app.json"
@@ -68,7 +92,16 @@
 			"path": "../../design-system/checkbox/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/code/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/datetime-picker/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
@@ -104,6 +137,9 @@
 			"path": "../../design-system/image/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/inline-message/tsconfig.app.json"
+		},
+		{
 			"path": "../json-ld-types/tsconfig.app.json"
 		},
 		{
@@ -122,6 +158,9 @@
 			"path": "../link-provider/tsconfig.app.json"
 		},
 		{
+			"path": "../link-test-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../linking-common/tsconfig.app.json"
 		},
 		{
@@ -132,6 +171,9 @@
 		},
 		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
+		},
+		{
+			"path": "../../media/media-test-helpers/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/menu/tsconfig.app.json"
@@ -146,6 +188,9 @@
 			"path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/page/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
@@ -158,7 +203,16 @@
 			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{
+			"path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/radio/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/range/tsconfig.app.json"
 		},
 		{
 			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
@@ -174,6 +228,12 @@
 		},
 		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tabs/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tag/tsconfig.app.json"
@@ -194,6 +254,9 @@
 			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/toggle/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
@@ -206,10 +269,22 @@
 			"path": "../../design-system/width-detector/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

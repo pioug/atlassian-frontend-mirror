@@ -10,14 +10,13 @@ import type { IntlShape } from 'react-intl';
 import { token } from '@atlaskit/tokens';
 
 import { ExtensionSSRReactContextsProvider } from './ExtensionSSRReactContextsProvider';
-import { useNativeEmbedSettled } from './useNativeEmbedSettled';
 
 /*
  * Animates a native embed into the document once it has loaded.
  *
  * 1. `collapsed` — clipped to zero height and `inert`. The embed loads behind it, full size but
  *    unseen, with its own loading overlay hidden.
- * 2. `useNativeEmbedSettled` calls back once the embed has finished loading.
+ * 2. The extension reports its content ready through `contentReady`.
  * 3. `revealing` — the node animates open to its content height (400ms).
  * 4. The embed fades in (200ms), delayed so it follows the opening instead of overlapping it.
  * 5. `open` — on `animationend`, when the content first becomes visible, `inert` is dropped.
@@ -144,40 +143,42 @@ type RevealState = 'collapsed' | 'revealing' | 'open';
 
 type Props = {
 	children: React.ReactNode;
+	/** True once the extension has reported its content ready. */
+	contentReady: boolean;
 	intl: IntlShape | undefined;
 	showMacroInteractionDesignUpdates: boolean | undefined;
 };
 
 export const GeneratedContentReveal = ({
 	children,
+	contentReady,
 	intl,
 	showMacroInteractionDesignUpdates,
 }: Props): React.JSX.Element => {
-	// Held in state so the effects below run once the span exists.
+	// Held in state so the effect below runs once the span exists.
 	const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(null);
-	const [state, setState] = useState<RevealState>('collapsed');
+	const [readyTimedOut, setReadyTimedOut] = useState(false);
+	const [opened, setOpened] = useState(false);
 
-	// Only a collapsed node opens, so whichever of the readiness signal and the fail-safe timer
-	// comes second changes nothing.
-	const startRevealing = useCallback(() => {
-		setState((current) => (current === 'collapsed' ? 'revealing' : current));
-	}, []);
-
-	// Step 2 → 3.
-	useNativeEmbedSettled(wrapperElement, startRevealing);
+	// Derived, so the two ways a node opens need no ordering between them.
+	const state: RevealState = opened
+		? 'open'
+		: contentReady || readyTimedOut
+			? 'revealing'
+			: 'collapsed';
 
 	// One timer, set on mount, so the deadline never moves.
 	useEffect(() => {
-		const timer = setTimeout(startRevealing, READY_TIMEOUT_MS);
+		const timer = setTimeout(() => setReadyTimedOut(true), READY_TIMEOUT_MS);
 		return () => clearTimeout(timer);
-	}, [startRevealing]);
+	}, []);
 
 	useEffect(() => {
 		if (state !== 'revealing') {
 			return;
 		}
 
-		const timer = setTimeout(() => setState('open'), REVEAL_TIMEOUT_MS);
+		const timer = setTimeout(() => setOpened(true), REVEAL_TIMEOUT_MS);
 		return () => clearTimeout(timer);
 	}, [state]);
 
@@ -190,7 +191,7 @@ export const GeneratedContentReveal = ({
 	const onAnimationEnd = useCallback((event: React.AnimationEvent<HTMLElement>) => {
 		// The extension's own content animates too, and those events bubble.
 		if (event.target === event.currentTarget) {
-			setState('open');
+			setOpened(true);
 		}
 	}, []);
 

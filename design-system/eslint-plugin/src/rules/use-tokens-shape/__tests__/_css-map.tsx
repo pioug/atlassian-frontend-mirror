@@ -41,6 +41,17 @@ const valid: string[] = [
     });
   `,
 	outdent`
+    // ignores zero radius values that do not have a matching token
+    import { cssMap } from '@compiled/react';
+
+    const pinchCornerSharpStyles = cssMap({
+      topLeft: {
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: '0',
+      }
+    });
+  `,
+	outdent`
     // ignores already tokenised values
     import { cssMap } from '@compiled/react';
     import { token } from '@atlaskit/tokens';

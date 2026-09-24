@@ -678,7 +678,7 @@ export const createNodeChangedDecorationWidget = ({
 			// adjacent text in the NEW document. `dom` already carries the original marks, so a
 			// formatting change would render the deleted side wrapped in the very mark the edit
 			// introduced — unbolded text shown struck through but still bold.
-			...(fg('platform_editor_diff_inline_mark_changes') && { marks: [] }),
+			marks: [],
 			destroy: () => {
 				constrainMediaObserver?.disconnect();
 				unmountContributorTag(tagMount);

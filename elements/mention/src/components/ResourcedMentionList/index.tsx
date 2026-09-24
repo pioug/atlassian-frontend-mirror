@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import React from 'react';
 
 import withAnalyticsEvents, {
@@ -31,8 +29,3 @@ const ResourcedMentionList: React.ForwardRefExoticComponent<
 type ResourcedMentionList = ResourcedMentionListWithoutAnalytics;
 
 export default ResourcedMentionList;
-
-/**
- * @deprecated Use `import { ResourcedMentionListWithoutAnalytics } from '@atlaskit/mention/resourced-mention-list'` instead.
- */
-export { ResourcedMentionListWithoutAnalytics } from './ResourcedMentionListWithoutAnalytics';

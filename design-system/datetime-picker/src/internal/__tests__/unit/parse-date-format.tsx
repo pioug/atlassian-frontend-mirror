@@ -2,7 +2,6 @@
 import { format, isValid, parseISO } from 'date-fns';
 
 import { createLocalizationProvider } from '@atlaskit/locale/localization-provider';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { parseDate } from '../../parse-date';
 import { convertTokens } from '../../parse-tokens';
@@ -13,9 +12,7 @@ describe('parseDate', () => {
 	const dateFormat = 'MMMM/DD/YYYY';
 	const displayLabel = format(parseISO(iso), convertTokens(dateFormat));
 
-	it('uses dateFormat with date-fns when the gate is on and dateFormat is set', () => {
-		passGate('platform-dst-dp-parse-date-format');
-
+	it('uses dateFormat with date-fns when dateFormat is set', () => {
 		const parsed = parseDate(displayLabel, {
 			parseInputValue: undefined,
 			dateFormat,
@@ -39,8 +36,6 @@ describe('parseDate', () => {
 		['hu-HU', 'YYYY. MM. DD.'],
 		['sv-SE', 'YYYY-MM-DD'],
 	])('roundtrips %s with dateFormat %s to the same ISO day', (locale, configuredFormat) => {
-		passGate('platform-dst-dp-parse-date-format');
-
 		const localeL10n = createLocalizationProvider(locale);
 		const formatted = format(parseISO(iso), convertTokens(configuredFormat));
 
@@ -55,8 +50,6 @@ describe('parseDate', () => {
 	});
 
 	it('falls back to locale when the input does not match dateFormat', () => {
-		passGate('platform-dst-dp-parse-date-format');
-
 		// A display-only format such as "MMM D, YYYY" is not what users type
 		const parsed = parseDate('6/8/2018', {
 			parseInputValue: undefined,
@@ -69,8 +62,6 @@ describe('parseDate', () => {
 	});
 
 	it('falls back to locale for a partially matching input', () => {
-		passGate('platform-dst-dp-parse-date-format');
-
 		const parsed = parseDate('06-08-2018', {
 			parseInputValue: undefined,
 			dateFormat: 'MMMM/DD/YYYY',
@@ -103,18 +94,5 @@ describe('parseDate', () => {
 		});
 
 		expect(format(parsed, 'yyyy-MM-dd')).toBe(customIso);
-	});
-
-	it('uses locale even with dateFormat when the gate is off', () => {
-		failGate('platform-dst-dp-parse-date-format');
-
-		const parsed = parseDate(displayLabel, {
-			parseInputValue: undefined,
-			dateFormat,
-			l10n,
-		});
-
-		// Locale numeric parser cannot parse "June/08/2018"
-		expect(isValid(parsed)).toBe(false);
 	});
 });

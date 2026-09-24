@@ -13,8 +13,6 @@ import { jsx, css } from '@emotion/react';
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { WidthConsumer } from '@atlaskit/editor-common/ui';
-import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -110,62 +108,6 @@ const MultiBodiedExtensionChildrenContainer = ({
 
 const MultiBodiedExtensionNavigation = ({ children }: React.PropsWithChildren) => {
 	return <nav data-testid="multiBodiedExtension-navigation">{children}</nav>;
-};
-
-const MultiBodiedExtensionWrapperLegacy = ({
-	width,
-	path,
-	layout,
-	rendererAppearance,
-	children,
-}: React.PropsWithChildren<{
-	layout: ExtensionLayout;
-	path: PMNode[];
-	rendererAppearance?: RendererAppearance;
-	width: number;
-}>) => {
-	const isTopLevel = path.length < 1;
-	// we should only use custom layout for full-page appearance
-	const canUseCustomLayout = expValEquals(
-		'platform_editor_remove_important_in_render_ext',
-		'isEnabled',
-		true,
-	)
-		? rendererAppearance === 'full-page'
-		: true;
-	const isCustomLayout =
-		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
-	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
-
-	// This hierarchy is copied from regular extension (see extension.tsx)
-	return (
-		<div
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
-			style={{
-				width: (
-					expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-						? isCustomLayout
-						: isTopLevel
-				)
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						calcBreakoutWidth(layout, width)
-					: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-						? undefined
-						: '100%',
-			}}
-			data-layout={layout}
-			data-testid="multiBodiedExtension--wrapper-renderer"
-			data-top-level={isTopLevel || undefined}
-		>
-			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className={`${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`}
-			>
-				{children}
-			</div>
-		</div>
-	);
 };
 
 const MultiBodiedExtensionWrapperNext = ({
@@ -307,49 +249,17 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 	// make the frame visible
 	const containerActiveFrameStyles = getContainerActiveFrameStyles(activeChildIndex);
 
-	if (expValEquals('platform_editor_renderer_extension_width_fix', 'isEnabled', true)) {
-		const isTopLevel = path.length < 1;
-		const useCenterWrapper = isTopLevel && ['wide', 'full-width'].includes(layout);
-		const wrapper = (
-			<MultiBodiedExtensionWrapperNext
-				layout={layout}
-				path={path}
-				rendererAppearance={rendererAppearance}
-			>
-				{renderContent()}
-			</MultiBodiedExtensionWrapperNext>
-		);
-		return (
-			<section
-				css={[containerStyles, containerActiveFrameStyles]}
-				data-testid="multiBodiedExtension--container"
-				data-multiBodiedExtension-container
-				data-active-child-index={activeChildIndex}
-				data-layout={layout}
-				data-local-id={localId}
-				data-node-type="multiBodiedExtension"
-			>
-				{useCenterWrapper ? (
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-						className={
-							RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
-							' ' +
-							RendererCssClassName.FLEX_CENTER_WRAPPER
-						}
-					>
-						{wrapper}
-					</div>
-				) : (
-					wrapper
-				)}
-			</section>
-		);
-	}
-
 	const isTopLevel = path.length < 1;
 	const useCenterWrapper = isTopLevel && ['wide', 'full-width'].includes(layout);
-
+	const wrapper = (
+		<MultiBodiedExtensionWrapperNext
+			layout={layout}
+			path={path}
+			rendererAppearance={rendererAppearance}
+		>
+			{renderContent()}
+		</MultiBodiedExtensionWrapperNext>
+	);
 	return (
 		<section
 			css={[containerStyles, containerActiveFrameStyles]}
@@ -358,35 +268,22 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 			data-active-child-index={activeChildIndex}
 			data-layout={layout}
 			data-local-id={localId}
+			data-node-type="multiBodiedExtension"
 		>
-			<WidthConsumer>
-				{({ width }) => {
-					const wrapper = (
-						<MultiBodiedExtensionWrapperLegacy
-							layout={layout}
-							width={width}
-							path={path}
-							rendererAppearance={rendererAppearance}
-						>
-							{renderContent()}
-						</MultiBodiedExtensionWrapperLegacy>
-					);
-					return useCenterWrapper ? (
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-							className={
-								RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
-								' ' +
-								RendererCssClassName.FLEX_CENTER_WRAPPER
-							}
-						>
-							{wrapper}
-						</div>
-					) : (
-						wrapper
-					);
-				}}
-			</WidthConsumer>
+			{useCenterWrapper ? (
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={
+						RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
+						' ' +
+						RendererCssClassName.FLEX_CENTER_WRAPPER
+					}
+				>
+					{wrapper}
+				</div>
+			) : (
+				wrapper
+			)}
 		</section>
 	);
 };

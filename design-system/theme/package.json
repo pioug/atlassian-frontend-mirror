@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "28.2.3",
+	"version": "28.2.4",
 	"description": "Theme contains solutions for global theming, colors, and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -63,12 +63,12 @@
 	],
 	"exports": {
 		".": "./src/index.tsx",
-		"./components": "./src/components.tsx",
 		"./constants": "./src/constants.tsx",
 		"./create-theme": "./src/utils/create-theme.tsx",
 		"./get-theme": "./src/utils/get-theme.tsx",
 		"./theme": "./src/components/theme.tsx",
-		"./types": "./src/types.tsx"
+		"./types": "./src/types.tsx",
+		"./components": "./src/components.tsx"
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-plugin"
 }

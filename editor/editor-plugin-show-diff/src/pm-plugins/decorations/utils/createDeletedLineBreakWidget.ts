@@ -1,5 +1,4 @@
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DiffType, RevealOptions } from '../../../showDiffPluginType';
 import { isExtendedEnabled } from '../../isExtendedEnabled';
@@ -111,6 +110,6 @@ export const createDeletedLineBreakDecoration = ({
 			}),
 			// Without an explicit mark set, prosemirror-view wraps the widget in the marks of the
 			// adjacent text. The glyph carries its own deleted styling and must not inherit them.
-			...(fg('platform_editor_diff_inline_mark_changes') && { marks: [] }),
+			marks: [],
 		},
 	);

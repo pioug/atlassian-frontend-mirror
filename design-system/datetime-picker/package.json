@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/datetime-picker",
-	"version": "18.7.4",
+	"version": "19.0.0",
 	"description": "A date time picker allows the user to select an associated date and time.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -99,9 +99,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-dp-current-reference-date": {
-			"type": "boolean"
-		},
-		"platform-dst-dp-parse-date-format": {
 			"type": "boolean"
 		},
 		"platform-dst-locale-week-start-day": {

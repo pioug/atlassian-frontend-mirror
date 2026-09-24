@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import { type GraphQLError } from 'graphql';
 
 import type { UseQueryLightError } from './UseQueryLightError';
@@ -48,12 +46,3 @@ export interface FetchMoreArgs<TParams, TResult> {
 		newData: TResult | undefined,
 	) => TResult | undefined;
 }
-
-/**
- * @deprecated Use `import { ActualGraphQLError } from '@atlaskit/teams-client/actual-graph-ql-error'` instead.
- */
-export { ActualGraphQLError } from './ActualGraphQLError';
-/**
- * @deprecated Use `import { UseQueryLightError } from '@atlaskit/teams-client/use-query-light-error'` instead.
- */
-export { UseQueryLightError } from './UseQueryLightError';

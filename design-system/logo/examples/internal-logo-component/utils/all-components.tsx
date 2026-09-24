@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::94d1c6626e1cad6016c25c8609c1ac18>>
+ * @codegen <<SignedSource::4aebc1faa2b1d21904f40b374616c0ab>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -15,6 +15,9 @@ import { AlignLogoCS } from '../../../src/artifacts/logo-components/align/logo-c
 import { AnalyticsIcon } from '../../../src/artifacts/logo-components/analytics/icon';
 import { AnalyticsLogo } from '../../../src/artifacts/logo-components/analytics/logo';
 import { AnalyticsLogoCS } from '../../../src/artifacts/logo-components/analytics/logo-cs';
+import { ArtifactsIcon } from '../../../src/artifacts/logo-components/artifacts/icon';
+import { ArtifactsLogo } from '../../../src/artifacts/logo-components/artifacts/logo';
+import { ArtifactsLogoCS } from '../../../src/artifacts/logo-components/artifacts/logo-cs';
 import { AssetsIcon } from '../../../src/artifacts/logo-components/assets/icon';
 import { AssetsLogo } from '../../../src/artifacts/logo-components/assets/logo';
 import { AssetsLogoCS } from '../../../src/artifacts/logo-components/assets/logo-cs';
@@ -28,6 +31,7 @@ import { BitbucketLogoCS } from '../../../src/artifacts/logo-components/bitbucke
 import { ChatIcon } from '../../../src/artifacts/logo-components/chat/icon';
 import { ChatLogo } from '../../../src/artifacts/logo-components/chat/logo';
 import { ChatLogoCS } from '../../../src/artifacts/logo-components/chat/logo-cs';
+import { CodeSearchIcon } from '../../../src/artifacts/logo-components/code-search/icon';
 import { CompanyHubIcon } from '../../../src/artifacts/logo-components/company-hub/icon';
 import { CompanyHubLogo } from '../../../src/artifacts/logo-components/company-hub/logo';
 import { CompassIcon } from '../../../src/artifacts/logo-components/compass/icon';
@@ -166,6 +170,16 @@ export const rows: Array<{
 		Icon32: (props) => <AnalyticsIcon {...props} size="32" />,
 		Logo: (props) => <AnalyticsLogo {...props} />,
 		LogoCS: (props) => <AnalyticsLogoCS {...props} />,
+	},
+	{
+		name: 'Artifacts',
+		Icon12: (props) => <ArtifactsIcon {...props} size="12" />,
+		Icon16: (props) => <ArtifactsIcon {...props} size="16" />,
+		Icon20: (props) => <ArtifactsIcon {...props} size="20" />,
+		Icon24: (props) => <ArtifactsIcon {...props} size="24" />,
+		Icon32: (props) => <ArtifactsIcon {...props} size="32" />,
+		Logo: (props) => <ArtifactsLogo {...props} />,
+		LogoCS: (props) => <ArtifactsLogoCS {...props} />,
 	},
 	{
 		name: 'Assets',
@@ -565,6 +579,16 @@ export const rows: Array<{
 		Icon24: (props) => <GuardDetectIcon {...props} size="24" />,
 		Icon32: (props) => <GuardDetectIcon {...props} size="32" />,
 		Logo: (props) => <GuardDetectLogo {...props} />,
+		LogoCS: null,
+	},
+	{
+		name: 'Code Search',
+		Icon12: (props) => <CodeSearchIcon {...props} size="12" />,
+		Icon16: (props) => <CodeSearchIcon {...props} size="16" />,
+		Icon20: (props) => <CodeSearchIcon {...props} size="20" />,
+		Icon24: (props) => <CodeSearchIcon {...props} size="24" />,
+		Icon32: (props) => <CodeSearchIcon {...props} size="32" />,
+		Logo: null,
 		LogoCS: null,
 	},
 	{

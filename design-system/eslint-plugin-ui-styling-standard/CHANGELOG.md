@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.1.10
+
+### Patch Changes
+
+- [`62aaaa3da8184`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62aaaa3da8184) -
+  Speed up the atlaskit-theme lint rule by skipping files that do not import the banned theme
+  mixins, and by checking each Compiled call once instead of every nested identifier.
+
 ## 2.1.9
 
 ### Patch Changes

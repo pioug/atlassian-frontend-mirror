@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "19.0.0",
+	"version": "20.0.0",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -138,7 +138,6 @@
 		"./get-token": "./src/get-token.tsx",
 		"./get-token-value": "./src/get-token-value.tsx",
 		"./palette": "./src/artifacts/palettes-raw/palette.tsx",
-		"./palettes-raw": "./src/entry-points/palettes-raw.tsx",
 		"./rename-mapping": "./src/artifacts/replacement-mapping.tsx",
 		"./set-global-theme": "./src/set-global-theme.tsx",
 		"./theme-color-modes": "./src/theme-color-modes.tsx",
@@ -149,22 +148,22 @@
 		"./theme-options-schema": "./src/theme-options-schema.tsx",
 		"./theme-state": "./src/theme-state.tsx",
 		"./theme-state-defaults": "./src/theme-state-defaults.tsx",
-		"./theme-state-transformer": "./src/entry-points/theme-state-transformer.tsx",
 		"./theme-string-to-object": "./src/theme-string-to-object.tsx",
 		"./token": "./src/index.tsx",
 		"./token-default-values": "./src/artifacts/token-default-values.tsx",
-		"./token-ids": "./src/utils/token-ids.tsx",
 		"./token-metadata": "./src/entry-points/token-metadata.codegen.tsx",
 		"./token-names": "./src/artifacts/token-names.tsx",
 		"./token-order": "./src/utils/token-order.tsx",
-		"./tokens-raw": "./src/entry-points/tokens-raw.tsx",
 		"./types": "./src/types.tsx",
 		"./typography-palette": "./src/artifacts/palettes-raw/typography-palette.tsx",
 		"./unsafe-load-custom-theme-styles": "./src/unsafe-load-custom-theme-styles.tsx",
 		"./use-theme-observer": "./src/use-theme-observer.tsx",
 		"./utils/get-css-custom-property": "./src/utils/get-css-custom-property.tsx",
 		"./utils/get-fully-qualified-token-id": "./src/utils/get-fully-qualified-token-id.tsx",
-		"./utils/get-token-id": "./src/utils/get-token-id.tsx"
+		"./utils/get-token-id": "./src/utils/get-token-id.tsx",
+		"./theme-state-transformer": "./src/entry-points/theme-state-transformer.tsx",
+		"./palettes-raw": "./src/entry-points/palettes-raw.tsx",
+		"./tokens-raw": "./src/entry-points/tokens-raw.tsx"
 	},
 	"platform-feature-flags": {
 		"platform-dst-tokens-finesse": {

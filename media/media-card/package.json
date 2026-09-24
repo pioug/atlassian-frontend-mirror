@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "81.12.14",
+	"version": "82.1.2",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,6 @@
 		"./errors": "./src/errors.ts",
 		"./inlinePlayerWrapperStyles": "./src/card/inlinePlayerWrapperStyles.ts",
 		"./loader": "./src/inline/loader.tsx",
-		"./mediaInlineCardAnalytics": "./src/inline/mediaInlineCardAnalytics.ts",
 		"./inline/fire-failed-operational-event": "./src/inline/fireFailedOperationalEvent.ts",
 		"./inline/fire-succeeded-operational-event": "./src/inline/fireSucceededOperationalEvent.ts",
 		"./inline/get-error-status-payload": "./src/inline/getErrorStatusPayload.ts",
@@ -91,6 +90,7 @@
 		"@atlaskit/media-svg": "workspace:^",
 		"@atlaskit/media-ui": "workspace:^",
 		"@atlaskit/media-viewer": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/progress-bar": "workspace:^",
@@ -136,6 +136,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/ufo": "workspace:^",

@@ -3,10 +3,6 @@
 import UFOSegment from './segment';
 
 export default UFOSegment;
-/**
- * @deprecated Use `import { UFOThirdPartySegment } from '@atlaskit/react-ufo/third-party-segment'` instead.
- */
-export { UFOThirdPartySegment } from './third-party-segment';
 export { type IframeSegmentEvent } from './third-party-segment';
 /**
  * @deprecated Use `import { UFOGenAISegment } from '@atlaskit/react-ufo/gen-ai-segment'` instead.

@@ -109,6 +109,24 @@ const pickerContainerStylesTeam26 = css({
 	},
 });
 
+// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`: merge
+// `paddingBottom: 0` into `pickerContainerStyles`/`pickerContainerStylesTeam26`. The
+// scrollable suggestions area already supplies its own trailing padding once actually
+// scrolled to the end, so the outer wrapper's own bottom padding is only ever extra
+// whitespace below the (fixed-height) scroll box, most visible right under the half-cut
+// row when unscrolled.
+const pickerContainerNoBottomPaddingStyles = css({
+	paddingBottom: 0,
+});
+
+// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`: merge into
+// `suggestedStatusesContainerStyles`. Matches the list's own top padding (`space.100`) so the
+// gap above the first suggestion and the gap below the last (once scrolled to the true end)
+// are the same size.
+const suggestedStatusesContainerAlignedBottomPaddingStyles = css({
+	paddingBottom: token('space.100', '8px'),
+});
+
 const suggestedStatusesContainerStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -122,8 +140,10 @@ const suggestedStatusesContainerStyles = css({
 
 // Fixed input plus capped scrolling color controls and suggestions. The ten-color picker is
 // taller because it carries a second swatch row.
-const STATUS_PICKER_FIT_HEIGHT = 288;
-const STATUS_PICKER_TEN_COLOR_FIT_HEIGHT = 292;
+const STATUS_PICKER_FIT_HEIGHT = 236;
+// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`.
+const STATUS_PICKER_FIT_HEIGHT_OLD = 288;
+const STATUS_PICKER_TEN_COLOR_FIT_HEIGHT = 268;
 // Seven suggestions fit below the color palette before the content starts scrolling.
 const MAX_SUGGESTIONS_WITHOUT_SCROLLBAR = 7;
 // ColorPalette: swatches per row * 32px slot + 16px inline margin.
@@ -427,6 +447,10 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 					css={[
 						suggestedStatusesContainerStyles,
 						suggestionsPatchEnabled ? suggestedStatusesContainerPatchStyles : undefined,
+						suggestionsPatchEnabled &&
+						(isUpdateStatusColorsEnabled || fg('platform_editor_status_popup_suggestions_patch_3'))
+							? suggestedStatusesContainerAlignedBottomPaddingStyles
+							: undefined,
 					]}
 					data-suggested-status-list
 				>
@@ -493,6 +517,11 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 						(suggestedStatuses?.length ?? 0) > MAX_SUGGESTIONS_WITHOUT_SCROLLBAR
 							? statusPickerWithScrollbarWidthStylesOld
 							: undefined,
+						suggestionsPatchEnabled &&
+						!!suggestedStatusList &&
+						(isUpdateStatusColorsEnabled || fg('platform_editor_status_popup_suggestions_patch_3'))
+							? pickerContainerNoBottomPaddingStyles
+							: undefined,
 					]}
 					role="none"
 					ref={this.setRef(setOutsideClickTargetRef)}
@@ -514,7 +543,9 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 
 		const fitHeight = isExperimentEnabled('platform_editor_update_status_colors')
 			? STATUS_PICKER_TEN_COLOR_FIT_HEIGHT
-			: STATUS_PICKER_FIT_HEIGHT;
+			: fg('platform_editor_status_popup_suggestions_patch_3')
+				? STATUS_PICKER_FIT_HEIGHT
+				: STATUS_PICKER_FIT_HEIGHT_OLD;
 
 		return (
 			target && (

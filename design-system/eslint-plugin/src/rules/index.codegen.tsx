@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3cbc9ff39720b5f2f75f62ce8aacd211>>
- * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
+ * @codegen <<SignedSource::debe51c7d33e9ee24cb3cdad6fa1a864>>
+ * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
 

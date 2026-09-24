@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FormSectionProps
  *
- * @codegen <<SignedSource::c85e38840c5dd01b51a1c9fabeaf226b>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-section.partial.tsx <<SignedSource::0dd9401d75f62dec7336bdea43302961>>
+ * @codegen <<SignedSource::a2a46087196846cadfa4dc479f4d36d3>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-section.partial.tsx <<SignedSource::e901def8fd4da4f10ccb7c5b7cbc1aba>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

@@ -522,6 +522,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 					body: JSON.stringify({
 						permission_ids: [
 							'AGENT_CREATE',
+							'AGENT_DUPLICATE',
 							'AGENT_UPDATE',
 							'AGENT_DELETE',
 							'AGENT_DEACTIVATE',

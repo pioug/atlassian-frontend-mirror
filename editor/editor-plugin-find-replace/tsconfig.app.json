@@ -1,8 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
-		"**/*.docs.tsx",
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -25,8 +25,15 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-plugin-find-replace/app",
@@ -35,6 +42,9 @@
 	"references": [
 		{
 			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-common/tsconfig.app.json"
@@ -47,6 +57,9 @@
 		},
 		{
 			"path": "../editor-plugin-card/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-expand/tsconfig.app.json"
@@ -85,6 +98,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
@@ -99,6 +115,5 @@
 		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

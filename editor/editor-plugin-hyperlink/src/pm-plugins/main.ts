@@ -18,7 +18,6 @@ import type {
 	ReadonlyTransaction,
 	Selection,
 } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
 
@@ -267,10 +266,6 @@ export const plugin = (
 						return false;
 					}
 
-					if (!fg('platform_editor_middle_click_no_link_toolbar')) {
-						return false;
-					}
-
 					window.open(href, '_blank', 'noopener,noreferrer');
 					return true;
 				},
@@ -281,7 +276,7 @@ export const plugin = (
 					// link state will be update on slection change which happens on mousedown
 					if (isLinkDirectTarget(event)) {
 						// Leave middle-click alone so the browser can still open the link in a new tab.
-						if (event.button === 1 && fg('platform_editor_middle_click_no_link_toolbar')) {
+						if (event.button === 1) {
 							return false;
 						}
 						event.preventDefault();
@@ -296,7 +291,7 @@ export const plugin = (
 					// the selection into the link or select the card node, which is what opens
 					// the toolbar.
 					const middleClickAnchor = event.button === 1 ? getLinkAnchor(event) : null;
-					if (middleClickAnchor && fg('platform_editor_middle_click_no_link_toolbar')) {
+					if (middleClickAnchor) {
 						// Returning true only stops ProseMirror. The browser still places a caret
 						// at the click point inside contenteditable, and a caret inside the link is
 						// itself enough to open the toolbar, so the default has to be suppressed

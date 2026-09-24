@@ -1,5 +1,20 @@
 # @atlaskit/datetime-picker
 
+## 19.0.0
+
+### Major Changes
+
+- [`0c7c7be927bde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c7c7be927bde) -
+  Remove deprecated Volt re-export shims from public package entry points. Consumers should import
+  from the replacement subpaths or implementation entry points instead.
+
+### Patch Changes
+
+- [`bf2d0b438b71e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf2d0b438b71e) -
+  Cleanup `feature_gate` `platform-dst-dp-parse-date-format`. Typed input is now always parsed with
+  the configured `dateFormat` before falling back to locale parsing.
+- Updated dependencies
+
 ## 18.7.4
 
 ### Patch Changes

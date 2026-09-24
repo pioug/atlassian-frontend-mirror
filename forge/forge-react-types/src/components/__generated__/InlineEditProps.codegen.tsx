@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - InlineEditProps
  *
- * @codegen <<SignedSource::8f962ba10ad28d9c11ed0430a9195438>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::f4625a973245a2df44b3b63960773a46>>
+ * @codegen <<SignedSource::33586d63ac0bd1690f705bfcdf670ec2>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::3ec3d717ba43c2a6c5ac086250366fca>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

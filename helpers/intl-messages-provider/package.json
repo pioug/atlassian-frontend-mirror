@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/intl-messages-provider",
-	"version": "4.3.0",
+	"version": "5.0.0",
 	"description": " IntlMessagesProvider is a Frontend Utility to asynchronously load i18n translated messages and feed them to IntlProvider based on the locale in product.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,8 +43,7 @@
 		"./async": "./src/ui/create-async-intl-provider.tsx",
 		"./common/types": "./src/common/types.ts",
 		"./main": "./src/ui/main.tsx",
-		"./types": "./src/ui/types.ts",
-		"./ui": "./src/ui/index.ts"
+		"./types": "./src/ui/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",

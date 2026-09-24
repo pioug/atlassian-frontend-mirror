@@ -8,7 +8,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
 import type { DispatchAnalyticsEvent, TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
@@ -19,7 +19,24 @@ import Find from './Find';
 import Replace from './Replace';
 import { ruleStyles, wrapperPaddingStyles, wrapperStyles } from './ui-styles';
 
+// Magic number taken from ./FindReplaceToolbarButton.tsx
+const dropdownWidth = 382;
+
+// Without replace the find row is the widest row, so the popup would size to it and
+// change width as the match counter appears. Pin it to the width the dropdown reserves.
+const findOnlyWidthStyles = css({
+	boxSizing: 'border-box',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	width: `${dropdownWidth}px`,
+	maxWidth: '100%',
+});
+
 export type FindReplaceProps = {
+	/**
+	 * When `false`, the dialog offers find only: the replace label, field, replacement
+	 * count message and both replace buttons are not rendered.
+	 */
+	allowReplace?: boolean;
 	count: { index: number; total: number; totalReplaceable?: number };
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	findText?: string;
@@ -110,6 +127,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 			shouldMatchCase,
 			onToggleMatchCase,
 			intl,
+			allowReplace = true,
 		} = this.props;
 
 		const focusToolbarButton = this.props.focusToolbarButton || (() => {});
@@ -117,11 +135,13 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		return (
 			<div
 				role={'dialog'}
-				aria-label={intl?.formatMessage(messages.findReplaceDialogAriaLabel)}
+				aria-label={intl?.formatMessage(
+					allowReplace ? messages.findReplaceDialogAriaLabel : messages.findDialogAriaLabel,
+				)}
 				aria-modal={false}
 				ref={this.modalRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={[wrapperStyles, wrapperPaddingStyles]}
+				css={[wrapperStyles, wrapperPaddingStyles, !allowReplace && findOnlyWidthStyles]}
 			>
 				<Find
 					allowMatchCase={allowMatchCase}
@@ -140,9 +160,12 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 					findTyped={this.state.findTyped}
 					setFindTyped={this.setFindTyped}
 				/>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<hr role="presentation" css={ruleStyles} id="replace-hr-element" />
+				{allowReplace && (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					<hr role="presentation" css={ruleStyles} id="replace-hr-element" />
+				)}
 				<Replace
+					allowReplace={allowReplace}
 					canReplace={!!isReplaceable}
 					replaceText={replaceText}
 					onReplace={onReplace}

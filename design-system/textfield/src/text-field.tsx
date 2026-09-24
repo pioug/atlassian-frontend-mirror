@@ -240,17 +240,17 @@ const inputDisabledStyle = css({
 const inputCompactStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'&[data-compact]': {
-		paddingBlockEnd: token('space.025'),
-		paddingBlockStart: token('space.025'),
+		paddingBlockEnd: token('space.050'),
+		paddingBlockStart: token('space.050'),
 		paddingInlineEnd: token('space.075'),
 		paddingInlineStart: token('space.075'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
+	'@media (pointer: coarse) and (max-width: 30rem)': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 		'&[data-compact]': {
-			paddingBlockEnd: token('space.050'),
-			paddingBlockStart: token('space.050'),
+			paddingBlockEnd: token('space.025'),
+			paddingBlockStart: token('space.025'),
 			paddingInlineEnd: token('space.075'),
 			paddingInlineStart: token('space.075'),
 		},
@@ -260,15 +260,15 @@ const inputCompactStyle = css({
 const inputMonospacedStyle = css({
 	fontFamily: token('font.family.code'),
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	// Must reapply font family here, otherwise it gets overridden by font.body in inputStyle's media query
-	'@media (min-width: 30rem)': {
+	// Must reapply font family here, otherwise it gets overridden by font.body.large in inputStyle's media query
+	'@media (pointer: coarse) and (max-width: 30rem)': {
 		fontFamily: token('font.family.code'),
 	},
 });
 
 // iOS Safari automatically zooms into form inputs on focus when the font size is less than 16px.
-// To prevent this zoom behaviour on mobile devices, the textfield uses font.body.large (16px) by default,
-// then switches to the smaller font.body on screens wider than 30rem (desktop).
+// To prevent this zoom behaviour on touch devices with small viewports, the textfield uses font.body (default),
+// and font.body.large (16px) for touch devices (pointer: coarse) with screens narrower than 30rem.
 // @see: https://medium.com/@rares.popescu/2-ways-to-avoid-the-automatic-zoom-in-on-input-fields-8a71479e542e
 
 const inputStyle = css({
@@ -279,12 +279,12 @@ const inputStyle = css({
 	border: 0,
 	color: 'inherit',
 	cursor: 'inherit',
-	font: token('font.body.large'),
+	font: token('font.body'),
 	outline: 'none',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:not([data-compact])': {
-		paddingBlockEnd: token('space.075'),
-		paddingBlockStart: token('space.075'),
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
 		paddingInlineEnd: token('space.075'),
 		paddingInlineStart: token('space.075'),
 	},
@@ -302,12 +302,12 @@ const inputStyle = css({
 		color: token('color.text.subtlest'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
-		font: token('font.body'),
+	'@media (pointer: coarse) and (max-width: 30rem)': {
+		font: token('font.body.large'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:not([data-compact])': {
-			paddingBlockEnd: token('space.100'),
-			paddingBlockStart: token('space.100'),
+			paddingBlockEnd: token('space.075'),
+			paddingBlockStart: token('space.075'),
 			paddingInlineEnd: token('space.075'),
 			paddingInlineStart: token('space.075'),
 		},

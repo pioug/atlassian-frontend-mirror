@@ -1,70 +1,75 @@
 import { defineMessages } from 'react-intl';
 
 export const findReplaceMessages: {
-	find: {
-		id: string;
+	closeFindReplaceDialog: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	matchCase: {
-		id: string;
+	find: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	findDialogAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	findNext: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	findPrevious: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	findReplaceDialogAriaLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	closeFindReplaceDialog: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	noResultsFound: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	resultsCount: {
-		id: string;
-		description: string;
-		defaultMessage: string;
 	};
 	findReplaceToolbarButton: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	replaceWith: {
-		id: string;
+	matchCase: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	noResultsFound: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	replace: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	replaceAll: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	replaceSuccess: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	replaceWith: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	resultsCount: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	find: {
@@ -91,6 +96,12 @@ export const findReplaceMessages: {
 		id: 'fabric.editor.findReplaceDialogAriaLabel',
 		defaultMessage: 'Find and Replace',
 		description: 'Aria label for the "Find and Replace" dialog',
+	},
+	findDialogAriaLabel: {
+		id: 'fabric.editor.findDialogAriaLabel',
+		defaultMessage: 'Find',
+		description:
+			'Aria label for the "Find" dialog, used where the dialog offers find without replace',
 	},
 	closeFindReplaceDialog: {
 		id: 'fabric.editor.closeFindReplaceDialog',

@@ -135,6 +135,8 @@ const AtlaskitIcon = ({
 				let appearance: IconTileProps['appearance'];
 				if (icon === IconType.Error || icon === IconType.Forbidden) {
 					appearance = 'redBold';
+				} else if (fg('platform_lp_non_bold_large_sl_icon')) {
+					appearance = 'gray';
 				} else {
 					appearance = 'grayBold';
 				}

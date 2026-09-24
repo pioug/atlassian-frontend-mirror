@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.25.1",
+	"version": "27.0.3",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,7 +39,6 @@
 		"./caching-client": "./src/client/CachingClient.ts",
 		"./client": "./src/client/index.ts",
 		"./config": "./src/util/config.ts",
-		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
@@ -50,7 +49,6 @@
 		"./messages": "./src/messages.ts",
 		"./mock-profile-client": "./src/mocks/mock-profile-client.ts",
 		"./mock-team-client": "./src/mocks/mock-team-client.ts",
-		"./mocks": "./src/mocks/index.ts",
 		"./modify-response": "./src/client/modifyResponse.ts",
 		"./profile-card": "./src/components/User/ProfileCard.tsx",
 		"./profile-card-client": "./src/client/ProfileCardClient.ts",
@@ -67,7 +65,8 @@
 		"./types": "./src/types.ts",
 		"./user": "./src/components/User/index.ts",
 		"./user-profile-card-client": "./src/client/UserProfileCardClient.ts",
-		"./with-outer-listeners": "./src/util/withOuterListeners.tsx"
+		"./with-outer-listeners": "./src/util/withOuterListeners.tsx",
+		"./i18n": "./src/i18n/index.ts"
 	},
 	"scripts": {
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg",

@@ -82,6 +82,10 @@ const chatgptBrandColor = getThirdPartyAgentColor({ agentName: 'chatgpt' });
 /** Brand accents for agent kinds with no ADS token match. New agents opt in by adding an entry. */
 const AGENT_KIND_ACCENT_OVERRIDES: Readonly<Record<string, { background: string; text: string }>> =
 	{
+		rovo: {
+			background: token('color.background.neutral.bold'),
+			text: token('color.text.inverse'),
+		},
 		...(chatgptBrandColor
 			? {
 					chatgpt: { background: chatgptBrandColor.bold, text: chatgptBrandColor.boldText },

@@ -26,6 +26,8 @@ export interface Props {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	providerFactory?: ProviderFactory;
 	references?: ReferenceEntity[];
+	/** Called by the extension once its content is ready to be shown. */
+	onContentReady?: () => void;
 	rendererExtensionHandlers?: ExtensionHandlers;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
@@ -67,6 +69,7 @@ export class Extension extends Component<Props, any> {
 			showLivePagesBodiedMacrosRendererView,
 			showUpdatedLivePages1PBodiedExtensionUI,
 			rendererExtensionHandlers,
+			onContentReady,
 		} = this.props;
 
 		// Extensions are not yet using the new plugin architecture, and the use of the pluginInjectionApi
@@ -94,6 +97,7 @@ export class Extension extends Component<Props, any> {
 				showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 				rendererExtensionHandlers={rendererExtensionHandlers}
 				isLivePageViewMode={isLivePageViewMode}
+				onContentReady={onContentReady}
 			/>
 		);
 	};

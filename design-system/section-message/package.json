@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/section-message",
-	"version": "10.2.5",
+	"version": "10.2.6",
 	"description": "A section message is used to alert users to a particular section of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,9 +37,9 @@
 		".": "./src/index.tsx",
 		"./message": "./src/section-message.tsx",
 		"./message-action": "./src/section-message-action.tsx",
+		"./types": "./src/types.tsx",
 		"./section-message": "./src/entry-points/section-message.tsx",
-		"./section-message-action": "./src/entry-points/section-message-action.tsx",
-		"./types": "./src/types.tsx"
+		"./section-message-action": "./src/entry-points/section-message-action.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",

@@ -3,10 +3,11 @@
  * @jsx jsx
  */
 // Reflows any multi-value renderer with shared label motion and optional settled truncation.
-import { type ReactNode, useCallback, useRef, useState } from 'react';
+import { type ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { useMotion, type UseMotionResult } from '@atlaskit/motion/entering/use-motion';
 import { token } from '@atlaskit/tokens';
 
@@ -51,11 +52,16 @@ export default function MultiValueMotion({
 	shouldMeasureTruncation = false,
 }: MultiValueMotionProps): JSX.Element {
 	const truncationElementRef = useRef<HTMLDivElement | null>(null);
+	const motionElementRef = useRef<HTMLDivElement | null>(null);
 	const [hasEllipsis, setHasEllipsis] = useState(false);
 	const updateMultiValueTruncation = useCallback(() => {
 		const label = truncationElementRef.current;
-		if (label) {
+		const motionElement = motionElementRef.current;
+		if (label && motionElement) {
+			const inlineAnimation = motionElement.style.animation;
+			motionElement.style.animation = 'none';
 			setHasEllipsis(label.scrollWidth > label.clientWidth);
+			motionElement.style.animation = inlineAnimation;
 		}
 	}, []);
 	const truncationRef = useCallback((node: HTMLDivElement | null) => {
@@ -69,9 +75,10 @@ export default function MultiValueMotion({
 			}
 		},
 	});
+	const mergedMotionRef = useMemo(() => mergeRefs([motionElementRef, motionRef]), [motionRef]);
 	return (
 		<div
-			ref={motionRef}
+			ref={mergedMotionRef}
 			css={[
 				motionWrapperStyles.root,
 				state === 'entering' && motionWrapperStyles.entering,

@@ -26,7 +26,6 @@ import MediaButton from '@atlaskit/media-ui/MediaButton';
 import { messages } from '@atlaskit/media-ui/messages';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type MediaViewerExtensions } from './components/types';
 import { Outcome } from './domain/outcome';
@@ -136,11 +135,7 @@ export const Header = ({
 	useEffect(() => {
 		// Reset fetch state when the file identity changes (e.g. navigating in viewer)
 		const currentId = fileState?.status !== 'error' ? fileState?.id : undefined;
-		if (
-			currentId &&
-			currentId !== lastFetchedFileId.current &&
-			expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
-		) {
+		if (currentId && currentId !== lastFetchedFileId.current) {
 			fallbackMediaNameFetchAttempted.current = false;
 			setFallbackMediaName(undefined);
 			lastFetchedFileId.current = currentId;
@@ -151,8 +146,7 @@ export const Header = ({
 			fileState.status !== 'error' &&
 			!fileState.name &&
 			fallbackMediaNameFetcher &&
-			!fallbackMediaNameFetchAttempted.current &&
-			expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
+			!fallbackMediaNameFetchAttempted.current
 		) {
 			fallbackMediaNameFetchAttempted.current = true;
 			fallbackMediaNameFetcher(fileState.id).then(
@@ -222,13 +216,7 @@ export const Header = ({
 								</MetadataIconWrapper>
 								<MedatadataTextWrapper>
 									<MetadataFileName data-testid="media-viewer-file-name">
-										{item.name ||
-											(expValEquals(
-												'platform_editor_media_name_fallback_viewer_card',
-												'isEnabled',
-												true,
-											) &&
-												fallbackMediaName) || <FormattedMessage {...messages.unknown} />}
+										{item.name || fallbackMediaName || <FormattedMessage {...messages.unknown} />}
 									</MetadataFileName>
 									<MetadataSubText data-testid="media-viewer-file-metadata-text">
 										<FormattedMessageWrapper>{renderFileTypeText(item)}</FormattedMessageWrapper>

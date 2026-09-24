@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - Sidebar
  *
- * @codegen <<SignedSource::616f3d016bfc38cce860faebfdb603c0>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::5ff0fb0e52f7acf5bd5c867bda1c333e>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Sidebar.tsx <<SignedSource::ce06f2803b588cea4728d1bf487a6928>>
+ * @codegen <<SignedSource::a03e12dbef9bc425b4ec229871b191af>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::674f8242f5ec8e63fcd8dc4d91db1a6c>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Sidebar.tsx <<SignedSource::25c28ccf09cc54ba3b32860f0e5f7362>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -19,7 +19,7 @@ export type SidebarProps = {
 	 */
 	forYouMenuItem?: boolean;
 	/**
-	 * Accepts LinkMenuItem, ExpandableMenuItem, FlyOutMenuItem, ReorderableMenuItems, MenuSection, MenuSpacer and SidebarFooter components.
+	 * Accepts LinkMenuItem, ExpandableMenuItem, FlyOutMenuItem, SearchableFlyoutMenuItems, ReorderableMenuItems, MenuSection, MenuSpacer and SidebarFooter components.
 	 */
 	children?: React.ReactElement | React.ReactElement[];
 };

@@ -1,7 +1,10 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -26,14 +29,30 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./content/**/*",
-		"./example-helpers/**/*"
+		"./example-helpers/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-image/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/inline-message/tsconfig.app.json"
+		},
 		{
 			"path": "../media-client/tsconfig.app.json"
 		},
@@ -47,10 +66,31 @@
 			"path": "../media-file-preview/tsconfig.app.json"
 		},
 		{
+			"path": "../media-test-data/tsconfig.app.json"
+		},
+		{
+			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/select/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/spinner/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

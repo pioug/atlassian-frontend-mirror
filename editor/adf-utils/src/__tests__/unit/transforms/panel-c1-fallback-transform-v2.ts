@@ -191,6 +191,7 @@ const createSchemaWithNodes = (
 	options: {
 		includeExpand?: boolean;
 		includeExtension?: boolean;
+		includeLayout?: boolean;
 		includePanelC1?: boolean;
 		includeTable?: boolean;
 		includeUnsupportedBlock?: boolean;
@@ -201,6 +202,7 @@ const createSchemaWithNodes = (
 		includeTable = false,
 		includeExpand = false,
 		includeExtension = false,
+		includeLayout = false,
 		includeUnsupportedBlock = false,
 	} = options;
 
@@ -218,6 +220,9 @@ const createSchemaWithNodes = (
 	}
 	if (includeExtension) {
 		nodes.push('extension');
+	}
+	if (includeLayout) {
+		nodes.push('layoutSection', 'layoutColumn');
 	}
 	if (includeUnsupportedBlock) {
 		nodes.push('unsupportedBlock');
@@ -646,5 +651,101 @@ describe('transformContainerNodes', () => {
 		expect(result.isTransformed).toBe(false);
 		expect(result.transformedNodeTypes).toEqual([]);
 		expect(result.transformedAdf).toEqual(paragraphOnlyDoc);
+	});
+});
+
+describe('transformContainerNodes - destination parentNodes', () => {
+	const schemaWithTableAndLayout = () =>
+		createSchemaWithNodes({ includePanelC1: true, includeTable: true, includeLayout: true });
+
+	const getTopLevelNodeType = (result: { transformedAdf: ADFEntity | false }) =>
+		(result.transformedAdf as ADFEntity).content?.[0]?.type;
+
+	it('promotes a top-level panel when no destination is supplied', () => {
+		const result = transformContainerNodes(docWithPanelWithParagraph, schemaWithTableAndLayout());
+
+		expect(result.isTransformed).toBe(true);
+		expect(getTopLevelNodeType(result)).toBe('panel_c1');
+	});
+
+	it('promotes a top-level panel when the destination is the document root', () => {
+		const result = transformContainerNodes(docWithPanelWithParagraph, schemaWithTableAndLayout(), {
+			parentNodes: ['doc'],
+		});
+
+		expect(result.isTransformed).toBe(true);
+		expect(getTopLevelNodeType(result)).toBe('panel_c1');
+	});
+
+	it('leaves a top-level panel alone when the destination is a table cell', () => {
+		const result = transformContainerNodes(docWithPanelWithParagraph, schemaWithTableAndLayout(), {
+			parentNodes: ['doc', 'table', 'tableRow', 'tableCell'],
+		});
+
+		expect(result.isTransformed).toBe(false);
+		expect(result.transformedNodeTypes).toEqual([]);
+		expect(getTopLevelNodeType(result)).toBe('panel');
+	});
+
+	it('ignores trailing ancestors that cannot hold a panel', () => {
+		// An `insertNodeAfter` selection sits inside a paragraph; the panel still lands in
+		// the table cell that paragraph belongs to.
+		const result = transformContainerNodes(docWithPanelWithParagraph, schemaWithTableAndLayout(), {
+			parentNodes: ['doc', 'table', 'tableRow', 'tableCell', 'paragraph'],
+		});
+
+		expect(result.isTransformed).toBe(false);
+		expect(getTopLevelNodeType(result)).toBe('panel');
+	});
+
+	it('promotes a top-level panel when the destination is a layout column', () => {
+		const result = transformContainerNodes(docWithPanelWithParagraph, schemaWithTableAndLayout(), {
+			parentNodes: ['doc', 'layoutSection', 'layoutColumn'],
+		});
+
+		expect(result.isTransformed).toBe(true);
+		expect(getTopLevelNodeType(result)).toBe('panel_c1');
+	});
+
+	it('falls back to the traversed parent when no supplied ancestor can hold a panel', () => {
+		const result = transformContainerNodes(docWithPanelWithParagraph, schemaWithTableAndLayout(), {
+			parentNodes: ['doc', 'nodeTypeNotInSchema'],
+		});
+
+		expect(result.isTransformed).toBe(true);
+		expect(getTopLevelNodeType(result)).toBe('panel_c1');
+	});
+
+	it('only substitutes the destination for top-level nodes', () => {
+		const docWithPanelInLayout: ADFEntity = {
+			type: 'doc',
+			content: [
+				{
+					type: 'layoutSection',
+					content: [
+						{
+							type: 'layoutColumn',
+							attrs: { width: 100 },
+							content: [
+								{
+									type: 'panel',
+									attrs: { panelType: 'info' },
+									content: [{ type: 'paragraph', content: [{ type: 'text', text: 'hello' }] }],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+
+		const result = transformContainerNodes(docWithPanelInLayout, schemaWithTableAndLayout(), {
+			parentNodes: ['doc', 'table', 'tableRow', 'tableCell'],
+		});
+		const nestedPanel = (result.transformedAdf as ADFEntity).content?.[0]?.content?.[0]
+			?.content?.[0];
+
+		expect(result.isTransformed).toBe(true);
+		expect(nestedPanel?.type).toBe('panel_c1');
 	});
 });

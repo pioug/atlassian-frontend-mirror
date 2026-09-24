@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import React, { type FocusEvent, type ReactNode } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -123,8 +121,3 @@ const JQLEditorLayout = (props: Props): React.JSX.Element => {
 };
 
 export default JQLEditorLayout;
-
-/**
- * @deprecated Use `import { JQLEditorReadOnly } from '@atlaskit/jql-editor/jql-editor-read-only'` instead.
- */
-export { JQLEditorReadOnly } from './JQLEditorReadOnly';

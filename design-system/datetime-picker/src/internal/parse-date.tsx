@@ -28,7 +28,7 @@ import { convertTokens } from './parse-tokens';
  * There are props that can change how the date is parsed.
  * The priority of props used is:
  *   1. `parseInputValue`
- *   2. `dateFormat` (when `platform-dst-dp-parse-date-format` is on)
+ *   2. `dateFormat`
  *   3. `locale`
  *
  * `dateFormat` only wins when the input actually parses against it, otherwise
@@ -54,7 +54,7 @@ export const parseDate: (
 		return parseInputValue(date, dateFormat || defaultDateFormat);
 	}
 
-	if (dateFormat && fg('platform-dst-dp-parse-date-format')) {
+	if (dateFormat) {
 		// date-fns uses the reference year to resolve two-digit years and fill
 		// omitted years. Use the current local date rather than the Unix epoch.
 		const referenceDate = fg('platform-dst-dp-current-reference-date') ? new Date() : new Date(0);

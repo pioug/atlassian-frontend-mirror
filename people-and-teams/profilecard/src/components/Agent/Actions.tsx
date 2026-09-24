@@ -76,11 +76,12 @@ export const AgentActions = ({
 
 	const loadAgentPermissions = useCallback(async () => {
 		const {
-			permissions: { AGENT_CREATE, AGENT_UPDATE, AGENT_DEACTIVATE },
+			permissions: { AGENT_CREATE, AGENT_DUPLICATE, AGENT_UPDATE, AGENT_DEACTIVATE },
 		} = await resourceClient.getRovoAgentPermissions(agent.id);
 
 		return {
 			isCreateEnabled: AGENT_CREATE.permitted,
+			isDuplicateEnabled: AGENT_DUPLICATE.permitted,
 			isEditEnabled: AGENT_UPDATE.permitted,
 			isDeleteEnabled: AGENT_DEACTIVATE.permitted,
 		};

@@ -1,5 +1,39 @@
 # @atlaskit/status
 
+## 5.12.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.12.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.12.9
+
+### Patch Changes
+
+- [`e0164ac9572f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0164ac9572f8) -
+  Reduce the status picker's suggestion list height to show 5.5 suggestions above the fold before
+  scrolling, behind platform_editor_status_popup_suggestions_patch_3 for the six-color palette; the
+  ten-color palette is updated directly since its update_status experiment has not rolled out.
+- Updated dependencies
+
+## 5.12.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.12.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.12.6
 
 ### Patch Changes

@@ -165,13 +165,12 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	const dataId = testId ? `${testId}-select--input` : null;
 	const { css, className } = getStyleProps(props, 'input', { 'input-container': true });
 
-	const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 	if (fg('platform_fix_input_component_styling')) {
 		return (
 			<div
 				css={[
 					inputStyles.root,
-					isMulti && ffTagUplifts && inputStyles.labellingFFStyles,
+					isMulti && inputStyles.labellingFFStyles,
 					isDisabled && inputStyles.disabled,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -198,7 +197,7 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 		<div
 			css={[
 				inputStylesOld.root,
-				isMulti && ffTagUplifts && inputStylesOld.labellingFFStyles,
+				isMulti && inputStylesOld.labellingFFStyles,
 				isDisabled && inputStylesOld.disabled,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

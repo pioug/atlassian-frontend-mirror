@@ -11,7 +11,6 @@ import {
 } from '@atlaskit/media-client/test-helpers';
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { generateSampleFileItem } from '@atlaskit/media-test-data/src';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
@@ -222,96 +221,91 @@ describe('<MediaInlineCard />', () => {
 		expect(erroredView).toBeTruthy();
 	});
 
-	eeTest
-		.describe(
-			'platform_editor_media_name_fallback',
-			'fallback media name when media service name is undefined',
-		)
-		.variant(true, () => {
-			it('should show loading view while fallbackMediaNameFetcher is in-flight', async () => {
-				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
-				const { mediaApi } = createMockedMediaApi(fileItem);
+	describe('fallback media name when media service name is undefined', () => {
+		it('should show loading view while fallbackMediaNameFetcher is in-flight', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+			const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const fallbackMediaNameFetcher = jest.fn(() => new Promise<string>(() => {}));
+			const fallbackMediaNameFetcher = jest.fn(() => new Promise<string>(() => {}));
 
-				render(
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<MediaInlineCard
-							identifier={identifier}
-							mediaClientConfig={dummyMediaClientConfig}
-							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
-						/>
-					</MockedMediaClientProvider>,
-				);
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard
+						identifier={identifier}
+						mediaClientConfig={dummyMediaClientConfig}
+						fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+					/>
+				</MockedMediaClientProvider>,
+			);
 
-				const loadingView = await screen.findByTestId('media-inline-card-loading-view');
-				expect(loadingView).toBeTruthy();
-			});
-
-			it('should show loaded view with fallback name after fallbackMediaNameFetcher resolves', async () => {
-				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
-				const { mediaApi } = createMockedMediaApi(fileItem);
-				const fetchedName = 'fetched-fallback-name.jpg';
-				const fallbackMediaNameFetcher = jest.fn().mockResolvedValue(fetchedName);
-
-				render(
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<MediaInlineCard
-							identifier={identifier}
-							mediaClientConfig={dummyMediaClientConfig}
-							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
-						/>
-					</MockedMediaClientProvider>,
-				);
-
-				const loadedView = await screen.findByTestId('media-inline-card-loaded-view');
-				expect(loadedView).toBeTruthy();
-				const title = await screen.findByText(fetchedName);
-				expect(title).toBeTruthy();
-			});
-
-			it('should show errored view when fallbackMediaNameFetcher rejects', async () => {
-				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
-				const { mediaApi } = createMockedMediaApi(fileItem);
-				const fallbackMediaNameFetcher = jest.fn().mockRejectedValue(new Error('fetch failed'));
-
-				render(
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<MediaInlineCard
-							identifier={identifier}
-							mediaClientConfig={dummyMediaClientConfig}
-							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
-						/>
-					</MockedMediaClientProvider>,
-				);
-
-				const erroredView = await screen.findByTestId('media-inline-card-errored-view');
-				expect(erroredView).toBeTruthy();
-			});
-
-			it('should prefer file state name over fallbackMediaNameFetcher when name is present', async () => {
-				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
-				const { mediaApi } = createMockedMediaApi(fileItem);
-				const fallbackMediaNameFetcher = jest.fn().mockResolvedValue('should-not-be-used.pdf');
-
-				render(
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<MediaInlineCard
-							identifier={identifier}
-							mediaClientConfig={dummyMediaClientConfig}
-							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
-						/>
-					</MockedMediaClientProvider>,
-				);
-
-				const loadedView = await screen.findByTestId('media-inline-card-loaded-view');
-				expect(loadedView).toBeTruthy();
-
-				const title = await screen.findByText(fileItem.details.name);
-				expect(title).toBeTruthy();
-				expect(fallbackMediaNameFetcher).not.toHaveBeenCalled();
-			});
+			const loadingView = await screen.findByTestId('media-inline-card-loading-view');
+			expect(loadingView).toBeTruthy();
 		});
+
+		it('should show loaded view with fallback name after fallbackMediaNameFetcher resolves', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const fetchedName = 'fetched-fallback-name.jpg';
+			const fallbackMediaNameFetcher = jest.fn().mockResolvedValue(fetchedName);
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard
+						identifier={identifier}
+						mediaClientConfig={dummyMediaClientConfig}
+						fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			const loadedView = await screen.findByTestId('media-inline-card-loaded-view');
+			expect(loadedView).toBeTruthy();
+			const title = await screen.findByText(fetchedName);
+			expect(title).toBeTruthy();
+		});
+
+		it('should show errored view when fallbackMediaNameFetcher rejects', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const fallbackMediaNameFetcher = jest.fn().mockRejectedValue(new Error('fetch failed'));
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard
+						identifier={identifier}
+						mediaClientConfig={dummyMediaClientConfig}
+						fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			const erroredView = await screen.findByTestId('media-inline-card-errored-view');
+			expect(erroredView).toBeTruthy();
+		});
+
+		it('should prefer file state name over fallbackMediaNameFetcher when name is present', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const fallbackMediaNameFetcher = jest.fn().mockResolvedValue('should-not-be-used.pdf');
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard
+						identifier={identifier}
+						mediaClientConfig={dummyMediaClientConfig}
+						fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			const loadedView = await screen.findByTestId('media-inline-card-loaded-view');
+			expect(loadedView).toBeTruthy();
+
+			const title = await screen.findByText(fileItem.details.name);
+			expect(title).toBeTruthy();
+			expect(fallbackMediaNameFetcher).not.toHaveBeenCalled();
+		});
+	});
 
 	ffTest.on('platform_media_cross_client_copy', 'Copy', () => {
 		it('should call copy intent', async () => {

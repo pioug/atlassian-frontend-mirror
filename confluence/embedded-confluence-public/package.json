@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/embedded-confluence",
-	"version": "6.4.1",
+	"version": "6.4.2",
 	"description": "Embedded Confluence components for public consumption.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

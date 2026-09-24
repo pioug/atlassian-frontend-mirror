@@ -1,7 +1,10 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -24,14 +27,19 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"./stories/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__profilecard/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
@@ -51,6 +59,9 @@
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
 		},
 		{
@@ -60,6 +71,9 @@
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/flag/tsconfig.app.json"
+		},
+		{
 			"path": "../../team-central/give-kudos/tsconfig.app.json"
 		},
 		{
@@ -67,6 +81,9 @@
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/inline-edit/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
@@ -94,6 +111,12 @@
 		},
 		{
 			"path": "../../ai-mate/rovo-triggers/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
@@ -126,13 +149,28 @@
 			"path": "../../design-system/tooltip/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../helpers/storybook/tsconfig.app.json"
 		},
 		{
+			"path": "../ptc-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

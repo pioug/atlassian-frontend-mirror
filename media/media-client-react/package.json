@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client-react",
-	"version": "6.4.1",
+	"version": "7.0.0",
 	"description": "🖼️ Media Client for React",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,6 @@
 		"./mocked-get-media-client": "./src/test-helpers/mockedGetMediaClient.ts",
 		"./mocked-media-client-provider": "./src/test-helpers/MockedMediaClientProvider.tsx",
 		"./mocked-media-provider": "./src/test-helpers/MockedMediaProvider.tsx",
-		"./test-helpers": "./src/test-helpers/index.ts",
 		"./use-copy-intent": "./src/copyIntent/useCopyIntent.ts",
 		"./use-file-hashes": "./src/useFileHashes.ts",
 		"./use-file-state": "./src/useFileState.ts",
@@ -45,7 +44,8 @@
 		"./use-media-settings": "./src/useMediaSettings.ts",
 		"./use-media-store": "./src/useMediaStore.ts",
 		"./with-media-client": "./src/withMediaClient.tsx",
-		"./with-media-client-and-settings": "./src/withMediaClientAndSettings.tsx"
+		"./with-media-client-and-settings": "./src/withMediaClientAndSettings.tsx",
+		"./test-helpers": "./src/test-helpers/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/media-client": "workspace:^",

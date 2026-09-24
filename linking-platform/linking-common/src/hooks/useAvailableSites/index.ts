@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import { AvailableSitesProductType } from './types';
 
 export const AVAILABLE_SITES_PATH: any = '/gateway/api/available-sites';
@@ -27,16 +25,3 @@ export const defaultProducts: any = [
 	AvailableSitesProductType.ATLAS,
 	AvailableSitesProductType.LOOM,
 ];
-
-/**
- * @deprecated Use `import { useAvailableSites } from '@atlaskit/linking-common/hook/use-available-sites'` instead.
- */
-export { useAvailableSites } from './useAvailableSites';
-/**
- * @deprecated Use `import { mapAccessibleProductsToAvailableSites } from '@atlaskit/linking-common/hook/use-available-sites'` instead.
- */
-export { mapAccessibleProductsToAvailableSites } from './mapAccessibleProductsToAvailableSites';
-/**
- * @deprecated Use `import { useAvailableSitesV2 } from '@atlaskit/linking-common/hook/use-available-sites'` instead.
- */
-export { useAvailableSitesV2 } from './useAvailableSitesV2';

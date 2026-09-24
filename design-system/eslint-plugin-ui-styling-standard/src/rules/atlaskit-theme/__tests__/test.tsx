@@ -46,6 +46,34 @@ const valid = [
             \`
         `,
 	},
+	{
+		name: 'Valid layers use in compiled',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { layers } from '@atlaskit/theme/constants';
+
+            css({ zIndex: layers.card() });
+        `,
+	},
+	{
+		name: 'Valid namespace theme use in compiled',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import * as theme from '@atlaskit/theme';
+
+            css(theme.typography.h700());
+        `,
+	},
+	{
+		name: 'Valid typography use outside a compiled call',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { typography } from '@atlaskit/theme';
+
+            const styles = typography.h700();
+            css({});
+        `,
+	},
 ];
 
 const typography = [
@@ -69,6 +97,95 @@ const typography = [
 
         export const HeadingComponent = styled.h2(typography.h200());
     `,
+		errors: [{ messageId: 'usingTypography' }],
+	},
+	{
+		name: 'Invalid aliased typography use in compiled',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { typography as type } from '@atlaskit/theme';
+
+            css(type.h700());
+        `,
+		errors: [{ messageId: 'usingTypography' }],
+	},
+	{
+		name: 'Invalid typography subpath import in compiled',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { h200 } from '@atlaskit/theme/typography';
+
+            css(h200());
+        `,
+		errors: [{ messageId: 'usingTypography' }],
+	},
+	{
+		name: 'Invalid typography use alongside a layers import',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { layers } from '@atlaskit/theme/constants';
+            import { typography } from '@atlaskit/theme';
+
+            css({ zIndex: layers.card() });
+            css(typography.h700());
+        `,
+		errors: [{ messageId: 'usingTypography' }],
+	},
+	{
+		name: 'Invalid typography use nested in a compiled style object',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { typography } from '@atlaskit/theme';
+
+            css({ font: typography.h700() });
+        `,
+		errors: [{ messageId: 'usingTypography' }],
+	},
+	{
+		name: 'Invalid typography use nested in a call argument',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { typography } from '@atlaskit/theme';
+
+            css(helper(typography.h700()));
+        `,
+		errors: [{ messageId: 'usingTypography' }],
+	},
+	{
+		name: 'Invalid typography use alongside fontFallback in one compiled template',
+		code: outdent`
+            import { styled } from '@compiled/react';
+            import { fontFallback, typography } from '@atlaskit/theme/typography';
+            import { token } from '@atlaskit/tokens';
+
+            export const HeadingComponent = styled.h2\`
+                font: \${token('font.body', fontFallback.body.medium)};
+                \${typography.h700()};
+            \`;
+        `,
+		errors: [{ messageId: 'usingTypography' }],
+	},
+	{
+		name: 'Invalid typography use in two compiled calls',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { typography } from '@atlaskit/theme';
+
+            css(typography.h700());
+            css(typography.h800());
+        `,
+		errors: [{ messageId: 'usingTypography' }, { messageId: 'usingTypography' }],
+	},
+	{
+		name: 'Invalid typography use in a compiled call inside a compiled template',
+		code: outdent`
+            import { css, styled } from '@compiled/react';
+            import { typography } from '@atlaskit/theme';
+
+            export const HeadingComponent = styled.div\`
+                \${css(typography.h700())};
+            \`;
+        `,
 		errors: [{ messageId: 'usingTypography' }],
 	},
 ];
@@ -96,6 +213,16 @@ const elevation = [
         `,
 		errors: [{ messageId: 'usingElevation' }],
 	},
+	{
+		name: 'Invalid elevation subpath import in compiled',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { e100 } from '@atlaskit/theme/elevation';
+
+            css(e100());
+        `,
+		errors: [{ messageId: 'usingElevation' }],
+	},
 ];
 
 const skeletonShimmer = [
@@ -119,6 +246,16 @@ const skeletonShimmer = [
 
         export const SkeletonShimmerComponent = styled.div(skeletonShimmer);
     `,
+		errors: [{ messageId: 'usingSkeletonShimmer' }],
+	},
+	{
+		name: 'Invalid skeleton shimmer barrel import in compiled',
+		code: outdent`
+            import { css } from '@compiled/react';
+            import { skeletonShimmer } from '@atlaskit/theme';
+
+            css(skeletonShimmer());
+        `,
 		errors: [{ messageId: 'usingSkeletonShimmer' }],
 	},
 ];

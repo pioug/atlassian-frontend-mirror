@@ -1,19 +1,12 @@
-import type { Rule, Scope } from 'eslint';
+import type { Rule, Scope, SourceCode } from 'eslint';
 
-import { getAncestors, getScope } from '@atlaskit/eslint-utils/context-compat';
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { getImportSources, isCompiled } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
 
-const isIdentifierReferenced = (
-	hasImportSpecifier: (def: Scope.Definition) => boolean,
-	node: Rule.Node,
-	references: Scope.Reference[],
-): boolean =>
-	references.some(
-		(reference) =>
-			reference.identifier === node && reference.resolved?.defs.some(hasImportSpecifier),
-	);
+type WalkNode = { type: string };
+type IdentifierNode = Rule.Node & { name: string };
 
 const isTypographyImportSpecifier = (def: Scope.Definition): boolean =>
 	def.node.type === 'ImportSpecifier' &&
@@ -37,32 +30,93 @@ const isSkeletonShimmerImportSpecifier = (def: Scope.Definition): boolean =>
 	typeof def.parent?.source.value === 'string' &&
 	def.parent?.source.value?.startsWith('@atlaskit/theme');
 
-const checkIdentifier = (
-	node: Rule.Node,
-	context: Rule.RuleContext,
-	references: Scope.Reference[],
-) => {
-	if (isIdentifierReferenced(isTypographyImportSpecifier, node, references)) {
-		context.report({
-			messageId: 'usingTypography',
-			node,
-		});
+const bannedImportChecks: Array<{
+	messageId: 'usingTypography' | 'usingElevation' | 'usingSkeletonShimmer';
+	isBanned: (def: Scope.Definition) => boolean;
+}> = [
+	{ messageId: 'usingTypography', isBanned: isTypographyImportSpecifier },
+	{ messageId: 'usingElevation', isBanned: isElevationImportSpecifier },
+	{ messageId: 'usingSkeletonShimmer', isBanned: isSkeletonShimmerImportSpecifier },
+];
+
+function isAstNode(value: unknown): value is WalkNode {
+	return (
+		typeof value === 'object' && value !== null && 'type' in value && typeof value.type === 'string'
+	);
+}
+
+function hasBannedThemeImport(sourceCode: SourceCode): boolean {
+	for (const statement of sourceCode.ast.body) {
+		if (statement.type !== 'ImportDeclaration' || typeof statement.source.value !== 'string') {
+			continue;
+		}
+
+		const source = statement.source.value;
+		if (!source.startsWith('@atlaskit/theme')) {
+			continue;
+		}
+
+		for (const specifier of statement.specifiers) {
+			if (specifier.type !== 'ImportSpecifier' || specifier.imported.type !== 'Identifier') {
+				continue;
+			}
+
+			const { name } = specifier.imported;
+			if (source === '@atlaskit/theme/typography' || source === '@atlaskit/theme/elevation') {
+				return true;
+			}
+
+			if (source === '@atlaskit/theme' && (name === 'typography' || name === 'elevation')) {
+				return true;
+			}
+
+			if (name === 'skeletonShimmer') {
+				return true;
+			}
+		}
 	}
 
-	if (isIdentifierReferenced(isElevationImportSpecifier, node, references)) {
-		context.report({
-			messageId: 'usingElevation',
-			node,
-		});
+	return false;
+}
+
+function visitIdentifiers(node: WalkNode, visit: (identifier: IdentifierNode) => void): void {
+	if (node.type === 'Identifier' && 'name' in node && typeof node.name === 'string') {
+		visit(node as IdentifierNode);
 	}
 
-	if (isIdentifierReferenced(isSkeletonShimmerImportSpecifier, node, references)) {
-		context.report({
-			messageId: 'usingSkeletonShimmer',
-			node,
-		});
+	for (const key of Object.keys(node)) {
+		if (key === 'parent') {
+			continue;
+		}
+
+		const value = (node as Record<string, unknown>)[key];
+		if (Array.isArray(value)) {
+			for (const child of value) {
+				if (isAstNode(child)) {
+					visitIdentifiers(child, visit);
+				}
+			}
+		} else if (isAstNode(value)) {
+			visitIdentifiers(value, visit);
+		}
 	}
-};
+}
+
+function findReferencedVariable(
+	scope: Scope.Scope,
+	identifier: IdentifierNode,
+): Scope.Variable | undefined {
+	let current: Scope.Scope | null = scope;
+	while (current) {
+		const variable = current.set.get(identifier.name);
+		if (variable?.references.some((reference) => reference.identifier === identifier)) {
+			return variable;
+		}
+		current = current.upper;
+	}
+
+	return undefined;
+}
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -85,50 +139,59 @@ const rule: Rule.RuleModule = createLintRule({
 		type: 'problem',
 	},
 	create(context) {
+		const sourceCode = getSourceCode(context);
+		if (!hasBannedThemeImport(sourceCode)) {
+			return {};
+		}
+
 		const importSources = getImportSources(context);
+		const reported = new WeakSet<Rule.Node>();
+
+		const reportBannedIdentifier = (identifier: IdentifierNode, scope: Scope.Scope): void => {
+			if (identifier.name === 'fontFallback' || reported.has(identifier)) {
+				return;
+			}
+
+			const variable = findReferencedVariable(scope, identifier);
+			if (!variable) {
+				return;
+			}
+
+			let didReport = false;
+			for (const { messageId, isBanned } of bannedImportChecks) {
+				if (variable.defs.some(isBanned)) {
+					context.report({ messageId, node: identifier });
+					didReport = true;
+				}
+			}
+
+			if (didReport) {
+				reported.add(identifier);
+			}
+		};
+
+		const lintCompiledInvocation = (node: Rule.Node): void => {
+			if (node.type !== 'CallExpression' && node.type !== 'TaggedTemplateExpression') {
+				return;
+			}
+
+			const calleeOrTag = node.type === 'CallExpression' ? node.callee : node.tag;
+			const scope = getScope(context, node);
+			if (!isCompiled(calleeOrTag, scope.references, importSources)) {
+				return;
+			}
+
+			const roots = node.type === 'CallExpression' ? node.arguments : node.quasi.expressions;
+			for (const root of roots) {
+				if (isAstNode(root)) {
+					visitIdentifiers(root, (identifier) => reportBannedIdentifier(identifier, scope));
+				}
+			}
+		};
 
 		return {
-			'CallExpression Identifier': (node: Rule.Node): void => {
-				const { references } = getScope(context, node);
-				const ancestors = getAncestors(context, node);
-
-				// Check if ancestor node is a call expression to Compiled
-				if (
-					ancestors.some(
-						(ancestor) =>
-							ancestor.type === 'CallExpression' &&
-							ancestor.callee &&
-							isCompiled(ancestor.callee, references, importSources),
-					)
-				) {
-					// Ignore the fontFallback object as it contains strings to be used as token fallbacks
-					if ('name' in node && node.name !== 'fontFallback') {
-						// Check identifier for violations
-						checkIdentifier(node, context, references);
-					}
-				}
-			},
-
-			'TaggedTemplateExpression Identifier': (node: Rule.Node): void => {
-				const { references } = getScope(context, node);
-				const ancestors = getAncestors(context, node);
-
-				// Check if ancestor node is a tagged template expression to Compiled
-				if (
-					ancestors.some(
-						(ancestor) =>
-							ancestor.type === 'TaggedTemplateExpression' &&
-							ancestor.tag &&
-							isCompiled(ancestor.tag, references, importSources),
-					)
-				) {
-					// Ignore the fontFallback object as it contains strings to be used as token fallbacks
-					if ('name' in node && node.name !== 'fontFallback') {
-						// Check identifier for violations
-						checkIdentifier(node, context, references);
-					}
-				}
-			},
+			CallExpression: lintCompiledInvocation,
+			TaggedTemplateExpression: lintCompiledInvocation,
 		};
 	},
 });

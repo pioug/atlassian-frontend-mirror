@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - SpinnerProps
  *
- * @codegen <<SignedSource::da564e9fcc19afc8bb55ad494a1e1aa6>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/spinner/__generated__/index.partial.tsx <<SignedSource::d6138d211e143990a6133754180f565c>>
+ * @codegen <<SignedSource::19d52bc6a9f97b75401b9eb6879c4993>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/spinner/__generated__/index.partial.tsx <<SignedSource::6f10584d0f1579d9eb99f8ea5738958c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

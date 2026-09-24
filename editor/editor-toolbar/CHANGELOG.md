@@ -1,5 +1,39 @@
 # @atlaskit/editor-toolbar
 
+## 2.7.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.10
+
+### Patch Changes
+
+- [`202069bab1e36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202069bab1e36) -
+  Clean up the shipped `platform_editor_enghealth_a11y_jan_fixes` experiment. Toolbar dropdown items
+  now always render with `role="menuitem"` and without `aria-pressed`, the block menu always has
+  `role="menu"`, and show-diff deleted content always uses the a11y-fixed styles.
+- Updated dependencies
+
+## 2.7.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.6
 
 ### Patch Changes

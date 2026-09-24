@@ -19,31 +19,22 @@ describe('parseDate reference date', () => {
 	});
 
 	it.each([
-		// The reference date gate is not evaluated when format parsing is disabled.
-		[false, undefined, '2026-01-02'],
-		[true, false, '1926-02-01'],
-		[true, true, '2026-02-01'],
-	])(
-		'parses two-digit years with format gate %s and reference date gate %s',
-		(formatGate, referenceDateGate, expected) => {
-			(formatGate ? passGate : failGate)('platform-dst-dp-parse-date-format');
-			if (referenceDateGate !== undefined) {
-				(referenceDateGate ? passGate : failGate)('platform-dst-dp-current-reference-date');
-			}
+		[false, '1926-02-01'],
+		[true, '2026-02-01'],
+	])('parses two-digit years with reference date gate %s', (referenceDateGate, expected) => {
+		(referenceDateGate ? passGate : failGate)('platform-dst-dp-current-reference-date');
 
-			const parsed = parseDate('01.02.26', {
-				parseInputValue: undefined,
-				dateFormat: 'DD.MM.YY',
-				l10n,
-			});
+		const parsed = parseDate('01.02.26', {
+			parseInputValue: undefined,
+			dateFormat: 'DD.MM.YY',
+			l10n,
+		});
 
-			expect(format(parsed, 'yyyy-MM-dd')).toBe(expected);
-		},
-	);
+		expect(format(parsed, 'yyyy-MM-dd')).toBe(expected);
+	});
 
 	describe('current reference date enabled', () => {
 		beforeEach(() => {
-			passGate('platform-dst-dp-parse-date-format');
 			passGate('platform-dst-dp-current-reference-date');
 		});
 

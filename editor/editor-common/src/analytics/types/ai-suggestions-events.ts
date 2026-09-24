@@ -4,7 +4,8 @@ import type { OperationalAEP, TrackAEP } from './utils';
 export type AiSuggestionsEntryPoint =
 	| 'primaryToolbar'
 	/**
-	 * Legacy entry point retained for the suggestions surface in the comments panel.
+	 * @private
+	 * @deprecated Legacy entry point retained for backwards compatibility.
 	 * Use `suggestionsPanelEmptyState` for the standalone suggestions panel.
 	 */
 	| 'commentsEmptyState'
@@ -12,11 +13,8 @@ export type AiSuggestionsEntryPoint =
 	| 'suggestionsPanelHeader'
 	| 'objectSidebarControl'
 	/**
-	 * Generation started automatically because a suggestions surface was opened
-	 * with nothing to show — no explicit user action. Kept distinct from
-	 * `suggestionsPanelEmptyState` and the legacy `commentsEmptyState` (the "Review"
-	 * button in those empty states) so automatic and user-initiated generation can
-	 * be told apart in analytics.
+	 * @private
+	 * @deprecated Legacy automatic-generation entry point retained for backwards compatibility.
 	 */
 	| 'suggestionsPanelMount'
 	/**

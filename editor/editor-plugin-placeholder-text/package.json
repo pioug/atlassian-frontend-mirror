@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder-text",
-	"version": "20.0.1",
+	"version": "22.0.0",
 	"description": "placeholder text plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,11 +50,6 @@
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"platform-feature-flags": {
-		"platform_editor_element_browser_analytic": {
-			"type": "boolean"
-		}
 	},
 	"exports": {
 		".": "./src/index.ts",

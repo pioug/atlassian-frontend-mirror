@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 23.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.0
+
+### Minor Changes
+
+- [`2b25e6e39edbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b25e6e39edbf) -
+  Cleanup `feature_gate` `platform_editor_middle_click_no_link_toolbar`. Middle-clicking a link now
+  always opens it in a new tab and leaves the selection alone, so the link toolbar no longer opens
+  behind the new tab.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.2.2
 
 ### Patch Changes

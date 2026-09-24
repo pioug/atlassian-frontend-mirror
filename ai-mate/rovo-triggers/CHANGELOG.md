@@ -1,5 +1,17 @@
 # @atlaskit/rovo-triggers
 
+## 11.3.0
+
+### Minor Changes
+
+- [`e01fbdcbce7be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e01fbdcbce7be) -
+  Behind the finalized-destination gate, publish the existing Confluence finalized-content event
+  after resolution so consumers can receive the canonical destination.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.2
 
 ### Patch Changes

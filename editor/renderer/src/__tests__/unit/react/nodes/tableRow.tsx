@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RendererCssClassName } from '../../../../consts';
 import TableRow from '../../../../react/nodes/tableRow';
@@ -46,14 +45,7 @@ const renderInTable = (row: React.ReactNode) =>
 const cellAttributes = (attribute: string) =>
 	screen.getAllByRole('columnheader').map((cell) => cell.getAttribute(attribute));
 
-describe.each([false, true])('Renderer - React/Nodes/TableRow (functional gate: %s)', (enabled) => {
-	beforeEach(() => {
-		if (enabled) {
-			passGate('platform_renderer_table_row_functional');
-		} else {
-			failGate('platform_renderer_table_row_functional');
-		}
-	});
+describe('Renderer - React/Nodes/TableRow', () => {
 	it('should create a <tr>-tag', () => {
 		renderInTable(<TableRow />);
 

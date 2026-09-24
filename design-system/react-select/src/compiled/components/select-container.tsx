@@ -36,17 +36,17 @@ export interface ContainerProps<
 }
 
 // iOS Safari automatically zooms into form inputs on focus when the font size is less than 16px.
-// To prevent this zoom behaviour on mobile devices, the select container uses font.body.large (16px) by default,
-// then switches to the smaller font.body on screens wider than 30rem (desktop).
+// To prevent this zoom behaviour on touch devices with small viewports, the select container uses font.body (default),
+// and font.body.large (16px) for touch devices (pointer: coarse) with screens narrower than 30rem.
 // @see: https://medium.com/@rares.popescu/2-ways-to-avoid-the-automatic-zoom-in-on-input-fields-8a71479e542e
 
 const containerStyles = cssMap({
 	default: {
 		position: 'relative',
-		font: token('font.body.large'),
+		font: token('font.body'),
 		pointerEvents: 'all',
-		'@media (min-width: 30rem)': {
-			font: token('font.body'),
+		'@media (pointer: coarse) and (max-width: 30rem)': {
+			font: token('font.body.large'),
 		},
 	},
 	rtl: {

@@ -8,7 +8,6 @@ import selectEvent from 'react-select-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 import { components } from '@atlaskit/react-select/components';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
@@ -323,9 +322,9 @@ describe('Select', () => {
 				/>,
 			);
 
-			const clearIcons = screen.getAllByTestId('show-clear-icon');
-
-			expect(clearIcons.length).toBe(2);
+			expect(screen.getByRole('button', { name: '3, remove 3' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: '4, remove 4' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'clear' })).toBeInTheDocument();
 		});
 
 		it('disabled multiselect should not show clear icon on selections or select itself', () => {
@@ -340,49 +339,9 @@ describe('Select', () => {
 				/>,
 			);
 
-			const clearIcons = screen.getAllByTestId('hide-clear-icon');
-
-			expect(clearIcons.length).toBe(2);
-		});
-
-		it('should apply motion to tag-like custom values added and removed through Select', () => {
-			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
-			passGate('platform-dst-motion-uplift-labels');
-			const { container } = render(
-				<AtlaskitSelect
-					classNamePrefix="react-select"
-					formatOptionLabel={(option: Option, meta) =>
-						meta.context === 'value' ? <span>{option.label}</span> : option.label
-					}
-					isMulti
-					label="Options"
-					options={OPTIONS}
-				/>,
-			);
-
-			act(() => {
-				selectEvent.openMenu(screen.getByRole('combobox'));
-			});
-			act(() => {
-				screen.getByRole('option', { name: OPTIONS[0].label }).click();
-			});
-
-			const tagLikeValue = container.querySelector<HTMLElement>(
-				'[data-multi-value-tag-like="true"]',
-			);
-			expect(tagLikeValue).toBeInTheDocument();
-			const motionWrapper = tagLikeValue?.parentElement;
-			const enteringClassName = motionWrapper?.className;
-
-			act(() => {
-				screen.getByRole('button', { name: `${OPTIONS[0].label}, remove` }).click();
-			});
-
-			const exitingValue = container.querySelector<HTMLElement>(
-				'[data-multi-value-tag-like="true"]',
-			);
-			expect(exitingValue).toBeInTheDocument();
-			expect(exitingValue?.parentElement?.className).not.toBe(enteringClassName);
+			expect(screen.queryByRole('button', { name: '3, remove 3' })).not.toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: '4, remove 4' })).not.toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: 'clear' })).not.toBeInTheDocument();
 		});
 	});
 

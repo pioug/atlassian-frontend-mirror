@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.28.4",
+	"version": "46.0.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -309,6 +309,9 @@
 			"type": "boolean"
 		},
 		"platform_lp_use_generator_icon_for_provider": {
+			"type": "boolean"
+		},
+		"platform_lp_non_bold_large_sl_icon": {
 			"type": "boolean"
 		},
 		"billplat_a11y_icon_label_fix": {

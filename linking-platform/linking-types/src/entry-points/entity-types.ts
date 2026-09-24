@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 export interface User {
 	accountId?: string;
 	displayName?: string;
@@ -241,56 +239,3 @@ export type EntityType =
 	| MessageEntity
 	| ConversationEntity
 	| UnsupportedEntity;
-
-/**
- * @deprecated Use `import { isBaseEntity } from '@atlaskit/linking-types/is-base-entity'` instead.
- */
-export { isBaseEntity } from './is-base-entity';
-/**
- * @deprecated Use `import { isDesignEntity } from '@atlaskit/linking-types/is-design-entity'` instead.
- */
-export { isDesignEntity } from './is-design-entity';
-/**
- * @deprecated Use `import { isRemoteLinkEntity } from '@atlaskit/linking-types/is-remote-link-entity'` instead.
- */
-export { isRemoteLinkEntity } from './is-remote-link-entity';
-/**
- * @deprecated Use `import { isProjectEntity } from '@atlaskit/linking-types/is-project-entity'` instead.
- */
-export { isProjectEntity } from './is-project-entity';
-/**
- * @deprecated Use `import { isWorkItemEntity } from '@atlaskit/linking-types/is-work-item-entity'` instead.
- */
-export { isWorkItemEntity } from './is-work-item-entity';
-/**
- * @deprecated Use `import { isDocumentEntity } from '@atlaskit/linking-types/is-document-entity'` instead.
- */
-export { isDocumentEntity } from './is-document-entity';
-/**
- * @deprecated Use `import { isMessageEntity } from '@atlaskit/linking-types/is-message-entity'` instead.
- */
-export { isMessageEntity } from './is-message-entity';
-/**
- * @deprecated Use `import { isConversationEntity } from '@atlaskit/linking-types/is-conversation-entity'` instead.
- */
-export { isConversationEntity } from './is-conversation-entity';
-/**
- * @deprecated Use `import { isUnsupportedEntity } from '@atlaskit/linking-types/is-unsupported-entity'` instead.
- */
-export { isUnsupportedEntity } from './is-unsupported-entity';
-/**
- * @deprecated Use `import { isEntityType } from '@atlaskit/linking-types/is-entity-type'` instead.
- */
-export { isEntityType } from './is-entity-type';
-/**
- * @deprecated Use `import { isOneOf } from '@atlaskit/linking-types/is-one-of'` instead.
- */
-export { isOneOf } from './is-one-of';
-/**
- * @deprecated Use `import { isObject } from '@atlaskit/linking-types/is-object'` instead.
- */
-export { isObject } from './is-object';
-/**
- * @deprecated Use `import { asRecord } from '@atlaskit/linking-types/as-record'` instead.
- */
-export { asRecord } from './as-record';

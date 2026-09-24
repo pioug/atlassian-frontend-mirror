@@ -128,17 +128,17 @@ export const convertNodesToTargetType = ({
 		? TRANSFORMATION_MATRIX_PANEL_C1[selectedNodeTypeName][targetNodeTypeName]
 		: TRANSFORMATION_MATRIX[selectedNodeTypeName][targetNodeTypeName];
 
+	const shouldApplyTargetNodeMarkChanges =
+		isExperimentEnabled('platform_editor_block_menu_small_text') &&
+		Boolean(marksToAdd || marksToRemove);
 	const context: TransformStepContext = {
 		// sourceNode is incorrect now - what to do here?
 		fromNode: sourceNode,
+		includeBlockTaskItems: shouldApplyTargetNodeMarkChanges,
 		targetNodeTypeName,
 		schema,
 		targetAttrs,
 	};
-
-	const shouldApplyTargetNodeMarkChanges =
-		isExperimentEnabled('platform_editor_block_menu_small_text') &&
-		Boolean(marksToAdd || marksToRemove);
 
 	if (!shouldApplyTargetNodeMarkChanges) {
 		if (!steps || steps.length === 0) {

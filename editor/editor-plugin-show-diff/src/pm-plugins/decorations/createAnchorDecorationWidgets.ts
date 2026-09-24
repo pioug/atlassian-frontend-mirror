@@ -144,7 +144,10 @@ const getEdgeCasesForSlice = (
 	const targets: EdgeCase[] = [];
 	// edge cases can only be top level nodes, so we only care about the top level nodes in the slice
 	slice.content.forEach((node, offset) => {
-		const edgeCase = edgeCases(doc, from + offset, node);
+		// the node can be outside the doc if we have a sliceOverride which adds additional new content
+		// but we still need to the edgeCases to resolve a node in the doc to attach the widget to
+		// and we use the provided measureElement to make sure it is in the right position
+		const edgeCase = edgeCases(doc, Math.min(from + offset, doc.content.size - 1), node);
 		if (edgeCase) {
 			targets.push({ ...edgeCase, measureElement });
 		}

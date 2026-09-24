@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 21.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.0
+
+### Minor Changes
+
+- [`d13ba24ba86e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d13ba24ba86e8) -
+  Add optional editorViewMode dependency and hide the block control quick insert button in view mode
+  when platform_editor_block_control_migration is enabled
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.11
 
 ### Patch Changes

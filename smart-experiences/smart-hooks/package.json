@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-hooks",
-	"version": "2.6.0",
+	"version": "2.6.1",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

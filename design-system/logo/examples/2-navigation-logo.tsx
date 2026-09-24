@@ -30,6 +30,7 @@ import {
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
+import { ArtifactsIcon } from '@atlaskit/logo/artifacts/icon';
 import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
@@ -42,6 +43,7 @@ const logoOptions = [
 	AtlassianIcon,
 	AdminIcon,
 	AnalyticsIcon,
+	ArtifactsIcon,
 	AlignIcon,
 	BitbucketIcon,
 	CompassIcon,

@@ -30,7 +30,6 @@ import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import { messages } from '@atlaskit/media-ui/messages';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -106,11 +105,7 @@ export const downloadMedia = async (
 				collectionName: collection,
 			});
 			let fileName = fileState.status === 'error' ? undefined : fileState.name;
-			if (
-				!fileName &&
-				expValEquals('platform_editor_media_download_fallback_name', 'isEnabled', true) &&
-				mediaPluginState.mediaOptions?.fallbackMediaNameFetcher
-			) {
+			if (!fileName && mediaPluginState.mediaOptions?.fallbackMediaNameFetcher) {
 				const fetched = await mediaPluginState.mediaOptions
 					.fallbackMediaNameFetcher(id)
 					.catch(() => undefined);

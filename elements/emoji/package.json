@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "72.4.17",
+	"version": "72.4.22",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

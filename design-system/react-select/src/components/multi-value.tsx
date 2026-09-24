@@ -14,7 +14,6 @@ import {
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
 import type { UseMotionResult } from '@atlaskit/motion/entering/use-motion';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tag from '@atlaskit/tag/removable-tag';
 import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
 import { token } from '@atlaskit/tokens';
@@ -177,7 +176,6 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 	const { Container, Label, Remove } = components;
 	const labelText = getMultiValueLabelText(children, data);
 	const isPlainLabel = typeof children === 'string';
-	const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 	const isEnteringWithMotion = motionState === 'entering';
 	const isExitingWithMotion = motionState === 'exiting';
 	const isWidthAnimating = isEnteringWithMotion || isExitingWithMotion;
@@ -216,13 +214,7 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 	const hasCustomContainerStyles =
 		hasCustomMultiValueStyles || hasCustomMultiValueClassNames || hasOverriddenGetStyles;
 
-	if (
-		ffTagUplifts &&
-		isPlainLabel &&
-		!hasCustomLabel &&
-		!hasCustomContainer &&
-		!hasCustomContainerStyles
-	) {
+	if (isPlainLabel && !hasCustomLabel && !hasCustomContainer && !hasCustomContainerStyles) {
 		const { elemBefore, color: tagColor } = (data ?? {}) as {
 			elemBefore?: ReactNode;
 			color?: NewTagColor;
@@ -232,6 +224,12 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 			<div
 				css={multiValueTagWrapperStyles.root}
 				{...innerProps}
+				role="presentation"
+				onMouseDown={(event) => {
+					if (event.target instanceof Element && event.target.closest('button')) {
+						removeProps.onMouseDown?.(event);
+					}
+				}}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 				className={cx(props.className as any, containerClassName, props.xcss, '-multiValue')}
 			>
@@ -251,8 +249,8 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 		);
 	}
 
-	// FF on + custom content → tag-like path
-	if (ffTagUplifts && !hasCustomContainer) {
+	// tag-like path for custom content
+	if (!hasCustomContainer) {
 		const colorKey = (data as { color?: string })?.color;
 
 		return (
@@ -398,7 +396,6 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	// The standard Tag already owns its width and truncation motion. Tag-like custom values do not,
 	// so they continue through MultiValueMotion below.
 	const hasSelfManagedTagMotion =
-		fg('platform-dst-lozenge-tag-badge-visual-uplifts') &&
 		typeof props.children === 'string' &&
 		Label === MultiValueLabel &&
 		Container === DefaultMultiValueContainer &&

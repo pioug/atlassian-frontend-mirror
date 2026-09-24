@@ -31,7 +31,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
 	cc_fd_db_top_editor_toolbar: 'control',
 	platform_editor_paste_actions_menu_v2: 'control',
-	cc_smarts_should_improve_writing_migration: 'control',
 	confluence_quick_insert_embeds: 'control',
 	cc_cwr_prompt_strength_indicator: 'control',
 	confluence_cwr_3p_connection_suggested_prompts: 'control',
@@ -74,5 +73,4 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	cc_page_experiences_editor_image_generation: false,
 	platform_use_unicode_emojis: false,
 	platform_editor_emoji_hover_show_tooltip: false,
-	'aifc-confluence-editor-csp-fix': false,
 };

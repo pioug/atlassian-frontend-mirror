@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "5.7.1",
+	"version": "6.0.0",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,6 @@
 		"./client": "./src/client/index.ts",
 		"./context": "./src/state/context/index.tsx",
 		"./editor": "./src/editor/index.ts",
-		"./provider": "./src/provider.tsx",
 		"./responses": "./src/client/types/responses.ts",
 		"./types": "./src/state/context/types.ts",
 		"./linking-common": "./src/linking-common.ts",
@@ -47,7 +46,8 @@
 		"./smart-card-provider": "./src/smart-card-provider.tsx",
 		"./smart-card-external-auth-event": "./src/smart-card-external-auth-event.ts",
 		"./use-smart-card-context": "./src/state/context/useSmartCardContext.tsx",
-		"./use-smart-link-context": "./src/state/context/useSmartLinkContext.tsx"
+		"./use-smart-link-context": "./src/state/context/useSmartLinkContext.tsx",
+		"./provider": "./src/provider.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",

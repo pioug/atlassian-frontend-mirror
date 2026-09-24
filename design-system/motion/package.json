@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "8.8.1",
+	"version": "9.0.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,10 +17,8 @@
 	],
 	"exports": {
 		".": "./src/index.tsx",
-		"./accessibility": "./src/entry-points/accessibility.tsx",
 		"./animate-in": "./src/entering/animate-in.tsx",
 		"./curves": "./src/utils/curves.tsx",
-		"./durations": "./src/entry-points/durations.tsx",
 		"./entering/motion": "./src/entering/motion.tsx",
 		"./entering/types": "./src/entering/types.tsx",
 		"./entering/use-motion": "./src/entering/use-motion.tsx",
@@ -29,25 +27,26 @@
 		"./exiting-persistence/use-staggered-entrance": "./src/entering/use-staggered-entrance.tsx",
 		"./exiting-persistence": "./src/entering/exiting-persistence.tsx",
 		"./fade-in": "./src/entering/fade-in.tsx",
-		"./height": "./src/entry-points/height.tsx",
 		"./is-reduced-motion": "./src/utils/is-reduced-motion.tsx",
-		"./motion": "./src/entry-points/motion.tsx",
 		"./reanimate": "./src/entering/reanimate.tsx",
 		"./reduce-motion-as-per-user-preference": "./src/utils/reduce-motion-as-per-user-preference.tsx",
 		"./resizing/height": "./src/resizing/height.tsx",
 		"./resizing/resizing": "./src/resizing/resizing.tsx",
-		"./resizing": "./src/entry-points/resizing.tsx",
 		"./shrink-out": "./src/entering/shrink-out.tsx",
 		"./slide-in": "./src/entering/slide-in.tsx",
 		"./staggered-entrance": "./src/entering/staggered-entrance.tsx",
 		"./types": "./src/entry-points/types.tsx",
 		"./use-is-reduced-motion": "./src/utils/use-is-reduced-motion.tsx",
-		"./use-motion": "./src/entry-points/use-motion.tsx",
 		"./use-resizing": "./src/resizing/use-resizing.tsx",
 		"./use-resizing-height": "./src/resizing/use-resizing-height.tsx",
 		"./utils/accessibility": "./src/utils/accessibility.tsx",
 		"./utils/durations": "./src/utils/durations.tsx",
-		"./zoom-in": "./src/entering/zoom-in.tsx"
+		"./zoom-in": "./src/entering/zoom-in.tsx",
+		"./use-motion": "./src/entry-points/use-motion.tsx",
+		"./accessibility": "./src/entry-points/accessibility.tsx",
+		"./durations": "./src/entry-points/durations.tsx",
+		"./height": "./src/entry-points/height.tsx",
+		"./resizing": "./src/entry-points/resizing.tsx"
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
@@ -171,6 +170,10 @@
 	],
 	"homepage": "https://atlassian.design/components/motion/",
 	"platform-feature-flags": {
+		"platform-dst-motion-uplift-labels": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform-dst-motion-uplift": {
 			"type": "boolean"
 		},

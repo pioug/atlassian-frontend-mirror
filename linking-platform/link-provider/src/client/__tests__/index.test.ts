@@ -8,7 +8,7 @@ import type { ErrorType } from '@atlaskit/linking-common/api/errors';
 import { InvalidUrlError } from '@atlaskit/linking-common/invalid-url-error';
 import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { flushPromises } from '@atlaskit/media-test-helpers/flushPromises';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import SmartCardClient, { urlResponsePromiseCache } from '..';
@@ -564,58 +564,101 @@ describe('Smart Card: Client', () => {
 			});
 		});
 
-		it.each([
-			['inline before block', ['inline', 'block'] as const],
-			['block before inline', ['block', 'inline'] as const],
-		])('should preserve concurrent appearance payloads when batching %s', async (_name, order) => {
-			passGate('platform_smartlink_inline_resolve_optimization');
-			const inlineBody = {
-				...mocks.success,
-				data: { ...mocks.success.data, name: 'Inline response' },
-			};
-			const blockBody = {
-				...mocks.success,
-				data: { ...mocks.success.data, name: 'Block response' },
-			};
-			mockRequest.mockImplementationOnce(async (_method, _url, resources) =>
-				resources.map(({ appearance }: { appearance: 'block' | 'inline' }) => ({
-					status: 200,
-					body: appearance === 'inline' ? inlineBody : blockBody,
-				})),
-			);
-			const client = new SmartCardClient();
-			const resourceUrl = 'https://i.love.cheese/concurrent';
+		describe('when platform_smartlink_inline_resolve_optimization is enabled', () => {
+			beforeEach(() => {
+				passGate('platform_smartlink_inline_resolve_optimization');
+			});
 
-			const responses = await Promise.all(
-				order.map((appearance) =>
-					client.fetchData(resourceUrl, appearance === 'block', appearance),
-				),
-			);
-			const responsesByAppearance = Object.fromEntries(
-				order.map((appearance, index) => [appearance, responses[index]]),
-			);
+			it.each([
+				['inline before block', ['inline', 'block'] as const],
+				['block before inline', ['block', 'inline'] as const],
+			])(
+				'should preserve concurrent appearance payloads when batching %s',
+				async (_name, order) => {
+					const inlineBody = {
+						...mocks.success,
+						data: { ...mocks.success.data, name: 'Inline response' },
+					};
+					const blockBody = {
+						...mocks.success,
+						data: { ...mocks.success.data, name: 'Block response' },
+					};
+					mockRequest.mockImplementationOnce(async (_method, _url, resources) =>
+						resources.map(({ appearance }: { appearance: 'block' | 'inline' }) => ({
+							status: 200,
+							body: appearance === 'inline' ? inlineBody : blockBody,
+						})),
+					);
+					const client = new SmartCardClient();
+					const resourceUrl = 'https://i.love.cheese/concurrent';
 
-			expect(mockRequest).toHaveBeenCalledTimes(1);
-			expect(mockRequest).toHaveBeenCalledWith(
-				'post',
-				expectedDefaultResolveBatchUrl,
-				expect.arrayContaining([
-					{
-						resourceUrl,
-						ignoreCachedValue: undefined,
-						appearance: 'inline',
-					},
-					{
-						resourceUrl,
-						ignoreCachedValue: true,
-						appearance: 'block',
-					},
-				]),
-				expect.anything(),
+					const responses = await Promise.all(
+						order.map((appearance) => client.fetchData(resourceUrl, false, appearance)),
+					);
+					const responsesByAppearance = Object.fromEntries(
+						order.map((appearance, index) => [appearance, responses[index]]),
+					);
+
+					expect(mockRequest).toHaveBeenCalledTimes(1);
+					expect(mockRequest).toHaveBeenCalledWith(
+						'post',
+						expectedDefaultResolveBatchUrl,
+						expect.arrayContaining([
+							{
+								resourceUrl,
+								ignoreCachedValue: undefined,
+								appearance: 'inline',
+							},
+							{
+								resourceUrl,
+								ignoreCachedValue: undefined,
+								appearance: 'block',
+							},
+						]),
+						expect.anything(),
+					);
+					expect(mockRequest.mock.calls[0][2]).toHaveLength(2);
+					expect(responsesByAppearance.inline).toBe(inlineBody);
+					expect(responsesByAppearance.block).toBe(blockBody);
+				},
 			);
-			expect(mockRequest.mock.calls[0][2]).toHaveLength(2);
-			expect(responsesByAppearance.inline).toBe(inlineBody);
-			expect(responsesByAppearance.block).toBe(blockBody);
+		});
+
+		describe('when platform_smartlink_inline_resolve_optimization is disabled', () => {
+			beforeEach(() => {
+				failGate('platform_smartlink_inline_resolve_optimization');
+			});
+
+			it.each([
+				['inline before block', ['inline', 'block'] as const],
+				['block before inline', ['block', 'inline'] as const],
+			])('should preserve legacy URL-only caching when batching %s', async (_name, order) => {
+				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+				const client = new SmartCardClient();
+				const resourceUrl = 'https://i.love.cheese/concurrent-legacy';
+
+				const responses = await Promise.all(
+					order.map((appearance) => client.fetchData(resourceUrl, false, appearance)),
+				);
+				const responsesByAppearance = Object.fromEntries(
+					order.map((appearance, index) => [appearance, responses[index]]),
+				);
+
+				expect(mockRequest).toHaveBeenCalledTimes(1);
+				expect(mockRequest).toHaveBeenCalledWith(
+					'post',
+					expectedDefaultResolveBatchUrl,
+					[
+						{
+							resourceUrl,
+							ignoreCachedValue: undefined,
+						},
+					],
+					expect.anything(),
+				);
+				expect(responsesByAppearance.inline).toBe(mocks.success);
+				expect(responsesByAppearance.block).toBe(mocks.success);
+			});
 		});
 
 		it('should reuse an optimized block request that is already in progress', async () => {

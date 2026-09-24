@@ -214,7 +214,11 @@ const ExitingPersistence: React.MemoExoticComponent<
 	const current = childrenToArray(currentChildren);
 
 	if (currentChildren !== children) {
-		setChildren([currentChildren as any, children]);
+		// Parent updates can rerender this boundary before its children finish exiting. Keep
+		// the previous children until their onFinish callbacks release them.
+		const hasPendingExit =
+			fg('platform-dst-motion-uplift-labels') && getMissingKeys(current, previous).size > 0;
+		setChildren([hasPendingExit ? previousChildren : (currentChildren as any), children]);
 	}
 
 	const nextChildren = currentChildren !== children ? childrenToArray(children) : current;
@@ -242,6 +246,11 @@ const ExitingPersistence: React.MemoExoticComponent<
 	if (missingKeys.size) {
 		visibleChildren = visibleChildren.map((child) => {
 			const isExiting = missingKeys.has(child.key);
+			// Retained exits can span several parent renders. Unchanged siblings should
+			// keep their context identity instead of receiving redundant updates.
+			if (fg('platform-dst-motion-uplift-labels') && !isExiting) {
+				return wrapChildWithContextProvider(child, defaultContext);
+			}
 			return wrapChildWithContextProvider(child, {
 				appear: true,
 				isInsideExitingPersistence: true,

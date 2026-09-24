@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "4.10.0",
+	"version": "4.10.1",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -23,14 +23,12 @@
 		".": "./src/index.tsx",
 		"./accessibility": "./src/accessibility/index.tsx",
 		"./async/default": "./src/async.tsx",
-		"./async": "./src/entry-points/async.tsx",
 		"./async-creatable": "./src/async-creatable.tsx",
 		"./base": "./src/select.tsx",
 		"./clear-indicator": "./src/components/indicators/clear-indicator.tsx",
 		"./components": "./src/components/index.tsx",
 		"./control": "./src/components/control.tsx",
 		"./creatable/default": "./src/creatable.tsx",
-		"./creatable": "./src/entry-points/creatable.tsx",
 		"./dropdown-indicator": "./src/components/indicators/dropdown-indicator.tsx",
 		"./filters": "./src/filters.tsx",
 		"./group": "./src/components/group.tsx",
@@ -53,7 +51,9 @@
 		"./use-async": "./src/use-async.tsx",
 		"./use-creatable": "./src/use-creatable.tsx",
 		"./use-state-manager": "./src/use-state-manager.tsx",
-		"./value-container": "./src/components/containers/value-container.tsx"
+		"./value-container": "./src/components/containers/value-container.tsx",
+		"./async": "./src/entry-points/async.tsx",
+		"./creatable": "./src/entry-points/creatable.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",
@@ -114,9 +114,6 @@
 			"type": "boolean"
 		},
 		"select_issearchable_aria-readonly_fix": {
-			"type": "boolean"
-		},
-		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-labels": {

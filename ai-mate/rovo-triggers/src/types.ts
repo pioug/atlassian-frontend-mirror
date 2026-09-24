@@ -1125,6 +1125,11 @@ export type ConfluenceContentFinalizedPayload = PayloadCore<
 		 * Content ids are unique across sites, so subscribers match on this alone.
 		 */
 		contentIds: string[];
+		/**
+		 * The final destination returned after Convo AI resolves a finalized page.
+		 * Present when the destination-ready finalized-content gate is enabled.
+		 */
+		finalizedDestination?: { baseUrl: string; path: string };
 	}
 > & {
 	/** Never opens chat — internal signal only. */

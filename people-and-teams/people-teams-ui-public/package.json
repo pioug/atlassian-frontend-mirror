@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/people-teams-ui-public",
-	"version": "5.2.3",
+	"version": "5.2.4",
 	"description": "UI components for public packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,8 +33,8 @@
 	"exports": {
 		"./analytics-subcontext/store": "./src/common/utils/analytics/analytics-subcontext/store.ts",
 		"./analytics/hooks": "./src/common/utils/analytics/hooks.tsx",
-		"./analytics": "./src/common/utils/analytics/index.ts",
 		"./verified-team-icon/main": "./src/ui/verified-team-icon/main.tsx",
+		"./analytics": "./src/common/utils/analytics/index.ts",
 		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
 	},
 	"scripts": {

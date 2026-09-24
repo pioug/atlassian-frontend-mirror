@@ -1,5 +1,43 @@
 # @atlaskit/profilecard
 
+## 27.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.0
+
+### Major Changes
+
+- [`0c7c7be927bde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c7c7be927bde) -
+  Remove deprecated Volt re-export shims from public package entry points. Consumers should import
+  from the replacement subpaths or implementation entry points instead.
+
+### Patch Changes
+
+- [`00fad91fb24eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00fad91fb24eb) -
+  Add gated agent duplication permission support and hide unauthorized duplicate actions.
+- Updated dependencies
+
+## 26.25.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.25.1
 
 ### Patch Changes

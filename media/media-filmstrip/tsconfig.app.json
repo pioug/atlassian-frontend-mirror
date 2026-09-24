@@ -1,7 +1,10 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -25,8 +28,15 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
-		"./example-helpers/**/*"
+		"./example-helpers/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-filmstrip/app",
@@ -34,7 +44,16 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{
 			"path": "../media-card/tsconfig.app.json"
@@ -52,16 +71,34 @@
 			"path": "../media-core/tsconfig.app.json"
 		},
 		{
+			"path": "../media-test-data/tsconfig.app.json"
+		},
+		{
+			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../media-viewer/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/radio/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/range/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

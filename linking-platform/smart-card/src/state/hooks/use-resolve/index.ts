@@ -30,8 +30,10 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 	return useCallback(
 		async (params: ResolveUrlParams) => {
 			const { url, isReloading = false, isMetadataRequest = false, id = '', appearance } = params;
-			const isOptimizedBlockRequest =
-				appearance === 'block' && fg('platform_smartlink_inline_resolve_optimization');
+			const isInlineResolveOptimizationEnabled = fg(
+				'platform_smartlink_inline_resolve_optimization',
+			);
+			const isOptimizedBlockRequest = appearance === 'block' && isInlineResolveOptimizationEnabled;
 
 			const { details, metadataStatus: currentMetadataStatus } =
 				getState()[url] ||
@@ -45,14 +47,15 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 				isOptimizedBlockRequest && currentMetadataStatus !== 'resolved';
 
 			if (isReloading || !hasData || isMetadataRequest || needsOptimizedBlockData) {
-				// A reduced inline response can populate the shared resolver cache before an initial
-				// block request completes. Bypass that cache until full metadata has been resolved,
-				// then reuse the full block response for subsequent block cards with the same URL.
-				const shouldForceFetch = isReloading || needsOptimizedBlockData;
+				// ORS caches each appearance separately, so optimized block requests can reuse the
+				// block cache. Preserve the existing replacement decision so a cached full response
+				// still replaces any reduced inline data already in the store.
+				const shouldReplaceExistingData = isReloading || needsOptimizedBlockData;
+				const shouldForceFetch = isInlineResolveOptimizationEnabled
+					? isReloading
+					: shouldReplaceExistingData;
 				const metadataStatus =
-					appearance === 'inline' &&
-					!isMetadataRequest &&
-					fg('platform_smartlink_inline_resolve_optimization')
+					appearance === 'inline' && !isMetadataRequest && isInlineResolveOptimizationEnabled
 						? 'pending'
 						: undefined;
 
@@ -62,7 +65,7 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 						handleResolvedLinkResponse(
 							url,
 							response,
-							shouldForceFetch,
+							shouldReplaceExistingData,
 							isMetadataRequest,
 							metadataStatus,
 						),

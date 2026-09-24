@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { Fragment, useState, useRef, useEffect } from 'react';
 
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
@@ -35,6 +35,11 @@ const actionButtonContainerStyles = xcss({
 	paddingTop: 'space.200',
 });
 
+// Without the replace field above it, the button row needs no separating space.
+const findOnlyActionButtonContainerStyles = xcss({
+	paddingTop: 'space.0',
+});
+
 const actionButtonParentInlineStyles = xcss({
 	justifyContent: 'space-between',
 	flexDirection: 'row-reverse',
@@ -51,6 +56,12 @@ const closeButtonInlineStyles = xcss({
 });
 
 export type ReplaceProps = {
+	/**
+	 * When `false`, the replace label, field, replacement count message and both
+	 * replace buttons are not rendered. Both chevrons and the Close button stay.
+	 * Defaults to `true`.
+	 */
+	allowReplace?: boolean;
 	canReplace: boolean;
 	count: {
 		index: number;
@@ -90,6 +101,7 @@ export type ReplaceProps = {
 };
 
 const Replace = ({
+	allowReplace = true,
 	canReplace,
 	replaceText: initialReplaceText,
 	onReplace,
@@ -228,34 +240,43 @@ const Replace = ({
 
 	return (
 		<Box xcss={replaceContainerStyles}>
-			<Box xcss={replaceWithLabelStyle}>
-				<Text id="replace-text-field-label" size="medium" weight="bold" color="color.text.subtle">
-					{replaceWith}
-				</Text>
-			</Box>
-			<Textfield
-				name="replace"
-				aria-labelledby="replace-text-field-label"
-				testId="replace-field"
-				appearance="standard"
-				defaultValue={replaceText}
-				ref={replaceTextfieldRef}
-				autoComplete="off"
-				onChange={handleReplaceChange}
-				onKeyDown={handleReplaceKeyDown}
-				onCompositionStart={handleCompositionStart}
-				onCompositionEnd={handleCompositionEnd}
-			/>
-			{isHelperMessageVisible && !findTyped && (
-				<div ref={successReplacementMessageRef}>
-					<ValidMessage testId="message-success-replacement">
-						{fakeSuccessReplacementMessageUpdate
-							? resultsReplace.replace(SPACE_REGEX, '\u00a0')
-							: resultsReplace}
-					</ValidMessage>
-				</div>
+			{allowReplace && (
+				<Fragment>
+					<Box xcss={replaceWithLabelStyle}>
+						<Text
+							id="replace-text-field-label"
+							size="medium"
+							weight="bold"
+							color="color.text.subtle"
+						>
+							{replaceWith}
+						</Text>
+					</Box>
+					<Textfield
+						name="replace"
+						aria-labelledby="replace-text-field-label"
+						testId="replace-field"
+						appearance="standard"
+						defaultValue={replaceText}
+						ref={replaceTextfieldRef}
+						autoComplete="off"
+						onChange={handleReplaceChange}
+						onKeyDown={handleReplaceKeyDown}
+						onCompositionStart={handleCompositionStart}
+						onCompositionEnd={handleCompositionEnd}
+					/>
+					{isHelperMessageVisible && !findTyped && (
+						<div ref={successReplacementMessageRef}>
+							<ValidMessage testId="message-success-replacement">
+								{fakeSuccessReplacementMessageUpdate
+									? resultsReplace.replace(SPACE_REGEX, '\u00a0')
+									: resultsReplace}
+							</ValidMessage>
+						</div>
+					)}
+				</Fragment>
 			)}
-			<Box xcss={actionButtonContainerStyles}>
+			<Box xcss={allowReplace ? actionButtonContainerStyles : findOnlyActionButtonContainerStyles}>
 				<Inline xcss={actionButtonParentInlineStyles}>
 					<Inline xcss={actionButtonInlineStyles}>
 						<FindReplaceTooltipButton
@@ -276,23 +297,27 @@ const Replace = ({
 							onClick={handleFindPrevClick}
 							disabled={count.total <= 1}
 						/>
-						<Button
-							testId={'Replace'}
-							id="replace-button"
-							onClick={handleReplaceClick}
-							isDisabled={!canReplace}
-						>
-							{formatMessage(messages.replace)}
-						</Button>
-						<Button
-							appearance="primary"
-							testId={replaceAll}
-							id="replaceAll-button"
-							onClick={handleReplaceAllClick}
-							isDisabled={count.totalReplaceable === 0}
-						>
-							{replaceAll}
-						</Button>
+						{allowReplace && (
+							<Fragment>
+								<Button
+									testId={'Replace'}
+									id="replace-button"
+									onClick={handleReplaceClick}
+									isDisabled={!canReplace}
+								>
+									{formatMessage(messages.replace)}
+								</Button>
+								<Button
+									appearance="primary"
+									testId={replaceAll}
+									id="replaceAll-button"
+									onClick={handleReplaceAllClick}
+									isDisabled={count.totalReplaceable === 0}
+								>
+									{replaceAll}
+								</Button>
+							</Fragment>
+						)}
 					</Inline>
 					<Inline xcss={closeButtonInlineStyles}>
 						<Button appearance="subtle" testId={closeFindReplaceDialog} onClick={clearSearch}>

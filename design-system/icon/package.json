@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "37.7.3",
+	"version": "38.0.1",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -100,9 +100,7 @@
 	"homepage": "https://atlassian.design/components/icon/",
 	"exports": {
 		".": "./src/index.tsx",
-		"./base-new": "./src/entry-points/base-new.tsx",
 		"./components/icon-new": "./src/components/icon-new.tsx",
-		"./constants": "./src/entry-points/constants.tsx",
 		"./core": "./core",
 		"./core/*": {
 			"types": "./core/*.d.ts",
@@ -110,12 +108,12 @@
 		},
 		"./deprecated-core": "./src/deprecated-core.tsx",
 		"./deprecated-map": "./src/deprecated-core.tsx",
-		"./icon-new": "./src/entry-points/icon-new.tsx",
 		"./icon-tile": "./src/components/icon-tile/index.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./metadata-core": "./src/metadata-core.tsx",
 		"./skeleton": "./src/components/skeleton.tsx",
 		"./constants/default": "./src/constants.tsx",
-		"./types": "./src/types.tsx"
+		"./types": "./src/types.tsx",
+		"./base-new": "./src/entry-points/base-new.tsx"
 	}
 }

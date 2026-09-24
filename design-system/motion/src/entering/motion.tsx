@@ -409,7 +409,3 @@ const Motion: React.ForwardRefExoticComponent<
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Motion;
-/**
- * @deprecated Import from the generated per-export subpath instead.
- */
-export { Reanimate } from './reanimate';

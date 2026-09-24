@@ -51,11 +51,6 @@ const spanSkeletonBackgroundStyleMap = cssMap({
 	},
 });
 
-/**
- * @deprecated Use `import { SpanSkeleton } from '@atlaskit/linking-common/span-skeleton'` instead.
- */
-export { SpanSkeleton } from './span-skeleton';
-
 export const Skeleton = ({
 	width,
 	appearance = 'gray',

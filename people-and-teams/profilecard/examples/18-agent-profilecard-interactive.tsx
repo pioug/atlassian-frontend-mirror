@@ -53,6 +53,7 @@ fetchMock.mock(
 		body: JSON.stringify({
 			permissions: {
 				AGENT_CREATE: { permitted: true },
+				AGENT_DUPLICATE: { permitted: true },
 				AGENT_UPDATE: { permitted: true },
 				AGENT_DEACTIVATE: { permitted: true },
 			},

@@ -39,6 +39,9 @@ fetchMock.mock('end:/assist/api/rovo/v2/permissions/agents/965df475-d134-43ac-8e
 			AGENT_CREATE: {
 				permitted: true,
 			},
+			AGENT_DUPLICATE: {
+				permitted: true,
+			},
 			AGENT_UPDATE: {
 				permitted: true,
 			},

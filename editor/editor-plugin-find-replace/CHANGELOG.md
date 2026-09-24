@@ -1,5 +1,46 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 21.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.0
+
+### Minor Changes
+
+- [`111eaadd44c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/111eaadd44c1c) -
+  EDITOR-8995: Make the editor find dialog usable in live view. The find dialog now accepts an
+  `allowReplace` prop, and hides the replace label, field, replacement count message, both replace
+  buttons and the horizontal rule when it is false. It also names the dialog "Find" instead of "Find
+  and Replace" in that state. The find plugin derives `allowReplace` from the `editorViewMode`
+  shared state, so view mode never offers replace. A new ProseMirror plugin opens the dialog on
+  `Mod-f` in view mode, where no keymap fires, behind the `platform_editor_collapsible_headings`
+  experiment. The `activated` analytics event gains an `editorViewMode` attribute.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.6
 
 ### Patch Changes

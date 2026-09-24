@@ -1321,14 +1321,9 @@ const editorContentStyles = cssMapScoped({
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			fontSize: '0.875em',
 			fontWeight: token('font.weight.regular'),
-			overflow: 'auto',
+			overflow: 'unset',
 			overflowWrap: 'break-word',
 			whiteSpace: 'pre-wrap',
-		},
-	},
-	codeMarkStylesA11yFix: {
-		'.code': {
-			overflow: 'unset',
 		},
 	},
 	commentEditorStyles: {
@@ -5763,163 +5758,6 @@ const editorContentStyles = cssMapScoped({
 			// --- OFF cohort: pre-refactor rules, restored verbatim ---
 			'&.show-diff-deleted-node .loader-wrapper > div::after': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.gray')})`,
-				borderColor: 'transparent',
-			},
-			'&.show-diff-deleted-node-traditional .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
-				borderColor: 'transparent',
-			},
-			'&.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .loader-wrapper > div::after':
-				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					boxShadow: `0 0 0 4px var(--diff-delete-color-new, ${token('color.background.accent.red.subtlest')})`,
-					borderColor: 'transparent',
-				},
-			'&.show-diff-deleted-node-traditional.show-diff-deleted-active .loader-wrapper > div::after':
-				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
-					borderColor: 'transparent',
-				},
-			'&.show-diff-deleted-node.show-diff-deleted-active .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
-				borderColor: 'transparent',
-			},
-			'&.show-diff-deleted-node .loader-wrapper': {
-				opacity: 0.6,
-			},
-
-			// --- ON cohort ---
-			'&.show-diff-deleted-node-vars .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color)`,
-				borderColor: 'transparent',
-			},
-			// Only schemes with a resting ring get `-outline-new`, so this is traditional-only in practice.
-			'&.show-diff-deleted-node-vars.show-diff-deleted-outline-new .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-new)`,
-				borderColor: 'transparent',
-			},
-			'&.show-diff-deleted-node-vars.show-diff-deleted-active .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-active)`,
-				borderColor: 'transparent',
-			},
-			'&.show-diff-deleted-node-vars .loader-wrapper': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				opacity: `var(--diff-delete-opacity, 0.6)`,
-			},
-		},
-		// --- OFF cohort: pre-refactor rules, restored verbatim ---
-		'.show-diff-deleted-node .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.gray')})`,
-				borderRadius: token('radius.small'),
-				opacity: 0.6,
-			},
-		},
-		'.show-diff-deleted-node-traditional .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
-				borderRadius: token('radius.small'),
-			},
-		},
-		'.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-new, ${token('color.background.accent.red.subtlest')})`,
-				borderRadius: token('radius.small'),
-			},
-		},
-		'.show-diff-deleted-node-traditional.show-diff-deleted-active .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
-				borderRadius: token('radius.small'),
-			},
-		},
-		'.show-diff-deleted-node.show-diff-deleted-active .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
-				borderRadius: token('radius.small'),
-				opacity: 0.6,
-			},
-		},
-		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node': {
-			textDecoration: 'line-through',
-		},
-		// Longhands, not the `text-decoration` shorthand: the shorthand resets
-		// `text-decoration-color`, and Compiled does not guarantee it lands before the longhand.
-		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-traditional': {
-			textDecorationColor: `var(--diff-delete-text-decoration-color, ${token('color.border.accent.red')})`,
-			textDecorationLine: 'line-through',
-		},
-		// Longhands, for the same reason as the blockquote rule above.
-		'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-traditional': {
-			textDecorationColor: `var(--diff-delete-text-decoration-color, ${token('color.border.accent.red')})`,
-			textDecorationLine: 'line-through',
-		},
-
-		// --- ON cohort ---
-		'.show-diff-deleted-node-vars .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color)`,
-				borderRadius: token('radius.small'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				opacity: `var(--diff-delete-opacity, 0.6)`,
-			},
-		},
-		'.show-diff-deleted-node-vars.show-diff-deleted-outline-new .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-new)`,
-				borderRadius: token('radius.small'),
-			},
-		},
-		'.show-diff-deleted-node-vars.show-diff-deleted-active .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-active)`,
-				borderRadius: token('radius.small'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				opacity: `var(--diff-delete-opacity, 0.6)`,
-			},
-		},
-		// Both schemes strike deleted blockquotes; only the colour differs. The variable is emitted
-		// for `stateful` (traditional) only, so standard falls through to `currentColor` — what it
-		// painted before. Longhands, not the shorthand, which would reset the colour.
-		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-vars': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			textDecorationColor: `var(--diff-delete-text-decoration-color, currentColor)`,
-			textDecorationLine: 'line-through',
-		},
-		// Standard draws no strike on deleted embedCards, so the line itself is scheme-driven:
-		// `--diff-delete-embed-strike-line` is `line-through` for traditional, `none` for standard.
-		'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-vars': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			textDecorationColor: `var(--diff-delete-text-decoration-color, currentColor)`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			textDecorationLine: `var(--diff-delete-embed-strike-line)`,
-		},
-	},
-	// The a11y-fixes variant of `showDiffDeletedNodeStyles`; same two-cohort split — see its note.
-	showDiffDeletedNodeStylesNew: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
-		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
-		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
-		'.embedCardView-content-wrap': {
-			// --- OFF cohort: pre-refactor rules, restored verbatim ---
-			'&.show-diff-deleted-node .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
 				borderColor: 'transparent',
 			},
@@ -8678,8 +8516,6 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.blocktypeStyles_fg_platform_editor_typography_ugc,
 				editorContentStyles.blocktypeStylesNestedDnd,
 				editorContentStyles.codeMarkStyles,
-				expValEquals('platform_editor_a11y_scrollable_region', 'isEnabled', true) &&
-					editorContentStyles.codeMarkStylesA11yFix,
 				editorContentStyles.textColorStyles,
 				editorContentStyles.backgroundColorStyles,
 				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
@@ -8695,9 +8531,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				isExperimentEnabled('platform_editor_lovability_dividers_attributes') &&
 					editorContentStyles.ruleWithAttrsStyles,
 				editorContentStyles.smartCardDiffStyles,
-				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-					? editorContentStyles.showDiffDeletedNodeStylesNew
-					: editorContentStyles.showDiffDeletedNodeStyles,
+				editorContentStyles.showDiffDeletedNodeStyles,
 				editorContentStyles.mediaStyles,
 				isExperimentEnabled('platform_editor_vanilla_node_views_phase1') &&
 					editorContentStyles.vanillaCaptionStyles,

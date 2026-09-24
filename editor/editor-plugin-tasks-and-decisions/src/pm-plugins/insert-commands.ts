@@ -24,7 +24,6 @@ import {
 	safeInsert,
 	setTextSelection,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type {
@@ -67,10 +66,6 @@ const generateAnalyticsPayload = (
 		({ containerId, objectId, userContext } = contextData);
 	}
 
-	const resolvedInputMethod = fg('platform_editor_element_browser_analytic')
-		? inputMethod
-		: INPUT_METHOD.QUICK_INSERT;
-
 	return {
 		action: ACTION.INSERTED,
 		actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -78,7 +73,7 @@ const generateAnalyticsPayload = (
 			listType === 'taskList' ? ACTION_SUBJECT_ID.ACTION : ACTION_SUBJECT_ID.DECISION,
 		eventType: EVENT_TYPE.TRACK,
 		attributes: {
-			inputMethod: resolvedInputMethod,
+			inputMethod,
 			containerAri: containerId,
 			objectAri: objectId,
 			userContext,

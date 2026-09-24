@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-content-format
 
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.0
 
 ### Patch Changes

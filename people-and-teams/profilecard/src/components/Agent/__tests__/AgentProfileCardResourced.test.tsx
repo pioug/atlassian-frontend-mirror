@@ -46,6 +46,7 @@ const createResourceClient = (): ProfileClient =>
 		getRovoAgentPermissions: jest.fn().mockResolvedValue({
 			permissions: {
 				AGENT_CREATE: { permitted: true },
+				AGENT_DUPLICATE: { permitted: true },
 				AGENT_UPDATE: { permitted: true },
 				AGENT_DEACTIVATE: { permitted: true },
 			},

@@ -2,10 +2,7 @@
 	"extends": "../../../tsconfig.base.json",
 	"include": [
 		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
-	"exclude": [
-		"**/*.docs.tsx",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -28,8 +25,15 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__prosemirror-input-rules/app",
@@ -37,7 +41,13 @@
 	},
 	"references": [
 		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-test-helpers/tsconfig.app.json"
 		},
 		{
 			"path": "../prosemirror-history/tsconfig.app.json"

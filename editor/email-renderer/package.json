@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/email-renderer",
-	"version": "10.2.2",
+	"version": "10.3.0",
 	"description": "Email renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,10 +17,12 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./apply-marks": "./src/entry-points/apply-marks.ts",
+		"./common": "./src/entry-points/common.ts",
 		"./create-tag": "./src/entry-points/create-tag.ts",
 		"./date-helper": "./src/entry-points/date-helper.ts",
 		"./escape-html-string": "./src/entry-points/escape-html-string.ts",
 		"./interfaces": "./src/entry-points/interfaces.ts",
+		"./main": "./src/entry-points/main.ts",
 		"./mark-serializers": "./src/entry-points/mark-serializers.ts",
 		"./media-util": "./src/entry-points/media-util.ts",
 		"./node-serializers": "./src/entry-points/node-serializers.ts",

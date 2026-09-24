@@ -1,5 +1,11 @@
 # @atlaskit/townsquare-emoji-provider
 
+## 2.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

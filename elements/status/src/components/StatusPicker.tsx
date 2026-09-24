@@ -44,7 +44,7 @@ const paletteWrapperStyles = css({
 	marginTop: token('space.100'),
 });
 
-const scrollHeightStyles = cssMap({
+const scrollHeightStylesOld = cssMap({
 	// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_2`.
 	scrolling: {
 		marginTop: token('space.050'),
@@ -54,6 +54,10 @@ const scrollHeightStyles = cssMap({
 	default: { maxHeight: '204px' },
 	extended: { maxHeight: '176px' },
 });
+
+// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`: `extended`
+// already always uses this value below, and `default` should too, unconditionally.
+const scrollHeightStyles = css({ maxHeight: '160px' });
 
 export interface Props {
 	autoFocus?: boolean;
@@ -114,7 +118,12 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 						<div css={paletteWrapperStyles}>{colorPalette}</div>
 						{scrollableContent ? (
 							<div
-								css={[scrollContainerStyles, scrollHeightStyles[palette ?? 'default']]}
+								css={[
+									scrollContainerStyles,
+									palette === 'extended' || fg('platform_editor_status_popup_suggestions_patch_3')
+										? scrollHeightStyles
+										: scrollHeightStylesOld[palette ?? 'default'],
+								]}
 								data-status-picker-scroll-container
 							>
 								{scrollableContent}
@@ -123,7 +132,7 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 					</React.Fragment>
 				) : scrollableContent ? (
 					<div
-						css={[scrollContainerStyles, scrollHeightStyles.scrolling]}
+						css={[scrollContainerStyles, scrollHeightStylesOld.scrolling]}
 						data-status-picker-scroll-container
 					>
 						{colorPalette}

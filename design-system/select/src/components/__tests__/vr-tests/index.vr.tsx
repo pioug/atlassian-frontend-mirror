@@ -15,6 +15,10 @@ snapshot(Basic, {
 			device: Device.MOBILE_CHROME,
 		},
 		{
+			name: 'mobile webkit',
+			device: Device.MOBILE_WEBKIT,
+		},
+		{
 			name: 'desktop chrome',
 			device: Device.DESKTOP_CHROME,
 		},
@@ -27,6 +31,10 @@ snapshot(ControlledGroup, {
 		{
 			name: 'mobile chrome',
 			device: Device.MOBILE_CHROME,
+		},
+		{
+			name: 'mobile webkit',
+			device: Device.MOBILE_WEBKIT,
 		},
 		{
 			name: 'desktop chrome',

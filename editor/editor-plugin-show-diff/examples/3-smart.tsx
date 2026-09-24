@@ -100,7 +100,6 @@ import type {
 //                                                no diff at all for mark-only changes (bold, links,
 //                                                colour). `smart` is unaffected — it takes the
 //                                                attr-aware encoder before this gate is read.
-// - `platform_editor_reduce_diff_attr_sensitivity` ... attribute-change sensitivity
 // - `platform_editor_ai_show_diff_patch_1` ..... diff correctness patch
 // - `platform_editor_diff_reveal_animation` .... the reveal, driven by the "Reveal" toggle
 // - `platform_editor_diff_hide_pure_deletions` . keeps delete-only changes out of the clean view,
@@ -114,7 +113,6 @@ setBooleanFeatureFlagResolver((flagKey) =>
 		'platform_editor_ai_smart_diff',
 		'platform_editor_ai_show_diff_patch_1',
 		'platform_editor_diff_inline_mark_changes',
-		'platform_editor_reduce_diff_attr_sensitivity',
 		'platform_editor_diff_reveal_animation',
 		'platform_editor_diff_hide_pure_deletions',
 	].includes(flagKey),

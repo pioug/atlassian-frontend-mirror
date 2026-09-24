@@ -8,6 +8,7 @@ import {
 	type ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -17,6 +18,7 @@ import { activateWithAnalytics } from './pm-plugins/commands-with-analytics';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { findReplacePluginKey } from './pm-plugins/plugin-key';
+import { viewModeShortcutPlugin } from './pm-plugins/view-mode-shortcut';
 import type { FindReplaceToolbarButtonActionProps } from './types';
 import FindReplaceDropDownOrToolbarButtonWithState from './ui/FindReplaceDropDownOrToolbarButtonWithState';
 
@@ -81,9 +83,19 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 				},
 				{
 					name: 'findReplaceKeymap',
-					plugin: () => keymapPlugin(api?.analytics?.actions),
+					plugin: () => keymapPlugin(api?.analytics?.actions, api?.editorViewMode),
 				},
 			];
+
+			if (
+				api?.editorViewMode &&
+				UNSAFE_expValNoExposure('platform_editor_collapsible_headings', 'isEnabled', false)
+			) {
+				plugins.push({
+					name: 'findReplaceViewModeShortcut',
+					plugin: () => viewModeShortcutPlugin(api),
+				});
+			}
 
 			if (editorExperiment('platform_editor_controls', 'variant1', { exposure: false })) {
 				plugins.push({
@@ -150,7 +162,10 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 				const { state, dispatch } = editorViewRef.current;
 
 				if (api?.analytics?.actions) {
-					activateWithAnalytics(api?.analytics?.actions)({
+					activateWithAnalytics(
+						api?.analytics?.actions,
+						api?.editorViewMode,
+					)({
 						triggerMethod: triggerMethod || TRIGGER_METHOD.EXTERNAL,
 					})(state, dispatch);
 				} else {

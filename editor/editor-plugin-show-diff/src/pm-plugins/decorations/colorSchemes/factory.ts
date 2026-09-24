@@ -1215,8 +1215,7 @@ export function buildDeletedInlineNodeCSSVariables(
  *
  * The three `stateful`-only variables are omitted for `static` (standard) so editor-core's fallback
  * wins, which is what standard rendered before:
- * - `--diff-delete-opacity` — the fallback is 0.6 or 0.8 depending on
- *   `platform_editor_enghealth_a11y_jan_fixes`, a split the scheme must not flatten.
+ * - `--diff-delete-opacity` — standard falls through to editor-core's 0.8 fallback.
  * - `--diff-delete-ring-width` — traditional's deleted media ring tracks the inherited marker ring
  *   width instead of a fixed 1px.
  * - `--diff-delete-text-decoration-color` — standard's blockquote strike must stay `currentColor`.

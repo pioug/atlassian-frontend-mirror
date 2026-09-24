@@ -3,8 +3,8 @@
  *
  * Shared types file for UI Kit components. Add shared types to `packages/forge/forge-ui/src/components/UIKit/types.ts` for it to be code generated here and imported correctly into prop type files
  *
- * @codegen <<SignedSource::458f427c84c874b70d06e22fe3e05fd6>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::b2b7a10e65886f5c4faaa035f364ca67>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/types.ts <<SignedSource::176a0f595b09d6501c2d9b64e6784672>>
  */
 // ---- Types for Form components

@@ -4,7 +4,6 @@ import React from 'react';
 
 import { breakoutConsts } from '@atlaskit/editor-common/utils';
 import type { BreakoutConstsType } from '@atlaskit/editor-common/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FullPagePadding } from './style';
 
@@ -22,7 +21,7 @@ declare global {
 export function BreakoutSSRInlineScript({
 	noOpSSRInlineScript,
 }: {
-	noOpSSRInlineScript: Boolean;
+	noOpSSRInlineScript: boolean;
 }): React.JSX.Element | null {
 	/**
 	 * Should only inline this script while SSR,
@@ -58,17 +57,10 @@ export function BreakoutSSRInlineScript({
 }
 
 export function createBreakoutInlineScript(id: number, shouldSkipScript: { table: boolean }) {
-	const flags = {
-		platform_editor_renderer_extension_width_fix: expValEquals(
-			'platform_editor_renderer_extension_width_fix',
-			'isEnabled',
-			true,
-		),
-	};
 	return `(function(window){
 if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) { return; }
 ${breakoutInlineScriptContext};
-(${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${JSON.stringify(shouldSkipScript)}, ${JSON.stringify(flags)});
+(${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${JSON.stringify(shouldSkipScript)});
 })(window);
 `;
 }
@@ -95,7 +87,6 @@ function applyBreakoutAfterSSR(
 	id: string,
 	breakoutConsts: BreakoutConstsType,
 	shouldSkipBreakoutScript: { table: boolean },
-	flags: Record<string, boolean>,
 ) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
@@ -153,7 +144,7 @@ function applyBreakoutAfterSSR(
 						!WIDE_LAYOUT_MODES.includes(mode) ||
 						// skip apply width styling to mediaSingle node with pixel width to avoid image size changing
 						isMediaSingleWithPixelWidth ||
-						(isExtension && flags['platform_editor_renderer_extension_width_fix'])
+						isExtension
 					) {
 						return;
 					}
@@ -217,12 +208,12 @@ function applyBreakoutAfterSSR(
 			) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				applyMediaBreakout(item.target as HTMLElement, flags);
+				applyMediaBreakout(item.target as HTMLElement);
 			}
 		});
 	});
 
-	const applyMediaBreakout = (card: HTMLElement, flags: Record<string, boolean>) => {
+	const applyMediaBreakout = (card: HTMLElement) => {
 		// width was already set by another breakout script
 		if (card.style.width) {
 			return;

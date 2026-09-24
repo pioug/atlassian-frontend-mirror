@@ -1,7 +1,10 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -26,14 +29,31 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./local-config-example.ts",
-		"./example-helpers/**/*"
+		"./example-helpers/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./*.ts"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__mention/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../search/search-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
 		{
 			"path": "../../analytics/analytics-gas-types/tsconfig.app.json"
 		},
@@ -47,6 +67,21 @@
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/editor-core/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/editor-plugins/tsconfig.app.json"
+		},
+		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/focus-ring/tsconfig.app.json"
 		},
 		{
@@ -54,6 +89,9 @@
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
@@ -77,6 +115,9 @@
 			"path": "../../people-and-teams/teams-avatar/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/theme/tsconfig.app.json"
+		},
+		{
 			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
 		},
 		{
@@ -89,11 +130,31 @@
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{
+			"path": "../util-data-test/tsconfig.app.json"
+		},
+		{
 			"path": "../util-service-support/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../accessibility/axe-integration/a11y-playwright-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

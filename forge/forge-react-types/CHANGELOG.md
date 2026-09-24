@@ -1,5 +1,23 @@
 # @atlaskit/forge-react-types
 
+## 2.10.0
+
+### Minor Changes
+
+- [`9e632e4e9add7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e632e4e9add7) -
+  Add `SearchableFlyoutMenuItemsProps` and `TSearchableFlyoutMenuItems` types for the Global Sidebar
+  `SearchableFlyoutMenuItems` component.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.9.0
 
 ### Minor Changes

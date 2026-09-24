@@ -111,7 +111,6 @@ const badgeValueWithNegativeNumberSupported = (
  * __BadgeNew__
  *
  * New visual refresh implementation of Badge component for the labelling system.
- * This component is used when the 'platform-dst-lozenge-tag-badge-visual-uplifts' feature flag is enabled.
  *
  * Uses new appearance naming convention:
  * - success (green)

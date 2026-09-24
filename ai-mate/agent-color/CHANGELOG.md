@@ -1,5 +1,21 @@
 # @atlaskit/agent-color
 
+## 1.0.2
+
+### Patch Changes
+
+- [`421075b740424`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/421075b740424) -
+  Preserve the original Amplitude avatar for existing consumers and register the separate hexagonal
+  v2 avatar as `mcp_amplitude_agent_v2`. Match its avatar, brand, and Studio card cover colors to
+  the original Amplitude mappings. Declare the v2 avatar props locally to avoid a relative type
+  barrel import.
+
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

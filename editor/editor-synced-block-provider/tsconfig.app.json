@@ -1,8 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
-		"**/*.docs.tsx",
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -16,12 +16,6 @@
 		"**/examples/*.tsx",
 		"**/examples/**/*.ts",
 		"**/examples/**/*.tsx",
-		"**/stories.ts",
-		"**/stories.tsx",
-		"**/stories/*.ts",
-		"**/stories/*.tsx",
-		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx",
 		"**/storybook/**/*",
 		"**/constellation/**/*",
 		".storybook/*",
@@ -31,8 +25,15 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-synced-block-provider/app",
@@ -78,6 +79,5 @@
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

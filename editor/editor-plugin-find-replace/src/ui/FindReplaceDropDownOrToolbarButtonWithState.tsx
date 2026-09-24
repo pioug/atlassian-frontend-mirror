@@ -1,7 +1,10 @@
 import React, { useLayoutEffect, useState } from 'react';
 
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { Command } from '@atlaskit/editor-common/types';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react/conditional-hooks-factory/conditional-hooks-factory';
 
 import { blur, toggleMatchCase } from '../pm-plugins/commands';
 import {
@@ -37,6 +40,17 @@ const useSharedPluginStateNoDebounce = (api: FindReplaceToolbarButtonWithStatePr
 	return { findReplaceState: state };
 };
 
+const useEditorViewMode = conditionalHooksFactory(
+	() => UNSAFE_expValNoExposure('platform_editor_collapsible_headings', 'isEnabled', false),
+	(api: FindReplaceToolbarButtonWithStateProps['api']) =>
+		useSharedPluginStateWithSelector(
+			api,
+			['editorViewMode'],
+			(states) => states.editorViewModeState?.mode,
+		),
+	() => undefined,
+);
+
 const FindReplaceToolbarButtonWithState = ({
 	popupsBoundariesElement,
 	popupsMountPoint,
@@ -53,6 +67,9 @@ const FindReplaceToolbarButtonWithState = ({
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
 	const { findReplaceState } = useSharedPluginStateNoDebounce(api);
+	const editorViewMode = useEditorViewMode(api);
+
+	const allowReplace = editorViewMode !== 'view';
 
 	const shouldMatchCase = findReplaceState?.shouldMatchCase;
 	const isActive = findReplaceState?.isActive;
@@ -84,7 +101,10 @@ const FindReplaceToolbarButtonWithState = ({
 	const handleActivate = () => {
 		runWithEditorFocused(() =>
 			dispatchCommand(
-				activateWithAnalytics(editorAnalyticsAPI)({
+				activateWithAnalytics(
+					editorAnalyticsAPI,
+					api?.editorViewMode,
+				)({
 					triggerMethod: TRIGGER_METHOD.TOOLBAR,
 				}),
 			),
@@ -198,6 +218,7 @@ const FindReplaceToolbarButtonWithState = ({
 			onReplaceAll={handleReplaceAll}
 			takeFullWidth={!!takeFullWidth}
 			isButtonHidden={isButtonHidden}
+			allowReplace={allowReplace}
 		/>
 	);
 };

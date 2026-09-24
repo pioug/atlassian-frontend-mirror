@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import { toTeamARI } from '../../common/utils/to-team-ari';
 import { toUserId } from '../../common/utils/to-user-id';
 import { type TeamAgentAssociation } from '../../types/association';
@@ -333,8 +331,3 @@ export class AGGClient extends BaseGraphQlClient {
 export const aggClient: AGGClient = new AGGClient(DEFAULT_CONFIG.stargateRoot, {
 	logException,
 });
-
-/**
- * @deprecated Use `import type { TeamContainers } from '@atlaskit/teams-client/team-containers'` instead.
- */
-export type { TeamContainers } from './TeamContainers';

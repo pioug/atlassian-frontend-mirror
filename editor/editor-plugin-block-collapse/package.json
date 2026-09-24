@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-collapse",
-	"version": "5.0.1",
+	"version": "7.0.0",
 	"description": "BlockCollapse plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

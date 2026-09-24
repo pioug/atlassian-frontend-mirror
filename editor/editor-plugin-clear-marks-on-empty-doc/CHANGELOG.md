@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-clear-marks-on-empty-doc
 
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.0
 
 ### Patch Changes

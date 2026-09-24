@@ -16,9 +16,9 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./chunkinator": "./src/chunkinator.ts",
 		"./domain": "./src/domain.ts",
-		"./getObservableFromFile": "./src/getObservableFromFile.ts"
+		"./getObservableFromFile": "./src/getObservableFromFile.ts",
+		"./chunkinator": "./src/chunkinator.ts"
 	},
 	"atlassian": {
 		"team": "Media Exif",

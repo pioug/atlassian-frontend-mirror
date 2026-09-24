@@ -70,6 +70,7 @@ export type TargetNodeMarks = Record<string, Record<string, unknown>>;
 // Note: We are still deciding what should be in the context.
 export interface TransformStepContext {
 	fromNode: PMNode;
+	includeBlockTaskItems?: boolean;
 	schema: Schema;
 	targetAttrs?: Record<string, unknown>;
 	targetNodeTypeName: NodeTypeName;

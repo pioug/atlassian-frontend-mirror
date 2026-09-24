@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/portal",
-	"version": "7.0.1",
+	"version": "7.0.2",
 	"description": "A wrapper for rendering components in React portals.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

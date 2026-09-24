@@ -82,7 +82,7 @@ export function AppProvider({
 	);
 }
 
-/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of this deprecated default export shim. */
 /**
  * @deprecated Use `import { AppProvider } from '@atlaskit/app-provider/app-provider'` instead.
  */

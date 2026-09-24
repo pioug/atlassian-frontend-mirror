@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "19.2.5",
+	"version": "20.0.0",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -87,19 +87,17 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./bidi-character-regex": "./src/bidi-warning/bidi-character-regex.tsx",
-		"./bidi-warning": "./src/bidi-warning/index.tsx",
-		"./bidi-warning-decorator": "./src/entry-points/bidi-warning-decorator.tsx",
 		"./bidi-warning-ui": "./src/bidi-warning/ui/index.tsx",
 		"./bidi-warning/bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
-		"./block": "./src/entry-points/block.tsx",
 		"./code": "./src/code.tsx",
 		"./code-block": "./src/code-block.tsx",
 		"./constants": "./src/constants.tsx",
-		"./inline": "./src/entry-points/inline.tsx",
 		"./internal/types": "./src/internal/types.tsx",
 		"./theme/constants": "./src/internal/theme/constants.tsx",
 		"./theme/types": "./src/internal/theme/types.tsx",
-		"./types": "./src/types.tsx"
+		"./types": "./src/types.tsx",
+		"./block": "./src/entry-points/block.tsx",
+		"./inline": "./src/entry-points/inline.tsx"
 	},
 	"homepage": "https://atlassian.design/components/code/",
 	"platform-feature-flags": {

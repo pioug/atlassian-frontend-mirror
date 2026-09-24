@@ -1,5 +1,45 @@
 # @atlaskit/renderer
 
+## 144.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 144.0.2
+
+### Patch Changes
+
+- [`e2193743a9a17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2193743a9a17) -
+  Clean up experiment `platform_editor_renderer_extension_width_fix`
+- Updated dependencies
+
+## 144.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 144.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 143.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 142.1.4
+
+### Patch Changes
+
+- [`8d2356cce3c68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d2356cce3c68) -
+  Clean up feature gate `platform_renderer_table_row_functional`. The renderer table row is now
+  always rendered by the functional component and the legacy class component has been removed.
+
 ## 142.1.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "13.13.4",
+	"version": "14.0.0",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -87,7 +87,6 @@
 		"./is-team": "./src/components/isTeam.ts",
 		"./is-user": "./src/components/isUser.ts",
 		"./number-of-results": "./src/numberOfResults.ts",
-		"./option": "./src/option.ts",
 		"./option-data2-analytics": "./src/optionData2Analytics.ts",
 		"./optionToSelectableOption": "./src/components/optionToSelectableOption.ts",
 		"./query-length": "./src/queryLength.ts",
@@ -101,7 +100,8 @@
 		"./up-key-count": "./src/upKeyCount.ts",
 		"./user-info-event": "./src/userInfoEvent.ts",
 		"./utils": "./src/components/utils.ts",
-		"./values": "./src/values.ts"
+		"./values": "./src/values.ts",
+		"./option": "./src/option.ts"
 	},
 	"atlassian": {
 		"react-compiler": {

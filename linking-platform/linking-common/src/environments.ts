@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 const devBaseUrl = 'https://api-private.dev.atlassian.com';
 
 const stgBaseUrl = 'https://pug.jira-dev.com/gateway/api';
@@ -26,13 +25,3 @@ export const BaseUrls: {
 };
 
 export default BaseUrls;
-
-/**
- * @deprecated Use `import { getBaseUrl } from '@atlaskit/linking-common/client'` instead.
- */
-
-export { getBaseUrl } from './getBaseUrl';
-/**
- * @deprecated Use `import { getResolverUrl } from '@atlaskit/linking-common/client'` instead.
- */
-export { getResolverUrl } from './getResolverUrl';

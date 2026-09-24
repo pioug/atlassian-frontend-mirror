@@ -1,4 +1,4 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of this deprecated API. */
 
 import { type TeamMembership } from '../../../types/membership';
 import {
@@ -39,12 +39,3 @@ export function hasPermission(
 		state,
 	});
 }
-
-/**
- * @deprecated Use `import { hasPermissionForAction } from '@atlaskit/teams-client/has-permission-for-action'` instead.
- */
-export { hasPermissionForAction } from './has-permission-for-action';
-/**
- * @deprecated Use `import { userCan } from '@atlaskit/teams-client/user-can'` instead.
- */
-export { userCan } from './user-can';

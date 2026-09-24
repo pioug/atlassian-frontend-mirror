@@ -1059,9 +1059,8 @@ export default class Select<
 		const selectValue = cleanValue(value);
 		let isTagMotionEnabled = false;
 		if (isMulti) {
-			const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 			const ffTagMotion = fg('platform-dst-motion-uplift-labels');
-			isTagMotionEnabled = ffTagUplifts && ffTagMotion;
+			isTagMotionEnabled = ffTagMotion;
 		}
 		const hasCompletedMultiValueExit =
 			selectValue.length > 0 ? false : state.hasCompletedMultiValueExit;
@@ -1700,12 +1699,7 @@ export default class Select<
 		// Auto-render elemBefore in dropdown menu only if formatOptionLabel is not provided
 		// and no custom Option component is provided (custom Option components may already
 		// render elemBefore themselves, causing it to appear twice)
-		if (
-			context === 'menu' &&
-			!this.props.formatOptionLabel &&
-			!this.props.components?.Option &&
-			fg('platform-dst-lozenge-tag-badge-visual-uplifts')
-		) {
+		if (context === 'menu' && !this.props.formatOptionLabel && !this.props.components?.Option) {
 			const elemBefore = (data as { elemBefore?: ReactNode }).elemBefore;
 			if (elemBefore) {
 				const label = this.getOptionLabel(data);
@@ -2448,9 +2442,8 @@ export default class Select<
 		);
 
 		if (isMulti) {
-			const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 			const ffTagMotion = fg('platform-dst-motion-uplift-labels');
-			const isTagMotionEnabled = ffTagUplifts && ffTagMotion;
+			const isTagMotionEnabled = ffTagMotion;
 
 			if (isTagMotionEnabled) {
 				return (

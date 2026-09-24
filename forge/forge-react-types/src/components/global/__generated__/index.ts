@@ -16,6 +16,7 @@ export type { SidebarFooterProps, TSidebarFooter } from './SidebarFooterProps.co
 export type { LinkMenuItemProps, TLinkMenuItem } from './LinkMenuItemProps.codegen';
 export type { ExpandableMenuItemProps, TExpandableMenuItem } from './ExpandableMenuItemProps.codegen';
 export type { MenuSectionProps, TMenuSection } from './MenuSectionProps.codegen';
+export type { SearchableFlyoutMenuItemsProps, TSearchableFlyoutMenuItems } from './SearchableFlyoutMenuItemsProps.codegen';
 export type { ReorderableMenuItemsProps, TReorderableMenuItems } from './ReorderableMenuItemsProps.codegen';
 export type { MenuSpacerProps, TMenuSpacer } from './MenuSpacerProps.codegen';
 export type { CreateButtonProps, TCreateButton } from './CreateButtonProps.codegen';

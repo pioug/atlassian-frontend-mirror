@@ -6,7 +6,6 @@ import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-uti
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getRequiredIncludedDiffableAttrs, isDiffableAttr } from './diffableAttrs';
 
@@ -15,8 +14,8 @@ export type InlineAttrChangeNodeName = 'date' | 'emoji' | 'mention' | 'status';
 type AttrChangeStep = AttrStep | SetAttrsStep;
 
 export type AttrStepContext = {
-	attributionKey?: string;
 	afterNode: PMNode | null;
+	attributionKey?: string;
 	beforeNode: PMNode | null;
 	finalPos: number;
 	originalPos?: number;
@@ -104,11 +103,11 @@ export const getAttrChangeRanges = (
 					return undefined;
 				}
 				const stepAttrs = getStepAttrs(step);
-				// SetAttrsStep contains the complete replacement attrs, not only the attrs that changed.
-				// Keep the legacy payload-based checks until the rollout gate is enabled, and fall back
-				// to them if either step-time node is unavailable.
+				// SetAttrsStep contains the complete replacement attrs, not only the attrs that changed,
+				// so narrow it to the attrs whose values actually differ. Fall back to the full step
+				// payload if either step-time node is unavailable.
 				const attrsToCheck =
-					fg('platform_editor_reduce_diff_attr_sensitivity') && beforeNode && afterNode
+					beforeNode && afterNode
 						? stepAttrs.filter(
 								(attrName) => !isEqual(beforeNode.attrs[attrName], afterNode.attrs[attrName]),
 							)
@@ -174,15 +173,14 @@ export const getAttrChangeRanges = (
 					};
 				}
 
-				// Extension nodes: highlight changes to user-visible configuration. When enabled,
-				// transient extension metadata is ignored by the comparison below.
+				// Extension nodes: highlight changes to user-visible configuration. Transient extension
+				// metadata is ignored by the comparison below.
 				if (
 					nodeAtPos &&
 					extensionNodeNames.includes(nodeAtPos.type.name) &&
 					attrsToCheck.some((v) => isDiffableAttr(nodeAtPos.type.name, v))
 				) {
 					if (
-						fg('platform_editor_reduce_diff_attr_sensitivity') &&
 						beforeNode &&
 						afterNode &&
 						beforeNode.type === afterNode.type &&

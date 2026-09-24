@@ -48,10 +48,10 @@ import {
 	type ViewerOptionsProps,
 	type MediaViewerExtensions,
 } from '@atlaskit/media-viewer';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { getActiveTrace } from '@atlaskit/react-ufo/get-active-trace';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { DateOverrideContext } from '../dateOverrideContext';
 import { isSSRPreview } from '../isSSRPreview';
@@ -176,12 +176,13 @@ export interface FileCardProps extends CardEventProps {
 	readonly onError?: (
 		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason,
 	) => void;
-	/** Extensions for the media viewer (e.g. comment button in header). */
+	/** Extensions for the media viewer (e.g. comment button in header, sidebar with comment indicator). */
 	readonly mediaViewerExtensions?: MediaViewerExtensions;
 	/**
 	 * Optional fallback fetcher to retrieve the media filename from another service.
 	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media.
 	 * Receives the file ID and should resolve to the filename string.
+	 * TODO: Remove this prop when fallback-fetcher usage is sufficiently low.
 	 */
 	readonly fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 }
@@ -311,22 +312,15 @@ export const FileCard = ({
 	useEffect(() => {
 		// Reset fetch state when the file identity changes
 		const currentId = fileStateValue?.id;
-		if (
-			currentId &&
-			currentId !== lastFetchedFileId.current &&
-			expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
-		) {
-			fallbackMediaNameFetchAttempted.current = false;
-			setFallbackMediaName(undefined);
-			lastFetchedFileId.current = currentId;
-		}
+		fallbackMediaNameFetchAttempted.current = false;
+		setFallbackMediaName(undefined);
+		lastFetchedFileId.current = currentId;
 
 		if (
 			fileStateValue &&
 			!fileStateValue.name &&
 			fallbackMediaNameFetcher &&
-			!fallbackMediaNameFetchAttempted.current &&
-			expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
+			!fallbackMediaNameFetchAttempted.current
 		) {
 			fallbackMediaNameFetchAttempted.current = true;
 			fallbackMediaNameFetcher(fileStateValue.id).then(
@@ -432,7 +426,27 @@ export const FileCard = ({
 			? 'loading-preview'
 			: status;
 
-	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(null);
+	// Experiment gate for the Confluence comments-in-media-viewer work. Only the
+	// viewer-state persistence callbacks introduced by that series are gated —
+	// `mediaViewerExtensions` itself is still forwarded to MediaViewer so the
+	// previously shipped `sidebar` and `headerActions` keep working with the
+	// experiment off.
+	const { getMediaViewerSelectedItem, onSelectedItemChange }: MediaViewerExtensions =
+		isExperimentEnabled('cc_comments_media_viewer_sidebar') ? (mediaViewerExtensions ?? {}) : {};
+
+	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(
+		() => getMediaViewerSelectedItem?.(identifier) ?? null,
+	);
+
+	const openMediaViewer = useCallback(() => {
+		setMediaViewerSelectedItem(identifier);
+		onSelectedItemChange?.(identifier);
+	}, [identifier, onSelectedItemChange]);
+
+	const closeMediaViewer = useCallback(() => {
+		setMediaViewerSelectedItem(null);
+		onSelectedItemChange?.(null);
+	}, [onSelectedItemChange]);
 
 	const uploadProgressRef = useRef<number>();
 
@@ -455,22 +469,12 @@ export const FileCard = ({
 			}
 		};
 
-		const resolvedFallbackName = expValEquals(
-			'platform_editor_media_name_fallback_viewer_card',
-			'isEnabled',
-			true,
-		)
-			? fallbackMediaName
-			: undefined;
-
 		if (fg('dfo_attachments_late_render_fix')) {
 			if (fileStateValue) {
 				return {
 					id: fileStateValue.id,
 					name:
-						fileStateValue.name ||
-						resolvedFallbackName ||
-						(ssrItemDetails && ssrItemDetails.filename),
+						fileStateValue.name || fallbackMediaName || (ssrItemDetails && ssrItemDetails.filename),
 					size: fileStateValue.size,
 					mimeType: fileStateValue.mimeType || (ssrItemDetails && ssrItemDetails.mimetype),
 					createdAt: fileStateValue.createdAt || (ssrItemDetails && ssrItemDetails.createdDate),
@@ -493,7 +497,7 @@ export const FileCard = ({
 			if (fileStateValue) {
 				return {
 					id: fileStateValue.id,
-					name: fileStateValue.name || resolvedFallbackName,
+					name: fileStateValue.name || fallbackMediaName,
 					size: fileStateValue.size,
 					mimeType: fileStateValue.mimeType,
 					createdAt: fileStateValue.createdAt,
@@ -829,12 +833,7 @@ export const FileCard = ({
 			setIsPlayingFile(true);
 			setShouldAutoplay(true);
 		} else if (shouldOpenMediaViewer) {
-			setMediaViewerSelectedItem({
-				id: identifier.id,
-				mediaItemType: 'file',
-				collectionName: identifier.collectionName,
-				occurrenceKey: identifier.occurrenceKey,
-			});
+			openMediaViewer();
 		}
 
 		// Abort VC when click file card
@@ -1159,9 +1158,7 @@ export const FileCard = ({
 					items={mediaViewerItems || []}
 					mediaClientConfig={mediaClient.config}
 					selectedItem={mediaViewerSelectedItem}
-					onClose={() => {
-						setMediaViewerSelectedItem(null);
-					}}
+					onClose={closeMediaViewer}
 					contextId={contextId}
 					featureFlags={featureFlags}
 					viewerOptions={viewerOptions}

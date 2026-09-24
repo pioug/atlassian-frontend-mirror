@@ -21,9 +21,8 @@ import type {
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { overflowShadow, WidthConsumer } from '@atlaskit/editor-common/ui';
+import { overflowShadow } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps, OverflowShadowState } from '@atlaskit/editor-common/ui';
-import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -250,129 +249,59 @@ export const renderExtension = (
 			<FireExtensionAsInlineAnalytics fireAnalyticsEvent={fireAnalyticsEvent} node={node} />
 		) : null;
 
-	if (expValEquals('platform_editor_renderer_extension_width_fix', 'isEnabled', true)) {
-		const extensionDiv = (
-			<div
-				ref={options.handleRef}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={`${RendererCssClassName.EXTENSION} ${inlineClassName} ${options.shadowClassNames} ${centerAlignClass}`}
-				style={{
-					width: isInline
-						? undefined
-						: (
-									expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-										? isCustomLayout
-										: isTopLevel
-							  )
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								calcBreakoutWidthCss(layout as ExtensionLayout)
-							: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-								? undefined
-								: '100%',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					minHeight: isInline ? undefined : extensionHeight && `${extensionHeight}px`,
-				}}
-				data-layout={layout}
-				data-local-id={localId}
-				data-testid="extension--wrapper"
-				data-node-type="extension"
-				data-top-level={isTopLevel || undefined}
-				data-forge-inline={isNativeForgeInline || undefined}
-				data-migrated-inline={isMigratedInlineBodied || undefined}
-			>
-				<div
-					tabIndex={options.tabIndex}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-					className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
-					css={[!isInsideOfInlineExtension && containerStyle]}
-				>
-					{asInlineAnalytics}
-					{content}
-				</div>
-			</div>
-		);
-		return centerAlignClass ? (
-			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className={
-					RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
-					' ' +
-					RendererCssClassName.FLEX_CENTER_WRAPPER
-				}
-			>
-				{extensionDiv}
-			</div>
-		) : (
-			extensionDiv
-		);
-	}
-
-	return (
-		<WidthConsumer>
-			{({ width }) => {
-				const extensionDiv = (
-					<div
-						ref={options.handleRef}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={`${RendererCssClassName.EXTENSION} ${inlineClassName} ${options.shadowClassNames} ${centerAlignClass}`}
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							width: isInline
-								? undefined
-								: (
-											expValEquals(
-												'platform_editor_remove_important_in_render_ext',
-												'isEnabled',
-												true,
-											)
-												? isCustomLayout
-												: isTopLevel
-									  )
-									? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										calcBreakoutWidth(layout, width)
-									: expValEquals(
-												'platform_editor_remove_important_in_render_ext',
-												'isEnabled',
-												true,
-										  )
-										? undefined
-										: '100%',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-							minHeight: isInline ? undefined : `${extensionHeight}px`,
-						}}
-						data-layout={layout}
-						data-local-id={localId}
-						data-top-level={isTopLevel || undefined}
-						data-forge-inline={isNativeForgeInline || undefined}
-						data-migrated-inline={isMigratedInlineBodied || undefined}
-					>
-						<div
-							tabIndex={options.tabIndex}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-							className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
-							css={[!isInsideOfInlineExtension && containerStyle]}
-						>
-							{asInlineAnalytics}
-							{content}
-						</div>
-					</div>
-				);
-				return centerAlignClass ? (
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-						className={
-							RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
-							' ' +
-							RendererCssClassName.FLEX_CENTER_WRAPPER
-						}
-					>
-						{extensionDiv}
-					</div>
-				) : (
-					extensionDiv
-				);
+	const extensionDiv = (
+		<div
+			ref={options.handleRef}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={`${RendererCssClassName.EXTENSION} ${inlineClassName} ${options.shadowClassNames} ${centerAlignClass}`}
+			style={{
+				width: isInline
+					? undefined
+					: (
+								expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+									? isCustomLayout
+									: isTopLevel
+						  )
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							calcBreakoutWidthCss(layout as ExtensionLayout)
+						: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+							? undefined
+							: '100%',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				minHeight: isInline ? undefined : extensionHeight && `${extensionHeight}px`,
 			}}
-		</WidthConsumer>
+			data-layout={layout}
+			data-local-id={localId}
+			data-testid="extension--wrapper"
+			data-node-type="extension"
+			data-top-level={isTopLevel || undefined}
+			data-forge-inline={isNativeForgeInline || undefined}
+			data-migrated-inline={isMigratedInlineBodied || undefined}
+		>
+			<div
+				tabIndex={options.tabIndex}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
+				css={[!isInsideOfInlineExtension && containerStyle]}
+			>
+				{asInlineAnalytics}
+				{content}
+			</div>
+		</div>
+	);
+	return centerAlignClass ? (
+		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={
+				RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
+				' ' +
+				RendererCssClassName.FLEX_CENTER_WRAPPER
+			}
+		>
+			{extensionDiv}
+		</div>
+	) : (
+		extensionDiv
 	);
 };
 

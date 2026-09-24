@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ProgressBarProps
  *
- * @codegen <<SignedSource::e0050bb3ee946768c292e24b263334d1>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/progressbar/__generated__/index.partial.tsx <<SignedSource::aafdad776f93c659dc29fdb27eca9027>>
+ * @codegen <<SignedSource::e1ace5693869b6ce992caa275617d87e>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/progressbar/__generated__/index.partial.tsx <<SignedSource::7caa0d8e3c3fb8e855db355f7c1b5eee>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

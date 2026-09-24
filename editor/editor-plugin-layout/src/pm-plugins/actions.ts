@@ -235,9 +235,7 @@ export const insertLayoutColumnsWithAnalytics =
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
 			actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
 			attributes: {
-				inputMethod: fg('platform_editor_element_browser_analytic')
-					? inputMethod
-					: INPUT_METHOD.QUICK_INSERT,
+				inputMethod,
 				columnCount: fg('platform_editor_column_count_analytics') ? 2 : undefined,
 			},
 			eventType: EVENT_TYPE.TRACK,

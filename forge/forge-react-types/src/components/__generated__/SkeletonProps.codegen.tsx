@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - SkeletonProps
  *
- * @codegen <<SignedSource::555897a4db07156f5119be3a6cec17ab>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/skeleton/index.tsx <<SignedSource::2ff67d2044a46a7d6f314edc0de5c6ec>>
+ * @codegen <<SignedSource::bdb7f8950691912f82536efb4c533f17>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/skeleton/index.tsx <<SignedSource::063533b56b514ce5d50e13ca77c922c0>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

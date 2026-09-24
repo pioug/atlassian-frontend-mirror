@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 
 import type { ProfileCardClientData, ProfileClientOptions, TeamsUserQueryResponse } from '../types';
@@ -133,12 +131,3 @@ export default class UserProfileCardClient extends CachingClient<any> {
 		});
 	}
 }
-
-/**
- * @deprecated Use `import { modifyResponse } from '@atlaskit/profilecard/modify-response'` instead.
- */
-export { modifyResponse } from './modifyResponse';
-/**
- * @deprecated Use `import { buildAggUserQuery } from '@atlaskit/profilecard/build-agg-user-query'` instead.
- */
-export { buildAggUserQuery } from './buildAggUserQuery';

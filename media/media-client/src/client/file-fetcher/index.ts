@@ -24,7 +24,6 @@ import type {
 } from '@atlaskit/media-state/file-state';
 import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { RECENTS_COLLECTION } from '../../constants';
 import { getFileStreamsCache } from '../../file-streams-cache';
@@ -632,9 +631,7 @@ export class FileFetcherImpl implements FileFetcher {
 		traceContext?: MediaTraceContext,
 	): Promise<void> {
 		const downloadName = name ?? 'download';
-		const url = expValEquals('platform_editor_media_download_fallback_name', 'isEnabled', true)
-			? await this.mediaApi.getFileBinaryURL(id, collectionName, undefined, name)
-			: await this.mediaApi.getFileBinaryURL(id, collectionName);
+		const url = await this.mediaApi.getFileBinaryURL(id, collectionName, undefined, name);
 		downloadUrl(url, { name: downloadName });
 
 		globalMediaEventEmitter.emit('media-viewed', {

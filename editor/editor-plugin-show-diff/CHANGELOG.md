@@ -1,5 +1,57 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- [`202069bab1e36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202069bab1e36) -
+  Clean up the shipped `platform_editor_enghealth_a11y_jan_fixes` experiment. Toolbar dropdown items
+  now always render with `role="menuitem"` and without `aria-pressed`, the block menu always has
+  `role="menu"`, and show-diff deleted content always uses the a11y-fixed styles.
+- [`5a9dc1baf2bde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a9dc1baf2bde) -
+  EDITOR-9232 Clamp out-of-range suggestion slice override measurements behind
+  platform_editor_ai_show_diff_patch_2
+- [`8e881a291b8c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e881a291b8c9) -
+  Keep existing parent list markers unhighlighted for nested additions behind
+  platform_editor_ai_review_moment.
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- [`27d5e74498554`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27d5e74498554) -
+  Clean up feature gate `platform_editor_reduce_diff_attr_sensitivity`
+- [`6fc3ffdbe2bf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fc3ffdbe2bf3) -
+  Use Rovo's registered brand colour in its fixed participant palette slot.
+- Updated dependencies
+
+## 19.0.0
+
+### Minor Changes
+
+- [`9ea47a518fc7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ea47a518fc7c) -
+  Cleanup `feature_gate` `platform_editor_diff_inline_mark_changes`. Non-smart diffs permanently use
+  the mark-aware token encoder, so formatting-only edits produce a change, and deleted-side widgets
+  are permanently rendered with an empty mark set so they do not inherit the marks of the
+  surrounding new document.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.1.10
 
 ### Patch Changes

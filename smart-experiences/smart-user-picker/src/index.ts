@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required, @atlaskit/volt-strict-mode/no-re-exports, @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 export { default } from './components';
 export { default as getUserRecommendations } from './service/recommendation-client';
 export { default as hydrateDefaultValues } from './service/default-value-hydration-client';

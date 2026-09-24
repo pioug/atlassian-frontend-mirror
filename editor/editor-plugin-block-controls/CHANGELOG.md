@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 22.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.1
+
+### Patch Changes
+
+- [`d13ba24ba86e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d13ba24ba86e8) -
+  Hide the block controls drag handle in view mode when platform_editor_block_control_migration is
+  enabled
+- Updated dependencies
+
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.5
 
 ### Patch Changes

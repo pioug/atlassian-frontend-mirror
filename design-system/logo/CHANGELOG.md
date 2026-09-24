@@ -1,5 +1,26 @@
 # @atlaskit/logo
 
+## 23.3.0
+
+### Minor Changes
+
+- [`2af3960b5e05f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af3960b5e05f) -
+  Add first-class `ArtifactsIcon` and `ArtifactsLogo` components to `@atlaskit/logo`, including new
+  `artifacts` icon/logo entry points and documentation/example wiring.
+
+## 23.2.0
+
+### Minor Changes
+
+- [`6b0236ecca8c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b0236ecca8c5) -
+  Add CodeSearchIcon export and ./code-search/icon entrypoint
+
+## 23.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.1.1
 
 ### Patch Changes

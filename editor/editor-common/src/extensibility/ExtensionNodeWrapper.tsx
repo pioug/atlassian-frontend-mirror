@@ -72,6 +72,8 @@ const hoverStyles = css({
 
 type Props = {
 	children: React.ReactNode;
+	/** True once the extension has reported its content ready. Only read with the motion on. */
+	contentReady?: boolean;
 	/**
 	 * Renders the node through `GeneratedContentReveal`, which holds it closed while its embed loads
 	 * and then animates it in. Set by the node view for native embeds only; see
@@ -96,6 +98,7 @@ export const ExtensionNodeWrapper = ({
 	nodeType,
 	macroInteractionDesignFeatureFlags,
 	generatedContentMotion = false,
+	contentReady = false,
 	intl,
 }: Props): jsx.JSX.Element => {
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
@@ -104,6 +107,7 @@ export const ExtensionNodeWrapper = ({
 	if (generatedContentMotion) {
 		return (
 			<GeneratedContentReveal
+				contentReady={contentReady}
 				intl={intl}
 				showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 			>

@@ -1,5 +1,21 @@
 # @atlaskit/badge
 
+## 22.0.0
+
+### Major Changes
+
+- [`b9975071a7738`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9975071a7738) -
+  [ux] BREAKING: The completed visual-uplift rollout removes the
+  `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate and makes the refreshed Badge
+  implementation the default for `@atlaskit/badge`. Existing appearance names remain supported;
+  update visual snapshots and any DOM or style assertions that depend on the legacy Badge rendering.
+
+## 21.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.2.3
 
 ### Patch Changes

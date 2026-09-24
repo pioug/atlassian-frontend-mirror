@@ -160,7 +160,7 @@ describe('useResolve', () => {
 		);
 	});
 
-	it('should force optimized block metadata requests to bypass cached inline responses', async () => {
+	it('should request appearance-specific block metadata without bypassing the ORS cache', async () => {
 		passGate('platform_smartlink_inline_resolve_optimization');
 		mockFetchData(Promise.resolve(mocks.success));
 		mockState({
@@ -178,10 +178,17 @@ describe('useResolve', () => {
 			appearance: 'block',
 		});
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+			expect.objectContaining({
+				type: 'reloading',
+				url,
+				payload: mocks.success,
+			}),
+		);
 	});
 
-	it('should force initial optimized block requests to bypass concurrent inline responses', async () => {
+	it('should request initial optimized block data without bypassing the ORS cache', async () => {
 		passGate('platform_smartlink_inline_resolve_optimization');
 		mockFetchData(Promise.resolve(mocks.success));
 		mockState({
@@ -196,7 +203,7 @@ describe('useResolve', () => {
 			appearance: 'block',
 		});
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
 		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 			expect.objectContaining({
 				type: 'reloading',

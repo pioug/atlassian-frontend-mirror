@@ -398,8 +398,7 @@ describe('DatePicker', () => {
 				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso, expect.any(Object));
 			});
 
-			it('parses a dateFormat display label when the gate is on', () => {
-				passGate('platform-dst-dp-parse-date-format');
+			it('parses a dateFormat display label', () => {
 				const onChangeSpy = jest.fn();
 				const dateFormat = 'MMMM/DD/YYYY';
 				const displayLabel = format(parseISO(exampleDate.iso), convertTokens(dateFormat));
@@ -436,7 +435,6 @@ describe('DatePicker', () => {
 					[true, '2026-02-01'],
 				])('emits the expected century with reference date gate %s', async (enabled, expected) => {
 					const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-					passGate('platform-dst-dp-parse-date-format');
 					(enabled ? passGate : failGate)('platform-dst-dp-current-reference-date');
 					const onChangeSpy = jest.fn();
 					render(createDatePicker({ dateFormat: 'DD.MM.YY', onChange: onChangeSpy }));
@@ -451,7 +449,6 @@ describe('DatePicker', () => {
 			});
 
 			it('falls back to locale parsing when typed input does not match dateFormat', () => {
-				passGate('platform-dst-dp-parse-date-format');
 				const onChangeSpy = jest.fn();
 
 				render(

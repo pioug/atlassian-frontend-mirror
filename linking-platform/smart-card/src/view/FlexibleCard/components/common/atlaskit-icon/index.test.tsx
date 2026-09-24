@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { IconType, SmartLinkSize } from '../../../../../constants';
 import AtlaskitIcon from './index';
@@ -45,6 +47,12 @@ jest.mock('../../../../../common/ui/icons/live-document-icon', () => {
 		default: mockLiveDocumentIcon,
 	};
 });
+
+jest.mock('@atlaskit/icon/icon-tile', () =>
+	jest.fn(({ appearance }: { appearance: string }) => (
+		<span data-testid="icon-tile" data-appearance={appearance} />
+	)),
+);
 
 jest.mock('@atlaskit/logo', () => {
 	mockConfluenceIcon = jest.fn(({ testId }: { testId?: string }) => <span data-testid={testId} />);
@@ -190,5 +198,23 @@ describe('AtlaskitIcon', () => {
 				expect(getByTestId('priority-high-icon')).toBeInTheDocument();
 			});
 		});
+	});
+
+	it('uses a non-bold gray tile for badge icons at large size when platform_lp_non_bold_large_sl_icon is on', () => {
+		passGate('platform_sl_icons_refactor');
+		passGate('platform_lp_non_bold_large_sl_icon');
+
+		render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);
+
+		expect(screen.getByTestId('icon-tile')).toHaveAttribute('data-appearance', 'gray');
+	});
+
+	it('keeps the bold gray tile for badge icons at large size when platform_lp_non_bold_large_sl_icon is off', () => {
+		passGate('platform_sl_icons_refactor');
+		failGate('platform_lp_non_bold_large_sl_icon');
+
+		render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);
+
+		expect(screen.getByTestId('icon-tile')).toHaveAttribute('data-appearance', 'grayBold');
 	});
 });

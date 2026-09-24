@@ -25,6 +25,7 @@ export const getBlockControlQuickInsertComponents = ({
 		isHidden: ({ surfaceContext } = {}) => {
 			const context = surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
 			return (
+				api?.editorViewMode?.sharedState.currentState()?.mode === 'view' ||
 				!context?.activeNode ||
 				context.targetNode.pos !== context.rootNode.pos ||
 				context.targetNode.pos !== context.activeNode.rootPos

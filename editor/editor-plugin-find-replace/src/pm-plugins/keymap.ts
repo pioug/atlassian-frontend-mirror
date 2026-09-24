@@ -5,22 +5,36 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command } from '@atlaskit/editor-common/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
+import type { EditorViewModeAPI } from './commands-with-analytics';
 import { activateWithAnalytics } from './commands-with-analytics';
 
 const activateFindReplace =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+		editorViewModeAPI: EditorViewModeAPI,
+	): Command =>
 	(state, dispatch) => {
-		activateWithAnalytics(editorAnalyticsAPI)({
+		activateWithAnalytics(
+			editorAnalyticsAPI,
+			editorViewModeAPI,
+		)({
 			triggerMethod: TRIGGER_METHOD.SHORTCUT,
 		})(state, dispatch);
 		return true;
 	};
 
-const keymapPlugin = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
+const keymapPlugin = (
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	editorViewModeAPI: EditorViewModeAPI,
+) => {
 	const list = {};
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	bindKeymapWithCommand(findKeymap.common!, activateFindReplace(editorAnalyticsAPI), list);
+	if (findKeymap.common) {
+		bindKeymapWithCommand(
+			findKeymap.common,
+			activateFindReplace(editorAnalyticsAPI, editorViewModeAPI),
+			list,
+		);
+	}
 	return keymap(list) as SafePlugin;
 };
 

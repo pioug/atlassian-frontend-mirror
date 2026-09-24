@@ -1,5 +1,42 @@
 # @atlaskit/smart-card
 
+## 46.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.0.2
+
+### Patch Changes
+
+- [`2a16a22e685c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a16a22e685c8) -
+  Use non-bold IconTile appearances for large and xlarge smart link icons when
+  `platform_lp_non_bold_large_sl_icon` is enabled, including file-type tiles and core badge icons.
+  Error and forbidden tiles stay bold. Gate off keeps the existing bold tile appearances.
+- Updated dependencies
+
+## 46.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.28.5
+
+### Patch Changes
+
+- [`63227e6ca3f48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63227e6ca3f48) -
+  Reuse the ORS block cache for platform_smartlink_inline_resolve_optimization requests while
+  preserving full metadata replacement.
+- Updated dependencies
+
 ## 45.28.4
 
 ### Patch Changes

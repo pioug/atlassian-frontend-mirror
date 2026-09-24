@@ -198,6 +198,13 @@ const AmplitudeAgentAvatar = lazy(
 		),
 );
 
+const AmplitudeAgentAvatarV2 = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-AmplitudeAgentAvatarV2" */ './assets/amplitude-agent-v2'
+		),
+);
+
 const BoxAgentAvatar = lazy(
 	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-BoxAgentAvatar"*/ './assets/box-agent'),
 );
@@ -599,6 +606,12 @@ const outOfTheBoxAgentAvatar: {
 	mcp_amplitude_agent: {
 		getRender: (size: SizeType) => (
 			<AmplitudeAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	mcp_amplitude_agent_v2: {
+		getRender: (size: SizeType) => (
+			<AmplitudeAgentAvatarV2 size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: blueColor,
 	},

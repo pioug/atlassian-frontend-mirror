@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Label } from '@atlaskit/form/label/default';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Select from '@atlaskit/select/default';
 import type { FormatOptionLabelMeta, OptionType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
@@ -20,11 +19,6 @@ const options: OptionType[] = [
 	{ label: 'Sydney', value: 'sydney', elemBefore: icon },
 ];
 
-/**
- * When the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts` is ON,
- * selected values render as Tag with `elemBefore` read from option data.
- * The menu still shows custom JSX (icon + label).
- */
 const customJsx = (option: OptionType) => (
 	<div
 		style={{
@@ -47,7 +41,7 @@ const customJsx = (option: OptionType) => (
 );
 
 const formatOptionLabel = (option: OptionType, meta: FormatOptionLabelMeta<OptionType>) => {
-	if (meta.context === 'value' && fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
+	if (meta.context === 'value') {
 		return option.label;
 	}
 	return customJsx(option);

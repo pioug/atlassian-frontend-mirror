@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-json-transformer",
-	"version": "9.8.2",
+	"version": "10.0.0",
 	"description": "JSON transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,17 +25,16 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./jsonTransformer": "./src/jsonTransformer.ts",
 		"./JSONTransformer-2": "./src/JSONTransformer-2.ts",
 		"./main": "./src/main.ts",
 		"./markOverrideRules": "./src/markOverrideRules.ts",
 		"./remove-non-annotation-marks": "./src/sanitize/remove-non-annotation-marks.ts",
 		"./sanitize/remove-marks": "./src/sanitize/remove-marks.ts",
 		"./sanitize/sanitize-node": "./src/sanitize/sanitize-node.ts",
-		"./sanitize": "./src/sanitize.ts",
 		"./SchemaStage": "./src/SchemaStage.ts",
 		"./toJSON": "./src/toJSON.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./jsonTransformer": "./src/jsonTransformer.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

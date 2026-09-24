@@ -1,7 +1,8 @@
 import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { isTransformDisabledBasedOnStepsConfig } from '../editor-commands/transform-node-utils/transform';
 import { toNodeTypeValue } from '../editor-commands/transform-node-utils/types';
@@ -22,12 +23,43 @@ type TransformDisabledArgs = {
 	transformRegistry?: Pick<BlockMenuTransformSourceRegistry, 'resolve'>;
 };
 
+const getTargetMarks = (
+	schema: Schema,
+	currentMarks: readonly Mark[],
+	marksToAdd?: TargetNodeMarks,
+	marksToRemove?: string[],
+): readonly Mark[] | undefined => {
+	if (!marksToAdd && !marksToRemove) {
+		return undefined;
+	}
+
+	let targetMarks = currentMarks;
+	for (const name of marksToRemove ?? []) {
+		const markType = schema.marks[name];
+		if (markType) {
+			targetMarks = markType.removeFromSet(targetMarks);
+		}
+	}
+
+	for (const [name, attrs] of Object.entries(marksToAdd ?? {})) {
+		const markType = schema.marks[name];
+		if (markType) {
+			targetMarks = markType.create(attrs).addToSet(markType.removeFromSet(targetMarks));
+		}
+	}
+
+	return targetMarks;
+};
+
 export const canParentContainNodeType = (
 	schema: Schema,
 	selectedNodeTypeName: NodeTypeName,
 	parentNode: PMNode,
 	nodeTypeName: NodeTypeName,
 	nodeTypeAttrs?: Record<string, unknown>,
+	selectedNode?: PMNode,
+	marksToAdd?: TargetNodeMarks,
+	marksToRemove?: string[],
 ): boolean => {
 	const adjustedNodeTypeName = getTargetNodeTypeNameInContext(
 		nodeTypeName,
@@ -49,6 +81,17 @@ export const canParentContainNodeType = (
 	) {
 		const node = schema.nodes[selectedNodeTypeName];
 		content = node.createAndFill();
+	}
+
+	if (
+		isExperimentEnabled('platform_editor_block_menu_small_text') &&
+		selectedNode &&
+		(marksToAdd || marksToRemove)
+	) {
+		const targetMarks = getTargetMarks(schema, selectedNode.marks, marksToAdd, marksToRemove);
+		const targetNode = nodeType.createAndFill(nodeTypeAttrs, content, targetMarks);
+
+		return Boolean(targetNode && parentNode.type.validContent(Fragment.from(targetNode)));
 	}
 
 	return parentNode.type.validContent(
@@ -95,6 +138,21 @@ const isTransformEnabledForNode = (
 			return markType ? !markType.isInSet(node.marks)?.eq(markType.create(attrs)) : false;
 		});
 		if (removesTargetMarks || addsOrReplacesTargetMarks) {
+			if (
+				isNested &&
+				!canParentContainNodeType(
+					schema,
+					selectedNodeTypeName,
+					parent,
+					targetNodeTypeName,
+					targetNodeTypeAttrs,
+					node,
+					marksToAdd,
+					marksToRemove,
+				)
+			) {
+				return false;
+			}
 			return true;
 		}
 	}
@@ -119,6 +177,9 @@ const isTransformEnabledForNode = (
 			parent,
 			targetNodeTypeName,
 			targetNodeTypeAttrs,
+			node,
+			marksToAdd,
+			marksToRemove,
 		)
 	) {
 		return false;

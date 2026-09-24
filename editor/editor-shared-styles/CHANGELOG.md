@@ -1,5 +1,37 @@
 # @atlaskit/editor-shared-styles
 
+## 4.3.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.24
+
+### Patch Changes
+
+- [`6fc3ffdbe2bf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fc3ffdbe2bf3) -
+  Use Rovo's registered brand colour in its fixed participant palette slot.
+- Updated dependencies
+
+## 4.3.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.21
 
 ### Patch Changes

@@ -158,6 +158,9 @@ export function simpleMockProfilecardClient(props?: ProfileCardClientProps): Pro
 					AGENT_CREATE: {
 						permitted: true,
 					},
+					AGENT_DUPLICATE: {
+						permitted: true,
+					},
 					AGENT_UPDATE: {
 						permitted: true,
 					},

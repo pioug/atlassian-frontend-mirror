@@ -91,7 +91,7 @@ describe('Smart Card: Actions', () => {
 					);
 				});
 
-				it('forces block requests to bypass optimized inline cache responses', async () => {
+				it('requests appearance-specific block data without bypassing the ORS cache', async () => {
 					mockFetchData(Promise.resolve(mocks.success));
 
 					const result = renderHook(() => {
@@ -99,7 +99,11 @@ describe('Smart Card: Actions', () => {
 					});
 					await result.current.register('block');
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'block',
+					);
 				});
 			},
 		);
@@ -367,8 +371,12 @@ describe('Smart Card: Actions', () => {
 					const promise = result.current.loadMetadata();
 					await expect(promise).resolves.toBeUndefined();
 
-					// loadMetadata always requests 'block' appearance to get full data including summary
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
+					// ORS caches block responses independently from optimized inline responses.
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'block',
+					);
 					expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
 					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
 						payload: undefined,
@@ -408,10 +416,10 @@ describe('Smart Card: Actions', () => {
 						const promise = result.current.loadMetadata();
 
 						await expect(promise).resolves.toBeUndefined();
-						// loadMetadata always requests 'block' appearance to get full data including summary
+						// ORS caches block responses independently from optimized inline responses.
 						expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
 							url,
-							true,
+							false,
 							'block',
 						);
 						expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
@@ -449,10 +457,10 @@ describe('Smart Card: Actions', () => {
 						const promise = result.current.loadMetadata();
 
 						await expect(promise).resolves.toBeUndefined();
-						// loadMetadata always requests 'block' appearance to get full data including summary
+						// ORS caches block responses independently from optimized inline responses.
 						expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
 							url,
-							true,
+							false,
 							'block',
 						);
 						expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
@@ -483,8 +491,12 @@ describe('Smart Card: Actions', () => {
 					const promise = result.current.loadMetadata();
 
 					await expect(promise).resolves.toBeUndefined();
-					// loadMetadata always requests 'block' appearance to get full data including summary
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
+					// ORS caches block responses independently from optimized inline responses.
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'block',
+					);
 					expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
 						payload: undefined,
@@ -517,7 +529,11 @@ describe('Smart Card: Actions', () => {
 					const promise = result.current.loadMetadata();
 					await expect(promise).resolves.toBeUndefined();
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'block',
+					);
 				});
 			}, // end ffTest.on callback
 		); // end ffTest.on

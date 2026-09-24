@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-client-extension",
-	"version": "7.3.1",
+	"version": "8.0.0",
 	"description": "Extension methods for linking platform client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,6 @@
 		"./use-data-source-client-extension/mockDatasourceDataResponse": "./src/services/use-data-source-client-extension/mockDatasourceDataResponse.ts",
 		"./use-data-source-client-extension/mockDatasourceDataResponseWithSchema": "./src/services/use-data-source-client-extension/mocks.ts",
 		"./use-data-source-client-extension/mockDatasourceDetailsResponse": "./src/services/use-data-source-client-extension/mockDatasourceDetailsResponse.ts",
-		"./use-data-source-client-extension/mocks": "./src/entry-points/data-source-client-extension-mocks.ts",
 		"./use-data-source-client-extension/types": "./src/services/use-data-source-client-extension/types.ts",
 		"./use-data-source-client-extension": "./src/services/use-data-source-client-extension/index.ts",
 		"./use-smart-link-client-extension": "./src/services/use-smart-link-client-extension/index.ts"

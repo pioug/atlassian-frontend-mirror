@@ -1,7 +1,10 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -25,8 +28,15 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
-		"./example-helpers/**/*"
+		"./example-helpers/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-card/app",
@@ -34,7 +44,25 @@
 	},
 	"references": [
 		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/checkbox/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
@@ -43,10 +71,22 @@
 			"path": "../../editor/editor-shared-styles/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/inline-message/tsconfig.app.json"
+		},
+		{
 			"path": "../../observability/interaction-context/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{
 			"path": "../media-client/tsconfig.app.json"
@@ -58,7 +98,13 @@
 			"path": "../media-common/tsconfig.app.json"
 		},
 		{
+			"path": "../media-core/tsconfig.app.json"
+		},
+		{
 			"path": "../media-file-preview/tsconfig.app.json"
+		},
+		{
+			"path": "../media-picker/tsconfig.app.json"
 		},
 		{
 			"path": "../media-state/tsconfig.app.json"
@@ -67,10 +113,19 @@
 			"path": "../media-svg/tsconfig.app.json"
 		},
 		{
+			"path": "../media-test-data/tsconfig.app.json"
+		},
+		{
+			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../media-ui/tsconfig.app.json"
 		},
 		{
 			"path": "../media-viewer/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
@@ -79,10 +134,28 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/radio/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/range/tsconfig.app.json"
+		},
+		{
 			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/select/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
 			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/toggle/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
@@ -97,7 +170,25 @@
 			"path": "../../design-system/visually-hidden/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../data/ufo-internal/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

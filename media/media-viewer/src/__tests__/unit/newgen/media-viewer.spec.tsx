@@ -2,7 +2,11 @@ import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
-import { type MediaClientConfig, getFileStreamsCache } from '@atlaskit/media-client';
+import {
+	type Identifier,
+	type MediaClientConfig,
+	getFileStreamsCache,
+} from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import {
 	createMockedMediaApi,
@@ -10,11 +14,17 @@ import {
 } from '@atlaskit/media-client/test-helpers';
 import * as downloadUrlModule from '@atlaskit/media-common/downloadUrl';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { MediaViewer } from '../../../';
 import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
-import { type MediaViewerExtensions } from '../../../components/types';
+import {
+	type MediaViewerExtensions,
+	type MediaViewerNavigationDirection,
+} from '../../../components/types';
+import { nextNavButtonId, prevNavButtonId } from '../../../navigation';
 import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 
 const fireAnalyticsMock = jest.spyOn(fireAnalyticsModule, 'fireAnalytics');
@@ -22,7 +32,7 @@ const mocksucceedMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'succeedMediaFi
 const mockfailMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'failMediaFileUfoExperience');
 const mockstartMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'startMediaFileUfoExperience');
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader';
@@ -741,7 +751,12 @@ describe('<MediaViewer />', () => {
 
 			fireEvent.click(downloadButton);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -868,7 +883,12 @@ describe('<MediaViewer />', () => {
 			expect(downloadButton).toBeInTheDocument();
 			fireEvent.click(downloadButton);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1002,7 +1022,12 @@ describe('<MediaViewer />', () => {
 			const proceed = await screen.findByText('Proceed with download');
 			await user.click(proceed);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1138,7 +1163,12 @@ describe('<MediaViewer />', () => {
 			const proceed = await screen.findByText('Proceed with download');
 			await user.click(proceed);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1274,7 +1304,12 @@ describe('<MediaViewer />', () => {
 
 			fireEvent.click(downloadButton);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1372,7 +1407,12 @@ describe('<MediaViewer />', () => {
 			expect(downloadButton).toBeInTheDocument();
 			fireEvent.click(downloadButton);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1440,6 +1480,523 @@ describe('<MediaViewer />', () => {
 			});
 
 			await expect(document.body).toBeAccessible();
+		});
+	});
+
+	describe('Consumer extensions', () => {
+		const experimentName = 'cc_comments_media_viewer_sidebar';
+
+		const sidebarIcon = <EditorPanelIcon color="currentColor" spacing="spacious" label="sidebar" />;
+
+		const renderSidebarBody = (identifier: Identifier) => (
+			<div data-testid="sidebar-body">{'id' in identifier ? identifier.id : ''}</div>
+		);
+
+		const sidebarExtension = (
+			overrides: Partial<MediaViewerExtensions> = {},
+		): MediaViewerExtensions => ({
+			sidebar: { icon: sidebarIcon, renderer: renderSidebarBody },
+			...overrides,
+		});
+
+		const renderSingleItemViewer = (
+			extensions: MediaViewerExtensions | undefined,
+			onClose: () => void,
+		) => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaViewer
+						selectedItem={identifier}
+						items={[identifier]}
+						onClose={onClose}
+						extensions={extensions}
+						collectionName={identifier.collectionName || ''}
+						mediaClientConfig={fakeMediaClientConfig}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			return identifier;
+		};
+
+		const renderTwoItemViewer = (extensions: MediaViewerExtensions | undefined) => {
+			const [fileItem1, identifier1] = generateSampleFileItem.workingVideo();
+			const [fileItem2, identifier2] = generateSampleFileItem.workingGif();
+			const { mediaApi } = createMockedMediaApi([fileItem1, fileItem2]);
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaViewer
+						selectedItem={identifier1}
+						items={[identifier1, identifier2]}
+						extensions={extensions}
+						collectionName={identifier1.collectionName || ''}
+						mediaClientConfig={fakeMediaClientConfig}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			return { identifier1, identifier2 };
+		};
+
+		describe('onPreviewClose', () => {
+			it('should not close on the close button until proceed is called', async () => {
+				mockExpEnabled(experimentName);
+				const onClose = jest.fn();
+				const onPreviewClose = jest.fn();
+
+				renderSingleItemViewer({ onPreviewClose }, onClose);
+
+				fireEvent.click(await screen.findByLabelText('Close'));
+
+				expect(onPreviewClose).toHaveBeenCalledTimes(1);
+				expect(onClose).not.toHaveBeenCalled();
+
+				onPreviewClose.mock.calls[0][0]();
+
+				expect(onClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should close immediately on the close button when no interceptor is supplied', async () => {
+				mockExpEnabled(experimentName);
+				const onClose = jest.fn();
+
+				renderSingleItemViewer({}, onClose);
+
+				fireEvent.click(await screen.findByLabelText('Close'));
+
+				expect(onClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should not close on Escape until proceed is called', async () => {
+				mockExpEnabled(experimentName);
+				const onClose = jest.fn();
+				const onPreviewClose = jest.fn();
+
+				renderSingleItemViewer({ onPreviewClose }, onClose);
+
+				await user.keyboard('{Escape}');
+
+				expect(onPreviewClose).toHaveBeenCalledTimes(1);
+				expect(onClose).not.toHaveBeenCalled();
+
+				onPreviewClose.mock.calls[0][0]();
+
+				expect(onClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should close immediately on Escape when no interceptor is supplied', async () => {
+				mockExpEnabled(experimentName);
+				const onClose = jest.fn();
+
+				renderSingleItemViewer(undefined, onClose);
+
+				await user.keyboard('{Escape}');
+
+				expect(onClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should not close on a direct media click until proceed is called', async () => {
+				mockExpEnabled(experimentName);
+				const onClose = jest.fn();
+				const onPreviewClose = jest.fn();
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaViewer
+							selectedItem={identifier}
+							items={[identifier]}
+							onClose={onClose}
+							extensions={{ onPreviewClose }}
+							collectionName={identifier.collectionName || ''}
+							mediaClientConfig={fakeMediaClientConfig}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// `closeOnDirectClick` only fires for a click landing on the wrapper
+				// itself, not on the image inside it.
+				const imageWrapper = await screen.findByTestId('media-viewer-image-content');
+				fireEvent.click(imageWrapper);
+
+				expect(onPreviewClose).toHaveBeenCalledTimes(1);
+				expect(onClose).not.toHaveBeenCalled();
+
+				onPreviewClose.mock.calls[0][0]();
+
+				expect(onClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should not report a close analytics event while the close is swallowed', async () => {
+				mockExpEnabled(experimentName);
+				const onPreviewClose = jest.fn();
+				const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				render(
+					<AnalyticsListener channel="media" onEvent={onEvent}>
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<MediaViewer
+								selectedItem={identifier}
+								items={[identifier]}
+								extensions={{ onPreviewClose }}
+								collectionName={identifier.collectionName || ''}
+								mediaClientConfig={fakeMediaClientConfig}
+							/>
+						</MockedMediaClientProvider>
+					</AnalyticsListener>,
+				);
+
+				fireEvent.click(await screen.findByLabelText('Close'));
+
+				const hasCloseEvent = () =>
+					onEvent.mock.calls.some((call) => call[0].payload.attributes?.input === 'button');
+
+				expect(hasCloseEvent()).toBe(false);
+
+				onPreviewClose.mock.calls[0][0]();
+
+				expect(hasCloseEvent()).toBe(true);
+			});
+		});
+
+		describe('onSidebarClose', () => {
+			it('should not close the sidebar until proceed is called', async () => {
+				mockExpEnabled(experimentName);
+				const onSidebarClose = jest.fn();
+
+				renderTwoItemViewer(sidebarExtension({ onSidebarClose }));
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(await screen.findByTestId('sidebar-body')).toBeInTheDocument();
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+
+				expect(onSidebarClose).toHaveBeenCalledTimes(1);
+				expect(await screen.findByTestId('sidebar-body')).toBeInTheDocument();
+
+				act(() => onSidebarClose.mock.calls[0][0]());
+
+				expect(screen.queryByTestId('sidebar-body')).not.toBeInTheDocument();
+
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
+			});
+
+			it('should close the sidebar immediately when no interceptor is supplied', async () => {
+				mockExpEnabled(experimentName);
+				renderTwoItemViewer(sidebarExtension());
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(await screen.findByTestId('sidebar-body')).toBeInTheDocument();
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(screen.queryByTestId('sidebar-body')).not.toBeInTheDocument();
+			});
+
+			it('should not intercept opening the sidebar', async () => {
+				mockExpEnabled(experimentName);
+				const onSidebarClose = jest.fn();
+
+				renderTwoItemViewer(sidebarExtension({ onSidebarClose }));
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+
+				expect(onSidebarClose).not.toHaveBeenCalled();
+				expect(await screen.findByTestId('sidebar-body')).toBeInTheDocument();
+			});
+
+			it("should route the sidebar renderer's own close action through the interceptor", async () => {
+				mockExpEnabled(experimentName);
+				const onSidebarClose = jest.fn();
+				const rendererWithCloseButton: MediaViewerExtensions['sidebar'] = {
+					icon: sidebarIcon,
+					renderer: (_identifier, actions) => (
+						<button type="button" onClick={actions.close}>
+							Dismiss sidebar
+						</button>
+					),
+				};
+
+				renderTwoItemViewer({ sidebar: rendererWithCloseButton, onSidebarClose });
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				fireEvent.click(screen.getByRole('button', { name: 'Dismiss sidebar' }));
+
+				expect(onSidebarClose).toHaveBeenCalledTimes(1);
+				expect(screen.getByRole('button', { name: 'Dismiss sidebar' })).toBeInTheDocument();
+
+				act(() => onSidebarClose.mock.calls[0][0]());
+
+				expect(screen.queryByRole('button', { name: 'Dismiss sidebar' })).not.toBeInTheDocument();
+			});
+		});
+
+		describe('onNavigation', () => {
+			it('should not change the displayed item until proceed is called', async () => {
+				mockExpEnabled(experimentName);
+				const onNavigation = jest.fn();
+				const { identifier1, identifier2 } = renderTwoItemViewer(
+					sidebarExtension({ onNavigation }),
+				);
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(screen.getByTestId('sidebar-body')).toHaveTextContent(identifier1.id);
+
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+
+				expect(onNavigation).toHaveBeenCalledTimes(1);
+				expect(screen.getByTestId('sidebar-body')).toHaveTextContent(identifier1.id);
+
+				act(() => onNavigation.mock.calls[0][1]());
+
+				expect(screen.getByTestId('sidebar-body')).toHaveTextContent(identifier2.id);
+			});
+
+			it('should change the displayed item immediately when no interceptor is supplied', async () => {
+				mockExpEnabled(experimentName);
+				const { identifier1, identifier2 } = renderTwoItemViewer(sidebarExtension());
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(screen.getByTestId('sidebar-body')).toHaveTextContent(identifier1.id);
+
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+
+				expect(screen.getByTestId('sidebar-body')).toHaveTextContent(identifier2.id);
+			});
+
+			it("should report a direction of 'next' when moving forward", async () => {
+				mockExpEnabled(experimentName);
+				const onNavigation = jest.fn(
+					(_direction: MediaViewerNavigationDirection, proceed: () => void) => proceed(),
+				);
+
+				renderTwoItemViewer(sidebarExtension({ onNavigation }));
+
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+
+				expect(onNavigation).toHaveBeenLastCalledWith('next', expect.any(Function));
+			});
+
+			it("should report a direction of 'prev' when moving backward", async () => {
+				mockExpEnabled(experimentName);
+				const onNavigation = jest.fn(
+					(_direction: MediaViewerNavigationDirection, proceed: () => void) => proceed(),
+				);
+
+				renderTwoItemViewer(sidebarExtension({ onNavigation }));
+
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+				expect(onNavigation).toHaveBeenLastCalledWith('next', expect.any(Function));
+
+				fireEvent.click(await screen.findByTestId(prevNavButtonId));
+
+				expect(onNavigation).toHaveBeenLastCalledWith('prev', expect.any(Function));
+			});
+
+			it("should fall back to a direction of 'next' when the current item has no file id", async () => {
+				mockExpEnabled(experimentName);
+				const onNavigation = jest.fn(
+					(_direction: MediaViewerNavigationDirection, proceed: () => void) => proceed(),
+				);
+				const [fileItem, fileIdentifier] = generateSampleFileItem.workingVideo();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				const externalIdentifier: Identifier = {
+					mediaItemType: 'external-image',
+					dataURI: 'https://example.com/image.png',
+				};
+
+				// The current item is an external image, so it has no `id` to compare
+				// indexes with and the direction falls back to 'next' even though the
+				// user pressed previous.
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaViewer
+							selectedItem={externalIdentifier}
+							items={[fileIdentifier, externalIdentifier]}
+							extensions={{ onNavigation }}
+							collectionName={fileIdentifier.collectionName || ''}
+							mediaClientConfig={fakeMediaClientConfig}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				fireEvent.click(await screen.findByTestId(prevNavButtonId));
+
+				expect(onNavigation).toHaveBeenLastCalledWith('next', expect.any(Function));
+			});
+		});
+
+		describe('sidebar visibility persistence', () => {
+			it('should seed the initial sidebar state from defaultSidebarVisible', async () => {
+				mockExpEnabled(experimentName);
+				renderTwoItemViewer(sidebarExtension({ defaultSidebarVisible: true }));
+
+				expect(await screen.findByTestId('sidebar-body')).toBeInTheDocument();
+			});
+
+			it('should keep the sidebar closed when defaultSidebarVisible is not supplied', async () => {
+				mockExpEnabled(experimentName);
+				renderTwoItemViewer(sidebarExtension());
+
+				expect(screen.queryByTestId('sidebar-body')).not.toBeInTheDocument();
+			});
+
+			it('should fire onSidebarVisibilityChange on each toggle', async () => {
+				mockExpEnabled(experimentName);
+				const onSidebarVisibilityChange = jest.fn();
+
+				renderTwoItemViewer(sidebarExtension({ onSidebarVisibilityChange }));
+
+				expect(onSidebarVisibilityChange).not.toHaveBeenCalled();
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(onSidebarVisibilityChange).toHaveBeenNthCalledWith(1, true);
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(onSidebarVisibilityChange).toHaveBeenNthCalledWith(2, false);
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(onSidebarVisibilityChange).toHaveBeenNthCalledWith(3, true);
+			});
+		});
+
+		describe('onSelectedItemChange', () => {
+			it('should report the new identifier once navigation commits', async () => {
+				mockExpEnabled(experimentName);
+				const onSelectedItemChange = jest.fn();
+
+				const { identifier2 } = renderTwoItemViewer(sidebarExtension({ onSelectedItemChange }));
+
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+
+				await waitFor(() => expect(onSelectedItemChange).toHaveBeenCalledWith(identifier2));
+			});
+
+			it('should not report a new identifier while navigation is swallowed', async () => {
+				mockExpEnabled(experimentName);
+				const onSelectedItemChange = jest.fn();
+				const onNavigation = jest.fn();
+
+				renderTwoItemViewer(sidebarExtension({ onNavigation, onSelectedItemChange }));
+
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+
+				expect(onNavigation).toHaveBeenCalledTimes(1);
+				expect(onSelectedItemChange).not.toHaveBeenCalled();
+			});
+		});
+
+		// With `cc_comments_media_viewer_sidebar` off, every one of the six gated
+		// fields must be inert and the viewer must behave exactly as it did before
+		// this change. The pre-existing `sidebar` / `headerActions` fields are
+		// deliberately *not* gated and must keep working.
+		describe('with the experiment disabled', () => {
+			it('should close on the close button without consulting onPreviewClose', async () => {
+				mockExpDisabled(experimentName);
+				const onClose = jest.fn();
+				const onPreviewClose = jest.fn();
+
+				renderSingleItemViewer({ onPreviewClose }, onClose);
+
+				fireEvent.click(await screen.findByLabelText('Close'));
+
+				expect(onPreviewClose).not.toHaveBeenCalled();
+				expect(onClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should close on Escape without consulting onPreviewClose', async () => {
+				mockExpDisabled(experimentName);
+				const onClose = jest.fn();
+				const onPreviewClose = jest.fn();
+
+				renderSingleItemViewer({ onPreviewClose }, onClose);
+
+				await user.keyboard('{Escape}');
+
+				expect(onPreviewClose).not.toHaveBeenCalled();
+				expect(onClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should close the sidebar without consulting onSidebarClose', async () => {
+				mockExpDisabled(experimentName);
+				const onSidebarClose = jest.fn();
+
+				renderTwoItemViewer(sidebarExtension({ onSidebarClose }));
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(await screen.findByTestId('sidebar-body')).toBeInTheDocument();
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+
+				expect(onSidebarClose).not.toHaveBeenCalled();
+				expect(screen.queryByTestId('sidebar-body')).not.toBeInTheDocument();
+			});
+
+			it('should navigate without consulting onNavigation', async () => {
+				mockExpDisabled(experimentName);
+				const onNavigation = jest.fn();
+				const { identifier1, identifier2 } = renderTwoItemViewer(
+					sidebarExtension({ onNavigation }),
+				);
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(screen.getByTestId('sidebar-body')).toHaveTextContent(identifier1.id);
+
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+
+				expect(onNavigation).not.toHaveBeenCalled();
+				expect(screen.getByTestId('sidebar-body')).toHaveTextContent(identifier2.id);
+			});
+
+			it('should ignore defaultSidebarVisible and start with the sidebar closed', async () => {
+				mockExpDisabled(experimentName);
+				renderTwoItemViewer(sidebarExtension({ defaultSidebarVisible: true }));
+
+				await screen.findByLabelText('sidebar');
+				expect(screen.queryByTestId('sidebar-body')).not.toBeInTheDocument();
+			});
+
+			it('should not fire onSidebarVisibilityChange on toggle', async () => {
+				mockExpDisabled(experimentName);
+				const onSidebarVisibilityChange = jest.fn();
+
+				renderTwoItemViewer(sidebarExtension({ onSidebarVisibilityChange }));
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				expect(await screen.findByTestId('sidebar-body')).toBeInTheDocument();
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+
+				expect(onSidebarVisibilityChange).not.toHaveBeenCalled();
+			});
+
+			it('should not fire onSelectedItemChange on navigation', async () => {
+				mockExpDisabled(experimentName);
+				const onSelectedItemChange = jest.fn();
+
+				const { identifier2 } = renderTwoItemViewer(sidebarExtension({ onSelectedItemChange }));
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+
+				expect(screen.getByTestId('sidebar-body')).toHaveTextContent(identifier2.id);
+				expect(onSelectedItemChange).not.toHaveBeenCalled();
+			});
+
+			it('should still render the ungated sidebar extension', async () => {
+				mockExpDisabled(experimentName);
+				const { identifier1 } = renderTwoItemViewer(sidebarExtension());
+
+				fireEvent.click(await screen.findByLabelText('sidebar'));
+
+				expect(await screen.findByTestId('sidebar-body')).toHaveTextContent(identifier1.id);
+			});
 		});
 	});
 });

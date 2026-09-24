@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TagGroupProps
  *
- * @codegen <<SignedSource::eaa939ea39a1dac5b1f04c5d6541463c>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/taggroup/__generated__/index.partial.tsx <<SignedSource::5ecfc76aae3b3e7f55b076d81f20c782>>
+ * @codegen <<SignedSource::5f784a44842dee8e17d2a7bcbf858b11>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/taggroup/__generated__/index.partial.tsx <<SignedSource::b061514ecbda77c4645fcc07d3d9a5cb>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

@@ -15,7 +15,6 @@ import type { AuthProvider } from '@atlaskit/media-core/auth';
 import { authToOwner } from '@atlaskit/media-core/auth-to-owner';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import { mediaStore as fileStateStore } from '@atlaskit/media-state/media-store';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
@@ -326,34 +325,20 @@ describe('FileFetcher', () => {
 				);
 			});
 
-			eeTest
-				.describe('platform_editor_media_download_fallback_name', 'download binary name forwarding')
-				.variant(true, () => {
-					it('should not pass a default name to getFileBinaryURL when no name is provided', async () => {
-						const { mediaStore, fileFetcher } = setup();
+			describe('download binary name forwarding', () => {
+				it('should not pass a default name to getFileBinaryURL when no name is provided', async () => {
+					const { mediaStore, fileFetcher } = setup();
 
-						await fileFetcher.downloadBinary(fileId, undefined, collectionName);
+					await fileFetcher.downloadBinary(fileId, undefined, collectionName);
 
-						expect(mediaStore.getFileBinaryURL).toHaveBeenCalledWith(
-							fileId,
-							collectionName,
-							undefined,
-							undefined,
-						);
-					});
+					expect(mediaStore.getFileBinaryURL).toHaveBeenCalledWith(
+						fileId,
+						collectionName,
+						undefined,
+						undefined,
+					);
 				});
-
-			eeTest
-				.describe('platform_editor_media_download_fallback_name', 'download binary name forwarding')
-				.variant(false, () => {
-					it('should not pass a name to getFileBinaryURL', async () => {
-						const { mediaStore, fileFetcher } = setup();
-
-						await fileFetcher.downloadBinary(fileId, undefined, collectionName);
-
-						expect(mediaStore.getFileBinaryURL).toHaveBeenCalledWith(fileId, collectionName);
-					});
-				});
+			});
 
 			it('should use the default name for the browser download when no name is provided', async () => {
 				const { fileFetcher } = setup();

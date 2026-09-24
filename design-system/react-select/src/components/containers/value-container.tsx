@@ -6,7 +6,6 @@ import { type CSSProperties, type JSX, type ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../../get-style-props';
@@ -92,9 +91,8 @@ export const ValueContainer: <Option, IsMulti extends boolean, Group extends Gro
 		'value-container--has-value': hasValue,
 	});
 
-	const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
-	const tagUpliftMultiVertical = ffTagUplifts && isMulti;
-	const tagUpliftChipRow = ffTagUplifts && isMulti && hasValue && controlShouldRenderValue;
+	const tagUpliftMultiVertical = isMulti;
+	const tagUpliftChipRow = isMulti && hasValue && controlShouldRenderValue;
 
 	return (
 		<div

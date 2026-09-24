@@ -6,6 +6,8 @@ type ActivateAEP = UIAEP<
 	ACTION_SUBJECT.FIND_REPLACE_DIALOG,
 	undefined,
 	{
+		/** The editor mode when the dialog opened. */
+		editorViewMode?: 'view' | 'edit';
 		inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.PREFILL;
 		triggerMethod: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.EXTERNAL;
 	},

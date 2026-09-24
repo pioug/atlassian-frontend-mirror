@@ -1,5 +1,44 @@
 # @atlaskit/editor-core
 
+## 231.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 231.0.2
+
+### Patch Changes
+
+- [`202069bab1e36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202069bab1e36) -
+  Clean up the shipped `platform_editor_enghealth_a11y_jan_fixes` experiment. Toolbar dropdown items
+  now always render with `role="menuitem"` and without `aria-pressed`, the block menu always has
+  `role="menu"`, and show-diff deleted content always uses the a11y-fixed styles.
+- Updated dependencies
+
+## 231.0.1
+
+### Patch Changes
+
+- [`0095a83701e66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0095a83701e66) -
+  Clean up the shipped `platform_editor_a11y_scrollable_region` experiment. The inline code mark
+  accessibility fix (`overflow: unset` on `.code`) is now permanently on, so the conditional style
+  and the experiment registration have been removed. No behaviour change for users already in the
+  treatment cohort.
+- Updated dependencies
+
+## 231.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 230.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 229.1.9
 
 ### Patch Changes

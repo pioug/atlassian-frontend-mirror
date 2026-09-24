@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ListItemProps
  *
- * @codegen <<SignedSource::498ef4606a16b666a2b159d16dc69460>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/list/listitem.tsx <<SignedSource::73cdf1aa500fb4ffb5cbe4ecd40276a9>>
+ * @codegen <<SignedSource::928880135ab2561cd34cb8c8a239499d>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/list/listitem.tsx <<SignedSource::59f140607cfeb1b62827e9427cee94e0>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

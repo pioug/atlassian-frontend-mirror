@@ -1,7 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -29,6 +30,7 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"disableReferencedProjectLoad": true,
 		"disableSolutionSearching": true,
@@ -37,13 +39,34 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-core/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugins/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../insights-ai-platform/gesture-detection/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

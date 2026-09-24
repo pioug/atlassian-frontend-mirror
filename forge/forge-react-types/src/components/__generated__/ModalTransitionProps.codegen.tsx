@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalTransitionProps
  *
- * @codegen <<SignedSource::4df20ec54754f56f2bdaeafb075be019>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-transition.partial.tsx <<SignedSource::9a5d35aaedbe614414c801acffdbeeff>>
+ * @codegen <<SignedSource::8871b6ff7439f8172716d94cf7bc14fc>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-transition.partial.tsx <<SignedSource::eb295d3ce9d9acba04d56272c469097a>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

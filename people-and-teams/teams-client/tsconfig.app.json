@@ -1,7 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -28,14 +29,15 @@
 		"./src/mocks/team-link.ts",
 		"./src/mocks/team.ts",
 		"./src/mocks/with-faker.ts",
-		"./src/mocks/random-basic-team.ts",
-		"./src/mocks/random-full-team.ts",
-		"./src/mocks/random-header-image.ts",
-		"./src/mocks/random-team-images.ts",
-		"./src/mocks/random-team-membership-2.ts",
-		"./src/mocks/random-team-memberships-2.ts",
-		"./src/mocks/random-team-with-memberships.ts"
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./scripts/*.ts"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__teams-client/app",
@@ -46,6 +48,9 @@
 			"path": "../../uip/atlassian-context/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
@@ -53,6 +58,9 @@
 		},
 		{
 			"path": "../../design-system/codegen/tsconfig.app.json"
+		},
+		{
+			"path": "../ptc-test-utils/tsconfig.app.json"
 		}
 	]
 }

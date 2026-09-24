@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - DynamicTableProps
  *
- * @codegen <<SignedSource::8923606b45ea3fb8adc1f391645ee46e>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/dynamictable/__generated__/index.partial.tsx <<SignedSource::579e3dddf7bd4b762d0fd40744619b89>>
+ * @codegen <<SignedSource::fdc5976038cd11060e6e33cdfcf7cb6e>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/dynamictable/__generated__/index.partial.tsx <<SignedSource::118ea0452d21e3184596d9d742369d75>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

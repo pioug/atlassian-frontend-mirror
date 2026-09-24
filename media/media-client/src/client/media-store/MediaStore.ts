@@ -6,7 +6,6 @@ import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 import { isClientBasedAuth } from '@atlaskit/media-core/is-client-based-auth';
 import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FILE_CACHE_MAX_AGE } from '../../constants';
 import { getArtifactUrl } from '../../models/artifacts';
@@ -389,9 +388,7 @@ export class MediaStore implements MediaApi {
 				dl: true,
 				collection: collectionName,
 				'max-age': maxAge,
-				...(name && expValEquals('platform_editor_media_download_fallback_name', 'isEnabled', true)
-					? { name }
-					: {}),
+				...(name ? { name } : {}),
 			},
 			auth,
 		};

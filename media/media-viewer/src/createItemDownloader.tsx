@@ -1,7 +1,6 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { type FileState, isErrorFileState, type MediaClient } from '@atlaskit/media-client';
 import { type MediaTraceContext } from '@atlaskit/media-common';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { createDownloadFailedEventPayload } from './analytics/events/operational/createDownloadFailedEventPayload';
 import { createDownloadSucceededEventPayload } from './analytics/events/operational/createDownloadSucceededEventPayload';
@@ -23,11 +22,7 @@ export const createItemDownloader: any =
 		const { collectionName, traceContext, createAnalyticsEvent, fallbackMediaName } = options;
 		const id = file.id;
 		const fileStateName = !isErrorFileState(file) ? file.name : undefined;
-		const name =
-			fileStateName ||
-			(expValEquals('platform_editor_media_download_fallback_name', 'isEnabled', true)
-				? fallbackMediaName
-				: undefined);
+		const name = fileStateName || fallbackMediaName;
 
 		mediaClient.file
 			.downloadBinary(id, name, collectionName, traceContext)

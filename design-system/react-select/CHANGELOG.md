@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 4.10.1
+
+### Patch Changes
+
+- [`70faba3ff157d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70faba3ff157d) -
+  Fix issue in which fontsize would be too large on small non-mobile viewports.
+- Updated dependencies
+
 ## 4.10.0
 
 ### Minor Changes

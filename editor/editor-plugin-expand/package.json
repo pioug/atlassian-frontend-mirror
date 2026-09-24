@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-expand",
-	"version": "20.0.7",
+	"version": "22.0.3",
 	"description": "Expand plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -69,9 +69,6 @@
 		"react-intl": "root:*"
 	},
 	"platform-feature-flags": {
-		"platform_editor_element_browser_analytic": {
-			"type": "boolean"
-		},
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		}

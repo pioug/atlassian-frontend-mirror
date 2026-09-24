@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /**
  * Entry Point: @atlaskit/media-card/types
  */
@@ -216,7 +215,7 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 	readonly onError?: (
 		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason,
 	) => void;
-	/** Extensions for the media viewer (e.g. comment button in header). */
+	/** Extensions for the media viewer (e.g. comment button in header, sidebar with comment indicator). */
 	readonly mediaViewerExtensions?: MediaViewerExtensions;
 	/**
 	 * Optional fallback fetcher to retrieve the media filename from another service.
@@ -242,20 +241,3 @@ export interface CardState {
 	wasResolvedUpfrontPreview: boolean;
 	shouldUpdateStateForIdentifier?: boolean;
 }
-
-/**
- * @deprecated Use `import { isSSRPreview } from '@atlaskit/media-card/is-ssr-preview'` instead.
- */
-export { isSSRPreview } from './isSSRPreview';
-/**
- * @deprecated Use `import { isSSRServerPreview } from '@atlaskit/media-card/is-ssr-server-preview'` instead.
- */
-export { isSSRServerPreview } from './isSSRServerPreview';
-/**
- * @deprecated Use `import { isSSRClientPreview } from '@atlaskit/media-card/is-ssr-client-preview'` instead.
- */
-export { isSSRClientPreview } from './isSSRClientPreview';
-/**
- * @deprecated Use `import { isSSRDataPreview } from '@atlaskit/media-card/is-ssr-data-preview'` instead.
- */
-export { isSSRDataPreview } from './isSSRDataPreview';

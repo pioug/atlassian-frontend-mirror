@@ -88,6 +88,8 @@ import {
 	TrelloIcon,
 	TrelloLogo,
 } from '@atlaskit/logo';
+import { ArtifactsIcon } from '@atlaskit/logo/artifacts/icon';
+import { ArtifactsLogo } from '@atlaskit/logo/artifacts/logo';
 import { AtlasIcon } from '@atlaskit/logo/atlas-icon';
 import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
 import { AtlassianAccessLogo } from '@atlaskit/logo/atlassian-access/logo';
@@ -148,6 +150,7 @@ const logoMap: {
 		logo: JiraServiceManagementLogo,
 		icon: JiraServiceManagementIcon,
 	},
+	{ name: 'artifacts', logo: ArtifactsLogo, icon: ArtifactsIcon },
 	{ name: 'assets', logo: AssetsLogo, icon: AssetsIcon },
 	{
 		name: 'customer-service-management',

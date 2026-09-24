@@ -3,6 +3,10 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { lazy, LazySuspense } from 'react-loosely-lazy';
+
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import { messages } from './messages';
@@ -129,6 +133,59 @@ type ExtensionLoadingProps = LoadingComponentProps & {
 	showUnknownMacroPlaceholder?: boolean;
 };
 
+type NodeRendererProps = {
+	actions?: MultiBodiedExtensionActions;
+	isSelected?: boolean;
+	loadingFallback?: React.ReactNode;
+	node: ExtensionParams<Parameters>;
+	references?: ReferenceEntity[];
+	showUnknownMacroPlaceholder?: boolean;
+};
+
+// eslint-disable-next-line @repo/internal/react/no-class-components -- error boundaries require a class component
+class ExtensionRendererErrorBoundary extends React.Component<
+	{
+		children: React.ReactNode;
+		fallbackProps: NodeRendererProps;
+	},
+	{ error?: Error }
+> {
+	state: { error?: Error } = {};
+
+	static getDerivedStateFromError(error: Error): { error: Error } {
+		return { error };
+	}
+
+	componentDidCatch(error: Error): void {
+		// eslint-disable-next-line no-console
+		console.error('Error rendering extension', error);
+	}
+
+	render(): React.ReactNode {
+		return this.state.error
+			? renderExtensionLoadingError(this.state.error, this.props.fallbackProps)
+			: this.props.children;
+	}
+}
+
+const noop = (): void => {};
+
+function renderExtensionLoadingError(error: Error, props: NodeRendererProps): React.JSX.Element {
+	// Needed because the old react-loadable (older code-splitting library) error handling behaviour might be relied on by extensions.
+	// https://unpkg.com/react-loadable@5.2.2/lib/index.js
+	return (
+		<ExtensionLoading
+			isLoading={false}
+			pastDelay
+			timedOut={false}
+			error={error}
+			retry={noop}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+		/>
+	);
+}
+
 function ExtensionLoading(props: ExtensionLoadingProps) {
 	const intl = useIntl();
 	const extensionNode = props.node;
@@ -167,42 +224,60 @@ export function getNodeRenderer<T extends Parameters>(
 	showUnknownMacroPlaceholder?: boolean;
 }> &
 	Loadable.LoadableComponent {
-	return Loadable<
-		{
-			actions?: MultiBodiedExtensionActions;
-			isSelected?: boolean;
-			node: ExtensionParams<T>;
-			references?: ReferenceEntity[];
-			showUnknownMacroPlaceholder?: boolean;
-		},
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		any
-	>({
-		loader: () => {
-			const maybePromise = getExtensionModuleNodeMaybePreloaded(
-				extensionProvider,
-				extensionType,
-				extensionKey,
-			);
-			if (maybePromise instanceof Promise) {
-				return maybePromise.then((node) => resolveImport(node.render()));
-			} else {
-				const preloaded = (maybePromise as PreloadableExtensionModuleNode)?.renderSync?.();
-				// Only product implemented preloading will return sync result
-				// However the out-of-box won't handle this. Confluence uses a custom implementation
-				return preloaded
-					? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-						(resolveImportSync(preloaded) as any)
-					: resolveImport(maybePromise.render());
-			}
-		},
+	const loadNodeRenderer = () => {
+		const maybePromise = getExtensionModuleNodeMaybePreloaded(
+			extensionProvider,
+			extensionType,
+			extensionKey,
+		);
+		if (maybePromise instanceof Promise) {
+			return maybePromise.then((node) => resolveImport(node.render()));
+		}
+
+		const preloaded = (maybePromise as PreloadableExtensionModuleNode)?.renderSync?.();
+		// Only product implemented preloading will return sync result
+		// However the out-of-box won't handle this. Confluence uses a custom implementation
+		return preloaded
+			? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+				(resolveImportSync(preloaded) as any)
+			: resolveImport(maybePromise.render());
+	};
+
+	const LazyNodeRenderer = lazy(() => loadNodeRenderer());
+	LazyNodeRenderer.displayName = 'lazy(NodeRenderer)';
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const LoadableNodeRenderer = Loadable<NodeRendererProps, any>({
+		loader: loadNodeRenderer,
 		// react-loadable passes all props from <NodeRenderer> to the loading component at runtime,
 		// but its TypeScript types only expect LoadingComponentProps. We cast here because
 		// ExtensionLoading accepts additional props (node, showUnknownMacroPlaceholder) that
 		// react-loadable will pass through but doesn't know about in its type definitions.
 		loading: ExtensionLoading as React.ComponentType<LoadingComponentProps>,
 	});
+
+	const NodeRenderer = (props: NodeRendererProps): React.JSX.Element => {
+		if (!isExperimentEnabled('platform_editor_loosely_lazy_migration')) {
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			return <LoadableNodeRenderer {...props} />;
+		}
+
+		return (
+			<ExtensionRendererErrorBoundary fallbackProps={props}>
+				<LazySuspense fallback={props.loadingFallback ?? null}>
+					{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+					<LazyNodeRenderer {...props} />
+				</LazySuspense>
+			</ExtensionRendererErrorBoundary>
+		);
+	};
+
+	NodeRenderer.preload = () =>
+		isExperimentEnabled('platform_editor_loosely_lazy_migration')
+			? LazyNodeRenderer.preload()
+			: LoadableNodeRenderer.preload();
+
+	return NodeRenderer;
 }
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { getExtensionManifest } from './getExtensionManifest';

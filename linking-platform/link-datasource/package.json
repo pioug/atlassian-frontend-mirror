@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "6.14.2",
+	"version": "7.0.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -156,8 +156,6 @@
 		"./confluence-search-modal": "./src/ui/confluence-search-modal/index.tsx",
 		"./datasource-table-view": "./src/ui/datasource-table-view/index.tsx",
 		"./datasource-table-view-with-wrappers": "./src/ui/datasource-table-view/DatasourceTableViewWithWrappers.tsx",
-		"./elements/render-type": "./src/ui/issue-like-table/render-type/index.tsx",
-		"./elements": "./src/ui/issue-like-table/render-type/index.tsx",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"

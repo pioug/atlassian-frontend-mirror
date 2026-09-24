@@ -1,5 +1,78 @@
 # @atlaskit/editor-common
 
+## 125.2.1
+
+### Patch Changes
+
+- [`a8919aeeabced`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8919aeeabced) -
+  Remove the shipped `platform_editor_hydration_skip_react_portal` experiment and preserve SSR DOM
+  reuse. The experiment is no longer available in the Statsig configuration; consumers should remove
+  its overrides and checks.
+- Updated dependencies
+
+## 125.2.0
+
+### Minor Changes
+
+- [`111eaadd44c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/111eaadd44c1c) -
+  EDITOR-8995: Make the editor find dialog usable in live view. The find dialog now accepts an
+  `allowReplace` prop, and hides the replace label, field, replacement count message, both replace
+  buttons and the horizontal rule when it is false. It also names the dialog "Find" instead of "Find
+  and Replace" in that state. The find plugin derives `allowReplace` from the `editorViewMode`
+  shared state, so view mode never offers replace. A new ProseMirror plugin opens the dialog on
+  `Mod-f` in view mode, where no keymap fires, behind the `platform_editor_collapsible_headings`
+  experiment. The `activated` analytics event gains an `editorViewMode` attribute.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 125.1.0
+
+### Minor Changes
+
+- [`52a90f8df8ee2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52a90f8df8ee2) -
+  Native embed extensions take an `onContentReady` callback and call it once there is something to
+  show: the app's first painted frame for an experience that reports one, the frame's load event
+  otherwise, or a failure. The generated content reveal holds its node closed until that call, so
+  `editor-common` no longer watches the native embed loading attribute to work out when a node has
+  loaded. Both extension node views, the extension plugin's and the referentiality plugin's, hand
+  the callback to the extension.
+- [`bc78affbd7445`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc78affbd7445) -
+  Migrate Editor Common's lazy-loaded components to react-loosely-lazy behind the
+  `platform_editor_loosely_lazy_migration` experiment.
+
+### Patch Changes
+
+- [`6ae411e31887f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ae411e31887f) -
+  Fix Suggested Edits analytics exposure, navigation, and suggestion view tracking under
+  platform_editor_ai_content_suggested_edits.
+- Updated dependencies
+
+## 125.0.0
+
+### Patch Changes
+
+- [`8bcf5e620061d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bcf5e620061d) -
+  Clean up feature gate `platform_editor_fix_unsubscribe_of_provider`
+- [`06ffc006ddef9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06ffc006ddef9) -
+  EDITOR-9233 Do not add sticky header offset for diffs inside the header row under
+  platform_editor_ai_show_diff_patch_2.
+- Updated dependencies
+
+## 124.0.0
+
+### Major Changes
+
+- [`135644b71068b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/135644b71068b) -
+  Clean up experiment `cc_smarts_should_improve_writing_migration`. The should-improve-writing
+  request now always goes to the cc-smarts route, and the convo-ai route plus its shadow-comparison
+  analytics have been removed.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 123.8.1
 
 ### Patch Changes

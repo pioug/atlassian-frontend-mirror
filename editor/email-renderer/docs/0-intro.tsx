@@ -12,7 +12,7 @@ Use as follows:
 
 ${code`
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { EmailSerializer } from '@atlaskit/email-renderer';
+import { EmailSerializer } from '@atlaskit/email-renderer/main';
 
 const document = ... // Your ADF JSON document
 

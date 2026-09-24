@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BlanketProps
  *
- * @codegen <<SignedSource::1dfc97c6f994cdbcce02ddc7f7c1f09a>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/blanket/index.tsx <<SignedSource::64e7af2f1aa579714559e1d783b83ec7>>
+ * @codegen <<SignedSource::9678994d38986ddb10e173f44b8462a0>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/blanket/index.tsx <<SignedSource::b37110240800f6de2d45886e9b9d7123>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

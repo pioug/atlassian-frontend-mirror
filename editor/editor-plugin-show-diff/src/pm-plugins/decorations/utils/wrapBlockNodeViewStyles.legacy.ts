@@ -10,7 +10,6 @@
  */
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { ColorScheme, DiffType } from '../../../showDiffPluginType';
@@ -31,7 +30,6 @@ import {
 	editingStyleActiveExtended,
 	editingStyleActiveExtendedNoUnderline,
 	editingStyleNode,
-	getStandardDeletedContentStyle,
 	getStandardDeletedContentStyleActive,
 	getStandardDeletedContentStyleNew,
 	addedCellOverlayStyle,
@@ -152,9 +150,7 @@ export const getChangedContentStyleLegacy = (
 	if (isActive) {
 		return getStandardDeletedContentStyleActive();
 	}
-	return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-		? getStandardDeletedContentStyleNew()
-		: getStandardDeletedContentStyle();
+	return getStandardDeletedContentStyleNew();
 };
 
 /** Pre-refactor node-specific style for a changed block node. */

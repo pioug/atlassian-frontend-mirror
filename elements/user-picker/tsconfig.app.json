@@ -1,7 +1,10 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -25,8 +28,15 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
-		"./example-helpers/**/*"
+		"./example-helpers/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__user-picker/app",
@@ -34,19 +44,43 @@
 	},
 	"references": [
 		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../search/search-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/logo/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
 			"path": "../../people-and-teams/people-teams-ui-public/tsconfig.app.json"
@@ -61,10 +95,22 @@
 			"path": "../../design-system/popper/tsconfig.app.json"
 		},
 		{
+			"path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/radio/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/range/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/react-select/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/select/tsconfig.app.json"
@@ -88,8 +134,22 @@
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{
+			"path": "../util-data-test/tsconfig.app.json"
+		},
+		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../accessibility/axe-integration/a11y-playwright-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

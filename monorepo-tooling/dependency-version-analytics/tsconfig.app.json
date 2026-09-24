@@ -2,9 +2,7 @@
 	"extends": "../../../tsconfig.node.json",
 	"include": [
 		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
-	"exclude": [
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -28,8 +26,15 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
-		"./src/commands/populate-historic-data/__fixtures__/**/*"
+		"./src/commands/populate-historic-data/__fixtures__/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"outDir": "../../../tsDist/@atlaskit__dependency-version-analytics/app",
 		"composite": true,

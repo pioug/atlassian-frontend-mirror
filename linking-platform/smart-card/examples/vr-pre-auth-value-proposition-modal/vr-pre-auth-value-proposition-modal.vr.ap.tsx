@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
-import { SmartCardProvider } from '@atlaskit/link-provider/provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { UnAuthClient } from '@atlaskit/link-test-helpers';
 
 import { currentSiteCloudIdService } from '../../src/state/services/current-site-cloud-id';

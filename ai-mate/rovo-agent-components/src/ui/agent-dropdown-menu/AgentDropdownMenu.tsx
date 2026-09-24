@@ -76,6 +76,7 @@ type AgentDropdownMenuProps = {
 	shouldRenderToParent?: DropdownMenuProps['shouldRenderToParent'];
 	loadAgentPermissions: () => Promise<{
 		isCreateEnabled?: boolean;
+		isDuplicateEnabled?: boolean;
 		isEditEnabled: boolean;
 		isDeleteEnabled: boolean;
 	}>;
@@ -97,7 +98,6 @@ export const AgentDropdownMenu = ({
 	onDeleteAgent,
 	onViewAgentFullProfileClick,
 	onOpenChange,
-	isForgeAgent,
 	showDeleteOption = true,
 	showViewAgentOption = false,
 	onViewAgentClick,
@@ -123,6 +123,7 @@ export const AgentDropdownMenu = ({
 	const [isOpen, setIsOpen] = useState(false);
 	const [permissions, setPermissions] = useState<{
 		isCreateEnabled?: boolean;
+		isDuplicateEnabled?: boolean;
 		isEditEnabled: boolean;
 		isDeleteEnabled: boolean;
 	}>();
@@ -130,10 +131,21 @@ export const AgentDropdownMenu = ({
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true);
-			const { isCreateEnabled, isEditEnabled, isDeleteEnabled } = await loadAgentPermissions();
-			setIsLoading(false);
+			try {
+				const { isCreateEnabled, isDuplicateEnabled, isEditEnabled, isDeleteEnabled } =
+					await loadAgentPermissions();
 
-			setPermissions({ isCreateEnabled, isEditEnabled, isDeleteEnabled });
+				setPermissions({ isCreateEnabled, isDuplicateEnabled, isEditEnabled, isDeleteEnabled });
+			} catch {
+				setPermissions({
+					isCreateEnabled: false,
+					isDuplicateEnabled: false,
+					isEditEnabled: false,
+					isDeleteEnabled: false,
+				});
+			} finally {
+				setIsLoading(false);
+			}
 		};
 
 		// Only load once
@@ -166,6 +178,8 @@ export const AgentDropdownMenu = ({
 	};
 
 	const isCreateAgentsEnabled = permissions?.isCreateEnabled;
+	const isDuplicateAgentEnabled =
+		!fg('agent_studio_can_duplicate_permission') || permissions?.isDuplicateEnabled;
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -223,7 +237,7 @@ export const AgentDropdownMenu = ({
 						{formatMessage(messages.viewAgentFullProfile)}
 					</DropdownItem>
 				)}
-				{!isForgeAgent && isCreateAgentsEnabled && (
+				{isCreateAgentsEnabled && isDuplicateAgentEnabled && (
 					<DropdownItem
 						onClick={async (e) => {
 							if (fg('rovo_agent_versioning_enabled')) {

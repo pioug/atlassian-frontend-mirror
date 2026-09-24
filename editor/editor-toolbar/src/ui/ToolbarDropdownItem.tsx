@@ -123,9 +123,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			role={
 				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 					? itemRole || 'menuitem'
-					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-						? 'menuitem'
-						: undefined
+					: 'menuitem'
 			}
 			testId={testId as string}
 			xcss={cx(
@@ -145,14 +143,6 @@ const CustomDropdownMenuItemButton = forwardRef<
 				(itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox')
 					? ariaPressed
 					: undefined
-			}
-			// platform_editor_enghealth_a11y_jan_fixes: menuitem roles cannot have aria-pressed attribute
-			aria-pressed={
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-					? undefined
-					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-						? undefined
-						: ariaPressed
 			}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}
@@ -231,9 +221,7 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 			role={
 				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 					? itemRole || 'menuitem'
-					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-						? 'menuitem'
-						: undefined
+					: 'menuitem'
 			}
 			testId={testId as string}
 			xcss={cx(
@@ -254,14 +242,6 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 				(itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox')
 					? ariaPressed
 					: undefined
-			}
-			// platform_editor_enghealth_a11y_jan_fixes: menuitem roles cannot have aria-pressed attribute
-			aria-pressed={
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-					? undefined
-					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-						? undefined
-						: ariaPressed
 			}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}

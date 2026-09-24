@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonGroupProps
  *
- * @codegen <<SignedSource::17e4c7b27bf25505bd192e44f0bc3c37>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/button-group.partial.tsx <<SignedSource::425feaa78f4ad0ff0373e9e49718c6f9>>
+ * @codegen <<SignedSource::3db26e916754166c96ff95c6a3116fde>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/button-group.partial.tsx <<SignedSource::666485d8b6ea5b6d2ce21df5cfa1165a>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

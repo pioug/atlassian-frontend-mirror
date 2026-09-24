@@ -37,12 +37,12 @@
 		"./component-with-condition": "./src/utils/component-with-condition/index.tsx",
 		"./component-with-fg": "./src/utils/component-with-fg/index.ts",
 		"./conditional-hooks-factory/conditional-hooks-factory": "./src/utils/conditional-hooks-factory/conditionalHooksFactory.ts",
-		"./conditional-hooks-factory": "./src/entry-points/conditional-hooks-factory.ts",
 		"./do-not-use-this-in-production-ever-reset-conditional-hooks-factory-cache": "./src/utils/conditional-hooks-factory/DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache.ts",
 		"./function-union-with-condition": "./src/utils/function-with-condition/functionUnionWithCondition.ts",
 		"./function-with-condition/function-with-condition": "./src/utils/function-with-condition/functionWithCondition.ts",
+		"./function-with-fg": "./src/utils/function-with-fg/index.ts",
 		"./function-with-condition": "./src/entry-points/function-with-condition.ts",
-		"./function-with-fg": "./src/utils/function-with-fg/index.ts"
+		"./conditional-hooks-factory": "./src/entry-points/conditional-hooks-factory.ts"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",

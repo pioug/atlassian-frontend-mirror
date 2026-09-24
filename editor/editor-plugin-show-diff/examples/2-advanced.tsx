@@ -127,9 +127,7 @@ const COLOR_SCHEME_LABELS: Record<ColorSchemeMode, string> = {
 // exercised without a Confluence host application.
 // eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 setBooleanFeatureFlagResolver(
-	(flagKey) =>
-		flagKey === 'confluence_ncs_step_diffing_version_history' ||
-		flagKey === 'platform_editor_reduce_diff_attr_sensitivity',
+	(flagKey) => flagKey === 'confluence_ncs_step_diffing_version_history',
 );
 // eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 UNSAFE_overrideExperiment('platform_editor_show_diff_color_scheme_refactor', {

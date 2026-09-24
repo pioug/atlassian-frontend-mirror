@@ -1,4 +1,4 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of this deprecated API. */
 
 import { useTeamsClientSetupNext } from './use-teams-client-setup-next';
 
@@ -18,8 +18,3 @@ export const useTeamsClientSetup = (
 		principalUserId,
 	});
 };
-
-/**
- * @deprecated Use `import { useTeamsClientSetupNext } from '@atlaskit/teams-client/use-teams-client-setup-next'` instead.
- */
-export { useTeamsClientSetupNext } from './use-teams-client-setup-next';

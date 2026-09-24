@@ -27,22 +27,6 @@ import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { defaultFlagGroupContext } from './internal/default-flag-group-context';
 import { FlagGroupContext, type FlagGroupAPI } from './internal/flag-group-context';
 
-/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-/**
- * @deprecated Use `import { FlagGroupContext } from '@atlaskit/flag/flag-group-context'` instead.
- */
-export { FlagGroupContext } from './internal/flag-group-context';
-/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-/**
- * @deprecated Use `import { useFlagGroup } from '@atlaskit/flag/use-flag-group'` instead.
- */
-export { useFlagGroup } from './internal/use-flag-group';
-/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-/**
- * @deprecated Use `import { flagWidth } from '@atlaskit/flag/constants'` instead.
- */
-export { flagWidth } from './constants';
-
 type FlagGroupProps = {
 	/**
 	 * ID attribute used for DOM selection.
@@ -390,7 +374,7 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	return shouldRenderToParent ? flags : <Portal zIndex={layers.flag()}>{flags}</Portal>;
 };
 
-/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of this deprecated default export shim. */
 /**
  * @deprecated Use `import { FlagGroup } from '@atlaskit/flag/flag-group'` instead.
  */

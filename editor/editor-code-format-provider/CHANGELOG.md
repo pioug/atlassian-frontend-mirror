@@ -1,5 +1,17 @@
 # @atlaskit/editor-code-format-provider
 
+## 1.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.7
 
 ### Patch Changes

@@ -1,7 +1,10 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -25,8 +28,15 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
-		"./example-helpers/**/*"
+		"./example-helpers/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-picker/app",
@@ -34,7 +44,22 @@
 	},
 	"references": [
 		{
+			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
+		},
+		{
+			"path": "../../analytics/analytics-namespaced-context/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/flag/tsconfig.app.json"
@@ -52,10 +77,28 @@
 			"path": "../media-common/tsconfig.app.json"
 		},
 		{
+			"path": "../media-core/tsconfig.app.json"
+		},
+		{
+			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../media-ui/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/spinner/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/toggle/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
@@ -64,7 +107,19 @@
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../data/ufo-internal/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

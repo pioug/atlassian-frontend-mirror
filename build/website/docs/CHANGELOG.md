@@ -1,5 +1,22 @@
 # @atlaskit/docs
 
+## 12.3.0
+
+### Minor Changes
+
+- [`457fc2e97733a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457fc2e97733a) -
+  Add a dedicated entry point for configuring website documentation tabs.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.5
 
 ### Patch Changes

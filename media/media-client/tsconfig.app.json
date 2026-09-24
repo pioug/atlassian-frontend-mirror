@@ -1,7 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -25,8 +26,15 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./example-helpers/**/*",
-		"./src/client/__mocks__/**/*"
+		"./src/client/__mocks__/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-client/app",
@@ -37,7 +45,13 @@
 			"path": "../../uip/atlassian-context/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
 			"path": "../chunkinator/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
 			"path": "../media-common/tsconfig.app.json"
@@ -55,7 +69,19 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
-			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

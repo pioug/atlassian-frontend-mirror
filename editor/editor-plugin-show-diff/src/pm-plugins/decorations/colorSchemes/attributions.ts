@@ -137,7 +137,6 @@ const getAgentBrandForColor = (
 	const agentBrand = contributors?.[getAttributionKey(attribution) ?? '']?.agentKind;
 	return isDiffAgentBrand(agentBrand) ? agentBrand : attribution?.agentType;
 };
-
 /**
  * Public contributor list to internal key-addressed record. A contributor whose attribution carries
  * no identity is dropped, since it could never match a step. Later entries win.

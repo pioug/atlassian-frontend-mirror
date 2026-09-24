@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act, render, screen, waitFor, within } from '@atlassian/testing-library';
 
-import ExitingPersistence from '../../../entering/exiting-persistence';
+import ExitingPersistence, { ExitingContext } from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import { isReducedMotion } from '../../../utils/is-reduced-motion';
 
@@ -55,6 +56,65 @@ describe('<ExitingPersistence />', () => {
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
 		expect(screen.getByTestId('element')).toBeInTheDocument();
+	});
+
+	it('keeps exiting tags mounted when their parent rerenders before exit completes', () => {
+		passGate('platform-dst-motion-uplift-labels');
+		jest.useFakeTimers();
+		const { rerender } = render(
+			<ExitingPersistence>
+				<Motion key="removed" id="removed" />
+				<Motion key="remaining" id="remaining" />
+			</ExitingPersistence>,
+		);
+		rerender(
+			<ExitingPersistence>
+				<Motion key="remaining" id="remaining" />
+			</ExitingPersistence>,
+		);
+		expect(screen.getByTestId('removed')).toBeInTheDocument();
+		// Opening an unfocused picker causes another render while removal is in progress.
+		rerender(
+			<ExitingPersistence>
+				<Motion key="remaining" id="remaining" />
+			</ExitingPersistence>,
+		);
+		expect(screen.getByTestId('removed')).toBeInTheDocument();
+		act(() => jest.runAllTimers());
+		expect(screen.queryByTestId('removed')).not.toBeInTheDocument();
+		expect(screen.getByTestId('remaining')).toBeInTheDocument();
+	});
+
+	it('keeps sibling context stable while another tag exits through parent rerenders', () => {
+		passGate('platform-dst-motion-uplift-labels');
+		jest.useFakeTimers();
+		const onContextChange = jest.fn();
+		const Remaining = () => {
+			const context = useContext(ExitingContext);
+			useEffect(() => {
+				onContextChange(context);
+			}, [context]);
+			return <Motion id="remaining" />;
+		};
+		const { rerender } = render(
+			<ExitingPersistence>
+				<Motion key="removed" id="removed" />
+				<Remaining key="remaining" />
+			</ExitingPersistence>,
+		);
+		onContextChange.mockClear();
+		for (let i = 0; i < 2; i++) {
+			rerender(
+				<ExitingPersistence>
+					<Remaining key="remaining" />
+				</ExitingPersistence>,
+			);
+		}
+		expect(screen.getByTestId('removed')).toBeInTheDocument();
+		expect(onContextChange).not.toHaveBeenCalled();
+		act(() => jest.runAllTimers());
+		expect(screen.queryByTestId('removed')).not.toBeInTheDocument();
+		expect(onContextChange).not.toHaveBeenCalled();
 	});
 
 	it('should remove the child once the exit motion is finished', () => {

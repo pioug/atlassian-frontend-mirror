@@ -1,5 +1,11 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 4.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.6.0
 
 ### Minor Changes

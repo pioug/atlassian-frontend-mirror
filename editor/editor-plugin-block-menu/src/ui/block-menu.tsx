@@ -37,7 +37,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo } from '@atlaskit/prosemirror-history/redo';
 import { undo } from '@atlaskit/prosemirror-history/undo';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -244,11 +243,7 @@ const BlockMenuContent = ({
 	return (
 		<Box
 			testId={BLOCK_MENU_TEST_ID}
-			role={
-				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-					? 'menu'
-					: undefined
-			}
+			role="menu"
 			ref={ref}
 			xcss={cx(styles.base, styles.maxWidthStyles, styles.emptyMenuSectionStyles)}
 		>

@@ -12,7 +12,6 @@
  */
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DiffType } from '../../../showDiffPluginType';
 import { isExtendedEnabled } from '../../isExtendedEnabled';
@@ -85,14 +84,7 @@ const getChangedContentStyleNext = (
 		return buildInsertedInlineStyle(colors, isActive, hideAddedDiffsUnderline);
 	}
 
-	const base = buildDeletedInlineContentStyle(
-		colors,
-		isActive
-			? 'active'
-			: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-				? 'new'
-				: 'default',
-	);
+	const base = buildDeletedInlineContentStyle(colors, isActive ? 'active' : 'new');
 
 	// Text-like blocks (heading, lists, blockquote) render their deleted content through this
 	// getter rather than `getDeletedContentStyle`, so without this they never receive the

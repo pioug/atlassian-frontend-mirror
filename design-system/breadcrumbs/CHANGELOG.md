@@ -1,5 +1,17 @@
 # @atlaskit/breadcrumbs
 
+## 17.8.0
+
+### Minor Changes
+
+- [`7a95a3d289188`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a95a3d289188) -
+  Add `onClick`, `target`, and `analyticsContext` to `BreadcrumbsCurrentItem` for custom navigation
+  and click analytics.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.7.5
 
 ### Patch Changes

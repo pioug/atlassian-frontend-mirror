@@ -1789,7 +1789,7 @@ test('should call onChange with an array on hitting backspace when backspaceRemo
 
 test('multi select > clicking on X next to option will call onChange with all options other that the clicked option', async () => {
 	let onChangeSpy = jest.fn();
-	let { container } = render(
+	render(
 		<Select
 			{...BASIC_PROPS}
 			isMulti
@@ -1798,14 +1798,14 @@ test('multi select > clicking on X next to option will call onChange with all op
 		/>,
 	);
 	const user = userEvent.setup();
-	// there are 3 values in select
-	expect(container.querySelectorAll('.react-select__multi-value').length).toBe(3);
 
-	const selectValueElement = [...container.querySelectorAll('.react-select__multi-value')].find(
-		(multiValue) => multiValue.textContent === '4',
-	);
-	await user.click(selectValueElement!.querySelector('div.react-select__multi-value__remove')!);
+	// Click the remove button for the '4' tag (aria-label: removeButtonLabel + text = "4, remove 4")
+	const removeButton = screen.getByRole('button', { name: '4, remove 4' });
+	const input = screen.getByRole('combobox');
+	input.focus();
+	await user.click(removeButton);
 
+	expect(input).toHaveFocus();
 	expect(onChangeSpy).toHaveBeenCalledWith(
 		[
 			{ label: '0', value: 'zero' },
@@ -1819,8 +1819,17 @@ test('multi select > clicking on X next to option will call onChange with all op
 	);
 });
 
+test('multi select > clicking a selected value opens the menu', async () => {
+	const onMenuOpen = jest.fn();
+	render(<Select {...BASIC_PROPS} isMulti onMenuOpen={onMenuOpen} value={[OPTIONS[0]]} />);
+	const user = userEvent.setup();
+
+	await user.click(screen.getByText('0'));
+
+	expect(onMenuOpen).toHaveBeenCalledTimes(1);
+});
+
 test('multi select > does not consume a surrounding modal exit when tag motion is disabled', async () => {
-	failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 	failGate('platform-dst-motion-uplift-labels');
 	failGate('platform-dst-top-layer');
 	const onCloseComplete = jest.fn();
@@ -1850,7 +1859,7 @@ test('single select > supports an undefined conditional MultiValue override', ()
 	expect(screen.getByTestId(`${testId}-select--container`)).toBeInTheDocument();
 });
 
-test('multi select > applies tag motion when the visual uplift and tag motion gates are on', () => {
+test('multi select > applies tag motion when the tag motion gate is on', () => {
 	jest.useFakeTimers();
 	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 	passGate('platform-dst-motion-uplift-labels');
@@ -1931,7 +1940,6 @@ test('multi select > applies tag motion when the visual uplift and tag motion ga
 
 test('multi select > applies motion to the tag-like custom content path', () => {
 	jest.useFakeTimers();
-	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 	passGate('platform-dst-motion-uplift-labels');
 
 	let addValue = noop;
@@ -1988,7 +1996,6 @@ test('multi select > applies motion to the tag-like custom content path', () => 
 });
 test('multi select > persists and animates a custom MultiValue renderer', () => {
 	jest.useFakeTimers();
-	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 	passGate('platform-dst-motion-uplift-labels');
 
 	const CustomMultiValue = ({ children, removeProps }: any) => (
@@ -2034,7 +2041,6 @@ test('multi select > persists and animates a custom MultiValue renderer', () => 
 });
 
 test('multi select > removes tag-like custom content immediately when reduced motion is preferred', () => {
-	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 	passGate('platform-dst-motion-uplift-labels');
 	const matchMediaSpy = jest.spyOn(window, 'matchMedia').mockReturnValue({
 		matches: true,

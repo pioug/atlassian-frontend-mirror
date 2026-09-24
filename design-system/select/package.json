@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "22.11.7",
+	"version": "23.1.0",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,17 +46,15 @@
 		"./CreatableSelect": "./src/creatable-select.tsx",
 		"./default": "./src/select.tsx",
 		"./grouped-options-announcement": "./src/utils/grouped-options-announcement.tsx",
-		"./input-options": "./src/entry-points/input-options.tsx",
 		"./popup-select": "./src/popup-select/popup-select.tsx",
 		"./radio-option": "./src/components/radio-option.tsx",
 		"./radio-select": "./src/radio-select.tsx",
+		"./select-without-analytics": "./src/select-without-analytics.tsx",
+		"./types": "./src/types.tsx",
 		"./react-select": "./src/entry-points/react-select.tsx",
 		"./select": "./src/entry-points/select.tsx",
 		"./Select": "./src/entry-points/select.tsx",
-		"./select-without-analytics": "./src/select-without-analytics.tsx",
-		"./types": "./src/types.tsx",
-		"./use-async": "./src/entry-points/use-async.tsx",
-		"./use-creatable": "./src/entry-points/use-creatable.tsx"
+		"./input-options": "./src/entry-points/input-options.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -128,9 +126,6 @@
 			"referenceOnly": true
 		},
 		"platform-dst-tokens-finesse": {
-			"type": "boolean"
-		},
-		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-labels": {

@@ -3,6 +3,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockCollapsePlugin } from '@atlaskit/editor-plugin-block-collapse/blockCollapsePluginType';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
@@ -22,6 +23,7 @@ export type FindReplacePluginDependencies = [
 	OptionalPlugin<CardPlugin>,
 	OptionalPlugin<ExpandPlugin>,
 	OptionalPlugin<BlockCollapsePlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
 	OptionalPlugin<SyncedBlockPlugin>,
 ];
 

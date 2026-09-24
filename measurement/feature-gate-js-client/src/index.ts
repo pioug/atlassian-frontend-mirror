@@ -17,12 +17,9 @@ export type {
 
 export type { LocalOverrides } from './client/PersistentOverrideAdapter';
 
-export {
-	default,
-	FeatureGateEnvironment,
-	PerimeterType,
-	CLIENT_VERSION,
-} from './client/FeatureGates';
+export { default } from './client/FeatureGates';
+export { FeatureGateEnvironment, PerimeterType } from './client/types';
+export { CLIENT_VERSION } from './client/version';
 
 export { DynamicConfig } from './client/compat/DynamicConfig';
 export { Layer } from './client/compat/Layer';

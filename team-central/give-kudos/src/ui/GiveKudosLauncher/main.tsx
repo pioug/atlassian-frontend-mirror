@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -464,12 +463,3 @@ const ComposedGiveKudosLauncher = (props: GiveKudosDrawerProps): JSX.Element => 
 };
 
 export default ComposedGiveKudosLauncher;
-
-/**
- * @deprecated Use `import { isTrustedOrigin } from '@atlaskit/give-kudos/is-trusted-origin'` instead.
- */
-export { isTrustedOrigin } from './isTrustedOrigin';
-/**
- * @deprecated Use `import { isSafeHttpsUrl } from '@atlaskit/give-kudos/is-safe-https-url'` instead.
- */
-export { isSafeHttpsUrl } from './isSafeHttpsUrl';

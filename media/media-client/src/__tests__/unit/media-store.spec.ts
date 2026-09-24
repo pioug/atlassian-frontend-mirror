@@ -3,7 +3,6 @@ jest.mock('../../client/media-store/resolveAuth');
 jest.mock('../../client/media-store/resolveInitialAuth');
 import { nextTick } from '@atlaskit/media-common/test-helpers';
 import type { Auth } from '@atlaskit/media-core/auth';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import {
@@ -2171,44 +2170,22 @@ describe('MediaStore', () => {
 				);
 			});
 
-			eeTest
-				.describe(
-					'platform_editor_media_download_fallback_name',
-					'name appears as URL query param when experiment is on',
-				)
-				.variant(true, () => {
-					it('should include name in binary URL query params when name is provided', async () => {
-						const url = await mediaStore.getFileBinaryURL(
-							'1234',
-							'some-collection-name',
-							undefined,
-							'my-file.pdf',
-						);
-						expect(url).toContain('name=my-file.pdf');
-					});
-
-					it('should not include name param in URL when name is not provided', async () => {
-						const url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
-						expect(url).not.toContain('name=');
-					});
+			describe('name appears as a URL query param when provided', () => {
+				it('should include name in binary URL query params when name is provided', async () => {
+					const url = await mediaStore.getFileBinaryURL(
+						'1234',
+						'some-collection-name',
+						undefined,
+						'my-file.pdf',
+					);
+					expect(url).toContain('name=my-file.pdf');
 				});
 
-			eeTest
-				.describe(
-					'platform_editor_media_download_fallback_name',
-					'name does not appear as URL query param when experiment is off',
-				)
-				.variant(false, () => {
-					it('should not include name in binary URL even when name is provided', async () => {
-						const url = await mediaStore.getFileBinaryURL(
-							'1234',
-							'some-collection-name',
-							undefined,
-							'my-file.pdf',
-						);
-						expect(url).not.toContain('name=');
-					});
+				it('should not include name param in URL when name is not provided', async () => {
+					const url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+					expect(url).not.toContain('name=');
 				});
+			});
 		});
 
 		describe('getArtifactURL()', () => {

@@ -1,5 +1,60 @@
 # @atlaskit/editor-statsig-tmp
 
+## 208.0.0
+
+### Major Changes
+
+- [`a8919aeeabced`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8919aeeabced) -
+  Remove the shipped `platform_editor_hydration_skip_react_portal` experiment and preserve SSR DOM
+  reuse. The experiment is no longer available in the Statsig configuration; consumers should remove
+  its overrides and checks.
+- [`9e868701b2db4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e868701b2db4) -
+  Remove the `aifc-confluence-editor-csp-fix` dynamic config and always send the Rovo parent product
+  when opening Confluence smart creation.
+
+## 207.0.0
+
+### Major Changes
+
+- [`e2193743a9a17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2193743a9a17) -
+  Clean up experiment `platform_editor_renderer_extension_width_fix`
+- [`202069bab1e36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202069bab1e36) -
+  Clean up the shipped `platform_editor_enghealth_a11y_jan_fixes` experiment. Toolbar dropdown items
+  now always render with `role="menuitem"` and without `aria-pressed`, the block menu always has
+  `role="menu"`, and show-diff deleted content always uses the a11y-fixed styles.
+
+## 206.0.0
+
+### Major Changes
+
+- [`ae39a248bd118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae39a248bd118) -
+  FFCLEANUP-147994 clean up fg relating to fallback media name fetcher
+  platform_editor_media_name_fallback, platform_editor_media_file_rename_on_fallback,
+  platform_editor_media_file_rename_on_fallback, platform_editor_media_name_fallback_viewer_card
+
+### Patch Changes
+
+- [`0095a83701e66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0095a83701e66) -
+  Clean up the shipped `platform_editor_a11y_scrollable_region` experiment. The inline code mark
+  accessibility fix (`overflow: unset` on `.code`) is now permanently on, so the conditional style
+  and the experiment registration have been removed. No behaviour change for users already in the
+  treatment cohort.
+
+## 205.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 205.0.0
+
+### Major Changes
+
+- [`135644b71068b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/135644b71068b) -
+  Clean up experiment `cc_smarts_should_improve_writing_migration`. The should-improve-writing
+  request now always goes to the cc-smarts route, and the convo-ai route plus its shadow-comparison
+  analytics have been removed.
+
 ## 204.0.0
 
 ### Major Changes

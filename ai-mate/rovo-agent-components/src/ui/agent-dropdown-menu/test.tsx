@@ -3,6 +3,7 @@ import React, { type ComponentPropsWithoutRef } from 'react';
 import { IntlProvider } from 'react-intl';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { AgentDropdownMenu } from './AgentDropdownMenu';
@@ -26,7 +27,12 @@ describe('AgentDropdownMenu', () => {
 						agentId="1"
 						isForgeAgent={false}
 						loadAgentPermissions={() =>
-							Promise.resolve({ isEditEnabled: true, isDeleteEnabled: true, isCreateEnabled: true })
+							Promise.resolve({
+								isEditEnabled: true,
+								isDeleteEnabled: true,
+								isCreateEnabled: true,
+								isDuplicateEnabled: true,
+							})
 						}
 						/** Not sure how to satisfy the compiler
 						 *  because there's a union for the `showViewAgentOption` and `doesAgentHaveIdentityAccountId`
@@ -121,17 +127,17 @@ describe('AgentDropdownMenu', () => {
 		expect(onViewAgentFullProfileClick).toHaveBeenCalled();
 	});
 
-	it("does not show duplicate agent option if it's a forge agent", async () => {
+	it('shows duplicate agent option for a forge agent when permissions allow it', async () => {
 		const user = userEvent.setup();
 
 		renderComponent({ isForgeAgent: true });
 
 		await user.click(moreActions());
 
-		const duplicateAgentButton = screen.queryByRole('menuitem', {
+		const duplicateAgentButton = screen.getByRole('menuitem', {
 			name: 'Duplicate agent',
 		});
-		expect(duplicateAgentButton).toBeNull();
+		expect(duplicateAgentButton).toBeVisible();
 	});
 
 	it('shows duplicate agent option if it is not a forge agent', async () => {
@@ -152,17 +158,75 @@ describe('AgentDropdownMenu', () => {
 		expect(onDuplicateAgent).toHaveBeenCalled();
 	});
 
-	it('does not show duplicate agent option if isAbleToCreateAgents is false', async () => {
+	it('does not show duplicate agent option if create permission is false', async () => {
 		const user = userEvent.setup();
 		renderComponent({
 			loadAgentPermissions: () =>
-				Promise.resolve({ isCreateEnabled: false, isEditEnabled: true, isDeleteEnabled: true }),
+				Promise.resolve({
+					isCreateEnabled: false,
+					isDuplicateEnabled: true,
+					isEditEnabled: true,
+					isDeleteEnabled: true,
+				}),
 		});
 		await user.click(moreActions());
 		const duplicateAgentButton = screen.queryByRole('menuitem', {
 			name: 'Duplicate agent',
 		});
 		expect(duplicateAgentButton).toBeNull();
+	});
+
+	it.each([
+		['denied', false],
+		['missing', undefined],
+	])('does not show duplicate agent option if duplicate permission is %s', async (_, permitted) => {
+		passGate('agent_studio_can_duplicate_permission');
+		const user = userEvent.setup();
+		renderComponent({
+			loadAgentPermissions: () =>
+				Promise.resolve({
+					isCreateEnabled: true,
+					isDuplicateEnabled: permitted,
+					isEditEnabled: true,
+					isDeleteEnabled: true,
+				}),
+		});
+
+		await user.click(moreActions());
+
+		expect(screen.queryByRole('menuitem', { name: 'Duplicate agent' })).toBeNull();
+	});
+
+	it('shows duplicate agent option when create permission is granted and duplicate permission enforcement is disabled', async () => {
+		failGate('agent_studio_can_duplicate_permission');
+		const user = userEvent.setup();
+		renderComponent({
+			loadAgentPermissions: () =>
+				Promise.resolve({
+					isCreateEnabled: true,
+					isDuplicateEnabled: false,
+					isEditEnabled: true,
+					isDeleteEnabled: true,
+				}),
+		});
+
+		await user.click(moreActions());
+
+		expect(screen.getByRole('menuitem', { name: 'Duplicate agent' })).toBeVisible();
+	});
+
+	it('does not show duplicate agent option if loading permissions fails', async () => {
+		const user = userEvent.setup();
+		renderComponent({
+			loadAgentPermissions: () => Promise.reject(new Error('permission request failed')),
+		});
+
+		await user.click(moreActions());
+
+		await waitFor(() => {
+			expect(screen.queryByRole('img', { name: 'Loading' })).toBeNull();
+		});
+		expect(screen.queryByRole('menuitem', { name: 'Duplicate agent' })).toBeNull();
 	});
 
 	it('shows copy link to profile option', async () => {

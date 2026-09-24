@@ -1,5 +1,64 @@
 # @atlaskit/media-viewer
 
+## 54.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.9.0
+
+### Minor Changes
+
+- [`a432278c5cb5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a432278c5cb5c) -
+  [ux] Add opt-in consumer extension points so a product can host its own sidebar content — such as
+  Confluence comments — inside Media Viewer, and restore that viewer state across remounts. All of
+  the new behaviour is gated behind the `cc_comments_media_viewer_sidebar` experiment; with the
+  experiment off both packages behave exactly as before.
+
+  `@atlaskit/media-viewer` adds nine optional fields to `MediaViewerExtensions` and exports the new
+  `MediaViewerNavigationDirection` type. Consumers can intercept the close and navigate paths with
+  `onPreviewClose`, `onSidebarClose` and `onNavigation` — each receives a `proceed()` callback, so a
+  consumer can defer or swallow the action while, for example, prompting about an unsaved comment.
+  Viewer state can be persisted and restored through `getMediaViewerSelectedItem`,
+  `onSelectedItemChange`, `defaultSidebarVisible` and `onSidebarVisibilityChange`, and the existing
+  `sidebar` extension accepts `label` and `title`. The previously shipped `sidebar` and
+  `headerActions` fields are unchanged and are not gated.
+
+  `@atlaskit/media-card` adds no new prop of its own, but `Card`/`FileCard` consumers can now pass
+  `getMediaViewerSelectedItem` and `onSelectedItemChange` through the existing
+  `mediaViewerExtensions` prop to seed the Media Viewer selected item on mount and be notified when
+  it opens or closes — new remount-restore behaviour that also requires this release of
+  `@atlaskit/media-viewer` to typecheck.
+
+  Both packages add `@atlaskit/platform-feature-experiments` as a runtime dependency.
+
+### Patch Changes
+
+- [`ae39a248bd118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae39a248bd118) -
+  FFCLEANUP-147994 clean up fg relating to fallback media name fetcher
+  platform_editor_media_name_fallback, platform_editor_media_file_rename_on_fallback,
+  platform_editor_media_file_rename_on_fallback, platform_editor_media_name_fallback_viewer_card
+- Updated dependencies
+
+## 54.8.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.43
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.8.42
 
 ### Patch Changes

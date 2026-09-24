@@ -23,6 +23,7 @@ export const getBlockControlsSurfaceDragHandleComponents = ({
 		isHidden: ({ surfaceContext } = {}) => {
 			const context = surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
 			return (
+				api?.editorViewMode?.sharedState.currentState()?.mode === 'view' ||
 				!context?.activeNode ||
 				context.targetNode.pos !== context.activeNode.pos ||
 				(context.activeControlKey !== undefined &&

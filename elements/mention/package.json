@@ -95,18 +95,15 @@
 		"./is-restricted": "./src/is-restricted.ts",
 		"./constants": "./src/_constants.ts",
 		"./context-mention-resource": "./src/api/ContextMentionResource.ts",
-		"./element": "./src/element.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./item": "./src/item.ts",
 		"./mention": "./src/components/Mention/index.tsx",
 		"./mention-item/styles": "./src/components/MentionItem/styles.ts",
 		"./mention-item": "./src/components/MentionItem/index.tsx",
 		"./mention-list": "./src/components/MentionList/index.tsx",
 		"./mention-name-client": "./src/api/MentionNameClient.ts",
-		"./mention-name-resolver": "./src/api/MentionNameResolver.ts",
 		"./mention-picker": "./src/components/MentionPicker/index.tsx",
 		"./mention-resource": "./src/api/MentionResource.ts",
 		"./presence-resource": "./src/api/PresenceResource.ts",
@@ -116,7 +113,8 @@
 		"./shared-styles": "./src/shared-styles.ts",
 		"./team-resource": "./src/team-resource.ts",
 		"./team-mention-resource": "./src/api/TeamMentionResource.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./mention-name-resolver": "./src/api/MentionNameResolver.ts"
 	},
 	"keywords": [
 		"ui",
@@ -157,5 +155,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "29.2.9"
+	"version": "30.0.3"
 }

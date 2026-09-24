@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - AdfRendererProps
  *
- * @codegen <<SignedSource::e67eb72dc23502f3e484942c147fb122>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/adfrenderer/index.tsx <<SignedSource::69c5cf22370f22326ccc16b28e8a2703>>
+ * @codegen <<SignedSource::e934fdab8a1b56fd616e4c793d3696da>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/adfrenderer/index.tsx <<SignedSource::658910e721b260db3ae725213b710c22>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

@@ -45,6 +45,8 @@ export interface Props {
 	isLivePageViewMode?: boolean;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	node: PMNode;
+	/** Handed to the extension's render, which calls it once its content is ready to be shown. */
+	onContentReady?: () => void;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	references?: ReferenceEntity[];
 	rendererExtensionHandlers?: ExtensionHandlers;
@@ -59,6 +61,7 @@ type ProviderNodeRendererProps = {
 	isSelected?: boolean;
 	loadingFallback?: React.ReactNode;
 	node: ExtensionParams<Parameters>;
+	onContentReady?: () => void;
 	references?: ReferenceEntity[];
 	showUnknownMacroPlaceholder?: boolean;
 };
@@ -75,6 +78,8 @@ interface PropsInner {
 	isLivePageViewMode?: boolean;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	node: PMNode;
+	/** Handed to the extension's render, which calls it once its content is ready to be shown. */
+	onContentReady?: () => void;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	references?: ReferenceEntity[];
 	rendererExtensionHandlers?: ExtensionHandlers;
@@ -424,6 +429,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 			editorView,
 			showBodiedExtensionRendererView,
 			rendererExtensionHandlers,
+			onContentReady,
 		} = this.props;
 		const { extensionType, extensionKey, parameters, text } = pmNode.attrs;
 		const isBodiedExtension = pmNode.type.name === 'bodiedExtension';
@@ -498,6 +504,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 						references={this.props.references}
 						isSelected={isSelected}
 						loadingFallback={loadingFallback}
+						onContentReady={onContentReady}
 						showUnknownMacroPlaceholder
 					/>
 				);

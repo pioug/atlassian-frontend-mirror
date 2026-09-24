@@ -34,10 +34,10 @@ export interface ContainerProps<
 const containerStyles = cssMap({
 	default: {
 		position: 'relative',
-		font: token('font.body.large'),
+		font: token('font.body'),
 		pointerEvents: 'all',
-		'@media (min-width: 30rem)': {
-			font: token('font.body'),
+		'@media (pointer: coarse) and (max-width: 30rem)': {
+			font: token('font.body.large'),
 		},
 	},
 	rtl: {

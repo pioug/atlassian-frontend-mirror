@@ -1,5 +1,35 @@
 # @atlaskit/adf-utils
 
+## 20.9.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.9.40
+
+### Patch Changes
+
+- [`b181dd94a6756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b181dd94a6756) -
+  Container node transforms can now be told where the content they are transforming is destined for.
+  `transformContainerNodes` and `upgradeContainerNodes` accept an optional `parentNodes` ancestor
+  chain, and `ADFStreamer.setParentNodes` records it for streamed content. This stops a streamed
+  `panel` from being promoted to `panel_c1` when it is bound for a container that allows `panel` but
+  not `panel_c1`, such as a table cell. Behind `platform_editor_ai_streaming_panel_fix`.
+- Updated dependencies
+
+## 20.9.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.9.38
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.9.37
 
 ### Patch Changes

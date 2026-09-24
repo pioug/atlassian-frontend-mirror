@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/platform-feature-experiments",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "Typed wrappers for Statsig experiments, with distributed experiment registration via module augmentation",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

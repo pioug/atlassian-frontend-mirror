@@ -2,16 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, memo, useCallback, useEffect, useRef, useState } from 'react';
+import {
+	memo,
+	type MouseEvent as ReactMouseEvent,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 
 import { cssMap as unboundedCssMap } from '@compiled/react';
 
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import IconButton from '@atlaskit/button/icon/button';
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import __noop from '@atlaskit/ds-lib/noop';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { TriggerProps } from '@atlaskit/tooltip/types';
@@ -20,9 +29,14 @@ import { type BreadcrumbsCurrentItemProps } from '../types';
 import { useBreadcrumbsSize } from './internal/use-breadcrumbs-size';
 import useOverflowable from './internal/use-overflowable';
 
+const analyticsAttributes = {
+	componentName: 'breadcrumbsCurrentItem',
+	packageName: process.env._PACKAGE_NAME_ as string,
+	packageVersion: process.env._PACKAGE_VERSION_ as string,
+};
+
 const COPY_RESET_DELAY_MS = 2000;
 const ICON_WIDTH_ESTIMATE = 24;
-const VAR_CURRENT_ITEM_TRUNCATION_WIDTH = '--breadcrumbs-current-item-max-width';
 
 const unboundedStyles = unboundedCssMap({
 	container: {
@@ -37,46 +51,6 @@ const unboundedStyles = unboundedCssMap({
 		'&:hover [data-breadcrumbs-copy-link]': {
 			opacity: '1',
 		},
-	},
-	interactiveContainer: {
-		display: 'inline-flex',
-		alignItems: 'center',
-		gap: token('space.050'),
-		boxSizing: 'border-box',
-		color: token('color.text'),
-		textDecoration: 'none',
-		font: token('font.body'),
-		'&:hover': {
-			textDecoration: 'underline',
-			color: token('color.text'),
-		},
-		'&:active': {
-			color: token('color.text'),
-		},
-	},
-	interactiveContainerMotion: {
-		textDecorationLine: 'underline',
-		textDecorationColor: 'transparent',
-		transition: token('motion.listitem.selected'),
-		'&:hover': {
-			textDecorationColor: token('color.text'),
-			transition: token('motion.listitem.hovered'),
-		},
-		'&:active': {
-			transition: token('motion.listitem.pressed'),
-			textDecorationColor: token('color.text'),
-		},
-	},
-	interactiveContainerSmall: {
-		font: token('font.body.small'),
-	},
-	interactiveContainerLegacy: {
-		height: '1.5rem',
-	},
-	interactiveContainerWithTruncation: {
-		minWidth: '0px',
-		maxWidth: `var(${VAR_CURRENT_ITEM_TRUNCATION_WIDTH})`,
-		flexShrink: '1',
 	},
 	itemWrapper: {
 		display: 'flex',
@@ -120,6 +94,46 @@ const unboundedStyles = unboundedCssMap({
 });
 
 const styles = cssMap({
+	interactiveContainer: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: token('space.050'),
+		boxSizing: 'border-box',
+		color: token('color.text'),
+		textDecoration: 'none',
+		font: token('font.body'),
+		'&:hover': {
+			textDecoration: 'underline',
+			color: token('color.text'),
+		},
+		'&:active': {
+			// @ts-expect-error -- Preserve the current item's neutral pressed color; bounded styles only allow pressed link colors.
+			color: token('color.text'),
+		},
+	},
+	interactiveContainerMotion: {
+		textDecorationLine: 'underline',
+		textDecorationColor: 'transparent',
+		transition: token('motion.listitem.selected'),
+		'&:hover': {
+			textDecorationColor: token('color.text'),
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+			textDecorationColor: token('color.text'),
+		},
+	},
+	interactiveContainerSmall: {
+		font: token('font.body.small'),
+	},
+	interactiveContainerLegacy: {
+		height: '1.5rem',
+	},
+	interactiveContainerWithTruncation: {
+		minWidth: '0px',
+		flexShrink: '1',
+	},
 	iconWrapper: {
 		display: 'inline-flex',
 		flexShrink: '0',
@@ -166,6 +180,9 @@ const BreadcrumbsCurrentItem: import('react').MemoExoticComponent<
 	({
 		text,
 		href,
+		onClick,
+		target,
+		analyticsContext,
 		elemBefore,
 		iconBefore,
 		truncationWidth,
@@ -175,6 +192,12 @@ const BreadcrumbsCurrentItem: import('react').MemoExoticComponent<
 		_overflowRef,
 	}: BreadcrumbsCurrentItemInternalProps) => {
 		const isSmall = useBreadcrumbsSize() === 'small';
+		const handleClick = usePlatformLeafEventHandler({
+			fn: onClick ?? __noop,
+			action: 'clicked',
+			analyticsData: analyticsContext,
+			...analyticsAttributes,
+		});
 		const resolvedElemBefore = elemBefore ?? iconBefore;
 		const [copied, setCopied] = useState(false);
 		const [linkElement, setLinkElement] = useState<HTMLAnchorElement | null>(null);
@@ -245,35 +268,46 @@ const BreadcrumbsCurrentItem: import('react').MemoExoticComponent<
 		);
 
 		const renderLink = (triggerProps?: TriggerProps) => {
-			const { ref: tooltipRef, testId: _testId, ...tooltipTriggerProps } = triggerProps ?? {};
+			const tooltipRef = triggerProps?.ref;
+
+			const handleTriggerClick = (event: ReactMouseEvent<HTMLAnchorElement>) => {
+				triggerProps?.onClick?.(event);
+				handleClick(event);
+			};
 
 			return (
-				<a
+				<Anchor
 					href={href}
+					target={target}
+					rel={target === '_blank' ? 'noopener noreferrer' : undefined}
 					aria-current="page"
-					data-testid={testId}
+					onClick={handleTriggerClick}
+					onMouseOver={triggerProps?.onMouseOver}
+					onMouseOut={triggerProps?.onMouseOut}
+					onMouseMove={triggerProps?.onMouseMove}
+					onMouseDown={triggerProps?.onMouseDown}
+					onFocus={triggerProps?.onFocus}
+					onBlur={triggerProps?.onBlur}
+					aria-describedby={triggerProps?.['aria-describedby']}
+					testId={testId}
 					ref={tooltipRef ? mergeRefs<HTMLAnchorElement>([setLinkRef, tooltipRef]) : setLinkRef}
-					css={[
-						unboundedStyles.interactiveContainer,
-						!fg('platform_dst_breadcrumbs-refresh') && unboundedStyles.interactiveContainerLegacy,
-						isSmall && unboundedStyles.interactiveContainerSmall,
-						truncationWidth && unboundedStyles.interactiveContainerWithTruncation,
-						fg('platform-dst-motion-uplift-list-item') &&
-							unboundedStyles.interactiveContainerMotion,
-					]}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={
-						truncationWidth
-							? ({
-									'--breadcrumbs-current-item-max-width': `${truncationWidth}px`,
-								} as CSSProperties)
-							: undefined
+					xcss={
+						// @ts-ignore -- Expression produces a union type that is too complex to represent. This matches existing `@atlaskit/primitives` handling for complex `xcss={cx(...)}` composition.
+						cx(
+							styles.interactiveContainer,
+							!fg('platform_dst_breadcrumbs-refresh') && styles.interactiveContainerLegacy,
+							isSmall && styles.interactiveContainerSmall,
+							truncationWidth != null && styles.interactiveContainerWithTruncation,
+							fg('platform-dst-motion-uplift-list-item') && styles.interactiveContainerMotion,
+						)
 					}
-					{...tooltipTriggerProps}
+					style={{
+						maxWidth: truncationWidth,
+					}}
 				>
 					{!fg('platform_dst_breadcrumbs-refresh') && iconElement}
 					{textElement}
-				</a>
+				</Anchor>
 			);
 		};
 

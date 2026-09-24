@@ -3,6 +3,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 
 import type { RovoAgentProfileCardInfo } from '../../../types';
@@ -45,6 +46,7 @@ describe('ErrorMessage', () => {
 		getRovoAgentPermissions: jest.fn().mockResolvedValue({
 			permissions: {
 				AGENT_CREATE: { permitted: true },
+				AGENT_DUPLICATE: { permitted: true },
 				AGENT_UPDATE: { permitted: true },
 				AGENT_DEACTIVATE: { permitted: true },
 			},
@@ -92,6 +94,28 @@ describe('ErrorMessage', () => {
 		const { container } = renderAgentActions();
 		await expect(container).toBeAccessible();
 	});
+
+	ffTest.on(
+		'agent_studio_can_duplicate_permission',
+		'when duplicate permission enforcement is enabled',
+		() => {
+			it('should hide duplicate when agent duplicate permission is denied', async () => {
+				mockClient.getRovoAgentPermissions.mockResolvedValueOnce({
+					permissions: {
+						AGENT_CREATE: { permitted: true },
+						AGENT_DUPLICATE: { permitted: false },
+						AGENT_UPDATE: { permitted: true },
+						AGENT_DEACTIVATE: { permitted: true },
+					},
+				});
+				const { user } = renderAgentActions();
+
+				await user.click(screen.getByTestId('agent-dropdown-menu--trigger'));
+
+				expect(screen.queryByRole('menuitem', { name: 'Duplicate agent' })).not.toBeInTheDocument();
+			});
+		},
+	);
 
 	describe('hideMoreActions', () => {
 		it('should render dropdown menu when hideMoreActions is false', () => {

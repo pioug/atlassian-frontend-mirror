@@ -20,7 +20,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -224,9 +223,6 @@ export const insertExpandWithInputMethod =
 					state,
 					type: expandNode.type,
 				});
-		const resolvedInputMethod = fg('platform_editor_element_browser_analytic')
-			? inputMethod
-			: INPUT_METHOD.QUICK_INSERT;
 
 		const payload: AnalyticsEventPayload = {
 			action: ACTION.INSERTED,
@@ -235,7 +231,7 @@ export const insertExpandWithInputMethod =
 				expandNode?.type === state.schema.nodes.expand
 					? ACTION_SUBJECT_ID.EXPAND
 					: ACTION_SUBJECT_ID.NESTED_EXPAND,
-			attributes: { inputMethod: resolvedInputMethod },
+			attributes: { inputMethod },
 			eventType: EVENT_TYPE.TRACK,
 		};
 

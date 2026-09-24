@@ -263,6 +263,7 @@ const Step: React.ForwardRefExoticComponent<
 						onBlur={triggerProps?.onBlur ?? onBlur}
 						aria-describedby={triggerProps?.['aria-describedby'] ?? ariaDescribedBy}
 						target={target}
+						rel={target === '_blank' ? 'noopener noreferrer' : undefined}
 						testId={testId}
 						title={title}
 						xcss={cx(

@@ -24,6 +24,7 @@ export const appOrder: string[] = [
 	'Rovo Dev Agent',
 	'Statuspage',
 	'Jira Service Management',
+	'Artifacts',
 	'Assets',
 	'Opsgenie',
 	'Customer Service Management',

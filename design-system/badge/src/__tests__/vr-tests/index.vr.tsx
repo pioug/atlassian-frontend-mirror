@@ -26,25 +26,7 @@ snapshot(BadgeBasic, {
 });
 
 snapshot(BadgeVisualUplifts, {
-	description: 'badge-visual-uplifts-ff-on',
-	featureFlags: {
-		'platform-dst-lozenge-tag-badge-visual-uplifts': true,
-	},
-	variants: [
-		{
-			name: 'visual-uplift',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-
-snapshot(BadgeVisualUplifts, {
-	description: 'badge-visual-uplifts-ff-off',
-	featureFlags: {
-		'platform-dst-lozenge-tag-badge-visual-uplifts': false,
-	},
+	description: 'badge-visual-uplifts',
 	variants: [
 		{
 			name: 'visual-uplift',

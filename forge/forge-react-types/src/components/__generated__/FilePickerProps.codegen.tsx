@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FilePickerProps
  *
- * @codegen <<SignedSource::f332eb19d077747f3cc76d5a8b197048>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/filepicker/index.tsx <<SignedSource::1563faca9175de1a53e4f304cea93c78>>
+ * @codegen <<SignedSource::0290d40ff0e6cb53fb773ebcbd52e8e5>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/filepicker/index.tsx <<SignedSource::830e3b2652b45218bd1c20c4bb9a88dd>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

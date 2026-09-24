@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "21.2.2",
+	"version": "23.0.3",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -64,10 +64,5 @@
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"platform-feature-flags": {
-		"platform_editor_middle_click_no_link_toolbar": {
-			"type": "boolean"
-		}
 	}
 }

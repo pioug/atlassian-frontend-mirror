@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import { bidiCharacterRegex } from './bidi-character-regex';
 
 /**
@@ -52,7 +50,3 @@ export default function codeBidiWarningDecorator<DecoratorOutput>(
 	// return the mapped children with decorated bidi characters
 	return children;
 }
-/**
- * @deprecated Use `import { bidiCharacterRegex } from '@atlaskit/code/bidi-character-regex'` instead.
- */
-export { bidiCharacterRegex } from './bidi-character-regex';

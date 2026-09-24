@@ -1,4 +1,4 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required, @atlaskit/volt-strict-mode/no-re-exports, @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required, @atlaskit/volt-strict-mode/no-re-exports, @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated APIs. */
 
 import { type ChunkHashAlgorithm } from './ChunkHashAlgorithm';
 
@@ -60,16 +60,3 @@ export type MediaApiConfig = {
 	chunkHashAlgorithm?: ChunkHashAlgorithm;
 	authProviderTimeout?: number;
 };
-
-/**
- * @deprecated Use `import { isClientBasedAuth } from '@atlaskit/media-core/is-client-based-auth'` instead.
- */
-export { isClientBasedAuth } from './isClientBasedAuth';
-/**
- * @deprecated Use `import { isAsapBasedAuth } from '@atlaskit/media-core/is-asap-based-auth'` instead.
- */
-export { isAsapBasedAuth } from './isAsapBasedAuth';
-/**
- * @deprecated Use `import { authToOwner } from '@atlaskit/media-core/auth-to-owner'` instead.
- */
-export { authToOwner } from './authToOwner';

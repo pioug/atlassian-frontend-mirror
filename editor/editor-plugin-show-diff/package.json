@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-show-diff",
-	"version": "17.1.10",
+	"version": "19.0.3",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -103,9 +103,6 @@
 			"referenceOnly": true
 		},
 		"confluence_ncs_step_diffing_version_history": {
-			"type": "boolean"
-		},
-		"platform_editor_reduce_diff_attr_sensitivity": {
 			"type": "boolean"
 		},
 		"platform_editor_diff_inline_mark_changes": {

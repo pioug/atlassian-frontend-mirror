@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import { useContext, useMemo } from 'react';
 
 import UFOInteractionContext from '../interaction-context';
@@ -22,8 +20,3 @@ export default function UFOCustomData({ data }: UFOCustomDataProps) {
 	}, [data, interactionContext]);
 	return null;
 }
-
-/**
- * @deprecated Use `import { addUFOCustomData } from '@atlaskit/react-ufo/add-ufo-custom-data'` instead.
- */
-export { addUFOCustomData } from './addUFOCustomData';

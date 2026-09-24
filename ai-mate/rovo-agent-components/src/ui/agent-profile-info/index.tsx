@@ -7,7 +7,6 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import Heading from '@atlaskit/heading/heading';
 import Link from '@atlaskit/link/link';
 import { RovoIcon } from '@atlaskit/logo';
@@ -190,15 +189,6 @@ export const AgentProfileCreator = ({
 		}
 
 		if (creator.type === 'REMOTE_A2A') {
-			if (
-				FeatureGates.getExperimentValue(
-					'rovo_hide_remote_a2a_agent_creator_exp',
-					'isEnabled',
-					false,
-				)
-			) {
-				return null;
-			}
 			return formatMessage(messages.remoteAgentCreatedBy, { creatorNameWithLink: creator.name });
 		}
 

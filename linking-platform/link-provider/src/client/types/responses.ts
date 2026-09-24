@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type { ServerErrorType } from '@atlaskit/linking-common/api/errors';
 
@@ -35,12 +33,3 @@ export interface SearchProviderInfo {
 export interface SearchProviderInfoResponse {
 	providers: SearchProviderInfo[];
 }
-
-/**
- * @deprecated Use `import { isSuccessfulResponse } from '@atlaskit/link-provider/is-successful-response'` instead.
- */
-export { isSuccessfulResponse } from './isSuccessfulResponse';
-/**
- * @deprecated Use `import { isErrorResponse } from '@atlaskit/link-provider/is-error-response'` instead.
- */
-export { isErrorResponse } from './isErrorResponse';

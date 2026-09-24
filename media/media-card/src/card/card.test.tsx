@@ -3354,7 +3354,12 @@ describe('Card ', () => {
 		const btn = screen.getByLabelText('Download');
 		await user.click(btn);
 
-		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+		expect(getFileBinaryURL).toHaveBeenCalledWith(
+			fileItem.id,
+			fileItem.collection,
+			undefined,
+			fileItem.details.name,
+		);
 		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 			traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 		});
@@ -3415,7 +3420,12 @@ describe('Card ', () => {
 		const btn = await screen.findByLabelText('Download');
 		await user.click(btn);
 
-		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+		expect(getFileBinaryURL).toHaveBeenCalledWith(
+			fileItem.id,
+			fileItem.collection,
+			undefined,
+			fileItem.details.name,
+		);
 		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 			traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 		});
@@ -3524,7 +3534,12 @@ describe('Card ', () => {
 		const btn = screen.getByLabelText('Download');
 		await user.click(btn);
 
-		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+		expect(getFileBinaryURL).toHaveBeenCalledWith(
+			fileItem.id,
+			fileItem.collection,
+			undefined,
+			fileItem.details.name,
+		);
 		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 			traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 		});
@@ -3599,7 +3614,12 @@ describe('Card ', () => {
 		const proceed = await screen.findByText('Proceed with download');
 		await user.click(proceed);
 
-		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+		expect(getFileBinaryURL).toHaveBeenCalledWith(
+			fileItem.id,
+			fileItem.collection,
+			undefined,
+			fileItem.details.name,
+		);
 		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 			traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 		});

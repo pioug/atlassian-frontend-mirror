@@ -66,7 +66,7 @@ import {
 	codeBlockStylesWithEmUnits,
 	firstCodeBlockWithNoMargin,
 } from './styles/codeBlockStyles';
-import { codeMarkStyles, codeMarkStylesA11yFix } from './styles/codeMarkStyles';
+import { codeMarkStyles } from './styles/codeMarkStyles';
 import { commentEditorStyles } from './styles/commentEditorStyles';
 import { nonFullPageContainerTypeStyles } from './styles/containerTypeStyles';
 import { contributorTagStyles } from './styles/contributorTagStyles';
@@ -195,7 +195,6 @@ import {
 	editorControlsSmartCardStyles,
 	linkingVisualRefreshV1Styles,
 	showDiffDeletedNodeStyles,
-	showDiffDeletedNodeStylesNew,
 	smartCardDiffStyles,
 	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
@@ -615,9 +614,6 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				blocktypeStylesNestedDnd,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				codeMarkStyles,
-				expValEquals('platform_editor_a11y_scrollable_region', 'isEnabled', true) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					codeMarkStylesA11yFix,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				textColorStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -647,11 +643,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					ruleWithAttrsStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				smartCardDiffStyles,
-				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						showDiffDeletedNodeStylesNew
-					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						showDiffDeletedNodeStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				showDiffDeletedNodeStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				mediaStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

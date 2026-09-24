@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/badge",
-	"version": "21.2.3",
+	"version": "22.0.0",
 	"description": "A badge is a visual indicator for numeric values such as tallies and scores.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
 			"category": "Labels",
 			"status": {
 				"type": "ready-for-ga",
-				"description": "The new badge appearances are stable and ready for adoption. Visual updates are currently behind the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag."
+				"description": "The new badge appearances are stable and ready for adoption."
 			},
 			"subPages": [
 				{
@@ -41,7 +41,7 @@
 					"id": "badge",
 					"status": {
 						"type": "intent-to-deprecate",
-						"description": "We're planning to deprecate this component. If you have the Atlassian feature flag integration, use the new badge. Otherwise, the old experience will switch to the new one automatically when we clean up the feature flag."
+						"description": "We're planning to deprecate this component. Please use the new badge component instead."
 					}
 				}
 			]
@@ -51,11 +51,10 @@
 		".": "./src/index.tsx",
 		"./badge": "./src/badge.tsx",
 		"./badge-new": "./src/badge-new.tsx",
-		"./new": "./src/entry-points/new.tsx",
-		"./types": "./src/types.tsx"
+		"./types": "./src/types.tsx",
+		"./new": "./src/entry-points/new.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -73,7 +72,6 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
-		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:*",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:*",
@@ -81,10 +79,5 @@
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
 	},
-	"homepage": "https://atlassian.design/components/badge/",
-	"platform-feature-flags": {
-		"platform-dst-lozenge-tag-badge-visual-uplifts": {
-			"type": "boolean"
-		}
-	}
+	"homepage": "https://atlassian.design/components/badge/"
 }

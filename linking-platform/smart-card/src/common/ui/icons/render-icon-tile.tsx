@@ -2,6 +2,7 @@ import React, { type ComponentPropsWithoutRef } from 'react';
 
 import IconTile from '@atlaskit/icon/icon-tile';
 import type { IconTileProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { transformSmartLinkSizeToIconTileSize } from './transform-smart-link-size-to-icon-tile-size';
@@ -12,6 +13,8 @@ type IconTileAppearance = NonNullable<ComponentPropsWithoutRef<typeof IconTile>[
 /**
  * Maps IconTile appearance to the icon glyph color token to use when rendering
  * a standalone icon (without a tile background).
+ * When cleaning up `platform_lp_non_bold_large_sl_icon` in NAVX-5752, remove the `*Bold`
+ * entries. Nothing will pass a bold appearance into this map after that.
  */
 const appearanceToStandaloneIconColor: Record<IconTileAppearance, string> = {
 	blue: token('color.icon.accent.blue'),
@@ -34,6 +37,24 @@ const appearanceToStandaloneIconColor: Record<IconTileAppearance, string> = {
 	tealBold: token('color.icon.accent.teal'),
 	yellow: token('color.icon.accent.yellow'),
 	yellowBold: token('color.icon.accent.yellow'),
+};
+
+/**
+ * Bold appearances are the gate-off values. Remove this map when cleaning up
+ * `platform_lp_non_bold_large_sl_icon` in NAVX-5752:
+ * https://hello.jira.atlassian.cloud/browse/NAVX-5752
+ */
+const boldToNonBoldAppearance: Partial<Record<IconTileAppearance, IconTileAppearance>> = {
+	blueBold: 'blue',
+	grayBold: 'gray',
+	greenBold: 'green',
+	limeBold: 'lime',
+	magentaBold: 'magenta',
+	orangeBold: 'orange',
+	purpleBold: 'purple',
+	redBold: 'red',
+	tealBold: 'teal',
+	yellowBold: 'yellow',
 };
 
 export const renderIconTile = (
@@ -60,9 +81,14 @@ export const renderIconTile = (
 			);
 		}
 		const { ...tileProps } = props;
+		const nonBoldAppearance = boldToNonBoldAppearance[appearance as IconTileAppearance];
+		const tileAppearance =
+			nonBoldAppearance !== undefined && fg('platform_lp_non_bold_large_sl_icon')
+				? nonBoldAppearance
+				: appearance;
 		return (
 			<IconTile
-				appearance={appearance}
+				appearance={tileAppearance}
 				icon={isTiledIcon ? (iconProps) => <Icon {...iconProps} spacing="spacious" /> : Icon}
 				size={tileSize}
 				{...tileProps}

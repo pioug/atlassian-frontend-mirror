@@ -110,6 +110,18 @@ export interface BreadcrumbsCurrentItemProps {
 	href: string;
 
 	/**
+	 * Handler to be called on click. Call `event.preventDefault()` to stop the
+	 * default full-page navigation and handle routing yourself (for example with
+	 * a client-side router), preserving application state.
+	 */
+	onClick?: (event: React.MouseEvent) => void;
+
+	/**
+	 * Where to display the linked URL, mapped to the anchor `target` attribute.
+	 */
+	target?: '_blank' | '_parent' | '_self' | '_top' | '';
+
+	/**
 	 * The maximum width in pixels that the current item link can have before it is
 	 * truncated. If this is not set, truncation will only occur when it cannot fit
 	 * alone on a line. If there is no truncationWidth, tooltips are not provided
@@ -123,6 +135,11 @@ export interface BreadcrumbsCurrentItemProps {
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+
+	/**
+	 * Additional information to be included in the `context` of analytics events.
+	 */
+	analyticsContext?: Record<string, any>;
 
 	/**
 	 * Callback fired after the link URL has been successfully copied to the

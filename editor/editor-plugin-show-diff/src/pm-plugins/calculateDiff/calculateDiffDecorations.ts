@@ -325,6 +325,10 @@ const calculateNodesForBlockDecoration = ({
 	// table/row/paragraph decorations there are redundant and cause expensive per-cell
 	// re-render. Blocks outside the table keep their normal decorations.
 	const coarseTables = coarseTableCellsOnly ? tableRanges(doc, from, to) : [];
+	// nodesBetween visits ancestors that start before the changed range.
+	// Only fully contained blocks should mark existing list bullets as new.
+	const requireContainedBlocks =
+		UNSAFE_expValNoExposure('platform_editor_ai_review_moment', 'isEnabled', false) === true;
 	// Iterate over the document nodes within the range
 	doc.nodesBetween(from, to, (node, pos) => {
 		if (coarseTableCellsOnly && isInsideTable(coarseTables, pos)) {
@@ -333,7 +337,11 @@ const calculateNodesForBlockDecoration = ({
 				return;
 			}
 		}
-		if (node.isBlock && (!isExtendedEnabled(diffType) || pos + node.nodeSize <= to)) {
+		if (
+			node.isBlock &&
+			(!isExtendedEnabled(diffType) ||
+				((!requireContainedBlocks || pos >= from) && pos + node.nodeSize <= to))
+		) {
 			const nodeEnd = pos + node.nodeSize;
 			const isActive = isRangeActive(activeIndexPos, pos, nodeEnd);
 
@@ -538,40 +546,31 @@ const calculateDiffDecorationsInner = ({
 			steppedDoc = result.doc;
 		}
 	}
-	// Gate the complete attribution fix: mapped positions and step-time nodes are used together.
-	// The fallback deliberately preserves the legacy raw-position lookups for rollout safety.
-	const attrStepContexts = fg('platform_editor_reduce_diff_attr_sensitivity')
-		? pendingAttrSteps.flatMap<AttrStepContext>(
-				({ afterNode, attributionKey, beforeNode, mapIndex, step }) => {
-					const finalPosition = new Mapping(stepMaps.slice(mapIndex + 1)).mapResult(step.pos);
-					if (finalPosition.deleted) {
-						return [];
-					}
+	// Mapped positions and step-time nodes are used together so an attr change is attributed to the
+	// node it actually happened on, even when later steps move it.
+	const attrStepContexts = pendingAttrSteps.flatMap<AttrStepContext>(
+		({ afterNode, attributionKey, beforeNode, mapIndex, step }) => {
+			const finalPosition = new Mapping(stepMaps.slice(mapIndex + 1)).mapResult(step.pos);
+			if (finalPosition.deleted) {
+				return [];
+			}
 
-					const originalPosition = new Mapping(stepMaps.slice(0, mapIndex))
-						.invert()
-						.mapResult(step.pos);
+			const originalPosition = new Mapping(stepMaps.slice(0, mapIndex))
+				.invert()
+				.mapResult(step.pos);
 
-					return [
-						{
-							attributionKey,
-							afterNode,
-							beforeNode,
-							finalPos: finalPosition.pos,
-							...(originalPosition.deleted ? {} : { originalPos: originalPosition.pos }),
-							step,
-						},
-					];
+			return [
+				{
+					attributionKey,
+					afterNode,
+					beforeNode,
+					finalPos: finalPosition.pos,
+					...(originalPosition.deleted ? {} : { originalPos: originalPosition.pos }),
+					step,
 				},
-			)
-		: pendingAttrSteps.map(({ attributionKey, step }) => ({
-				attributionKey,
-				afterNode: tr.doc.nodeAt(step.pos),
-				beforeNode: originalDoc.nodeAt(step.pos),
-				finalPos: step.pos,
-				originalPos: step.pos,
-				step,
-			}));
+			];
+		},
+	);
 
 	// Rather than using .eq() we use a custom function that only checks for structural
 	// changes and ignores differences in attributes which don't affect decoration positions

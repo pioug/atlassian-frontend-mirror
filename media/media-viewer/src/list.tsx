@@ -20,6 +20,15 @@ export type Props = Readonly<
 	{
 		onClose?: () => void;
 		onNavigationChange?: (selectedItem: Identifier) => void;
+		/**
+		 * If provided, the List delegates the decision to advance to the next/prev
+		 * item to the consumer. The consumer must call `proceed()` to actually
+		 * commit the navigation. If `proceed` is never called, the underlying
+		 * displayed item does not change. Used by consumers that need to show a
+		 * confirmation prompt (e.g. unsaved comment changes) before allowing
+		 * navigation between media items.
+		 */
+		onNavigationRequest?: (selectedItem: Identifier, proceed: () => void) => void;
 		defaultSelectedItem: Identifier;
 		items: Identifier[];
 		extensions?: MediaViewerExtensions;
@@ -48,6 +57,7 @@ export const List = ({
 	featureFlags,
 	isSidebarVisible,
 	onNavigationChange,
+	onNavigationRequest,
 	items,
 	viewerOptions,
 	fallbackMediaNameFetcher,
@@ -92,11 +102,18 @@ export const List = ({
 			<Navigation
 				items={items}
 				selectedItem={selectedItem}
-				onChange={(selectedItem: Identifier) => {
-					onNavigationChange?.(selectedItem);
-					showControls?.();
-					setSelectedItem(selectedItem);
-					setPreviewCount(previewCount + 1);
+				onChange={(nextSelectedItem: Identifier) => {
+					const commit = () => {
+						onNavigationChange?.(nextSelectedItem);
+						showControls?.();
+						setSelectedItem(nextSelectedItem);
+						setPreviewCount(previewCount + 1);
+					};
+					if (onNavigationRequest) {
+						onNavigationRequest(nextSelectedItem, commit);
+					} else {
+						commit();
+					}
 				}}
 				isArchiveSideBarVisible={isArchiveSideBarVisible}
 			/>

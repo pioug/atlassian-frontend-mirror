@@ -301,14 +301,12 @@ const decorateWithPluginOptions = (
 					const tr = state.tr;
 					tr.setMeta(pluginKey, { showInsertPanelAt: tr.selection.anchor });
 
-					const resolvedInputMethod = INPUT_METHOD.QUICK_INSERT;
-
 					api?.analytics?.actions.attachAnalyticsEvent({
 						action: ACTION.INSERTED,
 						actionSubject: ACTION_SUBJECT.DOCUMENT,
 						actionSubjectId: ACTION_SUBJECT_ID.PLACEHOLDER_TEXT,
 						attributes: {
-							inputMethod: resolvedInputMethod,
+							inputMethod: INPUT_METHOD.QUICK_INSERT,
 						},
 						eventType: EVENT_TYPE.TRACK,
 					})(tr);

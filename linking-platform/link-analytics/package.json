@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-analytics",
-	"version": "12.4.0",
+	"version": "13.0.0",
 	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -70,10 +70,9 @@
 		".": "./src/index.ts",
 		"./get-resolved-attributes": "./src/utils/get-resolved-attributes.ts",
 		"./get-url-attributes": "./src/utils/get-url-attributes.ts",
-		"./lifecycle": "./src/entry-points/lifecycle.ts",
-		"./resolved-attributes": "./src/entry-points/resolved-attributes.ts",
 		"./use-datasource-lifecycle-analytics": "./src/use-datasource-lifecycle-analytics.ts",
-		"./use-smart-link-lifecycle-analytics": "./src/use-smart-link-lifecycle-analytics.ts"
+		"./use-smart-link-lifecycle-analytics": "./src/use-smart-link-lifecycle-analytics.ts",
+		"./resolved-attributes": "./src/entry-points/resolved-attributes.ts"
 	},
 	"platform-feature-flags": {
 		"platform_bandicoots-smartlink-unresolved-error-key": {

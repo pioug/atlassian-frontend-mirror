@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import React from 'react';
 
 import { type IntlShape, type WithIntlProps, injectIntl } from 'react-intl';
@@ -71,8 +69,3 @@ export const MentionPickerWithAnalytics: React.ForwardRefExoticComponent<
 export type MentionPickerWithAnalytics = MentionPicker;
 
 export default MentionPickerWithAnalytics;
-
-/**
- * @deprecated Use `import { MentionPicker } from '@atlaskit/mention/mention-picker'` instead.
- */
-export { MentionPicker } from './MentionPicker';

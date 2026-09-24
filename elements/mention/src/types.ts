@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import { type SyntheticEvent } from 'react';
 
 import { type ServiceConfig } from '@atlaskit/util-service-support/types';
@@ -449,32 +447,3 @@ export interface InviteFromMentionProvider {
 export interface XProductInviteMentionProvider {
 	inviteXProductUser?: (userId: string, mentionName: string) => Promise<void>;
 }
-
-/**
- * @deprecated Use `import { isRestricted } from '@atlaskit/mention/types'` instead.
- */
-export { isRestricted } from './is-restricted';
-/**
- * @deprecated Use `import { isSpecialMention } from '@atlaskit/mention/types'` instead.
- */
-export { isSpecialMention } from './is-special-mention';
-/**
- * @deprecated Use `import { isAppMention } from '@atlaskit/mention/types'` instead.
- */
-export { isAppMention } from './is-app-mention';
-/**
- * @deprecated Use `import { isAgentMention } from '@atlaskit/mention/types'` instead.
- */
-export { isAgentMention } from './is-agent-mention';
-/**
- * @deprecated Use `import { isTeamMention } from '@atlaskit/mention/types'` instead.
- */
-export { isTeamMention } from './is-team-mention';
-/**
- * @deprecated Use `import { isSpecialMentionText } from '@atlaskit/mention/types'` instead.
- */
-export { isSpecialMentionText } from './is-special-mention-text';
-/**
- * @deprecated Use `import { isPromise } from '@atlaskit/mention/types'` instead.
- */
-export { isPromise } from './is-promise';

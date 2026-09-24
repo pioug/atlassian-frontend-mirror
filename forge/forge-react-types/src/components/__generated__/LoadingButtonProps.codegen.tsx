@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - LoadingButtonProps
  *
- * @codegen <<SignedSource::f3ab66b3494753ac1721770620800f33>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/loading-button.tsx <<SignedSource::f8f88b5f1e0c23036af2f7649740ac92>>
+ * @codegen <<SignedSource::db7a35527410061d67697199a9b3dfdb>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/loading-button.tsx <<SignedSource::e34bb9bc8014d07da419f6ae1cb5e56e>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "25.4.1",
+	"version": "25.4.2",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,7 +81,6 @@
 		"./button-group": "./src/containers/button-group.tsx",
 		"./containers/button-group": "./src/containers/button-group.tsx",
 		"./custom-theme-button/custom-theme-button": "./src/old-button/custom-theme-button/custom-theme-button.tsx",
-		"./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
 		"./custom-theme-button-types": "./src/old-button/custom-theme-button/custom-theme-button-types.tsx",
 		"./default/button": "./src/new-button/variants/default/button.tsx",
 		"./divider": "./src/new-button/containers/split-button/divider.tsx",
@@ -89,16 +88,17 @@
 		"./icon/link": "./src/new-button/variants/icon/link.tsx",
 		"./link": "./src/new-button/variants/default/link.tsx",
 		"./loading-button": "./src/old-button/loading-button.tsx",
-		"./new": "./src/entry-points/new.tsx",
 		"./old-button/types": "./src/old-button/types.tsx",
 		"./split-button/split-button": "./src/new-button/containers/split-button/split-button.tsx",
-		"./split-button": "./src/entry-points/split-button.tsx",
 		"./split-button-container": "./src/new-button/containers/split-button/split-button-container.tsx",
 		"./split-button-with-slots": "./src/new-button/containers/split-button/split-button-with-slots.tsx",
 		"./standard-button": "./src/old-button/button.tsx",
 		"./theme": "./src/old-button/custom-theme-button/theme.tsx",
 		"./types": "./src/entry-points/types.tsx",
-		"./variants/types": "./src/new-button/variants/types.tsx"
+		"./variants/types": "./src/new-button/variants/types.tsx",
+		"./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
+		"./new": "./src/entry-points/new.tsx",
+		"./split-button": "./src/entry-points/split-button.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

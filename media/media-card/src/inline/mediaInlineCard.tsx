@@ -26,7 +26,6 @@ import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { MediaCardError } from '../MediaCardError';
@@ -49,6 +48,7 @@ export interface MediaInlineCardProps {
 	 * Optional fallback fetcher to retrieve the media filename from another service
 	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media
 	 * Receives the file ID and should resolve to the filename string.
+	 * TODO: Remove this prop when fallback-fetcher usage is sufficiently low.
 	 */
 	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	/**
@@ -157,11 +157,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 					selectedItem={identifier}
 					onClose={onMediaViewerClose}
 					viewerOptions={viewerOptions}
-					fallbackMediaNameFetcher={
-						expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
-							? fallbackMediaNameFetcher
-							: undefined
-					}
+					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 				/>,
 				document.body,
 			);
@@ -202,8 +198,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 			fileState.status !== 'error' &&
 			!fileState.name &&
 			fallbackMediaNameFetcher &&
-			!fallbackMediaNameFetchAttempted.current &&
-			expValEquals('platform_editor_media_name_fallback', 'isEnabled', true)
+			!fallbackMediaNameFetchAttempted.current
 		) {
 			fallbackMediaNameFetchAttempted.current = true;
 			fallbackMediaNameFetcher(fileState.id).then(
@@ -250,12 +245,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 
 	// Empty file handling — try the fallback name fetcher first if available
 	if (fileState && !fileState.name) {
-		if (
-			fallbackMediaNameFetcher &&
-			!fallbackMediaNameFetchFailed &&
-			!fallbackMediaName &&
-			expValEquals('platform_editor_media_name_fallback', 'isEnabled', true)
-		) {
+		if (fallbackMediaNameFetcher && !fallbackMediaNameFetchFailed && !fallbackMediaName) {
 			// Fetch not yet attempted or in flight — show loading
 			return (
 				<MediaInlineCardLoadingView
@@ -266,10 +256,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 			);
 		}
 
-		if (
-			!expValEquals('platform_editor_media_name_fallback', 'isEnabled', true) ||
-			!fallbackMediaName
-		) {
+		if (!fallbackMediaName) {
 			// No fetcher provided or fetch failed — show error
 			const error = new MediaCardError(
 				'metadata-fetch',
@@ -316,9 +303,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	}
 
 	const { mediaType, name: fileStateName, mimeType } = fileState;
-	const name = expValEquals('platform_editor_media_name_fallback', 'isEnabled', true)
-		? fileStateName || fallbackMediaName
-		: fileStateName;
+	const name = fileStateName || fallbackMediaName;
 	const linkIcon = (
 		<MimeTypeIcon
 			testId={'media-inline-card-file-type-icon'}

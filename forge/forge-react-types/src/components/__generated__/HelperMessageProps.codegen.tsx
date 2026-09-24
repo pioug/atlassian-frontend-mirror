@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - HelperMessageProps
  *
- * @codegen <<SignedSource::867186ab9065c1955019578515e5b441>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/helper-message.partial.tsx <<SignedSource::03fa772bfaf53905106f1cafbb428104>>
+ * @codegen <<SignedSource::f7ab90f4ac527af50c8e940906992ac3>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/helper-message.partial.tsx <<SignedSource::bf398b90716492acb64bd6218b0140ca>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

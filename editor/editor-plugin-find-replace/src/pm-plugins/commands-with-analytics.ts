@@ -6,11 +6,12 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import type { FindReplacePlugin } from '../findReplacePluginType';
 import {
 	activate,
 	cancelSearch,
@@ -21,8 +22,14 @@ import {
 	replaceAll,
 } from './commands';
 
+/**
+ * Hosts that do not install `editorViewMode` are always editing, so the attribute
+ * falls back to `edit` when the api is absent.
+ */
+export type EditorViewModeAPI = ExtractInjectionAPI<FindReplacePlugin>['editorViewMode'];
+
 export const activateWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, editorViewModeAPI?: EditorViewModeAPI) =>
 	({
 		triggerMethod,
 	}: {
@@ -38,6 +45,7 @@ export const activateWithAnalytics =
 						? INPUT_METHOD.PREFILL
 						: INPUT_METHOD.KEYBOARD,
 				triggerMethod,
+				editorViewMode: editorViewModeAPI?.sharedState.currentState()?.mode ?? 'edit',
 			},
 		}))(activate());
 

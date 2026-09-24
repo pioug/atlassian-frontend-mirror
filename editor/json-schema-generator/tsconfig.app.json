@@ -1,8 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
-		"**/*.docs.tsx",
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -27,13 +27,19 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./src/cli.ts",
-		"./src/json-schema-nodes/number-schema-node.ts"
+		"./src/json-schema-nodes/number-schema-node.ts",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__json-schema-generator/app",
 		"isolatedDeclarations": true
 	},
-	"references": [],
-	"files": []
+	"references": []
 }

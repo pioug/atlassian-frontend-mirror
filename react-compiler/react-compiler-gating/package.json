@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-compiler-gating",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Runtime gating for enabling the React Compiler in Atlassian platform packages.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -8,7 +8,7 @@ Use as follows:
 
 ```javascript
 import { defaultSchema } from '@atlaskit/adf-schema';
-import { EmailSerializer } from '@atlaskit/email-renderer';
+import { EmailSerializer } from '@atlaskit/email-renderer/main';
 
 const document = ... // Your ADF JSON document
 

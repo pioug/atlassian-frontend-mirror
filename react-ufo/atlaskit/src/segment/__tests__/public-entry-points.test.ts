@@ -12,6 +12,13 @@ describe('React UFO entry-point compatibility', () => {
 		expect(UFOSegment).toBe(jest.requireActual('../index').default);
 	});
 
+	it('preserves the legacy GenAI segment binding', () => {
+		expect(jest.requireActual('@atlaskit/react-ufo/segment').UFOGenAISegment).toBe(
+			jest.requireActual('@atlaskit/react-ufo/gen-ai-segment').UFOGenAISegment,
+		);
+		expect(jest.requireActual('@atlaskit/react-ufo/segment').UFOGenAISegment).toBeDefined();
+	});
+
 	it('keeps the legacy and direct interaction ID bindings on one observable singleton', () => {
 		const legacy = jest.requireActual('../../interaction-id-context');
 		expect(legacy.DefaultInteractionID).toBe(DefaultInteractionID);

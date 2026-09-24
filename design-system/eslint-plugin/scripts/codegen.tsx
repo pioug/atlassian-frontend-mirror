@@ -16,7 +16,7 @@ const { naming }: { naming: ESLintRCNaming } = Legacy;
 
 const packagePluginName = '@atlaskit/eslint-plugin-design-system';
 const pluginName = naming.getShorthandName(packagePluginName, 'eslint-plugin');
-const codegenCommand = `yarn workspace ${packagePluginName} codegen`;
+const codegenCommand = `afm workspace ${packagePluginName} codegen`;
 
 interface FoundRule {
 	module: LintRule;

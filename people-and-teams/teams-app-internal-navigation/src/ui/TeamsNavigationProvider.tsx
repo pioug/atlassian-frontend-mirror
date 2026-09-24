@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-
 import React, { useContext, useMemo, type ReactNode } from 'react';
 
 import { type NavigationContext } from '../common/utils/getNavigationProps';
@@ -37,8 +35,3 @@ export function TeamsNavigationProvider({
 		</NavigationContextReact.Provider>
 	);
 }
-
-/**
- * @deprecated Use `import { useTeamsNavigationContext } from '@atlaskit/teams-app-internal-navigation/use-teams-navigation-context'` instead.
- */
-export { useTeamsNavigationContext } from './useTeamsNavigationContext';

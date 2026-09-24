@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
@@ -58,9 +57,3 @@ function traceUFOTransition(
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default traceUFOTransition;
-
-/**
- * @deprecated Use `import { useUFOTransitionCompleter } from '@atlaskit/react-ufo/use-ufo-transition-completer'` instead.
- */
-
-export { useUFOTransitionCompleter } from './useUFOTransitionCompleter';

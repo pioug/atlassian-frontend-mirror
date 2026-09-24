@@ -1,5 +1,28 @@
 # @atlaskit/select
 
+## 23.1.0
+
+### Minor Changes
+
+- [`e29b90dc9775d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e29b90dc9775d) -
+  [ux] Removes the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate from Select now that
+  the refreshed tag-style multi-select visuals are fully rolled out. There are no public API
+  changes.
+
+## 23.0.0
+
+### Major Changes
+
+- [`0c7c7be927bde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c7c7be927bde) -
+  Remove deprecated Volt re-export shims from public package entry points. Consumers should import
+  from the replacement subpaths or implementation entry points instead.
+
+### Patch Changes
+
+- [`70faba3ff157d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70faba3ff157d) -
+  Fix issue in which fontsize would be too large on small non-mobile viewports.
+- Updated dependencies
+
 ## 22.11.7
 
 ### Patch Changes

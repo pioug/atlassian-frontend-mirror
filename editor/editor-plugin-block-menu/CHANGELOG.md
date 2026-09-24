@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- [`202069bab1e36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202069bab1e36) -
+  Clean up the shipped `platform_editor_enghealth_a11y_jan_fixes` experiment. Toolbar dropdown items
+  now always render with `role="menuitem"` and without `aria-pressed`, the block menu always has
+  `role="menu"`, and show-diff deleted content always uses the a11y-fixed styles.
+- [`9c5dee87aa66d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c5dee87aa66d) -
+  Make Small text availability respect nested parent schemas and fix Small and Normal text
+  conversion for block task items behind the `platform_editor_block_menu_small_text` experiment.
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.8
 
 ### Patch Changes

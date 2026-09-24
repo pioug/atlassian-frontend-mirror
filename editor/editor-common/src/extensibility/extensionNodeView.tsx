@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import type { IntlShape } from 'react-intl';
 
@@ -11,7 +11,6 @@ import type {
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isSSR } from '../core-utils';
 import type { EventDispatcher } from '../event-dispatcher';
@@ -151,12 +150,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	createDomRef(): HTMLElement {
 		// SSR DOM reuse takes precedence over preset height — when eligible, adopt the
 		// server-rendered element directly so React hydration is deferred until update().
-		if (
-			!isSSR() &&
-			isSSRHydrationEligible(this.node) &&
-			this.isInInitialHydrationWindow() &&
-			expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)
-		) {
+		if (!isSSR() && isSSRHydrationEligible(this.node) && this.isInInitialHydrationWindow()) {
 			const ssrElement = this.findSSRElement();
 			if (ssrElement) {
 				this.didReuseSsrDom = true;
@@ -232,23 +226,19 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 
 	/** Skip React Portal render on first init when reusing SSR DOM. See {@link consumedHydrationIdentitiesByEditor}. */
 	init(): this {
-		if (!expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)) {
-			super.init();
-		} else {
-			const isEligibleForSsrReuse = !isSSR() && isSSRHydrationEligible(this.node);
+		const isEligibleForSsrReuse = !isSSR() && isSSRHydrationEligible(this.node);
 
-			if (isEligibleForSsrReuse && this.isInInitialHydrationWindow()) {
-				const ssrElement = this.findSSRElement();
-				const shouldSkipInitRender = ssrElement !== null;
-				super.init(shouldSkipInitRender);
-				const identityKey = this.getHydrationIdentityKey();
-				if (identityKey !== null) {
-					// Close the hydration window — see {@link consumedHydrationIdentitiesByEditor}.
-					markHydrationIdentityAsConsumed(this.view, identityKey);
-				}
-			} else {
-				super.init();
+		if (isEligibleForSsrReuse && this.isInInitialHydrationWindow()) {
+			const ssrElement = this.findSSRElement();
+			const shouldSkipInitRender = ssrElement !== null;
+			super.init(shouldSkipInitRender);
+			const identityKey = this.getHydrationIdentityKey();
+			if (identityKey !== null) {
+				// Close the hydration window — see {@link consumedHydrationIdentitiesByEditor}.
+				markHydrationIdentityAsConsumed(this.view, identityKey);
 			}
+		} else {
+			super.init();
 		}
 
 		return this;
@@ -262,10 +252,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	): boolean {
 		// Remove extensionNodeWrapper aka span.relative if we previously reused SSR DOM
 		// control is back to React afterwards
-		if (
-			this.didReuseSsrDom &&
-			expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)
-		) {
+		if (this.didReuseSsrDom) {
 			const ssrElement = this.findSSRElement();
 			if (ssrElement) {
 				const extensionNodeWrapper = ssrElement.querySelector(
@@ -350,63 +337,105 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 		return { dom: contentDomWrapper };
 	}
 
-	render(
-		props: {
-			extensionHandlers: ExtensionHandlers;
-			extensionLoadingHandlers?: ExtensionHandlers;
-			// referentiality plugin won't utilise appearance just yet
-			extensionNodeViewOptions?: ExtensionNodeViewOptions;
-			intl?: IntlShape;
-			macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
-			pluginInjectionApi: ExtensionsPluginInjectionAPI;
-			providerFactory: ProviderFactory;
-			rendererExtensionHandlers?: ExtensionHandlers;
-			showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
-			showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
-		},
-		forwardRef: ForwardRef,
-	): React.JSX.Element {
+	render(props: ExtensionRenderProps, forwardRef: ForwardRef): React.JSX.Element {
 		// While sitting on SSR DOM, skip the React portal — see {@link didReuseSsrDom}.
 		if (this.didReuseSsrDom) {
 			return null as unknown as React.JSX.Element;
 		}
 
 		return (
-			<ExtensionNodeWrapper
-				intl={props.intl}
-				nodeType={this.node.type.name}
-				macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
-				// Only native embeds animate in; the reveal waits on the embed's own loading state.
-				generatedContentMotion={
-					!!props.extensionNodeViewOptions?.allowAIGeneratedContentMotion &&
-					isNativeEmbedExtension(this.node)
-				}
-			>
-				<Extension
-					editorView={this.view}
-					node={this.node}
-					eventDispatcher={this.eventDispatcher}
-					// The getPos arg is always a function when used with nodes
-					// the version of the types we use has a union with the type
-					// for marks.
-					// This has been fixed in later versions of the definitly typed
-					// types (and also in prosmirror-views inbuilt types).
-					// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/57384
-					getPos={this.getPos as ProsemirrorGetPosHandler}
-					providerFactory={props.providerFactory}
-					handleContentDOMRef={forwardRef}
-					extensionHandlers={props.extensionHandlers}
-					extensionLoadingHandlers={props.extensionLoadingHandlers}
-					editorAppearance={props.extensionNodeViewOptions?.appearance}
-					pluginInjectionApi={props.pluginInjectionApi}
-					macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
-					showLivePagesBodiedMacrosRendererView={props.showLivePagesBodiedMacrosRendererView}
-					showUpdatedLivePages1PBodiedExtensionUI={props.showUpdatedLivePages1PBodiedExtensionUI}
-					rendererExtensionHandlers={props.rendererExtensionHandlers}
-				/>
-			</ExtensionNodeWrapper>
+			<ExtensionNodeRender
+				editorView={this.view}
+				eventDispatcher={this.eventDispatcher}
+				forwardRef={forwardRef}
+				// The getPos arg is always a function when used with nodes
+				// the version of the types we use has a union with the type
+				// for marks.
+				// This has been fixed in later versions of the definitly typed
+				// types (and also in prosmirror-views inbuilt types).
+				// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/57384
+				getPos={this.getPos as ProsemirrorGetPosHandler}
+				node={this.node}
+				renderProps={props}
+			/>
 		);
 	}
+}
+
+type ExtensionRenderProps = {
+	extensionHandlers: ExtensionHandlers;
+	extensionLoadingHandlers?: ExtensionHandlers;
+	// referentiality plugin won't utilise appearance just yet
+	extensionNodeViewOptions?: ExtensionNodeViewOptions;
+	intl?: IntlShape;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	providerFactory: ProviderFactory;
+	rendererExtensionHandlers?: ExtensionHandlers;
+	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
+};
+
+type ExtensionNodeRenderProps = {
+	editorView: EditorView;
+	eventDispatcher: EventDispatcher | undefined;
+	forwardRef: ForwardRef;
+	getPos: ProsemirrorGetPosHandler;
+	node: PmNode;
+	renderProps: ExtensionRenderProps;
+};
+
+/**
+ * Wraps the extension in its node wrapper. A component rather than part of the node view's `render`,
+ * so `contentReady` can be React state: the extension reports its content ready from inside the
+ * wrapper, and the wrapper animates the node in once it has.
+ */
+function ExtensionNodeRender({
+	editorView,
+	eventDispatcher,
+	forwardRef,
+	getPos,
+	node,
+	renderProps,
+}: ExtensionNodeRenderProps): React.JSX.Element {
+	const [contentReady, setContentReady] = useState(false);
+	const onContentReady = useCallback(() => setContentReady(true), []);
+
+	// Only native embeds animate in; every other extension type renders as it does without the
+	// option, so nothing waits on a signal it does not send.
+	const generatedContentMotion =
+		!!renderProps.extensionNodeViewOptions?.allowAIGeneratedContentMotion &&
+		isNativeEmbedExtension(node);
+
+	return (
+		<ExtensionNodeWrapper
+			intl={renderProps.intl}
+			nodeType={node.type.name}
+			macroInteractionDesignFeatureFlags={renderProps.macroInteractionDesignFeatureFlags}
+			generatedContentMotion={generatedContentMotion}
+			contentReady={contentReady}
+		>
+			<Extension
+				editorView={editorView}
+				node={node}
+				eventDispatcher={eventDispatcher}
+				getPos={getPos}
+				providerFactory={renderProps.providerFactory}
+				handleContentDOMRef={forwardRef}
+				extensionHandlers={renderProps.extensionHandlers}
+				extensionLoadingHandlers={renderProps.extensionLoadingHandlers}
+				editorAppearance={renderProps.extensionNodeViewOptions?.appearance}
+				pluginInjectionApi={renderProps.pluginInjectionApi}
+				macroInteractionDesignFeatureFlags={renderProps.macroInteractionDesignFeatureFlags}
+				showLivePagesBodiedMacrosRendererView={renderProps.showLivePagesBodiedMacrosRendererView}
+				showUpdatedLivePages1PBodiedExtensionUI={
+					renderProps.showUpdatedLivePages1PBodiedExtensionUI
+				}
+				rendererExtensionHandlers={renderProps.rendererExtensionHandlers}
+				onContentReady={generatedContentMotion ? onContentReady : undefined}
+			/>
+		</ExtensionNodeWrapper>
+	);
 }
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports

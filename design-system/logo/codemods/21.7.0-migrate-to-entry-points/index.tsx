@@ -44,6 +44,8 @@ const SYMBOL_TO_ENTRY_POINT: Record<string, string> = {
 	AlignLogo: 'align/logo',
 	AnalyticsIcon: 'analytics/icon',
 	AnalyticsLogo: 'analytics/logo',
+	ArtifactsIcon: 'artifacts/icon',
+	ArtifactsLogo: 'artifacts/logo',
 	AssetsIcon: 'assets/icon',
 	AssetsLogo: 'assets/logo',
 	BambooIcon: 'bamboo/icon',

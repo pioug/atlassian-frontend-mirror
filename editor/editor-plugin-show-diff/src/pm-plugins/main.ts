@@ -33,8 +33,8 @@ import type { ResolvedDiffContributors } from './decorations/colorSchemes/attrib
 import type { ContributorTagMountContext } from './decorations/createContributorTagWidget';
 import { isDiffDecoration, isDiffDecorationSpec } from './decorations/decorationKeys';
 import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
+import { getDefaultDiffType } from './getDefaultDiffType';
 import { getScrollableDecorations } from './getScrollableDecorations';
-import { getDefaultDiffType, isExtendedEnabled } from './isExtendedEnabled';
 import { NodeViewSerializer } from './NodeViewSerializer';
 import { rebindReveal } from './revealAnimation';
 import { scrollToDecoration } from './scrollToDiff';
@@ -64,7 +64,6 @@ export type ShowDiffPluginState = {
 	deletedDiffPlacement?: DeletedDiffPlacement;
 	/**
 	 * The diff descriptors of the diff decorations currently being displayed.
-	 * Only set when `platform_editor_diff_plugin_extended` is on.
 	 */
 	diffDescriptors?: DiffDescriptor[];
 	diffType?: DiffType;
@@ -161,23 +160,18 @@ export const createPlugin = (
 		state: {
 			init(_: EditorStateConfig, _state: EditorState) {
 				// We do initial setup after we setup the editor view
-				const defaultDiffType = getDefaultDiffType();
 				return {
 					steps: [],
 					stepAttributions: [],
 					originalDoc: undefined,
 					decorations: DecorationSet.empty,
 					isDisplayingChanges: false,
-					...(isExtendedEnabled(defaultDiffType)
-						? {
-								isInverted: false,
-								diffType: defaultDiffType,
-								hideDeletedDiffs: false,
-								hideAddedDiffsUnderline: false,
-								showIndicators: false,
-								diffDescriptors: [],
-							}
-						: {}),
+					isInverted: false,
+					diffType: getDefaultDiffType(),
+					hideDeletedDiffs: false,
+					hideAddedDiffsUnderline: false,
+					showIndicators: false,
+					diffDescriptors: [],
 				};
 			},
 			apply: (
@@ -218,28 +212,22 @@ export const createPlugin = (
 							activeIndexPos: newPluginState.activeIndexPos,
 							api,
 							tagMountContext,
-							...(isExtendedEnabled(newPluginState?.diffType)
-								? {
-										isInverted: newPluginState?.isInverted,
-										diffType: newPluginState?.diffType,
-										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
-										hideAddedDiffsUnderline: newPluginState?.hideAddedDiffsUnderline,
-										showIndicators: newPluginState?.showIndicators,
-										smartThresholds: newPluginState?.smartThresholds,
-										deletedDiffPlacement: newPluginState?.deletedDiffPlacement,
-										inlineDeletedDiffPlacement: newPluginState?.inlineDeletedDiffPlacement,
-										// SHOW_DIFF only. The scroll-to-next recalculation further down deliberately
-										// omits this so stepping through changes cannot replay the choreography.
-										reveal: newPluginState?.reveal,
-									}
-								: {}),
+							isInverted: newPluginState?.isInverted,
+							diffType: newPluginState?.diffType,
+							hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
+							hideAddedDiffsUnderline: newPluginState?.hideAddedDiffsUnderline,
+							showIndicators: newPluginState?.showIndicators,
+							smartThresholds: newPluginState?.smartThresholds,
+							deletedDiffPlacement: newPluginState?.deletedDiffPlacement,
+							inlineDeletedDiffPlacement: newPluginState?.inlineDeletedDiffPlacement,
+							// SHOW_DIFF only. The scroll-to-next recalculation further down deliberately
+							// omits this so stepping through changes cannot replay the choreography.
+							reveal: newPluginState?.reveal,
 						});
 						// Update the decorations and their ids
 						newPluginState.decorations = decorations;
 						newPluginState.contributorTags = contributorTags;
-						if (isExtendedEnabled(newPluginState?.diffType)) {
-							newPluginState.diffDescriptors = diffDescriptors;
-						}
+						newPluginState.diffDescriptors = diffDescriptors;
 					} else if (meta?.action === 'HIDE_DIFF') {
 						newPluginState = {
 							...currentPluginState,
@@ -255,22 +243,17 @@ export const createPlugin = (
 							 * Reset isInverted & diffType state when hiding diffs
 							 * Otherwise this should persist for the diff-showing session
 							 */
-							...(isExtendedEnabled(currentPluginState.diffType)
-								? {
-										isInverted: false,
-										diffType: getDefaultDiffType(),
-										hideDeletedDiffs: false,
-										hideAddedDiffsUnderline: false,
-										diffDescriptors: [],
-									}
-								: {}),
+							isInverted: false,
+							diffType: getDefaultDiffType(),
+							hideDeletedDiffs: false,
+							hideAddedDiffsUnderline: false,
+							diffDescriptors: [],
 						};
 					} else if (meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS') {
 						// Update the active index in plugin state and recalculate decorations
 						const decorations = getScrollableDecorations(
 							currentPluginState.decorations,
 							newState.doc,
-							newPluginState?.diffType,
 						);
 
 						if (decorations.length > 0) {
@@ -310,24 +293,18 @@ export const createPlugin = (
 								activeIndexPos: newPluginState.activeIndexPos,
 								api,
 								tagMountContext,
-								...(isExtendedEnabled(newPluginState.diffType)
-									? {
-											isInverted: newPluginState.isInverted,
-											diffType: newPluginState.diffType,
-											hideDeletedDiffs: newPluginState.hideDeletedDiffs,
-											hideAddedDiffsUnderline: newPluginState.hideAddedDiffsUnderline,
-											showIndicators: newPluginState.showIndicators,
-											smartThresholds: newPluginState.smartThresholds,
-											deletedDiffPlacement: newPluginState.deletedDiffPlacement,
-											inlineDeletedDiffPlacement: newPluginState.inlineDeletedDiffPlacement,
-										}
-									: {}),
+								isInverted: newPluginState.isInverted,
+								diffType: newPluginState.diffType,
+								hideDeletedDiffs: newPluginState.hideDeletedDiffs,
+								hideAddedDiffsUnderline: newPluginState.hideAddedDiffsUnderline,
+								showIndicators: newPluginState.showIndicators,
+								smartThresholds: newPluginState.smartThresholds,
+								deletedDiffPlacement: newPluginState.deletedDiffPlacement,
+								inlineDeletedDiffPlacement: newPluginState.inlineDeletedDiffPlacement,
 							});
 							newPluginState.decorations = updatedDecorations;
 							newPluginState.contributorTags = updatedContributorTags;
-							if (isExtendedEnabled(newPluginState.diffType)) {
-								newPluginState.diffDescriptors = updatedDiffDescriptors;
-							}
+							newPluginState.diffDescriptors = updatedDiffDescriptors;
 						}
 					} else {
 						newPluginState = { ...currentPluginState, ...meta };
@@ -384,15 +361,11 @@ export const createPlugin = (
 					// Scroll to the first decoration when scrollIntoView was requested.
 					// Use the same filtered/position-sorted list as the active-index path
 					// so "first" reliably means the topmost scrollable diff in the document.
-					if (pluginState?.scrollIntoView && isExtendedEnabled(pluginState?.diffType)) {
+					if (pluginState?.scrollIntoView) {
 						cancelPendingScrollToDecoration?.();
 						cancelPendingScrollToDecoration = scrollToDecoration(
 							view,
-							getScrollableDecorations(
-								pluginState.decorations,
-								view.state.doc,
-								pluginState?.diffType,
-							),
+							getScrollableDecorations(pluginState.decorations, view.state.doc),
 							undefined,
 							api,
 						);
@@ -416,7 +389,6 @@ export const createPlugin = (
 						const scrollableDecorations = getScrollableDecorations(
 							pluginState.decorations,
 							view.state.doc,
-							pluginState?.diffType,
 						);
 						const activeDecoration = scrollableDecorations[pluginState.activeIndex];
 						if (activeDecoration) {
@@ -437,16 +409,14 @@ export const createPlugin = (
 						// screen-reader user gets silence. Announced through the live region rather than by
 						// focusing the change, since the "next change" control has to stay focused to be
 						// pressed again. After the scroll above, so the announcement never precedes it.
-						if (isExtendedEnabled(pluginState?.diffType)) {
-							const announcement = getActiveDiffAnnouncement({
-								activeIndex: pluginState.activeIndex,
-								contributorTags: pluginState.contributorTags,
-								decorations: scrollableDecorations,
-								intl: getIntl(),
-							});
-							if (announcement) {
-								api?.accessibilityUtils?.actions.ariaNotify(announcement);
-							}
+						const announcement = getActiveDiffAnnouncement({
+							activeIndex: pluginState.activeIndex,
+							contributorTags: pluginState.contributorTags,
+							decorations: scrollableDecorations,
+							intl: getIntl(),
+						});
+						if (announcement) {
+							api?.accessibilityUtils?.actions.ariaNotify(announcement);
 						}
 					}
 				},

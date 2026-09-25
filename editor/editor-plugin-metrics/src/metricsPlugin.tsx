@@ -1,4 +1,4 @@
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { MetricsPlugin } from './metricsPluginType';
 import { createPlugin, initialPluginState, metricsKey } from './pm-plugins/main';
@@ -48,7 +48,7 @@ export const metricsPlugin: MetricsPlugin = ({ config, api }) => ({
 
 				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
 					let toolbarDocking;
-					if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+					if (editorExperiment('platform_editor_controls', 'variant1')) {
 						toolbarDocking =
 							api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 					}

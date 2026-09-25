@@ -12,8 +12,8 @@ import type { MentionsPlugin } from '../../mentionsPluginType';
 import { MentionQuickInsertMenuItem } from './MentionQuickInsertMenuItem';
 
 const previewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/02107p5maex03pfb4s04rw7i4hbk5jj0.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/q3254137y85cxldh4osht5k5c7q88572.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLB.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHL.png',
 };
 
 export const getMentionQuickInsertComponents = ({

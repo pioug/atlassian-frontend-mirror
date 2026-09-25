@@ -12,16 +12,16 @@ export function pmNodeGroupsCodeGen(nodeGroupMap: Record<string, string[]>): str
 		}
 
 		const uniqNodeGroups = [...new Set(value)];
-		const childTypes: Array<string> = [];
+		const childTypes: Set<string> = new Set();
 
 		for (const group of uniqNodeGroups) {
 			const typeName = convertTypeToTypeName(group);
-			childTypes.push(typeName);
+			childTypes.add(typeName);
 			uniqueTypeImports.add(typeName);
 		}
 
 		const typeName = convertTypeToTypeName(key);
-		groupTypesDefinitions.push(_type(typeName, `Array<${childTypes.join('|')}>`));
+		groupTypesDefinitions.push(_type(typeName, `Array<${Array.from(childTypes).join('|')}>`));
 	}
 
 	const typeImportsArray: Array<string> = Array.from(uniqueTypeImports);

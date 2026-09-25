@@ -3,32 +3,6 @@ import { token } from '@atlaskit/tokens';
 
 import { getStandardDeletedTextDecorationStyle } from './getStandardDeletedTextDecorationStyle';
 
-// delete on platform_editor_diff_plugin_extended cleanup
-export const editingStyle: string = convertToInlineCss({
-	background: token('color.background.accent.purple.subtlest'),
-	textDecoration: 'underline',
-	textDecorationStyle: 'dotted',
-	textDecorationThickness: token('space.025'),
-	textDecorationColor: token('color.border.accent.purple'),
-});
-
-// delete on platform_editor_diff_plugin_extended cleanup
-export const editingContentStyleInBlock: string = convertToInlineCss({
-	textDecoration: 'underline',
-	textDecorationStyle: 'dotted',
-	textDecorationThickness: token('space.025'),
-	textDecorationColor: token('color.border.accent.purple'),
-});
-
-// delete on platform_editor_diff_plugin_extended cleanup
-export const editingStyleActive: string = convertToInlineCss({
-	background: token('color.background.accent.purple.subtler.pressed'),
-	textDecoration: 'underline',
-	textDecorationStyle: 'dotted',
-	textDecorationThickness: token('space.025'),
-	textDecorationColor: token('color.text.accent.purple'),
-});
-
 export const editingStyleExtended: string = convertToInlineCss({
 	background: token('color.background.accent.purple.subtlest'),
 	borderBottom: `2px solid ${token('color.border.accent.purple')}`,

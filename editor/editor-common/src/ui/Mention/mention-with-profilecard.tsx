@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react';
 
 import Loadable from 'react-loadable';
-// oxlint-disable-next-line @atlassian/no-restricted-imports
-import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
 import ResourcedMention from '@atlaskit/mention/resourced-mention';
@@ -21,38 +19,20 @@ import type { MentionEventHandler } from '../EventHandlers';
 // Lazy-loaded so the agent profile card chunk (and its `@atlaskit/rovo-agent-components`
 // dependency) stays off the critical path — it is only fetched when an agent mention
 // (`userType === 'APP'`) actually renders, never for person mentions.
-const loadAgentProfileCardTrigger = () =>
-	import(
-		/* webpackChunkName: "@atlaskit-internal_profilecard/agent-profile-card-trigger" */
-		'@atlaskit/profilecard/agent-profile-card-trigger'
-	).then((mod) => mod.AgentProfileCardTrigger);
-
-const AgentProfileCardTriggerLazy = lazy(() =>
-	import(
-		/* webpackChunkName: "@atlaskit-internal_profilecard/agent-profile-card-trigger" */
-		'@atlaskit/profilecard/agent-profile-card-trigger'
-	).then((mod) => mod.AgentProfileCardTrigger),
-);
-AgentProfileCardTriggerLazy.displayName = 'lazy(AgentProfileCardTrigger)';
-const AgentProfileCardTriggerLoadable = Loadable({
-	loader: loadAgentProfileCardTrigger,
-	loading: () => null,
-});
-
+// Uses react-loadable to match editor-common's code-splitting factory (see src/icons/index.ts).
 const AgentProfileCardTrigger: React.ComponentType<
 	React.ComponentProps<
 		(typeof import('@atlaskit/profilecard/agent-profile-card-trigger'))['AgentProfileCardTrigger']
 	>
-> = (props) =>
-	isExperimentEnabled('platform_editor_loosely_lazy_migration') ? (
-		<LazySuspense fallback={null}>
-			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
-			<AgentProfileCardTriggerLazy {...props} />
-		</LazySuspense>
-	) : (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<AgentProfileCardTriggerLoadable {...props} />
-	);
+> &
+	Loadable.LoadableComponent = Loadable({
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_profilecard/agent-profile-card-trigger" */
+			'@atlaskit/profilecard/agent-profile-card-trigger'
+		).then((mod) => mod.AgentProfileCardTrigger),
+	loading: () => null,
+});
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
@@ -102,7 +82,8 @@ export default function MentionWithProfileCard({
 	ssrPlaceholderId,
 	userType,
 }: Props): React.JSX.Element {
-	const { cloudId, renderUserMentionCard, resourceClient } = profilecardProvider;
+	const { cloudId, renderAgentMentionCard, renderUserMentionCard, resourceClient } =
+		profilecardProvider;
 
 	const actions = useMemo(
 		() => profilecardProvider.getActions(id, text, accessLevel),
@@ -130,6 +111,18 @@ export default function MentionWithProfileCard({
 
 	// Agent mentions (userType 'APP') open the Rovo agent profile card on click.
 	if (userType === 'APP' && cloudId && isExperimentEnabled('rovo_chat_mention_agents')) {
+		if (renderAgentMentionCard) {
+			return (
+				<>
+					{renderAgentMentionCard({
+						accountId: id,
+						children: mention,
+						cloudId,
+					})}
+				</>
+			);
+		}
+
 		return (
 			<AgentProfileCardTrigger
 				agentId={id}

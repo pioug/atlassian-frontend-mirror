@@ -1,0 +1,31 @@
+Disallow imports from `@atlaskit/theme` and its subpaths, including default, named, namespace,
+side-effect, and type imports.
+
+`@atlaskit/theme` is a legacy styling package. Use design tokens from `@atlaskit/tokens` and
+Atlassian Design System components instead.
+
+## Examples
+
+### Incorrect
+
+```tsx
+import { colors } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
+import Theme from '@atlaskit/theme/theme';
+import type { ThemeProp } from '@atlaskit/theme/create-theme';
+```
+
+### Correct
+
+```tsx
+import { token } from '@atlaskit/tokens';
+import { css } from '@atlaskit/css';
+
+const styles = css({
+	color: token('color.text'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
+});
+```

@@ -7,6 +7,7 @@ import type { INPUT_METHOD } from '../analytics';
 import type { TypeAheadInsert } from '../types';
 import { CompactQuickInsertMenuItem } from './CompactQuickInsertMenuItem';
 import { ElementBrowserQuickInsertMenuItem } from './ElementBrowserQuickInsertMenuItem';
+import type { QuickInsertPreview } from './preview';
 import { useQuickInsertContext } from './useQuickInsertContext';
 
 export type OnSelectContext = {
@@ -25,9 +26,13 @@ export type QuickInsertMenuItemProps = {
 	iconBefore?: React.ReactNode;
 	isDisabled?: boolean;
 	onSelect: (context: OnSelectContext) => Transaction | false | void;
-	/** Approved preview images, loaded only while this slash-command item is selected. */
+	/** Structured preview content for the selected item. */
+	preview?: QuickInsertPreview;
+	/** Retained for existing callers; new callers should pass `preview.image`. */
 	previewImageUrls?: { dark?: string; light: string } | null;
 	shortcut?: string;
+	/** Disable previews for navigation actions rather than insertable items. */
+	shouldShowPreview?: boolean;
 	shouldWrapIcon?: boolean;
 	title: string;
 };
@@ -38,8 +43,10 @@ export const QuickInsertMenuItem = ({
 	iconBefore,
 	isDisabled,
 	onSelect,
+	preview,
 	previewImageUrls,
 	shortcut,
+	shouldShowPreview,
 	shouldWrapIcon,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
@@ -63,8 +70,10 @@ export const QuickInsertMenuItem = ({
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
 			onSelect={onSelect}
+			preview={preview}
 			previewImageUrls={previewImageUrls}
 			shortcut={shortcut}
+			shouldShowPreview={shouldShowPreview}
 			shouldWrapIcon={shouldWrapIcon}
 			title={title}
 		/>

@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import {
+	type CSSProperties,
 	forwardRef,
 	isValidElement,
 	type MouseEvent,
@@ -13,6 +14,8 @@ import {
 	useEffect,
 	useRef,
 } from 'react';
+
+import { cssMap as unboundCssMap } from '@compiled/react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
@@ -46,6 +49,15 @@ const containerStyles = css({
 	outline: 0,
 });
 
+const updatedHexagonNegativeMarginMap = unboundCssMap({
+	xxsmall: { marginBlockEnd: '-0.585px', marginBlockStart: '-0.585px' },
+	small: { marginBlockEnd: '-0.88px', marginBlockStart: '-0.88px' },
+	medium: { marginBlockEnd: '-1.17px', marginBlockStart: '-1.17px' },
+	large: { marginBlockEnd: '-1.465px', marginBlockStart: '-1.465px' },
+	xlarge: { marginBlockEnd: '-3.51px', marginBlockStart: '-3.51px' },
+	xxlarge: { marginBlockEnd: '-4.68px', marginBlockStart: '-4.68px' },
+});
+
 const normalizeAvatarSize = (size: SizeType): SizeType =>
 	size === 'xsmall' && !fg('platform_design-system-team_avatar-remove-xsmall') ? 'xxsmall' : size;
 
@@ -56,6 +68,11 @@ export interface AvatarPropTypes {
 	 * can be used for 'container' objects.
 	 */
 	appearance?: AppearanceType;
+	/**
+	 * Selects an experimental taller hexagon geometry for 16px, 24px, 32px, 40px, 96px, and 128px
+	 * avatars. The 20px size retains the legacy geometry.
+	 */
+	UNSAFE_isUpdatedGeometry?: boolean;
 	/**
 	 * Used to provide custom content to screen readers.
 	 * Status or presence is not added to the label by default if it passed as nodes.
@@ -193,6 +210,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 		{
 			analyticsContext,
 			appearance = 'circle',
+			UNSAFE_isUpdatedGeometry,
 			label,
 			borderColor,
 			children,
@@ -218,6 +236,8 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 		const context = useAvatarContext();
 		const size = normalizeAvatarSize(sizeProp || context?.size || 'medium');
+		const isUpdatedHexagonGeometry =
+			appearance === 'hexagon' && Boolean(UNSAFE_isUpdatedGeometry) && size !== 'UNSAFE_xsmall';
 		const customPresenceNode = isValidElement(presence) ? presence : null;
 		const customStatusNode = isValidElement(status) ? status : null;
 		const isValidIconSize = size !== 'xxlarge' && size !== 'xxsmall' && size !== 'xsmall';
@@ -306,13 +326,20 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 					data-testid={testId}
 					role={containerShouldBeImage ? 'img' : undefined}
 					aria-labelledby={containerShouldBeImage ? labelId : undefined}
-					css={containerStyles}
-					style={{ zIndex: stackIndex }}
+					css={[
+						containerStyles,
+						isUpdatedHexagonGeometry &&
+							updatedHexagonNegativeMarginMap[
+								size as 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
+							],
+					]}
+					style={{ zIndex: stackIndex } as CSSProperties}
 				>
 					<AvatarContentContext.Provider
 						value={{
 							as: getCustomElement(isDisabled, href, onClick, ariaHasPopup),
 							appearance,
+							UNSAFE_isUpdatedGeometry: isUpdatedHexagonGeometry,
 							borderColor,
 							href,
 							isDisabled,
@@ -331,6 +358,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 									alt={!containerShouldBeImage && src ? name : undefined}
 									src={src}
 									appearance={appearance}
+									UNSAFE_isUpdatedGeometry={isUpdatedHexagonGeometry}
 									size={size}
 									testId={testId}
 									imgLoading={imgLoading}

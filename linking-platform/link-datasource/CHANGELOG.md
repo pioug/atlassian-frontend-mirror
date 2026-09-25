@@ -1,5 +1,27 @@
 # @atlaskit/link-datasource
 
+## 7.0.3
+
+### Patch Changes
+
+- [`ffe3187520151`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffe3187520151) -
+  Remove the redundant `linking_platform_site_picker_api_unit_compliant_cloud_id` and
+  `linking_platform_link_datasource_unit_compliant_cloud_id` feature gates. Both duplicated the
+  targeting of the existing `linking_platform_site_picker_api_unit_compliant` and
+  `linking_platform_link_datasource_unit_compliant` gates, which now solely drive the units
+  isolation rollout for the site picker and link datasource. No behaviour change.
+- Updated dependencies
+
+## 7.0.2
+
+### Patch Changes
+
+- [`9f02259ff4f80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f02259ff4f80) -
+  Cleanup `feature_gate` `platform_datasource_sync_info_boundary_updates`. The datasource table
+  footer sync label now always schedules its refresh on the next minute, hour or day boundary and
+  stops scheduling once the label becomes a fixed date after eight days, instead of re-rendering
+  every second.
+
 ## 7.0.1
 
 ### Patch Changes

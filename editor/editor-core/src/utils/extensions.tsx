@@ -168,6 +168,7 @@ export async function extensionProviderToQuickInsertProvider(
 						key: item.key,
 						title: item.title,
 						description: item.description,
+						...(item.preview ? { preview: item.preview } : {}),
 						icon: () => {
 							if (isExperimentEnabled('platform_editor_loosely_lazy_migration')) {
 								return <LazyExtensionIcon iconLoader={item.icon} />;

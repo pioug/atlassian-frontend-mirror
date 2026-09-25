@@ -7,26 +7,25 @@ import { type ParticipantColor, participantColors } from './consts';
 
 /**
  * Fixed telepointer palette slot for each `@atlaskit/agent-color` brand this editor recognises by
- * a reserved identity colour rather than a hashed one.
- *
- * Claude uses orange (`participantColors[7]`), Rovo purple (`[4]`), and ChatGPT gray (`[9]`).
- * Brands in `BRAND_EXACT_COLOR_SCHEMES` use their registered brand colours in those fixed slots.
- * The palette's numbered positions also back the telepointer CSS classes, so preserve these
- * positions when editing the palette. Brands `@atlaskit/agent-color` resolves but this table omits
- * (e.g. Figma, Replit) fall through to the identity-hashed colour below.
+ * a reserved identity colour rather than a hashed one. Positions also back the telepointer CSS
+ * classes, so preserve them when editing the palette.
  */
 const BRAND_PARTICIPANT_COLOR_INDEX: Readonly<Partial<Record<AgentBrandColorScheme, number>>> = {
 	'agent-brand-claude': 7,
 	'agent-brand-rovo': 4,
 	'agent-brand-chatgpt': 9,
+	'agent-brand-figma': 9,
+	'agent-brand-lovable': 9,
+	'agent-brand-replit': 9,
 };
 
-/**
- * Brands whose registered `bold`/`boldText` values take precedence over their palette slot.
- */
+/** Brands whose registered `bold`/`boldText` values take precedence over their palette slot. */
 const BRAND_EXACT_COLOR_SCHEMES: ReadonlySet<AgentBrandColorScheme> = new Set([
 	'agent-brand-chatgpt',
 	'agent-brand-rovo',
+	'agent-brand-figma',
+	'agent-brand-lovable',
+	'agent-brand-replit',
 ]);
 
 /** Maps Agent Studio's semantic palette to the established telepointer palette slots. */
@@ -88,7 +87,10 @@ export function getParticipantColor(
 	str: string,
 	agentType?: string,
 ): { color: ParticipantColor; index: number; isFixed?: true } {
-	const brand = agentType ? getThirdPartyAgentColor({ agentName: agentType }) : undefined;
+	// `agentType` may be a named id (e.g. `mcp_lovable_agent`) or a display name (e.g. `lovable`).
+	const brand = agentType
+		? getThirdPartyAgentColor({ agentNamedId: agentType, agentName: agentType })
+		: undefined;
 
 	if (brand) {
 		const fixedIndex = BRAND_PARTICIPANT_COLOR_INDEX[brand.scheme];

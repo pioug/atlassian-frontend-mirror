@@ -17,7 +17,6 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { createInlineCodeFromTextInputWithAnalytics } from '../editor-commands/text-formatting';
 // Ignored via go/ees005
@@ -52,7 +51,9 @@ const getTextFormattingState = (
 	const { em, code, strike, strong, subsup, underline } = editorState.schema.marks;
 	const state: TextFormattingState = { isInitialised: true };
 
-	const showOnlyCommonMarks = expValEquals('platform_editor_controls', 'cohort', 'variant1');
+	const showOnlyCommonMarks = editorExperiment('platform_editor_controls', 'variant1', {
+		exposure: true,
+	});
 
 	if (showOnlyCommonMarks) {
 		// Code marks will disable all other formatting options when they are included in a

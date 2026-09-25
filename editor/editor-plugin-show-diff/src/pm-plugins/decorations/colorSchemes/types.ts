@@ -88,7 +88,7 @@ export type DiffColorScheme = {
 	insertedCellOpacity: number;
 	/** Bottom border tone for inserted text highlights. Defaults to accent. */
 	insertedInlineBorderTone?: 'accent' | 'backgroundHovered';
-	/** Inserted content under the extended experience: underline, or a border-bottom rule with padding. */
+	/** Inserted content: underline, or a border-bottom rule with padding. */
 	insertedInlineTreatment: 'underline' | 'borderBottom';
 	/** Inserted block ring: 4px stateful ring, or one static 1px accent ring. */
 	insertedNodeEmphasis: 'stateful' | 'static';

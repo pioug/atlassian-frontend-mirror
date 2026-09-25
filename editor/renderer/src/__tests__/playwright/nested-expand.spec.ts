@@ -10,24 +10,16 @@ test.describe('expand', () => {
 		});
 
 		test('should render as closed by default', async ({ renderer }) => {
-			const expand = renderer.page.locator(
-				'[data-testid="expand-container-expand-expand-title-1"] > button',
-			);
-			const nestedExpand = renderer.page.locator(
-				'[data-testid="expand-container-nestedExpand-expand-title-2"] > button',
-			);
+			const expand = renderer.page.locator('[data-node-type="expand"] > button');
+			const nestedExpand = renderer.page.locator('[data-node-type="nestedExpand"] > button');
 
 			await expect(expand).toHaveAttribute('aria-expanded', 'false');
 			await expect(nestedExpand).toHaveAttribute('aria-expanded', 'false');
 		});
 
 		test('should only expand and collapse the parent expand on toggle', async ({ renderer }) => {
-			const expand = renderer.page.locator(
-				'[data-testid="expand-container-expand-expand-title-1"] > button',
-			);
-			const nestedExpand = renderer.page.locator(
-				'[data-testid="expand-container-nestedExpand-expand-title-2"] > button',
-			);
+			const expand = renderer.page.locator('[data-node-type="expand"] > button');
+			const nestedExpand = renderer.page.locator('[data-node-type="nestedExpand"] > button');
 
 			// toggle expand open, nested expand remains closed
 			await expand.waitFor({ state: 'visible' });
@@ -45,12 +37,8 @@ test.describe('expand', () => {
 		});
 
 		test('should only expand and collapse the nested expand on toggle', async ({ renderer }) => {
-			const expand = renderer.page.locator(
-				'[data-testid="expand-container-expand-expand-title-1"] > button',
-			);
-			const nestedExpand = renderer.page.locator(
-				'[data-testid="expand-container-nestedExpand-expand-title-2"] > button',
-			);
+			const expand = renderer.page.locator('[data-node-type="expand"] > button');
+			const nestedExpand = renderer.page.locator('[data-node-type="nestedExpand"] > button');
 
 			// expand is closed by default so nestedExpand is not visible
 			await expand.waitFor({ state: 'visible' });

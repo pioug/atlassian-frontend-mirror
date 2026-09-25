@@ -11,8 +11,7 @@ import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 
 import type { TextHighlighter } from '../../../react/types';
-import { renderTextSegments } from '../../../react/utils/render-text-segments';
-import { segmentText } from '../../../react/utils/segment-text';
+import { renderText } from '../../../react/utils/render-text';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 import { useAnnotationRangeState } from '../contexts/AnnotationRangeContext';
 import type { Position } from '../types';
@@ -77,6 +76,7 @@ export const AnnotationDraft = ({
 type ApplyAnnotationsProps = {
 	draftPosition: Position;
 	marks?: readonly Mark[];
+	plainTextFastPath?: boolean;
 	shouldApplyAnnotationAt:
 		| InsertDraftPosition.INSIDE
 		| InsertDraftPosition.START
@@ -110,17 +110,24 @@ export const applyAnnotationOnText = ({
 	draftPosition,
 	textHighlighter,
 	marks,
+	plainTextFastPath = false,
 }: ApplyAnnotationsProps): JSX.Element[] => {
 	const annotateIndex = getAnnotationIndex(shouldApplyAnnotationAt, texts.length);
 
 	return texts.map((value, index) => {
-		const segments = segmentText(value, textHighlighter);
+		const rendered = renderText(
+			value,
+			textHighlighter,
+			marks || [],
+			draftPosition.from,
+			plainTextFastPath,
+		);
 		if (annotateIndex === index) {
 			return (
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/no-array-index-key
 				<AnnotationDraft key={index} draftPosition={draftPosition}>
-					{renderTextSegments(segments, textHighlighter, marks || [], draftPosition.from)}
+					{rendered}
 				</AnnotationDraft>
 			);
 		}
@@ -128,9 +135,7 @@ export const applyAnnotationOnText = ({
 		return (
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/no-array-index-key
-			<React.Fragment key={index}>
-				{renderTextSegments(segments, textHighlighter, marks || [], draftPosition.from)}
-			</React.Fragment>
+			<React.Fragment key={index}>{rendered}</React.Fragment>
 		);
 	});
 };
@@ -138,6 +143,7 @@ export const applyAnnotationOnText = ({
 type Props = React.PropsWithChildren<{
 	endPos: number;
 	marks?: readonly Mark[];
+	plainTextFastPath?: boolean;
 	startPos: number;
 	textHighlighter?: TextHighlighter;
 }>;
@@ -148,6 +154,7 @@ export const TextWithAnnotationDraft = ({
 	children,
 	textHighlighter,
 	marks,
+	plainTextFastPath = false,
 }: Props): jsx.JSX.Element => {
 	const textPosition = React.useMemo(
 		() => ({
@@ -172,17 +179,17 @@ export const TextWithAnnotationDraft = ({
 	}
 
 	if (shouldApplyAnnotationAt === false || !nextDraftPosition) {
-		const segments = segmentText(textString, textHighlighter);
 		return (
-			<Fragment>{renderTextSegments(segments, textHighlighter, marks || [], startPos)}</Fragment>
+			<Fragment>
+				{renderText(textString, textHighlighter, marks || [], startPos, plainTextFastPath)}
+			</Fragment>
 		);
 	}
 
 	if (shouldApplyAnnotationAt === InsertDraftPosition.AROUND_TEXT) {
-		const segments = segmentText(textString, textHighlighter);
 		return (
 			<AnnotationDraft key={0} draftPosition={nextDraftPosition}>
-				{renderTextSegments(segments, textHighlighter, marks || [], startPos)}
+				{renderText(textString, textHighlighter, marks || [], startPos, plainTextFastPath)}
 			</AnnotationDraft>
 		);
 	}
@@ -190,9 +197,10 @@ export const TextWithAnnotationDraft = ({
 	const offsets = calcTextSplitOffset(nextDraftPosition, textPosition, textString);
 	const texts = splitText(textString, offsets);
 	if (!texts) {
-		const segments = segmentText(textString, textHighlighter);
 		return (
-			<Fragment>{renderTextSegments(segments, textHighlighter, marks || [], startPos)}</Fragment>
+			<Fragment>
+				{renderText(textString, textHighlighter, marks || [], startPos, plainTextFastPath)}
+			</Fragment>
 		);
 	}
 
@@ -202,6 +210,7 @@ export const TextWithAnnotationDraft = ({
 		draftPosition: nextDraftPosition,
 		textHighlighter,
 		marks,
+		plainTextFastPath,
 	});
 
 	return <Fragment>{components}</Fragment>;

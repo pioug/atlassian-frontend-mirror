@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::6c07d01b427b6369803ccfae25ec6949>>
+ * @codegen <<SignedSource::12ae46050114888a4d532fd87ca7f436>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1324,6 +1324,15 @@ const metadata: Record<string, metadata> = {
 		team: 'Automation',
 		status: 'published',
 		slackChannel: '#help-automation-design',
+	},
+	conversation: {
+		keywords: ['conversation', 'icon', 'icon-lab', 'chat', 'bubbles', 'speech', 'talk', 'message'],
+		componentName: 'ConversationIcon',
+		package: '@atlaskit/icon-lab/core/conversation',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Chat, conversation view, back and forth',
+		team: 'CSM',
+		status: 'published',
 	},
 	'corner-radius-rounded': {
 		keywords: [

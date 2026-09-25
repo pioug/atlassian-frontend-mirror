@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 23.0.4
+
+### Patch Changes
+
+- [`1b3056181e6ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b3056181e6ac) -
+  Revert EDITOR-9164 (`platform_editor_reduce_forced_layout` `ignoreMutation` change in the media
+  single node view). Its optional chaining in a class-field initializer made Babel's
+  optional-chaining transform hoist temp variables above the `@jsx jsx` pragma, so the `jsx` import
+  from `@emotion/react` was stripped and inserting images threw `ReferenceError: jsx is not defined`
+  in Help Center.
+- Updated dependencies
+
 ## 23.0.3
 
 ### Patch Changes

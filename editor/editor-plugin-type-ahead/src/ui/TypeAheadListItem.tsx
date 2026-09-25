@@ -27,6 +27,7 @@ import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
+import { parseSkillTagTitle, SkillTagLabel } from './SkillTagLabel';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const itemIcon: SerializedStyles = css({
@@ -296,6 +297,13 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 		const descriptionId = `typeahead-item-description-${itemIndex}`;
 
 		const { icon, title, render: customRenderItem } = item;
+		const skillTag = useMemo(
+			() =>
+				isExperimentEnabled('display_skill_lozenge_in_editor')
+					? parseSkillTagTitle(title)
+					: undefined,
+			[title],
+		);
 		const elementIcon = useMemo(() => {
 			return (
 				<div css={[itemIcon, moreElementsInQuickInsertViewEnabled && itemIconSizeUpdated]}>
@@ -372,7 +380,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 					iconBefore={elementIcon}
 					isSelected={isSelected}
 					aria-selected={isSelected}
-					aria-label={title}
+					aria-label={skillTag?.name ?? title}
 					aria-describedby={descriptionText || shortcutText ? descriptionId : undefined}
 					aria-setsize={itemsLength}
 					aria-posinset={itemIndex + 1}
@@ -395,7 +403,11 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 										item.lozenge && titleWithLozengeStyle,
 									]}
 								>
-									{item.title}
+									{skillTag ? (
+										<SkillTagLabel color={skillTag.color} slug={skillTag.slug} />
+									) : (
+										item.title
+									)}
 									{item.lozenge && <span css={lozengeWrapperStyle}>{item.lozenge}</span>}
 								</div>
 								<div css={itemAfter}>

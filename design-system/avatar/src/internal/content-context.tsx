@@ -5,6 +5,7 @@ import { type AppearanceType, type SizeType } from '../types';
 type AvatarContentContextProps = {
 	as: 'a' | 'button' | 'span';
 	appearance: AppearanceType;
+	UNSAFE_isUpdatedGeometry?: boolean;
 	avatarImage: ReactNode;
 	borderColor?: string;
 	href?: string;

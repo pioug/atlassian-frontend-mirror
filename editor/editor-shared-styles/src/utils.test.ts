@@ -53,6 +53,23 @@ describe('utils', () => {
 			},
 		);
 
+		it.each([
+			['figma', 'agent-brand-figma'],
+			['lovable', 'agent-brand-lovable'],
+			['replit', 'agent-brand-replit'],
+		] as const)('uses ChatGPT telepointer colours for %s', (agentType, scheme) => {
+			for (const id of ['first-agent', 'second-agent', '']) {
+				expect(getParticipantColor(id, agentType)).toEqual({
+					index: 9,
+					isFixed: true,
+					color: {
+						backgroundColor: 'var(--' + scheme + '-bold, light-dark(#000000, #E8E8EA))',
+						svgBackgroundColor: 'var(--' + scheme + '-bold, light-dark(#000000, #E8E8EA))',
+						textColor: 'var(--' + scheme + '-boldText, light-dark(#FFFFFF, #000000))',
+					},
+				});
+			}
+		});
 		it.each(['rovo', 'rovo_chat'])(
 			'uses fixed purple for Rovo agent type or brand %s regardless of participant ID',
 			(agentType) => {

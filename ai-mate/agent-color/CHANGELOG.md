@@ -1,5 +1,21 @@
 # @atlaskit/agent-color
 
+## 1.0.4
+
+### Patch Changes
+
+- [`dec0b5dd31b2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dec0b5dd31b2f) -
+  Add Figma, Lovable, and Replit contributor tags behind
+  confluence_ncs_step_diffing_version_history.
+
+## 1.0.3
+
+### Patch Changes
+
+- [`463f291ca4e20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/463f291ca4e20) -
+  Select the Amplitude v2 avatar behind a frontend feature gate for the existing Amplitude agent ID,
+  and remove the unused versioned agent ID mappings.
+
 ## 1.0.2
 
 ### Patch Changes

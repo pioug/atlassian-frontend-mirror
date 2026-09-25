@@ -30,8 +30,8 @@ const layoutItems = [
 		item: TWO_COLUMNS_LAYOUT_MENU_ITEM,
 		keyword: 'two column',
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/0iw817624sqeag4khc1xcy63873q21rq.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/54ofhg00x870clknn4332akh40g8u3w2.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVMM.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVJY.png',
 		},
 		title: layoutMessages.twoColumnsAdvancedLayout,
 	},
@@ -41,8 +41,8 @@ const layoutItems = [
 		item: THREE_COLUMNS_LAYOUT_MENU_ITEM,
 		keyword: 'three column',
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/jly0ydm2oi818u507kt807jsi54du81d.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/12qobcpeyt16r8coi03arj643b7oq780.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVNM.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVK3.png',
 		},
 		title: layoutMessages.threeColumnsAdvancedLayout,
 	},
@@ -52,8 +52,8 @@ const layoutItems = [
 		item: FOUR_COLUMNS_LAYOUT_MENU_ITEM,
 		keyword: 'four column',
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/qxypnub871i55c81u236hb736y4008d7.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/7t6ryd4ek4gob4634vr4u31m0l4760el.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVNI.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVK5.png',
 		},
 		title: layoutMessages.fourColumns,
 	},
@@ -63,8 +63,8 @@ const layoutItems = [
 		item: FIVE_COLUMNS_LAYOUT_MENU_ITEM,
 		keyword: 'five column',
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/10ffd735631hbf21r5lr4dophlp6702a.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/ma21tr7mfw721t0tr31n80j33g032b78.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVNO.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVJV.png',
 		},
 		title: layoutMessages.fiveColumns,
 	},
@@ -83,7 +83,7 @@ export const getLayoutQuickInsertComponents = ({ api }: Params): RegisterMenuIte
 		],
 		match: createQuickInsertMatcher(({ formatMessage }) => ({
 			description: formatMessage(description, {
-				numberOfColumns: ['one', 'two', 'three', 'four', 'five'][columnCount - 1],
+				numberOfColumns: columnCount,
 			}),
 			keywords: ['layout', 'column', 'section', 'col', keyword],
 			title: formatMessage(title),

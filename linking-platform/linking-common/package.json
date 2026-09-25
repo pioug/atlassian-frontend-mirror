@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "13.0.0",
+	"version": "13.0.1",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -109,9 +109,6 @@
 			"referenceOnly": true
 		},
 		"linking_platform_site_picker_api_unit_compliant": {
-			"type": "boolean"
-		},
-		"linking_platform_site_picker_api_unit_compliant_cloud_id": {
 			"type": "boolean"
 		},
 		"platform_lp_sllv_display_name_fallback": {

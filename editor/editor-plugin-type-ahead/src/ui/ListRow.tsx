@@ -6,6 +6,7 @@ import type { ListRowProps } from 'react-virtualized';
 type Props = {
 	children: ReactNode;
 	measure: () => void;
+	onMeasured?: () => void;
 	onMouseMove: MouseEventHandler<HTMLDivElement>;
 } & Pick<ListRowProps, 'index' | 'style' | 'isScrolling' | 'isVisible'>;
 
@@ -27,11 +28,12 @@ export const ListRow: React.ForwardRefExoticComponent<
 	{
 		children: ReactNode;
 		measure: () => void;
+		onMeasured?: () => void;
 		onMouseMove: MouseEventHandler<HTMLDivElement>;
 	} & Pick<ListRowProps, 'index' | 'isScrolling' | 'isVisible' | 'style'> &
 		React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, Props>(
-	({ children, measure, index, style, isVisible, isScrolling, onMouseMove }, ref) => {
+	({ children, measure, onMeasured, index, style, isVisible, isScrolling, onMouseMove }, ref) => {
 		const childElementRef = useRef<HTMLDivElement | null>(null);
 
 		useEffect(() => {
@@ -40,11 +42,14 @@ export const ListRow: React.ForwardRefExoticComponent<
 				return;
 			}
 
-			const observer = new ResizeObserver(() => measure());
+			const observer = new ResizeObserver(() => {
+				measure();
+				onMeasured?.();
+			});
 			observer.observe(childElementRef.current);
 
 			return () => observer.disconnect();
-		}, [isScrolling, isVisible, measure]);
+		}, [isScrolling, isVisible, measure, onMeasured]);
 
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

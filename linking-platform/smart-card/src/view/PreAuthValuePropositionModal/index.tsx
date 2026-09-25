@@ -104,12 +104,21 @@ const styles = cssMap({
 		display: 'flex',
 		flexDirection: 'column',
 		flexShrink: 0,
-		height: '100%',
 		width: '400px',
 	},
 	providerIcon: {
 		alignItems: 'center',
 		display: 'flex',
+		flexShrink: 0,
+	},
+	// Lets the primary button shrink (and its label ellipsis) instead of growing to fit an
+	// arbitrarily long provider name, so the close button below always keeps its full,
+	// un-squeezed size.
+	primaryButton: {
+		flexShrink: 1,
+		minWidth: 0,
+	},
+	secondaryButton: {
 		flexShrink: 0,
 	},
 	splitLayout: {
@@ -153,7 +162,7 @@ const ModalCopy = ({
 				<Box xcss={styles.copyColumn}>
 					<Stack space="space.250">
 						{providerIcon && <Box xcss={styles.providerIcon}>{providerIcon}</Box>}
-						<ModalTitle isMultiline={false}>
+						<ModalTitle isMultiline>
 							<Heading as="span" color="color.text" size="large">
 								<FormattedMessage {...messages.title} values={{ providerName }} />
 							</Heading>
@@ -194,12 +203,22 @@ const ModalCopy = ({
 					</Text>
 				)}
 				<Flex gap="space.075" justifyContent="start">
-					<Button appearance="primary" onClick={onConnect} autoFocus spacing="default">
-						<FormattedMessage {...messages.connect} values={{ providerName }} />
-					</Button>
-					<Button appearance="subtle" onClick={onClose}>
-						<FormattedMessage {...messages.close} />
-					</Button>
+					<Box xcss={styles.primaryButton}>
+						<Button
+							appearance="primary"
+							onClick={onConnect}
+							autoFocus
+							shouldFitContainer
+							spacing="default"
+						>
+							<FormattedMessage {...messages.connect} values={{ providerName }} />
+						</Button>
+					</Box>
+					<Box xcss={styles.secondaryButton}>
+						<Button appearance="subtle" onClick={onClose}>
+							<FormattedMessage {...messages.close} />
+						</Button>
+					</Box>
 				</Flex>
 			</Box>
 		</ModalBody>
@@ -208,11 +227,14 @@ const ModalCopy = ({
 
 export type PreAuthValuePropositionModalProps = {
 	onFinished: () => void;
+	/** Called when the modal becomes visible, and with false on close or unmount. */
+	onOpenChange?: (isOpen: boolean) => void;
 	url: string;
 };
 
 const PreAuthValuePropositionModalContent = ({
 	onFinished,
+	onOpenChange,
 	url,
 }: PreAuthValuePropositionModalProps): JSX.Element | null => {
 	const { actions, config, state } = useSmartLink(SMART_LINK_MODAL_ID, url, 'inline');
@@ -222,6 +244,16 @@ const PreAuthValuePropositionModalContent = ({
 	const modalOpenTimeRef = useRef<number>(Date.now());
 	const provider = useMemo(() => extractSmartLinkProvider(state.details), [state.details]);
 	const providerName = provider?.text;
+	const isVisible = isOpen && Boolean(providerName);
+
+	useEffect(() => {
+		if (!isVisible) {
+			return;
+		}
+
+		onOpenChange?.(true);
+		return () => onOpenChange?.(false);
+	}, [isVisible, onOpenChange]);
 	const providerIconUrl = typeof provider?.icon === 'string' ? provider.icon : undefined;
 	const renderProviderIcon = (size: number, testId?: string, label?: string): React.ReactNode => {
 		if (providerIconUrl) {
@@ -357,6 +389,7 @@ const PreAuthValuePropositionModalContent = ({
 
 export const PreAuthValuePropositionModal = ({
 	onFinished,
+	onOpenChange,
 	url,
 }: PreAuthValuePropositionModalProps): JSX.Element => (
 	<SmartLinkAnalyticsContext
@@ -365,6 +398,10 @@ export const PreAuthValuePropositionModal = ({
 		source="preAuthValuePropositionModal"
 		url={url}
 	>
-		<PreAuthValuePropositionModalContent onFinished={onFinished} url={url} />
+		<PreAuthValuePropositionModalContent
+			onFinished={onFinished}
+			onOpenChange={onOpenChange}
+			url={url}
+		/>
 	</SmartLinkAnalyticsContext>
 );

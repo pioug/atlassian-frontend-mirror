@@ -13,8 +13,6 @@
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type { DiffType } from '../../../showDiffPluginType';
-import { isExtendedEnabled } from '../../isExtendedEnabled';
 import {
 	buildAddedCellOverlayRoundedStyle,
 	buildAddedCellOverlayStyle,
@@ -75,12 +73,11 @@ const getChangedContentStyleNext = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 	isInserted: boolean = false,
-	diffType?: DiffType,
 	hideAddedDiffsUnderline: boolean = false,
 ): string => {
 	const colors = getColorScheme(colorScheme);
 
-	if (isExtendedEnabled(diffType) && isInserted) {
+	if (isInserted) {
 		return buildInsertedInlineStyle(colors, isActive, hideAddedDiffsUnderline);
 	}
 
@@ -91,8 +88,7 @@ const getChangedContentStyleNext = (
 	// glyphTint background + underline that plain deleted text already gets.
 	if (
 		fg('confluence_ncs_step_diffing_version_history') &&
-		colors.deletedInlineTreatment === 'glyphTint' &&
-		isExtendedEnabled(diffType)
+		colors.deletedInlineTreatment === 'glyphTint'
 	) {
 		return base + buildDeletedInlineContentStyleExtended(colors, isActive);
 	}
@@ -105,12 +101,11 @@ const getChangedNodeStyleNext = (
 	colorScheme?: ColorScheme,
 	isInserted: boolean = false,
 	isActive: boolean = false,
-	diffType?: DiffType,
 	hideAddedDiffsUnderline: boolean = false,
 ) => {
 	const colors = getColorScheme(colorScheme);
 
-	if (isExtendedEnabled(diffType) && isInserted) {
+	if (isInserted) {
 		if (isMultiContainerBlockNode(nodeName)) {
 			return hideAddedDiffsUnderline || fg('platform_editor_ai_show_diff_patch_1')
 				? buildInsertStyleInBlockExtendedNoUnderline(nestedContentScheme)
@@ -151,15 +146,13 @@ const getInsertedContentStyleNext = (
 const getDeletedContentStyleNext = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
-	diffType?: DiffType,
 	omitHighlight: boolean = false,
 ): string => {
 	const colors = getColorScheme(colorScheme);
 	const base = buildDeletedInlineContentStyle(colors, isActive ? 'active' : 'new');
 
 	// glyphTint adds a background highlight and border-bottom over the tint; strikethrough does not.
-	const needsExtendedHighlight =
-		colors.deletedInlineTreatment === 'glyphTint' && isExtendedEnabled(diffType) && !omitHighlight;
+	const needsExtendedHighlight = colors.deletedInlineTreatment === 'glyphTint' && !omitHighlight;
 
 	return needsExtendedHighlight
 		? base + buildDeletedInlineContentStyleExtended(colors, isActive)
@@ -213,22 +206,14 @@ export const getChangedContentStyle = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 	isInserted: boolean = false,
-	diffType?: DiffType,
 	hideAddedDiffsUnderline: boolean = false,
 ): string =>
 	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getChangedContentStyleNext(
-				colorScheme,
-				isActive,
-				isInserted,
-				diffType,
-				hideAddedDiffsUnderline,
-			)
+		? getChangedContentStyleNext(colorScheme, isActive, isInserted, hideAddedDiffsUnderline)
 		: getChangedContentStyleLegacy(
 				getLegacyColorScheme(colorScheme),
 				isActive,
 				isInserted,
-				diffType,
 				hideAddedDiffsUnderline,
 			);
 
@@ -238,24 +223,15 @@ export const getChangedNodeStyle = (
 	colorScheme?: ColorScheme,
 	isInserted: boolean = false,
 	isActive: boolean = false,
-	diffType?: DiffType,
 	hideAddedDiffsUnderline: boolean = false,
 ): string | undefined =>
 	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getChangedNodeStyleNext(
-				nodeName,
-				colorScheme,
-				isInserted,
-				isActive,
-				diffType,
-				hideAddedDiffsUnderline,
-			)
+		? getChangedNodeStyleNext(nodeName, colorScheme, isInserted, isActive, hideAddedDiffsUnderline)
 		: getChangedNodeStyleLegacy(
 				nodeName,
 				getLegacyColorScheme(colorScheme),
 				isInserted,
 				isActive,
-				diffType,
 				hideAddedDiffsUnderline,
 			);
 
@@ -286,19 +262,13 @@ export const getInsertedContentStyle = (
 export const getDeletedContentStyle = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
-	diffType?: DiffType,
 	// Set while the reveal animation is running: it paints the highlight itself so it can wipe it in
 	// left-to-right, and a static background here would leave nothing to reveal.
 	omitHighlight: boolean = false,
 ): string =>
 	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getDeletedContentStyleNext(colorScheme, isActive, diffType, omitHighlight)
-		: getDeletedContentStyleLegacy(
-				getLegacyColorScheme(colorScheme),
-				isActive,
-				diffType,
-				omitHighlight,
-			);
+		? getDeletedContentStyleNext(colorScheme, isActive, omitHighlight)
+		: getDeletedContentStyleLegacy(getLegacyColorScheme(colorScheme), isActive, omitHighlight);
 
 /**
  * Overlay style for one added or deleted table cell. Invariant across the cells of a table, so the

@@ -1,5 +1,18 @@
 # @atlaskit/avatar-group
 
+## 14.4.0
+
+### Minor Changes
+
+- [`3f554debe10e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f554debe10e9) -
+  Added an experimental `UNSAFE_isUpdatedGeometry` prop to `Avatar` and `AvatarGroup` that selects a
+  taller hexagon geometry with adjusted negative margins for the 16px, 24px, 32px, 40px, 96px, and
+  128px sizes. The 20px size retains the legacy geometry.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.9
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -10,6 +10,7 @@ import {
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import DecisionIcon from '@atlaskit/icon/core/decision';
 import FieldCheckboxGroupIcon from '@atlaskit/icon/core/field-checkbox-group';
@@ -20,12 +21,14 @@ import type { TaskDecisionListType } from '../../types';
 
 type Props = {
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
+	description?: string;
 	item: TaskDecisionListType;
 	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 };
 
 export const TasksAndDecisionsQuickInsertMenuItem = ({
 	api,
+	description,
 	item,
 	previewImageUrls,
 }: Props): React.JSX.Element => {
@@ -38,6 +41,18 @@ export const TasksAndDecisionsQuickInsertMenuItem = ({
 		}),
 	);
 	const isAction = item === 'taskList';
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined,
+		[formatMessage, previewImageUrls],
+	);
 	const onSelect = useCallback(
 		({ editorView, insert, source }: OnSelectContext) => {
 			const { schema } = editorView.state;
@@ -69,9 +84,13 @@ export const TasksAndDecisionsQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={
+				description ??
+				formatMessage(isAction ? messages.actionDescription : messages.decisionDescription)
+			}
 			iconBefore={isAction ? <FieldCheckboxGroupIcon label="" /> : <DecisionIcon label="" />}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			shortcut={isAction ? '[]' : '<>'}
 			title={formatMessage(isAction ? messages.action : messages.decision)}
 		/>

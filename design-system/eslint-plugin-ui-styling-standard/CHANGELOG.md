@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.2.0
+
+### Minor Changes
+
+- [`a5d06059c9ac7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5d06059c9ac7) -
+  Add the no-atlaskit-theme lint rule and enable it as a warning in the recommended config. Imports
+  from @atlaskit/theme are flagged without failing lint.
+
 ## 2.1.10
 
 ### Patch Changes

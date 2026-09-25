@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 
 import { createRoot } from 'react-dom/client';
+import { createIntl } from 'react-intl';
 
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
@@ -38,6 +39,15 @@ const callAction = (appKey: string, canMountinIframe: boolean = false) =>
 	)();
 
 describe('dropbox extension manifest', () => {
+	it('localizes the preview attribution with the host formatter', () => {
+		const intl = createIntl({
+			locale: 'en',
+			messages: { 'editor-extension-dropbox.attribution-name.ai-non-final': 'Localized Dropbox' },
+		});
+		const manifest = getManifest({ appKey: 'FAKE_KEY', canMountinIframe: false, intl });
+		expect(manifest.preview?.attribution?.name).toBe('Localized Dropbox');
+	});
+
 	const mockRootRender = jest.fn();
 	const mockRootUnmount = jest.fn();
 

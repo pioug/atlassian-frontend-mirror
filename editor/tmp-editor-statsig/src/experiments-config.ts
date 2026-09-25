@@ -894,13 +894,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-03-10
-	platform_editor_diff_plugin_extended: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-10
 	platform_editor_fix_media_toolbar_border_dropdown: {
 		defaultValue: boolean;
 		param: string;
@@ -2114,14 +2107,6 @@ export const editorExperimentsConfig: {
 	confluence_fe_renderer_inline_node_mark_color_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_fe_renderer_inline_node_mark_color_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-10
-	platform_editor_diff_plugin_extended: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_diff_plugin_extended',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

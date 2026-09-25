@@ -12,8 +12,8 @@ import type { TablePlugin, TablePluginOptions } from '../../tablePluginType';
 import { TableQuickInsertMenuItem } from './TableQuickInsertMenuItem';
 
 const previewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/c4685o2hdf8w8hx14734ys157w642avq.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/322886by55wu3q48pshv25v2b0568y4y.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVM3.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVIZ.png',
 };
 
 type Params = {

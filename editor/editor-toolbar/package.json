@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.7.11",
+	"version": "2.8.1",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"website": {
@@ -153,7 +153,8 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
-		"chromatism": "root:*"
+		"chromatism": "root:*",
+		"use-callback-ref": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0 || ^19.2.0",

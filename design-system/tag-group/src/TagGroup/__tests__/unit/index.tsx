@@ -29,7 +29,6 @@ function CustomChildMotionBoundaryProbe(): JSX.Element {
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TagGroup', () => {
 	it('should export a base component', () => {
-		failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 		render(
 			<TagGroup>
 				<Tag text="test" />
@@ -39,7 +38,6 @@ describe('TagGroup', () => {
 	});
 
 	it('should render supplied tags', () => {
-		failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 		const tags = ['Candy canes', 'Tiramisu', 'Gummi bears'];
 		render(
 			<TagGroup>
@@ -53,8 +51,7 @@ describe('TagGroup', () => {
 		});
 	});
 
-	it('should not add a motion boundary when only the visual feature gate is enabled', () => {
-		passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+	it('should not add a motion boundary when the motion feature gate is disabled', () => {
 		failGate('platform-dst-motion-uplift-labels');
 
 		render(
@@ -66,8 +63,7 @@ describe('TagGroup', () => {
 		expect(screen.getByText('outside motion boundary')).toBeInTheDocument();
 	});
 
-	it('should add a motion boundary when both tag feature gates are enabled', () => {
-		passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+	it('should add a motion boundary when the motion feature gate is enabled', () => {
 		passGate('platform-dst-motion-uplift-labels');
 
 		render(
@@ -79,8 +75,7 @@ describe('TagGroup', () => {
 		expect(screen.getByText('inside motion boundary')).toBeInTheDocument();
 	});
 
-	it('should not add a motion boundary to custom children when both gates are enabled', () => {
-		passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+	it('should not add a motion boundary to custom children when the motion gate is enabled', () => {
 		passGate('platform-dst-motion-uplift-labels');
 
 		render(
@@ -93,7 +88,6 @@ describe('TagGroup', () => {
 	});
 
 	it('should justify to the start when alignment not set', () => {
-		failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 		render(
 			<TagGroup>
 				<Tag text="test" />
@@ -104,7 +98,6 @@ describe('TagGroup', () => {
 	});
 
 	it('should justify to the end when alignment is set to end', () => {
-		failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 		render(
 			<TagGroup alignment="end">
 				<Tag text="test" />
@@ -114,7 +107,6 @@ describe('TagGroup', () => {
 		expect(tagGroup).toHaveStyle(`justify-content: flex-end`);
 	});
 	it('should should have attribute role="group"', () => {
-		failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 		render(
 			<TagGroup label="test tags" alignment="end">
 				<Tag text="test" />
@@ -125,7 +117,6 @@ describe('TagGroup', () => {
 		expect(screen.getByRole('group')).toBeInTheDocument();
 	});
 	it('should add label prop value to an aria-label attribute', () => {
-		failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 		render(
 			<TagGroup label="test tags" alignment="end">
 				<Tag text="test" />

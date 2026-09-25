@@ -17,7 +17,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextIcon from '@atlaskit/icon/core/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { NORMAL_TEXT } from '../../block-types';
@@ -59,23 +59,18 @@ export const BlockTypeButton = (props: BlockTypeButtonProps): jsx.JSX.Element =>
 	const toolipTextStyles = props.formatMessage(toolbarMessages.textStylesTooltip);
 
 	const icon =
-		expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
-		props.blockTypeIcon ? (
+		editorExperiment('platform_editor_controls', 'variant1') && props.blockTypeIcon ? (
 			props.blockTypeIcon
 		) : (
 			<TextIcon label={labelTextStyles} spacing="spacious" color="currentColor" />
 		);
 
-	const chevronIconSpacing = expValEqualsNoExposure(
-		'platform_editor_controls',
-		'cohort',
-		'variant1',
-	)
+	const chevronIconSpacing = editorExperiment('platform_editor_controls', 'variant1')
 		? 'spacious'
 		: 'none';
 
 	const shouldUseIconAsButton =
-		props.isSmall || expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1');
+		props.isSmall || editorExperiment('platform_editor_controls', 'variant1');
 
 	return (
 		<ToolbarButton

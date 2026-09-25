@@ -1,8 +1,7 @@
 # `smart` diffType — design
 
-> Status: implemented behind the `platform_editor_ai_smart_diff` feature gate (which itself
-> requires the extended diff pipeline; see §8). This document describes the **final**
-> block-first implementation, not the original spike.
+> Status: implemented behind the `platform_editor_ai_smart_diff` feature gate (see §8). This
+> document describes the **final** block-first implementation, not the original spike.
 
 ## 1. Problem
 
@@ -42,15 +41,13 @@ The classifier is a pure `Change[] → Change[]` transform. It runs inside `getC
 `calculateDiff/calculateDiffDecorations.ts`:
 
 ```ts
-if (isExtendedEnabled(diffType)) {
-  if (diffType === 'smart' && fg('platform_editor_ai_smart_diff')) {
-    const changes = simplifyChanges(changeset.changes, tr.doc);
-    return classifySmartChanges({ changes, originalDoc, newDoc: tr.doc,
-                                  locale: intl.locale, thresholds: smartThresholds });
-  }
-  if (diffType === 'step')  return diffBySteps(originalDoc, steps);
-  if (diffType === 'block') return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
+if (diffType === 'smart' && fg('platform_editor_ai_smart_diff')) {
+  const changes = simplifyChanges(changeset.changes, tr.doc);
+  return classifySmartChanges({ changes, originalDoc, newDoc: tr.doc,
+                                locale: intl.locale, thresholds: smartThresholds });
 }
+if (diffType === 'step')  return diffBySteps(originalDoc, steps);
+if (diffType === 'block') return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
 // otherwise inline:
 return optimizeChanges(simplifyChanges(changeset.changes, tr.doc));
 ```
@@ -189,23 +186,10 @@ DEFAULT_SMART_THRESHOLDS = {
 
 ## 8. Feature gating
 
-`smart` requires **both** the extended diff pipeline behaviour **and** its own gate. The single
-source of truth is `pm-plugins/isExtendedEnabled.ts`:
-
-```ts
-export const isExtendedEnabled = (diffType?: DiffType): boolean =>
-  expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
-  (diffType === 'smart' && fg('platform_editor_ai_smart_diff'));
-```
-
-Because the whole extended decoration pipeline was previously gated only by
-`platform_editor_diff_plugin_extended`, `diffType` is **threaded through the entire decoration
-layer** (inline/block/node/row decorations, `wrapBlockNodeView` and its helpers,
-`decorationKeys`, `getScrollableDecorations`) so that every internal extended-gate check becomes
-`isExtendedEnabled(diffType)`. This makes `smart` render the full extended shape even when
-`platform_editor_diff_plugin_extended` is off — and only when `platform_editor_ai_smart_diff` is
-on. Other diff types are unaffected (they pass `diffType` that is not `'smart'`, so the check
-reduces to the extended gate alone).
+`smart` is gated by `platform_editor_ai_smart_diff`. When the gate is off, `smart` falls through
+to the default (`inline`) path in `getChanges`, and `getDefaultDiffType`
+(`pm-plugins/getDefaultDiffType.ts`) resolves the default diff type to `inline` instead of
+`smart`. The decoration layer is shared by every diff type and does not depend on `diffType`.
 
 ## 9. Rendering specifics
 
@@ -219,7 +203,7 @@ reduces to the extended gate alone).
 
 ```
 src/pm-plugins/
-  isExtendedEnabled.ts                     ← shared gate helper (diffType-aware)
+  getDefaultDiffType.ts                    ← default diffType (gate-aware)
   calculateDiff/smart/
     classifySmartChanges.ts                ← block-first orchestrator (§4, §5)
     thresholds.ts                          ← SmartDiffThresholds + defaults (§6)

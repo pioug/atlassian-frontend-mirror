@@ -1,5 +1,17 @@
 # @atlaskit/icon-lab
 
+## 7.10.0
+
+### Minor Changes
+
+- [`3648fe5f144ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3648fe5f144ed) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `conversation`
+
 ## 7.9.1
 
 ### Patch Changes

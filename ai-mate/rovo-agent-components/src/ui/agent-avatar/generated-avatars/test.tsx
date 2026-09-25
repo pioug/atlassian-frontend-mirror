@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
@@ -23,6 +24,16 @@ jest.mock('./assets/jira-task-planner-agent', () => ({
 jest.mock('./assets/content-reviewer', () => ({
 	__esModule: true,
 	default: () => <div data-testid="content-reviewer-avatar" />,
+}));
+
+jest.mock('./assets/amplitude-agent', () => ({
+	__esModule: true,
+	default: () => <div data-testid="amplitude-agent-avatar" />,
+}));
+
+jest.mock('./assets/amplitude-agent-v2', () => ({
+	__esModule: true,
+	default: () => <div data-testid="amplitude-agent-avatar-v2" />,
 }));
 
 describe('getNumberIdForAvatar', () => {
@@ -60,6 +71,22 @@ describe('getNumberIdForAvatar', () => {
 });
 
 describe('GeneratedAvatar', () => {
+	it('renders the original Amplitude avatar when the frontend gate is off', async () => {
+		failGate('rovo_agent_amplitude_avatar_v2');
+		render(<GeneratedAvatar agentNamedId="mcp_amplitude_agent" size="medium" />);
+
+		expect(await screen.findByTestId('amplitude-agent-avatar')).toBeInTheDocument();
+		expect(screen.queryByTestId('amplitude-agent-avatar-v2')).not.toBeInTheDocument();
+	});
+
+	it('renders the Amplitude v2 avatar when the frontend gate is on', async () => {
+		passGate('rovo_agent_amplitude_avatar_v2');
+		render(<GeneratedAvatar agentNamedId="mcp_amplitude_agent" size="medium" />);
+
+		expect(await screen.findByTestId('amplitude-agent-avatar-v2')).toBeInTheDocument();
+		expect(screen.queryByTestId('amplitude-agent-avatar')).not.toBeInTheDocument();
+	});
+
 	it('renders the Content reviewer avatar for the content_reviewer_agent', async () => {
 		render(<GeneratedAvatar agentNamedId="content_reviewer_agent" size="medium" />);
 

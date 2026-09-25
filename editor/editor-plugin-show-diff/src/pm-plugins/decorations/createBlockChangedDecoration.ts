@@ -5,8 +5,6 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type { DiffType } from '../../showDiffPluginType';
-import { isExtendedEnabled } from '../isExtendedEnabled';
 import { isTaggableBlockNode } from '../utils/taggableBlockNodes';
 import {
 	buildAddedCellOverlayRoundedStyle,
@@ -72,16 +70,8 @@ const isInsideTable = (doc: PMNode, pos: number): boolean =>
  * variant is recognised as the type it varies — see `isTaggableBlockNode`. `from` is the node's own
  * position, so `nodeAt` returns exactly the node being decorated.
  */
-const canTagBlock = ({
-	diffType,
-	doc,
-	from,
-}: {
-	diffType: DiffType | undefined;
-	doc: PMNode | undefined;
-	from: number;
-}): boolean => {
-	if (doc === undefined || !isExtendedEnabled(diffType)) {
+const canTagBlock = ({ doc, from }: { doc: PMNode | undefined; from: number }): boolean => {
+	if (doc === undefined) {
 		return false;
 	}
 
@@ -145,10 +135,8 @@ const getBlockNodeStyleNext = ({
 	colorScheme,
 	isInserted = true,
 	isActive = false,
-	diffType,
 }: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	isActive?: boolean;
 	isInserted?: boolean;
 	nodeName: string;
@@ -158,14 +146,12 @@ const getBlockNodeStyleNext = ({
 	}
 
 	if (CELL_NODES.includes(nodeName)) {
-		// When the gate is off, cells get no styling — as with UNSTYLED_NODES above.
-		return isExtendedEnabled(diffType) ? cellPositionStyle : undefined;
+		return cellPositionStyle;
 	}
 
 	const colors = colorSchemeRegistry[colorScheme ?? DEFAULT_COLOR_SCHEME];
 
-	// Deleted nodes only differ under the extended experience; otherwise all are insertions.
-	if (!isInserted && isExtendedEnabled(diffType)) {
+	if (!isInserted) {
 		return buildDeletedBlockNodeStyle(colors, getDeletedBlockNodeCategory(nodeName), isActive);
 	}
 
@@ -179,7 +165,6 @@ const getBlockNodeStyleNext = ({
  */
 const getBlockNodeStyle = (props: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	isActive?: boolean;
 	isInserted?: boolean;
 	nodeName: string;
@@ -237,13 +222,11 @@ export const createBlockChangedDecoration = ({
 	showContributorTags = false,
 	showIndicators = false,
 	doc,
-	diffType,
 	tagMountContext,
 }: {
 	attributionKey?: string;
 	change: { from: number; name: string; to: number };
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	doc?: PMNode;
 	isActive?: boolean;
 	isInserted?: boolean;
@@ -257,7 +240,7 @@ export const createBlockChangedDecoration = ({
 	// Derived from the node range so it survives a recalculation, as in
 	// `createInlineChangedDecoration`. Changes are disjoint, so no two of them decorate one node.
 	const diffId = showContributorTags ? `block-${change.from}-${change.to}` : crypto.randomUUID();
-	const shouldTagBlock = showContributorTags && canTagBlock({ diffType, doc, from: change.from });
+	const shouldTagBlock = showContributorTags && canTagBlock({ doc, from: change.from });
 	// Named so this block's own tag can position against it; see `createContributorTagWidget`.
 	const tagAnchorName =
 		shouldTagBlock && isContributorTagWidgetEnabled()
@@ -278,13 +261,12 @@ export const createBlockChangedDecoration = ({
 					isActive,
 					isInserted,
 					nodeName: change.name,
-					diffType,
 				}),
 			),
 		];
 	}
 
-	if (isExtendedEnabled(diffType) && CELL_NODES.includes(change.name)) {
+	if (CELL_NODES.includes(change.name)) {
 		const cellOverlay = document.createElement('div');
 		const colors = colorSchemeRegistry[colorScheme ?? DEFAULT_COLOR_SCHEME];
 		const isRoundedTable = isExperimentEnabled('platform_editor_table_diff_rounded_corners');
@@ -319,15 +301,13 @@ export const createBlockChangedDecoration = ({
 			}),
 		);
 	}
-	// isInserted is only read under the extended experience, so pass it unconditionally. `change.name`
-	// verbatim: base-name resolution stays in `canTagBlock`, which needs tags on, so a schema
-	// variant's legacy style is untouched — see `resolveBaseNodeName`.
+	// `change.name` verbatim: base-name resolution stays in `canTagBlock`, which needs tags on, so a
+	// schema variant's legacy style is untouched — see `resolveBaseNodeName`.
 	const nodeStyle = getBlockNodeStyle({
 		nodeName: change.name,
 		colorScheme,
 		isInserted,
 		isActive,
-		diffType,
 	});
 	const style = tagAnchorName
 		? [
@@ -363,7 +343,6 @@ export const createBlockChangedDecoration = ({
 					isActive,
 					isInserted,
 					nodeName: change.name,
-					diffType,
 				}),
 			),
 		);
@@ -375,7 +354,7 @@ export const createBlockChangedDecoration = ({
 		return decorations;
 	}
 
-	if (showIndicators && doc && isExtendedEnabled(diffType)) {
+	if (showIndicators && doc) {
 		decorations.push(
 			...createBlockIndicatorAnchorWidgets({
 				doc,

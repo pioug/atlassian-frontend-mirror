@@ -1,5 +1,30 @@
 # @atlaskit/smart-card
 
+## 46.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.1.0
+
+### Minor Changes
+
+- [`067939baaaeb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/067939baaaeb9) -
+  Fix the pre-auth value proposition modal in the `platform_sl_3p_preauth_value_modal` experiment
+  treatments behind `platform_sl_3p_preauth_value_modal_killswitch`:
+  - Allow titles to wrap in both treatment variants. Preserve the image variant's default height
+    while allowing taller text to reveal more of the centered illustration, keeping provider icons
+    aligned.
+  - Truncate long provider names in the Connect button so the Close button remains fully visible.
+  - Prevent editor floating toolbars from appearing above the modal using the existing `overlayOpen`
+    user intent, without layout effects that warn during server rendering.
+
+  In `@atlaskit/smart-card/pre-auth-value-proposition-modal`, `PreAuthValuePropositionModalProps`
+  adds optional `onOpenChange` to notify hosts when the modal opens, closes, or unmounts.
+  `@atlaskit/editor-plugin-card` adds an optional `UserIntentPlugin` integration and declares its
+  package dependency.
+
 ## 46.0.3
 
 ### Patch Changes

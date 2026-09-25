@@ -13,21 +13,39 @@ describe('executeExtensionQuickInsertItem', () => {
 		['extension', false],
 		['embedCard', true],
 		['extension', true],
+		['skill', false],
+		['skill', true],
 	] as const)(
 		'inserts async %s with the API present (intervening typing: %s)',
 		async (type, typing) => {
 			let state = EditorState.create({ schema });
 			const rawNode =
-				type === 'embedCard'
-					? { type, attrs: { url: 'https://example.com/database' } }
-					: {
-							type,
-							attrs: {
-								extensionType: 'com.atlassian.confluence.macro.core',
-								extensionKey: 'database',
-								parameters: {},
+				type === 'skill'
+					? [
+							{
+								type: 'inlineExtension',
+								attrs: {
+									extensionType: 'com.atlassian.rovo.skill',
+									extensionKey: 'skill:skillTag',
+									parameters: {
+										id: 'skill-1',
+										name: 'Research Insights',
+										slug: 'research-insights',
+									},
+								},
 							},
-						};
+							{ type: 'text', text: ' ' },
+						]
+					: type === 'embedCard'
+						? { type, attrs: { url: 'https://example.com/database' } }
+						: {
+								type,
+								attrs: {
+									extensionType: 'com.atlassian.confluence.macro.core',
+									extensionKey: 'database',
+									parameters: {},
+								},
+							};
 			let resolveNode!: (node: typeof rawNode) => void;
 			const pendingNode = new Promise<typeof rawNode>((resolve) => {
 				resolveNode = resolve;
@@ -76,12 +94,43 @@ describe('executeExtensionQuickInsertItem', () => {
 
 			expect(execute).toHaveReturnedWith(true);
 			expect(replaceSelection).not.toHaveBeenCalled();
-			expect(state.doc.textContent).toBe(typing ? 'Keep this text' : '');
-			const insertedNodes: string[] = [];
-			state.doc.descendants((node) => {
-				insertedNodes.push(node.type.name);
-			});
-			expect(insertedNodes.filter((name) => name === type)).toHaveLength(1);
+			if (type === 'skill') {
+				const skillTag = {
+					type: 'inlineExtension',
+					attrs: {
+						extensionType: 'com.atlassian.rovo.skill',
+						extensionKey: 'skill:skillTag',
+						parameters: {
+							id: 'skill-1',
+							name: 'Research Insights',
+							slug: 'research-insights',
+						},
+					},
+				};
+				expect(state.doc).toEqualDocument(
+					schema.nodeFromJSON({
+						type: 'doc',
+						content: [
+							{
+								type: 'paragraph',
+								content: [
+									...(typing ? [{ type: 'text', text: 'Keep this text' }] : []),
+									skillTag,
+									{ type: 'text', text: ' ' },
+								],
+							},
+						],
+					}),
+				);
+				expect(state.selection.from).toBe(state.doc.content.size - 1);
+			} else {
+				expect(state.doc.textContent).toBe(typing ? 'Keep this text' : '');
+				const insertedNodes: string[] = [];
+				state.doc.descendants((node) => {
+					insertedNodes.push(node.type.name);
+				});
+				expect(insertedNodes.filter((name) => name === type)).toHaveLength(1);
+			}
 		},
 	);
 });

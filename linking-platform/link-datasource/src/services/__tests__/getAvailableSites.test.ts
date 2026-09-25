@@ -10,8 +10,7 @@ const ACCESSIBLE_PRODUCTS_PATH = '/gateway/api/v2/accessible-products';
 const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/v2/accessible-products';
 const AGG_PATH = '/gateway/api/graphql';
 const MASTER_GATE = 'cc-units-ga';
-const ORG_GATE = 'linking_platform_link_datasource_unit_compliant';
-const CLOUD_ID_GATE = 'linking_platform_link_datasource_unit_compliant_cloud_id';
+const ROLLOUT_GATE = 'linking_platform_link_datasource_unit_compliant';
 const FALLBACK_SITE_URL = mockProductsData[0].workspaces[0].cloudUrl;
 const productsWithoutDisplayName = [
 	{
@@ -25,16 +24,15 @@ const productsWithoutDisplayName = [
 	},
 ];
 
-const mockGates = ({ masterGate = true, orgGate = false, cloudIdGate = false } = {}) => {
+const mockGates = ({ masterGate = true, rolloutGate = false } = {}) => {
 	(masterGate ? passGate : failGate)(MASTER_GATE);
 
 	if (!masterGate) {
-		// The killswitch short-circuits, so the rollout gates are never evaluated.
+		// The killswitch short-circuits, so the rollout gate is never evaluated.
 		return;
 	}
 
-	(orgGate ? passGate : failGate)(ORG_GATE);
-	(cloudIdGate ? passGate : failGate)(CLOUD_ID_GATE);
+	(rolloutGate ? passGate : failGate)(ROLLOUT_GATE);
 };
 
 const ORG_ID = 'a4b5c6d7-0000-1111-2222-333344445555';
@@ -79,7 +77,7 @@ describe('getAvailableSites', () => {
 	])(
 		'uses the site URL fallback with the %s endpoint',
 		async (_, isUnitCompliant, expectedEndpoint) => {
-			mockGates({ orgGate: isUnitCompliant });
+			mockGates({ rolloutGate: isUnitCompliant });
 			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
 			passGate('platform_lp_sllv_display_name_fallback');
 			fetchMock.post(expectedEndpoint, { data: { products: productsWithoutDisplayName } });
@@ -97,7 +95,7 @@ describe('getAvailableSites', () => {
 		},
 	);
 
-	describe('when the rollout gates are OFF', () => {
+	describe('when the rollout gate is OFF', () => {
 		beforeEach(() => {
 			mockGates();
 		});
@@ -151,9 +149,9 @@ describe('getAvailableSites', () => {
 		});
 	});
 
-	describe('when a rollout gate is ON and the org has launched units with boundary enforcement', () => {
+	describe('when the rollout gate is ON and the org has launched units with boundary enforcement', () => {
 		beforeEach(() => {
-			mockGates({ orgGate: true });
+			mockGates({ rolloutGate: true });
 			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
 		});
 
@@ -242,22 +240,12 @@ describe('getAvailableSites', () => {
 		});
 
 		it('uses the current endpoint when the cc-units-ga killswitch is off', async () => {
-			mockGates({ masterGate: false, orgGate: true, cloudIdGate: true });
+			mockGates({ masterGate: false, rolloutGate: true });
 			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
 
 			await getAccessibleProducts('jira');
 
 			expect(getRequestUrls()).toEqual([ACCESSIBLE_PRODUCTS_PATH]);
-		});
-
-		it('uses the unit-compliant endpoint when only the cloud id gate is on', async () => {
-			mockGates({ cloudIdGate: true });
-			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
-
-			await getAccessibleProducts('jira');
-
-			const [requestUrl] = fetchMock.lastCall() ?? [];
-			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
 		});
 
 		it.each([
@@ -266,7 +254,7 @@ describe('getAvailableSites', () => {
 			['the settings are unset', { boundaryEnforced: null, endUsersLaunched: null }],
 			['there are no settings for the org', null],
 		])('uses the current endpoint when %s', async (_, settings) => {
-			mockGates({ orgGate: true, cloudIdGate: true });
+			mockGates({ rolloutGate: true });
 			mockUnitsRolloutSettings(settings);
 
 			await getAccessibleProducts('jira');
@@ -276,7 +264,7 @@ describe('getAvailableSites', () => {
 		});
 
 		it('uses the current endpoint when the settings cannot be fetched', async () => {
-			mockGates({ orgGate: true });
+			mockGates({ rolloutGate: true });
 			fetchMock.post(AGG_PATH, { body: 'something went wrong', status: 500 });
 
 			await getAccessibleProducts('jira');
@@ -286,7 +274,7 @@ describe('getAvailableSites', () => {
 		});
 
 		it('uses the current endpoint when AGG answers with errors', async () => {
-			mockGates({ orgGate: true });
+			mockGates({ rolloutGate: true });
 			fetchMock.post(AGG_PATH, {
 				data: { admin_unitSettings: null },
 				errors: [{ message: 'Cannot read the unit settings of this organisation' }],
@@ -299,7 +287,7 @@ describe('getAvailableSites', () => {
 		});
 
 		it('uses the current endpoint when the org id cannot be resolved for the host', async () => {
-			mockGates({ orgGate: true });
+			mockGates({ rolloutGate: true });
 			mockUnitsRolloutSettings(
 				{ boundaryEnforced: true, endUsersLaunched: true },
 				{

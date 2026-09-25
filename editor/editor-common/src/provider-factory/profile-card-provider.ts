@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 
 import type { Placement } from '@atlaskit/popper/main';
 import type ProfileClient from '@atlaskit/profilecard/profile-card-client';
@@ -31,9 +31,23 @@ export type RenderUserMentionCard = (props: {
 	userId: string;
 }) => ReactNode;
 
+/**
+ * Render-prop for injecting a custom agent profile card around a mention. `children` present
+ * means the renderer path (wrap it with your own trigger/popup); absent means the editor path
+ * (render a bare card).
+ */
+export type RenderAgentMentionCard = (props: {
+	accountId: string;
+	children?: ReactNode;
+	cloudId: string;
+	isReadOnly?: boolean;
+	onChatClick?: (event: MouseEvent, agentStudioId?: string) => void;
+}) => ReactNode;
+
 export interface ProfilecardProvider {
 	cloudId: string;
 	getActions: (id: string, text: string, accessLevel?: string) => ProfileCardAction[];
+	renderAgentMentionCard?: RenderAgentMentionCard;
 	/**
 	 * Optional render-prop that wraps a user mention with a consumer-supplied profile card UI.
 	 * Only used when the `people-teams_migrate-user-profile-card` feature gate is on. Lets 1P

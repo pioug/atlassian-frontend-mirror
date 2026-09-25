@@ -21,6 +21,7 @@ import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type { CardPluginOptions, CardPluginState } from './types';
@@ -53,6 +54,7 @@ export type CardPluginDependencies = [
 	OptionalPlugin<BasePlugin>,
 	OptionalPlugin<ToolbarPlugin>,
 	OptionalPlugin<UiControlRegistryPlugin>,
+	OptionalPlugin<UserIntentPlugin>,
 ];
 
 export type CardPlugin = NextEditorPlugin<

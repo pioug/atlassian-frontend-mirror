@@ -20,12 +20,27 @@ interface GetOutputNodesArgs {
 	targetNodeType: NodeType;
 }
 
+const LIST_NODE_TYPE_NAMES = new Set([
+	'bulletList',
+	'orderedList',
+	'taskList',
+	'decisionList',
+	'listItem',
+	'taskItem',
+	'blockTaskItem',
+	'decisionItem',
+]);
+
+const shouldRecurseThroughListNode = (node: PMNode): boolean =>
+	LIST_NODE_TYPE_NAMES.has(node.type.name);
+
 const applyTargetNodeMarks = (
 	node: PMNode,
 	targetNodeType: NodeType,
 	marksToAdd: TargetNodeMarks | undefined,
 	marksToRemove: string[] | undefined,
 	schema: Schema,
+	shouldRecurseIntoChildren: (node: PMNode) => boolean = () => true,
 ): PMNode => {
 	let nextNode = node;
 
@@ -43,13 +58,22 @@ const applyTargetNodeMarks = (
 		nextNode = node.mark(marks);
 	}
 
-	if (nextNode.childCount === 0) {
+	if (!shouldRecurseIntoChildren(nextNode) || nextNode.childCount === 0) {
 		return nextNode;
 	}
 
 	const children: PMNode[] = [];
 	nextNode.forEach((child) =>
-		children.push(applyTargetNodeMarks(child, targetNodeType, marksToAdd, marksToRemove, schema)),
+		children.push(
+			applyTargetNodeMarks(
+				child,
+				targetNodeType,
+				marksToAdd,
+				marksToRemove,
+				schema,
+				shouldRecurseIntoChildren,
+			),
+		),
 	);
 	return nextNode.copy(Fragment.fromArray(children));
 };
@@ -149,13 +173,32 @@ export const convertNodesToTargetType = ({
 		return upgradePanelNodesToPanelC1(resultNodes, parentNode, schema);
 	}
 
+	const shouldLimitTargetNodeMarkRecursion =
+		targetNodeTypeName === 'paragraph' &&
+		[
+			'multi',
+			'panel',
+			'panel_c1',
+			'expand',
+			'nestedExpand',
+			'blockquote',
+			'layoutSection',
+		].includes(selectedNodeTypeName);
+
 	const resultNodes =
 		steps?.reduce((nodes, step) => step(nodes, context), sourceNodes) ?? sourceNodes;
 	const upgradedNodes = steps?.length
 		? upgradePanelNodesToPanelC1(resultNodes, parentNode, schema)
 		: resultNodes;
 	return upgradedNodes.map((node) =>
-		applyTargetNodeMarks(node, targetNodeType, marksToAdd, marksToRemove, schema),
+		applyTargetNodeMarks(
+			node,
+			targetNodeType,
+			marksToAdd,
+			marksToRemove,
+			schema,
+			shouldLimitTargetNodeMarkRecursion ? shouldRecurseThroughListNode : undefined,
+		),
 	);
 };
 

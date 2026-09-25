@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "125.2.1",
+	"version": "125.4.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -75,7 +75,7 @@
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./icons": "./src/icons/index.tsx",
+		"./icons": "./src/icons/index.ts",
 		"./indentation": "./src/indentation/index.ts",
 		"./insert": "./src/insert/index.ts",
 		"./intl-error-boundary": "./src/ui/IntlErrorBoundary/index.tsx",
@@ -124,7 +124,12 @@
 		"./quick-insert/is-recommended-item": "./src/quick-insert/is-recommended-item.ts",
 		"./quick-insert/create-quick-insert-matcher": "./src/quick-insert/createQuickInsertMatcher.ts",
 		"./quick-insert/menu-item": "./src/quick-insert/QuickInsertMenuItem.tsx",
+		"./quick-insert/preview": "./src/quick-insert/preview.ts",
+		"./quick-insert/confluence-attribution-icon": "./src/quick-insert/confluence-attribution-icon.tsx",
+		"./quick-insert/jira-attribution-icon": "./src/quick-insert/jira-attribution-icon.tsx",
 		"./quick-insert/snippet-preview-image-urls": "./src/quick-insert/snippetPreviewImageUrls.ts",
+		"./quick-insert/use-menu-list-height": "./src/quick-insert/use-menu-list-height.ts",
+		"./quick-insert/use-menu-popup-sizing": "./src/quick-insert/use-menu-popup-sizing.ts",
 		"./quick-insert/registered-menu-model": "./src/quick-insert/registered-menu-model.ts",
 		"./quick-insert/menu-root": "./src/quick-insert/QuickInsertMenuRoot.tsx",
 		"./quick-insert/menu-section": "./src/quick-insert/QuickInsertMenuSection.tsx",
@@ -729,6 +734,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/link-datasource": "workspace:^",
 		"@atlaskit/link-picker": "workspace:^",
+		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/media-card": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",
@@ -785,7 +791,6 @@
 		"re-resizable": "root:*",
 		"react-focus-lock": "root:*",
 		"react-loadable": "root:*",
-		"react-loosely-lazy": "root:*",
 		"react-virtualized": "root:*",
 		"rusha": "root:*",
 		"uuid": "root:*",

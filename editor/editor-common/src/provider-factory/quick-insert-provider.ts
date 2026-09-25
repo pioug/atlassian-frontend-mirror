@@ -4,6 +4,7 @@ import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { INPUT_METHOD } from '../analytics/types/enums';
 import type { ExtensionApp } from '../extensions/types/extension-manifest';
+import type { QuickInsertPreview } from '../quick-insert/preview';
 import type { TypeAheadItem } from '../types/type-ahead';
 
 export type QuickInsertActionInsert = (
@@ -91,6 +92,8 @@ export type QuickInsertItem = TypeAheadItem & {
 	isHidden?: () => boolean;
 	/** other names used to find the item */
 	keywords?: Array<string>;
+	/** Optional visual and attribution content shown while this item is selected. */
+	preview?: QuickInsertPreview;
 };
 
 export type QuickInsertProvider = {

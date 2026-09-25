@@ -33,6 +33,7 @@ export const QuickInsertMenuFooterItem = ({ api }: Props): React.JSX.Element => 
 			iconBefore={<ShowMoreHorizontalIcon label="" />}
 			isDisabled={!api?.quickInsert}
 			onSelect={onSelect}
+			shouldShowPreview={false}
 			shouldWrapIcon={false}
 			title={formatMessage(toolbarInsertBlockMessages.viewMore)}
 		/>

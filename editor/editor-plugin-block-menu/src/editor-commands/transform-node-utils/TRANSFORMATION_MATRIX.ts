@@ -1,3 +1,5 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import { applyTargetTextTypeStep } from './steps/applyTargetTextTypeStep';
 import { convertEachNodeStep } from './steps/convertEachNodeStep';
 import { decisionListToListStep } from './steps/decisionListToListStep';
@@ -17,6 +19,20 @@ import { wrapStep } from './steps/wrapStep';
 import type { NodeTypeName, TransformStep } from './types';
 
 type TransformationMatrix = Record<NodeTypeName, Partial<Record<NodeTypeName, TransformStep[]>>>;
+
+const applyTargetHeadingToParagraphStep: TransformStep = (nodes, context) => {
+	if (!isExperimentEnabled('platform_editor_block_menu_small_text')) {
+		return nodes;
+	}
+
+	return nodes.map((node) => {
+		if (node.type.name !== 'heading') {
+			return node;
+		}
+
+		return applyTargetTextTypeStep([node], context).at(0) ?? node;
+	});
+};
 
 /**
  * Creates the transformation matrix for all node type pairs.
@@ -60,7 +76,7 @@ const createTransformationMatrix = (includePanelC1: boolean): TransformationMatr
 		expand: [unwrapStep, wrapStep],
 		nestedExpand: [unwrapStep, wrapStep],
 		layoutSection: [unwrapStep, wrapMixedContentStep],
-		paragraph: [unwrapStep],
+		paragraph: [unwrapStep, applyTargetHeadingToParagraphStep],
 	},
 	panel_c1: includePanelC1
 		? {
@@ -69,7 +85,7 @@ const createTransformationMatrix = (includePanelC1: boolean): TransformationMatr
 				expand: [unwrapStep, wrapStep],
 				nestedExpand: [unwrapStep, wrapStep],
 				layoutSection: [unwrapStep, wrapMixedContentStep],
-				paragraph: [unwrapStep],
+				paragraph: [unwrapStep, applyTargetHeadingToParagraphStep],
 			}
 		: {},
 	expand: {
@@ -78,14 +94,14 @@ const createTransformationMatrix = (includePanelC1: boolean): TransformationMatr
 		blockquote: [unwrapExpandStep, wrapMixedContentStep],
 		layoutSection: [unwrapExpandStep, wrapMixedContentStep],
 		nestedExpand: [unwrapExpandStep, wrapStep],
-		paragraph: [unwrapExpandStep],
+		paragraph: [unwrapExpandStep, applyTargetHeadingToParagraphStep],
 	},
 	nestedExpand: {
 		panel: [unwrapExpandStep, wrapMixedContentStep],
 		...(includePanelC1 ? { panel_c1: [unwrapExpandStep, wrapMixedContentStep] } : {}),
 		blockquote: [unwrapExpandStep, wrapMixedContentStep],
 		layoutSection: [unwrapExpandStep, wrapMixedContentStep],
-		paragraph: [unwrapExpandStep],
+		paragraph: [unwrapExpandStep, applyTargetHeadingToParagraphStep],
 	},
 	blockquote: {
 		expand: [wrapStep],
@@ -93,7 +109,7 @@ const createTransformationMatrix = (includePanelC1: boolean): TransformationMatr
 		layoutSection: [wrapMixedContentStep],
 		panel: [unwrapStep, wrapStep],
 		...(includePanelC1 ? { panel_c1: [unwrapStep, wrapStep] } : {}),
-		paragraph: [unwrapStep],
+		paragraph: [unwrapStep, applyTargetHeadingToParagraphStep],
 		decisionList: [unwrapStep, wrapBlockquoteToDecisionListStep],
 	},
 	layoutSection: {
@@ -102,7 +118,7 @@ const createTransformationMatrix = (includePanelC1: boolean): TransformationMatr
 		nestedExpand: [unwrapLayoutStep, wrapStep],
 		panel: [unwrapLayoutStep, wrapMixedContentStep],
 		...(includePanelC1 ? { panel_c1: [unwrapLayoutStep, wrapMixedContentStep] } : {}),
-		paragraph: [unwrapLayoutStep],
+		paragraph: [unwrapLayoutStep, applyTargetHeadingToParagraphStep],
 	},
 	codeBlock: {
 		blockquote: [wrapStep],

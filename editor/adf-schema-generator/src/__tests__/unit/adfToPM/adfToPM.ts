@@ -74,6 +74,33 @@ describe('code generation output', () => {
 			expect(generatedParts.sort()).toEqual(expectedMarks.sort());
 		});
 	});
+
+	test('should not duplicate a type name in a node group when two node keys convert to the same type name', () => {
+		const paragraphWithAlignment = adfNode('paragraph_with_alignment').define({});
+		const paragraphWithAlignmentAlias = adfNode('ParagraphWithAlignment').define({});
+		const group = adfNodeGroup('block', [paragraphWithAlignment, paragraphWithAlignmentAlias]);
+		const root = adfNode('root').define({
+			root: true,
+			content: [$or(group)],
+		});
+
+		const generated = adfToPm(root)!.pmNodeGroups;
+		expect(generated).toContain(
+			'export type BlockDefinition = Array<ParagraphWithAlignmentDefinition>',
+		);
+	});
+
+	test('should not duplicate a type name in node content when two node keys convert to the same type name', () => {
+		const paragraphWithAlignment = adfNode('paragraph_with_alignment').define({});
+		const paragraphWithAlignmentAlias = adfNode('ParagraphWithAlignment').define({});
+		const root = adfNode('root').define({
+			root: true,
+			content: [$or(paragraphWithAlignment, paragraphWithAlignmentAlias)],
+		});
+
+		const generated = adfToPm(root)!.pmNodes;
+		expect(generated).toContain('content: Array<ParagraphWithAlignmentDefinition>}');
+	});
 });
 
 describe('transform', () => {

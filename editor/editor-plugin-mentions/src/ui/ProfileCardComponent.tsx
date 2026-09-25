@@ -318,8 +318,16 @@ const AgentProfileCardContent = ({
 	onChatClick?: (event: React.MouseEvent, agentStudioId?: string) => void;
 	provider: ProfilecardProvider;
 	text?: MentionAttributes['text'];
-}): JSX.Element => {
+}): React.ReactNode => {
 	const agentName = (text ?? '').replace(LEADING_AT_SIGN_RE, '');
+	if (provider.renderAgentMentionCard) {
+		return provider.renderAgentMentionCard({
+			accountId,
+			cloudId: provider.cloudId,
+			isReadOnly: hideActions,
+			onChatClick,
+		});
+	}
 	return expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false) ? (
 		<AgentProfileCardResourced
 			accountId={accountId}

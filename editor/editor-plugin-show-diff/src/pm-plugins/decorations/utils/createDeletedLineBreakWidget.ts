@@ -1,7 +1,6 @@
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 
-import type { DiffType, RevealOptions } from '../../../showDiffPluginType';
-import { isExtendedEnabled } from '../../isExtendedEnabled';
+import type { RevealOptions } from '../../../showDiffPluginType';
 import type { ColorScheme } from '../colorSchemes/types';
 import { buildDiffDecorationSpec, scrollMarginTopValue } from '../decorationKeys';
 import { createContentWrapper } from './wrapBlockNodeView';
@@ -30,14 +29,12 @@ export const RETURN_GLYPH = '⤶';
 export const createDeletedLineBreakWidget = ({
 	colorScheme,
 	count = 1,
-	diffType,
 	isActive = false,
 	reveal,
 }: {
 	colorScheme?: ColorScheme;
 	/** One glyph per removed blank line, for a run of adjacent ones. */
 	count?: number;
-	diffType?: DiffType;
 	isActive?: boolean;
 	reveal?: RevealOptions;
 }): HTMLElement => {
@@ -56,7 +53,7 @@ export const createDeletedLineBreakWidget = ({
 			// deleted-content wrapper is styled as an inline run.
 			dom.append(dom.ownerDocument.createElement('br'));
 		}
-		const wrapper = createContentWrapper(colorScheme, isActive, false, diffType, reveal);
+		const wrapper = createContentWrapper(colorScheme, isActive, false, reveal);
 		wrapper.append(dom.ownerDocument.createTextNode(RETURN_GLYPH));
 		dom.append(wrapper);
 	}
@@ -77,7 +74,6 @@ export const createDeletedLineBreakDecoration = ({
 	attributionKey,
 	colorScheme,
 	count,
-	diffType,
 	isActive = false,
 	pos,
 	reveal,
@@ -86,30 +82,24 @@ export const createDeletedLineBreakDecoration = ({
 	attributionKey?: string;
 	colorScheme?: ColorScheme;
 	count?: number;
-	diffType?: DiffType;
 	isActive?: boolean;
 	pos: number;
 	reveal?: RevealOptions;
 	side?: number;
 }): Decoration =>
-	Decoration.widget(
-		pos,
-		createDeletedLineBreakWidget({ colorScheme, count, diffType, isActive, reveal }),
-		{
-			...buildDiffDecorationSpec({
-				attributionKey,
-				colorScheme,
-				decorationType: 'widget',
-				diffId: crypto.randomUUID(),
-				isActive,
-				// The glyph always stands in for removed content, whichever side of the changeset the
-				// change itself landed on.
-				isInserted: false,
-				diffType,
-				...(isExtendedEnabled(diffType) && side !== undefined && { side }),
-			}),
-			// Without an explicit mark set, prosemirror-view wraps the widget in the marks of the
-			// adjacent text. The glyph carries its own deleted styling and must not inherit them.
-			marks: [],
-		},
-	);
+	Decoration.widget(pos, createDeletedLineBreakWidget({ colorScheme, count, isActive, reveal }), {
+		...buildDiffDecorationSpec({
+			attributionKey,
+			colorScheme,
+			decorationType: 'widget',
+			diffId: crypto.randomUUID(),
+			isActive,
+			// The glyph always stands in for removed content, whichever side of the changeset the
+			// change itself landed on.
+			isInserted: false,
+			...(side !== undefined && { side }),
+		}),
+		// Without an explicit mark set, prosemirror-view wraps the widget in the marks of the
+		// adjacent text. The glyph carries its own deleted styling and must not inherit them.
+		marks: [],
+	});

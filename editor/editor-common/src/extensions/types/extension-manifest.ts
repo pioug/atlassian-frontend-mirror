@@ -3,6 +3,7 @@ import type { ComponentType, ReactNode } from 'react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { BlockTransformExtension } from '../../block-menu/block-transform-extension';
+import type { QuickInsertPreview } from '../../quick-insert/preview';
 import type {
 	ExtensionAPI,
 	ExtensionParams,
@@ -72,6 +73,8 @@ export type ExtensionModule<T extends Parameters = Parameters> = {
 	keywords?: string[];
 	lozenge?: ReactNode;
 	parameters?: T;
+	/** Module-specific preview, which takes precedence over the manifest preview. */
+	preview?: QuickInsertPreview;
 	priority?: number;
 	title?: string;
 };
@@ -186,6 +189,8 @@ export type ExtensionManifest<T extends Parameters = Parameters> = {
 	key: ExtensionKey;
 	keywords?: string[];
 	modules: ExtensionModules<T>;
+	/** Default preview content for quick insert modules that do not override it. */
+	preview?: QuickInsertPreview;
 	summary?: string;
 	title: string;
 	type: ExtensionType;

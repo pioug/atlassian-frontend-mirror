@@ -27,7 +27,6 @@ import {
 	akLayoutGutterOffset,
 } from '@atlaskit/editor-shared-styles';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -458,16 +457,10 @@ function Expand({
 	// when:
 	// - the expand is open, or has been opened before, so the reader wants to see the content;
 	// - no node was given, so this expand never opted into lazy loading;
-	// - the experiment is off;
 	// - the browser has no hidden="until-found", so the text would not be findable and standing it in
 	//   would gain nothing. While we still do not know, we assume the browser has it — assuming the
 	//   opposite would render the whole body on the first paint and lose the saving entirely.
-	const revealed =
-		expanded ||
-		hasBeenExpanded ||
-		!node ||
-		supportsHiddenUntilFound === false ||
-		!isExperimentEnabled('platform_editor_defer_collapsed_expand_body');
+	const revealed = expanded || hasBeenExpanded || !node || supportsHiddenUntilFound === false;
 
 	const expandBody = useMemo(
 		() => ({ revealed, openWithAncestors, revealedByFind }),

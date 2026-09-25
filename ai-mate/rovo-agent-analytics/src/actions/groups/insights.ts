@@ -13,12 +13,38 @@
  * Discriminated union payload type for insights events.
  * Use with `trackAgentEvent()`.
  */
-export type InsightsEventPayload = {
-	// https://data-portal.internal.atlassian.com/analytics/registry/100622
-	actionSubject: 'rovoAgent';
-	action: 'insightsDateFilterChanged';
-	attributes: {
-		filterType: 'preset' | 'custom';
-		days?: number;
-	};
-};
+export type InsightsEventPayload =
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/100622
+			actionSubject: 'rovoAgent';
+			action: 'insightsDateFilterChanged';
+			attributes: {
+				filterType: 'preset' | 'custom';
+				days?: number;
+				surface?:
+					| 'agentUsageInsights'
+					| 'agentValueInsights'
+					| 'agentValueTracking'
+					| 'agentInsights';
+			};
+	  }
+	| {
+			actionSubject: 'rovoAgent';
+			action: 'insightsValueTypeFilterChanged';
+			attributes: {
+				surface: 'agentValueInsights' | 'agentValueTracking';
+				previousValueType: string;
+				nextValueType: string;
+				filterType: 'preset' | 'custom';
+				days?: number;
+			};
+	  }
+	| {
+			actionSubject: 'rovoAgent';
+			action: 'insightsTrackingTabChanged';
+			attributes: {
+				surface: 'agentValueTracking';
+				previousTab: 'tracked' | 'untracked';
+				nextTab: 'tracked' | 'untracked';
+			};
+	  };

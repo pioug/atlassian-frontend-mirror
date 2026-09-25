@@ -10,8 +10,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { DiffType } from '../../showDiffPluginType';
-import { isExtendedEnabled } from '../isExtendedEnabled';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 import {
 	buildAddedCellOverlayRoundedStyle,
@@ -66,10 +64,8 @@ const extractChangedRows = ({
 	change,
 	originalDoc,
 	newDoc,
-	diffType,
 }: {
 	change: SimpleChange;
-	diffType?: DiffType;
 	newDoc: PMNode;
 	originalDoc: PMNode;
 }): RowInfo[] => {
@@ -114,7 +110,6 @@ const extractChangedRows = ({
 	const changeStartInTable = change.fromA - tableOld.pos - 1;
 	const changeEndInTable = change.toA - tableOld.pos - 1;
 	const edgeAttrsByOffset =
-		isExtendedEnabled(diffType) &&
 		expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
 		isExperimentEnabled('platform_editor_table_diff_rounded_corners')
 			? getTableTopAndBottomCellEdgeAttrs(oldTableMap)
@@ -133,11 +128,7 @@ const extractChangedRows = ({
 			(rowEnd > changeStartInTable && rowEnd <= changeEndInTable) ||
 			(rowStart < changeStartInTable && rowEnd > changeEndInTable);
 
-		if (
-			rowOverlapsChange &&
-			rowNode.type.name === 'tableRow' &&
-			(isExtendedEnabled(diffType) || !isEmptyRow(rowNode))
-		) {
+		if (rowOverlapsChange && rowNode.type.name === 'tableRow') {
 			const rowLocalId = rowNode.attrs.localId;
 			const isTableRowReplacement =
 				rowLocalId &&
@@ -217,39 +208,9 @@ const extractChangedRows = ({
 	});
 };
 
-/**
- * Checks if a table row is empty (contains no meaningful content)
- */
-const isEmptyRow = (rowNode: PMNode): boolean => {
-	let isEmpty = true;
-
-	rowNode.descendants((node) => {
-		if (!isEmpty) {
-			return false;
-		}
-
-		// If we find any inline content with size > 0, the row is not empty
-		if (node.isInline && node.nodeSize > 0) {
-			isEmpty = false;
-			return false;
-		}
-
-		// If we find text content, the row is not empty
-		if (node.isText && node.text && node.text.trim() !== '') {
-			isEmpty = false;
-			return false;
-		}
-
-		return true;
-	});
-
-	return isEmpty;
-};
-
 type CreateChangedRowDOMProps = {
 	cellEdgeAttrs: Array<CellEdgeAttrs | undefined> | undefined;
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	hasAnchoredRemovedLozenge?: boolean;
 	intl?: IntlShape;
 	isActive?: boolean;
@@ -269,7 +230,6 @@ const createChangedRowDOM = ({
 	isTableRowReplacement,
 	colorScheme,
 	isInserted,
-	diffType,
 	hasAnchoredRemovedLozenge,
 	intl,
 	isActive,
@@ -282,19 +242,17 @@ const createChangedRowDOM = ({
 	const deletedTreatment = isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
 		? buildDeletedRowStyle(colors)
 		: resolveDeletedRowStyleLegacy(getLegacyColorScheme(colorScheme));
-	const hostsRemovedLozenge =
-		Boolean(intl) && isExtendedEnabled(diffType) && !isInserted && !hasAnchoredRemovedLozenge;
+	const hostsRemovedLozenge = Boolean(intl) && !isInserted && !hasAnchoredRemovedLozenge;
 
 	// Inserted rows keep their natural styling; the row strikethrough is deletions only.
-	if (!isExtendedEnabled(diffType) || !isInserted) {
+	if (!isInserted) {
 		tr.setAttribute('style', deletedTreatment);
 	}
-	// Mirrors the strikethrough condition above: under the extended experience an `isInserted` row
-	// is ADDED content, so it must not claim the "deleted" testid — page models match that as
+	// Mirrors the strikethrough condition above: an `isInserted` row is ADDED content, so it must not claim the "deleted" testid — page models match that as
 	// removed content (same reasoning as `createTableCellContentWidgets`).
 	tr.setAttribute(
 		'data-testid',
-		isExtendedEnabled(diffType) && isInserted && fg('platform_editor_ai_show_diff_patch_1')
+		isInserted && fg('platform_editor_ai_show_diff_patch_1')
 			? 'show-diff-changed-row'
 			: 'show-diff-deleted-row',
 	);
@@ -311,31 +269,27 @@ const createChangedRowDOM = ({
 				if (nodeView instanceof HTMLElement) {
 					applyCellEdgeAttrs(nodeView, cellEdgeAttrs?.[cellIndex]);
 
-					if (isExtendedEnabled(diffType)) {
-						const overlay = document.createElement('span');
-						const isRoundedTable = isExperimentEnabled(
-							'platform_editor_table_diff_rounded_corners',
-						);
+					const overlay = document.createElement('span');
+					const isRoundedTable = isExperimentEnabled('platform_editor_table_diff_rounded_corners');
 
-						const overlayStyle = isExperimentEnabled(
-							'platform_editor_show_diff_color_scheme_refactor',
-						)
-							? isInserted
-								? isRoundedTable
-									? buildAddedCellOverlayRoundedStyle(colors)
-									: buildAddedCellOverlayStyle(colors)
-								: isRoundedTable
-									? buildDeletedCellOverlayRoundedStyle(colors)
-									: buildDeletedCellOverlayStyle(colors)
-							: resolveCellOverlayStyleLegacy({
-									colorScheme: getLegacyColorScheme(colorScheme),
-									isInserted,
-									isRoundedTable,
-								});
+					const overlayStyle = isExperimentEnabled(
+						'platform_editor_show_diff_color_scheme_refactor',
+					)
+						? isInserted
+							? isRoundedTable
+								? buildAddedCellOverlayRoundedStyle(colors)
+								: buildAddedCellOverlayStyle(colors)
+							: isRoundedTable
+								? buildDeletedCellOverlayRoundedStyle(colors)
+								: buildDeletedCellOverlayStyle(colors)
+						: resolveCellOverlayStyleLegacy({
+								colorScheme: getLegacyColorScheme(colorScheme),
+								isInserted,
+								isRoundedTable,
+							});
 
-						overlay.setAttribute('style', overlayStyle);
-						nodeView.appendChild(overlay);
-					}
+					overlay.setAttribute('style', overlayStyle);
+					nodeView.appendChild(overlay);
 				}
 				tr.appendChild(nodeView);
 			} else {
@@ -403,10 +357,8 @@ const expandDiffForChangedRows = ({
 	changes,
 	originalDoc,
 	newDoc,
-	diffType,
 }: {
 	changes: SimpleChange[];
-	diffType?: DiffType;
 	newDoc: PMNode;
 	originalDoc: PMNode;
 }): RowInfo[] => {
@@ -417,7 +369,6 @@ const expandDiffForChangedRows = ({
 			change,
 			originalDoc,
 			newDoc,
-			diffType,
 		});
 
 		if (changedRows.length > 0) {
@@ -441,7 +392,6 @@ export const createChangedRowDecorationWidgets = ({
 	isActive,
 	isInserted = false,
 	leftAnchorId,
-	diffType,
 	intl,
 	showIndicators = false,
 	showContributorTags = false,
@@ -450,7 +400,6 @@ export const createChangedRowDecorationWidgets = ({
 	attributionKey?: string;
 	changes: SimpleChange[];
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	intl?: IntlShape;
 	isActive?: boolean;
 	isInserted?: boolean;
@@ -467,7 +416,6 @@ export const createChangedRowDecorationWidgets = ({
 		changes: changes.filter((change) => change.deleted.length > 0),
 		originalDoc,
 		newDoc,
-		diffType,
 	});
 
 	return changedRows.flatMap((changedRow) => {
@@ -475,8 +423,7 @@ export const createChangedRowDecorationWidgets = ({
 		const diffId = showContributorTags
 			? `widget-row-${changedRow.fromA}-${changedRow.toA}`
 			: crypto.randomUUID();
-		const hasAnchoredRemovedLozenge =
-			Boolean(intl) && isExtendedEnabled(diffType) && !isInserted && supportsAnchorPositioning();
+		const hasAnchoredRemovedLozenge = Boolean(intl) && !isInserted && supportsAnchorPositioning();
 		const rowDOM = createChangedRowDOM({
 			rowNode: changedRow.rowNode,
 			isTableRowReplacement: changedRow.isTableRowReplacement,
@@ -484,7 +431,6 @@ export const createChangedRowDecorationWidgets = ({
 			nodeViewSerializer,
 			colorScheme,
 			isInserted,
-			diffType,
 			hasAnchoredRemovedLozenge,
 			intl,
 			isActive,
@@ -505,11 +451,7 @@ export const createChangedRowDecorationWidgets = ({
 		// is still created but can never resolve a position, so it silently does not render and the
 		// bar covers only the row being changed. `createNodeChangedDecorationWidget` sets the same
 		// property on its own widget DOM for non-table content; this path returns before reaching it.
-		if (
-			showIndicators &&
-			isExtendedEnabled(diffType) &&
-			fg('platform_editor_ai_show_diff_patch_1')
-		) {
+		if (showIndicators && fg('platform_editor_ai_show_diff_patch_1')) {
 			rowAnchorNames.push(buildAnchorDecorationKey({ diffId }));
 
 			// A table's content can extend past the doc margin, so the bar also needs a left anchor
@@ -569,7 +511,6 @@ export const createChangedRowDecorationWidgets = ({
 				leftAnchorId,
 				isActive,
 				isInserted,
-				diffType,
 			}),
 		});
 

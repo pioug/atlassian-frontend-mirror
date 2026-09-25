@@ -77,10 +77,7 @@ export const handleSparseMouseOver = (
 	}
 	const isDisplayingDiff = api.showDiff?.sharedState.currentState()?.isDisplayingChanges ?? false;
 	const currentUserIntent = api.userIntent?.sharedState.currentState()?.currentUserIntent;
-	if (
-		(isDisplayingDiff || currentUserIntent === 'reviewing') &&
-		expValEqualsNoExposure('platform_editor_diff_plugin_extended', 'isEnabled', true)
-	) {
+	if (isDisplayingDiff || currentUserIntent === 'reviewing') {
 		return false;
 	}
 

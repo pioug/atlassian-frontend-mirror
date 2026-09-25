@@ -3,11 +3,21 @@ import { convertTypeToTypeName } from './codeGenHelpers';
 import type { ContentVisitorReturnType, NodeTypeDefinition } from './types';
 
 export const buildContentTypes = (content: Array<ContentVisitorReturnType>): Array<string> => {
-	const contentTypes: Array<string> = [];
+	const contentTypes: Set<string> = new Set();
 	for (const child of content) {
-		contentTypes.push(...child.contentTypes.map((v) => convertTypeToTypeName(v)));
+		child.contentTypes.forEach((v) => {
+			contentTypes.add(convertTypeToTypeName(v));
+		});
 	}
-	return contentTypes;
+	return Array.from(contentTypes);
+};
+
+const buildMarksTypes = (marks: Array<string>): Array<string> => {
+	const marksTypes: Set<string> = new Set();
+	for (const mark of marks) {
+		marksTypes.add(convertTypeToTypeName(mark, 'Mark'));
+	}
+	return Array.from(marksTypes);
 };
 
 export const buildNodeTypeDefinition = (
@@ -21,6 +31,6 @@ export const buildNodeTypeDefinition = (
 	};
 	nodeTypeDefinition.attrs = nodeSpec.attrs;
 	nodeTypeDefinition.content = buildContentTypes(content);
-	nodeTypeDefinition.marks = nodeMarks.map((m) => convertTypeToTypeName(m, 'Mark'));
+	nodeTypeDefinition.marks = buildMarksTypes(nodeMarks);
 	return nodeTypeDefinition;
 };

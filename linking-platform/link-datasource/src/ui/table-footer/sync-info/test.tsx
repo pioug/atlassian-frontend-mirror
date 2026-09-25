@@ -3,9 +3,7 @@ import React, { Profiler } from 'react';
 import { act, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { SyncInfo } from './index';
 
@@ -18,10 +16,6 @@ describe('SyncInfo Component', () => {
 	beforeAll(() => {
 		jest.useFakeTimers();
 		jest.spyOn(Date, 'now').mockReturnValue(new Date(Date.UTC(2022, 0, 20, 0, 0, 0)).valueOf());
-	});
-
-	beforeEach(() => {
-		failGate('platform_datasource_sync_info_boundary_updates');
 	});
 
 	afterAll(() => {
@@ -99,29 +93,6 @@ describe('SyncInfo Component', () => {
 		expect(getByText('Synced 4 minutes ago')).toBeInTheDocument();
 	});
 
-	it('should update the sync info when 1 second passed', () => {
-		const { getByText } = setup(new Date(Date.UTC(2022, 0, 19, 23, 59, 10)));
-		expect(getByText('Synced just now')).toBeInTheDocument();
-
-		asMock(Date.now).mockReturnValue(new Date(Date.UTC(2022, 0, 20, 0, 2, 0)).valueOf());
-
-		act(() => {
-			jest.advanceTimersByTime(999);
-		});
-		expect(getByText('Synced just now')).toBeInTheDocument();
-
-		act(() => {
-			jest.advanceTimersByTime(1);
-		});
-		expect(getByText('Synced 2 minutes ago')).toBeInTheDocument();
-
-		asMock(Date.now).mockReturnValue(new Date(Date.UTC(2022, 0, 20, 0, 4, 0)).valueOf());
-
-		act(() => {
-			jest.advanceTimersByTime(1000);
-		});
-		expect(getByText('Synced 4 minutes ago')).toBeInTheDocument();
-	});
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(
 			<IntlProvider locale={'en'}>
@@ -151,25 +122,17 @@ describe('SyncInfo boundary updates', () => {
 		jest.useRealTimers();
 	});
 
-	it.each([false, true])(
-		'renders between minute boundaries only with the gate off (enabled: %s)',
-		(enabled) => {
-			if (enabled) {
-				passGate('platform_datasource_sync_info_boundary_updates');
-			} else {
-				failGate('platform_datasource_sync_info_boundary_updates');
-			}
-			const { getByText } = render(view(new Date(now.getTime() - 60_000)));
-			onRender.mockClear();
-			for (let second = 0; second < 5; second++) {
-				act(() => {
-					jest.advanceTimersByTime(1_000);
-				});
-				expect(getByText('Synced 1 minute ago')).toBeInTheDocument();
-			}
-			expect(onRender).toHaveBeenCalledTimes(enabled ? 0 : 5);
-		},
-	);
+	it('does not render between minute boundaries', () => {
+		const { getByText } = render(view(new Date(now.getTime() - 60_000)));
+		onRender.mockClear();
+		for (let second = 0; second < 5; second++) {
+			act(() => {
+				jest.advanceTimersByTime(1_000);
+			});
+			expect(getByText('Synced 1 minute ago')).toBeInTheDocument();
+		}
+		expect(onRender).not.toHaveBeenCalled();
+	});
 
 	it.each([
 		[50_250, 9_750, 'Synced just now', 'Synced 1 minute ago'],
@@ -179,7 +142,6 @@ describe('SyncInfo boundary updates', () => {
 		[86_399_250, 750, 'Synced 23 hours ago', 'Synced 1 day ago'],
 		[172_799_250, 750, 'Synced 1 day ago', 'Synced 2 days ago'],
 	])('updates at the next boundary after %i ms', (elapsed, delay, before, after) => {
-		passGate('platform_datasource_sync_info_boundary_updates');
 		const { getByText } = render(view(new Date(now.getTime() - elapsed)));
 		expect(getByText(before)).toBeInTheDocument();
 		onRender.mockClear();
@@ -198,7 +160,6 @@ describe('SyncInfo boundary updates', () => {
 		[3_600_000, 3_600_000],
 		[86_400_000, 86_400_000],
 	])('only renders once per displayed unit after %i ms', (elapsed, unit) => {
-		passGate('platform_datasource_sync_info_boundary_updates');
 		render(view(new Date(now.getTime() - elapsed)));
 		onRender.mockClear();
 		act(() => {
@@ -217,7 +178,6 @@ describe('SyncInfo boundary updates', () => {
 	});
 
 	it('stops scheduling after switching to a fixed date at eight days', () => {
-		passGate('platform_datasource_sync_info_boundary_updates');
 		const { getByText } = render(view(new Date(now.getTime() - 8 * 86_400_000 + 250)));
 		expect(getByText('Synced 7 days ago')).toBeInTheDocument();
 		act(() => {
@@ -228,13 +188,11 @@ describe('SyncInfo boundary updates', () => {
 	});
 
 	it('does not schedule for a timestamp already older than eight days', () => {
-		passGate('platform_datasource_sync_info_boundary_updates');
 		render(view(new Date(now.getTime() - 9 * 86_400_000)));
 		expect(jest.getTimerCount()).toBe(0);
 	});
 
 	it('restarts the timeout when refreshed and clears it on unmount', () => {
-		passGate('platform_datasource_sync_info_boundary_updates');
 		const { getByText, rerender, unmount } = render(view(new Date(now.getTime() - 59_000)));
 		rerender(view(now));
 		act(() => {
@@ -250,7 +208,6 @@ describe('SyncInfo boundary updates', () => {
 	});
 
 	it('recalculates elapsed time after a delayed callback', () => {
-		passGate('platform_datasource_sync_info_boundary_updates');
 		const { getByText } = render(view(new Date(now.getTime() - 50_000)));
 		jest.setSystemTime(now.getTime() + 3_600_000);
 		act(() => {

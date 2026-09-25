@@ -1,6 +1,7 @@
 import type { Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 /**
@@ -13,7 +14,7 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
  */
 export const firstCodeBlockInDocument = (getPos: () => number | undefined): Extension => {
 	if (
-		expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+		editorExperiment('platform_editor_controls', 'variant1') &&
 		expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
 	) {
 		return CodeMirror.editorAttributes.of({

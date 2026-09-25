@@ -2,13 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import type { IntlShape } from 'react-intl';
 import Loadable from 'react-loadable';
-// oxlint-disable-next-line @atlassian/no-restricted-imports
-import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type {
 	ExtensionAPI,
@@ -46,7 +43,7 @@ type ExtensionIconModule = ExtensionToolbarButton['icon'];
 
 const noop = () => null;
 
-const isDefaultExport = <T extends object>(mod: T | { default: T }): mod is { default: T } => {
+const isDefaultExport = <T extends Object>(mod: T | { default: T }): mod is { default: T } => {
 	return mod.hasOwnProperty('default');
 };
 
@@ -122,28 +119,10 @@ const DropdownMenuExtensionItem = ({
 	// Use ref to keep icon component stable across renders
 	const iconRef = useRef<React.ComponentType<{ label: string }> | null>(null);
 	if (!iconRef.current && item.icon) {
-		const loadIcon = () => resolveExtensionIcon(item.icon);
-		const IconLazy = lazy(() => resolveExtensionIcon(item.icon));
-		IconLazy.displayName = 'lazy(ExtensionIcon)';
-		const IconLoadable = Loadable({
-			loader: loadIcon,
+		iconRef.current = Loadable<{ label: string }, never>({
+			loader: () => resolveExtensionIcon(item.icon),
 			loading: noop,
 		});
-		const Icon = (props: { label: string }) =>
-			isExperimentEnabled('platform_editor_loosely_lazy_migration') ? (
-				<LazySuspense fallback={null}>
-					{/* eslint-disable-next-line react/jsx-props-no-spreading -- pass icon props to the lazy component */}
-					<IconLazy {...props} />
-				</LazySuspense>
-			) : (
-				// eslint-disable-next-line react/jsx-props-no-spreading -- pass icon props to the legacy component
-				<IconLoadable {...props} />
-			);
-		Icon.preload = () =>
-			isExperimentEnabled('platform_editor_loosely_lazy_migration')
-				? IconLazy.preload()
-				: IconLoadable.preload();
-		iconRef.current = Icon;
 	}
 
 	const dropdownItem = convertExtensionToDropdownMenuItem({

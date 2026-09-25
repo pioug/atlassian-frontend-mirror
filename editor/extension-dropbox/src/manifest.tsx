@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { createRoot, type Root } from 'react-dom/client';
+import { createIntl, defineMessage, type IntlShape } from 'react-intl';
 
 import { inlineCard } from '@atlaskit/adf-utils/builders';
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
@@ -12,6 +13,13 @@ import enableDropbox from './enable-dropbox';
 import type { DropboxFile } from './types';
 
 const reactRoots = new WeakMap<Element, Root>();
+const defaultIntl = createIntl({ locale: 'en' });
+const dropboxName = defineMessage({
+	id: 'editor-extension-dropbox.attribution-name.ai-non-final',
+	defaultMessage: 'Dropbox',
+	description:
+		'Dropbox product name displayed as the creator in the slash-command preview attribution.',
+});
 
 /** Mounts `element` into `mountPoint` using `createRoot` when the migration experiment is on. */
 const renderToMountPoint = (element: React.ReactElement, mountPoint: Element) => {
@@ -153,13 +161,22 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 const manifestFunction = ({
 	appKey,
 	canMountinIframe,
+	intl = defaultIntl,
 }: {
 	appKey: string;
 	canMountinIframe: boolean;
+	intl?: Pick<IntlShape, 'formatMessage'>;
 }): ExtensionManifest => ({
 	title: 'Dropbox',
 	type: 'com.dropbox.fabric',
 	key: 'dropbox',
+	preview: {
+		attribution: { name: intl.formatMessage(dropboxName) },
+		image: {
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVH2.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKI.png',
+		},
+	},
 	description: 'Embed Dropbox file to collaborate with your team',
 	icons: {
 		'16': () =>

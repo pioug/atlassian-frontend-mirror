@@ -10,8 +10,7 @@
  */
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 
-import type { ColorScheme, DiffType } from '../../showDiffPluginType';
-import { isExtendedEnabled } from '../isExtendedEnabled';
+import type { ColorScheme } from '../../showDiffPluginType';
 import {
 	standardDecorationMarkerVariable,
 	deletedDecorationMarkerVariable,
@@ -83,10 +82,8 @@ export const getBlockNodeStyleLegacy = ({
 	colorScheme,
 	isInserted = true,
 	isActive = false,
-	diffType,
 }: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	isActive?: boolean;
 	isInserted?: boolean;
 	nodeName: string;
@@ -113,8 +110,8 @@ export const getBlockNodeStyleLegacy = ({
 	}
 	// Media nodes inside mediaSingle should not get position:relative
 	// as it shifts the image outside its parent container (e.g. panel)
-	if (nodeName === 'media') {
-		if (!isInserted && isExtendedEnabled(diffType)) {
+	if (nodeName === 'media' || nodeName === 'panel') {
+		if (!isInserted) {
 			return isTraditional
 				? getDeletedTraditionalInlineStyle(false)
 				: deletedDecorationMarkerVariable;
@@ -126,130 +123,74 @@ export const getBlockNodeStyleLegacy = ({
 			: editingStyleNode;
 	}
 	if (['tableCell', 'tableHeader'].includes(nodeName)) {
-		if (isExtendedEnabled(diffType)) {
-			// This is used for positioning the cell overlay widget decorations
-			return convertToInlineCss({
-				position: 'relative',
-			});
-		}
-		// When gate is off, it should return undefined as above
-		return undefined;
+		// This is used for positioning the cell overlay widget decorations
+		return convertToInlineCss({
+			position: 'relative',
+		});
 	}
-	if (nodeName === 'panel') {
-		if (!isInserted && isExtendedEnabled(diffType)) {
-			return isTraditional
-				? getDeletedTraditionalInlineStyle(false)
-				: deletedDecorationMarkerVariable;
+	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
+		if (isInserted) {
+			return isTraditional && isActive
+				? traditionalDecorationMarkerVariableActive
+				: isTraditional
+					? traditionalDecorationMarkerVariableNew
+					: standardDecorationMarkerVariable;
 		}
+		if (nodeName === 'listItem') {
+			return isTraditional && isActive
+				? traditionalDeletedDecorationMarkerVariableActive
+				: isTraditional
+					? traditionalDeletedDecorationMarkerVariableNew
+					: deletedDecorationMarkerVariable;
+		}
+		return isTraditional && isActive
+			? traditionalDeletedDecorationMarkerVariableActive
+			: isTraditional
+				? traditionalDeletedDecorationMarkerVariableNew
+				: getStandardDeletedContentStyleNew();
+	}
+	if (nodeName === 'blockquote') {
+		if (isInserted) {
+			return isTraditional
+				? isActive
+					? traditionalStyleQuoteNodeActive
+					: traditionalStyleQuoteNodeNew
+				: editingStyleQuoteNode;
+		}
+		return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNode;
+	}
+	if (nodeName === 'rule') {
+		if (isInserted) {
+			return isTraditional
+				? isActive
+					? traditionalStyleRuleNodeActive
+					: traditionalStyleRuleNodeNew
+				: editingStyleRuleNode;
+		}
+		return isTraditional
+			? getDeletedTraditionalInlineStyle(false)
+			: getStandardDeletedContentStyleNew();
+	}
+	if (nodeName === 'blockCard') {
+		if (isInserted) {
+			return isTraditional
+				? isActive
+					? traditionalStyleCardBlockNodeActive
+					: traditionalStyleCardBlockNodeNew
+				: editingStyleCardBlockNode;
+		}
+		return isTraditional
+			? getDeletedTraditionalInlineStyle(false)
+			: getStandardDeletedContentStyleNew();
+	}
+	if (isInserted) {
 		return isTraditional
 			? isActive
 				? traditionalStyleNodeActive
 				: traditionalStyleNodeNew
 			: editingStyleNode;
 	}
-	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
-		if (isExtendedEnabled(diffType)) {
-			if (isInserted) {
-				return isTraditional && isActive
-					? traditionalDecorationMarkerVariableActive
-					: isTraditional
-						? traditionalDecorationMarkerVariableNew
-						: standardDecorationMarkerVariable;
-			} else {
-				if (nodeName === 'listItem') {
-					return isTraditional && isActive
-						? traditionalDeletedDecorationMarkerVariableActive
-						: isTraditional
-							? traditionalDeletedDecorationMarkerVariableNew
-							: deletedDecorationMarkerVariable;
-				}
-				return isTraditional && isActive
-					? traditionalDeletedDecorationMarkerVariableActive
-					: isTraditional
-						? traditionalDeletedDecorationMarkerVariableNew
-						: getStandardDeletedContentStyleNew();
-			}
-		}
-		return isTraditional && isActive
-			? traditionalDecorationMarkerVariableActive
-			: isTraditional
-				? traditionalDecorationMarkerVariableNew
-				: standardDecorationMarkerVariable;
-	}
-	if (nodeName === 'blockquote') {
-		if (isExtendedEnabled(diffType)) {
-			if (isInserted) {
-				return isTraditional
-					? isActive
-						? traditionalStyleQuoteNodeActive
-						: traditionalStyleQuoteNodeNew
-					: editingStyleQuoteNode;
-			} else {
-				return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNode;
-			}
-		}
-		return isTraditional
-			? isActive
-				? traditionalStyleQuoteNodeActive
-				: traditionalStyleQuoteNodeNew
-			: editingStyleQuoteNode;
-	}
-	if (nodeName === 'rule') {
-		if (isExtendedEnabled(diffType)) {
-			if (isInserted) {
-				return isTraditional
-					? isActive
-						? traditionalStyleRuleNodeActive
-						: traditionalStyleRuleNodeNew
-					: editingStyleRuleNode;
-			} else {
-				return isTraditional
-					? getDeletedTraditionalInlineStyle(false)
-					: getStandardDeletedContentStyleNew();
-			}
-		}
-		return isTraditional
-			? isActive
-				? traditionalStyleRuleNodeActive
-				: traditionalStyleRuleNodeNew
-			: editingStyleRuleNode;
-	}
-	if (nodeName === 'blockCard') {
-		if (isExtendedEnabled(diffType)) {
-			if (isInserted) {
-				return isTraditional
-					? isActive
-						? traditionalStyleCardBlockNodeActive
-						: traditionalStyleCardBlockNodeNew
-					: editingStyleCardBlockNode;
-			} else {
-				return isTraditional
-					? getDeletedTraditionalInlineStyle(false)
-					: getStandardDeletedContentStyleNew();
-			}
-		}
-		return isTraditional
-			? isActive
-				? traditionalStyleCardBlockNodeActive
-				: traditionalStyleCardBlockNodeNew
-			: editingStyleCardBlockNode;
-	}
-	if (isExtendedEnabled(diffType)) {
-		if (isInserted) {
-			return isTraditional
-				? isActive
-					? traditionalStyleNodeActive
-					: traditionalStyleNodeNew
-				: editingStyleNode;
-		} else {
-			return isTraditional
-				? getDeletedTraditionalInlineStyle(false)
-				: getStandardDeletedContentStyleNew();
-		}
-	}
 	return isTraditional
-		? isActive
-			? traditionalStyleNodeActive
-			: traditionalStyleNodeNew
-		: editingStyleNode;
+		? getDeletedTraditionalInlineStyle(false)
+		: getStandardDeletedContentStyleNew();
 };

@@ -1,5 +1,55 @@
 # @atlaskit/editor-plugin-card
 
+## 27.1.1
+
+### Patch Changes
+
+- [`a034f535638cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a034f535638cc) -
+  Add structured Quick Insert previews with localised title, description and attribution under
+  platform_editor_slash_command.
+
+  Exclude footer and category navigation actions from previews. Left-align attribution, use subtle
+  title and attribution text, and default description text.
+
+  Show text previews even without preview metadata, and reserve a fixed image area while images load
+  or when they fail. Keep previews within the viewport, flipping left when needed, with compact
+  panel dimensions and typography.
+
+  Replace baked panel screenshots with image-only assets. Remove image fields from text-only legacy
+  previews while preserving their attribution.
+
+  Let extension providers own their preview images and attribution. Pass preview metadata through
+  the Company Hub manifest factory and remove Editor's fallback preview registry.
+
+  Localize provider attribution names and display Confluence and Jira product icons instead of the
+  attribution prefix when an icon is present. Allow the Dropbox manifest to receive the host's
+  message formatter.
+
+- Updated dependencies
+
+## 27.1.0
+
+### Minor Changes
+
+- [`067939baaaeb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/067939baaaeb9) -
+  Fix the pre-auth value proposition modal in the `platform_sl_3p_preauth_value_modal` experiment
+  treatments behind `platform_sl_3p_preauth_value_modal_killswitch`:
+  - Allow titles to wrap in both treatment variants. Preserve the image variant's default height
+    while allowing taller text to reveal more of the centered illustration, keeping provider icons
+    aligned.
+  - Truncate long provider names in the Connect button so the Close button remains fully visible.
+  - Prevent editor floating toolbars from appearing above the modal using the existing `overlayOpen`
+    user intent, without layout effects that warn during server rendering.
+
+  In `@atlaskit/smart-card/pre-auth-value-proposition-modal`, `PreAuthValuePropositionModalProps`
+  adds optional `onOpenChange` to notify hosts when the modal opens, closes, or unmounts.
+  `@atlaskit/editor-plugin-card` adds an optional `UserIntentPlugin` integration and declares its
+  package dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.3
 
 ### Patch Changes

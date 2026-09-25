@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 22.1.1
+
+### Patch Changes
+
+- [`7306003a7565b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7306003a7565b) -
+  Fix modal dismissal, category spacing, measured list height, and viewport-aware menu placement
+  under platform_editor_slash_command.
+- Updated dependencies
+
+## 22.1.0
+
+### Minor Changes
+
+- [`4c2cee2609bfd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c2cee2609bfd) -
+  Render Rovo skill quick-insert items as a slash-command tag (`/slug`) in the editor, behind the
+  display_skill_lozenge_in_editor experiment.
+
+### Patch Changes
+
+- [`4af80d911cc15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4af80d911cc15) -
+  Refresh open slash-command menus when Skills and other provider items load under
+  platform_editor_slash_command.
+
 ## 22.0.3
 
 ### Patch Changes

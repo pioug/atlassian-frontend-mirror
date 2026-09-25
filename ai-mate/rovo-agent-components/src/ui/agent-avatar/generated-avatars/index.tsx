@@ -12,6 +12,38 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { AgentCreatorType } from '../../../common/types';
+type RefreshedAvatarProps = {
+	size: number;
+	primaryColor: string;
+	iconColor: string;
+};
+
+const RefreshedCustomerInsightAvatar = lazy(() => import('./refreshed-assets/customer-insight'));
+const RefreshedBacklogBuddyAvatar = lazy(() => import('./refreshed-assets/backlog-buddy'));
+const RefreshedDecisionDirectorAvatar = lazy(() => import('./refreshed-assets/decision-director'));
+const RefreshedCommsCrafterAvatar = lazy(() => import('./refreshed-assets/comms-crafter'));
+const RefreshedAutoDevAvatar = lazy(() => import('./refreshed-assets/auto-dev'));
+const RefreshedOkrOracleAvatar = lazy(() => import('./refreshed-assets/okr-oracle'));
+const RefreshedCultureAvatar = lazy(() => import('./refreshed-assets/culture'));
+const RefreshedSocialMediaScribeAvatar = lazy(
+	() => import('./refreshed-assets/social-media-scribe'),
+);
+const RefreshedTeamConnectionAvatar = lazy(() => import('./refreshed-assets/team-connection'));
+const RefreshedHireWriterAvatar = lazy(() => import('./refreshed-assets/hire-writer'));
+const RefreshedOpsAgentAvatar = lazy(() => import('./refreshed-assets/ops-agent'));
+const RefreshedResearchScoutAvatar = lazy(() => import('./refreshed-assets/research-scout'));
+const RefreshedReleaseNotesAvatar = lazy(() => import('./refreshed-assets/release-notes'));
+const RefreshedMyUserManualAvatar = lazy(() => import('./refreshed-assets/my-user-manual'));
+const RefreshedPitchPerfectorAvatar = lazy(() => import('./refreshed-assets/pitch-perfector'));
+const RefreshedAutoFixAvatar = lazy(() => import('./refreshed-assets/auto-fix'));
+const RefreshedAutoReviewAvatar = lazy(() => import('./refreshed-assets/auto-review'));
+const RefreshedMarketingMessageMaestroAvatar = lazy(
+	() => import('./refreshed-assets/marketing-message-maestro'),
+);
+const RefreshedFeatureFlagAvatar = lazy(() => import('./refreshed-assets/feature-flag'));
+const RefreshedProductRequirementAvatar = lazy(
+	() => import('./refreshed-assets/product-requirement'),
+);
 
 const styles = cssMap({
 	image: {
@@ -310,6 +342,7 @@ export const yellowColor = { primary: '#FCA700', secondary: '#FFC716', cover: '#
 export const purpleColor = { primary: '#BF63F3', secondary: '#D8A0F7', cover: '#F8EEFE' };
 export const greenColor = { primary: '#82B536', secondary: '#B3DF72', cover: '#EFFFD6' };
 export const blueColor = { primary: '#357DE8', secondary: '#669DF1', cover: '#E9F2FE' };
+const refreshedBlueColor = { ...blueColor, primary: '#1868DB' };
 
 const colorList: AgentAvatarColor[] = [yellowColor, purpleColor, greenColor, blueColor];
 
@@ -317,28 +350,28 @@ const colorList: AgentAvatarColor[] = [yellowColor, purpleColor, greenColor, blu
  * NOTE: DO NOT ADD OOTB AGENTAVATARS TO THIS LIST
  */
 const avatarList = [
-	CustomerInsightAvatar,
-	BacklogBuddyAvatar,
-	DecisionDirectorAvatar,
-	CommsCrafterAvatar,
-	AutoDevAvatar,
-	OkrOracleAvatar,
-	CultureAvatar,
-	SocialMediaScribeAvatar,
-	TeamConnectionAvatar,
-	HireWriterAvatar,
-	OpsAgentAvatar,
-	ResearchScoutAvatar,
-	ReleaseNotesAvatar,
-	MyUserManualAvatar,
-	PitchPerfectorAvatar,
-	AutoDevAvatar,
-	AutoFixAvatar,
-	AutoReviewAvatar,
-	MarketingMessageMaestroAvatar,
-	FeatureFlagAvatar,
-	ProductRequirementAvatar,
-];
+	{ legacy: CustomerInsightAvatar, refreshed: RefreshedCustomerInsightAvatar },
+	{ legacy: BacklogBuddyAvatar, refreshed: RefreshedBacklogBuddyAvatar },
+	{ legacy: DecisionDirectorAvatar, refreshed: RefreshedDecisionDirectorAvatar },
+	{ legacy: CommsCrafterAvatar, refreshed: RefreshedCommsCrafterAvatar },
+	{ legacy: AutoDevAvatar, refreshed: RefreshedAutoDevAvatar },
+	{ legacy: OkrOracleAvatar, refreshed: RefreshedOkrOracleAvatar },
+	{ legacy: CultureAvatar, refreshed: RefreshedCultureAvatar },
+	{ legacy: SocialMediaScribeAvatar, refreshed: RefreshedSocialMediaScribeAvatar },
+	{ legacy: TeamConnectionAvatar, refreshed: RefreshedTeamConnectionAvatar },
+	{ legacy: HireWriterAvatar, refreshed: RefreshedHireWriterAvatar },
+	{ legacy: OpsAgentAvatar, refreshed: RefreshedOpsAgentAvatar },
+	{ legacy: ResearchScoutAvatar, refreshed: RefreshedResearchScoutAvatar },
+	{ legacy: ReleaseNotesAvatar, refreshed: RefreshedReleaseNotesAvatar },
+	{ legacy: MyUserManualAvatar, refreshed: RefreshedMyUserManualAvatar },
+	{ legacy: PitchPerfectorAvatar, refreshed: RefreshedPitchPerfectorAvatar },
+	{ legacy: AutoDevAvatar, refreshed: RefreshedAutoDevAvatar },
+	{ legacy: AutoFixAvatar, refreshed: RefreshedAutoFixAvatar },
+	{ legacy: AutoReviewAvatar, refreshed: RefreshedAutoReviewAvatar },
+	{ legacy: MarketingMessageMaestroAvatar, refreshed: RefreshedMarketingMessageMaestroAvatar },
+	{ legacy: FeatureFlagAvatar, refreshed: RefreshedFeatureFlagAvatar },
+	{ legacy: ProductRequirementAvatar, refreshed: RefreshedProductRequirementAvatar },
+] as const;
 
 export const TOTAL_AVATAR_COMBINATIONS: number = avatarList.length * colorList.length;
 
@@ -352,7 +385,10 @@ type GeneratedAvatarProps = {
 };
 
 const outOfTheBoxAgentAvatar: {
-	[key: string]: { getRender: (size: SizeType) => React.ReactNode; color: AgentAvatarColor };
+	[key: string]: {
+		getRender: (size: SizeType) => React.ReactNode;
+		color: AgentAvatarColor;
+	};
 } = {
 	ai_mate_agent: {
 		getRender: (size: SizeType) => (
@@ -365,113 +401,146 @@ const outOfTheBoxAgentAvatar: {
 		color: blueColor,
 	},
 	autodev_template_unit_test_creator: {
-		getRender: (size: SizeType) => (
-			<AutoFixAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedAutoFixAvatar, greenColor, size)
+			) : (
+				<AutoFixAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	autodev_template_migration_config_changer_agent: {
-		getRender: (size: SizeType) => (
-			<OpsAgentAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedOpsAgentAvatar, greenColor, size)
+			) : (
+				<OpsAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	autodev_template_vulnerable_dependency_updater_agent: {
-		getRender: (size: SizeType) => (
-			<MarketingMessageMaestroAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedMarketingMessageMaestroAvatar, greenColor, size)
+			) : (
+				<MarketingMessageMaestroAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	autodev_template_code_standardizer_agent: {
-		getRender: (size: SizeType) => (
-			<MyUserManualAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedMyUserManualAvatar, greenColor, size)
+			) : (
+				<MyUserManualAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	autodev_template_code_observer_agent: {
-		getRender: (size: SizeType) => (
-			<ResearchScoutAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedResearchScoutAvatar, greenColor, size)
+			) : (
+				<ResearchScoutAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	autodev_template_code_accessibility_checker_agent: {
-		getRender: (size: SizeType) => (
-			<HireWriterAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedHireWriterAvatar, greenColor, size)
+			) : (
+				<HireWriterAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	autodev_code_documentation_writer_agent: {
-		getRender: (size: SizeType) => (
-			<SocialMediaScribeAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedSocialMediaScribeAvatar, greenColor, size)
+			) : (
+				<SocialMediaScribeAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	autodev_feature_flag_cleaner_agent: {
-		getRender: (size: SizeType) => (
-			<FeatureFlagAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedFeatureFlagAvatar, greenColor, size)
+			) : (
+				<FeatureFlagAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	decision_director_agent: {
-		getRender: (size: SizeType) => (
-			<DecisionDirectorAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedDecisionDirectorAvatar, greenColor, size)
+			) : (
+				<DecisionDirectorAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	planner_agent: {
-		getRender: (size: SizeType) => (
-			<OpsAgentAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={purpleColor.primary}
-				secondaryColor={purpleColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedOpsAgentAvatar, purpleColor, size)
+			) : (
+				<OpsAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={purpleColor.primary}
+					secondaryColor={purpleColor.secondary}
+				/>
+			),
 		color: purpleColor,
 	},
 	tech_writer_agent: {
-		getRender: (size: SizeType) => (
-			<SocialMediaScribeAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.primary}
-				secondaryColor={blueColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedSocialMediaScribeAvatar, blueColor, size)
+			) : (
+				<SocialMediaScribeAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={blueColor.primary}
+					secondaryColor={blueColor.secondary}
+				/>
+			),
 		color: blueColor,
 	},
 	content_reviewer_agent: {
@@ -481,23 +550,29 @@ const outOfTheBoxAgentAvatar: {
 		color: blueColor,
 	},
 	user_manual_writer_agent: {
-		getRender: (size: SizeType) => (
-			<MyUserManualAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={yellowColor.primary}
-				secondaryColor={yellowColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedMyUserManualAvatar, yellowColor, size)
+			) : (
+				<MyUserManualAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={yellowColor.primary}
+					secondaryColor={yellowColor.secondary}
+				/>
+			),
 		color: yellowColor,
 	},
 	product_requirements_expert_agent: {
-		getRender: (size: SizeType) => (
-			<ProductRequirementAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={yellowColor.primary}
-				secondaryColor={yellowColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedProductRequirementAvatar, yellowColor, size)
+			) : (
+				<ProductRequirementAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={yellowColor.primary}
+					secondaryColor={yellowColor.secondary}
+				/>
+			),
 		color: yellowColor,
 	},
 	document_writer: {
@@ -511,33 +586,42 @@ const outOfTheBoxAgentAvatar: {
 		color: blueColor,
 	},
 	issue_organizer_agent: {
-		getRender: (size: SizeType) => (
-			<BacklogBuddyAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedBacklogBuddyAvatar, greenColor, size)
+			) : (
+				<BacklogBuddyAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	ops_guide_agent: {
-		getRender: (size: SizeType) => (
-			<OpsAgentAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={yellowColor.primary}
-				secondaryColor={yellowColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedOpsAgentAvatar, yellowColor, size)
+			) : (
+				<OpsAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={yellowColor.primary}
+					secondaryColor={yellowColor.secondary}
+				/>
+			),
 		color: yellowColor,
 	},
 	discovery_and_feedback_agent: {
-		getRender: (size: SizeType) => (
-			<CommsCrafterAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={greenColor.primary}
-				secondaryColor={greenColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedCommsCrafterAvatar, greenColor, size)
+			) : (
+				<CommsCrafterAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.primary}
+					secondaryColor={greenColor.secondary}
+				/>
+			),
 		color: greenColor,
 	},
 	jira_workflow_builder_agent: {
@@ -551,13 +635,16 @@ const outOfTheBoxAgentAvatar: {
 		color: blueColor,
 	},
 	itops_rca_agent: {
-		getRender: (size: SizeType) => (
-			<AutoReviewAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={yellowColor.primary}
-				secondaryColor={yellowColor.secondary}
-			/>
-		),
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				renderRefreshedAvatar(RefreshedAutoReviewAvatar, yellowColor, size)
+			) : (
+				<AutoReviewAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={yellowColor.primary}
+					secondaryColor={yellowColor.secondary}
+				/>
+			),
 		color: yellowColor,
 	},
 	jira_trial_guide_agent: {
@@ -604,15 +691,12 @@ const outOfTheBoxAgentAvatar: {
 		color: yellowColor,
 	},
 	mcp_amplitude_agent: {
-		getRender: (size: SizeType) => (
-			<AmplitudeAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-		),
-		color: blueColor,
-	},
-	mcp_amplitude_agent_v2: {
-		getRender: (size: SizeType) => (
-			<AmplitudeAgentAvatarV2 size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-		),
+		getRender: (size: SizeType) =>
+			fg('rovo_agent_amplitude_avatar_v2') ? (
+				<AmplitudeAgentAvatarV2 size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+			) : (
+				<AmplitudeAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+			),
 		color: blueColor,
 	},
 	mcp_box_agent: {
@@ -738,6 +822,18 @@ export const getNumberIdForAvatar = ({
 	return null;
 };
 
+const renderRefreshedAvatar = (
+	Avatar: React.ComponentType<RefreshedAvatarProps>,
+	color: AgentAvatarColor,
+	size: SizeType,
+) => (
+	<Avatar
+		size={AVATAR_SIZES[size]}
+		primaryColor={color === blueColor ? refreshedBlueColor.primary : color.primary}
+		iconColor={color === blueColor ? '#FFFFFF' : '#101214'}
+	/>
+);
+
 const ROVO_DEV_AGENT_ID = '027f0676-e8e9-4939-8962-3850987d78bb';
 const getAvatarRender = ({
 	agentNamedId,
@@ -767,7 +863,10 @@ const getAvatarRender = ({
 
 		return {
 			render: ootbAvatarResult.getRender(size),
-			color: ootbAvatarResult.color,
+			color:
+				agentNamedId === 'tech_writer_agent' && fg('platform-dst-avatar-updated-geometry')
+					? refreshedBlueColor
+					: ootbAvatarResult.color,
 		};
 	}
 
@@ -785,8 +884,15 @@ const getAvatarRender = ({
 		const avatarIndex = Math.floor(combinationIndex / colorList.length);
 		const colorIndex = combinationIndex % colorList.length;
 
-		const Avatar = avatarList[avatarIndex];
+		const Avatar = avatarList[avatarIndex].legacy;
 		const color = colorList[colorIndex];
+
+		if (fg('platform-dst-avatar-updated-geometry')) {
+			return {
+				render: renderRefreshedAvatar(avatarList[avatarIndex].refreshed, color, size),
+				color: color === blueColor ? refreshedBlueColor : color,
+			};
+		}
 
 		return {
 			render: (

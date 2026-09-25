@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import type { ToolbarSize } from '@atlaskit/editor-common/types';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	ButtonsMenuMinimal,
@@ -25,7 +25,7 @@ export const useResponsiveIconTypeButtons = ({
 }): IconTypes[] => {
 	let ResponsiveCustomButtonToolbar: Record<ToolbarSize, IconTypes[]> =
 		ResponsiveCustomButtonToolbarCompact;
-	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		ResponsiveCustomButtonToolbar = ResponsiveCustomButtonToolbarMinimal;
 	}
 
@@ -38,7 +38,7 @@ export const useResponsiveIconTypeButtons = ({
 		return iconTypeList;
 	}
 
-	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		return ToolbarButtonsStrong;
 	} else {
 		return ToolbarButtonsStrongItalic;
@@ -53,7 +53,7 @@ export const useResponsiveIconTypeMenu = ({
 	toolbarSize: ToolbarSize;
 }): IconTypes[] => {
 	let ResponsiveCustomMenu: Record<ToolbarSize, IconTypes[]> = ResponsiveCustomMenuCompact;
-	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		ResponsiveCustomMenu = ResponsiveCustomMenuMinimal;
 	}
 
@@ -66,7 +66,7 @@ export const useResponsiveIconTypeMenu = ({
 		return iconTypeList;
 	}
 
-	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		return ButtonsMenuMinimal;
 	} else {
 		return ToolbarButtonsStrongItalic;

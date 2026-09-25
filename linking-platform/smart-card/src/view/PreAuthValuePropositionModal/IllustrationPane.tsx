@@ -16,37 +16,38 @@ import illustrationWithoutProviderIcons from './assets/graphics-with-grid-no-pro
 const styles = cssMap({
 	illustration: {
 		display: 'block',
-		height: '450px',
+		height: '600px',
 		width: '400px',
 	},
-	illustrationLayer: {
-		borderEndEndRadius: 'inherit',
-		borderStartEndRadius: 'inherit',
-		height: '450px',
-		overflow: 'hidden',
-		position: 'relative',
+	// Keep the artwork out of layout so its extra height cannot stretch the text column.
+	illustrationGroup: {
+		height: '600px',
+		position: 'absolute',
+		top: '50%',
+		transform: 'translateY(-50%)',
 		width: '400px',
 	},
 	rightPane: {
-		alignItems: 'center',
 		borderEndEndRadius: 'inherit',
 		borderStartEndRadius: 'inherit',
-		display: 'flex',
 		flexShrink: 0,
-		height: '100%',
-		justifyContent: 'center',
+		// Preserve the original minimum; taller text, not the artwork, grows the modal.
+		minHeight: '450px',
 		overflow: 'hidden',
+		position: 'relative',
 		width: '400px',
 	},
 });
 
 // Pixel offsets and rotations are from the Figma illustration, not space tokens.
+// Offsets are relative to the illustration's own top-left corner (illustrationGroup), not to
+// `rightPane`, so they stay correct however much of `rightPane`'s height is visible.
 const illustrationIconStyles = unboundedCssMap({
 	footer: {
 		height: '15px',
 		left: '107px',
 		position: 'absolute',
-		top: '355px',
+		top: '430px',
 		transform: 'rotate(-3.18deg)',
 		width: '15px',
 	},
@@ -54,7 +55,7 @@ const illustrationIconStyles = unboundedCssMap({
 		height: '17px',
 		left: '123px',
 		position: 'absolute',
-		top: '184px',
+		top: '259px',
 		transform: 'rotate(3.37deg)',
 		width: '17px',
 	},
@@ -62,7 +63,7 @@ const illustrationIconStyles = unboundedCssMap({
 		height: '17px',
 		left: '121px',
 		position: 'absolute',
-		top: '215px',
+		top: '290px',
 		transform: 'rotate(3.37deg)',
 		width: '17px',
 	},
@@ -71,7 +72,7 @@ const illustrationIconStyles = unboundedCssMap({
 		left: '64px',
 		overflow: 'hidden',
 		position: 'absolute',
-		top: '53px',
+		top: '128px',
 		width: '40px',
 	},
 });
@@ -82,13 +83,13 @@ type IllustrationPaneProps = {
 
 const IllustrationPane = ({ renderProviderIcon }: IllustrationPaneProps): JSX.Element => (
 	<Box xcss={styles.rightPane}>
-		<Box xcss={styles.illustrationLayer}>
+		<Box xcss={styles.illustrationGroup}>
 			<img
 				alt=""
 				aria-hidden="true"
 				css={styles.illustration}
 				data-testid="pre-auth-value-proposition-modal-illustration"
-				height={450}
+				height={600}
 				src={illustrationWithoutProviderIcons}
 				srcSet={`${illustrationWithoutProviderIcons} 2x`}
 				width={400}

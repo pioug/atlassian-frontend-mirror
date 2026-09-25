@@ -11,8 +11,8 @@ import type { ExpandPlugin } from '../../types';
 import { ExpandQuickInsertMenuItem } from './ExpandQuickInsertMenuItem';
 
 const previewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/ltu45641cf615ybs8mr78hme7370ka38.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/gg4nl63re230l87iq0w0wqwas31esm3q.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKK.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVH5.png',
 };
 
 export const getExpandQuickInsertComponents = ({

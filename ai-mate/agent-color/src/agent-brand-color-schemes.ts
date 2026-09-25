@@ -15,16 +15,30 @@ const monochrome: AgentPresenceColor = {
 
 /** Brand values use the product's CSS colour scheme, so existing decorations follow theme changes. */
 const brandColors: Readonly<Record<AgentBrandColorScheme, AgentPresenceColor>> = {
-	'agent-brand-replit': monochrome,
-	'agent-brand-lovable': monochrome,
+	'agent-brand-replit': {
+		accentText: themed('#000000', '#E8E8EA'),
+		background: themed('#E5E5E5', '#333335'),
+		bold: themed('#000000', '#E8E8EA'),
+		boldText: themed('#FFFFFF', '#000000'),
+		border: themed('#BEB9B9', '#656567'),
+		text: themed('#292A2E', '#E8E8EA'),
+	},
+	'agent-brand-lovable': {
+		accentText: themed('#000000', '#E8E8EA'),
+		background: themed('#E5E5E5', '#333335'),
+		bold: themed('#000000', '#E8E8EA'),
+		boldText: themed('#FFFFFF', '#000000'),
+		border: themed('#BEB9B9', '#656567'),
+		text: themed('#292A2E', '#E8E8EA'),
+	},
 	'agent-brand-figma': {
-		accentText: themed('#000000', '#FFFFFF'),
-		background: themed('#E5E5E5', '#E8E8EA'),
-		bold: themed('#000000', '#FFFFFF'),
-		boldText: themed('#FFFFFF', '#292A2E'),
-		border: themed('#BEB9B9', '#FFFFFF'),
+		accentText: themed('#000000', '#E8E8EA'),
+		background: themed('#E5E5E5', '#333335'),
+		bold: themed('#000000', '#E8E8EA'),
+		boldText: themed('#FFFFFF', '#000000'),
+		border: themed('#BEB9B9', '#656567'),
 		emphasisBackground: themed('#E5E5E5', '#333335'),
-		text: themed('#292A2E', '#292A2E'),
+		text: themed('#292A2E', '#E8E8EA'),
 	},
 	'agent-brand-databricks': {
 		accentText: themed('#B52113', '#FF8C80'),
@@ -87,7 +101,6 @@ const brandColors: Readonly<Record<AgentBrandColorScheme, AgentPresenceColor>> =
 		border: token('color.border.accent.purple'),
 		text: token('color.text'),
 	},
-	/** ChatGPT's own brand colour — no ADS token matches it. */
 	'agent-brand-chatgpt': {
 		accentText: themed('#000000', '#E8E8EA'),
 		background: themed('#E5E5E5', '#333335'),

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+
+import { useIntl } from 'react-intl';
 
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
@@ -8,6 +10,7 @@ import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import { getSnippetPreviewImageUrls } from '@atlaskit/editor-common/quick-insert/snippet-preview-image-urls';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type {
@@ -15,7 +18,6 @@ import type {
 	RegisterMenuItem,
 } from '@atlaskit/editor-ui-control-model/types';
 import AppsIcon from '@atlaskit/icon/core/apps';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 type LegacyCompatibleComponentProps = CommonComponentProps & {
 	onInsert?: () => void;
@@ -39,6 +41,7 @@ const LegacyQuickInsertProviderMenuItem = ({
 	item: QuickInsertItem;
 	onInsert: (item: QuickInsertItem) => void;
 }): React.JSX.Element => {
+	const { formatMessage } = useIntl();
 	const { editorView, isOffline } = useQuickInsertContext();
 	const isDisabled = item.isDisabledOffline === true && isOffline;
 	const onSelect = ({ insert, source }: OnSelectContext) => {
@@ -54,17 +57,28 @@ const LegacyQuickInsertProviderMenuItem = ({
 	const previewKey = itemKey?.startsWith(snippetKeyPrefix)
 		? itemKey.slice(snippetKeyPrefix.length)
 		: undefined;
-	const previewImageUrls =
-		isExperimentEnabled('platform_editor_slash_command') && previewKey
-			? getSnippetPreviewImageUrls(previewKey)
-			: undefined;
+	const fallbackPreviewImage = previewKey ? getSnippetPreviewImageUrls(previewKey) : undefined;
+	const preview = useMemo(
+		() =>
+			item.preview ??
+			(fallbackPreviewImage
+				? {
+						image: fallbackPreviewImage,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined),
+		[formatMessage, fallbackPreviewImage, item.preview],
+	);
 
 	return (
 		<QuickInsertMenuItem
+			description={item.description}
 			iconBefore={Icon ? <Icon /> : <AppsIcon label="" />}
 			isDisabled={isDisabled}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			shortcut={item.keyshortcut}
 			title={item.title}
 		/>

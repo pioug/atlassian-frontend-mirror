@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 20.0.4
+
+### Patch Changes
+
+- [`806c750c64957`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/806c750c64957) -
+  Clean up experiment `platform_editor_diff_plugin_extended`
+- Updated dependencies
+
 ## 20.0.3
 
 ### Patch Changes

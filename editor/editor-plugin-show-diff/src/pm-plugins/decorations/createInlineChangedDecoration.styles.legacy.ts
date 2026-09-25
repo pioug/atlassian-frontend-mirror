@@ -7,12 +7,9 @@
  * only so the ADF-safety gate can select the equivalent longhand; with that gate off, their CSS
  * remains unchanged. Delete the whole file at experiment cleanup (EDITOR-8281).
  */
-import type { ColorScheme, DiffType } from '../../showDiffPluginType';
-import { isExtendedEnabled } from '../isExtendedEnabled';
+import type { ColorScheme } from '../../showDiffPluginType';
 import {
 	deletedInlineContentStyleExtended,
-	editingStyle,
-	editingStyleActive,
 	editingStyleActiveExtended,
 	editingStyleActiveExtendedNoUnderline,
 	editingStyleExtended,
@@ -32,50 +29,34 @@ import type { InlineAttrChangeNodeName } from './utils/getAttrChangeRanges';
  */
 export const resolveInlineChangedStyleLegacy = ({
 	colorScheme,
-	diffType,
 	hideAddedDiffsUnderline,
 	isActive,
 	isInserted,
 }: {
 	colorScheme: ColorScheme | undefined;
-	diffType: DiffType | undefined;
 	hideAddedDiffsUnderline: boolean;
 	isActive: boolean;
 	isInserted: boolean;
 }): string => {
-	let style: string;
-
-	if (isExtendedEnabled(diffType)) {
-		if (isInserted) {
-			if (colorScheme === 'traditional') {
-				style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
-			} else {
-				style = isActive
-					? hideAddedDiffsUnderline
-						? editingStyleActiveExtendedNoUnderline
-						: editingStyleActiveExtended
-					: hideAddedDiffsUnderline
-						? editingStyleExtendedNoUnderline
-						: editingStyleExtended;
-			}
-		} else {
-			if (colorScheme === 'traditional') {
-				style = getDeletedTraditionalInlineStyle(false);
-			} else {
-				style =
-					(isActive ? getStandardDeletedContentStyleActive() : getStandardDeletedContentStyle()) +
-					deletedInlineContentStyleExtended;
-			}
-		}
-	} else {
+	if (isInserted) {
 		if (colorScheme === 'traditional') {
-			style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
-		} else {
-			style = isActive ? editingStyleActive : editingStyle;
+			return isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
 		}
+		return isActive
+			? hideAddedDiffsUnderline
+				? editingStyleActiveExtendedNoUnderline
+				: editingStyleActiveExtended
+			: hideAddedDiffsUnderline
+				? editingStyleExtendedNoUnderline
+				: editingStyleExtended;
 	}
-
-	return style;
+	if (colorScheme === 'traditional') {
+		return getDeletedTraditionalInlineStyle(false);
+	}
+	return (
+		(isActive ? getStandardDeletedContentStyleActive() : getStandardDeletedContentStyle()) +
+		deletedInlineContentStyleExtended
+	);
 };
 
 /**

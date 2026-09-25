@@ -29,7 +29,6 @@ import {
 } from '@atlaskit/editor-common/utils/content-visibility';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
@@ -365,24 +364,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		);
 	}
 
-	/**
-	 * Only the percentage-based `ResizableMediaSingle` reads `offsetLeft`, to offset the resize grid
-	 * for an image indented in a list. Resolved once: `ignoreMutation` is far too hot for a per-call
-	 * experiment lookup.
-	 *
-	 * We can remove skipsOffsetLeftRead and always return true ignoreMutation,
-	 * Once we removed the legacy media resizer.
-	 */
-	private readonly skipsOffsetLeftRead: boolean =
-		(Boolean(this.reactComponentProps.mediaOptions?.allowPixelResizing) ||
-			!this.reactComponentProps.mediaOptions?.allowResizing) &&
-		isExperimentEnabled('platform_editor_reduce_forced_layout');
-
-	ignoreMutation(): boolean {
-		if (this.skipsOffsetLeftRead) {
-			return true;
-		}
-
+	ignoreMutation() {
 		// DOM has changed; recalculate if we need to re-render
 		if (this.dom) {
 			// Ignored via go/ees005

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 20.0.5
+
+### Patch Changes
+
+- [`2fbdbadc1a47c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fbdbadc1a47c) -
+  Convert direct container headings and nested list paragraphs to Normal or Small text while
+  preserving other nested content under platform_editor_block_menu_small_text.
+- Updated dependencies
+
+## 20.0.4
+
+### Patch Changes
+
+- [`981dd11bb4ed2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/981dd11bb4ed2) -
+  Add opt-in target visibility handling to editor popups, and use it to hide the Jira description
+  block menu while its originating node is outside the visible viewport. The popup reappears when
+  its target returns, preserving an open nested menu, behind the
+  `platform_editor_popup_target_visibility` experiment.
+- Updated dependencies
+
 ## 20.0.3
 
 ### Patch Changes

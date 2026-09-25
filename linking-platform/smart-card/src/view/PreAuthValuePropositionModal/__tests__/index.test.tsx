@@ -17,6 +17,7 @@ import { PreAuthValuePropositionModal } from '../index';
 const mockAuthorize = jest.fn();
 const mockFireEvent = jest.fn();
 const mockOnFinished = jest.fn();
+const mockOnOpenChange = jest.fn();
 const mockHasReachedShowLimit = jest.spyOn(
 	preAuthValuePropositionModalService,
 	'hasReachedShowLimit',
@@ -54,7 +55,11 @@ const mockUseSmartLink = jest.mocked(useSmartLink);
 const renderModalHost = () =>
 	render(
 		<IntlProvider locale="en">
-			<PreAuthValuePropositionModal url={testUrl} onFinished={mockOnFinished} />
+			<PreAuthValuePropositionModal
+				url={testUrl}
+				onFinished={mockOnFinished}
+				onOpenChange={mockOnOpenChange}
+			/>
 		</IntlProvider>,
 	);
 
@@ -89,6 +94,7 @@ describe('PreAuthValuePropositionModal', () => {
 		mockFireEvent.mockClear();
 		mockRecordShow.mockClear();
 		mockOnFinished.mockClear();
+		mockOnOpenChange.mockClear();
 	});
 
 	it('renders generic content with the backend provider name for an eligible link', async () => {
@@ -153,6 +159,27 @@ describe('PreAuthValuePropositionModal', () => {
 			expect(mockFireEvent).toHaveBeenCalledWith('ui.modal.opened.preAuthValueProposition', {});
 		});
 		await expect(baseElement).toBeAccessible();
+	});
+
+	it.each(['modal_text_only', 'modal_with_image'])(
+		'notifies when the %s modal opens and unmounts',
+		async (variant) => {
+			mockExp('platform_sl_3p_preauth_value_modal', { variant });
+			const { unmount } = renderModalHost();
+			await screen.findByTestId('pre-auth-value-proposition-modal');
+			expect(mockOnOpenChange).toHaveBeenLastCalledWith(true);
+
+			unmount();
+			expect(mockOnOpenChange).toHaveBeenLastCalledWith(false);
+		},
+	);
+
+	it('notifies when the modal is closed', async () => {
+		mockExp('platform_sl_3p_preauth_value_modal', { variant: 'modal_text_only' });
+		const user = userEvent.setup();
+		renderModalHost();
+		await user.click(await screen.findByRole('button', { name: 'Close' }));
+		expect(mockOnOpenChange).toHaveBeenLastCalledWith(false);
 	});
 
 	it('renders low-adoption social proof as standalone text', async () => {
@@ -264,6 +291,7 @@ describe('PreAuthValuePropositionModal', () => {
 		});
 		expect(mockRecordShow).not.toHaveBeenCalled();
 		expect(mockOnFinished).toHaveBeenCalledTimes(1);
+		expect(mockOnOpenChange).not.toHaveBeenCalled();
 	});
 
 	it('does not render after the provider has reached the show limit', async () => {

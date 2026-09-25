@@ -33,6 +33,7 @@ export const QuickInsertSectionOverflowMenuItem = ({ api, category }: Props): Re
 			iconBefore={<AddIcon label="" />}
 			isDisabled={!api?.quickInsert}
 			onSelect={onSelect}
+			shouldShowPreview={false}
 			title={formatMessage(toolbarInsertBlockMessages.viewMore)}
 		/>
 	);

@@ -7,6 +7,7 @@ import createFocusTrap from 'focus-trap';
 import rafSchedule from 'raf-schd';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { Position } from './utils';
 import { calculatePlacement, calculatePosition, findOverflowScrollParent } from './utils';
@@ -28,6 +29,8 @@ export interface Props {
 	/** Enable focus trap to contain the user's focus within the popup */
 	focusTrap?: boolean | FocusTrapOptions;
 	forcePlacement?: boolean;
+	/** Hide the popup while its visibility target is fully outside the visible viewport. */
+	hideWhenTargetOutOfView?: boolean;
 	// Minimum distance (in px) the popup can be from the edge of its offset
 	// parent. Defaults to 1. Increase to add breathing room between the popup
 	// and the viewport/scrollbar on narrow viewports.
@@ -37,6 +40,7 @@ export interface Props {
 	offset?: number[];
 	onPlacementChanged?: (placement: [string, string]) => void;
 	onPositionCalculated?: (position: Position) => Position;
+	onTargetVisibilityChanged?: (isVisible: boolean) => void;
 	// Move focus here if needed to run after focus trap teardown
 	onUnmount?: () => void;
 	preventOverflow?: boolean;
@@ -47,6 +51,8 @@ export interface Props {
 	stick?: boolean;
 	style?: React.CSSProperties;
 	target?: HTMLElement;
+	/** Element whose viewport visibility controls the popup. Defaults to `target`. */
+	visibilityTarget?: HTMLElement;
 	zIndex?: number;
 }
 
@@ -55,6 +61,7 @@ export interface State {
 	popup?: HTMLElement;
 
 	position?: Position;
+	targetVisible: boolean;
 	validPosition: boolean;
 }
 
@@ -62,7 +69,9 @@ export interface State {
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Popup extends React.Component<Props, State> {
 	scrollElement: undefined | false | HTMLElement;
+	private reportedTargetVisibility?: boolean;
 	private unbindScroll?: () => void;
+	private targetVisibilityObserver?: IntersectionObserver;
 	rafIds: Set<number> = new Set();
 	static defaultProps: {
 		allowOutOfBound: boolean;
@@ -73,6 +82,7 @@ export default class Popup extends React.Component<Props, State> {
 	};
 
 	state: State = {
+		targetVisible: true,
 		validPosition: true,
 	};
 
@@ -177,6 +187,72 @@ export default class Popup extends React.Component<Props, State> {
 				});
 			});
 		}
+	}
+
+	private setTargetVisibility = (targetVisible: boolean): void => {
+		if (targetVisible !== this.state.targetVisible) {
+			if (!targetVisible) {
+				// Let consumers preserve focus before the popup becomes hidden.
+				this.reportTargetVisibility(targetVisible);
+				this.focusTrap?.pause();
+				this.setState({ targetVisible });
+				return;
+			}
+
+			// Reveal the popup before consumers restore focus to its contents.
+			this.setState({ targetVisible }, () => {
+				if (this.props.focusTrap) {
+					this.focusTrap?.unpause();
+				}
+				this.reportTargetVisibility(targetVisible);
+			});
+			return;
+		}
+
+		this.reportTargetVisibility(targetVisible);
+	};
+
+	private reportTargetVisibility = (targetVisible: boolean): void => {
+		if (targetVisible !== this.reportedTargetVisibility) {
+			this.reportedTargetVisibility = targetVisible;
+			this.props.onTargetVisibilityChanged?.(targetVisible);
+		}
+	};
+
+	private initTargetVisibilityObserver(): void {
+		const { hideWhenTargetOutOfView, target, visibilityTarget } = this.props;
+		const observedTarget = visibilityTarget ?? target;
+
+		this.targetVisibilityObserver?.disconnect();
+		this.targetVisibilityObserver = undefined;
+
+		if (
+			!hideWhenTargetOutOfView ||
+			!isExperimentEnabled('platform_editor_popup_target_visibility')
+		) {
+			if (!this.state.targetVisible) {
+				this.setTargetVisibility(true);
+			}
+			return;
+		}
+
+		this.reportedTargetVisibility = undefined;
+		const IntersectionObserverConstructor =
+			observedTarget?.ownerDocument.defaultView?.IntersectionObserver;
+		if (!IntersectionObserverConstructor || !observedTarget) {
+			this.setTargetVisibility(true);
+			return;
+		}
+
+		this.targetVisibilityObserver = new IntersectionObserverConstructor(
+			(entries) => {
+				const entry = entries[entries.length - 1];
+				this.setTargetVisibility(entry?.isIntersecting ?? true);
+			},
+			{ root: null },
+		);
+		this.targetVisibilityObserver.observe(observedTarget);
+		this.setTargetVisibility(true);
 	}
 
 	private cannotSetPopup(
@@ -357,6 +433,16 @@ export default class Popup extends React.Component<Props, State> {
 		if (prevProps.scrollableElement !== this.props.scrollableElement) {
 			this.initScrollElement();
 		}
+		// Reconfigure while enabled, or once after disabling to clean up the existing observer.
+		// A different target must be observed again.
+		if (
+			(prevProps.hideWhenTargetOutOfView || this.props.hideWhenTargetOutOfView) &&
+			(prevProps.hideWhenTargetOutOfView !== this.props.hideWhenTargetOutOfView ||
+				prevProps.target !== this.props.target ||
+				prevProps.visibilityTarget !== this.props.visibilityTarget)
+		) {
+			this.initTargetVisibilityObserver();
+		}
 
 		if (this.props !== prevProps) {
 			this.scheduledUpdatePosition(prevProps);
@@ -369,12 +455,16 @@ export default class Popup extends React.Component<Props, State> {
 		window.addEventListener('resize', this.onResize);
 
 		this.initScrollElement();
+		if (this.props.hideWhenTargetOutOfView) {
+			this.initTargetVisibilityObserver();
+		}
 	}
 
 	componentWillUnmount(): void {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('resize', this.onResize);
+		this.targetVisibilityObserver?.disconnect();
 		this.unbindScroll?.();
 		if (this.scrollElement) {
 			// Ignored via go/ees005
@@ -395,7 +485,7 @@ export default class Popup extends React.Component<Props, State> {
 	}
 
 	private renderPopup() {
-		const { position } = this.state;
+		const { position, targetVisible } = this.state;
 		const { shouldRenderPopup } = this.props;
 
 		if (shouldRenderPopup && !shouldRenderPopup(position || {})) {
@@ -429,6 +519,12 @@ export default class Popup extends React.Component<Props, State> {
 					...position,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					...this.props.style,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Runtime visibility follows the target's scroll position.
+					...(this.props.hideWhenTargetOutOfView &&
+						isExperimentEnabled('platform_editor_popup_target_visibility') &&
+						!targetVisible && {
+							visibility: 'hidden',
+						}),
 				}}
 				role={getRole()}
 				aria-label={ariaLabel}

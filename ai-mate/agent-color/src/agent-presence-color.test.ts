@@ -48,13 +48,10 @@ describe('agent presence colours', () => {
 		);
 	});
 
-	it('pairs Figma dark highlights with readable dark foreground', () => {
-		expect(getThirdPartyAgentColor({ agentNamedId: 'mcp_figma_agent' })).toEqual(
-			expect.objectContaining({
-				background: 'var(--agent-brand-figma-background, light-dark(#E5E5E5, #E8E8EA))',
-				text: 'var(--agent-brand-figma-text, light-dark(#292A2E, #292A2E))',
-			}),
-		);
+	it.each(['Figma', 'Lovable', 'Replit'])('matches ChatGPT tag colours for %s', (agentName) => {
+		const brand = getThirdPartyAgentColor({ agentName });
+		expect(brand?.bold).toContain('light-dark(#000000, #E8E8EA)');
+		expect(brand?.boldText).toContain('light-dark(#FFFFFF, #000000)');
 	});
 
 	it.each([

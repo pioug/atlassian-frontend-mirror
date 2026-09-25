@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 import type { MessageDescriptor } from 'react-intl';
@@ -9,11 +9,13 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import LayoutFiveColumnsIcon from '@atlaskit/icon-lab/core/layout-five-columns';
 import LayoutFourColumnsIcon from '@atlaskit/icon-lab/core/layout-four-columns';
@@ -45,6 +47,18 @@ export const LayoutQuickInsertMenuItem = ({
 	title,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined,
+		[formatMessage, previewImageUrls],
+	);
 	const Icon = icons[columnCount];
 	const onSelect = useCallback(
 		({ editorView, insert, source }: OnSelectContext) => {
@@ -67,9 +81,12 @@ export const LayoutQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(toolbarInsertBlockMessages.columnsDescriptionAdvancedLayout, {
+				numberOfColumns: columnCount,
+			})}
 			iconBefore={<Icon label="" />}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			title={formatMessage(title)}
 		/>
 	);

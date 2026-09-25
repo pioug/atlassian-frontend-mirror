@@ -1,6 +1,4 @@
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const areToolbarFlagsEnabled = (isNewToolbarEnabled?: boolean): boolean =>
-	Boolean(
-		expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') || isNewToolbarEnabled,
-	);
+	Boolean(editorExperiment('platform_editor_controls', 'variant1') || isNewToolbarEnabled);

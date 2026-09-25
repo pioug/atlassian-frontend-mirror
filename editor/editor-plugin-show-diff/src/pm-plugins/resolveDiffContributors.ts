@@ -23,8 +23,18 @@ type ResolvedIdentity = Omit<DiffContributor, 'attribution' | 'connectedTo'>;
 const SHOW_DIFF_AGENT_BRANDS: Readonly<Partial<Record<AgentBrandColorScheme, DiffAgentBrand>>> = {
 	'agent-brand-claude': 'claude',
 	'agent-brand-chatgpt': 'chatgpt',
+	'agent-brand-figma': 'figma',
+	'agent-brand-lovable': 'lovable',
+	'agent-brand-replit': 'replit',
 	'agent-brand-rovo': 'rovo',
 };
+
+/**
+ * Brands that prefer the account's real avatar over their fixed glyph when the invoking profile
+ * has one. Claude/ChatGPT/Rovo intentionally keep their fixed glyph always (see `AGENT_KIND_ICONS`
+ * in `contributorAvatarRenderer.ts`).
+ */
+const AVATAR_ELIGIBLE_BRANDS: ReadonlySet<DiffAgentBrand> = new Set(['figma', 'lovable', 'replit']);
 
 /** Known external agent types emitted by Confluence's agent identification service that carry
  * no `@atlaskit/agent-color` brand — a generic labelled fallback. */
@@ -73,15 +83,25 @@ const resolveAgent = (
 	profilesByAccountId: Map<string, DiffContributorProfile>,
 ): ResolvedIdentity => {
 	const agentType = attribution.agentType?.trim().toLowerCase();
-	const brand = agentType ? getThirdPartyAgentColor({ agentName: agentType }) : undefined;
+	// `agentType` may be a named id (e.g. `mcp_lovable_agent`) or a display name (e.g. `lovable`).
+	const brand = agentType
+		? getThirdPartyAgentColor({ agentNamedId: agentType, agentName: agentType })
+		: undefined;
 	const diffBrand = brand ? SHOW_DIFF_AGENT_BRANDS[brand.scheme] : undefined;
-
-	if (diffBrand && brand) {
-		return { agentKind: diffBrand, kind: 'agent', name: brand.name };
-	}
 
 	const agentId = attribution.agentId?.trim();
 	const agentProfile = agentId ? profilesByAccountId.get(agentId) : undefined;
+
+	if (diffBrand && brand) {
+		return {
+			agentKind: diffBrand,
+			kind: 'agent',
+			name: brand.name,
+			...(AVATAR_ELIGIBLE_BRANDS.has(diffBrand) && agentProfile?.avatarUrl
+				? { avatarUrl: agentProfile.avatarUrl }
+				: {}),
+		};
+	}
 
 	if (agentProfile) {
 		return {

@@ -111,6 +111,10 @@ const unboundStyles = unboundCssMap({
 			backgroundColor: token('color.border.focused'),
 		},
 	},
+	updatedHexagonClipPath: {
+		clipPath:
+			'polygon(43.61555% 1.47441%, 46.08136% 0.49147%, 48.67910% 0.00000%, 51.32080% 0.00000%, 53.91847% 0.49147%, 56.38412% 1.47441%, 93.61555% 20.77327%, 95.79666% 22.19894%, 97.56964% 23.97299%, 98.89052% 26.02699%, 99.71530% 28.29251%, 100.00000% 30.70112%, 100.00000% 69.29883%, 99.71530% 71.70746%, 98.89052% 73.97300%, 97.56964% 76.02700%, 95.79666% 77.80100%, 93.61555% 79.22654%, 56.38412% 98.52540%, 53.91847% 99.50837%, 51.32080% 99.99991%, 48.67910% 100.00000%, 46.08136% 99.50860%, 43.61555% 98.52569%, 6.38428% 79.22654%, 4.20328% 77.80100%, 2.43035% 76.02700%, 1.10949% 73.97300%, 0.28471% 71.70746%, 0.00000% 69.29883%, 0.00000% 30.70112%, 0.28471% 28.29251%, 1.10949% 26.02699%, 2.43035% 23.97299%, 4.20328% 22.19894%, 6.38428% 20.77327%)',
+	},
 	hexagonBorderContainerCustomBorder: {
 		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `background` shorthand must override `backgroundColor` in `hexagonBorderContainer` when avatar-custom-border is enabled
 		background: `var(${bgColorCssVar})`,
@@ -172,6 +176,7 @@ const unboundStyles = unboundCssMap({
 	// This can be combined with the interactive style when "platform-dst-motion-uplift" is cleaned up
 	interactiveMotion: {
 		transition: token('motion.avatar.hovered'),
+		willChange: 'transform',
 		'&:hover': {
 			transform: 'scale(1.12)',
 		},
@@ -210,6 +215,35 @@ const hexagonBorderFixStyles = unboundCssMap({
 	},
 });
 
+// See https://hello.atlassian.net/wiki/spaces/DST/pages/7432283012
+const updatedHexagonBorderFixStyles = unboundCssMap({
+	hexagonBorderContainer: {
+		// The existing avatar margin already contributes `borderWidth * 1` of the gap needed in
+		// both directions, so no extra inline padding/margin is required, but the block direction
+		// still needs the aspect-ratio-scaled remainder: `borderWidth * 1.125 - borderWidth * 1 = borderWidth * 0.125`.
+		paddingBlockEnd: `calc(${token('border.width.selected')} * 0.125)`,
+		paddingBlockStart: `calc(${token('border.width.selected')} * 0.125)`,
+		paddingInlineEnd: 0,
+		paddingInlineStart: 0,
+		marginBlockEnd: `calc(${token('border.width.selected')} * -0.125)`,
+		marginBlockStart: `calc(${token('border.width.selected')} * -0.125)`,
+		marginInlineEnd: 0,
+		marginInlineStart: 0,
+	},
+	hexagonFocusContainer: {
+		// This layer gets no help from the inner avatar margin, so it needs the full gap in both
+		// directions: `borderWidth * 1` inline, `borderWidth * 1.125` block.
+		paddingBlockEnd: `calc(${token('border.width.selected')} * 1.125)`,
+		paddingBlockStart: `calc(${token('border.width.selected')} * 1.125)`,
+		paddingInlineEnd: token('border.width.selected'),
+		paddingInlineStart: token('border.width.selected'),
+		marginBlockEnd: `calc(${token('border.width.selected')} * -1.125)`,
+		marginBlockStart: `calc(${token('border.width.selected')} * -1.125)`,
+		marginInlineEnd: `calc(${token('border.width.selected')} * -1)`,
+		marginInlineStart: `calc(${token('border.width.selected')} * -1)`,
+	},
+});
+
 const widthHeightMap = cssMap({
 	xxsmall: { width: '16px', height: '16px' },
 	xsmall: { width: '16px', height: '16px' },
@@ -219,6 +253,16 @@ const widthHeightMap = cssMap({
 	large: { width: '40px', height: '40px' },
 	xlarge: { width: '96px', height: '96px' },
 	xxlarge: { width: '128px', height: '128px' },
+});
+
+// The sole source of truth for the updated hexagon width/height geometry (per size).
+const updatedHexagonDimensionMap = cssMap({
+	xxsmall: { width: '15.4px', height: '17.17px' },
+	small: { width: '23.11px', height: '25.76px' },
+	medium: { width: '30.81px', height: '34.34px' },
+	large: { width: '38.51px', height: '42.93px' },
+	xlarge: { width: '92.43px', height: '103.02px' },
+	xxlarge: { width: '123.24px', height: '137.36px' },
 });
 
 type AvatarContentProps = {
@@ -242,6 +286,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 	const {
 		as: Container,
 		appearance,
+		UNSAFE_isUpdatedGeometry,
 		avatarImage,
 		borderColor = token('elevation.surface'),
 		href,
@@ -271,6 +316,10 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				appearance === 'circle' && styles.circle,
 				appearance === 'hexagon' && unboundStyles.hexagon,
 				widthHeightMap[size],
+				UNSAFE_isUpdatedGeometry &&
+					updatedHexagonDimensionMap[
+						size as 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
+					],
 				stackIndex !== undefined && styles.positionRelative,
 				isInteractive && !isDisabled && unboundStyles.interactive,
 				isInteractive &&
@@ -318,11 +367,14 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		<div
 			css={[
 				unboundStyles.hexagonFocusContainer,
+				UNSAFE_isUpdatedGeometry && unboundStyles.updatedHexagonClipPath,
 				isInteractive &&
 					!isDisabled &&
 					fg('platform-dst-motion-uplift') &&
 					unboundStyles.interactiveMotion,
+				UNSAFE_isUpdatedGeometry && updatedHexagonBorderFixStyles.hexagonFocusContainer,
 				fg('platform_editor_agent_mentions_drop_one_fixes') &&
+					!UNSAFE_isUpdatedGeometry &&
 					hexagonBorderFixStyles.hexagonFocusContainer,
 			]}
 			style={
@@ -337,7 +389,9 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				css={[
 					unboundStyles.hexagonBorderContainer,
 					fg('avatar-custom-border') && unboundStyles.hexagonBorderContainerCustomBorder,
+					UNSAFE_isUpdatedGeometry && updatedHexagonBorderFixStyles.hexagonBorderContainer,
 					fg('platform_editor_agent_mentions_drop_one_fixes') &&
+						!UNSAFE_isUpdatedGeometry &&
 						hexagonBorderFixStyles.hexagonBorderContainer,
 				]}
 				data-testid={testId ? `${testId}-hexagon-border-container` : 'hexagon-border-container'}

@@ -143,6 +143,37 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		},
 	);
 
+	it('forwards an extension preview through the legacy quick-insert item', async () => {
+		const preview = {
+			image: { light: 'https://example.com/preview.png' },
+			attribution: { name: 'Example app' },
+		};
+		const extensionProvider = new DefaultExtensionProvider([
+			replaceCustomQuickInsertModules(
+				createFakeExtensionManifest({
+					title: 'Preview item',
+					type: 'com.atlassian.test',
+					extensionKey: 'preview-extension',
+				}),
+				{
+					key: 'preview-item',
+					title: 'Preview item',
+					preview,
+					action: jest.fn(),
+				},
+			),
+		]);
+		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+			extensionProvider,
+			{} as EditorActions,
+			{ current: undefined },
+		);
+
+		await expect(quickInsertProvider.getItems()).resolves.toEqual([
+			expect.objectContaining({ preview, title: 'Preview item' }),
+		]);
+	});
+
 	it('should create analytics event when inserted', async () => {
 		const dummyExtensionProvider = setup();
 		const createAnalyticsEvent = jest.fn(() => ({

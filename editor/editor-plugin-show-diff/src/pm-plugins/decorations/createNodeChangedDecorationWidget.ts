@@ -6,8 +6,7 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
-import type { DiffType, RevealOptions } from '../../showDiffPluginType';
-import { isExtendedEnabled } from '../isExtendedEnabled';
+import type { RevealOptions } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 import { countEmptyTextBlockOnlySlice } from '../utils/emptyTextBlocks';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
@@ -58,11 +57,9 @@ const createTableCellContentWidgets = ({
 	colorScheme,
 	isInserted,
 	leftAnchorId,
-	diffType,
 }: {
 	change: Pick<Change, 'fromB' | 'toB'>;
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	isInserted: boolean;
 	leftAnchorId?: string;
 	newDoc: PMNode;
@@ -98,7 +95,7 @@ const createTableCellContentWidgets = ({
 		// so every block inside the cell is rendered.
 		cellNode.content.forEach((blockNode) => {
 			const nodeView = nodeViewSerializer.tryCreateNodeView(blockNode);
-			const wrapper = createContentWrapper(colorScheme, false, isInserted, diffType);
+			const wrapper = createContentWrapper(colorScheme, false, isInserted);
 			if (nodeView) {
 				wrapper.append(nodeView);
 			} else {
@@ -133,8 +130,7 @@ const createTableCellContentWidgets = ({
 					diffId: crypto.randomUUID(),
 					leftAnchorId,
 					isInserted,
-					diffType,
-					...(isExtendedEnabled(diffType) && { side: -1 }),
+					side: -1,
 				}),
 			}),
 		);
@@ -165,7 +161,6 @@ export const createNodeChangedDecorationWidget = ({
 	// before it. Used for `smart` node-level changes so the deleted node appears beneath
 	// its replacement (gray + strikethrough).
 	placeBelow = false,
-	diffType,
 	hideAddedDiffsUnderline = false,
 	reveal,
 	tagMountContext,
@@ -176,7 +171,6 @@ export const createNodeChangedDecorationWidget = ({
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted' | 'toB'>;
 	colorScheme?: ColorScheme;
 	deletedColumns?: readonly number[];
-	diffType?: DiffType;
 	doc: PMNode;
 	hideAddedDiffsUnderline?: boolean;
 	intl: IntlShape;
@@ -225,7 +219,6 @@ export const createNodeChangedDecorationWidget = ({
 			createDeletedLineBreakDecoration({
 				colorScheme,
 				count: deletedBlankLineCount,
-				diffType,
 				isActive,
 				pos: safeInsertPos,
 				reveal,
@@ -253,7 +246,6 @@ export const createNodeChangedDecorationWidget = ({
 			colorScheme,
 			isInserted,
 			leftAnchorId,
-			diffType,
 		});
 	}
 	if (tableDiffMode.kind === 'none') {
@@ -270,7 +262,6 @@ export const createNodeChangedDecorationWidget = ({
 			isActive,
 			isInserted,
 			leftAnchorId,
-			diffType,
 			intl,
 			// Needed for the row's own indicator anchor; this path returns before the
 			// `anchor-name` assignment further down.
@@ -299,17 +290,11 @@ export const createNodeChangedDecorationWidget = ({
 	const isTopLevelInsert = $safeInsertPos.depth === 0;
 	const hasPreviousBlock = $safeInsertPos.nodeBefore?.isBlock === true;
 	const isFirstDocHeadingReplacement =
-		isExtendedEnabled(diffType) &&
 		!placeBelow &&
 		change.fromB === 0 &&
 		slice.content.firstChild?.type.name === 'heading' &&
 		newDoc.firstChild?.type.name === 'heading';
-	if (
-		isExtendedEnabled(diffType) &&
-		isTopLevelInsert &&
-		hasPreviousBlock &&
-		!isFirstDocHeadingReplacement
-	) {
+	if (isTopLevelInsert && hasPreviousBlock && !isFirstDocHeadingReplacement) {
 		// Editor CSS removes the top margin from a block when it is its parent's first child.
 		// Keep the serialized block as a subsequent child so each block type retains its own margin.
 		dom.append(dom.ownerDocument.createElement('div'));
@@ -325,23 +310,20 @@ export const createNodeChangedDecorationWidget = ({
 	// incorrectly applies because isNestedNode resolves to false (getPos returns 0).
 	// Observe DOM mutations and override the transform on .rich-media-item elements
 	// after React mounts to prevent the image from shifting outside its parent container.
-	let constrainMediaObserver: MutationObserver | undefined;
-	if (isExtendedEnabled(diffType)) {
-		constrainMediaObserver = new MutationObserver(() => {
-			const richMediaItems = dom.querySelectorAll('.rich-media-item');
-			richMediaItems.forEach((el) => {
-				if (el instanceof HTMLElement) {
-					el.style.transform = 'none';
-					el.style.marginLeft = '0';
-					el.style.maxWidth = '100%';
-				}
-			});
-			if (richMediaItems.length > 0) {
-				constrainMediaObserver?.disconnect();
+	const constrainMediaObserver = new MutationObserver(() => {
+		const richMediaItems = dom.querySelectorAll('.rich-media-item');
+		richMediaItems.forEach((el) => {
+			if (el instanceof HTMLElement) {
+				el.style.transform = 'none';
+				el.style.marginLeft = '0';
+				el.style.maxWidth = '100%';
 			}
 		});
-		constrainMediaObserver.observe(dom, { childList: true, subtree: true });
-	}
+		if (richMediaItems.length > 0) {
+			constrainMediaObserver.disconnect();
+		}
+	});
+	constrainMediaObserver.observe(dom, { childList: true, subtree: true });
 	// Derived from the deleted range so it survives a recalculation — see the same reasoning in
 	// `createInlineChangedDecoration`.
 	const diffId = showContributorTags ? `widget-${change.fromA}-${change.toA}` : crypto.randomUUID();
@@ -420,14 +402,14 @@ export const createNodeChangedDecorationWidget = ({
 					if (childNodeView) {
 						const lineBreak = document.createElement('br');
 						dom.append(lineBreak);
-						const wrapper = createContentWrapper(colorScheme, isActive, isInserted, diffType);
+						const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
 						wrapper.append(childNodeView);
 						dom.append(wrapper);
 					} else {
 						// Fallback to serializing the individual child node
 						const serializedChild = serializer.serializeNode(childNode);
 						if (serializedChild) {
-							const wrapper = createContentWrapper(colorScheme, isActive, isInserted, diffType);
+							const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
 							wrapper.append(serializedChild);
 							dom.append(wrapper);
 						}
@@ -473,7 +455,7 @@ export const createNodeChangedDecorationWidget = ({
 		const nodeView = serializer.tryCreateNodeView(node);
 		if (nodeView) {
 			if (node.isInline) {
-				const wrapper = createContentWrapper(colorScheme, isActive, isInserted, diffType, reveal);
+				const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);
 				wrapper.append(nodeView);
 				dom.append(wrapper);
 			} else {
@@ -486,7 +468,6 @@ export const createNodeChangedDecorationWidget = ({
 					intl,
 					isActive,
 					isInserted,
-					diffType,
 					hideAddedDiffsUnderline,
 					highlightInlineLeafNodes: shouldPreserveCompleteMultiInlineBlock,
 				});
@@ -505,12 +486,11 @@ export const createNodeChangedDecorationWidget = ({
 						colorScheme,
 						isActive,
 						isInserted,
-						diffType,
 						reveal,
 					});
 					dom.append(injectedNode);
 				} else {
-					const wrapper = createContentWrapper(colorScheme, isActive, isInserted, diffType, reveal);
+					const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);
 					wrapper.append(fallbackNode);
 					dom.append(wrapper);
 				}
@@ -579,7 +559,7 @@ export const createNodeChangedDecorationWidget = ({
 
 	// Needed even when the indicator bar is off, because a contributor tag also anchors against the
 	// widget.
-	if ((showIndicators || showContributorTags) && isExtendedEnabled(diffType)) {
+	if (showIndicators || showContributorTags) {
 		dom.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
 		// The tag built below only anchors via `anchor()` if `contributorTagAnchorName` is set; without
 		// it the tag falls back to a non-anchored position (EDITOR-9045).
@@ -639,7 +619,7 @@ export const createNodeChangedDecorationWidget = ({
 		}
 	}
 
-	if (showIndicators && isExtendedEnabled(diffType)) {
+	if (showIndicators) {
 		const leftAnchor = createLeftAnchorWidget({
 			doc: newDoc,
 			from: safeInsertPos,
@@ -667,12 +647,9 @@ export const createNodeChangedDecorationWidget = ({
 				leftAnchorId,
 				isActive,
 				isInserted,
-				diffType,
-				...(isExtendedEnabled(diffType) && {
-					// placeBelow anchors at the end of the new content, so render on the
-					// trailing side (1); otherwise render before the new content (-1).
-					side: placeBelow ? 1 : -1,
-				}),
+				// placeBelow anchors at the end of the new content, so render on the
+				// trailing side (1); otherwise render before the new content (-1).
+				side: placeBelow ? 1 : -1,
 			}),
 			// Without an explicit mark set, prosemirror-view wraps the widget in the marks of the
 			// adjacent text in the NEW document. `dom` already carries the original marks, so a
@@ -680,7 +657,7 @@ export const createNodeChangedDecorationWidget = ({
 			// introduced — unbolded text shown struck through but still bold.
 			marks: [],
 			destroy: () => {
-				constrainMediaObserver?.disconnect();
+				constrainMediaObserver.disconnect();
 				unmountContributorTag(tagMount);
 				tagMount = undefined;
 			},
@@ -703,12 +680,7 @@ export const createNodeChangedDecorationWidget = ({
 	// the widget that loses one — handled by `absorbFirstChildMarginReset` above, not here.
 	const nodeAfterWidget = $safeInsertPos.nodeAfter;
 
-	if (
-		fg('platform_editor_ai_show_diff_patch_2') &&
-		isExtendedEnabled(diffType) &&
-		isVisuallyFirstInParent &&
-		nodeAfterWidget
-	) {
+	if (fg('platform_editor_ai_show_diff_patch_2') && isVisuallyFirstInParent && nodeAfterWidget) {
 		const shapedSpacer = createNodeShapedMarginSpacer({
 			node: nodeAfterWidget,
 			serializer,
@@ -738,8 +710,7 @@ export const createNodeChangedDecorationWidget = ({
 		!fg('platform_editor_ai_show_diff_patch_2') &&
 		isDiffWidgetAtStartOfDoc &&
 		isSingleBlock &&
-		isPureDeletion &&
-		isExtendedEnabled(diffType)
+		isPureDeletion
 	) {
 		const followingNode = $safeInsertPos.nodeAfter;
 		const headingLevel =
@@ -772,7 +743,6 @@ export const createNodeChangedDecorationWidget = ({
 						decorationType: 'widget',
 						diffId: crypto.randomUUID(),
 						isInserted,
-						diffType,
 					}),
 				}),
 			);

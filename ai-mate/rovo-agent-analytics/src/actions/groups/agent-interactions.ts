@@ -11,7 +11,9 @@
  * 2. If this action doesn't fit user interactions, create a new group file instead
  *    (see other files in this directory for the template)
  */
-import type { BaseAgentAnalyticsAttributes } from '../../common/types';
+import type { BaseAgentAnalyticsAttributes, BrowseCardAnalyticsContext } from '../../common/types';
+
+type BrowseAgentInteractionAttributes = BaseAgentAnalyticsAttributes & BrowseCardAnalyticsContext;
 
 /**
  * Discriminated union payload type for agent interaction events.
@@ -22,25 +24,25 @@ export type AgentInteractionsEventPayload =
 			// https://data-portal.internal.atlassian.com/analytics/registry/97125
 			actionSubject: 'rovoAgent';
 			action: 'view';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97126
 			actionSubject: 'rovoAgent';
 			action: 'edit';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97128
 			actionSubject: 'rovoAgent';
 			action: 'copyLink';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97129
 			actionSubject: 'rovoAgent';
 			action: 'delete';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/108162
@@ -62,37 +64,37 @@ export type AgentInteractionsEventPayload =
 			// https://data-portal.internal.atlassian.com/analytics/registry/97130
 			actionSubject: 'rovoAgent';
 			action: 'duplicate';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97133
 			actionSubject: 'rovoAgent';
 			action: 'star';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97095
 			actionSubject: 'rovoAgent';
 			action: 'chat';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97134
 			actionSubject: 'rovoAgent';
 			action: 'verify';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97135
 			actionSubject: 'rovoAgent';
 			action: 'unverify';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/109597
 			actionSubject: 'rovoAgent';
 			action: 'export';
-			attributes: BaseAgentAnalyticsAttributes;
+			attributes: BrowseAgentInteractionAttributes;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/109598

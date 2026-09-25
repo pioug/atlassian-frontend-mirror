@@ -24,6 +24,7 @@ import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI, HeadingLevels } from '@atlaskit/editor-common/types';
 import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
 import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
@@ -64,32 +65,32 @@ const headingQuickInsertShortcuts: Record<HeadingLevels, string> = {
 
 const previewImageUrls: Record<BlockTypeQuickInsertItem, { dark: string; light: string }> = {
 	blockquote: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/d4te57pv7j85c6xr1vui6q708733gfc3.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/284qt5g0c4mqi24osl0df4s3ra301mpx.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVIC.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVL6.png',
 	},
 	1: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/hw6qyn044721b2m7v3102xik2llkf6qb.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1i1ff4is6g200qb6a4181fjecydch0kc.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVJH.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLN.png',
 	},
 	2: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/8abbo27edjqrle6c78u8qj2j67707abu.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/8rt7x7u7765v72l0ngw65em701u4s58l.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVI2.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVMW.png',
 	},
 	3: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/350xa31s48b471rf57xhr344rx8qs17a.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/gyt13k2542x5bgq284m10n1hc4baf85j.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVID.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLC.png',
 	},
 	4: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/26goi016hs18n0r5243bdh8260ucp58n.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/78356r6s0xwe71o13mfj381gpyqt4niq.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVIT.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVM2.png',
 	},
 	5: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1uou5866vounmn58aunwxkfo20kk871o.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/584t6547t6h570unr3v581oi154625lo.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHK.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLZ.png',
 	},
 	6: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/5h60y538ycf7d7646t0k644iau08027l.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/g3o407j1432fc405m45r82ygbfv44323.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVIB.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVN0.png',
 	},
 };
 
@@ -128,6 +129,18 @@ export const BlockTypeQuickInsertMenuItem = ({ api, item }: Props): React.JSX.El
 	const title = formatMessage(
 		item === 'blockquote' ? messages.blockquote : getHeadingQuickInsertMessages(item).title,
 	);
+	const description = formatMessage(
+		item === 'blockquote'
+			? messages.blockquoteDescription
+			: getHeadingQuickInsertMessages(item).description,
+	);
+	const preview = useMemo(
+		() => ({
+			image: previewImageUrls[item],
+			attribution: { name: formatMessage(quickInsertMessages.previewAttributionAtlassian) },
+		}),
+		[formatMessage, item],
+	);
 	const onSelect = useCallback(
 		({ editorView, insert }: OnSelectContext) => {
 			const { schema } = editorView.state;
@@ -163,9 +176,10 @@ export const BlockTypeQuickInsertMenuItem = ({ api, item }: Props): React.JSX.El
 
 	return (
 		<QuickInsertMenuItem
+			description={description}
 			iconBefore={getBlockTypeQuickInsertIcon(item)}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls[item]}
+			preview={preview}
 			shortcut={shortcut}
 			title={title}
 		/>

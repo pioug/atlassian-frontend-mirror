@@ -1,13 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
+import { ConfluenceAttributionIcon } from '@atlaskit/editor-common/quick-insert/confluence-attribution-icon';
+import { JiraAttributionIcon } from '@atlaskit/editor-common/quick-insert/jira-attribution-icon';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import AssetsIcon from '@atlaskit/icon/core/assets';
@@ -32,6 +35,36 @@ export const DatasourceQuickInsertMenuItem = ({
 	const { isOffline } = useQuickInsertContext();
 	const isJira = type === 'jira';
 	const isConfluenceSearch = type === 'confluence-search';
+	const description = formatMessage(
+		isJira
+			? fg('confluence-issue-terminology-refresh')
+				? messages.datasourceJiraIssueDescriptionIssueTermRefresh
+				: messages.datasourceJiraIssueDescription
+			: isConfluenceSearch
+				? messages.datasourceConfluenceSearchDescription
+				: messages.datasourceAssetsObjectsDescription,
+	);
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(
+								isJira
+									? quickInsertMessages.previewAttributionJira
+									: isConfluenceSearch
+										? quickInsertMessages.previewAttributionConfluence
+										: quickInsertMessages.previewAttributionAssets,
+							),
+							...((isJira || isConfluenceSearch) && {
+								icon: isJira ? JiraAttributionIcon : ConfluenceAttributionIcon,
+							}),
+						},
+					}
+				: undefined,
+		[formatMessage, isConfluenceSearch, isJira, previewImageUrls],
+	);
 	const onSelect = useCallback(
 		({ insert }: OnSelectContext) => {
 			const tr = insert(undefined);
@@ -43,6 +76,7 @@ export const DatasourceQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={description}
 			iconBefore={
 				isJira ? (
 					<WorkItemsIcon label="" />
@@ -54,7 +88,7 @@ export const DatasourceQuickInsertMenuItem = ({
 			}
 			isDisabled={isOffline}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			title={formatMessage(
 				isJira
 					? fg('confluence-issue-terminology-refresh')

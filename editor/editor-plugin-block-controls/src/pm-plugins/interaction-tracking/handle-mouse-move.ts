@@ -112,14 +112,10 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 	const target = event.target instanceof HTMLElement ? event.target : null;
 
 	// EDITOR-7926: skip hover-side tracking while a diff is on screen (or a suggestion card is open)
-	// so setHoverSide/mouseEnter don't flip-flop and jitter the controls. No-exposure check as this
-	// runs on every mouse move.
+	// so setHoverSide/mouseEnter don't flip-flop and jitter the controls.
 	const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
 	const isDisplayingDiff = api?.showDiff?.sharedState.currentState()?.isDisplayingChanges ?? false;
-	if (
-		(isDisplayingDiff || currentUserIntent === 'reviewing') &&
-		expValEqualsNoExposure('platform_editor_diff_plugin_extended', 'isEnabled', true)
-	) {
+	if (isDisplayingDiff || currentUserIntent === 'reviewing') {
 		return;
 	}
 

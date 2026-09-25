@@ -12,8 +12,7 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
-import type { ColorScheme, DiffType } from '../../../showDiffPluginType';
-import { isExtendedEnabled } from '../../isExtendedEnabled';
+import type { ColorScheme } from '../../../showDiffPluginType';
 import {
 	deletedBlockOutline,
 	deletedBlockOutlineActive,
@@ -129,10 +128,9 @@ export const getChangedContentStyleLegacy = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 	isInserted: boolean = false,
-	diffType?: DiffType,
 	hideAddedDiffsUnderline: boolean = false,
 ): string => {
-	if (isExtendedEnabled(diffType) && isInserted) {
+	if (isInserted) {
 		if (colorScheme === 'traditional') {
 			return isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
 		}
@@ -159,12 +157,11 @@ export const getChangedNodeStyleLegacy = (
 	colorScheme?: ColorScheme,
 	isInserted: boolean = false,
 	isActive: boolean = false,
-	diffType?: DiffType,
 	hideAddedDiffsUnderline: boolean = false,
 ): string | undefined => {
 	const isTraditional = colorScheme === 'traditional';
 
-	if (isExtendedEnabled(diffType) && isInserted) {
+	if (isInserted) {
 		if (isMultiContainerBlockNode(nodeName)) {
 			return hideAddedDiffsUnderline || fg('platform_editor_ai_show_diff_patch_1')
 				? editingContentStyleInBlockExtendedNoUnderline
@@ -238,7 +235,6 @@ export const getInsertedContentStyleLegacy = (
 export const getDeletedContentStyleLegacy = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
-	diffType?: DiffType,
 	// The reveal animation paints the highlight itself so it can wipe it in; a static one here would
 	// cover the whole span and leave nothing to reveal. Mirrors the same option on the Next variant.
 	omitHighlight: boolean = false,
@@ -246,7 +242,7 @@ export const getDeletedContentStyleLegacy = (
 	if (colorScheme === 'traditional') {
 		return getDeletedTraditionalInlineStyle(isActive);
 	}
-	if (isExtendedEnabled(diffType) && !omitHighlight) {
+	if (!omitHighlight) {
 		return (
 			(isActive ? getStandardDeletedContentStyleActive() : getStandardDeletedContentStyleNew()) +
 			deletedInlineContentStyleExtended

@@ -25,7 +25,6 @@ const lineHeightBase = 20;
 const lineHeightCompact = 16;
 const compactVerticalPadding = 2;
 const verticalPadding = 6;
-const transitionDuration = '0.2s';
 const borderWidth = 2;
 
 const baseStyles = css({
@@ -44,8 +43,6 @@ const baseStyles = css({
 	font: token('font.body'),
 	outline: 'none',
 	overflow: 'auto',
-	transition: `background-color ${transitionDuration} ease-in-out,
-               border-color ${transitionDuration} ease-in-out`,
 	wordWrap: 'break-word',
 	'&:disabled': {
 		color: token('color.text.disabled'),
@@ -109,6 +106,15 @@ const baseStyles = css({
 	'&:not([data-compact])': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: lineHeightBase / 14,
+	},
+});
+
+const inputMotionStyles = cssMap({
+	legacy: {
+		transition: `background-color 0.2s ease-in-out, border-color 0.2s ease-in-out`,
+	},
+	base: {
+		transition: token('motion.input'),
 	},
 });
 
@@ -308,6 +314,8 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 		style,
 		...rest
 	} = props;
+	const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
+	const isInteractive = !isDisabled && !isReadOnly;
 
 	const borderHeight = useMemo(() => (appearance === 'none' ? 2 : 1), [appearance]);
 
@@ -388,6 +396,8 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 			rows={minimumRows}
 			css={[
 				baseStyles,
+				!isInputMotionEnabled && inputMotionStyles.legacy,
+				isInputMotionEnabled && isInteractive && inputMotionStyles.base,
 				fg('platform-dst-tokens-finesse') && finessePlaceholderStyles,
 				appearanceStyles[appearance],
 				fontStyles[isMonospaced ? 'monospace' : 'default'],

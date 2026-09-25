@@ -14,7 +14,10 @@ import {
 import type { ExtensionAPI, MenuItem } from '@atlaskit/editor-common/extensions';
 import { resolveImport } from '@atlaskit/editor-common/extensions';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import {
+	processRawFragmentValue,
+	processRawValue,
+} from '@atlaskit/editor-common/process-raw-value';
 import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
@@ -107,7 +110,9 @@ export const executeExtensionQuickInsertItem = ({
 					}
 
 					api.core.actions.execute(({ tr }) => {
-						const content = processRawValue(tr.doc.type.schema, node);
+						const content = Array.isArray(node)
+							? processRawFragmentValue(tr.doc.type.schema, node)
+							: processRawValue(tr.doc.type.schema, node);
 						return content ? safeInsert(content)(tr).scrollIntoView() : null;
 					});
 				}

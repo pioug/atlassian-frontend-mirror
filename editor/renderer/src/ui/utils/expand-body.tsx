@@ -2,7 +2,6 @@ import React, { createContext, isValidElement, useContext } from 'react';
 import type { Provider, ReactNode } from 'react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	BLOCK_SEPARATOR,
@@ -93,10 +92,6 @@ export const withExpandBodyBlock = (
 ): JSX.Element | null => {
 	const parent = ancestors[ancestors.length - 1];
 	if (!parent || !isExpandNode(parent)) {
-		return serialized;
-	}
-
-	if (!isExperimentEnabled('platform_editor_defer_collapsed_expand_body')) {
 		return serialized;
 	}
 

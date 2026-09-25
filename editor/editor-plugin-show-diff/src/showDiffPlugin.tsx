@@ -5,7 +5,6 @@ import type { EditorView } from 'prosemirror-view';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	areAttributionColorGatesEnabled,
@@ -83,9 +82,7 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => {
 			showDiff:
 				(params?: ShowDiffParams) =>
 				({ tr }) => {
-					if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-						api?.userIntent?.commands.setCurrentUserIntent('viewingDiff')({ tr });
-					}
+					api?.userIntent?.commands.setCurrentUserIntent('viewingDiff')({ tr });
 					const reveal = resolveReveal(params?.reveal, editorView);
 
 					// Capture snapshot BEFORE transaction dispatch (last moment outgoing DOM exists).
@@ -116,9 +113,7 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => {
 				if (editorView) {
 					cancelReveal(editorView);
 				}
-				if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-					api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
-				}
+				api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 				return tr.setMeta(showDiffPluginKey, {
 					steps: [],
 					stepAttributions: [],
@@ -144,9 +139,6 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => {
 			];
 		},
 		contentComponent: () => {
-			if (!expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-				return null;
-			}
 			// Rendered here sharing decoration anchor span DOM context (tags mount separately).
 			return (
 				<React.Fragment>
@@ -159,9 +151,7 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => {
 				return {
 					isDisplayingChanges: false,
 					activeIndex: undefined,
-					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-						? { diffDescriptors: [] }
-						: {}),
+					diffDescriptors: [],
 				};
 			}
 			const pluginState = showDiffPluginKey.getState(editorState);
@@ -170,13 +160,9 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => {
 				isDisplayingChanges: decorationCount.length > 0,
 				activeIndex: pluginState?.activeIndex,
 				numberOfChanges: decorationCount.length,
-				...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-					? {
-							contributorTags: pluginState?.contributorTags,
-							diffDescriptors: pluginState?.diffDescriptors,
-							showIndicators: pluginState?.showIndicators,
-						}
-					: {}),
+				contributorTags: pluginState?.contributorTags,
+				diffDescriptors: pluginState?.diffDescriptors,
+				showIndicators: pluginState?.showIndicators,
 			};
 		},
 	};

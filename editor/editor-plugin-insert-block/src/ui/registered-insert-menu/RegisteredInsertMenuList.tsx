@@ -6,6 +6,7 @@ import type { ListRowRenderer, ListProps } from 'react-virtualized/dist/commonjs
 
 import { cssMap } from '@atlaskit/css';
 import type { QuickInsertMenuModel } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
+import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
@@ -19,7 +20,8 @@ import { token } from '@atlaskit/tokens';
 import { RegisteredInsertMenuItem } from './RegisteredInsertMenuItem';
 
 const ESTIMATED_ROW_HEIGHT = 56;
-const MENU_FOOTER_HEIGHT = 52;
+// 40px item + 8px block padding + 1px separator.
+const MENU_FOOTER_HEIGHT = 49;
 const MENU_SEARCH_HEIGHT = 64;
 const LIST_WIDTH = 350;
 const listAriaProps: Pick<ListProps, 'aria-readonly'> = {
@@ -119,6 +121,12 @@ export const RegisteredInsertMenuList = ({
 		[rows],
 	);
 
+	const { height: measuredHeight, updateHeight } = useMenuListHeight(
+		cache,
+		rows.length,
+		rowKeySignature,
+	);
+
 	useLayoutEffect(() => {
 		cache.clearAll();
 		listRef.current?.recomputeRowHeights();
@@ -127,6 +135,7 @@ export const RegisteredInsertMenuList = ({
 
 	const onRowsRendered = useCallback<NonNullable<ListProps['onRowsRendered']>>(
 		({ overscanStartIndex, overscanStopIndex }) => {
+			updateHeight();
 			const indexes = [...itemIndexByRowIndex]
 				.filter(([rowIndex]) => rowIndex >= overscanStartIndex && rowIndex <= overscanStopIndex)
 				.map(([, itemIndex]) => itemIndex);
@@ -135,7 +144,7 @@ export const RegisteredInsertMenuList = ({
 				stopIndex: indexes[indexes.length - 1] ?? -1,
 			});
 		},
-		[itemIndexByRowIndex, onRenderedItemsChange],
+		[itemIndexByRowIndex, onRenderedItemsChange, updateHeight],
 	);
 
 	const renderRow: ListRowRenderer = useCallback(
@@ -242,7 +251,7 @@ export const RegisteredInsertMenuList = ({
 								{...listAriaProps}
 								tabIndex={null}
 								containerRole="presentation"
-								height={Math.min(rows.length * ESTIMATED_ROW_HEIGHT, listMaxHeight)}
+								height={Math.min(measuredHeight, listMaxHeight)}
 								overscanRowCount={3}
 								onRowsRendered={onRowsRendered}
 								ref={setListRef}

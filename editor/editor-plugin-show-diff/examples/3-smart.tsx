@@ -95,7 +95,7 @@ import type {
 // pipeline reads, not just the ones this example adds. Keep it in sync with:
 //   grep -rho "fg('[a-z_0-9]*')" ../src | sort -u
 //
-// - `platform_editor_ai_smart_diff` ............ the `smart` diff type, and the extended pipeline
+// - `platform_editor_ai_smart_diff` ............ the `smart` diff type
 // - `platform_editor_diff_inline_mark_changes` . mark-aware tokenising; WITHOUT this, `inline` shows
 //                                                no diff at all for mark-only changes (bold, links,
 //                                                colour). `smart` is unaffected — it takes the

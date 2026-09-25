@@ -66,8 +66,7 @@ const justifyEndStyles = css({ justifyContent: 'flex-end' });
 const TagGroup: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<TagGroupProps> & React.RefAttributes<any>
 > = forwardRef<any, TagGroupProps>(({ alignment = 'start', titleId, label, children }, ref) => {
-	const isTagMotionEnabled =
-		fg('platform-dst-lozenge-tag-badge-visual-uplifts') && fg('platform-dst-motion-uplift-labels');
+	const isTagMotionEnabled = fg('platform-dst-motion-uplift-labels');
 	const shouldProvideMotionBoundary =
 		isTagMotionEnabled && Children.toArray(children).every(isMotionCapableTag);
 

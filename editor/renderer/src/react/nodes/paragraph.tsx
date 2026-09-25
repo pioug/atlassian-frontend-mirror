@@ -8,6 +8,7 @@ export default function Paragraph({
 	dataAttributes,
 	localId,
 	asInline,
+	plainTextFastPath,
 }: NodeProps): React.JSX.Element {
 	return (
 		// ignore the eslint warning Text primitive does not support dataAttributes
@@ -15,7 +16,7 @@ export default function Paragraph({
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/use-primitives-text
 		<p {...dataAttributes} data-local-id={localId} data-as-inline={asInline}>
-			<Inline>{children}</Inline>
+			<Inline plainTextFastPath={plainTextFastPath}>{children}</Inline>
 		</p>
 	);
 }

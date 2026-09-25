@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 209.0.0
+
+### Major Changes
+
+- [`806c750c64957`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/806c750c64957) -
+  Clean up experiment `platform_editor_diff_plugin_extended`
+
 ## 208.0.0
 
 ### Major Changes

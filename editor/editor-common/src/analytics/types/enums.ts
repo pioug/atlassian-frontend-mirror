@@ -38,6 +38,7 @@ export enum ACTION {
 	DEACTIVATED = 'deactivated',
 	DECREMENTED = 'decremented',
 	DELETED = 'deleted',
+	DISCARD_ALL = 'discardAll',
 	DISCARDED_INVALID_STEPS_FROM_TRANSACTION = 'discardedInvalidStepsFromTransaction',
 	DISCARDED = 'discarded',
 	/** used in @atlassian/editor-referentiality */
@@ -61,6 +62,7 @@ export enum ACTION {
 	ENTERED = 'entered',
 	ERROR = 'error',
 	ERRORED = 'errored',
+	EMPTY_STATE_EXPOSED = 'emptyStateExposed',
 	EXPERIENCE_MEASURED = 'experienceMeasured',
 	EXPERIENCE_SAMPLED = 'experienceSampled',
 	EXPOSED = 'exposed',
@@ -117,6 +119,7 @@ export enum ACTION {
 	REFERENCE_SYNCED_BLOCK_UPDATE = 'referenceSyncedBlockUpdate',
 	REFERENCE_SYNCED_BLOCK_UNSYNC = 'referenceSyncedBlockUnsync',
 	REFERENCE_SYNCED_BLOCK_COPY = 'referenceSyncedBlockCopy',
+	RIGHT_RAIL_CLOSED = 'rightRailClosed',
 	RIGHT_RAIL_VIEWED = 'rightRailViewed',
 	REPLACED_ALL = 'replacedAll',
 	REPLACED_ONE = 'replacedOne',

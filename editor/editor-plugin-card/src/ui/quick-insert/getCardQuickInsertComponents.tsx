@@ -28,16 +28,16 @@ type Params = {
 
 const datasourcePreviewImageUrlsByKey: Readonly<Record<string, { dark: string; light: string }>> = {
 	[JIRA_WORK_ITEMS_MENU_ITEM.key]: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/m284qw5066530tr5yd11473uq1l8t86t.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/4b1455q46emetd0jxv70xuo7i7lwo574.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVIM.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLA.png',
 	},
 	[CONFLUENCE_LIST_MENU_ITEM.key]: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/8jh31f0k143b475y5tun230v166c7087.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/6co68akkw56t83fql3m823qi21k8776u.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVIK.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVMD.png',
 	},
 	[ASSETS_MENU_ITEM.key]: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/64d41r462m2343iomn821ver0g4ohh37.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/0w58rc60jh54m68224qqinuk52d6lldt.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVJ2.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVM6.png',
 	},
 };
 

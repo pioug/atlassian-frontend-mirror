@@ -61,6 +61,11 @@ export interface NodeMeta {
 	hideExtensionKeysWhilePending?: string[];
 	marks: PMNode['marks'];
 	nodeType: NodeType['name'];
+	/**
+	 * Whether the text and paragraph fast path experiment is enabled for this render.
+	 * Evaluated once per `ReactSerializer` instance rather than per node.
+	 */
+	plainTextFastPath?: boolean;
 	portal?: HTMLElement | undefined;
 	providers?: ProviderFactory | undefined;
 	rendererAppearance?: RendererAppearance;

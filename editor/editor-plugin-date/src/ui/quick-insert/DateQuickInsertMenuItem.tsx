@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -15,6 +15,7 @@ import {
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 
@@ -29,6 +30,18 @@ export const DateQuickInsertMenuItem = ({
 	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined,
+		[formatMessage, previewImageUrls],
+	);
 	const onSelect = useCallback(
 		({ insert, source }: OnSelectContext) => {
 			const tr = createDateAtTransaction(true)(insert(undefined));
@@ -46,9 +59,10 @@ export const DateQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(messages.dateDescription)}
 			iconBefore={<CalendarIcon label="" />}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			shortcut="//"
 			title={formatMessage(messages.date)}
 		/>

@@ -439,7 +439,9 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		const suggestionsPatchEnabled =
 			isExperimentEnabled('platform_editor_status_popup_suggestions') &&
 			fg('platform_editor_status_popup_suggestions_patch_1');
-		const isUpdateStatusColorsEnabled = isExperimentEnabled('platform_editor_update_status_colors');
+		const isUpdateStatusColorsEnabled =
+			isExperimentEnabled('platform_editor_update_status_colors') ||
+			isExperimentEnabled('platform_editor_update_status_colors_jira');
 		const suggestedStatusList =
 			suggestedStatuses?.length &&
 			isExperimentEnabled('platform_editor_status_popup_suggestions') ? (
@@ -541,11 +543,13 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 			return null;
 		}
 
-		const fitHeight = isExperimentEnabled('platform_editor_update_status_colors')
-			? STATUS_PICKER_TEN_COLOR_FIT_HEIGHT
-			: fg('platform_editor_status_popup_suggestions_patch_3')
-				? STATUS_PICKER_FIT_HEIGHT
-				: STATUS_PICKER_FIT_HEIGHT_OLD;
+		const fitHeight =
+			isExperimentEnabled('platform_editor_update_status_colors') ||
+			isExperimentEnabled('platform_editor_update_status_colors_jira')
+				? STATUS_PICKER_TEN_COLOR_FIT_HEIGHT
+				: fg('platform_editor_status_popup_suggestions_patch_3')
+					? STATUS_PICKER_FIT_HEIGHT
+					: STATUS_PICKER_FIT_HEIGHT_OLD;
 
 		return (
 			target && (

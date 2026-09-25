@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import LinkButton from '@atlaskit/button/link';
+import { messages } from '@atlaskit/editor-common/quick-insert';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 
 type Props = {
@@ -47,7 +48,7 @@ export const RegistryElementBrowserFooter = ({
 					{formatMessage({ defaultMessage: 'Insert', id: 'editor.quick-insert.insert' })}
 				</Button>
 				<Button appearance="subtle" onClick={onClose}>
-					{formatMessage({ defaultMessage: 'Close', id: 'editor.quick-insert.close' })}
+					{formatMessage(messages.close)}
 				</Button>
 			</Inline>
 		</Inline>

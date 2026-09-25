@@ -1,5 +1,18 @@
 # @atlaskit/status
 
+## 5.12.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.12.12
+
+### Patch Changes
+
+- [`ac601b5b2d024`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac601b5b2d024) -
+  Enable updated status colors when platform_editor_update_status_colors_jira is enabled
+
 ## 5.12.11
 
 ### Patch Changes

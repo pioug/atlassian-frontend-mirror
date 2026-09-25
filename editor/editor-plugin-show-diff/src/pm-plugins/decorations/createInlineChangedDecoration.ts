@@ -4,9 +4,8 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type { DiffType, RevealOptions } from '../../showDiffPluginType';
+import type { RevealOptions } from '../../showDiffPluginType';
 import { CONTRIBUTOR_TAG_Z_INDEX } from '../../ui/ContributorTag/buildContributorTagDom';
-import { isExtendedEnabled } from '../isExtendedEnabled';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 import {
 	buildAtomicInlineChangedCSSVariables,
@@ -86,7 +85,7 @@ const getAtomicInlineNodeClassName = (
 	return classNames.join(' ');
 };
 
-/** Inline style for inserted content under the extended diff experience. */
+/** Inline style for inserted content. */
 const getExtendedInsertStyle = (
 	colors: DiffColorScheme,
 	isActive: boolean,
@@ -108,7 +107,7 @@ const getExtendedInsertStyle = (
 		: buildInsertStyleExtended(colors);
 };
 
-/** Inline style for deleted content under the extended diff experience. */
+/** Inline style for deleted content. */
 const getExtendedDeletedStyle = (colors: DiffColorScheme, isActive: boolean): string => {
 	if (colors.deletedInlineTreatment === 'strikethrough') {
 		// Identical in both states — the block decoration carries the active emphasis.
@@ -124,25 +123,18 @@ const getExtendedDeletedStyle = (colors: DiffColorScheme, isActive: boolean): st
 /** Registry-driven inline `style` for a changed-content decoration. */
 const resolveInlineChangedStyleRefactored = ({
 	colors,
-	diffType,
 	hideAddedDiffsUnderline,
 	isActive,
 	isInserted,
 }: {
 	colors: DiffColorScheme;
-	diffType: DiffType | undefined;
 	hideAddedDiffsUnderline: boolean;
 	isActive: boolean;
 	isInserted: boolean;
-}): string => {
-	if (isExtendedEnabled(diffType)) {
-		return isInserted
-			? getExtendedInsertStyle(colors, isActive, hideAddedDiffsUnderline)
-			: getExtendedDeletedStyle(colors, isActive);
-	}
-
-	return isActive ? buildInsertStyleActive(colors) : buildInsertStyle(colors);
-};
+}): string =>
+	isInserted
+		? getExtendedInsertStyle(colors, isActive, hideAddedDiffsUnderline)
+		: getExtendedDeletedStyle(colors, isActive);
 
 /**
  * Single gate for the inline `style` string: registry + factory when the refactor is on, the
@@ -151,7 +143,6 @@ const resolveInlineChangedStyleRefactored = ({
 const resolveInlineChangedStyle = (args: {
 	colors: DiffColorScheme;
 	colorScheme: ColorScheme | undefined;
-	diffType: DiffType | undefined;
 	hideAddedDiffsUnderline: boolean;
 	isActive: boolean;
 	isInserted: boolean;
@@ -212,7 +203,6 @@ export const createInlineChangedDecoration = ({
 	showContributorTags = false,
 	showIndicators = false,
 	doc,
-	diffType,
 	hideAddedDiffsUnderline = false,
 	inlineNodeName,
 	hasDeletedWidget = false,
@@ -223,7 +213,6 @@ export const createInlineChangedDecoration = ({
 	attributionKey?: string;
 	change: { fromB: number; toB: number };
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	doc?: PMNode;
 	hasDeletedWidget?: boolean;
 	hideAddedDiffsUnderline?: boolean;
@@ -249,7 +238,6 @@ export const createInlineChangedDecoration = ({
 	const canTagChange =
 		showContributorTags &&
 		!!doc &&
-		isExtendedEnabled(diffType) &&
 		isContributorTagWidgetEnabled() &&
 		!isEmptyParagraphSlice(doc.slice(change.fromB, change.toB));
 
@@ -276,18 +264,20 @@ export const createInlineChangedDecoration = ({
 	const colors = getColorScheme(colorScheme);
 
 	// The reveal withholds the static highlight so the wipe has something to reveal, so it supplies
-	// the whole style rather than adding to the usual one. Extended pipeline only — the AI review
-	// surface is the only consumer, and the non-extended styles have no background to wipe.
-	const revealed = isExtendedEnabled(diffType)
-		? resolveRevealStyle({ colorScheme, hideAddedDiffsUnderline, isActive, isInserted, reveal })
-		: undefined;
+	// the whole style rather than adding to the usual one.
+	const revealed = resolveRevealStyle({
+		colorScheme,
+		hideAddedDiffsUnderline,
+		isActive,
+		isInserted,
+		reveal,
+	});
 
 	const style =
 		revealed?.style ??
 		resolveInlineChangedStyle({
 			colors,
 			colorScheme,
-			diffType,
 			hideAddedDiffsUnderline,
 			isActive,
 			isInserted,
@@ -367,7 +357,7 @@ export const createInlineChangedDecoration = ({
 		),
 	];
 
-	if (showIndicators && doc && isExtendedEnabled(diffType)) {
+	if (showIndicators && doc) {
 		// For paragraphs, fromB/toB land on the outer block
 		// boundary. Adjust anchor widgets into inline content so the indicator
 		// bar doesn't extend into the preceding block's margin.

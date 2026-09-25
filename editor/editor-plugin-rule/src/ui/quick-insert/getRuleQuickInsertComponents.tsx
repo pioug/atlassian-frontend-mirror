@@ -11,8 +11,8 @@ import type { RulePlugin } from '../../rulePluginType';
 import { RuleQuickInsertMenuItem } from './RuleQuickInsertMenuItem';
 
 const previewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/p53x1j2j1855123gdr8fw4jri2f6mn1h.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/i2o73i23qw321aj6i5r14wtvfsyqg784.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVL8.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVK1.png',
 };
 
 export const getRuleQuickInsertComponents = ({

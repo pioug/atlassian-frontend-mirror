@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import type { AppearanceType, SizeType } from '@atlaskit/avatar/types';
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, render, screen, userEvent, within } from '@atlassian/testing-library';
 
 import AvatarGroup from '../../avatar-group';
@@ -676,6 +677,106 @@ describe('size prop type constraints', () => {
 			// @ts-expect-error - "UNSAFE_xsmall" is not a valid AvatarGroupSize
 			<AvatarGroup testId="unsafe" size="UNSAFE_xsmall" data={generateData({ avatarCount: 2 })} />,
 		);
+	});
+});
+
+describe('UNSAFE_isUpdatedGeometry', () => {
+	const data: Array<AvatarProps> = [
+		{ name: 'Human', appearance: 'circle' },
+		{ name: 'Agent', appearance: 'hexagon' },
+	];
+	const TestAvatar = (props: AvatarProps) => (
+		<div data-testid={props.testId} data-agent-avatar-v2={props.UNSAFE_isUpdatedGeometry} />
+	);
+
+	it('should forward the group value to visible avatars', () => {
+		render(
+			<AvatarGroup
+				testId="test"
+				size="medium"
+				data={data}
+				avatar={TestAvatar}
+				UNSAFE_isUpdatedGeometry
+			/>,
+		);
+
+		expect(screen.getByTestId('test--avatar-0')).toHaveAttribute('data-agent-avatar-v2', 'true');
+		expect(screen.getByTestId('test--avatar-1')).toHaveAttribute('data-agent-avatar-v2', 'true');
+	});
+
+	it('should let a defined group value override item data', () => {
+		render(
+			<AvatarGroup
+				testId="test"
+				size="small"
+				avatar={TestAvatar}
+				data={[
+					{
+						name: 'Agent',
+						appearance: 'hexagon',
+						UNSAFE_isUpdatedGeometry: false,
+					},
+				]}
+				UNSAFE_isUpdatedGeometry
+			/>,
+		);
+
+		const avatar = screen.getByTestId('test--avatar-0');
+		expect(avatar).toHaveAttribute('data-agent-avatar-v2', 'true');
+	});
+
+	it('should preserve item data when the group value is undefined', () => {
+		render(
+			<AvatarGroup
+				testId="test"
+				size="small"
+				avatar={TestAvatar}
+				data={[
+					{
+						name: 'Agent',
+						appearance: 'hexagon',
+						UNSAFE_isUpdatedGeometry: true,
+					},
+				]}
+			/>,
+		);
+
+		const avatar = screen.getByTestId('test--avatar-0');
+		expect(avatar).toHaveAttribute('data-agent-avatar-v2', 'true');
+	});
+
+	ffTest.both('platform-dst-top-layer', 'avatar group overflow implementations', () => {
+		it('should forward UNSAFE_isUpdatedGeometry to overflow avatars', async () => {
+			const user = userEvent.setup();
+			render(
+				<AvatarGroup
+					testId="test"
+					size="medium"
+					data={data}
+					maxCount={1}
+					UNSAFE_isUpdatedGeometry
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					overrides={{
+						AvatarGroupItem: {
+							render: (_Component, props, index) => (
+								<div
+									key={index}
+									data-testid={`overflow-avatar-${index}`}
+									data-agent-avatar-v2={props.avatar.UNSAFE_isUpdatedGeometry}
+								/>
+							),
+						},
+					}}
+				/>,
+			);
+
+			await user.click(screen.getByTestId('test--overflow-menu--trigger'));
+
+			expect(screen.getByTestId('overflow-avatar-1')).toHaveAttribute(
+				'data-agent-avatar-v2',
+				'true',
+			);
+		});
 	});
 });
 

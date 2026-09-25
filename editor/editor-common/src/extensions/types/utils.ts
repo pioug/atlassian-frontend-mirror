@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
+import type { QuickInsertPreview } from '../../quick-insert/preview';
 import type {
 	ExtensionApp,
 	ExtensionKey,
@@ -24,6 +25,7 @@ export type MenuItem = {
 	keywords: string[];
 	lozenge?: ReactNode;
 	node: ADFEntity | ExtensionModuleActionHandler;
+	preview?: QuickInsertPreview;
 	priority?: number;
 	summary?: string;
 	title: string;

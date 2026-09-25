@@ -78,6 +78,9 @@ const getTagAccent = ({
 
 /** ChatGPT's own brand colour, resolved from the shared `@atlaskit/agent-color` registry. */
 const chatgptBrandColor = getThirdPartyAgentColor({ agentName: 'chatgpt' });
+const figmaBrandColor = getThirdPartyAgentColor({ agentName: 'figma' });
+const lovableBrandColor = getThirdPartyAgentColor({ agentName: 'lovable' });
+const replitBrandColor = getThirdPartyAgentColor({ agentName: 'replit' });
 
 /** Brand accents for agent kinds with no ADS token match. New agents opt in by adding an entry. */
 const AGENT_KIND_ACCENT_OVERRIDES: Readonly<Record<string, { background: string; text: string }>> =
@@ -90,6 +93,15 @@ const AGENT_KIND_ACCENT_OVERRIDES: Readonly<Record<string, { background: string;
 			? {
 					chatgpt: { background: chatgptBrandColor.bold, text: chatgptBrandColor.boldText },
 				}
+			: {}),
+		...(figmaBrandColor
+			? { figma: { background: figmaBrandColor.bold, text: figmaBrandColor.boldText } }
+			: {}),
+		...(lovableBrandColor
+			? { lovable: { background: lovableBrandColor.bold, text: lovableBrandColor.boldText } }
+			: {}),
+		...(replitBrandColor
+			? { replit: { background: replitBrandColor.bold, text: replitBrandColor.boldText } }
 			: {}),
 	} satisfies Partial<Record<DiffAgentBrand, { background: string; text: string }>>;
 
@@ -385,8 +397,9 @@ export class ContributorTagController {
 				stackIndex,
 			});
 			if (index < stack.length - 1) {
-				// Overlaps the leading avatar of a connected pair onto the one it sits in front of.
-				avatar.element.style.setProperty('margin-inline-end', token('space.negative.050'));
+				// Sits the leading avatar of a connected pair flush against the one behind it, with
+				// no overlap and no extra gap.
+				avatar.element.style.setProperty('margin-inline-end', '0');
 			}
 			container.appendChild(avatar.element);
 			this.avatars.push(avatar);

@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 144.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 144.1.1
+
+### Patch Changes
+
+- [`68ede3b9de2a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68ede3b9de2a6) -
+  Clean up experiment `platform_editor_defer_collapsed_expand_body`. A collapsed expand defers its
+  body and shows the body's text via `hidden="until-found"` for all readers now, and `nestedExpand`
+  always serializes through the expand props builder.
+- Updated dependencies
+
+## 144.1.0
+
+### Minor Changes
+
+- [`778fd05c90b9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/778fd05c90b9a) -
+  Reduce per-text-node and per-paragraph allocations in the React serializer (plain-text fast path,
+  non-allocating empty-paragraph check) behind the new `platform_renderer_text_paragraph_fast_path`
+  experiment. No visual or DOM change.
+
 ## 144.0.3
 
 ### Patch Changes

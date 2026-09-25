@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useId, useMemo, useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import ButtonItem from '@atlaskit/menu/button-item';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- Compiled primitives do not provide Pressable.
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
@@ -27,19 +25,6 @@ const styles = cssMap({
 		flexShrink: 1,
 		flexBasis: 0,
 		minWidth: 0,
-	},
-	icon: {
-		alignItems: 'center',
-		backgroundColor: token('elevation.surface.overlay'),
-		borderColor: token('color.border'),
-		borderRadius: token('radius.medium'),
-		borderStyle: 'solid',
-		borderWidth: token('border.width'),
-		display: 'flex',
-		height: '32px',
-		justifyContent: 'center',
-		overflow: 'hidden',
-		width: '32px',
 	},
 	iconLarge: {
 		alignItems: 'center',
@@ -122,44 +107,30 @@ const disabledItemStyles = xcss({
 
 export const CompactQuickInsertMenuItem = ({
 	ariaLabel,
+	description,
 	iconBefore,
 	isDisabled,
 	onSelect,
+	preview,
 	previewImageUrls,
 	shortcut,
+	shouldShowPreview = true,
 	shouldWrapIcon = true,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
 	const { item } = useQuickInsertContext();
 	const { id, isSelected } = item ?? { id: undefined, isSelected: false };
+	const resolvedDescription = description ?? item?.description;
+	const previewId = useId();
 	const handleClick = useQuickInsertMenuItemSelection(onSelect);
 	const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
-	if (!isExperimentEnabled('platform_editor_slash_command')) {
-		const wrappedIcon =
-			iconBefore && shouldWrapIcon ? <Box xcss={styles.icon}>{iconBefore}</Box> : iconBefore;
+	const resolvedPreview = useMemo(
+		() => preview ?? (previewImageUrls ? { image: previewImageUrls } : {}),
+		[preview, previewImageUrls],
+	);
+	const shouldRenderPreview = shouldShowPreview && isSelected && !isDisabled;
+	const hasAccessiblePreview = Boolean(resolvedDescription || resolvedPreview?.attribution);
 
-		return (
-			<ButtonItem
-				aria-label={ariaLabel}
-				aria-selected={isSelected}
-				iconBefore={wrappedIcon}
-				id={id}
-				isDisabled={isDisabled}
-				isSelected={isSelected}
-				onClick={handleClick}
-				role="option"
-			>
-				<Inline alignBlock="center" spread="space-between">
-					<Text>{title}</Text>
-					{shortcut && (
-						<Box as="span" xcss={styles.shortcut}>
-							{shortcut}
-						</Box>
-					)}
-				</Inline>
-			</ButtonItem>
-		);
-	}
 	const wrappedIcon =
 		iconBefore && shouldWrapIcon ? <Box xcss={styles.iconLarge}>{iconBefore}</Box> : iconBefore;
 
@@ -168,6 +139,7 @@ export const CompactQuickInsertMenuItem = ({
 			<Pressable
 				ref={setReferenceElement}
 				aria-label={ariaLabel}
+				aria-describedby={shouldRenderPreview && hasAccessiblePreview ? previewId : undefined}
 				aria-selected={isSelected}
 				id={id}
 				isDisabled={isDisabled}
@@ -185,11 +157,14 @@ export const CompactQuickInsertMenuItem = ({
 					)}
 				</Inline>
 			</Pressable>
-			{isSelected && !isDisabled && previewImageUrls?.light && referenceElement && (
+			{shouldRenderPreview && referenceElement && (
 				<QuickInsertHoverPreview
-					key={previewImageUrls.light}
-					previewImageUrls={previewImageUrls}
+					key={resolvedPreview.image?.light ?? resolvedPreview.attribution?.name ?? title}
+					id={previewId}
+					description={resolvedDescription}
+					preview={resolvedPreview}
 					referenceElement={referenceElement}
+					title={title}
 				/>
 			)}
 		</>

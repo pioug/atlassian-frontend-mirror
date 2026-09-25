@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 22.0.4
+
+### Patch Changes
+
+- [`7306003a7565b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7306003a7565b) -
+  Fix modal dismissal, category spacing, measured list height, and viewport-aware menu placement
+  under platform_editor_slash_command.
+- Updated dependencies
+
 ## 22.0.3
 
 ### Patch Changes

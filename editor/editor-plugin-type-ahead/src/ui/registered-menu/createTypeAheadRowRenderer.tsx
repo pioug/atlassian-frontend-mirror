@@ -19,6 +19,7 @@ const noOp = () => {};
 export const createTypeAheadRowRenderer =
 	({
 		cache,
+		onMeasured,
 		itemIndexByRowIndex,
 		Item,
 		listId,
@@ -31,6 +32,7 @@ export const createTypeAheadRowRenderer =
 		itemIndexByRowIndex: Map<number, number>;
 		listId: string;
 		onItemHover: (itemIndex: number) => void;
+		onMeasured: () => void;
 		rows: Array<RegisterMenuItem | RegisterMenuSection>;
 		selectedItemIndex: number;
 	}): ListRowRenderer =>
@@ -51,6 +53,7 @@ export const createTypeAheadRowRenderer =
 						isScrolling={isScrolling}
 						isVisible={isVisible}
 						measure={measure}
+						onMeasured={onMeasured}
 						onMouseMove={noOp}
 						style={style}
 					>

@@ -1,7 +1,10 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": [
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -27,14 +30,29 @@
 		"**/codemods/**/*.tsx",
 		"./local-config-example.ts",
 		"./local-config-template.ts",
-		"./proxy.ts"
+		"./proxy.ts",
+		"./example-helpers/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./*.ts"
 	],
+	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__emoji/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
@@ -46,6 +64,12 @@
 		},
 		{
 			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/editor-test-helpers/tsconfig.app.json"
 		},
 		{
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
@@ -66,6 +90,9 @@
 			"path": "../../design-system/logo/tsconfig.app.json"
 		},
 		{
+			"path": "../../media/media-client/tsconfig.app.json"
+		},
+		{
 			"path": "../../media/media-client-react/tsconfig.app.json"
 		},
 		{
@@ -73,6 +100,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{
 			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
@@ -84,10 +114,19 @@
 			"path": "../../design-system/radio/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/section-message/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{
 			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
@@ -102,13 +141,35 @@
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{
+			"path": "../util-data-test/tsconfig.app.json"
+		},
+		{
 			"path": "../util-service-support/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/visually-hidden/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../data/ufo-internal/tsconfig.app.json"
+		},
+		{
+			"path": "../../data/ufo-experimental/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
-	]
+	],
+	"avoidSelfReferencePaths": true
 }

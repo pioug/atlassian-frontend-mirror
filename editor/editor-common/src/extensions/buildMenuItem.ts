@@ -12,6 +12,7 @@ export function buildMenuItem<T extends Parameters>(
 	const title = extensionModule.title || manifest.title;
 	const key = `${manifest.key}:${extensionModule.key}`;
 	const node = buildAction(extensionModule.action, manifest);
+	const preview = extensionModule.preview ?? manifest.preview;
 	const category = isExperimentEnabled('platform_editor_slash_command')
 		? (extensionModule.category ?? manifest.category)
 		: undefined;
@@ -39,6 +40,7 @@ export function buildMenuItem<T extends Parameters>(
 		summary: manifest.summary,
 		documentationUrl: manifest.documentationUrl,
 		priority: extensionModule.priority,
+		...(preview != null && { preview }),
 		...(extensionModule.lozenge != null && { lozenge: extensionModule.lozenge }),
 		icon: extensionModule.icon || manifest.icons['48'],
 		node,

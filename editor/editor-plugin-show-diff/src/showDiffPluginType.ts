@@ -49,11 +49,14 @@ export type StepWithAttribution<TStep> = {
 };
 
 /** Branded agent presentations supported by contributor tags. */
-export type DiffAgentBrand = 'rovo' | 'claude' | 'chatgpt';
+export type DiffAgentBrand = 'rovo' | 'claude' | 'chatgpt' | 'figma' | 'lovable' | 'replit';
 export const DIFF_AGENT_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
 	'rovo',
 	'claude',
 	'chatgpt',
+	'figma',
+	'lovable',
+	'replit',
 ]);
 
 /** The brand id `@atlaskit/agent-color` registers each `AgentBrandColorScheme` under. */
@@ -318,12 +321,10 @@ export type ShowDiffPlugin = NextEditorPlugin<
 			 * The contributor tags to render for the diff currently being displayed. Resolved by the
 			 * plugin and consumed by its own contributor-tag UI — `ContributorTagModel` and
 			 * `TagContributor` are not exported from any entry point.
-			 * Only set when `platform_editor_diff_plugin_extended` is on.
 			 */
 			contributorTags?: ContributorTagModel[];
 			/**
 			 * The diff descriptors of the diff decorations currently being displayed.
-			 * Only set when `platform_editor_diff_plugin_extended` is on.
 			 */
 			diffDescriptors?: DiffDescriptor[];
 			/**

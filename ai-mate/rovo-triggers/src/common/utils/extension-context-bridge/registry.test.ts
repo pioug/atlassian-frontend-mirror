@@ -51,7 +51,7 @@ describe('inbound set-message-context contextKey policy', () => {
 	});
 
 	it('refuses keys nobody has opted in, so new publishers cannot cross by default', () => {
-		expect(isRelayableContextKey('pinned_object_context')).toBe(false);
+		expect(isRelayableContextKey('context_resource')).toBe(false);
 		expect(isRelayableContextKey('projectContext')).toBe(false);
 		expect(isRelayableContextKey('')).toBe(false);
 	});

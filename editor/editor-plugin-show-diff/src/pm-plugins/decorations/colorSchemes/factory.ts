@@ -778,7 +778,9 @@ export function buildAddedCellOverlayStyle(colors: DiffColorScheme): string {
 		left: 0,
 		width: '100%',
 		height: '100%',
-		backgroundColor: `rgba(from ${bgSubtlest(colors.insertColor)} r g b / ${colors.insertedCellOpacity})`,
+		backgroundColor: `rgba(from ${bgSubtlest(colors.insertColor)} r g b / ${
+			colors.insertedCellOpacity
+		})`,
 		zIndex: colors.addedCellOverlayZIndex,
 		outline: `1px solid ${borderAccent(colors.insertColor)}`,
 		pointerEvents: 'none',
@@ -793,7 +795,9 @@ export function buildAddedCellOverlayRoundedStyle(colors: DiffColorScheme): stri
 		left: 0,
 		width: '100%',
 		height: '100%',
-		backgroundColor: `rgba(from ${bgSubtlest(colors.insertColor)} r g b / ${colors.insertedCellOpacity})`,
+		backgroundColor: `rgba(from ${bgSubtlest(colors.insertColor)} r g b / ${
+			colors.insertedCellOpacity
+		})`,
 		zIndex: 2,
 		outline: `1px solid ${borderAccent(colors.insertColor)}`,
 		pointerEvents: 'none',
@@ -810,7 +814,9 @@ export function buildAddedCellOverlayStyleNew(colors: DiffColorScheme): string {
 		left: 0,
 		width: '100%',
 		height: '100%',
-		backgroundColor: `rgba(from ${bgSubtlest(colors.insertColor)} r g b / ${colors.insertedCellOpacity})`,
+		backgroundColor: `rgba(from ${bgSubtlest(colors.insertColor)} r g b / ${
+			colors.insertedCellOpacity
+		})`,
 		zIndex: 1,
 		outline: `1px solid ${bgSubtlerPressed(colors.insertActiveColor)}`,
 		pointerEvents: 'none',
@@ -825,7 +831,9 @@ export function buildDeletedCellOverlayStyle(colors: DiffColorScheme): string {
 		left: 0,
 		width: '100%',
 		height: '100%',
-		backgroundColor: `rgba(from ${bgSubtlest(colors.deletedCellColor)} r g b / ${colors.deletedCellOpacity})`,
+		backgroundColor: `rgba(from ${bgSubtlest(colors.deletedCellColor)} r g b / ${
+			colors.deletedCellOpacity
+		})`,
 		zIndex: 1,
 		outline: `1px solid ${deletedCellOutline(colors)}`,
 		pointerEvents: 'none',
@@ -840,7 +848,9 @@ export function buildDeletedCellOverlayRoundedStyle(colors: DiffColorScheme): st
 		left: 0,
 		width: '100%',
 		height: '100%',
-		backgroundColor: `rgba(from ${bgSubtlest(colors.deletedCellColor)} r g b / ${colors.deletedCellOpacity})`,
+		backgroundColor: `rgba(from ${bgSubtlest(colors.deletedCellColor)} r g b / ${
+			colors.deletedCellOpacity
+		})`,
 		zIndex: 2,
 		outline: `1px solid ${deletedCellOutline(colors)}`,
 		pointerEvents: 'none',
@@ -861,7 +871,7 @@ export function buildDeletedCellOverlayRoundedStyle(colors: DiffColorScheme): st
 // --- Inline content style dispatch ---
 
 /**
- * Inserted inline content under the extended diff experience. `insertedInlineTreatment` picks
+ * Inserted inline content. `insertedInlineTreatment` picks
  * `text-decoration` vs a `border-bottom` rule; only the latter honours `hideAddedDiffsUnderline`.
  */
 export function buildInsertedInlineStyle(

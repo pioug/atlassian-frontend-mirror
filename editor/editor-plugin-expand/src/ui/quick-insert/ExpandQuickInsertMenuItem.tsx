@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -16,6 +16,7 @@ import {
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import ExpandElementIcon from '@atlaskit/icon-lab/core/expand-element';
@@ -40,6 +41,18 @@ export const ExpandQuickInsertMenuItem = ({
 	previewImageUrls,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined,
+		[formatMessage, previewImageUrls],
+	);
 	const { editorDisabled, mode } = useSharedPluginStateWithSelector(
 		api,
 		['editorDisabled', 'editorViewMode'],
@@ -81,10 +94,11 @@ export const ExpandQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(messages.expandDescription)}
 			iconBefore={<ExpandElementIcon label="" />}
 			isDisabled={editorDisabled || mode === 'view'}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			title={formatMessage(messages.expand)}
 		/>
 	);

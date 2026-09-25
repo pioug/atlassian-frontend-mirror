@@ -54,8 +54,8 @@ const standardPanelItems: PanelItem[] = [
 		menuItem: INFO_PANEL_MENU_ITEM,
 		panelType: PanelType.INFO,
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1ehbcks76dadn6s1ag865ovgv0725wf3.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/sj4h840me816r662ei5r630c56mrs7r3.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKL.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHA.png',
 		},
 		title: blockTypeMessages.infoPanel,
 	},
@@ -65,8 +65,8 @@ const standardPanelItems: PanelItem[] = [
 		menuItem: NOTE_PANEL_MENU_ITEM,
 		panelType: PanelType.NOTE,
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/248377u2ho62u47324ytqoh85dqha007.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/h60803y651s373xi527m1g77h0yfc10m.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKJ.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHB.png',
 		},
 		title: blockTypeMessages.notePanel,
 	},
@@ -77,8 +77,8 @@ const standardPanelItems: PanelItem[] = [
 		menuItem: SUCCESS_PANEL_MENU_ITEM,
 		panelType: PanelType.SUCCESS,
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/hsw851w22c21u6ax4t5fiuyb03yhvs16.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/wd47nv4tx2i1241dsnyv5j50hgibquo2.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKP.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVH6.png',
 		},
 		title: blockTypeMessages.successPanel,
 	},
@@ -88,8 +88,8 @@ const standardPanelItems: PanelItem[] = [
 		menuItem: WARNING_PANEL_MENU_ITEM,
 		panelType: PanelType.WARNING,
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/54op86o010736t82k472108al33sm3hl.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1058288r80467lk7vg0ymq8yp0fs42ws.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKO.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHC.png',
 		},
 		title: blockTypeMessages.warningPanel,
 	},
@@ -99,8 +99,8 @@ const standardPanelItems: PanelItem[] = [
 		menuItem: ERROR_PANEL_MENU_ITEM,
 		panelType: PanelType.ERROR,
 		previewImageUrls: {
-			light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/526333021m38g0ndel1s4ljcma4ce2s0.png',
-			dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/c15gpkb25ds3078i0n8dp8k6o1io173f.png',
+			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKQ.png',
+			dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVH1.png',
 		},
 		title: blockTypeMessages.errorPanel,
 	},
@@ -112,8 +112,8 @@ const customPanelItem: PanelItem = {
 	menuItem: CUSTOM_PANEL_MENU_ITEM,
 	panelType: PanelType.CUSTOM,
 	previewImageUrls: {
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/kt0aor1ut1h72isq432188hmbs3du1l0.png',
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/f2m032ds3s1t81m362bp10ni7h8604xn.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKN.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHD.png',
 	},
 	title: blockTypeMessages.customPanel,
 };
@@ -151,6 +151,7 @@ export const getPanelQuickInsertComponents = ({
 			component: () => (
 				<PanelQuickInsertMenuItem
 					api={api}
+					description={description}
 					icon={icon}
 					panelType={panelType}
 					previewImageUrls={previewImageUrls}

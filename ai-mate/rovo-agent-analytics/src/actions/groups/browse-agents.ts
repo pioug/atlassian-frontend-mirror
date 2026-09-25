@@ -3,7 +3,19 @@
  *
  * Registered UI events for the shared Browse Agents modal and its agent cards.
  */
+import type { BrowseCardAnalyticsContext } from '../../common/types';
+
 export type BrowseAgentsEventPayload =
+	| {
+			eventType: 'ui';
+			actionSubject: 'button';
+			actionSubjectId: 'agentActionsMenu';
+			action: 'clicked';
+			attributes: {
+				agentId: string;
+				interactionElement: 'menuTrigger';
+			};
+	  }
 	| {
 			eventType: 'ui';
 			actionSubject: 'button';
@@ -37,7 +49,7 @@ export type BrowseAgentsEventPayload =
 				source: 'agentCard';
 				interactionSource: string;
 				modalEntrypointSource?: string;
-			};
+			} & BrowseCardAnalyticsContext;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/69243
@@ -55,6 +67,7 @@ export type BrowseAgentsEventPayload =
 			action: 'dismissed';
 			attributes: {
 				touchpointSource: string;
+				closeReason?: 'dismissal' | 'selection' | 'openingChat';
 			};
 	  }
 	| {
@@ -67,7 +80,7 @@ export type BrowseAgentsEventPayload =
 				agentId: string;
 				interactionSource: string;
 				category: string;
-			};
+			} & BrowseCardAnalyticsContext;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/69221

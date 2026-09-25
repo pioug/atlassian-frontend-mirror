@@ -15,13 +15,13 @@ import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType'
 import { TasksAndDecisionsQuickInsertMenuItem } from './TasksAndDecisionsQuickInsertMenuItem';
 
 const taskPreviewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/y5ly4nr488m2m4k4esk1bu415k1gn4gn.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/t7loyl783j0qo1h45i828310rv4au3h8.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLK.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHI.png',
 };
 
 const decisionPreviewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/h5duy8s83312r7263jauu10mapc53383.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/70q22b8a03dep35ynbv8xigg82osw0rk.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLY.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHM.png',
 };
 
 export const getTasksAndDecisionsQuickInsertComponents = ({
@@ -50,6 +50,7 @@ export const getTasksAndDecisionsQuickInsertComponents = ({
 		component: () => (
 			<TasksAndDecisionsQuickInsertMenuItem
 				api={api}
+				description={quickInsertActionDescription}
 				item="taskList"
 				previewImageUrls={taskPreviewImageUrls}
 			/>

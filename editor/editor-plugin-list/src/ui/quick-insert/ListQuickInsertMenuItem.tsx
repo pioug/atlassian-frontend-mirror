@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -14,6 +14,7 @@ import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
@@ -27,18 +28,25 @@ type Props = {
 
 const previewImageUrls: Record<Props['type'], { dark: string; light: string }> = {
 	ordered: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/t6kvxk43n148uxh5508fp4bc738h12v0.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/stnx6ko1175s31d3tt18v002dh7311er.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHU.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLU.png',
 	},
 	unordered: {
-		dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/m5evq1ihk0f86o3g3fp6pu47hnof4b5n.png',
-		light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/1ow7gsp0uxjngbxx7n7gg5h3047w6vbk.png',
+		dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHR.png',
+		light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVMP.png',
 	},
 };
 
 export const ListQuickInsertMenuItem = ({ api, type }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const isOrdered = type === 'ordered';
+	const preview = useMemo(
+		() => ({
+			image: previewImageUrls[type],
+			attribution: { name: formatMessage(quickInsertMessages.previewAttributionAtlassian) },
+		}),
+		[formatMessage, type],
+	);
 	const onSelect = useCallback(
 		({ editorView, insert, source }: OnSelectContext) => {
 			const { schema } = editorView.state;
@@ -66,9 +74,12 @@ export const ListQuickInsertMenuItem = ({ api, type }: Props): React.JSX.Element
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(
+				isOrdered ? messages.orderedListDescription : messages.unorderedListDescription,
+			)}
 			iconBefore={isOrdered ? <ListNumberedIcon label="" /> : <ListBulletedIcon label="" />}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls[type]}
+			preview={preview}
 			shortcut={tooltip(isOrdered ? toggleOrderedList : toggleBulletList)}
 			title={formatMessage(isOrdered ? messages.orderedList : messages.unorderedList)}
 		/>

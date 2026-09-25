@@ -14,7 +14,7 @@ import { render, screen, userEvent } from '@atlassian/testing-library';
 import Avatar from '../../avatar';
 import { AvatarContent } from '../../avatar-content';
 import { AvatarContext } from '../../avatar-context';
-import { type SizeType } from '../../types';
+import { type AppearanceType, type SizeType } from '../../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -510,6 +510,165 @@ describe('Avatar', () => {
 		const avatar = screen.getByTestId(testId);
 
 		expect(avatar.tagName).toEqual('SPAN');
+	});
+
+	describe('UNSAFE_isUpdatedGeometry', () => {
+		type SupportedSizeCase = {
+			size: Extract<SizeType, 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'>;
+			width: number;
+			height: number;
+		};
+		type NonHexagonCase = {
+			appearance: Extract<AppearanceType, 'circle' | 'square'>;
+		};
+
+		// Mirrors the literal `updatedHexagonDimensionMap` in `../../avatar-content.tsx` (the sole
+		// source of truth for these values).
+		const supportedSizes: SupportedSizeCase[] = [
+			{ size: 'xxsmall' as const, width: 15.4, height: 17.17 },
+			{ size: 'small' as const, width: 23.11, height: 25.76 },
+			{ size: 'medium' as const, width: 30.81, height: 34.34 },
+			{ size: 'large' as const, width: 38.51, height: 42.93 },
+			{ size: 'xlarge' as const, width: 92.43, height: 103.02 },
+			{ size: 'xxlarge' as const, width: 123.24, height: 137.36 },
+		];
+
+		// Mirrors the literal `widthHeightMap` (legacy square size) in `../../avatar-content.tsx` —
+		// the updated hexagon's negative margin re-centers it within this legacy footprint, so the
+		// margin is derived from the legacy size, not the updated hexagon's own width.
+		const legacySizeBySize: Record<SupportedSizeCase['size'], number> = {
+			xxsmall: 16,
+			small: 24,
+			medium: 32,
+			large: 40,
+			xlarge: 96,
+			xxlarge: 128,
+		};
+
+		// Mirrors the literal `updatedHexagonClipPath` in `../../avatar-content.tsx` (the sole
+		// source of truth for this value) — a single percentage-based polygon shared by every size.
+		const updatedHexagonClipPath =
+			'polygon(43.61555% 1.47441%, 46.08136% 0.49147%, 48.67910% 0.00000%, 51.32080% 0.00000%, 53.91847% 0.49147%, 56.38412% 1.47441%, 93.61555% 20.77327%, 95.79666% 22.19894%, 97.56964% 23.97299%, 98.89052% 26.02699%, 99.71530% 28.29251%, 100.00000% 30.70112%, 100.00000% 69.29883%, 99.71530% 71.70746%, 98.89052% 73.97300%, 97.56964% 76.02700%, 95.79666% 77.80100%, 93.61555% 79.22654%, 56.38412% 98.52540%, 53.91847% 99.50837%, 51.32080% 99.99991%, 48.67910% 100.00000%, 46.08136% 99.50860%, 43.61555% 98.52569%, 6.38428% 79.22654%, 4.20328% 77.80100%, 2.43035% 76.02700%, 1.10949% 73.97300%, 0.28471% 71.70746%, 0.00000% 69.29883%, 0.00000% 30.70112%, 0.28471% 28.29251%, 1.10949% 26.02699%, 2.43035% 23.97299%, 4.20328% 22.19894%, 6.38428% 20.77327%)';
+
+		// The compiled CSS pipeline also strips the leading zero on decimals below 1 in magnitude
+		// (`0.625` -> `.625`, `-0.625` -> `-.625`).
+		const stripLeadingZero = (value: string) => value.replace(/^(-?)0\.(?=\d)/, '$1.');
+
+		// The compiled CSS pipeline canonicalizes lengths to whichever unit produces the shortest
+		// string: `pc` (16px = 1pc) or `pt` (4px = 3pt), falling back to `px` otherwise — as already
+		// observed elsewhere in this file (e.g. xxsmall/medium `widthHeightMap` values, and 108px
+		// becoming `81pt` for xlarge's taller hexagon height).
+		// Rounded to sidestep floating-point drift from the pt/pc conversions (e.g. `123.24 * 3 / 4`
+		// -> `92.43000000000001`) rather than reflecting any real precision in the underlying values.
+		const round = (value: number) => Math.round(value * 100000) / 100000;
+		const toLengthCss = (px: number) => {
+			const candidates = [
+				`${stripLeadingZero(`${px}`)}px`,
+				`${stripLeadingZero(`${round((px * 3) / 4)}`)}pt`,
+				`${stripLeadingZero(`${round(px / 16)}`)}pc`,
+			];
+			return candidates.reduce((shortest, candidate) =>
+				candidate.length < shortest.length ? candidate : shortest,
+			);
+		};
+
+		// The compiled CSS pipeline also minifies extracted values: it drops the space after
+		// commas, trims trailing zeros on decimals (`43.61555%` stays, but `48.67910%` ->
+		// `48.6791%`), strips the leading zero on decimals below 1 (`0.49147%` -> `.49147%`), and
+		// collapses an exact-zero percentage to a bare unitless `0` (`0.00000%` -> `0`,
+		// `100.00000%` -> `100%`). Mirror that here so the expected clip-path matches the compiled
+		// output.
+		const toCompiledClipPathCss = (clipPath: string) =>
+			clipPath.replace(/,\s+/g, ',').replace(/(-?\d*\.?\d+)%/g, (_match, rawNumber: string) => {
+				const number = parseFloat(rawNumber);
+				if (number === 0) {
+					return '0';
+				}
+				const minified = number.toString();
+				return `${minified.startsWith('0.') ? minified.slice(1) : minified}%`;
+			});
+
+		cases(
+			'should render the updated hexagon geometry for supported sizes',
+			({ size, width, height }: SupportedSizeCase) => {
+				render(<Avatar appearance="hexagon" size={size} testId={size} UNSAFE_isUpdatedGeometry />);
+
+				const container = screen.getByTestId(size);
+				const inner = screen.getByTestId(`${size}--inner`);
+				const focusContainer = screen.getByTestId(`${size}--inner-hexagon-focus-container`);
+
+				expect(container).not.toHaveAttribute('style');
+				expect(inner).toHaveCompiledCss({
+					width: toLengthCss(width),
+					height: toLengthCss(height),
+				});
+				expect(focusContainer).toHaveCompiledCss({
+					clipPath: toCompiledClipPathCss(updatedHexagonClipPath),
+				});
+				// Rounded to avoid floating-point drift from the subtraction/division (e.g.
+				// `(16 - 17.17) / 2` -> `-0.5850000000000009`).
+				const negativeMargin = Math.round(((legacySizeBySize[size] - height) / 2) * 10000) / 10000;
+				expect(container).toHaveCompiledCss({
+					marginBlockStart: toLengthCss(negativeMargin),
+					marginBlockEnd: toLengthCss(negativeMargin),
+				});
+			},
+			supportedSizes,
+		);
+
+		it('should leave border and focus-ring correction behind its existing feature gate', () => {
+			failGate('platform_editor_agent_mentions_drop_one_fixes');
+			render(<Avatar appearance="hexagon" testId={testId} UNSAFE_isUpdatedGeometry />);
+
+			const focusContainer = screen.getByTestId(`${testId}--inner-hexagon-focus-container`);
+			const borderContainer = screen.getByTestId(`${testId}--inner-hexagon-border-container`);
+
+			expect(focusContainer).not.toHaveCompiledCss({
+				paddingBlockStart: 'calc(var(--ds-border-width-selected, 2px)*1.12)',
+			});
+			expect(borderContainer).not.toHaveCompiledCss({
+				paddingBlockStart: 'calc(var(--ds-border-width-selected, 2px)*.12)',
+			});
+		});
+
+		it('should preserve legacy geometry for the unsupported UNSAFE_xsmall size', () => {
+			const size: SizeType = 'UNSAFE_xsmall';
+			render(<Avatar appearance="hexagon" size={size} testId={size} UNSAFE_isUpdatedGeometry />);
+
+			const container = screen.getByTestId(size);
+			const inner = screen.getByTestId(`${size}--inner`);
+
+			expect(inner).toHaveCompiledCss({ width: '20px', height: '20px' });
+			expect(container).not.toHaveAttribute('style');
+		});
+
+		cases(
+			'should not change non-hexagon appearances',
+			({ appearance }: NonHexagonCase) => {
+				render(<Avatar appearance={appearance} testId={appearance} UNSAFE_isUpdatedGeometry />);
+
+				const container = screen.getByTestId(appearance);
+				const inner = screen.getByTestId(`${appearance}--inner`);
+
+				expect(inner).toHaveCompiledCss({ width: '2pc', height: '2pc' });
+				expect(container).not.toHaveAttribute('style');
+			},
+			[{ appearance: 'circle' as const }, { appearance: 'square' as const }],
+		);
+
+		it('should preserve legacy hexagon geometry when the prop is undefined', () => {
+			render(<Avatar appearance="hexagon" testId={testId} />);
+
+			const container = screen.getByTestId(testId);
+			const inner = screen.getByTestId(`${testId}--inner`);
+			const focusContainer = screen.getByTestId(`${testId}--inner-hexagon-focus-container`);
+
+			expect(inner).toHaveCompiledCss({ width: '2pc', height: '2pc' });
+			expect(container).not.toHaveAttribute('style');
+			expect(focusContainer).not.toHaveCompiledCss({
+				clipPath: toCompiledClipPathCss(updatedHexagonClipPath),
+			});
+		});
 	});
 
 	describe('avatar context', () => {

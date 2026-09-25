@@ -15,8 +15,8 @@ import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 import { SyncedBlockQuickInsertMenuItem } from './SyncedBlockQuickInsertMenuItem';
 
 const previewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/3xy4v4e4736r7nghty67s6wxw08opr7p.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/n185dd3113dx4146baa3dm3427woq1d6.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKD.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVH3.png',
 };
 
 export const getSyncedBlockQuickInsertComponents = ({

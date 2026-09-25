@@ -1,5 +1,16 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.5.0
+
+### Minor Changes
+
+- [`58640a3ed819d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58640a3ed819d) -
+  Add typed Insights tab and value-filter events and optional date-filter surface context for
+  rovo_agents_roi_calculator_m2.
+- [`8f9fd8ef29071`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f9fd8ef29071) -
+  Add optional typed card journey analytics context to Browse Kit lists and interactions under
+  rovo_agents_studio_browse_kit_uplift.
+
 ## 6.4.0
 
 ### Minor Changes

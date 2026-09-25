@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { UnAuthClient } from '@atlaskit/link-test-helpers';
 
@@ -34,6 +35,32 @@ const seedSocialProofForGoogle = () => {
 // on first mount and never applies the later personalization fetch to this visit.
 seedSocialProofForGoogle();
 
+class LongProviderNameUnAuthClient extends UnAuthClient {
+	async fetchData(url: string): Promise<JsonLd.Response> {
+		const response = await super.fetchData(url);
+
+		if (!response.data || !('generator' in response.data)) {
+			return response;
+		}
+
+		const generator = response.data.generator;
+		if (!generator || typeof generator !== 'object') {
+			return response;
+		}
+
+		return {
+			...response,
+			data: {
+				...response.data,
+				generator: {
+					...generator,
+					name: 'Google Drive Megalong Name Variant',
+				},
+			},
+		};
+	}
+}
+
 type ModalVariant = 'modal_text_only' | 'modal_with_image';
 
 type PreAuthValuePropositionModalVrComponent = {
@@ -44,6 +71,7 @@ type PreAuthValuePropositionModalVrComponent = {
 const createPreAuthValuePropositionModalVr = (
 	displayName: string,
 	variant: ModalVariant,
+	useLongProviderName = false,
 ): PreAuthValuePropositionModalVrComponent => {
 	const PreAuthValuePropositionModalVr = (): JSX.Element => {
 		const gateRevision = useVrExperimentGateConfig({
@@ -69,7 +97,9 @@ const createPreAuthValuePropositionModalVr = (
 					height: '700px',
 				}}
 			>
-				<SmartCardProvider client={new UnAuthClient()}>
+				<SmartCardProvider
+					client={useLongProviderName ? new LongProviderNameUnAuthClient() : new UnAuthClient()}
+				>
 					<PreAuthValuePropositionModal onFinished={() => {}} url={EXAMPLE_URL} />
 				</SmartCardProvider>
 			</VRTestWrapper>
@@ -85,7 +115,17 @@ export const PreAuthValuePropositionModalTextOnly: PreAuthValuePropositionModalV
 	createPreAuthValuePropositionModalVr('PreAuthValuePropositionModalTextOnly', 'modal_text_only');
 
 export const PreAuthValuePropositionModalWithImage: PreAuthValuePropositionModalVrComponent =
-	createPreAuthValuePropositionModalVr('PreAuthValuePropositionModalWithImage', 'modal_with_image');
+	createPreAuthValuePropositionModalVr(
+		'PreAuthValuePropositionModalWithImage',
+		'modal_with_image',
+		true,
+	);
+
+export const PreAuthValuePropositionModalWithImageDefaultName: PreAuthValuePropositionModalVrComponent =
+	createPreAuthValuePropositionModalVr(
+		'PreAuthValuePropositionModalWithImageDefaultName',
+		'modal_with_image',
+	);
 
 const PreAuthValuePropositionModalVr: PreAuthValuePropositionModalVrComponent = () => (
 	<PreAuthValuePropositionModalTextOnly />

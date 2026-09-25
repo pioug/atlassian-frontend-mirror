@@ -1,8 +1,7 @@
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
-import type { DiffDescriptor, DiffType } from '../../showDiffPluginType';
-import { isExtendedEnabled } from '../isExtendedEnabled';
+import type { DiffDescriptor } from '../../showDiffPluginType';
 import type { ColorScheme } from './colorSchemes/types';
 
 /**
@@ -22,7 +21,9 @@ export const DecorationFamily = {
  * ProseMirror-rendered suggestion.
  */
 export const SCROLL_TARGET_MARGIN_CSS_PROPERTY = '--ak-editor-diff-additional-margin';
-export const scrollMarginTopValue: string = `calc(${token('space.400')} + var(${SCROLL_TARGET_MARGIN_CSS_PROPERTY}, 0px))`;
+export const scrollMarginTopValue: string = `calc(${token(
+	'space.400',
+)} + var(${SCROLL_TARGET_MARGIN_CSS_PROPERTY}, 0px))`;
 export const scrollMarginTopStyle: string = `scroll-margin-top: ${scrollMarginTopValue};`;
 
 type DecorationFamilyValue = (typeof DecorationFamily)[keyof typeof DecorationFamily];
@@ -126,28 +127,18 @@ export const buildAnchorDecorationKey = ({
 };
 
 /**
- * Builds a diff decoration key. The extended experience includes the `diffId`
- * in the key so independently rendered decorations for the same type remain
- * distinguishable.
+ * Builds a diff decoration key. The key includes the `diffId` so independently
+ * rendered decorations for the same type remain distinguishable.
  */
 export const buildDiffDecorationKey = ({
 	decorationKeyPrefix,
 	isActive,
 	diffId,
-	diffType,
 }: {
 	decorationKeyPrefix: (typeof DiffDecorationKey)[DiffDescriptor['type']];
 	diffId?: string;
-	diffType?: DiffType;
 	isActive?: boolean;
-}): string => {
-	if (isExtendedEnabled(diffType)) {
-		return `${decorationKeyPrefix}-${diffId}-${isActive ? 'active' : 'inactive'}`;
-	}
-	return isActive !== undefined
-		? `${decorationKeyPrefix}-${isActive ? 'active' : 'inactive'}`
-		: decorationKeyPrefix;
-};
+}): string => `${decorationKeyPrefix}-${diffId}-${isActive ? 'active' : 'inactive'}`;
 
 export const buildDiffDecorationSpec = ({
 	attributionKey,
@@ -159,13 +150,11 @@ export const buildDiffDecorationSpec = ({
 	leftAnchorId,
 	nodeName,
 	side,
-	diffType,
 }: {
 	attributionKey?: string;
 	colorScheme?: ColorScheme;
 	decorationType: DiffDescriptor['type'];
 	diffId: string;
-	diffType?: DiffType;
 	isActive?: boolean;
 	isInserted?: boolean;
 	leftAnchorId?: string;
@@ -179,7 +168,6 @@ export const buildDiffDecorationSpec = ({
 		decorationKeyPrefix: DiffDecorationKey[decorationType],
 		diffId,
 		isActive,
-		diffType,
 	}),
 	...(attributionKey ? { attributionKey } : {}),
 	// Active state is only needed by contributor tags, so keep it alongside an attribution key.

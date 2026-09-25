@@ -52,8 +52,8 @@ import {
 } from '../decorations/utils/getAttrChangeRanges';
 import { getMarkChangeRanges } from '../decorations/utils/getMarkChangeRanges';
 import { createRemovedLozenge } from '../decorations/utils/wrapBlockNodeView';
+import { getDefaultDiffType } from '../getDefaultDiffType';
 import { getScrollableDecorations } from '../getScrollableDecorations';
-import { getDefaultDiffType, isExtendedEnabled } from '../isExtendedEnabled';
 import type { ShowDiffPluginState } from '../main';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 import { emptyTextBlockContentPositions } from '../utils/emptyTextBlocks';
@@ -105,30 +105,25 @@ const getChanges = ({
 	steps: ProseMirrorStep[];
 	tr: Transaction;
 }): Change[] => {
-	if (isExtendedEnabled(diffType)) {
-		// The `smart` diff type is gated behind `platform_editor_ai_smart_diff`. When the gate is
-		// off, `smart` falls through to the default (`inline`) path below so behaviour degrades
-		// gracefully (see docs/smart-diff-design.md §3).
-		if (diffType === 'smart' && fg('platform_editor_ai_smart_diff')) {
-			const changes = simplifyChanges(changeset.changes, tr.doc);
-			return classifySmartChanges({
-				changes,
-				originalDoc,
-				newDoc: tr.doc,
-				locale: intl.locale,
-				thresholds: smartThresholds,
-			});
-		}
-		if (diffType === 'step') {
-			return diffBySteps(originalDoc, steps);
-		}
-		if (diffType === 'block') {
-			return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
-		}
+	// The `smart` diff type is gated behind `platform_editor_ai_smart_diff`. When the gate is
+	// off, `smart` falls through to the default (`inline`) path below so behaviour degrades
+	// gracefully (see docs/smart-diff-design.md §3).
+	if (diffType === 'smart' && fg('platform_editor_ai_smart_diff')) {
 		const changes = simplifyChanges(changeset.changes, tr.doc);
-		return optimizeChanges(changes);
+		return classifySmartChanges({
+			changes,
+			originalDoc,
+			newDoc: tr.doc,
+			locale: intl.locale,
+			thresholds: smartThresholds,
+		});
 	}
-
+	if (diffType === 'step') {
+		return diffBySteps(originalDoc, steps);
+	}
+	if (diffType === 'block') {
+		return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
+	}
 	const changes = simplifyChanges(changeset.changes, tr.doc);
 	return optimizeChanges(changes);
 };
@@ -152,13 +147,11 @@ const getAttributedChanges = ({
 	// the step attribution and promotes ranges to sentence/paragraph/node granularity, so a promoted
 	// range covers several actors' steps and the latest-writer rule credits all of it to one of them.
 	// The attributed changeset keeps step granularity instead.
-	if (isExtendedEnabled(diffType)) {
-		if (diffType === 'step') {
-			return attributedChanges;
-		}
-		if (diffType === 'block') {
-			return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
-		}
+	if (diffType === 'step') {
+		return attributedChanges;
+	}
+	if (diffType === 'block') {
+		return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
 	}
 
 	return simplifyChangesWithAttribution(attributedChanges, tr.doc);
@@ -263,7 +256,6 @@ const calculateNodesForBlockDecoration = ({
 	shouldHideDeleted = false,
 	showContributorTags = false,
 	showIndicators = false,
-	diffType,
 	coarseTableCellsOnly = false,
 	tagMountContext,
 	nodeRanges,
@@ -272,7 +264,6 @@ const calculateNodesForBlockDecoration = ({
 	attributionKey?: string;
 	coarseTableCellsOnly?: boolean;
 	colorScheme?: DecorationColorScheme;
-	diffType?: DiffType;
 	doc: EditorState['doc'];
 	from: number;
 	intl: IntlShape;
@@ -313,7 +304,6 @@ const calculateNodesForBlockDecoration = ({
 					showContributorTags,
 					showIndicators,
 					doc,
-					diffType,
 					tagMountContext,
 				}),
 			);
@@ -337,11 +327,7 @@ const calculateNodesForBlockDecoration = ({
 				return;
 			}
 		}
-		if (
-			node.isBlock &&
-			(!isExtendedEnabled(diffType) ||
-				((!requireContainedBlocks || pos >= from) && pos + node.nodeSize <= to))
-		) {
+		if (node.isBlock && (!requireContainedBlocks || pos >= from) && pos + node.nodeSize <= to) {
 			const nodeEnd = pos + node.nodeSize;
 			const isActive = isRangeActive(activeIndexPos, pos, nodeEnd);
 
@@ -357,7 +343,6 @@ const calculateNodesForBlockDecoration = ({
 					showContributorTags,
 					showIndicators,
 					doc,
-					diffType,
 					tagMountContext,
 				}),
 			);
@@ -426,16 +411,13 @@ export const isDeletedContentPlacedBelow = ({
  */
 const shouldHideDeletedSide = ({
 	change,
-	diffType,
 	hideDeletedDiffs,
 	isInverted,
 }: {
 	change: { inserted: readonly unknown[] };
-	diffType?: DiffType;
 	hideDeletedDiffs?: boolean;
 	isInverted?: boolean;
 }): boolean =>
-	isExtendedEnabled(diffType) &&
 	!isInverted &&
 	!!hideDeletedDiffs &&
 	(change.inserted.length > 0 ||
@@ -621,7 +603,7 @@ const calculateDiffDecorationsInner = ({
 			})),
 		);
 		attributedChanges =
-			isExtendedEnabled(diffType) && diffType === 'step'
+			diffType === 'step'
 				? diffBySteps(originalDoc, simplifiedSteps, simplifiedStepAttributions)
 				: [...changeset.changes];
 		// The attributed pipeline gives no guarantee that its output ranges are disjoint — see
@@ -663,21 +645,19 @@ const calculateDiffDecorationsInner = ({
 	/**
 	 * If showIndicators is on, we create an anchor widget here to mark the doc margin.
 	 */
-	if (showIndicators && isExtendedEnabled(diffType)) {
+	if (showIndicators) {
 		decorations.push(createDocMarginAnchorWidget());
 	}
 
 	// Our default operations are insertions, so it should match the opposite of isInverted.
 	const isInserted = !isInverted;
-	if (isExtendedEnabled(diffType)) {
-		changes = groupDeletedColumnChanges(
-			changes,
-			originalDoc,
-			tr.doc,
-			new Mapping(stepMaps),
-			isInverted,
-		);
-	}
+	changes = groupDeletedColumnChanges(
+		changes,
+		originalDoc,
+		tr.doc,
+		new Mapping(stepMaps),
+		isInverted,
+	);
 	// A whole-table change owns every mark and attribute range inside its bounds, so those ranges
 	// do not also get their own decoration.
 	const tableChanges = changes.filter((change) => change.deletedColumns !== undefined);
@@ -746,9 +726,7 @@ const calculateDiffDecorationsInner = ({
 
 		if (change.inserted.length > 0) {
 			// On an inverted diff the inserted side is visually the deleted side.
-			const shouldHideDeleted = isExtendedEnabled(diffType)
-				? isInverted && hideDeletedDiffs
-				: false;
+			const shouldHideDeleted = isInverted && hideDeletedDiffs;
 
 			// A removed blank line — an empty paragraph or heading — has nothing to mark up. On an
 			// inverted diff, the shape AI suggested edits renders, the block is still in the displayed
@@ -768,7 +746,6 @@ const calculateDiffDecorationsInner = ({
 						createDeletedLineBreakDecoration({
 							attributionKey,
 							colorScheme: changeColorScheme,
-							diffType,
 							isActive,
 							pos,
 							reveal,
@@ -811,7 +788,7 @@ const calculateDiffDecorationsInner = ({
 			const willRenderDeletedWidget =
 				change.deleted.length > 0 &&
 				!isMarkOnly &&
-				!shouldHideDeletedSide({ change, diffType, hideDeletedDiffs, isInverted });
+				!shouldHideDeletedSide({ change, hideDeletedDiffs, isInverted });
 
 			if (isSmartNodeLevel) {
 				// For a large inserted table, skip the O(cells) inline decorations inside the
@@ -832,18 +809,15 @@ const calculateDiffDecorationsInner = ({
 							doc: tr.doc,
 							colorScheme: changeColorScheme,
 							isActive,
-							diffType,
-							...(isExtendedEnabled(diffType) && {
-								isInserted,
-								shouldHideDeleted,
-								showContributorTags,
-								showIndicators,
-								hideAddedDiffsUnderline,
-								hasDeletedWidget: willRenderDeletedWidget,
-								isDeletedWidgetBelow,
-								reveal,
-								tagMountContext,
-							}),
+							isInserted,
+							shouldHideDeleted,
+							showContributorTags,
+							showIndicators,
+							hideAddedDiffsUnderline,
+							hasDeletedWidget: willRenderDeletedWidget,
+							isDeletedWidgetBelow,
+							reveal,
+							tagMountContext,
 						}),
 					);
 				}
@@ -856,18 +830,15 @@ const calculateDiffDecorationsInner = ({
 						doc: tr.doc,
 						colorScheme: changeColorScheme,
 						isActive,
-						diffType,
-						...(isExtendedEnabled(diffType) && {
-							isInserted,
-							shouldHideDeleted,
-							showContributorTags,
-							showIndicators,
-							hideAddedDiffsUnderline,
-							hasDeletedWidget: willRenderDeletedWidget,
-							isDeletedWidgetBelow,
-							reveal,
-							tagMountContext,
-						}),
+						isInserted,
+						shouldHideDeleted,
+						showContributorTags,
+						showIndicators,
+						hideAddedDiffsUnderline,
+						hasDeletedWidget: willRenderDeletedWidget,
+						isDeletedWidgetBelow,
+						reveal,
+						tagMountContext,
 					}),
 				);
 			}
@@ -881,16 +852,13 @@ const calculateDiffDecorationsInner = ({
 					// A split piece's own range no longer covers the container it opened (EDITOR-8932).
 					nodeRanges: change.blockNodeRangesB,
 					colorScheme: changeColorScheme,
-					...(isExtendedEnabled(diffType) && {
-						isInserted,
-						shouldHideDeleted,
-						showContributorTags,
-						showIndicators,
-						tagMountContext,
-					}),
+					isInserted,
+					shouldHideDeleted,
+					showContributorTags,
+					showIndicators,
+					tagMountContext,
 					activeIndexPos,
 					intl,
-					diffType,
 					coarseTableCellsOnly: useCoarseTableDecoration,
 					leftAnchorId,
 				}),
@@ -899,7 +867,6 @@ const calculateDiffDecorationsInner = ({
 		if (change.deleted.length > 0 && !isMarkOnly && !hasNoDeletedContent) {
 			const shouldHideDeleted = shouldHideDeletedSide({
 				change,
-				diffType,
 				hideDeletedDiffs,
 				isInverted,
 			});
@@ -909,9 +876,7 @@ const calculateDiffDecorationsInner = ({
 						deletedColumns,
 						// The deleted side has no inline decoration, so the widget carries the actor.
 						attributionKey,
-						// Extended pipeline only, matching the inline path: the non-extended styles have no
-						// background for the wipe to act on.
-						reveal: isExtendedEnabled(diffType) ? reveal : undefined,
+						reveal,
 						change,
 						doc: originalDoc,
 						nodeViewSerializer,
@@ -922,12 +887,9 @@ const calculateDiffDecorationsInner = ({
 						leftAnchorId,
 						showContributorTags,
 						tagMountContext,
-						...(isExtendedEnabled(diffType) && {
-							isInserted: !isInserted,
-							diffType,
-							hideAddedDiffsUnderline,
-							placeBelow: isDeletedWidgetBelow,
-						}),
+						isInserted: !isInserted,
+						hideAddedDiffsUnderline,
+						placeBelow: isDeletedWidgetBelow,
 						showIndicators,
 					}),
 				);
@@ -965,7 +927,6 @@ const calculateDiffDecorationsInner = ({
 					change,
 					colorScheme: changeColorScheme,
 					doc: tr.doc,
-					diffType,
 					isActive,
 					isInserted: true,
 					reveal,
@@ -1004,7 +965,6 @@ const calculateDiffDecorationsInner = ({
 						// Suppress the border-bottom underline for atomic inline nodeviews —
 						// it doesn't render on custom nodeview DOM elements and is unnecessary noise.
 						hideAddedDiffsUnderline: true,
-						diffType,
 					}),
 				);
 				// If we have the original node position, also render the old node as a "deleted" widget
@@ -1078,11 +1038,8 @@ const calculateDiffDecorationsInner = ({
 							intl,
 							activeIndexPos,
 							isInserted: false,
-							...(isExtendedEnabled(diffType) && {
-								diffType,
-								hideAddedDiffsUnderline,
-								placeBelow,
-							}),
+							hideAddedDiffsUnderline,
+							placeBelow,
 							showIndicators,
 							showContributorTags,
 							tagMountContext,
@@ -1102,7 +1059,7 @@ const calculateDiffDecorationsInner = ({
 					activeIndexPos,
 					// The stops the step buttons walk, so a stop cannot hold a second tag for one
 					// contributor that navigation can never reach.
-					getScrollableDecorations(decorationSet, tr.doc, diffType),
+					getScrollableDecorations(decorationSet, tr.doc),
 				)
 			: [],
 		decorations: decorationSet,
@@ -1191,41 +1148,27 @@ export const calculateDiffDecorations: MemoizedFn<
 			pluginState.originalDoc &&
 			pluginState.originalDoc.eq(lastPluginState.originalDoc);
 
-		if (isExtendedEnabled(diffType)) {
-			return (
-				(colorScheme === lastColorScheme &&
-					intl.locale === lastIntl.locale &&
-					isInverted === lastIsInverted &&
-					diffType === lastDiffType &&
-					isEqual(activeIndexPos, lastActiveIndexPos) &&
-					originalDocIsSame &&
-					isEqual(pluginState.steps, lastPluginState.steps) &&
-					isEqual(pluginState.stepAttributions, lastPluginState.stepAttributions) &&
-					// Contributors can arrive after the first calculation; without this, tags never appear.
-					isEqual(pluginState.contributors, lastPluginState.contributors) &&
-					state.doc.eq(lastState.doc) &&
-					hideDeletedDiffs === lastHideDeletedDiffs &&
-					hideAddedDiffsUnderline === lastHideAddedDiffsUnderline &&
-					showIndicators === lastShowIndicators &&
-					isEqual(smartThresholds, lastSmartThresholds) &&
-					deletedDiffPlacement === lastDeletedDiffPlacement &&
-					inlineDeletedDiffPlacement === lastInlineDeletedDiffPlacement &&
-					// Turning the reveal on or off changes the emitted styles, so a cached result from the
-					// other setting would leave the diff painted in the wrong resting state.
-					isEqual(reveal, lastReveal)) ??
-				false
-			);
-		}
 		return (
-			(originalDocIsSame &&
+			(colorScheme === lastColorScheme &&
+				intl.locale === lastIntl.locale &&
+				isInverted === lastIsInverted &&
+				diffType === lastDiffType &&
+				isEqual(activeIndexPos, lastActiveIndexPos) &&
+				originalDocIsSame &&
 				isEqual(pluginState.steps, lastPluginState.steps) &&
 				isEqual(pluginState.stepAttributions, lastPluginState.stepAttributions) &&
+				// Contributors can arrive after the first calculation; without this, tags never appear.
 				isEqual(pluginState.contributors, lastPluginState.contributors) &&
 				state.doc.eq(lastState.doc) &&
-				colorScheme === lastColorScheme &&
-				intl.locale === lastIntl.locale &&
-				isEqual(activeIndexPos, lastActiveIndexPos) &&
-				hideDeletedDiffs === lastHideDeletedDiffs) ??
+				hideDeletedDiffs === lastHideDeletedDiffs &&
+				hideAddedDiffsUnderline === lastHideAddedDiffsUnderline &&
+				showIndicators === lastShowIndicators &&
+				isEqual(smartThresholds, lastSmartThresholds) &&
+				deletedDiffPlacement === lastDeletedDiffPlacement &&
+				inlineDeletedDiffPlacement === lastInlineDeletedDiffPlacement &&
+				// Turning the reveal on or off changes the emitted styles, so a cached result from the
+				// other setting would leave the diff painted in the wrong resting state.
+				isEqual(reveal, lastReveal)) ??
 			false
 		);
 	},

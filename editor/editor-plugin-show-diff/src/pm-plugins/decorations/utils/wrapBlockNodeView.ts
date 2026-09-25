@@ -9,8 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import type { DiffType, RevealOptions } from '../../../showDiffPluginType';
-import { isExtendedEnabled } from '../../isExtendedEnabled';
+import type { RevealOptions } from '../../../showDiffPluginType';
 import type { ColorScheme } from '../colorSchemes/types';
 import { getAtomicInlineChangedAttrs } from '../createInlineChangedDecoration';
 import { applyRevealToElement } from '../revealStyles';
@@ -145,14 +144,6 @@ const applyDeletedNodeMarkup = (args: DeletedNodeMarkupArgs): void =>
 		? applyDeletedNodeMarkupNext(args)
 		: applyDeletedNodeMarkupLegacy(args);
 
-/**
- * Checks if a node should apply deleted styles directly without wrapper
- * to preserve natural block-level margins
- */
-const shouldApplyStylesDirectly = (nodeName: string): boolean => {
-	return nodeName === 'heading';
-};
-
 const applyCellOverlayStyles = ({
 	element,
 	colorScheme,
@@ -234,61 +225,15 @@ const createBlockNodeWrapper = () => {
 	return wrapper;
 };
 
-/**
- * Applies styles directly to an HTML element by merging with existing styles
- */
-const applyStylesToElement = ({
-	element,
-	targetNode,
-	colorScheme,
-	isActive,
-	isInserted,
-	diffType,
-	hideAddedDiffsUnderline = false,
-}: {
-	colorScheme?: ColorScheme;
-	diffType?: DiffType;
-	element: HTMLElement;
-	hideAddedDiffsUnderline?: boolean;
-	isActive: boolean;
-	isInserted: boolean;
-	targetNode: PMNode;
-}): void => {
-	const currentStyle = element.getAttribute('style') || '';
-	const contentStyle = getChangedContentStyle(
-		colorScheme,
-		isActive,
-		isInserted,
-		diffType,
-		hideAddedDiffsUnderline,
-	);
-	const targetNodeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-		? getBaseNodeTypeName(targetNode.type)
-		: targetNode.type.name;
-	const nodeSpecificStyle =
-		getChangedNodeStyle(
-			targetNodeName,
-			colorScheme,
-			isInserted,
-			isActive,
-			diffType,
-			hideAddedDiffsUnderline,
-		) || '';
-
-	element.setAttribute('style', `${currentStyle}${contentStyle}${nodeSpecificStyle}`);
-};
-
 const applyMultiContainerLikeStyles = ({
 	element,
 	targetNode,
 	colorScheme,
 	isActive,
 	isInserted,
-	diffType,
 	hideAddedDiffsUnderline = false,
 }: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	element: HTMLElement;
 	hideAddedDiffsUnderline?: boolean;
 	isActive: boolean;
@@ -305,7 +250,6 @@ const applyMultiContainerLikeStyles = ({
 			colorScheme,
 			isInserted,
 			isActive,
-			diffType,
 			hideAddedDiffsUnderline,
 		) || '';
 
@@ -432,12 +376,10 @@ const applyTextLikeBlockNodeStyles = ({
 	colorScheme,
 	isActive,
 	isInserted,
-	diffType,
 	hideAddedDiffsUnderline = false,
 	highlightInlineLeafNodes = false,
 }: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	element: HTMLElement;
 	hideAddedDiffsUnderline?: boolean;
 	highlightInlineLeafNodes?: boolean;
@@ -452,7 +394,6 @@ const applyTextLikeBlockNodeStyles = ({
 			colorScheme,
 			isInserted,
 			isActive,
-			diffType,
 			hideAddedDiffsUnderline,
 		) || '';
 	if (nodeSpecificStyle) {
@@ -462,7 +403,6 @@ const applyTextLikeBlockNodeStyles = ({
 		colorScheme,
 		isActive,
 		isInserted,
-		diffType,
 		hideAddedDiffsUnderline,
 	);
 
@@ -502,11 +442,9 @@ const createBlockNodeContentWrapper = ({
 	colorScheme,
 	isActive,
 	isInserted,
-	diffType,
 	hideAddedDiffsUnderline = false,
 }: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	hideAddedDiffsUnderline?: boolean;
 	isActive: boolean;
 	isInserted: boolean;
@@ -522,19 +460,17 @@ const createBlockNodeContentWrapper = ({
 		colorScheme,
 		isInserted,
 		isActive,
-		diffType,
 		hideAddedDiffsUnderline,
 	);
 
 	// When the extended experiment is enabled and the content is inserted,
 	// block widget nodes that already have dedicated node-level styling (e.g. boxShadow outline)
 	// should not also get the inline content style (borderBottom underline) on their container.
-	const shouldSkipContentStyle =
-		isExtendedEnabled(diffType) && isInserted && nodeStyle !== undefined;
+	const shouldSkipContentStyle = isInserted && nodeStyle !== undefined;
 
 	const contentStyle = shouldSkipContentStyle
 		? ''
-		: getChangedContentStyle(colorScheme, isActive, isInserted, diffType, hideAddedDiffsUnderline);
+		: getChangedContentStyle(colorScheme, isActive, isInserted, hideAddedDiffsUnderline);
 
 	contentWrapper.setAttribute('style', `${contentStyle}${nodeStyle || ''}`);
 	contentWrapper.append(nodeView);
@@ -644,11 +580,9 @@ const wrapBlockNode = ({
 	intl,
 	isActive = false,
 	isInserted = false,
-	diffType,
 	hideAddedDiffsUnderline = false,
 }: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	dom: HTMLElement;
 	hideAddedDiffsUnderline?: boolean;
 	intl: IntlShape;
@@ -662,7 +596,7 @@ const wrapBlockNode = ({
 		? getBaseNodeTypeName(targetNode.type)
 		: targetNode.type.name;
 
-	if (shouldShowRemovedLozenge(targetNodeName) && (!isExtendedEnabled(diffType) || !isInserted)) {
+	if (shouldShowRemovedLozenge(targetNodeName) && !isInserted) {
 		const lozenge = createRemovedLozenge(intl, isActive, colorScheme);
 
 		if (handleEmbedCardWithLozenge({ dom, nodeView, targetNode, lozenge, colorScheme, isActive })) {
@@ -684,7 +618,6 @@ const wrapBlockNode = ({
 		colorScheme,
 		isActive,
 		isInserted,
-		diffType,
 		hideAddedDiffsUnderline,
 	});
 	blockWrapper.append(contentWrapper);
@@ -709,12 +642,10 @@ export const wrapBlockNodeView = ({
 	intl,
 	isActive = false,
 	isInserted = false,
-	diffType,
 	hideAddedDiffsUnderline = false,
 	highlightInlineLeafNodes = false,
 }: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	dom: HTMLElement;
 	hideAddedDiffsUnderline?: boolean;
 	highlightInlineLeafNodes?: boolean;
@@ -724,90 +655,60 @@ export const wrapBlockNodeView = ({
 	nodeView: Node;
 	targetNode: PMNode;
 }): void => {
-	if (isExtendedEnabled(diffType)) {
-		if (nodeView instanceof HTMLElement) {
-			if (isInserted && isMultiContainerBlockNode(targetNode.type.name)) {
-				applyMultiContainerLikeStyles({
-					element: nodeView,
-					targetNode,
-					colorScheme,
-					isActive,
-					isInserted,
-					diffType,
-					hideAddedDiffsUnderline,
-				});
-				dom.append(nodeView);
-				return;
-			}
-
-			if (isTextLikeBlockNode(targetNode.type.name)) {
-				applyTextLikeBlockNodeStyles({
-					element: nodeView,
-					targetNode,
-					colorScheme,
-					isActive,
-					isInserted,
-					diffType,
-					hideAddedDiffsUnderline,
-					highlightInlineLeafNodes,
-				});
-				if (targetNode.type.name === 'blockquote' && fg('platform_editor_ai_show_diff_patch_1')) {
-					appendStyleToElement(nodeView, quoteBlockLevelStyle);
-				}
-				dom.append(nodeView);
-				return;
-			}
-
-			if (targetNode.type.name === 'table') {
-				if (
-					expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-					isExperimentEnabled('platform_editor_table_diff_rounded_corners')
-				) {
-					applyTableCellEdgeAttrs({ element: nodeView, tableNode: targetNode });
-				}
-
-				applyCellOverlayStyles({ element: nodeView, colorScheme, isInserted });
-				dom.append(nodeView);
-				return;
-			}
-		}
-		wrapBlockNode({
-			dom,
-			nodeView,
-			targetNode,
-			colorScheme,
-			intl,
-			isActive,
-			isInserted,
-			diffType,
-			hideAddedDiffsUnderline,
-		});
-		return;
-	} else {
-		if (shouldApplyStylesDirectly(targetNode.type.name) && nodeView instanceof HTMLElement) {
-			// Apply deleted styles directly to preserve natural block-level margins
-			applyStylesToElement({
+	if (nodeView instanceof HTMLElement) {
+		if (isInserted && isMultiContainerBlockNode(targetNode.type.name)) {
+			applyMultiContainerLikeStyles({
 				element: nodeView,
 				targetNode,
 				colorScheme,
 				isActive,
 				isInserted,
-				diffType,
+				hideAddedDiffsUnderline,
 			});
 			dom.append(nodeView);
-		} else {
-			wrapBlockNode({
-				dom,
-				nodeView,
+			return;
+		}
+
+		if (isTextLikeBlockNode(targetNode.type.name)) {
+			applyTextLikeBlockNodeStyles({
+				element: nodeView,
 				targetNode,
 				colorScheme,
-				intl,
 				isActive,
 				isInserted,
-				diffType,
+				hideAddedDiffsUnderline,
+				highlightInlineLeafNodes,
 			});
+			if (targetNode.type.name === 'blockquote' && fg('platform_editor_ai_show_diff_patch_1')) {
+				appendStyleToElement(nodeView, quoteBlockLevelStyle);
+			}
+			dom.append(nodeView);
+			return;
+		}
+
+		if (targetNode.type.name === 'table') {
+			if (
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+				isExperimentEnabled('platform_editor_table_diff_rounded_corners')
+			) {
+				applyTableCellEdgeAttrs({ element: nodeView, tableNode: targetNode });
+			}
+
+			applyCellOverlayStyles({ element: nodeView, colorScheme, isInserted });
+			dom.append(nodeView);
+			return;
 		}
 	}
+	wrapBlockNode({
+		dom,
+		nodeView,
+		targetNode,
+		colorScheme,
+		intl,
+		isActive,
+		isInserted,
+		hideAddedDiffsUnderline,
+	});
 };
 
 /**
@@ -820,11 +721,9 @@ export const injectInnerWrapper = ({
 	colorScheme,
 	isActive,
 	isInserted,
-	diffType,
 	reveal,
 }: {
 	colorScheme?: ColorScheme;
-	diffType?: DiffType;
 	isActive?: boolean;
 	isInserted?: boolean;
 	node: HTMLElement;
@@ -842,8 +741,7 @@ export const injectInnerWrapper = ({
 		'style',
 		(isInserted
 			? getInsertedContentStyle(colorScheme, isActive)
-			: getDeletedContentStyle(colorScheme, isActive, diffType, Boolean(revealStyle))) +
-			revealStyle,
+			: getDeletedContentStyle(colorScheme, isActive, Boolean(revealStyle))) + revealStyle,
 	);
 
 	[...node.childNodes].forEach((child) => {
@@ -862,7 +760,6 @@ export const createContentWrapper = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 	isInserted: boolean = false,
-	diffType?: DiffType,
 	reveal?: RevealOptions,
 ): HTMLElement => {
 	const wrapper = document.createElement('span');
@@ -879,24 +776,12 @@ export const createContentWrapper = (
 		isInserted,
 		reveal,
 	});
-	const deletedStyle = getDeletedContentStyle(
-		colorScheme,
-		isActive,
-		diffType,
-		Boolean(revealStyle),
-	);
-	if (isExtendedEnabled(diffType)) {
-		if (isInserted) {
-			wrapper.setAttribute(
-				'style',
-				`${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}${revealStyle}`,
-			);
-		} else {
-			wrapper.setAttribute('style', `${baseStyle}${deletedStyle}${revealStyle}`);
-			const strikethrough = document.createElement('span');
-			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
-			wrapper.append(strikethrough);
-		}
+	const deletedStyle = getDeletedContentStyle(colorScheme, isActive, Boolean(revealStyle));
+	if (isInserted) {
+		wrapper.setAttribute(
+			'style',
+			`${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}${revealStyle}`,
+		);
 	} else {
 		wrapper.setAttribute('style', `${baseStyle}${deletedStyle}${revealStyle}`);
 		const strikethrough = document.createElement('span');

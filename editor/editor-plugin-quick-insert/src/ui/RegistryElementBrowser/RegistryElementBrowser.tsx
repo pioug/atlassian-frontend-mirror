@@ -9,6 +9,7 @@ import { useIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
+import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { MENU, RECOMMENDED_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
 import { getMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-get-menu-footer-section-key';
@@ -173,12 +174,6 @@ export const RegistryElementBrowser = ({
 		},
 		[onClearSelection],
 	);
-	const onClearSearch = useCallback(() => {
-		setQuery('');
-		setSelectedKey(undefined);
-		onClearSelection();
-		searchInputRef.current?.focus();
-	}, [onClearSelection]);
 	const onRegistrySelect = useCallback(
 		(key: string, handler: QuickInsertSelectionHandler) => {
 			setSelectedKey(key);
@@ -284,11 +279,8 @@ export const RegistryElementBrowser = ({
 								<IconButton
 									appearance="subtle"
 									icon={CrossIcon}
-									label={formatMessage({
-										defaultMessage: 'Clear search',
-										id: 'editor.quick-insert.clear-search',
-									})}
-									onClick={onClearSearch}
+									label={formatMessage(messages.close)}
+									onClick={onClose}
 									spacing="compact"
 								/>
 							</div>

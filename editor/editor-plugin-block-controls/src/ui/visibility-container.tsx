@@ -13,7 +13,6 @@ import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -149,8 +148,8 @@ export const useBlockControlsVisibility = ({
 			shouldHideWhenMouseOut ||
 			userIntent === 'aiStreaming' ||
 			// EDITOR-7926: hide the drag handle while a diff is on screen or a suggestion card is open.
-			((isDisplayingDiff || userIntent === 'reviewing') &&
-				expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) ||
+			isDisplayingDiff ||
+			userIntent === 'reviewing' ||
 			sideHidden);
 
 	// Delay hiding the right control in view mode to reduce flickering when moving from block

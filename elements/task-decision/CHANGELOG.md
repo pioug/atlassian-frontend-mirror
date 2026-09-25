@@ -1,5 +1,16 @@
 # @atlaskit/task-decision
 
+## 21.11.0
+
+### Minor Changes
+
+- [`e470e521bcb20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e470e521bcb20) -
+  Add a lightweight messages entry point for task and decision accessibility labels.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.10.20
 
 ### Patch Changes

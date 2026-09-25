@@ -5,6 +5,7 @@ import type { MessageDescriptor } from 'react-intl';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
+import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
 import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 
@@ -17,7 +18,8 @@ import type { TypeAheadItemComponent } from './typeAheadMenuTypes';
 
 const LIST_WIDTH = 320;
 const ESTIMATED_ROW_HEIGHT = 56;
-const MENU_FOOTER_HEIGHT = 48;
+// 40px item + 8px block padding + 1px separator.
+const MENU_FOOTER_HEIGHT = 49;
 
 type Props = {
 	Item: TypeAheadItemComponent;
@@ -74,6 +76,12 @@ export const TypeAheadMenuRenderer = ({
 		[rows],
 	);
 
+	const { height: measuredHeight, updateHeight } = useMenuListHeight(
+		cache,
+		rows.length,
+		rowKeySignature,
+	);
+
 	useLayoutEffect(() => {
 		cache.clearAll();
 		listRef.current?.recomputeRowHeights();
@@ -88,6 +96,7 @@ export const TypeAheadMenuRenderer = ({
 
 	const renderRow = createTypeAheadRowRenderer({
 		cache,
+		onMeasured: updateHeight,
 		itemIndexByRowIndex,
 		Item,
 		listId,
@@ -119,7 +128,8 @@ export const TypeAheadMenuRenderer = ({
 				{rows.length > 0 ? (
 					<List
 						containerRole="presentation"
-						height={Math.min(rows.length * ESTIMATED_ROW_HEIGHT, listMaxHeight)}
+						height={Math.min(measuredHeight, listMaxHeight)}
+						onRowsRendered={updateHeight}
 						overscanRowCount={3}
 						ref={listRef}
 						role="presentation"

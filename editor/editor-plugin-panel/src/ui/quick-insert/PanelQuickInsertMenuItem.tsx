@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import type { MessageDescriptor } from 'react-intl';
 import { useIntl } from 'react-intl';
@@ -9,6 +9,7 @@ import {
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { PanelPlugin } from '../../panelPluginType';
@@ -31,18 +32,32 @@ const getPanelAttributes = (panelType: QuickInsertPanelType): PanelAttributes =>
 
 export const PanelQuickInsertMenuItem = ({
 	api,
+	description,
 	icon: Icon,
 	panelType,
 	previewImageUrls,
 	title,
 }: {
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
+	description: MessageDescriptor;
 	icon: React.ComponentType<{ label: string }>;
 	panelType: QuickInsertPanelType;
 	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 	title: MessageDescriptor;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined,
+		[formatMessage, previewImageUrls],
+	);
 	const onSelect = useCallback(
 		({ editorView, insert, source }: OnSelectContext) =>
 			createPanelAction({
@@ -57,9 +72,10 @@ export const PanelQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(description)}
 			iconBefore={<Icon label="" />}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			title={formatMessage(title)}
 		/>
 	);

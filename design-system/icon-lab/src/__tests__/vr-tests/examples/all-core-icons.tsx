@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::a35058b0789ef662fdf725b5b597f36c>>
+ * @codegen <<SignedSource::8a3112aadaf866678e8c08e9dedff21d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -98,6 +98,7 @@ import ColourNoneIcon from '../../../../core/colour-none';
 import CompareIcon from '../../../../core/compare';
 import CompassHingedIcon from '../../../../core/compass-hinged';
 import ContinueWhenIcon from '../../../../core/continue-when';
+import ConversationIcon from '../../../../core/conversation';
 import CornerRadiusRoundedIcon from '../../../../core/corner-radius-rounded';
 import CornerRadiusSquaredIcon from '../../../../core/corner-radius-squared';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
@@ -1043,6 +1044,7 @@ const Icons = [
 	PianoIcon,
 	RovoDigestIcon,
 	SineWaveIcon,
+	ConversationIcon,
 ];
 
 const groupSize = 50;

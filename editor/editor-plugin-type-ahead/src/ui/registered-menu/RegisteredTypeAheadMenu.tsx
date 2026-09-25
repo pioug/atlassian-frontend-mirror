@@ -1,4 +1,12 @@
-import React, { useCallback, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, {
+	useCallback,
+	useId,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+	useSyncExternalStore,
+} from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -8,6 +16,7 @@ import {
 	getMatchingQuickInsertComponents,
 	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
+import { useMenuPopupSizing } from '@atlaskit/editor-common/quick-insert/use-menu-popup-sizing';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
 import {
@@ -19,6 +28,7 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -35,18 +45,22 @@ import type { TypeAheadSurface } from './typeAheadSurfaces';
 const styles = cssMap({
 	menu: {
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.large'),
 		boxSizing: 'border-box',
 		boxShadow: token('elevation.shadow.overlay'),
 		overflow: 'hidden',
-		paddingBlock: token('space.050'),
+		// Update MENU_VERTICAL_PADDING when changing these vertical paddings.
+		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.075'),
 		width: '320px',
 	},
 });
 const DEFAULT_MENU_MAX_HEIGHT = 480;
-const MENU_VERTICAL_PADDING = 8;
+const MENU_VERTICAL_PADDING = 14;
 const MENU_WIDTH = 320;
 const POPUP_OFFSET = [0, 8];
+const EMPTY_COMPONENTS: RegisterComponent[] = [];
+const subscribeToNothing = () => () => {};
 type Props = {
 	anchorElement: HTMLElement;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
@@ -89,6 +103,13 @@ export const RegisteredTypeAheadMenu = ({
 	surface,
 	triggerHandler,
 }: Props): React.JSX.Element => {
+	const menuHeight = useMenuPopupSizing({
+		target: anchorElement,
+		boundariesElement: popupsBoundariesElement,
+		scrollableElement: popupsScrollableElement,
+		maxHeight,
+		offset: POPUP_OFFSET[1],
+	});
 	const { formatMessage } = useIntl();
 	const generatedId = useId();
 	const listId = `${surface.listIdPrefix}-${generatedId}`;
@@ -101,9 +122,14 @@ export const RegisteredTypeAheadMenu = ({
 		[typeAheadSurfaceContext],
 	);
 	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-	const components = useMemo(
-		() => api?.uiControlRegistry?.actions.getComponents(surface.root.key) ?? [],
-		[api, surface.root.key],
+	const getComponents = useCallback(() => {
+		const components = api?.uiControlRegistry?.actions.getComponents(surface.root.key);
+		return components?.length ? components : EMPTY_COMPONENTS;
+	}, [api, surface.root.key]);
+	const components = useSyncExternalStore(
+		api?.uiControlRegistry?.actions.subscribe ?? subscribeToNothing,
+		getComponents,
+		getComponents,
 	);
 	const isSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	const hasSectionOverflowItems = useMemo(
@@ -242,7 +268,7 @@ export const RegisteredTypeAheadMenu = ({
 			<Popup
 				ariaLabel={null}
 				boundariesElement={popupsBoundariesElement}
-				fitHeight={maxHeight}
+				fitHeight={menuHeight}
 				fitWidth={MENU_WIDTH}
 				mountTo={popupsMountPoint}
 				offset={POPUP_OFFSET}
@@ -263,7 +289,7 @@ export const RegisteredTypeAheadMenu = ({
 								Item={surface.Item}
 								listLabel={surface.listLabel}
 								listId={listId}
-								maxHeight={Math.max(0, maxHeight - MENU_VERTICAL_PADDING)}
+								maxHeight={Math.max(0, menuHeight - MENU_VERTICAL_PADDING)}
 								model={menuModel}
 								onItemHover={setSelectedItemIndex}
 								selectedItemIndex={selectedItemIndex}

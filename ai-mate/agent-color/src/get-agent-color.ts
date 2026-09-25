@@ -32,7 +32,6 @@ const NAMED_AGENT_COLORS: Readonly<Record<string, AgentColor>> = {
 	jira_admin_agent: 'blue',
 	jsm_rovo_service_agent: 'yellow',
 	mcp_amplitude_agent: 'blue',
-	mcp_amplitude_agent_v2: 'blue',
 	mcp_box_agent: 'blue',
 	mcp_canva_agent: 'blue',
 	mcp_figma_agent: 'blue',

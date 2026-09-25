@@ -3,8 +3,15 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import TextArea from '../../text-area';
 import type { TextAreaProps } from '../../types';
+
+const inputMotionGate = 'platform-dst-motion-uplift-input';
+const inputTransition =
+	'var(--ds-input,background-color border-color box-shadow .15s cubic-bezier(.4,1,.6,1))';
+const legacyTransition = 'background-color .2s ease-in-out,border-color .2s ease-in-out';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TextArea', () => {
@@ -173,6 +180,72 @@ describe('TextArea', () => {
 			const spy = jest.fn();
 			render(createTextArea({ resize: 'vertical', ref: spy }));
 			expect(spy).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('motion', () => {
+		it('uses the input motion token for rest and focus when the input motion gate is on', () => {
+			passGate(inputMotionGate);
+			render(createTextArea());
+
+			const textarea = screen.getByTestId(testId);
+			expect(textarea).toHaveCompiledCss('transition', inputTransition);
+			expect(textarea).toHaveCompiledCss('border-width', 'var(--ds-border-width,1px)');
+
+			fireEvent.focus(textarea);
+			expect(textarea).toHaveCompiledCss('transition', inputTransition);
+
+			fireEvent.blur(textarea);
+			expect(textarea).toHaveCompiledCss('transition', inputTransition);
+		});
+
+		it('uses the input motion token when the input becomes invalid', () => {
+			passGate(inputMotionGate);
+			const { rerender } = render(createTextArea());
+
+			const textarea = screen.getByTestId(testId);
+			fireEvent.focus(textarea);
+			expect(textarea).toHaveCompiledCss('transition', inputTransition);
+
+			rerender(createTextArea({ isInvalid: true }));
+			expect(textarea).toHaveCompiledCss('transition', inputTransition);
+			expect(textarea).toHaveCompiledCss('border-width', 'var(--ds-border-width,1px)');
+
+			rerender(createTextArea());
+			expect(textarea).toHaveCompiledCss('transition', inputTransition);
+		});
+
+		it('preserves the legacy transition when the input motion gate is off', () => {
+			failGate(inputMotionGate);
+			render(createTextArea());
+
+			const textarea = screen.getByTestId(testId);
+			expect(textarea).toHaveCompiledCss('transition', legacyTransition);
+		});
+
+		it('retains non-spatial input transitions under reduced motion', () => {
+			passGate(inputMotionGate);
+			render(createTextArea());
+
+			const textarea = screen.getByTestId(testId);
+			expect(textarea).toHaveCompiledCss('transition', inputTransition);
+			expect(textarea).not.toHaveCompiledCss('transition', 'none', {
+				media: '(prefers-reduced-motion: reduce)',
+			});
+			expect(textarea).not.toHaveCompiledCss('transition-duration', '0s', {
+				media: '(prefers-reduced-motion: reduce)',
+			});
+		});
+
+		it.each<[string, TextAreaProps]>([
+			['disabled', { isDisabled: true }],
+			['read-only', { isReadOnly: true }],
+		])('does not apply interactive motion to %s inputs', (_, props) => {
+			passGate(inputMotionGate);
+			render(createTextArea(props));
+
+			const textarea = screen.getByTestId(testId);
+			expect(textarea).not.toHaveCompiledCss('transition', inputTransition);
 		});
 	});
 });

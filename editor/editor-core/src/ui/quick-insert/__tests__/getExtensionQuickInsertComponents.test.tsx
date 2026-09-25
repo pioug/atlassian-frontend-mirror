@@ -1,5 +1,6 @@
 import React from 'react';
 
+import type { MenuItem } from '@atlaskit/editor-common/extensions';
 import {
 	DATA_AND_CHARTS_SECTION,
 	EMBED_SECTION,
@@ -37,6 +38,37 @@ describe('getExtensionQuickInsertComponents', () => {
 			defaultMessage ?? '') as never;
 
 		expect(components[0]?.match?.({ formatMessage, query: 'incident review' })).not.toBeNull();
+	});
+
+	it('forwards explicit preview metadata to the registered item component', () => {
+		const preview = {
+			image: { light: 'https://example.com/preview.png' },
+			attribution: { name: 'Example app' },
+		};
+		const components = getExtensionQuickInsertComponents({
+			apiRef: { current: undefined },
+			editorActions,
+			items: [
+				{
+					categories: [],
+					extensionKey: 'preview-extension',
+					extensionType: 'com.atlassian.test',
+					featured: false,
+					icon: () => Promise.resolve({ default: () => <span /> }),
+					key: 'preview-extension:item',
+					keywords: [],
+					node: { type: 'extension', attrs: {} },
+					preview,
+					title: 'Preview item',
+				},
+			],
+		});
+		const itemElement = components[0]?.component?.({});
+		expect(React.isValidElement<{ item: MenuItem }>(itemElement)).toBe(true);
+		if (!React.isValidElement<{ item: MenuItem }>(itemElement)) {
+			throw new Error('Expected the registered component to render an extension quick insert item');
+		}
+		expect(itemElement.props.item.preview).toBe(preview);
 	});
 
 	it('places known structure extensions at their specified rank', () => {

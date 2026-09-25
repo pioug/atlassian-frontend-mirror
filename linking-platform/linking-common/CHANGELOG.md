@@ -1,5 +1,16 @@
 # @atlaskit/linking-common
 
+## 13.0.1
+
+### Patch Changes
+
+- [`ffe3187520151`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffe3187520151) -
+  Remove the redundant `linking_platform_site_picker_api_unit_compliant_cloud_id` and
+  `linking_platform_link_datasource_unit_compliant_cloud_id` feature gates. Both duplicated the
+  targeting of the existing `linking_platform_site_picker_api_unit_compliant` and
+  `linking_platform_link_datasource_unit_compliant` gates, which now solely drive the units
+  isolation rollout for the site picker and link datasource. No behaviour change.
+
 ## 13.0.0
 
 ### Major Changes

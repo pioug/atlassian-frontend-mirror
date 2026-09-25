@@ -1,5 +1,14 @@
 # @atlaskit/tag-group
 
+## 13.4.2
+
+### Patch Changes
+
+- [`e80bb6441ad9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e80bb6441ad9d) -
+  [ux] Removes the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate from Tag Group now
+  that the refreshed tag visuals are fully rolled out. Tag motion remains controlled by the
+  `platform-dst-motion-uplift-labels` feature gate.
+
 ## 13.4.1
 
 ### Patch Changes

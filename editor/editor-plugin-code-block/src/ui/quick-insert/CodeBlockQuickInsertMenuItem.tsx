@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -9,6 +9,7 @@ import {
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 
@@ -23,6 +24,18 @@ export const CodeBlockQuickInsertMenuItem = ({
 	previewImageUrls?: QuickInsertMenuItemProps['previewImageUrls'];
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined,
+		[formatMessage, previewImageUrls],
+	);
 	const { editorDisabled } = useSharedPluginStateWithSelector(
 		api,
 		['editorDisabled'],
@@ -42,10 +55,11 @@ export const CodeBlockQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(blockTypeMessages.codeblockDescription)}
 			iconBefore={<AngleBracketsIcon label="" />}
 			isDisabled={editorDisabled}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			shortcut="```"
 			title={formatMessage(blockTypeMessages.codeblock)}
 		/>

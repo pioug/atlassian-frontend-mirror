@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -9,6 +9,7 @@ import {
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import GridIcon from '@atlaskit/icon/core/grid';
 
@@ -29,6 +30,18 @@ export const TableQuickInsertMenuItem = ({
 	previewImageUrls,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined,
+		[formatMessage, previewImageUrls],
+	);
 	const onSelect = useCallback(
 		({ editorView, insert, source }: OnSelectContext) =>
 			insertTableFromQuickInsert({
@@ -44,9 +57,10 @@ export const TableQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(messages.tableDescription)}
 			iconBefore={<GridIcon label="" />}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			shortcut={tooltip(toggleTable)}
 			title={formatMessage(messages.table)}
 		/>

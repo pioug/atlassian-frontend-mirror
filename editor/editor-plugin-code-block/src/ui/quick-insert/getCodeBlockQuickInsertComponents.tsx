@@ -11,8 +11,8 @@ import type { CodeBlockPlugin } from '../../codeBlockPluginType';
 import { CodeBlockQuickInsertMenuItem } from './CodeBlockQuickInsertMenuItem';
 
 const previewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/wtf74vgl71h0j84a742l84qly50mdeq2.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/11t8334w2tk154543fv1l248n1he6173.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKE.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVH7.png',
 };
 
 export const getCodeBlockQuickInsertComponents = ({

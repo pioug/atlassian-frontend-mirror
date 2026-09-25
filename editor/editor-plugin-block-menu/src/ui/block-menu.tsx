@@ -42,6 +42,7 @@ import { token } from '@atlaskit/tokens';
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { useBlockMenu } from './block-menu-provider';
 import { BlockMenuRenderer } from './block-menu-renderer/BlockMenuRenderer';
+import { BlockMenuTargetVisibilityProvider } from './block-menu-target-visibility-context';
 
 const styles = cssMap({
 	base: {
@@ -266,14 +267,21 @@ const BlockMenu = ({
 	boundariesElement,
 	scrollableElement,
 }: BlockMenuProps & WrappedComponentProps) => {
+	const isPopupTargetVisibilityEnabled = isExperimentEnabled(
+		'platform_editor_popup_target_visibility',
+	);
 	const {
 		menuTriggerBy,
+		menuTriggerByNode,
 		isSelectedViaDragHandle,
 		isMenuOpen,
 		currentUserIntent,
 		openedViaKeyboard,
 	} = useSharedPluginStateWithSelector(api, ['blockControls', 'userIntent'], (states) => ({
 		menuTriggerBy: states.blockControlsState?.menuTriggerBy,
+		menuTriggerByNode: isPopupTargetVisibilityEnabled
+			? states.blockControlsState?.menuTriggerByNode
+			: undefined,
 		isSelectedViaDragHandle: states.blockControlsState?.isSelectedViaDragHandle,
 		isMenuOpen: states.blockControlsState?.isMenuOpen,
 		currentUserIntent: states.userIntentState?.currentUserIntent,
@@ -313,6 +321,8 @@ const BlockMenu = ({
 	const targetHandleRef = isExperimentEnabled('platform_editor_block_control_migration')
 		? (openMenuHandleRef.current ?? surfaceDragHandle)
 		: editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
+	const menuTargetNode = menuTriggerByNode && editorView?.nodeDOM(menuTriggerByNode.pos);
+	const visibilityTarget = menuTargetNode instanceof HTMLElement ? menuTargetNode : undefined;
 	const closeMenu = React.useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
 			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
@@ -336,6 +346,49 @@ const BlockMenu = ({
 	const popupRef = useRef<HTMLElement | undefined>(undefined);
 
 	const [menuHeight, setMenuHeight] = React.useState<number>(0);
+	const [targetVisibility, setTargetVisibility] = React.useState<{
+		isVisible: boolean | undefined;
+		restoreFocusTo: HTMLElement | null;
+	}>({ isVisible: undefined, restoreFocusTo: null });
+	const { isVisible: targetVisible, restoreFocusTo } = targetVisibility;
+	// CSS visibility can move focus to the document body. Preserve the active menu item so the
+	// existing focus-loss guard does not close the menus during a temporary scroll transition.
+	const handleTargetVisibilityChanged = React.useCallback((isVisible: boolean) => {
+		if (isVisible) {
+			setTargetVisibility((current) => ({
+				isVisible: true,
+				restoreFocusTo: current.isVisible === false ? current.restoreFocusTo : null,
+			}));
+			return;
+		}
+
+		// Capture focus before scheduling the state update so the updater stays pure.
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+		const activeElement = document.activeElement;
+		const isFocusInMenu =
+			activeElement instanceof HTMLElement &&
+			(popupRef.current?.contains(activeElement) ||
+				activeElement.closest(NESTED_DROPDOWN_MENU) !== null);
+
+		setTargetVisibility({
+			isVisible: false,
+			restoreFocusTo: isFocusInMenu ? activeElement : null,
+		});
+	}, []);
+
+	React.useLayoutEffect(() => {
+		if (!isPopupTargetVisibilityEnabled || !targetVisible || !restoreFocusTo) {
+			return;
+		}
+
+		const { activeElement, body, documentElement } = restoreFocusTo.ownerDocument;
+		const focusWasLost =
+			activeElement === null || activeElement === body || activeElement === documentElement;
+		if (restoreFocusTo.isConnected && focusWasLost) {
+			restoreFocusTo.focus({ preventScroll: true });
+		}
+		setTargetVisibility((current) => ({ ...current, restoreFocusTo: null }));
+	}, [isPopupTargetVisibilityEnabled, restoreFocusTo, targetVisible]);
 
 	const targetHandleHeightOffset = -(targetHandleRef?.clientHeight || 0);
 
@@ -351,6 +404,7 @@ const BlockMenu = ({
 	// dispatches after the menu opens, so a re-render can occur while focus is inside that portal.
 	const hasFocus =
 		(editorView?.hasFocus() ||
+			(isPopupTargetVisibilityEnabled && (targetVisible === false || restoreFocusTo !== null)) ||
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			document.activeElement === targetHandleRef ||
 			(popupRef.current &&
@@ -444,6 +498,7 @@ const BlockMenu = ({
 	if (!(targetHandleRef instanceof HTMLElement)) {
 		return null;
 	}
+	const blockMenuContent = <BlockMenuContent api={api} setRef={setRef} />;
 
 	return (
 		<ErrorBoundary
@@ -461,11 +516,16 @@ const BlockMenu = ({
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
 				target={targetHandleRef}
+				visibilityTarget={visibilityTarget}
 				zIndex={akEditorFloatingOverlapPanelZIndex}
 				fitWidth={DEFAULT_MENU_WIDTH}
 				fitHeight={menuHeight}
 				preventOverflow={true}
 				stick={true}
+				hideWhenTargetOutOfView={isPopupTargetVisibilityEnabled}
+				onTargetVisibilityChanged={
+					isPopupTargetVisibilityEnabled ? handleTargetVisibilityChanged : undefined
+				}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, targetHandleHeightOffset]}
 				focusTrap={
@@ -475,7 +535,13 @@ const BlockMenu = ({
 						: undefined
 				}
 			>
-				<BlockMenuContent api={api} setRef={setRef} />
+				{isPopupTargetVisibilityEnabled ? (
+					<BlockMenuTargetVisibilityProvider value={targetVisible}>
+						{blockMenuContent}
+					</BlockMenuTargetVisibilityProvider>
+				) : (
+					blockMenuContent
+				)}
 			</PopupWithListeners>
 		</ErrorBoundary>
 	);

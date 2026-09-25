@@ -16,7 +16,7 @@ import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { EmojiProviderLookupOrder, EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -63,8 +63,7 @@ import { createContentGetter } from './utils/content-getter';
 import { getStandaloneBackgroundColorMarks } from './utils/getStandaloneBackgroundColorMarks';
 import { isNestedHeaderLinksEnabled } from './utils/links';
 import { markBlockAsInline } from './utils/markBlockAsInline';
-import { renderTextSegments } from './utils/render-text-segments';
-import { segmentText } from './utils/segment-text';
+import { renderText } from './utils/render-text';
 
 export interface ReactSerializerInit {
 	allowAltTextOnImages?: boolean;
@@ -210,6 +209,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private initStartPos: number;
 	private startPos: number;
 	private surroundTextNodesWithTextWrapper: boolean = false;
+	private textFastPath: boolean = false;
 	private media?: MediaOptions;
 	private mentionNodeDataProvider?: MentionNodeDataProvider;
 	private emojiProviderLookupOrder?: EmojiProviderLookupOrder;
@@ -264,6 +264,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.allowMediaLinking = init.allowMediaLinking;
 		this.allowAnnotations = Boolean(init.allowAnnotations);
 		this.surroundTextNodesWithTextWrapper = Boolean(init.surroundTextNodesWithTextWrapper);
+		this.textFastPath = expVal('platform_renderer_text_paragraph_fast_path', 'isEnabled', false);
 		this.media = init.media;
 		this.mentionNodeDataProvider = init.mentionNodeDataProvider;
 		this.emojiProviderLookupOrder = init.emojiProviderLookupOrder;
@@ -330,12 +331,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			case 'inlineCard':
 				return this.getInlineCardProps(node, path);
 			case 'expand':
-				return this.getExpandProps(node, path);
 			case 'nestedExpand':
-				if (isExperimentEnabled('platform_editor_defer_collapsed_expand_body')) {
-					return this.getExpandProps(node, path);
-				}
-				return this.getProps(node, path);
+				return this.getExpandProps(node, path);
 			case 'unsupportedBlock':
 			case 'unsupportedInline':
 				return this.getUnsupportedContentProps(node);
@@ -536,14 +533,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 					endPos={endPos + parentDepth}
 					textHighlighter={this.textHighlighter}
 					marks={mark.marks}
+					plainTextFastPath={this.textFastPath}
 				>
 					{mark.text}
 				</TextWrapperComponent>
 			);
 		}
 
-		const segments = segmentText(mark.text, this.textHighlighter);
-		return renderTextSegments(segments, this.textHighlighter, mark.marks, startPos);
+		return renderText(mark.text, this.textHighlighter, mark.marks, startPos, this.textFastPath);
 	}
 
 	private renderNode(
@@ -811,6 +808,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
 		return {
 			asInline: this.inlinePositions.has(startPos) ? 'on' : undefined,
+			plainTextFastPath: this.textFastPath,
 			text: node.text,
 			providers: this.providers,
 			eventHandlers: this.eventHandlers,

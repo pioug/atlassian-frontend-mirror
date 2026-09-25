@@ -1,5 +1,14 @@
 # @atlaskit/editor-shared-styles
 
+## 4.3.27
+
+### Patch Changes
+
+- [`dec0b5dd31b2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dec0b5dd31b2f) -
+  Add Figma, Lovable, and Replit contributor tags behind
+  confluence_ncs_step_diffing_version_history.
+- Updated dependencies
+
 ## 4.3.26
 
 ### Patch Changes

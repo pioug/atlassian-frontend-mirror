@@ -16,22 +16,19 @@ import { getUnitsRolloutSettings } from './getUnitsRolloutSettings';
  *
  * The decision
  * ------------
- * All three of these have to be true, and they are deliberately checked in this order:
+ * Both of these have to be true, and they are deliberately checked in this order:
  *
- * 1. `cc-units-ga` - the units GA master gate, owned by the units team, which is the killswitch
- *    for every product's units isolation behaviour. Checking it first means that while it is off
- *    no linking platform gate is evaluated, so we do not record gate exposure for users who could
- *    not have received the behaviour anyway.
+ * 1. The gates: `cc-units-ga` - the units GA master gate, owned by the units team, which is the
+ *    killswitch for every product's units isolation behaviour - and `isProductInUnitsRollout()`,
+ *    the calling product's own rollout gate. Each product rolls out at its own pace and has its
+ *    own gate, so that check is passed in rather than living here. It is a callback, not a
+ *    boolean, so that `&&` short circuits it away while the killswitch is off: that way we do not
+ *    record product gate exposure for users who could not have received the behaviour anyway. It
+ *    also has to be a callback because `fg` must be called with a literal gate name inside the
+ *    package that declares that gate in its `package.json`, so a product cannot hand its gate
+ *    name to this module as a string.
  *
- * 2. `isProductInUnitsRollout()` - the calling product's own rollout gates. Each product rolls out
- *    at its own pace and has its own pair of gates (one targeting org id, one targeting cloud id),
- *    so the check is passed in rather than living here. It is a callback, not a boolean, for the
- *    same exposure reason as above: the product's gates are only evaluated once `cc-units-ga` has
- *    passed. It also has to be a callback because `fg` must be called with a literal gate name
- *    inside the package that declares that gate in its `package.json`, so a product cannot hand
- *    its gate names to this module as strings.
- *
- * 3. The organisation has actually launched units *and* has boundary enforcement on. Both come
+ * 2. The organisation has actually launched units *and* has boundary enforcement on. Both come
  *    from AGG and both are required: an organisation part way through the migration can have
  *    launched without enforcement yet, and in that state the existing endpoints are still correct.
  *    This is the only step that makes a network call, and it is reached only for products that
@@ -43,17 +40,12 @@ import { getUnitsRolloutSettings } from './getUnitsRolloutSettings';
 export const shouldUseUnitCompliantApi = async (
 	isProductInUnitsRollout: () => boolean,
 ): Promise<boolean> => {
-	// 1. Units GA killswitch.
-	if (!fg('cc-units-ga')) {
+	// 1. Units GA killswitch, then this product's own rollout gate.
+	if (!(fg('cc-units-ga') && isProductInUnitsRollout())) {
 		return false;
 	}
 
-	// 2. This product's own rollout gates.
-	if (!isProductInUnitsRollout()) {
-		return false;
-	}
-
-	// 3. This organisation's actual units state, read from AGG once per page load.
+	// 2. This organisation's actual units state, read from AGG once per page load.
 	const { boundaryEnforced, endUsersLaunched } = await getUnitsRolloutSettings();
 
 	return endUsersLaunched && boundaryEnforced;

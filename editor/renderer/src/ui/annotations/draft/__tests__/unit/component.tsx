@@ -202,3 +202,72 @@ describe('Annotations: draft/component', () => {
 		});
 	});
 });
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+describe('Annotations: draft/component with plainTextFastPath', () => {
+	const provider = (draftSelection: Position | null, child: React.ReactNode) => (
+		<AnnotationRangeStateContext.Provider
+			value={{
+				range: null,
+				type: null,
+				selectionDraftRange: null,
+				hoverDraftRange: null,
+				hoverDraftDocumentPosition: null,
+				selectionDraftDocumentPosition: draftSelection,
+			}}
+		>
+			{child}
+		</AnnotationRangeStateContext.Provider>
+	);
+
+	it('renders the same DOM with and without the fast path when there is no draft', () => {
+		const withFastPath = render(
+			provider(
+				null,
+				<TextWithAnnotationDraft startPos={20} endPos={35} plainTextFastPath>
+					Martin Luther King
+				</TextWithAnnotationDraft>,
+			),
+		);
+		const withoutFastPath = render(
+			provider(
+				null,
+				<TextWithAnnotationDraft startPos={20} endPos={35} plainTextFastPath={false}>
+					Martin Luther King
+				</TextWithAnnotationDraft>,
+			),
+		);
+
+		expect(withFastPath.container.innerHTML).toBe('Martin Luther King');
+		expect(withFastPath.container.innerHTML).toBe(withoutFastPath.container.innerHTML);
+	});
+
+	it('still splits the text and inserts the draft mark when a draft covers part of it', () => {
+		const { container } = render(
+			provider(
+				{ from: 25, to: 30 },
+				<TextWithAnnotationDraft startPos={20} endPos={35} plainTextFastPath>
+					Martin Luther King
+				</TextWithAnnotationDraft>,
+			),
+		);
+
+		const mark = container.querySelector('mark');
+		expect(mark).not.toBeNull();
+		expect(container.textContent).toBe('Martin Luther King');
+	});
+
+	it('applyAnnotationOnText wraps the annotated fragment with the fast path', () => {
+		const elements = applyAnnotationOnText({
+			texts: ['Martin ', 'Luther', ' King'],
+			shouldApplyAnnotationAt: InsertDraftPosition.INSIDE,
+			draftPosition: { from: 27, to: 33 },
+			plainTextFastPath: true,
+		});
+		const { container } = render(<>{elements}</>);
+
+		expect(container.querySelectorAll('mark')).toHaveLength(1);
+		expect(container.querySelector('mark')?.textContent).toBe('Luther');
+		expect(container.textContent).toBe('Martin Luther King');
+	});
+});

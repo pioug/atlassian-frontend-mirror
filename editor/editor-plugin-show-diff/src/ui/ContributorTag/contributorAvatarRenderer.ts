@@ -9,11 +9,11 @@ import type { DiffAgentBrand, TagContributor } from '../../showDiffPluginType';
 import { getContributorTagIcon, type ContributorTagIcon } from './contributorTagIcons';
 
 /**
- * Agent kinds with a custom contributor-tag icon. The `satisfies` clause fails the build if a
- * `DiffAgentBrand` is missing an icon here; `ASSERT_DIFF_AGENT_BRANDS_ARE_REGISTERED` in
- * `showDiffPluginType.ts` similarly fails the build if a brand has no `@atlaskit/agent-color`
- * colour scheme. The declared type stays the wider `TagContributor['agentKind']` so indexing below
- * (with `'identified' | 'external'` in play too) stays safely partial.
+ * Agent kinds with a custom contributor-tag icon. Figma/Lovable/Replit have no entry here — they
+ * always render the real avatar `resolveDiffContributors` supplies, falling back to the generic
+ * `aiAgent` glyph (see `showContributorIcon`) on load failure. The declared type stays the wider
+ * `TagContributor['agentKind']` so indexing below (with `'identified' | 'external'` in play too)
+ * stays safely partial.
  */
 const AGENT_KIND_ICONS: Readonly<
 	Partial<Record<NonNullable<TagContributor['agentKind']>, ContributorTagIcon>>
@@ -21,7 +21,19 @@ const AGENT_KIND_ICONS: Readonly<
 	claude: 'claude',
 	chatgpt: 'chatgpt',
 	rovo: 'rovoHex',
-} satisfies Record<DiffAgentBrand, ContributorTagIcon>;
+} satisfies Partial<Record<DiffAgentBrand, ContributorTagIcon>>;
+
+/**
+ * Brands that always render their fixed glyph, even when the contributor also carries an
+ * `avatarUrl`. Figma/Lovable/Replit are excluded here and use the real avatar when
+ * `resolveDiffContributors` supplies one, falling back to the generic `aiAgent` glyph on load
+ * failure.
+ */
+const FIXED_GLYPH_AGENT_KINDS: ReadonlySet<NonNullable<TagContributor['agentKind']>> = new Set([
+	'claude',
+	'chatgpt',
+	'rovo',
+]);
 
 /** The size `@atlaskit/avatar`'s `xxsmall` rendered at. */
 const AVATAR_SIZE = AVATAR_SIZES.xxsmall;
@@ -137,21 +149,17 @@ export const contributorAvatarRenderer = ({
 			return;
 		}
 
-		shape.appendChild(
-			getContributorTagIcon(
-				AGENT_KIND_ICONS[contributor.agentKind ?? 'external'] ?? 'aiAgent',
-				doc,
-			),
-		);
+		const icon = AGENT_KIND_ICONS[contributor.agentKind ?? 'external'] ?? 'aiAgent';
+		shape.appendChild(getContributorTagIcon(icon, doc));
 	};
 
 	if (contributor.avatarUrl) {
-		// Known brands use their fixed glyph even when the profile also has an avatar URL.
-		const brandedAgentIcon = isAgent
-			? AGENT_KIND_ICONS[contributor.agentKind ?? 'external']
-			: undefined;
+		// Claude/ChatGPT/Rovo always use their fixed glyph, even when the profile also has an
+		// avatar URL. Other agents (e.g. Figma/Lovable/Replit) and users prefer the real avatar.
+		const usesFixedGlyph =
+			isAgent && FIXED_GLYPH_AGENT_KINDS.has(contributor.agentKind ?? 'external');
 
-		if (brandedAgentIcon) {
+		if (usesFixedGlyph) {
 			showContributorIcon();
 		} else {
 			image = doc.createElement('img');

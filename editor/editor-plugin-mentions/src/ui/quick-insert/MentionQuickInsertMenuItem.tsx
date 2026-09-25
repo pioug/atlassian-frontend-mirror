@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -9,6 +9,7 @@ import {
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { TypeAheadHandler } from '@atlaskit/editor-plugin-type-ahead';
 import MentionIcon from '@atlaskit/icon/core/mention';
@@ -28,6 +29,18 @@ export const MentionQuickInsertMenuItem = ({
 	typeAhead,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() =>
+			previewImageUrls
+				? {
+						image: previewImageUrls,
+						attribution: {
+							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
+						},
+					}
+				: undefined,
+		[formatMessage, previewImageUrls],
+	);
 	const onSelect = useCallback(
 		({ editorView, insert }: OnSelectContext) => {
 			if (mentionPluginKey.getState(editorView.state)?.canInsertMention === false) {
@@ -50,9 +63,10 @@ export const MentionQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(messages.mentionDescription)}
 			iconBefore={<MentionIcon label="" />}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			shortcut="@"
 			title={formatMessage(messages.mention)}
 		/>

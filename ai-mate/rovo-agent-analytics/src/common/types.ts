@@ -19,6 +19,25 @@ export type BaseAgentAnalyticsAttributes = {
 	agentId?: string;
 };
 
+export type BrowseCardAnalyticsContext = {
+	browseSessionId?: string;
+	modalEntrypointSource?: string;
+	category?: string;
+	section?: 'hero' | 'codingAgents' | 'recommended' | 'templates' | 'categoryResults';
+	sectionPosition?: number;
+	cardSource?:
+		| 'recommendations'
+		| 'availableCodingAgents'
+		| 'marketplace'
+		| 'templates'
+		| 'agentSearch';
+	placementReason?: 'firstRecommendation' | 'jiraCodingAgent' | 'usageRankedFallback';
+	agentType?: 'codingAgent' | 'rovoAgent' | 'template' | 'unknown';
+	isJiraCodingAgent?: boolean;
+	isPopular?: boolean;
+	interactionElement?: 'card' | 'chatButton' | 'menuTrigger' | 'menuItem';
+};
+
 /**
  * Common attributes for events scoped to a single versioned agent.
  *

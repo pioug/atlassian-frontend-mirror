@@ -3,7 +3,6 @@ import type { AgentBrandColorScheme, AgentPresenceColor } from './agent-presence
 
 const namedBrands: Record<string, AgentBrandColorScheme | undefined> = {
 	mcp_amplitude_agent: 'agent-brand-amplitude',
-	mcp_amplitude_agent_v2: 'agent-brand-amplitude',
 	mcp_figma_agent: 'agent-brand-figma',
 	mcp_lovable_agent: 'agent-brand-lovable',
 	mcp_replit_agent: 'agent-brand-replit',

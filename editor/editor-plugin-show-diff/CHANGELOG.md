@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 19.0.4
+
+### Patch Changes
+
+- [`dec0b5dd31b2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dec0b5dd31b2f) -
+  Add Figma, Lovable, and Replit contributor tags behind
+  confluence_ncs_step_diffing_version_history.
+- [`806c750c64957`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/806c750c64957) -
+  Clean up experiment `platform_editor_diff_plugin_extended`
+- Updated dependencies
+
 ## 19.0.3
 
 ### Patch Changes

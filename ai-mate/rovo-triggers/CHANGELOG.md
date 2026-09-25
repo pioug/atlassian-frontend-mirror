@@ -1,5 +1,31 @@
 # @atlaskit/rovo-triggers
 
+## 11.5.0
+
+### Minor Changes
+
+- [`e02fffa86bfb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e02fffa86bfb1) -
+  For Jira workflow wizard `UPDATE_STATUS` cards, project-scoped statuses now show warning copy
+  without linking to the global Statuses admin page, while global statuses keep the existing link
+  behavior. The warning text now reads "Changes will impact multiple workflows in this space that
+  reference this status..." (with the existing filters/reports suffix) to better match project-space
+  scope.
+
+## 11.4.0
+
+### Minor Changes
+
+- [`2b0c87d2f119d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b0c87d2f119d) -
+  Add the cwr_loom creation experience so Loom Create-with-Rovo can set creationContext.experience.
+
+## 11.3.1
+
+### Patch Changes
+
+- [`0571df1b88f50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0571df1b88f50) -
+  Send pinned entities through the generic context resource contract
+  (`rovo_your_work_tab_pin_objects`).
+
 ## 11.3.0
 
 ### Minor Changes

@@ -10,7 +10,7 @@ import type {
 	EditorState,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { MetricsPlugin } from '../metricsPluginType';
 import { ActiveSessionTimer } from './utils/active-session-timer';
@@ -167,7 +167,7 @@ export const createPlugin = (
 					return;
 				}
 				let toolbarDocking;
-				if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
 					toolbarDocking = userPreferencesProvider?.getPreference('toolbarDockingInitialPosition');
 				}
 

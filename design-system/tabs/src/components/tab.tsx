@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Focusable, Text } from '@atlaskit/primitives/compiled';
 
 import { type TabAttributesType, type TabProps } from '../types';
@@ -45,7 +46,11 @@ const Tab: React.ForwardRefExoticComponent<
 			tabIndex={tabIndex}
 			ref={ref}
 		>
-			<Text weight="medium" color="inherit" maxLines={1}>
+			<Text
+				weight="medium"
+				color="inherit"
+				maxLines={fg('platform_dst_tabs_remove_line_clamp') ? undefined : 1}
+			>
 				{children}
 			</Text>
 		</Focusable>

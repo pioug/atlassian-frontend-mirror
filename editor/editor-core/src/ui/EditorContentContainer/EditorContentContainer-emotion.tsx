@@ -537,11 +537,9 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 	// Evaluate the block-spacing experiment once per render.
 	const isBlockSpacingEnabled = isExperimentEnabled('platform_editor_extension_block_spacing');
 	const isFloatingTocEnabled = isExperimentEnabled('platform_editor_floating_toc');
-	const isUpdateStatusColorsEnabled = UNSAFE_expValNoExposure(
-		'platform_editor_update_status_colors',
-		'isEnabled',
-		false,
-	);
+	const isUpdateStatusColorsEnabled =
+		UNSAFE_expValNoExposure('platform_editor_update_status_colors', 'isEnabled', false) ||
+		UNSAFE_expValNoExposure('platform_editor_update_status_colors_jira', 'isEnabled', false);
 	const isStatusStylesTeam26 = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 
 	return (

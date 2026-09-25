@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -19,6 +19,7 @@ import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import ImageIcon from '@atlaskit/icon/core/image';
@@ -35,13 +36,20 @@ type Props = {
 };
 
 const previewImageUrls = {
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/044ejisv22dxt27c8cn80db4x2oj13s3.png',
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/563locbd706ado411n6gc2sh7tccqg4k.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVK4.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVNH.png',
 };
 
 export const MediaInsertQuickInsertMenuItem = ({ api, config }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { isOffline } = useQuickInsertContext();
+	const preview = useMemo(
+		() => ({
+			image: previewImageUrls,
+			attribution: { name: formatMessage(quickInsertMessages.previewAttributionAtlassian) },
+		}),
+		[formatMessage],
+	);
 	const onSelect = useCallback(
 		({ insert }: OnSelectContext) => {
 			const tr = insert('');
@@ -84,10 +92,11 @@ export const MediaInsertQuickInsertMenuItem = ({ api, config }: Props): React.JS
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(messages.mediaFilesDescription)}
 			iconBefore={<ImageIcon label="" />}
 			isDisabled={isOffline}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			title={formatMessage(messages.mediaFiles)}
 		/>
 	);

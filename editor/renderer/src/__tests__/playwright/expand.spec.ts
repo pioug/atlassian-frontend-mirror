@@ -21,26 +21,20 @@ test.describe('expand', () => {
 			await expander.waitFor({ state: 'visible' });
 			await expander.click();
 
-			await expect(
-				renderer.page.locator('[data-testid="expand-container-nestedExpand-expand-title-2"] > div'),
-			).toBeHidden();
+			await expect(renderer.page.locator('[data-node-type="nestedExpand"] > div')).toBeHidden();
 
 			const nestedExpander = renderer.page.locator('[data-node-type="nestedExpand"] > button');
 			await nestedExpander.waitFor({ state: 'visible' });
 			await nestedExpander.click();
 
-			await expect(
-				renderer.page.locator('[data-testid="expand-container-nestedExpand-expand-title-2"] > div'),
-			).toBeVisible();
+			await expect(renderer.page.locator('[data-node-type="nestedExpand"] > div')).toBeVisible();
 		});
 
 		test('should capture and report a11y violations', async ({ renderer }) => {
 			const expander = renderer.page.locator('[data-node-type="expand"] > button');
 			await expander.waitFor({ state: 'visible' });
 			await expander.click();
-			await expect(
-				renderer.page.locator('[data-testid="expand-container-nestedExpand-expand-title-2"] > div'),
-			).toBeHidden();
+			await expect(renderer.page.locator('[data-node-type="nestedExpand"] > div')).toBeHidden();
 
 			await expect(renderer.page).toBeAccessible({ violationCount: 2 });
 		});
@@ -56,17 +50,13 @@ test.describe('expand', () => {
 			await expander.waitFor({ state: 'visible' });
 			await expander.click();
 
-			await expect(
-				renderer.page.locator('[data-testid="expand-container-nestedExpand-expand-title-2"] > div'),
-			).toBeHidden();
+			await expect(renderer.page.locator('[data-node-type="nestedExpand"] > div')).toBeHidden();
 
 			const nestedExpander = renderer.page.locator('[data-node-type="nestedExpand"] > button');
 			await nestedExpander.waitFor({ state: 'visible' });
 			await nestedExpander.click();
 
-			await expect(
-				renderer.page.locator('[data-testid="expand-container-nestedExpand-expand-title-2"] > div'),
-			).toBeVisible();
+			await expect(renderer.page.locator('[data-node-type="nestedExpand"] > div')).toBeVisible();
 		});
 	});
 	test.describe('full-width mode', () => {
@@ -80,17 +70,13 @@ test.describe('expand', () => {
 			await expander.waitFor({ state: 'visible' });
 			await expander.click();
 
-			await expect(
-				renderer.page.locator('[data-testid="expand-container-nestedExpand-expand-title-2"] > div'),
-			).toBeHidden();
+			await expect(renderer.page.locator('[data-node-type="nestedExpand"] > div')).toBeHidden();
 
 			const nestedExpander = renderer.page.locator('[data-node-type="nestedExpand"] > button');
 			await nestedExpander.waitFor({ state: 'visible' });
 			await nestedExpander.click();
 
-			await expect(
-				renderer.page.locator('[data-testid="expand-container-nestedExpand-expand-title-2"] > div'),
-			).toBeVisible();
+			await expect(renderer.page.locator('[data-node-type="nestedExpand"] > div')).toBeVisible();
 		});
 	});
 });

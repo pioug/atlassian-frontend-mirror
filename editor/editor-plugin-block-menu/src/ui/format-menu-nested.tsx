@@ -12,6 +12,7 @@ import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
+import { useBlockMenuTargetVisibility } from './block-menu-target-visibility-context';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 
 const BLOCK_MENU_TRANSFORM_SPOTLIGHT_PORTAL_SELECTOR =
@@ -31,6 +32,7 @@ export const FormatMenuComponent = ({
 	children: React.ReactNode;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const targetVisible = useBlockMenuTargetVisibility();
 
 	const formatMenuLabel = blockMenuMessages.changeFormat;
 
@@ -51,6 +53,7 @@ export const FormatMenuComponent = ({
 
 	return (
 		<ToolbarNestedDropdownMenu
+			isPopupVisible={targetVisible}
 			text={formatMessage(formatMenuLabel)}
 			elemBefore={<ChangesIcon label="" size="small" />}
 			elemAfter={<ChevronRightIcon label="" size="small" />}

@@ -1,5 +1,21 @@
 # @atlaskit/editor-toolbar
 
+## 2.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.0
+
+### Minor Changes
+
+- [`981dd11bb4ed2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/981dd11bb4ed2) -
+  Add opt-in target visibility handling to editor popups, and use it to hide the Jira description
+  block menu while its originating node is outside the visible viewport. The popup reappears when
+  its target returns, preserving an open nested menu, behind the
+  `platform_editor_popup_target_visibility` experiment.
+
 ## 2.7.11
 
 ### Patch Changes

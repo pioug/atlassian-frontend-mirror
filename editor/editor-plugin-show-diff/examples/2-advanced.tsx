@@ -89,7 +89,6 @@ import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
 import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import { Text } from '@atlaskit/primitives/compiled';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -132,10 +131,6 @@ setBooleanFeatureFlagResolver(
 // eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 UNSAFE_overrideExperiment('platform_editor_show_diff_color_scheme_refactor', {
 	isEnabled: true,
-});
-// Only the extended diff pipeline renders contributor tags.
-setupEditorExperiments('test', { platform_editor_diff_plugin_extended: true }, undefined, {
-	disableTestOverrides: true,
 });
 
 const EXAMPLE_USER_ID = '70121:ba36f99a-cdb4-453d-8f80-fd8186963f3e';

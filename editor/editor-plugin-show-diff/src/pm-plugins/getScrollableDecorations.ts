@@ -2,13 +2,7 @@ import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/mode
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type { DiffType } from '../showDiffPluginType';
-import {
-	DiffDecorationKey,
-	isDiffDecoration,
-	isDiffDecorationSpec,
-} from './decorations/decorationKeys';
-import { isExtendedEnabled } from './isExtendedEnabled';
+import { isDiffDecoration, isDiffDecorationSpec } from './decorations/decorationKeys';
 
 /**
  * True if `fragment` contains at least one inline node (text, hardBreak, emoji, mention, etc.).
@@ -52,16 +46,6 @@ function isRangeFullyInside(
 	range2End: number,
 ): boolean {
 	return range2Start <= range1Start && range1End <= range2End;
-}
-
-function specHasDiffKeyPrefix(spec: unknown, keyPrefix: string): spec is { key: string } {
-	return Boolean(
-		spec &&
-		typeof spec === 'object' &&
-		'key' in spec &&
-		typeof spec.key === 'string' &&
-		spec.key.startsWith(keyPrefix),
-	);
 }
 
 /**
@@ -207,36 +191,20 @@ function groupTouchingDecorations(
 export const getScrollableDecorations = (
 	set: DecorationSet | undefined,
 	doc?: PMNode,
-	diffType?: DiffType,
 ): Decoration[] => {
 	if (!set) {
 		return [];
 	}
 
 	const isBlockDecoration = (decoration: Decoration): boolean =>
-		isExtendedEnabled(diffType)
-			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'block'
-			: (decoration.spec?.key?.startsWith(DiffDecorationKey.block) ?? false);
+		isDiffDecoration(decoration) && decoration.spec.decorationType === 'block';
 	const isInlineDecoration = (decoration: Decoration): boolean =>
-		isExtendedEnabled(diffType)
-			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'inline'
-			: (decoration.spec?.key?.startsWith(DiffDecorationKey.inline) ?? false);
+		isDiffDecoration(decoration) && decoration.spec.decorationType === 'inline';
 	const isWidgetDecoration = (decoration: Decoration): boolean =>
-		isExtendedEnabled(diffType)
-			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'widget'
-			: (decoration.spec?.key?.startsWith(DiffDecorationKey.widget) ?? false);
+		isDiffDecoration(decoration) && decoration.spec.decorationType === 'widget';
 
 	const seenBlockKeys = new Set<string>();
-	const allDecorations = isExtendedEnabled(diffType)
-		? set.find(undefined, undefined, isDiffDecorationSpec)
-		: set.find(
-				undefined,
-				undefined,
-				(spec) =>
-					specHasDiffKeyPrefix(spec, DiffDecorationKey.inline) ||
-					specHasDiffKeyPrefix(spec, DiffDecorationKey.widget) ||
-					specHasDiffKeyPrefix(spec, DiffDecorationKey.block),
-			);
+	const allDecorations = set.find(undefined, undefined, isDiffDecorationSpec);
 
 	// First pass: filter out listItem blocks and deduplicates blocks
 	const filtered = allDecorations.filter((dec) => {

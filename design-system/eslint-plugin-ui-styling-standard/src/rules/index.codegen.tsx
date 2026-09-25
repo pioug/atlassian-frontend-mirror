@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fe6f7ad579eba2900d5adf5ee934c020>>
+ * @codegen <<SignedSource::094f8a058153c7e839c5d98d2718ca4e>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { Rule } from 'eslint';
@@ -10,6 +10,7 @@ import convertPropsSyntax from './convert-props-syntax';
 import enforceStyleProp from './enforce-style-prop';
 import localCxXcss from './local-cx-xcss';
 import noArrayArguments from './no-array-arguments';
+import noAtlaskitTheme from './no-atlaskit-theme';
 import noClassnameProp from './no-classname-prop';
 import noContainerQueries from './no-container-queries';
 import noDynamicStyles from './no-dynamic-styles';
@@ -30,6 +31,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'enforce-style-prop': enforceStyleProp,
 	'local-cx-xcss': localCxXcss,
 	'no-array-arguments': noArrayArguments,
+	'no-atlaskit-theme': noAtlaskitTheme,
 	'no-classname-prop': noClassnameProp,
 	'no-container-queries': noContainerQueries,
 	'no-dynamic-styles': noDynamicStyles,

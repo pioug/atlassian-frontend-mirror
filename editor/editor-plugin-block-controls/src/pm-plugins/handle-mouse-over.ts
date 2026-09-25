@@ -161,13 +161,9 @@ export const handleMouseOver = (
 
 	// EDITOR-7926: bail out while a diff is on screen (or a suggestion card is open) so hovering
 	// doesn't dispatch showDragHandleAt and cause the drag handle to jitter over the diff.
-	// No-exposure check as this runs on every mouseover.
 	const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
 	const isDisplayingDiff = api?.showDiff?.sharedState.currentState()?.isDisplayingChanges ?? false;
-	if (
-		(isDisplayingDiff || currentUserIntent === 'reviewing') &&
-		expValEqualsNoExposure('platform_editor_diff_plugin_extended', 'isEnabled', true)
-	) {
+	if (isDisplayingDiff || currentUserIntent === 'reviewing') {
 		return false;
 	}
 

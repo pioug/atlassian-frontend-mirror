@@ -27,6 +27,7 @@ export type AiSuggestionsRightRailEntryPoint =
 	| 'suggestionsPanel'
 	| 'suggestionsTab'
 	| 'suggestionCard'; // 'suggestionsTab' will be deprecated;
+export type AiSuggestionsEmptyStateType = 'initial' | 'noSuggestionsFound' | 'suggestionsResolved';
 export type AiSuggestionsConversationErrorReason =
 	| 'agentDeactivated'
 	// The OOTB agent that owns the suggestions skill could not be provisioned.
@@ -112,10 +113,34 @@ type AcceptSuggestionAEP = TrackAEP<
 	undefined,
 	{
 		affectedBlocks: number;
+		agentId?: string;
 		charactersAdded?: number;
 		charactersRemoved?: number;
+		hasSources: boolean;
 		interactionPoint: AiSuggestionInteractionPoint;
+		isDiffHidden: boolean;
+		suggestionId: string;
 		suggestionType: string;
+	},
+	undefined
+>;
+
+type DiscardedSuggestionAttributes = {
+	actionKind: string;
+	affectedBlocks: number;
+	agentId?: string;
+	hasSources: boolean;
+	interactionPoint: AiSuggestionInteractionPoint;
+	suggestionId: string;
+	suggestionType: string;
+};
+
+type CancelSuggestionsAEP = TrackAEP<
+	ACTION.CANCELLED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		interactionPoint: AiSuggestionInteractionPoint;
 	},
 	undefined
 >;
@@ -124,11 +149,17 @@ type DiscardSuggestionAEP = TrackAEP<
 	ACTION.DISCARDED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
+	DiscardedSuggestionAttributes,
+	undefined
+>;
+
+type DiscardAllSuggestionsAEP = TrackAEP<
+	ACTION.DISCARD_ALL,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
 	{
-		actionKind: string;
-		affectedBlocks: number;
-		interactionPoint: AiSuggestionInteractionPoint;
-		suggestionType: string;
+		numberOfSuggestions: number;
+		suggestionDetails: DiscardedSuggestionAttributes[];
 	},
 	undefined
 >;
@@ -139,7 +170,9 @@ type DismissSuggestionAEP = TrackAEP<
 	undefined,
 	{
 		affectedBlocks: number;
+		hasSources: boolean;
 		interactionPoint: AiSuggestionInteractionPoint;
+		suggestionId: string;
 		suggestionType: string;
 	},
 	undefined
@@ -152,11 +185,14 @@ type ViewSuggestionAEP = TrackAEP<
 	{
 		actionKind: string;
 		affectedBlocks: number;
+		agentId?: string;
 		blockTypes: string[];
 		charactersToAdd?: number;
 		charactersToRemove?: number;
+		hasSources: boolean;
 		interactionPoint: AiSuggestionInteractionPoint;
 		suggestionCardCharacterCount: number;
+		suggestionId: string;
 		suggestionType: string;
 	},
 	undefined
@@ -178,15 +214,34 @@ type RightRailViewedAEP = TrackAEP<
 	undefined
 >;
 
+type RightRailClosedAEP = TrackAEP<
+	ACTION.RIGHT_RAIL_CLOSED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	undefined,
+	undefined
+>;
+
 type ViewSuggestionReasoningAEP = TrackAEP<
 	ACTION.REASONING_VIEWED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
 	{
 		affectedBlocks: number;
+		hasSources: boolean;
 		interactionPoint: AiSuggestionInteractionPoint;
 		reasoningCharacterCount: number;
 		suggestionType: string;
+	},
+	undefined
+>;
+
+type EmptyStateExposedAEP = TrackAEP<
+	ACTION.EMPTY_STATE_EXPOSED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		emptyStateType: AiSuggestionsEmptyStateType;
 	},
 	undefined
 >;
@@ -198,9 +253,13 @@ export type AiSuggestionsEventPayload =
 	| EntryPointClickedAEP
 	| SuggestionsErrorRetryClickedAEP
 	| EntryPointExposureAEP
+	| CancelSuggestionsAEP
 	| AcceptSuggestionAEP
 	| DiscardSuggestionAEP
+	| DiscardAllSuggestionsAEP
 	| DismissSuggestionAEP
 	| ViewSuggestionAEP
 	| RightRailViewedAEP
-	| ViewSuggestionReasoningAEP;
+	| RightRailClosedAEP
+	| ViewSuggestionReasoningAEP
+	| EmptyStateExposedAEP;

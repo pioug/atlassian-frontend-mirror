@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 10.2.7
+
+### Patch Changes
+
+- [`31123929ebb73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31123929ebb73) -
+  [ux] Add input hover, focus, blur, and invalid-state motion behind the
+  `platform-dst-motion-uplift-input` feature gate.
+
 ## 10.2.6
 
 ### Patch Changes

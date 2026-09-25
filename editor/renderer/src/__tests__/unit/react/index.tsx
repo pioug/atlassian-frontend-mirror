@@ -15,8 +15,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { ReactSerializer } from '../../../index';
@@ -948,7 +946,7 @@ describe('Renderer - ReactSerializer', () => {
 		});
 	});
 
-	describe('nestedExpand - getExpandProps routing based on feature flag', () => {
+	describe('nestedExpand - getExpandProps routing', () => {
 		const tableWithNestedExpandAndInlineComment = {
 			version: 1,
 			type: 'doc',
@@ -1010,8 +1008,7 @@ describe('Renderer - ReactSerializer', () => {
 		// The text a collapsed expand shows in place of its blocks exists only for browser find, so the
 		// serializer joins neighbouring blocks into one string with no element around it. Four
 		// paragraphs become one text node, not four spans.
-		it('when the experiment is on, joins the text of neighbouring blocks in an expand body', () => {
-			mockExpEnabled('platform_editor_defer_collapsed_expand_body');
+		it('joins the text of neighbouring blocks in an expand body', () => {
 			const paragraph = (text: string) => ({
 				type: 'paragraph',
 				content: [{ type: 'text', text }],
@@ -1047,8 +1044,7 @@ describe('Renderer - ReactSerializer', () => {
 		// serializer hands over finds one element rather than the rows, and the stand-in then renders
 		// the whole table — which looks exactly like this feature being switched off. So the shape is
 		// checked here against the real serializer, with a mark the schema really allows on a table.
-		it('when the experiment is on, finds the rows of a table carrying a mark', () => {
-			mockExpEnabled('platform_editor_defer_collapsed_expand_body');
+		it('finds the rows of a table carrying a mark', () => {
 			const row = (content: unknown) => ({
 				type: 'tableRow',
 				content: [{ type: 'tableCell', attrs: {}, content: [content] }],
@@ -1111,8 +1107,7 @@ describe('Renderer - ReactSerializer', () => {
 			expect(container.querySelectorAll('table > tbody > tr')).toHaveLength(1);
 		});
 
-		it('when the experiment is on, calls getExpandProps for nestedExpand', () => {
-			mockExpEnabled('platform_editor_defer_collapsed_expand_body');
+		it('calls getExpandProps for nestedExpand', () => {
 			const serializer = new ReactSerializer({});
 			const docNode = schema.nodeFromJSON(tableWithNestedExpandAndInlineComment);
 			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
@@ -1126,29 +1121,6 @@ describe('Renderer - ReactSerializer', () => {
 			expect(nestedExpandCall?.value.node?.type.name).toBe('nestedExpand');
 
 			getExpandPropsSpy.mockRestore();
-		});
-
-		it('when the experiment is off, calls getProps (not getExpandProps) for nestedExpand', () => {
-			mockExpDisabled('platform_editor_defer_collapsed_expand_body');
-			const serializer = new ReactSerializer({});
-			const docNode = schema.nodeFromJSON(tableWithNestedExpandAndInlineComment);
-			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
-			const getPropsSpy = jest.spyOn(serializer as any, 'getProps');
-
-			serializer.serializeFragment(docNode.content);
-
-			// getExpandProps should NOT be called for nestedExpand when the experiment is off
-			// (it will still be called for regular expand nodes if any)
-			const nestedExpandCall = getExpandPropsSpy.mock.results.find((result) =>
-				hasNodeKey(result.value),
-			);
-			expect(nestedExpandCall).toBeUndefined();
-
-			// getProps should have been called (for nestedExpand and other nodes)
-			expect(getPropsSpy).toHaveBeenCalled();
-
-			getExpandPropsSpy.mockRestore();
-			getPropsSpy.mockRestore();
 		});
 	});
 });

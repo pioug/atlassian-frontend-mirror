@@ -147,12 +147,8 @@ export interface BlockTaskItemDefinition {
   type: 'blockTaskItem';
   content: Array<
     | ExtensionWithAnnotationStage0Definition
-    | ExtensionWithAnnotationStage0Definition
-    | ExtensionWithMarksDefinition
     | ExtensionWithMarksDefinition
     | ParagraphWithFontSizeDefinition
-    | ParagraphWithFontSizeDefinition
-    | ParagraphWithNoMarksDefinition
     | ParagraphWithNoMarksDefinition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
@@ -1397,11 +1393,7 @@ export const layoutColumn: PMNodeSpecFactoryInstance<LayoutColumnNode> =
 
 export interface LayoutSectionDefinition {
   type: 'layoutSection';
-  content: Array<
-    | LayoutColumnDefinition
-    | UnsupportedBlockDefinition
-    | UnsupportedBlockDefinition
-  >;
+  content: Array<LayoutColumnDefinition | UnsupportedBlockDefinition>;
   marks: Array<
     BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
   >;
@@ -1439,11 +1431,7 @@ export const layoutSectionFull: PMNodeSpecFactoryInstance<LayoutSectionFullNode>
 
 export interface LayoutSectionWithSingleColumnStage0Definition {
   type: 'layoutSection';
-  content: Array<
-    | LayoutColumnDefinition
-    | UnsupportedBlockDefinition
-    | UnsupportedBlockDefinition
-  >;
+  content: Array<LayoutColumnDefinition | UnsupportedBlockDefinition>;
   marks: Array<
     BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
   >;
@@ -1712,10 +1700,7 @@ export interface MediaSingleCaptionNodeAttributes1 {
 export interface MediaSingleCaptionDefinition {
   type: 'mediaSingle';
   content: Array<
-    | CaptionDefinition
-    | MediaDefinition
-    | UnsupportedBlockDefinition
-    | UnsupportedBlockDefinition
+    CaptionDefinition | MediaDefinition | UnsupportedBlockDefinition
   >;
   attrs: MediaSingleCaptionNodeAttributes0 | MediaSingleCaptionNodeAttributes1;
 }

@@ -1,5 +1,49 @@
 # @atlaskit/rovo-agent-components
 
+## 9.3.0
+
+### Minor Changes
+
+- [`2c9bd2393dbec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c9bd2393dbec) -
+  Add refreshed generated agent avatars behind the platform-dst-avatar-updated-geometry feature
+  gate.
+- [`9d5a0324d68cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d5a0324d68cd) -
+  Renamed `UNSAFE__useAdsAvatar` prop to `UNSAFE_useAdsAvatar`
+
+### Patch Changes
+
+- [`3f554debe10e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f554debe10e9) -
+  Enabled UNSAFE_isUpdatedGeometry for Rovo Agent Avatar
+- Updated dependencies
+
+## 9.2.0
+
+### Minor Changes
+
+- [`463f291ca4e20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/463f291ca4e20) -
+  Select the Amplitude v2 avatar behind a frontend feature gate for the existing Amplitude agent ID,
+  and remove the unused versioned agent ID mappings.
+- [`b962a1898979b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b962a1898979b) -
+  Add the UNSAFE\_\_useAdsAvatar prop to opt AgentAvatar into using ADS Avatar for its hexagon
+  frame, border, and geometry while preserving the existing renderer by default.
+
+### Patch Changes
+
+- [`463f291ca4e20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/463f291ca4e20) -
+  Use square, full-bleed Amplitude v2 artwork so avatar components apply their own hexagonal shape
+  and border.
+- [`b962a1898979b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b962a1898979b) -
+  Use supported granular testing-library entry points in AgentAvatar tests.
+- [`b962a1898979b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b962a1898979b) -
+  Avoid constructing generated AgentAvatar artwork when an image is rendered.
+
+## 9.1.0
+
+### Minor Changes
+
+- [`943f7df0bd6d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/943f7df0bd6d9) -
+  Update i18n NPM package versions for ai-mate,ai,ai-opt-in,insights-ai-platform (Group 2)
+
 ## 9.0.3
 
 ### Patch Changes

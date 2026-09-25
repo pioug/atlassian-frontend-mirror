@@ -3,6 +3,7 @@ import React, {
 	type MouseEventHandler,
 	useCallback,
 	useEffect,
+	useMemo,
 	useState,
 } from 'react';
 
@@ -50,6 +51,12 @@ export interface AvatarGroupProps {
 	 * Defaults to "stack".
 	 */
 	appearance?: 'grid' | 'stack';
+
+	/**
+	 * Selects an experimental taller hexagon geometry for small, medium, large, xlarge, and
+	 * xxlarge avatars.
+	 */
+	UNSAFE_isUpdatedGeometry?: boolean;
 
 	/**
 	 * Component used to render each avatar.
@@ -181,6 +188,7 @@ export interface AvatarGroupProps {
  */
 const AvatarGroup = ({
 	appearance = 'stack',
+	UNSAFE_isUpdatedGeometry,
 	avatar = Avatar,
 	borderColor,
 	boundariesElement,
@@ -201,6 +209,13 @@ const AvatarGroup = ({
 	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const onClose = useCallback(() => setIsOpen(false), []);
+	const resolvedData = useMemo(
+		() =>
+			UNSAFE_isUpdatedGeometry === undefined
+				? data
+				: data.map((avatarData) => ({ ...avatarData, UNSAFE_isUpdatedGeometry })),
+		[data, UNSAFE_isUpdatedGeometry],
+	);
 
 	const handleTriggerClicked = useCallback((event: React.MouseEvent | KeyboardEvent) => {
 		const { clientX, clientY, type } = event as React.MouseEvent;
@@ -318,7 +333,7 @@ const AvatarGroup = ({
 					isOpen={isOpen}
 					onClose={onClose}
 					isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
-					data={data}
+					data={resolvedData}
 					max={max}
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={overrides}
@@ -362,7 +377,7 @@ const AvatarGroup = ({
 							setInitialFocusRef={isTriggeredUsingKeyboard ? setInitialFocusRef : undefined}
 						>
 							<Section titleId={labelId} testId={`${testId}--section`}>
-								{data.slice(max).map((avatarData, index) =>
+								{resolvedData.slice(max).map((avatarData, index) =>
 									avatarGroupItemOverrides.render(
 										AvatarGroupItem,
 										{
@@ -408,13 +423,13 @@ const AvatarGroup = ({
 	}
 
 	const max = maxCount === undefined || maxCount === 0 ? MAX_COUNT[appearance] : maxCount;
-	const total = data.length;
+	const total = resolvedData.length;
 	const maxAvatar = total > max ? max - 1 : max;
 	const groupId = useId();
 
 	return appearance === 'stack' ? (
 		<Stack id={groupId} testId={testId && `${testId}--avatar-group`} aria-label={label} size={size}>
-			{data.slice(0, maxAvatar).map((avatarData, idx) => {
+			{resolvedData.slice(0, maxAvatar).map((avatarData, idx) => {
 				const callback = avatarData.onClick || onAvatarClick;
 				const finalAvatar = avatarOverrides.render(
 					avatar,
@@ -472,7 +487,7 @@ const AvatarGroup = ({
 		</Stack>
 	) : (
 		<Grid id={groupId} testId={testId && `${testId}--avatar-group`} aria-label={label}>
-			{data.slice(0, maxAvatar).map((avatarData, idx) => {
+			{resolvedData.slice(0, maxAvatar).map((avatarData, idx) => {
 				const callback = avatarData.onClick || onAvatarClick;
 				const finalAvatar = avatarOverrides.render(
 					avatar,

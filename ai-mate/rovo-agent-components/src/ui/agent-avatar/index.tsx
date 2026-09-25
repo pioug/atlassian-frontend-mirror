@@ -5,6 +5,8 @@
 import { cssMap as cssMapCompiled } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
+import Avatar from '@atlaskit/avatar/avatar';
+import { AvatarContent } from '@atlaskit/avatar/avatar-content';
 import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
 import type { SizeType } from '@atlaskit/avatar/types';
 import { cssMap, jsx } from '@atlaskit/css';
@@ -64,6 +66,8 @@ type AgentAvatarProps = {
 	isRovoDev?: boolean;
 	isForgeAgent?: boolean;
 	forgeAgentIconUrl?: string | null;
+	/** Uses ADS Avatar for the hexagon frame, border, and geometry. */
+	UNSAFE_useAdsAvatar?: boolean;
 };
 
 /**
@@ -89,10 +93,41 @@ export const AgentAvatar = ({
 	isRovoDev,
 	isForgeAgent,
 	forgeAgentIconUrl,
+	UNSAFE_useAdsAvatar,
 }: AgentAvatarProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const imgUrl = isForgeAgent && forgeAgentIconUrl ? forgeAgentIconUrl : imageUrl;
+	const avatarName = name || label || formatMessage(messages.agentAvatarLabel);
+	const generatedAvatar = imgUrl ? null : (
+		<GeneratedAvatar
+			agentId={agentId}
+			agentNamedId={agentNamedId}
+			agentIdentityAccountId={agentIdentityAccountId}
+			isRovoDev={isRovoDev}
+			size={size}
+		/>
+	);
+
+	if (UNSAFE_useAdsAvatar) {
+		const adsAvatarProps = {
+			appearance: 'hexagon' as const,
+			label,
+			name: avatarName,
+			size,
+			UNSAFE_isUpdatedGeometry: true,
+		};
+
+		if (imgUrl) {
+			return <Avatar {...adsAvatarProps} src={imgUrl} />;
+		}
+
+		return (
+			<Avatar {...adsAvatarProps}>
+				<AvatarContent>{generatedAvatar}</AvatarContent>
+			</Avatar>
+		);
+	}
 
 	return (
 		<Box
@@ -119,20 +154,9 @@ export const AgentAvatar = ({
 			<div css={stylesCompiled.innerShape}>
 				<Box xcss={styles.avatarContentContainer}>
 					{imgUrl ? (
-						<Box
-							as="img"
-							xcss={styles.image}
-							src={imgUrl}
-							alt={name || label || formatMessage(messages.agentAvatarLabel)}
-						/>
+						<Box as="img" xcss={styles.image} src={imgUrl} alt={avatarName} />
 					) : (
-						<GeneratedAvatar
-							agentId={agentId}
-							agentNamedId={agentNamedId}
-							agentIdentityAccountId={agentIdentityAccountId}
-							isRovoDev={isRovoDev}
-							size={size}
-						/>
+						generatedAvatar
 					)}
 				</Box>
 			</div>

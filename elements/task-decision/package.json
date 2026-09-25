@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "21.10.20",
+	"version": "21.11.0",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,6 +39,7 @@
 		"./constants": "./src/constants.ts",
 		"./decision-item": "./src/components/DecisionItem.tsx",
 		"./decision-list": "./src/components/DecisionList.tsx",
+		"./messages": "./src/components/i18n.ts",
 		"./resourced-task-item": "./src/components/ResourcedTaskItem.tsx",
 		"./task-decision-resource": "./src/api/TaskDecisionResource.ts",
 		"./task-item": "./src/components/TaskItem.tsx",

@@ -13,6 +13,7 @@ type Props = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
 	editorView: EditorView;
 	isOffline: boolean;
+	maxHeight?: number;
 	onClose: () => void;
 	onDismiss: () => void;
 	onSelect: () => void;
@@ -33,6 +34,7 @@ export const RegisteredInsertMenuContent = ({
 	api,
 	editorView,
 	isOffline,
+	maxHeight,
 	onClose,
 	onDismiss,
 	onSelect,
@@ -59,6 +61,7 @@ export const RegisteredInsertMenuContent = ({
 				editorView={editorView}
 				emptyStateHandler={api?.quickInsert?.sharedState.currentState()?.emptyStateHandler}
 				isOffline={isOffline}
+				maxHeight={maxHeight}
 				onClose={onClose}
 				onSelect={onSelect}
 			/>

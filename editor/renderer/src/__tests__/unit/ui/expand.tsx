@@ -9,8 +9,6 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import ExpandWithInt from '../../../ui/Expand';
 import { ExpandBodyBlock, withExpandBodyBlock } from '../../../ui/utils/expand-body';
@@ -20,7 +18,6 @@ import { ExpandBodyBlock, withExpandBodyBlock } from '../../../ui/utils/expand-b
 // "Prop `id` did not match" warning that would obscure the hydration assertions below.
 jest.mock('lodash/uniqueId', () => () => 'expand-title-test');
 
-const DEFER_BODY_EXPERIMENT = 'platform_editor_defer_collapsed_expand_body';
 const BODY_TEXT = 'collapsed body text';
 
 const expandNode = () =>
@@ -124,34 +121,7 @@ describe('Expand', () => {
 		});
 	});
 
-	describe('when the experiment is off', () => {
-		beforeEach(() => mockExpDisabled(DEFER_BODY_EXPERIMENT));
-
-		it('should render the body rather than its text', () => {
-			const { container, queryByTestId } = renderWithIntl(
-				<ExpandWithInt
-					title={'Expand test title'}
-					nodeType={'expand'}
-					rendererAppearance={'full-page'}
-					node={expandNode()}
-				>
-					<Body />
-				</ExpandWithInt>,
-			);
-
-			expect(queryByTestId('expand-children')).toBeInTheDocument();
-			expect(container.textContent).not.toContain(BODY_TEXT);
-			// The body renders from the first paint, so it needs the width context and the margin reset
-			// from the first paint: the provider's div sits inside the wrapper as it always has.
-			expect(container.querySelector('.expand-content-wrapper')?.children).toHaveLength(1);
-		});
-	});
-
-	describe('when the experiment is on', () => {
-		beforeEach(() => {
-			mockExpEnabled(DEFER_BODY_EXPERIMENT);
-		});
-
+	describe('a collapsed body', () => {
 		const renderExpand = () =>
 			renderWithIntl(
 				<ExpandWithInt
@@ -259,10 +229,6 @@ describe('Expand', () => {
 	});
 
 	describe('browser find (beforematch)', () => {
-		beforeEach(() => {
-			mockExpEnabled(DEFER_BODY_EXPERIMENT);
-		});
-
 		// Products ship a reset with `[hidden] { display: none }` — Confluence does. As an author rule
 		// it beats the UA stylesheet's content-visibility for `[hidden=until-found]` and takes the
 		// content out of the page, where find cannot reach it. Setting display alongside the attribute
@@ -371,10 +337,6 @@ describe('Expand', () => {
 	// A nested expand is left as a real element inside its parent's body, rather than being replaced
 	// by text, so the browser can reveal it on its own. One match then opens the whole chain to it.
 	describe('nested expands', () => {
-		beforeEach(() => {
-			mockExpEnabled(DEFER_BODY_EXPERIMENT);
-		});
-
 		const nestedNodes = new Map<string, PMNode>();
 
 		// Memoised on the body text. The serializer reuses the same node instance across renders and
@@ -484,10 +446,6 @@ describe('Expand', () => {
 	// holding a nested expand keep rendering, so the browser can reveal that expand on its own —
 	// standing in for the whole table would take that expand with it.
 	describe('tables in a collapsed body', () => {
-		beforeEach(() => {
-			mockExpEnabled(DEFER_BODY_EXPERIMENT);
-		});
-
 		const text = (value: string) => ({
 			type: 'paragraph',
 			content: [{ type: 'text', text: value }],
@@ -787,7 +745,6 @@ describe('Expand', () => {
 	// that hides collapsed content, so the body would be missing for nothing.
 	describe('when the browser cannot reveal hidden="until-found" content', () => {
 		beforeEach(() => {
-			mockExpEnabled(DEFER_BODY_EXPERIMENT);
 			unsupportHiddenUntilFound();
 		});
 
@@ -872,8 +829,6 @@ describe('Expand', () => {
 		);
 
 		it('should hydrate without a recoverable error while showing the body text', async () => {
-			mockExpEnabled(DEFER_BODY_EXPERIMENT);
-
 			const { container, onRecoverableError } = await hydrateSSROutput(wrap(true));
 
 			expect(onRecoverableError).not.toHaveBeenCalled();
@@ -884,7 +839,6 @@ describe('Expand', () => {
 		// The server always shows the text, so a browser without support renders the body during
 		// hydration. That has to be a render after hydration, not a mismatch against the server HTML.
 		it('should hydrate without a recoverable error when the body replaces its text', async () => {
-			mockExpEnabled(DEFER_BODY_EXPERIMENT);
 			unsupportHiddenUntilFound();
 
 			const { container, onRecoverableError } = await hydrateSSROutput(wrap(true));

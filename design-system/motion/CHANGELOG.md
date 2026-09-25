@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 9.0.1
+
+### Patch Changes
+
+- [`0a7c952be5cf0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a7c952be5cf0) -
+  Fix settled-width truncation measurement for custom multi-value labels and preserve exiting tags
+  through picker rerenders behind platform-dst-motion-uplift-labels.
+
 ## 9.0.0
 
 ### Major Changes

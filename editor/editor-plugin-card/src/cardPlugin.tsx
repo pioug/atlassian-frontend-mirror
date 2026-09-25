@@ -187,7 +187,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			return (
 				<>
 					{fg('platform_sl_3p_preauth_value_modal_killswitch') ? (
-						<PreAuthValuePropositionModalListener cardPluginEvents={cardPluginEvents} />
+						<PreAuthValuePropositionModalListener api={api} cardPluginEvents={cardPluginEvents} />
 					) : null}
 					{shouldRegisterPasteDisplayAsMenu && (
 						<PasteMenuSmartCardClientSync clientRef={pasteMenuSmartCardClientRef} />

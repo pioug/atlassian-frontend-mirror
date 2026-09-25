@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- [`e339b127f827a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e339b127f827a) -
+  Route `platform_editor_controls` checks that used `expValEquals` / `expValEqualsNoExposure`
+  through `editorExperiment`, so they respect the per-product experiment key (Confluence
+  `platform_editor_controls`, Jira `platform_editor_controls_jira`). Previously these checks always
+  read the Confluence experiment, which evaluated to control in Jira.
+- Updated dependencies
+
 ## 18.0.3
 
 ### Patch Changes

@@ -8,10 +8,9 @@ import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
+import { type Direction, type Fade } from '@atlaskit/motion/entering/types';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
-// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
-import { type Direction, type Fade } from '@atlaskit/motion/src/entering/types';
 
 import { Block } from './utils/blocks';
 import { Centered, RetryContainer } from './utils/containers';

@@ -140,6 +140,7 @@ export type ChatCreationContextParams = {
 		| 'cwr_type'
 		| 'cwr_edit'
 		| 'cwr_existing'
+		| 'cwr_loom'
 		| 'cwr-dev-docs'
 		| 'inline_edit'
 		| 'remix'
@@ -689,8 +690,8 @@ export type AddStatusRovoPayload = {
 	statusId: StatusId;
 	statusName: string;
 	statusCategory: StatusCategory;
-	statusScope?: 'GLOBAL' | 'PROJECT';
-	isNewStatus?: boolean;
+	statusScope?: 'GLOBAL' | 'PROJECT' | null;
+	isNewStatus?: boolean | null;
 };
 export type UpdateStatusRovoPayload = {
 	statusId: StatusId;
@@ -698,6 +699,7 @@ export type UpdateStatusRovoPayload = {
 	newStatusName?: string | null;
 	existingStatusCategory: StatusCategory;
 	newStatusCategory?: StatusCategory | null;
+	statusScope?: 'GLOBAL' | 'PROJECT' | null;
 };
 export type DeleteStatusRovoPayload = {
 	statusId: string;

@@ -1,5 +1,30 @@
 # @atlaskit/react-select
 
+## 4.12.0
+
+### Minor Changes
+
+- [`cebce7abdca6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cebce7abdca6e) -
+  [ux] Removes the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate and permanently
+  enables the refreshed tag-style rendering for multi-value selections. Custom multi-value
+  components remain supported, and removing a value preserves select focus.
+
+## 4.11.0
+
+### Minor Changes
+
+- [`13d8f062d3a04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13d8f062d3a04) -
+  [ux] Removes the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate and permanently
+  enables the refreshed tag-style rendering for multi-value selections. Custom multi-value
+  components remain supported, and removing a value preserves select focus.
+
+### Patch Changes
+
+- [`0a7c952be5cf0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a7c952be5cf0) -
+  Fix settled-width truncation measurement for custom multi-value labels and preserve exiting tags
+  through picker rerenders behind platform-dst-motion-uplift-labels.
+- Updated dependencies
+
 ## 4.10.1
 
 ### Patch Changes

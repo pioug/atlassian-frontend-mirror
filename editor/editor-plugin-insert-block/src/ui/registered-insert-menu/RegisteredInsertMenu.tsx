@@ -28,17 +28,17 @@ const DEFAULT_MENU_MAX_HEIGHT = 520;
 const styles = cssMap({
 	menu: {
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.large'),
 		boxShadow: token('elevation.shadow.overlay'),
 		display: 'flex',
 		flexDirection: 'column',
-		maxHeight: `${DEFAULT_MENU_MAX_HEIGHT}px`,
 		overflow: 'hidden',
 		width: '350px',
 	},
 	search: {
 		flexShrink: 0,
-		paddingBlock: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingBlockEnd: token('space.100'),
 		paddingInline: token('space.150'),
 	},
 });
@@ -48,6 +48,7 @@ type Props = {
 	editorView: EditorView;
 	emptyStateHandler?: EmptyStateHandler;
 	isOffline: boolean;
+	maxHeight?: number;
 	onClose: () => void;
 	onSelect: () => void;
 };
@@ -57,9 +58,11 @@ export const RegisteredInsertMenu = ({
 	emptyStateHandler,
 	editorView,
 	isOffline,
+	maxHeight = DEFAULT_MENU_MAX_HEIGHT,
 	onClose,
 	onSelect,
 }: Props): React.JSX.Element => {
+	const menuStyle = { maxHeight };
 	const { formatMessage } = useIntl();
 	const listId = useId();
 	const [menuOpenId] = useState(() => Symbol('registered-insert-menu-open'));
@@ -67,6 +70,10 @@ export const RegisteredInsertMenu = ({
 	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 	const [renderedItems, setRenderedItems] = useState({ startIndex: -1, stopIndex: -1 });
 	const searchRef = useRef<HTMLInputElement>(null);
+	useLayoutEffect(() => {
+		// Popup positions on the next frame; focusing must not scroll to its initial location.
+		searchRef.current?.focus({ preventScroll: true });
+	}, []);
 	const surfaceContext = useMemo(
 		() => createSurfaceContext(TYPE_AHEAD_SURFACE_CONTEXT, { menuOpenId }),
 		[menuOpenId],
@@ -178,13 +185,13 @@ export const RegisteredInsertMenu = ({
 			testId="registered-insert-menu"
 			onKeyDownCapture={onKeyDown}
 			xcss={styles.menu}
+			style={menuStyle}
 		>
 			<Box xcss={styles.search}>
 				<Textfield
 					aria-activedescendant={isActiveItemMounted ? activeItemId : undefined}
 					aria-controls={listId}
 					aria-expanded="true"
-					autoFocus
 					placeholder="Search"
 					ref={searchRef}
 					role="combobox"
@@ -198,7 +205,7 @@ export const RegisteredInsertMenu = ({
 				isOffline={isOffline}
 				listId={listId}
 				listLabel={formatMessage(messages.insertMenu)}
-				maxHeight={DEFAULT_MENU_MAX_HEIGHT}
+				maxHeight={maxHeight}
 				menuOpenId={menuOpenId}
 				model={model}
 				onClose={onSelect}

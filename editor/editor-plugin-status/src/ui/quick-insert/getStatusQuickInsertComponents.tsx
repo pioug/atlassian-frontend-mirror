@@ -11,8 +11,8 @@ import type { StatusPlugin } from '../../statusPluginType';
 import { StatusQuickInsertMenuItem } from './StatusQuickInsertMenuItem';
 
 const previewImageUrls = {
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/se7cdbko55l5f1b6o8wp26lr470420wy.png',
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/7tnn52vck25nq56ornv4q55e065uhxyc.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKM.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVH8.png',
 };
 
 export const getStatusQuickInsertComponents = ({

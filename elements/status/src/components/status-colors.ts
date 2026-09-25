@@ -223,11 +223,9 @@ export const isSwatchSelected = (swatchValue: string, selectedColor?: string): b
 };
 
 export const getLozengeAppearance = (color: string): SemanticColor | AccentColor => {
-	const isUpdateStatusColorsEnabled = UNSAFE_expValNoExposure(
-		'platform_editor_update_status_colors',
-		'isEnabled',
-		false,
-	);
+	const isUpdateStatusColorsEnabled =
+		UNSAFE_expValNoExposure('platform_editor_update_status_colors', 'isEnabled', false) ||
+		UNSAFE_expValNoExposure('platform_editor_update_status_colors_jira', 'isEnabled', false);
 
 	// Named colours are recoloured only by the experiment. `gracefully_render_status_color`
 	// is a read-path gate for hex written by another cohort, so it must never reach here.

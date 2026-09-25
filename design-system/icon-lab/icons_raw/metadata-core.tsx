@@ -820,6 +820,16 @@ const metadata: IconMetadata = {
 		slackChannel: '#help-automation-design',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
+	conversation: {
+		keywords: ['chat', 'bubbles', 'speech', 'talk', 'message'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'CSM',
+		status: 'published',
+		id: '73459:18905',
+		usage: 'Known uses: Chat, conversation view, back and forth',
+		createdAt: '2026-09-24T06:35:09.013Z',
+	},
 	'corner-radius-rounded': {
 		keywords: ['corner radius', 'radii', 'rounded corner', 'round corners'],
 		categorization: 'single-purpose',

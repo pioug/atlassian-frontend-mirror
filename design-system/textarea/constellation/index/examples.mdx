@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import TextareaDefault from '../../examples/constellation/text-area-default';
 import TextareaForm from '../../examples/constellation/text-area-form';
 import TextareaValidation from '../../examples/constellation/text-area-validation';
@@ -9,17 +10,30 @@ import TextareaResize from '../../examples/constellation/text-area-resize';
 import TextAreaAppearanceStandard from '../../examples/constellation/text-area-appearance-standard';
 import TextAreaAppearanceSubtle from '../../examples/constellation/text-area-appearance-subtle';
 
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Text Area and is in Early Access. The motion updates are currently
+	behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
+
 ## Default
 
 The default text area.
 
-<Example Component={TextareaDefault} packageName="@atlaskit/textarea" />
+<Example
+	Component={TextareaDefault}
+	packageName="@atlaskit/textarea"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Form
 
 You'll often use text areas as a [form field](/components/form/examples#field).
 
-<Example Component={TextareaForm} packageName="@atlaskit/textarea" />
+<Example
+	Component={TextareaForm}
+	packageName="@atlaskit/textarea"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Validation
 
@@ -36,7 +50,11 @@ Keep helper text as short as possible. For complex information, provide a link t
 in a new browser tab. For more help, use the
 [messaging guidelines](/foundations/content/designing-messages).
 
-<Example Component={TextareaValidation} packageName="@atlaskit/textarea" />
+<Example
+	Component={TextareaValidation}
+	packageName="@atlaskit/textarea"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Resize
 
@@ -62,7 +80,11 @@ horizontally only.
 Use `none` for a text area that does not resize and uses a scroll bar if the user enters text that
 exceeds the size of the text area.
 
-<Example Component={TextareaResize} packageName="@atlaskit/textarea" />
+<Example
+	Component={TextareaResize}
+	packageName="@atlaskit/textarea"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Appearance
 
@@ -70,13 +92,21 @@ exceeds the size of the text area.
 
 The default text area appearance.
 
-<Example Component={TextAreaAppearanceStandard} packageName="@atlaskit/textarea" />
+<Example
+	Component={TextAreaAppearanceStandard}
+	packageName="@atlaskit/textarea"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ### Subtle
 
 A text area that's transparent until interaction or error.
 
-<Example Component={TextAreaAppearanceSubtle} packageName="@atlaskit/textarea" />
+<Example
+	Component={TextAreaAppearanceSubtle}
+	packageName="@atlaskit/textarea"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Character counter
 

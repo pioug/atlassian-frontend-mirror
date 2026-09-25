@@ -1,5 +1,13 @@
 # @atlaskit/tabs
 
+## 21.2.5
+
+### Patch Changes
+
+- [`015a2831d2e4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/015a2831d2e4b) -
+  Fix premature Safari tab label truncation with nested content by removing the redundant inner line
+  clamp behind platform_dst_tabs_remove_line_clamp.
+
 ## 21.2.4
 
 ### Patch Changes

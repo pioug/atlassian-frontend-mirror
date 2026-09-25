@@ -9,6 +9,7 @@ import {
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { useMenuPopupSizing } from '@atlaskit/editor-common/quick-insert/use-menu-popup-sizing';
 import { TOOLBAR_BUTTON_TEST_ID, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -23,7 +24,6 @@ import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import { RegisteredInsertMenuContent } from './RegisteredInsertMenuContent';
 
 const DEFAULT_MENU_MAX_HEIGHT = 520;
-const FIT_HEIGHT_BUFFER = 100;
 const POPUP_OFFSET: [number, number] = [0, 3];
 
 type Props = {
@@ -41,6 +41,14 @@ export const RegisteredInsertButton = ({ api }: Props): React.JSX.Element | null
 		useToolbarUI();
 	const [isOpen, setIsOpen] = useState(false);
 	const buttonRef = useRef<HTMLButtonElement | null>(null);
+	const menuHeight = useMenuPopupSizing({
+		target: buttonRef.current,
+		boundariesElement: popupsBoundariesElement,
+		scrollableElement: popupsScrollableElement,
+		maxHeight: DEFAULT_MENU_MAX_HEIGHT,
+		offset: POPUP_OFFSET[1],
+		isOpen,
+	});
 	const { connectivityMode, isAllowed } = useSharedPluginStateWithSelector(
 		api,
 		['connectivity', 'typeAhead'],
@@ -94,7 +102,7 @@ export const RegisteredInsertButton = ({ api }: Props): React.JSX.Element | null
 				<Popup
 					alignX="right"
 					boundariesElement={popupsBoundariesElement}
-					fitHeight={DEFAULT_MENU_MAX_HEIGHT + FIT_HEIGHT_BUFFER}
+					fitHeight={menuHeight}
 					fitWidth={350}
 					mountTo={popupsMountPoint}
 					offset={POPUP_OFFSET}
@@ -106,6 +114,7 @@ export const RegisteredInsertButton = ({ api }: Props): React.JSX.Element | null
 				>
 					<RegisteredInsertMenuContent
 						api={api}
+						maxHeight={menuHeight}
 						editorView={editorView}
 						isOffline={isOfflineMode(connectivityMode)}
 						onClose={closeAndRestoreFocus}

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -16,6 +16,7 @@ import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import LinkIcon from '@atlaskit/icon/core/link';
 
@@ -23,8 +24,8 @@ import type { HyperlinkPlugin } from '../../hyperlinkPluginType';
 import { stateKey } from '../../pm-plugins/main';
 
 const previewImageUrls = {
-	dark: 'https://dam-cdn.atl.orangelogic.com/AssetLink/k45g2t4lad0x76vcj2450e0rbu878341.png',
-	light: 'https://dam-cdn.atl.orangelogic.com/AssetLink/30kh88n77bw11v27ee721oi323c20cr6.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVHO.png',
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVLL.png',
 };
 
 export const HyperlinkQuickInsertMenuItem = ({
@@ -33,6 +34,13 @@ export const HyperlinkQuickInsertMenuItem = ({
 	api: ExtractInjectionAPI<HyperlinkPlugin> | undefined;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() => ({
+			image: previewImageUrls,
+			attribution: { name: formatMessage(quickInsertMessages.previewAttributionAtlassian) },
+		}),
+		[formatMessage],
+	);
 	const onSelect = useCallback(
 		({ insert }: OnSelectContext) => {
 			const tr = insert(undefined);
@@ -54,9 +62,10 @@ export const HyperlinkQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(messages.linkDescription)}
 			iconBefore={<LinkIcon label="" />}
 			onSelect={onSelect}
-			previewImageUrls={previewImageUrls}
+			preview={preview}
 			shortcut={tooltip(addLink)}
 			title={formatMessage(messages.link)}
 		/>

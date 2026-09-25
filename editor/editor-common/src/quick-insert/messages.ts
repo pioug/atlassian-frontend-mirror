@@ -1,6 +1,9 @@
 import { defineMessages, type MessageDescriptor } from 'react-intl';
 
-type Messages<Keys extends string> = Record<Keys, MessageDescriptor>;
+type Messages<Keys extends string> = Record<
+	Keys,
+	MessageDescriptor & { defaultMessage: string; id: string }
+>;
 
 export const messages: Messages<
 	| 'admin'
@@ -16,6 +19,12 @@ export const messages: Messages<
 	| 'categoryRovo'
 	| 'categoryStructure'
 	| 'categoryTextFormatting'
+	| 'previewAttributionBy'
+	| 'previewAttributionAtlassian'
+	| 'previewAttributionAssets'
+	| 'previewAttributionConfluence'
+	| 'previewAttributionJira'
+	| 'previewAttributionMicrosoft'
 	| 'close'
 	| 'communication'
 	| 'confluence-content'
@@ -176,5 +185,38 @@ export const messages: Messages<
 		id: 'editor-common.quick-insert.categoryOther',
 		defaultMessage: 'Other',
 		description: 'Other items in the Quick Insert menu.',
+	},
+	previewAttributionBy: {
+		id: 'editor-common.quick-insert.previewAttributionBy',
+		defaultMessage: 'By {name}',
+		description: 'Attribution shown in a Quick Insert item preview.',
+	},
+	previewAttributionAtlassian: {
+		id: 'editor-common.quick-insert.previewAttributionAtlassian.ai-non-final',
+		defaultMessage: 'Atlassian',
+		description:
+			'Atlassian company name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionAssets: {
+		id: 'editor-common.quick-insert.previewAttributionAssets.ai-non-final',
+		defaultMessage: 'Assets',
+		description: 'Assets product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionConfluence: {
+		id: 'editor-common.quick-insert.previewAttributionConfluence.ai-non-final',
+		defaultMessage: 'Confluence',
+		description:
+			'Confluence product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionJira: {
+		id: 'editor-common.quick-insert.previewAttributionJira.ai-non-final',
+		defaultMessage: 'Jira',
+		description: 'Jira product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionMicrosoft: {
+		id: 'editor-common.quick-insert.previewAttributionMicrosoft.ai-non-final',
+		defaultMessage: 'Microsoft',
+		description:
+			'Microsoft company name shown as the creator in a slash-command preview attribution.',
 	},
 });

@@ -1,3 +1,4 @@
+// oxlint-disable-next-line eslint/no-redeclare
 export const DropTargetType = {
 	NONE: 'none',
 	ROW: 'row',

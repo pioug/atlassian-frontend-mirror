@@ -149,6 +149,7 @@ function Editor() {
 	return <ComposableEditor appearance="full-page" preset={preset} />;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface LoomInitContext {
 	finishedInit: boolean;
 	setFinishedInit: React.Dispatch<React.SetStateAction<boolean>>;

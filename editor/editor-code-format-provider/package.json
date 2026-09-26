@@ -13,7 +13,7 @@
 		".": "./src/index.ts"
 	},
 	"name": "@atlaskit/editor-code-format-provider",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"description": "Code format provider for editor",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

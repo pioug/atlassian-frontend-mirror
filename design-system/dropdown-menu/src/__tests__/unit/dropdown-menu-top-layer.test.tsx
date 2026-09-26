@@ -481,6 +481,37 @@ ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio pers
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
+	it('omits aria-busy when loading is initially undefined', () => {
+		const { rerender } = render(<DropdownMenu trigger={triggerText} isOpen />);
+		expect(screen.getByRole('menu')).not.toHaveAttribute('aria-busy');
+
+		rerender(<DropdownMenu trigger={triggerText} isOpen isLoading />);
+		expect(screen.getByRole('menu')).toHaveAttribute('aria-busy', 'true');
+
+		rerender(<DropdownMenu trigger={triggerText} isOpen />);
+		expect(screen.getByRole('menu')).toHaveAttribute('aria-busy', 'false');
+	});
+
+	it('updates the menu busy state when loading changes', () => {
+		const { rerender } = render(
+			<DropdownMenu trigger={triggerText} isOpen isLoading>
+				<DropdownItem>Loaded action</DropdownItem>
+			</DropdownMenu>,
+		);
+		expect(screen.getByRole('menu')).toHaveAttribute('aria-busy', 'true');
+
+		rerender(
+			<DropdownMenu trigger={triggerText} isOpen isLoading={false}>
+				<DropdownItem>Loaded action</DropdownItem>
+			</DropdownMenu>,
+		);
+		expect(screen.getByRole('menu')).toHaveAttribute('aria-busy', 'false');
+		expect(screen.getByRole('menuitem', { name: 'Loaded action' })).toBeVisible();
+
+		rerender(<DropdownMenu trigger={triggerText} isOpen isLoading />);
+		expect(screen.getByRole('menu')).toHaveAttribute('aria-busy', 'true');
+	});
+
 	it('renders loading indicator as a menuitem', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} isLoading={true}>

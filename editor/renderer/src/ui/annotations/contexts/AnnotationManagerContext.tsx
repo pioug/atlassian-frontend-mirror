@@ -27,6 +27,7 @@ interface AnnotationState {
 
 type AnnotationsStateRecord = Record<AnnotationId, AnnotationState>;
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface AnnotationManagerStateContext {
 	annotations: AnnotationsStateRecord;
 	currentHoveredAnnotationId: AnnotationId | undefined;
@@ -39,6 +40,7 @@ interface AnnotationManagerStateContext {
 	isDrafting: boolean;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface AnnotationManagerDispatchContext {
 	annotationManager: AnnotationManager | undefined;
 	dispatch: React.Dispatch<AnnotationManagerAction>;

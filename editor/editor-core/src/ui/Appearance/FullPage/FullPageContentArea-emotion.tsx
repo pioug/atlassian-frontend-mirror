@@ -67,9 +67,9 @@ const AK_NESTED_DND_GUTTER_OFFSET = 8;
 
 const getTotalPadding = () => akEditorGutterPaddingDynamic() * 2;
 
-// Isolates the scroll container's layout and size from the rest of the page under
-// platform_editor_contain_layout. Because of contain: size wrapper
-// must take its height from the parent rather than from the contained content.
+// Isolates the scroll container's layout and size from the rest of the page.
+// Because of contain: size wrapper must take its height from the parent
+// rather than from the contained content.
 const containStrictWrapperStyles = css({
 	contain: 'layout size',
 	height: '100%',

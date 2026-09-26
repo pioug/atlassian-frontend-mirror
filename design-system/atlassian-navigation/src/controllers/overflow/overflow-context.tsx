@@ -4,6 +4,7 @@ import React, { createContext } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
+// oxlint-disable-next-line eslint/no-redeclare
 export interface OverflowContext {
 	/**
 	 * Returns `true` when the navigation item is visible,

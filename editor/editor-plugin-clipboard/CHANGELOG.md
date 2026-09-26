@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-clipboard
 
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.0
 
 ### Patch Changes

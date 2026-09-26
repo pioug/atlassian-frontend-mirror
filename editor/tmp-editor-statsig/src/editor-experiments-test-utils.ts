@@ -48,6 +48,7 @@ type DescribeBody = Parameters<typeof describe>[1];
  * API based on Legacy ffTest API
  * - https://hello.atlassian.net/wiki/spaces/AF/pages/2569505829/Task+Testing+your+feature+flag+in+platform+and+product#Legacy-API-lEGACY
  */
+// oxlint-disable-next-line eslint/no-redeclare
 function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 	experimentName: ExperimentName,
 	cases: EditorExperimentsConfig[ExperimentName]['defaultValue'] extends string

@@ -6,6 +6,7 @@ import useSelectionReducer, {
 	type SelectableState,
 } from './use-selectable';
 
+// oxlint-disable-next-line eslint/no-redeclare
 type SelectionContext = [
 	SelectableState,
 	/**

@@ -11,6 +11,7 @@ import useAsync, { type AsyncProps } from './use-async';
 import useStateManager from './use-state-manager';
 export type { AsyncProps };
 
+// oxlint-disable-next-line eslint/no-redeclare
 type AsyncSelect = <
 	Option = unknown,
 	IsMulti extends boolean = false,

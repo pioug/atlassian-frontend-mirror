@@ -15,6 +15,7 @@ export interface Props extends LoadingProps {
 	disableFocusLock?: boolean;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 export type EmojiUploader = EmojiUploaderInternal;
 
 export const EmojiUploader: React.ForwardRefExoticComponent<

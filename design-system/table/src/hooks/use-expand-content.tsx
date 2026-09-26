@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
+// oxlint-disable-next-line eslint/no-redeclare
 type ExpandContentContext = {
 	isExpandableContent: boolean;
 };

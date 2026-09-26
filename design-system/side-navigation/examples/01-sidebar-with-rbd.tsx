@@ -67,6 +67,7 @@ interface CustomDraggable {
 	renderItem: (props: RenderDraggableProps) => JSX.Element;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface DraggableItemProps {
 	item: CustomDraggable;
 	index: number;

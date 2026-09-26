@@ -118,6 +118,7 @@ export interface AllTeamsPayload {
 	cursor: string;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 export interface LegionClient {
 	getTeamById(teamId: string): Promise<TeamWithImageUrls>;
 

@@ -56,6 +56,7 @@ const styles = cssMap({
 		display: 'inline-flex',
 	},
 });
+// oxlint-disable-next-line eslint/no-redeclare
 interface ColorColumn {
 	borderColor: string;
 	src: string;

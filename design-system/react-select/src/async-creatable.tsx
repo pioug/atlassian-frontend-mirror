@@ -19,6 +19,7 @@ export type AsyncCreatableProps<
 	CreatableAdditionalProps<Option, Group> &
 	AsyncAdditionalProps<Option, Group>;
 
+// oxlint-disable-next-line eslint/no-redeclare
 type AsyncCreatableSelect = <
 	Option = unknown,
 	IsMulti extends boolean = false,

@@ -28,6 +28,7 @@ import Spinner from '@atlaskit/spinner/spinner';
 import { syncedBlockPluginKey } from '../pm-plugins/main';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
+// oxlint-disable-next-line eslint/no-redeclare
 type ModalContent = {
 	confirmButtonLabel: MessageDescriptor;
 	descriptionMultiple: MessageDescriptor;

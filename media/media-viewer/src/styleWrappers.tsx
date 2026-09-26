@@ -320,6 +320,7 @@ const metadataIconWrapperStyles = xcss({
 	paddingRight: 'space.150',
 });
 
+// oxlint-disable-next-line eslint/no-redeclare
 export interface IconWrapperProps {
 	type: MediaType;
 }

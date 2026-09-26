@@ -5,6 +5,7 @@ import type { Position } from '../types';
 
 export type RangeType = 'selection' | 'hover' | null;
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface AnnotationRangeStateContext {
 	hoverDraftDocumentPosition: Position | null;
 
@@ -30,6 +31,7 @@ interface AnnotationRangeStateContext {
 	 */
 	type: RangeType;
 }
+// oxlint-disable-next-line eslint/no-redeclare
 interface AnnotationRangeDispatchContext {
 	clearHoverDraft: () => void;
 	clearHoverRange: () => void;

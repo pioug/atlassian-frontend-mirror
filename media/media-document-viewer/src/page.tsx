@@ -13,6 +13,7 @@ import Spinner from '@atlaskit/spinner/spinner';
 
 import { Annotations } from './annotations';
 import { DocumentLinks } from './documentLinks';
+// oxlint-disable-next-line eslint/no-redeclare
 import { type Font, type PageContent, type Span } from './types';
 import { getDocumentRoot } from './utils/getDocumentRoot';
 import { useIntersectionObserver } from './utils/useIntersectionObserver';

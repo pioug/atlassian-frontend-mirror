@@ -97,6 +97,7 @@ export interface FromValuesClientOptions extends BaseClientOptions {
 
 export type OptionsWithDefaults<T extends BaseClientOptions> = T & Required<Pick<T, 'perimeter'>>;
 
+// oxlint-disable-next-line eslint/no-redeclare
 export interface FrontendExperimentsResult extends InitializeValues {
 	clientSdkKey?: string;
 }
@@ -108,6 +109,7 @@ export type CustomAttributes = {
 	[key: string]: string | number | boolean | Array<string>;
 };
 
+// oxlint-disable-next-line eslint/no-redeclare
 export const FeatureGateEnvironment = {
 	Development: 'development',
 	Staging: 'staging',
@@ -117,7 +119,7 @@ export type FeatureGateEnvironment =
 	(typeof FeatureGateEnvironment)[keyof typeof FeatureGateEnvironment];
 
 // If adding new values here, please check FeatureGates.getDefaultPerimeter to make sure it still returns something sensible.
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+// oxlint-disable-next-line eslint/no-redeclare eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const PerimeterType = {
 	COMMERCIAL: 'commercial',
 	FEDRAMP_MODERATE: 'fedramp-moderate',

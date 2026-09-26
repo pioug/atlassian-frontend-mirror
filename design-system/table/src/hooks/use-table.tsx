@@ -5,6 +5,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 export type SortDirection = 'ascending' | 'descending';
 export type SortKey<Key extends string | symbol | number> = Key | 'unset';
 
+// oxlint-disable-next-line eslint/no-redeclare
 type TableContext<T, K extends keyof T = keyof T> = {
 	isSelectable?: boolean;
 	sortKey: SortKey<K>;

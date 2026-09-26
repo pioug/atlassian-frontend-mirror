@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 18.3.8
+
+### Patch Changes
+
+- [`3bcbee8bcb1df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bcbee8bcb1df) -
+  Derive the top-layer dropdown menu's `aria-busy` state from `isLoading` behind
+  `platform-dst-top-layer`. Omit the attribute when loading is initially undefined, and retain
+  `false` after loading ends.
+
 ## 18.3.7
 
 ### Patch Changes

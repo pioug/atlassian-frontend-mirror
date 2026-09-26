@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 126.0.0
+
+### Major Changes
+
+- [`f502381f5d221`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f502381f5d221) -
+  Complete AI Suggestions analytics for right-rail lifecycle, empty-state interactions,
+  cancellation, suggestion lifecycle and source context, agent attribution, and aggregate
+  discard-all actions.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 125.4.0
 
 ### Minor Changes

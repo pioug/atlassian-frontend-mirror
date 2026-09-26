@@ -22,6 +22,7 @@ const styles = cssMap({
 	},
 });
 
+// oxlint-disable-next-line eslint/no-redeclare
 type MenuGroupContainer = {
 	growing?: boolean;
 	children?: React.ReactNode;

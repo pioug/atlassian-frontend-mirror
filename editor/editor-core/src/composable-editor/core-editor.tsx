@@ -148,6 +148,7 @@ const useMemoEditorFeatureFlags = (featureFlags?: { [featureFlag: string]: strin
  * @param props
  * @example
  */
+// oxlint-disable-next-line eslint/no-redeclare
 export function CoreEditor(props: EditorNextProps & WithAppearanceComponent): React.JSX.Element {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const editorSessionId = useRef(uuid());

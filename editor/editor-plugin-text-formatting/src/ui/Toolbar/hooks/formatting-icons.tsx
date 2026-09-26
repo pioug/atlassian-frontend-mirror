@@ -127,6 +127,7 @@ const IconButtons = (
 	},
 });
 
+// oxlint-disable-next-line eslint/no-redeclare
 type IconBefore = {
 	icon: ReactElement<unknown, string | JSXElementConstructor<unknown>> | undefined;
 };

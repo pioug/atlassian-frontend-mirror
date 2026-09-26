@@ -18,6 +18,7 @@ import useStateManager, { type StateManagerProps } from './use-state-manager';
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
+// oxlint-disable-next-line eslint/no-redeclare
 type StateManagedSelect = <
 	Option = unknown,
 	IsMulti extends boolean = false,

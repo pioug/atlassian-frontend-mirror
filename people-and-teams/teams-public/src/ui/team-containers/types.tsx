@@ -83,6 +83,7 @@ export interface TeamContainerProps {
 	hideSubTextIcon?: boolean;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 export interface TeamContainersEmptyStateProps {
 	hasNoPermissions?: boolean;
 }

@@ -6,6 +6,7 @@
  * @codegen <<SignedSource::18a579e5504b16797251723310feb232>>
  * @codegenCommand yarn build:icon-glyphs
  */
+// oxlint-disable-next-line eslint/no-redeclare
 interface metadata {
 	/**
 	 * Default component name for the icon

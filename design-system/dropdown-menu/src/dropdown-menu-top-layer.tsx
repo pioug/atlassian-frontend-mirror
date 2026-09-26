@@ -97,7 +97,7 @@ function LoadingIndicator({
 function DropdownMenuTopLayer({
 	children,
 	defaultOpen = false,
-	isLoading = false,
+	isLoading,
 	isOpen: isOpenProp,
 	onOpenChange = noop,
 	placement = 'bottom-start',
@@ -113,7 +113,17 @@ function DropdownMenuTopLayer({
 }: DropdownMenuProps): React.JSX.Element {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpenProp, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
-	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverRef = useRef<HTMLDivElement | null>(null);
+	const setPopoverRef = useCallback(
+		(element: HTMLDivElement | null) => {
+			popoverRef.current = element;
+			// Leave untouched menus without a busy state; retain false once it has been set.
+			if (isLoading !== undefined || element?.hasAttribute('aria-busy')) {
+				element?.setAttribute('aria-busy', String(Boolean(isLoading)));
+			}
+		},
+		[isLoading],
+	);
 
 	const popoverId = usePopoverId();
 
@@ -316,7 +326,7 @@ function DropdownMenuTopLayer({
 		<SelectionStore>
 			{renderTrigger()}
 			<Popover
-				ref={popoverRef}
+				ref={setPopoverRef}
 				id={popoverId}
 				role="menu"
 				label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}

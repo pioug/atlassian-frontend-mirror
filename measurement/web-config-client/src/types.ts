@@ -1,3 +1,4 @@
+// oxlint-disable-next-line eslint/no-redeclare
 export const IdentifierEnum = {
 	ActivationId: 'activationId',
 	AlignUserId: 'alignUserId',

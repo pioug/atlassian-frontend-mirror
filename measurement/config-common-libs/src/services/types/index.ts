@@ -15,6 +15,7 @@ export interface ParseOptions {
 	throw?: boolean;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 export const ConfigError = {
 	NotFound: 'not_found',
 	InvalidState: 'state_invalid',

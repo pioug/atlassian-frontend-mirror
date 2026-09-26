@@ -13,6 +13,7 @@ const getDisplayName = (WrappedComponent: React.ElementType<any> | string): stri
 };
 
 export function withLinkClickedEvent<
+	// oxlint-disable-next-line eslint/no-redeclare
 	Component extends Extract<React.ElementType, 'a'> | React.ComponentType<LinkProps>,
 >(
 	WrappedComponent: Component,

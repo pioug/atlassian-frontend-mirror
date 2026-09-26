@@ -4,6 +4,7 @@ export type EvaluationDetails = {
 	reason: EvaluationReason;
 };
 
+// oxlint-disable-next-line eslint/no-redeclare
 export const EvaluationReason = {
 	// Order is important since the logic for migrating from a new client reason to an old one
 	// returns the first which is a substring of the new client reason

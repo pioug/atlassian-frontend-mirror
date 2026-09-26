@@ -22,6 +22,7 @@ export interface State {
 	resourceError?: Error;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 const ResourcedMentionList: React.ForwardRefExoticComponent<
 	Omit<Props, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
 > = withAnalyticsEvents({})(ResourcedMentionListWithoutAnalytics);

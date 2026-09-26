@@ -40,6 +40,7 @@ import { ErrorIllustration } from '../Error/ErrorIllustration';
 import TeamForbiddenErrorState from './TeamForbiddenErrorState';
 import TeamLoadingState from './TeamLoadingState';
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface TeamMembers {
 	isArchived?: boolean;
 	analytics: AnalyticsFunction;

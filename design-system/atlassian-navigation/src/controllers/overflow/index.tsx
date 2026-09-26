@@ -27,6 +27,7 @@ const updateHashRef = (currentRef: string[], value: string) => {
 	currentRef.length = 3;
 };
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface OverflowContext {
 	/**
 	 * Returns `true` when the navigation item is visible,

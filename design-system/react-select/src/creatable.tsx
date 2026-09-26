@@ -16,6 +16,7 @@ export type CreatableProps<
 	Group extends GroupBase<Option>,
 > = StateManagerProps<Option, IsMulti, Group> & CreatableAdditionalProps<Option, Group>;
 
+// oxlint-disable-next-line eslint/no-redeclare
 type CreatableSelect = <
 	Option = unknown,
 	IsMulti extends boolean = false,

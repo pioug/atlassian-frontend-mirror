@@ -16,6 +16,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+// oxlint-disable-next-line eslint/no-redeclare
 import type { RegistryElementBrowserItem } from './model';
 import NotFoundIllustration from './NotFoundIllustration';
 

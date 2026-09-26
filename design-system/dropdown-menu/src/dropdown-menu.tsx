@@ -398,7 +398,7 @@ const DropdownMenu = <T extends HTMLElement = any>(
 		autoFocus = false,
 		children,
 		defaultOpen = false,
-		isLoading = false,
+		isLoading,
 		isOpen,
 		onOpenChange = noop,
 		placement = 'bottom-start',

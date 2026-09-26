@@ -44,6 +44,7 @@ export interface State {
 
 const MentionPickerWithIntl = injectIntl(MentionPicker, { forwardRef: true });
 
+// oxlint-disable-next-line eslint/no-redeclare
 export const MentionPickerWithAnalytics: React.ForwardRefExoticComponent<
 	Omit<
 		Omit<

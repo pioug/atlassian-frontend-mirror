@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+// oxlint-disable-next-line eslint/no-redeclare
 import type { DefaultValue, UserType, OptionIdentifier } from '@atlaskit/user-picker/types';
 
 import hydrateDefaultValues from '../../../service/default-value-hydration-client';

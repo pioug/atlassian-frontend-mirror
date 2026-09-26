@@ -704,19 +704,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	cc_maui_create_keyword: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// A/A experiment paired with cc_maui_create_keyword, used only to balance exposures.
-	cc_maui_create_keyword_aa: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-07-13
 	confluence_native_tabs_experiment: {
 		defaultValue: boolean;
@@ -1901,21 +1888,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'cc-maui-experiment',
 			jira: 'jira_maui_remix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	cc_maui_create_keyword: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_maui_create_keyword',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// A/A experiment paired with cc_maui_create_keyword, used only to balance exposures.
-	cc_maui_create_keyword_aa: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_maui_create_keyword_aa',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

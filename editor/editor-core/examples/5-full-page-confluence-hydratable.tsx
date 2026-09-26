@@ -41,6 +41,7 @@ const HydratableEditorExample = (): React.JSX.Element => {
 				<ComposableEditor
 					preset={preset}
 					appearance={appearance}
+					UNSAFE_containLayout
 					collabEdit={{ provider: collabEditProvider }}
 					disabled={false}
 					defaultValue={hydrateAdf}

@@ -44,6 +44,8 @@ export type OwnProps = {
 	 */
 	isDisabled?: boolean;
 	isHighlighted?: boolean;
+	/** Whether this mention represents the Rovo Chat agent. */
+	isRovoChat?: boolean;
 	localId?: string;
 	onClick?: MentionEventHandler;
 	onHover?: () => void;
@@ -51,8 +53,6 @@ export type OwnProps = {
 	onMouseLeave?: MentionEventHandler;
 	/** Whether the upstream integration has enabled the avatar treatment for this mention. */
 	renderAvatarSlot?: boolean;
-	/** Whether this mention represents the Rovo Chat agent. */
-	isRovoChat?: boolean;
 	ssrPlaceholderId?: string;
 	text: string;
 };
@@ -86,6 +86,7 @@ const MentionWithAnalytics = withAnalyticsEvents({
 	},
 })(MentionInternal);
 
+// oxlint-disable-next-line eslint/no-redeclare
 const Mention: React.ForwardRefExoticComponent<
 	Omit<OwnProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
 > = MentionWithAnalytics;

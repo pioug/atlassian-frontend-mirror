@@ -18,6 +18,7 @@ import type { EditorAppearance } from '../../types';
 import type { UseStickyToolbarType } from '../../ui';
 import { EDIT_AREA_ID } from '../../ui';
 
+// oxlint-disable-next-line eslint/no-redeclare
 export interface KeyDownHandlerContext {
 	handleArrowLeft: () => void;
 	handleArrowRight: () => void;

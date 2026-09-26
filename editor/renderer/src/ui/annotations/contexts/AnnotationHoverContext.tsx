@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
 import React, { createContext, useState, useContext, useMemo, useRef, useCallback } from 'react';
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface AnnotationHoverStateContext {
 	isWithinRange: boolean;
 }
 
+// oxlint-disable-next-line eslint/no-redeclare
 interface AnnotationHoverDispatchContext {
 	cancelTimeout: () => void;
 	initiateTimeout: () => void;

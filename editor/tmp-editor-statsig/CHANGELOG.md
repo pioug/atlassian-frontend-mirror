@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 209.1.1
+
+### Patch Changes
+
+- [`e317f52827a15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e317f52827a15) -
+  Clean up experiment `cc_maui_create_keyword` and keep the permanent Remix copy.
+
+## 209.1.0
+
+### Minor Changes
+
+- [`a331495279e88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a331495279e88) -
+  Remove the cc_maui_create_keyword_aa experiment exposure and configuration.
+
 ## 209.0.0
 
 ### Major Changes

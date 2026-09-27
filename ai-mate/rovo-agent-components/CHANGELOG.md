@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-components
 
+## 9.4.0
+
+### Minor Changes
+
+- [`8b8621693100c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b8621693100c) -
+  Add refreshed artwork for mapped OOTB agent avatars and apply the designer's updated palette to
+  generated custom avatars behind the platform-dst-avatar-updated-geometry feature gate. Keep legacy
+  secondary colors for gate-off avatars.
+
 ## 9.3.0
 
 ### Minor Changes

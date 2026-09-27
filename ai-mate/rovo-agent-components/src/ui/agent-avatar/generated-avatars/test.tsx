@@ -16,6 +16,11 @@ jest.mock('./assets/jsm-service-triage-agent', () => ({
 	default: () => <div data-testid="jsm-service-triage-agent-avatar" />,
 }));
 
+jest.mock('./assets/jsm-request-resolver-agent', () => ({
+	__esModule: true,
+	default: () => <div data-testid="jsm-request-resolver-agent-avatar" />,
+}));
+
 jest.mock('./assets/jira-task-planner-agent', () => ({
 	__esModule: true,
 	default: () => <div data-testid="jira-task-planner-agent-avatar" />,
@@ -71,6 +76,27 @@ describe('getNumberIdForAvatar', () => {
 });
 
 describe('GeneratedAvatar', () => {
+	it.each([
+		['jira_coding_agent', '18 344 52 52'],
+		['jira_intelligent_triage_agent', '18 214 52 52'],
+		['jira_admin_agent', '18 19 52 52'],
+		['jsm_rovo_service_agent', '18 604 52 52'],
+		['ops_guide_agent', '18 539 52 52'],
+	])('renders the Team 26 EU avatar for %s', async (agentNamedId, viewBox) => {
+		passGate('platform-dst-avatar-updated-geometry');
+		render(<GeneratedAvatar agentNamedId={agentNamedId} size="medium" />);
+
+		expect(await screen.findByTestId('refreshed-agent-avatar')).toHaveAttribute('viewBox', viewBox);
+	});
+
+	it('retains the Request Resolver rename path when the Team 26 EU gate is off', async () => {
+		failGate('platform-dst-avatar-updated-geometry');
+		passGate('rename-rovo-service-to-request-resolver');
+		render(<GeneratedAvatar agentNamedId="jsm_rovo_service_agent" size="medium" />);
+
+		expect(await screen.findByTestId('jsm-request-resolver-agent-avatar')).toBeInTheDocument();
+	});
+
 	it('renders the original Amplitude avatar when the frontend gate is off', async () => {
 		failGate('rovo_agent_amplitude_avatar_v2');
 		render(<GeneratedAvatar agentNamedId="mcp_amplitude_agent" size="medium" />);

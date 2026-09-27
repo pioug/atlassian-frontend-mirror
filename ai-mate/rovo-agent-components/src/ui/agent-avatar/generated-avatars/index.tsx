@@ -12,11 +12,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { AgentCreatorType } from '../../../common/types';
-type RefreshedAvatarProps = {
-	size: number;
-	primaryColor: string;
-	iconColor: string;
-};
 
 const RefreshedCustomerInsightAvatar = lazy(() => import('./refreshed-assets/customer-insight'));
 const RefreshedBacklogBuddyAvatar = lazy(() => import('./refreshed-assets/backlog-buddy'));
@@ -44,6 +39,13 @@ const RefreshedFeatureFlagAvatar = lazy(() => import('./refreshed-assets/feature
 const RefreshedProductRequirementAvatar = lazy(
 	() => import('./refreshed-assets/product-requirement'),
 );
+const RefreshedJiraCodingAgentAvatar = lazy(() => import('./refreshed-assets/jira-coding-agent'));
+const RefreshedJiraIntelligentTriageAgentAvatar = lazy(
+	() => import('./refreshed-assets/jira-intelligent-triage-agent'),
+);
+const RefreshedJiraAdminAgentAvatar = lazy(() => import('./refreshed-assets/jira-admin-agent'));
+const RefreshedRequestResolverAvatar = lazy(() => import('./refreshed-assets/request-resolver'));
+const RefreshedOpsExpertAvatar = lazy(() => import('./refreshed-assets/ops-expert'));
 
 const styles = cssMap({
 	image: {
@@ -334,43 +336,54 @@ const JsmServiceTriageAgentAvatar = lazy(
 
 export type AgentAvatarColor = {
 	primary: string;
-	secondary: string;
 	cover: string;
+	secondary?: string;
 };
 
-export const yellowColor = { primary: '#FCA700', secondary: '#FFC716', cover: '#FEF7C8' };
-export const purpleColor = { primary: '#BF63F3', secondary: '#D8A0F7', cover: '#F8EEFE' };
-export const greenColor = { primary: '#82B536', secondary: '#B3DF72', cover: '#EFFFD6' };
-export const blueColor = { primary: '#357DE8', secondary: '#669DF1', cover: '#E9F2FE' };
-const refreshedBlueColor = { ...blueColor, primary: '#1868DB' };
+export const yellowColor = {
+	v1: { primary: '#FCA700', secondary: '#FFC716', cover: '#FEF7C8' },
+	v2: { primary: '#FFC716', iconColor: '#101214', cover: '#FEF7C8' },
+};
+export const purpleColor = {
+	v1: { primary: '#BF63F3', secondary: '#D8A0F7', cover: '#F8EEFE' },
+	v2: { primary: '#C97CF4', iconColor: '#101214', cover: '#F8EEFE' },
+};
+export const greenColor = {
+	v1: { primary: '#82B536', secondary: '#B3DF72', cover: '#EFFFD6' },
+	v2: { primary: '#94C748', iconColor: '#101214', cover: '#EFFFD6' },
+};
+export const blueColor = {
+	v1: { primary: '#357DE8', secondary: '#669DF1', cover: '#E9F2FE' },
+	v2: { primary: '#1868DB', iconColor: '#FFFFFF', cover: '#E9F2FE' },
+};
 
-const colorList: AgentAvatarColor[] = [yellowColor, purpleColor, greenColor, blueColor];
+const colorList = [yellowColor, purpleColor, greenColor, blueColor];
 
 /**
  * NOTE: DO NOT ADD OOTB AGENTAVATARS TO THIS LIST
  */
 const avatarList = [
-	{ legacy: CustomerInsightAvatar, refreshed: RefreshedCustomerInsightAvatar },
-	{ legacy: BacklogBuddyAvatar, refreshed: RefreshedBacklogBuddyAvatar },
-	{ legacy: DecisionDirectorAvatar, refreshed: RefreshedDecisionDirectorAvatar },
-	{ legacy: CommsCrafterAvatar, refreshed: RefreshedCommsCrafterAvatar },
-	{ legacy: AutoDevAvatar, refreshed: RefreshedAutoDevAvatar },
-	{ legacy: OkrOracleAvatar, refreshed: RefreshedOkrOracleAvatar },
-	{ legacy: CultureAvatar, refreshed: RefreshedCultureAvatar },
-	{ legacy: SocialMediaScribeAvatar, refreshed: RefreshedSocialMediaScribeAvatar },
-	{ legacy: TeamConnectionAvatar, refreshed: RefreshedTeamConnectionAvatar },
-	{ legacy: HireWriterAvatar, refreshed: RefreshedHireWriterAvatar },
-	{ legacy: OpsAgentAvatar, refreshed: RefreshedOpsAgentAvatar },
-	{ legacy: ResearchScoutAvatar, refreshed: RefreshedResearchScoutAvatar },
-	{ legacy: ReleaseNotesAvatar, refreshed: RefreshedReleaseNotesAvatar },
-	{ legacy: MyUserManualAvatar, refreshed: RefreshedMyUserManualAvatar },
-	{ legacy: PitchPerfectorAvatar, refreshed: RefreshedPitchPerfectorAvatar },
-	{ legacy: AutoDevAvatar, refreshed: RefreshedAutoDevAvatar },
-	{ legacy: AutoFixAvatar, refreshed: RefreshedAutoFixAvatar },
-	{ legacy: AutoReviewAvatar, refreshed: RefreshedAutoReviewAvatar },
-	{ legacy: MarketingMessageMaestroAvatar, refreshed: RefreshedMarketingMessageMaestroAvatar },
-	{ legacy: FeatureFlagAvatar, refreshed: RefreshedFeatureFlagAvatar },
-	{ legacy: ProductRequirementAvatar, refreshed: RefreshedProductRequirementAvatar },
+	{ v1: CustomerInsightAvatar, v2: RefreshedCustomerInsightAvatar },
+	{ v1: BacklogBuddyAvatar, v2: RefreshedBacklogBuddyAvatar },
+	{ v1: DecisionDirectorAvatar, v2: RefreshedDecisionDirectorAvatar },
+	{ v1: CommsCrafterAvatar, v2: RefreshedCommsCrafterAvatar },
+	{ v1: AutoDevAvatar, v2: RefreshedAutoDevAvatar },
+	{ v1: OkrOracleAvatar, v2: RefreshedOkrOracleAvatar },
+	{ v1: CultureAvatar, v2: RefreshedCultureAvatar },
+	{ v1: SocialMediaScribeAvatar, v2: RefreshedSocialMediaScribeAvatar },
+	{ v1: TeamConnectionAvatar, v2: RefreshedTeamConnectionAvatar },
+	{ v1: HireWriterAvatar, v2: RefreshedHireWriterAvatar },
+	{ v1: OpsAgentAvatar, v2: RefreshedOpsAgentAvatar },
+	{ v1: ResearchScoutAvatar, v2: RefreshedResearchScoutAvatar },
+	{ v1: ReleaseNotesAvatar, v2: RefreshedReleaseNotesAvatar },
+	{ v1: MyUserManualAvatar, v2: RefreshedMyUserManualAvatar },
+	{ v1: PitchPerfectorAvatar, v2: RefreshedPitchPerfectorAvatar },
+	{ v1: AutoDevAvatar, v2: RefreshedAutoDevAvatar },
+	{ v1: AutoFixAvatar, v2: RefreshedAutoFixAvatar },
+	{ v1: AutoReviewAvatar, v2: RefreshedAutoReviewAvatar },
+	{ v1: MarketingMessageMaestroAvatar, v2: RefreshedMarketingMessageMaestroAvatar },
+	{ v1: FeatureFlagAvatar, v2: RefreshedFeatureFlagAvatar },
+	{ v1: ProductRequirementAvatar, v2: RefreshedProductRequirementAvatar },
 ] as const;
 
 export const TOTAL_AVATAR_COMBINATIONS: number = avatarList.length * colorList.length;
@@ -384,311 +397,399 @@ type GeneratedAvatarProps = {
 	onLoad?: () => void;
 };
 
-const outOfTheBoxAgentAvatar: {
-	[key: string]: {
-		getRender: (size: SizeType) => React.ReactNode;
-		color: AgentAvatarColor;
-	};
-} = {
+const outOfTheBoxAgentAvatar: Record<
+	string,
+	{ getRender: (size: SizeType) => React.ReactNode; getColor: () => AgentAvatarColor }
+> = {
 	ai_mate_agent: {
 		getRender: (size: SizeType) => (
 			<RovoChatAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.primary}
-				secondaryColor={blueColor.secondary}
+				primaryColor={blueColor.v1.primary}
+				secondaryColor={blueColor.v1.secondary}
 			/>
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	autodev_template_unit_test_creator: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedAutoFixAvatar, greenColor, size)
+				<RefreshedAutoFixAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<AutoFixAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_migration_config_changer_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedOpsAgentAvatar, greenColor, size)
+				<RefreshedOpsAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<OpsAgentAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_vulnerable_dependency_updater_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedMarketingMessageMaestroAvatar, greenColor, size)
+				<RefreshedMarketingMessageMaestroAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<MarketingMessageMaestroAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_standardizer_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedMyUserManualAvatar, greenColor, size)
+				<RefreshedMyUserManualAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<MyUserManualAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_observer_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedResearchScoutAvatar, greenColor, size)
+				<RefreshedResearchScoutAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<ResearchScoutAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_accessibility_checker_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedHireWriterAvatar, greenColor, size)
+				<RefreshedHireWriterAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<HireWriterAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_code_documentation_writer_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedSocialMediaScribeAvatar, greenColor, size)
+				<RefreshedSocialMediaScribeAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<SocialMediaScribeAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_feature_flag_cleaner_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedFeatureFlagAvatar, greenColor, size)
+				<RefreshedFeatureFlagAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<FeatureFlagAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	decision_director_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedDecisionDirectorAvatar, greenColor, size)
+				<RefreshedDecisionDirectorAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<DecisionDirectorAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	planner_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedOpsAgentAvatar, purpleColor, size)
+				<RefreshedOpsAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={purpleColor.v2.primary}
+					iconColor={purpleColor.v2.iconColor}
+				/>
 			) : (
 				<OpsAgentAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={purpleColor.primary}
-					secondaryColor={purpleColor.secondary}
+					primaryColor={purpleColor.v1.primary}
+					secondaryColor={purpleColor.v1.secondary}
 				/>
 			),
-		color: purpleColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? purpleColor.v2 : purpleColor.v1),
 	},
 	tech_writer_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedSocialMediaScribeAvatar, blueColor, size)
+				<RefreshedSocialMediaScribeAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={blueColor.v2.primary}
+					iconColor={blueColor.v2.iconColor}
+				/>
 			) : (
 				<SocialMediaScribeAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={blueColor.primary}
-					secondaryColor={blueColor.secondary}
+					primaryColor={blueColor.v1.primary}
+					secondaryColor={blueColor.v1.secondary}
 				/>
 			),
-		color: blueColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
 	},
 	content_reviewer_agent: {
 		getRender: (size: SizeType) => (
 			<ContentReviewerAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	user_manual_writer_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedMyUserManualAvatar, yellowColor, size)
+				<RefreshedMyUserManualAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={yellowColor.v2.primary}
+					iconColor={yellowColor.v2.iconColor}
+				/>
 			) : (
 				<MyUserManualAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.primary}
-					secondaryColor={yellowColor.secondary}
+					primaryColor={yellowColor.v1.primary}
+					secondaryColor={yellowColor.v1.secondary}
 				/>
 			),
-		color: yellowColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
 	},
 	product_requirements_expert_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedProductRequirementAvatar, yellowColor, size)
+				<RefreshedProductRequirementAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={yellowColor.v2.primary}
+					iconColor={yellowColor.v2.iconColor}
+				/>
 			) : (
 				<ProductRequirementAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.primary}
-					secondaryColor={yellowColor.secondary}
+					primaryColor={yellowColor.v1.primary}
+					secondaryColor={yellowColor.v1.secondary}
 				/>
 			),
-		color: yellowColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
 	},
 	document_writer: {
 		getRender: (size: SizeType) => (
 			<DocumentWriterAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.primary}
-				secondaryColor={blueColor.secondary}
+				primaryColor={blueColor.v1.primary}
+				secondaryColor={blueColor.v1.secondary}
 			/>
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	issue_organizer_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedBacklogBuddyAvatar, greenColor, size)
+				<RefreshedBacklogBuddyAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<BacklogBuddyAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	ops_guide_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedOpsAgentAvatar, yellowColor, size)
+				<RefreshedOpsExpertAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={yellowColor.v2.primary}
+					iconColor={yellowColor.v2.iconColor}
+				/>
 			) : (
 				<OpsAgentAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.primary}
-					secondaryColor={yellowColor.secondary}
+					primaryColor={yellowColor.v1.primary}
+					secondaryColor={yellowColor.v1.secondary}
 				/>
 			),
-		color: yellowColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
 	},
 	discovery_and_feedback_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedCommsCrafterAvatar, greenColor, size)
+				<RefreshedCommsCrafterAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
 			) : (
 				<CommsCrafterAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.primary}
-					secondaryColor={greenColor.secondary}
+					primaryColor={greenColor.v1.primary}
+					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		color: greenColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
 	},
 	jira_workflow_builder_agent: {
 		getRender: (size: SizeType) => (
 			<WorkflowBuilderAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.primary}
-				secondaryColor={blueColor.secondary}
+				primaryColor={blueColor.v1.primary}
+				secondaryColor={blueColor.v1.secondary}
 			/>
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	itops_rca_agent: {
 		getRender: (size: SizeType) =>
 			fg('platform-dst-avatar-updated-geometry') ? (
-				renderRefreshedAvatar(RefreshedAutoReviewAvatar, yellowColor, size)
+				<RefreshedAutoReviewAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={yellowColor.v2.primary}
+					iconColor={yellowColor.v2.iconColor}
+				/>
 			) : (
 				<AutoReviewAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.primary}
-					secondaryColor={yellowColor.secondary}
+					primaryColor={yellowColor.v1.primary}
+					secondaryColor={yellowColor.v1.secondary}
 				/>
 			),
-		color: yellowColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
 	},
 	jira_trial_guide_agent: {
 		getRender: (size: SizeType) => (
 			<TrialGuideAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.primary}
-				secondaryColor={blueColor.secondary}
+				primaryColor={blueColor.v1.primary}
+				secondaryColor={blueColor.v1.secondary}
 			/>
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	daily_brief_agent: {
 		getRender: (size: SizeType) => (
 			<TrialGuideAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={yellowColor.primary}
-				secondaryColor={yellowColor.secondary}
+				primaryColor={yellowColor.v1.primary}
+				secondaryColor={yellowColor.v1.secondary}
 			/>
 		),
-		color: yellowColor,
+		getColor: () => yellowColor.v1,
 	},
 	jira_admin_agent: {
-		getRender: (size: SizeType) => (
-			<JiraCodingAgentAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.primary}
-				secondaryColor={blueColor.secondary}
-			/>
-		),
-		color: blueColor,
-	},
-	jsm_rovo_service_agent: {
 		getRender: (size: SizeType) =>
-			fg('rename-rovo-service-to-request-resolver') ? (
-				<JsmRequestResolverAgentAvatar
+			fg('platform-dst-avatar-updated-geometry') ? (
+				<RefreshedJiraAdminAgentAvatar
 					size={AVATAR_SIZES[size]}
-					primaryColor=""
-					secondaryColor=""
+					primaryColor={blueColor.v2.primary}
+					iconColor={blueColor.v2.iconColor}
 				/>
 			) : (
-				<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+				<JiraCodingAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={blueColor.v1.primary}
+					secondaryColor={blueColor.v1.secondary}
+				/>
 			),
-		color: yellowColor,
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
+	},
+	jsm_rovo_service_agent: {
+		getRender: (size: SizeType) => {
+			if (fg('platform-dst-avatar-updated-geometry')) {
+				return (
+					<RefreshedRequestResolverAvatar
+						size={AVATAR_SIZES[size]}
+						primaryColor={yellowColor.v2.primary}
+						iconColor={yellowColor.v2.iconColor}
+					/>
+				);
+			}
+
+			if (fg('rename-rovo-service-to-request-resolver')) {
+				return (
+					<JsmRequestResolverAgentAvatar
+						size={AVATAR_SIZES[size]}
+						primaryColor=""
+						secondaryColor=""
+					/>
+				);
+			}
+
+			return (
+				<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+			);
+		},
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
 	},
 	mcp_amplitude_agent: {
 		getRender: (size: SizeType) =>
@@ -697,97 +798,109 @@ const outOfTheBoxAgentAvatar: {
 			) : (
 				<AmplitudeAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 			),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	mcp_box_agent: {
 		getRender: (size: SizeType) => (
 			<BoxAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	mcp_canva_agent: {
 		getRender: (size: SizeType) => (
 			<CanvaAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	mcp_figma_agent: {
 		getRender: (size: SizeType) => (
 			<FigmaAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	mcp_hubspot_agent: {
 		getRender: (size: SizeType) => (
 			<HubSpotAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	mcp_intercom_agent: {
 		getRender: (size: SizeType) => (
 			<IntercomAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	mcp_gamma_agent: {
 		getRender: (size: SizeType) => (
 			<GammaAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	mcp_lovable_agent: {
 		getRender: (size: SizeType) => (
 			<LovableAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	mcp_replit_agent: {
 		getRender: (size: SizeType) => (
 			<ReplitAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	rovo_agent: {
 		getRender: (size: SizeType) => (
 			<RovoAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	jira_work_agent: {
 		getRender: (size: SizeType) => (
 			<JiraWorkAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	jira_task_planner_agent: {
 		getRender: (size: SizeType) => (
 			<JiraTaskPlannerAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: blueColor,
+		getColor: () => blueColor.v1,
 	},
 	jira_intelligent_triage_agent: {
-		getRender: (size: SizeType) => (
-			<JiraIntelligentTriageAgentAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor=""
-				secondaryColor=""
-			/>
-		),
-		color: blueColor,
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				<RefreshedJiraIntelligentTriageAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={blueColor.v2.primary}
+					iconColor={blueColor.v2.iconColor}
+				/>
+			) : (
+				<JiraIntelligentTriageAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor=""
+					secondaryColor=""
+				/>
+			),
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
 	},
-	// The "Request router" agent (previously named "Service triage"). The key is the agent's
-	// external_config_reference, which stays as `jsm_service_triage_agent` after the rename.
 	jsm_service_triage_agent: {
 		getRender: (size: SizeType) => (
 			<JsmServiceTriageAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
-		color: yellowColor,
+		getColor: () => yellowColor.v1,
 	},
 	jira_coding_agent: {
-		getRender: (size: SizeType) => (
-			<JiraCodingAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-		),
-		color: blueColor,
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				<RefreshedJiraCodingAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={greenColor.v2.primary}
+					iconColor={greenColor.v2.iconColor}
+				/>
+			) : (
+				<JiraCodingAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+			),
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : blueColor.v1),
 	},
 };
 
@@ -822,18 +935,6 @@ export const getNumberIdForAvatar = ({
 	return null;
 };
 
-const renderRefreshedAvatar = (
-	Avatar: React.ComponentType<RefreshedAvatarProps>,
-	color: AgentAvatarColor,
-	size: SizeType,
-) => (
-	<Avatar
-		size={AVATAR_SIZES[size]}
-		primaryColor={color === blueColor ? refreshedBlueColor.primary : color.primary}
-		iconColor={color === blueColor ? '#FFFFFF' : '#101214'}
-	/>
-);
-
 const ROVO_DEV_AGENT_ID = '027f0676-e8e9-4939-8962-3850987d78bb';
 const getAvatarRender = ({
 	agentNamedId,
@@ -845,7 +946,7 @@ const getAvatarRender = ({
 	if (isRovoDev) {
 		return {
 			render: <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />,
-			color: greenColor,
+			color: greenColor.v1,
 		};
 	}
 
@@ -854,20 +955,13 @@ const getAvatarRender = ({
 	if (agentId === ROVO_DEV_AGENT_ID && fg('jira_ai_force_rovo_dev_avatar')) {
 		return {
 			render: <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />,
-			color: greenColor,
+			color: greenColor.v1,
 		};
 	}
 
 	if (typeof agentNamedId === 'string' && outOfTheBoxAgentAvatar[agentNamedId]) {
-		const ootbAvatarResult = outOfTheBoxAgentAvatar[agentNamedId];
-
-		return {
-			render: ootbAvatarResult.getRender(size),
-			color:
-				agentNamedId === 'tech_writer_agent' && fg('platform-dst-avatar-updated-geometry')
-					? refreshedBlueColor
-					: ootbAvatarResult.color,
-		};
+		const avatar = outOfTheBoxAgentAvatar[agentNamedId];
+		return { render: avatar.getRender(size), color: avatar.getColor() };
 	}
 
 	const numberId = getNumberIdForAvatar({ agentIdentityAccountId, agentId });
@@ -884,37 +978,48 @@ const getAvatarRender = ({
 		const avatarIndex = Math.floor(combinationIndex / colorList.length);
 		const colorIndex = combinationIndex % colorList.length;
 
-		const Avatar = avatarList[avatarIndex].legacy;
+		const avatar = avatarList[avatarIndex];
 		const color = colorList[colorIndex];
 
 		if (fg('platform-dst-avatar-updated-geometry')) {
+			const Avatar = avatar.v2;
 			return {
-				render: renderRefreshedAvatar(avatarList[avatarIndex].refreshed, color, size),
-				color: color === blueColor ? refreshedBlueColor : color,
+				render: (
+					<Avatar
+						size={AVATAR_SIZES[size]}
+						primaryColor={color.v2.primary}
+						iconColor={color.v2.iconColor}
+					/>
+				),
+				color: color.v2,
 			};
 		}
 
+		const Avatar = avatar.v1;
 		return {
 			render: (
 				<Avatar
 					size={AVATAR_SIZES[size]}
-					primaryColor={color.primary}
-					secondaryColor={color.secondary}
+					primaryColor={color.v1.primary}
+					secondaryColor={color.v1.secondary}
 				/>
 			),
-			color,
+			color: color.v1,
 		};
 	}
 
+	const fallbackColor = fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1;
 	return {
 		render: (
 			<GenericAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.primary}
-				secondaryColor={blueColor.secondary}
+				primaryColor={fallbackColor.primary}
+				secondaryColor={
+					'iconColor' in fallbackColor ? fallbackColor.iconColor : fallbackColor.secondary
+				}
 			/>
 		),
-		color: blueColor,
+		color: fallbackColor,
 	};
 };
 

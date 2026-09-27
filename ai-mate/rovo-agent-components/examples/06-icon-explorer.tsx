@@ -47,7 +47,7 @@ const ComponentNameRenderer = ({ children, name }: { children: ReactNode; name: 
 
 export default (): React.JSX.Element => {
 	const [size, setSize] = useState(AVATAR_SIZES.xxlarge);
-	const [color, setColor] = useState(greenColor);
+	const [color, setColor] = useState(greenColor.v1);
 	return (
 		<Box>
 			<Flex gap="space.200" xcss={marginBottom}>
@@ -74,10 +74,10 @@ export default (): React.JSX.Element => {
 						}
 					}}
 					options={[
-						{ label: 'Yellow', value: JSON.stringify(yellowColor) },
-						{ label: 'Purple', value: JSON.stringify(purpleColor) },
-						{ label: 'Green', value: JSON.stringify(greenColor) },
-						{ label: 'Blue', value: JSON.stringify(blueColor) },
+						{ label: 'Yellow', value: JSON.stringify(yellowColor.v1) },
+						{ label: 'Purple', value: JSON.stringify(purpleColor.v1) },
+						{ label: 'Green', value: JSON.stringify(greenColor.v1) },
+						{ label: 'Blue', value: JSON.stringify(blueColor.v1) },
 					]}
 					placeholder="Choose a color"
 				/>

@@ -31,6 +31,14 @@ const AVATARS = [
 	'Product Requirement',
 ];
 
+const OOTB_AVATARS = [
+	{ name: 'Jira Coding Agent', agentNamedId: 'jira_coding_agent' },
+	{ name: 'Jira Triage Agent', agentNamedId: 'jira_intelligent_triage_agent' },
+	{ name: 'Jira Admin Agent', agentNamedId: 'jira_admin_agent' },
+	{ name: 'Request Resolver', agentNamedId: 'jsm_rovo_service_agent' },
+	{ name: 'Ops Expert', agentNamedId: 'ops_guide_agent' },
+];
+
 const styles = cssMap({ name: { width: '220px' }, avatar: { width: '64px', height: '64px' } });
 
 export default function AgentAvatarRefreshExample(): React.JSX.Element {
@@ -52,6 +60,17 @@ export default function AgentAvatarRefreshExample(): React.JSX.Element {
 									/>
 								</Box>
 							))}
+						</Inline>
+					))}
+					<Text>Mapped OOTB agents</Text>
+					{OOTB_AVATARS.map(({ name, agentNamedId }) => (
+						<Inline key={agentNamedId} space="space.200" alignBlock="center">
+							<Box xcss={styles.name}>
+								<Text>{name}</Text>
+							</Box>
+							<Box xcss={styles.avatar}>
+								<AgentAvatar agentNamedId={agentNamedId} size="large" />
+							</Box>
 						</Inline>
 					))}
 				</Stack>

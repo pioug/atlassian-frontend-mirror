@@ -4,6 +4,7 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
+import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit/collabEditPluginType';
 import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
@@ -32,7 +33,13 @@ export type PlaceholderPlugin = NextEditorPlugin<
 			setPlaceholder: (placeholder: string) => EditorCommand;
 			setPlaceholderHidden: (isPlaceholderHidden: boolean) => EditorCommand;
 		};
-		dependencies: [FocusPlugin, CompositionPlugin, TypeAheadPlugin, OptionalPlugin<ShowDiffPlugin>];
+		dependencies: [
+			FocusPlugin,
+			CompositionPlugin,
+			TypeAheadPlugin,
+			OptionalPlugin<ShowDiffPlugin>,
+			OptionalPlugin<CollabEditPlugin>,
+		];
 		pluginConfiguration: PlaceholderPluginOptions | undefined;
 	}
 >;

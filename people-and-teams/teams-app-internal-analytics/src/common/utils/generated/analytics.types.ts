@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::84622cdb103b5b7b1fa62cb7ec3791df>>
+ * @codegen <<SignedSource::ad9b038032d924c291bde38d0929588c>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -867,6 +867,7 @@ export type ButtonClickedViewTeamProfileButtonAttributesType = {};
 export type ProfilecardTriggeredAttributesType = {
 	firedAt: number;
 	method: 'hover' | 'click';
+	preloaded?: boolean | null;
 };
 export type RovoAgentProfilecardTriggeredAttributesType = {
 	firedAt: number;
@@ -966,6 +967,9 @@ export type ProfilecardSucceededRequestAttributesType = {
 	duration: number;
 };
 export type ProfilecardTriggeredRequestAttributesType = {
+	firedAt: number;
+};
+export type ProfilecardPreloadedRequestAttributesType = {
 	firedAt: number;
 };
 export type ProfilecardFailedRequestAttributesType = {
@@ -2345,6 +2349,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the profilecard request is triggered */
 	'operational.profilecard.triggered.request': ProfilecardTriggeredRequestAttributesType;
+	/**
+	 * fired when the profilecard request is preloaded on hover, before the card opens */
+	'operational.profilecard.preloaded.request': ProfilecardPreloadedRequestAttributesType;
 	/**
 	 * fired when the profilecard request is failed */
 	'operational.profilecard.failed.request': ProfilecardFailedRequestAttributesType;

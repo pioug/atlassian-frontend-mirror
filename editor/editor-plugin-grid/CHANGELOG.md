@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-grid
 
+## 22.0.3
+
+### Patch Changes
+
+- [`c004ba24db31f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c004ba24db31f) -
+  Clean up the shipped `platform_editor_external_embed_grid_fix` experiment. The grid overlay now
+  always sizes itself from the content line length plus the gutter width, so the conditional and the
+  experiment registration have been removed. The experiment is no longer available in the Statsig
+  configuration; consumers should remove its overrides and checks.
+- Updated dependencies
+
+## 22.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.0
 
 ### Patch Changes

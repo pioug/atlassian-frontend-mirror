@@ -1,5 +1,32 @@
 # @atlaskit/adf-schema
 
+## 57.6.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.6.11
+
+### Patch Changes
+
+- [`a13383c3c99b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a13383c3c99b2) -
+  [FFCLEANUP-192944] clean up code references to patch gates
+  `platform_editor_lovability_text_bg_color_patch_1` and
+  `platform_editor_lovability_text_bg_color_patch_2`.
+
+## 57.6.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.6.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 57.6.8
 
 ### Patch Changes

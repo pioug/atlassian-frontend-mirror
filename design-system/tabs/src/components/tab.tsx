@@ -1,8 +1,15 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { forwardRef } from 'react';
+
+import { jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Focusable, Text } from '@atlaskit/primitives/compiled';
 
+import { type TabMotionAttributes } from '../internal/tab-motion-context';
 import { type TabAttributesType, type TabProps } from '../types';
 import useTab from '../use-tab';
 
@@ -28,7 +35,10 @@ const Tab: React.ForwardRefExoticComponent<
 		onKeyDown,
 		role,
 		tabIndex,
-	}: TabAttributesType = useTab();
+		'data-motion-capable': dataMotionCapable,
+		'data-motion-direction': dataMotionDirection,
+		'data-motion-state': dataMotionState,
+	}: TabAttributesType & TabMotionAttributes = useTab();
 
 	return (
 		<Focusable
@@ -44,6 +54,9 @@ const Tab: React.ForwardRefExoticComponent<
 			onKeyDown={onKeyDown}
 			role={role}
 			tabIndex={tabIndex}
+			data-motion-capable={dataMotionCapable}
+			data-motion-direction={dataMotionDirection}
+			data-motion-state={dataMotionState}
 			ref={ref}
 		>
 			<Text

@@ -3,6 +3,7 @@ import { act } from 'react';
 
 import { type OptionType } from '@atlaskit/select/types';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import PlaybackSpeedControls from '../../customMediaPlayer/playbackSpeedControls';
 import type { PlaybackSpeedControlsProps } from '../../customMediaPlayer/PlaybackSpeedControls-2';
@@ -146,6 +147,39 @@ describe('<PlaybackSpeedControls />', () => {
 			const { element } = getTargetElement(false);
 			const { getByRole } = renderWithIntl(<>{element}</>);
 			expect(getByRole('button')).toHaveAttribute('aria-expanded', 'false');
+		});
+
+		describe('accessible name (A11Y-16310)', () => {
+			it('should name the button with the playback speed and its purpose when the gate is on', () => {
+				passGate('platform_media_playback_speed_aria_label');
+
+				const { element } = getTargetElement();
+				const { getByRole } = renderWithIntl(<>{element}</>);
+
+				expect(getByRole('button')).toHaveAccessibleName('Playback speed 1.5x');
+			});
+
+			it('should keep the visible speed inside the accessible name when the gate is on', () => {
+				passGate('platform_media_playback_speed_aria_label');
+
+				const { element } = getTargetElement();
+				const { getByRole } = renderWithIntl(<>{element}</>);
+				const button = getByRole('button');
+
+				expect(button).toHaveTextContent('1.5x');
+				expect(button.getAttribute('aria-label')).toContain('1.5x');
+			});
+
+			it('should fall back to the bare speed as the accessible name when the gate is off', () => {
+				failGate('platform_media_playback_speed_aria_label');
+
+				const { element } = getTargetElement();
+				const { getByRole } = renderWithIntl(<>{element}</>);
+				const button = getByRole('button');
+
+				expect(button).not.toHaveAttribute('aria-label');
+				expect(button).toHaveAccessibleName('1.5x');
+			});
 		});
 	});
 

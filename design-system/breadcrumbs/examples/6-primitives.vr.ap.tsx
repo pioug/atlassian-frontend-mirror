@@ -27,6 +27,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 import ImageIcon from '@atlaskit/icon/core/image';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 type BreadcrumbsExampleSize = 'medium' | 'small';
@@ -193,6 +194,7 @@ function CustomCase({
 					<BreadcrumbsItemPrimitive
 						key={item.href}
 						ref={registerItem(i)}
+						testId={`custom-${size}-item-${i}`}
 						href={item.href}
 						text={item.text}
 						elemBefore={item.elemBefore}
@@ -227,7 +229,7 @@ function JiraStyleCase(): JSX.Element {
 				ref={registerItem(0)}
 				css={[customItemStyles, naturalWidthsReady && collapsedIndices.has(0) && hiddenStyles]}
 			>
-				<Button appearance="subtle" iconBefore={AddIcon}>
+				<Button appearance="subtle" iconBefore={AddIcon} testId="custom-add">
 					Add
 				</Button>
 				<CustomSeparator />
@@ -305,5 +307,17 @@ export default function PrimitivesExample(): JSX.Element {
 				<JiraStyleCase />
 			</Stack>
 		</Stack>
+	);
+}
+
+export function PrimitivesFocusRing(): JSX.Element {
+	return (
+		<Box padding="space.100">
+			<Stack space="space.200">
+				<CustomCase />
+				<CustomCase size="small" />
+				<JiraStyleCase />
+			</Stack>
+		</Box>
 	);
 }

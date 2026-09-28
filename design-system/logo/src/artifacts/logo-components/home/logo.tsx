@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::deddad22d29b280c9fd1a3ec75055fe8>>
+ * @codegen <<SignedSource::440fe4c72c5cf69007e70b15b2dda878>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,7 +20,7 @@ const svg = `<svg height="100%" viewBox="0 0 71 24">
 /**
  * __HomeLogo__
  *
- * An internal component to represent the logo for Home.
+ * A component to represent the logo for Home.
  *
  */
 export function HomeLogo({

@@ -98,7 +98,6 @@ type BlockControlsSharedState = {
   isMouseOut?: boolean;
   isPMDragging: boolean;
   isSelectedViaDragHandle?: boolean;
-  isShiftDown?: boolean;
   lastDragCancelled: boolean;
   menuTriggerBy?: string;
   menuTriggerByNode?: TriggerByNode;
@@ -159,7 +158,6 @@ type PluginState = {
   isPMDragging: boolean;
   isResizerResizing: boolean;
   isSelectedViaDragHandle?: boolean;
-  isShiftDown?: boolean;
   lastDragCancelled: boolean;
   menuTriggerBy?: string;
   menuTriggerByNode?: TriggerByNode;

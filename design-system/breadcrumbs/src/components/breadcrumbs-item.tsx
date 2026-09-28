@@ -15,6 +15,7 @@ import { type BreadcrumbsItemProps } from '../types';
 import BreadcrumbsItemBase from './internal/breadcrumbs-item-base';
 import Step from './internal/step';
 import StepOld from './internal/step-old';
+import { useBreadcrumbsSize } from './internal/use-breadcrumbs-size';
 import useOverflowable from './internal/use-overflowable';
 
 const itemWrapperStyles = css({
@@ -133,6 +134,10 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 			setStepElement(element);
 		}, []);
 		const resolvedElemBefore = elemBefore ?? iconBefore;
+		const breadcrumbsSize = useBreadcrumbsSize();
+		const leadingIconWidth = resolvedElemBefore
+			? ICON_WIDTH_ESTIMATE + (breadcrumbsSize === 'small' ? 0 : 2)
+			: 0;
 
 		let iconWidthAllowance = 0;
 		if (resolvedElemBefore) {
@@ -145,7 +150,8 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 		const [hasOverflow, shouldShowTooltip] = useOverflowable(
 			truncationWidth,
 			stepElement,
-			fg('platform_dst_breadcrumbs-refresh') ? 0 : iconWidthAllowance,
+			// The refresh control now includes the leading icon; exclude it from the truncation check.
+			fg('platform_dst_breadcrumbs-refresh') ? -leadingIconWidth : iconWidthAllowance,
 		);
 
 		if (!component && fg('platform_dst_breadcrumbs-refresh')) {

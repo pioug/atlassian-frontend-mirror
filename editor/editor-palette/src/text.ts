@@ -1,5 +1,4 @@
 // This import will be stripped on build
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
@@ -145,8 +144,7 @@ export const editorTextPalette = {
 	get ['#B38600']():
 		| 'var(--ds-border-accent-yellow, #B38600)'
 		| 'var(--ds-icon-accent-yellow, #B38600)' {
-		return expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-			fg('platform_editor_lovability_text_bg_color_patch_1')
+		return expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true)
 			? (token('color.border.accent.yellow') as 'var(--ds-border-accent-yellow, #B38600)')
 			: (token('color.icon.accent.yellow') as 'var(--ds-icon-accent-yellow, #B38600)');
 	},

@@ -3,7 +3,6 @@ import type {
 	OptionalPlugin,
 	TextFormattingOptions as CommonTextFormattingOptions,
 	TextFormattingState,
-	_MarkdownModePluginStub,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
@@ -35,7 +34,6 @@ export type TextFormattingPlugin = NextEditorPlugin<
 			OptionalPlugin<SelectionToolbarPlugin>,
 			OptionalPlugin<UserPreferencesPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
-			OptionalPlugin<_MarkdownModePluginStub>,
 		];
 		pluginConfiguration: TextFormattingPluginOptions | undefined;
 		sharedState: TextFormattingState | undefined;

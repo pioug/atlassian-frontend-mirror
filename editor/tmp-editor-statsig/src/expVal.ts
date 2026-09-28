@@ -2,7 +2,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export -- deprecated shims re-exporting the split `expVal`/`expValNoExposure` modules for backwards compatibility (VOLTC-139). */
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
 import { disallowsProductKeys, editorExperimentsConfig } from './experiments-config';
@@ -66,11 +65,9 @@ export function expValInternal<
 		return defaultValue;
 	}
 
-	const resolvedExperimentKey =
-		!disallowsProductKeys.includes(experimentName) &&
-		fg('platform_editor_experiments_use_product_keys')
-			? experimentKey
-			: experimentName;
+	const resolvedExperimentKey = disallowsProductKeys.includes(experimentName)
+		? experimentName
+		: experimentKey;
 
 	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 	const experimentValue = FeatureGates.getExperimentValue(

@@ -331,6 +331,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	syncBlockCopiedJiraUnsavedFieldDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	syncBlockCopiedLivePageDescription: {
 		defaultMessage: string;
 		description: string;
@@ -920,6 +925,13 @@ export const syncBlockMessages: {
 		defaultMessage:
 			'Paste your synced block to keep content auto-updated. Permissions are the same.',
 		description: 'Description in flag which appears when a sync block is copied',
+	},
+	syncBlockCopiedJiraUnsavedFieldDescription: {
+		id: 'editor-common.messages.syncBlock.syncBlockCopiedJiraUnsavedFieldDescription.ai-non-final',
+		defaultMessage:
+			'To reuse this content, save this field and paste this synced block in another location.',
+		description:
+			'Instruction in a confirmation flag after a synced block is copied from an unsaved Jira work item field.',
 	},
 	syncBlockCopiedLivePageDescription: {
 		id: 'editor-common.messages.syncBlock.syncBlockCopiedLivePageDescription',

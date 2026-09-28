@@ -1,5 +1,17 @@
 # @atlaskit/tabs
 
+## 21.3.0
+
+### Minor Changes
+
+- [`5ba2e4b714c03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ba2e4b714c03) -
+  Adds tab text color and neutral underline opacity transitions, plus directional selected-indicator
+  motion behind the `platform-dst-motion-uplift-tab` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.2.5
 
 ### Patch Changes

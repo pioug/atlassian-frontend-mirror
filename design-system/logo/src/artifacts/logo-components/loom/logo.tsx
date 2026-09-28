@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3682f64ba328204e88b7e2ceef4b715b>>
+ * @codegen <<SignedSource::614318b03b957ebf0cf8ef6da57e937a>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,7 +20,7 @@ const svg = `<svg height="100%" viewBox="0 0 69 24">
 /**
  * __LoomLogo__
  *
- * A temporary component to represent the logo for Loom.
+ * A component to represent the logo for Loom.
  *
  */
 export function LoomLogo({

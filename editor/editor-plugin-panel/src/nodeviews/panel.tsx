@@ -28,7 +28,6 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PanelPlugin, PanelPluginOptions } from '../panelPluginType';
 import { panelAttrsToDom } from '../pm-plugins/utils/utils';
@@ -158,10 +157,7 @@ class PanelNodeView {
 
 		// For standard panels (info, note, success, warning, error), render icon directly as native DOM
 		// This avoids Portal rendering delays that cause flickering on SSR and page transitions
-		if (
-			isStandardPanel &&
-			expValEquals('platform_editor_vc90_transition_panel_icon', 'isEnabled', true)
-		) {
+		if (isStandardPanel) {
 			renderPanelIcon(panelAttrs.panelType, this.icon);
 		} else {
 			this.nodeViewPortalProviderAPI.render(
@@ -203,12 +199,7 @@ class PanelNodeView {
 				PanelType.ERROR,
 			].includes(panelAttrs.panelType);
 		// Only remove Portal if it was used (for custom emoji panels)
-		if (
-			!(
-				isStandardPanel &&
-				expValEquals('platform_editor_vc90_transition_panel_icon', 'isEnabled', true)
-			)
-		) {
+		if (!isStandardPanel) {
 			this.nodeViewPortalProviderAPI.remove(this.key);
 		}
 	}

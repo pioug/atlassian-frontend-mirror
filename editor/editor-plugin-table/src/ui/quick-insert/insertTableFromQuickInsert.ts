@@ -12,9 +12,7 @@ import {
 import type { ExtractInjectionAPI, TypeAheadInsert } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { pluginKey as sizeSelectorPluginKey } from '../../pm-plugins/table-size-selector';
 import { createTableWithWidth } from '../../pm-plugins/utils/create';
@@ -47,17 +45,6 @@ export const insertTableFromQuickInsert = ({
 			isSelectorOpen: true,
 		});
 		return tr;
-	}
-
-	const markdownState = api?.markdownMode?.sharedState.currentState();
-	if (
-		markdownState?.isMarkdownMode &&
-		markdownState?.view === 'syntax' &&
-		expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
-		fg('platform_editor_markdown_compatible_toolbar')
-	) {
-		api?.markdownMode?.actions.insertSourceTable();
-		return state.tr;
 	}
 
 	const tableState = api?.table?.sharedState.currentState();

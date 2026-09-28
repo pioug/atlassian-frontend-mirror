@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bc535dbd39e59b96cb17da4ce52c3c61>>
+ * @codegen <<SignedSource::cb352666aeb036b4fe2fc2f55aef20df>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -19,8 +19,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __JiraDataCenterIcon__
  *
- * An internal component to represent the icon for Jira Data Center.
- * Do not use this internal component directly — use `JiraDataCenterIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Jira Data Center.
+ * Import `JiraDataCenterIcon` from `@atlaskit/logo/jira-data-center/icon`.
  *
  */
 export function JiraDataCenterIcon({

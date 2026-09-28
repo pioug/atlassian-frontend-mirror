@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-palette",
-	"version": "3.5.43",
+	"version": "3.5.47",
 	"description": "The editor palette",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,11 +35,6 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
-	},
-	"platform-feature-flags": {
-		"platform_editor_lovability_text_bg_color_patch_1": {
-			"type": "boolean"
-		}
 	},
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "workspace:^",

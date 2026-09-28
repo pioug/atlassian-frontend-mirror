@@ -19,6 +19,7 @@ import { FlagGroup } from '@atlaskit/flag/flag-group';
 import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -107,14 +108,17 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 
 export const getSyncBlockCopiedDescription = (
 	activeFlag: ActiveFlag,
-	isSyncBlockActivationEnabled: boolean,
+	isCopiedDescriptionEnabled: boolean,
 ): MessageDescriptor | undefined => {
-	if (
-		!activeFlag ||
-		activeFlag.id !== FLAG_ID.SYNC_BLOCK_COPIED ||
-		activeFlag.sourceProduct !== 'confluence-page' ||
-		!isSyncBlockActivationEnabled
-	) {
+	if (!activeFlag || activeFlag.id !== FLAG_ID.SYNC_BLOCK_COPIED || !isCopiedDescriptionEnabled) {
+		return undefined;
+	}
+	if (activeFlag.sourceProduct === 'jira-work-item') {
+		return activeFlag.isSourceContentUnpublished
+			? messages.syncBlockCopiedJiraUnsavedFieldDescription
+			: messages.syncBlockCopiedLivePageDescription;
+	}
+	if (activeFlag.sourceProduct !== 'confluence-page') {
 		return undefined;
 	}
 
@@ -166,16 +170,17 @@ export const Flag = ({
 	} = flagMap[activeFlag.id];
 	const { onRetry, onDismissed: onDismissedCallback } = activeFlag;
 
-	// For the unpublished-paste flag, swap to the Jira-flavoured copy when the source
-	// is a Jira work item. Other flags don't currently vary by product.
+	// Copy and unpublished-paste flags vary their guidance by source product.
 	const isJiraUnpublishedPaste =
 		activeFlag.id === FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED &&
 		activeFlag.sourceProduct === 'jira-work-item';
-	const copiedDescription = getSyncBlockCopiedDescription(
-		activeFlag,
-		activeFlag.id === FLAG_ID.SYNC_BLOCK_COPIED &&
-			expValEquals('platform_editor_sync_block_activation', 'isEnabled', true),
-	);
+	const isCopiedFlag = activeFlag.id === FLAG_ID.SYNC_BLOCK_COPIED;
+	const isCopiedDescriptionEnabled =
+		isCopiedFlag &&
+		(isExperimentEnabled('platform_editor_blocks_patch_11') ||
+			(activeFlag.sourceProduct === 'confluence-page' &&
+				expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)));
+	const copiedDescription = getSyncBlockCopiedDescription(activeFlag, isCopiedDescriptionEnabled);
 	const title = isJiraUnpublishedPaste
 		? messages.unpublishedSyncBlockPastedTitleJiraWorkItem
 		: defaultTitle;

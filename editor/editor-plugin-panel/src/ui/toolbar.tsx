@@ -46,7 +46,6 @@ import StatusDiscoveryIcon from '@atlaskit/icon/core/status-discovery';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
@@ -263,9 +262,11 @@ export const getToolbarItems = (
 				? activePanelColor || getPanelTypeBackgroundNoTokens(PanelType.INFO)
 				: getPanelTypeBackgroundNoTokens(activePanelType as Exclude<PanelType, PanelType.CUSTOM>);
 
-		const isNewPanelPaletteEnabled =
-			expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-			fg('platform_editor_lovability_text_bg_color_patch_2');
+		const isNewPanelPaletteEnabled = expValEquals(
+			'platform_editor_lovability_text_bg_color',
+			'isEnabled',
+			true,
+		);
 
 		const colorPalette = isNewPanelPaletteEnabled
 			? panelBackgroundPaletteNew

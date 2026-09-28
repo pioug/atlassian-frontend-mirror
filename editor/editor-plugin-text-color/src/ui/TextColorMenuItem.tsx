@@ -84,11 +84,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 		<ColorPalette
 			ariaLabelledBy={labelId}
 			cols={isNewColorPaletteEnabled ? TEXT_COLOR_PICKER_COLUMNS : undefined}
-			gap={
-				isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1')
-					? 'space.0'
-					: undefined
-			}
+			gap={isNewColorPaletteEnabled ? 'space.0' : undefined}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onClick={(color, _, event) => {
 				handleTextColorChange(color, event);
@@ -113,11 +109,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 			>
 				{formatMessage(messages.textColorTooltip)}
 			</Heading>
-			{isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1') ? (
-				<Bleed inline="space.025">{colorPalette}</Bleed>
-			) : (
-				colorPalette
-			)}
+			{isNewColorPaletteEnabled ? <Bleed inline="space.025">{colorPalette}</Bleed> : colorPalette}
 		</Stack>
 	);
 }

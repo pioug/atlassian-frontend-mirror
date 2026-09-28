@@ -192,9 +192,6 @@ export enum ACTION {
 	SELECT_ALL_ESCAPED = 'selectAllEscaped',
 	SORT_COLUMN = 'sortedColumn',
 	SORT_COLUMN_NOT_ALLOWED = 'sortColumnNotAllowed',
-	// remove this enum when cleaning up platform_editor_remove_collab_step_metrics
-	NCS_SESSION_STEP_METRICS = 'ncsSessionStepMetrics',
-	STEPS_TRACKED = 'stepsTracked',
 	ORGANIC_CHANGES_TRACKED = 'organicChangesTracked',
 	STEPS_FILTERED = 'stepsFiltered',
 	AGENT_EDIT_SHIMMER_NOT_SHOWN = 'agentEditShimmerNotShown',

@@ -1,8 +1,4 @@
-import type {
-	_MarkdownModePluginStub,
-	NextEditorPlugin,
-	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { IndentationPlugin } from '@atlaskit/editor-plugin-indentation';
@@ -20,7 +16,6 @@ export type ToolbarListsIndentationPluginOptions = {
 };
 
 export type ToolbarListsIndentationPluginDependencies = [
-	OptionalPlugin<_MarkdownModePluginStub>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	ListPlugin,
 	OptionalPlugin<IndentationPlugin>,

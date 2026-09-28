@@ -9,11 +9,18 @@ import { default as RealProviderExample } from './4-Real-Provider';
 import { default as AdditionalCommentActionsExample } from './5-Additional-Comment-Actions';
 import { default as MaxCommentNestingExample } from './6-Max-Comment-Nesting';
 
-export const NewConversation: WorkbenchExample = wb(NewConversationExample);
-export const ExistingConversation: WorkbenchExample = wb(ExistingConversationExample);
-export const ExistingMediaConversation: WorkbenchExample = wb(ExistingMediaConversationExample);
-export const CustomizedEditor: WorkbenchExample = wb(CustomizedEditorExample);
-export const MockProvider: WorkbenchExample = wb(MockProviderExample);
-export const RealProvider: WorkbenchExample = wb(RealProviderExample);
-export const AdditionalCommentActions: WorkbenchExample = wb(AdditionalCommentActionsExample);
-export const MaxCommentNesting: WorkbenchExample = wb(MaxCommentNestingExample);
+export const NewConversation: WorkbenchExample<typeof NewConversationExample> =
+	wb(NewConversationExample);
+export const ExistingConversation: WorkbenchExample<typeof ExistingConversationExample> = wb(
+	ExistingConversationExample,
+);
+export const ExistingMediaConversation: WorkbenchExample<typeof ExistingMediaConversationExample> =
+	wb(ExistingMediaConversationExample);
+export const CustomizedEditor: WorkbenchExample<typeof CustomizedEditorExample> =
+	wb(CustomizedEditorExample);
+export const MockProvider: WorkbenchExample<typeof MockProviderExample> = wb(MockProviderExample);
+export const RealProvider: WorkbenchExample<typeof RealProviderExample> = wb(RealProviderExample);
+export const AdditionalCommentActions: WorkbenchExample<typeof AdditionalCommentActionsExample> =
+	wb(AdditionalCommentActionsExample);
+export const MaxCommentNesting: WorkbenchExample<typeof MaxCommentNestingExample> =
+	wb(MaxCommentNestingExample);

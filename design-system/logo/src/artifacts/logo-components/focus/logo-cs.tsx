@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::60ca7a6a09e62c237e9f73f02f2cb0d7>>
+ * @codegen <<SignedSource::7d5f680d5cbb5833a52a6a9650251df6>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,7 +20,7 @@ const svg = `<svg height="100%" viewBox="0 0 117 32">
 /**
  * __FocusLogoCS__
  *
- * A temporary component to represent the logo for Focus.
+ * A component to represent the logo for Focus.
  *
  */
 export function FocusLogoCS({

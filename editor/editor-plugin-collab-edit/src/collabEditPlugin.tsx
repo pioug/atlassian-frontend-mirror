@@ -11,10 +11,11 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type { Rebaseable } from '@atlaskit/prosemirror-collab';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { CollabEditPlugin } from './collabEditPluginType';
 import { addSynchronyErrorAnalytics } from './pm-plugins/analytics';
+import { createCollabSendHold } from './pm-plugins/collabSendHold';
+import { collapseStreamingSteps } from './pm-plugins/collapseStreamingSteps';
 import { sendTransaction } from './pm-plugins/events/send-transaction';
 import { filterAnalyticsSteps } from './pm-plugins/filterAnalytics';
 import { createPlugin } from './pm-plugins/main';
@@ -38,7 +39,6 @@ import {
 	createPlugin as createTrackReconnectionConflictPlugin,
 	trackLastRemoteConflictPluginKey,
 } from './pm-plugins/track-reconnection-conflict';
-import { track } from './pm-plugins/track-steps';
 import { getAvatarColor } from './pm-plugins/utils';
 import type { ProviderBuilder, ProviderCallback } from './types';
 
@@ -97,6 +97,9 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 		},
 	);
 	const executeProviderCode: ProviderCallback = providerBuilder(collabEditProviderPromise);
+	// Spans transactions: a streaming producer holds the flush across many state updates, not just
+	// the ones it dispatches itself. See `createCollabSendHold`.
+	const sendHold = createCollabSendHold();
 
 	return {
 		name: 'collabEdit',
@@ -187,7 +190,12 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			const { useNativePlugin = false, userId = null } = options || {};
 
 			const transformUnconfirmed = (steps: Rebaseable[]) => {
-				const transformed = filterAnalyticsSteps(steps);
+				// Analytics steps are filtered first so they cannot break up an otherwise adjacent
+				// run of streaming frames.
+				const filtered = filterAnalyticsSteps(steps);
+				const transformed = fg('platform_editor_ai_collapse_streaming_steps')
+					? collapseStreamingSteps(filtered)
+					: filtered;
 
 				return mergeUnconfirmedSteps(transformed, api);
 			};
@@ -262,6 +270,17 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 		},
 
 		onEditorViewStateUpdated(props) {
+			// `props.transactions` is what `applyTransaction` produced: the dispatched transaction
+			// followed by everything `appendTransaction` added. Streaming frames are built in an
+			// appendTransaction, so their hold metadata is never on `originalTransaction`.
+			// Evaluated once and used for both the observation and the send decision. If the gate
+			// is turned off mid-stream, an already-active hold must stop applying immediately
+			// rather than persisting until the backstop expires and blocking every send.
+			const collapseStreamingStepsEnabled = fg('platform_editor_ai_collapse_streaming_steps');
+			if (collapseStreamingStepsEnabled) {
+				props.transactions.forEach((transaction) => sendHold.observe(transaction));
+			}
+
 			const addErrorAnalytics = addSynchronyErrorAnalytics(
 				props.newEditorState,
 				props.newEditorState.tr,
@@ -281,26 +300,10 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					useNativePlugin: options.useNativePlugin ?? false,
 					hideTelecursorOnLoad: !isEmptyDoc && (options.hideTelecursorOnLoad ?? false),
 					viewMode,
+					isSendHeld: collapseStreamingStepsEnabled && sendHold.isHeld(),
 				}),
 				addErrorAnalytics,
 			);
-
-			if (!expValEquals('platform_editor_remove_collab_step_metrics', 'isEnabled', true)) {
-				track({
-					api,
-					...props,
-					onTrackDataProcessed: (steps) => {
-						api?.analytics?.actions?.fireAnalyticsEvent({
-							action: ACTION.STEPS_TRACKED,
-							actionSubject: ACTION_SUBJECT.COLLAB,
-							attributes: {
-								steps,
-							},
-							eventType: EVENT_TYPE.OPERATIONAL,
-						});
-					},
-				});
-			}
 
 			if (fg('platform_editor_collab_organic_change_reporting')) {
 				monitorOrganic({

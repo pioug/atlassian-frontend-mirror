@@ -13,7 +13,6 @@ import { REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
 import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import ColourNoneIcon from '@atlaskit/icon-lab/core/colour-none';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -65,10 +64,7 @@ export const RemoveColorMenuItem = ({
 		}
 
 		api.core.actions.execute(({ tr }) => {
-			if (
-				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) ||
-				!fg('platform_editor_lovability_text_bg_color_patch_2')
-			) {
+			if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
 				api.textColor.commands.changeColor(
 					defaultColor,
 					getInputMethodFromParentKeys(parents),
@@ -89,36 +85,12 @@ export const RemoveColorMenuItem = ({
 	};
 
 	if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
-		if (fg('platform_editor_lovability_text_bg_color_patch_2')) {
-			return (
-				<div css={[styles.removeColorButton, styles.removeColorButtonPatch]}>
-					<Button shouldFitContainer appearance="subtle" onClick={onClick}>
-						<span css={styles.iconContainer}>
-							<ColourNoneIcon size="medium" label="" />
-							<Text color="color.text.subtle">{formatMessage(messages.removeHighlight)}</Text>
-						</span>
-					</Button>
-				</div>
-			);
-		} else if (fg('platform_editor_lovability_text_bg_color_patch_1')) {
-			return (
-				<div css={[styles.removeColorButton, styles.removeColorButtonPatch]}>
-					<Button shouldFitContainer appearance="subtle" onClick={onClick}>
-						<span css={styles.iconContainer}>
-							<ColourNoneIcon size="medium" label="" />
-							<Text color="color.text.subtle">{formatMessage(messages.clearColors)}</Text>
-						</span>
-					</Button>
-				</div>
-			);
-		}
-
 		return (
-			<div css={styles.removeColorButton}>
+			<div css={[styles.removeColorButton, styles.removeColorButtonPatch]}>
 				<Button shouldFitContainer appearance="subtle" onClick={onClick}>
 					<span css={styles.iconContainer}>
 						<ColourNoneIcon size="medium" label="" />
-						<Text weight="medium">{formatMessage(messages.clearColors)}</Text>
+						<Text color="color.text.subtle">{formatMessage(messages.removeHighlight)}</Text>
 					</span>
 				</Button>
 			</div>

@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::5ff87c97a91f377d320a3bbcd4276565>>
+ * @codegen <<SignedSource::e70fa534c5916cef7086b540bbeb81c8>>
  * @codegenCommand yarn build tokens
  */
 
@@ -646,8 +646,8 @@ var tokens = exports.tokens = [{
 }, {
   name: 'motion.tab',
   path: ['motion', 'tab', '[default]'],
-  description: 'Use for all tab text color state transitions.',
-  exampleValue: 'color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+  description: 'Use for tab text color and neutral indicator opacity transitions.',
+  exampleValue: 'color 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',
   usageGuidelines: {
     usage: '',
     cssProperties: []

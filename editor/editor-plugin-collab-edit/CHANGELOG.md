@@ -1,5 +1,64 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 23.0.3
+
+### Patch Changes
+
+- [`b1c4e6a33dbb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1c4e6a33dbb7) -
+  Clean up feature gate `platform_editor_agent_be_review_undo`
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- [`5b30c74e8080f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b30c74e8080f) -
+  Compose the intermediate steps of an AI streaming response into a single collab step, so a
+  streamed edit costs the collab service roughly one step per block instead of one per chunk.
+
+  Each streaming frame replaces the whole AI region with the cumulative content so far, so the
+  frames are individually large and grow as the response does. They are also thrown away at the end
+  — `buildCommitTransaction` rebuilds the final document from the response rather than from what was
+  streamed — which is what makes composing them safe.
+
+  `mergeOverlappingSteps` merges two consecutive overlapping steps into the single step they are
+  collectively equivalent to, and `collapseStreamingSteps` folds it across the steps in the collab
+  unconfirmed queue. Composition is exact in both directions: the forward step is verified against
+  the document, and the inverse is composed alongside it because `rebaseSteps` applies inverses to
+  the live document whenever a remote step arrives.
+
+  Composing only helps while the steps are still unsent, because `lockStepOrigins` marks everything
+  a flush sends and a locked step can never be merged. `createCollabSendHold` therefore holds the
+  send back across transactions — not per transaction, since acks, remote steps and the user's own
+  typing all trigger sends that would otherwise lock the queue. Producers drive it with the
+  `DEFER_COLLAB_SEND` meta: `true` starts the hold, `false` releases it, anything else leaves it
+  untouched. `true` does not extend a hold already in progress, so a continuous stream of held
+  frames still reaches the bound.
+
+  `editor-common` gains two new entrypoints for the metadata keys shared between the producer and
+  the collab layer: `./collab-streaming-step-collapse` and `./collab-defer-collab-send`. The changes
+  in `editor-plugin-collab-edit` and `editor-plugin-ai` are internal — neither package's exports map
+  changes.
+
+  While the send is held nothing is sent, including the user's own edits, up to the hold's time
+  bound. `sendableSteps` returns the queue in version order, so a later step cannot be sent ahead of
+  held ones. Peers also do not see in-progress content until a flush, and content in a held queue
+  exists only on the client until then.
+
+  All of this is behind the `platform_editor_ai_collapse_streaming_steps` feature gate. With the
+  gate off, streaming frames are not stamped, the send is never held, and the unconfirmed queue is
+  left exactly as it is today.
+
+- [`5f61320693517`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f61320693517) -
+  Clean up experiment `platform_editor_remove_collab_step_metrics`
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

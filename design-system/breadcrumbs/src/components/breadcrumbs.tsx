@@ -70,7 +70,6 @@ const breadcrumbStylesNew = css({
 	marginBlockStart: '0',
 	marginInlineEnd: '0',
 	marginInlineStart: '0',
-	overflow: 'hidden',
 	paddingBlockEnd: '0',
 	paddingBlockStart: '0',
 	paddingInlineEnd: '0',
@@ -79,7 +78,11 @@ const breadcrumbStylesNew = css({
 
 const navStylesNew = css({
 	minWidth: '0',
+	marginBlock: token('space.negative.050'),
+	marginInline: token('space.negative.050'),
 	overflow: 'hidden',
+	paddingBlock: token('space.050'),
+	paddingInline: token('space.050'),
 });
 
 const ellipsisItemWrapperStyles = css({

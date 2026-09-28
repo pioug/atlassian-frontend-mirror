@@ -5,7 +5,11 @@ import JiraHtmlInputExample from './1-jira-html-input';
 import JiraHtmlOutputExample from './2-jira-html-output';
 import JiraHtmlToAdfExample from './3-jira-html-to-adf';
 
-export const JiraTransformer: WorkbenchExample = wb(JiraTransformerExample);
-export const JiraHtmlInput: WorkbenchExample = wb(JiraHtmlInputExample);
-export const JiraHtmlOutput: WorkbenchExample = wb(JiraHtmlOutputExample);
-export const JiraHtmlToAdf: WorkbenchExample = wb(JiraHtmlToAdfExample);
+export const JiraTransformer: WorkbenchExample<typeof JiraTransformerExample> =
+	wb(JiraTransformerExample);
+export const JiraHtmlInput: WorkbenchExample<typeof JiraHtmlInputExample> =
+	wb(JiraHtmlInputExample);
+export const JiraHtmlOutput: WorkbenchExample<typeof JiraHtmlOutputExample> =
+	wb(JiraHtmlOutputExample);
+export const JiraHtmlToAdf: WorkbenchExample<typeof JiraHtmlToAdfExample> =
+	wb(JiraHtmlToAdfExample);

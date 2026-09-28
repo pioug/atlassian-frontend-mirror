@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::65834688e9b4fdfc78823d82dcba821c>>
+ * @codegen <<SignedSource::c87e84c959bef8a628a70d71f0872564>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -19,8 +19,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __CrowdIcon__
  *
- * An internal component to represent the icon for Crowd.
- * Do not use this internal component directly — use `CrowdIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Crowd.
+ * Import `CrowdIcon` from `@atlaskit/logo/crowd/icon`.
  *
  */
 export function CrowdIcon({

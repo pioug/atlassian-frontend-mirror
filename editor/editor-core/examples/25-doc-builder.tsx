@@ -280,7 +280,7 @@ export default class Example extends React.Component {
 								return (
 									<FullPageEditor
 										editorProps={{
-											onChange: (e) => this.handleEditorChange(),
+											onChange: () => this.handleEditorChange(),
 										}}
 									/>
 								);

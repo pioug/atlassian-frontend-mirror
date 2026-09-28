@@ -55,61 +55,111 @@ import WithInlineEditExample from './104-with-inline-edit';
 import DeepLinkTargetExample from './105-deep-link-target';
 import AddTelepointerExample from './200-add-telepointer';
 
-export const Basic: WorkbenchExample = wb(BasicExample);
-export const FullPageWithCustomPanel: WorkbenchExample = wb(FullPageWithCustomPanelExample);
-export const FullPageWithFixedSizeMedia: WorkbenchExample = wb(FullPageWithFixedSizeMediaExample);
-export const FullPageWithI18n: WorkbenchExample = wb(FullPageWithI18nExample);
-export const FullPageWithMediaCaption: WorkbenchExample = wb(FullPageWithMediaCaptionExample);
-export const FullPageWithMediaInline: WorkbenchExample = wb(FullPageWithMediaInlineExample);
-export const FullPageWithSpecBasedValidator: WorkbenchExample = wb(
-	FullPageWithSpecBasedValidatorExample,
+export const Basic: WorkbenchExample<typeof BasicExample> = wb(BasicExample);
+export const FullPageWithCustomPanel: WorkbenchExample<typeof FullPageWithCustomPanelExample> = wb(
+	FullPageWithCustomPanelExample,
 );
-export const FullPageWithUgcScrubber: WorkbenchExample = wb(FullPageWithUgcScrubberExample);
-export const FullPageWithoutMediaCaption: WorkbenchExample = wb(FullPageWithoutMediaCaptionExample);
-export const FullPage: WorkbenchExample = wb(FullPageExample);
-export const FullWidth: WorkbenchExample = wb(FullWidthExample);
-export const MultiBodiedExtension: WorkbenchExample = wb(MultiBodiedExtensionExample);
-export const WithProviders: WorkbenchExample = wb(WithProvidersExample);
-export const ColumnLayout: WorkbenchExample = wb(ColumnLayoutExample);
-export const TestingWithClickToEdit: WorkbenchExample = wb(TestingWithClickToEditExample);
-export const MediaSsr: WorkbenchExample = wb(MediaSsrExample);
-export const SmartCardSsr: WorkbenchExample = wb(SmartCardSsrExample);
-export const LinkWithSafetyCheck: WorkbenchExample = wb(LinkWithSafetyCheckExample);
-export const WithInlineEdit: WorkbenchExample = wb(WithInlineEditExample);
-export const DeepLinkTarget: WorkbenchExample = wb(DeepLinkTargetExample);
-export const ExtensionLayout: WorkbenchExample = wb(ExtensionLayoutExample);
-export const Overflow: WorkbenchExample = wb(OverflowExample);
-export const StickyHeaders: WorkbenchExample = wb(StickyHeadersExample);
-export const SmartCardDatasource: WorkbenchExample = wb(SmartCardDatasourceExample);
-export const SmartCardWithEventHandlers: WorkbenchExample = wb(SmartCardWithEventHandlersExample);
-export const SmartCardWithFrameStyle: WorkbenchExample = wb(SmartCardWithFrameStyleExample);
-export const SmartCard: WorkbenchExample = wb(SmartCardExample);
-export const HeaderIds: WorkbenchExample = wb(HeaderIdsExample);
-export const NestedHeadersInsideExpand: WorkbenchExample = wb(NestedHeadersInsideExpandExample);
-export const Truncated: WorkbenchExample = wb(TruncatedExample);
-export const TruncatedCustomHeight: WorkbenchExample = wb(TruncatedCustomHeightExample);
-export const UserTesting: WorkbenchExample = wb(UserTestingExample);
-export const ListOfComments: WorkbenchExample = wb(ListOfCommentsExample);
-export const FullPageWithoutExpand: WorkbenchExample = wb(FullPageWithoutExpandExample);
-export const WithProvidersAndPortal: WorkbenchExample = wb(WithProvidersAndPortalExample);
-export const RendererActions: WorkbenchExample = wb(RendererActionsExample);
-export const AddTelepointer: WorkbenchExample = wb(AddTelepointerExample);
-export const AnnotationsNewPlaywright: WorkbenchExample = wb(AnnotationsNewPlaywrightExample);
-export const AnnotationsNew: WorkbenchExample = wb(AnnotationsNewExample);
-export const AnnotationsWithManager: WorkbenchExample = wb(AnnotationsWithManagerExample);
-export const Annotations: WorkbenchExample = wb(AnnotationsExample);
-export const PlaceholderEnabled: WorkbenchExample = wb(PlaceholderEnabledExample);
-export const WithMockTemplateVariables: WorkbenchExample = wb(WithMockTemplateVariablesExample);
-export const TextHighlighterApi: WorkbenchExample = wb(TextHighlighterApiExample);
-export const NestedTables: WorkbenchExample = wb(NestedTablesExample);
-export const WithProvidersAndPortalAndExtension: WorkbenchExample = wb(
-	WithProvidersAndPortalAndExtensionExample,
+export const FullPageWithFixedSizeMedia: WorkbenchExample<
+	typeof FullPageWithFixedSizeMediaExample
+> = wb(FullPageWithFixedSizeMediaExample);
+export const FullPageWithI18n: WorkbenchExample<typeof FullPageWithI18nExample> =
+	wb(FullPageWithI18nExample);
+export const FullPageWithMediaCaption: WorkbenchExample<typeof FullPageWithMediaCaptionExample> =
+	wb(FullPageWithMediaCaptionExample);
+export const FullPageWithMediaInline: WorkbenchExample<typeof FullPageWithMediaInlineExample> = wb(
+	FullPageWithMediaInlineExample,
 );
-export const WithTextSerializer: WorkbenchExample = wb(WithTextSerializerExample);
-export const DacViewer: WorkbenchExample = wb(DacViewerExample);
-export const ExternalImages: WorkbenchExample = wb(ExternalImagesExample);
-export const MediaLayout: WorkbenchExample = wb(MediaLayoutExample);
-export const MediaWithLink: WorkbenchExample = wb(MediaWithLinkExample);
-export const ResizedMediaLayout: WorkbenchExample = wb(ResizedMediaLayoutExample);
-export const TableLayout: WorkbenchExample = wb(TableLayoutExample);
-export const Testing: WorkbenchExample = wb(TestingExample);
+export const FullPageWithSpecBasedValidator: WorkbenchExample<
+	typeof FullPageWithSpecBasedValidatorExample
+> = wb(FullPageWithSpecBasedValidatorExample);
+export const FullPageWithUgcScrubber: WorkbenchExample<typeof FullPageWithUgcScrubberExample> = wb(
+	FullPageWithUgcScrubberExample,
+);
+export const FullPageWithoutMediaCaption: WorkbenchExample<
+	typeof FullPageWithoutMediaCaptionExample
+> = wb(FullPageWithoutMediaCaptionExample);
+export const FullPage: WorkbenchExample<typeof FullPageExample> = wb(FullPageExample);
+export const FullWidth: WorkbenchExample<typeof FullWidthExample> = wb(FullWidthExample);
+export const MultiBodiedExtension: WorkbenchExample<typeof MultiBodiedExtensionExample> = wb(
+	MultiBodiedExtensionExample,
+);
+export const WithProviders: WorkbenchExample<typeof WithProvidersExample> =
+	wb(WithProvidersExample);
+export const ColumnLayout: WorkbenchExample<typeof ColumnLayoutExample> = wb(ColumnLayoutExample);
+export const TestingWithClickToEdit: WorkbenchExample<typeof TestingWithClickToEditExample> = wb(
+	TestingWithClickToEditExample,
+);
+export const MediaSsr: WorkbenchExample<typeof MediaSsrExample> = wb(MediaSsrExample);
+export const SmartCardSsr: WorkbenchExample<typeof SmartCardSsrExample> = wb(SmartCardSsrExample);
+export const LinkWithSafetyCheck: WorkbenchExample<typeof LinkWithSafetyCheckExample> = wb(
+	LinkWithSafetyCheckExample,
+);
+export const WithInlineEdit: WorkbenchExample<typeof WithInlineEditExample> =
+	wb(WithInlineEditExample);
+export const DeepLinkTarget: WorkbenchExample<typeof DeepLinkTargetExample> =
+	wb(DeepLinkTargetExample);
+export const ExtensionLayout: WorkbenchExample<typeof ExtensionLayoutExample> =
+	wb(ExtensionLayoutExample);
+export const Overflow: WorkbenchExample<typeof OverflowExample> = wb(OverflowExample);
+export const StickyHeaders: WorkbenchExample<typeof StickyHeadersExample> =
+	wb(StickyHeadersExample);
+export const SmartCardDatasource: WorkbenchExample<typeof SmartCardDatasourceExample> = wb(
+	SmartCardDatasourceExample,
+);
+export const SmartCardWithEventHandlers: WorkbenchExample<
+	typeof SmartCardWithEventHandlersExample
+> = wb(SmartCardWithEventHandlersExample);
+export const SmartCardWithFrameStyle: WorkbenchExample<typeof SmartCardWithFrameStyleExample> = wb(
+	SmartCardWithFrameStyleExample,
+);
+export const SmartCard: WorkbenchExample<typeof SmartCardExample> = wb(SmartCardExample);
+export const HeaderIds: WorkbenchExample<typeof HeaderIdsExample> = wb(HeaderIdsExample);
+export const NestedHeadersInsideExpand: WorkbenchExample<typeof NestedHeadersInsideExpandExample> =
+	wb(NestedHeadersInsideExpandExample);
+export const Truncated: WorkbenchExample<typeof TruncatedExample> = wb(TruncatedExample);
+export const TruncatedCustomHeight: WorkbenchExample<typeof TruncatedCustomHeightExample> = wb(
+	TruncatedCustomHeightExample,
+);
+export const UserTesting: WorkbenchExample<typeof UserTestingExample> = wb(UserTestingExample);
+export const ListOfComments: WorkbenchExample<typeof ListOfCommentsExample> =
+	wb(ListOfCommentsExample);
+export const FullPageWithoutExpand: WorkbenchExample<typeof FullPageWithoutExpandExample> = wb(
+	FullPageWithoutExpandExample,
+);
+export const WithProvidersAndPortal: WorkbenchExample<typeof WithProvidersAndPortalExample> = wb(
+	WithProvidersAndPortalExample,
+);
+export const RendererActions: WorkbenchExample<typeof RendererActionsExample> =
+	wb(RendererActionsExample);
+export const AddTelepointer: WorkbenchExample<typeof AddTelepointerExample> =
+	wb(AddTelepointerExample);
+export const AnnotationsNewPlaywright: WorkbenchExample<typeof AnnotationsNewPlaywrightExample> =
+	wb(AnnotationsNewPlaywrightExample);
+export const AnnotationsNew: WorkbenchExample<typeof AnnotationsNewExample> =
+	wb(AnnotationsNewExample);
+export const AnnotationsWithManager: WorkbenchExample<typeof AnnotationsWithManagerExample> = wb(
+	AnnotationsWithManagerExample,
+);
+export const Annotations: WorkbenchExample<typeof AnnotationsExample> = wb(AnnotationsExample);
+export const PlaceholderEnabled: WorkbenchExample<typeof PlaceholderEnabledExample> =
+	wb(PlaceholderEnabledExample);
+export const WithMockTemplateVariables: WorkbenchExample<typeof WithMockTemplateVariablesExample> =
+	wb(WithMockTemplateVariablesExample);
+export const TextHighlighterApi: WorkbenchExample<typeof TextHighlighterApiExample> =
+	wb(TextHighlighterApiExample);
+export const NestedTables: WorkbenchExample<typeof NestedTablesExample> = wb(NestedTablesExample);
+export const WithProvidersAndPortalAndExtension: WorkbenchExample<
+	typeof WithProvidersAndPortalAndExtensionExample
+> = wb(WithProvidersAndPortalAndExtensionExample);
+export const WithTextSerializer: WorkbenchExample<typeof WithTextSerializerExample> =
+	wb(WithTextSerializerExample);
+export const DacViewer: WorkbenchExample<typeof DacViewerExample> = wb(DacViewerExample);
+export const ExternalImages: WorkbenchExample<typeof ExternalImagesExample> =
+	wb(ExternalImagesExample);
+export const MediaLayout: WorkbenchExample<typeof MediaLayoutExample> = wb(MediaLayoutExample);
+export const MediaWithLink: WorkbenchExample<typeof MediaWithLinkExample> =
+	wb(MediaWithLinkExample);
+export const ResizedMediaLayout: WorkbenchExample<typeof ResizedMediaLayoutExample> =
+	wb(ResizedMediaLayoutExample);
+export const TableLayout: WorkbenchExample<typeof TableLayoutExample> = wb(TableLayoutExample);
+export const Testing: WorkbenchExample<typeof TestingExample> = wb(TestingExample);

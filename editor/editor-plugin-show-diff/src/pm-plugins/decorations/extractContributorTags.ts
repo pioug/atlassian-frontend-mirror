@@ -117,8 +117,14 @@ const owningStop = (
  */
 const resolveActiveTarget = (
 	surviving: TagTarget[],
-	activeIndexPos: { from: number; to: number },
-): TagTarget | undefined => containedBy(surviving, activeIndexPos)[0];
+	activeIndexPos: { attributionKey?: string; from: number; to: number },
+): TagTarget | undefined =>
+	containedBy(surviving, activeIndexPos).find(
+		(target) =>
+			!fg('confluence_ncs_step_diffing_version_history') ||
+			!('attributionKey' in activeIndexPos) ||
+			target.decoration.spec.attributionKey === activeIndexPos.attributionKey,
+	);
 
 /**
  * One model per diff decoration whose attribution resolves to a supplied contributor; anything
@@ -135,7 +141,7 @@ const resolveActiveTarget = (
 export const extractContributorTags = (
 	decorations: DecorationSet,
 	contributors: ResolvedDiffContributors | undefined,
-	activeIndexPos?: { from: number; to: number },
+	activeIndexPos?: { attributionKey?: string; from: number; to: number },
 	stops?: ReadonlyArray<{ from: number; to: number }>,
 ): ContributorTagModel[] => {
 	if (!contributors) {

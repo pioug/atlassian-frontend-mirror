@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "23.0.0",
+	"version": "23.0.3",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,6 @@
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
-		"@atlaskit/frontend-utilities": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-collab": "workspace:^",
@@ -55,12 +54,13 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
-		"confluence_ncs_step_diffing_version_history": {
+		"platform_editor_ai_collapse_streaming_steps": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_agent_be_review_undo": {
-			"type": "boolean"
+		"confluence_ncs_step_diffing_version_history": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform_editor_collab_organic_change_reporting": {
 			"type": "boolean"

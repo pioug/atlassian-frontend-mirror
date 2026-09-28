@@ -16,8 +16,6 @@ type TableChangePlan = {
 
 export const CELL_CONTENT_OFFSET = 2;
 
-const IGNORED_CELL_ATTRS = ['localId', 'colwidth'];
-
 const tablesIn = (doc: PMNode): LocatedTable[] => {
 	const tables: LocatedTable[] = [];
 	doc.descendants((node, pos) => {
@@ -77,26 +75,112 @@ const positionMatchedColumns = ({
 	return surviving;
 };
 
-const addContentMatchedColumns = (
-	surviving: Set<number>,
+const headerLocalIds = (table: LocatedTable): Array<string | undefined> =>
+	(table.node.firstChild?.children ?? []).map((cell) => cell.attrs.localId ?? undefined);
+
+/**
+ * Cells keep their `localId` when a column is deleted, so the first row's ids name each remaining
+ * column even when the steps replaced the whole table. Missing or repeated ids, such as in content
+ * pasted from elsewhere, cannot name a column.
+ */
+const localIdMatchedColumns = (
 	before: LocatedTable,
 	after: LocatedTable,
-): boolean => {
-	const beforeCells = before.node.firstChild?.children ?? [];
-	const afterCells = after.node.firstChild?.children ?? [];
-
-	for (const afterCell of afterCells) {
-		const matches = beforeCells.flatMap((beforeCell, column) =>
-			areNodesEqualIgnoreAttrs(beforeCell, afterCell, IGNORED_CELL_ATTRS) ? [column] : [],
-		);
-		if (matches.length !== 1) {
-			return false;
-		}
-		surviving.add(matches[0]);
+): Set<number> | undefined => {
+	const beforeIds = headerLocalIds(before);
+	if (beforeIds.some((id) => !id) || new Set(beforeIds).size !== beforeIds.length) {
+		return undefined;
 	}
 
-	const ordered = [...surviving];
-	return !ordered.some((column, index) => index > 0 && column <= ordered[index - 1]);
+	const surviving = new Set<number>();
+	let previousColumn = -1;
+	for (const id of headerLocalIds(after)) {
+		const column = id ? beforeIds.indexOf(id) : -1;
+		if (column <= previousColumn) {
+			return undefined;
+		}
+		surviving.add(column);
+		previousColumn = column;
+	}
+	return surviving;
+};
+
+const IGNORED_CELL_ATTRS = ['localId', 'colwidth'];
+
+/** Rows may also have been deleted, so the remaining cells only need to appear in order. */
+const isColumnKept = (
+	before: LocatedTable,
+	beforeColumn: number,
+	after: LocatedTable,
+	afterColumn: number,
+): boolean => {
+	let beforeRow = 0;
+	return after.node.children.every((afterRow) => {
+		const afterCell = afterRow.maybeChild(afterColumn);
+		while (beforeRow < before.node.childCount) {
+			const beforeCell = before.node.child(beforeRow++).maybeChild(beforeColumn);
+			if (
+				afterCell &&
+				beforeCell &&
+				areNodesEqualIgnoreAttrs(beforeCell, afterCell, IGNORED_CELL_ATTRS)
+			) {
+				return true;
+			}
+		}
+		return false;
+	});
+};
+
+/**
+ * Pairs each remaining column with an equal original column, keeping their order, and takes each
+ * pair from the `direction` end first. Returns the original column of each remaining column.
+ */
+const pairColumnsInOrder = (
+	beforeWidth: number,
+	afterWidth: number,
+	isMatch: (beforeColumn: number, afterColumn: number) => boolean,
+	direction: 'left' | 'right',
+): number[] | undefined => {
+	const step = direction === 'left' ? 1 : -1;
+	const pairing: number[] = [];
+	let beforeColumn = direction === 'left' ? 0 : beforeWidth - 1;
+	let afterColumn = direction === 'left' ? 0 : afterWidth - 1;
+
+	for (; afterColumn >= 0 && afterColumn < afterWidth; afterColumn += step) {
+		while (beforeColumn >= 0 && beforeColumn < beforeWidth && !isMatch(beforeColumn, afterColumn)) {
+			beforeColumn += step;
+		}
+		if (beforeColumn < 0 || beforeColumn >= beforeWidth) {
+			return undefined;
+		}
+		pairing.push(beforeColumn);
+		beforeColumn += step;
+	}
+
+	return direction === 'left' ? pairing : pairing.reverse();
+};
+
+/**
+ * For tables whose cells have no usable ids, such as content created before cells had ids. Every
+ * valid pairing of remaining columns to original ones lies between the leftmost and the rightmost
+ * pairing, so the columns are only reported when those two agree. Otherwise, such as when several
+ * original columns are identical, which of them were removed cannot be known.
+ */
+const uniquelyContentMatchedColumns = (
+	before: LocatedTable,
+	after: LocatedTable,
+	beforeWidth: number,
+	afterWidth: number,
+): Set<number> | undefined => {
+	const isMatch = (beforeColumn: number, afterColumn: number) =>
+		isColumnKept(before, beforeColumn, after, afterColumn);
+	const leftmost = pairColumnsInOrder(beforeWidth, afterWidth, isMatch, 'left');
+	const rightmost = pairColumnsInOrder(beforeWidth, afterWidth, isMatch, 'right');
+
+	if (!leftmost || !rightmost || leftmost.some((column, index) => column !== rightmost[index])) {
+		return undefined;
+	}
+	return new Set(leftmost);
 };
 
 const findDeletedColumns = (
@@ -117,9 +201,14 @@ const findDeletedColumns = (
 	}
 
 	const beforeOffsets = columnOffsets(beforeMap, before.node);
-	const surviving = positionMatchedColumns({ before, after, afterToBefore, beforeOffsets });
+	const positionMatched = positionMatchedColumns({ before, after, afterToBefore, beforeOffsets });
+	const surviving =
+		positionMatched.size === afterMap.width
+			? positionMatched
+			: (localIdMatchedColumns(before, after) ??
+				uniquelyContentMatchedColumns(before, after, beforeMap.width, afterMap.width));
 
-	if (surviving.size !== afterMap.width && !addContentMatchedColumns(surviving, before, after)) {
+	if (!surviving) {
 		return [];
 	}
 

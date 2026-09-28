@@ -1,5 +1,4 @@
 import type {
-	_MarkdownModePluginStub,
 	Command,
 	EditorCommand,
 	NextEditorPlugin,
@@ -46,7 +45,6 @@ export type BlockTypePlugin = NextEditorPlugin<
 			OptionalPlugin<ListPlugin>,
 			OptionalPlugin<SelectionPlugin>,
 			OptionalPlugin<InteractionPlugin>,
-			OptionalPlugin<_MarkdownModePluginStub>,
 			OptionalPlugin<UiControlRegistryPlugin>,
 		];
 		pluginConfiguration: BlockTypePluginOptions | undefined;

@@ -135,6 +135,7 @@ export type MessageKey =
 	| 'viewOriginal'
 	| 'changeView'
 	| 'playbackSpeed'
+	| 'playbackSpeedValue'
 	| 'skipBackward'
 	| 'skipForward'
 	| 'sizeOptions'
@@ -918,6 +919,12 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Playback speed',
 		description:
 			'In the context of a video player, it allows user to switch the speed of the video',
+	},
+	playbackSpeedValue: {
+		id: 'fabric.media.playback_speed_value',
+		defaultMessage: 'Playback speed {speed}x',
+		description:
+			'Accessible label for the video player button that changes playback speed. {speed} is the current speed multiplier, for example 1, 1.5 or 2. The button visibly shows only the multiplier, so the label adds what the number controls.',
 	},
 	video_captions_enable: {
 		id: 'fabric.media.video_captions_enable',

@@ -1,5 +1,48 @@
 # @atlaskit/editor-statsig-tmp
 
+## 212.0.0
+
+### Major Changes
+
+- [`c004ba24db31f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c004ba24db31f) -
+  Clean up the shipped `platform_editor_external_embed_grid_fix` experiment. The grid overlay now
+  always sizes itself from the content line length plus the gutter width, so the conditional and the
+  experiment registration have been removed. The experiment is no longer available in the Statsig
+  configuration; consumers should remove its overrides and checks.
+
+## 211.0.0
+
+### Major Changes
+
+- [`034ef0dcd5baa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/034ef0dcd5baa) -
+  Remove the shipped `cc_fix_hydration_ttvc` experiment configuration.
+
+### Minor Changes
+
+- [`038da6c703ee9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/038da6c703ee9) -
+  `editorExperiment('platform_editor_controls', …)` now returns `variant1` for the Confluence and
+  Jira products, whose product code has been cleaned up to always behave as `variant1`.
+
+  Every other app (no product, or a product without a product key) now also returns `variant1`, so
+  the editor controls experience is enabled by default. It returns `control` only when the
+  `platform_editor_controls_other_apps_ks` kill switch is on for that app, or before the Statsig
+  client has initialised. Test overrides and the `test` product are unchanged.
+
+## 210.0.0
+
+### Major Changes
+
+- [`517ce6768d96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/517ce6768d96a) -
+  Clean up experiment `platform_editor_vc90_transition_panel_icon`.
+- [`5f61320693517`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f61320693517) -
+  Clean up experiment `platform_editor_remove_collab_step_metrics`
+
+### Patch Changes
+
+- [`4b854d5786237`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b854d5786237) -
+  Clean up feature gate `platform_editor_experiments_use_product_keys`. Product-specific experiment
+  keys are now always used for experiments that are not in `disallowsProductKeys`.
+
 ## 209.1.1
 
 ### Patch Changes

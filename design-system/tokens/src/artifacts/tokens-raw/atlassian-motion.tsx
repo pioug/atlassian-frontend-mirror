@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::046ad43297b86c109c4a07e8a6556566>>
+ * @codegen <<SignedSource::0b141dce37160ccd39dfbd2646ff6805>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2643,13 +2643,14 @@ const tokens: Token[] = [
       "group": "motion",
       "state": "active",
       "introduced": "18.3.0",
-      "description": "Use for all tab text color state transitions."
+      "description": "Use for tab text color and neutral indicator opacity transitions."
     },
     "value": {
       "duration": 150,
       "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
       "properties": [
-        "color"
+        "color",
+        "opacity"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -2659,13 +2660,14 @@ const tokens: Token[] = [
         "group": "motion",
         "state": "active",
         "introduced": "18.3.0",
-        "description": "Use for all tab text color state transitions."
+        "description": "Use for tab text color and neutral indicator opacity transitions."
       },
       "value": {
         "duration": "Duration150",
         "curve": "EasePracticalOut",
         "properties": [
-          "Color"
+          "Color",
+          "Opacity"
         ]
       }
     },

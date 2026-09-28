@@ -32,6 +32,9 @@
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-collab-edit/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-composition/afm-products/tsconfig.json"
 		},
 		{

@@ -12,6 +12,12 @@ import { pluginKey } from '../main/plugin-key';
 
 type Props = {
 	hideTelecursorOnLoad: boolean;
+	/**
+	 * When true the flush to the collab service is skipped for this state update. See
+	 * `createCollabSendHold` — the hold spans transactions, so this is not derived from
+	 * `originalTransaction` alone.
+	 */
+	isSendHeld?: boolean;
 	newEditorState: EditorState;
 	oldEditorState: EditorState;
 	originalTransaction: Readonly<Transaction>;
@@ -29,6 +35,7 @@ export const sendTransaction =
 		useNativePlugin,
 		viewMode,
 		hideTelecursorOnLoad,
+		isSendHeld = false,
 	}: Props) =>
 	(provider: CollabEditProvider): void => {
 		const docChangedTransaction = transactions.find((tr) => tr.docChanged);
@@ -52,7 +59,15 @@ export const sendTransaction =
 			!originalTransaction.getMeta('scaleTable') &&
 			trNoAnalytics.docChanged;
 
-		if (useNativePlugin || shouldSendStepForSynchronyCollabProvider) {
+		// A streaming producer can hold the flush back so several of its frames accumulate in the
+		// unconfirmed queue and collapse into one step before being sent. The steps are not
+		// dropped: `sendableSteps` returns the whole queue, so the first unheld state update sends
+		// everything that accumulated. Skipping `send` also skips `lockStepOrigins`, which is what
+		// keeps the accumulated frames composable.
+		//
+		// Telepointer messages below are intentionally left alone — holding them would freeze
+		// other participants' cursors for the length of the hold, and they carry no steps.
+		if (!isSendHeld && (useNativePlugin || shouldSendStepForSynchronyCollabProvider)) {
 			provider.send(trNoAnalytics, oldEditorState, newEditorState);
 		}
 

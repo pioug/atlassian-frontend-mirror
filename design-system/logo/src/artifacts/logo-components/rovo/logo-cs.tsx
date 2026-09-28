@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::671370ac2b7f8af9131ccc0273d168bb>>
+ * @codegen <<SignedSource::318fcb1d8de3e56350068803dbc06edd>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -22,7 +22,7 @@ const svg = `<svg height="100%" viewBox="0 0 102 32">
 /**
  * __RovoLogoCS__
  *
- * An internal component to represent the logo for Rovo.
+ * A component to represent the logo for Rovo.
  *
  */
 export function RovoLogoCS({

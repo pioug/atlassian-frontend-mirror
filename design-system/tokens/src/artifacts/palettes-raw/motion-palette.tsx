@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d82123aaf6885f7aa3c7c5b28eeddadb>>
+ * @codegen <<SignedSource::313f34bf4f2e51c91acc2c8be8372e64>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1320,6 +1320,26 @@ const tokens: Token[] = [
       "motion",
       "properties",
       "Color"
+    ]
+  },
+  {
+    "value": "opacity",
+    "attributes": {
+      "group": "motionProperty"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "opacity",
+      "attributes": {
+        "group": "motionProperty"
+      }
+    },
+    "name": "motion.properties.Opacity",
+    "path": [
+      "motion",
+      "properties",
+      "Opacity"
     ]
   },
   {

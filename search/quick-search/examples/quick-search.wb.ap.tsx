@@ -12,14 +12,20 @@ import InputControlsExample from './9-Input-Controls';
 import AutocompleteExample from './10-Autocomplete';
 
 export const NavigationExample: WorkbenchExample = wb(NavigationExampleExample);
-export const ObjectResults: WorkbenchExample = wb(ObjectResultsExample);
+export const ObjectResults: WorkbenchExample<typeof ObjectResultsExample> =
+	wb(ObjectResultsExample);
 export const Autocomplete: WorkbenchExample = wb(AutocompleteExample);
-export const PeopleResults: WorkbenchExample = wb(PeopleResultsExample);
-export const ContainerResults: WorkbenchExample = wb(ContainerResultsExample);
-export const CustomResults: WorkbenchExample = wb(CustomResultsExample);
-export const KeyboardNavigationWithNestedDOM: WorkbenchExample = wb(
-	KeyboardNavigationWithNestedDOMExample,
-);
-export const AnalyticsLogging: WorkbenchExample = wb(AnalyticsLoggingExample);
-export const ResultsWithOnSelectedIcon: WorkbenchExample = wb(ResultsWithOnSelectedIconExample);
+export const PeopleResults: WorkbenchExample<typeof PeopleResultsExample> =
+	wb(PeopleResultsExample);
+export const ContainerResults: WorkbenchExample<typeof ContainerResultsExample> =
+	wb(ContainerResultsExample);
+export const CustomResults: WorkbenchExample<typeof CustomResultsExample> =
+	wb(CustomResultsExample);
+export const KeyboardNavigationWithNestedDOM: WorkbenchExample<
+	typeof KeyboardNavigationWithNestedDOMExample
+> = wb(KeyboardNavigationWithNestedDOMExample);
+export const AnalyticsLogging: WorkbenchExample<typeof AnalyticsLoggingExample> =
+	wb(AnalyticsLoggingExample);
+export const ResultsWithOnSelectedIcon: WorkbenchExample<typeof ResultsWithOnSelectedIconExample> =
+	wb(ResultsWithOnSelectedIconExample);
 export const InputControls: WorkbenchExample = wb(InputControlsExample);

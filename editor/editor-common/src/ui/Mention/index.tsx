@@ -4,13 +4,18 @@ import React, { PureComponent } from 'react';
 
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ProviderFactory, WithProviders } from '../../provider-factory';
 import type { Providers } from '../../provider-factory';
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';
 import type { MentionNodeDataProvider } from './mention-node-data-provider';
-import { MentionWithAvatarProviders, MentionWithProviders } from './mention-with-providers';
+import {
+	MissingMentionAvatarProvider,
+	MentionWithAvatarProviders,
+	MentionWithProviders,
+} from './mention-with-providers';
 
 type ProviderName = 'mentionProvider' | 'profilecardProvider';
 
@@ -34,7 +39,7 @@ export interface MentionState {
 	profilecardProvider: ProfilecardProvider | null;
 }
 
-export default class Mention extends PureComponent<MentionProps, Object> {
+export default class Mention extends PureComponent<MentionProps, object> {
 	private providerFactory: ProviderFactory;
 
 	constructor(props: MentionProps) {
@@ -63,8 +68,11 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 			mentionNodeDataProvider,
 		} = this.props;
 		const { mentionProvider, profilecardProvider } = providers;
+		const hasProvider = Boolean(mentionNodeDataProvider);
+		const canReportMissingProvider =
+			!hasProvider && fg('platform_editor_mention_avatar_observability');
 		const isAvatarEnabled =
-			Boolean(mentionNodeDataProvider) &&
+			(hasProvider || canReportMissingProvider) &&
 			userType !== 'SPECIAL' &&
 			!GENERIC_MENTION_IDS.includes(id) &&
 			(isExperimentEnabled('platform_editor_mention_node_avatar') ||
@@ -89,18 +97,23 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 		}
 
 		return (
-			<MentionWithProviders
-				id={id}
-				text={text}
-				accessLevel={accessLevel}
-				localId={localId}
-				userType={userType}
-				isDisabled={isDisabled}
-				disabledTooltip={disabledTooltip}
-				eventHandlers={eventHandlers}
-				mentionProvider={mentionProvider}
-				profilecardProvider={profilecardProvider}
-			/>
+			<>
+				{canReportMissingProvider && isAvatarEnabled && (
+					<MissingMentionAvatarProvider mentionKey={`${userType ?? 'DEFAULT'}:${id}`} />
+				)}
+				<MentionWithProviders
+					id={id}
+					text={text}
+					accessLevel={accessLevel}
+					localId={localId}
+					userType={userType}
+					isDisabled={isDisabled}
+					disabledTooltip={disabledTooltip}
+					eventHandlers={eventHandlers}
+					mentionProvider={mentionProvider}
+					profilecardProvider={profilecardProvider}
+				/>
+			</>
 		);
 	};
 

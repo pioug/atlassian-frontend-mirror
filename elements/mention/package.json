@@ -133,6 +133,9 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
+		"platform_editor_mention_avatar_observability": {
+			"type": "boolean"
+		},
 		"rovo_chat_mention_agents": {
 			"type": "experiment",
 			"referenceOnly": true
@@ -155,5 +158,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "30.0.4"
+	"version": "30.0.7"
 }

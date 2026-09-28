@@ -13,6 +13,7 @@ import {
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type {
 	ColorScheme,
@@ -45,7 +46,7 @@ export const showDiffPluginKey: PluginKey<ShowDiffPluginState> = new PluginKey<S
 
 export type ShowDiffPluginState = {
 	activeIndex?: number;
-	activeIndexPos?: { from: number; to: number };
+	activeIndexPos?: { attributionKey?: string; from: number; to: number };
 	/**
 	 * Per-call override, set via SHOW_DIFF meta. Falls back to the plugin's configured
 	 * `DiffParams.colorScheme` (see `createPlugin`'s `config` argument) when unset, and persists
@@ -276,7 +277,17 @@ export const createPlugin = (
 								...currentPluginState,
 								activeIndex: nextIndex,
 								activeIndexPos: activeDecoration
-									? { from: activeDecoration.from, to: activeDecoration.to }
+									? {
+											from: activeDecoration.from,
+											to: activeDecoration.to,
+											...(fg('confluence_ncs_step_diffing_version_history')
+												? {
+														attributionKey: isDiffDecoration(activeDecoration)
+															? activeDecoration.spec.attributionKey
+															: undefined,
+													}
+												: {}),
+										}
 									: undefined,
 							};
 							// Recalculate decorations with the new active index

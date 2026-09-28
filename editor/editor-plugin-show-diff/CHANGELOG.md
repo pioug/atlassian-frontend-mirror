@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- [`4d3e3d0afb998`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d3e3d0afb998) -
+  Fix "Removed" labels on table diffs:
+  - Keep the label on deleted table rows attached to its row when the page scrolls.
+  - Identify deleted table columns by cell `localId` when a diff replaces the whole table, so
+    columns with matching content, such as empty columns, are labelled correctly. Tables without
+    usable cell ids fall back to comparing whole columns, and only label columns when that
+    comparison has one answer.
+
+- [`b8c8e84ed75bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8c8e84ed75bd) -
+  Keep unattributed diff decorations separate from attributed changes in navigation and active
+  highlighting under `confluence_ncs_step_diffing_version_history`.
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.0
 
 ### Patch Changes

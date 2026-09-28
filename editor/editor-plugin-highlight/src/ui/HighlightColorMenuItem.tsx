@@ -183,10 +183,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 
 		return highlightPalette
 			.filter((color) => {
-				if (!isNewColorPaletteEnabled || fg('platform_editor_lovability_text_bg_color_patch_1')) {
-					return color.value !== REMOVE_HIGHLIGHT_COLOR;
-				}
-				return color.label !== 'Red';
+				return color.value !== REMOVE_HIGHLIGHT_COLOR;
 			})
 			.map((color) => ({
 				...color,
@@ -207,11 +204,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 		<ColorPalette
 			ariaLabelledBy={labelId}
 			cols={isNewColorPaletteEnabled ? HIGHLIGHT_COLOR_PICKER_COLUMNS : undefined}
-			gap={
-				isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1')
-					? 'space.0'
-					: undefined
-			}
+			gap={isNewColorPaletteEnabled ? 'space.0' : undefined}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onClick={(color, _, event) => {
 				handleHighlightColorChange(color, event);
@@ -227,12 +220,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 
 	return (
 		<Stack
-			xcss={cx(
-				styles.container,
-				isNewColorPaletteEnabled &&
-					fg('platform_editor_lovability_text_bg_color_patch_1') &&
-					styles.containerPatch,
-			)}
+			xcss={cx(styles.container, isNewColorPaletteEnabled && styles.containerPatch)}
 			testId="highlight-color-menu-item"
 		>
 			<Heading
@@ -243,7 +231,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 			>
 				{formatMessage(messages.highlight)}
 			</Heading>
-			{isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1') ? (
+			{isNewColorPaletteEnabled ? (
 				<Bleed inline="space.025">{colorPaletteElement}</Bleed>
 			) : (
 				colorPaletteElement

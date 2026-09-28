@@ -1,5 +1,4 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { backgroundColor as backgroundColorFactory } from '../../next-schema/generated/markTypes';
@@ -94,8 +93,7 @@ const isSupportedBackgroundColor = (hexColor: string): boolean => {
 
 	return (
 		expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-		backgroundColorPaletteNew.has(hexColor) &&
-		(hexColor !== R200.toLowerCase() || fg('platform_editor_lovability_text_bg_color_patch_1'))
+		backgroundColorPaletteNew.has(hexColor)
 	);
 };
 

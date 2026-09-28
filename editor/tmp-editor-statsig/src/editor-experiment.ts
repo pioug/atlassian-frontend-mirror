@@ -8,6 +8,42 @@ import { editorExperimentsConfig } from './experiments-config';
 import type { EditorExperimentsConfig } from './experiments-config';
 import { _overrides, _product } from './setup';
 
+const EDITOR_CONTROLS_EXPERIMENT = 'platform_editor_controls';
+const EDITOR_CONTROLS_OTHER_APPS_KILL_SWITCH = 'platform_editor_controls_other_apps_ks';
+
+/**
+ * Resolves the `platform_editor_controls` cohort while the experiment is being cleaned up.
+ *
+ * - Confluence and Jira always get `variant1`. Their product code has been cleaned up to always
+ *   behave as `variant1` (EDITOR-9269, EDITOR-9270), so the editor must agree with it.
+ * - Every other app (no product, or a product without a product key such as Bitbucket) gets
+ *   `variant1` unless the kill switch `platform_editor_controls_other_apps_ks` passes for that app,
+ *   in which case it gets `control`. The kill switch defaults to false, so controls are on by
+ *   default. Its exposure always fires so Statsig shows which apps run this code.
+ * - Before the Statsig client is initialised, other apps get the experiment's default value.
+ * - The `test` product keeps the experiment's default value.
+ *
+ * Remove together with the experiment in EDITOR-9262.
+ */
+function getEditorControlsCohort(defaultValue: 'control' | 'variant1'): 'control' | 'variant1' {
+	if (_product === 'confluence' || _product === 'jira') {
+		return 'variant1';
+	}
+
+	if (_product === 'test') {
+		return defaultValue;
+	}
+
+	if (!FeatureGates.initializeCompleted()) {
+		return defaultValue;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	return FeatureGates.checkGate(EDITOR_CONTROLS_OTHER_APPS_KILL_SWITCH, { fireGateExposure: true })
+		? 'control'
+		: 'variant1';
+}
+
 /**
  * Check the value of an editor experiment.
  *
@@ -76,6 +112,23 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 		throw new Error(
 			`Editor experiment configuration is not defined ${experimentName}. Likely the experiment does not exist or editor package versions are misaligned`,
 		);
+	}
+
+	if (experimentName === EDITOR_CONTROLS_EXPERIMENT) {
+		const cohort = getEditorControlsCohort(experimentConfig.defaultValue as 'control' | 'variant1');
+
+		if (
+			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+			FeatureGates.getExperimentValue(
+				'cc_editor_experiments_ufo_gate_reporting',
+				'isEnabled',
+				false,
+			)
+		) {
+			addFeatureFlagAccessed(`${experimentName}:${experimentConfig.param}`, cohort);
+		}
+
+		return cohort === expectedExperimentValue;
 	}
 
 	if (!_product) {

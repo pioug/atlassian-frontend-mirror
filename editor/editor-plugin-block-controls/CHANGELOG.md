@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 23.0.3
+
+### Patch Changes
+
+- [`50c2251fcc095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50c2251fcc095) -
+  Clean up feature gate `platform_editor_elements_dnd_shift_click_select`. The gate is removed as
+  `false`, so shift-click multi-select via the drag handle, the associated `isShiftDown` plugin
+  state, and the unused `expandSelectionHeadToNodeAtPos` / `alignAnchorHeadInDirectionOfPos` helpers
+  are removed.
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

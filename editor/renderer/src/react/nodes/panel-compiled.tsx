@@ -15,7 +15,6 @@ import { css, jsx } from '@compiled/react';
 import { PanelType } from '@atlaskit/adf-schema/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -249,7 +248,6 @@ export const PanelStyledCompiled: {
 			css={[
 				panelBaseStyles,
 				expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
-					fg('platform_editor_nest_table_in_panel_patch_3') &&
 					panelBackgroundColorVariableStyles,
 				expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
 					panelInfoIconStyles,

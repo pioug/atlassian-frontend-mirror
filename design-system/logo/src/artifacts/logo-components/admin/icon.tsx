@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d88346e41d9a48e50f2183d32928a23b>>
+ * @codegen <<SignedSource::18eae56e2ccc0811f44e248abe4436db>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __AdminIcon__
  *
- * An internal component to represent the icon for Admin.
- * Do not use this internal component directly — use `AdminIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Admin.
+ * Import `AdminIcon` from `@atlaskit/logo/admin/icon`.
  *
  */
 export function AdminIcon({

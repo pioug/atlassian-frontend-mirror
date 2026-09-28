@@ -18,7 +18,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { UNKNOWN_USER_ID } from '@atlaskit/mention/constants';
+import { ELEMENTS_CHANNEL, UNKNOWN_USER_ID } from '@atlaskit/mention/constants';
 import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
 import { isRestricted } from '@atlaskit/mention/is-restricted';
 import {
@@ -239,18 +239,26 @@ export class MentionNodeView implements NodeView {
 
 	constructor(node: PMNode, config: MentionNodeViewProps) {
 		const { options, api, portalProviderAPI, editorView } = config;
-		this.hasAvatarSlot =
-			Boolean(options?.mentionNodeDataProvider) &&
+		const hasProvider = Boolean(options?.mentionNodeDataProvider);
+		const canReportMissingProvider =
+			!hasProvider && fg('platform_editor_mention_avatar_observability');
+		const isAvatarEnabled =
+			(hasProvider || canReportMissingProvider) &&
 			node.attrs.userType !== 'SPECIAL' &&
 			!genericMentionIds.includes(node.attrs.id) &&
 			(isExperimentEnabled('platform_editor_mention_node_avatar') ||
 				isExperimentEnabled('platform_editor_mention_node_graphql_provider'));
+
+		this.hasAvatarSlot = hasProvider && isAvatarEnabled;
 
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node, this.hasAvatarSlot));
 		this.dom = dom;
 		this.contentDOM = contentDOM;
 		this.config = config;
 		this.node = node;
+		if (canReportMissingProvider && isAvatarEnabled) {
+			this.reportAvatarFailure('missing_provider');
+		}
 		this.domElement = dom instanceof HTMLElement ? dom : undefined;
 		this.mentionPrimitiveElement = this.domElement
 			? (this.domElement.querySelector<HTMLElement>(`.${primitiveClassName}`) ?? undefined)
@@ -265,7 +273,10 @@ export class MentionNodeView implements NodeView {
 				`.${avatarContainerClassName}`,
 			);
 			if (avatarContainer) {
-				this.mentionAvatar = mentionAvatarRenderer({ container: avatarContainer });
+				this.mentionAvatar = mentionAvatarRenderer({
+					container: avatarContainer,
+					onFailure: () => this.reportAvatarFailure('image_load_failed'),
+				});
 				this.resolveMentionAvatar(options?.mentionNodeDataProvider);
 			}
 		}
@@ -527,6 +538,23 @@ export class MentionNodeView implements NodeView {
 				: text;
 	}
 
+	private reportAvatarFailure = (
+		reason: 'image_load_failed' | 'provider_failed' | 'missing_avatar_url' | 'missing_provider',
+	): void => {
+		if (!this.isDestroyed && fg('platform_editor_mention_avatar_observability')) {
+			const payload = {
+				action: 'failed',
+				actionSubject: 'mentionAvatar',
+				eventType: 'operational',
+				attributes: { componentName: 'mention', reason, surface: 'editor' },
+			};
+			this.config.api?.analytics?.actions.fireAnalyticsEvent<typeof payload, 'customEventType'>(
+				payload,
+				ELEMENTS_CHANNEL,
+			);
+		}
+	};
+
 	private resolveMentionAvatar(mentionNodeDataProvider: MentionNodeDataProvider | undefined): void {
 		if (!this.hasAvatarSlot || !mentionNodeDataProvider || this.node.attrs.userType === 'SPECIAL') {
 			return;
@@ -544,7 +572,19 @@ export class MentionNodeView implements NodeView {
 			this.mentionAvatar?.render(data);
 		};
 
+		let failureReported = false;
 		mentionNodeDataProvider.getMentionData(mention, (payload) => {
+			if (this.isDestroyed) {
+				return;
+			}
+			if (!failureReported && (payload.error || (payload.data && !payload.data.avatarUrl))) {
+				failureReported = true;
+				if (payload.error) {
+					this.reportAvatarFailure('provider_failed');
+				} else if (payload.data && !payload.data.avatarUrl) {
+					this.reportAvatarFailure('missing_avatar_url');
+				}
+			}
 			if (payload.data) {
 				applyData(payload.data);
 			}

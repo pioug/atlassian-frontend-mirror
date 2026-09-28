@@ -2,6 +2,7 @@ import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, render, screen, userEvent, within } from '@atlassian/testing-library';
 
@@ -60,6 +61,7 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh enab
 
 			const item = screen.getByTestId('item-1');
 			expect(item).toBeInTheDocument();
+			expect(item).toHaveStyle({ maxWidth: '226px' });
 
 			const text = screen.getByText('Long content, icons before and after');
 			expect(text).toBeInTheDocument();
@@ -68,19 +70,33 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh enab
 			expect(icons.length).toEqual(2);
 		});
 
-		it('renders elemBefore outside the breadcrumb link when the refresh flag is enabled', () => {
+		it.each([
+			{ href: '/item', size: 'medium' as const },
+			{ href: undefined, size: 'medium' as const },
+			{ href: '/item', size: 'small' as const },
+			{ href: undefined, size: 'small' as const },
+		])('includes the leading icon in the $size control with href=$href', async ({ href, size }) => {
+			passGate('platform_dst_breadcrumbs-refresh');
+			const user = createUser();
+			const onClick = jest.fn((event) => event.preventDefault());
 			render(
-				<BreadcrumbsItem
-					href="/item"
-					elemBefore={<AtlassianIcon label="Leading icon" />}
-					testId="item"
-					text="Item"
-				/>,
+				<BreadcrumbsSizeProvider value={size}>
+					<BreadcrumbsItem
+						href={href}
+						elemBefore={<AtlassianIcon label="" />}
+						onClick={onClick}
+						testId="item"
+						text="Item"
+					/>
+				</BreadcrumbsSizeProvider>,
 			);
 
-			const link = screen.getByTestId('item');
-			expect(screen.getByTestId('item--icon-before')).toBeInTheDocument();
-			expect(within(link).queryByTestId('item--icon-before')).not.toBeInTheDocument();
+			const control = screen.getByRole(href ? 'link' : 'button', { name: 'Item' });
+			const icon = within(control).getByTestId('item--icon-before');
+			await user.tab();
+			expect(control).toHaveFocus();
+			await user.click(icon);
+			expect(onClick).toHaveBeenCalledTimes(1);
 		});
 
 		it('still renders iconAfter inside the breadcrumb link when the refresh flag is enabled', () => {
@@ -109,7 +125,7 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh enab
 			const onTooltipShown = jest.fn();
 			const clientWidthSpy = jest
 				.spyOn(HTMLElement.prototype, 'clientWidth', 'get')
-				.mockReturnValue(200);
+				.mockReturnValue(226);
 
 			try {
 				render(

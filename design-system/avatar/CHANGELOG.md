@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 29.1.1
+
+### Patch Changes
+
+- [`3f8590bf6d39f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f8590bf6d39f) -
+  Fixed images being stretched instead of cropped to fit when `UNSAFE_isUpdatedGeometry` is enabled,
+  by applying `object-fit: cover` to the avatar image.
+
 ## 29.1.0
 
 ### Minor Changes

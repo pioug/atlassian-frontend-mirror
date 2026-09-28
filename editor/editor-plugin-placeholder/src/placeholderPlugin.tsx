@@ -4,9 +4,11 @@ import { cssMap } from '@atlaskit/css';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 
+import { PlaceholderLoadingSpinner } from './PlaceholderLoadingSpinner';
 import type { PlaceholderPlugin } from './placeholderPluginType';
 import createPlugin from './pm-plugins/main';
 
@@ -73,6 +75,10 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 				return null;
 			}
 
+			if (fg('platform_editor_placeholder_collab_spinner')) {
+				return <PlaceholderLoadingSpinner api={api} editorView={params.editorView} />;
+			}
+
 			const doc = params.editorView?.state.doc;
 
 			// @ts-ignore fix which needs follow up to use standard apis
@@ -80,14 +86,9 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 
 			if (collabEditPluginState && collabEditPluginState.isReady !== true) {
 				if (doc && !isEmptyDocument(doc)) {
-					// If we have a document, and it's not empty - we should not show a loading component
 					return null;
 				}
 
-				// In this scenario
-				// - the collab plugin exists - but we don't have a "initial/placeholder" document
-				// - and the collab plugin is not yet ready
-				// So we show a placeholder spinner to indicate the content is still loading
 				return (
 					<Box xcss={spinnerContainerStyles.spinnerContainer}>
 						<Spinner interactionName="live-pages-loading-spinner" size="medium" />

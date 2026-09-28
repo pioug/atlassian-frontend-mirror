@@ -36,7 +36,7 @@ type FlagConfig = {
 	onRetry?: () => void;
 	/**
 	 * Optional source product for the synced block triggering this flag. Used to tailor
-	 * unpublished paste copy and to limit educational copy confirmation to Confluence.
+	 * unpublished paste copy and copied-block reuse guidance by product.
 	 */
 	sourceProduct?: SyncBlockProduct;
 };

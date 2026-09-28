@@ -24,7 +24,6 @@ import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { receiveTransaction, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -130,9 +129,7 @@ export const applyRemoteSteps = (
 	}
 
 	if (tr) {
-		const agentEditRequester = fg('platform_editor_agent_be_review_undo')
-			? getAgentEditRequester(json, view)
-			: null;
+		const agentEditRequester = getAgentEditRequester(json, view);
 		const shouldRecordAgentEditInHistory = agentEditRequester?.isLocalUserRequester === true;
 		tr.setMeta('addToHistory', shouldRecordAgentEditInHistory);
 		tr.setMeta('isRemote', true);

@@ -103,11 +103,7 @@ function groupTouchingDecorations(
 		}
 
 		const contributor = contributorOf(decoration);
-		// An unattributed decoration names nobody to keep apart, so it joins whatever is open — a
-		// decision item's own highlight must not split the stop from the tag on its list.
-		const openGroup =
-			openGroups.find((group) => group.contributor === contributor) ??
-			(contributor === '' ? openGroups[0] : openGroups.find((group) => group.contributor === ''));
+		const openGroup = openGroups.find((group) => group.contributor === contributor);
 
 		if (openGroup === undefined) {
 			const group = {
@@ -119,8 +115,6 @@ function groupTouchingDecorations(
 			groups.push(group);
 			openGroups = [...openGroups, group];
 		} else {
-			// The first contributor to join claims the group, so the next one still starts its own.
-			openGroup.contributor = openGroup.contributor || contributor;
 			openGroup.decorations.push(decoration);
 			openGroup.to = Math.max(openGroup.to, decoration.to);
 		}

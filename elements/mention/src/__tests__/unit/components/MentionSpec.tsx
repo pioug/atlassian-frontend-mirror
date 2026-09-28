@@ -12,8 +12,9 @@ import AnalyticsListenerNext from '@atlaskit/analytics-next/AnalyticsListener';
 // Commented due to HOT-111922
 // import { type ConcurrentExperience } from '@atlaskit/ufo';
 import FocusRing from '@atlaskit/focus-ring/focus-ring';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { ELEMENTS_CHANNEL } from '../../../_constants';
+import { ELEMENTS_CHANNEL, UNKNOWN_USER_ID } from '../../../_constants';
 import { type MentionNameResolver } from '../../../api/MentionNameResolver';
 import { MentionResource, type MentionProvider } from '../../../api/MentionResource';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
@@ -99,6 +100,127 @@ describe('<Mention />', () => {
 	afterEach(() => {
 		jest.useRealTimers();
 		jest.clearAllMocks();
+	});
+
+	describe('avatar observability', () => {
+		const onEvent = jest.fn();
+		const avatar = (url = 'https://example.com/private-avatar.png') => (
+			<AnalyticsListenerNext channel={ELEMENTS_CHANNEL} onEvent={onEvent}>
+				<Mention {...mentionData} avatarUrl={url} renderAvatarSlot />
+			</AnalyticsListenerNext>
+		);
+
+		it.each(['load', 'error'] as const)(
+			'reports only failures for image %s events without sensitive data',
+			async (outcome) => {
+				passGate('platform_editor_mention_avatar_observability');
+				await renderWait(avatar());
+				expect(onEvent).not.toHaveBeenCalled();
+				const image = screen.getByTestId('mention-avatar');
+				fireEvent[outcome](image);
+				fireEvent[outcome](image);
+				if (outcome === 'load') {
+					expect(onEvent).not.toHaveBeenCalled();
+					return;
+				}
+				expect(onEvent).toHaveBeenCalledTimes(1);
+				expect(onEvent.mock.calls[0][0].payload).toEqual({
+					action: 'failed',
+					actionSubject: 'mentionAvatar',
+					eventType: 'operational',
+					attributes: {
+						componentName: 'mention',
+						surface: 'renderer',
+						reason: 'image_load_failed',
+					},
+				});
+				expect(screen.getByTestId('mention-avatar-slot')).toHaveTextContent('@');
+			},
+		);
+
+		it('reports a new attempt after the URL changes', async () => {
+			passGate('platform_editor_mention_avatar_observability');
+			const { rerender } = await renderWait(avatar());
+			fireEvent.error(screen.getByTestId('mention-avatar'));
+			rerender(<IntlProvider locale="en">{avatar('https://example.com/retry.png')}</IntlProvider>);
+			fireEvent.error(screen.getByTestId('mention-avatar'));
+			expect(onEvent).toHaveBeenCalledTimes(2);
+		});
+
+		it.each(['hidden slot', 'unknown mention'])(
+			'reports a new image after %s with the same URL',
+			async (hiddenState) => {
+				passGate('platform_editor_mention_avatar_observability');
+				const { rerender } = await renderWait(avatar());
+				fireEvent.load(screen.getByTestId('mention-avatar'));
+				rerender(
+					<IntlProvider locale="en">
+						<AnalyticsListenerNext channel={ELEMENTS_CHANNEL} onEvent={onEvent}>
+							<Mention
+								{...mentionData}
+								avatarUrl="https://example.com/private-avatar.png"
+								renderAvatarSlot={hiddenState !== 'hidden slot'}
+								text={hiddenState === 'unknown mention' ? `@${UNKNOWN_USER_ID}` : mentionData.text}
+							/>
+						</AnalyticsListenerNext>
+					</IntlProvider>,
+				);
+				rerender(<IntlProvider locale="en">{avatar()}</IntlProvider>);
+				fireEvent.error(screen.getByTestId('mention-avatar'));
+				expect(onEvent).toHaveBeenCalledTimes(1);
+			},
+		);
+
+		it.each([
+			{ gateEnabled: true, naturalWidth: 0 },
+			{ gateEnabled: true, naturalWidth: 16 },
+			{ gateEnabled: false, naturalWidth: 0 },
+			{ gateEnabled: false, naturalWidth: 16 },
+		])(
+			'observes pre-completed images without changing UI: gate $gateEnabled, width $naturalWidth',
+			async ({ gateEnabled, naturalWidth }) => {
+				(gateEnabled ? passGate : failGate)('platform_editor_mention_avatar_observability');
+				const complete = jest
+					.spyOn(HTMLImageElement.prototype, 'complete', 'get')
+					.mockReturnValue(true);
+				const width = jest
+					.spyOn(HTMLImageElement.prototype, 'naturalWidth', 'get')
+					.mockReturnValue(naturalWidth);
+				try {
+					await renderWait(avatar());
+					expect(onEvent).toHaveBeenCalledTimes(gateEnabled && !naturalWidth ? 1 : 0);
+					expect(screen.getByTestId('mention-avatar')).toBeInTheDocument();
+					expect(screen.getByTestId('mention-avatar-slot')).not.toHaveTextContent('@');
+					if (gateEnabled && !naturalWidth) {
+						expect(onEvent.mock.calls[0][0].payload.action).toBe('failed');
+					}
+				} finally {
+					complete.mockRestore();
+					width.mockRestore();
+				}
+			},
+		);
+
+		it('keeps the image fallback when no analytics callback is provided', async () => {
+			await renderWait(
+				<MentionInternal
+					{...mentionData}
+					avatarUrl="https://example.com/broken-avatar.png"
+					renderAvatarSlot
+				/>,
+			);
+			fireEvent.error(screen.getByTestId('mention-avatar'));
+			expect(screen.queryByTestId('mention-avatar')).not.toBeInTheDocument();
+			expect(screen.getByTestId('mention-avatar-slot')).toHaveTextContent('@');
+		});
+
+		it('keeps the existing fallback without telemetry when disabled', async () => {
+			failGate('platform_editor_mention_avatar_observability');
+			await renderWait(avatar());
+			fireEvent.error(screen.getByTestId('mention-avatar'));
+			expect(onEvent).not.toHaveBeenCalled();
+			expect(screen.getByTestId('mention-avatar-slot')).toHaveTextContent('@');
+		});
 	});
 
 	describe('Mention', () => {

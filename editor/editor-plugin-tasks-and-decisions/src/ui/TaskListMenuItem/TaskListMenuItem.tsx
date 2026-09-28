@@ -12,8 +12,6 @@ import {
 	TaskIcon,
 } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
@@ -24,33 +22,11 @@ type TaskListMenuItemProps = {
 
 export const TaskListMenuItem = ({ api }: TaskListMenuItemProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
-	const isMarkdownToolbarEnabled =
-		expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
-		fg('platform_editor_markdown_compatible_toolbar');
-	const { isInsideTask, markdownView, sourceBlockFormatState, sourceListFormatState } =
-		useSharedPluginStateWithSelector(api, ['taskDecision', 'markdownMode'], (states) => ({
-			isInsideTask: states.taskDecisionState?.isInsideTask,
-			markdownView: isMarkdownToolbarEnabled ? states.markdownModeState?.view : undefined,
-			sourceBlockFormatState: isMarkdownToolbarEnabled
-				? states.markdownModeState?.sourceBlockFormatState
-				: null,
-			sourceListFormatState: isMarkdownToolbarEnabled
-				? states.markdownModeState?.sourceListFormatState
-				: null,
-		}));
-
-	const isInSourceView = isMarkdownToolbarEnabled && markdownView === 'syntax';
-	const isSelected = isInSourceView ? sourceListFormatState?.inTaskList : isInsideTask;
-	const isDisabled = Boolean(isInSourceView && sourceBlockFormatState?.inCodeBlock);
+	const { isInsideTask } = useSharedPluginStateWithSelector(api, ['taskDecision'], (states) => ({
+		isInsideTask: states.taskDecisionState?.isInsideTask,
+	}));
 
 	const handleClick = () => {
-		if (isDisabled) {
-			return;
-		}
-		if (isInSourceView) {
-			api?.markdownMode?.actions.toggleSourceTaskList();
-			return;
-		}
 		api?.core.actions.execute(api?.taskDecision?.commands.toggleTaskList());
 	};
 
@@ -60,8 +36,7 @@ export const TaskListMenuItem = ({ api }: TaskListMenuItemProps): React.JSX.Elem
 			elemAfter={
 				<ToolbarKeyboardShortcutHint shortcut={formatShortcut(toggleTaskList) as string} />
 			}
-			isSelected={isSelected}
-			isDisabled={isDisabled}
+			isSelected={isInsideTask}
 			onClick={handleClick}
 			ariaKeyshortcuts={formatShortcut(toggleTaskList)}
 		>

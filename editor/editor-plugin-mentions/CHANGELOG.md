@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-mentions
 
+## 24.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- [`534c9253b7fab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/534c9253b7fab) -
+  Add operational mention avatar failure events and reasons behind
+  `platform_editor_mention_avatar_observability`, covering image failures, provider failures,
+  missing avatar URLs, and missing providers. Events identify the editor or renderer surface without
+  adding mention user data. Successful image loads emit no events.
+- Updated dependencies
+
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.0
 
 ### Patch Changes

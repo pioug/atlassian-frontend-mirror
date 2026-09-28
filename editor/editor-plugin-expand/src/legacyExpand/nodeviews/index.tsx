@@ -36,7 +36,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { ExpandPlugin } from '../../types';
-import { renderExpandButton } from '../../ui/renderExpandButton';
 import {
 	deleteExpandAtPos,
 	setSelectionInsideExpand,
@@ -214,11 +213,7 @@ export class ExpandNodeView implements NodeView {
 		}));
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.renderKey = uuid();
-		if (isExperimentEnabled('platform_editor_vc90_transition_expand_icon')) {
-			this.renderNativeIcon(this.node);
-		} else {
-			this.renderIcon(this.intl);
-		}
+		this.renderIcon(this.intl);
 
 		this.initHandlers();
 	}
@@ -308,20 +303,6 @@ export class ExpandNodeView implements NodeView {
 				break;
 		}
 	};
-
-	private renderNativeIcon(node: PmNode) {
-		if (!this.icon) {
-			return;
-		}
-
-		const { __expanded } = node.attrs;
-
-		renderExpandButton(this.icon, {
-			expanded: this.__livePage ? !__expanded : __expanded,
-			allowInteractiveExpand: this.allowInteractiveExpand,
-			intl: this.intl,
-		});
-	}
 
 	private renderIcon(intl?: IntlShape, node?: PmNode) {
 		if (!this.icon) {
@@ -833,11 +814,7 @@ export class ExpandNodeView implements NodeView {
 				// we toggle a class name to hide the content and animate the chevron.
 				if (this.dom) {
 					this.dom.classList.toggle(expandClassNames.expanded);
-					if (isExperimentEnabled('platform_editor_vc90_transition_expand_icon')) {
-						this.renderNativeIcon(node);
-					} else {
-						this.renderIcon(this && this.intl, node);
-					}
+					this.renderIcon(this.intl, node);
 				}
 
 				if (this.content) {

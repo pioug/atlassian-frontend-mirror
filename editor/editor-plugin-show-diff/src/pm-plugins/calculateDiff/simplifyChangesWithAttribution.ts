@@ -35,6 +35,11 @@ const getAttributionIdentity = (change: Change): AttributionIdentity => {
 	return { key: identities.values().next().value, mergeable: true };
 };
 
+const hasContributor = (change: Change): boolean =>
+	[...change.deleted, ...change.inserted].some(
+		(span) => getAttributionKey(span.data) !== undefined,
+	);
+
 const byNewDocRange = (left: Change, right: Change): number =>
 	left.fromB - right.fromB || left.toB - right.toB;
 
@@ -97,14 +102,29 @@ const splitMixedIdentityChanges = (
 	doc: PMNode | undefined,
 ): AttributedChange[] =>
 	changes.flatMap((change): AttributedChange[] => {
-		if (getAttributionIdentity(change).mergeable) {
-			return [change];
+		// A replacement can carry an anonymous deletion and an authored insertion. The deleted side
+		// needs its own zero-width change or the insertion's actor claims the deletion too.
+		const deletedKeys = new Set(change.deleted.map((span) => getAttributionKey(span.data)));
+		const firstInsertedKey = getAttributionKey(change.inserted[0]?.data);
+		const detachDeleted =
+			change.deleted.length > 0 &&
+			change.inserted.length > 0 &&
+			deletedKeys.size === 1 &&
+			!deletedKeys.has(firstInsertedKey) &&
+			(deletedKeys.has(undefined) || firstInsertedKey === undefined);
+		const deletedChange: AttributedChange[] = detachDeleted
+			? [{ ...change, toB: change.fromB, inserted: [] }]
+			: [];
+		const contentChange = detachDeleted ? { ...change, fromA: change.toA, deleted: [] } : change;
+
+		if (getAttributionIdentity(contentChange).mergeable) {
+			return [...deletedChange, contentChange];
 		}
 
 		const runs: Array<Range & { key: string | undefined; spans: Span[] }> = [];
-		let offset = change.fromB;
+		let offset = contentChange.fromB;
 
-		for (const span of change.inserted) {
+		for (const span of contentChange.inserted) {
 			const key = getAttributionKey(span.data);
 			const last = runs[runs.length - 1];
 
@@ -118,32 +138,35 @@ const splitMixedIdentityChanges = (
 		}
 
 		// The offsets above are only positions if the spans partition the inserted range.
-		if (runs.length < 2 || offset !== change.toB) {
-			return [change];
+		if (runs.length < 2 || offset !== contentChange.toB) {
+			return [...deletedChange, contentChange];
 		}
 
-		return runs.map((run, index) => {
-			const owned = blockNodeRanges(
-				doc,
-				{ from: change.fromB, to: change.toB },
-				(pos) => pos >= run.from && pos < run.to,
-			);
+		return [
+			...deletedChange,
+			...runs.map((run, index) => {
+				const owned = blockNodeRanges(
+					doc,
+					{ from: contentChange.fromB, to: contentChange.toB },
+					(pos) => pos >= run.from && pos < run.to,
+				);
 
-			return {
-				...change,
-				fromA: index === 0 ? change.fromA : change.toA,
-				fromB: run.from,
-				toB: run.to,
-				deleted: index === 0 ? change.deleted : [],
-				inserted: run.spans,
-				...(owned ? { blockNodeRangesB: owned } : {}),
-			};
-		});
+				return {
+					...contentChange,
+					fromA: index === 0 ? contentChange.fromA : contentChange.toA,
+					fromB: run.from,
+					toB: run.to,
+					deleted: index === 0 ? contentChange.deleted : [],
+					inserted: run.spans,
+					...(owned ? { blockNodeRangesB: owned } : {}),
+				};
+			}),
+		];
 	});
 
 /**
- * Subtracts every other author's contained change from a change's range, so both contributions
- * survive. Applies when the contributors arrive as separate changes rather than as spans of one —
+ * Subtracts every differently attributed contained change from a change's range, including when
+ * one has no contributor. Applies when the changes arrive separately rather than as spans of one —
  * the `step` diff type. A contained change by the same author, and one that only partially
  * overlaps, are left for the collapse below.
  *
@@ -151,16 +174,16 @@ const splitMixedIdentityChanges = (
  */
 const splitContainedChanges = (changes: Change[], doc: PMNode | undefined): AttributedChange[] =>
 	changes.flatMap((change): AttributedChange[] => {
-		const { key } = getAttributionIdentity(change);
+		const { key, mergeable } = getAttributionIdentity(change);
 		const inner = mergeRanges(
 			changes
 				.filter((other) => {
-					const otherKey = getAttributionIdentity(other).key;
+					const otherIdentity = getAttributionIdentity(other);
 					return (
 						other !== change &&
-						key !== undefined &&
-						otherKey !== undefined &&
-						otherKey !== key &&
+						mergeable &&
+						otherIdentity.mergeable &&
+						otherIdentity.key !== key &&
 						isContained(change, other)
 					);
 				})
@@ -214,7 +237,7 @@ const mergeBlockNodeRanges = (
 		? [...left.blockNodeRangesB, ...right.blockNodeRangesB]
 		: undefined;
 
-/** Unions the changes whose new-document ranges strictly overlap, leaving touching ones alone. */
+/** Unions overlapping changes, except when only one side names a contributor. */
 const collapse = (changes: AttributedChange[]): AttributedChange[] => {
 	// A zero-length new-document range paints no inline decoration, so it is kept aside rather than
 	// folded into a neighbouring insertion.
@@ -224,7 +247,9 @@ const collapse = (changes: AttributedChange[]): AttributedChange[] => {
 	for (const change of changes.filter((change) => change.toB > change.fromB).sort(byNewDocRange)) {
 		const current = collapsed[collapsed.length - 1];
 
-		if (current && change.fromB < current.toB) {
+		const currentHasContributor = current && hasContributor(current);
+		const changeHasContributor = hasContributor(change);
+		if (current && change.fromB < current.toB && currentHasContributor === changeHasContributor) {
 			const blockNodeRangesB = mergeBlockNodeRanges(current, change);
 			collapsed[collapsed.length - 1] = {
 				fromA: Math.min(current.fromA, change.fromA),
@@ -249,8 +274,8 @@ const collapse = (changes: AttributedChange[]): AttributedChange[] => {
  * characters — which stacks two inline decorations and renders one contributor tag per copy.
  *
  * Merging keeps every span from both sides, so the latest-writer rule still decides whose tag is
- * shown. Ranges that merely touch are left alone, so an unattributed edit next to an attributed one
- * is not credited to it.
+ * shown among attributed edits. An unattributed change never merges with an attributed one.
+ * Ranges that merely touch are left alone.
  *
  * Contributors are separated first, by `splitMixedIdentityChanges` and `splitContainedChanges`.
  * Both leave ranges that only touch, so they survive the collapse.

@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 18.3.9
+
+### Patch Changes
+
+- [`9ad8fc44ade01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ad8fc44ade01) -
+  Remove redundant radio descriptions from DropdownItemRadio.
+
 ## 18.3.8
 
 ### Patch Changes

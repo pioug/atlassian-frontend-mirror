@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0bc98482f76f91efa9386b8774bf1c28>>
+ * @codegen <<SignedSource::42997785c4e8ba3a2bb907d673e6a4d7>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,7 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 110 24">
 /**
  * __ConfluenceLogo__
  *
- * A temporary component to represent the logo for Confluence.
+ * A component to represent the logo for Confluence.
  *
  */
 export function ConfluenceLogo({

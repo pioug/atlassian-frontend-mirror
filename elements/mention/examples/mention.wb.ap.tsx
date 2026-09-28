@@ -17,27 +17,43 @@ import MentionWithTeamPickerExternalCookieExample from './13-mention-with-team-p
 import MentionWithEditorExtendingAbstractMentionResourceExample from './14-mention-with-editor-extending-abstract-mention-resource';
 import SimpleMentionListVrApExample from './simple-mention-list.vr.ap';
 
-export const SimpleMentionItemVrAp: WorkbenchExample = wb(SimpleMentionItemVrApExample);
-export const MentionItemVrAp: WorkbenchExample = wb(MentionItemVrApExample);
-export const MentionList: WorkbenchExample = wb(MentionListExample);
-export const ErrorMentionListVrAp: WorkbenchExample = wb(ErrorMentionListVrApExample);
-export const ResourcedMentionList: WorkbenchExample = wb(ResourcedMentionListExample);
-export const MentionListPicker: WorkbenchExample = wb(MentionListPickerExample);
-export const MentionListPickerWithSlowProviders: WorkbenchExample = wb(
-	MentionListPickerWithSlowProvidersExample,
+export const SimpleMentionItemVrAp: WorkbenchExample<typeof SimpleMentionItemVrApExample> = wb(
+	SimpleMentionItemVrApExample,
 );
-export const SimpleMentionVrAp: WorkbenchExample = wb(SimpleMentionVrApExample);
-export const ResourcedMentionOnN20Background: WorkbenchExample = wb(
-	ResourcedMentionOnN20BackgroundExample,
+export const MentionItemVrAp: WorkbenchExample<typeof MentionItemVrApExample> =
+	wb(MentionItemVrApExample);
+export const MentionList: WorkbenchExample<typeof MentionListExample> = wb(MentionListExample);
+export const ErrorMentionListVrAp: WorkbenchExample<typeof ErrorMentionListVrApExample> = wb(
+	ErrorMentionListVrApExample,
 );
-export const MentionPickerExternalAsap: WorkbenchExample = wb(MentionPickerExternalAsapExample);
-export const MentionPickerExternalCookie: WorkbenchExample = wb(MentionPickerExternalCookieExample);
-export const MentionItemWithAgentVrAp: WorkbenchExample = wb(MentionItemWithAgentVrApExample);
-export const MentionItemLoading: WorkbenchExample = wb(MentionItemLoadingExample);
-export const MentionWithTeamPickerExternalCookie: WorkbenchExample = wb(
-	MentionWithTeamPickerExternalCookieExample,
+export const ResourcedMentionList: WorkbenchExample<typeof ResourcedMentionListExample> = wb(
+	ResourcedMentionListExample,
 );
-export const MentionWithEditorExtendingAbstractMentionResource: WorkbenchExample = wb(
-	MentionWithEditorExtendingAbstractMentionResourceExample,
+export const MentionListPicker: WorkbenchExample<typeof MentionListPickerExample> =
+	wb(MentionListPickerExample);
+export const MentionListPickerWithSlowProviders: WorkbenchExample<
+	typeof MentionListPickerWithSlowProvidersExample
+> = wb(MentionListPickerWithSlowProvidersExample);
+export const SimpleMentionVrAp: WorkbenchExample<typeof SimpleMentionVrApExample> =
+	wb(SimpleMentionVrApExample);
+export const ResourcedMentionOnN20Background: WorkbenchExample<
+	typeof ResourcedMentionOnN20BackgroundExample
+> = wb(ResourcedMentionOnN20BackgroundExample);
+export const MentionPickerExternalAsap: WorkbenchExample<typeof MentionPickerExternalAsapExample> =
+	wb(MentionPickerExternalAsapExample);
+export const MentionPickerExternalCookie: WorkbenchExample<
+	typeof MentionPickerExternalCookieExample
+> = wb(MentionPickerExternalCookieExample);
+export const MentionItemWithAgentVrAp: WorkbenchExample<typeof MentionItemWithAgentVrApExample> =
+	wb(MentionItemWithAgentVrApExample);
+export const MentionItemLoading: WorkbenchExample<typeof MentionItemLoadingExample> =
+	wb(MentionItemLoadingExample);
+export const MentionWithTeamPickerExternalCookie: WorkbenchExample<
+	typeof MentionWithTeamPickerExternalCookieExample
+> = wb(MentionWithTeamPickerExternalCookieExample);
+export const MentionWithEditorExtendingAbstractMentionResource: WorkbenchExample<
+	typeof MentionWithEditorExtendingAbstractMentionResourceExample
+> = wb(MentionWithEditorExtendingAbstractMentionResourceExample);
+export const SimpleMentionListVrAp: WorkbenchExample<typeof SimpleMentionListVrApExample> = wb(
+	SimpleMentionListVrApExample,
 );
-export const SimpleMentionListVrAp: WorkbenchExample = wb(SimpleMentionListVrApExample);

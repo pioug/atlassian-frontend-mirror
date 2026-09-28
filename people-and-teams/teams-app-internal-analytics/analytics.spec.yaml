@@ -2038,6 +2038,10 @@ events:
         method:
           type: ['hover', 'click']
           description: the method of the profilecard
+        preloaded:
+          type: boolean
+          required: false
+          description: whether the open reused a request that was preloaded on hover
   - rovoAgentProfilecard triggered:
       type: ui
       description: fired when the rovo agent profilecard is triggered
@@ -2240,6 +2244,11 @@ events:
   - profilecard triggered (request):
       type: operational
       description: fired when the profilecard request is triggered
+      attributes:
+        <<: *ProfileCardAttributes
+  - profilecard preloaded (request):
+      type: operational
+      description: fired when the profilecard request is preloaded on hover, before the card opens
       attributes:
         <<: *ProfileCardAttributes
   - profilecard failed (request):

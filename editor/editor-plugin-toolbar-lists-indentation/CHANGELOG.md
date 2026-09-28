@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 23.0.3
+
+### Patch Changes
+
+- [`85394203c5e0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85394203c5e0a) -
+  Cleanup `platform_editor_markdown_compatible_toolbar`.
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

@@ -7,7 +7,7 @@
 	"testExamples": [
 		"00-default-tabs.vr.ap.tsx",
 		"20-custom-tab-components.tsx",
-		"70-no-space-for-tabs.vr.ap.tsx",
+		"70-no-space-for-tabs.vr.ap.tsx"
 	],
-	"exampleDependencies": ["lorem-ipsum"],
+	"exampleDependencies": ["lorem-ipsum"]
 }

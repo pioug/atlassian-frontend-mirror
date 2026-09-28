@@ -13,6 +13,7 @@ export default (): React.JSX.Element => (
 			<BreadcrumbsItem
 				truncationWidth={200}
 				href="/long"
+				testId="truncation-tooltip-target"
 				text="Supercalifragilisticexpialidocious"
 			/>
 			<BreadcrumbsItem truncationWidth={200} href="/short" text="Item" />
@@ -46,7 +47,6 @@ export default (): React.JSX.Element => (
 				truncationWidth={300}
 				href="/item"
 				elemBefore={TestIcon}
-				testId="truncation-tooltip-target"
 				text="Before with text that could break truncation"
 			/>
 			<BreadcrumbsCurrentItem

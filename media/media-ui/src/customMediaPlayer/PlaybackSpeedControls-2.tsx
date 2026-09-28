@@ -4,6 +4,7 @@ import { Component } from 'react';
 import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 
 import { type NumericalCardDimensions } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { PopupSelect } from '@atlaskit/select/popup-select';
 import {
 	type OptionType,
@@ -95,6 +96,13 @@ export class PlaybackSpeedControls extends Component<
 								onClick={onClick}
 								onKeyDown={popupKeydown}
 								aria-expanded={isOpen}
+								{...(fg('platform_media_playback_speed_aria_label')
+									? {
+											'aria-label': intl.formatMessage(messages.playbackSpeedValue, {
+												speed: playbackSpeed,
+											}),
+										}
+									: {})}
 							>
 								{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 								{playbackSpeed}x

@@ -62,6 +62,12 @@ const baseTransitionPropertyTokens = {
 			group: 'motionProperty',
 		},
 	},
+	Opacity: {
+		value: 'opacity',
+		attributes: {
+			group: 'motionProperty',
+		},
+	},
 	TextDecorationColor: {
 		value: 'text-decoration-color',
 		attributes: {

@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-history
 
+## 1.3.0
+
+### Minor Changes
+
+- [`06360d6f00779`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06360d6f00779) -
+  Add a document-guarded history checkpoint subpath for restoring pre-session undo and redo history.
+
 ## 1.2.2
 
 ### Patch Changes

@@ -589,7 +589,7 @@ describe('agent expiry lifecycle', () => {
 		jest.useRealTimers();
 	});
 
-	it('removes a remote agent five minutes after its valid last-active timestamp', async () => {
+	it('removes a remote agent five minutes and 30 seconds after its valid last-active timestamp', async () => {
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({
 			batchProps: { getUsers: jest.fn() },

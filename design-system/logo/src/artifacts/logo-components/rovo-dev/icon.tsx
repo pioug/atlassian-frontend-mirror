@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d2f337ba05b5b8849889a8a76fd4176>>
+ * @codegen <<SignedSource::dd19074edc3e2da159febccbda4faaa8>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -19,8 +19,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __RovoDevIcon__
  *
- * An internal component to represent the icon for Rovo Dev.
- * Do not use this internal component directly — use `RovoDevIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Rovo Dev.
+ * Import `RovoDevIcon` from `@atlaskit/logo/rovo-dev/icon`.
  *
  */
 export function RovoDevIcon({

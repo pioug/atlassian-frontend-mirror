@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 17.8.1
+
+### Patch Changes
+
+- [`20016b599740c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20016b599740c) -
+  Prevent focus rings from being clipped in composed and primitive breadcrumbs, and include leading
+  icons within the focus ring, in the platform_dst_breadcrumbs-refresh feature-gated path.
+
 ## 17.8.0
 
 ### Minor Changes

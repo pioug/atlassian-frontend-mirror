@@ -42,7 +42,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { tableNodeSpecWithFixedToDOM } from './nodeviews/toDOM';
 import { createPlugin as createActiveCellHighlightPlugin } from './pm-plugins/active-cell-highlight/plugin';
@@ -739,18 +738,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 										});
 
 										return tr;
-									}
-
-									// Delegate to the markdown plugin to insert a markdown table string at the CM cursor position.
-									const markdownState = api?.markdownMode?.sharedState.currentState();
-									if (
-										markdownState?.isMarkdownMode &&
-										markdownState?.view === 'syntax' &&
-										expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
-										fg('platform_editor_markdown_compatible_toolbar')
-									) {
-										api?.markdownMode?.actions.insertSourceTable();
-										return state.tr;
 									}
 
 									// see comment on tablesPlugin.getSharedState on usage

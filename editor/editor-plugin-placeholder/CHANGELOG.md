@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 22.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.0
+
+### Minor Changes
+
+- [`eb1c9f7924470`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb1c9f7924470) -
+  [ux] Subscribe the empty-document loading spinner to collab-edit initialization state using a
+  selector behind platform_editor_placeholder_collab_spinner so it clears when collaboration
+  initializes without requiring an unrelated editor render.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.0
 
 ### Patch Changes

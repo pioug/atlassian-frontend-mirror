@@ -366,7 +366,7 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					group: 'motion',
 					state: 'active',
 					introduced: '18.3.0',
-					description: 'Use for all tab text color state transitions.',
+					description: 'Use for tab text color and neutral indicator opacity transitions.',
 				},
 			},
 			indicator: {

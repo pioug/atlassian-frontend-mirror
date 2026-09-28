@@ -34,7 +34,6 @@ import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ExpandPlugin } from '../../types';
-import { renderExpandButton } from '../../ui/renderExpandButton';
 import {
 	deleteExpand,
 	setSelectionInsideExpand,
@@ -124,11 +123,7 @@ export class ExpandNodeView implements NodeView {
 			height: estimateExpandIntrinsicHeight(this.node, !isExpandCollapsed(this.node)),
 		}));
 
-		if (isExperimentEnabled('platform_editor_vc90_transition_expand_icon')) {
-			this.renderNativeIcon(this.node);
-		} else {
-			this.renderIcon(this.icon, !isExpandCollapsed(this.node));
-		}
+		this.renderIcon(this.icon, !isExpandCollapsed(this.node));
 
 		if (!this.input || !this.titleContainer || !this.icon) {
 			return;
@@ -751,11 +746,7 @@ export class ExpandNodeView implements NodeView {
 				? buildExpandClassName(node.type.name, expanded) + ` ${findReplaceDecorationsApplied}`
 				: buildExpandClassName(node.type.name, expanded);
 			// Re-render the icon to update the aria-expanded attribute
-			if (isExperimentEnabled('platform_editor_vc90_transition_expand_icon')) {
-				this.renderNativeIcon(node);
-			} else {
-				this.renderIcon(this.icon ? this.icon : null, expandedState.get(node) ?? false);
-			}
+			this.renderIcon(this.icon ?? null, expandedState.get(node) ?? false);
 		}
 		this.updateExpandBodyContentEditable();
 		this.isExpanded = { expanded: expanded ?? false, localId: node.attrs.localId };
@@ -796,18 +787,6 @@ export class ExpandNodeView implements NodeView {
 				this.getContentEditable(this.node) ? 'true' : 'false',
 			);
 		}
-	}
-
-	private renderNativeIcon(node: PmNode) {
-		if (!this.icon) {
-			return;
-		}
-
-		renderExpandButton(this.icon, {
-			expanded: !isExpandCollapsed(node),
-			allowInteractiveExpand: this.allowInteractiveExpand,
-			intl: this.intl,
-		});
 	}
 
 	renderIcon = (icon: HTMLElement | null, expanded: boolean): void => {

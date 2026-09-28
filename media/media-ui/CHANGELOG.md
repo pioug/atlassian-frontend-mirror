@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 31.0.1
+
+### Patch Changes
+
+- [`aa39192e4485e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa39192e4485e) -
+  Give the custom media player's playback speed button a complete accessible name (A11Y-16310). The
+  button was named only by its visible "1.5x" text, with "Playback speed" exposed through the
+  tooltip as a description rather than a name, so screen readers announced just the multiplier.
+  Behind the `platform_media_playback_speed_aria_label` feature gate it now carries an `aria-label`
+  of "Playback speed {speed}x" that tracks the selected speed, while keeping the visible text
+  unchanged.
+
 ## 31.0.0
 
 ### Major Changes

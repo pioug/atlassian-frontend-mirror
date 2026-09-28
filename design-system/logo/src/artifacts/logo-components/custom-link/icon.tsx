@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a56cbde1102bb1148544b67d71521a88>>
+ * @codegen <<SignedSource::d778e16f4866c9e85821835cd3d59864>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __CustomLinkIcon__
  *
- * An internal component to represent the icon for Custom Link.
- * Do not use this internal component directly — use `CustomLinkIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Custom Link.
+ * Import `CustomLinkIcon` from `@atlaskit/logo/custom-link/icon`.
  *
  */
 export function CustomLinkIcon({

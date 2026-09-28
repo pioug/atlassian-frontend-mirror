@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-code-block
 
+## 24.0.3
+
+### Patch Changes
+
+- [`f0dbb923807b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0dbb923807b7) -
+  Clean up feature gate `platform_editor_code_block_add_line_number_button`
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.0
 
 ### Patch Changes

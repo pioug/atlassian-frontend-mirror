@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "34.0.0",
+	"version": "34.0.4",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -85,9 +85,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_markdown_compatible_toolbar": {
-			"type": "boolean"
-		},
 		"platform_editor_paste_full_table_inside_empty_cell": {
 			"type": "boolean"
 		},
@@ -119,12 +116,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_flicker_issue": {
-			"type": "boolean"
-		},
-		"platform_editor_lovability_text_bg_color_patch_2": {
-			"type": "boolean"
-		},
-		"platform_editor_nest_table_in_panel_patch_3": {
 			"type": "boolean"
 		}
 	},

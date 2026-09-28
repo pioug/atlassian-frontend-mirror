@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7a362d54257b2ca36dcf551d16c5e270>>
+ * @codegen <<SignedSource::fc8daaf0ea9a300ad3e2e1c3ea4538c3>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __SearchIcon__
  *
- * An internal component to represent the icon for Search.
- * Do not use this internal component directly — use `SearchIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Search.
+ * Import `SearchIcon` from `@atlaskit/logo/search/icon`.
  *
  */
 export function SearchIcon({

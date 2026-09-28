@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 23.3.1
+
+### Patch Changes
+
+- [`90712ce0925fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90712ce0925fc) -
+  Fix incorrect deprecation metadata on supported icons and document direct icon imports. Preserve
+  explicit deprecation metadata for generated components.
+
 ## 23.3.0
 
 ### Minor Changes

@@ -2,23 +2,37 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import TabsDefault from '../../examples/constellation/tabs-default';
 import TabsControlled from '../../examples/constellation/tabs-controlled';
 import TabTooltip from '../../examples/constellation/tab-tooltip';
 import TabCustom from '../../examples/constellation/tab-custom';
 import TabPabelCustom from '../../examples/constellation/tab-panel-custom';
 
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Tabs and is in Early Access. The motion updates are currently behind
+	the feature flag: platform-dst-motion-uplift-tab.
+</SectionMessage>
+
 ## Default
 
 The default form of tabs.
 
-<Example Component={TabsDefault} packageName="@atlaskit/tabs" />
+<Example
+	Component={TabsDefault}
+	packageName="@atlaskit/tabs"
+	featureFlagSwitchers={['motionTabs']}
+/>
 
 ## Controlled
 
 Tabs can be used as a controlled component.
 
-<Example Component={TabsControlled} packageName="@atlaskit/tabs" />
+<Example
+	Component={TabsControlled}
+	packageName="@atlaskit/tabs"
+	featureFlagSwitchers={['motionTabs']}
+/>
 
 ## Customizing tab
 
@@ -27,16 +41,24 @@ Tabs can be used as a controlled component.
 You can wrap a tab in other presentational components. In this example we have added a
 [tooltip](/components/tooltip) to each tab.
 
-<Example Component={TabTooltip} packageName="@atlaskit/tabs" />
+<Example
+	Component={TabTooltip}
+	packageName="@atlaskit/tabs"
+	featureFlagSwitchers={['motionTabs']}
+/>
 
 ### Custom tab
 
 To customize a tab, call `useTab` and spread those attributes onto the custom tab.
 
-<Example Component={TabCustom} packageName="@atlaskit/tabs" />
+<Example Component={TabCustom} packageName="@atlaskit/tabs" featureFlagSwitchers={['motionTabs']} />
 
 ## Customizing tab panel
 
 To customize a tab panel, call `useTabPanel` and spread those attributes onto the custom tab panel.
 
-<Example Component={TabPabelCustom} packageName="@atlaskit/tabs" />
+<Example
+	Component={TabPabelCustom}
+	packageName="@atlaskit/tabs"
+	featureFlagSwitchers={['motionTabs']}
+/>

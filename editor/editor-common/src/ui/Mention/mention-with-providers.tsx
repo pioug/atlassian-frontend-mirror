@@ -1,9 +1,12 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { ELEMENTS_CHANNEL } from '@atlaskit/mention/constants';
 import ResourcedMention from '@atlaskit/mention/resourced-mention';
 import type { MentionNodeData, MentionProvider } from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';
@@ -38,6 +41,36 @@ export interface State {
 
 const GENERIC_USER_IDS = ['HipChat', 'all', 'here'];
 
+const useAvatarFailureReporter = () => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const createEventRef = useRef(createAnalyticsEvent);
+	createEventRef.current = createAnalyticsEvent;
+	return useCallback((reason: 'provider_failed' | 'missing_avatar_url' | 'missing_provider') => {
+		if (fg('platform_editor_mention_avatar_observability')) {
+			createEventRef
+				.current({
+					action: 'failed',
+					actionSubject: 'mentionAvatar',
+					eventType: 'operational',
+					attributes: { componentName: 'mention', reason, surface: 'renderer' },
+				})
+				.fire(ELEMENTS_CHANNEL);
+		}
+	}, []);
+};
+
+export const MissingMentionAvatarProvider = ({ mentionKey }: { mentionKey: string }): null => {
+	const reportFailure = useAvatarFailureReporter();
+	const reportedKey = useRef<string>();
+	useEffect(() => {
+		if (reportedKey.current !== mentionKey) {
+			reportedKey.current = mentionKey;
+			reportFailure('missing_provider');
+		}
+	}, [mentionKey, reportFailure]);
+	return null;
+};
+
 const useMentionNodeData = ({
 	id,
 	mentionNodeDataProvider,
@@ -47,6 +80,11 @@ const useMentionNodeData = ({
 	mentionNodeDataProvider: MentionNodeDataProvider;
 	userType?: MentionUserType;
 }) => {
+	const reportFailure = useAvatarFailureReporter();
+	const reportedResolution = useRef<{
+		mention: MentionNodeDataIdentifier;
+		provider: MentionNodeDataProvider;
+	}>();
 	const mention = useMemo<MentionNodeDataIdentifier>(() => ({ id, userType }), [id, userType]);
 	const mentionKey = `${userType ?? 'DEFAULT'}:${id}`;
 	const synchronousData = useMemo(
@@ -64,21 +102,42 @@ const useMentionNodeData = ({
 	const data = state.key === mentionKey ? (state.data ?? synchronousData) : synchronousData;
 
 	useEffect(() => {
+		const reportResolution = (data?: MentionNodeData, error?: Error) => {
+			if (!error && (!data || data.avatarUrl)) {
+				return;
+			}
+			if (
+				reportedResolution.current?.mention === mention &&
+				reportedResolution.current.provider === mentionNodeDataProvider
+			) {
+				return;
+			}
+			reportedResolution.current = { mention, provider: mentionNodeDataProvider };
+			if (error) {
+				reportFailure('provider_failed');
+			} else if (data && !data.avatarUrl) {
+				reportFailure('missing_avatar_url');
+			}
+		};
 		if (synchronousData) {
+			reportResolution(synchronousData);
 			return;
 		}
 
 		let isActive = true;
 		mentionNodeDataProvider.getMentionData(mention, (payload) => {
-			if (isActive && payload.data) {
-				setState({ data: payload.data, key: mentionKey });
+			if (isActive) {
+				reportResolution(payload.data, payload.error);
+				if (payload.data) {
+					setState({ data: payload.data, key: mentionKey });
+				}
 			}
 		});
 
 		return () => {
 			isActive = false;
 		};
-	}, [mention, mentionKey, mentionNodeDataProvider, synchronousData]);
+	}, [mention, mentionKey, mentionNodeDataProvider, synchronousData, reportFailure]);
 
 	return data;
 };

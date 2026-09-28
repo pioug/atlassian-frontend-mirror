@@ -85,7 +85,6 @@ import {
 	ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,
 	DRAG_HANDLE_BORDER_RADIUS,
 	DRAG_HANDLE_HEIGHT,
-	DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH,
 	DRAG_HANDLE_ZINDEX,
 	dragHandleGap,
 	nodeMargins,
@@ -482,7 +481,6 @@ export const DragHandle = ({
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const mouseDownRef = useRef(false);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
-	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
 	// Tracks whether the initial position calculation has been performed at least once.
@@ -490,14 +488,13 @@ export const DragHandle = ({
 	// otherwise positionStylesOld stays as { display: 'none' } and the handle is never shown.
 	const hasCalculatedInitialPosition = useRef(false);
 	const [isFocused, setIsFocused] = useState(Boolean(handleOptions?.isFocused));
-	const { macroInteractionUpdates, selection, isShiftDown, interactionState, currentUserIntent } =
+	const { macroInteractionUpdates, selection, interactionState, currentUserIntent } =
 		useSharedPluginStateWithSelector(
 			api,
 			['featureFlags', 'selection', 'blockControls', 'interaction', 'userIntent'],
 			(states) => ({
 				macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
 				selection: states.selectionState?.selection,
-				isShiftDown: states.blockControlsState?.isShiftDown,
 				interactionState: states.interactionState?.interactionState,
 				currentUserIntent: states.userIntentState?.currentUserIntent,
 			}),
@@ -1164,36 +1161,6 @@ export const DragHandle = ({
 		setDragHandleSelected(isHandleCorrelatedToSelection(view.state, selection, start));
 	}, [start, selection, view]);
 
-	useEffect(() => {
-		if (
-			isShiftDown === undefined ||
-			view.state.selection.empty ||
-			!fg('platform_editor_elements_dnd_shift_click_select')
-		) {
-			return;
-		}
-		const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
-		const $anchor =
-			mSelect?.anchor !== undefined
-				? view.state.doc.resolve(mSelect?.anchor)
-				: view.state.selection.$anchor;
-		const isLayoutColumnMenuEnabled = expValEquals(
-			'platform_editor_layout_column_menu',
-			'isEnabled',
-			true,
-		);
-		if (
-			isShiftDown &&
-			!(isLayoutColumnMenuEnabled && isLayoutColumn) &&
-			(!isTopLevelNodeValue ||
-				(isTopLevelNodeValue && $anchor.depth > DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH))
-		) {
-			setDragHandleDisabled(true);
-		} else {
-			setDragHandleDisabled(false);
-		}
-	}, [api?.blockControls?.sharedState, isLayoutColumn, isShiftDown, isTopLevelNodeValue, view]);
-
 	const dragHandleMessage = formatMessage(blockControlsMessages.dragToMoveClickToOpen, {
 		br: <br />,
 	});
@@ -1349,7 +1316,6 @@ export const DragHandle = ({
 			onKeyDown={handleKeyDownNew}
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			onDrop={handleOnDrop}
-			disabled={dragHandleDisabled}
 			data-editor-block-ctrl-drag-handle
 			data-blocks-drag-handle={fg('confluence_remix_button_right_side_block_fg') || undefined}
 			data-testid="block-ctrl-drag-handle"
@@ -1435,37 +1401,6 @@ export const DragHandle = ({
 		</Box>
 	);
 
-	const stickyWithoutTooltip = () => (
-		<Box
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={positionStylesOld}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			xcss={[dragHandleContainerStyles]}
-			as="span"
-			testId="block-ctrl-drag-handle-container"
-		>
-			<span
-				css={[
-					tooltipContainerStyles,
-					shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-						tooltipContainerStylesStickyHeaderWithMask,
-					!shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-						tooltipContainerStylesStickyHeaderWithoutMask,
-				]}
-			>
-				<span
-					css={[
-						shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-							buttonWrapperStylesNoBackground,
-						buttonWrapperStylesPatch,
-					]}
-				>
-					{renderButton()}
-				</span>
-			</span>
-		</Box>
-	);
-
 	const buttonWithTooltip = () => (
 		<Tooltip
 			content={tooltipContent}
@@ -1486,11 +1421,9 @@ export const DragHandle = ({
 			<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />
 		);
 
-	const isTooltip = !dragHandleDisabled;
-	const stickyRender = isTooltip ? stickyWithTooltip() : stickyWithoutTooltip();
-	const render = isTooltip ? buttonWithTooltip() : renderButton();
-
-	return editorExperiment('platform_editor_controls', 'variant1') ? stickyRender : render;
+	return editorExperiment('platform_editor_controls', 'variant1')
+		? stickyWithTooltip()
+		: buttonWithTooltip();
 };
 
 export const DragHandleWithVisibility = ({

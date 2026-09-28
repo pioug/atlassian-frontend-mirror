@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::101b938b790d5ab59619179e47d6037d>>
+ * @codegen <<SignedSource::0a5583241368ca27c8cfe513a110a7ef>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -19,8 +19,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __BambooIcon__
  *
- * An internal component to represent the icon for Bamboo.
- * Do not use this internal component directly — use `BambooIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Bamboo.
+ * Import `BambooIcon` from `@atlaskit/logo/bamboo/icon`.
  *
  */
 export function BambooIcon({

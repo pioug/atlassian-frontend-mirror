@@ -11,7 +11,6 @@ import {
 	akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -484,8 +483,7 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 		width: 12px;
 		height: 12px;
 		margin-bottom: -12px;
-		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
-		fg('platform_editor_nest_table_in_panel_patch_3')
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
 			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
 			: token('elevation.surface')};
 		pointer-events: none;

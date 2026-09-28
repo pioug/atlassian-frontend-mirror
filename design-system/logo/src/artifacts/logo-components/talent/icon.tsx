@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::796b4e1e6b4920afdcf264e2004aa242>>
+ * @codegen <<SignedSource::674e03a4be083a236a42eb9d620119cd>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __TalentIcon__
  *
- * An internal component to represent the icon for Talent.
- * Do not use this internal component directly — use `TalentIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Talent.
+ * Import `TalentIcon` from `@atlaskit/logo/talent/icon`.
  *
  */
 export function TalentIcon({

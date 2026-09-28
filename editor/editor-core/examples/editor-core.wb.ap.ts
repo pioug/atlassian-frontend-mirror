@@ -81,113 +81,184 @@ import { default as EditorCommentInModalExample } from './999-editor-comment-in-
 import { default as ResizerBasicExample } from './1000-resizer-basic';
 import { default as ResizerStickyScrollExample } from './1000-resizer-sticky-scroll';
 
-export const KitchenSink: WorkbenchExample = wb(KitchenSinkExample);
-export const BasicComposableEditor: WorkbenchExample = wb(BasicComposableEditorExample);
-export const ChromelessEditorComponentComposable: WorkbenchExample = wb(
-	ChromelessEditorComponentComposableExample,
+export const KitchenSink: WorkbenchExample<typeof KitchenSinkExample> = wb(KitchenSinkExample);
+export const BasicComposableEditor: WorkbenchExample<typeof BasicComposableEditorExample> = wb(
+	BasicComposableEditorExample,
 );
-export const CommentEditorComponentComposable: WorkbenchExample = wb(
-	CommentEditorComponentComposableExample,
+export const ChromelessEditorComponentComposable: WorkbenchExample<
+	typeof ChromelessEditorComponentComposableExample
+> = wb(ChromelessEditorComponentComposableExample);
+export const CommentEditorComponentComposable: WorkbenchExample<
+	typeof CommentEditorComponentComposableExample
+> = wb(CommentEditorComponentComposableExample);
+export const ComposableEditorCustomToolbar: WorkbenchExample<
+	typeof ComposableEditorCustomToolbarExample
+> = wb(ComposableEditorCustomToolbarExample);
+export const ComposableEditorOnBlur: WorkbenchExample<typeof ComposableEditorOnBlurExample> = wb(
+	ComposableEditorOnBlurExample,
 );
-export const ComposableEditorCustomToolbar: WorkbenchExample = wb(
-	ComposableEditorCustomToolbarExample,
+export const FullPageEditorComposable: WorkbenchExample<typeof FullPageEditorComposableExample> =
+	wb(FullPageEditorComposableExample);
+export const LabsAsyncCollapsedEditor: WorkbenchExample<typeof LabsAsyncCollapsedEditorExample> =
+	wb(LabsAsyncCollapsedEditorExample);
+export const LazyNodeExample: WorkbenchExample<typeof LazyNodeExampleExample> =
+	wb(LazyNodeExampleExample);
+export const LegacyEditorMigrator: WorkbenchExample<typeof LegacyEditorMigratorExample> = wb(
+	LegacyEditorMigratorExample,
 );
-export const ComposableEditorOnBlur: WorkbenchExample = wb(ComposableEditorOnBlurExample);
-export const FullPageEditorComposable: WorkbenchExample = wb(FullPageEditorComposableExample);
-export const LabsAsyncCollapsedEditor: WorkbenchExample = wb(LabsAsyncCollapsedEditorExample);
-export const LazyNodeExample: WorkbenchExample = wb(LazyNodeExampleExample);
-export const LegacyEditorMigrator: WorkbenchExample = wb(LegacyEditorMigratorExample);
-export const LiveViewComposableEditor: WorkbenchExample = wb(LiveViewComposableEditorExample);
-export const Chromeless: WorkbenchExample = wb(ChromelessExample);
-export const ResizerBasic: WorkbenchExample = wb(ResizerBasicExample);
-export const ResizerStickyScroll: WorkbenchExample = wb(ResizerStickyScrollExample);
-export const CustomDropzone: WorkbenchExample = wb(CustomDropzoneExample);
-export const Popups: WorkbenchExample = wb(PopupsExample);
-export const JsonSchema: WorkbenchExample = wb(JsonSchemaExample);
-export const OverrideLanguageNames: WorkbenchExample = wb(OverrideLanguageNamesExample);
-export const ExternalMediaUrls: WorkbenchExample = wb(ExternalMediaUrlsExample);
-export const ValidateSmartValue: WorkbenchExample = wb(ValidateSmartValueExample);
-export const TablePerfTest: WorkbenchExample = wb(TablePerfTestExample);
-export const TableRowShuffler: WorkbenchExample = wb(TableRowShufflerExample);
-export const CommentBitbucket: WorkbenchExample = wb(CommentBitbucketExample);
-export const CommentConfluence: WorkbenchExample = wb(CommentConfluenceExample);
-export const CommentJiraBento: WorkbenchExample = wb(CommentJiraBentoExample);
-export const CommentMaxContentSize: WorkbenchExample = wb(CommentMaxContentSizeExample);
-export const CommentWithJiraCards: WorkbenchExample = wb(CommentWithJiraCardsExample);
-export const CommentWithResizing: WorkbenchExample = wb(CommentWithResizingExample);
-export const Comment: WorkbenchExample = wb(CommentExample);
-export const ConfluenceBasic: WorkbenchExample = wb(ConfluenceBasicExample);
-export const CollaborativeEditing: WorkbenchExample = wb(CollaborativeEditingExample);
-export const Diffing: WorkbenchExample = wb(DiffingExample);
-export const DocBuilder: WorkbenchExample = wb(DocBuilderExample);
-export const FullPageLagLab: WorkbenchExample = wb(FullPageLagLabExample);
-export const AnnotationExperiment: WorkbenchExample = wb(AnnotationExperimentExample);
-export const AnnotationsSimplified: WorkbenchExample = wb(AnnotationsSimplifiedExample);
-export const AnnotationsWithManager: WorkbenchExample = wb(AnnotationsWithManagerExample);
-export const ScaledEditors: WorkbenchExample = wb(ScaledEditorsExample);
-export const ElementBrowser: WorkbenchExample = wb(ElementBrowserExample);
-export const Collab: WorkbenchExample = wb(CollabExample);
-export const JiraClone: WorkbenchExample = wb(JiraCloneExample);
-export const AdfViewerDAC: WorkbenchExample = wb(AdfViewerDACExample);
-export const FullPageClickToEdit: WorkbenchExample = wb(FullPageClickToEditExample);
-export const JiraCloneRightPanel: WorkbenchExample = wb(JiraCloneRightPanelExample);
-export const SsrTables: WorkbenchExample = wb(SsrTablesExample);
-export const BasicCompiledHydration: WorkbenchExample = wb(BasicCompiledHydrationExample);
-export const MentionsProfileCardOptions: WorkbenchExample = wb(MentionsProfileCardOptionsExample);
-export const FullPageCompanyHub: WorkbenchExample = wb(FullPageCompanyHubExample);
-export const FullPageConfluenceHydratable: WorkbenchExample = wb(
-	FullPageConfluenceHydratableExample,
+export const LiveViewComposableEditor: WorkbenchExample<typeof LiveViewComposableEditorExample> =
+	wb(LiveViewComposableEditorExample);
+export const Chromeless: WorkbenchExample<typeof ChromelessExample> = wb(ChromelessExample);
+export const ResizerBasic: WorkbenchExample<typeof ResizerBasicExample> = wb(ResizerBasicExample);
+export const ResizerStickyScroll: WorkbenchExample<typeof ResizerStickyScrollExample> = wb(
+	ResizerStickyScrollExample,
 );
-export const FullPageConfluenceLimitedMode: WorkbenchExample = wb(
-	FullPageConfluenceLimitedModeExample,
+export const CustomDropzone: WorkbenchExample<typeof CustomDropzoneExample> =
+	wb(CustomDropzoneExample);
+export const Popups: WorkbenchExample<typeof PopupsExample> = wb(PopupsExample);
+export const JsonSchema: WorkbenchExample<typeof JsonSchemaExample> = wb(JsonSchemaExample);
+export const OverrideLanguageNames: WorkbenchExample<typeof OverrideLanguageNamesExample> = wb(
+	OverrideLanguageNamesExample,
 );
-export const FullPageConfluence: WorkbenchExample = wb(FullPageConfluenceExample);
-export const FullPageMinimal: WorkbenchExample = wb(FullPageMinimalExample);
-export const FullPageTemplateContextPanelAlwaysOpen: WorkbenchExample = wb(
-	FullPageTemplateContextPanelAlwaysOpenExample,
+export const ExternalMediaUrls: WorkbenchExample<typeof ExternalMediaUrlsExample> =
+	wb(ExternalMediaUrlsExample);
+export const ValidateSmartValue: WorkbenchExample<typeof ValidateSmartValueExample> =
+	wb(ValidateSmartValueExample);
+export const TablePerfTest: WorkbenchExample<typeof TablePerfTestExample> =
+	wb(TablePerfTestExample);
+export const TableRowShuffler: WorkbenchExample<typeof TableRowShufflerExample> =
+	wb(TableRowShufflerExample);
+export const CommentBitbucket: WorkbenchExample<typeof CommentBitbucketExample> =
+	wb(CommentBitbucketExample);
+export const CommentConfluence: WorkbenchExample<typeof CommentConfluenceExample> =
+	wb(CommentConfluenceExample);
+export const CommentJiraBento: WorkbenchExample<typeof CommentJiraBentoExample> =
+	wb(CommentJiraBentoExample);
+export const CommentMaxContentSize: WorkbenchExample<typeof CommentMaxContentSizeExample> = wb(
+	CommentMaxContentSizeExample,
 );
-export const FullPageTemplateContextPanel: WorkbenchExample = wb(
-	FullPageTemplateContextPanelExample,
+export const CommentWithJiraCards: WorkbenchExample<typeof CommentWithJiraCardsExample> = wb(
+	CommentWithJiraCardsExample,
 );
-export const FullPageWithConfluenceFlexibleBlockCards: WorkbenchExample = wb(
-	FullPageWithConfluenceFlexibleBlockCardsExample,
+export const CommentWithResizing: WorkbenchExample<typeof CommentWithResizingExample> = wb(
+	CommentWithResizingExample,
 );
-export const FullPageWithConfluenceLazySmartCards: WorkbenchExample = wb(
-	FullPageWithConfluenceLazySmartCardsExample,
+export const Comment: WorkbenchExample<typeof CommentExample> = wb(CommentExample);
+export const ConfluenceBasic: WorkbenchExample<typeof ConfluenceBasicExample> =
+	wb(ConfluenceBasicExample);
+export const CollaborativeEditing: WorkbenchExample<typeof CollaborativeEditingExample> = wb(
+	CollaborativeEditingExample,
 );
-export const FullPageWithConfluenceSmartCards: WorkbenchExample = wb(
-	FullPageWithConfluenceSmartCardsExample,
+export const Diffing: WorkbenchExample<typeof DiffingExample> = wb(DiffingExample);
+export const DocBuilder: WorkbenchExample<typeof DocBuilderExample> = wb(DocBuilderExample);
+export const FullPageLagLab: WorkbenchExample<typeof FullPageLagLabExample> =
+	wb(FullPageLagLabExample);
+export const AnnotationExperiment: WorkbenchExample<typeof AnnotationExperimentExample> = wb(
+	AnnotationExperimentExample,
 );
-export const FullPageWithContentDisabledFlexiTables: WorkbenchExample = wb(
-	FullPageWithContentDisabledFlexiTablesExample,
+export const AnnotationsSimplified: WorkbenchExample<typeof AnnotationsSimplifiedExample> = wb(
+	AnnotationsSimplifiedExample,
 );
-export const FullPageWithContent: WorkbenchExample = wb(FullPageWithContentExample);
-export const FullPageWithCustomPanel: WorkbenchExample = wb(FullPageWithCustomPanelExample);
-export const FullPageWithCustomSteps: WorkbenchExample = wb(FullPageWithCustomStepsExample);
-export const FullPageWithInviteFromMention: WorkbenchExample = wb(
-	FullPageWithInviteFromMentionExample,
+export const AnnotationsWithManager: WorkbenchExample<typeof AnnotationsWithManagerExample> = wb(
+	AnnotationsWithManagerExample,
 );
-export const FullPageWithMediaCaptionDisabled: WorkbenchExample = wb(
-	FullPageWithMediaCaptionDisabledExample,
+export const ScaledEditors: WorkbenchExample<typeof ScaledEditorsExample> =
+	wb(ScaledEditorsExample);
+export const ElementBrowser: WorkbenchExample<typeof ElementBrowserExample> =
+	wb(ElementBrowserExample);
+export const Collab: WorkbenchExample<typeof CollabExample> = wb(CollabExample);
+export const JiraClone: WorkbenchExample<typeof JiraCloneExample> = wb(JiraCloneExample);
+export const AdfViewerDAC: WorkbenchExample<typeof AdfViewerDACExample> = wb(AdfViewerDACExample);
+export const FullPageClickToEdit: WorkbenchExample<typeof FullPageClickToEditExample> = wb(
+	FullPageClickToEditExample,
 );
-export const FullPageWithMediaCaption: WorkbenchExample = wb(FullPageWithMediaCaptionExample);
-export const FullPageWithMediaPlugins: WorkbenchExample = wb(FullPageWithMediaPluginsExample);
-export const FullPageWithToolbar: WorkbenchExample = wb(FullPageWithToolbarExample);
-export const FullPageWithXExtensions: WorkbenchExample = wb(FullPageWithXExtensionsExample);
-export const FullPageWithoutEditCustomPanel: WorkbenchExample = wb(
-	FullPageWithoutEditCustomPanelExample,
+export const JiraCloneRightPanel: WorkbenchExample<typeof JiraCloneRightPanelExample> = wb(
+	JiraCloneRightPanelExample,
 );
-export const FullPage: WorkbenchExample = wb(FullPageExample);
-export const CopyPaste: WorkbenchExample = wb(CopyPasteExample);
-export const CopyPasteTesting: WorkbenchExample = wb(CopyPasteTestingExample);
-export const LibraComposableEditor: WorkbenchExample = wb(LibraComposableEditorExample);
-export const LibraConfluenceFullPageEditor: WorkbenchExample = wb(
-	LibraConfluenceFullPageEditorExample,
+export const SsrTables: WorkbenchExample<typeof SsrTablesExample> = wb(SsrTablesExample);
+export const BasicCompiledHydration: WorkbenchExample<typeof BasicCompiledHydrationExample> = wb(
+	BasicCompiledHydrationExample,
 );
-export const LibraNcsViewMode: WorkbenchExample = wb(LibraNcsViewModeExample);
-export const Libra: WorkbenchExample = wb(LibraExample);
-export const MultiFormatStreaming: WorkbenchExample = wb(MultiFormatStreamingExample);
-export const Rovodev: WorkbenchExample = wb(RovodevExample);
-export const Testing: WorkbenchExample = wb(TestingExample);
-export const VrTesting: WorkbenchExample = wb(VrTestingExample);
-export const EditorCommentInModal: WorkbenchExample = wb(EditorCommentInModalExample);
+export const MentionsProfileCardOptions: WorkbenchExample<
+	typeof MentionsProfileCardOptionsExample
+> = wb(MentionsProfileCardOptionsExample);
+export const FullPageCompanyHub: WorkbenchExample<typeof FullPageCompanyHubExample> =
+	wb(FullPageCompanyHubExample);
+export const FullPageConfluenceHydratable: WorkbenchExample<
+	typeof FullPageConfluenceHydratableExample
+> = wb(FullPageConfluenceHydratableExample);
+export const FullPageConfluenceLimitedMode: WorkbenchExample<
+	typeof FullPageConfluenceLimitedModeExample
+> = wb(FullPageConfluenceLimitedModeExample);
+export const FullPageConfluence: WorkbenchExample<typeof FullPageConfluenceExample> =
+	wb(FullPageConfluenceExample);
+export const FullPageMinimal: WorkbenchExample<typeof FullPageMinimalExample> =
+	wb(FullPageMinimalExample);
+export const FullPageTemplateContextPanelAlwaysOpen: WorkbenchExample<
+	typeof FullPageTemplateContextPanelAlwaysOpenExample
+> = wb(FullPageTemplateContextPanelAlwaysOpenExample);
+export const FullPageTemplateContextPanel: WorkbenchExample<
+	typeof FullPageTemplateContextPanelExample
+> = wb(FullPageTemplateContextPanelExample);
+export const FullPageWithConfluenceFlexibleBlockCards: WorkbenchExample<
+	typeof FullPageWithConfluenceFlexibleBlockCardsExample
+> = wb(FullPageWithConfluenceFlexibleBlockCardsExample);
+export const FullPageWithConfluenceLazySmartCards: WorkbenchExample<
+	typeof FullPageWithConfluenceLazySmartCardsExample
+> = wb(FullPageWithConfluenceLazySmartCardsExample);
+export const FullPageWithConfluenceSmartCards: WorkbenchExample<
+	typeof FullPageWithConfluenceSmartCardsExample
+> = wb(FullPageWithConfluenceSmartCardsExample);
+export const FullPageWithContentDisabledFlexiTables: WorkbenchExample<
+	typeof FullPageWithContentDisabledFlexiTablesExample
+> = wb(FullPageWithContentDisabledFlexiTablesExample);
+export const FullPageWithContent: WorkbenchExample<typeof FullPageWithContentExample> = wb(
+	FullPageWithContentExample,
+);
+export const FullPageWithCustomPanel: WorkbenchExample<typeof FullPageWithCustomPanelExample> = wb(
+	FullPageWithCustomPanelExample,
+);
+export const FullPageWithCustomSteps: WorkbenchExample<typeof FullPageWithCustomStepsExample> = wb(
+	FullPageWithCustomStepsExample,
+);
+export const FullPageWithInviteFromMention: WorkbenchExample<
+	typeof FullPageWithInviteFromMentionExample
+> = wb(FullPageWithInviteFromMentionExample);
+export const FullPageWithMediaCaptionDisabled: WorkbenchExample<
+	typeof FullPageWithMediaCaptionDisabledExample
+> = wb(FullPageWithMediaCaptionDisabledExample);
+export const FullPageWithMediaCaption: WorkbenchExample<typeof FullPageWithMediaCaptionExample> =
+	wb(FullPageWithMediaCaptionExample);
+export const FullPageWithMediaPlugins: WorkbenchExample<typeof FullPageWithMediaPluginsExample> =
+	wb(FullPageWithMediaPluginsExample);
+export const FullPageWithToolbar: WorkbenchExample<typeof FullPageWithToolbarExample> = wb(
+	FullPageWithToolbarExample,
+);
+export const FullPageWithXExtensions: WorkbenchExample<typeof FullPageWithXExtensionsExample> = wb(
+	FullPageWithXExtensionsExample,
+);
+export const FullPageWithoutEditCustomPanel: WorkbenchExample<
+	typeof FullPageWithoutEditCustomPanelExample
+> = wb(FullPageWithoutEditCustomPanelExample);
+export const FullPage: WorkbenchExample<typeof FullPageExample> = wb(FullPageExample);
+export const CopyPaste: WorkbenchExample<typeof CopyPasteExample> = wb(CopyPasteExample);
+export const CopyPasteTesting: WorkbenchExample<typeof CopyPasteTestingExample> =
+	wb(CopyPasteTestingExample);
+export const LibraComposableEditor: WorkbenchExample<typeof LibraComposableEditorExample> = wb(
+	LibraComposableEditorExample,
+);
+export const LibraConfluenceFullPageEditor: WorkbenchExample<
+	typeof LibraConfluenceFullPageEditorExample
+> = wb(LibraConfluenceFullPageEditorExample);
+export const LibraNcsViewMode: WorkbenchExample<typeof LibraNcsViewModeExample> =
+	wb(LibraNcsViewModeExample);
+export const Libra: WorkbenchExample<typeof LibraExample> = wb(LibraExample);
+export const MultiFormatStreaming: WorkbenchExample<typeof MultiFormatStreamingExample> = wb(
+	MultiFormatStreamingExample,
+);
+export const Rovodev: WorkbenchExample<typeof RovodevExample> = wb(RovodevExample);
+export const Testing: WorkbenchExample<typeof TestingExample> = wb(TestingExample);
+export const VrTesting: WorkbenchExample<typeof VrTestingExample> = wb(VrTestingExample);
+export const EditorCommentInModal: WorkbenchExample<typeof EditorCommentInModalExample> = wb(
+	EditorCommentInModalExample,
+);

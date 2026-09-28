@@ -1,5 +1,93 @@
 # @atlaskit/editor-common
 
+## 126.2.0
+
+### Minor Changes
+
+- [`d33691c3e94ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d33691c3e94ec) -
+  Show Rovo skill preview attribution and full descriptions under platform_editor_slash_command,
+  including the Jira Service Management icon and localized product names
+
+### Patch Changes
+
+- [`8013afd2c90d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8013afd2c90d0) -
+  Add Jira synced block copy guidance behind the platform_editor_blocks_patch_11 experiment.
+- Updated dependencies
+
+## 126.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.1.2
+
+### Patch Changes
+
+- [`a13383c3c99b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a13383c3c99b2) -
+  [FFCLEANUP-192944] clean up code references to patch gates
+  `platform_editor_lovability_text_bg_color_patch_1` and
+  `platform_editor_lovability_text_bg_color_patch_2`.
+- Updated dependencies
+
+## 126.1.1
+
+### Patch Changes
+
+- [`534c9253b7fab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/534c9253b7fab) -
+  Add operational mention avatar failure events and reasons behind
+  `platform_editor_mention_avatar_observability`, covering image failures, provider failures,
+  missing avatar URLs, and missing providers. Events identify the editor or renderer surface without
+  adding mention user data. Successful image loads emit no events.
+- Updated dependencies
+
+## 126.1.0
+
+### Minor Changes
+
+- [`5b30c74e8080f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b30c74e8080f) -
+  Compose the intermediate steps of an AI streaming response into a single collab step, so a
+  streamed edit costs the collab service roughly one step per block instead of one per chunk.
+
+  Each streaming frame replaces the whole AI region with the cumulative content so far, so the
+  frames are individually large and grow as the response does. They are also thrown away at the end
+  — `buildCommitTransaction` rebuilds the final document from the response rather than from what was
+  streamed — which is what makes composing them safe.
+
+  `mergeOverlappingSteps` merges two consecutive overlapping steps into the single step they are
+  collectively equivalent to, and `collapseStreamingSteps` folds it across the steps in the collab
+  unconfirmed queue. Composition is exact in both directions: the forward step is verified against
+  the document, and the inverse is composed alongside it because `rebaseSteps` applies inverses to
+  the live document whenever a remote step arrives.
+
+  Composing only helps while the steps are still unsent, because `lockStepOrigins` marks everything
+  a flush sends and a locked step can never be merged. `createCollabSendHold` therefore holds the
+  send back across transactions — not per transaction, since acks, remote steps and the user's own
+  typing all trigger sends that would otherwise lock the queue. Producers drive it with the
+  `DEFER_COLLAB_SEND` meta: `true` starts the hold, `false` releases it, anything else leaves it
+  untouched. `true` does not extend a hold already in progress, so a continuous stream of held
+  frames still reaches the bound.
+
+  `editor-common` gains two new entrypoints for the metadata keys shared between the producer and
+  the collab layer: `./collab-streaming-step-collapse` and `./collab-defer-collab-send`. The changes
+  in `editor-plugin-collab-edit` and `editor-plugin-ai` are internal — neither package's exports map
+  changes.
+
+  While the send is held nothing is sent, including the user's own edits, up to the hold's time
+  bound. `sendableSteps` returns the queue in version order, so a later step cannot be sent ahead of
+  held ones. Peers also do not see in-progress content until a flush, and content in a held queue
+  exists only on the client until then.
+
+  All of this is behind the `platform_editor_ai_collapse_streaming_steps` feature gate. With the
+  gate off, streaming frames are not stamped, the send is never held, and the unconfirmed queue is
+  left exactly as it is today.
+
+### Patch Changes
+
+- [`5f61320693517`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f61320693517) -
+  Clean up experiment `platform_editor_remove_collab_step_metrics`
+- Updated dependencies
+
 ## 126.0.0
 
 ### Major Changes

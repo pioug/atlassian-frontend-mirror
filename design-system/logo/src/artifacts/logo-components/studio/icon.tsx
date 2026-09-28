@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::39103709137849750ea27f6c158a73d2>>
+ * @codegen <<SignedSource::83a9e7a8b8058c01f79e59e17144b203>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -19,8 +19,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __StudioIcon__
  *
- * An internal component to represent the icon for Studio.
- * Do not use this internal component directly — use `StudioIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Studio.
+ * Import `StudioIcon` from `@atlaskit/logo/studio/icon`.
  *
  */
 export function StudioIcon({

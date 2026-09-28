@@ -65,7 +65,6 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -950,9 +949,11 @@ const getColorPicker = (
 	}
 	const node = targetCellPosition ? state.doc.nodeAt(targetCellPosition) : undefined;
 	const currentBackground = node?.attrs?.background || '#ffffff';
-	const isMoreColorsEnabled =
-		expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-		fg('platform_editor_lovability_text_bg_color_patch_2');
+	const isMoreColorsEnabled = expValEquals(
+		'platform_editor_lovability_text_bg_color',
+		'isEnabled',
+		true,
+	);
 	const activePalette = isMoreColorsEnabled
 		? cellBackgroundColorPaletteNew
 		: cellBackgroundColorPalette;

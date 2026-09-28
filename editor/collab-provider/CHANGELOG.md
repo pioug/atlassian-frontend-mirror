@@ -1,5 +1,26 @@
 # @atlaskit/collab-provider
 
+## 31.0.3
+
+### Patch Changes
+
+- [`84d66ad0f47b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84d66ad0f47b2) -
+  Retain agents for 30 seconds active followed by five minutes inactive when
+  `platform_move_presence_agents` is enabled.
+- Updated dependencies
+
+## 31.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.0
 
 ### Patch Changes

@@ -212,7 +212,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 		expect(service.getAIProviderParticipants()).toHaveLength(0);
 	});
 
-	it('retains an inactive agent at 30 seconds and removes it at five minutes when enriched presence is enabled', () => {
+	it('retains an agent for 30 seconds active plus five minutes inactive when enriched presence is enabled', () => {
 		passGate('platform_move_presence_agents');
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({ emit });
@@ -224,7 +224,10 @@ describe('upsertAIProviderParticipantLocally', () => {
 		expect(service.getAIProviderParticipants()).toHaveLength(1);
 		expect(emit).not.toHaveBeenCalled();
 
-		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS - AGENT_PRESENCE_INACTIVE_MS);
+		jest.advanceTimersByTime(5 * 60 * 1000 - 1);
+		expect(service.getAIProviderParticipants()).toHaveLength(1);
+
+		jest.advanceTimersByTime(1);
 		expect(service.getAIProviderParticipants()).toHaveLength(0);
 		expect(emit).toHaveBeenCalledWith('presence', {
 			left: [{ sessionId: expectedSessionId }],

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "126.0.0",
+	"version": "126.2.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,6 +46,8 @@
 		"./collab-agent-edit-changed-ranges": "./src/collab/agent-edit-changed-ranges.ts",
 		"./collab-agent-remote-edit-review": "./src/collab/agent-remote-edit-review.ts",
 		"./collab-agent-review-slice-compare": "./src/collab/agent-review-slice-compare.ts",
+		"./collab-defer-collab-send": "./src/collab/defer-collab-send.ts",
+		"./collab-streaming-step-collapse": "./src/collab/streaming-step-collapse.ts",
 		"./commands": "./src/commands/index.ts",
 		"./connectivity/isOfflineMode": "./src/connectivity/isOfflineMode.ts",
 		"./connectivity/mode": "./src/connectivity/mode.ts",
@@ -95,7 +97,6 @@
 		"./mention": "./src/mention.ts",
 		"./messages": "./src/messages/index.ts",
 		"./monitoring": "./src/monitoring/index.ts",
-		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
 		"./nesting": "./src/nesting/utilities.ts",
 		"./nesting/transformContainerNodesWhenRequired": "./src/nesting/transformContainerNodesWhenRequired.ts",
 		"./node-anchor": "./src/node-anchor/index.ts",
@@ -127,6 +128,7 @@
 		"./quick-insert/preview": "./src/quick-insert/preview.ts",
 		"./quick-insert/confluence-attribution-icon": "./src/quick-insert/confluence-attribution-icon.tsx",
 		"./quick-insert/jira-attribution-icon": "./src/quick-insert/jira-attribution-icon.tsx",
+		"./quick-insert/jira-service-management-attribution-icon": "./src/quick-insert/jira-service-management-attribution-icon.tsx",
 		"./quick-insert/snippet-preview-image-urls": "./src/quick-insert/snippetPreviewImageUrls.ts",
 		"./quick-insert/use-menu-list-height": "./src/quick-insert/use-menu-list-height.ts",
 		"./quick-insert/use-menu-popup-sizing": "./src/quick-insert/use-menu-popup-sizing.ts",
@@ -472,7 +474,6 @@
 		"./styles/native-anchor": "./src/styles/shared/native-anchor.ts",
 		"./analytics/types/native-embed-events": "./src/analytics/types/native-embed-events.ts",
 		"./messages/native-embed-toolbar": "./src/messages/native-embed-toolbar.ts",
-		"./analytics/types/ncs-session-step-events": "./src/analytics/types/ncs-session-step-events.ts",
 		"./types/next-editor-plugin": "./src/types/next-editor-plugin.ts",
 		"./lists/node": "./src/lists/node.ts",
 		"./node-anchor-provider": "./src/node-anchor/node-anchor-provider.ts",
@@ -824,6 +825,10 @@
 		"sinon": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform_editor_mention_avatar_observability": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"confluence_ncs_step_diffing_version_history": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -855,9 +860,6 @@
 		"platform-dst-tokens-finesse": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_lovability_text_bg_color_patch_2": {
-			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
@@ -905,9 +907,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_fix_scroll_to_pos": {
-			"type": "boolean"
-		},
-		"platform_editor_lovability_text_bg_color_patch_1": {
 			"type": "boolean"
 		},
 		"platform_editor_embed_height_only_fallback": {

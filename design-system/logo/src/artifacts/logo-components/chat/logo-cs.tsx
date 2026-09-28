@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a3e0f8a0243936adb5be101e401cad65>>
+ * @codegen <<SignedSource::f89bd0e10459626460e4fb8f38c80ead>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,7 +20,7 @@ const svg = `<svg height="100%" viewBox="0 0 102 32">
 /**
  * __ChatLogoCS__
  *
- * An internal component to represent the logo for Chat.
+ * A component to represent the logo for Chat.
  *
  */
 export function ChatLogoCS({

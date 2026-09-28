@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-expand
 
+## 23.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- [`f2cc6b030e5c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2cc6b030e5c6) -
+  Clean up experiment `platform_editor_vc90_transition_expand_icon`.
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

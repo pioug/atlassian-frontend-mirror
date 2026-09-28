@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ec34c56bcf155ac960f3a22733d28f01>>
+ * @codegen <<SignedSource::105b9bec061976232cec7f46a25ec184>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 48 48">
 /**
  * __FeedbackIcon__
  *
- * An internal component to represent the icon for Feedback.
- * Do not use this internal component directly — use `FeedbackIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Feedback.
+ * Import `FeedbackIcon` from `@atlaskit/logo/feedback/icon`.
  *
  */
 export function FeedbackIcon({

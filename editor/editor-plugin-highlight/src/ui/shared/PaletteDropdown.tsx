@@ -14,7 +14,6 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PaletteDropdownProps = {
@@ -51,20 +50,14 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 		true,
 	);
 
-	const isRedHighlightEnabled = fg('platform_editor_lovability_text_bg_color_patch_1');
-
 	const highlightPalette = useMemo(() => {
 		if (isNewColorPaletteEnabled) {
 			return highlightColorPaletteNew.filter((color) => {
-				if (isRedHighlightEnabled) {
-					return color.value !== REMOVE_HIGHLIGHT_COLOR;
-				}
-
-				return color.label !== 'Red';
+				return color.value !== REMOVE_HIGHLIGHT_COLOR;
 			});
 		}
 		return highlightColorPalette;
-	}, [isNewColorPaletteEnabled, isRedHighlightEnabled]);
+	}, [isNewColorPaletteEnabled]);
 
 	const colorPickerColumns = isNewColorPaletteEnabled
 		? HIGHLIGHT_COLOR_PICKER_COLUMNS_NEW

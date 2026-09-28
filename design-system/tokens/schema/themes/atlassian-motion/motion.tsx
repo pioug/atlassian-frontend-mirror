@@ -360,7 +360,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				value: {
 					duration: 'Duration150',
 					curve: 'EasePracticalOut',
-					properties: ['Color'],
+					properties: ['Color', 'Opacity'],
 				},
 			},
 			indicator: {

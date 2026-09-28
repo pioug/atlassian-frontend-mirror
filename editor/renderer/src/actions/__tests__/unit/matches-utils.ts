@@ -1,3 +1,4 @@
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { schema } from '@atlaskit/editor-test-helpers/adf-schema';
@@ -5,6 +6,7 @@ import { schema } from '@atlaskit/editor-test-helpers/adf-schema';
 import {
 	code_block,
 	doc,
+	extension,
 	hardBreak,
 	p,
 	a,
@@ -16,10 +18,13 @@ import {
 	th,
 	tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { countMatches, getIndexMatch } from '../../matches-utils';
 
 describe('RendererActions matches', () => {
+	const extensionAnnotationGate = 'cc_maui_annotations_on_extensions';
+
 	describe('#getIndexMatch', () => {
 		describe('textContent', () => {
 			test.each<
@@ -200,6 +205,36 @@ describe('RendererActions matches', () => {
 			])('%s', (_testName, docNode, query, from, expectedMatch) => {
 				const result = getIndexMatch(docNode(schema), schema, query, from);
 				expect(result).toEqual(expect.objectContaining(expectedMatch));
+			});
+
+			it('returns the block position for an eligible extension', () => {
+				passGate(extensionAnnotationGate);
+				getSchemaBasedOnStage.clear();
+				const stage0Schema = getSchemaBasedOnStage('stage0');
+				const extensionDoc = doc(
+					extension({
+						extensionType: 'com.atlassian.test',
+						extensionKey: 'test-extension',
+						localId: 'test-extension-local-id',
+					})(),
+				)(stage0Schema);
+
+				expect(getIndexMatch(extensionDoc, stage0Schema, '', 0).blockNodePos).toBe(0);
+			});
+
+			it('does not return the block position for an extension when the gate is disabled', () => {
+				failGate(extensionAnnotationGate);
+				getSchemaBasedOnStage.clear();
+				const stage0Schema = getSchemaBasedOnStage('stage0');
+				const extensionDoc = doc(
+					extension({
+						extensionType: 'com.atlassian.test',
+						extensionKey: 'test-extension',
+						localId: 'test-extension-local-id',
+					})(),
+				)(stage0Schema);
+
+				expect(getIndexMatch(extensionDoc, stage0Schema, '', 0).blockNodePos).toBeUndefined();
 			});
 		});
 	});

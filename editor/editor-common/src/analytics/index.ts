@@ -244,11 +244,6 @@ export {
 
 export { type TelepointerClickPayload } from './types/telepointer-events';
 
-export {
-	type NcsSessionStepEventAEP,
-	type NcsSessionStepMetrics,
-} from './types/ncs-session-step-events';
-
 export type { BlockMenuEventPayload } from './types/block-menu-events';
 export type { BreakoutEventPayload, BreakoutSupportedNodes } from './types/breakout-events';
 export type {

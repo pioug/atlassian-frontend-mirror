@@ -187,6 +187,13 @@ const QuickInsertPreviewPanel = ({
 	const { formatMessage } = useIntl();
 	const [panelElement, setPanelElement] = useState<HTMLDivElement | null>(null);
 	const AttributionIcon = preview.attribution?.icon;
+	const attributionName = preview.attribution?.name;
+	const formattedAttributionName =
+		typeof attributionName === 'string'
+			? attributionName
+			: attributionName
+				? formatMessage(attributionName)
+				: '';
 
 	useLayoutEffect(() => {
 		void update();
@@ -223,8 +230,8 @@ const QuickInsertPreviewPanel = ({
 						)}
 						<Text size="small" color="color.text.subtle">
 							{AttributionIcon
-								? preview.attribution.name
-								: formatMessage(messages.previewAttributionBy, { name: preview.attribution.name })}
+								? formattedAttributionName
+								: formatMessage(messages.previewAttributionBy, { name: formattedAttributionName })}
 						</Text>
 					</div>
 				)}

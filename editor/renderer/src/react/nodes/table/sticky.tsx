@@ -12,7 +12,6 @@ import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -125,7 +124,6 @@ const FixedTableDiv = (props: FixedProps) => {
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
 					suppressExternalStickStyles,
 				expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
-					fg('platform_editor_nest_table_in_panel_patch_3') &&
 					panelAwareStickyTableStyles,
 			]}
 			style={

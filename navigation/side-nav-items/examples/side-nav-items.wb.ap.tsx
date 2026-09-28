@@ -40,9 +40,11 @@ export const MenuItemFocusRingBleed: WorkbenchExample = wb(MenuItemFocusRingBlee
 export const MenuItemIntegration: WorkbenchExample = wb(MenuItemIntegrationExample);
 export const MenuItemNarrow: WorkbenchExample = wb(MenuItemNarrowExample);
 export const MenuItemScrollIntoView: WorkbenchExample = wb(MenuItemScrollIntoViewExample);
-export const MenuItemsDeeplyNested: WorkbenchExample = wb(MenuItemsDeeplyNestedExample);
+export const MenuItemsDeeplyNested: WorkbenchExample<typeof MenuItemsDeeplyNestedExample> = wb(
+	MenuItemsDeeplyNestedExample,
+);
 export const MenuList: WorkbenchExample = wb(MenuListExample);
 export const MenuSection: WorkbenchExample = wb(MenuSectionExample);
 export const SideNavWithMenuSections: WorkbenchExample = wb(SideNavWithMenuSectionsExample);
-export const Skeleton: WorkbenchExample = wb(SkeletonExample);
+export const Skeleton: WorkbenchExample<typeof SkeletonExample> = wb(SkeletonExample);
 export const TopLevelSpacer: WorkbenchExample = wb(TopLevelSpacerExample);

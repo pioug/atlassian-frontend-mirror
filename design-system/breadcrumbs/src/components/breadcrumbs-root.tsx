@@ -5,6 +5,7 @@
 import { forwardRef, type Ref } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type BreadcrumbsSize } from './internal/breadcrumbs-size-context';
@@ -15,6 +16,10 @@ const navStyles = css({
 	minWidth: 0,
 	flexShrink: 1,
 	overflow: 'hidden',
+});
+
+const navFocusStyles = css({
+	overflow: 'visible',
 });
 
 const listStyles = css({
@@ -34,6 +39,18 @@ const listStyles = css({
 	paddingBlockStart: token('space.0'),
 	paddingInlineEnd: token('space.0'),
 	paddingInlineStart: token('space.0'),
+});
+
+// Keep the focus gutter inside the list so the nav ref retains its measured width.
+const listFocusStyles = css({
+	marginBlockEnd: token('space.negative.050'),
+	marginBlockStart: token('space.negative.050'),
+	marginInlineEnd: token('space.negative.050'),
+	marginInlineStart: token('space.negative.050'),
+	paddingBlockEnd: token('space.050'),
+	paddingBlockStart: token('space.050'),
+	paddingInlineEnd: token('space.050'),
+	paddingInlineStart: token('space.050'),
 });
 
 export interface BreadcrumbsRootProps {
@@ -103,9 +120,18 @@ const BreadcrumbsRoot: React.ForwardRefExoticComponent<
 		ref: Ref<HTMLElement>,
 	) => (
 		<BreadcrumbsSizeProvider value={size}>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
-			<nav aria-label={label} css={navStyles} style={style} tabIndex={-1} ref={ref}>
-				<ol data-testid={testId} css={listStyles}>
+			<nav
+				aria-label={label}
+				css={[navStyles, fg('platform_dst_breadcrumbs-refresh') && navFocusStyles]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={style}
+				tabIndex={-1}
+				ref={ref}
+			>
+				<ol
+					data-testid={testId}
+					css={[listStyles, fg('platform_dst_breadcrumbs-refresh') && listFocusStyles]}
+				>
 					{children}
 				</ol>
 			</nav>

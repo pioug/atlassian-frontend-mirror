@@ -321,7 +321,8 @@ const createChangedRowDOM = ({
 const supportsAnchorPositioning = (): boolean =>
 	typeof CSS !== 'undefined' &&
 	typeof CSS.supports === 'function' &&
-	CSS.supports('top', 'anchor(--a top)');
+	CSS.supports('top', 'anchor(--a top)') &&
+	CSS.supports('position-anchor', '--a');
 
 const createAnchoredRemovedLozengeWidget = ({
 	anchorName,
@@ -339,6 +340,9 @@ const createAnchoredRemovedLozengeWidget = ({
 	const lozenge = createRemovedLozenge(intl, isActive, colorScheme, true);
 	const inset = lozenge.style.top;
 	lozenge.style.setProperty('position', 'fixed');
+	// Fixed labels only follow their default anchor on scroll, and escape scroll-container clipping.
+	lozenge.style.setProperty('position-anchor', `--${anchorName}`);
+	lozenge.style.setProperty('position-visibility', 'anchors-visible');
 	lozenge.style.setProperty('top', `calc(anchor(--${anchorName} top) + ${inset})`);
 	lozenge.style.setProperty('left', `calc(anchor(--${anchorName} right) - ${inset})`);
 	lozenge.style.setProperty('right', 'auto');

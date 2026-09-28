@@ -1,9 +1,10 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
-import { pluginFactory } from '@atlaskit/editor-common/utils';
+import { pluginFactory, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { undo } from '@atlaskit/prosemirror-history/undo';
 
 import { type HistoryAction, HistoryActionTypes } from './editor-actions/actions';
@@ -63,7 +64,10 @@ const createPlugin = (dispatch: Dispatch, editorViewRef: EditorViewRef) =>
 				transactions.find(
 					(tr) =>
 						(tr.docChanged && tr.getMeta('addToHistory') !== false) ||
-						tr.getMeta('endHistorySlice'),
+						tr.getMeta('endHistorySlice') ||
+						// Capture requires xstate in the AI plugin; this shared adapter only refreshes history.
+						(tr.getMeta(pmHistoryPluginKey) &&
+							UNSAFE_expValNoExposure('platform_editor_ai_review_moment', 'isEnabled', false)),
 				)
 			) {
 				const pmHistoryPluginState = getPmHistoryPluginState(newState);

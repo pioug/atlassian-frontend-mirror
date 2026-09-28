@@ -45,56 +45,101 @@ import SimpleMultiWithExternalUsersWithTooltipVrApExample from './simple-multi-w
 import SimpleMultiWithExternalUsersVrApExample from './simple-multi-with-external-users.vr.ap';
 import SingleWithAutoFocusVrApExample from './single-with-auto-focus.vr.ap';
 
-export const Single: WorkbenchExample = wb(SingleExample);
-export const Multi: WorkbenchExample = wb(MultiVrApExample);
-export const AsyncOptionsLoading: WorkbenchExample = wb(AsyncOptionsLoadingExample);
-export const SingleCompactVrAp: WorkbenchExample = wb(SingleCompactVrApExample);
-export const SingleSubtleVrAp: WorkbenchExample = wb(SingleSubtleVrApExample);
-export const SingleSubtleAndCompact: WorkbenchExample = wb(SingleSubtleAndCompactExample);
-export const MultiCompact: WorkbenchExample = wb(MultiCompactExample);
-export const MultiWithDefaultValuesVrAp: WorkbenchExample = wb(MultiWithDefaultValuesVrApExample);
-export const MultiWithFixedValues: WorkbenchExample = wb(MultiWithFixedValuesExample);
-export const SingleDisabled: WorkbenchExample = wb(SingleDisabledExample);
-export const InATableCellVrAp: WorkbenchExample = wb(InATableCellVrApExample);
-export const Watchers: WorkbenchExample = wb(WatchersExample);
-export const CreatableWithLocale: WorkbenchExample = wb(CreatableWithLocaleExample);
-export const Modal: WorkbenchExample = wb(ModalExample);
-export const UserPickerMultiSelect: WorkbenchExample = wb(UserPickerMultiSelectExample);
-export const MultiNoBorderVrAp: WorkbenchExample = wb(MultiNoBorderVrApExample);
-export const PopupConfig: WorkbenchExample = wb(PopupConfigExample);
-export const MultiWithExternalUsers: WorkbenchExample = wb(MultiWithExternalUsersExample);
-export const EmailInviteRecommendaton: WorkbenchExample = wb(EmailInviteRecommendatonExample);
-export const UserPickerOnModal: WorkbenchExample = wb(UserPickerOnModalExample);
-export const DisableInput: WorkbenchExample = wb(DisableInputExample);
-export const DisableOptions: WorkbenchExample = wb(DisableOptionsExample);
-export const FooterVrAp: WorkbenchExample = wb(FooterVrApExample);
-export const HeaderVrAp: WorkbenchExample = wb(HeaderVrApExample);
-export const UserPickerOnDraggable: WorkbenchExample = wb(UserPickerOnDraggableExample);
-export const SingleOnClick: WorkbenchExample = wb(SingleOnClickExample);
-export const TeamAvatarPlaceholderVrAp: WorkbenchExample = wb(TeamAvatarPlaceholderVrApExample);
-export const SingleInvalidVrAp: WorkbenchExample = wb(SingleInvalidVrApExample);
-export const MultiInvalidVrAp: WorkbenchExample = wb(MultiInvalidVrApExample);
-export const UserPickerForwardedRef: WorkbenchExample = wb(UserPickerForwardedRefExample);
-export const UserPickerGroupByType: WorkbenchExample = wb(UserPickerGroupByTypeExample);
-export const IsPendingAction: WorkbenchExample = wb(IsPendingActionExample);
-export const AgentHexagonAvatarVrAp: WorkbenchExample = wb(AgentHexagonAvatarVrApExample);
-export const UserPickerWithIconVrAp: WorkbenchExample = wb(UserPickerWithIconVrApExample);
-export const MultiWithDefaultValuesWithSelectedOfficialTeamsAndAdminGroupsVrAp: WorkbenchExample =
-	wb(MultiWithDefaultValuesWithSelectedOfficialTeamsAndAdminGroupsVrApExample);
-export const SingleWithDefaultValuesWithOfficialTeamSelectedVrAp: WorkbenchExample = wb(
-	SingleWithDefaultValuesWithOfficialTeamSelectedVrApExample,
+export const Single: WorkbenchExample<typeof SingleExample> = wb(SingleExample);
+export const Multi: WorkbenchExample<typeof MultiVrApExample> = wb(MultiVrApExample);
+export const AsyncOptionsLoading: WorkbenchExample<typeof AsyncOptionsLoadingExample> = wb(
+	AsyncOptionsLoadingExample,
 );
-export const MultiDisabled: WorkbenchExample = wb(MultiDisabledExample);
-export const GroupByTypeWithDefaultValueVrAp: WorkbenchExample = wb(
-	GroupByTypeWithDefaultValueVrApExample,
+export const SingleCompactVrAp: WorkbenchExample<typeof SingleCompactVrApExample> =
+	wb(SingleCompactVrApExample);
+export const SingleSubtleVrAp: WorkbenchExample<typeof SingleSubtleVrApExample> =
+	wb(SingleSubtleVrApExample);
+export const SingleSubtleAndCompact: WorkbenchExample<typeof SingleSubtleAndCompactExample> = wb(
+	SingleSubtleAndCompactExample,
 );
-export const MultiWithAutoFocusVrAp: WorkbenchExample = wb(MultiWithAutoFocusVrApExample);
-export const PopupWithDefaultOpenVrAp: WorkbenchExample = wb(PopupWithDefaultOpenVrApExample);
-export const SimpleDisabledOptionVrAp: WorkbenchExample = wb(SimpleDisabledOptionVrApExample);
-export const SimpleMultiWithExternalUsersWithTooltipVrAp: WorkbenchExample = wb(
-	SimpleMultiWithExternalUsersWithTooltipVrApExample,
+export const MultiCompact: WorkbenchExample<typeof MultiCompactExample> = wb(MultiCompactExample);
+export const MultiWithDefaultValuesVrAp: WorkbenchExample<
+	typeof MultiWithDefaultValuesVrApExample
+> = wb(MultiWithDefaultValuesVrApExample);
+export const MultiWithFixedValues: WorkbenchExample<typeof MultiWithFixedValuesExample> = wb(
+	MultiWithFixedValuesExample,
 );
-export const SimpleMultiWithExternalUsersVrAp: WorkbenchExample = wb(
-	SimpleMultiWithExternalUsersVrApExample,
+export const SingleDisabled: WorkbenchExample<typeof SingleDisabledExample> =
+	wb(SingleDisabledExample);
+export const InATableCellVrAp: WorkbenchExample<typeof InATableCellVrApExample> =
+	wb(InATableCellVrApExample);
+export const Watchers: WorkbenchExample<typeof WatchersExample> = wb(WatchersExample);
+export const CreatableWithLocale: WorkbenchExample<typeof CreatableWithLocaleExample> = wb(
+	CreatableWithLocaleExample,
 );
-export const SingleWithAutoFocusVrAp: WorkbenchExample = wb(SingleWithAutoFocusVrApExample);
+export const Modal: WorkbenchExample<typeof ModalExample> = wb(ModalExample);
+export const UserPickerMultiSelect: WorkbenchExample<typeof UserPickerMultiSelectExample> = wb(
+	UserPickerMultiSelectExample,
+);
+export const MultiNoBorderVrAp: WorkbenchExample<typeof MultiNoBorderVrApExample> =
+	wb(MultiNoBorderVrApExample);
+export const PopupConfig: WorkbenchExample<typeof PopupConfigExample> = wb(PopupConfigExample);
+export const MultiWithExternalUsers: WorkbenchExample<typeof MultiWithExternalUsersExample> = wb(
+	MultiWithExternalUsersExample,
+);
+export const EmailInviteRecommendaton: WorkbenchExample<typeof EmailInviteRecommendatonExample> =
+	wb(EmailInviteRecommendatonExample);
+export const UserPickerOnModal: WorkbenchExample<typeof UserPickerOnModalExample> =
+	wb(UserPickerOnModalExample);
+export const DisableInput: WorkbenchExample<typeof DisableInputExample> = wb(DisableInputExample);
+export const DisableOptions: WorkbenchExample<typeof DisableOptionsExample> =
+	wb(DisableOptionsExample);
+export const FooterVrAp: WorkbenchExample<typeof FooterVrApExample> = wb(FooterVrApExample);
+export const HeaderVrAp: WorkbenchExample<typeof HeaderVrApExample> = wb(HeaderVrApExample);
+export const UserPickerOnDraggable: WorkbenchExample<typeof UserPickerOnDraggableExample> = wb(
+	UserPickerOnDraggableExample,
+);
+export const SingleOnClick: WorkbenchExample<typeof SingleOnClickExample> =
+	wb(SingleOnClickExample);
+export const TeamAvatarPlaceholderVrAp: WorkbenchExample<typeof TeamAvatarPlaceholderVrApExample> =
+	wb(TeamAvatarPlaceholderVrApExample);
+export const SingleInvalidVrAp: WorkbenchExample<typeof SingleInvalidVrApExample> =
+	wb(SingleInvalidVrApExample);
+export const MultiInvalidVrAp: WorkbenchExample<typeof MultiInvalidVrApExample> =
+	wb(MultiInvalidVrApExample);
+export const UserPickerForwardedRef: WorkbenchExample<typeof UserPickerForwardedRefExample> = wb(
+	UserPickerForwardedRefExample,
+);
+export const UserPickerGroupByType: WorkbenchExample<typeof UserPickerGroupByTypeExample> = wb(
+	UserPickerGroupByTypeExample,
+);
+export const IsPendingAction: WorkbenchExample<typeof IsPendingActionExample> =
+	wb(IsPendingActionExample);
+export const AgentHexagonAvatarVrAp: WorkbenchExample<typeof AgentHexagonAvatarVrApExample> = wb(
+	AgentHexagonAvatarVrApExample,
+);
+export const UserPickerWithIconVrAp: WorkbenchExample<typeof UserPickerWithIconVrApExample> = wb(
+	UserPickerWithIconVrApExample,
+);
+export const MultiWithDefaultValuesWithSelectedOfficialTeamsAndAdminGroupsVrAp: WorkbenchExample<
+	typeof MultiWithDefaultValuesWithSelectedOfficialTeamsAndAdminGroupsVrApExample
+> = wb(MultiWithDefaultValuesWithSelectedOfficialTeamsAndAdminGroupsVrApExample);
+export const SingleWithDefaultValuesWithOfficialTeamSelectedVrAp: WorkbenchExample<
+	typeof SingleWithDefaultValuesWithOfficialTeamSelectedVrApExample
+> = wb(SingleWithDefaultValuesWithOfficialTeamSelectedVrApExample);
+export const MultiDisabled: WorkbenchExample<typeof MultiDisabledExample> =
+	wb(MultiDisabledExample);
+export const GroupByTypeWithDefaultValueVrAp: WorkbenchExample<
+	typeof GroupByTypeWithDefaultValueVrApExample
+> = wb(GroupByTypeWithDefaultValueVrApExample);
+export const MultiWithAutoFocusVrAp: WorkbenchExample<typeof MultiWithAutoFocusVrApExample> = wb(
+	MultiWithAutoFocusVrApExample,
+);
+export const PopupWithDefaultOpenVrAp: WorkbenchExample<typeof PopupWithDefaultOpenVrApExample> =
+	wb(PopupWithDefaultOpenVrApExample);
+export const SimpleDisabledOptionVrAp: WorkbenchExample<typeof SimpleDisabledOptionVrApExample> =
+	wb(SimpleDisabledOptionVrApExample);
+export const SimpleMultiWithExternalUsersWithTooltipVrAp: WorkbenchExample<
+	typeof SimpleMultiWithExternalUsersWithTooltipVrApExample
+> = wb(SimpleMultiWithExternalUsersWithTooltipVrApExample);
+export const SimpleMultiWithExternalUsersVrAp: WorkbenchExample<
+	typeof SimpleMultiWithExternalUsersVrApExample
+> = wb(SimpleMultiWithExternalUsersVrApExample);
+export const SingleWithAutoFocusVrAp: WorkbenchExample<typeof SingleWithAutoFocusVrApExample> = wb(
+	SingleWithAutoFocusVrApExample,
+);

@@ -91,6 +91,7 @@ const styles = cssMap({
 	},
 	rootRefresh: {
 		boxSizing: 'border-box',
+		gap: token('space.0'),
 		height: '1.5rem',
 	},
 	interactiveMotion: {
@@ -122,16 +123,19 @@ const styles = cssMap({
 		justifyContent: 'center',
 		overflow: 'hidden',
 	},
-	iconWrapperExternal: {
+	iconWrapperSpacing: {
 		marginInlineEnd: token('space.025'),
 	},
-	iconWrapperExternalSmall: {
+	iconWrapperSmallSpacing: {
 		marginInlineEnd: token('space.0'),
 	},
 	text: {
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+	},
+	textWithIconAfter: {
+		marginInlineEnd: token('space.050'),
 	},
 	textWithTruncation: {
 		minWidth: '0px',
@@ -192,6 +196,12 @@ const Step: React.ForwardRefExoticComponent<
 		const resolvedElemBefore = elemBefore ?? iconBefore;
 		const breadcrumbsSize = useBreadcrumbsSize();
 		const isSmall = breadcrumbsSize === 'small';
+		// Preserve the text/trailing-icon width budget now that the leading icon is inside the control.
+		const leadingIconWidth = resolvedElemBefore ? 24 + (isSmall ? 0 : 2) : 0;
+		const maxWidth =
+			fg('platform_dst_breadcrumbs-refresh') && truncationWidth != null
+				? truncationWidth + leadingIconWidth
+				: truncationWidth;
 
 		const handleClick = usePlatformLeafEventHandler({
 			fn: onClickProvided,
@@ -214,8 +224,8 @@ const Step: React.ForwardRefExoticComponent<
 				css={[
 					styles.iconWrapper,
 					unboundedStyles.iconWrapper,
-					fg('platform_dst_breadcrumbs-refresh') && styles.iconWrapperExternal,
-					isSmall && styles.iconWrapperExternalSmall,
+					fg('platform_dst_breadcrumbs-refresh') && styles.iconWrapperSpacing,
+					isSmall && styles.iconWrapperSmallSpacing,
 					isSmall && unboundedStyles.iconWrapperSmall,
 				]}
 				data-testid={testId && `${testId}--icon-before`}
@@ -227,10 +237,13 @@ const Step: React.ForwardRefExoticComponent<
 		const content = (
 			<Fragment>
 				{!fg('platform_dst_breadcrumbs-refresh') && !isSmall && resolvedElemBefore}
-				{!fg('platform_dst_breadcrumbs-refresh') && isSmall && iconElement}
+				{(fg('platform_dst_breadcrumbs-refresh') || isSmall) && iconElement}
 				<span
 					css={[
 						styles.text,
+						fg('platform_dst_breadcrumbs-refresh') &&
+							Boolean(iconAfter) &&
+							styles.textWithIconAfter,
 						truncationWidth != null &&
 							fg('platform_dst_breadcrumbs-refresh') &&
 							styles.textWithTruncation,
@@ -245,57 +258,13 @@ const Step: React.ForwardRefExoticComponent<
 
 		if (href) {
 			return (
-				<Fragment>
-					{fg('platform_dst_breadcrumbs-refresh') && iconElement}
-					<Anchor
-						{...rest}
-						ref={controlRef as Ref<HTMLAnchorElement>}
-						aria-current={ariaCurrent}
-						aria-label={ariaLabel}
-						aria-labelledby={ariaLabelledBy}
-						href={href}
-						onClick={handleTriggerClick}
-						onMouseOver={triggerProps?.onMouseOver ?? onMouseOver}
-						onMouseOut={triggerProps?.onMouseOut ?? onMouseOut}
-						onMouseMove={triggerProps?.onMouseMove ?? onMouseMove}
-						onMouseDown={triggerProps?.onMouseDown ?? onMouseDown}
-						onFocus={triggerProps?.onFocus ?? onFocus}
-						onBlur={triggerProps?.onBlur ?? onBlur}
-						aria-describedby={triggerProps?.['aria-describedby'] ?? ariaDescribedBy}
-						target={target}
-						rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-						testId={testId}
-						title={title}
-						xcss={cx(
-							styles.root,
-							isSmall && styles.rootSmall,
-							fg('platform_dst_breadcrumbs-refresh') && styles.rootRefresh,
-							truncationWidth != null &&
-								fg('platform_dst_breadcrumbs-refresh') &&
-								styles.withTruncation,
-							truncationWidth == null && styles.withoutTruncation,
-							fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
-						)}
-						style={{
-							maxWidth: truncationWidth,
-						}}
-					>
-						{content}
-					</Anchor>
-				</Fragment>
-			);
-		}
-
-		return (
-			<Fragment>
-				{fg('platform_dst_breadcrumbs-refresh') && iconElement}
-
-				<Pressable
+				<Anchor
 					{...rest}
-					ref={controlRef as Ref<HTMLButtonElement>}
+					ref={controlRef as Ref<HTMLAnchorElement>}
 					aria-current={ariaCurrent}
 					aria-label={ariaLabel}
 					aria-labelledby={ariaLabelledBy}
+					href={href}
 					onClick={handleTriggerClick}
 					onMouseOver={triggerProps?.onMouseOver ?? onMouseOver}
 					onMouseOut={triggerProps?.onMouseOut ?? onMouseOut}
@@ -304,6 +273,8 @@ const Step: React.ForwardRefExoticComponent<
 					onFocus={triggerProps?.onFocus ?? onFocus}
 					onBlur={triggerProps?.onBlur ?? onBlur}
 					aria-describedby={triggerProps?.['aria-describedby'] ?? ariaDescribedBy}
+					target={target}
+					rel={target === '_blank' ? 'noopener noreferrer' : undefined}
 					testId={testId}
 					title={title}
 					xcss={cx(
@@ -317,12 +288,49 @@ const Step: React.ForwardRefExoticComponent<
 						fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
 					)}
 					style={{
-						maxWidth: truncationWidth,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Width depends on the consumer truncationWidth and leading icon.
+						maxWidth,
 					}}
 				>
 					{content}
-				</Pressable>
-			</Fragment>
+				</Anchor>
+			);
+		}
+
+		return (
+			<Pressable
+				{...rest}
+				ref={controlRef as Ref<HTMLButtonElement>}
+				aria-current={ariaCurrent}
+				aria-label={ariaLabel}
+				aria-labelledby={ariaLabelledBy}
+				onClick={handleTriggerClick}
+				onMouseOver={triggerProps?.onMouseOver ?? onMouseOver}
+				onMouseOut={triggerProps?.onMouseOut ?? onMouseOut}
+				onMouseMove={triggerProps?.onMouseMove ?? onMouseMove}
+				onMouseDown={triggerProps?.onMouseDown ?? onMouseDown}
+				onFocus={triggerProps?.onFocus ?? onFocus}
+				onBlur={triggerProps?.onBlur ?? onBlur}
+				aria-describedby={triggerProps?.['aria-describedby'] ?? ariaDescribedBy}
+				testId={testId}
+				title={title}
+				xcss={cx(
+					styles.root,
+					isSmall && styles.rootSmall,
+					fg('platform_dst_breadcrumbs-refresh') && styles.rootRefresh,
+					truncationWidth != null &&
+						fg('platform_dst_breadcrumbs-refresh') &&
+						styles.withTruncation,
+					truncationWidth == null && styles.withoutTruncation,
+					fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
+				)}
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Width depends on the consumer truncationWidth and leading icon.
+					maxWidth,
+				}}
+			>
+				{content}
+			</Pressable>
 		);
 	},
 );

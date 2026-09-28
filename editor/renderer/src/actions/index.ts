@@ -35,7 +35,7 @@ import {
 	getRendererRangeInlineNodeNames,
 	getRendererRangeAncestorNodeNames,
 } from './get-renderer-range-inline-node-names';
-import { getIndexMatch } from './matches-utils';
+import { getIndexMatch, isBlockAnnotationTarget } from './matches-utils';
 import { getSelectionContext } from './selection';
 
 type ActionResult = { doc: JSONDocNode; step: Step } | false;
@@ -458,8 +458,10 @@ export default class RendererActions
 		// hence, -1 is not needed
 		const beforeNodePos = from;
 		const possibleNode = this.doc.nodeAt(beforeNodePos);
-		if (possibleNode?.type.name === 'media') {
-			targetNodeType = 'media';
+		const isBlockTarget = possibleNode ? isBlockAnnotationTarget(possibleNode, this.schema) : false;
+
+		if (possibleNode && isBlockTarget) {
+			targetNodeType = possibleNode.type.name;
 			step = new AddNodeMarkStep(
 				beforeNodePos,
 				this.schema.marks.annotation.create({

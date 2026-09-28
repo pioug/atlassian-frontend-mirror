@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::29c203e1444e91348ce08278331b2d71>>
+ * @codegen <<SignedSource::932d47dd87f3f2976aabd1b4699b27b4>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -22,9 +22,8 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __ConfluenceIcon__
  *
- * A temporary component to represent the icon for Confluence.
- * @deprecated This component has been replaced by the component `ConfluenceIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component.
+ * A component to represent the icon for Confluence.
+ * Import `ConfluenceIcon` from `@atlaskit/logo/confluence/icon`.
  *
  */
 export function ConfluenceIcon({

@@ -344,8 +344,6 @@ export const apply = (
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			isSelectedViaDragHandle: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isShiftDown: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			lastDragCancelled: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			menuTriggerBy: any;
@@ -366,7 +364,6 @@ export const apply = (
 		menuTriggerByNode,
 		blockMenuOptions,
 		isPMDragging,
-		isShiftDown,
 		lastDragCancelled,
 		isSelectedViaDragHandle,
 	} = currentState;
@@ -1228,7 +1225,6 @@ export const apply = (
 		isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 		isPMDragging: meta?.isPMDragging ?? isPMDragging,
 		multiSelectDnD,
-		isShiftDown: meta?.isShiftDown ?? isShiftDown,
 		lastDragCancelled: meta?.lastDragCancelled ?? lastDragCancelled,
 		isSelectedViaDragHandle: isSelectedViaDragHandleNew,
 	};
@@ -1273,8 +1269,6 @@ export const createPlugin = (
 			isResizerResizing: boolean;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			isSelectedViaDragHandle: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isShiftDown: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			lastDragCancelled: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1589,27 +1583,7 @@ export const createPlugin = (
 						}
 					}
 
-					if (
-						!event.repeat &&
-						event.shiftKey &&
-						fg('platform_editor_elements_dnd_shift_click_select')
-					) {
-						view.dispatch(
-							view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: true }),
-						);
-					}
-
 					return false;
-				},
-				keyup(view: EditorView, event: KeyboardEvent) {
-					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
-						return;
-					}
-					if (!event.repeat && event.key === 'Shift') {
-						view.dispatch(
-							view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: false }),
-						);
-					}
 				},
 				blur(view: EditorView, event: FocusEvent) {
 					if (api?.limitedMode?.sharedState.currentState()?.enabled) {

@@ -39,89 +39,111 @@ import VrEmbedCardUnauthorisedNoAuthExample from './vr-embed-card-unauthorised-n
 import VrEmbedCardUnauthorisedWithProviderImageExample from './vr-embed-card-unauthorised-with-provider-image.vr.ap';
 import VrEmbedCardUnauthorisedExample from './vr-embed-card-unauthorised.vr.ap';
 
-export const VrEmbedCardError: WorkbenchExample = wb(VrEmbedCardErrorExample);
-export const VrEmbedCardForbiddenFixBlurring: WorkbenchExample = wb(
-	VrEmbedCardForbiddenFixBlurringExample,
+export const VrEmbedCardError: WorkbenchExample<typeof VrEmbedCardErrorExample> =
+	wb(VrEmbedCardErrorExample);
+export const VrEmbedCardForbiddenFixBlurring: WorkbenchExample<
+	typeof VrEmbedCardForbiddenFixBlurringExample
+> = wb(VrEmbedCardForbiddenFixBlurringExample);
+export const VrEmbedCardForbiddenFrameHide: WorkbenchExample<
+	typeof VrEmbedCardForbiddenFrameHideExample
+> = wb(VrEmbedCardForbiddenFrameHideExample);
+export const VrEmbedCardForbiddenObjectRequestAccess: WorkbenchExample<
+	typeof VrEmbedCardForbiddenObjectRequestAccessExample
+> = wb(VrEmbedCardForbiddenObjectRequestAccessExample);
+export const VrEmbedCardForbiddenSiteDeniedAccess: WorkbenchExample<
+	typeof VrEmbedCardForbiddenSiteDeniedAccessExample
+> = wb(VrEmbedCardForbiddenSiteDeniedAccessExample);
+export const VrEmbedCardForbiddenSiteDirectAccess: WorkbenchExample<
+	typeof VrEmbedCardForbiddenSiteDirectAccessExample
+> = wb(VrEmbedCardForbiddenSiteDirectAccessExample);
+export const VrEmbedCardForbiddenSiteForbiddenAccess: WorkbenchExample<
+	typeof VrEmbedCardForbiddenSiteForbiddenAccessExample
+> = wb(VrEmbedCardForbiddenSiteForbiddenAccessExample);
+export const VrEmbedCardForbiddenSitePendingAccess: WorkbenchExample<
+	typeof VrEmbedCardForbiddenSitePendingAccessExample
+> = wb(VrEmbedCardForbiddenSitePendingAccessExample);
+export const VrEmbedCardForbiddenSiteRequestAccess: WorkbenchExample<
+	typeof VrEmbedCardForbiddenSiteRequestAccessExample
+> = wb(VrEmbedCardForbiddenSiteRequestAccessExample);
+export const VrEmbedCardForbidden: WorkbenchExample<typeof VrEmbedCardForbiddenExample> = wb(
+	VrEmbedCardForbiddenExample,
 );
-export const VrEmbedCardForbiddenFrameHide: WorkbenchExample = wb(
-	VrEmbedCardForbiddenFrameHideExample,
+export const VrEmbedCardFrameStyleHideAndSelected: WorkbenchExample<
+	typeof VrEmbedCardFrameStyleHideAndSelectedExample
+> = wb(VrEmbedCardFrameStyleHideAndSelectedExample);
+export const VrEmbedCardFrameStyleHide: WorkbenchExample<typeof VrEmbedCardFrameStyleHideExample> =
+	wb(VrEmbedCardFrameStyleHideExample);
+export const VrEmbedCardFrameStyleShowAndSelected: WorkbenchExample<
+	typeof VrEmbedCardFrameStyleShowAndSelectedExample
+> = wb(VrEmbedCardFrameStyleShowAndSelectedExample);
+export const VrEmbedCardFrameStyleShowOnHoverAndSelected: WorkbenchExample<
+	typeof VrEmbedCardFrameStyleShowOnHoverAndSelectedExample
+> = wb(VrEmbedCardFrameStyleShowOnHoverAndSelectedExample);
+export const VrEmbedCardFrameStyleShowOnHover: WorkbenchExample<
+	typeof VrEmbedCardFrameStyleShowOnHoverExample
+> = wb(VrEmbedCardFrameStyleShowOnHoverExample);
+export const VrEmbedCardFrameStyleShow: WorkbenchExample<typeof VrEmbedCardFrameStyleShowExample> =
+	wb(VrEmbedCardFrameStyleShowExample);
+export const VrEmbedCardFrameWithHref: WorkbenchExample<typeof VrEmbedCardFrameWithHrefExample> =
+	wb(VrEmbedCardFrameWithHrefExample);
+export const VrEmbedCardFrameWithNoHref: WorkbenchExample<
+	typeof VrEmbedCardFrameWithNoHrefExample
+> = wb(VrEmbedCardFrameWithNoHrefExample);
+export const VrEmbedCardFrameWithNoPlaceholderWithHref: WorkbenchExample<
+	typeof VrEmbedCardFrameWithNoPlaceholderWithHrefExample
+> = wb(VrEmbedCardFrameWithNoPlaceholderWithHrefExample);
+export const VrEmbedCardFrameWithNoPlaceholderWithOnClick: WorkbenchExample<
+	typeof VrEmbedCardFrameWithNoPlaceholderWithOnClickExample
+> = wb(VrEmbedCardFrameWithNoPlaceholderWithOnClickExample);
+export const VrEmbedCardFrameWithPlaceholderAndHref: WorkbenchExample<
+	typeof VrEmbedCardFrameWithPlaceholderAndHrefExample
+> = wb(VrEmbedCardFrameWithPlaceholderAndHrefExample);
+export const VrEmbedCardFrameWithPlaceholderAndOnClick: WorkbenchExample<
+	typeof VrEmbedCardFrameWithPlaceholderAndOnClickExample
+> = wb(VrEmbedCardFrameWithPlaceholderAndOnClickExample);
+export const VrEmbedCardFrame: WorkbenchExample<typeof VrEmbedCardFrameExample> =
+	wb(VrEmbedCardFrameExample);
+export const VrEmbedCardNotFoundFrameHide: WorkbenchExample<
+	typeof VrEmbedCardNotFoundFrameHideExample
+> = wb(VrEmbedCardNotFoundFrameHideExample);
+export const VrEmbedCardNotFoundSiteAccessExists: WorkbenchExample<
+	typeof VrEmbedCardNotFoundSiteAccessExistsExample
+> = wb(VrEmbedCardNotFoundSiteAccessExistsExample);
+export const VrEmbedCardNotFound: WorkbenchExample<typeof VrEmbedCardNotFoundExample> = wb(
+	VrEmbedCardNotFoundExample,
 );
-export const VrEmbedCardForbiddenObjectRequestAccess: WorkbenchExample = wb(
-	VrEmbedCardForbiddenObjectRequestAccessExample,
+export const VrEmbedCardResolvedCompetitorPrompt: WorkbenchExample<
+	typeof VrEmbedCardResolvedCompetitorPromptExample
+> = wb(VrEmbedCardResolvedCompetitorPromptExample);
+export const VrEmbedCardResolvedEntities: WorkbenchExample<
+	typeof VrEmbedCardResolvedEntitiesExample
+> = wb(VrEmbedCardResolvedEntitiesExample);
+export const VrEmbedCardResolvedNoPreview: WorkbenchExample<
+	typeof VrEmbedCardResolvedNoPreviewExample
+> = wb(VrEmbedCardResolvedNoPreviewExample);
+export const VrEmbedCardResolvedRovoActionsFooter: WorkbenchExample<
+	typeof VrEmbedCardResolvedRovoActionsFooterExample
+> = wb(VrEmbedCardResolvedRovoActionsFooterExample);
+export const VrEmbedCardResolvedSmall: WorkbenchExample<typeof VrEmbedCardResolvedSmallExample> =
+	wb(VrEmbedCardResolvedSmallExample);
+export const VrEmbedCardResolved: WorkbenchExample<typeof VrEmbedCardResolvedExample> = wb(
+	VrEmbedCardResolvedExample,
 );
-export const VrEmbedCardForbiddenSiteDeniedAccess: WorkbenchExample = wb(
-	VrEmbedCardForbiddenSiteDeniedAccessExample,
+export const VrEmbedCardResolving: WorkbenchExample<typeof VrEmbedCardResolvingExample> = wb(
+	VrEmbedCardResolvingExample,
 );
-export const VrEmbedCardForbiddenSiteDirectAccess: WorkbenchExample = wb(
-	VrEmbedCardForbiddenSiteDirectAccessExample,
+export const VrEmbedCardSelected: WorkbenchExample<typeof VrEmbedCardSelectedExample> = wb(
+	VrEmbedCardSelectedExample,
 );
-export const VrEmbedCardForbiddenSiteForbiddenAccess: WorkbenchExample = wb(
-	VrEmbedCardForbiddenSiteForbiddenAccessExample,
+export const VrEmbedCardUnauthorisedFrameHide: WorkbenchExample<
+	typeof VrEmbedCardUnauthorisedFrameHideExample
+> = wb(VrEmbedCardUnauthorisedFrameHideExample);
+export const VrEmbedCardUnauthorisedNoAuth: WorkbenchExample<
+	typeof VrEmbedCardUnauthorisedNoAuthExample
+> = wb(VrEmbedCardUnauthorisedNoAuthExample);
+export const VrEmbedCardUnauthorisedWithProviderImage: WorkbenchExample<
+	typeof VrEmbedCardUnauthorisedWithProviderImageExample
+> = wb(VrEmbedCardUnauthorisedWithProviderImageExample);
+export const VrEmbedCardUnauthorised: WorkbenchExample<typeof VrEmbedCardUnauthorisedExample> = wb(
+	VrEmbedCardUnauthorisedExample,
 );
-export const VrEmbedCardForbiddenSitePendingAccess: WorkbenchExample = wb(
-	VrEmbedCardForbiddenSitePendingAccessExample,
-);
-export const VrEmbedCardForbiddenSiteRequestAccess: WorkbenchExample = wb(
-	VrEmbedCardForbiddenSiteRequestAccessExample,
-);
-export const VrEmbedCardForbidden: WorkbenchExample = wb(VrEmbedCardForbiddenExample);
-export const VrEmbedCardFrameStyleHideAndSelected: WorkbenchExample = wb(
-	VrEmbedCardFrameStyleHideAndSelectedExample,
-);
-export const VrEmbedCardFrameStyleHide: WorkbenchExample = wb(VrEmbedCardFrameStyleHideExample);
-export const VrEmbedCardFrameStyleShowAndSelected: WorkbenchExample = wb(
-	VrEmbedCardFrameStyleShowAndSelectedExample,
-);
-export const VrEmbedCardFrameStyleShowOnHoverAndSelected: WorkbenchExample = wb(
-	VrEmbedCardFrameStyleShowOnHoverAndSelectedExample,
-);
-export const VrEmbedCardFrameStyleShowOnHover: WorkbenchExample = wb(
-	VrEmbedCardFrameStyleShowOnHoverExample,
-);
-export const VrEmbedCardFrameStyleShow: WorkbenchExample = wb(VrEmbedCardFrameStyleShowExample);
-export const VrEmbedCardFrameWithHref: WorkbenchExample = wb(VrEmbedCardFrameWithHrefExample);
-export const VrEmbedCardFrameWithNoHref: WorkbenchExample = wb(VrEmbedCardFrameWithNoHrefExample);
-export const VrEmbedCardFrameWithNoPlaceholderWithHref: WorkbenchExample = wb(
-	VrEmbedCardFrameWithNoPlaceholderWithHrefExample,
-);
-export const VrEmbedCardFrameWithNoPlaceholderWithOnClick: WorkbenchExample = wb(
-	VrEmbedCardFrameWithNoPlaceholderWithOnClickExample,
-);
-export const VrEmbedCardFrameWithPlaceholderAndHref: WorkbenchExample = wb(
-	VrEmbedCardFrameWithPlaceholderAndHrefExample,
-);
-export const VrEmbedCardFrameWithPlaceholderAndOnClick: WorkbenchExample = wb(
-	VrEmbedCardFrameWithPlaceholderAndOnClickExample,
-);
-export const VrEmbedCardFrame: WorkbenchExample = wb(VrEmbedCardFrameExample);
-export const VrEmbedCardNotFoundFrameHide: WorkbenchExample = wb(
-	VrEmbedCardNotFoundFrameHideExample,
-);
-export const VrEmbedCardNotFoundSiteAccessExists: WorkbenchExample = wb(
-	VrEmbedCardNotFoundSiteAccessExistsExample,
-);
-export const VrEmbedCardNotFound: WorkbenchExample = wb(VrEmbedCardNotFoundExample);
-export const VrEmbedCardResolvedCompetitorPrompt: WorkbenchExample = wb(
-	VrEmbedCardResolvedCompetitorPromptExample,
-);
-export const VrEmbedCardResolvedEntities: WorkbenchExample = wb(VrEmbedCardResolvedEntitiesExample);
-export const VrEmbedCardResolvedNoPreview: WorkbenchExample = wb(
-	VrEmbedCardResolvedNoPreviewExample,
-);
-export const VrEmbedCardResolvedRovoActionsFooter: WorkbenchExample = wb(
-	VrEmbedCardResolvedRovoActionsFooterExample,
-);
-export const VrEmbedCardResolvedSmall: WorkbenchExample = wb(VrEmbedCardResolvedSmallExample);
-export const VrEmbedCardResolved: WorkbenchExample = wb(VrEmbedCardResolvedExample);
-export const VrEmbedCardResolving: WorkbenchExample = wb(VrEmbedCardResolvingExample);
-export const VrEmbedCardSelected: WorkbenchExample = wb(VrEmbedCardSelectedExample);
-export const VrEmbedCardUnauthorisedFrameHide: WorkbenchExample = wb(
-	VrEmbedCardUnauthorisedFrameHideExample,
-);
-export const VrEmbedCardUnauthorisedNoAuth: WorkbenchExample = wb(
-	VrEmbedCardUnauthorisedNoAuthExample,
-);
-export const VrEmbedCardUnauthorisedWithProviderImage: WorkbenchExample = wb(
-	VrEmbedCardUnauthorisedWithProviderImageExample,
-);
-export const VrEmbedCardUnauthorised: WorkbenchExample = wb(VrEmbedCardUnauthorisedExample);

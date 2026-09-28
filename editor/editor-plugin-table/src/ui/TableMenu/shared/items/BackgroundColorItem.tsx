@@ -21,7 +21,6 @@ import {
 	PaintBucketIcon,
 	ToolbarNestedDropdownMenu,
 } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -92,9 +91,11 @@ export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.J
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	const colorPreviewStyle = useMemo(() => ({ backgroundColor: selectedColor }), [selectedColor]);
 
-	const isMoreColorsEnabled =
-		expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-		fg('platform_editor_lovability_text_bg_color_patch_2');
+	const isMoreColorsEnabled = expValEquals(
+		'platform_editor_lovability_text_bg_color',
+		'isEnabled',
+		true,
+	);
 
 	const activePalette = isMoreColorsEnabled
 		? cellBackgroundColorPaletteNew

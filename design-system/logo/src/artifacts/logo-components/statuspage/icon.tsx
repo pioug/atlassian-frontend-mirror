@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::de4ef73f23548870610293722edbbf71>>
+ * @codegen <<SignedSource::250d4c91f4dcb59257a634f48622f5e8>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,9 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __StatuspageIcon__
  *
- * A temporary component to represent the icon for Statuspage.
- * @deprecated This component has been replaced by the component `StatuspageIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component.
+ * A component to represent the icon for Statuspage.
+ * Import `StatuspageIcon` from `@atlaskit/logo/statuspage/icon`.
  *
  */
 export function StatuspageIcon({

@@ -1,4 +1,17 @@
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+/** Returns whether renderer annotations should use node-mark steps for this node. */
+export function isBlockAnnotationTarget(node: Node, schema: Schema): boolean {
+	const { extension, media } = schema.nodes;
+
+	return (
+		node.type === media ||
+		(node.type === extension &&
+			fg('cc_maui_annotations_on_extensions') &&
+			node.type.allowsMarkType(schema.marks.annotation))
+	);
+}
 
 // Finds a string position using the Confluence annotation backend's serialisation rules.
 export function getIndexMatch(
@@ -19,14 +32,14 @@ export function getIndexMatch(
 
 	doc.descendants((node: Node, pos: number) => {
 		const nodeType = node.type;
-		const { media } = schema.nodes;
+		const isBlockTarget = isBlockAnnotationTarget(node, schema);
 
 		const isBlockContainer = nodeType.isBlock && !nodeType.isLeaf && !nodeType.inlineContent;
 
 		// Containers may allow annotations for their children; skip their own text to avoid double-counting.
 		if (
 			(node.isText || !nodeType.allowsMarkType(schema.marks.annotation) || isBlockContainer) &&
-			nodeType !== media
+			!isBlockTarget
 		) {
 			return true;
 		}
@@ -35,8 +48,7 @@ export function getIndexMatch(
 		const nodeEnd = nodeStart + node.nodeSize;
 
 		if (startIndex >= nodeStart && startIndex <= nodeEnd) {
-			// MAUI-1255 will add eligible extensions as block annotation targets.
-			if (nodeType === media) {
+			if (isBlockTarget) {
 				blockNodePos = pos;
 			}
 			// If the start of the annotation selection is within the current node, we scan the document for previous occurrences

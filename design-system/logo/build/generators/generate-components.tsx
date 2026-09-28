@@ -6,13 +6,9 @@ import { optimize } from 'svgo';
 import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
+import packageJson from '../../package.json';
 import { logoDocsSchema } from '../../src/logo-docs-schema';
 import { type Assets, dataCenterApps, svgoConfig, transformSVG } from '../utils';
-
-// Logos that have a legacy counterpart
-const migrationLogos = new Set(
-	logoDocsSchema.filter((l) => l.type === 'migration').map((l) => l.name),
-);
 
 const utilityIcons = ['more-atlassian-apps', 'custom-link'];
 
@@ -151,19 +147,18 @@ const getLogoJSX = (
 
 	let typeImport = `import type { ${propType} } from '../../../utils/types';\n`;
 
-	const isMigrationLogo = migrationLogos.has(name);
-	const componentDescription = isMigrationLogo
-		? `A temporary component to represent the ${type === 'logo-cs' ? 'logo' : type} for ${productLabel}.`
-		: `An internal component to represent the ${type === 'logo-cs' ? 'logo' : type} for ${productLabel}.`;
-	const deprecationText =
-		type === 'icon' && isMigrationLogo
+	const componentDescription = `A component to represent the ${type === 'logo-cs' ? 'logo' : type} for ${productLabel}.`;
+	const isDeprecated = logoDocsSchema.find((logo) => logo.name === name)?.deprecated === true;
+	const deprecationText = isDeprecated
+		? `
+ * @deprecated ${componentName} is deprecated.`
+		: '';
+	const iconEntryPoint = `./${name}/icon`;
+	const usageText =
+		!isDeprecated && type === 'icon' && iconEntryPoint in packageJson.exports
 			? `
- * @deprecated This component has been replaced by the component \`${componentName}\` in \`@atlaskit/logo\`.
- * Please migrate any usages of this temporary component.`
-			: type === 'icon'
-				? `
- * Do not use this internal component directly — use \`${componentName}\` from \`@atlaskit/logo\` instead.`
-				: '';
+ * Import \`${componentName}\` from \`@atlaskit/logo/${name}/icon\`.`
+			: '';
 
 	return `import React from 'react';
 
@@ -175,7 +170,7 @@ ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
 /**
  * __${componentName}__
  *
- * ${componentDescription}${deprecationText}
+ * ${componentDescription}${deprecationText}${usageText}
  *
  */
 export function ${componentName}({

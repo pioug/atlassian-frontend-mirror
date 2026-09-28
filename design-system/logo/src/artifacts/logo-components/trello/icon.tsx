@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::28fddcbc31ea26d0b3773b41ee1646bc>>
+ * @codegen <<SignedSource::054729aad56b6ee279fe5ea9583ae1d3>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -22,9 +22,8 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __TrelloIcon__
  *
- * A temporary component to represent the icon for Trello.
- * @deprecated This component has been replaced by the component `TrelloIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component.
+ * A component to represent the icon for Trello.
+ * Import `TrelloIcon` from `@atlaskit/logo/trello/icon`.
  *
  */
 export function TrelloIcon({

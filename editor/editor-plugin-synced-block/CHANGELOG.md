@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 20.0.6
+
+### Patch Changes
+
+- [`8013afd2c90d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8013afd2c90d0) -
+  Add Jira synced block copy guidance behind the platform_editor_blocks_patch_11 experiment.
+- Updated dependencies
+
+## 20.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.1
 
 ### Patch Changes

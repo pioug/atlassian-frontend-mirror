@@ -189,14 +189,17 @@ const leafTextblockRanges = (
 // keep the precise per-cell path.
 const LARGE_TABLE_LEAF_THRESHOLD = 40;
 
+type ActiveIndexPos = { attributionKey?: string; from: number; to: number };
+
 /**
- * An active scrollable change may contain several underlying diff changes. Treat ranges that
- * overlap or touch the active range as part of the same active customer-facing edit.
+ * An active scrollable change may contain several underlying diff changes. With attribution, only
+ * ranges belonging to the selected contributor (including the anonymous contributor) are active.
  */
 const isRangeActive = (
-	activeIndexPos: { from: number; to: number } | undefined,
+	activeIndexPos: ActiveIndexPos | undefined,
 	from: number,
 	to: number,
+	attributionKey?: string,
 ): boolean | undefined => {
 	if (activeIndexPos === undefined) {
 		return undefined;
@@ -204,7 +207,11 @@ const isRangeActive = (
 	if (!fg('confluence_ncs_step_diffing_version_history')) {
 		return from === activeIndexPos.from && to === activeIndexPos.to;
 	}
-	return from <= activeIndexPos.to && activeIndexPos.from <= to;
+	return (
+		from <= activeIndexPos.to &&
+		activeIndexPos.from <= to &&
+		(!('attributionKey' in activeIndexPos) || activeIndexPos.attributionKey === attributionKey)
+	);
 };
 
 const isLargeInsertedTableRange = (doc: EditorState['doc'], from: number, to: number): boolean => {
@@ -260,7 +267,7 @@ const calculateNodesForBlockDecoration = ({
 	tagMountContext,
 	nodeRanges,
 }: {
-	activeIndexPos?: { from: number; to: number };
+	activeIndexPos?: ActiveIndexPos;
 	attributionKey?: string;
 	coarseTableCellsOnly?: boolean;
 	colorScheme?: DecorationColorScheme;
@@ -290,7 +297,7 @@ const calculateNodesForBlockDecoration = ({
 			if (!node?.isBlock) {
 				continue;
 			}
-			const isActive = isRangeActive(activeIndexPos, pos, nodeEnd);
+			const isActive = isRangeActive(activeIndexPos, pos, nodeEnd, attributionKey);
 
 			decorations.push(
 				...createBlockChangedDecoration({
@@ -329,7 +336,7 @@ const calculateNodesForBlockDecoration = ({
 		}
 		if (node.isBlock && (!requireContainedBlocks || pos >= from) && pos + node.nodeSize <= to) {
 			const nodeEnd = pos + node.nodeSize;
-			const isActive = isRangeActive(activeIndexPos, pos, nodeEnd);
+			const isActive = isRangeActive(activeIndexPos, pos, nodeEnd, attributionKey);
 
 			decorations.push(
 				...createBlockChangedDecoration({
@@ -448,10 +455,10 @@ const calculateDiffDecorationsInner = ({
 	tagMountContext,
 }: {
 	/**
-	 * The range navigation is on: all of it highlights, but only the tag on the change it starts
-	 * with reveals — see `extractContributorTags`.
+	 * The selected navigation range and its contributor. An overlapping change with another
+	 * attribution remains inactive.
 	 */
-	activeIndexPos?: { from: number; to: number };
+	activeIndexPos?: ActiveIndexPos;
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 	colorScheme?: ColorScheme;
 	deletedDiffPlacement?: DeletedDiffPlacement;
@@ -677,7 +684,7 @@ const calculateDiffDecorationsInner = ({
 		const attributionKey = showContributorTags
 			? getAttributionKeyForChange(change, attributedChanges)
 			: undefined;
-		const isActive = isRangeActive(activeIndexPos, change.fromB, change.toB);
+		const isActive = isRangeActive(activeIndexPos, change.fromB, change.toB, attributionKey);
 		const { deletedColumns } = change;
 		// On an inverted diff the table that lost columns is the one in `tr.doc`, so the column
 		// indices address it directly and each label anchors inside its own cell.
@@ -920,7 +927,7 @@ const calculateDiffDecorationsInner = ({
 				? (attributionColors?.get(change.attributionKey) ?? colorScheme)
 				: colorScheme;
 			const attributionKey = showContributorTags ? change.attributionKey : undefined;
-			const isActive = isRangeActive(activeIndexPos, change.fromB, change.toB);
+			const isActive = isRangeActive(activeIndexPos, change.fromB, change.toB, attributionKey);
 			decorations.push(
 				...createInlineChangedDecoration({
 					attributionKey,
@@ -949,7 +956,7 @@ const calculateDiffDecorationsInner = ({
 			const attributionKey = showContributorTags ? change.attributionKey : undefined;
 			if (change.isInline) {
 				// Inline nodes (e.g. date, emoji, mention, status) need an inline decoration rather than a block decoration
-				const isActive = isRangeActive(activeIndexPos, change.fromB, change.toB);
+				const isActive = isRangeActive(activeIndexPos, change.fromB, change.toB, attributionKey);
 				decorations.push(
 					...createInlineChangedDecoration({
 						attributionKey,
@@ -1080,10 +1087,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		hideAddedDiffsUnderline,
 		showIndicators,
 	}: {
-		activeIndexPos?: {
-			from: number;
-			to: number;
-		};
+		activeIndexPos?: ActiveIndexPos;
 		api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 		colorScheme?: ColorScheme;
 		deletedDiffPlacement?: DeletedDiffPlacement;

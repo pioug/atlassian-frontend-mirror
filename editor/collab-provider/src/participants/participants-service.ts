@@ -42,7 +42,7 @@ export const MULTI_COLLAB_MODE = 'collab';
 // remote agent-authored steps. Reset on each new step for that agent.
 // NOTE: temporary/demonstration lifecycle — long-term expiry may move to NCS.
 export const AGENT_PRESENCE_INACTIVE_MS: number = 30 * 1000; // 30 seconds
-export const AGENT_PRESENCE_TTL_MS: number = 5 * 60 * 1000; // 5 minutes
+export const AGENT_PRESENCE_TTL_MS: number = AGENT_PRESENCE_INACTIVE_MS + 5 * 60 * 1000;
 
 /**
  * This service is responsible for handling presence and participant events, as well as sending them on to the editor or NCS.
@@ -236,7 +236,7 @@ export class ParticipantsService {
 
 	/**
 	 * (Re)starts the sliding expiry timer for an agent participant. The enriched lifecycle retains
-	 * agents for five minutes, while the legacy lifecycle keeps its 30-second removal behavior.
+	 * agents for 30 seconds active plus five minutes inactive; the legacy lifecycle removes at 30 seconds.
 	 */
 	private resetAgentPresenceTimer = (sessionId: string, lastActive: number): void => {
 		const existingTimer = this.agentPresenceTimers.get(sessionId);

@@ -1,5 +1,16 @@
 # @atlaskit/button
 
+## 25.4.3
+
+### Patch Changes
+
+- [`386d5a0f3c98d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/386d5a0f3c98d) -
+  Removed the `platform-dst-legacy-button-anchor-text-color` feature flag. Legacy `Button` instances
+  rendered as links via `href` now always apply explicit `color` and `text-decoration` values in the
+  base, `:hover`, and `:active` states for the `default`, `primary`, `subtle`, `warning`, `danger`,
+  `link`, and `subtle-link` appearances. This prevents browser defaults or surrounding anchor styles
+  from changing button text colors or adding unintended underlines.
+
 ## 25.4.2
 
 ### Patch Changes

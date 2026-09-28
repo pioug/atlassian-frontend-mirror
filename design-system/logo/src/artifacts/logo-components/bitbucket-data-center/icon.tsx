@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f263425a9dcb2e0d5b7f4cdb7ec64674>>
+ * @codegen <<SignedSource::0c40baf4d0ed079ba8f93f730fdbf2e8>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -19,8 +19,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __BitbucketDataCenterIcon__
  *
- * An internal component to represent the icon for Bitbucket Data Center.
- * Do not use this internal component directly — use `BitbucketDataCenterIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Bitbucket Data Center.
+ * Import `BitbucketDataCenterIcon` from `@atlaskit/logo/bitbucket-data-center/icon`.
  *
  */
 export function BitbucketDataCenterIcon({

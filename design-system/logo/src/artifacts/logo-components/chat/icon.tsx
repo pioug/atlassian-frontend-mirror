@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f3296bc436e61936a6e372541c9559ce>>
+ * @codegen <<SignedSource::ad11730c6a5a08284e8a9e3845f0b13a>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __ChatIcon__
  *
- * An internal component to represent the icon for Chat.
- * Do not use this internal component directly — use `ChatIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Chat.
+ * Import `ChatIcon` from `@atlaskit/logo/chat/icon`.
  *
  */
 export function ChatIcon({

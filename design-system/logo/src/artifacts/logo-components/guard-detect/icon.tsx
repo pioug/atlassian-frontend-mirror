@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9aeeea2e0b0306ba4aec2e4e5832571b>>
+ * @codegen <<SignedSource::afb7fcf34d29ef274b939fe61842aa5d>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __GuardDetectIcon__
  *
- * An internal component to represent the icon for Guard Detect.
- * Do not use this internal component directly — use `GuardDetectIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Guard Detect.
+ * Import `GuardDetectIcon` from `@atlaskit/logo/guard-detect/icon`.
  *
  */
 export function GuardDetectIcon({

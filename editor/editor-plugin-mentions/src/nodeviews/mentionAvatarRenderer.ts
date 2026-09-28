@@ -18,11 +18,21 @@ export interface MentionAvatarController {
  */
 export const mentionAvatarRenderer = ({
 	container,
+	onFailure,
 }: {
 	container: HTMLElement;
+	onFailure?: () => void;
 }): MentionAvatarController => {
 	let image: HTMLImageElement | undefined;
 	let fallback: Text | undefined;
+	let failureReported = false;
+	let currentUrl: string | undefined;
+	const reportFailure = () => {
+		if (!failureReported) {
+			failureReported = true;
+			onFailure?.();
+		}
+	};
 	let unbindImageError: (() => void) | undefined;
 
 	const removeImage = () => {
@@ -37,6 +47,7 @@ export const mentionAvatarRenderer = ({
 		container.classList.remove(fallbackAvatarClassName);
 	};
 	const showFallback = () => {
+		reportFailure();
 		removeImage();
 		removeFallback();
 		fallback = container.ownerDocument.createTextNode('@');
@@ -62,6 +73,10 @@ export const mentionAvatarRenderer = ({
 				return;
 			}
 
+			if (!image || currentUrl !== avatarUrl) {
+				failureReported = false;
+				currentUrl = avatarUrl;
+			}
 			if (!image) {
 				image = container.ownerDocument.createElement('img');
 				image.alt = '';

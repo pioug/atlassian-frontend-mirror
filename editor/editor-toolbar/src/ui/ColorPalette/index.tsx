@@ -72,9 +72,11 @@ const ColorPalette = ({
 
 	const { colorMode: tokenTheme } = useThemeObserver();
 	const useIconToken = !!hexToPaletteColor;
-	const shouldUseInlineColorGap =
-		expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-		fg('platform_editor_lovability_text_bg_color_patch_1');
+	const shouldUseInlineColorGap = expValEquals(
+		'platform_editor_lovability_text_bg_color',
+		'isEnabled',
+		true,
+	);
 
 	// Refs for keyboard navigation
 	const paletteRef = useRef<HTMLDivElement>(null);

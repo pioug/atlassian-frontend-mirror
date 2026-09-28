@@ -54,7 +54,6 @@ import {
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -389,9 +388,11 @@ const DragMenu = React.memo(
 			const node = targetCellPosition ? state.doc.nodeAt(targetCellPosition) : null;
 			const background = hexToEditorBackgroundPaletteColor(node?.attrs?.background || '#ffffff');
 
-			const isMoreColorsEnabled =
-				expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-				fg('platform_editor_lovability_text_bg_color_patch_2');
+			const isMoreColorsEnabled = expValEquals(
+				'platform_editor_lovability_text_bg_color',
+				'isEnabled',
+				true,
+			);
 			const activePalette = isMoreColorsEnabled
 				? cellBackgroundColorPaletteNew
 				: cellBackgroundColorPalette;

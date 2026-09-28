@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7a99d9d5a8eb56de70f6200a3720d8b2>>
+ * @codegen <<SignedSource::c317323843b2c4987171b40bc1b557de>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -21,7 +21,7 @@ const svg = `<svg height="100%" viewBox="0 0 124 32">
 /**
  * __StudioLogoCS__
  *
- * An internal component to represent the logo for Studio.
+ * A component to represent the logo for Studio.
  *
  */
 export function StudioLogoCS({

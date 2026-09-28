@@ -49,6 +49,9 @@ const styles = cssMap({
 	},
 	updatedHexagonImage: {
 		clipPath: 'inherit',
+		// Crop non-square images to fit rather than stretching them to the avatar's fixed aspect ratio.
+		objectFit: 'cover',
+		imageRendering: 'auto',
 	},
 });
 

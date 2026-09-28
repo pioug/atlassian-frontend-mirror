@@ -487,7 +487,6 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 				isDragging: key.getState(editorState)?.isDragging ?? false,
 				isPMDragging: key.getState(editorState)?.isPMDragging ?? false,
 				multiSelectDnD: key.getState(editorState)?.multiSelectDnD ?? undefined,
-				isShiftDown: key.getState(editorState)?.isShiftDown ?? undefined,
 				lastDragCancelled: key.getState(editorState)?.lastDragCancelled ?? false,
 				isEditing: interactionTrackingPluginKey.getState(editorState)?.isEditing,
 				isSelectedViaDragHandle: key.getState(editorState)?.isSelectedViaDragHandle ?? false,

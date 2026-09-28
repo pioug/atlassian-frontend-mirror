@@ -217,12 +217,14 @@ export const getToolbarConfig = (
 		};
 
 		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
+		const isQ4LovabilityEnabled = expValEquals(
+			'platform_editor_code_block_q4_lovability',
+			'isEnabled',
+			true,
+		);
 		let languagePicker: FloatingToolbarCustom<Command> | undefined;
 
-		if (
-			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
-			fg('platform_editor_code_block_add_line_number_button')
-		) {
+		if (isQ4LovabilityEnabled) {
 			const autoDetectEntry =
 				typeof localId === 'string' ? autoDetectState?.languageDetectionMap[localId] : undefined;
 			const autoDetectPickerValue = getAutoDetectPickerValue({
@@ -425,8 +427,7 @@ export const getToolbarConfig = (
 				languagePicker ?? languageSelect,
 				...(areAnyNewToolbarFlagsEnabled ? [] : [separator]),
 				codeBlockWrapButton,
-				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
-				fg('platform_editor_code_block_add_line_number_button')
+				...(isQ4LovabilityEnabled
 					? [codeBlockLineNumbersButton, ...(formatCodeProvider ? [formatCodeButton] : [])]
 					: []),
 				...copyAndDeleteButtonMenuItems,

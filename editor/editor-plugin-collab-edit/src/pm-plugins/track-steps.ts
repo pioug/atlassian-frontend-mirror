@@ -1,9 +1,5 @@
-// delete this file when cleaning up platform_editor_remove_collab_step_metrics
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	AddMarkStep,
 	AddNodeMarkStep,
@@ -13,10 +9,6 @@ import {
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
-import { sendableSteps } from '@atlaskit/prosemirror-collab';
-
-import type { CollabEditPlugin } from '../collabEditPluginType';
-import { updateNcsSessionStepMetrics } from './track-step-metrics';
 
 function groupBy<T>(array: T[], keyGetter: (item: T) => string): Record<string, T[]> {
 	// Check group by exists, and that it's a function. If so, use the native browser code
@@ -40,14 +32,6 @@ export type SanitizedStep = {
 	attr?: string;
 	markType?: string;
 	stepType: string;
-};
-
-export type StepMetadataAnalytics = {
-	endedAt: number;
-	startedAt: number;
-	stepTypesAmount: {
-		[key: string]: number;
-	};
 };
 
 /**
@@ -119,135 +103,5 @@ export const groupSteps = (sanitizedSteps: SanitizedStep[]): Record<string, numb
 			return acc;
 		},
 		{} as Record<string, number>,
-	);
-};
-
-/**
- * Processes the steps metadata from the cache and calls the callback function with the processed data.
- *
- * @param {CacheType} cache - A cache containing steps metadata.
- * @param {(data: StepMetadataAnalytics[]) => void} onTrackDataProcessed - Callback function to be called with the processed data.
- */
-export const task = (
-	cache: CacheType,
-	onTrackDataProcessed: (data: StepMetadataAnalytics[]) => void,
-): void => {
-	const stepsMetadata: StepMetadataAnalytics[] = [];
-
-	for (const entry of cache.values()) {
-		const { startedAt, endedAt, steps } = entry;
-
-		const stepTypesAmount = groupSteps(steps.map(sanitizeStep));
-
-		stepsMetadata.push({
-			startedAt,
-			endedAt,
-			stepTypesAmount,
-		});
-	}
-
-	cache.clear();
-
-	if (stepsMetadata.length > 0) {
-		onTrackDataProcessed(stepsMetadata);
-	}
-};
-
-export type CacheType = Map<
-	number,
-	{
-		endedAt: number;
-		startedAt: number;
-		steps: ReadonlyArray<Step>;
-	}
->;
-const stepsSentCache: CacheType = new Map();
-
-type TrackProps = {
-	api: ExtractInjectionAPI<CollabEditPlugin> | undefined;
-	newEditorState: EditorState;
-	onTrackDataProcessed: (data: StepMetadataAnalytics[]) => void;
-	transactions: Readonly<Transaction[]>;
-};
-
-// Every ten seconds we will try to process the step data.
-const LOW_PRIORITY_DELAY = 10000;
-
-// See https://developer.mozilla.org/en-US/docs/Web/API/Scheduler/
-type Scheduler = {
-	postTask: (
-		cb: () => void,
-		options: {
-			delay: number;
-			priority: 'background';
-		},
-	) => Promise<unknown>;
-};
-const getScheduler = (
-	// Our TypeScript configuration isn't ready for the Scheduler API https://developer.mozilla.org/en-US/docs/Web/API/Scheduler/ (yet)
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	obj: any,
-): Scheduler | null => {
-	if (!obj) {
-		return null;
-	}
-
-	if ('scheduler' in obj) {
-		return obj.scheduler;
-	}
-
-	return null;
-};
-
-/**
- * Tracks the steps sent by the client by storing them in a cache and scheduling a task to process them. Once the steps are processed, the onTrackDataProcessed callabck will be called.
- *
- * This is a non-critical code. If the browser doesn't support the Scheduler API https://developer.mozilla.org/en-US/docs/Web/API/Scheduler/
- *
- * @param {TrackProps} props - The properties required for tracking steps.
- * @param {ExtractInjectionAPI<CollabEditPlugin> | undefined} props.api - The API for the CollabEdit plugin.
- * @param {EditorState} props.newEditorState - The new editor state.
- * @param {Readonly<Transaction[]>} props.transactions - The transactions that contain the steps.
- * @param {(data: StepMetadataAnalytics[]) => void} props.onTrackDataProcessed - Callback function to be called with the processed data.
- */
-export const track = ({
-	api,
-	newEditorState,
-	transactions,
-	onTrackDataProcessed,
-}: TrackProps): void => {
-	const newSteps = transactions.flatMap((t) => t.steps);
-	const collabState = sendableSteps(newEditorState);
-	const scheduler = getScheduler(window);
-
-	if (!newSteps.length || !scheduler || !collabState) {
-		return;
-	}
-
-	const { version } = collabState;
-	const buffer = stepsSentCache.get(version);
-	const startedAt = buffer?.startedAt || Date.now();
-	const endedAt = Date.now();
-	const steps = (buffer?.steps || []).concat(newSteps);
-
-	stepsSentCache.set(version, {
-		startedAt,
-		endedAt,
-		steps,
-	});
-
-	updateNcsSessionStepMetrics({
-		api,
-		steps: newSteps.filter((step) => !(step instanceof AnalyticsStep)),
-	});
-
-	scheduler.postTask(
-		() => {
-			task(stepsSentCache, onTrackDataProcessed);
-		},
-		{
-			priority: 'background',
-			delay: LOW_PRIORITY_DELAY,
-		},
 	);
 };

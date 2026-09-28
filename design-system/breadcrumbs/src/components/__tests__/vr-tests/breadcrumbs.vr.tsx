@@ -7,7 +7,6 @@ import BreadcrumbsExpandable, {
 import BreadcrumbsWithIcons from '../../../../examples/4-icons.vr.ap';
 import BreadcrumbsPrimitives from '../../../../examples/6-primitives.vr.ap';
 import BreadcrumbsWithManyItems from '../../../../examples/7-many-in-container.vr.ap';
-import BreadcrumbsTruncation from '../../../../examples/11-truncation.vr.ap';
 import BreadcrumbsSkeleton from '../../../../examples/12-skeleton.vr.ap';
 import BreadcrumbsWithElementToSide from '../../../../examples/14-with-element-next-to-breadcrumbs.vr.ap';
 
@@ -28,20 +27,6 @@ snapshot(BreadcrumbsExpandable, {
 snapshot(BreadcrumbsExpandableDefaultIsExpanded, {
 	description: 'expanded',
 	featureFlags: refreshFlagVariants,
-});
-
-snapshot(BreadcrumbsTruncation, {
-	description: 'truncation tooltip',
-	drawsOutsideBounds: true,
-	featureFlags: refreshFlagVariants,
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'truncation-tooltip-target',
-			},
-		},
-	],
 });
 
 snapshot(BreadcrumbsSkeleton, {

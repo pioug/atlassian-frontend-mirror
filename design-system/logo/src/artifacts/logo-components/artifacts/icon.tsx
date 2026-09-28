@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6248425548c0cbcdaf2da7303b704473>>
+ * @codegen <<SignedSource::cd848b35ff828f68bcfd45711a2e4758>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -19,8 +19,8 @@ const svg = `<svg height="100%" viewBox="0 0 48 48">
 /**
  * __ArtifactsIcon__
  *
- * An internal component to represent the icon for Artifacts.
- * Do not use this internal component directly — use `ArtifactsIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Artifacts.
+ * Import `ArtifactsIcon` from `@atlaskit/logo/artifacts/icon`.
  *
  */
 export function ArtifactsIcon({

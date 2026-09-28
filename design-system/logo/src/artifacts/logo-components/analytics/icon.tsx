@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cf03c13b28db67fedda98537a2ceace4>>
+ * @codegen <<SignedSource::f62b2ff1db034b7d7f3c24122370170c>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __AnalyticsIcon__
  *
- * An internal component to represent the icon for Analytics.
- * Do not use this internal component directly — use `AnalyticsIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for Analytics.
+ * Import `AnalyticsIcon` from `@atlaskit/logo/analytics/icon`.
  *
  */
 export function AnalyticsIcon({

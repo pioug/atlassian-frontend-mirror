@@ -39,6 +39,8 @@ test('Tabs should be able to be identified and navigated by data-testid', async 
 	await expect(page.locator(tab1).first()).toHaveAttribute('aria-controls', 'testing-0-tab');
 	await expect(page.locator(tabPanel).first()).toHaveText('One');
 	await expect(page.locator(tabPanel).first()).toHaveAttribute('aria-labelledby', 'testing-0');
+	await expect(page.locator('[data-motion-capable="true"]')).toHaveCount(0);
+	await expect(page.locator('[data-motion-state]')).toHaveCount(0);
 	await page.locator(tab3).first().click();
 	await expect(page.locator(tab3).first()).toHaveAttribute('aria-selected', 'true');
 	await expect(page.locator(tabPanel3).first()).toHaveText('Three');

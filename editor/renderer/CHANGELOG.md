@@ -1,5 +1,39 @@
 # @atlaskit/renderer
 
+## 145.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 145.0.3
+
+### Patch Changes
+
+- [`df04549a2c45c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df04549a2c45c) -
+  Update renderer annotation actions to produce `AddNodeMarkStep` results for eligible extension
+  nodes behind the `cc_maui_annotations_on_extensions` feature gate, while preserving existing text
+  and media annotation behavior.
+- [`a13383c3c99b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a13383c3c99b2) -
+  [FFCLEANUP-192944] clean up code references to patch gates
+  `platform_editor_lovability_text_bg_color_patch_1` and
+  `platform_editor_lovability_text_bg_color_patch_2`.
+- Updated dependencies
+
+## 145.0.2
+
+### Patch Changes
+
+- [`d7bc3969f1c0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7bc3969f1c0d) -
+  Clean up feature gate `platform_editor_nest_table_in_panel_patch_3`
+- Updated dependencies
+
+## 145.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 145.0.0
 
 ### Patch Changes

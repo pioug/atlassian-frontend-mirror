@@ -11,10 +11,11 @@ import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
 import FocusRing from '@atlaskit/focus-ring/focus-ring';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
 
-import { UNKNOWN_USER_ID } from '../../_constants';
+import { ELEMENTS_CHANNEL, UNKNOWN_USER_ID } from '../../_constants';
 import { isRestricted } from '../../is-restricted';
 import { MentionType } from '../../types';
 import { UnknownUserError } from '../../util/i18n';
@@ -64,6 +65,8 @@ type State = {
 
 export class MentionInternal extends React.PureComponent<Props, State> {
 	private hoverTimeout?: number;
+	private avatarFailureReported = false;
+	private avatarImageRef = React.createRef<HTMLImageElement>();
 	state: State = { hasAvatarError: false };
 
 	constructor(props: Props) {
@@ -73,7 +76,49 @@ export class MentionInternal extends React.PureComponent<Props, State> {
 
 	componentDidMount(): void {
 		mentionRenderedUfoExperience.getInstance(this.props.id).success();
+		this.reportCompletedAvatarFailure();
 	}
+
+	componentDidUpdate(previousProps: Props): void {
+		if (
+			previousProps.avatarUrl !== this.props.avatarUrl ||
+			previousProps.id !== this.props.id ||
+			previousProps.renderAvatarSlot !== this.props.renderAvatarSlot ||
+			(previousProps.text === `@${UNKNOWN_USER_ID}`) !== (this.props.text === `@${UNKNOWN_USER_ID}`)
+		) {
+			this.avatarFailureReported = false;
+		}
+		this.reportCompletedAvatarFailure();
+	}
+
+	private reportCompletedAvatarFailure = (): void => {
+		const image = this.avatarImageRef.current;
+		if (
+			image &&
+			fg('platform_editor_mention_avatar_observability') &&
+			image.complete &&
+			image.getAttribute('src')
+		) {
+			if (image.naturalWidth === 0 && !this.state.hasAvatarError) {
+				this.reportAvatarFailure();
+			}
+		}
+	};
+
+	private reportAvatarFailure = (): void => {
+		if (!fg('platform_editor_mention_avatar_observability') || this.avatarFailureReported) {
+			return;
+		}
+		this.avatarFailureReported = true;
+		this.props
+			.createAnalyticsEvent?.({
+				action: 'failed',
+				actionSubject: 'mentionAvatar',
+				eventType: 'operational',
+				attributes: { componentName: 'mention', reason: 'image_load_failed', surface: 'renderer' },
+			})
+			?.fire(ELEMENTS_CHANNEL);
+	};
 
 	static getDerivedStateFromProps(props: Props, state: State): Partial<State> | null {
 		if (props.avatarUrl !== state.avatarUrl) {
@@ -84,6 +129,7 @@ export class MentionInternal extends React.PureComponent<Props, State> {
 	}
 
 	private handleAvatarError = (): void => {
+		this.reportAvatarFailure();
 		this.setState({ hasAvatarError: true });
 	};
 
@@ -227,6 +273,7 @@ export class MentionInternal extends React.PureComponent<Props, State> {
 								{shouldRenderAvatar ? (
 									<img
 										alt=""
+										ref={this.avatarImageRef}
 										css={avatarImageStyles}
 										decoding="async"
 										draggable={false}

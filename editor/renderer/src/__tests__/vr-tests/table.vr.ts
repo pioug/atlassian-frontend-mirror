@@ -64,7 +64,6 @@ snapshot(LegacyPaletteRenderer, {
 	description: 'Table renderer should render selectable legacy background colors',
 	featureFlags: {
 		platform_editor_lovability_text_bg_color: false,
-		platform_editor_lovability_text_bg_color_patch_2: true,
 	},
 });
 
@@ -72,7 +71,6 @@ snapshot(ExpandedPaletteRenderer, {
 	description: 'Table renderer should render selectable expanded background colors',
 	featureFlags: {
 		platform_editor_lovability_text_bg_color: true,
-		platform_editor_lovability_text_bg_color_patch_2: true,
 	},
 });
 

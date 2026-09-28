@@ -10,20 +10,30 @@ import { default as Example40UpdatingAnEventSource } from './40-updating-an-even
 import { default as Example50CloningAnEventSource } from './50-cloning-an-event';
 import { default as Example60AsyncFiringSource } from './60-async-firing';
 
-export const Example10BasicCreateAndFire: WorkbenchExample = wb(Example10BasicCreateAndFireSource);
-export const Example10BasicErrorBoundary: WorkbenchExample = wb(Example10BasicErrorBoundarySource);
-export const Example11ErrorBoundaryWithErrorComponent: WorkbenchExample = wb(
-	Example11ErrorBoundaryWithErrorComponentSource,
+export const Example10BasicCreateAndFire: WorkbenchExample<
+	typeof Example10BasicCreateAndFireSource
+> = wb(Example10BasicCreateAndFireSource);
+export const Example10BasicErrorBoundary: WorkbenchExample<
+	typeof Example10BasicErrorBoundarySource
+> = wb(Example10BasicErrorBoundarySource);
+export const Example11ErrorBoundaryWithErrorComponent: WorkbenchExample<
+	typeof Example11ErrorBoundaryWithErrorComponentSource
+> = wb(Example11ErrorBoundaryWithErrorComponentSource);
+export const Example12ErrorBoundaryWithNoErrorComponent: WorkbenchExample<
+	typeof Example12ErrorBoundaryWithNoErrorComponentSource
+> = wb(Example12ErrorBoundaryWithNoErrorComponentSource);
+export const Example20AddingAnalyticsContext: WorkbenchExample<
+	typeof Example20AddingAnalyticsContextSource
+> = wb(Example20AddingAnalyticsContextSource);
+export const Example30PassingEventsToACallback: WorkbenchExample<
+	typeof Example30PassingEventsToACallbackSource
+> = wb(Example30PassingEventsToACallbackSource);
+export const Example40UpdatingAnEvent: WorkbenchExample<typeof Example40UpdatingAnEventSource> = wb(
+	Example40UpdatingAnEventSource,
 );
-export const Example12ErrorBoundaryWithNoErrorComponent: WorkbenchExample = wb(
-	Example12ErrorBoundaryWithNoErrorComponentSource,
+export const Example50CloningAnEvent: WorkbenchExample<typeof Example50CloningAnEventSource> = wb(
+	Example50CloningAnEventSource,
 );
-export const Example20AddingAnalyticsContext: WorkbenchExample = wb(
-	Example20AddingAnalyticsContextSource,
+export const Example60AsyncFiring: WorkbenchExample<typeof Example60AsyncFiringSource> = wb(
+	Example60AsyncFiringSource,
 );
-export const Example30PassingEventsToACallback: WorkbenchExample = wb(
-	Example30PassingEventsToACallbackSource,
-);
-export const Example40UpdatingAnEvent: WorkbenchExample = wb(Example40UpdatingAnEventSource);
-export const Example50CloningAnEvent: WorkbenchExample = wb(Example50CloningAnEventSource);
-export const Example60AsyncFiring: WorkbenchExample = wb(Example60AsyncFiringSource);

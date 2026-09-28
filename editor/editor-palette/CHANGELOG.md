@@ -1,5 +1,32 @@
 # @atlaskit/editor-palette
 
+## 3.5.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.46
+
+### Patch Changes
+
+- [`a13383c3c99b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a13383c3c99b2) -
+  [FFCLEANUP-192944] clean up code references to patch gates
+  `platform_editor_lovability_text_bg_color_patch_1` and
+  `platform_editor_lovability_text_bg_color_patch_2`.
+
+## 3.5.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.44
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.43
 
 ### Patch Changes

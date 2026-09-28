@@ -13,17 +13,24 @@ import MultiFilePreviewsWithMediaClientToggleExample from './12-multi-file-previ
 import SvgExample from './13-svg';
 import CustomViewerExample from './15-custom-viewer';
 
-export const BasicExample: WorkbenchExample = wb(BasicExampleSource);
-export const SingleFilePreviews: WorkbenchExample = wb(SingleFilePreviewsExample);
-export const MultiFilePreviews: WorkbenchExample = wb(MultiFilePreviewsExample);
-export const VrPasswordProtectedPdf: WorkbenchExample = wb(VrPasswordProtectedPdfExample);
-export const MultiFilePreviewsWithMediaClientToggle: WorkbenchExample = wb(
-	MultiFilePreviewsWithMediaClientToggleExample,
+export const BasicExample: WorkbenchExample<typeof BasicExampleSource> = wb(BasicExampleSource);
+export const SingleFilePreviews: WorkbenchExample<typeof SingleFilePreviewsExample> =
+	wb(SingleFilePreviewsExample);
+export const MultiFilePreviews: WorkbenchExample<typeof MultiFilePreviewsExample> =
+	wb(MultiFilePreviewsExample);
+export const VrPasswordProtectedPdf: WorkbenchExample<typeof VrPasswordProtectedPdfExample> = wb(
+	VrPasswordProtectedPdfExample,
 );
-export const Svg: WorkbenchExample = wb(SvgExample);
-export const CustomViewer: WorkbenchExample = wb(CustomViewerExample);
-export const LayerStacking: WorkbenchExample = wb(LayerStackingExample);
-export const VrMockedViewer: WorkbenchExample = wb(VrMockedViewerExample);
-export const Sidebar: WorkbenchExample = wb(SidebarExample);
-export const VrEmptyFile: WorkbenchExample = wb(VrEmptyFileExample);
-export const VrArchiveSideBar: WorkbenchExample = wb(VrArchiveSideBarExample);
+export const MultiFilePreviewsWithMediaClientToggle: WorkbenchExample<
+	typeof MultiFilePreviewsWithMediaClientToggleExample
+> = wb(MultiFilePreviewsWithMediaClientToggleExample);
+export const Svg: WorkbenchExample<typeof SvgExample> = wb(SvgExample);
+export const CustomViewer: WorkbenchExample<typeof CustomViewerExample> = wb(CustomViewerExample);
+export const LayerStacking: WorkbenchExample<typeof LayerStackingExample> =
+	wb(LayerStackingExample);
+export const VrMockedViewer: WorkbenchExample<typeof VrMockedViewerExample> =
+	wb(VrMockedViewerExample);
+export const Sidebar: WorkbenchExample<typeof SidebarExample> = wb(SidebarExample);
+export const VrEmptyFile: WorkbenchExample<typeof VrEmptyFileExample> = wb(VrEmptyFileExample);
+export const VrArchiveSideBar: WorkbenchExample<typeof VrArchiveSideBarExample> =
+	wb(VrArchiveSideBarExample);

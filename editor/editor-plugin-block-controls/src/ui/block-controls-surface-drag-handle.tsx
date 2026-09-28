@@ -47,7 +47,6 @@ import { prepareCollapsedHeadingSelection } from '../pm-plugins/utils/collapsed-
 import { expandAndUpdateSelection } from '../pm-plugins/utils/expand-and-update-selection';
 import { isHandleCorrelatedToSelection } from '../pm-plugins/utils/getSelection';
 import { buildLayoutColumnMenuMeta } from './block-controls-surface-drag-handle-utils';
-import { DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH } from './consts';
 import { DragHandleNestedIcon } from './drag-handle-nested-icon';
 import { shouldUseNestedDragHandleIcon } from './should-use-nested-drag-handle-icon';
 import { useSurfaceEditorView } from './surface-editor-view-context';
@@ -172,7 +171,7 @@ export const BlockControlsSurfaceDragHandle = ({
 	posRef.current = pos;
 	const getPos = useCallback(() => posRef.current, []);
 
-	const { activeNodeAnchorName, handleOptions, interactionState, isShiftDown, selection } =
+	const { activeNodeAnchorName, handleOptions, interactionState, selection } =
 		useSharedPluginStateWithSelector(
 			api,
 			['blockControls', 'interaction', 'selection'],
@@ -180,7 +179,6 @@ export const BlockControlsSurfaceDragHandle = ({
 				activeNodeAnchorName: states.blockControlsState?.activeNode?.anchorName,
 				handleOptions: states.blockControlsState?.activeNode?.handleOptions,
 				interactionState: states.interactionState?.interactionState,
-				isShiftDown: states.blockControlsState?.isShiftDown,
 				selection: states.selectionState?.selection,
 			}),
 		);
@@ -192,26 +190,6 @@ export const BlockControlsSurfaceDragHandle = ({
 
 	const isLayoutColumn = nodeType === 'layoutColumn';
 	const isTopLevelNode = activeNode?.parentType === 'doc';
-	const isDisabled = useMemo(() => {
-		if (
-			!isShiftDown ||
-			!view ||
-			view.state.selection.empty ||
-			!fg('platform_editor_elements_dnd_shift_click_select')
-		) {
-			return false;
-		}
-		if (isLayoutColumn && expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
-			return false;
-		}
-
-		const multiSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
-		const $anchor =
-			multiSelect?.anchor !== undefined
-				? view.state.doc.resolve(multiSelect.anchor)
-				: view.state.selection.$anchor;
-		return !isTopLevelNode || $anchor.depth > DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH;
-	}, [api, isLayoutColumn, isShiftDown, isTopLevelNode, view]);
 
 	const getAnchorName = useCallback((): string => {
 		const surfaceAnchor =
@@ -294,7 +272,7 @@ export const BlockControlsSurfaceDragHandle = ({
 
 	const handleClick = useCallback(
 		(event: MouseEvent<HTMLButtonElement>) => {
-			if (!view || isDisabled) {
+			if (!view) {
 				return;
 			}
 			const openedViaKeyboard = event.detail === 0;
@@ -359,7 +337,7 @@ export const BlockControlsSurfaceDragHandle = ({
 			});
 			view.focus();
 		},
-		[activeNode?.rootPos, api, getAnchorName, getPos, isDisabled, nodeType, view],
+		[activeNode?.rootPos, api, getAnchorName, getPos, nodeType, view],
 	);
 	const label = formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: ' ' });
 	const helpDescriptors = useMemo(
@@ -398,7 +376,6 @@ export const BlockControlsSurfaceDragHandle = ({
 				handleOptions?.isFocused && dragHandleStyles.keyboardFocused,
 				dragHandleStyles.scaled,
 			]}
-			disabled={isDisabled}
 			onClick={handleClick}
 			onMouseDown={handleMouseDown}
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop -- Pragmatic DnD owns this native drag source.

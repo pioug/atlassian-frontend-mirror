@@ -5,9 +5,18 @@ import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';
 import Tabs from '@atlaskit/tabs/tabs';
 
+import CustomTabs from './constellation/tab-custom';
 import { Panel } from './shared';
 
 export default function testing(): React.JSX.Element {
+	const isCustomTabs =
+		typeof window !== 'undefined' &&
+		new URLSearchParams(window.location.search).get('custom-tabs') === 'true';
+
+	if (isCustomTabs) {
+		return <CustomTabs />;
+	}
+
 	return (
 		<Tabs
 			onChange={(index) => {

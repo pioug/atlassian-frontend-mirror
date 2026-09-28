@@ -285,18 +285,23 @@ const getAttributionKeyForChanges = (changes: Change[]): string | undefined =>
 	getAttributionKey(getLatestAttribution(changes));
 
 /**
- * The attribution key owning a change. Inline and step changes retain direct attribution spans, so
- * resolve those first. Grouped and smart-classified changes can lose that data; for those, fall
- * back to the latest overlapping attributed step.
+ * Preserve overlap attribution outside Confluence version history. Within version history, a
+ * recovery step's keyless spans must not inherit an overlapping NCS step's actor.
  */
 export const getAttributionKeyForChange = (
 	change: Change,
 	attributedChanges: Change[],
-): string | undefined =>
-	getAttributionKeyForChanges([change]) ??
-	getAttributionKeyForChanges(
-		attributedChanges.filter((attributedChange) => changesOverlap(change, attributedChange)),
+): string | undefined => {
+	const directKey = getAttributionKeyForChanges([change]);
+	return (
+		directKey ??
+		(fg('confluence_ncs_step_diffing_version_history')
+			? undefined
+			: getAttributionKeyForChanges(
+					attributedChanges.filter((attributedChange) => changesOverlap(change, attributedChange)),
+				))
 	);
+};
 
 export const getColorSchemeForChange = (
 	change: Change,

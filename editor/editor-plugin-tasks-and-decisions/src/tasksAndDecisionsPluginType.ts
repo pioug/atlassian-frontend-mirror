@@ -1,5 +1,4 @@
 import type {
-	_MarkdownModePluginStub,
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -26,7 +25,6 @@ export type TasksAndDecisionsPluginDependencies = [
 	OptionalPlugin<BlockMenuPlugin>,
 	OptionalPlugin<SelectionPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
-	OptionalPlugin<_MarkdownModePluginStub>,
 	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 

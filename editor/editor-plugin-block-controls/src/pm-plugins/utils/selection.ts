@@ -2,8 +2,9 @@ import { INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META } from '@atlaskit/editor-
 import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
+	NodeSelection,
 	ReadonlyTransaction,
 	Selection,
 	Transaction,
@@ -63,41 +64,6 @@ export const getSelectedSlicePosition = (
 	const to = inSelection ? Math.max(anchor || 0, head || 0) : activeNodeEndPos;
 
 	return { from, to };
-};
-
-/**
- * Takes a position and expands the selection to encompass the node at that position. Ignores empty or out of range selections.
- * Ignores positions that are in text blocks (i.e. not start of a node)
- * @returns TextSelection if expanded, otherwise returns Selection that was passed in.
- */
-export const expandSelectionHeadToNodeAtPos = (
-	selection: Selection,
-	nodePos: number,
-): Selection => {
-	const doc = selection.$anchor.doc;
-	if (nodePos < 0 || nodePos > doc.nodeSize - 2 || selection.empty) {
-		return selection;
-	}
-	const $pos = doc.resolve(nodePos);
-	const node = $pos.nodeAfter;
-	if ($pos.node().isTextblock || !node) {
-		return selection;
-	}
-
-	const $newHead = nodePos < selection.anchor ? $pos : doc.resolve(node.nodeSize + nodePos);
-	const textSelection = new TextSelection(selection.$anchor, $newHead);
-	return textSelection;
-};
-
-/**
- * This swaps the anchor/head for NodeSelections when its anchor > pos.
- * This is because NodeSelection always has an anchor at the start of the node,
- * which may not align with the existing selection.
- */
-export const alignAnchorHeadInDirectionOfPos = (selection: Selection, pos: number): Selection => {
-	return selection instanceof NodeSelection && Math.max(pos, selection.anchor) === selection.anchor
-		? new TextSelection(selection.$head, selection.$anchor)
-		: selection;
 };
 
 /**

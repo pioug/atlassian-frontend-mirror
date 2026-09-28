@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::266dbd82aacc7eb92bb58141e89baa90>>
+ * @codegen <<SignedSource::a3a023f4bce6b292229f8313aaac988c>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,7 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 69 24">
 /**
  * __TrelloLogo__
  *
- * A temporary component to represent the logo for Trello.
+ * A component to represent the logo for Trello.
  *
  */
 export function TrelloLogo({

@@ -7,7 +7,6 @@ import React, { useCallback, memo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
@@ -106,10 +105,7 @@ export const Color: React.NamedExoticComponent<ColorProps> = memo<ColorProps>(
 			[onKeyDown, value, label],
 		);
 
-		if (
-			expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-			fg('platform_editor_lovability_text_bg_color_patch_1')
-		) {
+		if (expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
 			return (
 				<Tooltip content={label}>
 					<span css={buttonWrapperStylesNew}>

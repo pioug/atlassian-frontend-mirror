@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::385053274ea4deee7adb72766c3a74bc>>
+ * @codegen <<SignedSource::7f65f5d92f74bd1c2ebd4f7d4b55bbdd>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -296,7 +296,7 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-sidenav-exit-right: 200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards;
   --ds-spotlight-enter: 250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards, 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100 backwards;
   --ds-spotlight-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
-  --ds-tab: color 150ms cubic-bezier(0.4, 1, 0.6, 1);
+  --ds-tab: color 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-tab-indicator-enter-left: 150ms cubic-bezier(0, 0.4, 0, 1) SlideInRight8px backwards, 150ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards;
   --ds-tab-indicator-enter-right: 150ms cubic-bezier(0, 0.4, 0, 1) SlideInLeft8px backwards, 150ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards;
   --ds-tab-indicator-exit-left: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;

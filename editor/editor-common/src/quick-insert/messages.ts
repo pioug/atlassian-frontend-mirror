@@ -24,6 +24,7 @@ export const messages: Messages<
 	| 'previewAttributionAssets'
 	| 'previewAttributionConfluence'
 	| 'previewAttributionJira'
+	| 'previewAttributionJiraServiceManagement'
 	| 'previewAttributionMicrosoft'
 	| 'close'
 	| 'communication'
@@ -212,6 +213,12 @@ export const messages: Messages<
 		id: 'editor-common.quick-insert.previewAttributionJira.ai-non-final',
 		defaultMessage: 'Jira',
 		description: 'Jira product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionJiraServiceManagement: {
+		id: 'editor-common.quick-insert.previewAttributionJiraServiceManagement.ai-non-final',
+		defaultMessage: 'Jira Service Management',
+		description:
+			'Jira Service Management product name shown as the creator in a slash-command preview attribution.',
 	},
 	previewAttributionMicrosoft: {
 		id: 'editor-common.quick-insert.previewAttributionMicrosoft.ai-non-final',

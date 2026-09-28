@@ -25,7 +25,6 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExpandPlugin, InsertMethod } from '../types';
@@ -292,11 +291,8 @@ export const focusIcon =
 			return false;
 		}
 
-		// TODO: ED-29205 - During platform_editor_vc90_transition_expand_icon cleanup, rename `iconContainer` to `iconButton`.
-		const iconContainer = (
-			isExperimentEnabled('platform_editor_vc90_transition_expand_icon')
-				? expand.querySelector(`.${expandClassNames.iconButton}`)
-				: expand.querySelector(`.${expandClassNames.iconContainer}`)
+		const iconContainer = expand.querySelector(
+			`.${expandClassNames.iconContainer}`,
 		) as HTMLElement | null;
 		if (iconContainer && iconContainer.focus) {
 			const { tr } = state;

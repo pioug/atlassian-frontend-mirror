@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::42e8a5dbf1ff9556fdadf5970b8e5117>>
+ * @codegen <<SignedSource::43af2a79037fdb7a50ebad51750636fe>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,8 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __MoreAtlassianAppsIcon__
  *
- * An internal component to represent the icon for More Atlassian Apps.
- * Do not use this internal component directly — use `MoreAtlassianAppsIcon` from `@atlaskit/logo` instead.
+ * A component to represent the icon for More Atlassian Apps.
+ * Import `MoreAtlassianAppsIcon` from `@atlaskit/logo/more-atlassian-apps/icon`.
  *
  */
 export function MoreAtlassianAppsIcon({

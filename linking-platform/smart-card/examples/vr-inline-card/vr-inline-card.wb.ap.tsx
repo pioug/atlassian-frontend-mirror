@@ -35,75 +35,101 @@ import VrInlineCardUnauthorisedSocialProofNoContextExample from './vr-inline-car
 import VrInlineCardUnauthorisedTruncateExample from './vr-inline-card-unauthorised-truncate.vr.ap';
 import VrInlineCardUnauthorisedExample from './vr-inline-card-unauthorised.vr.ap';
 
-export const VrInlineCardAllExamplesInText: WorkbenchExample = wb(
-	VrInlineCardAllExamplesInTextExample,
+export const VrInlineCardAllExamplesInText: WorkbenchExample<
+	typeof VrInlineCardAllExamplesInTextExample
+> = wb(VrInlineCardAllExamplesInTextExample);
+export const VrInlineCardDefaultEntities: WorkbenchExample<
+	typeof VrInlineCardDefaultEntitiesExample
+> = wb(VrInlineCardDefaultEntitiesExample);
+export const VrInlineCardDefaultIcon: WorkbenchExample<typeof VrInlineCardDefaultIconExample> = wb(
+	VrInlineCardDefaultIconExample,
 );
-export const VrInlineCardDefaultEntities: WorkbenchExample = wb(VrInlineCardDefaultEntitiesExample);
-export const VrInlineCardDefaultIcon: WorkbenchExample = wb(VrInlineCardDefaultIconExample);
-export const VrInlineCardDefaultTruncate: WorkbenchExample = wb(VrInlineCardDefaultTruncateExample);
-export const VrInlineCardErrorTruncate: WorkbenchExample = wb(VrInlineCardErrorTruncateExample);
-export const VrInlineCardError: WorkbenchExample = wb(VrInlineCardErrorExample);
-export const VrInlineCardFontSize16: WorkbenchExample = wb(VrInlineCardFontSize16Example);
-export const VrInlineCardFontSize24: WorkbenchExample = wb(VrInlineCardFontSize24Example);
-export const VrInlineCardFontSize32: WorkbenchExample = wb(VrInlineCardFontSize32Example);
-export const VrInlineCardFontSizeDefault: WorkbenchExample = wb(VrInlineCardFontSizeDefaultExample);
-export const VrInlineCardForbiddenDefaultIcon: WorkbenchExample = wb(
-	VrInlineCardForbiddenDefaultIconExample,
+export const VrInlineCardDefaultTruncate: WorkbenchExample<
+	typeof VrInlineCardDefaultTruncateExample
+> = wb(VrInlineCardDefaultTruncateExample);
+export const VrInlineCardErrorTruncate: WorkbenchExample<typeof VrInlineCardErrorTruncateExample> =
+	wb(VrInlineCardErrorTruncateExample);
+export const VrInlineCardError: WorkbenchExample<typeof VrInlineCardErrorExample> =
+	wb(VrInlineCardErrorExample);
+export const VrInlineCardFontSize16: WorkbenchExample<typeof VrInlineCardFontSize16Example> = wb(
+	VrInlineCardFontSize16Example,
 );
-export const VrInlineCardForbiddenRequestAccess: WorkbenchExample = wb(
-	VrInlineCardForbiddenRequestAccessExample,
+export const VrInlineCardFontSize24: WorkbenchExample<typeof VrInlineCardFontSize24Example> = wb(
+	VrInlineCardFontSize24Example,
 );
-export const VrInlineCardForbiddenSiteDeniedAccess: WorkbenchExample = wb(
-	VrInlineCardForbiddenSiteDeniedAccessExample,
+export const VrInlineCardFontSize32: WorkbenchExample<typeof VrInlineCardFontSize32Example> = wb(
+	VrInlineCardFontSize32Example,
 );
-export const VrInlineCardForbiddenSiteDirectAccess: WorkbenchExample = wb(
-	VrInlineCardForbiddenSiteDirectAccessExample,
+export const VrInlineCardFontSizeDefault: WorkbenchExample<
+	typeof VrInlineCardFontSizeDefaultExample
+> = wb(VrInlineCardFontSizeDefaultExample);
+export const VrInlineCardForbiddenDefaultIcon: WorkbenchExample<
+	typeof VrInlineCardForbiddenDefaultIconExample
+> = wb(VrInlineCardForbiddenDefaultIconExample);
+export const VrInlineCardForbiddenRequestAccess: WorkbenchExample<
+	typeof VrInlineCardForbiddenRequestAccessExample
+> = wb(VrInlineCardForbiddenRequestAccessExample);
+export const VrInlineCardForbiddenSiteDeniedAccess: WorkbenchExample<
+	typeof VrInlineCardForbiddenSiteDeniedAccessExample
+> = wb(VrInlineCardForbiddenSiteDeniedAccessExample);
+export const VrInlineCardForbiddenSiteDirectAccess: WorkbenchExample<
+	typeof VrInlineCardForbiddenSiteDirectAccessExample
+> = wb(VrInlineCardForbiddenSiteDirectAccessExample);
+export const VrInlineCardForbiddenSitePendingAccess: WorkbenchExample<
+	typeof VrInlineCardForbiddenSitePendingAccessExample
+> = wb(VrInlineCardForbiddenSitePendingAccessExample);
+export const VrInlineCardForbiddenSiteRequestAccessTruncate: WorkbenchExample<
+	typeof VrInlineCardForbiddenSiteRequestAccessTruncateExample
+> = wb(VrInlineCardForbiddenSiteRequestAccessTruncateExample);
+export const VrInlineCardForbiddenSiteRequestAccess: WorkbenchExample<
+	typeof VrInlineCardForbiddenSiteRequestAccessExample
+> = wb(VrInlineCardForbiddenSiteRequestAccessExample);
+export const VrInlineCardForbiddenTruncate: WorkbenchExample<
+	typeof VrInlineCardForbiddenTruncateExample
+> = wb(VrInlineCardForbiddenTruncateExample);
+export const VrInlineCardForbidden: WorkbenchExample<typeof VrInlineCardForbiddenExample> = wb(
+	VrInlineCardForbiddenExample,
 );
-export const VrInlineCardForbiddenSitePendingAccess: WorkbenchExample = wb(
-	VrInlineCardForbiddenSitePendingAccessExample,
+export const VrInlineCardIcons: WorkbenchExample<typeof VrInlineCardIconsExample> =
+	wb(VrInlineCardIconsExample);
+export const VrInlineCardNotFoundTruncate: WorkbenchExample<
+	typeof VrInlineCardNotFoundTruncateExample
+> = wb(VrInlineCardNotFoundTruncateExample);
+export const VrInlineCardNotFound: WorkbenchExample<typeof VrInlineCardNotFoundExample> = wb(
+	VrInlineCardNotFoundExample,
 );
-export const VrInlineCardForbiddenSiteRequestAccessTruncate: WorkbenchExample = wb(
-	VrInlineCardForbiddenSiteRequestAccessTruncateExample,
+export const VrInlineCardResolvedIconVariations: WorkbenchExample<
+	typeof VrInlineCardResolvedIconVariationsExample
+> = wb(VrInlineCardResolvedIconVariationsExample);
+export const VrInlineCardSelected: WorkbenchExample<typeof VrInlineCardSelectedExample> = wb(
+	VrInlineCardSelectedExample,
 );
-export const VrInlineCardForbiddenSiteRequestAccess: WorkbenchExample = wb(
-	VrInlineCardForbiddenSiteRequestAccessExample,
+export const VrInlineCardTextWrap: WorkbenchExample<typeof VrInlineCardTextWrapExample> = wb(
+	VrInlineCardTextWrapExample,
 );
-export const VrInlineCardForbiddenTruncate: WorkbenchExample = wb(
-	VrInlineCardForbiddenTruncateExample,
-);
-export const VrInlineCardForbidden: WorkbenchExample = wb(VrInlineCardForbiddenExample);
-export const VrInlineCardIcons: WorkbenchExample = wb(VrInlineCardIconsExample);
-export const VrInlineCardNotFoundTruncate: WorkbenchExample = wb(
-	VrInlineCardNotFoundTruncateExample,
-);
-export const VrInlineCardNotFound: WorkbenchExample = wb(VrInlineCardNotFoundExample);
-export const VrInlineCardResolvedIconVariations: WorkbenchExample = wb(
-	VrInlineCardResolvedIconVariationsExample,
-);
-export const VrInlineCardSelected: WorkbenchExample = wb(VrInlineCardSelectedExample);
-export const VrInlineCardTextWrap: WorkbenchExample = wb(VrInlineCardTextWrapExample);
-export const VrInlineCardUnauthorisedDefaultIcon: WorkbenchExample = wb(
-	VrInlineCardUnauthorisedDefaultIconExample,
-);
-export const VrInlineCardUnauthorisedNoAuth: WorkbenchExample = wb(
-	VrInlineCardUnauthorisedNoAuthExample,
-);
-export const VrInlineCardUnauthorisedSocialProofLoaded: WorkbenchExample = wb(
-	VrInlineCardUnauthorisedSocialProofLoadedExample,
-);
-export const VrInlineCardUnauthorisedSocialProofLowExplore: WorkbenchExample = wb(
-	VrInlineCardUnauthorisedSocialProofLowExploreExample,
-);
-export const VrInlineCardUnauthorisedSocialProofLowNoContext: WorkbenchExample = wb(
-	VrInlineCardUnauthorisedSocialProofLowNoContextExample,
-);
-export const VrInlineCardUnauthorisedSocialProofNarrow: WorkbenchExample = wb(
-	VrInlineCardUnauthorisedSocialProofNarrowExample,
-);
-export const VrInlineCardUnauthorisedSocialProofNoContext: WorkbenchExample = wb(
-	VrInlineCardUnauthorisedSocialProofNoContextExample,
-);
-export const VrInlineCardUnauthorisedTruncate: WorkbenchExample = wb(
-	VrInlineCardUnauthorisedTruncateExample,
-);
-export const VrInlineCardUnauthorised: WorkbenchExample = wb(VrInlineCardUnauthorisedExample);
+export const VrInlineCardUnauthorisedDefaultIcon: WorkbenchExample<
+	typeof VrInlineCardUnauthorisedDefaultIconExample
+> = wb(VrInlineCardUnauthorisedDefaultIconExample);
+export const VrInlineCardUnauthorisedNoAuth: WorkbenchExample<
+	typeof VrInlineCardUnauthorisedNoAuthExample
+> = wb(VrInlineCardUnauthorisedNoAuthExample);
+export const VrInlineCardUnauthorisedSocialProofLoaded: WorkbenchExample<
+	typeof VrInlineCardUnauthorisedSocialProofLoadedExample
+> = wb(VrInlineCardUnauthorisedSocialProofLoadedExample);
+export const VrInlineCardUnauthorisedSocialProofLowExplore: WorkbenchExample<
+	typeof VrInlineCardUnauthorisedSocialProofLowExploreExample
+> = wb(VrInlineCardUnauthorisedSocialProofLowExploreExample);
+export const VrInlineCardUnauthorisedSocialProofLowNoContext: WorkbenchExample<
+	typeof VrInlineCardUnauthorisedSocialProofLowNoContextExample
+> = wb(VrInlineCardUnauthorisedSocialProofLowNoContextExample);
+export const VrInlineCardUnauthorisedSocialProofNarrow: WorkbenchExample<
+	typeof VrInlineCardUnauthorisedSocialProofNarrowExample
+> = wb(VrInlineCardUnauthorisedSocialProofNarrowExample);
+export const VrInlineCardUnauthorisedSocialProofNoContext: WorkbenchExample<
+	typeof VrInlineCardUnauthorisedSocialProofNoContextExample
+> = wb(VrInlineCardUnauthorisedSocialProofNoContextExample);
+export const VrInlineCardUnauthorisedTruncate: WorkbenchExample<
+	typeof VrInlineCardUnauthorisedTruncateExample
+> = wb(VrInlineCardUnauthorisedTruncateExample);
+export const VrInlineCardUnauthorised: WorkbenchExample<typeof VrInlineCardUnauthorisedExample> =
+	wb(VrInlineCardUnauthorisedExample);

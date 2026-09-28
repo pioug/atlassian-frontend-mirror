@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-history
 
+## 22.1.0
+
+### Minor Changes
+
+- [`06360d6f00779`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06360d6f00779) -
+  Add an experiment dependency and refresh undo and redo availability after history restoration,
+  behind platform_editor_ai_review_moment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.0
 
 ### Patch Changes

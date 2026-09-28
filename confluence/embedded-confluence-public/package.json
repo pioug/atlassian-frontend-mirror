@@ -48,7 +48,8 @@
 		"react-intl": "root:*",
 		"react-markdown": "root:*",
 		"remark-gfm": "root:*",
-		"wait-for-expect": "root:*"
+		"wait-for-expect": "root:*",
+		"webpack-cli": "root:*"
 	},
 	"optionalDependencies": {
 		"@atlassian/embedded-confluence-common": "workspace:^",

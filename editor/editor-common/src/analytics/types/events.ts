@@ -67,7 +67,6 @@ import type { MediaEventPayload } from './media-events';
 import type { MentionEventPayload } from './mention-events';
 import type { MoveContentEventPayload } from './move-content-events';
 import type { NativeEmbedResizeErroredAEP } from './native-embed-events';
-import type { NcsSessionStepEventAEP } from './ncs-session-step-events';
 import type { NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
 import type { OfflineEditingEventPayload } from './offline-editing-event';
@@ -169,7 +168,6 @@ export type AnalyticsEventPayload<T = void> =
 	| AlignmentEventPayload
 	| UndoRedoAEP
 	| OfflineEditingEventPayload
-	| NcsSessionStepEventAEP
 	| AgentEditShimmerNotShownAEP
 	| FloatingToolbarOverflowEventPayload
 	| SyncBlockEventPayload

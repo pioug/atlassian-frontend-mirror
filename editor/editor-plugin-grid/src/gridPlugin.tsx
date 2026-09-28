@@ -141,7 +141,7 @@ type Props = {
 	editorWidth: number;
 	gridType: GridType;
 	highlight: Highlights;
-	overlayWidth?: number;
+	overlayWidth: number;
 
 	shouldCalcBreakoutGridLines?: boolean;
 	// Ignored via go/ees005
@@ -175,7 +175,7 @@ const GridLegacy = ({
 				style={{
 					height: `${containerElement.scrollHeight}px`,
 					display: visible ? 'block' : 'none',
-					width: overlayWidth === undefined ? undefined : `${overlayWidth}px`,
+					width: `${overlayWidth}px`,
 				}}
 				data-testid="gridContainer"
 			>
@@ -208,7 +208,7 @@ const GridNext = ({
 				style={{
 					height: `${containerElement.scrollHeight}px`,
 					display: visible ? 'block' : 'none',
-					width: overlayWidth === undefined ? undefined : `${overlayWidth}px`,
+					width: `${overlayWidth}px`,
 				}}
 				data-testid="gridContainer"
 			>
@@ -255,9 +255,7 @@ const ContentComponent = ({ api, editorView, options }: ContentComponentProps) =
 		['width', 'grid'],
 		selector,
 	);
-	const overlayWidth = expValEquals('platform_editor_external_embed_grid_fix', 'isEnabled', true)
-		? (lineLength || width || akEditorFullPageMaxWidth) + GRID_GUTTER_WIDTH
-		: undefined;
+	const overlayWidth = (lineLength || width || akEditorFullPageMaxWidth) + GRID_GUTTER_WIDTH;
 
 	if (!visible || !highlight) {
 		return null;

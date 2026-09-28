@@ -26,7 +26,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import AccessibilityIcon from '@atlaskit/icon/core/accessibility';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import { getTokenValue } from '@atlaskit/tokens/get-token-value';
@@ -423,23 +422,14 @@ const AccessibilityStatus = ({
 const styles = cssMap({
 	container: {
 		border: 'none',
-		marginTop: token('space.100'),
-		paddingTop: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.100'),
-		paddingRight: token('space.050'),
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-	},
-	// Merge these overrides back into container when cleaning up
-	// platform_editor_lovability_text_bg_color_patch_1.
-	containerPatch: {
 		marginTop: token('space.0'),
 		paddingTop: token('space.0'),
 		paddingBottom: token('space.0'),
 		paddingLeft: token('space.0'),
 		paddingRight: token('space.0'),
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
 	},
 });
 
@@ -453,7 +443,7 @@ export const ColorAccessibilityMenuItem = ({
 	const editorState = editorView?.state;
 	const accessibilityStatus = React.useMemo<AccessibilityStatusKey | null>(
 		() =>
-			editorState && fg('platform_editor_lovability_text_bg_color_patch_1')
+			editorState
 				? getAccessibilityStatusForCurrentSelection(
 						editorState,
 						defaultColor,
@@ -483,22 +473,9 @@ export const ColorAccessibilityMenuItem = ({
 	};
 
 	return (
-		<Box
-			xcss={cx(
-				styles.container,
-				fg('platform_editor_lovability_text_bg_color_patch_1') && styles.containerPatch,
-			)}
-		>
+		<Box xcss={cx(styles.container)}>
 			<Inline alignBlock="center" space="space.050">
-				<AccessibilityIcon
-					label=""
-					size="medium"
-					color={
-						fg('platform_editor_lovability_text_bg_color_patch_1')
-							? token('color.icon.subtle')
-							: undefined
-					}
-				/>
+				<AccessibilityIcon label="" size="medium" color={token('color.icon.subtle')} />
 				<Text as="span" size="small" color="color.text.subtle">
 					{formatMessage(messages.accessibility)}
 				</Text>

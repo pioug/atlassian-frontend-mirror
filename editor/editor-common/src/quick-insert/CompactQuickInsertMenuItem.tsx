@@ -130,6 +130,11 @@ export const CompactQuickInsertMenuItem = ({
 	);
 	const shouldRenderPreview = shouldShowPreview && isSelected && !isDisabled;
 	const hasAccessiblePreview = Boolean(resolvedDescription || resolvedPreview?.attribution);
+	const previewAttributionName = resolvedPreview.attribution?.name;
+	const previewAttributionKey =
+		typeof previewAttributionName === 'string'
+			? previewAttributionName
+			: previewAttributionName?.id;
 
 	const wrappedIcon =
 		iconBefore && shouldWrapIcon ? <Box xcss={styles.iconLarge}>{iconBefore}</Box> : iconBefore;
@@ -159,7 +164,7 @@ export const CompactQuickInsertMenuItem = ({
 			</Pressable>
 			{shouldRenderPreview && referenceElement && (
 				<QuickInsertHoverPreview
-					key={resolvedPreview.image?.light ?? resolvedPreview.attribution?.name ?? title}
+					key={resolvedPreview.image?.light ?? previewAttributionKey ?? title}
 					id={previewId}
 					description={resolvedDescription}
 					preview={resolvedPreview}

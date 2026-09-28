@@ -166,7 +166,7 @@ export const createNodeChangedDecorationWidget = ({
 	tagMountContext,
 	deletedColumns,
 }: {
-	activeIndexPos?: { from: number; to: number };
+	activeIndexPos?: { attributionKey?: string; from: number; to: number };
 	attributionKey?: string;
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted' | 'toB'>;
 	colorScheme?: ColorScheme;
@@ -206,7 +206,9 @@ export const createNodeChangedDecorationWidget = ({
 	const isActive =
 		activeIndexPos &&
 		(fg('confluence_ncs_step_diffing_version_history')
-			? safeInsertPos >= activeIndexPos.from && safeInsertPos <= activeIndexPos.to
+			? safeInsertPos >= activeIndexPos.from &&
+				safeInsertPos <= activeIndexPos.to &&
+				(!('attributionKey' in activeIndexPos) || activeIndexPos.attributionKey === attributionKey)
 			: safeInsertPos === activeIndexPos.from && safeInsertPos === activeIndexPos.to);
 
 	if (deletedBlankLineCount > 0) {

@@ -9,8 +9,6 @@ jest.mock('@atlaskit/react-ufo/feature-flags-accessed', () => ({
 	addFeatureFlagAccessed: jest.fn(),
 }));
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-
 const mockGetExperimentValue = jest.spyOn(FeatureGates, 'getExperimentValue');
 const mockInitializeCompleted = jest.spyOn(FeatureGates, 'initializeCompleted');
 
@@ -80,30 +78,24 @@ describe('expVal', () => {
 		expect(expVal('test-multivariate', 'variation', 'default value')).toBe('not default value');
 	});
 
-	ffTest.on(
-		'platform_editor_experiments_use_product_keys',
-		'expVal fires exposure using product key when gate is on',
-		() => {
-			test('expVal fires exposure', () => {
-				setupEditorExperiments('confluence');
-				mockGetExperimentValue.mockReturnValueOnce(false);
+	test('expVal fires exposure using the product key', () => {
+		setupEditorExperiments('confluence');
+		mockGetExperimentValue.mockReturnValueOnce(false);
 
-				// @ts-expect-error
-				expVal('test-boolean', 'isEnabled', false);
+		// @ts-expect-error
+		expVal('test-boolean', 'isEnabled', false);
 
-				// Gate on, test-boolean is NOT in disallowsProductKeys → uses the product-specific key
-				expect(mockGetExperimentValue).toHaveBeenNthCalledWith(
-					1,
-					'confluence_boolean_example',
-					'isEnabled',
-					false,
-					{
-						fireExperimentExposure: true,
-					},
-				);
-			});
-		},
-	);
+		// test-boolean is NOT in disallowsProductKeys → uses the product-specific key
+		expect(mockGetExperimentValue).toHaveBeenNthCalledWith(
+			1,
+			'confluence_boolean_example',
+			'isEnabled',
+			false,
+			{
+				fireExperimentExposure: true,
+			},
+		);
+	});
 
 	test('works with group overrides', () => {
 		setupEditorExperiments('test', {
@@ -174,30 +166,24 @@ describe('expValNoExposure', () => {
 		);
 	});
 
-	ffTest.on(
-		'platform_editor_experiments_use_product_keys',
-		"expValNoExposure doesn't fire exposure but uses product key when gate is on",
-		() => {
-			test("expValNoExposure doesn't fire exposure", () => {
-				setupEditorExperiments('confluence');
-				mockGetExperimentValue.mockReturnValueOnce(false);
+	test("expValNoExposure doesn't fire exposure but uses the product key", () => {
+		setupEditorExperiments('confluence');
+		mockGetExperimentValue.mockReturnValueOnce(false);
 
-				// @ts-expect-error
-				expValNoExposure('test-boolean', 'isEnabled', false);
+		// @ts-expect-error
+		expValNoExposure('test-boolean', 'isEnabled', false);
 
-				// Gate on, test-boolean is NOT in disallowsProductKeys → uses the product-specific key
-				expect(mockGetExperimentValue).toHaveBeenNthCalledWith(
-					1,
-					'confluence_boolean_example',
-					'isEnabled',
-					false,
-					{
-						fireExperimentExposure: false,
-					},
-				);
-			});
-		},
-	);
+		// test-boolean is NOT in disallowsProductKeys → uses the product-specific key
+		expect(mockGetExperimentValue).toHaveBeenNthCalledWith(
+			1,
+			'confluence_boolean_example',
+			'isEnabled',
+			false,
+			{
+				fireExperimentExposure: false,
+			},
+		);
+	});
 
 	test('works with group overrides', () => {
 		setupEditorExperiments('test', {
@@ -325,29 +311,6 @@ describe('expVal error handling', () => {
 			{ fireExperimentExposure: true },
 		);
 	});
-
-	ffTest.off(
-		'platform_editor_experiments_use_product_keys',
-		'gate is off — always uses experiment name',
-		() => {
-			test('expVal uses experiment name when gate is off (even for non-disallowed experiments on jira)', () => {
-				setupEditorExperiments('jira');
-				mockGetExperimentValue.mockReturnValueOnce(true);
-
-				// @ts-expect-error
-				expVal('test-boolean', 'isEnabled', false);
-
-				// Gate off → uses experiment name, not jira product key
-				expect(mockGetExperimentValue).toHaveBeenNthCalledWith(
-					1,
-					'test-boolean',
-					'isEnabled',
-					false,
-					{ fireExperimentExposure: true },
-				);
-			});
-		},
-	);
 });
 
 describe('UFO feature flag reporting (expVal)', () => {

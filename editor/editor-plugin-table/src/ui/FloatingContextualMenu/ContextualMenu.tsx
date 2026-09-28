@@ -55,7 +55,6 @@ import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
@@ -279,9 +278,11 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			const node = isOpen && targetCellPosition ? state.doc.nodeAt(targetCellPosition) : null;
 			const background = hexToEditorBackgroundPaletteColor(node?.attrs?.background || '#ffffff');
 
-			const isMoreColorsEnabled =
-				expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-				fg('platform_editor_lovability_text_bg_color_patch_2');
+			const isMoreColorsEnabled = expValEquals(
+				'platform_editor_lovability_text_bg_color',
+				'isEnabled',
+				true,
+			);
 			const activePalette = isMoreColorsEnabled
 				? cellBackgroundColorPaletteNew
 				: cellBackgroundColorPalette;

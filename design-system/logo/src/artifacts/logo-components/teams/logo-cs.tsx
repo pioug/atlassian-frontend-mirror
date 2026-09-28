@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2734adc5c7d8290f3b4157f1ccfbe174>>
+ * @codegen <<SignedSource::623d751b0061bb54a19380db99ae6e90>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,7 +20,7 @@ const svg = `<svg height="100%" viewBox="0 0 127 32">
 /**
  * __TeamsLogoCS__
  *
- * An internal component to represent the logo for Teams.
+ * A component to represent the logo for Teams.
  *
  */
 export function TeamsLogoCS({

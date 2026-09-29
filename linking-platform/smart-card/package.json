@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "46.1.4",
+	"version": "46.1.10",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -142,6 +142,7 @@
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
+		"@testing-library/react": "root:*",
 		"@types/facepaint": "root:*",
 		"@types/lorem-ipsum": "root:*",
 		"@types/react": "root:*",
@@ -262,6 +263,10 @@
 		"./use-fire3-p-workflows-click-event": "./src/view/SmartLinkEvents/useFire3PWorkflowsClickEvent.tsx"
 	},
 	"platform-feature-flags": {
+		"platform_sl_one_click_chat_spotlight_v2_fg": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"confluence_ep_shim_macro_links_v2": {
 			"type": "boolean",
 			"referenceOnly": true

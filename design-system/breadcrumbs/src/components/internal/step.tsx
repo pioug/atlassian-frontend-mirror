@@ -145,11 +145,22 @@ const styles = cssMap({
 });
 
 const unboundedStyles = unboundedCssMap({
+	iconWrapperRefresh: {
+		width: token('space.300'),
+		height: token('space.300'),
+	},
 	iconWrapperSmall: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Preserve small icon sizing without mutating the child element.
 		'& svg': {
 			width: '16px',
 			height: '16px',
+		},
+	},
+	iconWrapperSmallRefresh: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Preserve small icon sizing without mutating the child element.
+		'& svg': {
+			width: token('space.200'),
+			height: token('space.200'),
 		},
 	},
 	iconWrapper: {
@@ -197,10 +208,12 @@ const Step: React.ForwardRefExoticComponent<
 		const breadcrumbsSize = useBreadcrumbsSize();
 		const isSmall = breadcrumbsSize === 'small';
 		// Preserve the text/trailing-icon width budget now that the leading icon is inside the control.
-		const leadingIconWidth = resolvedElemBefore ? 24 + (isSmall ? 0 : 2) : 0;
+		const leadingIconWidth = resolvedElemBefore
+			? `${token('space.300')} + ${isSmall ? token('space.0') : token('space.025')}`
+			: '0px';
 		const maxWidth =
 			fg('platform_dst_breadcrumbs-refresh') && truncationWidth != null
-				? truncationWidth + leadingIconWidth
+				? `calc(${truncationWidth}px + ${leadingIconWidth})`
 				: truncationWidth;
 
 		const handleClick = usePlatformLeafEventHandler({
@@ -223,10 +236,14 @@ const Step: React.ForwardRefExoticComponent<
 			<span
 				css={[
 					styles.iconWrapper,
+					fg('platform_dst_breadcrumbs-refresh') && unboundedStyles.iconWrapperRefresh,
 					unboundedStyles.iconWrapper,
 					fg('platform_dst_breadcrumbs-refresh') && styles.iconWrapperSpacing,
 					isSmall && styles.iconWrapperSmallSpacing,
-					isSmall && unboundedStyles.iconWrapperSmall,
+					!fg('platform_dst_breadcrumbs-refresh') && isSmall && unboundedStyles.iconWrapperSmall,
+					fg('platform_dst_breadcrumbs-refresh') &&
+						isSmall &&
+						unboundedStyles.iconWrapperSmallRefresh,
 				]}
 				data-testid={testId && `${testId}--icon-before`}
 			>

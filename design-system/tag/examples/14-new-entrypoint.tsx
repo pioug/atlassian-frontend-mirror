@@ -45,8 +45,7 @@ const colors: NewTagColor[] = [
 ];
 
 /**
- * Example using the new `/new` entrypoint which exports the new Tag component
- * directly without requiring the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag.
+ * Example using the new `/new` entrypoint which exports the new Tag component directly.
  *
  * This entrypoint is intended for products that don't have access to feature flags (e.g. Statsig).
  * It will be removed after the visual uplift rollout is complete, which will require cleanup in

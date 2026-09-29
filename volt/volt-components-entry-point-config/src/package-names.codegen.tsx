@@ -3,8 +3,8 @@
  *
  * Volt Stage 1 / Stage 2 readiness map derived from volt-preset-packages.json.
  *
- * @codegen <<SignedSource::31c1967acda15a26c7a06a251dca4ddc>>
- * @codegenCommand yarn workspace @atlaskit/volt-components-entry-point-config codegen
+ * @codegen <<SignedSource::5a7540eabe81fea2dac01a826e8f403c>>
+ * @codegenCommand afm workspace @atlaskit/volt-components-entry-point-config codegen
  */
 /**
  * Package → Volt Stage 1 / Stage 2 readiness from
@@ -14,7 +14,7 @@
  * `consumersMigrated: true` is Stage 2 (reserved for future warn→error).
  *
  * Do not edit by hand — regenerate via:
- * `yarn workspace @atlaskit/volt-components-entry-point-config codegen`
+ * `afm workspace @atlaskit/volt-components-entry-point-config codegen`
  */
 export const PACKAGE_NAMES = {
 	'@atlaskit/adf-schema': { voltCompliant: false, consumersMigrated: false },

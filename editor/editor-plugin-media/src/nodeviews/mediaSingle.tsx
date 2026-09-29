@@ -29,6 +29,7 @@ import {
 } from '@atlaskit/editor-common/utils/content-visibility';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
@@ -132,12 +133,30 @@ const MediaSingleNodeWrapper = ({
 	);
 };
 
+/**
+ * Only the percentage-based `ResizableMediaSingle` reads `offsetLeft`, to offset the resize grid
+ * for an image indented in a list. Pixel resizing and no-resizer configurations never consume it,
+ * so `ignoreMutation` can skip the forced layout read for them.
+ *
+ * We can remove this and always return true from ignoreMutation once the legacy media resizer is removed.
+ */
+const shouldSkipOffsetLeftRead = (mediaOptions: MediaOptions | undefined): boolean => {
+	const allowPixelResizing = Boolean(mediaOptions && mediaOptions.allowPixelResizing);
+	const allowResizing = Boolean(mediaOptions && mediaOptions.allowResizing);
+
+	return (
+		(allowPixelResizing || !allowResizing) &&
+		isExperimentEnabled('platform_editor_reduce_forced_layout')
+	);
+};
+
 class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 	lastOffsetLeft = 0;
 	forceViewUpdate = false;
 	selectionType: number | null = null;
 	unsubscribeToViewModeChange: (() => void) | undefined;
 	hasResized = false;
+	skipsOffsetLeftRead: boolean | null = null;
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
@@ -364,7 +383,15 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		);
 	}
 
-	ignoreMutation() {
+	ignoreMutation(): boolean {
+		if (this.skipsOffsetLeftRead === null) {
+			this.skipsOffsetLeftRead = shouldSkipOffsetLeftRead(this.reactComponentProps.mediaOptions);
+		}
+
+		if (this.skipsOffsetLeftRead) {
+			return true;
+		}
+
 		// DOM has changed; recalculate if we need to re-render
 		if (this.dom) {
 			// Ignored via go/ees005

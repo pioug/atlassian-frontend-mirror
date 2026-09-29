@@ -3,8 +3,8 @@
  *
  * Generated prop types for Global component - ReorderableMenuItems
  *
- * @codegen <<SignedSource::e803c1afbf3ed793ea9268f09cf502aa>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
+ * @codegen <<SignedSource::29e498949872bda549276b4df32e3434>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::3217debf5ba68e84ca5ef7cdbf6ebb43>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/reorderable-menu-items/types.ts <<SignedSource::c4a5138ef88fa4afdfc33dcd5314731f>>
  */

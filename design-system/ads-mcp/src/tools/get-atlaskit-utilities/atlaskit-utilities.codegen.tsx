@@ -3,8 +3,8 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::6cf2c99c6dc783e5bef5e55ecb2a7efb>>
- * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
+ * @codegen <<SignedSource::f772ca58d6b490b63f10ee0aa1028a24>>
+ * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
 import type { UtilityMcpPayload } from './types';

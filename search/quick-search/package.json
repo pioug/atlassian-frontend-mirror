@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/quick-search",
-	"version": "11.4.6",
+	"version": "11.4.7",
 	"description": "A quick-search component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

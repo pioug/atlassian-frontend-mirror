@@ -854,7 +854,11 @@ export const createPlugin = (
 			deferDispatch(() => {
 				api?.core.actions.execute(({ tr }) =>
 					tr.setMeta(syncedBlockPluginKey, {
-						activeFlag: { id: FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED, sourceProduct },
+						activeFlag: {
+							id: FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED,
+							sourceProduct,
+							resourceId,
+						},
 					}),
 				);
 			});

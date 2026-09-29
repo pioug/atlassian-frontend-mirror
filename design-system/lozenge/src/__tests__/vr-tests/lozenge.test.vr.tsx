@@ -11,7 +11,6 @@ import LozengeDropdownTrigger from '../../../examples/8-lozenge-dropdown-trigger
 snapshot(Basic, {
 	featureFlags: {
 		'platform-lozenge-custom-letterspacing': [true, false],
-		'platform-dst-lozenge-tag-badge-visual-uplifts': [true, false],
 	},
 });
 
@@ -19,9 +18,5 @@ snapshot(BaselineAlignment);
 snapshot(CustomColor);
 snapshot(WidthHandling);
 snapshot(LozengeContainers);
-snapshot(NewLozenge, {
-	featureFlags: {
-		'platform-dst-lozenge-tag-badge-visual-uplifts': [true, false],
-	},
-});
+snapshot(NewLozenge);
 snapshot(LozengeDropdownTrigger);

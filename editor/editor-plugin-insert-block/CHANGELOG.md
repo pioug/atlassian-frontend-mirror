@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 23.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.5
+
+### Patch Changes
+
+- [`6a4ce5b236e6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a4ce5b236e6b) -
+  [ux] Expose the emoji content identifier in shared state and pass it to toolbar emoji pickers so
+  Confluence comments can use AI emoji generation behind `confluence_ai_generated_emojis`.
+- Updated dependencies
+
+## 23.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.3
 
 ### Patch Changes

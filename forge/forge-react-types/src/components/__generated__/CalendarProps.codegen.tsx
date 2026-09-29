@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - CalendarProps
  *
- * @codegen <<SignedSource::9b36c80a1a940e859a1f96608cb912f0>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::e77b3743aaf51eb7f7ccc422c87a02f7>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/calendar/__generated__/index.partial.tsx <<SignedSource::54621340adc2da9cc1951f16867d00f8>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

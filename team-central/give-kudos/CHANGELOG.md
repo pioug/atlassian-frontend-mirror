@@ -1,5 +1,29 @@
 # @atlassian/give-kudos
 
+## 7.1.0
+
+### Minor Changes
+
+- [`63ef8afc66021`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63ef8afc66021) -
+  Fix keyboard focus being lost when the Give Kudos drawer is closed from a user profile card, and
+  stop the profile card from closing when the drawer is dismissed with its close button.
+
+  Behind the `teams_a11y_focus_high_priority` feature gate:
+  - Focus returns to the profile card's "More actions" button when the drawer closes. The "Give
+    kudos" item itself can't be the target: it lives inside the menu popup, which unmounts the
+    instant the menu closes.
+  - The profile card now stays open for the drawer's whole lifetime. Previously a click on the
+    drawer's close button — portalled to `<body>` and carrying no `data-ds--level` — was treated by
+    the card's popup as an outside click, closing the card (and the focus-return target) underneath
+    the drawer. Escape was unaffected because popup's keydown path checks layering and its click
+    path does not.
+
+  New APIs:
+  - `@atlaskit/teams-app-internal-popup-adaptor`: `PopupTriggerWithHover` accepts
+    `shouldPreventClose`, consulted before every close; return `true` to keep the popup open.
+  - `@atlaskit/give-kudos`: `GiveKudosLauncher` accepts `triggerRef` (forwarded to the drawer's
+    `shouldReturnFocus`) and `onCloseComplete` (fires once the drawer has fully closed).
+
 ## 7.0.0
 
 ### Major Changes

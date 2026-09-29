@@ -3,8 +3,8 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::3d0d3651f4ee8999c785e29eda73533b>>
- * @codegenCommand yarn workspace @atlaskit/link-create run codegen-analytics
+ * @codegen <<SignedSource::7ed258358e2e029f1f8ea49b056c3238>>
+ * @codegenCommand afm workspace @atlaskit/link-create codegen-analytics
  */
 export type PackageMetaDataType = {
 	packageName: string;

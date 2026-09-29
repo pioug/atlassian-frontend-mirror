@@ -61,7 +61,9 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh enab
 
 			const item = screen.getByTestId('item-1');
 			expect(item).toBeInTheDocument();
-			expect(item).toHaveStyle({ maxWidth: '226px' });
+			expect(item).toHaveStyle({
+				'max-width': 'calc(200px + var(--ds-space-300, 24px) + var(--ds-space-025, 2px))',
+			});
 
 			const text = screen.getByText('Long content, icons before and after');
 			expect(text).toBeInTheDocument();

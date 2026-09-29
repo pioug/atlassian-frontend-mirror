@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TabProps
  *
- * @codegen <<SignedSource::3084943062415946113615474cefae38>>
+ * @codegen <<SignedSource::c3afc82d44b9fff45da0aa97e052a4d6>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tab.partial.tsx <<SignedSource::576606c14c69896661dfab611090478c>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tab.partial.tsx <<SignedSource::bf0b163600896ab26fca03aafae310f8>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

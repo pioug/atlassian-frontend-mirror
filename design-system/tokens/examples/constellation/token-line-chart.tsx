@@ -1,121 +1,105 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
-import ReactECharts from 'echarts-for-react';
+import { cssMap, jsx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 
-import { getTokenValue } from '@atlaskit/tokens/get-token-value';
-import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+import { ChartAxes } from './utils/chart-axes';
+import { ChartLabel } from './utils/chart-label';
+import { ChartTooltip } from './utils/chart-tooltip';
+import { plot } from './utils/plot';
+import { SvgChart } from './utils/svg-chart';
+import { useChartInteraction } from './utils/use-chart-interaction';
+import { valueY } from './utils/value-y';
 
-export const TokenLineChartCodeBlock = `
-//  This is using echarts-for-react to generate graphs and it's using canvas under the hood
+const styles = cssMap({
+	line: { fill: 'none', stroke: token('color.chart.success') },
+	point: {
+		fill: token('color.chart.success'),
+		'&:hover': { fill: token('color.chart.success.hovered') },
+	},
+});
 
-  const chartOptions = {
-    textStyle: {
-      color: getTokenValue('color.text.subtle', 'N500'),
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      axisLine: {
-        lineStyle: {
-          color: getTokenValue('color.border', 'N40'),
-        },
-      },
-    },
-    yAxis: {
-      type: 'value',
-      splitLine: {
-        lineStyle: {
-          color: getTokenValue('color.border', 'N40'),
-        },
-      },
-    },
-    series: [
-      {
-        data: [22, 33, 50, 53, 69, 83, 82],
-        type: 'line',
-        smooth: true,
-        itemStyle: {
-          normal: {
-            color: getTokenValue('color.chart.success', 'G400'),
-          },
-          emphasis: {
-            color: getTokenValue('color.chart.success.hovered', 'G500'),
-          },
-        },
-      },
-    ],
-  };
+const values = [22, 33, 50, 53, 69, 83, 82];
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const points = values.map((value, index) => ({
+	x:
+		plot.left +
+		plot.padding +
+		(index / (values.length - 1)) * (plot.right - plot.left - 2 * plot.padding),
+	y: valueY(value),
+}));
+
+// Midpoint controls keep the curve within each pair of values. SVG's S command
+// reflects the previous control point for a smooth join between equally spaced points.
+const linePath = points
+	.map(({ x, y }, index) => {
+		if (index === 0) {
+			return `M ${x},${y}`;
+		}
+		const previous = points[index - 1];
+		const middleX = (previous.x + x) / 2;
+		return index === 1
+			? `C ${middleX},${previous.y} ${middleX},${y} ${x},${y}`
+			: `S ${middleX},${y} ${x},${y}`;
+	})
+	.join(' ');
+
+export const TokenLineChartCodeBlock = `import { cssMap } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+  line: { fill: 'none', stroke: token('color.chart.success') },
+  point: {
+    fill: token('color.chart.success'),
+    '&:hover': { fill: token('color.chart.success.hovered') },
+  },
+});
+
+// Token styling excerpt; point coordinates and chart layout are omitted.
+<path d={linePath} css={styles.line} strokeWidth={2} />
+<circle cx={x} cy={y} r={5} css={styles.point} />
 `;
 
 export const TokenLineChart = (): React.JSX.Element => {
-	useThemeObserver();
-
-	const chartOptions = {
-		title: {
-			text: 'Resolved work items',
-			textStyle: {
-				color: getTokenValue('color.text'),
-				fontSize: 16,
-			},
-		},
-		tooltip: {
-			trigger: 'axis',
-			textStyle: {
-				color: getTokenValue('color.text'),
-			},
-			borderColor: getTokenValue('color.border'),
-			backgroundColor: getTokenValue('elevation.surface.overlay'),
-			axisPointer: {
-				lineStyle: { color: getTokenValue('color.border') },
-			},
-		},
-		textStyle: {
-			color: getTokenValue('color.text.subtle'),
-		},
-		xAxis: {
-			type: 'category',
-			data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-			axisLine: {
-				lineStyle: {
-					color: getTokenValue('color.border'),
-				},
-			},
-			axisTick: {
-				show: false,
-			},
-		},
-		yAxis: {
-			interval: 50,
-			type: 'value',
-			splitLine: {
-				lineStyle: {
-					color: getTokenValue('color.border'),
-				},
-			},
-		},
-		series: [
-			{
-				data: [22, 33, 50, 53, 69, 83, 82],
-				type: 'line',
-				symbol: 'circle',
-				smooth: true,
-				itemStyle: {
-					normal: {
-						color: getTokenValue('color.chart.success'),
-					},
-					emphasis: {
-						color: getTokenValue('color.chart.success.hovered'),
-					},
-				},
-			},
-		],
-	};
-
-	return <ReactECharts option={chartOptions} />;
+	const { activeIndex, getPointProps, getTooltipProps } = useChartInteraction();
+	return (
+		<SvgChart
+			title="Resolved work items"
+			description={days.map((day, index) => `${day}: ${values[index]}`).join(', ')}
+		>
+			<ChartAxes />
+			<path d={linePath} css={styles.line} strokeWidth={2} />
+			{points.map(({ x, y }, index) => (
+				<g key={days[index]}>
+					<g {...getPointProps(index, `${days[index]}: ${values[index]}`)}>
+						<circle cx={x} cy={y} r={14} fill="transparent" />
+						<circle cx={x} cy={y} r={5} css={styles.point} />
+					</g>
+					<ChartLabel x={x} y={288}>
+						{days[index]}
+					</ChartLabel>
+				</g>
+			))}
+			{activeIndex !== null && (
+				<ChartTooltip
+					x={points[activeIndex].x}
+					y={points[activeIndex].y}
+					{...getTooltipProps(activeIndex)}
+				>
+					{values[activeIndex]}
+				</ChartTooltip>
+			)}
+		</SvgChart>
+	);
 };
 
-const _default_1: {
-	example: () => React.JSX.Element;
-	code: string;
-} = { example: TokenLineChart, code: TokenLineChartCodeBlock };
-export default _default_1;
+const example: { example: () => React.JSX.Element; code: string } = {
+	example: TokenLineChart,
+	code: TokenLineChartCodeBlock,
+};
+
+export default example;

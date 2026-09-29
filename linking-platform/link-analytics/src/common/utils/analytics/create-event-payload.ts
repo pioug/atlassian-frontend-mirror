@@ -4,7 +4,7 @@
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
  * @codegen <<SignedSource::c64352804e2dc1a0b65a6765b7979b51>>
- * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-analytics
+ * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen link-analytics
  */
 import type { AnalyticsEventAttributes, EventKey } from './analytics.types';
 

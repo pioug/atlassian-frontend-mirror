@@ -43,6 +43,9 @@ const RefreshedJiraCodingAgentAvatar = lazy(() => import('./refreshed-assets/jir
 const RefreshedJiraIntelligentTriageAgentAvatar = lazy(
 	() => import('./refreshed-assets/jira-intelligent-triage-agent'),
 );
+const RefreshedJiraDeliveryAgentAvatar = lazy(
+	() => import('./refreshed-assets/jira-delivery-agent'),
+);
 const RefreshedJiraAdminAgentAvatar = lazy(() => import('./refreshed-assets/jira-admin-agent'));
 const RefreshedRequestResolverAvatar = lazy(() => import('./refreshed-assets/request-resolver'));
 const RefreshedOpsExpertAvatar = lazy(() => import('./refreshed-assets/ops-expert'));
@@ -321,6 +324,13 @@ const JiraIntelligentTriageAgentAvatar = lazy(
 	() =>
 		import(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraIntelligentTriageAgentAvatar"*/ './assets/jira-intelligent-triage-agent'
+		),
+);
+
+const JiraDeliveryAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraDeliveryAgentAvatar"*/ './assets/jira-delivery-agent'
 		),
 );
 
@@ -880,6 +890,19 @@ const outOfTheBoxAgentAvatar: Record<
 					primaryColor=""
 					secondaryColor=""
 				/>
+			),
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
+	},
+	jira_delivery_agent: {
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				<RefreshedJiraDeliveryAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={blueColor.v2.primary}
+					iconColor={blueColor.v2.iconColor}
+				/>
+			) : (
+				<JiraDeliveryAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 			),
 		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
 	},

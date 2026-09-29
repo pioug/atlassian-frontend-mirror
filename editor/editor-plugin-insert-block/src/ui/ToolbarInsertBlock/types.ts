@@ -26,6 +26,7 @@ export interface Props {
 	editorActions?: EditorActions;
 	editorAppearance?: EditorAppearance;
 	editorView: EditorView;
+	emojiContentId?: string;
 	emojiDisabled?: boolean;
 	emojiProvider?: Promise<EmojiProvider>;
 	expandEnabled?: boolean;

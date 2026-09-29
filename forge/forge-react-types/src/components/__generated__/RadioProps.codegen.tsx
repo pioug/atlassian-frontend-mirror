@@ -4,7 +4,7 @@
  * Extract component prop types from UIKit 2 components - RadioProps
  *
  * @codegen <<SignedSource::a7627645dca3852c8c716b51629a953d>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/radio/__generated__/index.partial.tsx <<SignedSource::24d94151d76a83de0609bd9b427e4f3a>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

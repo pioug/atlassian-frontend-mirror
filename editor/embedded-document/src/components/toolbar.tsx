@@ -47,13 +47,15 @@ export default (props: { editorActions?: any; mode: Mode }): React.JSX.Element =
 											// eslint-disable-next-line no-unused-vars
 										} catch (err) {}
 									}}
-									// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+									/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 								>
 									Publish
+									{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 								</Button>
-								{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
+								{/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 								<Button appearance="subtle" onClick={() => actions.cancelEdit()}>
 									Close
+									{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx, @atlassian/perf-linting/no-unstable-inline-props */}
 								</Button>
 							</ButtonGroup>
 						);
@@ -62,9 +64,10 @@ export default (props: { editorActions?: any; mode: Mode }): React.JSX.Element =
 						return (
 							<Toolbar>
 								<ButtonGroup>
-									{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
+									{/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 									<Button appearance="primary" onClick={() => actions.editDocument()}>
 										Edit
+										{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx, @atlassian/perf-linting/no-unstable-inline-props */}
 									</Button>
 								</ButtonGroup>
 							</Toolbar>

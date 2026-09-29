@@ -4,7 +4,7 @@
  * Extract component prop types from UIKit 2 components - TextfieldProps
  *
  * @codegen <<SignedSource::31074b919540a908cdd081018805c121>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/textfield/index.tsx <<SignedSource::03b967815639a5a5aae4f79da283d410>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

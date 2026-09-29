@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "24.0.3",
+	"version": "24.0.7",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -124,6 +124,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_agent_mentions_no_task_autofire": {
+			"type": "boolean"
+		},
+		"platform_editor_agent_mentions_hide_labs_lozenge": {
 			"type": "boolean"
 		},
 		"platform_editor_agent_card_fixes": {

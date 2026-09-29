@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - TopNavEndProps
  *
- * @codegen <<SignedSource::1c3d487900011fc7251a5a2eec11fa5f>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::8564ff19ef4fc9de44d3d766e45d78ca>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../../../services/forge-common-app-gateway/src/components/navigation/TopNavEnd.tsx <<SignedSource::f3eb55027d40bf54252699b1c448d45e>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

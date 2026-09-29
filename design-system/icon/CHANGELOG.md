@@ -1,5 +1,20 @@
 # @atlaskit/icon
 
+## 38.0.2
+
+### Patch Changes
+
+- [`3fbc5931c675b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fbc5931c675b) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+  - `panel-left`
+  - `panel-right`
+
+- Updated dependencies
+
 ## 38.0.1
 
 ### Patch Changes

@@ -1,24 +1,11 @@
 import React from 'react';
 
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { render, screen } from '@atlassian/testing-library';
 
 import { ToolbarDropdownItem } from '../ToolbarDropdownItem';
 
-const enableLayoutColumnMenuExperiment = () => {
-	setupEditorExperiments('test', {
-		platform_editor_layout_column_menu: true,
-	});
-};
-
 describe('ToolbarDropdownItem roles', () => {
-	afterEach(() => {
-		setupEditorExperiments('test', {});
-	});
-
 	it('does not infer menuitemradio for selected button items without explicit role', async () => {
-		enableLayoutColumnMenuExperiment();
-
 		render(
 			<div role="menu">
 				<ToolbarDropdownItem isSelected>Selected button</ToolbarDropdownItem>
@@ -33,8 +20,6 @@ describe('ToolbarDropdownItem roles', () => {
 	});
 
 	it('sets aria-checked for selected button items with explicit menuitemradio role', () => {
-		enableLayoutColumnMenuExperiment();
-
 		render(
 			<div role="menu">
 				<ToolbarDropdownItem isSelected role="menuitemradio">
@@ -49,11 +34,6 @@ describe('ToolbarDropdownItem roles', () => {
 	});
 
 	it('does not infer menuitemradio for selected anchor items without explicit role', () => {
-		enableLayoutColumnMenuExperiment();
-		setupEditorExperiments('test', {
-			platform_editor_layout_column_menu: true,
-		});
-
 		render(
 			<div role="menu">
 				<ToolbarDropdownItem href="https://www.atlassian.com" isSelected>
@@ -69,10 +49,6 @@ describe('ToolbarDropdownItem roles', () => {
 	});
 
 	it('sets aria-checked for selected anchor items with explicit menuitemradio role', () => {
-		setupEditorExperiments('test', {
-			platform_editor_layout_column_menu: true,
-		});
-
 		render(
 			<div role="menu">
 				<ToolbarDropdownItem href="https://www.atlassian.com" isSelected role="menuitemradio">
@@ -87,8 +63,6 @@ describe('ToolbarDropdownItem roles', () => {
 	});
 
 	it('sets aria-checked for selected button items with explicit menuitemcheckbox role', () => {
-		enableLayoutColumnMenuExperiment();
-
 		render(
 			<div role="menu">
 				<ToolbarDropdownItem isSelected role="menuitemcheckbox">
@@ -103,10 +77,6 @@ describe('ToolbarDropdownItem roles', () => {
 	});
 
 	it('sets aria-checked for selected anchor items with explicit menuitemcheckbox role', () => {
-		setupEditorExperiments('test', {
-			platform_editor_layout_column_menu: true,
-		});
-
 		render(
 			<div role="menu">
 				<ToolbarDropdownItem href="https://www.atlassian.com" isSelected role="menuitemcheckbox">

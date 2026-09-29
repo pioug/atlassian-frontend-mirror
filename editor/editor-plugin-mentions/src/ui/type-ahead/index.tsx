@@ -665,7 +665,9 @@ export const createTypeAheadConfig = ({
 					limit: 5,
 					sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true },
 					lozenge:
-						!fg('platform_editor_agent_mentions_drop_one_fixes') || showAgentMentionsLabsLozenge ? (
+						!fg('platform_editor_agent_mentions_hide_labs_lozenge') &&
+						(!fg('platform_editor_agent_mentions_drop_one_fixes') ||
+							showAgentMentionsLabsLozenge) ? (
 							<Lozenge appearance="discovery">
 								{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel)}
 							</Lozenge>

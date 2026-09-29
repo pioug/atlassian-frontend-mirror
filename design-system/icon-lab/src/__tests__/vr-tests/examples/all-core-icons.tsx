@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::8a3112aadaf866678e8c08e9dedff21d>>
+ * @codegen <<SignedSource::2cefa4a88e16537e5616e06275b2594c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -26,6 +26,7 @@ import AiFilterIcon from '../../../../core/ai-filter';
 import AiGenerativeAudioBriefingIcon from '../../../../core/ai-generative-audio-briefing';
 import AiGenerativeChaptersIcon from '../../../../core/ai-generative-chapters';
 import AiGenerativeCleanupIcon from '../../../../core/ai-generative-cleanup';
+import AiGenerativeFixIcon from '../../../../core/ai-generative-fix';
 import AiGenerativeRemixIcon from '../../../../core/ai-generative-remix';
 import AiGenerativeRemoveIcon from '../../../../core/ai-generative-remove';
 import AiGenerativeRemoveSilenceIcon from '../../../../core/ai-generative-remove-silence';
@@ -340,6 +341,7 @@ import MilestoneIncompleteIcon from '../../../../core/milestone-incomplete';
 import MilestoneMultipleIcon from '../../../../core/milestone-multiple';
 import MilestoneOverdueIcon from '../../../../core/milestone-overdue';
 import MissedCallIcon from '../../../../core/missed-call';
+import ModalIcon from '../../../../core/modal';
 import NodeParallelBottomLeftIcon from '../../../../core/node-parallel-bottom-left';
 import NodeParallelBottomRightIcon from '../../../../core/node-parallel-bottom-right';
 import NodeParallelTopLeftIcon from '../../../../core/node-parallel-top-left';
@@ -1045,6 +1047,8 @@ const Icons = [
 	RovoDigestIcon,
 	SineWaveIcon,
 	ConversationIcon,
+	AiGenerativeFixIcon,
+	ModalIcon,
 ];
 
 const groupSize = 50;

@@ -18,7 +18,6 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	BlockControlsPlugin,
@@ -107,10 +106,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					// so that adjacent cells are not fused (e.g. 'hello world' + 'foo' must not
 					// become 'hello worldfoo'). Intl.Segmenter word-counting requires correct
 					// word boundaries, which raw textContent fusion breaks.
-					if (
-						preservedSelection instanceof CellSelection &&
-						expValEquals('remix_iw_block_menu_table_calc_fix', 'isEnabled', true)
-					) {
+					if (preservedSelection instanceof CellSelection) {
 						// Use node(1) to reliably target the table node regardless of $anchorCell depth.
 						// node(-1) would return tableRow if $anchorCell is at tableCell depth.
 						const tableNode = preservedSelection.$anchorCell.node(1);

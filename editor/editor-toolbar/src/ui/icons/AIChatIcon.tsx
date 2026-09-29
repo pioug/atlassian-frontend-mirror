@@ -29,18 +29,23 @@ const ROVO_SVG_PATH = `<svg width="12" height="12" viewBox="0 0 12 12" fill="non
 		<path fill-rule="evenodd" clip-rule="evenodd" d="M5.64873 7.83569L2.05206 9.91224L5.35553 11.8182C5.76873 12.0564 6.27718 12.0606 6.69373 11.8308C6.70128 11.825 6.70931 11.8196 6.71782 11.8147C7.01463 11.6436 7.2317 11.3691 7.33377 11.0521C7.37531 10.9211 7.39726 10.7826 7.39726 10.6409V8.84409L5.64873 7.83569Z" fill="#6A9A23"/>
 	</svg>`;
 
-const RovoLogoSVG = ({ label, testId }: { label: string; testId?: string }) => (
-	<span
-		css={[styles.container]}
-		role="img"
-		aria-label={label}
-		data-testid={testId}
-		// eslint-disable-next-line react/no-danger
-		dangerouslySetInnerHTML={{
-			__html: ROVO_SVG_PATH,
-		}}
-	/>
-);
+const RovoLogoSVG = ({ label, testId }: { label: string; testId?: string }) => {
+	const isDecorative = label === '';
+
+	return (
+		<span
+			css={[styles.container]}
+			role={isDecorative ? undefined : 'img'}
+			aria-label={isDecorative ? undefined : label}
+			aria-hidden={isDecorative ? true : undefined}
+			data-testid={testId}
+			// eslint-disable-next-line react/no-danger
+			dangerouslySetInnerHTML={{
+				__html: ROVO_SVG_PATH,
+			}}
+		/>
+	);
+};
 
 export const AIChatIcon = ({ label, testId }: AIChatIconProps): JSX.Element => (
 	<RovoLogoSVG label={label} testId={testId} />

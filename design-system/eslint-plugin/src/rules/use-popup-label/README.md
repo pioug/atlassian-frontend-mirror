@@ -27,17 +27,17 @@ prop.
 
 <Popup role="dialog" titleId>
                      ^^^^^^^ `titleId` prop is missing reference value.
-  <h1 id="popup-title">Popup content title</hi>
+  <h1 id="popup-title">Popup content title</h1>
 </Popup>
 
 <Popup role="dialog" titleId="">
                      ^^^^^^^ `titleId` prop is missing reference value.
-  <h1 id="popup-title">Popup content title</hi>
+  <h1 id="popup-title">Popup content title</h1>
 </Popup>
 
 <Popup role="dialog" titleId="popup-title" label="">
                      ^^^^^^^               ^^^^^ Do not include both `titleId` and `label` properties. Use `titleId` if the label text is available in the DOM to reference it, otherwise use `label` to provide accessible name explicitly.
-  <h1 id="popup-title">Popup content title</hi>
+  <h1 id="popup-title">Popup content title</h1>
 </Popup>
 ```
 
@@ -49,6 +49,6 @@ prop.
 </Popup>
 
 <Popup role="dialog" titleId="popup-title">
-  <h1 id="popup-title">Popup content title</hi>
+  <h1 id="popup-title">Popup content title</h1>
 </Popup>
 ```

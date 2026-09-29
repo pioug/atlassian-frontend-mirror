@@ -13,6 +13,7 @@ import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages'
 import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import AkFlag from '@atlaskit/flag/flag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';
@@ -20,6 +21,7 @@ import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -127,24 +129,72 @@ export const getSyncBlockCopiedDescription = (
 		: messages.syncBlockCopiedUnpublishedDescription;
 };
 
+const useSyncBlockSourceUrl = (
+	syncBlockStore: SyncBlockStoreManager | undefined,
+	resourceId: string | undefined,
+): string | undefined => {
+	const [sourceUrl, setSourceUrl] = React.useState<string | undefined>();
+
+	React.useEffect(() => {
+		setSourceUrl(undefined);
+		if (!syncBlockStore || !resourceId) {
+			return;
+		}
+
+		const { referenceManager } = syncBlockStore;
+		const cachedSourceUrl = referenceManager.getSyncBlockURL(resourceId);
+		if (cachedSourceUrl) {
+			setSourceUrl(cachedSourceUrl);
+			return;
+		}
+
+		let isCancelled = false;
+		void referenceManager.fetchSyncBlockSourceInfo(resourceId).then((sourceInfo) => {
+			if (!isCancelled) {
+				setSourceUrl(sourceInfo?.url);
+			}
+		});
+
+		return () => {
+			isCancelled = true;
+		};
+	}, [syncBlockStore, resourceId]);
+
+	return sourceUrl;
+};
+
 export const Flag = ({
 	api,
 	onFeedbackPromptShown,
 	onGiveFeedback,
 }: Props): React.JSX.Element | undefined => {
-	const { activeFlag, mode } = useSharedPluginStateWithSelector(
+	const { activeFlag, mode, syncBlockStore } = useSharedPluginStateWithSelector(
 		api,
 		['syncedBlock', 'connectivity'],
 		(states) => {
 			return {
 				activeFlag: states.syncedBlockState?.activeFlag,
 				mode: states.connectivityState?.mode,
+				syncBlockStore: states.syncedBlockState?.syncBlockStore,
 			};
 		},
 	);
 	const { formatMessage } = useIntl();
 	const isFeedbackPromptVisible =
 		activeFlag && activeFlag.id === FLAG_ID.SYNC_BLOCK_FEEDBACK_PROMPT;
+
+	const isJiraUnpublishedPaste =
+		!!activeFlag &&
+		activeFlag.id === FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED &&
+		activeFlag.sourceProduct === 'jira-work-item';
+	const sourceUrl = useSyncBlockSourceUrl(
+		syncBlockStore,
+		activeFlag &&
+			isJiraUnpublishedPaste &&
+			isExperimentEnabled('editor_synced_blocks_jira_custom_rich_text')
+			? activeFlag.resourceId
+			: undefined,
+	);
 
 	React.useEffect(() => {
 		if (!isFeedbackPromptVisible || !onFeedbackPromptShown) {
@@ -170,10 +220,6 @@ export const Flag = ({
 	} = flagMap[activeFlag.id];
 	const { onRetry, onDismissed: onDismissedCallback } = activeFlag;
 
-	// Copy and unpublished-paste flags vary their guidance by source product.
-	const isJiraUnpublishedPaste =
-		activeFlag.id === FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED &&
-		activeFlag.sourceProduct === 'jira-work-item';
 	const isCopiedFlag = activeFlag.id === FLAG_ID.SYNC_BLOCK_COPIED;
 	const isCopiedDescriptionEnabled =
 		isCopiedFlag &&
@@ -189,6 +235,18 @@ export const Flag = ({
 		(isJiraUnpublishedPaste
 			? messages.unpublishedSyncBlockPastedDescriptionJiraWorkItem
 			: defaultDescription);
+	const descriptionContent = description
+		? formatMessage(description, {
+				link: (chunks: React.ReactNode[]) =>
+					sourceUrl ? (
+						<Anchor href={sourceUrl} target="_blank" rel="noopener noreferrer">
+							{chunks}
+						</Anchor>
+					) : (
+						chunks
+					),
+			})
+		: undefined;
 
 	// Retry button often involves network request, hence we dismiss the flag in offline mode to avoid retry
 	if (isOfflineMode(mode) && !!onRetry) {
@@ -269,7 +327,7 @@ export const Flag = ({
 		<FlagComponent
 			onDismissed={onDismissed}
 			title={formatMessage(title)}
-			description={description ? formatMessage(description) : undefined}
+			description={descriptionContent}
 			id={activeFlag.id}
 			testId={activeFlag.id}
 			icon={typeToIcon(type)}

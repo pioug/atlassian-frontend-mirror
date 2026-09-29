@@ -6,7 +6,7 @@ import { surfaceDragHandleElementStore } from '@atlaskit/editor-common/block-con
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup, type PopupPosition } from '@atlaskit/editor-common/ui';
+import { Popup } from '@atlaskit/editor-common/ui';
 import {
 	ArrowKeyNavigationProvider,
 	ArrowKeyNavigationType,
@@ -24,16 +24,12 @@ import type { LayoutPlugin } from '../../layoutPluginType';
 import { getLayoutColumnMenuAnchorPos } from '../../pm-plugins/utils/layout-column-selection';
 import { LAYOUT_COLUMN_MENU_FALLBACKS } from './components';
 import { LAYOUT_COLUMN_MENU } from './keys';
-import {
-	calculateFallbackBottomPosition,
-	getLayoutColumnMenuPositioningProps,
-	shouldOpenLayoutColumnMenuBelow,
-} from './utils';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
 const TOOLBAR_MENU_SELECTOR = '[data-toolbar-component="menu"]';
 const NESTED_DROPDOWN_MENU_SELECTOR = '[data-toolbar-nested-dropdown-menu]';
+const LAYOUT_COLUMN_MENU_POPUP_OFFSET_BELOW: [number, number] = [0, 2];
 
 /**
  * Returns the drag handle button for the selected layout column.
@@ -195,22 +191,6 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 
 		const hasValidTarget = target instanceof HTMLElement;
 
-		const positionLayoutColumnMenu = useCallback(
-			(position: PopupPosition): PopupPosition => {
-				const popup = menuWrapperRef.current?.parentElement;
-				if (!(target instanceof HTMLElement) || !(popup instanceof HTMLElement)) {
-					return position;
-				}
-
-				if (shouldOpenLayoutColumnMenuBelow({ editorView, popup, scrollableElement, target })) {
-					return calculateFallbackBottomPosition(position, target, popup);
-				}
-
-				return position;
-			},
-			[editorView, scrollableElement, target],
-		);
-
 		useEffect(() => {
 			if (
 				isLayoutColumnMenuOpen &&
@@ -225,11 +205,6 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 			hasValidTarget,
 			isLayoutColumnMenuOpen,
 		]);
-
-		const { alignX, alignY, offset, useManualBelowFlip } = useMemo(
-			() => getLayoutColumnMenuPositioningProps(),
-			[],
-		);
 
 		if (
 			!isLayoutColumnMenuOpen ||
@@ -247,13 +222,10 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
 				zIndex={akEditorFloatingOverlapPanelZIndex}
-				alignX={alignX}
-				alignY={alignY}
 				forcePlacement={true}
 				preventOverflow={true}
 				stick={true}
-				offset={offset}
-				onPositionCalculated={useManualBelowFlip ? positionLayoutColumnMenu : undefined}
+				offset={LAYOUT_COLUMN_MENU_POPUP_OFFSET_BELOW}
 				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={closeLayoutColumnMenu}
 				focusTrap={openedViaKeyboard ? focusTrap : undefined}

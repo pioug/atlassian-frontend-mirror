@@ -2,8 +2,8 @@ import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 
 import { SEVEN_DAYS_MS, type SpotlightHistory } from './evaluate';
 
-/** Shared across inline cards. Account identifiers are held in memory only. */
-const stores = new Map<string, Promise<SpotlightSuppression | undefined>>();
+/** Shared across inline cards and accounts on this browser origin. */
+let store: SpotlightSuppression | undefined;
 let activeSpotlight: symbol | undefined;
 
 export interface SpotlightSuppression {
@@ -27,7 +27,7 @@ const isHistory = (value: unknown): value is SpotlightHistory => {
 	);
 };
 
-/** Reuses Smart Card's StorageClient, with timestamp-only values and a one-way user namespace. */
+/** Reuses Smart Card's StorageClient, with timestamp-only values in one browser-origin history. */
 export function createSuppressionStore(
 	storage: StorageClient,
 	isAvailable: () => boolean = () => true,
@@ -79,38 +79,26 @@ export function createSuppressionStore(
 	};
 }
 
-export function getSuppressionStore(accountId: string): Promise<SpotlightSuppression | undefined> {
-	const cached = stores.get(accountId);
-	if (cached) {
-		return cached;
+export function getSuppressionStore(): SpotlightSuppression | undefined {
+	if (typeof window === 'undefined') {
+		return undefined;
 	}
-	const pending = (async () => {
+	if (!store) {
 		try {
-			if (typeof window === 'undefined' || !window.crypto?.subtle) {
-				return undefined;
-			}
-			const digest = await window.crypto.subtle.digest(
-				'SHA-256',
-				new TextEncoder().encode(`one-click-chat-spotlight-v2:${accountId}`),
-			);
-			const namespace = Array.from(new Uint8Array(digest), (byte) =>
-				byte.toString(16).padStart(2, '0'),
-			).join('');
 			let available = true;
-			const storage = new StorageClient(`one-click-chat-spotlight-v2:${namespace}`, {
+			const storage = new StorageClient('one-click-chat-spotlight-v2', {
 				handlers: {
 					captureException: () => {
 						available = false;
 					},
 				},
 			});
-			return createSuppressionStore(storage, () => available);
+			store = createSuppressionStore(storage, () => available);
 		} catch {
 			return undefined;
 		}
-	})();
-	stores.set(accountId, pending);
-	return pending;
+	}
+	return store;
 }
 
 export function claimSpotlight(owner: symbol): boolean {

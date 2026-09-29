@@ -4,7 +4,7 @@
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
  * @codegen <<SignedSource::965311c8f2a4f56a74120b39ebd9ffae>>
- * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-analytics
+ * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen link-analytics
  */
 export type ExternalContextType = {
 	display: 'flexible' | 'inline' | 'url' | 'card' | 'embed';

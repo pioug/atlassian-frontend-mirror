@@ -1,6 +1,6 @@
 /* eslint-disable */
 // @ts-nocheck
-// Note: This file is auto generated using "yarn workspace @atlassian/ts-boundary-files update-boundary-file -r=platform -f=packages/help/help-article/src/components/ArticleBody/index.tsx"
+// Note: This file is auto generated using "afm workspace @atlassian/ts-boundary-files update-boundary-file -r=platform -f=packages/help/help-article/src/components/ArticleBody/index.tsx"
 import React from 'react';
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
 import type { AdfDoc } from '../../model/HelpArticle';

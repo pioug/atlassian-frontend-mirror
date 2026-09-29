@@ -4,6 +4,7 @@ import { SEVEN_DAYS_MS } from '../evaluate';
 import {
 	claimSpotlight,
 	createSuppressionStore,
+	getSuppressionStore,
 	isSpotlightActive,
 	releaseSpotlight,
 } from '../suppression';
@@ -42,11 +43,21 @@ it('detects swallowed persistence failures', () => {
 	expect(createSuppressionStore(storage).impress(Date.now())).toBe(false);
 });
 
-it('isolates storage namespaces', () => {
-	const first = createSuppressionStore(new StorageClient('first-opaque-scope'));
-	const second = createSuppressionStore(new StorageClient('second-opaque-scope'));
-	first.dismiss(Date.now());
-	expect(second.read()).toEqual({ impressions: [] });
+it('shares one fixed-key history across callers and persists across store recreation', () => {
+	const first = getSuppressionStore();
+	const second = getSuppressionStore();
+	const now = Date.now();
+	expect(first).toBe(second);
+	expect(first?.impress(now)).toBe(true);
+	expect(first?.dismiss(now)).toBe(true);
+	expect(second?.read()).toEqual({ impressions: [now], dismissedAt: now });
+	const persisted = JSON.parse(localStorage.getItem('one-click-chat-spotlight-v2_history') ?? '{}');
+	expect(persisted.value).toEqual({ impressions: [now], dismissedAt: now });
+	expect(persisted.expires).toBeGreaterThanOrEqual(now + SEVEN_DAYS_MS);
+	expect(localStorage.length).toBe(1);
+	expect(createSuppressionStore(new StorageClient('one-click-chat-spotlight-v2')).read()).toEqual(
+		second?.read(),
+	);
 });
 
 it('only the current owner can release the page-wide reservation', () => {

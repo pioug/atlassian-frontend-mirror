@@ -106,9 +106,10 @@ export const ArticlesListItem: React.ForwardRefExoticComponent<
 					<ArticlesListItemTitleSection>
 						<ArticlesListItemTitleText>{title}</ArticlesListItemTitleText>
 						{isLastPublishedVisible && (
-							// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+							/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 							<ArticlesListItemLastModified>
 								Last modified: {lastPublished}
+								{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 							</ArticlesListItemLastModified>
 						)}
 					</ArticlesListItemTitleSection>

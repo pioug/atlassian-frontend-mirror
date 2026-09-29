@@ -3,8 +3,8 @@
  *
  * Generated prop types for Global component - ExpandableMenuItem
  *
- * @codegen <<SignedSource::74f9303dd5ad1be60ffdd1bf9fc17bca>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
+ * @codegen <<SignedSource::09e0613c4b37badae43e16f5950d2dd8>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/ExpandableMenuItem.tsx <<SignedSource::42e91b3439f22096ddac998355428c7e>>
  */

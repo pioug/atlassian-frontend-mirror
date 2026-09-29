@@ -37,6 +37,38 @@ export type AiSuggestionsConversationErrorReason =
 	| 'conversationSetup'
 	| 'streamError';
 
+export type AiSuggestionsRegenerationTrigger =
+	| 'panelOpen'
+	| 'reviewCompleted'
+	| 'suggestionSelected'
+	| 'suggestionsUpdated';
+
+export type AiSuggestionsRegenerationOutcome = 'removed' | 'stillStale' | 'updated';
+
+type SuggestionRemixAttributes = {
+	remixSubtype?: string;
+	remixType?: string;
+};
+
+type SuggestionAgeAttribute = {
+	suggestionAgeMs?: number;
+};
+
+type RegenerationSuggestionDetails = SuggestionRemixAttributes &
+	SuggestionAgeAttribute & {
+		actionKind: string;
+		outcome?: AiSuggestionsRegenerationOutcome;
+		suggestionId: string;
+		suggestionType: string;
+	};
+
+type RegenerationCommonAttributes = {
+	currentNodeCount: number;
+	staleSuggestionCount: number;
+	suggestionDetails: RegenerationSuggestionDetails[];
+	trigger: AiSuggestionsRegenerationTrigger;
+};
+
 type NoDiffSuggestionAEP = OperationalAEP<
 	ACTION.NO_DIFF_FOUND,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
@@ -66,11 +98,29 @@ type RegenerateSuggestionsErrorAEP = OperationalAEP<
 	ACTION.ERRORED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	ACTION_SUBJECT_ID.SUGGESTIONS_REGENERATION_ERROR,
-	{
-		currentNodeCount: number;
+	RegenerationCommonAttributes & {
 		errorCode?: string;
-		staleSuggestionCount: number;
+		regenerationDurationMs: number;
 		statusCode?: number;
+	}
+>;
+
+type RegenerateSuggestionsStartedAEP = OperationalAEP<
+	ACTION.REGENERATION_STARTED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	ACTION_SUBJECT_ID.SUGGESTIONS_REGENERATION,
+	RegenerationCommonAttributes
+>;
+
+type RegenerateSuggestionsCompletedAEP = OperationalAEP<
+	ACTION.REGENERATION_COMPLETED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	ACTION_SUBJECT_ID.SUGGESTIONS_REGENERATION,
+	RegenerationCommonAttributes & {
+		regenerationDurationMs: number;
+		removedSuggestionCount: number;
+		stillStaleSuggestionCount: number;
+		updatedSuggestionCount: number;
 	}
 >;
 
@@ -107,33 +157,30 @@ type EntryPointExposureAEP = TrackAEP<
 	undefined
 >;
 
+type SuggestionLifecycleAttributes = SuggestionRemixAttributes &
+	SuggestionAgeAttribute & {
+		actionKind: string;
+		affectedBlocks: number;
+		agentId?: string;
+		hasSources: boolean;
+		interactionPoint: AiSuggestionInteractionPoint;
+		suggestionId: string;
+		suggestionType: string;
+	};
+
 type AcceptSuggestionAEP = TrackAEP<
 	ACTION.ACCEPTED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
-	{
-		affectedBlocks: number;
-		agentId?: string;
+	SuggestionLifecycleAttributes & {
 		charactersAdded?: number;
 		charactersRemoved?: number;
-		hasSources: boolean;
-		interactionPoint: AiSuggestionInteractionPoint;
 		isDiffHidden: boolean;
-		suggestionId: string;
-		suggestionType: string;
 	},
 	undefined
 >;
 
-type DiscardedSuggestionAttributes = {
-	actionKind: string;
-	affectedBlocks: number;
-	agentId?: string;
-	hasSources: boolean;
-	interactionPoint: AiSuggestionInteractionPoint;
-	suggestionId: string;
-	suggestionType: string;
-};
+type DiscardedSuggestionAttributes = SuggestionLifecycleAttributes;
 
 type CancelSuggestionsAEP = TrackAEP<
 	ACTION.CANCELLED,
@@ -168,13 +215,7 @@ type DismissSuggestionAEP = TrackAEP<
 	ACTION.DISMISSED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
-	{
-		affectedBlocks: number;
-		hasSources: boolean;
-		interactionPoint: AiSuggestionInteractionPoint;
-		suggestionId: string;
-		suggestionType: string;
-	},
+	SuggestionLifecycleAttributes,
 	undefined
 >;
 
@@ -182,18 +223,11 @@ type ViewSuggestionAEP = TrackAEP<
 	ACTION.VIEWED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
-	{
-		actionKind: string;
-		affectedBlocks: number;
-		agentId?: string;
+	SuggestionLifecycleAttributes & {
 		blockTypes: string[];
 		charactersToAdd?: number;
 		charactersToRemove?: number;
-		hasSources: boolean;
-		interactionPoint: AiSuggestionInteractionPoint;
 		suggestionCardCharacterCount: number;
-		suggestionId: string;
-		suggestionType: string;
 	},
 	undefined
 >;
@@ -205,11 +239,14 @@ type RightRailViewedAEP = TrackAEP<
 	{
 		entryPoint: AiSuggestionsRightRailEntryPoint;
 		numberOfSuggestions: number;
-		suggestionDetails: Array<{
-			actionKind: string;
-			affectedBlocks: number;
-			suggestionType: string;
-		}>;
+		suggestionDetails: Array<
+			SuggestionRemixAttributes &
+				SuggestionAgeAttribute & {
+					actionKind: string;
+					affectedBlocks: number;
+					suggestionType: string;
+				}
+		>;
 	},
 	undefined
 >;
@@ -226,12 +263,38 @@ type ViewSuggestionReasoningAEP = TrackAEP<
 	ACTION.REASONING_VIEWED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
+	SuggestionRemixAttributes &
+		SuggestionAgeAttribute & {
+			actionKind: string;
+			affectedBlocks: number;
+			agentId?: string;
+			hasSources: boolean;
+			interactionPoint: AiSuggestionInteractionPoint;
+			reasoningCharacterCount: number;
+			suggestionId: string;
+			suggestionType: string;
+		},
+	undefined
+>;
+
+type SuggestionsGeneratedAEP = TrackAEP<
+	ACTION.GENERATED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
 	{
-		affectedBlocks: number;
-		hasSources: boolean;
-		interactionPoint: AiSuggestionInteractionPoint;
-		reasoningCharacterCount: number;
-		suggestionType: string;
+		generationDurationMs: number;
+		hadExistingSuggestions: boolean;
+		numberOfSuggestions: number;
+		suggestionDetails: Array<
+			SuggestionRemixAttributes & {
+				actionKind: string;
+				affectedBlocks: number;
+				agentId?: string;
+				hasSources: boolean;
+				suggestionId: string;
+				suggestionType: string;
+			}
+		>;
 	},
 	undefined
 >;
@@ -250,6 +313,8 @@ export type AiSuggestionsEventPayload =
 	| NoDiffSuggestionAEP
 	| ConversationErrorAEP
 	| RegenerateSuggestionsErrorAEP
+	| RegenerateSuggestionsStartedAEP
+	| RegenerateSuggestionsCompletedAEP
 	| EntryPointClickedAEP
 	| SuggestionsErrorRetryClickedAEP
 	| EntryPointExposureAEP
@@ -262,4 +327,5 @@ export type AiSuggestionsEventPayload =
 	| RightRailViewedAEP
 	| RightRailClosedAEP
 	| ViewSuggestionReasoningAEP
+	| SuggestionsGeneratedAEP
 	| EmptyStateExposedAEP;

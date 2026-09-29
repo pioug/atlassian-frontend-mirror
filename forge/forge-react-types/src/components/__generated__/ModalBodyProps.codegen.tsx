@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalBodyProps
  *
- * @codegen <<SignedSource::2988707e82f67dc90dca6f9ce898bceb>>
+ * @codegen <<SignedSource::9d690db4ca963079721eb93ff73f7ab3>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-body.partial.tsx <<SignedSource::334347658e03c9c5980bf2bd0c1bd58a>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-body.partial.tsx <<SignedSource::2003778fad7a695a800d9b2fa21f7e2f>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

@@ -1,5 +1,41 @@
 # @atlaskit/editor-toolbar
 
+## 2.8.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.8
+
+### Patch Changes
+
+- [`064f989853cf0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/064f989853cf0) -
+  Clean up experiment `platform_editor_default_toolbar_state`
+- Updated dependencies
+
+## 2.8.7
+
+### Patch Changes
+
+- [`6728bb1f412c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6728bb1f412c2) -
+  Remove the unused `platform_editor_toolbar_aifc` experiment registration and temporary-only
+  runtime branches, preserve toolbar treatments owned by `platform_editor_ai_aifc_streaming` or
+  `aifc_create_enabled`, retain the control experience when those checks are disabled, and correctly
+  hide decorative Rovo toolbar icons from assistive technology.
+- Updated dependencies
+
+## 2.8.6
+
+### Patch Changes
+
+- [`a4fe8636fa0ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4fe8636fa0ec) -
+  Clean up the fully rolled out `platform_editor_layout_column_menu` experiment and the
+  `platform_editor_layout_column_menu_kill_switch_1` feature gate, retaining their shipped behavior.
+  Consumers must remove any direct `@atlaskit/tmp-editor-statsig` experiment override for
+  `platform_editor_layout_column_menu`.
+- Updated dependencies
+
 ## 2.8.5
 
 ### Patch Changes

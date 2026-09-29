@@ -79,6 +79,7 @@ describe('GeneratedAvatar', () => {
 	it.each([
 		['jira_coding_agent', '18 344 52 52'],
 		['jira_intelligent_triage_agent', '18 214 52 52'],
+		['jira_delivery_agent', '0 0 52 52'],
 		['jira_admin_agent', '18 19 52 52'],
 		['jsm_rovo_service_agent', '18 604 52 52'],
 		['ops_guide_agent', '18 539 52 52'],

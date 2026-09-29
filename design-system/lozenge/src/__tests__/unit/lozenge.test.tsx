@@ -4,7 +4,6 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import Lozenge from '../../lozenge';
@@ -22,209 +21,191 @@ describe('Lozenge', () => {
 		expect(lozenge).toHaveAttribute('class', expect.stringMatching(/^(_[a-z0-9]{8}\s?)+$/));
 	});
 
-	ffTest.on('platform-dst-lozenge-tag-badge-visual-uplifts', 'feature flag enabled', () => {
-		it('should render with compiled styles', () => {
-			render(<Lozenge testId="test">Hello</Lozenge>);
+	it('should render metric badge when provided', () => {
+		render(
+			<Lozenge testId="with-metric" appearance="success" trailingMetric="3">
+				Hello
+			</Lozenge>,
+		);
 
-			const lozenge = screen.getByTestId('test');
-			expect(lozenge).toBeInTheDocument();
+		expect(screen.getByTestId('with-metric--metric')).toBeInTheDocument();
+		expect(screen.getByText('3')).toBeInTheDocument();
+	});
 
-			expect(lozenge).toHaveAttribute('class', expect.stringMatching(/^(_[a-z0-9]{8}\s?)+$/));
-		});
+	it('should support spacing prop', () => {
+		render(
+			<Lozenge testId="spacious" appearance="neutral" spacing="spacious">
+				Spacious
+			</Lozenge>,
+		);
 
-		it('should render metric badge when provided', () => {
-			render(
-				<Lozenge testId="with-metric" appearance="success" trailingMetric="3">
-					Hello
-				</Lozenge>,
-			);
+		const lozenge = screen.getByTestId('spacious');
+		expect(lozenge).toBeInTheDocument();
+	});
 
-			expect(screen.getByTestId('with-metric--metric')).toBeInTheDocument();
-			expect(screen.getByText('3')).toBeInTheDocument();
-		});
+	it('should render with semantic color', () => {
+		render(
+			<LozengeDropdownTrigger appearance="success" isSelected={false} onClick={__noop}>
+				Success Status
+			</LozengeDropdownTrigger>,
+		);
 
-		it('should support spacing prop', () => {
-			render(
-				<Lozenge testId="spacious" appearance="neutral" spacing="spacious">
-					Spacious
-				</Lozenge>,
-			);
+		const trigger = screen.getByText('Success Status');
+		expect(trigger).toBeInTheDocument();
+	});
 
-			const lozenge = screen.getByTestId('spacious');
-			expect(lozenge).toBeInTheDocument();
-		});
+	it('should support all semantic colors', () => {
+		const semanticColors = ['success', 'warning', 'danger', 'information', 'discovery', 'neutral'];
 
-		it('should render with semantic color', () => {
-			render(
-				<LozengeDropdownTrigger appearance="success" isSelected={false} onClick={__noop}>
-					Success Status
-				</LozengeDropdownTrigger>,
-			);
-
-			const trigger = screen.getByText('Success Status');
-			expect(trigger).toBeInTheDocument();
-		});
-
-		it('should support all semantic colors', () => {
-			const semanticColors = [
-				'success',
-				'warning',
-				'danger',
-				'information',
-				'discovery',
-				'neutral',
-			];
-
-			semanticColors.forEach((color) => {
-				const { unmount } = render(
-					<LozengeDropdownTrigger
-						appearance={color as any}
-						isSelected={false}
-						onClick={__noop}
-						testId={`trigger-${color}`}
-					>
-						{color}
-					</LozengeDropdownTrigger>,
-				);
-
-				expect(screen.getByTestId(`trigger-${color}`)).toBeInTheDocument();
-				unmount();
-			});
-		});
-
-		it('should render with accent color', () => {
-			render(
-				<LozengeDropdownTrigger appearance="accent-blue" isSelected={false} onClick={__noop}>
-					Accent Blue
-				</LozengeDropdownTrigger>,
-			);
-
-			const trigger = screen.getByText('Accent Blue');
-			expect(trigger).toBeInTheDocument();
-		});
-
-		it('should render with icon when iconBefore is provided', () => {
-			const TestIcon = () => <span data-testid="test-icon">Icon</span>;
-
-			render(
+		semanticColors.forEach((color) => {
+			const { unmount } = render(
 				<LozengeDropdownTrigger
-					appearance="success"
+					appearance={color as any}
 					isSelected={false}
 					onClick={__noop}
-					iconBefore={TestIcon}
-					testId="trigger-with-icon"
+					testId={`trigger-${color}`}
 				>
-					With Icon
+					{color}
 				</LozengeDropdownTrigger>,
 			);
 
-			const icon = screen.getByTestId('test-icon');
-			expect(icon).toBeInTheDocument();
+			expect(screen.getByTestId(`trigger-${color}`)).toBeInTheDocument();
+			unmount();
 		});
+	});
 
-		it('should support all accent colors', () => {
-			const accentColors = [
-				'accent-red',
-				'accent-orange',
-				'accent-yellow',
-				'accent-lime',
-				'accent-green',
-				'accent-teal',
-				'accent-blue',
-				'accent-purple',
-				'accent-magenta',
-				'accent-gray',
-			];
+	it('should render with accent color', () => {
+		render(
+			<LozengeDropdownTrigger appearance="accent-blue" isSelected={false} onClick={__noop}>
+				Accent Blue
+			</LozengeDropdownTrigger>,
+		);
 
-			accentColors.forEach((color) => {
-				const { unmount } = render(
-					<LozengeDropdownTrigger
-						appearance={color as any}
-						isSelected={false}
-						onClick={__noop}
-						testId={`trigger-${color}`}
-					>
-						{color}
-					</LozengeDropdownTrigger>,
-				);
+		const trigger = screen.getByText('Accent Blue');
+		expect(trigger).toBeInTheDocument();
+	});
 
-				expect(screen.getByTestId(`trigger-${color}`)).toBeInTheDocument();
-				unmount();
-			});
-		});
+	it('should render with icon when iconBefore is provided', () => {
+		const TestIcon = () => <span data-testid="test-icon">Icon</span>;
 
-		it('should support maxWidth prop', () => {
-			render(
+		render(
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				iconBefore={TestIcon}
+				testId="trigger-with-icon"
+			>
+				With Icon
+			</LozengeDropdownTrigger>,
+		);
+
+		const icon = screen.getByTestId('test-icon');
+		expect(icon).toBeInTheDocument();
+	});
+
+	it('should support all accent colors', () => {
+		const accentColors = [
+			'accent-red',
+			'accent-orange',
+			'accent-yellow',
+			'accent-lime',
+			'accent-green',
+			'accent-teal',
+			'accent-blue',
+			'accent-purple',
+			'accent-magenta',
+			'accent-gray',
+		];
+
+		accentColors.forEach((color) => {
+			const { unmount } = render(
 				<LozengeDropdownTrigger
-					appearance="success"
+					appearance={color as any}
 					isSelected={false}
 					onClick={__noop}
-					maxWidth={150}
-					testId="trigger-max-width"
+					testId={`trigger-${color}`}
 				>
-					Very Long Status Label That Should Truncate
+					{color}
 				</LozengeDropdownTrigger>,
 			);
 
-			const trigger = screen.getByTestId('trigger-max-width');
-			expect(trigger).toBeInTheDocument();
+			expect(screen.getByTestId(`trigger-${color}`)).toBeInTheDocument();
+			unmount();
 		});
+	});
 
-		// Regression test: the container must use min(maxWidth, 100%) so it
-		// never overflows its parent even when the parent is narrower than
-		// the explicit maxWidth prop, while still honouring the explicit
-		// maxWidth when the parent is wide enough.
-		it('should apply min(maxWidth, 100%) to the container so it never overflows its parent', () => {
-			render(
-				<LozengeDropdownTrigger
-					appearance="success"
-					isSelected={false}
-					onClick={__noop}
-					maxWidth={200}
-					testId="trigger-constrained"
-				>
-					Very Long Status Label That Should Truncate
-				</LozengeDropdownTrigger>,
-			);
+	it('should support maxWidth prop', () => {
+		render(
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				maxWidth={150}
+				testId="trigger-max-width"
+			>
+				Very Long Status Label That Should Truncate
+			</LozengeDropdownTrigger>,
+		);
 
-			const trigger = screen.getByTestId('trigger-constrained');
-			// The container's inline maxWidth should be min(200px, 100%)
-			expect(trigger).toHaveStyle({ maxWidth: 'min(200px, 100%)' });
-		});
+		const trigger = screen.getByTestId('trigger-max-width');
+		expect(trigger).toBeInTheDocument();
+	});
 
-		it('should support custom style prop', () => {
-			render(
-				<LozengeDropdownTrigger
-					appearance="success"
-					isSelected={false}
-					onClick={__noop}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={{ backgroundColor: '#e8f4f8', color: '#0052cc' }}
-					testId="trigger-custom-style"
-				>
-					Custom Style
-				</LozengeDropdownTrigger>,
-			);
+	// Regression test: the container must use min(maxWidth, 100%) so it
+	// never overflows its parent even when the parent is narrower than
+	// the explicit maxWidth prop, while still honouring the explicit
+	// maxWidth when the parent is wide enough.
+	it('should apply min(maxWidth, 100%) to the container so it never overflows its parent', () => {
+		render(
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				maxWidth={200}
+				testId="trigger-constrained"
+			>
+				Very Long Status Label That Should Truncate
+			</LozengeDropdownTrigger>,
+		);
 
-			const trigger = screen.getByTestId('trigger-custom-style');
-			expect(trigger).toBeInTheDocument();
-		});
+		const trigger = screen.getByTestId('trigger-constrained');
+		// The container's inline maxWidth should be min(200px, 100%)
+		expect(trigger).toHaveStyle({ maxWidth: 'min(200px, 100%)' });
+	});
 
-		it('should render chevron icon with testId', () => {
-			render(
-				<LozengeDropdownTrigger
-					appearance="success"
-					isSelected={false}
-					onClick={__noop}
-					testId="status-trigger"
-				>
-					Status
-				</LozengeDropdownTrigger>,
-			);
+	it('should support custom style prop', () => {
+		render(
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={{ backgroundColor: '#e8f4f8', color: '#0052cc' }}
+				testId="trigger-custom-style"
+			>
+				Custom Style
+			</LozengeDropdownTrigger>,
+		);
 
-			const chevron = screen.getByTestId('status-trigger--chevron');
-			expect(chevron).toBeInTheDocument();
-		});
+		const trigger = screen.getByTestId('trigger-custom-style');
+		expect(trigger).toBeInTheDocument();
+	});
+
+	it('should render chevron icon with testId', () => {
+		render(
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				testId="status-trigger"
+			>
+				Status
+			</LozengeDropdownTrigger>,
+		);
+
+		const chevron = screen.getByTestId('status-trigger--chevron');
+		expect(chevron).toBeInTheDocument();
 	});
 });
 

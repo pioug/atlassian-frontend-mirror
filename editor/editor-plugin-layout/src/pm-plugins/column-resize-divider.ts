@@ -15,7 +15,6 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { MIN_LAYOUT_COLUMN_WIDTH_PERCENT } from './consts';
 
@@ -115,8 +114,7 @@ const dispatchColumnWidths = (
 
 	// Capture the selection before the replace below, which otherwise maps the caret out of
 	// the layout to the following paragraph. Restored at the same positions afterwards.
-	const shouldPreserveSelection = !fg('platform_editor_layout_column_menu_kill_switch_1');
-	const selectionBeforeResize = shouldPreserveSelection ? state.selection : null;
+	const selectionBeforeResize = state.selection;
 
 	tr.replaceWith(sectionPos + 1, sectionPos + sectionNode.nodeSize - 1, Fragment.from(newColumns));
 	tr.setMeta('layoutColumnResize', true);

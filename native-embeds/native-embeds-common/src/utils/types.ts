@@ -144,6 +144,11 @@ export type EditorToolbarHandlers = Partial<{
 	) => void;
 	onChangeBorderClick: EditorToolbarHandler;
 	/**
+	 * Handler invoked when the Comment action is clicked.
+	 * The default editor handler opens unresolved block comments before starting a new draft.
+	 */
+	onCommentClick: EditorToolbarHandler;
+	/**
 	 * Handler invoked when the Copy action is clicked.
 	 * Copies the native-embed node to the clipboard.
 	 */
@@ -204,7 +209,7 @@ export type ManifestEditorToolbarActions<
 	 * The "More Options" dropdown is appended automatically based on `moreItems`.
 	 *
 	 * Can include:
-	 * - Built-in keys: 'refresh', 'embed', 'border', 'alignment', 'openInNewWindow'
+	 * - Built-in keys: 'refresh', 'comment', 'embed', 'border', 'alignment', 'openInNewWindow'
 	 * - 'separator' for visual separators between groups
 	 * - Custom keys defined in `customActions`
 	 */

@@ -1861,7 +1861,6 @@ test('single select > supports an undefined conditional MultiValue override', ()
 
 test('multi select > applies tag motion when the tag motion gate is on', () => {
 	jest.useFakeTimers();
-	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 	passGate('platform-dst-motion-uplift-labels');
 	const onChange = jest.fn();
 

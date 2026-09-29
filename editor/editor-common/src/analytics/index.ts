@@ -258,5 +258,7 @@ export type {
 	AiSuggestionsEntryPoint,
 	AiSuggestionsEventPayload,
 	AiSuggestionsEmptyStateType,
+	AiSuggestionsRegenerationOutcome,
+	AiSuggestionsRegenerationTrigger,
 	AiSuggestionsRightRailEntryPoint,
 } from './types/ai-suggestions-events';

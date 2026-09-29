@@ -1,5 +1,17 @@
 # @atlaskit/side-nav-items
 
+## 2.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.3
 
 ### Patch Changes

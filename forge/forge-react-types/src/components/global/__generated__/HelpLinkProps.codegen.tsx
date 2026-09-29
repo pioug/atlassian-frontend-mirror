@@ -3,8 +3,8 @@
  *
  * Generated prop types for Global component - HelpLink
  *
- * @codegen <<SignedSource::a155b0d8f06303a1f2a22b46f07b871f>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
+ * @codegen <<SignedSource::d520a25e6f84f82e9b110fe9ee7f6fa0>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/HelpLink.tsx <<SignedSource::29aa1d2a5f3e491361497d3aa48fdade>>
  */

@@ -31,6 +31,37 @@ tester.run('use-pressable-motion', rule, {
 			`,
 		},
 		{
+			name: 'accepts tab motion for hover and pressed colours on a native button',
+			code: outdent`
+				import { css } from '@compiled/react';
+				import { token } from '@atlaskit/tokens';
+				const styles = css({
+					transition: token('motion.tab'),
+					'&:hover': { color: 'red' },
+					'&:active': { color: 'blue', transition: token('motion.tab') },
+				});
+				<button css={styles} />;
+			`,
+		},
+		{
+			name: 'accepts tab motion in a gated style alongside native button colour changes',
+			code: outdent`
+				import { cssMap } from '@compiled/react';
+				import { token } from '@atlaskit/tokens';
+				const styles = cssMap({
+					base: {
+						'&:hover': { color: 'red' },
+						'&:active': { color: 'blue' },
+					},
+					motion: {
+						transition: token('motion.tab'),
+						'&:active': { transition: token('motion.tab') },
+					},
+				});
+				<button css={[styles.base, enabled && styles.motion]} />;
+			`,
+		},
+		{
 			name: 'custom Button components are ignored',
 			code: outdent`
 				import { css } from '@compiled/react';
@@ -73,6 +104,19 @@ tester.run('use-pressable-motion', rule, {
 		},
 	],
 	invalid: [
+		{
+			name: 'tab motion does not cover native button background colour changes',
+			code: outdent`
+				import { css } from '@compiled/react';
+				import { token } from '@atlaskit/tokens';
+				const styles = css({
+					transition: token('motion.tab'),
+					'&:hover': { backgroundColor: 'red' },
+				});
+				<button css={styles} />;
+			`,
+			errors: [{ messageId: 'missingPressableMotionManual' }],
+		},
 		{
 			name: 'suggests button and list-item motion for native button css hover and pressed styles',
 			code: outdent`

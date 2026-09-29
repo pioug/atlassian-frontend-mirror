@@ -1,5 +1,5 @@
-Packages across the Atlassian Design System can be deprecated when they are deemed no-longer fit for
-purporse or dangerous and risk effective use at scale.
+Packages across the Atlassian Design System can be deprecated when they are no longer fit for
+purpose or when their use at scale poses a risk.
 
 ## Examples
 

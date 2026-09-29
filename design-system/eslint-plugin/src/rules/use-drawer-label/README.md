@@ -26,17 +26,17 @@ prop.
 
 <Drawer titleId>
         ^^^^^^^ `titleId` prop is missing reference value.
-  <h1 id="drawer-title">Drawer content title</hi>
+  <h1 id="drawer-title">Drawer content title</h1>
 </Drawer>
 
 <Drawer titleId="">
         ^^^^^^^ `titleId` prop is missing reference value.
-  <h1 id="drawer-title">Drawer content title</hi>
+  <h1 id="drawer-title">Drawer content title</h1>
 </Drawer>
 
 <Drawer titleId="drawer-title" label="">
         ^^^^^^^                ^^^^^ Do not include both `titleId` and `label` properties. Use `titleId` if the label text is available in the DOM to reference it, otherwise use `label` to provide accessible name explicitly.
-  <h1 id="drawer-title">Drawer content title</hi>
+  <h1 id="drawer-title">Drawer content title</h1>
 </Drawer>
 ```
 
@@ -48,6 +48,6 @@ prop.
 </Drawer>
 
 <Drawer titleId="drawer-title">
-  <h1 id="drawer-title">Drawer content title</hi>
+  <h1 id="drawer-title">Drawer content title</h1>
 </Drawer>
 ```

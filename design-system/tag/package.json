@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "16.0.0",
+	"version": "17.0.2",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,19 +32,7 @@
 			],
 			"name": "Tag",
 			"category": "Labels",
-			"status": {
-				"type": "ready-for-ga",
-				"description": "The new tag is stable and ready for adoption. Visual updates are currently behind the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag."
-			},
 			"subPages": [
-				{
-					"title": "Tag",
-					"id": "tag",
-					"status": {
-						"type": "intent-to-deprecate",
-						"description": "We're planning to deprecate this component. If you have the Atlassian feature flag integration, use the new tag. Otherwise, the old experience will switch to the new one automatically when we clean up the feature flag."
-					}
-				},
 				{
 					"title": "AvatarTag",
 					"id": "avatar-tag"
@@ -108,9 +96,6 @@
 		"react-dom": "^19.0.0"
 	},
 	"platform-feature-flags": {
-		"platform-dst-lozenge-tag-badge-visual-uplifts": {
-			"type": "boolean"
-		},
 		"platform-dst-motion-uplift-labels": {
 			"type": "boolean"
 		}

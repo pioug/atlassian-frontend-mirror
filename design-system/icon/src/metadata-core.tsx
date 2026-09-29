@@ -3,10 +3,9 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::18a579e5504b16797251723310feb232>>
+ * @codegen <<SignedSource::8bd2edc03d69455d3e0a765d06135fd9>>
  * @codegenCommand yarn build:icon-glyphs
  */
-// oxlint-disable-next-line eslint/no-redeclare
 interface metadata {
 	/**
 	 * Default component name for the icon
@@ -2705,6 +2704,7 @@ const metadata: Record<string, metadata> = {
 			'drawer',
 			'preview panel',
 			'sidebar',
+			'side panel',
 		],
 		componentName: 'PanelLeftIcon',
 		package: '@atlaskit/icon/core/panel-left',
@@ -2724,6 +2724,7 @@ const metadata: Record<string, metadata> = {
 			'drawer',
 			'preview panel',
 			'sidebar',
+			'side panel',
 		],
 		componentName: 'PanelRightIcon',
 		package: '@atlaskit/icon/core/panel-right',

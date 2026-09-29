@@ -4,7 +4,7 @@
  * Extract component prop types from UIKit 2 components - BreadcrumbsItemProps
  *
  * @codegen <<SignedSource::ef3d09b6abdb3142c9c6c2a009ec1e8f>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/breadcrumbs/breadcrumbs-item.tsx <<SignedSource::0850255d9a0f51d55f64ecb355f84b34>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

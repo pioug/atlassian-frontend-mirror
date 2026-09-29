@@ -2,36 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, memo, useCallback, useState } from 'react';
+import { forwardRef, memo, useCallback } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { jsx } from '@compiled/react';
 
 import { useCallbackWithAnalytics } from '@atlaskit/analytics-next/useCallbackWithAnalytics';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
-import Lozenge from '@atlaskit/lozenge/lozenge';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import ShrinkOut from '@atlaskit/motion/shrink-out';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { token } from '@atlaskit/tokens';
 
 import { colorMapping } from '../../../tag-new/color-mapping';
 import { getTagText } from '../../../tag-new/get-tag-text';
 import { markAsTagMotionCapable } from '../../../tag-new/tag-motion-capability';
 import { default as TagNew } from '../../../tag-new/tag-new';
-import BaseTag from '../shared/base';
-import Before from '../shared/before';
-import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';
-import Content from '../shared/content';
 import { type SimpleTagProps } from '../shared/types';
-import RemoveButton from './remove-button';
-
-const textLinkCssVar = '--ds-ctl';
-const textDefaultCssVar = '--ds-ct';
-const textActiveCssVar = '--ds-ctp';
-const backgroundHoverCssVar = '--ds-cbh';
-const backgroundActiveCssVar = '--ds-cba';
 
 export interface RemovableTagProps extends SimpleTagProps, WithAnalyticsEventsProps {
 	/**
@@ -58,63 +41,41 @@ export interface RemovableTagProps extends SimpleTagProps, WithAnalyticsEventsPr
 	onAfterRemoveAction?: (text: string) => void;
 }
 
-enum TagStatus {
-	Showing = 'showing',
-	Removing = 'removing',
-	Removed = 'removed',
-}
-
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const defaultBeforeRemoveAction = () => true;
-
-/**
- * These hide the focus ring for the tag when its remove button is focused,
- * preventing a double focus ring.
- */
-const removingStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors,@atlaskit/design-system/no-nested-styles -- To fix specificty in VR tests
-	'&&': {
-		'&:focus-within': {
-			boxShadow: `0 0 0 2px transparent`,
-			outline: 'none',
-		},
-	},
-});
 
 const RemovableTagComponent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<RemovableTagProps> & React.RefAttributes<any>
 > = forwardRef<any, RemovableTagProps>(
 	(
 		{
-			appearance,
 			elemBefore = null,
 			isRemovable = true,
 			text = '',
 			color = 'standard',
 			href,
+			linkComponent,
 			removeButtonLabel,
 			testId,
 			onBeforeRemoveAction = defaultBeforeRemoveAction,
 			onAfterRemoveAction = noop,
-			linkComponent,
-			migration_fallback,
 			maxWidth,
 			hasMargin = true,
 			swatchBefore,
 			swatchBeforeLabel,
 			swatchBeforeRole,
-			...rest
 		},
 		ref,
 	) => {
-		const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
-		const [isHoverCloseButton, setIsHoverCloseButton] = useState(false);
 		const normalizedText = getTagText(text);
 
-		const onAfterRemoveActionWithAnalytics = useCallbackWithAnalytics(
-			onAfterRemoveAction,
+		// Wrap the analytics dispatcher so it fires synchronously when removal is
+		// confirmed (matching the pre-flag-removal behaviour where analytics fired
+		// immediately on button click, not after the CSS exit animation).
+		const fireRemovedAnalytics = useCallbackWithAnalytics(
+			noop,
 			{
 				action: 'removed',
 				actionSubject: 'tag',
@@ -127,143 +88,40 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 			'atlaskit',
 		);
 
-		const handleRemoveComplete = useCallback(() => {
-			setStatus(TagStatus.Removed);
-		}, []);
-
-		const handleRemoveRequest = useCallback(() => {
-			if (onBeforeRemoveAction && onBeforeRemoveAction()) {
-				onAfterRemoveActionWithAnalytics(normalizedText);
-				handleRemoveComplete();
+		// Intercept onBeforeRemoveAction: fire analytics and call onAfterRemoveAction
+		// synchronously when removal is approved. This matches the pre-feature-flag
+		// behaviour where both fired immediately on button click, not after the CSS
+		// exit animation completes (which never fires in jsdom test environments).
+		const onBeforeRemoveActionWithAnalytics = useCallback(() => {
+			const shouldRemove = onBeforeRemoveAction();
+			if (shouldRemove) {
+				fireRemovedAnalytics(normalizedText);
+				onAfterRemoveAction(normalizedText);
 			}
-		}, [
-			handleRemoveComplete,
-			normalizedText,
-			onBeforeRemoveAction,
-			onAfterRemoveActionWithAnalytics,
-		]);
+			return shouldRemove;
+		}, [onBeforeRemoveAction, fireRemovedAnalytics, normalizedText, onAfterRemoveAction]);
 
-		const onKeyPress = useCallback(
-			(e: React.KeyboardEvent<HTMLButtonElement>) => {
-				const spacebarOrEnter = e.key === ' ' || e.key === 'Enter';
-
-				if (spacebarOrEnter) {
-					e.stopPropagation();
-					handleRemoveRequest();
-				}
-			},
-			[handleRemoveRequest],
-		);
-
-		const removingTag = useCallback(() => setStatus(TagStatus.Removing), []);
-		const showingTag = useCallback(() => setStatus(TagStatus.Showing), []);
-
-		const handleMouseOver = useCallback(() => setIsHoverCloseButton(true), []);
-		const handleMouseOut = useCallback(() => setIsHoverCloseButton(false), []);
-
-		const removeButton = isRemovable ? (
-			<RemoveButton
-				aria-label={`${removeButtonLabel || 'Remove'} ${normalizedText}`}
-				onClick={handleRemoveRequest}
-				onFocus={removingTag}
-				onBlur={showingTag}
-				onKeyPress={onKeyPress}
-				onMouseOver={handleMouseOver}
-				onMouseOut={handleMouseOut}
-				testId={`close-button-${testId}`}
-			/>
-		) : undefined;
-
-		// Handle migration_fallback: render Lozenge when flag is off and migration_fallback is 'lozenge'
-		if (migration_fallback === 'lozenge' && !fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
-			const lozengeAppearance = getLozengeAppearance(color);
-			return (
-				<Lozenge appearance={lozengeAppearance} isBold={false} testId={testId} {...rest}>
-					{normalizedText}
-				</Lozenge>
-			);
-		}
-
-		// Use new TagNew component behind feature flag
 		// TagNew handles its own animation internally via RemovableWrapper
-		if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
-			const newColor = colorMapping[color || 'standard'];
+		const newColor = colorMapping[color || 'standard'];
 
-			return (
-				<TagNew
-					ref={ref}
-					color={newColor}
-					text={normalizedText}
-					elemBefore={elemBefore}
-					href={href}
-					testId={testId}
-					isRemovable={isRemovable}
-					removeButtonLabel={removeButtonLabel}
-					onBeforeRemoveAction={onBeforeRemoveAction}
-					onAfterRemoveAction={onAfterRemoveActionWithAnalytics}
-					maxWidth={maxWidth}
-					hasMargin={hasMargin}
-					swatchBefore={swatchBefore}
-					swatchBeforeLabel={swatchBeforeLabel}
-					swatchBeforeRole={swatchBeforeRole}
-				/>
-			);
-		}
-
-		// Original implementation
-		const content = (
-			<Content
-				elemBefore={elemBefore}
-				isRemovable={isRemovable}
+		return (
+			<TagNew
+				ref={ref}
+				color={newColor}
 				text={normalizedText}
-				color={color}
+				elemBefore={elemBefore}
 				href={href}
 				linkComponent={linkComponent}
 				testId={testId}
+				isRemovable={isRemovable}
+				removeButtonLabel={removeButtonLabel}
+				onBeforeRemoveAction={onBeforeRemoveActionWithAnalytics}
+				maxWidth={maxWidth}
+				hasMargin={hasMargin}
+				swatchBefore={swatchBefore}
+				swatchBeforeLabel={swatchBeforeLabel}
+				swatchBeforeRole={swatchBeforeRole}
 			/>
-		);
-
-		const hoverCloseButtonColors = {
-			backgroundColor: token('color.background.neutral.subtle'),
-			// Tag background color on hover
-			[backgroundHoverCssVar]: undefined,
-			// Tag background color on press
-			[backgroundActiveCssVar]: undefined,
-			// The tag text on hover of remove button
-			[textDefaultCssVar]: undefined,
-			// 'elemBefore' text on press of remove button
-			[textActiveCssVar]: undefined,
-			// The tag link text on hover of remove button
-			[textLinkCssVar]: undefined,
-		};
-
-		return (
-			<ExitingPersistence>
-				{!(status === TagStatus.Removed) && (
-					<ShrinkOut key="atlaskit-removable-tag-legacy-shrink-out" onFinish={handleRemoveComplete}>
-						{(motion) => {
-							return (
-								<BaseTag
-									ref={mergeRefs([motion.ref, ref])}
-									appearance={appearance}
-									color={color}
-									testId={testId}
-									css={[status === TagStatus.Removing && removingStyles]}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									style={isHoverCloseButton ? hoverCloseButtonColors : undefined}
-									data-removable
-									data-removing={status === TagStatus.Removing}
-									data-ishoverclosebutton={isHoverCloseButton}
-									href={href}
-									before={<Before elemBefore={elemBefore} />}
-									contentElement={content}
-									after={removeButton}
-								/>
-							);
-						}}
-					</ShrinkOut>
-				)}
-			</ExitingPersistence>
 		);
 	},
 );

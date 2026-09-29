@@ -101,10 +101,6 @@ export default function LozengeDropdownTriggerExample(): JSX.Element {
 
 	return (
 		<Box xcss={styles.container}>
-			<Text>
-				Enable the <code>platform-dst-lozenge-tag-badge-visual-uplifts</code> feature flag to see
-				the new lozenge component.
-			</Text>
 			<Box>
 				<Heading size="medium">Semantic colors</Heading>
 				<Text>Dropdown trigger lozenges with semantic colors. Click to toggle selected state.</Text>

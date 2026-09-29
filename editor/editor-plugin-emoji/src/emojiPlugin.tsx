@@ -285,6 +285,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			} = emojiPluginKey.getState(editorState) ?? {};
 
 			return {
+				contentId: options?.contentId,
 				emojiResourceConfig,
 				asciiMap,
 				typeAheadHandler: typeAhead,

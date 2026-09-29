@@ -3,8 +3,8 @@
  *
  * Generated prop types for Global component - MenuSection
  *
- * @codegen <<SignedSource::b0bccf91caff72e98af168a12e359f71>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
+ * @codegen <<SignedSource::c7be089f06d0bfc26680fb296da0258b>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::3217debf5ba68e84ca5ef7cdbf6ebb43>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/MenuSection.tsx <<SignedSource::4b13c71c5aaf9e4c58c05510ae16359f>>
  */

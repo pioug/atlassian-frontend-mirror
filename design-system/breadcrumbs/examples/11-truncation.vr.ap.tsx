@@ -2,7 +2,9 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
+import ImageIcon from '@atlaskit/icon/core/image';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 const TestIcon = <AtlassianIcon label="" size="small" />;
 
@@ -57,3 +59,23 @@ export default (): React.JSX.Element => (
 		</Breadcrumbs>
 	</div>
 );
+
+export function ScalableBreadcrumbIcons(): React.JSX.Element {
+	return (
+		<Box padding="space.100">
+			<Stack space="space.200">
+				{(['medium', 'small'] as const).map((size) => (
+					<Breadcrumbs key={size} size={size}>
+						<BreadcrumbsItem
+							href="/item"
+							elemBefore={<ImageIcon label="" />}
+							text="Project settings"
+							truncationWidth={140}
+							testId={`scalable-${size}`}
+						/>
+					</Breadcrumbs>
+				))}
+			</Stack>
+		</Box>
+	);
+}

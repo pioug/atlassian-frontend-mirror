@@ -11,7 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import NewLozenge from './new/lozenge';
-import { type NewLozengeProps, type SemanticColor } from './new/types';
+import { type SemanticColor } from './new/types';
 /**
  * TODO: We should be using our bounded `cssMap` here, but most of
  * these styles from the visual refresh are not in the Design System.
@@ -198,18 +198,4 @@ const LegacyLozenge = memo(
 
 LegacyLozenge.displayName = 'Lozenge';
 
-/**
- * Wrapper component that switches between old and new Lozenge based on feature flag
- */
-const LozengeWrapper: import('react').MemoExoticComponent<
-	(props: LozengeProps | NewLozengeProps) => JSX.Element
-> = memo((props: LozengeProps | NewLozengeProps) => {
-	if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
-		return <NewLozenge {...props} />;
-	}
-	return <LegacyLozenge {...(props as LozengeProps)} />;
-});
-
-LozengeWrapper.displayName = 'Lozenge';
-
-export default LozengeWrapper;
+export default NewLozenge;

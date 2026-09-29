@@ -30,7 +30,7 @@ const TOOLBAR_FALLBACKS = {
 };
 
 /**
- * *Warning:* With `platform_editor_toolbar_aifc` enabled this component is no longer used and is replaced with `<ToolbarNext />`.
+ * *Warning:* When the new toolbar is enabled this component is replaced with `<ToolbarNext />`.
  *
  * If making changes to this component please ensure to also update `<ToolbarNext />`.
  */

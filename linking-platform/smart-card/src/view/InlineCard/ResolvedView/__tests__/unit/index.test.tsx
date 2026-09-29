@@ -91,10 +91,14 @@ describe('ResolvedView', () => {
 		};
 		render(<InlineCardResolvedView title="some text content" lozenge={lozengeProps} />);
 		const lozenge = await screen.findByTestId('inline-card-resolved-view-lozenge');
-		// Lozenge background color is hardcoded in the lozenge component for now
-		expect(lozenge).toHaveCompiledCss('background-color', '#8fb8f6');
-
-		expect(lozenge).toHaveStyle(`color: var(--ds-link,#1868db)`);
+		expect(lozenge).toHaveCompiledCss(
+			'background-color',
+			token('color.background.information.subtler', '#CFE1FD').replace(/\s/g, '').toLowerCase(),
+		);
+		expect(lozenge).toHaveCompiledCss(
+			'color',
+			token('color.text.information.bolder', '#123263').replace(/\s/g, '').toLowerCase(),
+		);
 	});
 
 	it('should not render a lozenge when one is not provided', () => {

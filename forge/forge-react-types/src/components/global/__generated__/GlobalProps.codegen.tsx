@@ -3,8 +3,8 @@
  *
  * Generated prop types for Global component - Global
  *
- * @codegen <<SignedSource::4f134dd4ad247c109d1d74968a59bb38>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
+ * @codegen <<SignedSource::f8a62a104b0debe096eec647654232cd>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::3217debf5ba68e84ca5ef7cdbf6ebb43>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global.tsx <<SignedSource::b4211eca9dac23a616225ac8e136d31e>>
  */

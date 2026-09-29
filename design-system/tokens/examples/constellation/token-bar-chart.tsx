@@ -1,106 +1,108 @@
-import React, { useEffect, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React from 'react';
 
-import ReactECharts from 'echarts-for-react';
+import { cssMap, jsx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 
-import { getTokenValue } from '@atlaskit/tokens/get-token-value';
-import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+import { ChartAxes } from './utils/chart-axes';
+import { ChartLabel } from './utils/chart-label';
+import { ChartTooltip } from './utils/chart-tooltip';
+import { plot } from './utils/plot';
+import { SvgChart } from './utils/svg-chart';
+import { useChartInteraction } from './utils/use-chart-interaction';
+import { valueY } from './utils/value-y';
 
-const TokenBarChartCodeBlock = `
-//  This is using echarts-for-react to generate graphs and it's using canvas under the hood
-const data = [
-  80, 55, 55, 80, 85, 52, 39, 53, 75, 58, 76, 52, 52, 78, 79, 77, 78,
-];
-const options = {
-  series: [
-    {
-      data: data.map((item, index) => ({
-        value: item,
-        itemStyle: {
-          color:
-            index === data.length - 1
-              ? getTokenValue('color.chart.brand', B200)
-              : getTokenValue('color.chart.neutral', N100),
-          emphasis: {
-            color:
-              index === data.length - 1
-                ? getTokenValue('color.chart.brand.hovered', B300)
-                : getTokenValue('color.chart.neutral.hovered', N200),
-          },
-        },
-      })),
-    },
-  ],
-}
+const styles = cssMap({
+	previous: {
+		fill: token('color.chart.neutral'),
+		'&:hover': { fill: token('color.chart.neutral.hovered') },
+	},
+	today: {
+		fill: token('color.chart.brand'),
+		'&:hover': { fill: token('color.chart.brand.hovered') },
+	},
+});
 
+const barGeometry = (value: number, index: number, count: number) => {
+	const slot = (plot.right - plot.left - 2 * plot.padding) / count;
+	return {
+		x: plot.left + plot.padding + slot * (index + 0.2),
+		y: valueY(value),
+		width: slot * 0.6,
+		height: plot.bottom - valueY(value),
+	};
+};
+
+const data = [80, 55, 55, 80, 85, 52, 39, 53, 75, 58, 76, 52, 52, 78, 79, 77, 78];
+
+const TokenBarChartCodeBlock = `import { cssMap } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+  previous: {
+    fill: token('color.chart.neutral'),
+    '&:hover': { fill: token('color.chart.neutral.hovered') },
+  },
+  today: {
+    fill: token('color.chart.brand'),
+    '&:hover': { fill: token('color.chart.brand.hovered') },
+  },
+});
+
+// Token styling excerpt; bar coordinates and chart layout are omitted.
+<rect {...geometry} css={styles[isToday ? 'today' : 'previous']} />
 `;
 
 const TokenBarChart = (): React.JSX.Element => {
-	const theme = useThemeObserver();
-	const [chartOptions, setChartOptions] = useState({});
-	useEffect(() => {
-		const data = [80, 55, 55, 80, 85, 52, 39, 53, 75, 58, 76, 52, 52, 78, 79, 77, 78];
-		setChartOptions({
-			title: {
-				text: 'Unit test coverage',
-				textStyle: {
-					color: getTokenValue('color.text'),
-					fontSize: 16,
-				},
-			},
-			xAxis: {
-				type: 'category',
-				data: Array(data.length - 1)
-					.fill('')
-					.concat(['Today']),
-				axisLine: {
-					lineStyle: {
-						color: getTokenValue('color.border'),
-					},
-				},
-				axisTick: {
-					show: false,
-				},
-			},
-			yAxis: {
-				type: 'value',
-				interval: 50,
-				splitLine: {
-					lineStyle: {
-						color: getTokenValue('color.border'),
-					},
-				},
-			},
-			textStyle: {
-				color: getTokenValue('color.text.subtle'),
-			},
-			series: [
-				{
-					data: data.map((item, index) => ({
-						value: item,
-						itemStyle: {
-							color:
-								index === data.length - 1
-									? getTokenValue('color.chart.brand')
-									: getTokenValue('color.chart.neutral'),
-							emphasis: {
-								color:
-									index === data.length - 1
-										? getTokenValue('color.chart.brand.hovered')
-										: getTokenValue('color.chart.neutral.hovered'),
-							},
-						},
-					})),
-					type: 'bar',
-				},
-			],
-		});
-	}, [theme]);
-
-	return <ReactECharts option={chartOptions} />;
+	const { activeIndex, getPointProps, getTooltipProps } = useChartInteraction();
+	const activeBar =
+		activeIndex === null ? null : barGeometry(data[activeIndex], activeIndex, data.length);
+	return (
+		<SvgChart
+			title="Unit test coverage"
+			description={`Coverage over 17 days, oldest to newest: ${data.join('%, ')}%. Today: 78%.`}
+		>
+			<ChartAxes percentage />
+			{data.map((value, index) => {
+				const geometry = barGeometry(value, index, data.length);
+				const isToday = index === data.length - 1;
+				return (
+					<g
+						key={index}
+						{...getPointProps(
+							index,
+							`${isToday ? 'Today' : `${data.length - index - 1} days ago`}: ${value}%`,
+						)}
+					>
+						<rect {...geometry} css={styles[isToday ? 'today' : 'previous']} />
+					</g>
+				);
+			})}
+			<ChartLabel x={plot.left + plot.padding} y={288} textAnchor="start">
+				16 days ago
+			</ChartLabel>
+			<ChartLabel x={plot.right - plot.padding} y={288} textAnchor="end">
+				Today
+			</ChartLabel>
+			{activeIndex !== null && activeBar && (
+				<ChartTooltip
+					x={activeBar.x + activeBar.width / 2}
+					y={activeBar.y}
+					{...getTooltipProps(activeIndex)}
+				>
+					{data[activeIndex]}%
+				</ChartTooltip>
+			)}
+		</SvgChart>
+	);
 };
 
-const _default_1: {
-	example: () => React.JSX.Element;
-	code: string;
-} = { example: TokenBarChart, code: TokenBarChartCodeBlock };
-export default _default_1;
+const example: { example: () => React.JSX.Element; code: string } = {
+	example: TokenBarChart,
+	code: TokenBarChartCodeBlock,
+};
+
+export default example;

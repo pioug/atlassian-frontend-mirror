@@ -71,21 +71,17 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 				</BodiedExtension>,
 			);
 
-		it.each([true, false])(
-			'joins top-level text without UI Kit styling, width fix %s',
-			async (widthFix) => {
-				passGate('platform_forge_inline_bodied_layout_switch');
-				passGate('platform_forge_inline_bodied_macro');
-				mockExp('platform_editor_render_bodied_extension_as_inline', { isEnabled: true });
-				mockExp('platform_editor_renderer_extension_width_fix', { isEnabled: widthFix });
-				const { container } = renderCustomUI(false, true);
-				const wrapper = screen.getByTestId('extension--wrapper');
-				expect(wrapper).toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-				expect(wrapper).toHaveAttribute('data-migrated-inline', 'true');
-				expect(wrapper).not.toHaveAttribute('data-forge-inline');
-				await expect(container).toBeAccessible();
-			},
-		);
+		it('joins top-level text without UI Kit styling', async () => {
+			passGate('platform_forge_inline_bodied_layout_switch');
+			passGate('platform_forge_inline_bodied_macro');
+			mockExp('platform_editor_render_bodied_extension_as_inline', { isEnabled: true });
+			const { container } = renderCustomUI(false, true);
+			const wrapper = screen.getByTestId('extension--wrapper');
+			expect(wrapper).toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
+			expect(wrapper).toHaveAttribute('data-migrated-inline', 'true');
+			expect(wrapper).not.toHaveAttribute('data-forge-inline');
+			await expect(container).toBeAccessible();
+		});
 
 		it('keeps nested Custom UI macros as blocks', () => {
 			passGate('platform_forge_inline_bodied_layout_switch');

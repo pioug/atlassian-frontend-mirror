@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -1954,16 +1955,25 @@ describe('Left sidebar', () => {
 		});
 
 		it('should hydrate with the width that was passed to it', () => {
-			render(
+			const ui = (
 				<PageLayout testId="grid">
 					<Main>
 						<LeftSidebar testId="component" width={200}>
 							Contents
 						</LeftSidebar>
 					</Main>
-				</PageLayout>,
-				{ hydrate: true },
+				</PageLayout>
 			);
+
+			// Hydration needs server-rendered markup to hydrate into. This previously
+			// hydrated an empty container, which React 18 tolerated but React 19 treats
+			// as a hydration mismatch.
+			const container = document.createElement('div');
+			container.innerHTML = renderToString(ui);
+			document.body.appendChild(container);
+
+			render(ui, { container, hydrate: true });
+
 			expect(screen.getByTestId('component')).toHaveStyleDeclaration(
 				'width',
 				'var(--leftSidebarWidth, 0px)',

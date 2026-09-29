@@ -74,6 +74,8 @@ export type EmojiPluginState = {
 };
 
 export type EmojiPluginSharedState = EmojiPluginState & {
+	/** Content identifier forwarded to content-aware emoji picker experiences. */
+	contentId?: string;
 	typeAheadHandler: TypeAheadHandler;
 };
 

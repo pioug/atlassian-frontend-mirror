@@ -1,5 +1,34 @@
 # @atlaskit/link-datasource
 
+## 7.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.5
+
+### Patch Changes
+
+- [`7f8048d956848`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f8048d956848) -
+  [ux] Behind the `platform_lp_jira_searchbar_wrap_a11y` feature gate, the Jira search container now
+  wraps the basic search input above the basic filters when space is limited (e.g. at 200% zoom with
+  a long project name selected), so the search input remains visible. Adds a long project name to
+  the basic filter test mocks.
+- Updated dependencies
+
+## 7.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.3
 
 ### Patch Changes

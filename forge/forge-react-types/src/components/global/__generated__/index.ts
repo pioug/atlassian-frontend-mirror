@@ -4,7 +4,7 @@
  * Index file for generated Global component prop types
  *
  * @codegen <<SignedSource::98f0a696768e2036651a04194cb23198>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::5ff0fb0e52f7acf5bd5c867bda1c333e>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

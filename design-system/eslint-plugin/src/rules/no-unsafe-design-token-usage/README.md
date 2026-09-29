@@ -1,4 +1,4 @@
-Using design tokens in an unsafe way risks the health of the system and will effect how fast your
+Using design tokens in an unsafe way risks the health of the system and will affect how fast your
 codebase can migrate between versions.
 
 ## Examples

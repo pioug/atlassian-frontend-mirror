@@ -3,9 +3,9 @@
  *
  * Volt component entry-point migration map for linting, ratcheting, and codemods.
  *
- * @codegen <<SignedSource::6c3ec8fa660aa2327ecfb92dd9a29c94>>
- * @codegenCommand yarn workspace @atlaskit/volt-components-entry-point-config codegen
- * @codegenDependency package-names.codegen.tsx <<SignedSource::330f9698f53fbc67a842203d4f72e04c>>
+ * @codegen <<SignedSource::24a5927ffd114b93ea22606be68b2880>>
+ * @codegenCommand afm workspace @atlaskit/volt-components-entry-point-config codegen
+ * @codegenDependency package-names.codegen.tsx <<SignedSource::d9b74da5ba85bf062cec006a70c91e8c>>
  */
 import type { EntryPointConfig } from './types';
 

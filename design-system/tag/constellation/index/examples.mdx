@@ -4,7 +4,6 @@ title: Tag
 description: A tag is a subtle, compact label used to categorize and organize content.
 ---
 
-import SectionMessage from '@atlaskit/section-message';
 import TagNewDefault from '../../examples/constellation/tag-new-default';
 import TagNewColors from '../../examples/constellation/tag-new-colors';
 import TagNewLink from '../../examples/constellation/tag-new-link';
@@ -16,11 +15,6 @@ import TagNewSwatchBefore from '../../examples/constellation/tag-new-swatch-befo
 import TagNewTrailingMetric from '../../examples/constellation/tag-new-trailing-metric';
 import AddTagExample from '../../examples/15-add-tags';
 
-<SectionMessage title="Motion in Early Access" appearance="warning">
-	Motion has been updated in Tag and is in Early Access. The motion updates are currently behind the
-	feature flag: platform-dst-motion-uplift-labels.
-</SectionMessage>
-
 ## Default
 
 The default form of a tag, where `text` is required. Tags with static text can be used as a flag or
@@ -29,7 +23,7 @@ as a reference to an object or attribute. By default, tags are removable.
 <Example
 	Component={TagNewDefault}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## Add a tag
@@ -49,7 +43,7 @@ Tags are available in a range of colors to help you organize and categorize info
 <Example
 	Component={TagNewColors}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## Link
@@ -59,7 +53,7 @@ A tag with an `href` can link to more information on the tagged item.
 <Example
 	Component={TagNewLink}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## Non-removable
@@ -69,7 +63,7 @@ Set `isRemovable` to false to prevent users from removing the tag. Tags are remo
 <Example
 	Component={TagNewRemovable}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## With icon
@@ -79,7 +73,7 @@ Use `elemBefore` to add an icon or other element before the tag text.
 <Example
 	Component={TagNewWithIcon}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## Link with icon
@@ -89,7 +83,7 @@ Tags can combine both a link and an icon element.
 <Example
 	Component={TagNewLinkWithIcon}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## Max width
@@ -100,7 +94,7 @@ truncated with an ellipsis.
 <Example
 	Component={TagNewMaxWidth}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## Trailing metric
@@ -111,7 +105,7 @@ supplementary values. The trailing metric uses background subtler accent tokens.
 <Example
 	Component={TagNewTrailingMetric}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## Swatch before
@@ -125,5 +119,5 @@ This prop is early access and may be changed in the future.
 <Example
 	Component={TagNewSwatchBefore}
 	packageName="@atlaskit/tag"
-	featureFlagSwitchers={['labelling', 'motionLabels']}
+	featureFlagSwitchers={['motionLabels']}
 />

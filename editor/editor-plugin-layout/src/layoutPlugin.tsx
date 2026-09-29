@@ -43,7 +43,6 @@ import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LayoutPlugin } from './layoutPluginType';
 import {
@@ -125,9 +124,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 		},
 	]);
 
-	if (expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
-		api?.uiControlRegistry?.actions.register(getLayoutColumnMenuComponents({ api }));
-	}
+	api?.uiControlRegistry?.actions.register(getLayoutColumnMenuComponents({ api }));
 
 	if (isRegisteredSlashCommandEnabled) {
 		api?.uiControlRegistry?.actions.register(getLayoutQuickInsertComponents({ api }));
@@ -163,12 +160,10 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 				},
 			] as Array<PMPlugin>;
 
-			if (expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
-				plugins.push({
-					name: 'layoutKeymap',
-					plugin: () => createLayoutKeymapPlugin({ api }),
-				});
-			}
+			plugins.push({
+				name: 'layoutKeymap',
+				plugin: () => createLayoutKeymapPlugin({ api }),
+			});
 
 			if (
 				(options.editorAppearance === 'full-page' ||
@@ -364,7 +359,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			return (
 				<>
 					{editorExperiment('advanced_layouts', true) ? <GlobalStylesWrapper /> : null}
-					{expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) && editorView ? (
+					{editorView ? (
 						<LayoutColumnMenu
 							api={api}
 							editorView={editorView}

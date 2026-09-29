@@ -517,21 +517,24 @@ export default class Comment extends React.Component<Props, State> {
 
 		const { createdBy, commentAri } = comment;
 		let actions = [
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+			/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 			<CommentAction key="reply" onClick={this.onReply}>
 				Reply
+				{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 			</CommentAction>,
 		];
 		const editAction = (
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+			/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 			<CommentAction key="edit" onClick={this.onEdit}>
 				Edit
+				{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 			</CommentAction>
 		);
 		const deleteAction = (
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+			/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 			<CommentAction key="delete" onClick={this.onDelete}>
 				Delete
+				{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 			</CommentAction>
 		);
 
@@ -619,18 +622,20 @@ export default class Comment extends React.Component<Props, State> {
 
 			if ((error as HttpError).canRetry) {
 				errorProps.actions = [
-					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+					/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 					<CommentAction key="retry" onClick={this.onRequestRetry}>
 						Retry
+						{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 					</CommentAction>,
 				];
 			}
 
 			errorProps.actions = [
 				...errorProps.actions,
-				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+				/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 				<CommentAction key="cancel" onClick={this.onRequestCancel}>
 					Cancel
+					{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 				</CommentAction>,
 			];
 

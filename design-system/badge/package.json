@@ -30,21 +30,7 @@
 				"platform-labs"
 			],
 			"name": "Badge",
-			"category": "Labels",
-			"status": {
-				"type": "ready-for-ga",
-				"description": "The new badge appearances are stable and ready for adoption."
-			},
-			"subPages": [
-				{
-					"title": "Badge",
-					"id": "badge",
-					"status": {
-						"type": "intent-to-deprecate",
-						"description": "We're planning to deprecate this component. Please use the new badge component instead."
-					}
-				}
-			]
+			"category": "Labels"
 		}
 	},
 	"exports": {

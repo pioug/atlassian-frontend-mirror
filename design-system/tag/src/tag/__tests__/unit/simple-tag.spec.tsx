@@ -12,4 +12,31 @@ describe('<SimpleTag />', () => {
 		expect(screen.getByText(text)).toBeInTheDocument();
 		expect(screen.queryByRole('button')).not.toBeInTheDocument();
 	});
+
+	it('should use the supplied link component', () => {
+		const CustomLink = ({
+			children,
+			href,
+			testId,
+		}: {
+			children?: React.ReactNode;
+			href?: string;
+			testId?: string;
+		}) => (
+			<span data-href={href} data-testid={testId}>
+				{children}
+			</span>
+		);
+
+		render(
+			<SimpleTag
+				text="Custom link"
+				href="/custom-link"
+				linkComponent={CustomLink}
+				testId="simple-tag"
+			/>,
+		);
+
+		expect(screen.getByTestId('simple-tag--link')).toHaveAttribute('data-href', '/custom-link');
+	});
 });

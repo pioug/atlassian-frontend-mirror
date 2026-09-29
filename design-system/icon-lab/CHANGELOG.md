@@ -1,5 +1,28 @@
 # @atlaskit/icon-lab
 
+## 7.11.0
+
+### Minor Changes
+
+- [`3fbc5931c675b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fbc5931c675b) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `ai-generative-fix`
+  - `modal`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `dock-window-bottom-left`
+  - `dock-window-bottom-right`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.10.0
 
 ### Minor Changes

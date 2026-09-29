@@ -1112,9 +1112,10 @@ export const syncBlockMessages: {
 	},
 	unpublishedSyncBlockPastedDescriptionJiraWorkItem: {
 		id: 'fabric.editor.unpublishedSyncBlockPastedDescription.jiraWorkItem',
-		defaultMessage: "When the item's description is saved, the content will be displayed.",
+		defaultMessage:
+			"<link>When the item's description is saved</link>, the content will be displayed.",
 		description:
-			'Description in flag which appears when a reference to a sync block whose source is a Jira work item with an unsaved description is pasted',
+			'Description in flag which appears when a reference to a sync block whose source is a Jira work item with an unsaved description is pasted. The first clause links to the source work item when its URL is known.',
 	},
 	unsyncButton: {
 		id: 'fabric.editor.syncedBlock.unsync',

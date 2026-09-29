@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - PaginationProps
  *
- * @codegen <<SignedSource::a17d1f43f1a5f40b39d3ca70391fd2ed>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::ad563f853608ca53ae9897a2ad8fcf6d>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/pagination/index.tsx <<SignedSource::c679ea4dcc10dee511a000d51ca66c9a>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

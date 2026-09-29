@@ -117,9 +117,9 @@ export const mockFieldValuesResponse: FieldValuesResponse = {
 		jira: {
 			jqlBuilder: {
 				fieldValues: {
-					totalCount: 4,
+					totalCount: 5,
 					pageInfo: {
-						endCursor: 'YXJyYXljb25uZWN0aW9uOjM=',
+						endCursor: 'YXJyYXljb25uZWN0aW9uOjQ=',
 					},
 					edges: [
 						{
@@ -166,6 +166,18 @@ export const mockFieldValuesResponse: FieldValuesResponse = {
 									avatar: {
 										small:
 											'https://nmccormick2.jira-dev.com/rest/api/2/universal_avatar/view/type/project/avatar/10410?size=small',
+									},
+								},
+							},
+						},
+						{
+							node: {
+								jqlTerm: '"Sample Scrum Project A"',
+								displayName: 'Sample Scrum Project A',
+								project: {
+									avatar: {
+										small:
+											'https://nmccormick2.jira-dev.com/rest/api/2/universal_avatar/view/type/project/avatar/10412?size=small',
 									},
 								},
 							},

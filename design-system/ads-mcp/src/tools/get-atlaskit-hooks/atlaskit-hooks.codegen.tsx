@@ -3,8 +3,8 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::62df1129cd332cd422134d3da180202d>>
- * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
+ * @codegen <<SignedSource::b9f701a6e97f2affdf15c1ef866eefbe>>
+ * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
 import type { HookMcpPayload } from './types';

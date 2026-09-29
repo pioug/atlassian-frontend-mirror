@@ -4,7 +4,7 @@
  * Extract component prop types from UIKit 2 components - BannerProps
  *
  * @codegen <<SignedSource::32a3f367a074a452bcac5a7bb21de36b>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/banner/index.tsx <<SignedSource::9e531cb603b63fc5517ef7c0efe867f1>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

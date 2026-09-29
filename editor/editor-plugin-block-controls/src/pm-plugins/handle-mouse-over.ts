@@ -347,18 +347,6 @@ export const handleMouseOver = (
 			pos = view.posAtDOM(rootElement, 0);
 		}
 
-		if (
-			parentRootElement &&
-			parentRootElement.getAttribute('data-layout-section') === 'true' &&
-			parentRootElement.querySelectorAll('[data-layout-column]').length === 1 &&
-			editorExperiment('advanced_layouts', true) &&
-			!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-		) {
-			// Don't show drag handle for layout column in a single column layout,
-			// unless the layout column menu is enabled (menu needs the handle to be accessible).
-			return false;
-		}
-
 		const targetPos = view.state.doc.resolve(pos).pos;
 
 		let rootAnchorName;

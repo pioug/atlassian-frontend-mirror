@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - DatePickerProps
  *
- * @codegen <<SignedSource::dd7f6d23d3c23b62f56cc3c8e78c7639>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::17749e854e98a7bd106b33ba9122fc68>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/datepicker/__generated__/index.partial.tsx <<SignedSource::5dcbe693f00f3a2725b9e64932a3309c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

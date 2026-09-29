@@ -107,13 +107,7 @@
 			"path": "../../design-system/icon-lab/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-experiments/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags-react/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

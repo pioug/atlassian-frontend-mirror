@@ -1,5 +1,13 @@
 # @atlaskit/native-embeds-common
 
+## 2.6.0
+
+### Minor Changes
+
+- [`72c0d47a53488`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72c0d47a53488) -
+  Add native-embed comments support, including a reusable Comment toolbar action and omitting
+  annotations from copied embeds.
+
 ## 2.5.6
 
 ### Patch Changes

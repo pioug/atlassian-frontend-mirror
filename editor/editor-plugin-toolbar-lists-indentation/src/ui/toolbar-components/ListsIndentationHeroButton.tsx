@@ -21,7 +21,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import TaskIcon from '@atlaskit/icon/core/task';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 
@@ -41,18 +40,12 @@ function useListsIndentationHeroButtonInfo({
 }) {
 	const { formatMessage } = useIntl();
 	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =
-		useSharedPluginStateWithSelector(api, ['list', 'taskDecision', 'interaction'], (states) => {
-			const useDefaultToolbarState =
-				states.interactionState?.interactionState === 'hasNotHadInteraction' &&
-				isExperimentEnabled('platform_editor_default_toolbar_state');
-
-			return {
-				bulletListActive: useDefaultToolbarState ? false : states.listState?.bulletListActive,
-				bulletListDisabled: states.listState?.bulletListDisabled,
-				orderedListActive: useDefaultToolbarState ? false : states.listState?.orderedListActive,
-				taskListActive: useDefaultToolbarState ? false : states.taskDecisionState?.isInsideTask,
-			};
-		});
+		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({
+			bulletListActive: states.listState?.bulletListActive,
+			bulletListDisabled: states.listState?.bulletListDisabled,
+			orderedListActive: states.listState?.orderedListActive,
+			taskListActive: states.taskDecisionState?.isInsideTask,
+		}));
 
 	const getListType: ListType = taskListActive
 		? 'taskList'

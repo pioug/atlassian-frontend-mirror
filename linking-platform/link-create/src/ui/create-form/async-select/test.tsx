@@ -16,7 +16,7 @@ jest.mock('@atlaskit/select/async-select', () => {
 	return {
 		...jest.requireActual('@atlaskit/select/async-select'),
 		__esModule: true,
-		default: jest.fn((props) => <originalModule.AsyncSelect {...props} />),
+		default: jest.fn((props) => <originalModule.default {...props} />),
 	};
 });
 

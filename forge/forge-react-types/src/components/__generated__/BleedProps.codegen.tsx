@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - BleedProps
  *
- * @codegen <<SignedSource::a1982f7eb843934c3de3fd363503a5d4>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::cfd0460440320e84010d61be3a1afce3>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/bleed/index.tsx <<SignedSource::2618d19d7707ea6758a8b5a558a725df>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

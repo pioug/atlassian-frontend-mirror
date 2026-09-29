@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TooltipProps
  *
- * @codegen <<SignedSource::2a91d2b46e44aca1781046d3838d7a55>>
+ * @codegen <<SignedSource::3e58d8bd5e894815e523ef8a5436e60c>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tooltip/__generated__/index.partial.tsx <<SignedSource::2ca2bf0b16bf227081138a7445283641>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tooltip/__generated__/index.partial.tsx <<SignedSource::4288c870a8a74c631d4f81d015fba8fe>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

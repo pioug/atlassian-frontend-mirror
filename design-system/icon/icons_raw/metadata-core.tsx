@@ -2249,7 +2249,7 @@ const metadata: IconMetadata = {
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'panel-left': {
-		keywords: ['detail view', 'left rail', 'drawer', 'preview panel', 'sidebar'],
+		keywords: ['detail view', 'left rail', 'drawer', 'preview panel', 'sidebar', 'side panel'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
@@ -2260,7 +2260,7 @@ const metadata: IconMetadata = {
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'panel-right': {
-		keywords: ['detail view', 'right rail', 'drawer', 'preview panel', 'sidebar'],
+		keywords: ['detail view', 'right rail', 'drawer', 'preview panel', 'sidebar', 'side panel'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',

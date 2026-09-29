@@ -55,20 +55,22 @@ describe('Status', () => {
 	describe('should map colors to lozenge appearances', () => {
 		const colorToLozengeAppearanceMap: { [key in NamedColor]: string } = {
 			neutral: token('color.text'),
-			purple: token('color.text'),
-			blue: token('color.text'),
-			red: token('color.text'),
-			yellow: token('color.text'),
-			green: token('color.text'),
+			purple: token('color.text.discovery.bolder'),
+			blue: token('color.text.information.bolder'),
+			red: token('color.text.danger.bolder'),
+			yellow: token('color.text.warning.bolder'),
+			green: token('color.text.success.bolder'),
 		};
 
 		Object.entries(colorToLozengeAppearanceMap).forEach(([color, appearance]) => {
 			it(`should map ${color} to correct text color`, () => {
 				renderWithIntl(<Status text="In progress" color={color as NamedColor} />);
-				expect(screen.getByText('In progress')).toHaveCompiledCss(
-					'color',
-					formatColorToken(appearance),
-				);
+				const textEl = screen.getByText('In progress');
+				const lozengeRoot = textEl.parentElement && textEl.parentElement.parentElement;
+				if (!lozengeRoot) {
+					throw new Error('Expected Lozenge root element to exist two levels above the text node');
+				}
+				expect(lozengeRoot).toHaveCompiledCss('color', formatColorToken(appearance));
 			});
 		});
 	});
@@ -88,10 +90,12 @@ describe('Status', () => {
 			// @ts-ignore: passing an invalid color
 			<Status text="In progress" color="unknown" />,
 		);
-		expect(screen.getByText('In progress')).toHaveCompiledCss(
-			'color',
-			formatColorToken(token('color.text')),
-		);
+		const textEl = screen.getByText('In progress');
+		const lozengeRoot = textEl.parentElement && textEl.parentElement.parentElement;
+		if (!lozengeRoot) {
+			throw new Error('Expected Lozenge root element to exist two levels above the text node');
+		}
+		expect(lozengeRoot).toHaveCompiledCss('color', formatColorToken(token('color.text')));
 	});
 
 	it('should not render it if text is empty', () => {

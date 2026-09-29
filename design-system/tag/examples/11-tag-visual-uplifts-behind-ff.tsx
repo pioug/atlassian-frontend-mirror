@@ -5,7 +5,6 @@
 import { css, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import Code from '@atlaskit/code/code';
 import Heading from '@atlaskit/heading/heading';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import AvatarTag from '@atlaskit/tag/avatar-tag';
@@ -43,10 +42,7 @@ export default function TagVisualUplifts(): JSX.Element {
 				{/* Header */}
 				<Stack space="space.100">
 					<Heading size="large">Tag Visual Refresh Testing</Heading>
-					<Text>
-						Toggle the feature flag <Code>platform-dst-lozenge-tag-badge-visual-uplifts</Code> to
-						see the visual differences.
-					</Text>
+					<Text>Visual refresh enabled by default.</Text>
 				</Stack>
 
 				{/* Simple Tags with Old API */}

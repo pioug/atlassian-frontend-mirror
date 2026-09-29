@@ -20,39 +20,15 @@ const themeVariants: SnapshotTestOptions<any>['variants'] = [
 	},
 ];
 
-// Basic tag - with ff on
+// Basic tag
 snapshot(Basic, {
-	description: 'tag-basic-visual-uplifts-ff-on',
-	featureFlags: {
-		'platform-dst-lozenge-tag-badge-visual-uplifts': true,
-	},
+	description: 'tag-basic-visual-uplifts',
 	variants: themeVariants,
 });
 
-// Basic tag - with ff off
-snapshot(Basic, {
-	description: 'tag-basic-visual-uplifts-ff-off',
-	featureFlags: {
-		'platform-dst-lozenge-tag-badge-visual-uplifts': false,
-	},
-	variants: themeVariants,
-});
-
-// Colors tag - with ff on
+// Colors tag
 snapshot(Colors, {
-	description: 'tag-colors-visual-uplifts-ff-on',
-	featureFlags: {
-		'platform-dst-lozenge-tag-badge-visual-uplifts': true,
-	},
-	variants: themeVariants,
-});
-
-// Colors tag - with ff off
-snapshot(Colors, {
-	description: 'tag-colors-visual-uplifts-ff-off',
-	featureFlags: {
-		'platform-dst-lozenge-tag-badge-visual-uplifts': false,
-	},
+	description: 'tag-colors-visual-uplifts',
 	variants: themeVariants,
 });
 

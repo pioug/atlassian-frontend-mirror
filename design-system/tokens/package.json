@@ -88,8 +88,6 @@
 		"@hypermod/utils": "root:*",
 		"@testing-library/react": "root:*",
 		"color-blend": "root:*",
-		"echarts": "root:*",
-		"echarts-for-react": "root:*",
 		"jscodeshift": "root:*",
 		"json5": "root:*",
 		"lodash": "root:*",

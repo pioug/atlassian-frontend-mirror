@@ -3,8 +3,8 @@
  *
  * Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`
  *
- * @codegen <<SignedSource::8ae40dd61c64556ef311128a713ddbc8>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::6581ebba6afba50295cdc009a21f3a5b>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::c41e4f3315ca4258155822a2960b4f13>>
  */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
@@ -28,9 +28,9 @@ import type { SerializedStyles } from '@emotion/serialize';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e1eade0acfb5398514aabfcd6332a935>>
+ * @codegen <<SignedSource::a8fa3bcb5a39f872a309ff3ad9b23d54>>
  * @codegenId forge-tokens
- * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
  * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>

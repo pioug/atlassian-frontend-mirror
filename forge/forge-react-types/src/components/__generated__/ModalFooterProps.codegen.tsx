@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalFooterProps
  *
- * @codegen <<SignedSource::a14a6d81c8232aea244494d872b37d70>>
+ * @codegen <<SignedSource::f1a1714f406b2236c6e085c4286f710f>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-footer.partial.tsx <<SignedSource::744c3acbb8bf545c51803924d86705d8>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-footer.partial.tsx <<SignedSource::4f8632360bc707a48ff359168ea643ec>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

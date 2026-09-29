@@ -326,6 +326,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 				zIndex={akEditorMenuZIndex}
 			>
 				<EmojiPickerWithListeners
+					contentId={this.props.emojiContentId}
 					emojiProvider={emojiProvider}
 					onSelection={this.handleSelectedEmoji}
 					handleClickOutside={this.handleEmojiClickOutside}

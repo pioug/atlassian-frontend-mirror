@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - AtlassianTileProps
  *
- * @codegen <<SignedSource::72d1a34de22236fe9bf5d05c4a0550ac>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::bbfe31c975a45464218dc5c6ddf63bbe>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/atlassiantile/index.tsx <<SignedSource::6d88e2452b049891f2c2b42f6f3035c6>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

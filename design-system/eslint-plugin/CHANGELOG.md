@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.13.3
+
+### Patch Changes
+
+- [`32ee25eeb4eef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32ee25eeb4eef) -
+  Accept the motion.tab token for native tab button colour transitions.
+
 ## 16.13.2
 
 ### Patch Changes

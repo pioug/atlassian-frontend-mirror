@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f6244c47441258ce1321618a51bba24>>
+ * @codegen <<SignedSource::9a7f4603a3394939adafb491e3ee704e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const PanelRightIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "PanelRightIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 3a.5.5 0 0 0-.5-.5H9.5v11H14a.5.5 0 0 0 .5-.5zM13 10v1.5h-2V10zm0-3v1.5h-2V7zm0-3v1.5h-2V4zM1.5 13a.5.5 0 0 0 .5.5h6v-11H2a.5.5 0 0 0-.5.5zM16 13a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M12.25 4a.75.75 0 0 1 .75.75v6.5a.75.75 0 0 1-.75.75h-3.5a.75.75 0 0 1-.75-.75v-6.5A.75.75 0 0 1 8.75 4z"/><path fill="currentcolor" fill-rule="evenodd" d="M14 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zM2 2.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PanelRightIcon.displayName = 'PanelRightIcon';

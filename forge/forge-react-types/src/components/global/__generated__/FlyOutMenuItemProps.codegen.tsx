@@ -3,8 +3,8 @@
  *
  * Generated prop types for Global component - FlyOutMenuItem
  *
- * @codegen <<SignedSource::0cf7d558f9355a704b55f09b99fd7019>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
+ * @codegen <<SignedSource::5df64e923cd2395a69731167a5854d08>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/FlyOutMenuItem.tsx <<SignedSource::75d879bd2f49ca97e971242cb58cf034>>
  */

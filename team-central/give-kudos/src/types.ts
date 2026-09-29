@@ -1,3 +1,5 @@
+import type React from 'react';
+
 export enum KudosType {
 	INDIVIDUAL = 'individual',
 	TEAM = 'team',
@@ -61,6 +63,8 @@ export interface GiveKudosDrawerProps {
 	testId?: string;
 	isOpen: boolean;
 	onClose: () => void;
+	/** Called once the drawer has fully closed, just before focus is returned. */
+	onCloseComplete?: () => void;
 	analyticsSource: string;
 	recipient?: KudosRecipient;
 	prepopulateRecipientsVia?: PrepopulateRecipientsVia;
@@ -74,4 +78,6 @@ export interface GiveKudosDrawerProps {
 	 * Optional attributes merged into the createKudos opened analytics event (e.g. isNewUserProfile).
 	 */
 	openedEventAttributes?: Record<string, string | boolean | undefined>;
+	/** Element to return focus to on close (behind `teams_a11y_focus_high_priority`). */
+	triggerRef?: React.RefObject<HTMLElement | null>;
 }

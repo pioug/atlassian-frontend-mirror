@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::094f8a058153c7e839c5d98d2718ca4e>>
+ * @codegen <<SignedSource::7b2b0662d0eeb0e3a3e4c844a505d27e>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { Rule } from 'eslint';
@@ -20,6 +20,7 @@ import noImportantStyles from './no-important-styles';
 import noImportedStyleValues from './no-imported-style-values';
 import noNestedSelectors from './no-nested-selectors';
 import noStyled from './no-styled';
+import noTopLayerUnsafeSelectors from './no-top-layer-unsafe-selectors';
 import noUnsafeSelectors from './no-unsafe-selectors';
 import noUnsafeValues from './no-unsafe-values';
 import noUnusedCssmapProperties from './no-unused-cssmap-properties';
@@ -41,6 +42,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-imported-style-values': noImportedStyleValues,
 	'no-nested-selectors': noNestedSelectors,
 	'no-styled': noStyled,
+	'no-top-layer-unsafe-selectors': noTopLayerUnsafeSelectors,
 	'no-unsafe-selectors': noUnsafeSelectors,
 	'no-unsafe-values': noUnsafeValues,
 	'no-unused-cssmap-properties': noUnusedCssmapProperties,

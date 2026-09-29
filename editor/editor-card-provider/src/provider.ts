@@ -83,6 +83,12 @@ const CONFLUENCE_TEAM_CALENDARS_REGEX = /\/wiki\/spaces\/(?<resourceContext>[^\/
 const JIRA_ISSUE_NAVIGATOR_REGEX =
 	/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/;
 const AVP_VISUALIZATION_VIEW_REGEX = /^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/;
+const ARTIFACT_UUID = '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}';
+// Keep in sync with ARTIFACT_URL_PATTERNS in @atlassian/native-embeds-artifacts-experience
+const ARTIFACT_SHARE_REGEX = [
+	new RegExp(`/artifacts/${ARTIFACT_UUID}(?:[/?#].*)?$`),
+	new RegExp(`/apps/${ARTIFACT_UUID}/${ARTIFACT_UUID}/[^?#]*\\?(?:[^#]*&)?smartlink=artifact`),
+];
 const DASHBOARDS_CHART_VIEW_REGEX = /^https:\/\/.*?\/dashboards\/c\/[^\/]+.*/;
 const JIRA_WORK_ITEM_REGEX = /\/browse\/((?:\w+)-(?:\d+))/i;
 const DOES_URL_MATCH_PATH_START_REGEX = /^[a-zA-Z0-9]/;
@@ -164,6 +170,16 @@ const isJiraIssueNavigator: UrlChecker = (url) => url.match(JIRA_ISSUE_NAVIGATOR
 const isAvpVisualizationView: UrlChecker = (url) =>
 	url.match(AVP_VISUALIZATION_VIEW_REGEX) ||
 	(fg('platform_avp_viz_dashboard_link_embed') ? url.match(DASHBOARDS_CHART_VIEW_REGEX) : null);
+
+const isArtifactsShareView: UrlChecker = (url) => {
+	for (const pattern of ARTIFACT_SHARE_REGEX) {
+		const match = url.match(pattern);
+		if (match) {
+			return match;
+		}
+	}
+	return null;
+};
 
 export const isJiraWorkItem = (url: string): boolean => JIRA_WORK_ITEM_REGEX.test(url);
 
@@ -522,7 +538,8 @@ export class EditorCardProvider
 			isCustomer360LandingPage(url) ||
 			isConfluenceTeamCalendarsEvaluated ||
 			isJiraIssueNavigator(url) ||
-			isAvpVisualizationView(url)
+			isAvpVisualizationView(url) ||
+			(isArtifactsShareView(url) && fg('platform_forge_ui_artifact_confluence_integration'))
 		) {
 			return 'embed';
 		}

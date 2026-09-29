@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-table
 
+## 34.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.7
+
+### Patch Changes
+
+- [`9ed3c929b3ed2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed3c929b3ed2) -
+  Clean up feature gate `platform_editor_ai_table_ai_streaming_pos_fix`
+- Updated dependencies
+
+## 34.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.5
+
+### Patch Changes
+
+- [`7b93ea1ee59ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b93ea1ee59ed) -
+  [ux] Behind `platform_editor_table_q4_loveability` and the new `platform_editor_table_q4_patch_8`
+  experiment, fix the table column controls covering the sticky header row, and a gap above the
+  stuck header, at fractional browser zoom in Chrome.
+- Updated dependencies
+
 ## 34.0.4
 
 ### Patch Changes

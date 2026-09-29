@@ -1,5 +1,45 @@
 # @atlaskit/rovo-agent-components
 
+## 9.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.5.3
+
+### Patch Changes
+
+- [`4eabf4c2cc23e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4eabf4c2cc23e) -
+  Add avatar for the Jira Delivery Agent (jira_delivery_agent)
+- [`4254737e3f847`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4254737e3f847) -
+  Update the Jira Triage Agent and Ops Expert avatar icons to match the latest Team 26 EU brand
+  artwork.
+- Updated dependencies
+
+## 9.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.5.0
+
+### Minor Changes
+
+- [`f3c48159106b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3c48159106b7) -
+  Update i18n NPM package versions for ai-mate,ai,ai-opt-in,insights-ai-platform (Group 2)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.3
 
 ### Patch Changes

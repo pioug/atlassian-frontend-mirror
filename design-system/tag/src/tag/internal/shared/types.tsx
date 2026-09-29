@@ -34,10 +34,6 @@ export interface SimpleTagProps {
 	 * @internal
 	 * **Temporary / Internal only for migration.**
 	 *
-	 * When set to `'lozenge'` and the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts`
-	 * is OFF, renders as a Lozenge component instead of Tag. This enables safe, staged migration
-	 * from Lozenge to Tag for large consumers.
-	 *
 	 * This prop will be removed via codemod after migration is complete.
 	 */
 	migration_fallback?: MigrationFallback;

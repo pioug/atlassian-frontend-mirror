@@ -108,13 +108,6 @@ const LayoutBreakoutResizer = ({
 		selectIntoLayout(view, pos, 0);
 	}, [getPos, view]);
 
-	if (
-		interactionState === 'hasNotHadInteraction' &&
-		!expValEquals('platform_editor_breakout_interaction_rerender', 'isEnabled', true)
-	) {
-		return null;
-	}
-
 	return (
 		<BreakoutResizer
 			getRef={forwardRef}
@@ -127,10 +120,7 @@ const LayoutBreakoutResizer = ({
 					? true
 					: editorDisabled === true || !isBreakoutAvailable(view.state.schema)
 			}
-			hidden={
-				interactionState === 'hasNotHadInteraction' &&
-				expValEquals('platform_editor_breakout_interaction_rerender', 'isEnabled', true)
-			}
+			hidden={interactionState === 'hasNotHadInteraction'}
 			parentRef={parentRef}
 			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 			displayGuidelines={

@@ -1,5 +1,25 @@
 # @atlaskit/breadcrumbs
 
+## 17.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.2
+
+### Patch Changes
+
+- [`94f62789cb2cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94f62789cb2cc) -
+  Improve truncation behaviour when browser font size increases in the
+  `platform_dst_breadcrumbs-refresh` path.
+
 ## 17.8.1
 
 ### Patch Changes

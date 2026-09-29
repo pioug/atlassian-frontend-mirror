@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FormFooterProps
  *
- * @codegen <<SignedSource::b473ffb40bdf2d97c0d6bf6c2f908570>>
+ * @codegen <<SignedSource::59acabc38b3f70c3e7c3d6fbdcb93de2>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-footer.partial.tsx <<SignedSource::e0b3cffc89562cde669e9b4d06d129ab>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-footer.partial.tsx <<SignedSource::fdea880452410dc8923b9b330ba4ab9b>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - StackProps
  *
- * @codegen <<SignedSource::b7d1ae39888c2693e5fc459da4e5871f>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::68a00080e5eb3eb527d8cfa1db232348>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/stack/__generated__/index.partial.tsx <<SignedSource::191f725f0992bea2117b07b99f6444de>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

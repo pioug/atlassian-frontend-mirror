@@ -4,7 +4,7 @@
  * Extract component prop types from UIKit 2 components - InlineProps
  *
  * @codegen <<SignedSource::a184afd895391ad501b67ca2a5c49fc1>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline/__generated__/index.partial.tsx <<SignedSource::8123157b2afe19d52b47110fb754d43b>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

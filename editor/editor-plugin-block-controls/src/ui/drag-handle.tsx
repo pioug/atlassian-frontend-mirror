@@ -434,11 +434,9 @@ const getNodeMargins = (node?: PMNode): { bottom: number; top: number } => {
 	return nodeMargins[nodeTypeName] || nodeMargins['default'];
 };
 
-// Kill switch OFF: omit `isOpen` so the reducer toggles per clicked column. ON: keep
-// `isOpen: true` for legacy always-open. Centralised so all dispatch sites stay in sync.
+// Omit `isOpen` so the reducer toggles the menu for a re-clicked layout column.
 const buildToggleLayoutColumnMenuMeta = (anchorPos: number, openedViaKeyboard: boolean) => ({
 	anchorPos,
-	...(fg('platform_editor_layout_column_menu_kill_switch_1') ? { isOpen: true } : {}),
 	openedViaKeyboard,
 });
 
@@ -573,10 +571,7 @@ export const DragHandle = ({
 					return tr;
 				}
 
-				if (
-					nodeType === 'layoutColumn' &&
-					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-				) {
+				if (nodeType === 'layoutColumn') {
 					tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, false));
 				}
 
@@ -653,10 +648,7 @@ export const DragHandle = ({
 
 					api?.blockControls?.commands.startPreservingSelection()({ tr });
 
-					if (
-						nodeType === 'layoutColumn' &&
-						expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-					) {
+					if (nodeType === 'layoutColumn') {
 						tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, true));
 					}
 
@@ -1415,9 +1407,7 @@ export const DragHandle = ({
 	);
 
 	const tooltipContent =
-		isLayoutColumn &&
-		expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) &&
-		currentUserIntent === 'layoutColumnMenuPopupOpen' ? null : (
+		isLayoutColumn && currentUserIntent === 'layoutColumnMenuPopupOpen' ? null : (
 			<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />
 		);
 

@@ -76,6 +76,8 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 		onCreateKudosSuccess,
 		isActionsEnabled,
 		zIndex = layers.modal(),
+		triggerRef,
+		onCloseComplete,
 	} = props;
 
 	const shouldBlockTransition = useCallback(
@@ -383,7 +385,16 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 			sendAnalytic('opened', {});
 		}
 		return (
-			<Drawer width="full" isOpen={props.isOpen} zIndex={zIndex} onClose={handleCloseDrawerClicked}>
+			<Drawer
+				width="full"
+				isOpen={props.isOpen}
+				zIndex={zIndex}
+				onClose={handleCloseDrawerClicked}
+				onCloseComplete={onCloseComplete}
+				shouldReturnFocus={
+					fg('teams_a11y_focus_high_priority') && triggerRef ? triggerRef : undefined
+				}
+			>
 				<div css={styles.drawerCloseButtonContainer}>
 					<IconButton
 						ref={backButtonRef}
@@ -423,7 +434,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 								fg('teams_a11y_focus_high_priority') ? handleConfirmModalCloseComplete : undefined
 							}
 						>
-							<ModalHeader hasCloseButton={fg('goals_projects_bug_smash_july_2026')}>
+							<ModalHeader hasCloseButton>
 								<ModalTitle>
 									<FormattedMessage {...messages.confirmCloseTitle} />
 								</ModalTitle>

@@ -10,6 +10,7 @@ import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { type Jast } from '@atlaskit/jql-ast';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -41,6 +42,11 @@ const styles = cssMap({
 	},
 	basicSearchInputContainerStyles: {
 		flexGrow: 1,
+	},
+	basicSearchInputContainerWrapStyles: {
+		flexGrow: 1,
+		flexWrap: 'wrap',
+		rowGap: token('space.100'),
 	},
 	inputContainerStyles: {
 		alignItems: 'flex-start',
@@ -289,7 +295,14 @@ export const JiraSearchContainer = (props: SearchContainerProps): JSX.Element =>
 		<div css={styles.inputContainerStyles} data-testid="jira-search-container">
 			{currentSearchMethod === 'basic' && (
 				<Box xcss={styles.basicSearchInputBoxStyles}>
-					<Flex alignItems="center" xcss={styles.basicSearchInputContainerStyles}>
+					<Flex
+						alignItems="center"
+						xcss={
+							fg('platform_lp_jira_searchbar_wrap_a11y')
+								? styles.basicSearchInputContainerWrapStyles
+								: styles.basicSearchInputContainerStyles
+						}
+					>
 						<BasicSearchInput
 							isSearching={isSearching}
 							onChange={handleBasicSearchChange}

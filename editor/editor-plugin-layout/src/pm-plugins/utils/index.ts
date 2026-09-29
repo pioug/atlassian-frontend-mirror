@@ -7,7 +7,6 @@ import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-p
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -81,20 +80,14 @@ const supportsBlankSpaceGapCursorFallback = (node: PMNode | null): boolean =>
 /**
  * For a blank-space click inside a layout column — above the first child (middle/bottom-aligned
  * columns) or below the last child (any alignment) — return the ProseMirror position and side
- * for a gap cursor. Returns `undefined` when the kill switch is ON, the click is outside a
- * layoutColumn, or the Y coordinate is not in blank space.
- *
- * The `advanced_layouts` / `platform_editor_layout_column_menu` gates live in the caller
- * (`applyBlankSpaceGapCursor`); only the kill switch is checked here.
+ * for a gap cursor. Returns `undefined` when the click is outside a layoutColumn or the Y
+ * coordinate is not in blank space. The `advanced_layouts` gate lives in the caller
+ * (`applyBlankSpaceGapCursor`).
  */
 export const getGapCursorTargetForBlankSpaceClick = (
 	view: EditorView,
 	event: MouseEvent,
 ): GapCursorTarget | undefined => {
-	if (fg('platform_editor_layout_column_menu_kill_switch_1')) {
-		return undefined;
-	}
-
 	// Resolve the column from the DOM target so it works even when posAtCoords returns null
 	// (nothing rendered at the clicked Y).
 	const target = event.target as Element | null;

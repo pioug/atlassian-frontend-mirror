@@ -1,5 +1,28 @@
 # @atlaskit/editor-shared-styles
 
+## 4.3.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.32
+
+### Patch Changes
+
+- [`6728bb1f412c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6728bb1f412c2) -
+  Remove the unused `platform_editor_toolbar_aifc` experiment registration and temporary-only
+  runtime branches, preserve toolbar treatments owned by `platform_editor_ai_aifc_streaming` or
+  `aifc_create_enabled`, retain the control experience when those checks are disabled, and correctly
+  hide decorative Rovo toolbar icons from assistive technology.
+- Updated dependencies
+
+## 4.3.31
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.30
 
 ### Patch Changes

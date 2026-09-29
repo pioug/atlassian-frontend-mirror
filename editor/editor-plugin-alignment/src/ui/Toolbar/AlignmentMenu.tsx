@@ -6,7 +6,6 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownMenu, ToolbarTooltip } from '@atlaskit/editor-toolbar';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
 import { alignmentOptions } from './options';
@@ -20,13 +19,9 @@ export const AlignmentMenu = ({
 }): React.JSX.Element => {
 	const { align = 'start', isEnabled } = useSharedPluginStateWithSelector(
 		api,
-		['alignment', 'interaction'],
+		['alignment'],
 		(states) => ({
-			align:
-				states.interactionState?.interactionState === 'hasNotHadInteraction' &&
-				isExperimentEnabled('platform_editor_default_toolbar_state')
-					? 'start'
-					: states.alignmentState?.align,
+			align: states.alignmentState?.align,
 			isEnabled: states.alignmentState?.isEnabled,
 		}),
 	);

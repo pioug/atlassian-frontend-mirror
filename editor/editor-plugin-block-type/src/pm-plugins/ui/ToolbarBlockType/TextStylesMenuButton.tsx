@@ -7,7 +7,6 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownMenu, ToolbarTooltip, TextIcon } from '@atlaskit/editor-toolbar';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
@@ -27,22 +26,15 @@ type SharedStateValue<Plugin> = Plugin extends {
 
 type BlockTypeSelectorState = {
 	blockTypeState: SharedStateValue<NonNullable<ExtractInjectionAPI<BlockTypePlugin>['blockType']>>;
-	interactionState: SharedStateValue<
-		NonNullable<ExtractInjectionAPI<BlockTypePlugin>['interaction']>
-	>;
 };
 
 const selectPluginState = (state: BlockTypeSelectorState) => ({
 	blockTypesDisabled: state.blockTypeState?.blockTypesDisabled,
-	currentBlockType:
-		state.interactionState?.interactionState === 'hasNotHadInteraction' &&
-		isExperimentEnabled('platform_editor_default_toolbar_state')
-			? undefined
-			: state.blockTypeState?.currentBlockType,
+	currentBlockType: state.blockTypeState?.currentBlockType,
 });
 
 const usePluginState = (api?: ExtractInjectionAPI<BlockTypePlugin>) =>
-	useSharedPluginStateWithSelector(api, ['blockType', 'interaction'], selectPluginState);
+	useSharedPluginStateWithSelector(api, ['blockType'], selectPluginState);
 
 export const TextStylesMenuButton = ({
 	allowFontSize,

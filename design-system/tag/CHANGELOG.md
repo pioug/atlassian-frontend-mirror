@@ -1,5 +1,32 @@
 # @atlaskit/tag
 
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Major Changes
+
+- [`0770268039333`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0770268039333) -
+  [ux] BREAKING: Removes the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate and makes
+  the refreshed Tag implementation the default. The temporary `migration_fallback="lozenge"` and
+  legacy appearance, DOM, and styling behavior no longer affect rendering; use `@atlaskit/lozenge`
+  directly for status labels and update visual snapshots or DOM assertions that depend on the legacy
+  Tag rendering. Custom link components remain supported.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.0
 
 ### Major Changes

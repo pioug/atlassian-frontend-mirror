@@ -6,7 +6,6 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { DataAttributes } from '../types';
@@ -120,11 +119,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 		ref,
 	) => (
 		<Pressable
-			role={
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-					? itemRole || 'menuitem'
-					: 'menuitem'
-			}
+			role={itemRole || 'menuitem'}
 			testId={testId as string}
 			xcss={cx(
 				styles.toolbarDropdownItem,
@@ -139,10 +134,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
 			aria-checked={
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) &&
-				(itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox')
-					? ariaPressed
-					: undefined
+				itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox' ? ariaPressed : undefined
 			}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}
@@ -218,11 +210,7 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 		ref,
 	) => (
 		<Anchor
-			role={
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-					? itemRole || 'menuitem'
-					: 'menuitem'
-			}
+			role={itemRole || 'menuitem'}
 			testId={testId as string}
 			xcss={cx(
 				styles.toolbarDropdownItem,
@@ -238,10 +226,7 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
 			aria-checked={
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) &&
-				(itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox')
-					? ariaPressed
-					: undefined
+				itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox' ? ariaPressed : undefined
 			}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}

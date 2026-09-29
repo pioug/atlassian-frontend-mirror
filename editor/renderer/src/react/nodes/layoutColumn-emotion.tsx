@@ -16,8 +16,6 @@ import { css, jsx } from '@emotion/react';
 import type { Valign } from '@atlaskit/adf-schema/valign';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 // localized styles, was from clearNextSiblingMarginTopStyle in @atlaskit/editor-common/ui
 const clearNextSiblingMarginTopStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -68,17 +66,6 @@ const clearNextSiblingBlockMarkMarginTopStyle = css({
 export const LayoutSectionEmotion = (
 	props: React.PropsWithChildren<{ valign?: Valign; width?: number }>,
 ): React.JSX.Element => {
-	const isLayoutColumnMenuEnabled = expValEquals(
-		'platform_editor_layout_column_menu',
-		'isEnabled',
-		true,
-	);
-	const isLayoutColumnValignRenderingEnabled = expValEquals(
-		'platform_editor_layout_column_valign_rendering',
-		'isEnabled',
-		true,
-	);
-
 	return (
 		<div
 			data-layout-column
@@ -88,12 +75,8 @@ export const LayoutSectionEmotion = (
 			style={{ flexBasis: `${props.width}%` }}
 			css={[
 				// Keep separate: Compiled crashes on ternary/object lookup here.
-				(isLayoutColumnValignRenderingEnabled || isLayoutColumnMenuEnabled) &&
-					props.valign === 'middle' &&
-					verticalAlignMiddleStyles,
-				(isLayoutColumnValignRenderingEnabled || isLayoutColumnMenuEnabled) &&
-					props.valign === 'bottom' &&
-					verticalAlignBottomStyles,
+				props.valign === 'middle' && verticalAlignMiddleStyles,
+				props.valign === 'bottom' && verticalAlignBottomStyles,
 				multipleWrappedImagesStyle,
 			]}
 		>

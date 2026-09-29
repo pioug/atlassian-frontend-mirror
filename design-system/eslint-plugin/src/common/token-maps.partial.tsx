@@ -1,8 +1,8 @@
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d35b67b5e07f9d069f3b0cbdb4cf8e77>>
+ * @codegen <<SignedSource::84fcd5a81dc4362f447fdbb022c92edb>>
  * @codegenId spacing
- * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen-token-maps
+ * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen-token-maps
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::535518e7add48ef24f526d0904f70060>>
  */
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */

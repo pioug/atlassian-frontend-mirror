@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.3.0
+
+### Minor Changes
+
+- [`0418e1c376844`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0418e1c376844) -
+  Add the `no-top-layer-unsafe-selectors` rule. It reports selectors that a Design System layering
+  surface rendered in the browser top layer can wrongly match or wrongly displace, and autofixes
+  most of them to a guarded form with the same specificity. Positional pseudo-classes such as
+  `:first-child` are reported without a fix, because no guard form for them survives the build.
+
+  The rule is not in the `recommended` preset, so `recommended` users see no change. It is in the
+  `all` and `all-flat` presets at `error`, so users of those presets get new errors.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

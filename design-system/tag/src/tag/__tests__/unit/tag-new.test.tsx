@@ -3,7 +3,6 @@ import React from 'react';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Text } from '@atlaskit/primitives/compiled';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import {
 	act,
@@ -312,51 +311,32 @@ describe('swatch a11y attributes', () => {
 	});
 });
 
-describe('SimpleTag with feature flag', () => {
+describe('SimpleTag', () => {
 	const testId = 'test-simple-tag';
 
-	ffTest.off(
-		'platform-dst-lozenge-tag-badge-visual-uplifts',
-		'uses original SimpleTag implementation when flag is off',
-		() => {
-			it('should render original SimpleTag component', () => {
-				render(<SimpleTag color="blue" text="Original Tag" testId={testId} />);
-				const tag = screen.getByTestId(testId);
-				expect(tag).toBeInTheDocument();
-				expect(tag).toHaveTextContent('Original Tag');
-			});
-		},
-	);
+	it('should render TagNew component', () => {
+		render(<SimpleTag color="blue" text="New Tag" testId={testId} />);
+		const tag = screen.getByTestId(testId);
+		expect(tag).toBeInTheDocument();
+		expect(tag).toHaveTextContent('New Tag');
+	});
 
-	ffTest.on(
-		'platform-dst-lozenge-tag-badge-visual-uplifts',
-		'uses TagNew implementation when flag is on',
-		() => {
-			it('should render TagNew component', () => {
-				render(<SimpleTag color="blue" text="New Tag" testId={testId} />);
-				const tag = screen.getByTestId(testId);
-				expect(tag).toBeInTheDocument();
-				expect(tag).toHaveTextContent('New Tag');
-			});
+	it('should map all color appearances correctly', () => {
+		const colors: Array<'standard' | 'blue' | 'red' | 'green' | 'yellow' | 'purple'> = [
+			'standard',
+			'blue',
+			'red',
+			'green',
+			'yellow',
+			'purple',
+		];
 
-			it('should map all color appearances correctly', () => {
-				const colors: Array<'standard' | 'blue' | 'red' | 'green' | 'yellow' | 'purple'> = [
-					'standard',
-					'blue',
-					'red',
-					'green',
-					'yellow',
-					'purple',
-				];
-
-				colors.forEach((color) => {
-					const { unmount } = render(
-						<SimpleTag color={color} text={color} testId={`${testId}-${color}`} />,
-					);
-					expect(screen.getByTestId(`${testId}-${color}`)).toBeInTheDocument();
-					unmount();
-				});
-			});
-		},
-	);
+		colors.forEach((color) => {
+			const { unmount } = render(
+				<SimpleTag color={color} text={color} testId={`${testId}-${color}`} />,
+			);
+			expect(screen.getByTestId(`${testId}-${color}`)).toBeInTheDocument();
+			unmount();
+		});
+	});
 });

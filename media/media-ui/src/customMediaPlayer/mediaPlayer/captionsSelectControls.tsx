@@ -77,9 +77,10 @@ const CaptionsSelectControlsWithIntl = memo(
 						appearance={areCaptionsEnabled ? 'primary' : 'default'}
 						onClick={() => onCaptionsEnabledChange(!areCaptionsEnabled)}
 						aria-label={closedCaptions}
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+						/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 					>
 						CC
+						{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 					</MediaButton>
 				</Tooltip>
 				<PopupSelect

@@ -14,6 +14,7 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { type SelectOption } from '../../../common/modal/popup-select/types';
@@ -1269,6 +1270,39 @@ describe('Analytics: JiraSearchContainer', () => {
 			},
 			EVENT_CHANNEL,
 		);
+	});
+});
+
+describe('basic search input container wrapping (platform_lp_jira_searchbar_wrap_a11y)', () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
+	// The container holding the basic search input and the basic filters is their closest common ancestor.
+	const getBasicSearchInputContainer = (): HTMLElement => {
+		const searchInput = screen.getByTestId('jira-datasource-modal--basic-search-input');
+		const basicFilters = screen.getByTestId('jlol-basic-filter-container');
+
+		let ancestor: HTMLElement | null = searchInput.parentElement;
+		while (ancestor && !ancestor.contains(basicFilters)) {
+			ancestor = ancestor.parentElement;
+		}
+		invariant(ancestor);
+		return ancestor;
+	};
+
+	it('allows the search input and basic filters to wrap when the gate is enabled', () => {
+		passGate('platform_lp_jira_searchbar_wrap_a11y');
+		setup({ initialSearchMethod: 'basic' });
+
+		expect(getBasicSearchInputContainer()).toHaveCompiledCss('flex-wrap', 'wrap');
+	});
+
+	it('does not allow the search input and basic filters to wrap when the gate is disabled', () => {
+		failGate('platform_lp_jira_searchbar_wrap_a11y');
+		setup({ initialSearchMethod: 'basic' });
+
+		expect(getBasicSearchInputContainer()).not.toHaveCompiledCss('flex-wrap', 'wrap');
 	});
 });
 

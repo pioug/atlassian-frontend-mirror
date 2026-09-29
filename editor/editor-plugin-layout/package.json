@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-layout",
-	"version": "23.0.3",
+	"version": "23.0.6",
 	"description": "Layout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -65,9 +65,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {
-			"type": "boolean"
-		},
-		"platform_editor_layout_column_menu_kill_switch_1": {
 			"type": "boolean"
 		},
 		"platform_editor_vanilla_node_views_patch_1": {

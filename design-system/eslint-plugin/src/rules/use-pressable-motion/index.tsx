@@ -22,6 +22,12 @@ const LIST_ITEM_PROPERTIES = new Set([
 	'color',
 	'textDecorationColor',
 ]);
+const TAB_MOTION_UNSUPPORTED_PROPERTIES = new Set([
+	'backgroundColor',
+	'background',
+	'borderColor',
+	'textDecorationColor',
+]);
 
 type StyleRecord = {
 	base: ObjectExpression;
@@ -251,6 +257,8 @@ const rule: Rule.RuleModule = createLintRule({
 			groupProvidesListItemHoverTransition: boolean,
 			groupProvidesButtonActiveTransition: boolean,
 			groupProvidesListItemActiveTransition: boolean,
+			groupProvidesTabHoverTransition: boolean,
+			groupProvidesTabActiveTransition: boolean,
 		) => {
 			const hasHover = hasRelevantColorChange(style.hover, BUTTON_PROPERTIES, tokenNames);
 			const hasActive = hasRelevantColorChange(style.active, BUTTON_PROPERTIES, tokenNames);
@@ -262,6 +270,16 @@ const rule: Rule.RuleModule = createLintRule({
 			const hasListItemActive = hasRelevantColorChange(
 				style.active,
 				LIST_ITEM_PROPERTIES,
+				tokenNames,
+			);
+			const canUseTabHoverTransition = !hasRelevantColorChange(
+				style.hover,
+				TAB_MOTION_UNSUPPORTED_PROPERTIES,
+				tokenNames,
+			);
+			const canUseTabActiveTransition = !hasRelevantColorChange(
+				style.active,
+				TAB_MOTION_UNSUPPORTED_PROPERTIES,
 				tokenNames,
 			);
 
@@ -279,16 +297,24 @@ const rule: Rule.RuleModule = createLintRule({
 				groupProvidesButtonActiveTransition;
 			const hasListItemHoverTransition =
 				isExpectedTransition(baseTransition, tokenNames, 'motion.listitem.hovered') ||
-				groupProvidesListItemHoverTransition;
+				groupProvidesListItemHoverTransition ||
+				(canUseTabHoverTransition &&
+					(isExpectedTransition(baseTransition, tokenNames, 'motion.tab') ||
+						groupProvidesTabHoverTransition));
 			const hasListItemActiveTransition =
 				isExpectedTransition(activeTransition, tokenNames, 'motion.listitem.pressed') ||
-				groupProvidesListItemActiveTransition;
+				groupProvidesListItemActiveTransition ||
+				(canUseTabActiveTransition &&
+					(isExpectedTransition(activeTransition, tokenNames, 'motion.tab') ||
+						groupProvidesTabActiveTransition));
 			const groupProvidesHoverTransition = hasHover
 				? groupProvidesButtonHoverTransition || groupProvidesListItemHoverTransition
-				: groupProvidesListItemHoverTransition;
+				: groupProvidesListItemHoverTransition ||
+					(canUseTabHoverTransition && groupProvidesTabHoverTransition);
 			const groupProvidesActiveTransition = hasActive
 				? groupProvidesButtonActiveTransition || groupProvidesListItemActiveTransition
-				: groupProvidesListItemActiveTransition;
+				: groupProvidesListItemActiveTransition ||
+					(canUseTabActiveTransition && groupProvidesTabActiveTransition);
 			const needsHover = hasListItemHover && !baseTransition && !groupProvidesHoverTransition;
 			const needsActive = hasListItemActive && !activeTransition && !groupProvidesActiveTransition;
 			const hasUnsafeTransition =
@@ -389,6 +415,19 @@ const rule: Rule.RuleModule = createLintRule({
 			}
 			const activeTransition = getProperty(style.active, 'transition');
 			return isExpectedTransition(activeTransition, tokenNames, 'motion.listitem.pressed');
+		};
+
+		const providesTabHoverTransition = (style: StyleRecord): boolean => {
+			const baseTransition = getProperty(style.base, 'transition');
+			return isExpectedTransition(baseTransition, tokenNames, 'motion.tab');
+		};
+
+		const providesTabActiveTransition = (style: StyleRecord): boolean => {
+			if (!style.active) {
+				return false;
+			}
+			const activeTransition = getProperty(style.active, 'transition');
+			return isExpectedTransition(activeTransition, tokenNames, 'motion.tab');
 		};
 
 		return {
@@ -535,7 +574,7 @@ const rule: Rule.RuleModule = createLintRule({
 					if (!usage.arrayGroup) {
 						const style = styles.get(usage.styleName)?.styles.get(usage.styleKey);
 						if (style) {
-							report(usage.node, style, false, false, false, false);
+							report(usage.node, style, false, false, false, false, false, false);
 						}
 						return;
 					}
@@ -565,6 +604,8 @@ const rule: Rule.RuleModule = createLintRule({
 					const groupProvidesListItemActiveTransition = groupStyles.some(
 						providesListItemActiveTransition,
 					);
+					const groupProvidesTabHoverTransition = groupStyles.some(providesTabHoverTransition);
+					const groupProvidesTabActiveTransition = groupStyles.some(providesTabActiveTransition);
 
 					usages.forEach(({ node, styleName, styleKey }) => {
 						const style = styles.get(styleName)?.styles.get(styleKey);
@@ -576,6 +617,8 @@ const rule: Rule.RuleModule = createLintRule({
 								groupProvidesListItemHoverTransition,
 								groupProvidesButtonActiveTransition,
 								groupProvidesListItemActiveTransition,
+								groupProvidesTabHoverTransition,
+								groupProvidesTabActiveTransition,
 							);
 						}
 					});

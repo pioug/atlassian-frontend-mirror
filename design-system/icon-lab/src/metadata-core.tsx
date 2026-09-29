@@ -3,10 +3,9 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::12ae46050114888a4d532fd87ca7f436>>
+ * @codegen <<SignedSource::c8c1981e0f6ced492610c103da9e38ab>>
  * @codegenCommand yarn build:icon-glyphs
  */
-// oxlint-disable-next-line eslint/no-redeclare
 interface metadata {
 	/**
 	 * Default component name for the icon
@@ -177,6 +176,28 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 		status: 'published',
 		slackChannel: '#icon-contributions',
+	},
+	'ai-generative-fix': {
+		keywords: [
+			'ai-generative-fix',
+			'aigenerativefix',
+			'icon',
+			'icon-lab',
+			'ai',
+			'suggest',
+			'suggestion',
+			'fix',
+			'repair',
+			'remediate',
+			'wrench',
+		],
+		componentName: 'AiGenerativeFixIcon',
+		package: '@atlaskit/icon-lab/core/ai-generative-fix',
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for AI assisted fixes, providing suggested resolutions for errors, failed results or other existing issues.',
+		team: 'Studio',
+		status: 'published',
 	},
 	'ai-generative-remix': {
 		keywords: [
@@ -4077,7 +4098,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'DockWindowBottomLeftIcon',
 		package: '@atlaskit/icon-lab/core/dock-window-bottom-left',
 		categorization: 'single-purpose',
-		usage: 'Reserved for docking a modal or window to the bottom left of a page',
+		usage: 'Reserved for docking a modal or window to the bottom left of a page.',
 		team: 'Editor design',
 		status: 'published',
 	},
@@ -4094,7 +4115,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'DockWindowBottomRightIcon',
 		package: '@atlaskit/icon-lab/core/dock-window-bottom-right',
 		categorization: 'single-purpose',
-		usage: 'Reserved for docking a modal or window to the bottom right of a page',
+		usage: 'Reserved for docking a modal or window to the bottom right of a page.',
 		team: 'Editor design',
 		status: 'published',
 	},
@@ -5322,6 +5343,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing missed calls and missed call settings.',
 		team: 'IT Operations (ITSM)',
+		status: 'published',
+	},
+	modal: {
+		keywords: ['modal', 'icon', 'icon-lab', 'popup', 'window', 'overlay', 'full screen'],
+		componentName: 'ModalIcon',
+		package: '@atlaskit/icon-lab/core/modal',
+		categorization: 'single-purpose',
+		usage: 'Reserved for opening a full page modal.',
+		team: 'Design System Team',
 		status: 'published',
 	},
 	'node-parallel-bottom-left': {

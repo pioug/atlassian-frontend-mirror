@@ -93,6 +93,7 @@ export const InsertButton = ({
 		buttonRef: insertButtonRef,
 	});
 	const showMediaPicker = useSharedPluginStateSelector(api, 'media.showMediaPicker');
+	const emojiContentId = useSharedPluginStateSelector(api, 'emoji.contentId');
 	const { dropdownItems, emojiProvider, isTypeAheadAllowed } = useInsertButtonState({
 		api,
 		breakpoint,
@@ -263,6 +264,7 @@ export const InsertButton = ({
 			)}
 			{emojiProvider && (
 				<EmojiPickerPopup
+					contentId={emojiContentId}
 					isOpen={emojiPickerPopup.isOpen}
 					targetRef={insertButtonRef}
 					emojiProvider={Promise.resolve(emojiProvider)}

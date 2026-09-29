@@ -75,6 +75,17 @@ const metadata: IconMetadata = {
 		slackChannel: '#icon-contributions',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
+	'ai-generative-fix': {
+		keywords: ['ai', 'suggest', 'suggestion', 'fix', 'repair', 'remediate', 'wrench'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Studio',
+		status: 'published',
+		id: '73921:19169',
+		usage:
+			'Reserved for AI assisted fixes, providing suggested resolutions for errors, failed results or other existing issues.',
+		createdAt: '2026-09-28T08:32:57.859Z',
+	},
 	'ai-generative-remix': {
 		keywords: ['transform', 'AI visualization', 'remix with rovo'],
 		categorization: 'single-purpose',
@@ -2426,7 +2437,7 @@ const metadata: IconMetadata = {
 		team: 'Editor design',
 		status: 'published',
 		id: '64717:38176',
-		usage: 'Reserved for docking a modal or window to the bottom left of a page',
+		usage: 'Reserved for docking a modal or window to the bottom left of a page.',
 		createdAt: '2026-03-12T03:59:40.623Z',
 	},
 	'dock-window-bottom-right': {
@@ -2436,7 +2447,7 @@ const metadata: IconMetadata = {
 		team: 'Editor design',
 		status: 'published',
 		id: '64712:35648',
-		usage: 'Reserved for docking a modal or window to the bottom right of a page',
+		usage: 'Reserved for docking a modal or window to the bottom right of a page.',
 		createdAt: '2026-03-12T03:59:40.623Z',
 	},
 	draw: {
@@ -3282,6 +3293,16 @@ const metadata: IconMetadata = {
 		id: '55571:51358',
 		usage: 'Reserved for representing missed calls and missed call settings.',
 		createdAt: '2025-09-26T02:09:12.598Z',
+	},
+	modal: {
+		keywords: ['popup', 'window', 'overlay', 'full screen'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		status: 'published',
+		id: '73909:37353',
+		usage: 'Reserved for opening a full page modal.',
+		createdAt: '2026-09-28T08:32:57.859Z',
 	},
 	'node-parallel-bottom-left': {
 		keywords: ['Node', 'Parallel', 'Bottom', 'Left'],

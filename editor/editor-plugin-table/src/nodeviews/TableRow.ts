@@ -572,26 +572,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		) {
 			const pos = this.getPos();
 			if (typeof pos === 'number') {
-				if (fg('platform_editor_ai_table_ai_streaming_pos_fix')) {
-					try {
-						// getPos can return stale positions during AI streaming which cannot be resolved
-						const $tableRowPos = this.view.state.doc.resolve(pos);
-
-						// layout -> layout column -> table -> table row
-						if ($tableRowPos.depth >= 3) {
-							const isInsideLayout = findParentNodeClosestToPos($tableRowPos, (node) => {
-								return node.type.name === 'layoutColumn';
-							})?.node;
-
-							if (isInsideLayout) {
-								return false;
-							}
-						}
-					} catch {
-						// getPos can return stale positions during AI streaming — fall back to non-sticky
-						return false;
-					}
-				} else {
+				try {
+					// getPos can return stale positions during AI streaming which cannot be resolved
 					const $tableRowPos = this.view.state.doc.resolve(pos);
 
 					// layout -> layout column -> table -> table row
@@ -604,6 +586,9 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 							return false;
 						}
 					}
+				} catch {
+					// getPos can return stale positions during AI streaming — fall back to non-sticky
+					return false;
 				}
 			}
 		}

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TileProps
  *
- * @codegen <<SignedSource::5d13e3249900bc850b7d284cc43e94ad>>
+ * @codegen <<SignedSource::7ec84742b9b6ddfe9f8af867e44ce3ce>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tile/__generated__/index.partial.tsx <<SignedSource::23868ca73e2f361dc2496ab2db9369a2>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tile/__generated__/index.partial.tsx <<SignedSource::394b39ce6d4f27a1d77644353c10770a>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

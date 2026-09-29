@@ -61,10 +61,10 @@ const accentColors: AccentColor[] = [
 
 /**
  * Example using the new `/new` entrypoint which exports the new Lozenge component
- * directly without requiring the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag.
+ * directly without requiring a feature flag.
  *
  * This entrypoint is intended for products that don't have access to feature flags (e.g. Statsig).
- * It will be removed after the visual uplift rollout is complete, which will require cleanup in
+ * It will be removed in a future release, which will require cleanup in
  * callsites (updating import paths back to `@atlaskit/lozenge`).
  * If your app has access to feature flags, please use the default entrypoint instead.
  *

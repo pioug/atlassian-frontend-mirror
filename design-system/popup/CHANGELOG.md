@@ -1,5 +1,47 @@
 # @atlaskit/popup
 
+## 8.0.0
+
+### Major Changes
+
+- [`ae5c32fe7bfd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5c32fe7bfd6) -
+  Record the rollback of the DSP-25935 popup trigger type expansion in PR #487935. This restores
+  compatibility with existing consumers, including Jira Assets audit logs and linked objects.
+
+  Popup's `aria-haspopup` trigger contract returns to `boolean | 'dialog'`. The affected public
+  trigger props in Dropdown Menu, Avatar, Lozenge, Universal Create, Rovo Pins, and Navigation
+  System also return to their earlier contracts. Consumers using the newly added role-specific
+  string values must return to values supported by those earlier contracts. Popup no longer exports
+  `AriaHasPopup` or `TriggerAriaProps`; use `TriggerProps['aria-haspopup']` and
+  `Pick<TriggerProps, 'aria-controls' | 'aria-expanded' | 'aria-haspopup'>` instead.
+
+  Popup and Dropdown Menu retain their existing top-layer runtime ARIA values through the prior
+  compatibility adapters. Conversation Assistant returns to its previous internal trigger type
+  annotation without changing its public API.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.0
+
+### Major Changes
+
+- [`5e712839d1e00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e712839d1e00) -
+  Popup's trigger render props now include the role-specific `aria-haspopup` values `"menu"`,
+  `"listbox"`, `"tree"`, and `"grid"`, which the top-layer path could already provide at runtime.
+  Popup also exports `AriaHasPopup` and `TriggerAriaProps` for consumers to type trigger ARIA
+  attributes. Use booleans instead of the string values `"true"` and `"false"`.
+
+  Dropdown Menu's custom trigger props now reflect Popup's `aria-haspopup` values, and Dropdown Item
+  accepts the same roles and booleans. Custom triggers forward Popup's value on the legacy path; the
+  top-layer path provides `"menu"`. Dropdown items already forwarded `aria-controls` and
+  `aria-expanded` at runtime.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.10
 
 ### Patch Changes

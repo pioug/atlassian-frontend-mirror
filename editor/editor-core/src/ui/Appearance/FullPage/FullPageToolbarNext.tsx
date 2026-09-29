@@ -20,7 +20,6 @@ import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-me
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -321,22 +320,6 @@ export const FullPageToolbarNext = ({
 											/>
 										) : // toolbar plugin not yet registered — render nothing inside the chrome for layout stability
 										null)
-									) : isExperimentEnabled('platform_editor_default_toolbar_state') ? (
-										primaryToolbarDockingConfigEnabled &&
-										components &&
-										visibleToolbarComponents &&
-										isToolbar(toolbar) && (
-											<ToolbarNext
-												toolbar={toolbar}
-												components={visibleToolbarComponents}
-												editorView={editorView}
-												editorAPI={editorAPI}
-												popupsMountPoint={mountPoint}
-												editorAppearance="full-page"
-												isDisabled={disabled}
-												disabledWithoutInteractionLogic={disabledWithoutInteractionLogic}
-											/>
-										)
 									) : (
 										<ExcludeFromHydration>
 											{primaryToolbarDockingConfigEnabled &&

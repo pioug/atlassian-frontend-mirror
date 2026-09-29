@@ -34,6 +34,7 @@ type FlagConfig = {
 	onDismissed?: (tr: Transaction) => Transaction | void;
 	// Called when retry button in flag is clicked
 	onRetry?: () => void;
+	resourceId?: string;
 	/**
 	 * Optional source product for the synced block triggering this flag. Used to tailor
 	 * unpublished paste copy and copied-block reuse guidance by product.

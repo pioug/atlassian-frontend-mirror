@@ -55,7 +55,7 @@ export const NATIVE_EMBED_PARAMETER_DEFAULTS: NativeEmbedParameterValues = {
 /**
  * Built-in keys that can be referenced in the `items` and `moreItems` arrays.
  *
- * Toolbar keys: ASK_ROVO, SUMMARISE, REFRESH, EDIT, EMBED, BORDER, ALIGNMENT, OPEN_IN_NEW_WINDOW
+ * Toolbar keys: ASK_ROVO, SUMMARISE, REFRESH, EDIT, COMMENT, EMBED, BORDER, ALIGNMENT, OPEN_IN_NEW_WINDOW
  * More Options dropdown keys: ALWAYS_SHOW_TITLE, SET_EMBED_TYPE, COPY, COPY_LINK (deprecated), DELETE
  * Shared: SEPARATOR (usable in both)
  */
@@ -66,6 +66,8 @@ export const BUILTIN_TOOLBAR_KEYS = {
 	SUMMARISE: 'summarise',
 	REFRESH: 'refresh',
 	EDIT: 'edit',
+	/** Opens unresolved comments or starts a whole-block comment draft. */
+	COMMENT: 'comment',
 	EMBED: 'embed',
 	BORDER: 'border',
 	ALIGNMENT: 'alignment',
@@ -94,6 +96,7 @@ export const EDITOR_TOOLBAR_HANDLER_KEYS = [
 	'onAskRovoClick',
 	'onSummariseClick',
 	'onChangeBorderClick',
+	'onCommentClick',
 	'onCopyClick',
 	'onCopyLinkClick',
 	'onDeleteClick',

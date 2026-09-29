@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - PressableProps
  *
- * @codegen <<SignedSource::4b388de7fc0c2c64936a765421d7cd71>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::2724d0dfafd1ee3ef2669c39f023e253>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::1aa90ffdcfb58d322bcb08b186ba73bf>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

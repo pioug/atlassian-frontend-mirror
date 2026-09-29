@@ -3,8 +3,8 @@
  *
  * Generated prop types for Global component - SidebarFooter
  *
- * @codegen <<SignedSource::560733c59b2ed91499de85fa6aad7bf5>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
+ * @codegen <<SignedSource::c4d3ff770ff4dd3ee2e000e05dbab3ad>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::5ff0fb0e52f7acf5bd5c867bda1c333e>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/SidebarFooter.tsx <<SignedSource::a1c897ef3752e1ea2f3c33959a976b1a>>
  */

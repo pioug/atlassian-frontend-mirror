@@ -2,8 +2,6 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-
 import LayoutColumn from '../../../../react/nodes/layoutColumn';
 import { LayoutSectionCompiled } from '../../../../react/nodes/layoutColumn-compiled';
 import { LayoutSectionEmotion } from '../../../../react/nodes/layoutColumn-emotion';
@@ -15,12 +13,6 @@ const getLayoutColumnElement = (container: HTMLElement) =>
 const layoutColumnImplementations = [
 	{
 		Component: LayoutSectionCompiled,
-		expectNoVerticalAlignStyles: (element: ChildNode | null) => {
-			expect(element).not.toHaveCompiledCss('display', 'flex');
-			expect(element).not.toHaveCompiledCss('flexDirection', 'column');
-			expect(element).not.toHaveCompiledCss('justifyContent', 'center');
-			expect(element).not.toHaveCompiledCss('justifyContent', 'flex-end');
-		},
 		expectVerticalAlignStyles: (element: ChildNode | null, justifyContent: string) => {
 			expect(element).toHaveCompiledCss('display', 'flex');
 			expect(element).toHaveCompiledCss('flexDirection', 'column');
@@ -30,12 +22,6 @@ const layoutColumnImplementations = [
 	},
 	{
 		Component: LayoutSectionEmotion,
-		expectNoVerticalAlignStyles: (element: ChildNode | null) => {
-			expect(element).not.toHaveStyleDeclaration('display', 'flex');
-			expect(element).not.toHaveStyleDeclaration('flex-direction', 'column');
-			expect(element).not.toHaveStyleDeclaration('justify-content', 'center');
-			expect(element).not.toHaveStyleDeclaration('justify-content', 'flex-end');
-		},
 		expectVerticalAlignStyles: (element: ChildNode | null, justifyContent: string) => {
 			expect(element).toHaveStyleDeclaration('display', 'flex');
 			expect(element).toHaveStyleDeclaration('flex-direction', 'column');
@@ -47,23 +33,9 @@ const layoutColumnImplementations = [
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 layoutColumnImplementations.forEach(
-	({
-		Component: LayoutColumnImplementation,
-		expectNoVerticalAlignStyles,
-		expectVerticalAlignStyles,
-		name,
-	}) => {
+	({ Component: LayoutColumnImplementation, expectVerticalAlignStyles, name }) => {
 		describe(`Renderer - React/Nodes/LayoutColumn ${name}`, () => {
-			afterEach(() => {
-				setupEditorExperiments('test', {}, {}, { disableTestOverrides: true });
-			});
-
-			it('applies vertical-align styles when rendering experiment is on and menu is off', async () => {
-				setupEditorExperiments('test', {
-					platform_editor_layout_column_valign_rendering: true,
-					platform_editor_layout_column_menu: false,
-				});
-
+			it('applies middle vertical alignment', async () => {
 				const { container } = render(
 					<LayoutColumnImplementation width={50} valign="middle">
 						<p>test</p>
@@ -74,12 +46,7 @@ layoutColumnImplementations.forEach(
 				expectVerticalAlignStyles(getLayoutColumnElement(container), 'center');
 			});
 
-			it('preserves vertical-align styles when rendering experiment is off and menu is on', () => {
-				setupEditorExperiments('test', {
-					platform_editor_layout_column_valign_rendering: false,
-					platform_editor_layout_column_menu: true,
-				});
-
+			it('applies bottom vertical alignment', () => {
 				const { container } = render(
 					<LayoutColumnImplementation width={50} valign="bottom">
 						<p>test</p>
@@ -87,21 +54,6 @@ layoutColumnImplementations.forEach(
 				);
 
 				expectVerticalAlignStyles(getLayoutColumnElement(container), 'flex-end');
-			});
-
-			it('does not apply vertical-align styles when both rendering experiment and menu are off', () => {
-				setupEditorExperiments('test', {
-					platform_editor_layout_column_valign_rendering: false,
-					platform_editor_layout_column_menu: false,
-				});
-
-				const { container } = render(
-					<LayoutColumnImplementation width={50} valign="middle">
-						<p>test</p>
-					</LayoutColumnImplementation>,
-				);
-
-				expectNoVerticalAlignStyles(getLayoutColumnElement(container));
 			});
 		});
 	},

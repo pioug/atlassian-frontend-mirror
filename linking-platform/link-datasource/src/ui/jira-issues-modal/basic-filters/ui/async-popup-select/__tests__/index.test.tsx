@@ -187,9 +187,10 @@ describe('Testing AsyncPopupSelect', () => {
 	});
 	describe('popup footer', () => {
 		it('should render the popup footer when the popup is opened', () => {
+			const totalCount = fieldValuesResponseForProjectsMapped.length;
 			const { queryByTestId } = setup({
 				openPicker: true,
-				totalCount: 10,
+				totalCount,
 				filterOptions: fieldValuesResponseForProjectsMapped as SelectOption[],
 				status: 'resolved',
 			});
@@ -210,16 +211,17 @@ describe('Testing AsyncPopupSelect', () => {
 		});
 
 		it('should render the popup footer with correct pagination info', () => {
+			const totalCount = fieldValuesResponseForProjectsMapped.length;
 			const { queryByTestId } = setup({
 				openPicker: true,
-				totalCount: 10,
+				totalCount,
 				filterOptions: fieldValuesResponseForProjectsMapped as SelectOption[],
 				status: 'resolved',
 			});
 
 			const footer = queryByTestId('jlol-basic-filter-project--footer');
 
-			expect(footer).toHaveTextContent('10 of 10');
+			expect(footer).toHaveTextContent(`${totalCount} of ${totalCount}`);
 		});
 	});
 

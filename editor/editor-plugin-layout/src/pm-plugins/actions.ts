@@ -24,7 +24,6 @@ import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LayoutPlugin } from '../layoutPluginType';
 import type { Change, PresetLayout } from '../types';
@@ -780,10 +779,6 @@ const insertLayoutColumnAt =
 		inputMethod: LayoutColumnActionInputMethod = INPUT_METHOD.LAYOUT_COLUMN_MENU,
 	): EditorCommand =>
 	({ tr }) => {
-		if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
-			return null;
-		}
-
 		const selectedLayoutColumnsResult = getLayoutColumnsFromContentSelection(tr.selection);
 		if (
 			!selectedLayoutColumnsResult ||
@@ -856,19 +851,17 @@ const insertLayoutColumnAt =
 
 		// Inserting left shifts positions at/after the new column right by its size; inserting
 		// right leaves them unchanged. Remap the original selection through that mapping.
-		if (!fg('platform_editor_layout_column_menu_kill_switch_1')) {
-			const insertMapping =
-				side === 'left'
-					? new Mapping([new StepMap([insertedColumnPos, 0, newColumn.nodeSize])])
-					: new Mapping();
-			const restoredSelection = remapSelectionThroughMapping(
-				originalSelection,
-				insertMapping,
-				tr.doc,
-			);
-			if (restoredSelection) {
-				tr.setSelection(restoredSelection);
-			}
+		const insertMapping =
+			side === 'left'
+				? new Mapping([new StepMap([insertedColumnPos, 0, newColumn.nodeSize])])
+				: new Mapping();
+		const restoredSelection = remapSelectionThroughMapping(
+			originalSelection,
+			insertMapping,
+			tr.doc,
+		);
+		if (restoredSelection) {
+			tr.setSelection(restoredSelection);
 		}
 		editorAnalyticsAPI?.attachAnalyticsEvent({
 			action: ACTION.INSERTED,
@@ -921,10 +914,6 @@ export const setLayoutColumnValign =
 		api?: LayoutPluginAPI,
 	): EditorCommand =>
 	({ tr }) => {
-		if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
-			return null;
-		}
-
 		const selectedLayoutColumnsResult = getSelectedLayoutColumnsFromSelection(tr.selection);
 		if (!selectedLayoutColumnsResult) {
 			return null;
@@ -981,10 +970,6 @@ export const distributeLayoutColumns =
 		target = 'selectedColumns',
 	}: DistributeLayoutColumnsOptions = {}): EditorCommand =>
 	({ tr }) => {
-		if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
-			return null;
-		}
-
 		const selectedLayoutColumnsResult =
 			target === 'allColumns'
 				? getAllLayoutColumnsFromSelection(tr.selection)
@@ -1097,20 +1082,10 @@ export const deleteLayoutColumn =
 		api?: LayoutPluginAPI,
 	): EditorCommand =>
 	({ tr }) => {
-		if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
-			return null;
-		}
-
 		// Only delete columns that are explicitly selected (a column NodeSelection or a selection
 		// fully containing columns). This stops a bare caret inside a column — including inside
 		// nested content such as a table — from deleting the whole column via the delete shortcut.
-		const selectedLayoutColumnsResult = expValEquals(
-			'platform_editor_layout_column_delete_shortcut_fix',
-			'isEnabled',
-			true,
-		)
-			? getSelectedLayoutColumnsFromSelection(tr.selection)
-			: getLayoutColumnsFromContentSelection(tr.selection);
+		const selectedLayoutColumnsResult = getSelectedLayoutColumnsFromSelection(tr.selection);
 		if (
 			!selectedLayoutColumnsResult ||
 			selectedLayoutColumnsResult.selectedLayoutColumns.length === 0
@@ -1173,9 +1148,8 @@ export const deleteLayoutColumn =
 
 		const updatedLayoutSectionNode = layoutSectionNode.copy(Fragment.fromArray(remainingColumns));
 
-		// The cursor-in-column (keyboard) path has a plain text selection; the menu path has a
-		// column NodeSelection whose post-delete landing is owned by the block-controls
-		// preserved-selection plugin, so we only restore the caret for the former.
+		// A text selection can fully contain columns. Restore its caret in a remaining column;
+		// block controls own the landing for a column NodeSelection.
 		const hadTextSelection = tr.selection instanceof TextSelection;
 
 		tr.replaceWith(
@@ -1184,15 +1158,9 @@ export const deleteLayoutColumn =
 			columnWidth(updatedLayoutSectionNode, tr.doc.type.schema, redistributed),
 		);
 
-		// Land the caret in a remaining column — the one now occupying the deleted slot, or the
-		// last column when the deleted slot no longer exists. Otherwise the replace above maps
-		// the caret out of the layout to the following paragraph.
+		// Keep a text selection within the layout after the selected columns are removed.
 		const remainingColumnCount = remainingColumns.length;
-		if (
-			hadTextSelection &&
-			!fg('platform_editor_layout_column_menu_kill_switch_1') &&
-			remainingColumnCount > 0
-		) {
+		if (hadTextSelection && remainingColumnCount > 0) {
 			const targetColumnIndex = Math.min(startIndex, remainingColumnCount - 1);
 			const updatedSectionNode = tr.doc.nodeAt(layoutSectionPos);
 			if (updatedSectionNode) {

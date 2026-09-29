@@ -138,7 +138,7 @@ monitor({
 
 > See the
 > [Pragmatic drag and drop documentation](https://atlassian.design/components/pragmatic-drag-and-drop)
-> for more information about it's usage.
+> for more information about its usage.
 
 Using blocked JSX attributes on custom `react` components
 

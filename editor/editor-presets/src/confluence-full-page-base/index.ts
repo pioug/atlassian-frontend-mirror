@@ -214,13 +214,7 @@ export function confluenceFullPageBasePreset(
 			primaryToolbarPlugin,
 			primaryToolbarPluginOptions({ options: pluginOptions.primaryToolbar }),
 		])
-		.maybeAdd(
-			uiControlRegistryPlugin,
-			expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true) ||
-				expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ||
-				UNSAFE_expValNoExposure('platform_editor_slash_command', 'isEnabled', false) ||
-				isExperimentEnabled('platform_editor_block_control_migration'),
-		)
+		.add(uiControlRegistryPlugin)
 		.maybeAdd(
 			[toolbarPlugin, toolbarPluginOptions({ options: pluginOptions.toolbar })],
 			Boolean(enabledOptionalPlugins.toolbar),
@@ -311,18 +305,6 @@ export function confluenceFullPageBasePreset(
 			placeholderTextPluginOptions({ options: pluginOptions.placeholderText }),
 		])
 		.add([layoutPlugin, layoutPluginOptions({ options: pluginOptions.layout })])
-		.maybeAdd(
-			// Register uiControlRegistry before cardPlugin so card can register paste menu components at init.
-			// @ts-expect-error - Preserve paste registry order; mutually exclusive with earlier insertion.
-			uiControlRegistryPlugin,
-			expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true) &&
-				!(
-					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ||
-					expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true) ||
-					UNSAFE_expValNoExposure('platform_editor_slash_command', 'isEnabled', false) ||
-					isExperimentEnabled('platform_editor_block_control_migration')
-				),
-		)
 		.add([cardPlugin, cardPluginOptions({ options: pluginOptions.card, providers })])
 		.add([
 			customAutoformatPlugin,

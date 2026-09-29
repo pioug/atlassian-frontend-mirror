@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { toggleHighlightPalette, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -20,8 +19,6 @@ import {
 	ToolbarTooltip,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react/conditional-hooks-factory/conditional-hooks-factory';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
@@ -68,28 +65,7 @@ type TextColorHighlightMenuState = {
 	textColor?: string | null;
 };
 
-const useTextColorHighlightMenuStateNew = (
-	api: ExtractInjectionAPI<TextColorPlugin> | undefined,
-): TextColorHighlightMenuState => {
-	return useSharedPluginStateWithSelector(
-		api,
-		['textColor', 'highlight', 'interaction'],
-		(states) => {
-			const useDefaultToolbarState =
-				states.interactionState?.interactionState === 'hasNotHadInteraction';
-
-			return {
-				isTextColorDisabled: states.textColorState?.disabled,
-				textColor: states.textColorState?.color,
-				defaultColor: states.textColorState?.defaultColor,
-				isPaletteOpen: states.textColorState?.isPaletteOpen,
-				highlightColor: useDefaultToolbarState ? undefined : states.highlightState?.activeColor,
-			};
-		},
-	);
-};
-
-const useTextColorHighlightMenuStateOld = (
+const useTextColorHighlightMenuState = (
 	api: ExtractInjectionAPI<TextColorPlugin> | undefined,
 ): TextColorHighlightMenuState => {
 	const isTextColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
@@ -106,14 +82,6 @@ const useTextColorHighlightMenuStateOld = (
 		highlightColor,
 	};
 };
-
-const useTextColorHighlightMenuState: (
-	api: ExtractInjectionAPI<TextColorPlugin> | undefined,
-) => TextColorHighlightMenuState = conditionalHooksFactory(
-	() => isExperimentEnabled('platform_editor_default_toolbar_state'),
-	useTextColorHighlightMenuStateNew,
-	useTextColorHighlightMenuStateOld,
-);
 
 export const TextColorHighlightMenu = ({
 	children,

@@ -1,5 +1,39 @@
 # @atlaskit/editor-statsig-tmp
 
+## 215.0.0
+
+### Major Changes
+
+- [`f1454b828555b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1454b828555b) -
+  Clean up experiment `platform_editor_breakout_interaction_rerender`
+
+## 214.0.0
+
+### Major Changes
+
+- [`6728bb1f412c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6728bb1f412c2) -
+  Remove the unused `platform_editor_toolbar_aifc` experiment registration and temporary-only
+  runtime branches, preserve toolbar treatments owned by `platform_editor_ai_aifc_streaming` or
+  `aifc_create_enabled`, retain the control experience when those checks are disabled, and correctly
+  hide decorative Rovo toolbar icons from assistive technology.
+- [`d7f1f4ebb1cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7f1f4ebb1cd3) -
+  Keep the shipped layout column delete shortcut behavior for explicitly selected columns. Remove
+  the `platform_editor_layout_column_delete_shortcut_fix` and
+  `platform_editor_layout_column_valign_rendering` experiment keys. Consumers of these keys must
+  remove their experiment reads and use the shipped behavior directly.
+
+## 213.0.0
+
+### Major Changes
+
+- [`a4fe8636fa0ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4fe8636fa0ec) -
+  Clean up the fully rolled out `platform_editor_layout_column_menu` experiment and the
+  `platform_editor_layout_column_menu_kill_switch_1` feature gate, retaining their shipped behavior.
+  Consumers must remove any direct `@atlaskit/tmp-editor-statsig` experiment override for
+  `platform_editor_layout_column_menu`.
+- [`618d89a102880`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/618d89a102880) -
+  Clean up experiment `remix_iw_block_menu_table_calc_fix`
+
 ## 212.0.0
 
 ### Major Changes

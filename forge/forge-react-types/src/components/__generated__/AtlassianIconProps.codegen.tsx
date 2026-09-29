@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - AtlassianIconProps
  *
- * @codegen <<SignedSource::48d2fe2d1559dde01c83341d7d963d7f>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::580b91abc87b96fd55842e527844f87b>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/atlassianicon/index.tsx <<SignedSource::953d41a93d1452a3e634edd32d3f49de>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

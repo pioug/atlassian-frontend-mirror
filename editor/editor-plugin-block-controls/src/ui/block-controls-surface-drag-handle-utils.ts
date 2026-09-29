@@ -1,14 +1,12 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { nodeMargins, spacingBetweenNodesForPreview } from './consts';
 
 export const buildLayoutColumnMenuMeta = (
 	anchorPos: number,
 	openedViaKeyboard: boolean,
-): { anchorPos: number; isOpen?: true; openedViaKeyboard: boolean } => ({
+): { anchorPos: number; openedViaKeyboard: boolean } => ({
 	anchorPos,
-	...(fg('platform_editor_layout_column_menu_kill_switch_1') ? { isOpen: true } : {}),
 	openedViaKeyboard,
 });
 

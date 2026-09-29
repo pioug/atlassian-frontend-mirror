@@ -11,7 +11,8 @@ For button motion, the rule detects `backgroundColor` and colour-only `backgroun
 list-item motion, it also detects `color`, `borderColor`, and `textDecorationColor`. It offers
 editor suggestions for button and list-item motion; choose the family that matches the surface's
 semantics. Suggestions add `motion.button.*` or `motion.listitem.*` tokens for hover and pressed
-states, but the rule does not autofix code.
+states, but the rule does not autofix code. The rule also accepts `motion.tab` for tab label colour
+changes; it does not cover background, border, or text-decoration colour changes.
 
 The rule does not infer semantics, follow imported or dynamic styles, or overwrite an existing
 `transition`.

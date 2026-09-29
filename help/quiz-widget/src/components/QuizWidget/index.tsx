@@ -155,9 +155,10 @@ const QuizWidget = (props: Props): React.JSX.Element => {
 					</Flex>
 				</NavQuiz>
 				{isLastQuestion && !props.score ? (
-					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+					/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 					<Button appearance="primary" onClick={onSubmitButtonClick} isDisabled={isDisabledSubmit}>
 						Submit
+						{/* eslint-enable @atlassian/i18n/no-literal-string-in-jsx */}
 					</Button>
 				) : isLastSlide ? (
 					<NavQuiz>

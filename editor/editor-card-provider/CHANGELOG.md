@@ -1,5 +1,29 @@
 # @atlaskit/editor-card-provider
 
+## 8.1.0
+
+### Minor Changes
+
+- [`6957e7a3a5c57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6957e7a3a5c57) -
+  Default Artifacts share view links (/artifacts/<uuid> and /apps/<uuid>/<uuid>/?smartlink=artifact)
+  to embed appearance behind platform_forge_ui_artifact_confluence_integration
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.8
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
 
 import { PageLayout, TopNavigation } from '../../../index';
 
@@ -27,14 +28,23 @@ describe('<TopNavigation />', () => {
 	});
 
 	it('should hydrate with the the height passed to it', () => {
-		render(
+		const ui = (
 			<PageLayout testId="grid">
 				<TopNavigation testId="component" height={50}>
 					Contents
 				</TopNavigation>
-			</PageLayout>,
-			{ hydrate: true },
+			</PageLayout>
 		);
+
+		// Hydration needs server-rendered markup to hydrate into. This previously
+		// hydrated an empty container, which React 18 tolerated but React 19 treats
+		// as a hydration mismatch.
+		const container = document.createElement('div');
+		container.innerHTML = renderToString(ui);
+		document.body.appendChild(container);
+
+		render(ui, { container, hydrate: true });
+
 		expect(screen.getByTestId('component')).toHaveStyleDeclaration(
 			'height',
 			'var(--topNavigationHeight, 0px)',

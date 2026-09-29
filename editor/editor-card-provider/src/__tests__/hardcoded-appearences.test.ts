@@ -368,4 +368,91 @@ describe('hardcoded appearences', () => {
 			expect(adf).toEqual(expectedInlineAdf(url));
 		},
 	);
+
+	describe('Artifacts share view', () => {
+		const mockProvidersAndResolve = () => {
+			mockFetch.mockResolvedValueOnce({
+				json: async () => getMockProvidersResponse(),
+				ok: true,
+			});
+			// Mocking call to /resolve/batch
+			mockFetch.mockResolvedValueOnce({
+				json: async () => [{ body: mocks.success, status: 200 }],
+				ok: true,
+			});
+		};
+
+		const artifactUrls: [string, string][] = [
+			[
+				'Artifacts apps share link',
+				'https://hello.atlassian.net/apps/d3838adc-1d7d-4558-8b3c-ab4b51515d48/287d495a-a0e6-4165-8ebe-0f100069ab5d/?smartlink=artifact',
+			],
+			[
+				'Artifacts apps share link with other query params',
+				'https://jdog.jira-dev.com/apps/d3838adc-1d7d-4558-8b3c-ab4b51515d48/287d495a-a0e6-4165-8ebe-0f100069ab5d/view?foo=bar&smartlink=artifact',
+			],
+			[
+				'Artifacts direct link',
+				'https://hello.atlassian.net/artifacts/287d495a-a0e6-4165-8ebe-0f100069ab5d',
+			],
+			[
+				'Artifacts direct link with query params',
+				'https://hello.atlassian.net/artifacts/287d495a-a0e6-4165-8ebe-0f100069ab5d?foo=bar',
+			],
+		];
+
+		it.each<[string, string]>(artifactUrls)(
+			'returns embedCard when %s is inserted and platform_forge_ui_artifact_confluence_integration is enabled',
+			async (_, url) => {
+				setBooleanFeatureFlagResolver(
+					(flag) => flag === 'platform_forge_ui_artifact_confluence_integration',
+				);
+				mockGetExperimentValue.mockReturnValue(true);
+				const provider = new EditorCardProvider();
+				mockProvidersAndResolve();
+
+				const adf = await provider.resolve(url, 'inline', false);
+				expect(adf).toEqual(expectedEmbedAdf(url));
+			},
+		);
+
+		it.each<[string, string]>(artifactUrls)(
+			'returns inlineCard when %s is inserted and platform_forge_ui_artifact_confluence_integration is disabled',
+			async (_, url) => {
+				const provider = new EditorCardProvider();
+				mockProvidersAndResolve();
+
+				const adf = await provider.resolve(url, 'inline', false);
+				expect(adf).toEqual(expectedInlineAdf(url));
+			},
+		);
+
+		it.each<[string, string]>([
+			[
+				'apps link without smartlink=artifact',
+				'https://hello.atlassian.net/apps/d3838adc-1d7d-4558-8b3c-ab4b51515d48/287d495a-a0e6-4165-8ebe-0f100069ab5d/',
+			],
+			[
+				'apps link with a different smartlink value',
+				'https://hello.atlassian.net/apps/d3838adc-1d7d-4558-8b3c-ab4b51515d48/287d495a-a0e6-4165-8ebe-0f100069ab5d/?smartlink=other',
+			],
+			[
+				'apps link with smartlink=artifact only in the fragment',
+				'https://hello.atlassian.net/apps/d3838adc-1d7d-4558-8b3c-ab4b51515d48/287d495a-a0e6-4165-8ebe-0f100069ab5d/#?smartlink=artifact',
+			],
+			['artifacts link with non-UUID id', 'https://hello.atlassian.net/artifacts/not-a-uuid'],
+		])(
+			'returns inlineCard when %s is inserted even if platform_forge_ui_artifact_confluence_integration is enabled',
+			async (_, url) => {
+				setBooleanFeatureFlagResolver(
+					(flag) => flag === 'platform_forge_ui_artifact_confluence_integration',
+				);
+				const provider = new EditorCardProvider();
+				mockProvidersAndResolve();
+
+				const adf = await provider.resolve(url, 'inline', false);
+				expect(adf).toEqual(expectedInlineAdf(url));
+			},
+		);
+	});
 });

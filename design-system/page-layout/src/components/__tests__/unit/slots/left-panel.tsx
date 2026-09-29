@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
 
 import { LeftPanel, PageLayout } from '../../../index';
 
@@ -24,14 +25,23 @@ describe('<LeftPanel />', () => {
 	});
 
 	it('should hydrate with the width passed to it', () => {
-		render(
+		const ui = (
 			<PageLayout testId="grid">
 				<LeftPanel testId="component" width={200}>
 					Contents
 				</LeftPanel>
-			</PageLayout>,
-			{ hydrate: true },
+			</PageLayout>
 		);
+
+		// Hydration needs server-rendered markup to hydrate into. This previously
+		// hydrated an empty container, which React 18 tolerated but React 19 treats
+		// as a hydration mismatch.
+		const container = document.createElement('div');
+		container.innerHTML = renderToString(ui);
+		document.body.appendChild(container);
+
+		render(ui, { container, hydrate: true });
+
 		expect(screen.getByTestId('component')).toHaveStyleDeclaration('grid-area', 'left-panel');
 		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--leftPanelWidth:200px;}'),

@@ -98,7 +98,8 @@ export interface InsertBlockPluginOptions {
 	 * Configure which toolbar buttons should be visible
 	 * @default undefined - shows all available buttons (current behaviour)
 	 *
-	 * Only applies when platform_editor_toolbar_aifc is enabled
+	 * Only respected when the editor configuration includes `toolbarPlugin` from
+	 * `@atlaskit/editor-plugin-toolbar`.
 	 */
 	toolbarButtons?: ToolbarInsertBlockButtonsConfig;
 	/**
@@ -106,7 +107,8 @@ export interface InsertBlockPluginOptions {
 	 * and only show the plus button
 	 * @default undefined Shows the insert block buttons and the plus button
 	 *
-	 * Only applies when platform_editor_toolbar_aifc is enabled
+	 * Only respected when the editor configuration includes `toolbarPlugin` from
+	 * `@atlaskit/editor-plugin-toolbar`.
 	 *
 	 * @warning Use {@link toolbarButtons} instead to configure the insert block toolbar buttons
 	 * @see https://product-fabric.atlassian.net/browse/ED-29426

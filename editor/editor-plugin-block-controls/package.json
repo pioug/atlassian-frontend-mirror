@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "23.0.3",
+	"version": "23.0.6",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -111,10 +111,6 @@
 		},
 		"platform_editor_controls_reliable_anchor_patch_1": {
 			"type": "boolean"
-		},
-		"platform_editor_layout_column_menu_kill_switch_1": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform-dst-top-layer-tooltip": {
 			"type": "boolean",

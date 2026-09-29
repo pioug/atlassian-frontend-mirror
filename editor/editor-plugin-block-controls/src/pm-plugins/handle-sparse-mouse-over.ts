@@ -2,7 +2,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -147,16 +146,6 @@ export const handleSparseMouseOver = (
 			parentDOM instanceof HTMLElement && parentDOM.classList.contains('ak-editor-panel__no-icon')
 		) &&
 		$target.index() === 0
-	) {
-		return false;
-	}
-
-	if (
-		node.type.name === 'layoutColumn' &&
-		parentNode.type.name === 'layoutSection' &&
-		parentNode.childCount === 1 &&
-		expValEqualsNoExposure('advanced_layouts', 'isEnabled', true) &&
-		!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 	) {
 		return false;
 	}

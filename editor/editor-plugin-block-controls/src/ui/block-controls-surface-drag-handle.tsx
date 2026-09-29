@@ -37,7 +37,6 @@ import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -282,10 +281,7 @@ export const BlockControlsSurfaceDragHandle = ({
 					return tr;
 				}
 
-				if (
-					nodeType === 'layoutColumn' &&
-					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-				) {
+				if (nodeType === 'layoutColumn') {
 					tr.setMeta(
 						'toggleLayoutColumnMenu',
 						buildLayoutColumnMenuMeta(startPos, openedViaKeyboard),

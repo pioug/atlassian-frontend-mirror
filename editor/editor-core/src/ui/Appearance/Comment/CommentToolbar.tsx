@@ -25,7 +25,7 @@ type CommentToolbarProps = {
 };
 
 /**
- * Primary toolbar driven by components registered by `editor-plugin-toolbar`, introduced in `platform_editor_toolbar_aifc`.
+ * Primary toolbar driven by components registered by `editor-plugin-toolbar`.
  */
 export const CommentToolbar = ({
 	editorAPI,

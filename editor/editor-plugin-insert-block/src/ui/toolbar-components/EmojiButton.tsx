@@ -17,10 +17,11 @@ export const EmojiButton = ({ api }: BaseToolbarButtonProps): React.JSX.Element 
 	const emojiButtonRef = useRef<HTMLButtonElement | null>(null);
 	const { popupsMountPoint, popupsBoundariesElement, popupsScrollableElement } = useToolbarUI();
 
-	const { emojiProviderPromise, isTypeAheadAllowed } = useSharedPluginStateWithSelector(
+	const { contentId, emojiProviderPromise, isTypeAheadAllowed } = useSharedPluginStateWithSelector(
 		api,
 		['emoji', 'typeAhead'],
 		(states) => ({
+			contentId: states.emojiState?.contentId,
 			emojiProviderPromise: states.emojiState?.emojiProviderPromise,
 			isTypeAheadAllowed: states.typeAheadState?.isAllowed,
 		}),
@@ -38,6 +39,7 @@ export const EmojiButton = ({ api }: BaseToolbarButtonProps): React.JSX.Element 
 	return (
 		<>
 			<EmojiPickerPopup
+				contentId={contentId}
 				isOpen={emojiPickerPopup.isOpen}
 				targetRef={emojiButtonRef}
 				emojiProvider={emojiProviderPromise}

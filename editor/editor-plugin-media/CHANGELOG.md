@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-media
 
+## 24.0.6
+
+### Patch Changes
+
+- [`e88ec21b2ee73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e88ec21b2ee73) -
+  Re-land of EDITOR-9164. Behind the shared `platform_editor_reduce_forced_layout` experiment, the
+  media single node view no longer reads `offsetLeft` from `ignoreMutation` when nothing can consume
+  the result — that is, when pixel resizing is enabled (the resizer used in that mode never reads
+  it) or when resizing is disabled. The read forced a synchronous layout recalculation on every DOM
+  mutation and every caret move inside a media single. Percentage-based resizing is unaffected.
+
+  The skip decision is now resolved lazily on the first `ignoreMutation` call instead of in a
+  class-field initializer, avoiding the optional chaining in a class field that caused
+  `jsx is not defined` in the Help Center build.
+
+- Updated dependencies
+
+## 24.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.3
 
 ### Patch Changes

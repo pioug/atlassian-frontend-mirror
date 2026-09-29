@@ -25,7 +25,6 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LayoutPluginOptions } from '../types';
 import type { ToggleLayoutColumnMenuOptions } from './actions';
@@ -55,10 +54,7 @@ export const DEFAULT_LAYOUT = 'two_equal';
  * Returns `true` when it placed a selection and consumed the click, else `false`.
  */
 const applyBlankSpaceGapCursor = (view: EditorView, event: MouseEvent): boolean => {
-	if (
-		!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) ||
-		!editorExperiment('advanced_layouts', true)
-	) {
+	if (!editorExperiment('advanced_layouts', true)) {
 		return false;
 	}
 	const gapTarget = getGapCursorTargetForBlankSpaceClick(view, event);

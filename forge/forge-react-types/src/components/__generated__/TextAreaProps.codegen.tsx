@@ -4,7 +4,7 @@
  * Extract component prop types from UIKit 2 components - TextAreaProps
  *
  * @codegen <<SignedSource::efe2109932fd748ce38c5d36a2ad4194>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/textarea/index.tsx <<SignedSource::282c20421c108bd52e5341ba0ee4293c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

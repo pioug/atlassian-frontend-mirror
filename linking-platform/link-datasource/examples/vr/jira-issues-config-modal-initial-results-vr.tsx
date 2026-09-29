@@ -24,7 +24,7 @@ export default (): React.JSX.Element => (
 				visibleColumnKeys={defaultInitialVisibleJiraColumnKeys}
 				parameters={{
 					cloudId: '67899',
-					jql: 'project in ("My IT TEST", Test) and type in ("[System] Change", "[System] Incident") and status in (Authorize, "Awaiting approval") and assignee in (empty, "membersOf(administrators)") ORDER BY created DESC',
+					jql: 'project in ("Sample Scrum Project A", Test) and type in ("[System] Change", "[System] Incident") and status in (Authorize, "Awaiting approval") and assignee in (empty, "membersOf(administrators)") ORDER BY created DESC',
 				}}
 				onCancel={() => {}}
 				onInsert={() => {}}

@@ -284,6 +284,7 @@ const selector = (
 		availableWrapperBlockTypes: states.blockTypeState?.availableWrapperBlockTypes,
 		canInsertLink: states.hyperlinkState?.canInsertLink,
 		activeLinkMark: states.hyperlinkState?.activeLinkMark,
+		emojiContentId: states.emojiState?.contentId,
 	};
 };
 
@@ -317,6 +318,7 @@ function ToolbarInsertBlockWithInjectionApi({
 		availableWrapperBlockTypes,
 		canInsertLink,
 		activeLinkMark,
+		emojiContentId,
 	} = useSharedPluginStateWithSelector(
 		pluginInjectionApi,
 		[
@@ -353,6 +355,7 @@ function ToolbarInsertBlockWithInjectionApi({
 
 	return (
 		<ToolbarInsertBlock
+			emojiContentId={emojiContentId}
 			showElementBrowser={showElementBrowser || false}
 			pluginInjectionApi={pluginInjectionApi}
 			buttons={buttons}

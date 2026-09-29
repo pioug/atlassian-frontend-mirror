@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-mentions
 
+## 24.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.6
+
+### Patch Changes
+
+- [`cee5b4d36850b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cee5b4d36850b) -
+  Hide the agents section LABS lozenge when `platform_editor_agent_mentions_hide_labs_lozenge` is
+  enabled.
+- Updated dependencies
+
+## 24.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.3
 
 ### Patch Changes

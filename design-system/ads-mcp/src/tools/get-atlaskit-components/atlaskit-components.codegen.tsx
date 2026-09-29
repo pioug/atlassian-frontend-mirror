@@ -3,8 +3,8 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::6e12bc86d2698847f19cf97b10a31abb>>
- * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
+ * @codegen <<SignedSource::fb790d3e548a46549b49f45bf1924db4>>
+ * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
 import type { ComponentMcpPayload } from '../get-all-components/types';

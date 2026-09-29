@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-layout
 
+## 23.0.6
+
+### Patch Changes
+
+- [`f1454b828555b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1454b828555b) -
+  Clean up experiment `platform_editor_breakout_interaction_rerender`
+- Updated dependencies
+
+## 23.0.5
+
+### Patch Changes
+
+- [`d7f1f4ebb1cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7f1f4ebb1cd3) -
+  Keep the shipped layout column delete shortcut behavior for explicitly selected columns. Remove
+  the `platform_editor_layout_column_delete_shortcut_fix` and
+  `platform_editor_layout_column_valign_rendering` experiment keys. Consumers of these keys must
+  remove their experiment reads and use the shipped behavior directly.
+- Updated dependencies
+
+## 23.0.4
+
+### Patch Changes
+
+- [`a4fe8636fa0ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4fe8636fa0ec) -
+  Clean up the fully rolled out `platform_editor_layout_column_menu` experiment and the
+  `platform_editor_layout_column_menu_kill_switch_1` feature gate, retaining their shipped behavior.
+  Consumers must remove any direct `@atlaskit/tmp-editor-statsig` experiment override for
+  `platform_editor_layout_column_menu`.
+- Updated dependencies
+
 ## 23.0.3
 
 ### Patch Changes

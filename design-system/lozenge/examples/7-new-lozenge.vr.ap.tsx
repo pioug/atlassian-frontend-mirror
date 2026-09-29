@@ -43,7 +43,6 @@ const styles = cssMap({
 /**
  * Example showcasing the new lozenge component with semantic and accent colors.
  *
- * Note: This example requires the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag to be enabled.
  */
 export default function NewLozengeExample(): JSX.Element {
 	const semanticColors: NewLozengeColor[] = [
@@ -80,10 +79,6 @@ export default function NewLozengeExample(): JSX.Element {
 
 	return (
 		<Box xcss={styles.container}>
-			<Text>
-				Enable the <code>platform-dst-lozenge-tag-badge-visual-uplifts</code> feature flag to see
-				the new lozenge component.
-			</Text>
 			<Box>
 				<Heading size="medium">Semantic colors</Heading>
 				<Text>Lozenges with semantic colors from the design system.</Text>

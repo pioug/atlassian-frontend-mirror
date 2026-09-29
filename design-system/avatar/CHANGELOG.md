@@ -1,5 +1,41 @@
 # @atlaskit/avatar
 
+## 30.0.0
+
+### Major Changes
+
+- [`ae5c32fe7bfd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5c32fe7bfd6) -
+  Record the rollback of the DSP-25935 popup trigger type expansion in PR #487935. This restores
+  compatibility with existing consumers, including Jira Assets audit logs and linked objects.
+
+  Popup's `aria-haspopup` trigger contract returns to `boolean | 'dialog'`. The affected public
+  trigger props in Dropdown Menu, Avatar, Lozenge, Universal Create, Rovo Pins, and Navigation
+  System also return to their earlier contracts. Consumers using the newly added role-specific
+  string values must return to values supported by those earlier contracts. Popup no longer exports
+  `AriaHasPopup` or `TriggerAriaProps`; use `TriggerProps['aria-haspopup']` and
+  `Pick<TriggerProps, 'aria-controls' | 'aria-expanded' | 'aria-haspopup'>` instead.
+
+  Popup and Dropdown Menu retain their existing top-layer runtime ARIA values through the prior
+  compatibility adapters. Conversation Assistant returns to its previous internal trigger type
+  annotation without changing its public API.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.2.0
+
+### Minor Changes
+
+- [`228be7a992e49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/228be7a992e49) -
+  Allow Avatar and Lozenge Dropdown Trigger to accept popup role values and booleans for
+  `aria-haspopup`, including values forwarded by Popup. Align Universal Create and Rovo Pins trigger
+  types with Popup when forwarding its ARIA props.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.1.1
 
 ### Patch Changes

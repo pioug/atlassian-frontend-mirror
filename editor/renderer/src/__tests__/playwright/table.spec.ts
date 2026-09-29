@@ -54,7 +54,7 @@ test.describe('table.ts: triple click selection', () => {
 		await renderer.waitForRendererStable();
 
 		const selection = await renderer.page.evaluate(() => window.getSelection()?.toString());
-		expect(selection).toBe('SOME STATUS');
+		expect(selection).toBe('some status');
 	});
 
 	test('on triple-clicking last decision item (with text) in table cell (row:3,col:2), it should select from last decision item to last decision item', async ({

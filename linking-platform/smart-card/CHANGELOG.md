@@ -1,5 +1,44 @@
 # @atlaskit/smart-card
 
+## 46.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.1.5
+
+### Patch Changes
+
+- [`e769e157cf4ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e769e157cf4ad) -
+  Add the One Click Chat Spotlight V2 eligibility hook behind
+  platform_sl_one_click_chat_spotlight_v2_fg, using a fixed browser-origin suppression history
+  shared across accounts. UI integration follows separately.
+
 ## 46.1.4
 
 ### Patch Changes

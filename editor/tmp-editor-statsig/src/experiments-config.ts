@@ -20,7 +20,6 @@ export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
 	'advanced_layouts',
 	'single_column_layouts',
 	'platform_editor_preview_panel_responsiveness',
-	'platform_editor_toolbar_aifc',
 ];
 
 /**
@@ -50,13 +49,6 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * existing experiments.
  */
 export const editorExperimentsConfig: {
-	// Added 2026-07-24
-	platform_editor_layout_column_delete_shortcut_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-07-18
 	cc_maui_remix_button_hover_corridor: {
 		defaultValue: boolean;
@@ -344,13 +336,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-07-31
-	platform_editor_breakout_interaction_rerender: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-05-15
 	platform_editor_breakout_resizing: {
 		defaultValue: boolean;
@@ -488,13 +473,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-04-17
 	platform_editor_tables_table_selector: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	//Added 2025-07-16
-	platform_editor_toolbar_aifc: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -662,22 +640,8 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-07
-	platform_editor_layout_column_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-07-29
 	platform_editor_layout_column_selection_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-15
-	platform_editor_layout_column_valign_rendering: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -833,13 +797,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-26
 	platform_editor_remix_in_block_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-19
-	remix_iw_block_menu_table_calc_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1160,15 +1117,6 @@ export const editorExperimentsConfig: {
 	cc_maui_remix_button_hover_corridor: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_maui_remix_button_hover_corridor',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
-	// Added 2026-07-24
-	platform_editor_layout_column_delete_shortcut_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_layout_column_delete_shortcut_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1589,23 +1537,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-07-23
-	//Added 2025-07-16
-	platform_editor_toolbar_aifc: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_confluence',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-07-31
-	platform_editor_breakout_interaction_rerender: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_breakout_interaction_rerender',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-30
 	platform_editor_blocktaskitem_node_tenantid: createBooleanExperiment({
 		productKeys: {
@@ -2015,14 +1946,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-06-19 — fix table text length calculation for Remix/Improve Writing hero prompts
-	remix_iw_block_menu_table_calc_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'remix_iw_block_menu_table_calc_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	platform_editor_rovobutton_smartlink_toolbar_exp: createBooleanExperiment({
 		productKeys: {
@@ -2134,27 +2057,11 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-07
-	platform_editor_layout_column_menu: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_layout_column_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-07-29
 	platform_editor_layout_column_selection_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_layout_column_selection_fix',
 			jira: 'platform_editor_layout_column_selection_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-15
-	platform_editor_layout_column_valign_rendering: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_layout_column_valign_rendering',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

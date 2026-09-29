@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, memo, type Ref, useLayoutEffect, useRef, useState } from 'react';
+import { forwardRef, memo, type Ref, useRef, useState } from 'react';
 
 import Badge from '@atlaskit/badge/badge-new';
 import type { BadgeNewProps } from '@atlaskit/badge/types';
 import { cssMap, cx, jsx } from '@atlaskit/css';
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { useResizing } from '@atlaskit/motion/use-resizing';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

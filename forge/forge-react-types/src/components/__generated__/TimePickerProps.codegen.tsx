@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - TimePickerProps
  *
- * @codegen <<SignedSource::8400073ffade72c2330b63473b461c81>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::724cebe7017ebf29b58128c8a302514e>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::8f1c6ab03a29e7279ed2d3e82b086ab0>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

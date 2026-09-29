@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 126.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.3.0
+
+### Minor Changes
+
+- [`cba52821a44c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cba52821a44c9) -
+  Add suggestion generation, lifecycle timing, remix-type, and stale-regeneration analytics for
+  suggested edits.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.2.1
+
+### Patch Changes
+
+- [`a4fe8636fa0ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4fe8636fa0ec) -
+  Clean up the fully rolled out `platform_editor_layout_column_menu` experiment and the
+  `platform_editor_layout_column_menu_kill_switch_1` feature gate, retaining their shipped behavior.
+  Consumers must remove any direct `@atlaskit/tmp-editor-statsig` experiment override for
+  `platform_editor_layout_column_menu`.
+- Updated dependencies
+
 ## 126.2.0
 
 ### Minor Changes

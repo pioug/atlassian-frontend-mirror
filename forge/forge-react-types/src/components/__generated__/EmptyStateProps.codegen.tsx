@@ -3,8 +3,8 @@
  *
  * Extract component prop types from UIKit 2 components - EmptyStateProps
  *
- * @codegen <<SignedSource::9cdad29cc05434ff3c605fc096399900>>
- * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegen <<SignedSource::94fdfd7e84ec755979f333e407049328>>
+ * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/emptystate/__generated__/index.partial.tsx <<SignedSource::1b9a45148138d319f05ae40d08407eb2>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

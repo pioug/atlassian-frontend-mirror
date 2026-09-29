@@ -6,16 +6,9 @@ import { forwardRef, memo } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Lozenge from '@atlaskit/lozenge/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { colorMapping } from '../../../tag-new/color-mapping';
 import { markAsTagMotionCapable } from '../../../tag-new/tag-motion-capability';
 import { default as TagNew } from '../../../tag-new/tag-new';
-import BaseTag from '../shared/base';
-import Before from '../shared/before';
-import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';
-import Content from '../shared/content';
 import { type SimpleTagProps } from '../shared/types';
 
 const SimpleTagComponent: React.ForwardRefExoticComponent<
@@ -23,75 +16,35 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
 > = forwardRef(
 	(
 		{
-			appearance,
 			elemBefore = null,
 			color = 'standard',
 			href,
+			linkComponent,
 			testId,
 			text = '',
-			linkComponent,
-			migration_fallback,
 			maxWidth,
 			swatchBefore,
 			swatchBeforeLabel,
 			swatchBeforeRole,
-			...rest
 		}: SimpleTagProps,
 		ref: React.Ref<any>,
 	) => {
-		// Handle migration_fallback: render Lozenge when flag is off and migration_fallback is 'lozenge'
-		if (migration_fallback === 'lozenge' && !fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
-			const lozengeAppearance = getLozengeAppearance(color);
-			return (
-				<Lozenge appearance={lozengeAppearance} isBold={false} testId={testId} {...rest}>
-					{text}
-				</Lozenge>
-			);
-		}
+		const newColor = colorMapping[color || 'standard'];
 
-		// Use new TagNew component behind feature flag
-		if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
-			const newColor = colorMapping[color || 'standard'];
-
-			return (
-				<TagNew
-					ref={ref}
-					color={newColor}
-					text={text}
-					elemBefore={elemBefore}
-					href={href}
-					testId={testId}
-					isRemovable={false}
-					maxWidth={maxWidth}
-					swatchBefore={swatchBefore}
-					swatchBeforeLabel={swatchBeforeLabel}
-					swatchBeforeRole={swatchBeforeRole}
-				/>
-			);
-		}
-
-		// Original implementation
-		const content = (
-			<Content
-				elemBefore={elemBefore}
-				isRemovable={false}
+		return (
+			<TagNew
+				ref={ref}
+				color={newColor}
 				text={text}
-				color={color}
+				elemBefore={elemBefore}
 				href={href}
 				linkComponent={linkComponent}
 				testId={testId}
-			/>
-		);
-
-		return (
-			<BaseTag
-				ref={ref}
-				testId={testId}
-				href={href}
-				appearance={appearance}
-				color={color}
-				before={<Before elemBefore={elemBefore} />}
-				contentElement={content}
+				isRemovable={false}
+				maxWidth={maxWidth}
+				swatchBefore={swatchBefore}
+				swatchBeforeLabel={swatchBeforeLabel}
+				swatchBeforeRole={swatchBeforeRole}
 			/>
 		);
 	},

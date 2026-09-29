@@ -7,7 +7,7 @@ when suitable.
 
 ## Examples
 
-This rule marks code as violations when it finds native HTML range elements.
+This rule marks code as violations when it finds native HTML text input elements.
 
 ### Incorrect
 

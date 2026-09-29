@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ValidMessageProps
  *
- * @codegen <<SignedSource::753a19cded0694775e3cad5818bbb3b8>>
+ * @codegen <<SignedSource::ee3e4b9414ef7e295782692092d94188>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/valid-message.partial.tsx <<SignedSource::98f990d62977391928051e91f7962883>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/valid-message.partial.tsx <<SignedSource::87c85696c64d3c0fe153fbc4f54e97fb>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

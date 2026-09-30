@@ -11,6 +11,7 @@ export const messages: Messages<
 	| 'all'
 	| 'browse'
 	| 'categoryBlockTemplates'
+	| 'categoryCreate'
 	| 'categoryDataAndCharts'
 	| 'categoryEmbed'
 	| 'categoryMedia'
@@ -156,6 +157,11 @@ export const messages: Messages<
 		id: 'editor-common.quick-insert.categoryMedia',
 		defaultMessage: 'Media',
 		description: 'Media items in the Quick Insert menu.',
+	},
+	categoryCreate: {
+		id: 'editor-common.quick-insert.categoryCreate',
+		defaultMessage: 'Create',
+		description: 'Create items in the Quick Insert menu.',
 	},
 	categoryEmbed: {
 		id: 'editor-common.quick-insert.categoryEmbed',

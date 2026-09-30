@@ -23,6 +23,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -1171,6 +1172,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 	// Function gets called when table is nested.
 	private scaleTable = (scaleOptions: { parentWidth?: number }, isUserTriggered = false) => {
+		if (
+			fg('platform_editor_table_view_mode_scaling_fix') &&
+			this.props.pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view'
+		) {
+			return;
+		}
+
 		const { view, getNode, getPos, containerWidth, options } = this.props;
 		const node = getNode();
 		const { state, dispatch } = view;

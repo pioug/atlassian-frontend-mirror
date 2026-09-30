@@ -1,5 +1,14 @@
 export type { Transition, Direction } from '../entering/types';
-export type { AnimationCurve } from '../utils/curves';
+export type {
+	AnimationCurve,
+	EaseInOutCurve,
+	EaseOutCurve,
+	EaseInCurve,
+	EaseIn40OutCurve,
+	EaseIn60OutCurve,
+	EaseIn80OutCurve,
+	LinearCurve,
+} from '../utils/curves';
 export type { FadeKeyframesMotionProps } from '../entering/fade-in';
 export type { ExitingPersistenceProps } from '../entering/exiting-persistence';
 export type { ShrinkOutProps } from '../entering/shrink-out';

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import * as reactDOM from 'react-dom';
 
 import createStub from 'raf-stub';
 import invariant from 'tiny-invariant';
@@ -7,9 +8,11 @@ import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
 import type { CustomPopperProps, PopperChildrenProps } from '@atlaskit/popper/main';
 import * as popperModule from '@atlaskit/popper/main';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import {
 	act,
+	createEvent,
 	fireEvent,
 	render,
 	screen,
@@ -207,6 +210,137 @@ describe('PanelSplitter', () => {
 
 		fireEvent.drop(splitter);
 		expect(onCompleteResize).toHaveBeenCalledWith(100);
+	});
+
+	it('should call the internal resize start callback before the public callback', () => {
+		const calls: string[] = [];
+		render(
+			<TestComponent
+				onResizeStartInternal={() => calls.push('internal')}
+				onResizeStart={() => calls.push('public')}
+			/>,
+		);
+
+		const splitter = screen.getByTestId('panel-splitter');
+		fireEvent.mouseDown(splitter, { clientX: 100 });
+		fireEvent.dragStart(splitter, { clientX: 100 });
+		rafStub.step();
+
+		expect(calls).toEqual(['internal', 'public']);
+	});
+
+	it('clamps managed drag updates at the maximum without repeating saturated updates', () => {
+		passGate('platform-dst-chat-panel-layout');
+		const onResizeInternal = jest.fn();
+		render(
+			<TestComponent
+				initialPanelWidth={200}
+				getResizeBounds={() => ({ min: '100px', max: '300px' })}
+				onResizeInternal={onResizeInternal}
+			/>,
+		);
+
+		const splitter = screen.getByTestId('panel-splitter');
+		drag({ element: splitter, fromX: 200, toX: 400 });
+
+		expect(onResizeInternal).toHaveBeenCalledWith(300);
+		fireEvent.dragOver(splitter, { clientX: 500 });
+		rafStub.step();
+		expect(onResizeInternal).toHaveBeenCalledTimes(1);
+	});
+
+	it('clamps managed drag updates at the minimum', () => {
+		passGate('platform-dst-chat-panel-layout');
+		const onResizeInternal = jest.fn();
+		render(
+			<TestComponent
+				initialPanelWidth={200}
+				getResizeBounds={() => ({ min: '100px', max: '300px' })}
+				onResizeInternal={onResizeInternal}
+			/>,
+		);
+
+		const splitter = screen.getByTestId('panel-splitter');
+		drag({ element: splitter, fromX: 200, toX: 0 });
+
+		expect(onResizeInternal).toHaveBeenCalledWith(100);
+	});
+
+	it.each([false, true])(
+		'uses coordinated rendering only with the layout gate enabled (%s)',
+		(enabled) => {
+			(enabled ? passGate : failGate)('platform-dst-chat-panel-layout');
+			const onResizeInternal = jest.fn();
+			render(<TestComponent onResizeInternal={onResizeInternal} />);
+			const panel = screen.getByTestId('panel-splitter-parent');
+			const splitter = screen.getByTestId('panel-splitter');
+			drag({ element: splitter, fromX: 300, toX: 350 });
+			if (enabled) {
+				expect(onResizeInternal).toHaveBeenCalledWith(350);
+				// No imperative width can move this panel ahead of the allocated sibling widths.
+				expect(panel.style.getPropertyValue(resizingCssVar)).toBe('');
+				onResizeInternal.mockClear();
+				fireEvent.drop(splitter);
+				expect(onResizeInternal).toHaveBeenCalledWith(350);
+			} else {
+				expect(onResizeInternal).not.toHaveBeenCalled();
+				expect(panel.style.getPropertyValue(resizingCssVar)).toBe('clamp(200px, 350px, 400px)');
+			}
+		},
+	);
+
+	it('batches managed drag frames but commits the last width before measuring on drop', () => {
+		passGate('platform-dst-chat-panel-layout');
+		const onCompleteResize = jest.fn();
+		const getResizeBounds = () => ({ min: '200px', max: '600px' }) as const;
+		const panelId = Symbol('managed test panel');
+		const flush = jest.spyOn(reactDOM, 'flushSync');
+		const measure = jest
+			.spyOn(panelSplitterWidthUtils, 'getPixelWidth')
+			.mockImplementation((element) => Number.parseFloat(element.style.width));
+		function ManagedPanel() {
+			const panelRef = useRef<HTMLDivElement>(null);
+			const [width, setWidth] = useState(300);
+			return (
+				<OpenLayerObserver>
+					<div ref={panelRef} style={{ width }} data-testid="managed-panel">
+						<PanelSplitterProvider
+							panelId={panelId}
+							panelRef={panelRef}
+							panelWidth={width}
+							onResizeInternal={setWidth}
+							onCompleteResize={onCompleteResize}
+							getResizeBounds={getResizeBounds}
+							resizingCssVar={resizingCssVar}
+						>
+							<PanelSplitter label="Resize managed panel" testId="managed-splitter" />
+						</PanelSplitterProvider>
+					</div>
+				</OpenLayerObserver>
+			);
+		}
+		try {
+			render(<ManagedPanel />);
+			const splitter = screen.getByTestId('managed-splitter');
+			act(() => drag({ element: splitter, fromX: 300, toX: 350 }));
+			expect(screen.getByTestId('managed-panel')).toHaveStyle({ width: '350px' });
+			expect(flush).not.toHaveBeenCalled();
+			const lastMove = createEvent.dragOver(splitter, { clientX: 400 });
+			const drop = createEvent.drop(splitter);
+			act(() => {
+				// Dispatch directly so individual fireEvent act boundaries do not commit
+				// the pending frame before we simulate the same-task drop.
+				splitter.dispatchEvent(lastMove);
+				rafStub.step();
+				// The latest update has been queued, but React has not committed this frame yet.
+				expect(flush).not.toHaveBeenCalled();
+				splitter.dispatchEvent(drop);
+			});
+			expect(onCompleteResize).toHaveBeenCalledWith(400);
+		} finally {
+			flush.mockRestore();
+			measure.mockRestore();
+		}
 	});
 
 	describe('when text direction is left to right (ltr)', () => {
@@ -858,6 +992,36 @@ describe('PanelSplitter', () => {
 		expect(
 			screen.getByTestId('panel-splitter-parent').style.getPropertyValue(resizingCssVar),
 		).toEqual('');
+	});
+
+	it('should apply and reset the resizing css var on an additional layout element', () => {
+		function ComponentWithResizingElement() {
+			const resizingElementRef = useRef<HTMLDivElement | null>(null);
+
+			return (
+				<>
+					<div ref={resizingElementRef} data-testid="resizing-layout" />
+					<TestComponent
+						initialPanelWidth={100}
+						getResizeBounds={() => ({ min: '50px', max: '500px' })}
+						resizingElementRef={resizingElementRef}
+					/>
+				</>
+			);
+		}
+
+		render(<ComponentWithResizingElement />);
+		const splitter = screen.getByTestId('panel-splitter');
+
+		drag({ element: splitter, fromX: 100, toX: 200 });
+		expect(screen.getByTestId('resizing-layout')).toHaveStyle({
+			[resizingCssVar]: 'clamp(50px, 200px, 500px)',
+		});
+
+		fireEvent.drop(splitter);
+		expect(screen.getByTestId('resizing-layout').style.getPropertyValue(resizingCssVar)).toEqual(
+			'',
+		);
 	});
 
 	it('should render the panel splitter inside the custom portal when the portalRef prop is provided', () => {

@@ -162,11 +162,6 @@ export const createPragmaticResizer = ({
 	rightHandle: HTMLDivElement;
 } => {
 	let state: 'default' | 'resizing' = 'default';
-	// Read once per resizer: `isExperimentEnabled` fires an exposure event, and `registerEvents` is
-	// bound to several elements so checking it inside the handler would emit one per element hovered.
-	const isDeferredTooltipEnabled = isExperimentEnabled(
-		'platform_editor_reduce_event_listener_count',
-	);
 	const isLeftResizeHandleDisabled =
 		expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true) ||
 		isExperimentEnabled('platform_editor_lovability_resize_extensions') ||
@@ -232,8 +227,8 @@ export const createPragmaticResizer = ({
 
 		let vanillaTooltip: VanillaTooltip | undefined;
 
-		// Tracks whether there is anything to tear down. On the deferred path the tooltip mounts
-		// on first hover and so may never mount at all.
+		// Tracks whether there is anything to tear down: the tooltip mounts on first hover and so
+		// may never mount at all.
 		let isTooltipMounted = false;
 		const mountTooltip = () => {
 			if (isTooltipMounted) {
@@ -264,22 +259,8 @@ export const createPragmaticResizer = ({
 		//
 		// Parking the rail also needs `width: 100%`: without the ADS tooltip's wrappers (stretched
 		// by `pragmaticResizerStylesForTooltip`) it would size to its content as a flex item.
-		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			// Always parks, and always defers whatever `platform_editor_reduce_event_listener_count`
-			// says: no portal means no listener cost, and first hover is when the node name reads
-			// correctly.
-			rail.style.width = '100%';
-			tooltipContainer.appendChild(rail);
-		} else {
-			// Remove this while at `platform_editor_use_vanilla_components` cleanup.
-			if (isDeferredTooltipEnabled) {
-				rail.style.width = '100%';
-				tooltipContainer.appendChild(rail);
-			} else {
-				// Not `mountTooltip`: that would set `isTooltipMounted` where the control arm never did.
-				renderTooltip();
-			}
-		}
+		rail.style.width = '100%';
+		tooltipContainer.appendChild(rail);
 
 		return {
 			handle,
@@ -301,9 +282,9 @@ export const createPragmaticResizer = ({
 					return;
 				}
 
-				// The eager path always mounted, so it always removes — unchanged from before. Only
-				// the deferred path can reach `destroyTooltip` without having mounted anything.
-				if (isDeferredTooltipEnabled && !isTooltipMounted) {
+				// The tooltip mounts on first hover, so `destroyTooltip` can be reached without
+				// anything having been mounted.
+				if (!isTooltipMounted) {
 					return;
 				}
 				nodeViewPortalProviderAPI.remove(key);
@@ -381,16 +362,11 @@ export const createPragmaticResizer = ({
 			bind(element, {
 				type: 'mouseenter',
 				listener: (event) => {
-					if (isDeferredTooltipEnabled) {
-						rightHandle.mountTooltip();
-						leftHandle?.mountTooltip();
-					}
-					// Always mounts on first hover, so it also mounts when the deferred experiment is
-					// off. `mountTooltip` is a no-op once mounted, so the overlap is safe. At
-					// cleanup, drop the gate and delete the block above — this covers both.
+					// Mounted on first hover rather than up front, so a handle that is never
+					// hovered costs no portal and no listeners.
+					rightHandle.mountTooltip();
+					leftHandle?.mountTooltip();
 					if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-						rightHandle.mountTooltip();
-						leftHandle?.mountTooltip();
 						// After the mount above, so the tooltip always exists to be opened.
 						openTooltipAt(hoverAnchor, event);
 					}

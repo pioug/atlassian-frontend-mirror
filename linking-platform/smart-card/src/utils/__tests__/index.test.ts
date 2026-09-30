@@ -1,6 +1,5 @@
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { type ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { IconType } from '../../constants';
 import { getLazyIcons } from '../get-lazy-icons';
@@ -149,9 +148,7 @@ describe('isProfileType', () => {
 });
 
 describe('getLazyIcons', () => {
-	it('loads priority icons from the shared lazy chunk when the gate is enabled', async () => {
-		passGate('platform_sl_priority_icon');
-
+	it('loads priority icons from the shared lazy chunk', async () => {
 		const priorityHighLoader = getLazyIcons()[IconType.PriorityHigh]?.default;
 		const priorityHighIcon = await priorityHighLoader?.();
 

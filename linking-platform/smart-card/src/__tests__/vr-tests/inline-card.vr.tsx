@@ -46,17 +46,7 @@ import {
 	InlineCardWordWrapUnAuth,
 } from '../../../examples/vr-inline-card/vr-inline-card-word-wrap.vr.ap';
 import { VRInlineProfileCard } from '../../../examples/vr-inline-card/vr-inline-profile-card.vr.ap';
-
-/**
- * `useCurrentSiteCloudId` GETs `/_edge/tenant_info` in the browser;
- */
-const mockEdgeTenantInfoRequests = [
-	{
-		urlPattern: /\/_edge\/tenant_info/,
-		body: JSON.stringify({ cloudId: 'vr-mock-tenant-cloud-id' }),
-		contentType: 'application/json',
-	},
-] as const;
+import { mockPersonalizationRequests } from './mock-personalization-requests';
 
 snapshot(InlineCardDefault, {
 	description: 'inline card with default icon',
@@ -214,12 +204,14 @@ snapshot(InlineCardNotFoundTruncate, {
 snapshot(InlineCardUnauthorised, {
 	description: `inline card unauthorised view`,
 	featureFlags: {},
+	mockRequests: mockPersonalizationRequests,
 });
 
 snapshot(InlineCardUnauthorised, {
 	description:
 		'inline card unauthorised view renders correctly when hovering over url in unauthorized view',
 	featureFlags: {},
+	mockRequests: mockPersonalizationRequests,
 	states: [
 		{
 			state: 'hovered',
@@ -231,11 +223,13 @@ snapshot(InlineCardUnauthorised, {
 snapshot(InlineCardUnauthorisedTruncate, {
 	description: `inline card unauthorised view with truncation`,
 	featureFlags: {},
+	mockRequests: mockPersonalizationRequests,
 });
 
 snapshot(InlineCardUnauthorised, {
 	description: 'inline card unauthorised view renders correctly when hovering over connect account',
 	featureFlags: {},
+	mockRequests: mockPersonalizationRequests,
 	states: [{ state: 'hovered', selector: { byTestId: 'button-connect-account' } }],
 });
 snapshot(InlineCardUnauthorisedNoAuth, {
@@ -244,89 +238,33 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 
 snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
 	description: 'inline card unauthorised with social proof but low percentage',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
-});
-
-snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
-	description: 'inline card unauthorised with social proof but low percentage - disabled FGs',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
-		platform_sl_3p_preauth_social_proof_inline_cta: false,
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
+	mockRequests: mockPersonalizationRequests,
 });
 
 snapshot(InlineCardUnauthorisedSocialProofLoaded, {
 	description: 'inline card unauthorised with social proof',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
+	mockRequests: mockPersonalizationRequests,
 });
 
 snapshot(InlineCardUnauthorisedSocialProofNarrow, {
 	description: 'inline card unauthorised with social proof in narrow container',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: true,
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
-});
-
-snapshot(InlineCardUnauthorisedSocialProofLoaded, {
-	description: 'inline card unauthorised with social proof - disabled FGs',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
-		platform_sl_3p_preauth_social_proof_inline_cta: false,
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
+	mockRequests: mockPersonalizationRequests,
 });
 
 snapshot(InlineCardUnauthorisedSocialProofNoContext, {
 	description: 'inline card unauthorised social proof but no context available',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
-});
-
-snapshot(InlineCardUnauthorisedSocialProofNoContext, {
-	description: 'inline card unauthorised social proof but no context available - disabled FGs',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
-		platform_sl_3p_preauth_social_proof_inline_cta: false,
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
+	mockRequests: mockPersonalizationRequests,
 });
 
 snapshot(InlineCardUnauthorisedSocialProofLowNoContext, {
 	description:
 		'inline card unauthorised social proof with no context and no provider-specific percentage',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
-});
-
-snapshot(InlineCardUnauthorisedSocialProofLowNoContext, {
-	description:
-		'inline card unauthorised social proof with no context and no provider-specific percentage - disabled FGs',
-	featureFlags: {
-		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
-		platform_sl_3p_preauth_social_proof_inline_cta: false,
-	},
-	mockRequests: [...mockEdgeTenantInfoRequests],
+	mockRequests: mockPersonalizationRequests,
 });
 
 snapshot(InlineCardFontSizeDefault, {
 	description: 'inline card with default font size',
+	mockRequests: mockPersonalizationRequests,
 	featureFlags: {
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
@@ -334,6 +272,7 @@ snapshot(InlineCardFontSizeDefault, {
 
 snapshot(InlineCardFontSize32, {
 	description: 'inline card with 32 font size',
+	mockRequests: mockPersonalizationRequests,
 	featureFlags: {
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
@@ -341,6 +280,7 @@ snapshot(InlineCardFontSize32, {
 
 snapshot(InlineCardFontSize24, {
 	description: 'inline card with 24 font size',
+	mockRequests: mockPersonalizationRequests,
 	featureFlags: {
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
@@ -348,6 +288,7 @@ snapshot(InlineCardFontSize24, {
 
 snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
+	mockRequests: mockPersonalizationRequests,
 	featureFlags: {
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
@@ -380,16 +321,19 @@ snapshot(InlineCardWordWrapNotFoundWithSiteAccessExists, {
 });
 snapshot(InlineCardWordWrapUnAuth, {
 	featureFlags: {},
+	mockRequests: mockPersonalizationRequests,
 	waitForReactLazy: true,
 });
 // Design refresh: emotion + legacy icon
 snapshot(InlineCardUnauthorisedDefaultIcon, {
 	description: 'inline card unauthorised view with default legacy icon',
+	mockRequests: mockPersonalizationRequests,
 });
 
 // Design refresh: compiled + DS visual refresh
 snapshot(InlineCardUnauthorisedDefaultIcon, {
 	description: 'inline card unauthorised view with default icon',
+	mockRequests: mockPersonalizationRequests,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

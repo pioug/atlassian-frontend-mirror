@@ -18,6 +18,12 @@ export interface MediaViewerExtensionsActions {
 export type MediaViewerNavigationDirection = 'next' | 'prev';
 
 export interface MediaViewerExtensions {
+	/**
+	 * Renders the viewer as an inset card on the blanket, with the sidebar as a column, instead
+	 * of the default full-bleed overlay. Defaults to false. Has no effect unless the
+	 * `cc_comments_inset_media_viewer` feature gate is enabled.
+	 */
+	useInsetViewer?: boolean;
 	sidebar?: {
 		icon: ReactNode;
 		/** Accessible label for the sidebar toggle. Falls back to a generic localized string. */

@@ -10,6 +10,7 @@ import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { getQuickInsertMenuItemParents } from '@atlaskit/editor-common/quick-insert/get-menu-item-parents';
 import {
 	BLOCK_TEMPLATES_SECTION,
+	CREATE_SECTION,
 	DATA_AND_CHARTS_SECTION,
 	EMBED_SECTION,
 	MEDIA_SECTION,
@@ -32,6 +33,7 @@ export type QuickInsertItemsAnalyticsOptions = {
 
 const sectionCategoryKeys: Record<string, CategoryKey> = {
 	[BLOCK_TEMPLATES_SECTION.key]: 'blockTemplates',
+	[CREATE_SECTION.key]: 'create',
 	[DATA_AND_CHARTS_SECTION.key]: 'dataAndCharts',
 	[EMBED_SECTION.key]: 'embed',
 	[MEDIA_SECTION.key]: 'media',
@@ -81,6 +83,7 @@ export const calculateQuickInsertItemsAttributes = ({
 	});
 	const emptyCategoryCounts: Record<CategoryKey, CategoryInformation> = {
 		blockTemplates: emptyCategoryInformation(),
+		create: emptyCategoryInformation(),
 		dataAndCharts: emptyCategoryInformation(),
 		embed: emptyCategoryInformation(),
 		media: emptyCategoryInformation(),

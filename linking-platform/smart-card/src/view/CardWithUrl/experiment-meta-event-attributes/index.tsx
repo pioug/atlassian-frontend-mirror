@@ -7,19 +7,13 @@ import { getExtensionKey } from '../../../state/getExtensionKey';
 import type { EmbedRovoActionsFooterExperimentMeta } from '../../../state/hooks/use-embed-rovo-actions-footer-experiment';
 import { getEmbedRovoActionsFooterExperimentMeta } from '../../../state/hooks/use-embed-rovo-actions-footer-experiment/getEmbedRovoActionsFooterExperimentMeta';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
-import type {
-	BlockCardSocialProofExperimentMeta,
-	InlineSocialProofExperimentMeta,
-} from '../../../state/hooks/use-social-proof-experiment';
-import { getInlineSocialProofExperimentMeta } from '../../../state/hooks/use-social-proof-experiment/getInlineSocialProofExperimentMeta';
+import type { BlockCardSocialProofExperimentMeta } from '../../../state/hooks/use-social-proof-experiment';
 import { getSocialProofExperimentMeta } from '../../../state/hooks/use-social-proof-experiment/getSocialProofExperimentMeta';
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import type { InternalCardActionOptions } from '../../Card/types';
 
 type ExperimentMetaEventAttributes = Partial<
-	BlockCardSocialProofExperimentMeta &
-		InlineSocialProofExperimentMeta &
-		EmbedRovoActionsFooterExperimentMeta
+	BlockCardSocialProofExperimentMeta & EmbedRovoActionsFooterExperimentMeta
 >;
 
 type ExperimentMetaEventAttributesParams = {
@@ -52,14 +46,6 @@ const useExperimentMetaEventAttributes = ({
 				})
 			: undefined;
 
-	if (
-		!embedRovoActionsFooterExperimentMeta &&
-		!fg('social-proof-3p-unauth-block-fg') &&
-		!fg('platform_sl_3p_preauth_soc_proof_inline_killswitch')
-	) {
-		return undefined;
-	}
-
 	const blockSocialProofExperimentMeta =
 		appearance === 'block' && status === 'unauthorized' && fg('social-proof-3p-unauth-block-fg')
 			? getSocialProofExperimentMeta({
@@ -68,19 +54,8 @@ const useExperimentMetaEventAttributes = ({
 				})
 			: undefined;
 
-	const inlineSocialProofExperimentMeta =
-		appearance === 'inline' &&
-		status === 'unauthorized' &&
-		fg('platform_sl_3p_preauth_soc_proof_inline_killswitch')
-			? getInlineSocialProofExperimentMeta({
-					extensionKey,
-					baseUriWithNoTrailingSlash,
-				})
-			: undefined;
-
 	const experimentMeta = {
 		...blockSocialProofExperimentMeta,
-		...inlineSocialProofExperimentMeta,
 		...embedRovoActionsFooterExperimentMeta,
 	};
 

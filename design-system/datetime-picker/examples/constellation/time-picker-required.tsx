@@ -4,9 +4,14 @@ import TimePicker from '@atlaskit/datetime-picker/time-picker';
 import Field from '@atlaskit/form/field';
 
 const TimePickerRequiredExample = (): React.JSX.Element => (
-	<Field name="time" label="Start Time" isRequired>
-		{({ fieldProps: { ...rest } }) => <TimePicker clearControlLabel="Clear start time" {...rest} />}
-	</Field>
+	<Field
+		name="time"
+		label="Start Time"
+		isRequired
+		component={({ fieldProps: { ...rest } }) => (
+			<TimePicker clearControlLabel="Clear start time" {...rest} />
+		)}
+	/>
 );
 
 export default TimePickerRequiredExample;

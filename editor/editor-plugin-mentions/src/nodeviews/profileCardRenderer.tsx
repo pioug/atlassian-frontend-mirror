@@ -151,7 +151,7 @@ export const profileCardRenderer = ({
 								// The mention stays node-selected after the chat opens; collapse the
 								// selection to a cursor just after it so it is no longer left selected.
 								// Selection-only change, so it does not move focus (EDITOR-8257).
-								if (editorView && fg('platform_editor_agent_card_close_on_chat')) {
+								if (editorView) {
 									const { state } = editorView;
 									editorView.dispatch(
 										state.tr.setSelection(TextSelection.create(state.doc, state.selection.to)),

@@ -10,7 +10,6 @@ import {
 } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -125,10 +124,7 @@ export const ActionButton: ForwardRefExoticComponent<
 		}: ActionButtonProps,
 		ref: ActionButtonProps['ref'],
 	) => {
-		const shouldUseUnauthorisedSlimStyle =
-			viewType === 'unauthorised' &&
-			isSlimDesign &&
-			fg('platform_sl_3p_preauth_soc_proof_inline_killswitch');
+		const shouldUseUnauthorisedSlimStyle = viewType === 'unauthorised' && isSlimDesign;
 
 		if (shouldUseUnauthorisedSlimStyle && !isDisabled) {
 			const { onClick, ...boxProps } = props;

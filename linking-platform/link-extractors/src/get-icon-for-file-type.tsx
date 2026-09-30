@@ -2,8 +2,6 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { IconType } from './constants';
 import extractFileFormatIcon from './extract-file-format-icon';
 
@@ -74,10 +72,7 @@ const getTypeToIconMap = (fileFormat: string): IconLabelMap | IconLabelMapNew | 
 
 	const lazyIcons = getLazyIcons();
 
-	if (fg('platform_navx_smart_link_icon_label_a11y')) {
-		return [lazyIcons[iconDescriptor.icon]?.default, iconDescriptor.label ?? ''];
-	}
-	return [lazyIcons[iconDescriptor.icon]?.default];
+	return [lazyIcons[iconDescriptor.icon]?.default, iconDescriptor.label ?? ''];
 };
 
 export const getIconForFileType = (
@@ -103,11 +98,7 @@ export const getIconForFileType = (
 		loading: () => null,
 	}) as any;
 
-	if (fg('platform_navx_smart_link_icon_label_a11y')) {
-		const descriptorLabel = icon[1] || '';
-		const label = (showIconLabel ?? true) ? descriptorLabel : '';
-		return <Icon testId="document-file-format-icon" label={label} />;
-	}
-
-	return <Icon testId="document-file-format-icon" />;
+	const descriptorLabel = icon[1] || '';
+	const label = (showIconLabel ?? true) ? descriptorLabel : '';
+	return <Icon testId="document-file-format-icon" label={label} />;
 };

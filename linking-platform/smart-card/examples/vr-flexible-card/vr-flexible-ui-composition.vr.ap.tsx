@@ -63,7 +63,17 @@ const examples = {
 	'https://simple-list/01': response1,
 	'https://simple-list/02': response2,
 	'https://simple-list/03': response3,
-	'https://simple-list/04': response4,
+	'https://simple-list/04': {
+		...response4,
+		data: {
+			...response4.data,
+			taskType: {
+				...response4.data.taskType,
+				// The issue-type label describes the icon, not the adjacent issue title.
+				name: 'Task',
+			},
+		},
+	},
 };
 
 class CustomClient extends Client {

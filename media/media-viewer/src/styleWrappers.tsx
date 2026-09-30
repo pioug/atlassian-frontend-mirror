@@ -24,6 +24,10 @@ import { type MediaType } from '@atlaskit/media-client';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
+import { useIsInsetViewer } from './insetViewerContext';
+
+const INSET_HEADER_HEIGHT = token('space.800');
+
 const blanketStyles = css({
 	position: 'fixed',
 	top: 0,
@@ -35,6 +39,56 @@ const blanketStyles = css({
 	// OVERLAY_Z_INDEX = 520;
 	zIndex: 520,
 	display: 'flex',
+});
+
+const insetViewerBlanketStyles = css({
+	alignItems: 'center',
+	justifyContent: 'center',
+	backgroundColor: token('color.blanket'),
+	paddingTop: token('space.300'),
+	paddingRight: token('space.300'),
+	paddingBottom: token('space.300'),
+	paddingLeft: token('space.300'),
+	boxSizing: 'border-box',
+});
+
+const blanketCloseButtonStyles = css({
+	position: 'absolute',
+	insetBlockStart: 0,
+	insetInlineEnd: 0,
+	insetBlockEnd: 0,
+	insetInlineStart: 0,
+	paddingTop: 0,
+	paddingRight: 0,
+	paddingBottom: 0,
+	paddingLeft: 0,
+	borderWidth: 0,
+	backgroundColor: 'transparent',
+	cursor: 'default',
+});
+
+const insetViewerShellStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	position: 'relative',
+	zIndex: 1,
+	width: '100%',
+	height: '100%',
+	minHeight: 0,
+	maxHeight: '100%',
+	overflow: 'hidden',
+	backgroundColor: token('elevation.surface.overlay'),
+	borderRadius: token('radius.xlarge'),
+	boxShadow: token('elevation.shadow.overlay'),
+});
+
+const insetViewerLayoutStyles = css({
+	display: 'grid',
+	gridTemplateColumns: 'minmax(0, 1fr) auto',
+	gridTemplateRows: `${INSET_HEADER_HEIGHT} minmax(0, 1fr)`,
+	width: '100%',
+	height: '100%',
+	minHeight: 0,
 });
 
 const headerWrapperStyles = css({
@@ -64,10 +118,51 @@ const archiveHeaderWrapperStyles = css({
 	backgroundPosition: `300px 0`,
 });
 
+const insetViewerMediaColumnStyles = css({
+	gridColumn: 1,
+	gridRow: 2,
+	display: 'flex',
+	flexDirection: 'column',
+	height: '100%',
+	minWidth: 0,
+	minHeight: 0,
+	overflow: 'hidden',
+});
+
+const insetViewerMediaStageStyles = css({
+	flex: 1,
+	minWidth: 0,
+	minHeight: 0,
+	position: 'relative',
+	overflow: 'hidden',
+});
+
 const listWrapperStyles = css({
 	width: '100%',
 	height: '100%',
 	position: 'relative',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+});
+
+const insetViewerListWrapperStyles = css({
+	flexDirection: 'column',
+	alignItems: 'stretch',
+	justifyContent: 'flex-start',
+	overflow: 'hidden',
+});
+
+const itemStageStyles = css({
+	position: 'relative',
+	flex: 1,
+	width: '100%',
+	minWidth: 0,
+	minHeight: 0,
+	overflow: 'hidden',
+});
+
+const insetViewerItemStageStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
@@ -88,6 +183,16 @@ const contentWrapperStyles = css({
 const contentWrapperStyleWithSideBar = css({
 	// SideBarWidth = 416px
 	width: `calc(100% - 416px)`,
+});
+
+const insetViewerContentWrapperStyles = css({
+	flex: 'none',
+	width: '100%',
+	minWidth: 0,
+	minHeight: 0,
+	height: '100%',
+	position: 'relative',
+	overflow: 'hidden',
 });
 
 const zoomWrapperStyles = css({
@@ -214,6 +319,32 @@ const arrowWrapperStyles = css({
 	paddingBottom: token('space.250'),
 	paddingLeft: token('space.250'),
 	paddingRight: token('space.250'),
+});
+
+const insetViewerArrowStyles = css({
+	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- IconButton does not expose custom background styles.
+	button: {
+		backgroundColor: token('color.background.input'),
+		'&:hover': {
+			backgroundColor: token('color.background.input.hovered'),
+		},
+	},
+});
+
+const insetViewerArrowWrapperStyles = css({
+	paddingTop: token('space.0'),
+	paddingBottom: token('space.0'),
+	paddingLeft: token('space.0'),
+	paddingRight: token('space.0'),
+});
+
+const insetViewerLeftWrapperStyles = css({
+	left: token('space.300'),
+});
+
+const insetViewerRightWrapperStyles = css({
+	right: token('space.300'),
 });
 
 const arrowsWrapperStyles = css({
@@ -444,18 +575,40 @@ export const Blanket = ({
 	'data-testid': datatestId,
 	className,
 	children,
-}: BlanketProps): JSX.Element => (
-	<div
-		css={blanketStyles}
-		data-testid={datatestId}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		className={className}
-		role="dialog"
-		aria-modal="true"
-		aria-labelledby="media.media-viewer.file.name"
-	>
-		{children}
-	</div>
+}: BlanketProps): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div
+			css={[blanketStyles, isInsetViewer && insetViewerBlanketStyles]}
+			data-testid={datatestId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={className}
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="media.media-viewer.file.name"
+		>
+			{children}
+		</div>
+	);
+};
+
+// Mouse-only: keyboard and screen reader users close with Escape or the visible close button.
+export const BlanketCloseButton = ({ onClick }: { onClick: () => void }): JSX.Element => (
+	<button
+		type="button"
+		css={blanketCloseButtonStyles}
+		aria-hidden
+		tabIndex={-1}
+		onClick={onClick}
+	/>
+);
+
+export const InsetViewerShell = ({ children }: Children): JSX.Element => (
+	<div css={insetViewerShellStyles}>{children}</div>
+);
+
+export const InsetViewerLayout = ({ children }: Children): JSX.Element => (
+	<div css={insetViewerLayoutStyles}>{children}</div>
 );
 
 type HeaderWrapperProps = {
@@ -487,11 +640,28 @@ export const HeaderWrapper: {
 
 HeaderWrapper.displayName = 'HeaderWrapper';
 
+export const MediaColumn = ({ children }: Children): JSX.Element => (
+	<div css={insetViewerMediaColumnStyles}>{children}</div>
+);
+
+export const MediaStage = ({ children }: Children): JSX.Element => (
+	<div css={insetViewerMediaStageStyles}>{children}</div>
+);
+
 export const ListWrapper: {
 	({ children }: Children): JSX.Element;
 	displayName: string;
-} = ({ children }: Children): JSX.Element => <div css={listWrapperStyles}>{children}</div>;
+} = ({ children }: Children): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div css={[listWrapperStyles, isInsetViewer && insetViewerListWrapperStyles]}>{children}</div>
+	);
+};
 ListWrapper.displayName = 'ListWrapper';
+
+export const ItemStage = ({ children }: Children): JSX.Element => (
+	<div css={[itemStageStyles, insetViewerItemStageStyles]}>{children}</div>
+);
 
 export const ArrowsWrapper = ({ children }: Children): JSX.Element => (
 	<div id="media-viewer-navigation" css={arrowsWrapperStyles}>
@@ -513,11 +683,20 @@ type ContentWrapperProps = {
 export const ContentWrapper = ({
 	isSidebarVisible,
 	children,
-}: ContentWrapperProps): JSX.Element => (
-	<div css={[contentWrapperStyles, isSidebarVisible && contentWrapperStyleWithSideBar]}>
-		{children}
-	</div>
-);
+}: ContentWrapperProps): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div
+			css={[
+				!isInsetViewer && contentWrapperStyles,
+				isInsetViewer && insetViewerContentWrapperStyles,
+				isSidebarVisible && !isInsetViewer && contentWrapperStyleWithSideBar,
+			]}
+		>
+			{children}
+		</div>
+	);
+};
 
 export const ZoomWrapper = ({ className, children }: ClassName & Children): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -601,12 +780,18 @@ export const PDFWrapper: ForwardRefExoticComponent<
 	);
 });
 
-export const Arrow = ({ className, children }: ClassName & Children): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	<span css={arrowStyles} className={className}>
-		{children}
-	</span>
-);
+export const Arrow = ({ className, children }: ClassName & Children): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<span
+			css={[!isInsetViewer && arrowStyles, isInsetViewer && insetViewerArrowStyles]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={className}
+		>
+			{children}
+		</span>
+	);
+};
 
 export type LeftWrapperProps = {
 	isArchiveSideBarVisible: boolean;
@@ -615,21 +800,38 @@ export type LeftWrapperProps = {
 export const LeftWrapper = ({
 	children,
 	isArchiveSideBarVisible,
-}: Children & LeftWrapperProps): JSX.Element => (
-	<div
-		css={[
-			arrowWrapperStyles,
-			leftWrapperStyles,
-			isArchiveSideBarVisible && leftWrapperStylesWithSideBar,
-		]}
-	>
-		{children}
-	</div>
-);
+}: Children & LeftWrapperProps): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div
+			css={[
+				arrowWrapperStyles,
+				leftWrapperStyles,
+				isArchiveSideBarVisible && leftWrapperStylesWithSideBar,
+				isInsetViewer && insetViewerArrowWrapperStyles,
+				isInsetViewer && insetViewerLeftWrapperStyles,
+			]}
+		>
+			{children}
+		</div>
+	);
+};
 
-export const RightWrapper = ({ children }: Children): JSX.Element => (
-	<div css={[arrowWrapperStyles, rightWrapperStyles]}>{children}</div>
-);
+export const RightWrapper = ({ children }: Children): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div
+			css={[
+				arrowWrapperStyles,
+				rightWrapperStyles,
+				isInsetViewer && insetViewerArrowWrapperStyles,
+				isInsetViewer && insetViewerRightWrapperStyles,
+			]}
+		>
+			{children}
+		</div>
+	);
+};
 
 // header.tsx
 export type HeaderProps = {

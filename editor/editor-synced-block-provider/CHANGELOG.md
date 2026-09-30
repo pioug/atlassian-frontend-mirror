@@ -1,5 +1,31 @@
 # @atlaskit/editor-synced-block-provider
 
+## 18.0.10
+
+### Patch Changes
+
+- [`feeef61c773db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feeef61c773db) -
+  Clean up feature gate `platform_editor_blocks_patch_7`
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.6
 
 ### Patch Changes

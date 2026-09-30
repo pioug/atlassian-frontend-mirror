@@ -1,5 +1,18 @@
 # @atlaskit/link-provider
 
+## 6.0.1
+
+### Patch Changes
+
+- [`e72e061950940`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e72e061950940) -
+  Clean up feature gate `platform_lp_navx_5358_dont_throw_error`.
+
+  After external authentication completes, unsupported URL errors now always leave Smart Links in
+  their previous unauthorized state instead of marking them as errored. Other errors continue to be
+  reported.
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Major Changes

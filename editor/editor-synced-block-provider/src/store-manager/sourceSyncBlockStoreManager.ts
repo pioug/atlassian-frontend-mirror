@@ -5,7 +5,6 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -560,9 +559,8 @@ export class SourceSyncBlockStoreManager {
 
 		if (success) {
 			const sourceProduct = getSourceProductFromResourceIdSafe(resourceId);
-			const documentInsertedResourceId = fg('platform_editor_blocks_patch_7')
-				? (this.dataProvider?.generateResourceIdForReference(resourceId) ?? resourceId)
-				: resourceId;
+			const documentInsertedResourceId =
+				this.dataProvider?.generateResourceIdForReference(resourceId) ?? resourceId;
 			this.fireAnalyticsEvent?.(
 				createSuccessPayload(documentInsertedResourceId || '', sourceProduct),
 			);

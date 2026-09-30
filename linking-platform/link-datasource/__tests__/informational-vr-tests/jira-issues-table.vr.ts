@@ -6,6 +6,15 @@ import { snapshotInformational } from '@af/visual-regression';
 import JiraIssuesTableSingleRow from '../../examples/vr/jira-issues-table-single-row-vr.vr.ap';
 import JiraIssuesTable from '../../examples/vr/jira-issues-table-vr.vr.ap';
 
+// Unauthorized Smart Links refresh personalization in the background.
+const mockPersonalizationRequests = [
+	{
+		urlPattern: /\/gateway\/api\/tap-delivery\/api\/v3\/personalization\//,
+		body: JSON.stringify({ attributes: [] }),
+		contentType: 'application/json',
+	},
+];
+
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
@@ -18,6 +27,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Hovering over "label, another, third" Labels',
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -39,6 +49,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Hovering over "bug" Icon',
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -59,6 +70,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Hovering over "Unassigned" Assignee',
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -79,6 +91,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Hovering over People',
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -100,6 +113,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Hovering over "TO DO" Status',
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -120,6 +134,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Hovering over Date',
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -141,6 +156,7 @@ snapshotInformational(JiraIssuesTableSingleRow, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Hovering over summary',
+	mockRequests: mockPersonalizationRequests,
 	featureFlags: {},
 });
 
@@ -150,6 +166,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: `Hovering over labels header`,
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -166,6 +183,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: `Hovering over people header`,
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -182,6 +200,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: `Hovering over status header`,
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -198,6 +217,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: `Double lined date of creation header text is truncated with ellipses`,
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -214,6 +234,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: `Click summary column dropdown to see its items`,
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -236,6 +257,7 @@ snapshotInformational(JiraIssuesTable, {
 	},
 	drawsOutsideBounds: true,
 	description: `Toggle wrapping on several columns`,
+	mockRequests: mockPersonalizationRequests,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,

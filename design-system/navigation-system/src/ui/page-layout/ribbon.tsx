@@ -16,6 +16,7 @@ import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import type { CommonSlotProps } from './types';
 import { useLayoutId } from './use-layout-id';
 const localSlotLayersStatic = {
+	chatPanelOverlay: 5,
 	ribbon: 4,
 	// The side nav panel splitter is layered above the top nav when FHS is enabled.
 	// It has the same z-index value, but is rendered after the top nav in the DOM so is stacked above.

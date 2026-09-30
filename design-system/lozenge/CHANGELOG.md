@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 17.0.1
+
+### Patch Changes
+
+- [`0f780b942b35d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f780b942b35d) -
+  Use Popup's shared trigger types for existing trigger ARIA contracts.
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

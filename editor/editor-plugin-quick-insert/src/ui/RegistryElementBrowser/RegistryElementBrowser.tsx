@@ -61,6 +61,8 @@ const browserLayoutStyles = css({
 	display: 'grid',
 	gap: categoryColumnGap,
 	gridTemplateColumns: browserGridTemplateColumns,
+	paddingBlockStart: token('space.050'),
+	paddingInline: token('space.050'),
 	'@media (max-width: 599px)': {
 		gridTemplateColumns: 'minmax(0, 1fr)',
 	},
@@ -86,6 +88,14 @@ const headerSearchStyles = css({
 
 const resultsId = 'registry-element-browser-results';
 const modalTestId = 'registry-element-browser-modal';
+
+const getRenderedColumnCount = (options: HTMLElement[]): number => {
+	const firstRowTop = options[0]?.getBoundingClientRect().top;
+	const nextRowIndex = options.findIndex(
+		(option) => firstRowTop !== undefined && option.getBoundingClientRect().top > firstRowTop + 1,
+	);
+	return nextRowIndex > 0 ? nextRowIndex : options.length;
+};
 
 export const RegistryElementBrowser = ({
 	components,
@@ -123,6 +133,7 @@ export const RegistryElementBrowser = ({
 	);
 	const [selectedKey, setSelectedKey] = useState<string>();
 	const searchInputRef = useRef<HTMLInputElement>(null);
+	const selectedCategoryRef = useRef<HTMLButtonElement>(null);
 	const wasOpen = useRef(false);
 	const previousIsOffline = useRef(isOffline);
 
@@ -196,21 +207,61 @@ export const RegistryElementBrowser = ({
 	}, []);
 	const onKeyDown = useCallback(
 		(event: React.KeyboardEvent) => {
-			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+			if (
+				event.key === 'Tab' &&
+				event.shiftKey &&
+				event.target instanceof HTMLElement &&
+				event.target.getAttribute('role') === 'option'
+			) {
+				event.preventDefault();
+				selectedCategoryRef.current?.focus();
+				return;
+			}
+
+			if (['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+				if (
+					event.currentTarget === searchInputRef.current &&
+					(event.key === 'ArrowLeft' || event.key === 'ArrowRight')
+				) {
+					return;
+				}
+
 				const resultCollection = event.currentTarget.ownerDocument.getElementById(resultsId);
 				const options = Array.from(
-					resultCollection?.querySelectorAll<HTMLElement>(
-						'[role="option"]:not([aria-disabled="true"]):not([disabled])',
-					) ?? [],
+					resultCollection?.querySelectorAll<HTMLElement>('[role="option"]') ?? [],
 				);
 				const currentIndex = options.findIndex(
 					(option) => option === event.currentTarget.ownerDocument.activeElement,
 				);
-				const nextIndex = event.key === 'ArrowDown' ? currentIndex + 1 : currentIndex - 1;
-				const nextOption = options.at(nextIndex);
+				const columnCount = getRenderedColumnCount(options);
+				const step =
+					event.key === 'ArrowDown'
+						? columnCount
+						: event.key === 'ArrowUp'
+							? -columnCount
+							: event.key === 'ArrowRight'
+								? 1
+								: -1;
+				let nextIndex = currentIndex < 0 ? 0 : currentIndex + step;
+				if (event.key === 'ArrowDown' && columnCount < options.length) {
+					nextIndex = Math.min(nextIndex, options.length - 1);
+				}
+				while (
+					nextIndex >= 0 &&
+					nextIndex < options.length &&
+					(options[nextIndex].hasAttribute('disabled') ||
+						options[nextIndex].getAttribute('aria-disabled') === 'true')
+				) {
+					nextIndex += step;
+				}
+				const nextOption = options[nextIndex];
 				if (nextOption) {
 					event.preventDefault();
 					nextOption.focus();
+					nextOption.click();
+				} else if (nextIndex < 0 && currentIndex >= 0) {
+					event.preventDefault();
+					searchInputRef.current?.focus();
 				}
 				return;
 			}
@@ -221,9 +272,24 @@ export const RegistryElementBrowser = ({
 				return;
 			}
 
-			if (event.key === 'Enter' && selectedKey) {
-				event.preventDefault();
-				onConfirmInsert();
+			if (event.key === 'Enter') {
+				const focusedOption =
+					event.target instanceof HTMLElement
+						? event.target.closest<HTMLElement>('[role="option"]')
+						: null;
+				const firstOption = event.currentTarget.ownerDocument
+					.getElementById(resultsId)
+					?.querySelector<HTMLElement>(
+						'[role="option"]:not([aria-disabled="true"]):not([disabled])',
+					);
+				const optionToActivate = focusedOption ?? firstOption;
+				if (selectedKey || optionToActivate) {
+					event.preventDefault();
+					if (!selectedKey) {
+						optionToActivate?.click();
+					}
+					onConfirmInsert();
+				}
 			}
 		},
 		[onClose, onConfirmInsert, selectedKey],
@@ -292,6 +358,7 @@ export const RegistryElementBrowser = ({
 								section={section}
 								sections={model.sections}
 								onSectionClick={onSectionClick}
+								selectedButtonRef={selectedCategoryRef}
 							/>
 							<RegistryElementBrowserSearchResults
 								editorView={editorView}

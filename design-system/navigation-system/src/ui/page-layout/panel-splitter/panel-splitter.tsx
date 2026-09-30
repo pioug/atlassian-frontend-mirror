@@ -12,7 +12,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import { createPortal } from 'react-dom';
+import { createPortal, flushSync } from 'react-dom';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -252,10 +252,13 @@ const PortaledPanelSplitter = ({
 	panelId,
 	panelWidth,
 	onCompleteResize,
+	onResizeStartInternal,
+	onResizeInternal,
 	getResizeBounds,
 	panel,
 	portal,
 	resizingCssVar,
+	resizingElementRef,
 	position,
 	tooltipContent,
 	shortcut,
@@ -264,8 +267,11 @@ const PortaledPanelSplitter = ({
 		| 'panelId'
 		| 'panelWidth'
 		| 'onCompleteResize'
+		| 'onResizeStartInternal'
+		| 'onResizeInternal'
 		| 'getResizeBounds'
 		| 'resizingCssVar'
+		| 'resizingElementRef'
 		| 'position'
 		| 'shortcut'
 	>): ReactNode => {
@@ -298,10 +304,14 @@ const PortaledPanelSplitter = ({
 	// Storing the initial `clientX` on `mousedown` events, to workaround a bug caused by some browser extensions
 	// where the `dragstart` event incorrectly returns `0` for the `clientX` location.
 	const initialClientXRef = useRef<number | null>(null);
+	// Live allocation changes panelWidth on every frame. Only the legacy path should
+	// rebind the drag listeners when this value changes.
+	const legacyPanelWidth = fg('platform-dst-chat-panel-layout') ? undefined : panelWidth;
 
 	useEffect(() => {
 		const splitter = splitterRef.current;
 		invariant(splitter, 'Splitter ref must be set');
+		let lastManagedResizeWidth: number | undefined;
 
 		return combine(
 			blockDraggingToIFrames({ element: splitter }),
@@ -358,7 +368,14 @@ const PortaledPanelSplitter = ({
 					 */
 					invariant(isPanelSplitterDragData(source.data));
 
-					onResizeStart?.({ initialWidth: source.data.initialWidth });
+					const resizeStartData = { initialWidth: source.data.initialWidth };
+					// The layout allocation system needs to know which area is actively being
+					// resized before the first drag update. Committing this synchronously keeps
+					// the actively dragged area protected from automatic compression.
+					if (onResizeStartInternal) {
+						flushSync(() => onResizeStartInternal(resizeStartData));
+					}
+					onResizeStart?.(resizeStartData);
 
 					// Close any open layers when the user starts resizing
 					openLayerObserver?.closeLayers();
@@ -388,8 +405,20 @@ const PortaledPanelSplitter = ({
 					});
 
 					const resizingWidth = `clamp(${resizeBounds.min}, ${targetWidth}px, ${resizeBounds.max})`;
-
-					panel.style.setProperty(resizingCssVar, resizingWidth);
+					if (fg('platform-dst-chat-panel-layout') && onResizeInternal) {
+						// Let the sizing provider constrain the width against Main's available space.
+						const width = Math.max(
+							convertResizeBoundToPixels(resizeBounds.min),
+							Math.min(targetWidth, convertResizeBoundToPixels(resizeBounds.max)),
+						);
+						if (width !== lastManagedResizeWidth) {
+							lastManagedResizeWidth = width;
+							onResizeInternal(width);
+						}
+					} else {
+						panel.style.setProperty(resizingCssVar, resizingWidth);
+						resizingElementRef?.current?.style.setProperty(resizingCssVar, resizingWidth);
+					}
 
 					source.data.resizingWidth = resizingWidth;
 				},
@@ -398,24 +427,41 @@ const PortaledPanelSplitter = ({
 
 					preventUnhandled.stop();
 
+					// PDD may deliver its final throttled drag update immediately before drop.
+					// Commit that update once before measuring; do not persist a previous frame.
+					if (onResizeInternal && lastManagedResizeWidth !== undefined) {
+						const width = lastManagedResizeWidth;
+						flushSync(() => onResizeInternal(width));
+						lastManagedResizeWidth = undefined;
+					}
 					const finalWidth = getPixelWidth(panel);
-					onCompleteResize(finalWidth);
+					// Persist the final preferred width before removing the imperative drag
+					// variable, so the rendered width is continuous across pointer release.
+					if (fg('platform-dst-chat-panel-layout')) {
+						flushSync(() => onCompleteResize(finalWidth));
+					} else {
+						onCompleteResize(finalWidth);
+					}
 					onResizeEnd?.({
 						initialWidth: source.data.initialWidth,
 						finalWidth,
 					});
 
 					panel.style.removeProperty(resizingCssVar);
+					resizingElementRef?.current?.style.removeProperty(resizingCssVar);
 				},
 			}),
 		);
 	}, [
 		onCompleteResize,
+		onResizeStartInternal,
+		onResizeInternal,
 		onResizeStart,
 		onResizeEnd,
 		panel,
 		resizingCssVar,
-		panelWidth,
+		resizingElementRef,
+		legacyPanelWidth,
 		position,
 		openLayerObserver,
 		panelId,
@@ -439,7 +485,17 @@ const PortaledPanelSplitter = ({
 
 	const handleSliderInputChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>) => {
-			const value = parseInt(event.target.value);
+			const isManagedResize = fg('platform-dst-chat-panel-layout') && onResizeInternal;
+			let value = isManagedResize ? parseFloat(event.target.value) : parseInt(event.target.value);
+			if (isManagedResize) {
+				// The available region may have changed since focus, including without a
+				// window resize. Use the allocator's current bounds for the public payload.
+				const bounds = getResizeBounds();
+				const min = convertResizeBoundToPixels(bounds.min);
+				const max = convertResizeBoundToPixels(bounds.max);
+				value = Math.max(min, Math.min(value, max));
+				setRangeInputBounds({ min, max });
+			}
 			setRangeInputValue(value);
 
 			/**
@@ -449,7 +505,7 @@ const PortaledPanelSplitter = ({
 			onCompleteResize(value);
 			keyboardResizeManager.onResize({ initialWidth: panelWidth, finalWidth: value });
 		},
-		[onCompleteResize, panelWidth, keyboardResizeManager],
+		[getResizeBounds, onCompleteResize, onResizeInternal, panelWidth, keyboardResizeManager],
 	);
 
 	const resizeEventListenerCleanupFn = useRef<(() => void) | null>(null);
@@ -632,8 +688,11 @@ export const PanelSplitter = ({
 		panelId,
 		panelWidth,
 		onCompleteResize,
+		onResizeStartInternal,
+		onResizeInternal,
 		getResizeBounds,
 		resizingCssVar,
+		resizingElementRef,
 		position,
 		shortcut,
 	} = context;
@@ -733,8 +792,11 @@ export const PanelSplitter = ({
 			portal={portal}
 			panelWidth={panelWidth}
 			onCompleteResize={onCompleteResize}
+			onResizeStartInternal={onResizeStartInternal}
+			onResizeInternal={onResizeInternal}
 			getResizeBounds={getResizeBounds}
 			resizingCssVar={resizingCssVar}
+			resizingElementRef={resizingElementRef}
 			position={position}
 			tooltipContent={tooltipContent}
 			shortcut={shortcut}

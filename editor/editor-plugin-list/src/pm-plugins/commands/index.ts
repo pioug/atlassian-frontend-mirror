@@ -34,7 +34,6 @@ import {
 	findPositionOfNodeBefore,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -85,7 +84,7 @@ export const enterKeyCommand =
 export const backspaceKeyCommand =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => (): Command => (state, dispatch) => {
 		// Select an adjacent syncBlock before the list command chain can outdent the current list.
-		if (isEmptySelectionAtStart(state) && fg('platform_editor_blocks_patch_7')) {
+		if (isEmptySelectionAtStart(state)) {
 			const $cut = findCutBefore(state.selection.$from);
 			if ($cut?.nodeBefore?.type.name === 'syncBlock') {
 				if (dispatch) {

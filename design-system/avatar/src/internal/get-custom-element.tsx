@@ -1,15 +1,19 @@
 import { type MouseEventHandler } from 'react';
 
+import type { TriggerAriaProps } from '@atlaskit/popup/types';
+
+type TAvatarHasPopup = TriggerAriaProps['aria-haspopup'];
+
 const getCustomElement: (
 	isDisabled?: boolean,
 	href?: string,
 	onClick?: MouseEventHandler,
-	ariaHasPopup?: boolean | 'dialog',
+	ariaHasPopup?: TAvatarHasPopup,
 ) => 'a' | 'button' | 'span' = (
 	isDisabled?: boolean,
 	href?: string,
 	onClick?: MouseEventHandler,
-	ariaHasPopup?: boolean | 'dialog',
+	ariaHasPopup?: TAvatarHasPopup,
 ) => {
 	if (href && !isDisabled) {
 		return 'a';

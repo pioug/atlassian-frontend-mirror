@@ -181,12 +181,7 @@ const renderAtlaskitIcon = (
 			<AtlaskitIcon
 				icon={icon}
 				testId={`${testId}-icon`}
-				{...(fg('platform_navx_smart_link_icon_label_a11y')
-					? { label }
-					: {
-							'aria-hidden': true,
-							label: '',
-						})}
+				label={label}
 				size={size}
 				isTiledIcon={isTiledIcon}
 			/>
@@ -227,7 +222,7 @@ const renderImageIcon = (
 	if (url) {
 		return (
 			<ImageIcon
-				{...(fg('platform_navx_smart_link_icon_label_a11y') ? { label } : {})}
+				label={label}
 				defaultIcon={defaultIcon}
 				testId={testId}
 				url={url}
@@ -254,7 +249,7 @@ const renderImageIconNew = (
 	if (url) {
 		return (
 			<ImageIcon
-				{...(fg('platform_navx_smart_link_icon_label_a11y') ? { label } : {})}
+				label={label}
 				defaultIcon={defaultIcon}
 				testId={testId}
 				url={url}
@@ -288,9 +283,7 @@ const IconElement = ({
 	hideLoadingSkeleton,
 	isTiledIcon,
 }: BaseIconElementProps): JSX.Element => {
-	const label = fg('platform_navx_smart_link_icon_label_a11y')
-		? (labelProp ?? '')
-		: (labelProp ?? 'Link');
+	const label = labelProp ?? '';
 	const element = useMemo(() => {
 		const defaultIcon = renderDefaultIcon(label, testId);
 		return (
@@ -304,7 +297,7 @@ const IconElement = ({
 						size,
 						appearance,
 						hideLoadingSkeleton,
-						fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
+						label,
 						isTiledIcon,
 					)
 				: renderImageIcon(
@@ -314,15 +307,9 @@ const IconElement = ({
 						size,
 						appearance,
 						hideLoadingSkeleton,
-						fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
+						label,
 					)) ||
-			renderAtlaskitIcon(
-				icon,
-				testId,
-				size,
-				fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
-				isTiledIcon,
-			) ||
+			renderAtlaskitIcon(icon, testId, size, label, isTiledIcon) ||
 			defaultIcon
 		);
 	}, [

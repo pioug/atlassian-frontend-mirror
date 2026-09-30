@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { EventDispatcher } from '../event-dispatcher';
@@ -23,12 +24,14 @@ export interface Props {
 	handleContentDOMRef: (node: HTMLElement | null) => void;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	node: PMNode;
+	/** Called by the extension once its content is ready to be shown. */
+	onContentReady?: () => void;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	providerFactory?: ProviderFactory;
 	references?: ReferenceEntity[];
-	/** Called by the extension once its content is ready to be shown. */
-	onContentReady?: () => void;
 	rendererExtensionHandlers?: ExtensionHandlers;
+	/** Invalidates memoized renders on selection changes; read current state from editorView. */
+	selection?: Selection;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 }
@@ -57,6 +60,7 @@ export class Extension extends Component<Props, any> {
 		const {
 			node,
 			getPos,
+			selection,
 			editorView,
 			handleContentDOMRef,
 			extensionHandlers,
@@ -81,6 +85,7 @@ export class Extension extends Component<Props, any> {
 
 		return (
 			<ExtensionComponent
+				selection={selection}
 				editorView={editorView}
 				node={node}
 				getPos={getPos}

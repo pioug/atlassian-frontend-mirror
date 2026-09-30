@@ -2,6 +2,7 @@ import type { ComponentType, CSSProperties, ReactNode } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type NewIconProps } from '@atlaskit/icon/types';
+import type { TriggerAriaProps } from '@atlaskit/popup/types';
 
 import { type ThemeAppearance } from '../lozenge';
 
@@ -129,75 +130,68 @@ type NewLozengeAccentProps = NewLozengeBaseProps & {
 
 export type NewLozengeProps = NewLozengeSemanticProps | NewLozengeAccentProps;
 
+type LozengeTriggerAriaProps = Partial<TriggerAriaProps>;
+
 /**
  * Props for LozengeBase (internal). A single merged type so that Lozenge and
  * LozengeDropdownTrigger can pass their props without union narrowing requiring
  * appearance to match only one branch (AccentColor vs ThemeAppearance | SemanticColor).
  * Must not intersect with LozengeDropdownTriggerProps (which extends NewLozengeProps union).
  */
-export type LozengeBaseProps = NewLozengeBaseProps & {
-	appearance?: ThemeAppearance | SemanticColor | AccentColor;
-	trailingMetric?: string;
-	trailingMetricAppearance?: ThemeAppearance | SemanticColor | 'inverse';
-	isSelected?: boolean;
-	isLoading?: boolean;
-	onClick?: (event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => void;
-	analyticsContext?: Record<string, any>;
-	interactionName?: string;
-	'aria-controls'?: string;
-	'aria-expanded'?: boolean;
-	'aria-haspopup'?: boolean | 'dialog';
-	'aria-label'?: string;
-};
+export type LozengeBaseProps = NewLozengeBaseProps &
+	LozengeTriggerAriaProps & {
+		appearance?: ThemeAppearance | SemanticColor | AccentColor;
+		trailingMetric?: string;
+		trailingMetricAppearance?: ThemeAppearance | SemanticColor | 'inverse';
+		isSelected?: boolean;
+		isLoading?: boolean;
+		onClick?: (
+			event: React.MouseEvent<HTMLButtonElement>,
+			analyticsEvent: UIAnalyticsEvent,
+		) => void;
+		analyticsContext?: Record<string, any>;
+		interactionName?: string;
+		'aria-label'?: string;
+	};
 
 /**
- * Props for the LozengeDropdownTrigger component
+ * Props for the LozengeDropdownTrigger component. Optional trigger ARIA props
+ * identify the popup with `aria-controls`, announce its state with
+ * `aria-expanded`, and describe its kind with `aria-haspopup`.
  */
-export type LozengeDropdownTriggerProps = NewLozengeProps & {
-	/**
-	 * Whether the dropdown is currently selected/open.
-	 */
-	isSelected?: boolean;
+export type LozengeDropdownTriggerProps = NewLozengeProps &
+	LozengeTriggerAriaProps & {
+		/**
+		 * Whether the dropdown is currently selected/open.
+		 */
+		isSelected?: boolean;
 
-	/**
-	 * Whether the dropdown trigger is in a loading state.
-	 * When true, a spinner is shown and the trigger becomes non-interactive.
-	 */
-	isLoading?: boolean;
+		/**
+		 * Whether the dropdown trigger is in a loading state.
+		 * When true, a spinner is shown and the trigger becomes non-interactive.
+		 */
+		isLoading?: boolean;
 
-	/**
-	 * Callback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.
-	 */
-	onClick?: (event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => void;
+		/**
+		 * Callback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.
+		 */
+		onClick?: (
+			event: React.MouseEvent<HTMLButtonElement>,
+			analyticsEvent: UIAnalyticsEvent,
+		) => void;
 
-	/**
-	 * Additional information to be included in the `context` of Atlaskit analytics events that come from the lozenge dropdown trigger.
-	 */
-	analyticsContext?: Record<string, any>;
+		/**
+		 * Additional information to be included in the `context` of Atlaskit analytics events that come from the lozenge dropdown trigger.
+		 */
+		analyticsContext?: Record<string, any>;
 
-	/**
-	 * An optional name used to identify events for React UFO (Unified Frontend Observability) press interactions. For more information, see [React UFO integration](https://go.atlassian.com/react-ufo-dst-integration).
-	 */
-	interactionName?: string;
+		/**
+		 * An optional name used to identify events for React UFO (Unified Frontend Observability) press interactions. For more information, see [React UFO integration](https://go.atlassian.com/react-ufo-dst-integration).
+		 */
+		interactionName?: string;
 
-	/**
-	 * Identifies the popup element that the trigger controls.
-	 * Should match the `id` of the popup content for screen readers to understand the relationship.
-	 */
-	'aria-controls'?: string;
-
-	/**
-	 * Announces to assistive technology whether the popup is currently open or closed.
-	 */
-	'aria-expanded'?: boolean;
-
-	/**
-	 * Informs assistive technology that this element triggers a popup.
-	 */
-	'aria-haspopup'?: boolean | 'dialog';
-
-	/**
-	 * Defines a string value that labels the trigger element for assistive technology.
-	 */
-	'aria-label'?: string;
-};
+		/**
+		 * Defines a string value that labels the trigger element for assistive technology.
+		 */
+		'aria-label'?: string;
+	};

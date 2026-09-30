@@ -62,7 +62,7 @@
 		".": "./src/index.ts"
 	},
 	"scripts": {
-		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V 'src/**/*.{svg,png}'"
 	},
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",

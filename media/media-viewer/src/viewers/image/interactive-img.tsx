@@ -9,6 +9,7 @@ import { type Vector2 } from '@atlaskit/media-ui/vector2';
 
 import { createClosedEvent } from '../../analytics/events/ui/closed';
 import { type ZoomLevel } from '../../domain/zoomLevel';
+import { withInsetViewer } from '../../insetViewerContext';
 import { InteractiveImgComponent } from './interactive-img-component';
 
 export interface Props extends WithAnalyticsEventsProps {
@@ -20,6 +21,7 @@ export interface Props extends WithAnalyticsEventsProps {
 	onLoad?: () => void;
 	onError?: () => void;
 	onBlanketClicked?: () => void;
+	isInsetViewer?: boolean;
 }
 
 export type State = {
@@ -33,11 +35,13 @@ export type State = {
 	hasBeenLoadedOnce: boolean;
 };
 
-export const InteractiveImg: React.ForwardRefExoticComponent<
-	Omit<Props, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
-> = withAnalyticsEvents({
-	onBlanketClicked: (createAnalyticsEvent) => {
-		const event = createAnalyticsEvent(createClosedEvent('blanket'));
-		event.fire(ANALYTICS_MEDIA_CHANNEL);
-	},
-})(InteractiveImgComponent);
+export const InteractiveImg: React.ComponentType<
+	Omit<Props, keyof WithAnalyticsEventsProps | 'isInsetViewer'>
+> = withInsetViewer(
+	withAnalyticsEvents({
+		onBlanketClicked: (createAnalyticsEvent) => {
+			const event = createAnalyticsEvent(createClosedEvent('blanket'));
+			event.fire(ANALYTICS_MEDIA_CHANNEL);
+		},
+	})(InteractiveImgComponent),
+);

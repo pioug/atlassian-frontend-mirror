@@ -3,7 +3,8 @@
 		"team": "Rovo for service - Servo",
 		"website": {
 			"tags": [
-				"platform-labs"
+				"platform-labs",
+				"rovo-components"
 			],
 			"name": "RovoAgentSelector",
 			"category": "Layout and structure"

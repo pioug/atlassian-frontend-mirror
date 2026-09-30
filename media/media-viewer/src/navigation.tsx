@@ -6,6 +6,9 @@ import { Component } from 'react';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import IconButton from '@atlaskit/button/icon/button';
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
+import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import ArrowLeftCircleIcon from '@atlaskit/icon/core/chevron-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/core/chevron-right';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
@@ -18,6 +21,7 @@ import { Pressable, xcss } from '@atlaskit/primitives';
 
 import { createNavigatedEvent } from './analytics/events/ui/createNavigatedEvent';
 import { fireAnalytics } from './analytics/fireAnalytics';
+import { withInsetViewer, type WithInsetViewerProps } from './insetViewerContext';
 import { ArrowsWrapper, RightWrapper, LeftWrapper, Arrow } from './styleWrappers';
 import { getSelectedIndex } from './utils/getSelectedIndex';
 
@@ -29,7 +33,8 @@ export type NavigationProps = Readonly<{
 	onChange: (item: Identifier) => void;
 	isArchiveSideBarVisible?: boolean;
 }> &
-	WithAnalyticsEventsProps;
+	WithAnalyticsEventsProps &
+	WithInsetViewerProps;
 
 export const nextNavButtonId = 'media-viewer-navigation-next';
 export const prevNavButtonId = 'media-viewer-navigation-prev';
@@ -104,6 +109,32 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 		return getSelectedIndex(items, selectedItem);
 	}
 
+	private renderArrowButton(
+		direction: NavigationDirection,
+		label: string,
+		clickHandler: (source: NavigationSource) => () => void,
+		testId: string,
+	): React.JSX.Element {
+		if (this.props.isInsetViewer) {
+			const Icon = direction === 'next' ? ArrowRightIcon : ArrowLeftIcon;
+			return (
+				<IconButton
+					appearance="default"
+					shape="circle"
+					spacing="default"
+					label={label}
+					icon={Icon}
+					onClick={clickHandler('mouse')}
+					testId={testId}
+					isTooltipDisabled={false}
+				/>
+			);
+		}
+
+		const Icon = direction === 'next' ? NextIcon : PreviousIcon;
+		return <Icon label={label} clickHandler={clickHandler} testId={testId} />;
+	}
+
 	render(): React.JSX.Element | null {
 		const { items, isArchiveSideBarVisible } = this.props;
 		const { selectedIndex } = this;
@@ -125,13 +156,12 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						<Arrow className={hideControlsClassName}>
 							<Shortcut code={'ArrowLeft'} handler={prev('keyboard')} eventType={'keyup'} />
-							<PreviousIcon
-								label={
-									fg('platform_media_a11y_nav_button_labels') ? 'Previous attachment' : 'Previous'
-								}
-								clickHandler={prev}
-								testId={prevNavButtonId}
-							/>
+							{this.renderArrowButton(
+								'prev',
+								fg('platform_media_a11y_nav_button_labels') ? 'Previous attachment' : 'Previous',
+								prev,
+								prevNavButtonId,
+							)}
 						</Arrow>
 					) : null}
 				</LeftWrapper>
@@ -141,11 +171,12 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						<Arrow className={hideControlsClassName}>
 							<Shortcut code={'ArrowRight'} handler={next('keyboard')} eventType={'keyup'} />
-							<NextIcon
-								label={fg('platform_media_a11y_nav_button_labels') ? 'Next attachment' : 'Next'}
-								clickHandler={next}
-								testId={nextNavButtonId}
-							/>
+							{this.renderArrowButton(
+								'next',
+								fg('platform_media_a11y_nav_button_labels') ? 'Next attachment' : 'Next',
+								next,
+								nextNavButtonId,
+							)}
 						</Arrow>
 					) : null}
 				</RightWrapper>
@@ -165,4 +196,4 @@ export const Navigation: React.ForwardRefExoticComponent<
 		keyof WithAnalyticsEventsProps
 	> &
 		React.RefAttributes<any>
-> = withAnalyticsEvents({})(NavigationBase);
+> = withAnalyticsEvents({})(withInsetViewer(NavigationBase));

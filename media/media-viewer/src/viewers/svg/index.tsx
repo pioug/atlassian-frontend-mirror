@@ -22,6 +22,7 @@ import { Vector2 } from '@atlaskit/media-ui/vector2';
 
 import { createClosedEvent } from '../../analytics/events/ui/closed';
 import { ZoomLevel } from '../../domain/zoomLevel';
+import { useIsInsetViewer } from '../../insetViewerContext';
 import { MediaViewerError } from '../../MediaViewerError';
 import { BaselineExtend } from '../../styleWrappers';
 import { ZoomControls } from '../../zoomControls';
@@ -59,6 +60,7 @@ const SvgViewerBase = ({
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [wrapperScroll, setWrapperScroll] = useState<WrapperScroll>();
 	const intl = useIntl();
+	const isInsetViewer = useIsInsetViewer();
 
 	const onResize = useCallback(() => {
 		if (!wrapperRef.current || !camera) {
@@ -123,6 +125,9 @@ const SvgViewerBase = ({
 	};
 
 	const onSvgClicked = (e: React.MouseEvent) => {
+		if (isInsetViewer) {
+			return;
+		}
 		if (e.target === e.currentTarget) {
 			onBlanketClicked?.();
 			onClose?.();

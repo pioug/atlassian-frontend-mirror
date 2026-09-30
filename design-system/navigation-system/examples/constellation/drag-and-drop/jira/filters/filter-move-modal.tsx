@@ -122,8 +122,7 @@ export function FilterMoveModal({
 								name="target"
 								label="Move relative to filter"
 								isRequired
-							>
-								{({ fieldProps }) => (
+								component={({ fieldProps }) => (
 									<Select
 										{...fieldProps}
 										onChange={(option) => {
@@ -135,14 +134,13 @@ export function FilterMoveModal({
 										options={targetOptions}
 									/>
 								)}
-							</Field>
+							/>
 							<Field<{ label: string; value: string }>
 								id="operation"
 								name="operation"
 								label="Operation"
 								isRequired
-							>
-								{({ fieldProps }) => (
+								component={({ fieldProps }) => (
 									<Select
 										{...fieldProps}
 										onChange={(option) => {
@@ -154,7 +152,7 @@ export function FilterMoveModal({
 										options={operationOptions}
 									/>
 								)}
-							</Field>
+							/>
 						</Stack>
 						<SectionMessage appearance="warning">
 							This experience is <strong>illustrative</strong> of what could be done to support

@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 23.0.10
+
+### Patch Changes
+
+- [`051cd10867eae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/051cd10867eae) -
+  Expose uploadStatus and mentionProviderStatus to distinguish pending providers from unavailable
+  capabilities. Under platform_editor_ssr_toolbar_optimistic, keep mention and media toolbar buttons
+  enabled while providers are pending, avoiding class changes on successful initialization while
+  preserving existing insertion restrictions.
+
+  When a view-only synchronous SSR media provider accompanies a pending full provider, keep uploads
+  pending until the full provider resolves instead of treating the SSR config as a permission
+  denial.
+
+- Updated dependencies
+
+## 23.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.6
 
 ### Patch Changes

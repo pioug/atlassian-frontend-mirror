@@ -1,7 +1,6 @@
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { JIRA_GENERATOR_ID } from '../constants';
 import { extractInlineProps } from './index';
@@ -74,14 +73,16 @@ describe('extractInlineProps', () => {
 	});
 
 	it('should return the type of the response', () => {
+		mockExpDisabled('confluence_1p_and_3p_connection_byline_experiment');
+
 		const result = extractInlineProps(response);
 		expect(result.type).toEqual(['Document']);
 	});
 
 	it.each(['Bug', 'Epic', 'Task'])(
-		'returns the Jira custom issue icon with its %s subtype label when the gate is on',
+		'returns the Jira custom issue icon with its %s subtype label',
 		(taskTypeName) => {
-			passGate('platform_navx_jira_issue_type_icon_label_a11y');
+			mockExpDisabled('confluence_1p_and_3p_connection_byline_experiment');
 
 			const result = extractInlineProps(createJiraCustomTaskResponse(taskTypeName));
 
@@ -89,16 +90,16 @@ describe('extractInlineProps', () => {
 		},
 	);
 
-	it('preserves the unlabeled Jira custom issue icon URL when the gate is off', () => {
-		failGate('platform_navx_jira_issue_type_icon_label_a11y');
+	it('preserves the icon URL when the Jira subtype label is blank', () => {
+		mockExpDisabled('confluence_1p_and_3p_connection_byline_experiment');
 
-		const result = extractInlineProps(createJiraCustomTaskResponse('Bug'));
+		const result = extractInlineProps(createJiraCustomTaskResponse('   '));
 
 		expect(result.icon).toBe(JIRA_CUSTOM_ICON_URL);
 	});
 
 	it('uses the Jira subtype label when the resolved inline card disables legacy icon labels', () => {
-		passGate('platform_navx_jira_issue_type_icon_label_a11y');
+		mockExpDisabled('confluence_1p_and_3p_connection_byline_experiment');
 
 		const result = extractInlineProps(
 			createJiraCustomTaskResponse('Bug'),
@@ -142,6 +143,8 @@ describe('extractInlineProps', () => {
 	});
 
 	it('should use entity icon url and label tuple', () => {
+		mockExpDisabled('confluence_1p_and_3p_connection_byline_experiment');
+
 		const result = extractInlineProps({
 			...response,
 			meta: {

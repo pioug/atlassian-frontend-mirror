@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 20.0.11
+
+### Patch Changes
+
+- [`d9cd5128c24dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9cd5128c24dc) -
+  Add gated Include excerpt attribute comparison for platform_editor_normalize_excerpt_diff without
+  changing source documents
+- Updated dependencies
+
+## 20.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.7
 
 ### Patch Changes

@@ -70,6 +70,18 @@ snapshotInformational(RendererInlineCardUnauthorized, {
 		await page.getByTestId('inline-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {},
+	mockRequests: [
+		{
+			urlPattern: /\/_edge\/tenant_info/u,
+			body: JSON.stringify({ cloudId: 'renderer-card-vr-cloud-id' }),
+			contentType: 'application/json',
+		},
+		{
+			urlPattern: /\/gateway\/api\/tap-delivery\/api\/v3\/personalization\//u,
+			body: JSON.stringify({ attributes: [] }),
+			contentType: 'application/json',
+		},
+	],
 });
 snapshotInformational(RendererInlineCardForbidden, {
 	prepare: async (page) => {

@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 7.0.8
+
+### Patch Changes
+
+- [`be25f647e8e7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be25f647e8e7b) -
+  Cleanup experiment `platform_datasource_hydration_stability`. The datasource table view now always
+  preserves its Suspense boundary across equivalent renderer props, so an unchanged parent render no
+  longer updates a boundary that is still hydrating.
+- Updated dependencies
+
 ## 7.0.7
 
 ### Patch Changes

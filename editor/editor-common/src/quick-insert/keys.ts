@@ -20,6 +20,11 @@ export const MEDIA_SECTION = {
 	type: 'menu-section',
 } as const;
 
+export const CREATE_SECTION = {
+	key: 'quick-insert-create-section',
+	type: 'menu-section',
+} as const;
+
 export const EMBED_SECTION = {
 	key: 'quick-insert-embed-section',
 	type: 'menu-section',

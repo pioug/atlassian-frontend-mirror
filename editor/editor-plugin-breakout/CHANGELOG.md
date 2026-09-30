@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-breakout
 
+## 22.0.10
+
+### Patch Changes
+
+- [`5655e3d4d88fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5655e3d4d88fc) -
+  Clean up experiment `platform_editor_reduce_event_listener_count`. The treatment behaviour is now
+  permanent: node views that render nothing no longer mount a React portal, breakout resize tooltips
+  mount on first hover, and layout column dividers are keyed by section ordinal and found via a
+  scoped document walk.
+- Updated dependencies
+
+## 22.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.6
 
 ### Patch Changes

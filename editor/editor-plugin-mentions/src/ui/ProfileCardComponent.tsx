@@ -231,9 +231,7 @@ export function ProfileCardComponent({
 									// closure built by profileCardRenderer at chip-click time via doc.descendants()
 									onAgentMentionChatClick(agentStudioId ?? id);
 									// Dismiss the profile card once the Rovo chat panel opens (EDITOR-8257).
-									if (fg('platform_editor_agent_card_close_on_chat')) {
-										closeComponent();
-									}
+									closeComponent();
 								}
 							: undefined
 					}

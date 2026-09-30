@@ -20,7 +20,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import {
 	CAPTION_PLACEHOLDER_ID,
 	getMaxWidthForNestedNodeNext,
@@ -58,7 +57,7 @@ import { type Identifier, isFileIdentifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { UploadParams } from '@atlaskit/media-picker/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { createMediaNodeUpdater } from '../nodeviews/mediaNodeUpdater';
@@ -134,6 +133,7 @@ const createDropPlaceholder = (
 const MEDIA_RESOLVED_STATES = ['ready', 'error', 'cancelled'];
 export class MediaPluginStateImplementation implements MediaPluginState {
 	allowsUploads: boolean = false;
+	uploadStatus: 'pending' | 'available' | 'unavailable' = 'pending';
 	mediaClientConfig?: MediaClientConfig;
 	uploadMediaClientConfig?: MediaClientConfig;
 	ignoreLinks: boolean = false;
@@ -217,24 +217,21 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		);
 
 		if (mediaOptions?.syncProvider) {
-			this.setMediaProvider(mediaOptions?.syncProvider);
+			this.setMediaProvider(mediaOptions.syncProvider);
+			if (mediaOptions.provider && isExperimentEnabled('platform_editor_ssr_toolbar_optimistic')) {
+				// The synchronous SSR provider may only support viewing. Keep its view
+				// config, but wait for the full provider before deciding upload availability.
+				if (!this.allowsUploads) {
+					this.uploadStatus = 'pending';
+				}
+				this.setMediaProvider(mediaOptions.provider);
+			}
 		} else if (mediaOptions?.provider) {
 			this.setMediaProvider(mediaOptions?.provider);
 		}
 
-		if (fg('platform_editor_remove_media_inline_feature_flag')) {
-			if (this.mediaOptions?.allowMediaInlineImages) {
-				this.allowInlineImages = true;
-			}
-		} else {
-			if (
-				mediaInlineImagesEnabled(
-					getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags),
-					this.mediaOptions?.allowMediaInlineImages,
-				)
-			) {
-				this.allowInlineImages = true;
-			}
+		if (this.mediaOptions?.allowMediaInlineImages) {
+			this.allowInlineImages = true;
 		}
 
 		this.errorReporter = options.errorReporter || new ErrorReporter();
@@ -281,7 +278,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	async setMediaProvider(mediaProvider?: Promise<MediaProvider> | MediaProvider): Promise<void> {
 		// Prevent someone trying to set the exact same provider twice for performance reasons
-		if (this.previousMediaProvider === mediaProvider) {
+		if (
+			this.previousMediaProvider === mediaProvider &&
+			!(
+				isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
+				this.uploadStatus === 'pending' &&
+				!mediaProvider
+			)
+		) {
 			return;
 		}
 		this.previousMediaProvider = mediaProvider;
@@ -289,7 +293,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			this.destroyPickers();
 
 			this.allowsUploads = false;
-			if (!this.destroyed) {
+			this.uploadStatus = 'unavailable';
+			if (
+				!this.destroyed &&
+				(this.view || !isExperimentEnabled('platform_editor_ssr_toolbar_optimistic'))
+			) {
 				this.view.dispatch(
 					this.view.state.tr.setMeta(stateKey, {
 						allowsUploads: this.allowsUploads,
@@ -304,11 +312,15 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO disable (not destroy!) pickers until mediaProvider is resolved
 		try {
-			if (mediaProvider instanceof Promise) {
-				this.mediaProvider = await mediaProvider;
-			} else {
-				this.mediaProvider = mediaProvider;
+			const resolvedProvider =
+				mediaProvider instanceof Promise ? await mediaProvider : mediaProvider;
+			if (
+				isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
+				(this.destroyed || this.previousMediaProvider !== mediaProvider)
+			) {
+				return;
 			}
+			this.mediaProvider = resolvedProvider;
 
 			// Ignored via go/ees007
 			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
@@ -328,6 +340,12 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				`MediaProvider promise did not resolve to a valid instance of MediaProvider - ${this.mediaProvider}`,
 			);
 		} catch (err) {
+			if (
+				isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
+				(this.destroyed || this.previousMediaProvider !== mediaProvider)
+			) {
+				return;
+			}
 			const wrappedError = new Error(
 				`Media functionality disabled due to rejected provider: ${
 					err instanceof Error ? err.message : String(err)
@@ -338,7 +356,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			this.destroyPickers();
 
 			this.allowsUploads = false;
-			if (!this.destroyed) {
+			this.uploadStatus = 'unavailable';
+			if (
+				!this.destroyed &&
+				(this.view || !isExperimentEnabled('platform_editor_ssr_toolbar_optimistic'))
+			) {
 				this.view.dispatch(
 					this.view.state.tr.setMeta(stateKey, {
 						allowsUploads: this.allowsUploads,
@@ -352,6 +374,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		this.mediaClientConfig = this.mediaProvider.viewMediaClientConfig;
 
 		this.allowsUploads = !!this.mediaProvider.uploadMediaClientConfig;
+		this.uploadStatus = this.allowsUploads ? 'available' : 'unavailable';
 		const { view, allowsUploads } = this;
 		// make sure editable DOM node is mounted
 		if (!this.destroyed && view && view.dom.parentNode) {
@@ -838,6 +861,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	setView(view: EditorView): void {
 		this.view = view;
+		if (
+			isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
+			this.uploadStatus === 'pending' &&
+			!this.previousMediaProvider
+		) {
+			// No provider was configured for this client editor. SSR has no view and stays pending.
+			this.uploadStatus = 'unavailable';
+		}
 	}
 
 	/**

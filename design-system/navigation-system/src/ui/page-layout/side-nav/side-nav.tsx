@@ -38,6 +38,7 @@ import {
 	type contentHeightWhenFixed,
 	type contentInsetBlockStart,
 	type localSlotLayers,
+	mainMinimumWidthVar,
 	openLayerObserverSideNavNamespace,
 	openLayerObserverTopNavStartNamespace,
 	sideNavLiveWidthVar,
@@ -46,9 +47,12 @@ import {
 } from '../constants';
 import { DangerouslyHoistCssVarToDocumentRoot } from '../dangerously-hoist-css-var-to-document-root';
 import { DangerouslyHoistSlotSizes } from '../hoist-slot-sizes-context';
+import { convertResizeBoundToPixels } from '../panel-splitter/convert-resize-bound-to-pixels';
 import { PanelSplitterProvider } from '../panel-splitter/provider';
-import type { ResizeBounds } from '../panel-splitter/types';
+import type { ResizeBound, ResizeBounds } from '../panel-splitter/types';
+import { resolveLayoutWidth } from '../resolve-layout-width';
 import type { CommonSlotProps } from '../types';
+import { useLayoutAreaSizing } from '../use-layout-area-sizing';
 import { useLayoutId } from '../use-layout-id';
 import { useResizingWidthCssVarOnRootElement } from '../use-resizing-width-css-var-on-root-element';
 import { useSafeDefaultWidth } from '../use-safe-default-width';
@@ -73,10 +77,18 @@ const panelSplitterResizingVar = '--n_snvRsz';
 // but positioned to stay at its right edge.
 const sideNavClampedWidthVar = '--n_snvW';
 
-const widthResizeBounds: ResizeBounds = { min: '240px', max: '50vw' };
+const fallbackMinWidth: ResizeBound = '240px';
 
-function getResizeBounds() {
-	return widthResizeBounds;
+function getPixelCustomProperty(
+	element: HTMLElement,
+	propertyName: string,
+	fallback: number,
+): number {
+	const raw = getComputedStyle(element).getPropertyValue(propertyName).trim();
+	const value = Number.parseFloat(raw);
+	return Number.isFinite(value)
+		? resolveLayoutWidth(raw.endsWith('vw') ? `${value}vw` : value, window.innerWidth)
+		: fallback;
 }
 
 /**
@@ -136,7 +148,7 @@ const styles = cssMap({
 		insetBlockStart:
 			'calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px))' satisfies typeof contentInsetBlockStart,
 		position: 'sticky',
-		// For mobile viewports, the side nav will take up 90% of the screen width, up to a maximum of 320px (the default SideNav width)
+		// Preserve the legacy compact width until the chat-panel layout rolls out.
 		width: 'min(90%, 320px)',
 		// On small viewports the side nav is displayed above other slots so we create a stacking context.
 		// We keep the side nav with a stacking context always so it is rendered above main content.
@@ -166,6 +178,23 @@ const styles = cssMap({
 			gridArea: 'side-nav',
 			// We only want the border to be visible when it is not an overlay
 			borderInlineEnd: `${token('border.width')} solid ${token('color.border')}`,
+		},
+	},
+	chatPanelSizing: {
+		// On compact viewports, the allocation system caps the overlay width.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		width: `var(${panelSplitterResizingVar}, var(${'--n_sNvw' satisfies typeof sideNavVar}))`,
+	},
+	managedOverlay: {
+		'@media (min-width: 64rem)': {
+			// Existing slots can leave too little room for an inline SideNav even on desktop.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+			'&&': {
+				gridArea: 'main',
+				backgroundColor: token('elevation.surface.overlay'),
+				boxShadow: token('elevation.shadow.overlay'),
+				borderInlineEnd: 'none',
+			},
 		},
 	},
 	flyoutOpen: {
@@ -523,13 +552,21 @@ type SideNavProps = CommonSlotProps & {
 	/**
 	 * The default width of the side nav layout area.
 	 *
-	 * It should be an integer between the resize bounds - the minimum is 240px and the maximum is 50% of the viewport width.
+	 * It should be an integer greater than or equal to the minimum width.
 	 *
 	 * It is only used when the side nav is first mounted, but you should continuously update your
 	 * persisted state using the `onResizeEnd` callback of `PanelSplitter`, to ensure it is up to date
 	 * when the app is reloaded.
 	 */
 	defaultWidth?: number;
+	/**
+	 * Minimum width used when fitting the side nav inline.
+	 */
+	minWidth?: ResizeBound;
+	/**
+	 * Optional maximum width for both inline and overlay resizing.
+	 */
+	maxWidth?: ResizeBound;
 	/**
 	 * Called when the side nav is expanded.
 	 */
@@ -574,6 +611,8 @@ function SideNavInternal({
 	children,
 	defaultCollapsed,
 	defaultWidth: defaultWidthProp = fallbackDefaultWidth,
+	minWidth = fallbackMinWidth,
+	maxWidth,
 	testId,
 	label = 'Sidebar',
 	skipLinkLabel = label,
@@ -584,6 +623,7 @@ function SideNavInternal({
 	id: providedId,
 	canToggleWithShortcut,
 }: SideNavProps) {
+	const isChatPanelLayoutEnabled = fg('platform-dst-chat-panel-layout');
 	const isFhsEnabled = useIsFhsEnabled();
 	const id = useLayoutId({ providedId });
 	const expandAndFocusSideNav = useExpandSideNav({ trigger: 'skip-link' });
@@ -665,18 +705,140 @@ function SideNavInternal({
 		slotName: 'SideNav',
 	});
 
-	const [width, setWidth] = useState(defaultWidth);
-	const clampedWidth = `clamp(${widthResizeBounds.min}, ${width}px, ${widthResizeBounds.max})`;
+	const [inlineWidth, setInlineWidth] = useState(defaultWidth);
+	const [overlayWidth, setOverlayWidth] = useState(defaultWidth);
+	const [isInline, setIsInline] = useState(false);
+	useEffect(() => {
+		if (!isChatPanelLayoutEnabled) {
+			return;
+		}
+		const mediaQuery = window.matchMedia('(min-width: 64rem)');
+		setIsInline(mediaQuery.matches);
+		const onChange = (event: MediaQueryListEvent) => setIsInline(event.matches);
+		return bind(mediaQuery, { type: 'change', listener: onChange });
+	}, [isChatPanelLayoutEnabled]);
+	const toggleVisibilityForChatPanel = useToggleSideNav({ trigger: 'programmatic' });
+	const closeOverlayForChatPanel = useCallback(() => {
+		// Allocation can overlay an expanded desktop nav when other slots consume
+		// its space. Dismiss the visibility state selected by the viewport, not the mode.
+		const isDesktop = window.matchMedia('(min-width: 64rem)').matches;
+		if (isDesktop ? isExpandedOnDesktop : isExpandedOnMobile) {
+			toggleVisibilityForChatPanel();
+		}
+	}, [isExpandedOnDesktop, isExpandedOnMobile, toggleVisibilityForChatPanel]);
+	const {
+		state: managedSizing,
+		getResizeBounds: getManagedResizeBounds,
+		startResize,
+		resize,
+		completeResize,
+	} = useLayoutAreaSizing({
+		area: 'side-nav',
+		config: {
+			defaultWidth,
+			minWidth,
+			maxWidth,
+			isOpen: isInline ? isExpandedOnDesktop : isExpandedOnMobile,
+			onRequestClose: closeOverlayForChatPanel,
+		},
+	});
+	const mode = managedSizing?.mode ?? (isInline ? 'inline' : 'overlay');
+	const renderedWidth = isChatPanelLayoutEnabled
+		? (managedSizing?.width ?? (mode === 'inline' ? inlineWidth : overlayWidth))
+		: inlineWidth;
+	const configuredMaxWidth = maxWidth ?? '100vw';
+	const clampedWidth = !isChatPanelLayoutEnabled
+		? `clamp(240px, ${inlineWidth}px, 50vw)`
+		: managedSizing
+			? `${renderedWidth}px`
+			: `clamp(${minWidth}, ${renderedWidth}px, ${configuredMaxWidth})`;
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 
 	const navRef = useRef<HTMLDivElement | null>(null);
 	const panelSplitterPortalTargetRef = useRef<HTMLDivElement | null>(null);
+	const getResizeBounds = useCallback((): ResizeBounds => {
+		if (!isChatPanelLayoutEnabled) {
+			return { min: '240px', max: '50vw' };
+		}
+		const managedBounds = getManagedResizeBounds();
+		if (managedBounds) {
+			return managedBounds;
+		}
+		const sideNav = navRef.current;
+		const layoutRoot = sideNav?.parentElement;
+		const main = layoutRoot?.querySelector<HTMLElement>(':scope > [data-layout-slot][role="main"]');
+		const fallbackMaxWidth = maxWidth ?? (mode === 'inline' ? '100vw' : '90vw');
+
+		if (!sideNav || mode === 'overlay') {
+			const chatPanel = layoutRoot?.querySelector<HTMLElement>(':scope > [data-layout-chat-panel]');
+			const inlineChatPanelWidth =
+				chatPanel && getComputedStyle(chatPanel).gridArea === 'chat-panel'
+					? chatPanel.getBoundingClientRect().width
+					: 0;
+			const overlayMaxWidth = Math.floor((window.innerWidth - inlineChatPanelWidth) * 0.9);
+			const constrainedMaxWidth = maxWidth
+				? Math.min(convertResizeBoundToPixels(maxWidth), overlayMaxWidth)
+				: overlayMaxWidth;
+			return {
+				min: minWidth,
+				max: `${Math.max(convertResizeBoundToPixels(minWidth), constrainedMaxWidth)}px`,
+			};
+		}
+
+		if (!main) {
+			return { min: minWidth, max: fallbackMaxWidth };
+		}
+
+		const sideNavWidth = sideNav.getBoundingClientRect().width;
+		const mainWidth = main.getBoundingClientRect().width;
+
+		// JSDOM does not perform layout, so retain the static fallback in unit tests and other
+		// environments where used widths cannot be measured.
+		if (sideNavWidth === 0 || mainWidth === 0) {
+			return { min: minWidth, max: fallbackMaxWidth };
+		}
+
+		const localPanel = main.querySelector<HTMLElement>('[data-layout-with-panel-slot]');
+		const isLocalPanelInline = localPanel && getComputedStyle(localPanel).gridArea === 'panel';
+		const localPanelWidth = isLocalPanelInline ? localPanel.getBoundingClientRect().width : 0;
+		const mainContentWidth = mainWidth - localPanelWidth;
+		const mainMinimumWidth = getPixelCustomProperty(main, mainMinimumWidthVar, 320);
+		const availableWidth = Math.max(0, mainContentWidth - mainMinimumWidth);
+		const availableInlineWidth = Math.floor(sideNavWidth + availableWidth);
+		const constrainedMaxWidth = maxWidth
+			? Math.min(convertResizeBoundToPixels(maxWidth), availableInlineWidth)
+			: availableInlineWidth;
+
+		return {
+			min: minWidth,
+			max: `${Math.max(convertResizeBoundToPixels(minWidth), constrainedMaxWidth)}px`,
+		};
+	}, [getManagedResizeBounds, isChatPanelLayoutEnabled, maxWidth, minWidth, mode]);
 	/**
 	 * Used to share the side nav element with the `Panel`,
 	 * which observes the side nav to determine its maximum width.
 	 */
 	const sharedRef = useSideNavRef();
 	const mergedRef = mergeRefs([navRef, sharedRef]);
+	const onCompleteResize = useCallback(
+		(finalWidth: number) => {
+			if (!isChatPanelLayoutEnabled) {
+				setInlineWidth(finalWidth);
+				return;
+			}
+			if (mode === 'inline') {
+				setInlineWidth(finalWidth);
+			} else {
+				setOverlayWidth(finalWidth);
+			}
+			completeResize(mode, finalWidth);
+		},
+		[completeResize, isChatPanelLayoutEnabled, mode],
+	);
+	const onResizeStartInternal = useCallback(() => {
+		startResize(mode);
+	}, [mode, startResize]);
+	const onResizeInternal = useCallback((width: number) => resize(mode, width), [mode, resize]);
 
 	const toggleButtonElement = useContext(SideNavToggleButtonElement);
 	const topNavStartElement = useContext(TopNavStartElement);
@@ -1230,7 +1392,7 @@ function SideNavInternal({
 	const isShortcutEnabled = useIsSideNavShortcutEnabled();
 
 	useResizingWidthCssVarOnRootElement({
-		isEnabled: true,
+		isEnabled: !isChatPanelLayoutEnabled || !managedSizing,
 		cssVar: panelSplitterResizingVar,
 		panelId: sideNavPanelSplitterId,
 	});
@@ -1308,6 +1470,8 @@ function SideNavInternal({
 				ref={mergedRef}
 				css={[
 					styles.root,
+					isChatPanelLayoutEnabled && styles.chatPanelSizing,
+					isChatPanelLayoutEnabled && managedSizing?.mode === 'overlay' && styles.managedOverlay,
 					// We are explicitly using the `isExpandedOnDesktop` and `isExpandedOnMobile` values here to ensure we are displaying the
 					// correct state during SSR render, as the context value would not have been set yet. These values are derived from the
 					// component props (defaultCollapsed) if context hasn't been set yet.
@@ -1434,8 +1598,14 @@ function SideNavInternal({
 					panelId={sideNavPanelSplitterId}
 					panelRef={navRef}
 					portalRef={isFhsEnabled ? panelSplitterPortalTargetRef : undefined}
-					panelWidth={width}
-					onCompleteResize={setWidth}
+					panelWidth={renderedWidth}
+					onCompleteResize={onCompleteResize}
+					onResizeStartInternal={
+						isChatPanelLayoutEnabled && managedSizing ? onResizeStartInternal : undefined
+					}
+					onResizeInternal={
+						isChatPanelLayoutEnabled && managedSizing ? onResizeInternal : undefined
+					}
 					getResizeBounds={getResizeBounds}
 					resizingCssVar={panelSplitterResizingVar}
 					// Not resizable when in peek (flyout) mode.
@@ -1494,6 +1664,8 @@ export function SideNav({
 	children,
 	defaultCollapsed,
 	defaultWidth = 320,
+	minWidth,
+	maxWidth,
 	testId,
 	label, // Default value is defined in `SideNavInternal`
 	skipLinkLabel = label, // Default value is defined in `SideNavInternal`
@@ -1509,6 +1681,8 @@ export function SideNav({
 			<SideNavInternal
 				defaultCollapsed={defaultCollapsed}
 				defaultWidth={defaultWidth}
+				minWidth={minWidth}
+				maxWidth={maxWidth}
 				testId={testId}
 				label={label}
 				skipLinkLabel={skipLinkLabel}

@@ -1,6 +1,5 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { IconType, SmartLinkStatus } from '../../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../extractors/constants';
@@ -33,80 +32,76 @@ describe('getContextByStatus', () => {
 		);
 	});
 
-	ffTest.both('platform_navx_smart_link_icon_label_a11y', '', () => {
-		it('return context for Resolved status', () => {
-			const context = getContextByStatus({
-				url,
-				status: SmartLinkStatus.Resolved,
-				response: {
-					meta: {
-						auth: [],
-						definitionId: 'confluence-object-provider',
-						visibility: 'restricted',
-						access: 'granted',
-						resourceType: 'page',
-						key: 'confluence-object-provider',
-					},
-					data: {
-						'@context': {
-							'@vocab': 'https://www.w3.org/ns/activitystreams#',
-							atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-							schema: 'http://schema.org/',
-						},
-						generator: {
-							'@type': 'Application',
-							'@id': 'https://www.atlassian.com/#Confluence',
-							name: 'Confluence',
-						},
-						'@type': ['Document', 'schema:TextDigitalDocument'],
-						url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-						name: 'Everything you need to know about ShipIt53!',
-						summary: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
-					},
+	it('return context for Resolved status', () => {
+		const context = getContextByStatus({
+			url,
+			status: SmartLinkStatus.Resolved,
+			response: {
+				meta: {
+					auth: [],
+					definitionId: 'confluence-object-provider',
+					visibility: 'restricted',
+					access: 'granted',
+					resourceType: 'page',
+					key: 'confluence-object-provider',
 				},
-			});
-			expect(context).toEqual(
-				expect.objectContaining({
-					actions: {
-						CopyLinkAction: {
-							invokeAction: {
-								actionFn: expect.any(Function),
-								actionSubjectId: 'copyLink',
-								actionType: 'CopyLinkAction',
-								definitionId: 'confluence-object-provider',
-								display: undefined,
-								extensionKey: 'confluence-object-provider',
-								id: undefined,
-								resourceType: 'page',
-							},
-						},
-						DownloadAction: undefined,
-						FollowAction: undefined,
-						PreviewAction: undefined,
-						AutomationAction: undefined,
-						AISummaryAction: undefined,
-						ViewRelatedLinksAction: undefined,
+				data: {
+					'@context': {
+						'@vocab': 'https://www.w3.org/ns/activitystreams#',
+						atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+						schema: 'http://schema.org/',
 					},
-					linkIcon: {
-						icon: 'FileType:Document',
-						...(fg('platform_navx_smart_link_icon_label_a11y')
-							? { label: 'document' }
-							: { label: 'Everything you need to know about ShipIt53!' }),
-						render: undefined,
+					generator: {
+						'@type': 'Application',
+						'@id': 'https://www.atlassian.com/#Confluence',
+						name: 'Confluence',
 					},
-					provider: { icon: 'Provider:Confluence', label: 'Confluence' },
-					snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
-					linkTitle: expect.objectContaining({
-						text: 'Everything you need to know about ShipIt53!',
-					}),
+					'@type': ['Document', 'schema:TextDigitalDocument'],
 					url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-					type: ['schema:TextDigitalDocument', 'Document'],
-					meta: expect.objectContaining({
-						resourceType: 'page',
-					}),
-				}),
-			);
+					name: 'Everything you need to know about ShipIt53!',
+					summary: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
+				},
+			},
 		});
+		expect(context).toEqual(
+			expect.objectContaining({
+				actions: {
+					CopyLinkAction: {
+						invokeAction: {
+							actionFn: expect.any(Function),
+							actionSubjectId: 'copyLink',
+							actionType: 'CopyLinkAction',
+							definitionId: 'confluence-object-provider',
+							display: undefined,
+							extensionKey: 'confluence-object-provider',
+							id: undefined,
+							resourceType: 'page',
+						},
+					},
+					DownloadAction: undefined,
+					FollowAction: undefined,
+					PreviewAction: undefined,
+					AutomationAction: undefined,
+					AISummaryAction: undefined,
+					ViewRelatedLinksAction: undefined,
+				},
+				linkIcon: {
+					icon: 'FileType:Document',
+					label: 'document',
+					render: undefined,
+				},
+				provider: { icon: 'Provider:Confluence', label: 'Confluence' },
+				snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
+				linkTitle: expect.objectContaining({
+					text: 'Everything you need to know about ShipIt53!',
+				}),
+				url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+				type: ['schema:TextDigitalDocument', 'Document'],
+				meta: expect.objectContaining({
+					resourceType: 'page',
+				}),
+			}),
+		);
 	});
 
 	it('return context for Unauthorized status', () => {

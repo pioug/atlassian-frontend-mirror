@@ -15,8 +15,11 @@ import type {
 	contentInsetBlockStart as ContentInsetBlockStartType,
 	contentHeightWhenFixed as ContentHeightWhenFixedType,
 } from '../constants';
+import { mainMinimumWidthVar } from '../constants';
+import { gridRootId } from '../root';
 import type { CommonSlotProps } from '../types';
 import { useLayoutId } from '../use-layout-id';
+import { useLayoutMainSizing } from '../use-layout-main-sizing';
 
 const contentInsetBlockStartStatic =
 	`calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px))` satisfies typeof ContentInsetBlockStartType;
@@ -57,6 +60,7 @@ export function Main({
 	skipLinkLabel = fg('platform_dst_nav4_skip_link_a11y_1') ? 'Main content' : 'Main Content',
 	testId,
 	id: providedId,
+	minWidth = 320,
 }: CommonSlotProps & {
 	/**
 	 * The content of the layout area.
@@ -67,13 +71,22 @@ export function Main({
 	 * Bounded style overrides.
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
+	/**
+	 * Minimum width used by the layout allocation system.
+	 */
+	minWidth?: number;
 }): JSX.Element {
 	const id = useLayoutId({ providedId });
+	useLayoutMainSizing(minWidth);
 
 	useSkipLink(id, skipLinkLabel);
 
 	return (
 		<Fragment>
+			{fg('platform-dst-chat-panel-layout') && (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+				<style>{`#${gridRootId} { ${mainMinimumWidthVar}: ${minWidth}px; }`}</style>
+			)}
 			<div
 				id={id}
 				data-layout-slot

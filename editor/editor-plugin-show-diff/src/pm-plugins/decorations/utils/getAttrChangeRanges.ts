@@ -6,8 +6,14 @@ import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-uti
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getRequiredIncludedDiffableAttrs, isDiffableAttr } from './diffableAttrs';
+import {
+	getComparableExcerptIncludeAttrs,
+	getReferencedContentId,
+	isExcerptInclude,
+} from './excerptIncludeAttrs';
 
 export type InlineAttrChangeNodeName = 'date' | 'emoji' | 'mention' | 'status';
 
@@ -76,8 +82,26 @@ const transientExtensionAttrPaths = ['localId', 'parameters.macroParams._parentI
 const getComparableExtensionAttrs = (node: PMNode): Record<string, unknown> =>
 	omit(node.attrs, transientExtensionAttrPaths);
 
-const haveSameRelevantExtensionAttrs = (beforeNode: PMNode, afterNode: PMNode): boolean =>
-	isEqual(getComparableExtensionAttrs(beforeNode), getComparableExtensionAttrs(afterNode));
+const haveSameRelevantExtensionAttrs = (beforeNode: PMNode, afterNode: PMNode): boolean => {
+	if (
+		fg('platform_editor_normalize_excerpt_diff') &&
+		isExcerptInclude(beforeNode.attrs) &&
+		isExcerptInclude(afterNode.attrs)
+	) {
+		const beforeReference = getReferencedContentId(beforeNode.attrs);
+		const afterReference = getReferencedContentId(afterNode.attrs);
+		return (
+			isEqual(
+				getComparableExcerptIncludeAttrs(beforeNode.attrs),
+				getComparableExcerptIncludeAttrs(afterNode.attrs),
+			) &&
+			(beforeReference === undefined ||
+				afterReference === undefined ||
+				beforeReference === afterReference)
+		);
+	}
+	return isEqual(getComparableExtensionAttrs(beforeNode), getComparableExtensionAttrs(afterNode));
+};
 
 const getStepAttrs = (step: AttrChangeStep): string[] => {
 	if (step instanceof AttrStep) {

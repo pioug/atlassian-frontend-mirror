@@ -151,7 +151,7 @@ export const RegistryElementBrowserSearchResults = ({
 		defaultMessage: 'Element results',
 		id: 'editor.quick-insert.results-label',
 	});
-	const displayedItems = hasFallbackItems ? (fallbackItems ?? []) : items;
+	const displayedItems = hasFallbackItems && fallbackItems ? fallbackItems : items;
 	const shouldRenderEmptyState = items.length === 0 && !isLoading;
 	const emptyState = shouldRenderEmptyState
 		? (emptyStateHandler?.({
@@ -199,9 +199,18 @@ export const RegistryElementBrowserSearchResults = ({
 				<div
 					aria-label={resultsLabel}
 					css={resultsGridStyles}
+					onFocus={(event) => {
+						if (event.target === event.currentTarget) {
+							event.currentTarget
+								.querySelector<HTMLElement>(
+									'[role="option"]:not([aria-disabled="true"]):not([disabled])',
+								)
+								?.focus();
+						}
+					}}
 					onKeyDown={onKeyDown}
 					role="listbox"
-					tabIndex={-1}
+					tabIndex={0}
 				>
 					{displayedItems.map((item) => (
 						<RegistryElementBrowserItem

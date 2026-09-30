@@ -3,7 +3,6 @@ import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ResourceId } from '../common/types';
 import type {
@@ -64,8 +63,7 @@ export class SyncBlockProviderFactoryManager {
 		// cannot run during render - callers invoke `syncProviders` from an effect
 		// instead. Effects never run while server rendering, and there are no mounted
 		// subscribers to notify, so the server keeps applying them inline.
-		const deferProviderSync = fg('platform_editor_blocks_patch_7');
-		if (deferProviderSync && !isSSR()) {
+		if (!isSSR()) {
 			return providerFactory;
 		}
 

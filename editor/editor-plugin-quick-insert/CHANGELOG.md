@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 22.0.11
+
+### Patch Changes
+
+- [`9d953d03b62a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d953d03b62a1) -
+  Order non-template slash-command items under platform_editor_slash_command
+- Updated dependencies
+
+## 22.0.10
+
+### Patch Changes
+
+- [`b90341d10ef81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b90341d10ef81) -
+  Fix element browser cards, keyboard selection, and small-screen categories under
+  platform_editor_slash_command
+- Updated dependencies
+
+## 22.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.6
 
 ### Patch Changes

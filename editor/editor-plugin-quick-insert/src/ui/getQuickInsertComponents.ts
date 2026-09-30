@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
 import {
 	BLOCK_TEMPLATES_SECTION,
+	CREATE_SECTION,
 	DATA_AND_CHARTS_SECTION,
 	EMBED_SECTION,
 	MEDIA_SECTION,
@@ -46,6 +47,7 @@ const categories = [
 	{ message: messages.categoryRecommended, section: RECOMMENDED_SECTION },
 	{ message: messages.categoryStructure, section: STRUCTURE_SECTION },
 	{ message: messages.categoryMedia, section: MEDIA_SECTION },
+	{ message: messages.categoryCreate, section: CREATE_SECTION },
 	{ message: messages.categoryEmbed, section: EMBED_SECTION },
 	{ message: messages.categoryTextFormatting, section: TEXT_FORMATTING_SECTION },
 	{ message: messages.categoryRovo, section: ROVO_SECTION },

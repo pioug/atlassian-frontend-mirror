@@ -7,8 +7,20 @@ import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-m
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
+import Header from '../../../headerWithIntl';
+import { InsetViewerProvider } from '../../../insetViewerContext';
 import { List } from '../../../list';
 import { nextNavButtonId } from '../../../navigation';
+import { ItemStage } from '../../../styleWrappers';
+
+jest.mock('../../../headerWithIntl', () => {
+	const original = jest.requireActual('../../../headerWithIntl');
+	return { __esModule: true, ...original, default: jest.fn(original.default) };
+});
+jest.mock('../../../styleWrappers', () => {
+	const original = jest.requireActual('../../../styleWrappers');
+	return { ...original, ItemStage: jest.fn(({ children }) => children) };
+});
 
 describe('<List />', () => {
 	it('should show item', async () => {
@@ -85,6 +97,42 @@ describe('<List />', () => {
 			act(() => onNavigationRequest.mock.calls[0][1]());
 
 			expect(onNavigationChange).toHaveBeenCalledWith(identifier2);
+		});
+	});
+
+	describe('inset viewer', () => {
+		const renderList = (isInsetViewer: boolean) => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InsetViewerProvider isInsetViewer={isInsetViewer}>
+							<List items={[identifier]} defaultSelectedItem={identifier} />
+						</InsetViewerProvider>
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+		};
+
+		beforeEach(() => {
+			jest.mocked(Header).mockClear();
+			jest.mocked(ItemStage).mockClear();
+		});
+
+		it('should render the overlay header outside inset mode', () => {
+			renderList(false);
+
+			expect(Header).toHaveBeenCalled();
+			expect(ItemStage).not.toHaveBeenCalled();
+		});
+
+		it('should drop the overlay header and stage the item in inset mode', () => {
+			renderList(true);
+
+			expect(Header).not.toHaveBeenCalled();
+			expect(ItemStage).toHaveBeenCalled();
 		});
 	});
 });

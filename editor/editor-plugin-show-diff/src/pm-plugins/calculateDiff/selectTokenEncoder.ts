@@ -19,7 +19,10 @@ export type TokenEncoderSelection = {
  */
 export const selectTokenEncoder = (useAttrAwareEncoder: boolean): TokenEncoderSelection => {
 	if (useAttrAwareEncoder) {
-		return { tokenEncoder: attrAwareTokenEncoder, shouldHideMarkOnlyDeletions: false };
+		return {
+			tokenEncoder: attrAwareTokenEncoder,
+			shouldHideMarkOnlyDeletions: false,
+		};
 	}
 	return { tokenEncoder: markAwareTokenEncoder, shouldHideMarkOnlyDeletions: true };
 };

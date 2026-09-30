@@ -304,8 +304,8 @@ const AvatarGroup = ({
 			'aria-expanded'?: boolean;
 			'aria-haspopup'?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
 			onClick: MouseEventHandler;
-		}) =>
-			moreIndicatorOverrides.render(MoreIndicator, {
+		}) => {
+			const moreButton = moreIndicatorOverrides.render(MoreIndicator, {
 				buttonProps: showMoreButtonProps,
 				borderColor: borderColor,
 				count: total - max,
@@ -319,6 +319,19 @@ const AvatarGroup = ({
 				onClick,
 				...props,
 			});
+
+			// Every overflow path must complete its exit so Stack can release removed children.
+			return fg('platform-dst-avatar-group-overflow-exit') && fg('platform-dst-motion-uplift') ? (
+				<Motion
+					enteringAnimation={token('motion.avatar.enter')}
+					exitingAnimation={token('motion.avatar.exit')}
+				>
+					{moreButton}
+				</Motion>
+			) : (
+				moreButton
+			);
+		};
 
 		// bail if the consumer wants to handle onClick
 		if (typeof onMoreClick === 'function') {
@@ -397,26 +410,26 @@ const AvatarGroup = ({
 						</PopupAvatarGroup>
 					</FocusManager>
 				)}
-				trigger={(triggerProps) =>
-					fg('platform-dst-motion-uplift') ? (
+				trigger={(triggerProps) => {
+					const moreButton = renderMoreButton({
+						...triggerProps,
+						...bindFocus,
+						onClick: handleTriggerClicked,
+					});
+
+					// Preserve the original popup animation when the shared overflow fix is disabled.
+					return !fg('platform-dst-avatar-group-overflow-exit') &&
+						fg('platform-dst-motion-uplift') ? (
 						<Motion
 							enteringAnimation={token('motion.avatar.enter')}
 							exitingAnimation={token('motion.avatar.exit')}
 						>
-							{renderMoreButton({
-								...triggerProps,
-								...bindFocus,
-								onClick: handleTriggerClicked,
-							})}
+							{moreButton}
 						</Motion>
 					) : (
-						renderMoreButton({
-							...triggerProps,
-							...bindFocus,
-							onClick: handleTriggerClicked,
-						})
-					)
-				}
+						moreButton
+					);
+				}}
 				testId={testId && `${testId}--overflow-menu`}
 			/>
 		);

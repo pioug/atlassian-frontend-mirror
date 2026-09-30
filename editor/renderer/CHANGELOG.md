@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 145.0.11
+
+### Patch Changes
+
+- [`dc878dede0903`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc878dede0903) -
+  Clean up feature gate `platform_editor_embed_height_only_fallback`
+- Updated dependencies
+
+## 145.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 145.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 145.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 145.0.7
 
 ### Patch Changes

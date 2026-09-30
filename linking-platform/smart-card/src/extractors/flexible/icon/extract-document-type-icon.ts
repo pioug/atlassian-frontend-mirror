@@ -1,6 +1,5 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors/is-confluence-generator';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { IconType } from '../../../constants';
 import { type IconDescriptor } from './types';
@@ -16,61 +15,33 @@ import { type IconDescriptor } from './types';
  * go/j/MODES-5864. Do not add more!
  *
  * @param documentType JSON-LD document type
- * @param label human-readable label to be displayed on the icon
  * @param providerId JSON-LD provider (generator ID)
  * @returns an icon descriptor representing the document type
  */
 const extractDocumentTypeIcon = (
 	documentType: JsonLd.Primitives.ObjectType | 'atlassian:Template',
-	label?: string, // NAVX-4354: remove this during cleanup
 	providerId?: string,
 ): IconDescriptor | undefined => {
-	const getLabel = (hardcodedLabel: string) =>
-		fg('platform_navx_smart_link_icon_label_a11y') ? hardcodedLabel : label;
-
+	const getIconDescriptor = (icon: IconType, label: string): IconDescriptor => ({ icon, label });
 	switch (documentType) {
 		case 'schema:BlogPosting':
-			return {
-				icon: IconType.Blog,
-				label: getLabel('blog'),
-			};
+			return getIconDescriptor(IconType.Blog, 'blog');
 		case 'schema:DigitalDocument':
 			if (providerId && isConfluenceGenerator(providerId)) {
-				return {
-					icon: IconType.LiveDocument,
-					label: getLabel('live document'),
-				};
+				return getIconDescriptor(IconType.LiveDocument, 'live document');
 			} else {
-				return {
-					icon: IconType.File,
-					label: getLabel('file'),
-				};
+				return getIconDescriptor(IconType.File, 'file');
 			}
 		case 'schema:TextDigitalDocument':
-			return {
-				icon: IconType.Document,
-				label: getLabel('document'),
-			};
+			return getIconDescriptor(IconType.Document, 'document');
 		case 'schema:PresentationDigitalDocument':
-			return {
-				icon: IconType.Presentation,
-				label: getLabel('presentation'),
-			};
+			return getIconDescriptor(IconType.Presentation, 'presentation');
 		case 'schema:SpreadsheetDigitalDocument':
-			return {
-				icon: IconType.Spreadsheet,
-				label: getLabel('spreadsheet'),
-			};
+			return getIconDescriptor(IconType.Spreadsheet, 'spreadsheet');
 		case 'atlassian:Template':
-			return {
-				icon: IconType.Template,
-				label: getLabel('template'),
-			};
+			return getIconDescriptor(IconType.Template, 'template');
 		case 'atlassian:UndefinedLink':
-			return {
-				icon: IconType.Document,
-				label: getLabel('document'),
-			};
+			return getIconDescriptor(IconType.Document, 'document');
 		default:
 			return undefined;
 	}

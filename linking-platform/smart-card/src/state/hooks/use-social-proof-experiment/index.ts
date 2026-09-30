@@ -9,8 +9,6 @@ export type SocialProofTier = 'low' | 'not-low';
 
 export const SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY = 'social_proof_3p_unauth_block_exp';
 
-export const INLINE_SOCIAL_PROOF_EXPERIMENT_KEY = 'platform_sl_3p_preauth_social_proof_inline_cta';
-
 export type SocialProofExperimentMetadata = {
 	isEligible: boolean;
 	tier?: SocialProofTier;
@@ -18,10 +16,6 @@ export type SocialProofExperimentMetadata = {
 
 export type BlockCardSocialProofExperimentMeta = {
 	[SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY]: SocialProofExperimentMetadata;
-};
-
-export type InlineSocialProofExperimentMeta = {
-	[INLINE_SOCIAL_PROOF_EXPERIMENT_KEY]: SocialProofExperimentMetadata;
 };
 
 export interface SocialProofExperiment {

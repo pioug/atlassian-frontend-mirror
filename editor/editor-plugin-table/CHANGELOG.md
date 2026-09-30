@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-table
 
+## 34.0.14
+
+### Patch Changes
+
+- [`8d075961b3c2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d075961b3c2c) -
+  Prevent automatic table width commits in view mode behind
+  `platform_editor_table_view_mode_scaling_fix`.
+- Updated dependencies
+
+## 34.0.13
+
+### Patch Changes
+
+- [`2fa5b04eb1bd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fa5b04eb1bd2) -
+  Clean up feature gate `platform_editor_table_flicker_issue`
+
+## 34.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.9
 
 ### Patch Changes

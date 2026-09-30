@@ -1,31 +1,28 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { IconType } from '../../../constants';
 import { type IconDescriptor } from './types';
 
-const extractJiraTaskIcon = (taskType?: string, label?: string): IconDescriptor | undefined => {
-	const getLabel = (hardcodedLabel: string) =>
-		fg('platform_navx_smart_link_icon_label_a11y') ? hardcodedLabel : label || 'Task';
+const extractJiraTaskIcon = (taskType?: string): IconDescriptor | undefined => {
+	const getIconDescriptor = (icon: IconType, label: string): IconDescriptor => ({ icon, label });
 	switch (taskType) {
 		case 'JiraBug':
-			return { icon: IconType.Bug, label: getLabel('Bug') };
+			return getIconDescriptor(IconType.Bug, 'Bug');
 		case 'JiraChange':
-			return { icon: IconType.Change, label: getLabel('Change') };
+			return getIconDescriptor(IconType.Change, 'Change');
 		case 'JiraEpic':
-			return { icon: IconType.Epic, label: getLabel('Epic') };
+			return getIconDescriptor(IconType.Epic, 'Epic');
 		case 'JiraIncident':
-			return { icon: IconType.Incident, label: getLabel('Incident') };
+			return getIconDescriptor(IconType.Incident, 'Incident');
 		case 'JiraProblem':
-			return { icon: IconType.Problem, label: getLabel('Problem') };
+			return getIconDescriptor(IconType.Problem, 'Problem');
 		case 'JiraServiceRequest':
-			return { icon: IconType.ServiceRequest, label: getLabel('Service request') };
+			return getIconDescriptor(IconType.ServiceRequest, 'Service request');
 		case 'JiraStory':
-			return { icon: IconType.Story, label: getLabel('Story') };
+			return getIconDescriptor(IconType.Story, 'Story');
 		case 'JiraSubTask':
-			return { icon: IconType.SubTask, label: getLabel('Sub-task') };
+			return getIconDescriptor(IconType.SubTask, 'Sub-task');
 		case 'JiraTask':
 		default:
-			return { icon: IconType.Task, label: getLabel('Task') };
+			return getIconDescriptor(IconType.Task, 'Task');
 	}
 };
 

@@ -2,7 +2,6 @@ import React from 'react';
 
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors/is-confluence-generator';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getIconForFileType } from '../../../utils/get-icon-for-file-type';
 import { type IconOpts } from './extractIcon';
@@ -50,19 +49,15 @@ export const extractIconFromDocument = (
 };
 const documentFileFormatToIcon = (opts: IconOpts): React.ReactNode | undefined => {
 	if (opts.fileFormat) {
-		return getIconForFileType(
-			opts.fileFormat,
-			fg('platform_navx_smart_link_icon_label_a11y') ? opts.showIconLabel : undefined,
-		);
+		return getIconForFileType(opts.fileFormat, opts.showIconLabel);
 	}
 };
 
 const documentLabel = (opts: IconOpts, label: string) => {
-	// NAVX-4354 can be inlined during cleanup.
 	if (!opts.showIconLabel) {
 		return '';
 	}
-	return fg('platform_navx_smart_link_icon_label_a11y') ? label : opts.title || label;
+	return label;
 };
 
 const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode | undefined => {

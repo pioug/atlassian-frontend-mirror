@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "46.1.10",
+	"version": "46.1.14",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
 	},
 	"scripts": {
 		"analytics:codegen": "afm workspace @atlassian/analytics-tooling analytics:codegen smart-card --output ./src/common/analytics/generated",
-		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V 'src/**/*.{svg,png}'"
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",
@@ -295,22 +295,10 @@
 		"jfp-magma-platform-lozenge-jump-fix": {
 			"type": "boolean"
 		},
-		"platform_sl_priority_icon": {
-			"type": "boolean"
-		},
 		"jpx-1074-smart-links-iframe": {
 			"type": "boolean"
 		},
 		"platform_sl_3p_preauth_better_hovercard_killswitch": {
-			"type": "boolean"
-		},
-		"platform_sl_3p_preauth_soc_proof_inline_killswitch": {
-			"type": "boolean"
-		},
-		"platform_navx_smart_link_icon_label_a11y": {
-			"type": "boolean"
-		},
-		"platform_navx_jira_issue_type_icon_label_a11y": {
 			"type": "boolean"
 		},
 		"platform_lp_use_generator_icon_for_provider": {
@@ -335,9 +323,6 @@
 		"platform_sl_3p_auth_rovo_embed_footer_exp": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_sl_icons_refactor": {
-			"type": "boolean"
 		},
 		"social-proof-3p-unauth-block-fg": {
 			"type": "boolean"

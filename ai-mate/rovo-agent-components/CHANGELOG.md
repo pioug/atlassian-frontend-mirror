@@ -1,5 +1,29 @@
 # @atlaskit/rovo-agent-components
 
+## 9.6.0
+
+### Minor Changes
+
+- [`bba093aeda375`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bba093aeda375) -
+  Allow ResolvedAgentAvatar consumers to opt into updated hexagon geometry behind
+  platform-dst-avatar-updated-geometry.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.5.4
 
 ### Patch Changes

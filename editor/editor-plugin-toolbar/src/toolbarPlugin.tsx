@@ -9,7 +9,6 @@ import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-p
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
@@ -237,10 +236,9 @@ export const toolbarPlugin: ToolbarPlugin = ({
 											// Prevent outside clicks from reopening a blurred editor's toolbar.
 											const editorViewModePlugin = api?.editorViewMode?.sharedState.currentState();
 											const isViewModeEnabled = editorViewModePlugin?.mode === 'view';
-											// Include focus in nested editable islands when enabled.
-											const hasEditorFocus = fg('platform_editor_blocks_patch_7')
-												? view.hasFocus() || view.dom.contains(view.root.activeElement)
-												: view.hasFocus();
+											// Include focus in nested editable islands.
+											const hasEditorFocus =
+												view.hasFocus() || view.dom.contains(view.root.activeElement);
 											const shouldShowToolbar = isViewModeEnabled
 												? isMouseUpInEditor || isMouseUpInOwnedToolbar
 												: hasEditorFocus || isMouseUpInOwnedToolbar;
@@ -271,9 +269,8 @@ export const toolbarPlugin: ToolbarPlugin = ({
 										// Focus can sit inside a nested editable region ProseMirror does not own -
 										// such as a reference synced block's island - where `view.hasFocus()` is
 										// false but the user is still interacting with the editor.
-										const hasEditorFocus = fg('platform_editor_blocks_patch_7')
-											? view.hasFocus() || view.dom.contains(view.root.activeElement)
-											: view.hasFocus();
+										const hasEditorFocus =
+											view.hasFocus() || view.dom.contains(view.root.activeElement);
 
 										view.dispatch(
 											view.state.tr.setMeta(editorToolbarPluginKey, {

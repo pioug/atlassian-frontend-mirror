@@ -34,60 +34,58 @@ const FormSubmissionValidationExample = (): React.JSX.Element => {
 
 	return (
 		<Flex direction="column">
-			<Form onSubmit={handleSubmit}>
-				{({ formProps }) => (
-					<form noValidate {...formProps}>
-						<FormHeader title="Add permissions">
-							<p aria-hidden="true">
-								Required fields are marked with an asterisk <RequiredAsterisk />
-							</p>
-						</FormHeader>
-						<Field
-							name="name"
-							label="Name"
-							defaultValue=""
-							isRequired
-							component={({ fieldProps }) => <TextField {...fieldProps} />}
-						/>
-						<Field
-							name="email"
-							label="Email"
-							defaultValue=""
-							isRequired
-							helperMessage="Must contain an @ symbol."
-							component={({ fieldProps }) => <TextField {...fieldProps} />}
-						/>
-						<Field
-							name="permissions"
-							label="Permissions"
-							component={({ fieldProps: { value, ...others } }) => (
-								<RadioGroup
-									options={[
-										{ name: 'permissions', value: 'view', label: 'View only' },
-										{
-											name: 'permissions',
-											value: 'edit',
-											label: 'Edit',
-										},
-										{ name: 'permissions', value: 'admin', label: 'Admin' },
-									]}
-									value={value}
-									{...others}
-								/>
-							)}
-						/>
-						<FormFooter align="start">
-							<ButtonGroup label="Form submit options">
-								<Button appearance="primary" id="create-repo-button" type="submit">
-									Add
-								</Button>
-								<Button appearance="subtle" id="create-repo-cancel">
-									Cancel
-								</Button>
-							</ButtonGroup>
-						</FormFooter>
-					</form>
-				)}
+			<Form onSubmit={handleSubmit} noValidate>
+				<>
+					<FormHeader title="Add permissions">
+						<p aria-hidden="true">
+							Required fields are marked with an asterisk <RequiredAsterisk />
+						</p>
+					</FormHeader>
+					<Field
+						name="name"
+						label="Name"
+						defaultValue=""
+						isRequired
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+					/>
+					<Field
+						name="email"
+						label="Email"
+						defaultValue=""
+						isRequired
+						helperMessage="Must contain an @ symbol."
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+					/>
+					<Field
+						name="permissions"
+						label="Permissions"
+						component={({ fieldProps: { value, ...others } }) => (
+							<RadioGroup
+								options={[
+									{ name: 'permissions', value: 'view', label: 'View only' },
+									{
+										name: 'permissions',
+										value: 'edit',
+										label: 'Edit',
+									},
+									{ name: 'permissions', value: 'admin', label: 'Admin' },
+								]}
+								value={value}
+								{...others}
+							/>
+						)}
+					/>
+					<FormFooter align="start">
+						<ButtonGroup label="Form submit options">
+							<Button appearance="primary" id="create-repo-button" type="submit">
+								Add
+							</Button>
+							<Button appearance="subtle" id="create-repo-cancel">
+								Cancel
+							</Button>
+						</ButtonGroup>
+					</FormFooter>
+				</>
 			</Form>
 		</Flex>
 	);

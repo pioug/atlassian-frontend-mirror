@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-list
 
+## 24.0.10
+
+### Patch Changes
+
+- [`feeef61c773db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feeef61c773db) -
+  Clean up feature gate `platform_editor_blocks_patch_7`
+- Updated dependencies
+
+## 24.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.6
 
 ### Patch Changes

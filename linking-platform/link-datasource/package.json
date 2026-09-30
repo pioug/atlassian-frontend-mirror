@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "7.0.7",
+	"version": "7.0.8",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 	},
 	"scripts": {
 		"analytics:codegen": "afm workspace @atlassian/analytics-tooling analytics:codegen link-datasource --output ./src/analytics/generated",
-		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V 'src/**/*.{svg,png}'"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

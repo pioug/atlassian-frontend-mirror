@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 19.0.11
+
+### Patch Changes
+
+- [`feeef61c773db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feeef61c773db) -
+  Clean up feature gate `platform_editor_blocks_patch_7`
+- Updated dependencies
+
+## 19.0.10
+
+### Patch Changes
+
+- [`41f0abe038464`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41f0abe038464) -
+  Clean up feature gate `platform_editor_toolbar_intent_fix`
+- Updated dependencies
+
+## 19.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.6
 
 ### Patch Changes

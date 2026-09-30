@@ -72,16 +72,11 @@
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "18.0.6",
+	"version": "18.0.10",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
-	},
-	"platform-feature-flags": {
-		"platform_editor_blocks_patch_7": {
-			"type": "boolean"
-		}
 	}
 }

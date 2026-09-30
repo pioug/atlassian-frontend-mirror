@@ -92,6 +92,7 @@ export default class Example extends React.PureComponent<{}, { output: string }>
 							return errors;
 						},
 						allowCaptions: true,
+						allowMediaInlineImages: true,
 						featureFlags: {
 							mediaInline: true,
 						},

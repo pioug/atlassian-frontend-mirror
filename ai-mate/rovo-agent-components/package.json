@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "9.5.4",
+	"version": "9.6.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -14,7 +14,8 @@
 		"team": "Rovo Agents",
 		"website": {
 			"tags": [
-				"platform-labs"
+				"platform-labs",
+				"rovo-components"
 			],
 			"name": "RovoAgentComponents",
 			"category": "Components"

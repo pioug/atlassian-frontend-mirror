@@ -7,6 +7,7 @@ import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ss
 import HoverCardSSRLoading from '../../../examples/vr-hover-card/vr-hover-cards-ssr-loading.vr.ap';
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards.vr.ap';
 import HoverCardUnauthorised from '../../../examples/vr-hover-card/vr-unauthorised-hover-cards.vr.ap';
+import { mockPersonalizationRequests } from './mock-personalization-requests';
 
 snapshot(HoverCard, {
 	drawsOutsideBounds: true,
@@ -72,6 +73,7 @@ snapshot(HoverCardActions, {
 });
 
 snapshot(HoverCardUnauthorised, {
+	mockRequests: mockPersonalizationRequests,
 	drawsOutsideBounds: true,
 	states: [
 		{

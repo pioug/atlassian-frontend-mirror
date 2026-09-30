@@ -12,7 +12,9 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';
 import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-context-provider';
+import type { mainMinimumWidthVar } from './constants';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
+import { LayoutAreaSizingProvider } from './layout-area-sizing-provider';
 import { IsSideNavShortcutEnabledProvider } from './side-nav/is-side-nav-shortcut-enabled-provider';
 import { SideNavElementProvider } from './side-nav/side-nav-element-provider';
 import { SideNavToggleButtonProvider } from './side-nav/toggle-button-provider';
@@ -22,7 +24,26 @@ import { SideNavVisibilityProvider } from './side-nav/visibility-provider';
 export const gridRootId = 'unsafe-design-system-page-layout-root';
 
 const styles = cssMap({
+	legacyRoot: {
+		display: 'grid',
+		minHeight: '100vh',
+		gridTemplateAreas: `"banner" "top-bar" "main" "aside"`,
+		gridTemplateColumns: 'minmax(0, 1fr)',
+		gridTemplateRows: 'auto auto 1fr auto',
+		'@media (min-width: 64rem)': {
+			gridTemplateAreas: `"banner banner banner banner" "ribbon top-bar top-bar top-bar" "ribbon side-nav main aside"`,
+			gridTemplateRows: 'auto auto 3fr',
+			gridTemplateColumns: 'auto auto minmax(0,1fr) auto',
+		},
+		'@media (min-width: 90rem)': {
+			gridTemplateAreas: `"banner banner banner banner banner" "ribbon top-bar top-bar top-bar top-bar" "ribbon side-nav main aside panel"`,
+			gridTemplateRows: 'auto auto 3fr',
+			gridTemplateColumns: 'auto auto minmax(0,1fr) auto auto',
+		},
+	},
 	root: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
+		['--n_mainMinW' satisfies typeof mainMinimumWidthVar]: '20rem',
 		display: 'grid',
 		minHeight: '100vh',
 		gridTemplateAreas: `
@@ -33,25 +54,37 @@ const styles = cssMap({
        `,
 		gridTemplateColumns: 'minmax(0, 1fr)',
 		gridTemplateRows: 'auto auto 1fr auto',
-		// There is no ribbon grid area on small viewports
+		// ChatPanel is inline once it and Main can both fit at their minimum widths.
+		'@media (min-width: 40rem)': {
+			gridTemplateAreas: `
+                "banner banner"
+                "top-bar chat-panel"
+                "main chat-panel"
+                "aside chat-panel"
+           `,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
+			gridTemplateColumns: `minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) minmax(0, max-content)`,
+		},
+		// There is no ribbon grid area below 64rem. SideNav is inline from this breakpoint.
 		'@media (min-width: 64rem)': {
 			gridTemplateAreas: `
-            "banner banner banner banner"
-            "ribbon top-bar top-bar top-bar"
-            "ribbon side-nav main aside"
-       `,
-			gridTemplateRows: 'auto auto 3fr',
-			gridTemplateColumns: 'auto auto minmax(0,1fr) auto',
-		},
-		// Panel is only shown as a separate column on large viewports
-		'@media (min-width: 90rem)': {
-			gridTemplateAreas: `
                 "banner banner banner banner banner"
-                "ribbon top-bar top-bar top-bar top-bar"
-                "ribbon side-nav main aside panel"
+                "ribbon top-bar top-bar top-bar chat-panel"
+                "ribbon side-nav main aside chat-panel"
            `,
 			gridTemplateRows: 'auto auto 3fr',
-			gridTemplateColumns: 'auto auto minmax(0,1fr) auto auto',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
+			gridTemplateColumns: `auto auto minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) auto minmax(0, max-content)`,
+		},
+		// The legacy navigation-system Panel keeps its existing large-viewport grid area.
+		'@media (min-width: 90rem)': {
+			gridTemplateAreas: `
+                "banner banner banner banner banner banner"
+                "ribbon top-bar top-bar top-bar top-bar chat-panel"
+                "ribbon side-nav main aside panel chat-panel"
+           `,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
+			gridTemplateColumns: `auto auto minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) auto auto minmax(0, max-content)`,
 		},
 	},
 	// Hides any non-layout components that would otherwise be added to an implicit grid track and
@@ -161,6 +194,8 @@ export function Root({
 	isSideNavShortcutEnabled?: boolean;
 }): JSX.Element {
 	const ref = useRef<HTMLDivElement>(null);
+	const isChatPanelLayoutEnabled = fg('platform-dst-chat-panel-layout');
+	const LayoutProvider = isChatPanelLayoutEnabled ? LayoutAreaSizingProvider : React.Fragment;
 
 	useEffect(() => {
 		if (process.env.NODE_ENV !== 'production') {
@@ -207,31 +242,33 @@ This message will not be displayed in production.
 				<SideNavElementProvider>
 					<IsSideNavShortcutEnabledProvider isSideNavShortcutEnabled={isSideNavShortcutEnabled}>
 						<TopNavStartProvider>
-							<OpenLayerObserver>
-								<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
-									<SkipLinksProvider
-										label={skipLinksLabel}
-										triggerLabel={skipLinksTriggerLabel}
-										testId={testId}
-									>
-										<div
-											ref={ref}
-											css={[
-												styles.root,
-												fg('platform-dst-motion-uplift-panel') && styles.panelUplift,
-												fg('platform-dst-top-layer')
-													? styles.safetyRailWithTopLayer
-													: styles.safetyRail,
-											]}
-											className={xcss}
-											id={gridRootId}
-											data-testid={testId}
+							<LayoutProvider {...(isChatPanelLayoutEnabled ? { layoutRef: ref } : {})}>
+								<OpenLayerObserver>
+									<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
+										<SkipLinksProvider
+											label={skipLinksLabel}
+											triggerLabel={skipLinksTriggerLabel}
+											testId={testId}
 										>
-											{children}
-										</div>
-									</SkipLinksProvider>
-								</DangerouslyHoistSlotSizes.Provider>
-							</OpenLayerObserver>
+											<div
+												ref={ref}
+												css={[
+													isChatPanelLayoutEnabled ? styles.root : styles.legacyRoot,
+													fg('platform-dst-motion-uplift-panel') && styles.panelUplift,
+													fg('platform-dst-top-layer')
+														? styles.safetyRailWithTopLayer
+														: styles.safetyRail,
+												]}
+												className={xcss}
+												id={gridRootId}
+												data-testid={testId}
+											>
+												{children}
+											</div>
+										</SkipLinksProvider>
+									</DangerouslyHoistSlotSizes.Provider>
+								</OpenLayerObserver>
+							</LayoutProvider>
 						</TopNavStartProvider>
 					</IsSideNavShortcutEnabledProvider>
 				</SideNavElementProvider>

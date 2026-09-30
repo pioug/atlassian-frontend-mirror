@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.4.8
+
+### Patch Changes
+
+- [`10a65c0011171`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10a65c0011171) -
+  Require package `*.docs.tsx` files to default-export a `StructuredContentSource`-typed constant.
+
 ## 4.4.7
 
 ### Patch Changes

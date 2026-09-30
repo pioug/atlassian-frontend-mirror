@@ -21,7 +21,6 @@ import * as addMetadataToExperienceModule from '../../../state/analytics/addMeta
 import * as failUfoExperienceModule from '../../../state/analytics/failUfoExperience';
 import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
 import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';
-import * as inlineSocialProofExperimentModule from '../../../state/hooks/use-social-proof-experiment/getInlineSocialProofExperimentMeta';
 import * as socialProofExperimentModule from '../../../state/hooks/use-social-proof-experiment/getSocialProofExperimentMeta';
 import { fakeFactory } from '../../../utils/fake-factory';
 import { isSpecialClick } from '../../../utils/is-special-click';
@@ -308,51 +307,10 @@ describe('smart-card: success analytics', () => {
 					);
 				});
 			});
-
-			describe('with inline social proof renderSuccess metadata gate on', () => {
-				it('adds nested experimentMeta for unauthorized inline cards', async () => {
-					passGate('platform_sl_3p_preauth_soc_proof_inline_killswitch');
-					jest
-						.spyOn(inlineSocialProofExperimentModule, 'getInlineSocialProofExperimentMeta')
-						.mockReturnValue({
-							platform_sl_3p_preauth_social_proof_inline_cta: {
-								isEligible: true,
-								tier: 'low',
-							},
-						});
-
+			describe('unauthorized inline card', () => {
+				it('does not include experimentMeta in renderSuccess for unauthorized inline cards', async () => {
 					await renderCard('inline');
 
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'renderSuccess',
-							actionSubject: 'smartLink',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								status: 'unauthorized',
-								experimentMeta: {
-									platform_sl_3p_preauth_social_proof_inline_cta: {
-										isEligible: true,
-										tier: 'low',
-									},
-								},
-							}),
-						}),
-					);
-				});
-			});
-
-			describe('with inline social proof renderSuccess metadata gate off', () => {
-				it('does not add inline nested experimentMeta for unauthorized inline cards', async () => {
-					failGate('platform_sl_3p_preauth_soc_proof_inline_killswitch');
-					const getInlineSocialProofExperimentMetaSpy = jest.spyOn(
-						inlineSocialProofExperimentModule,
-						'getInlineSocialProofExperimentMeta',
-					);
-
-					await renderCard('inline');
-
-					expect(getInlineSocialProofExperimentMetaSpy).not.toHaveBeenCalled();
 					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 						expect.objectContaining({
 							action: 'renderSuccess',

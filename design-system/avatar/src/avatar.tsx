@@ -22,6 +22,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import type { TriggerAriaProps } from '@atlaskit/popup/types';
 
 import { AvatarContent } from './avatar-content';
 import AvatarImage from './internal/avatar-image';
@@ -61,8 +62,14 @@ const updatedHexagonNegativeMarginMap = unboundCssMap({
 const normalizeAvatarSize = (size: SizeType): SizeType =>
 	size === 'xsmall' && !fg('platform_design-system-team_avatar-remove-xsmall') ? 'xxsmall' : size;
 
+/**
+ * Popup trigger ARIA attributes are optional. Use `aria-controls` to identify
+ * the popup and `aria-expanded` to announce whether it is open. An
+ * `aria-haspopup` value indicating a popup renders Avatar as a button,
+ * even when `onClick` is absent.
+ */
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-export interface AvatarPropTypes {
+export interface AvatarPropTypes extends Partial<TriggerAriaProps> {
 	/**
 	 * Indicates the shape of the avatar. Most avatars are circular, but square avatars
 	 * can be used for 'container' objects.
@@ -165,20 +172,6 @@ export interface AvatarPropTypes {
 	 * Defines the loading behaviour of the avatar image. Default value is eager.
 	 */
 	imgLoading?: 'lazy' | 'eager';
-	/**
-	 * Identifies the popup element that the avatar controls.
-	 * Used when Avatar is a trigger for a popup.
-	 */
-	'aria-controls'?: string;
-	/**
-	 * Announces to assistive technology whether the controlled popup is currently open or closed.
-	 */
-	'aria-expanded'?: boolean;
-	/**
-	 * Informs assistive technology that this element triggers a popup.
-	 * When set, Avatar will render as a `<button>` element even without `onClick`.
-	 */
-	'aria-haspopup'?: boolean | 'dialog';
 }
 
 /**

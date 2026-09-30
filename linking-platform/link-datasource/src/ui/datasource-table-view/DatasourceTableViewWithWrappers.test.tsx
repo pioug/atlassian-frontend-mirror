@@ -3,8 +3,6 @@ import React, { Suspense } from 'react';
 import { hydrateRoot, type Root } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -18,7 +16,6 @@ jest.mock('./datasourceTableView', () => ({
 	DatasourceTableView: jest.fn(),
 }));
 
-const experiment = 'platform_datasource_hydration_stability';
 const mockTable = jest.mocked(DatasourceTableView);
 
 const createProps = (): DatasourceTableViewProps => ({
@@ -97,7 +94,6 @@ describe('DatasourceTableViewWithWrappers', () => {
 		};
 
 		it('preserves the server table when equivalent props arrive before hydration finishes', async () => {
-			mockExpEnabled(experiment);
 			const { serverTable, onRecoverableError } = await hydrateAndUpdate();
 
 			expect(onRecoverableError).not.toHaveBeenCalled();
@@ -113,19 +109,6 @@ describe('DatasourceTableViewWithWrappers', () => {
 			});
 			expect(serverTable).toHaveTextContent('key = TEST-2');
 			expect(onRecoverableError).not.toHaveBeenCalled();
-		});
-
-		it('retains the existing hydration bailout when the experiment is disabled', async () => {
-			mockExpDisabled(experiment);
-			const { serverTable, onRecoverableError } = await hydrateAndUpdate();
-
-			expect(onRecoverableError).toHaveBeenCalledWith(
-				expect.objectContaining({
-					message: expect.stringContaining('received an update before it finished hydrating'),
-				}),
-				expect.anything(),
-			);
-			expect(screen.getByRole('button')).not.toBe(serverTable);
 		});
 	});
 
@@ -145,7 +128,6 @@ describe('DatasourceTableViewWithWrappers', () => {
 		['sort direction', { sortState: { key: 'summary', direction: 'DESC' } }],
 		['sort reset', { sortState: undefined }],
 	])('propagates a changed %s', async (_name, change) => {
-		mockExpEnabled(experiment);
 		const { rerender } = render(<DatasourceTableViewWithWrappers {...createProps()} />);
 		await screen.findByRole('button');
 
@@ -156,7 +138,6 @@ describe('DatasourceTableViewWithWrappers', () => {
 	});
 
 	it('uses the latest callback when equivalent configuration is rerendered', async () => {
-		mockExpEnabled(experiment);
 		const user = userEvent.setup();
 		const previousCallback = jest.fn();
 		const nextCallback = jest.fn();

@@ -10,7 +10,6 @@ import { isEntityPresent } from '@atlaskit/link-extractors/is-entity-present';
 import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getEmptyJsonLd } from '../../utils/get-empty-json-ld';
 import { type InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
@@ -25,17 +24,14 @@ const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData, showIconLabel = true) =
 	const provider = extractProvider(jsonLd);
 	if (provider && provider.id) {
 		if (provider.id === CONFLUENCE_GENERATOR_ID || provider.id === JIRA_GENERATOR_ID) {
-			if (fg('platform_navx_jira_issue_type_icon_label_a11y')) {
-				const icon = extractIcon(jsonLd, 'type', showIconLabel);
-				if (provider.id === JIRA_GENERATOR_ID && typeof icon === 'string') {
-					const taskTypeLabel = extractTaskType(jsonLd as JsonLd.Data.Task)?.name?.trim();
-					if (taskTypeLabel) {
-						return [icon, taskTypeLabel];
-					}
+			const icon = extractIcon(jsonLd, 'type', showIconLabel);
+			if (provider.id === JIRA_GENERATOR_ID && typeof icon === 'string') {
+				const taskTypeLabel = extractTaskType(jsonLd as JsonLd.Data.Task)?.name?.trim();
+				if (taskTypeLabel) {
+					return [icon, taskTypeLabel];
 				}
-				return icon;
 			}
-			return extractIcon(jsonLd, 'type', showIconLabel);
+			return icon;
 		}
 	}
 	return extractIcon(jsonLd, 'provider', showIconLabel);

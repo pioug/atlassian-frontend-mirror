@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
@@ -108,100 +107,57 @@ describe('AtlaskitIcon', () => {
 		);
 	});
 
-	ffTest.on('billplat_a11y_icon_label_fix', 'gate is on', () => {
-		it('passes an empty label to ConfluenceIcon and JiraIcon', () => {
+	it('passes an empty label to ConfluenceIcon and JiraIcon when billplat_a11y_icon_label_fix is on', () => {
+		passGate('billplat_a11y_icon_label_fix');
+
+		render(
+			<>
+				<AtlaskitIcon icon={IconType.Confluence} testId="confluence-icon" />
+				<AtlaskitIcon icon={IconType.Jira} testId="jira-icon" />
+			</>,
+		);
+
+		expect(mockConfluenceIcon).toHaveBeenCalledWith(
+			expect.objectContaining({ testId: 'confluence-icon', label: '' }),
+			expect.anything(),
+		);
+		expect(mockJiraIcon).toHaveBeenCalledWith(
+			expect.objectContaining({ testId: 'jira-icon', label: '' }),
+			expect.anything(),
+		);
+	});
+
+	describe('priority icons', () => {
+		it('renders priority icon directly at medium size without IconTile wrapper', () => {
 			render(
-				<>
-					<AtlaskitIcon icon={IconType.Confluence} testId="confluence-icon" />
-					<AtlaskitIcon icon={IconType.Jira} testId="jira-icon" />
-				</>,
+				<AtlaskitIcon
+					icon={IconType.PriorityHigh}
+					testId="priority-high-icon"
+					label="Priority: High"
+					size={SmartLinkSize.Medium}
+				/>,
 			);
 
-			expect(mockConfluenceIcon).toHaveBeenCalledWith(
-				expect.objectContaining({ testId: 'confluence-icon', label: '' }),
-				expect.anything(),
-			);
-			expect(mockJiraIcon).toHaveBeenCalledWith(
-				expect.objectContaining({ testId: 'jira-icon', label: '' }),
-				expect.anything(),
-			);
+			expect(screen.getByTestId('priority-high-icon')).toBeInTheDocument();
+			expect(screen.queryByTestId('icon-tile')).not.toBeInTheDocument();
 		});
-	});
 
-	ffTest.off('billplat_a11y_icon_label_fix', 'gate is off', () => {
-		it('does not pass a label prop to ConfluenceIcon and JiraIcon', () => {
+		it('renders priority icon directly at large size without wrapping in IconTile', () => {
 			render(
-				<>
-					<AtlaskitIcon icon={IconType.Confluence} testId="confluence-icon" />
-					<AtlaskitIcon icon={IconType.Jira} testId="jira-icon" />
-				</>,
+				<AtlaskitIcon
+					icon={IconType.PriorityHigh}
+					testId="priority-high-icon"
+					label="Priority: High"
+					size={SmartLinkSize.Large}
+				/>,
 			);
 
-			expect(mockConfluenceIcon).toHaveBeenCalledWith(
-				expect.not.objectContaining({ label: '' }),
-				expect.anything(),
-			);
-			expect(mockJiraIcon).toHaveBeenCalledWith(
-				expect.not.objectContaining({ label: '' }),
-				expect.anything(),
-			);
-		});
-	});
-
-	ffTest.on('platform_sl_priority_icon', '', () => {
-		ffTest.on('platform_sl_icons_refactor', 'platform_sl_icons_refactor is on', () => {
-			it('renders priority icon directly at medium size without size or isTiledIcon props', () => {
-				const { getByTestId } = render(
-					<AtlaskitIcon
-						icon={IconType.PriorityHigh}
-						testId="priority-high-icon"
-						label="Priority: High"
-						size={SmartLinkSize.Medium}
-					/>,
-				);
-
-				// Core icon at small/medium size: renders the icon span directly (no IconTile wrapper)
-				expect(getByTestId('priority-high-icon')).toBeInTheDocument();
-			});
-
-			it('renders priority icon directly at large size without wrapping in IconTile', () => {
-				const { getByTestId, queryByRole } = render(
-					<AtlaskitIcon
-						icon={IconType.PriorityHigh}
-						testId="priority-high-icon"
-						label="Priority: High"
-						size={SmartLinkSize.Large}
-					/>,
-				);
-
-				// Priority icon at large size skips IconTile and renders ImportedIcon directly
-				expect(getByTestId('priority-high-icon')).toBeInTheDocument();
-				// No img role means no IconTile was rendered
-				expect(queryByRole('img')).not.toBeInTheDocument();
-			});
-		});
-	});
-
-	ffTest.off('platform_sl_priority_icon', '', () => {
-		ffTest.on('platform_sl_icons_refactor', 'platform_sl_icons_refactor is on', () => {
-			it('renders priority icon via the default path (with size prop) at large size when gate is off', () => {
-				const { getByTestId } = render(
-					<AtlaskitIcon
-						icon={IconType.PriorityHigh}
-						testId="priority-high-icon"
-						label="Priority: High"
-						size={SmartLinkSize.Large}
-					/>,
-				);
-
-				// Without the gate, priority icons fall through to the default switch case which renders with testId
-				expect(getByTestId('priority-high-icon')).toBeInTheDocument();
-			});
+			expect(screen.getByTestId('priority-high-icon')).toBeInTheDocument();
+			expect(screen.queryByTestId('icon-tile')).not.toBeInTheDocument();
 		});
 	});
 
 	it('uses a non-bold gray tile for badge icons at large size when platform_lp_non_bold_large_sl_icon is on', () => {
-		passGate('platform_sl_icons_refactor');
 		passGate('platform_lp_non_bold_large_sl_icon');
 
 		render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);
@@ -210,7 +166,6 @@ describe('AtlaskitIcon', () => {
 	});
 
 	it('keeps the bold gray tile for badge icons at large size when platform_lp_non_bold_large_sl_icon is off', () => {
-		passGate('platform_sl_icons_refactor');
 		failGate('platform_lp_non_bold_large_sl_icon');
 
 		render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);

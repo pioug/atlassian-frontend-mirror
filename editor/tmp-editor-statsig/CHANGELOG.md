@@ -1,5 +1,34 @@
 # @atlaskit/editor-statsig-tmp
 
+## 218.0.0
+
+### Major Changes
+
+- [`be9e41ded080d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be9e41ded080d) -
+  Clean up shipped experiment `platform_editor_use_html_plus_streaming_parser`. The HTML+ v2
+  incremental tool-call streaming parser (`PartialStreamParserV2` / `ToolCallProcessorV2` /
+  `AdfChunkStrategyV2`) is now permanently enabled in `@atlassian/editor-rovo-bridge`, and
+  `ReadContentCommandHandler` always advertises `editorStreamingContractVersion: 2` to the backend.
+  The removed experiment declaration in `@atlaskit/tmp-editor-statsig` is a breaking change to the
+  statsig experiment contract for any remaining consumers.
+
+## 217.0.0
+
+### Major Changes
+
+- [`f34945bb86971`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f34945bb86971) -
+  Clean up experiment `company_hub_carousel_thumbnails-refactor`
+
+## 216.0.0
+
+### Major Changes
+
+- [`4a467a9d5ed8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a467a9d5ed8b) -
+  Remove the launched `platform_sl_3p_preauth_social_proof_inline_cta` experiment from the exported
+  `EditorExperimentsConfig` type and `editorExperimentsConfig` registry in the
+  `./experiments-config` entrypoint. Consumers must remove lookups and overrides for this key and
+  retain the shipped Test behavior (`isEnabled: true`).
+
 ## 215.0.0
 
 ### Major Changes

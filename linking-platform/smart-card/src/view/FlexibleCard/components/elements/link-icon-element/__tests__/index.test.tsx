@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen } from '@atlassian/testing-library';
 
 import { IconType } from '../../../../../../constants';
@@ -36,13 +35,7 @@ const renderLinkIcon = ({
 	);
 
 describe('LinkIconElement', () => {
-	beforeEach(() => {
-		passGate('platform_navx_smart_link_icon_label_a11y');
-	});
-
 	it('is accessible', async () => {
-		passGate('platform_navx_jira_issue_type_icon_label_a11y');
-
 		const { container } = renderLinkIcon({
 			label: 'Bug',
 			resourceType: 'issue',
@@ -53,10 +46,8 @@ describe('LinkIconElement', () => {
 	});
 
 	it.each(['Bug', 'Task', 'Question'])(
-		'uses the resolver-provided Jira %s issue type label when the gate is on',
+		'uses the resolver-provided Jira %s issue type label',
 		(label) => {
-			passGate('platform_navx_jira_issue_type_icon_label_a11y');
-
 			renderLinkIcon({
 				label,
 				resourceType: 'issue',
@@ -68,22 +59,7 @@ describe('LinkIconElement', () => {
 		},
 	);
 
-	it('preserves the generic resource type label when the gate is off', () => {
-		failGate('platform_navx_jira_issue_type_icon_label_a11y');
-
-		renderLinkIcon({
-			label: 'Bug',
-			resourceType: 'issue',
-			type: ['atlassian:Task', 'Object'],
-		});
-
-		expect(screen.getByRole('img', { name: 'Issue' })).toBeVisible();
-		expect(screen.queryByRole('img', { name: 'Bug' })).not.toBeInTheDocument();
-	});
-
-	it('preserves resource type labels for non-Jira task icons when the gate is on', () => {
-		passGate('platform_navx_jira_issue_type_icon_label_a11y');
-
+	it('preserves resource type labels for non-Jira task icons', () => {
 		renderLinkIcon({
 			label: 'Blog',
 			resourceType: 'page',

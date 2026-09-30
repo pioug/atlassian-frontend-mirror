@@ -11,7 +11,6 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer';
 import { Card } from '@atlaskit/smart-card';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmbedCard from '../../../../react/nodes/embedCard';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
@@ -163,7 +162,7 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 
 			// Live scenario: NCE Confluence embed provides an absolute height (data-card-original-height="480")
 			// but NO originalWidth. data-width is 100 (percentage). We reproduce across document widths.
-			// The height-only path is gate-independent (it never reaches the fallback gate check).
+			// The height-only path never reaches the ratio fallback branch.
 			it('a height-only embed (no originalWidth) emits an explicit height spacer', () => {
 				const { baseElement } = render(
 					<Provider client={new Client('staging')}>
@@ -238,39 +237,8 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 			const msSelector = '.mediaSingleView-content-wrap > div';
 
 			it.each([0, undefined, NaN])(
-				'gate OFF: MediaSingle ratio path with lineLength=%p emits NaN padding-bottom (reproduces the collapse)',
+				'MediaSingle ratio path with lineLength=%p falls back to explicit height (fix)',
 				(lineLength) => {
-					failGate('platform_editor_embed_height_only_fallback');
-					const { baseElement } = render(
-						<UIMediaSingle
-							layout="center"
-							width={640}
-							height={480}
-							pctWidth={100}
-							nodeType="embedCard"
-							lineLength={lineLength as unknown as number}
-							hasFallbackContainer
-						>
-							<div />
-						</UIMediaSingle>,
-					);
-
-					// Bug signature: an invalid calc(NaN% + 32px) padding-bottom that the browser drops,
-					// collapsing the embed to 0 height.
-					expect(baseElement.querySelector(msSelector)).toHaveStyleDeclaration(
-						'padding-bottom',
-						'calc(NaN% + 32px)',
-						{
-							target: '::after',
-						},
-					);
-				},
-			);
-
-			it.each([0, undefined, NaN])(
-				'gate ON: MediaSingle ratio path with lineLength=%p falls back to explicit height (fix)',
-				(lineLength) => {
-					passGate('platform_editor_embed_height_only_fallback');
 					const { baseElement } = render(
 						<UIMediaSingle
 							layout="center"

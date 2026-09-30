@@ -4,7 +4,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { renderHook } from '@atlassian/testing-library';
 
 import type { SocialProof } from '../../use-social-proof';
-import { getInlineSocialProofExperimentMeta } from '../getInlineSocialProofExperimentMeta';
 import { getSocialProofExperimentMeta } from '../getSocialProofExperimentMeta';
 import { getSocialProofTier } from '../getSocialProofTier';
 import { default as useSocialProofExperiment } from '../index';
@@ -210,15 +209,6 @@ describe('useSocialProofExperiment', () => {
 
 			expect(getSocialProofExperimentMeta({ extensionKey: MOCK_EXTENSION_KEY })).toEqual({
 				social_proof_3p_unauth_block_exp: { isEligible: false },
-			});
-		});
-
-		it('returns inline experiment meta under the inline Statsig key', () => {
-			expect(getInlineSocialProofExperimentMeta({ extensionKey: MOCK_EXTENSION_KEY })).toEqual({
-				platform_sl_3p_preauth_social_proof_inline_cta: {
-					isEligible: true,
-					tier: 'not-low',
-				},
 			});
 		});
 	});

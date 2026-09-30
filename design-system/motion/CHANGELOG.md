@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 9.1.0
+
+### Minor Changes
+
+- [`f0b7e833490d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b7e833490d2) -
+  Expose named literal types for animation curves so static CSS values can be checked against their
+  exact source curve. Preserve existing AnimationCurve annotations and runtime values.
+
 ## 9.0.1
 
 ### Patch Changes

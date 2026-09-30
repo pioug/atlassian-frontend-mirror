@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::b9f701a6e97f2affdf15c1ef866eefbe>>
+ * @codegen <<SignedSource::3b66faaf90a123fa4bc5856ae6f6a17f>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -29,7 +29,7 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		},
 		package: '@atlaskit/analytics-next',
 		examples: [
-			"import React, { type FC, type MouseEvent, useCallback } from 'react';\nimport AnalyticsListener from '../src/components/AnalyticsListener';\nimport type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';\nimport { useAnalyticsEvents } from '../src/hooks/useAnalyticsEvents';\nimport { useCallbackWithAnalytics } from '../src/hooks/useCallbackWithAnalytics';\nimport { usePlatformLeafEventHandler } from '../src/hooks/usePlatformLeafEventHandler';\nimport withAnalyticsEvents, {\n\ttype WithAnalyticsEventsProps,\n} from '../src/hocs/withAnalyticsEvents';\ninterface Props extends WithAnalyticsEventsProps {\n\tchildren: React.ReactNode;\n\tonClick: (e: MouseEvent<HTMLButtonElement>) => void;\n}\nconst ButtonBase = ({ createAnalyticsEvent, onClick, ...rest }: Props) => {\n\tconst handleClick = useCallback(\n\t\t(e: MouseEvent<HTMLButtonElement>) => {\n\t\t\t// Create our analytics event\n\t\t\tconst analyticsEvent = createAnalyticsEvent!({\n\t\t\t\taction: 'click',\n\t\t\t});\n\t\t\t// Fire our analytics event on the 'atlaskit' channel\n\t\t\tanalyticsEvent.fire('atlaskit');\n\t\t\tif (onClick) {\n\t\t\t\tonClick(e);\n\t\t\t}\n\t\t},\n\t\t[onClick, createAnalyticsEvent],\n\t);\n\treturn <button {...rest} onClick={handleClick} />;\n};\nconst Button = withAnalyticsEvents()(ButtonBase);\nconst ButtonUsingHook: FC<Props> = ({ onClick, ...props }) => {\n\t// Decompose function from the hook\n\tconst { createAnalyticsEvent } = useAnalyticsEvents();\n\tconst handleClick = useCallback(\n\t\t(e: MouseEvent<HTMLButtonElement>) => {\n\t\t\t// Create our analytics event\n\t\t\tconst analyticsEvent = createAnalyticsEvent({ action: 'click' });\n\t\t\t// Fire our analytics event\n\t\t\tanalyticsEvent.fire('atlaskit');\n\t\t\tif (onClick) {\n\t\t\t\tonClick(e);\n\t\t\t}\n\t\t},\n\t\t[onClick, createAnalyticsEvent],\n\t);\n\treturn <button {...props} onClick={handleClick} />;\n};\nconst ButtonUsingCallback: FC<Props> = ({ onClick, ...props }) => {\n\tconst handleClick = useCallbackWithAnalytics(onClick, { action: 'click' }, 'atlaskit');\n\treturn <button {...props} onClick={handleClick} />;\n};\nconst ButtonUsingEventHandlerHook = ({\n\tonClick,\n\tchildren,\n}: {\n\tchildren: React.ReactNode;\n\tonClick: (\n\t\tmouseEvent: React.MouseEvent<HTMLButtonElement>,\n\t\tanalyticsEvent: UIAnalyticsEvent,\n\t) => void;\n}) => {\n\tconst handleClick = usePlatformLeafEventHandler({\n\t\tfn: onClick,\n\t\taction: 'clicked',\n\t\tcomponentName: 'fancy-button',\n\t\tpackageName: '@atlaskit/fancy-button',\n\t\tpackageVersion: '0.1.0',\n\t});\n\treturn <button onClick={handleClick}>{children}</button>;\n};\nconst App: FC = () => {\n\tconst handleEvent = (analyticsEvent: UIAnalyticsEvent) => {\n\t\tconst { payload, context } = analyticsEvent;\n\t\tconsole.log('Received event:', { payload, context });\n\t};\n\tconst onClickHandler = () => console.log('onClickCallback');\n\treturn (\n\t\t<AnalyticsListener channel=\"atlaskit\" onEvent={handleEvent}>\n\t\t\t<Button onClick={onClickHandler}>Click me (withAnalyticsEvents)</Button>\n\t\t\t<br />\n\t\t\t<ButtonUsingHook onClick={onClickHandler}>Click me (useAnalyticsEvents)</ButtonUsingHook>\n\t\t\t<br />\n\t\t\t<ButtonUsingCallback onClick={onClickHandler}>\n\t\t\t\tClick me (useCallbackWithAnalytics)\n\t\t\t</ButtonUsingCallback>\n\t\t\t<br />\n\t\t\t<ButtonUsingEventHandlerHook onClick={onClickHandler}>\n\t\t\t\tClick me (usePlatformLeafEventHandler)\n\t\t\t</ButtonUsingEventHandlerHook>\n\t\t</AnalyticsListener>\n\t);\n};\nexport default App;",
+			"import React, { type FC, type MouseEvent, useCallback } from 'react';\nimport AnalyticsListener from '../src/components/AnalyticsListener';\nimport type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';\nimport withAnalyticsEvents, {\n\ttype WithAnalyticsEventsProps,\n} from '../src/hocs/withAnalyticsEvents';\nimport { useAnalyticsEvents } from '../src/hooks/useAnalyticsEvents';\nimport { useCallbackWithAnalytics } from '../src/hooks/useCallbackWithAnalytics';\nimport { usePlatformLeafEventHandler } from '../src/hooks/usePlatformLeafEventHandler';\ninterface Props extends WithAnalyticsEventsProps {\n\tchildren: React.ReactNode;\n\tonClick: (e: MouseEvent<HTMLButtonElement>) => void;\n}\nconst ButtonBase = ({ createAnalyticsEvent, onClick, ...rest }: Props) => {\n\tconst handleClick = useCallback(\n\t\t(e: MouseEvent<HTMLButtonElement>) => {\n\t\t\t// Create our analytics event\n\t\t\tconst analyticsEvent = createAnalyticsEvent!({\n\t\t\t\taction: 'click',\n\t\t\t});\n\t\t\t// Fire our analytics event on the 'atlaskit' channel\n\t\t\tanalyticsEvent.fire('atlaskit');\n\t\t\tif (onClick) {\n\t\t\t\tonClick(e);\n\t\t\t}\n\t\t},\n\t\t[onClick, createAnalyticsEvent],\n\t);\n\treturn <button {...rest} onClick={handleClick} />;\n};\nconst Button = withAnalyticsEvents()(ButtonBase);\nconst ButtonUsingHook: FC<Props> = ({ onClick, ...props }) => {\n\t// Decompose function from the hook\n\tconst { createAnalyticsEvent } = useAnalyticsEvents();\n\tconst handleClick = useCallback(\n\t\t(e: MouseEvent<HTMLButtonElement>) => {\n\t\t\t// Create our analytics event\n\t\t\tconst analyticsEvent = createAnalyticsEvent({ action: 'click' });\n\t\t\t// Fire our analytics event\n\t\t\tanalyticsEvent.fire('atlaskit');\n\t\t\tif (onClick) {\n\t\t\t\tonClick(e);\n\t\t\t}\n\t\t},\n\t\t[onClick, createAnalyticsEvent],\n\t);\n\treturn <button {...props} onClick={handleClick} />;\n};\nconst ButtonUsingCallback: FC<Props> = ({ onClick, ...props }) => {\n\tconst handleClick = useCallbackWithAnalytics(onClick, { action: 'click' }, 'atlaskit');\n\treturn <button {...props} onClick={handleClick} />;\n};\nconst ButtonUsingEventHandlerHook = ({\n\tonClick,\n\tchildren,\n}: {\n\tchildren: React.ReactNode;\n\tonClick: (\n\t\tmouseEvent: React.MouseEvent<HTMLButtonElement>,\n\t\tanalyticsEvent: UIAnalyticsEvent,\n\t) => void;\n}) => {\n\tconst handleClick = usePlatformLeafEventHandler({\n\t\tfn: onClick,\n\t\taction: 'clicked',\n\t\tcomponentName: 'fancy-button',\n\t\tpackageName: '@atlaskit/fancy-button',\n\t\tpackageVersion: '0.1.0',\n\t});\n\treturn <button onClick={handleClick}>{children}</button>;\n};\nconst App: FC = () => {\n\tconst handleEvent = (analyticsEvent: UIAnalyticsEvent) => {\n\t\tconst { payload, context } = analyticsEvent;\n\t\tconsole.log('Received event:', { payload, context });\n\t};\n\tconst onClickHandler = () => console.log('onClickCallback');\n\treturn (\n\t\t<AnalyticsListener channel=\"atlaskit\" onEvent={handleEvent}>\n\t\t\t<Button onClick={onClickHandler}>Click me (withAnalyticsEvents)</Button>\n\t\t\t<br />\n\t\t\t<ButtonUsingHook onClick={onClickHandler}>Click me (useAnalyticsEvents)</ButtonUsingHook>\n\t\t\t<br />\n\t\t\t<ButtonUsingCallback onClick={onClickHandler}>\n\t\t\t\tClick me (useCallbackWithAnalytics)\n\t\t\t</ButtonUsingCallback>\n\t\t\t<br />\n\t\t\t<ButtonUsingEventHandlerHook onClick={onClickHandler}>\n\t\t\t\tClick me (usePlatformLeafEventHandler)\n\t\t\t</ButtonUsingEventHandlerHook>\n\t\t</AnalyticsListener>\n\t);\n};\nexport default App;",
 		],
 	},
 	{
@@ -489,6 +489,34 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		examples: [
 			"import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';\nimport AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';\nimport type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';\nimport Heading from '@atlaskit/heading/heading';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';\nimport { Box, Text, xcss } from '@atlaskit/primitives';\nimport { Card } from '../../src';\nconst headingBoxStyles = xcss({\n\tmarginBottom: 'space.100',\n});\nconst stackBoxStyles = xcss({\n\tmarginTop: 'space.100',\n});\ntype ExampleComponentProps = {\n\tsetRecentEvents: React.Dispatch<React.SetStateAction<UIAnalyticsEvent[]>>;\n};\nconst ExampleComponent = ({ setRecentEvents }: ExampleComponentProps): JSX.Element => {\n\tconst handleOnClick = React.useCallback(\n\t\t(e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => {\n\t\t\te.preventDefault();\n\t\t\treturn;\n\t\t},\n\t\t[],\n\t);\n\treturn (\n\t\t<AnalyticsListener\n\t\t\tonEvent={(event) => {\n\t\t\t\tsetRecentEvents((prevEvents) => [...prevEvents, event]);\n\t\t\t}}\n\t\t\tchannel=\"*\"\n\t\t>\n\t\t\t<AnalyticsContext\n\t\t\t\tdata={{\n\t\t\t\t\tsource: 'content',\n\t\t\t\t\tattributes: {\n\t\t\t\t\t\tdisplayCategory: 'link',\n\t\t\t\t\t\tdisplay: 'url',\n\t\t\t\t\t\tid: '123',\n\t\t\t\t\t},\n\t\t\t\t}}\n\t\t\t>\n\t\t\t\t<SmartCardProvider client={new ResolvedClient('dev')}>\n\t\t\t\t\t<Card\n\t\t\t\t\t\turl={ResolvedClientUrl}\n\t\t\t\t\t\tappearance=\"inline\"\n\t\t\t\t\t\tplatform=\"web\"\n\t\t\t\t\t\tshowHoverPreview={true}\n\t\t\t\t\t\tonClick={handleOnClick}\n\t\t\t\t\t/>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</AnalyticsContext>\n\t\t</AnalyticsListener>\n\t);\n};\nexport default (): React.JSX.Element => {\n\tconst [recentEvents, setRecentEvents] = React.useState<UIAnalyticsEvent[]>([]);\n\tconst mostRecent10Events = React.useMemo(() => {\n\t\treturn Array.from({ length: 10 }, (_, i) => {\n\t\t\treturn recentEvents.at(recentEvents.length - i - 1);\n\t\t});\n\t}, [recentEvents]);\n\treturn (\n\t\t<Box>\n\t\t\t<Box xcss={headingBoxStyles}>\n\t\t\t\t<Heading size=\"medium\">Interact with the link below and see events being fired</Heading>\n\t\t\t</Box>\n\t\t\t<ExampleComponent setRecentEvents={setRecentEvents} />\n\t\t\t<Box xcss={stackBoxStyles}>\n\t\t\t\t<Heading size=\"small\">The 10 Most Recent Events Fired</Heading>\n\t\t\t\t<ol>\n\t\t\t\t\t{mostRecent10Events.map((event, index) => {\n\t\t\t\t\t\tif (event === undefined) {\n\t\t\t\t\t\t\treturn <li key={index}></li>;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tconst { action, actionSubject, eventType } = event.payload;\n\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t<li key={index}>\n\t\t\t\t\t\t\t\t<Text\n\t\t\t\t\t\t\t\t\tkey={index}\n\t\t\t\t\t\t\t\t>{`actionSubject: ${actionSubject}, action: ${action}, eventType: ${eventType}`}</Text>\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t);\n\t\t\t\t\t})}\n\t\t\t\t</ol>\n\t\t\t</Box>\n\t\t</Box>\n\t);\n};",
 		],
+	},
+	{
+		name: 'useAgentSessions',
+		description:
+			'Reads normalized account-scoped Rovo agent sessions and keeps the Relay result current after lifecycle events.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Call inside a RelayEnvironmentProvider and pass accountId with cloudId unless the host already has a Rovo activation ID.',
+			'Render from the ready result and preserve backend session state for product-owned presentation rather than inventing replacement labels.',
+			'Use the exported types entrypoint for AgentSessionsOptions, AgentSessionsResult, and normalized session contracts.',
+		],
+		keywords: ['rovo', 'agent sessions', 'relay', 'hooks'],
+		category: 'data',
+		parameters: [
+			{
+				name: 'options',
+				type: 'AgentSessionsOptions',
+				description:
+					'Account identity plus cloudId or rovoActivationId, with optional pageSize and sort configuration.',
+			},
+		],
+		returns: {
+			type: 'AgentSessionsResult',
+			description:
+				'An unavailable result when identity cannot resolve a Rovo workspace, otherwise normalized sessions, pagination, and refetch controls.',
+		},
+		package: '@atlassian/agent-sessions',
+		examples: [],
 	},
 	{
 		name: 'useChooseObjectExample',
@@ -1087,6 +1115,29 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		examples: [],
 	},
 	{
+		name: 'useEditorRovoBridge',
+		description:
+			'Connects an editor instance to Rovo command handling, streaming lifecycle, and media insertion.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use from the editor integration that owns the current EditorView and Rovo content bridge session.',
+		],
+		keywords: ['rovo', 'editor', 'streaming', 'bridge'],
+		category: 'rovo',
+		package: '@atlassian/editor-rovo-bridge',
+		examples: [],
+	},
+	{
+		name: 'useGuardFlagContent',
+		description: 'Builds localized Guard flag content for a supported product surface.',
+		status: 'general-availability',
+		usageGuidelines: ['Pass the real Guard surface so copy matches the policy context.'],
+		keywords: ['rovo chat', 'guard', 'flag'],
+		category: 'rovo',
+		package: '@atlassian/guard-redaction-ui',
+		examples: [],
+	},
+	{
 		name: 'useAiCreateProjectContext',
 		description: 'Resolves Jira project context for an AI-assisted creation flow.',
 		status: 'general-availability',
@@ -1458,6 +1509,20 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		examples: [],
 	},
 	{
+		name: 'useFiltersState',
+		description:
+			'Initializes and maintains connector-specific search filter state from resource type, hydrated connector configuration, and URL query parameters.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Render within IntlProvider because connector configuration includes localized filter state.',
+			'Wait for hasInitialisedState before issuing a connector search from filtersState.',
+		],
+		keywords: ['rovo', 'agents', 'connectors', 'filters', 'search'],
+		category: 'rovo',
+		package: '@atlassian/rovo-agent-connectors',
+		examples: [],
+	},
+	{
 		name: 'useClearFormValue',
 		description: 'Returns a callback for clearing one declarative form property.',
 		status: 'general-availability',
@@ -1589,6 +1654,34 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'evaluation', 'trigger hook'],
 		category: 'rovo',
 		package: '@atlassian/rovo-chat-side-by-side-evaluation',
+		examples: [],
+	},
+	{
+		name: 'useRovoConfig',
+		description:
+			'Fetches the combined Rovo configuration, including accessible products, connector state, and OAuth update support.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use in a Rovo host with a cloud ID and render loading or error states before using connector data.',
+			'Call onOAuthSuccess only after the host confirms a connector OAuth flow has succeeded.',
+		],
+		keywords: ['rovo', 'connectors', 'configuration', 'oauth', 'search'],
+		category: 'agents',
+		package: '@atlassian/rovo-connectors-config',
+		examples: [],
+	},
+	{
+		name: 'useRovoConfigStore',
+		description:
+			'Provides the conversation-assistant-compatible connector store while Rovo Chat migrates to canonical connector configuration.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use only as a 1:1 migration boundary for existing conversation-assistant connector selectors.',
+			'Do not persist or mutate returned connector records directly; use markUserConnected after a confirmed OAuth flow.',
+		],
+		keywords: ['rovo', 'chat', 'connectors', 'store', 'oauth'],
+		category: 'agents',
+		package: '@atlassian/rovo-connectors-config',
 		examples: [],
 	},
 	{
@@ -1966,6 +2059,20 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		examples: [],
 	},
 	{
+		name: 'usePromptOfTheDay',
+		description:
+			'Reads today’s account-scoped prompt suggestions with a shared request cache and an explicit availability status.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Render no prompt UI when status is unavailable; an empty result intentionally covers skipped, failed, and malformed responses.',
+			'Pass the same account and request arguments across surfaces to reuse the cache entry.',
+		],
+		keywords: ['rovo', 'prompt of the day', 'suggestions', 'cache'],
+		category: 'rovo',
+		package: '@atlassian/rovo-prompt-of-the-day',
+		examples: [],
+	},
+	{
 		name: 'useIsRovoSettingsModalProviderMounted',
 		description: 'Reports whether a Rovo settings modal provider is mounted above the caller.',
 		status: 'general-availability',
@@ -2128,6 +2235,83 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		examples: [],
 	},
 	{
+		name: 'useRetry',
+		description: 'Retries an asynchronous readiness check until it succeeds, fails, or is stopped.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use a stable async callback and provide a bounded retry count for transient session checks.',
+		],
+		keywords: ['rovodev', 'retry', 'session', 'hooks'],
+		category: 'agents',
+		package: '@atlassian/rovodev-session-frame',
+		examples: [],
+	},
+	{
+		name: 'useSandboxReadiness',
+		description: 'Polls Relay for Rovo Dev sandbox readiness, progress, and known sandbox errors.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use from a Relay-enabled session surface and show the returned progress or error state to the user.',
+		],
+		keywords: ['rovodev', 'sandbox', 'relay', 'readiness', 'hooks'],
+		category: 'agents',
+		package: '@atlassian/rovodev-session-frame',
+		examples: [],
+	},
+	{
+		name: 'useWakeUpSession',
+		description:
+			'Returns a callback that asks the Rovo Dev backend to keep a session sandbox awake.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Invoke from a Relay-enabled host only when a user action needs to wake an existing session.',
+		],
+		keywords: ['rovodev', 'session', 'sandbox', 'relay', 'hooks'],
+		category: 'agents',
+		package: '@atlassian/rovodev-session-frame',
+		examples: [],
+	},
+	{
+		name: 'useGetRovoDevAutomationSettings',
+		description:
+			'Returns an async reader, cache state, loading state, and error state for a container’s Rovo Dev automation setting.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Call the returned reader from a host-owned effect or user action and render its loading and error states.',
+			'Treat a missing server setting as the documented disabled default rather than assuming automation is enabled.',
+		],
+		keywords: ['rovodev', 'automation', 'settings', 'container'],
+		category: 'agents',
+		package: '@atlassian/rovodev-settings',
+		examples: [],
+	},
+	{
+		name: 'useSetRovoDevAutomationSettings',
+		description:
+			'Returns an async writer with loading and error state for a container’s Rovo Dev automation setting.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Persist an automation toggle only after explicit user confirmation and surface a failed write in the host UI.',
+		],
+		keywords: ['rovodev', 'automation', 'settings', 'container'],
+		category: 'agents',
+		package: '@atlassian/rovodev-settings',
+		examples: [],
+	},
+	{
+		name: 'useRovodevIframe',
+		description: 'Returns readiness state and command helpers for the Rovo Dev session iframe.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use only in the browser surface that owns the Rovo Dev iframe identified by ROVODEV_IFRAME_SELECTOR.',
+			'Wait for isIframeReady and handle rejected command promises when the iframe is unavailable or times out.',
+		],
+		keywords: ['rovodev', 'iframe', 'vscode', 'commands'],
+		category: 'agents',
+		package: '@atlassian/rovodev-use-rovodev-iframe',
+		examples: [],
+	},
+	{
 		name: 'useRovoProjectCreationCategories',
 		description: 'Returns localized feedback categories for Rovo project creation.',
 		status: 'general-availability',
@@ -2233,6 +2417,30 @@ export const atlaskitHooks: HookMcpPayload[] = [
 			type: '{ controls: UndoRedoControls | undefined; cacheUrl: (messageId: string, url: string) => void; resolveDisplayUrl: (latestEmbedUrl: string | undefined) => string | undefined }',
 		},
 		package: '@atlassian/smart-creation',
+		examples: [],
+	},
+	{
+		name: 'useRovoPanel',
+		description: 'Returns the current Store Rovo panel mode and controls.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Call beneath RovoPanelProvider; use mode instead of duplicating panel-open state.',
+		],
+		keywords: ['rovo', 'store', 'panel'],
+		category: 'rovo',
+		package: '@atlassian/store-rovo',
+		examples: [],
+	},
+	{
+		name: 'useStoreRovoContext',
+		description: 'Returns Store context and setters used to enrich a Rovo conversation.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Call beneath StoreRovoContextProvider and clear route-specific context when leaving a Store surface.',
+		],
+		keywords: ['rovo', 'store', 'context'],
+		category: 'rovo',
+		package: '@atlassian/store-rovo',
 		examples: [],
 	},
 	{

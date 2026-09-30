@@ -1,8 +1,10 @@
 import { createContext, type ForwardedRef, type MouseEventHandler, type ReactNode } from 'react';
 
+import type { TriggerAriaProps } from '@atlaskit/popup/types';
+
 import { type AppearanceType, type SizeType } from '../types';
 
-type AvatarContentContextProps = {
+type AvatarContentContextProps = Partial<TriggerAriaProps> & {
 	as: 'a' | 'button' | 'span';
 	appearance: AppearanceType;
 	UNSAFE_isUpdatedGeometry?: boolean;
@@ -18,9 +20,6 @@ type AvatarContentContextProps = {
 	testId?: string;
 	size: SizeType;
 	stackIndex?: number;
-	'aria-controls'?: string;
-	'aria-expanded'?: boolean;
-	'aria-haspopup'?: boolean | 'dialog';
 };
 
 const defaultAvatarContentProps: AvatarContentContextProps = {

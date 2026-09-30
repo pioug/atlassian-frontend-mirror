@@ -15,7 +15,7 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"scripts": {
-		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V 'src/**/*.{svg,png}'"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",

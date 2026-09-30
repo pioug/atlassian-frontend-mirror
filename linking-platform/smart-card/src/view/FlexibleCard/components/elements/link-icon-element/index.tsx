@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { ElementName } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import { BaseIconElement, type BaseIconElementProps, toLinkIconProps } from '../common';
@@ -16,42 +14,28 @@ const LinkIconElement: (props: LinkIconElementProps) => JSX.Element | null = (pr
 		return null;
 	}
 
-	if (fg('platform_navx_smart_link_icon_label_a11y')) {
-		const linkIconProps = toLinkIconProps(context?.linkIcon, context.type) as
-			| BaseIconElementProps
-			| undefined
-			| null;
+	const linkIconProps = toLinkIconProps(context?.linkIcon, context.type) as
+		| BaseIconElementProps
+		| undefined
+		| null;
 
-		if (!linkIconProps) {
-			return null;
-		}
-
-		if (fg('platform_navx_jira_issue_type_icon_label_a11y')) {
-			const jiraIssueTypeLabel =
-				context.meta?.resourceType === 'issue' && context.type?.includes('atlassian:Task')
-					? linkIconProps.label?.trim()
-					: undefined;
-			const label =
-				jiraIssueTypeLabel ??
-				resourceTypeToLabel(context.meta?.resourceType) ??
-				linkIconProps.label?.trim() ??
-				props.label;
-
-			return (
-				<BaseIconElement {...linkIconProps} {...props} label={label} name={ElementName.LinkIcon} />
-			);
-		}
-
-		const label =
-			resourceTypeToLabel(context.meta?.resourceType) ?? linkIconProps.label?.trim() ?? props.label;
-
-		return (
-			<BaseIconElement {...linkIconProps} {...props} label={label} name={ElementName.LinkIcon} />
-		);
+	if (!linkIconProps) {
+		return null;
 	}
 
-	const data = toLinkIconProps(context?.linkIcon, context.type) as object | undefined | null;
-	return data ? <BaseIconElement {...data} {...props} name={ElementName.LinkIcon} /> : null;
+	const jiraIssueTypeLabel =
+		context.meta?.resourceType === 'issue' && context.type?.includes('atlassian:Task')
+			? linkIconProps.label?.trim()
+			: undefined;
+	const label =
+		jiraIssueTypeLabel ??
+		resourceTypeToLabel(context.meta?.resourceType) ??
+		linkIconProps.label?.trim() ??
+		props.label;
+
+	return (
+		<BaseIconElement {...linkIconProps} {...props} label={label} name={ElementName.LinkIcon} />
+	);
 };
 
 export default LinkIconElement;

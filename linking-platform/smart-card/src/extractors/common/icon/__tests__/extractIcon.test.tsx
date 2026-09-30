@@ -1,5 +1,4 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen } from '@atlassian/testing-library';
 
 import { TEST_BASE_DATA, TEST_OBJECT, TEST_URL } from '../../__mocks__/jsonld';
@@ -127,32 +126,18 @@ describe('extractors.icon', () => {
 			expect(await screen.findByTestId('repo-icon')).toBeVisible();
 		});
 
-		ffTest.on('platform_navx_smart_link_icon_label_a11y', '', () => {
-			it('returns icon for Document - using file format (semantic label on icon)', async () => {
-				const icon = extractIcon({
-					...TEST_BASE_DATA_NO_URL_ICON,
-					'@type': 'Document',
-					'schema:fileFormat': 'image/png',
-				} as JsonLd.Data.Document);
-				render(withIntl(icon));
-				const iconEl = await screen.findByTestId('document-file-format-icon');
-				expect(iconEl).toBeVisible();
-				// Wait for the icon element to be visible before querying the accessible role,
-				// preventing race conditions between async rendering and assertion.
-				expect(await screen.findByRole('img', { name: 'image' })).toBeVisible();
-			});
-		});
-
-		ffTest.off('platform_navx_smart_link_icon_label_a11y', '', () => {
-			it('returns icon for Document - using file format (decorative when flag off)', async () => {
-				const icon = extractIcon({
-					...TEST_BASE_DATA_NO_URL_ICON,
-					'@type': 'Document',
-					'schema:fileFormat': 'image/png',
-				} as JsonLd.Data.Document);
-				render(withIntl(icon));
-				expect(await screen.findByTestId('document-file-format-icon')).toBeVisible();
-			});
+		it('returns icon for Document - using file format (semantic label on icon)', async () => {
+			const icon = extractIcon({
+				...TEST_BASE_DATA_NO_URL_ICON,
+				'@type': 'Document',
+				'schema:fileFormat': 'image/png',
+			} as JsonLd.Data.Document);
+			render(withIntl(icon));
+			const iconEl = await screen.findByTestId('document-file-format-icon');
+			expect(iconEl).toBeVisible();
+			// Wait for the icon element to be visible before querying the accessible role,
+			// preventing race conditions between async rendering and assertion.
+			expect(await screen.findByRole('img', { name: 'image' })).toBeVisible();
 		});
 
 		it('returns icon for Document - using provider icon', async () => {

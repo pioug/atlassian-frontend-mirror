@@ -8,8 +8,11 @@ import { FormFooter } from '@atlaskit/form/form-footer';
 
 const DateTimePickerFormAccessibleExample = (): React.JSX.Element => (
 	<Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
-		<Field name="datetime-picker-accessible" label="Scheduled run time" isRequired>
-			{({ fieldProps }) => (
+		<Field
+			name="datetime-picker-accessible"
+			label="Scheduled run time"
+			isRequired
+			component={({ fieldProps }) => (
 				<DateTimePicker
 					{...fieldProps}
 					datePickerProps={{
@@ -20,7 +23,7 @@ const DateTimePickerFormAccessibleExample = (): React.JSX.Element => (
 					clearControlLabel="Clear scheduled run time"
 				/>
 			)}
-		</Field>
+		/>
 		<FormFooter>
 			<Button type="submit" appearance="primary">
 				Submit

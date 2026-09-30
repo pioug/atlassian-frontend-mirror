@@ -4,7 +4,6 @@ import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/anal
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isProviderNotReadyError, SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
@@ -159,9 +158,6 @@ export const useFetchSyncBlockData = (
 	// Applying providers notifies subscribers synchronously, so it must not run during
 	// render - that would setState on another component mid-render and remount the block.
 	useEffect(() => {
-		if (!fg('platform_editor_blocks_patch_7')) {
-			return;
-		}
 		if (!resourceId || isSSR()) {
 			return;
 		}

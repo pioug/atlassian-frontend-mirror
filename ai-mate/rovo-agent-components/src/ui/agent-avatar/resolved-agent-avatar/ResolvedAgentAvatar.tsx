@@ -50,12 +50,14 @@ const FetchedAgentAvatar = ({
 	fallback,
 	showBorder,
 	size,
+	UNSAFE_isUpdatedGeometry,
 }: {
 	accountId: string;
 	agentName?: string;
 	fallback: React.JSX.Element;
 	showBorder: boolean;
 	size: SizeType;
+	UNSAFE_isUpdatedGeometry?: boolean;
 }): React.JSX.Element => {
 	const data = useLazyLoadQuery<ResolvedAgentAvatarQuery>(
 		graphql`
@@ -85,6 +87,7 @@ const FetchedAgentAvatar = ({
 				label={name}
 				size={size}
 				borderColor="transparent"
+				UNSAFE_isUpdatedGeometry={UNSAFE_isUpdatedGeometry}
 			/>
 		);
 	}
@@ -100,7 +103,14 @@ const FetchedAgentAvatar = ({
 				width: AVATAR_SIZES[size],
 			}}
 		>
-			<Avatar appearance="hexagon" src={picture} name={name} label={name} size={size} />
+			<Avatar
+				appearance="hexagon"
+				src={picture}
+				name={name}
+				label={name}
+				size={size}
+				UNSAFE_isUpdatedGeometry={UNSAFE_isUpdatedGeometry}
+			/>
 		</Box>
 	);
 };
@@ -118,6 +128,7 @@ export const ResolvedAgentAvatar = ({
 	fallback,
 	showBorder = false,
 	size = 'medium',
+	UNSAFE_isUpdatedGeometry,
 }: {
 	/** Either the bare account id or the full identity ARI — whichever the caller already has. */
 	agentIdentityAccountId?: string | null;
@@ -132,8 +143,16 @@ export const ResolvedAgentAvatar = ({
 	/** Border/background treatment for the fetched picture, matching `AgentAvatar`'s own prop. */
 	showBorder?: boolean;
 	size?: SizeType;
+	UNSAFE_isUpdatedGeometry?: boolean;
 }): React.JSX.Element => {
-	const resolvedFallback = fallback ?? <Avatar appearance="hexagon" name={agentName} size={size} />;
+	const resolvedFallback = fallback ?? (
+		<Avatar
+			appearance="hexagon"
+			name={agentName}
+			size={size}
+			UNSAFE_isUpdatedGeometry={UNSAFE_isUpdatedGeometry}
+		/>
+	);
 	const accountId = parseIdentityAccountId(agentIdentityAccountId);
 	if (!accountId) {
 		return resolvedFallback;
@@ -147,6 +166,7 @@ export const ResolvedAgentAvatar = ({
 					agentName={agentName}
 					fallback={resolvedFallback}
 					showBorder={showBorder}
+					UNSAFE_isUpdatedGeometry={UNSAFE_isUpdatedGeometry}
 					size={size}
 				/>
 			</Suspense>

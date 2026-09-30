@@ -104,6 +104,8 @@ export interface MediaPluginState {
 	updateMediaSingleNodeAttrs: (id: string, attrs: object) => undefined | boolean;
 
 	uploadMediaClientConfig?: MediaClientConfig;
+	/** Initial upload capability resolution; does not grant permission to upload. */
+	uploadStatus?: 'pending' | 'available' | 'unavailable';
 	videoControlsWrapperRef?: HTMLElement;
 	waitForMediaUpload: boolean;
 	waitForPendingTasks: (

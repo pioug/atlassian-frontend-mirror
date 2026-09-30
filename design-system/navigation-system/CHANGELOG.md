@@ -1,5 +1,25 @@
 # @atlassian/navigation-system
 
+## 11.1.1
+
+### Patch Changes
+
+- [`0f780b942b35d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f780b942b35d) -
+  Use Popup's shared trigger types for existing trigger ARIA contracts.
+- Updated dependencies
+
+## 11.1.0
+
+### Minor Changes
+
+- [`204d513238b0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/204d513238b0e) -
+  Implement new Chat Panel layout slot and responsive/resizing behaviour behind
+  `platform-dst-chat-panel-layout` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

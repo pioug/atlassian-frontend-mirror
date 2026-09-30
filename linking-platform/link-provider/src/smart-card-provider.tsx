@@ -98,11 +98,7 @@ export function SmartCardProvider({
 						// errored card state causes non-flexible SmartLinks to re-throw it to their
 						// error boundary and report it to Sentry. Leave the card in its prior
 						// unauthorized state instead.
-						if (
-							err instanceof APIError &&
-							isUnsupportedError(err) &&
-							fg('platform_lp_navx_5358_dont_throw_error')
-						) {
+						if (err instanceof APIError && isUnsupportedError(err)) {
 							return;
 						}
 						store.dispatch(cardAction(ACTION_ERROR, { url }, undefined, err, undefined, true));

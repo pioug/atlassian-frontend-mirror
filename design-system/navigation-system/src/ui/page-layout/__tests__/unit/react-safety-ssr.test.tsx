@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
 import { resetMatchMedia } from '@atlassian/test-utils';
 
@@ -27,10 +28,18 @@ beforeEach(() => {
  * - Using `hydrateRoot` in `toPassStrictMode` test instead of `createRoot`
  */
 
-it('should be able to be server side rendered (SSR)', async () => {
-	expect(await doesRenderWithSsr(<CompositionExample />)).toBe(true);
-});
+it.each([false, true])(
+	'should be able to be server side rendered (chat layout: %s)',
+	async (enabled) => {
+		(enabled ? passGate : failGate)('platform-dst-chat-panel-layout');
+		expect(await doesRenderWithSsr(<CompositionExample />)).toBe(true);
+	},
+);
 
-it('should be able to be hydrated after server side rendered (SSR)', async () => {
-	expect(await doesHydrateWithSsr(<CompositionExample />)).toBe(true);
-});
+it.each([false, true])(
+	'should be able to be hydrated after SSR (chat layout: %s)',
+	async (enabled) => {
+		(enabled ? passGate : failGate)('platform-dst-chat-panel-layout');
+		expect(await doesHydrateWithSsr(<CompositionExample />)).toBe(true);
+	},
+);

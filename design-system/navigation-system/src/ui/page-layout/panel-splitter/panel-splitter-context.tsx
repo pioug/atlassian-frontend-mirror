@@ -2,7 +2,7 @@ import { createContext, type MutableRefObject } from 'react';
 
 import type { TooltipProps } from '@atlaskit/tooltip/types';
 
-import { type ResizeBounds } from './types';
+import { type ResizeBounds, type ResizeStartCallback } from './types';
 
 // Disabling the rule to allow for `Type` suffix, to differentiate from the Context object.
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
@@ -16,6 +16,12 @@ export type PanelSplitterContextType = {
 	 */
 	panelRef: MutableRefObject<HTMLDivElement | null>;
 	/**
+	 * An optional additional element that receives the temporary resizing CSS variable.
+	 *
+	 * This is useful when an ancestor owns the layout track that contains the resized panel.
+	 */
+	resizingElementRef?: MutableRefObject<HTMLDivElement | null>;
+	/**
 	 * The "saved" width of the panel element. Used to calculate the new width of the panel when dragging.
 	 */
 	panelWidth: number;
@@ -23,6 +29,14 @@ export type PanelSplitterContextType = {
 	 * Called when the user finishes resizing the panel. It should update the width of the panel element.
 	 */
 	onCompleteResize: (newWidth: number) => void;
+	/**
+	 * Called internally when pointer resizing starts, before the first live width is applied.
+	 */
+	onResizeStartInternal?: ResizeStartCallback;
+	/**
+	 * Called with the unconstrained live pointer width while dragging.
+	 */
+	onResizeInternal?: (newWidth: number) => void;
 	/**
 	 * The minimum and maximum bounds for resizing the panel.
 	 * The bounds can be provided as `px` or `vw` values.

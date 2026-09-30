@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import type { AppearanceType, SizeType } from '@atlaskit/avatar/types';
 import __noop from '@atlaskit/ds-lib/noop';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, render, screen, userEvent, within } from '@atlassian/testing-library';
 
@@ -442,6 +443,77 @@ describe('<AvatarGroup />', () => {
 		).not.toBeInTheDocument();
 		expect(onClick).toHaveBeenCalled();
 	});
+
+	describe.each([
+		{ motionEnabled: true, overflowExitEnabled: true },
+		{ motionEnabled: true, overflowExitEnabled: false },
+		{ motionEnabled: false, overflowExitEnabled: true },
+		{ motionEnabled: false, overflowExitEnabled: false },
+	])(
+		'overflow removal with motion uplift: $motionEnabled, overflow exit fix: $overflowExitEnabled',
+		({ motionEnabled, overflowExitEnabled }) => {
+			afterEach(() => jest.useRealTimers());
+
+			it.each(['custom', 'popup', 'top-layer'] as const)(
+				'handles %s overflow when the group shrinks',
+				(overflowType) => {
+					(motionEnabled ? passGate : failGate)('platform-dst-motion-uplift');
+					(overflowExitEnabled ? passGate : failGate)('platform-dst-avatar-group-overflow-exit');
+					(overflowType === 'top-layer' ? passGate : failGate)('platform-dst-top-layer');
+					jest.useFakeTimers();
+
+					const data = generateData({ avatarCount: 8 });
+					const onMoreClick = jest.fn();
+					const renderGroup = (avatars: AvatarProps[]) => (
+						<AvatarGroup
+							testId="test"
+							appearance="stack"
+							maxCount={4}
+							data={avatars}
+							isTooltipDisabled
+							onMoreClick={overflowType === 'custom' ? onMoreClick : undefined}
+							// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+							overrides={
+								overflowType === 'custom'
+									? {
+											MoreIndicator: {
+												render: (_, { onClick, testId, count }) => (
+													<button type="button" onClick={onClick} data-testid={testId}>
+														{count} more people
+													</button>
+												),
+											},
+										}
+									: undefined
+							}
+						/>
+					);
+					const { rerender } = render(renderGroup(data));
+					expect(screen.getByTestId('test--overflow-menu--trigger')).toBeInTheDocument();
+					if (overflowType === 'custom') {
+						act(() => screen.getByTestId('test--overflow-menu--trigger').click());
+						expect(onMoreClick).toHaveBeenCalledTimes(1);
+					}
+
+					// Expiry can remove all agents together, leaving only the current person.
+					rerender(renderGroup(data.slice(0, 1)));
+					act(() => jest.runAllTimers());
+
+					const retainsLegacyOverflow =
+						motionEnabled && !overflowExitEnabled && overflowType !== 'popup';
+					if (retainsLegacyOverflow) {
+						// Turning off the fix restores the pre-fix custom and top-layer behavior.
+						expect(screen.getByTestId('test--overflow-menu--trigger')).toBeInTheDocument();
+					} else {
+						expect(screen.queryByTestId('test--overflow-menu--trigger')).not.toBeInTheDocument();
+					}
+					expect(
+						within(screen.getByTestId('test--avatar-group')).getAllByRole('listitem'),
+					).toHaveLength(retainsLegacyOverflow ? 4 : 1);
+				},
+			);
+		},
+	);
 
 	it('should pass the index of the avatar when onAvatarClicked is fired', async () => {
 		const user = userEvent.setup();

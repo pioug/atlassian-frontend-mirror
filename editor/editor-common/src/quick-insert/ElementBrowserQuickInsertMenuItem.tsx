@@ -1,8 +1,16 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useMemo } from 'react';
 
+import { css } from '@compiled/react';
+
+import { jsx } from '@atlaskit/css';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- Compiled primitives do not provide Pressable.
 import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
 import { useQuickInsertMenuItemSelection } from './quickInsertMenuItemUtils';
@@ -25,7 +33,7 @@ const borderlessItemStyles = xcss({
 const borderlessSelectedItemStyles = xcss({
 	alignItems: 'start',
 	backgroundColor: 'color.background.selected',
-	borderRadius: 0,
+	borderRadius: 'radius.medium',
 	color: 'color.text',
 	cursor: 'pointer',
 	display: 'flex',
@@ -64,7 +72,7 @@ const borderlessDisabledItemStyles = xcss({
 const hoveredItemStyles = xcss({
 	':hover': {
 		backgroundColor: 'elevation.surface.hovered',
-		borderRadius: 0,
+		borderRadius: 'radius.medium',
 	},
 });
 
@@ -98,7 +106,7 @@ const iconLargeStyles = xcss({
 	width: '40px',
 });
 
-const descriptionStyles = xcss({ color: 'color.text.subtle' });
+const iconColorStyles = css({ color: token('color.icon.subtle') });
 
 const shortcutStyles = xcss({
 	backgroundColor: 'color.background.neutral',
@@ -146,6 +154,7 @@ export const ElementBrowserQuickInsertMenuItem = ({
 			isDisabled={isDisabled}
 			onClick={handleClick}
 			role="option"
+			tabIndex={isSelected ? 0 : -1}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Memoizes composition of module-scoped xcss styles for Pressable.
 			xcss={itemStyles}
 		>
@@ -153,14 +162,14 @@ export const ElementBrowserQuickInsertMenuItem = ({
 				<Box
 					xcss={isExperimentEnabled('platform_editor_slash_command') ? iconLargeStyles : iconStyles}
 				>
-					{iconBefore}
+					<span css={iconColorStyles}>{iconBefore}</span>
 				</Box>
-			) : (
-				iconBefore
-			)}
+			) : iconBefore ? (
+				<span css={iconColorStyles}>{iconBefore}</span>
+			) : null}
 			<Stack space="space.050" grow="fill">
 				<Inline alignBlock="center" spread="space-between" space="space.100">
-					<Text maxLines={1} weight="medium">
+					<Text color="color.text" maxLines={1} size="medium" weight="medium">
 						{title}
 					</Text>
 					{shortcut && (
@@ -170,9 +179,9 @@ export const ElementBrowserQuickInsertMenuItem = ({
 					)}
 				</Inline>
 				{itemDescription && (
-					<Box xcss={descriptionStyles}>
-						<Text maxLines={2}>{itemDescription}</Text>
-					</Box>
+					<Text color="color.text.subtlest" maxLines={2} size="small" weight="regular">
+						{itemDescription}
+					</Text>
 				)}
 			</Stack>
 		</Pressable>

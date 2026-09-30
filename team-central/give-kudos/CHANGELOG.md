@@ -1,5 +1,14 @@
 # @atlassian/give-kudos
 
+## 7.1.1
+
+### Patch Changes
+
+- [`239e9d95307d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/239e9d95307d9) -
+  Cleanup `feature_gate` `goals_projects_bug_smash_july_2026`. The metric select accessible label,
+  the help pointer editor close button, the wrapped help pointer form error message and the give
+  kudos confirmation modal close button are now always enabled.
+
 ## 7.1.0
 
 ### Minor Changes

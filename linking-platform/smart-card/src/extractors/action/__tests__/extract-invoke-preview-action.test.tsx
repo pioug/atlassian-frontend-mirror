@@ -109,7 +109,7 @@ describe('extractInvokePreviewAction', () => {
 			isSupportTheming: false,
 			isTrusted: true,
 			linkIcon: {
-				label: 'my name',
+				label: undefined,
 				url: TEST_URL,
 			},
 			origin: 'smartLinkCard',

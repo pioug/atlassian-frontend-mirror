@@ -20,6 +20,7 @@ import {
 	type Actions as MentionActions,
 	type SliNames,
 } from '@atlaskit/mention/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isMentionTypeAheadEnabled } from '../isMentionTypeAheadEnabled';
@@ -122,6 +123,7 @@ export function createMentionPlugin({
 			init(_, state: EditorState): MentionPluginState {
 				return {
 					canInsertMention: isMentionInsertionEnabled(state),
+					mentionProviderStatus: 'pending',
 				};
 			},
 			apply(tr, pluginState: MentionPluginState, oldState, newState): MentionPluginState {
@@ -148,6 +150,7 @@ export function createMentionPlugin({
 						newPluginState = {
 							...newPluginState,
 							mentionProvider: params.provider,
+							mentionProviderStatus: params.provider ? 'available' : 'unavailable',
 						};
 						hasPublicPluginStateChanged = true;
 						break;
@@ -243,12 +246,16 @@ export function createMentionPlugin({
 			},
 		},
 		view(editorView) {
+			let destroyed = false;
+			const optimistic = isExperimentEnabled('platform_editor_ssr_toolbar_optimistic');
+			let currentProviderPromise: Promise<MentionProvider | ContextIdentifierProvider> | undefined;
 			const providerHandler = (
 				name: string,
 				providerPromise?: Promise<MentionProvider | ContextIdentifierProvider>,
 			) => {
 				switch (name) {
 					case 'mentionProvider':
+						currentProviderPromise = providerPromise;
 						if (!providerPromise) {
 							fireEvent({
 								action: ACTION.ERRORED,
@@ -264,6 +271,9 @@ export function createMentionPlugin({
 
 						(providerPromise as Promise<MentionProvider>)
 							.then((provider) => {
+								if (optimistic && (destroyed || currentProviderPromise !== providerPromise)) {
+									return;
+								}
 								if (mentionProvider) {
 									mentionProvider.unsubscribe('mentionPlugin');
 								}
@@ -281,6 +291,9 @@ export function createMentionPlugin({
 								);
 							})
 							.catch(() => {
+								if (optimistic && (destroyed || currentProviderPromise !== providerPromise)) {
+									return;
+								}
 								fireEvent({
 									action: ACTION.ERRORED,
 									actionSubject: ACTION_SUBJECT.MENTION,
@@ -302,10 +315,23 @@ export function createMentionPlugin({
 				providerHandler('mentionProvider', options?.mentionProvider);
 			} else {
 				pmPluginFactoryParams.providerFactory.subscribe('mentionProvider', providerHandler);
+				if (optimistic) {
+					// Subscribe does not notify us when no provider exists. Wait until the view
+					// has finished mounting before publishing the unavailable state.
+					Promise.resolve().then(() => {
+						if (
+							!destroyed &&
+							!pmPluginFactoryParams.providerFactory.hasProvider('mentionProvider')
+						) {
+							setProvider(undefined)(editorView.state, editorView.dispatch);
+						}
+					});
+				}
 			}
 
 			return {
 				destroy() {
+					destroyed = true;
 					if (pmPluginFactoryParams.providerFactory) {
 						pmPluginFactoryParams.providerFactory.unsubscribe('mentionProvider', providerHandler);
 					}

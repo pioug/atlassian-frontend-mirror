@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { IconType } from '../constants';
 
 const loadPriorityIcons = () =>
@@ -162,15 +160,15 @@ export const getLazyIcons = (): Partial<
 		[IconType.Jira]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphJira" */ '@atlaskit/logo/jira-icon').then(({ JiraIcon }) => ({default: JiraIcon}))},
 		
 		// Priority icons stay lazy, but share one chunk to avoid a cold-cache request per icon type.
-		[IconType.PriorityBlocker]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityBlockerIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphBlocker" */ '../common/ui/icons/priority-blocker-icon')},
-		[IconType.PriorityCritical]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityCriticalIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphCritical" */ '../common/ui/icons/priority-critical-icon')},
-		[IconType.PriorityHigh]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityHighIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphHigh" */ '../common/ui/icons/priority-high-icon')},
-		[IconType.PriorityHighest]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityHighestIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphHighest" */ '../common/ui/icons/priority-highest-icon')},
-		[IconType.PriorityLow]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityLowIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphLow" */ '../common/ui/icons/priority-low-icon')},
-		[IconType.PriorityLowest]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityLowestIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphLowest" */ '../common/ui/icons/priority-lowest-icon')},
-		[IconType.PriorityMajor]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityMajorIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphMajor" */ '../common/ui/icons/priority-major-icon')},
-		[IconType.PriorityMedium]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityMediumIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphMedium" */ '../common/ui/icons/priority-medium-icon')},
-		[IconType.PriorityMinor]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityMinorIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphMinor" */ '../common/ui/icons/priority-minor-icon')},
-		[IconType.PriorityTrivial]: { default: () => fg('platform_sl_priority_icon') ? loadPriorityIcons().then(({ PriorityTrivialIcon: defaultIcon }) => ({ default: defaultIcon })) : import(/* webpackChunkName: "@atlaskit-internal_glyphTrivial" */ '../common/ui/icons/priority-trivial-icon')},
+		[IconType.PriorityBlocker]: { default: () => loadPriorityIcons().then(({ PriorityBlockerIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityCritical]: { default: () => loadPriorityIcons().then(({ PriorityCriticalIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityHigh]: { default: () => loadPriorityIcons().then(({ PriorityHighIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityHighest]: { default: () => loadPriorityIcons().then(({ PriorityHighestIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityLow]: { default: () => loadPriorityIcons().then(({ PriorityLowIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityLowest]: { default: () => loadPriorityIcons().then(({ PriorityLowestIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityMajor]: { default: () => loadPriorityIcons().then(({ PriorityMajorIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityMedium]: { default: () => loadPriorityIcons().then(({ PriorityMediumIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityMinor]: { default: () => loadPriorityIcons().then(({ PriorityMinorIcon: defaultIcon }) => ({ default: defaultIcon }))},
+		[IconType.PriorityTrivial]: { default: () => loadPriorityIcons().then(({ PriorityTrivialIcon: defaultIcon }) => ({ default: defaultIcon }))},
 	};
 };

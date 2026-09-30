@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "145.0.7",
+	"version": "145.0.11",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -104,6 +104,7 @@
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/inline-edit": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
+		"@atlaskit/link-client-extension": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
@@ -122,6 +123,7 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
+		"@atlaskit/width-detector": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
@@ -230,10 +232,6 @@
 			"type": "boolean"
 		},
 		"cc-maui-add-mark-for-remix-generated-images": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_embed_height_only_fallback": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

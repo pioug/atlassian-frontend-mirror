@@ -2,19 +2,20 @@ import type { ACTION, ACTION_SUBJECT } from './enums';
 import type { OperationalAEP } from './utils';
 
 export type CategoryInformation = {
-	internalMacroCount: number;
-	internalAppCount: number;
-	internalAppMacroMax: number;
-	ecosystemMacroCount: number;
-	ecosystemAppCount: number;
-	ecosystemAppMacroMax: number;
-	allMacroCount: number;
 	allAppCount: number;
 	allAppMacroMax: number;
+	allMacroCount: number;
+	ecosystemAppCount: number;
+	ecosystemAppMacroMax: number;
+	ecosystemMacroCount: number;
+	internalAppCount: number;
+	internalAppMacroMax: number;
+	internalMacroCount: number;
 };
 
 export type CategoryKey =
 	| 'blockTemplates'
+	| 'create'
 	| 'dataAndCharts'
 	| 'embed'
 	| 'media'
@@ -45,9 +46,9 @@ export type LegacyCategoryKey =
 	| 'visuals';
 
 export type QuickInsertInformationAttributes = {
+	allCategories: CategoryInformation;
 	category: Record<CategoryKey, CategoryInformation>;
 	legacyCategory: Record<LegacyCategoryKey, CategoryInformation>;
-	allCategories: CategoryInformation;
 };
 
 export type QuickInsertInformationAEP = OperationalAEP<

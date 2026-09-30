@@ -175,6 +175,9 @@
 			"path": "../tag/tsconfig.app.json"
 		},
 		{
+			"path": "../textarea/tsconfig.app.json"
+		},
+		{
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
@@ -191,6 +194,15 @@
 		},
 		{
 			"path": "../../monorepo-tooling/gemini/tsconfig.app.json"
+		},
+		{
+			"path": "../panel-system/tsconfig.app.json"
+		},
+		{
+			"path": "../../async/react-async/tsconfig.app.json"
+		},
+		{
+			"path": "../../async/react-entrypoint/tsconfig.app.json"
 		},
 		{
 			"path": "../../search/search-dialog/tsconfig.app.json"

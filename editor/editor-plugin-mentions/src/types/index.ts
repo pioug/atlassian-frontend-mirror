@@ -151,6 +151,8 @@ export type MentionPluginState = {
 	 */
 	lastInsertedAgentMentionPrompt?: string | null;
 	mentionProvider?: MentionProvider;
+	/** Initial provider resolution, separate from whether the selection allows mentions. */
+	mentionProviderStatus?: 'pending' | 'available' | 'unavailable';
 	mentions?: Array<MentionDescription>;
 	/**
 	 * @internal Tracks a pasted agent mention pending name resolution (cache miss).

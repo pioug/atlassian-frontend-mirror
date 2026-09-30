@@ -1,5 +1,48 @@
 # @atlaskit/editor-plugin-media
 
+## 24.1.0
+
+### Minor Changes
+
+- [`051cd10867eae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/051cd10867eae) -
+  Expose uploadStatus and mentionProviderStatus to distinguish pending providers from unavailable
+  capabilities. Under platform_editor_ssr_toolbar_optimistic, keep mention and media toolbar buttons
+  enabled while providers are pending, avoiding class changes on successful initialization while
+  preserving existing insertion restrictions.
+
+  When a view-only synchronous SSR media provider accompanies a pending full provider, keep uploads
+  pending until the full provider resolves instead of treating the SSR config as a permission
+  denial.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.10
+
+### Patch Changes
+
+- [`b67e12494653e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b67e12494653e) -
+  Clean up feature gate `platform_editor_remove_media_inline_feature_flag`
+
+## 24.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.6
 
 ### Patch Changes

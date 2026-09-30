@@ -2,12 +2,13 @@ import React from 'react';
 
 import type { MenuItem } from '@atlaskit/editor-common/extensions';
 import {
+	CREATE_SECTION,
 	DATA_AND_CHARTS_SECTION,
 	EMBED_SECTION,
 	MEDIA_SECTION,
+	OTHER_SECTION,
 	STRUCTURE_SECTION,
 } from '@atlaskit/editor-common/quick-insert/keys';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { getExtensionQuickInsertComponents } from '../getExtensionQuickInsertComponents';
@@ -99,6 +100,36 @@ describe('getExtensionQuickInsertComponents', () => {
 		]);
 	});
 
+	it('places creation extensions in Create without shifting Structure ranks', () => {
+		mockExpEnabled('platform_editor_slash_command');
+		const components = getExtensionQuickInsertComponents({
+			apiRef: { current: undefined },
+			editorActions,
+			items: [
+				'com.atlassian.linking-platform.create:linking-platform-create-jira-issue',
+				'com.atlassian.linking-platform.create:linking-platform-create-confluence-page',
+				'z-app:structure',
+			].map((key) => ({
+				category: key === 'z-app:structure' ? 'structure' : 'create',
+				categories: ['structure'],
+				extensionKey: 'com.atlassian.linking-platform.create',
+				extensionType: 'com.atlassian.confluence.macro.core',
+				featured: false,
+				icon: () => Promise.resolve({ default: () => <span /> }),
+				key,
+				keywords: [],
+				node: { type: 'extension', attrs: {} },
+				title: key,
+			})),
+		});
+
+		expect(components.map(({ parents }) => parents)).toEqual([
+			[{ ...CREATE_SECTION, rank: 100 }],
+			[{ ...CREATE_SECTION, rank: 200 }],
+			[{ ...STRUCTURE_SECTION, rank: 3100 }],
+		]);
+	});
+
 	it('uses category instead of legacy categories to select the menu section', () => {
 		mockExpEnabled('platform_editor_slash_command');
 		const components = getExtensionQuickInsertComponents({
@@ -127,34 +158,6 @@ describe('getExtensionQuickInsertComponents', () => {
 		]);
 	});
 
-	it('uses legacy categories when slash command is disabled', () => {
-		mockExpDisabled('platform_editor_slash_command');
-
-		const components = getExtensionQuickInsertComponents({
-			apiRef: { current: undefined },
-			editorActions,
-			items: [
-				{
-					category: 'media',
-					categories: ['structure'],
-					description: 'Create an incident review',
-					extensionKey: 'incident-review',
-					extensionType: 'com.atlassian.forge',
-					featured: false,
-					icon: () => Promise.resolve({ default: () => <span /> }),
-					key: 'incident-review:default',
-					keywords: [],
-					node: { type: 'extension', attrs: {} },
-					title: 'Incident review',
-				},
-			],
-		});
-
-		expect(components[0]?.parents).toEqual([
-			expect.objectContaining({ key: STRUCTURE_SECTION.key, type: STRUCTURE_SECTION.type }),
-		]);
-	});
-
 	it('orders unrecognized Structure extensions alphabetically when slash command is enabled', () => {
 		mockExpEnabled('platform_editor_slash_command');
 		const components = getExtensionQuickInsertComponents({
@@ -180,14 +183,41 @@ describe('getExtensionQuickInsertComponents', () => {
 		]);
 	});
 
-	it('uses registration order for unrecognized Structure extensions when slash command is disabled', () => {
-		mockExpDisabled('platform_editor_slash_command');
+	it('ranks a multi-category app separately in Structure and Media', () => {
+		mockExpEnabled('platform_editor_slash_command');
 		const components = getExtensionQuickInsertComponents({
 			apiRef: { current: undefined },
 			editorActions,
-			items: ['Zebra layout', 'Alpha layout'].map((title) => ({
-				categories: ['structure'],
-				description: `Insert ${title}`,
+			items: [
+				{
+					categories: ['formatting', 'media'],
+					description: 'Insert Mermaid diagram',
+					extensionKey: 'mermaid',
+					extensionType: 'com.atlassian.forge',
+					featured: false,
+					icon: () => Promise.resolve({ default: () => <span /> }),
+					key: 'app:mermaid',
+					keywords: [],
+					node: { type: 'extension', attrs: {} },
+					priority: 1750,
+					title: 'Mermaid diagram',
+				},
+			],
+		});
+
+		expect(components[0]?.parents).toEqual([
+			{ ...STRUCTURE_SECTION, rank: 3100 },
+			{ ...MEDIA_SECTION, rank: 1700 },
+		]);
+	});
+
+	it('orders an app with multiple legacy categories in Embed and Media', () => {
+		mockExpEnabled('platform_editor_slash_command');
+		const components = getExtensionQuickInsertComponents({
+			apiRef: { current: undefined },
+			editorActions,
+			items: ['Zebra app', 'Alpha app'].map((title) => ({
+				categories: title === 'Zebra app' ? ['external-content', 'visuals'] : ['external-content'],
 				extensionKey: title,
 				extensionType: 'com.atlassian.forge',
 				featured: false,
@@ -199,9 +229,12 @@ describe('getExtensionQuickInsertComponents', () => {
 			})),
 		});
 
-		expect(components.map((component) => component.parents)).toEqual([
-			[expect.objectContaining({ key: STRUCTURE_SECTION.key, rank: 1500 })],
-			[expect.objectContaining({ key: STRUCTURE_SECTION.key, rank: 1501 })],
+		expect(components.map(({ parents }) => parents)).toEqual([
+			[
+				{ ...EMBED_SECTION, rank: 1501 },
+				{ ...MEDIA_SECTION, rank: 1700 },
+			],
+			[{ ...EMBED_SECTION, rank: 1500 }],
 		]);
 	});
 
@@ -217,7 +250,7 @@ describe('getExtensionQuickInsertComponents', () => {
 				{ title: 'Alpha Forge app', key: 'forge:alpha' },
 			].map(({ title, key, priority }) => ({
 				category: 'embed',
-				categories: ['external-content'],
+				categories: key === 'forge:alpha' ? [] : ['external-content'],
 				description: `Insert ${title}`,
 				extensionKey: key,
 				extensionType: key.startsWith('forge:')
@@ -252,8 +285,8 @@ describe('getExtensionQuickInsertComponents', () => {
 				'Bitbucket snippet macro',
 				'Alpha deployment',
 			].map((title) => ({
-				category: 'data-and-charts',
-				categories: ['reporting'],
+				category: title === 'Zebra report' ? undefined : 'data-and-charts',
+				categories: title === 'Zebra report' ? ['reporting', 'visuals'] : ['reporting'],
 				description: `Insert ${title}`,
 				extensionKey: title,
 				extensionType: 'com.atlassian.forge',
@@ -267,12 +300,53 @@ describe('getExtensionQuickInsertComponents', () => {
 		});
 
 		expect(components.map((component) => component.parents)).toEqual([
-			[expect.objectContaining({ key: DATA_AND_CHARTS_SECTION.key, rank: 2703 })],
+			[
+				expect.objectContaining({ key: DATA_AND_CHARTS_SECTION.key, rank: 2703 }),
+				expect.objectContaining({ key: MEDIA_SECTION.key, rank: 1700 }),
+			],
 			[expect.objectContaining({ key: DATA_AND_CHARTS_SECTION.key, rank: 2702 })],
 			[expect.objectContaining({ key: DATA_AND_CHARTS_SECTION.key, rank: 2701 })],
 			[expect.objectContaining({ key: DATA_AND_CHARTS_SECTION.key, rank: 2700 })],
 		]);
 	});
+
+	it.each([
+		['media', 'media', MEDIA_SECTION, 1700],
+		['uncategorized other', undefined, OTHER_SECTION, 1500],
+	] as const)(
+		'orders %s app macros alphabetically after named items',
+		(_name, category, section, firstAppRank) => {
+			mockExpEnabled('platform_editor_slash_command');
+			const components = getExtensionQuickInsertComponents({
+				apiRef: { current: undefined },
+				editorActions,
+				items: [
+					{ title: 'Zebra app', priority: undefined },
+					{ title: 'Named item', priority: -100 },
+					{ title: 'Alpha app', priority: undefined },
+				].map(({ title, priority }) => ({
+					category,
+					categories: [],
+					description: `Insert ${title}`,
+					extensionKey: title,
+					extensionType: 'com.atlassian.forge',
+					featured: false,
+					icon: () => Promise.resolve({ default: () => <span /> }),
+					key: `app:${title}`,
+					keywords: [],
+					node: { type: 'extension', attrs: {} },
+					priority,
+					title,
+				})),
+			});
+
+			expect(components.map((component) => component.parents[0])).toEqual([
+				expect.objectContaining({ key: section.key, rank: firstAppRank + 1 }),
+				expect.objectContaining({ key: section.key, rank: 1400 }),
+				expect.objectContaining({ key: section.key, rank: firstAppRank }),
+			]);
+		},
+	);
 
 	it('assigns the registered rank for prioritized Bitbucket Snippet and GitHub Gist macros', () => {
 		mockExpEnabled('platform_editor_slash_command');

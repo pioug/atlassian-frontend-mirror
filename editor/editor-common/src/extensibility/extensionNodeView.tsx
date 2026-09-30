@@ -4,6 +4,7 @@ import type { IntlShape } from 'react-intl';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type {
 	Decoration,
 	DecorationSource,
@@ -11,6 +12,7 @@ import type {
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { isReactCompilerActivePlatform } from '@atlaskit/react-compiler-gating';
 
 import { isSSR } from '../core-utils';
 import type { EventDispatcher } from '../event-dispatcher';
@@ -345,6 +347,8 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 
 		return (
 			<ExtensionNodeRender
+				// EditorView is mutable; expose selection changes to invalidate compiled renders.
+				selection={isReactCompilerActivePlatform() ? this.view.state.selection : undefined}
 				editorView={this.view}
 				eventDispatcher={this.eventDispatcher}
 				forwardRef={forwardRef}
@@ -383,6 +387,7 @@ type ExtensionNodeRenderProps = {
 	getPos: ProsemirrorGetPosHandler;
 	node: PmNode;
 	renderProps: ExtensionRenderProps;
+	selection?: Selection;
 };
 
 /**
@@ -391,6 +396,7 @@ type ExtensionNodeRenderProps = {
  * wrapper, and the wrapper animates the node in once it has.
  */
 function ExtensionNodeRender({
+	selection,
 	editorView,
 	eventDispatcher,
 	forwardRef,
@@ -416,6 +422,7 @@ function ExtensionNodeRender({
 			contentReady={contentReady}
 		>
 			<Extension
+				selection={selection}
 				editorView={editorView}
 				node={node}
 				eventDispatcher={eventDispatcher}

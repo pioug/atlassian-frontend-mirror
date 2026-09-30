@@ -6,7 +6,8 @@ import { IntlProvider } from 'react-intl';
 import { MAX_RESOLUTION } from '@atlaskit/media-client';
 import { createMouseEvent } from '@atlaskit/media-test-helpers';
 
-import type { Props } from '../../../../../viewers/image/interactive-img';
+import { InsetViewerProvider } from '../../../../../insetViewerContext';
+import { InteractiveImg, type Props } from '../../../../../viewers/image/interactive-img';
 import { InteractiveImgComponent } from '../../../../../viewers/image/interactive-img-component';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
@@ -353,4 +354,53 @@ describe('analytics', () => {
 		fireEvent.click(wrapper);
 		expect(onBlanketClicked).toHaveBeenCalled();
 	});
+});
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+describe('click-to-close in inset mode', () => {
+	it.each([
+		{ presentation: 'overlay', isInsetViewer: undefined, closes: true },
+		{ presentation: 'inset', isInsetViewer: true, closes: false },
+	])(
+		'should close on a media click in the $presentation presentation: $closes',
+		async ({ isInsetViewer, closes }) => {
+			const { component, onClose, onBlanketClicked } = setup({ isInsetViewer });
+			await waitFor(() => {
+				expect(screen.getByTestId('media-viewer-image')).toBeVisible();
+			});
+
+			fireEvent.click(component.container.querySelector(imageWrapperClassName)!);
+
+			expect(onBlanketClicked.mock.calls.length > 0).toBe(closes);
+			expect(onClose.mock.calls.length > 0).toBe(closes);
+		},
+	);
+
+	it.each([
+		{ presentation: 'overlay', isInsetViewer: false, closes: true },
+		{ presentation: 'inset', isInsetViewer: true, closes: false },
+	])(
+		'should read the $presentation presentation from the inset viewer context',
+		({ isInsetViewer, closes }) => {
+			const onClose = jest.fn();
+			const { container } = render(
+				<IntlProvider locale="en">
+					<InsetViewerProvider isInsetViewer={isInsetViewer}>
+						<InteractiveImg
+							onLoad={jest.fn()}
+							onError={jest.fn()}
+							src={src}
+							alt="test"
+							onClose={onClose}
+						/>
+					</InsetViewerProvider>
+				</IntlProvider>,
+			);
+
+			fireEvent.load(screen.getByTestId('media-viewer-image'));
+			fireEvent.click(container.querySelector(imageWrapperClassName)!);
+
+			expect(onClose.mock.calls.length > 0).toBe(closes);
+		},
+	);
 });

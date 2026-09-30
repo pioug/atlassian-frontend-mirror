@@ -57,7 +57,10 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 	}
 
 	onImageClicked = (e: React.MouseEvent): void => {
-		const { onClose, onBlanketClicked } = this.props;
+		const { onClose, onBlanketClicked, isInsetViewer } = this.props;
+		if (isInsetViewer) {
+			return;
+		}
 		if (e.target === e.currentTarget && onBlanketClicked) {
 			onBlanketClicked();
 		}

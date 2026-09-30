@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
+import { ErrorMessage } from '@atlaskit/form/error-message';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { FormHeader } from '@atlaskit/form/form-header';
 import { FormSection } from '@atlaskit/form/form-section';
-import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import { ValidMessage } from '@atlaskit/form/valid-message';
+import { Flex } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield/text-field';
 
 const FormFieldExample = (): React.JSX.Element => (
@@ -16,13 +20,25 @@ const FormFieldExample = (): React.JSX.Element => (
 			{({ formProps, submitting }) => (
 				<form {...formProps}>
 					<FormHeader title="Archive page"></FormHeader>
-					<Text as="p">Add an optional note to say why this page was archived.</Text>
 					<FormSection>
-						<Field name="note" defaultValue="" label="Note">
-							{({ fieldProps }) => (
-								<>
+						<Field
+							name="note"
+							defaultValue=""
+							label="Note"
+							isRequired
+							validate={(value) => (value ? undefined : 'REQUIRED')}
+						>
+							{({ fieldProps, error, valid, meta }) => (
+								<Fragment>
 									<TextField {...fieldProps} />
-								</>
+									<MessageWrapper>
+										{error && !valid && (
+											<HelperMessage>Explain why this page is being archived.</HelperMessage>
+										)}
+										{error && <ErrorMessage>The archive note must not be empty.</ErrorMessage>}
+										{valid && meta.dirty ? <ValidMessage>Thank you!</ValidMessage> : null}
+									</MessageWrapper>
+								</Fragment>
 							)}
 						</Field>
 					</FormSection>

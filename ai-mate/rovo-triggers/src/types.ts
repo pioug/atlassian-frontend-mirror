@@ -234,6 +234,12 @@ export type ChatNewPayload = PayloadCore<
 		 * and comment:<commentId> so the backend can create a SessionAssociationPublic record.
 		 */
 		tags?: string[];
+		/** Current Confluence comment invocation context for thread-level session reuse. */
+		commentMentionContext?: {
+			pageAri: string;
+			commentAri: string;
+			commentType: 'INLINE' | 'FOOTER';
+		};
 		/**
 		 * Optimistic agent metadata for the editor agent mention flow.
 		 * Allows showing the agent avatar telepointer immediately during AI streaming
@@ -854,6 +860,8 @@ export type OpenChatFeedbackModalPayload = PayloadCore<
 // Not using PayloadCore because `data: type | undefined` is necessary
 // but `| undefined` will cause `data` to be removed by PayloadCore
 export type SmartLinksContextPayload = PayloadCore<'smartlinks-context-payload'> & {
+	/** Distinguishes unfinished discovery from a completed result with no links. */
+	status?: 'loading' | 'resolved';
 	/** Never opens chat — internal signal only. */
 	openChat: false;
 	data?: Array<{
@@ -1127,6 +1135,8 @@ export type ConfluenceContentFinalizedPayload = PayloadCore<
 		 * Content ids are unique across sites, so subscribers match on this alone.
 		 */
 		contentIds: string[];
+		/** The conversation that produced the finalized content. */
+		conversationId?: string;
 		/**
 		 * The final destination returned after Convo AI resolves a finalized page.
 		 * Present when the destination-ready finalized-content gate is enabled.

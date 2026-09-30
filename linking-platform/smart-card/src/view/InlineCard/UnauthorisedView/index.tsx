@@ -10,9 +10,7 @@ import { di } from 'react-magnetic-di';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
@@ -116,9 +114,7 @@ const socialProofPillStyles = cssMap({
 /**
  * Renders the social-proof pill and Connect button using persisted percentages only ({@link getCachedProviderPctMapAndRefresh}) — no
  * loading skeleton; either the cached percentage is shown or the legacy long connect label is used.
- *
- * Only mounted when the parent has passed the killswitch and
- * `platform_sl_3p_preauth_social_proof_inline_cta`. See platform docs: `rules-of-hooks.md` "Should §1".
+ * Only mounted when the card has an authorisation action.
  */
 const UnauthorisedConnectWithSocialProof = ({
 	context,
@@ -148,12 +144,8 @@ const UnauthorisedConnectWithSocialProof = ({
 	const isSocialProofUsageHighEnough =
 		connectedPct !== undefined && connectedPct >= SOCIAL_PROOF_TEAM_PREVIEW_THRESHOLD;
 
-	/**
-	 * As long as trait is loaded we show the pill/lozange.
-	 */
-	const showSocialProofPill =
-		providerPctMap !== null &&
-		expValEquals('platform_sl_3p_preauth_social_proof_inline_cta', 'isEnabled', true);
+	// Show the social proof pill once the trait data is available.
+	const showSocialProofPill = isProviderPctMapLoaded;
 
 	const bold = (chunks: React.ReactNode) => (
 		<Box as="strong" xcss={socialProofPillStyles.strong}>
@@ -258,18 +250,6 @@ export const InlineCardUnauthorizedView = ({
 		[fireEvent, onAuthorise],
 	);
 
-	const renderActionButton = React.useCallback(() => {
-		return (
-			<ActionButton
-				onClick={handleConnectAccount}
-				viewType={'unauthorised'}
-				testId="button-connect-account"
-			>
-				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
-			</ActionButton>
-		);
-	}, [handleConnectAccount, context]);
-
 	const inlineCardUnauthenticatedView = (
 		<Frame
 			testId={testId}
@@ -285,17 +265,14 @@ export const InlineCardUnauthorizedView = ({
 				onClick={onClick}
 				titleColor={token('color.text.subtle')}
 			/>
-			{onAuthorise &&
-				(fg('platform_sl_3p_preauth_soc_proof_inline_killswitch') ? (
-					<UnauthorisedConnectWithSocialProof
-						context={context}
-						extensionKey={extensionKey}
-						testId={testId}
-						onConnectClick={handleConnectAccount}
-					/>
-				) : (
-					renderActionButton()
-				))}
+			{onAuthorise && (
+				<UnauthorisedConnectWithSocialProof
+					context={context}
+					extensionKey={extensionKey}
+					testId={testId}
+					onConnectClick={handleConnectAccount}
+				/>
+			)}
 		</Frame>
 	);
 

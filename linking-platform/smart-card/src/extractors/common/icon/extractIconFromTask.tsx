@@ -9,7 +9,6 @@ import StoryObject from '@atlaskit/object/story';
 import SubtaskObject from '@atlaskit/object/subtask';
 import TaskObject from '@atlaskit/object/task';
 import WorkItemObject from '@atlaskit/object/work-item';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	JIRA_BUG,
@@ -39,35 +38,30 @@ const TaskIcon = TaskObject;
 export const extractIconFromTask = (opts: IconOpts): React.ReactNode | undefined => {
 	// Render Atlaskit icons for all supported Jira issue types.
 	const { taskType, provider } = opts;
-	const legacyTaskLabel = opts.title || 'task';
-	const getLabel = (semantic: string) =>
-		fg('platform_navx_smart_link_icon_label_a11y') ? semantic : legacyTaskLabel;
 
-	const defaultIcon = <TaskIcon label={getLabel('Task')} testId="default-task-icon" />;
+	const defaultIcon = <TaskIcon label="Task" testId="default-task-icon" />;
 	if (provider && provider.id === JIRA_GENERATOR_ID && taskType && taskType.id) {
 		const taskTypeId = taskType.id;
 		const taskTypeName = taskTypeId.split('#').pop();
 		switch (taskTypeName) {
 			case JIRA_TASK:
-				return <TaskObject label={getLabel('Task')} testId="jira-task-icon" />;
+				return <TaskObject label="Task" testId="jira-task-icon" />;
 			case JIRA_SUB_TASK:
-				return <SubtaskObject label={getLabel('Sub-task')} testId="jira-subtask-icon" />;
+				return <SubtaskObject label="Sub-task" testId="jira-subtask-icon" />;
 			case JIRA_STORY:
-				return <StoryObject label={getLabel('Story')} testId="jira-story-icon" />;
+				return <StoryObject label="Story" testId="jira-story-icon" />;
 			case JIRA_BUG:
-				return <BugObject label={getLabel('Bug')} testId="jira-bug-icon" />;
+				return <BugObject label="Bug" testId="jira-bug-icon" />;
 			case JIRA_EPIC:
-				return <EpicObject label={getLabel('Epic')} testId="jira-epic-icon" />;
+				return <EpicObject label="Epic" testId="jira-epic-icon" />;
 			case JIRA_INCIDENT:
-				return <IncidentObject label={getLabel('Incident')} testId="jira-incident-icon" />;
+				return <IncidentObject label="Incident" testId="jira-incident-icon" />;
 			case JIRA_SERVICE_REQUEST:
-				return (
-					<WorkItemObject label={getLabel('Service request')} testId="jira-service-request-icon" />
-				);
+				return <WorkItemObject label="Service request" testId="jira-service-request-icon" />;
 			case JIRA_CHANGE:
-				return <ChangesObject label={getLabel('Change')} testId="jira-change-icon" />;
+				return <ChangesObject label="Change" testId="jira-change-icon" />;
 			case JIRA_PROBLEM:
-				return <ProblemObject label={getLabel('Problem')} testId="jira-problem-icon" />;
+				return <ProblemObject label="Problem" testId="jira-problem-icon" />;
 			case JIRA_CUSTOM_TASK_TYPE:
 				return taskType.icon || opts.icon || provider.icon || defaultIcon;
 		}

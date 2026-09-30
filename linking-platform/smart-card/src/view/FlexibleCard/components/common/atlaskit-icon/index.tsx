@@ -65,7 +65,7 @@ const isCoreIcon = (icon: IconType): boolean => {
 		IconType.ProgrammingLanguage,
 		IconType.Subscriber,
 		IconType.SubTasksProgress,
-		...(fg('platform_sl_priority_icon') ? PRIORITY_ICONS : []),
+		...PRIORITY_ICONS,
 	].includes(icon);
 };
 
@@ -117,7 +117,7 @@ const AtlaskitIcon = ({
 
 	const ImportedIcon = importIcon(importFn);
 
-	if (isCoreIcon(icon) && fg('platform_sl_icons_refactor')) {
+	if (isCoreIcon(icon)) {
 		let color;
 		if (icon === IconType.Error || icon === IconType.Forbidden) {
 			color = token('color.icon.danger');
@@ -128,7 +128,7 @@ const AtlaskitIcon = ({
 				return <ImportedIcon label={label} testId={testId} color={color} />;
 			case SmartLinkSize.Large:
 			case SmartLinkSize.XLarge:
-				if (PRIORITY_ICONS.includes(icon) && fg('platform_sl_priority_icon')) {
+				if (PRIORITY_ICONS.includes(icon)) {
 					return <ImportedIcon label={label} testId={testId} color={color} />;
 				}
 
@@ -182,10 +182,7 @@ const AtlaskitIcon = ({
 			);
 		case IconType.Error:
 		case IconType.Forbidden:
-			if (fg('platform_sl_icons_refactor')) {
-				return <ImportedIcon label={label} testId={testId} size={size} isTiledIcon={isTiledIcon} />;
-			}
-			return <ImportedIcon label={label} testId={testId} color={token('color.icon.danger')} />;
+			return <ImportedIcon label={label} testId={testId} size={size} isTiledIcon={isTiledIcon} />;
 		default:
 			return <ImportedIcon label={label} testId={testId} size={size} isTiledIcon={isTiledIcon} />;
 	}

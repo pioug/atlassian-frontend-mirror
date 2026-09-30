@@ -137,11 +137,7 @@ export default function MediaSingle({
 	let paddingBottom: string | undefined;
 	if (isHeightOnly) {
 		mediaWrapperHeight = height;
-	} else if (
-		width !== undefined &&
-		!Number.isFinite((height / width) * 100) &&
-		fg('platform_editor_embed_height_only_fallback')
-	) {
+	} else if (width !== undefined && !Number.isFinite((height / width) * 100)) {
 		// The aspect-ratio (padding-bottom) trick collapses to 0 when the ratio is non-finite,
 		// which happens when the resolved pixel width is 0/NaN (e.g. editorWidth/lineLength is
 		// unavailable in the host renderer). Fall back to the embed's absolute height so the box

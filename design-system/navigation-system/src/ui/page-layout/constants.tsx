@@ -8,6 +8,9 @@
 export const sideNavVar = '--n_sNvw';
 export const asideVar = '--n_asDw';
 export const panelVar = '--n_pnlW';
+export const chatPanelVar = '--n_cPnlW';
+export const chatPanelLiveWidthVar = '--n_cPnlLw';
+export const mainMinimumWidthVar = '--n_mainMinW';
 export const bannerMountedVar = '--n_bnrM';
 export const topNavMountedVar = '--n_tNvM';
 export const ribbonVar = '--n_rbnW';
@@ -54,6 +57,7 @@ export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY: 'calc(var(--rightSide
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const localSlotLayers: {
+	chatPanelOverlay: number;
 	ribbon: number;
 	sideNavPanelSplitterFHS: number;
 	topBar: number;
@@ -63,6 +67,8 @@ export const localSlotLayers: {
 	sideNav: number;
 	panelSmallViewports: number;
 } = {
+	// Chat overlays the app, including TopNav and SideNav, below the banner.
+	chatPanelOverlay: 5,
 	ribbon: 4,
 	// The side nav panel splitter is layered above the top nav when FHS is enabled.
 	// It has the same z-index value, but is rendered after the top nav in the DOM so is stacked above.

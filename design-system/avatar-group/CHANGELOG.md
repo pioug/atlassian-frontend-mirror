@@ -1,5 +1,15 @@
 # @atlaskit/avatar-group
 
+## 14.4.3
+
+### Patch Changes
+
+- [`35ab8e5dc2df6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35ab8e5dc2df6) -
+  Fix avatar-group overflow entries persisting after the group shrinks by completing exit animations
+  for custom and top-layer overflow buttons when platform-dst-motion-uplift and
+  platform-dst-avatar-group-overflow-exit are enabled.
+- Updated dependencies
+
 ## 14.4.2
 
 ### Patch Changes

@@ -37,6 +37,11 @@ tester.run('ensure-static-structured-content', rule, {
 			filename: 'non-docs.tsx',
 			code: `const build = () => ({ name: 'Dynamic' }); export default build();`,
 		},
+		{
+			filename: 'aliased.docs.tsx',
+			code: `import { type StructuredContentSource as Source } from '@atlassian/structured-docs-types/types';
+				const docs: Source = { components: [] }; export default docs;`,
+		},
 	],
 	invalid: [
 		{
@@ -111,6 +116,48 @@ tester.run('ensure-static-structured-content', rule, {
 			filename: 'platform-labs-node-protocol.docs.tsx',
 			code: `import path from 'node:path'; export default { packagePath: path.resolve(__dirname) };`,
 			errors: [{ messageId: 'nodeBuiltin' }, { messageId: 'nodeBuiltin' }],
+		},
+		{
+			filename: 'untyped.docs.tsx',
+			code: `const documentation = { components: [] }; export default documentation;`,
+			errors: [{ messageId: 'structuredContentDefaultExport' }],
+		},
+		{
+			filename: 'array.docs.tsx',
+			code: `import { type StructuredContentSource } from '@atlassian/structured-docs-types/types';
+				const documentation: StructuredContentSource[] = []; export default documentation;`,
+			errors: [{ messageId: 'structuredContentDefaultExport' }],
+		},
+		{
+			filename: 'wrong-binding.docs.tsx',
+			code: `import { type StructuredContentSource } from '@atlassian/structured-docs-types/types';
+				const typed: StructuredContentSource = { components: [] };
+				const documentation = { components: [] }; export default documentation;`,
+			errors: [{ messageId: 'structuredContentDefaultExport' }],
+		},
+		{
+			filename: 'wrong-import.docs.tsx',
+			code: `import { type StructuredContentSource } from './other';
+				const documentation: StructuredContentSource = { components: [] }; export default documentation;`,
+			errors: [{ messageId: 'structuredContentDefaultExport' }],
+		},
+		{
+			filename: 'missing-default.docs.tsx',
+			code: `import { type StructuredContentSource } from '@atlassian/structured-docs-types/types';
+				const documentation: StructuredContentSource = { components: [] };`,
+			errors: [{ messageId: 'structuredContentDefaultExport' }],
+		},
+		{
+			filename: 'named-only.docs.tsx',
+			code: `export const guidelinesManifest = [{ file: 'guideline.mdx', keywords: [] }];`,
+			errors: [{ messageId: 'structuredContentDefaultExport' }],
+		},
+		{
+			filename: 'dynamic-but-typed.docs.tsx',
+			code: `import { type StructuredContentSource } from '@atlassian/structured-docs-types/types';
+				const documentation: StructuredContentSource = { components: [makeComponent()] };
+				export default documentation;`,
+			errors: [{ messageId: 'dynamicStructuredContent', data: { nodeType: 'CallExpression' } }],
 		},
 	],
 });

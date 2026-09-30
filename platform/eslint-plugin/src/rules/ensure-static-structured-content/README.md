@@ -1,8 +1,10 @@
 # Require static structured content
 
 Structured content is a machine-readable inventory of package APIs and design intent. Each
-`*.docs.tsx` file must be a statically declared data file. The rule exits immediately for every
-other filename.
+`*.docs.tsx` file must be a statically declared data file and default-export a `const` annotated
+as `StructuredContentSource` from `@atlassian/structured-docs-types/types`. The rule exits
+immediately for every other filename. The design-system guidelines manifest uses a separate
+`*.manifest.tsx` filename because it has a different schema and a named export.
 
 ## Incorrect
 

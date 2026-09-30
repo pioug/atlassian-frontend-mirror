@@ -18,10 +18,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
 import type { Identifier } from '@atlaskit/media-client';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
@@ -71,12 +69,10 @@ const prepareFilmstripItem =
 		intl,
 		isMediaItemSelected,
 		setMediaGroupNodeSelection,
-		featureFlags,
 	}: {
 		allowLazyLoading: boolean | undefined;
 		allowMediaInlineImages: boolean | undefined;
 		enableDownloadButton: boolean | undefined;
-		featureFlags: MediaOptions['featureFlags'] | undefined;
 		getPos: () => number | undefined;
 		handleMediaNodeRemoval: (node: PMNode | undefined, getPos: () => number | undefined) => void;
 		isMediaItemSelected: (mediaItemPos: number, mediaGroupPos: number) => boolean;
@@ -126,11 +122,7 @@ const prepareFilmstripItem =
 			onClick: () => {
 				setMediaGroupNodeSelection(getNodePos());
 			},
-			...mediaInlineOptions(
-				fg('platform_editor_remove_media_inline_feature_flag')
-					? allowMediaInlineImages
-					: getMediaFeatureFlag('mediaInline', featureFlags),
-			),
+			...mediaInlineOptions(allowMediaInlineImages),
 		};
 	};
 
@@ -323,7 +315,6 @@ export const MediaGroupNext: React.FC<
 				intl,
 				isMediaItemSelected,
 				setMediaGroupNodeSelection,
-				featureFlags,
 			});
 		}, [
 			allowLazyLoading,
@@ -334,7 +325,6 @@ export const MediaGroupNext: React.FC<
 			intl,
 			isMediaItemSelected,
 			setMediaGroupNodeSelection,
-			featureFlags,
 		]);
 		const items = useMemo(() => {
 			return mediaNodesWithOffsets.map(({ node, offset }) => {

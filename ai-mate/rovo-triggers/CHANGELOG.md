@@ -1,5 +1,34 @@
 # @atlaskit/rovo-triggers
 
+## 11.7.0
+
+### Minor Changes
+
+- [`c69547551921c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c69547551921c) -
+  Pass the invoking Confluence comment context to Rovo on each message so comment thread replies can
+  reuse one session.
+
+## 11.6.0
+
+### Minor Changes
+
+- [`1337ae719973f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1337ae719973f) -
+  Behind the `platform_aifc_finalized_destination_v2` feature gate, include the originating
+  conversation ID when finalized Confluence content publishes its resolved destination, and scale
+  CWR prompt preview images to fill their available surface.
+- [`007ce1291922e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/007ce1291922e) -
+  Behind rovo_chat_3p_zero_state_prompt, show the existing starter-row loading placeholder until
+  page Smart Link discovery and any required tenant-app popularity ranking settle. Distinguish
+  loading from completed empty results, reset selection when page context changes, and retain
+  fallback selection for failed discovery or ranking. Other conversation starters remain available.
+
+  Read starter experiment configuration without recording exposure during Jira loading-state
+  bookkeeping.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.5.0
 
 ### Minor Changes

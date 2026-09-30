@@ -1,5 +1,63 @@
 # @atlaskit/editor-common
 
+## 126.4.4
+
+### Patch Changes
+
+- [`feeef61c773db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feeef61c773db) -
+  Clean up feature gate `platform_editor_blocks_patch_7`
+- [`9d953d03b62a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d953d03b62a1) -
+  Order non-template slash-command items under platform_editor_slash_command
+
+## 126.4.3
+
+### Patch Changes
+
+- [`5655e3d4d88fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5655e3d4d88fc) -
+  Clean up experiment `platform_editor_reduce_event_listener_count`. The treatment behaviour is now
+  permanent: node views that render nothing no longer mount a React portal, breakout resize tooltips
+  mount on first hover, and layout column dividers are keyed by section ordinal and found via a
+  scoped document walk.
+- [`b90341d10ef81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b90341d10ef81) -
+  Fix element browser cards, keyboard selection, and small-screen categories under
+  platform_editor_slash_command
+- [`dc878dede0903`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc878dede0903) -
+  Clean up feature gate `platform_editor_embed_height_only_fallback`
+- Updated dependencies
+
+## 126.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.4.0
+
+### Minor Changes
+
+- [`bcdb07236fe50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcdb07236fe50) -
+  Add an optional selection prop to invalidate memoized extension renders under
+  confluence_enable_react-compiler-runtime-platform while reading current state from editorView.
+  Preserve MAUI selection updates without resetting content readiness.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.3.2
+
+### Patch Changes
+
+- [`70b2bc3a11027`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70b2bc3a11027) -
+  [ux] EDITOR-9295 Link the unsaved Jira source from the "Pasted from unsaved item" flag, behind
+  `editor_synced_blocks_jira_custom_rich_text`. Adds optional `resourceId` to `ActiveFlag`.
+
 ## 126.3.1
 
 ### Patch Changes

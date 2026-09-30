@@ -3,7 +3,6 @@ import React from 'react';
 import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { extractProvider } from '@atlaskit/link-extractors/extract-provider';
-import { extractTitle } from '@atlaskit/link-extractors/extract-title';
 import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors/extract-url-from-icon-json-ld';
 import type { LinkProvider } from '@atlaskit/link-extractors/types';
 import BranchObject from '@atlaskit/object/branch';
@@ -11,7 +10,6 @@ import CodeObject from '@atlaskit/object/code';
 import CommitObject from '@atlaskit/object/commit';
 import PullRequestObject from '@atlaskit/object/pull-request';
 import TaskObject from '@atlaskit/object/task';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getIconForFileType } from '../../../utils/get-icon-for-file-type';
 import { extractTaskType, type LinkTaskType } from '../lozenge/extractTaskType';
@@ -29,7 +27,6 @@ export interface IconOpts {
 	provider?: LinkProvider;
 	showIconLabel?: boolean;
 	taskType?: LinkTaskType;
-	title?: string; // NAVX-4354: remove this during cleanup
 }
 
 export const extractIcon = (
@@ -39,7 +36,6 @@ export const extractIcon = (
 ): React.ReactNode | undefined => {
 	const type = jsonLd['@type'];
 	const opts = {
-		...(fg('platform_navx_smart_link_icon_label_a11y') ? {} : { title: extractTitle(jsonLd) }),
 		provider: extractProvider(jsonLd),
 		fileFormat: extractFileFormat(jsonLd as JsonLd.Data.Document),
 		taskType: extractTaskType(jsonLd as JsonLd.Data.Task),
@@ -60,24 +56,19 @@ function typeToIcon(
 	type: JsonLd.Primitives.ObjectType | 'atlassian:Template',
 	opts: IconOpts,
 ): React.ReactNode | undefined {
-	const getLabel = (title: string) =>
-		fg('platform_navx_smart_link_icon_label_a11y') ? title : opts.title || title;
-
 	switch (type) {
 		case 'atlassian:SourceCodeCommit':
-			return <CommitObject label={getLabel('commit')} testId="commit-icon" />;
+			return <CommitObject label="commit" testId="commit-icon" />;
 		case 'atlassian:Project':
-			return (
-				<PeopleGroupIcon label={getLabel('project')} testId="project-icon" color="currentColor" />
-			);
+			return <PeopleGroupIcon label="project" testId="project-icon" color="currentColor" />;
 		case 'atlassian:SourceCodePullRequest':
-			return <PullRequestObject label={getLabel('pull request')} testId="pull-request-icon" />;
+			return <PullRequestObject label="pull request" testId="pull-request-icon" />;
 		case 'atlassian:SourceCodeReference':
-			return <BranchObject label={getLabel('reference')} testId="branch-icon" />;
+			return <BranchObject label="reference" testId="branch-icon" />;
 		case 'atlassian:SourceCodeRepository':
-			return <CodeObject label={getLabel('repository')} testId="repo-icon" />;
+			return <CodeObject label="repository" testId="repo-icon" />;
 		case 'atlassian:Goal':
-			return <TaskObject label={getLabel('goal')} testId="task-icon" />;
+			return <TaskObject label="goal" testId="task-icon" />;
 		case 'atlassian:Task':
 			return extractIconFromTask(opts);
 		default:
@@ -91,10 +82,7 @@ function standardisedExtractIcon(
 ) {
 	const iconFromType = typeToIcon(type, opts);
 	const iconFromFileFormat = opts.fileFormat
-		? getIconForFileType(
-				opts.fileFormat,
-				fg('platform_navx_smart_link_icon_label_a11y') ? opts.showIconLabel : undefined,
-			)
+		? getIconForFileType(opts.fileFormat, opts.showIconLabel)
 		: undefined;
 	const iconFromProvider = opts.provider && opts.provider.icon;
 

@@ -132,6 +132,7 @@ export default function EditorWithFeedback(props: Props): React.JSX.Element {
 											allowMediaSingle: true,
 											allowLinking: true,
 											allowCaptions: true,
+											allowMediaInlineImages: true,
 											featureFlags: {
 												mediaInline: true,
 											},

@@ -112,6 +112,7 @@ describe('JSONTransformer:', () => {
 					mentionProvider: new Promise(() => {}),
 					media: {
 						allowMediaSingle: true,
+						allowMediaInlineImages: true,
 						featureFlags: {
 							mediaInline: true,
 						},

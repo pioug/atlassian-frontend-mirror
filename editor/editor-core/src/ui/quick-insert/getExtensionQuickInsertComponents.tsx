@@ -4,15 +4,20 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { MenuItem } from '@atlaskit/editor-common/extensions';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import { getQuickInsertMenuItemParents } from '@atlaskit/editor-common/quick-insert/get-menu-item-parents';
-import { STRUCTURE_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
-import { EXTENSION_ITEM_RANK } from '@atlaskit/editor-common/quick-insert/rank';
+import {
+	DATA_AND_CHARTS_SECTION,
+	EMBED_SECTION,
+	MEDIA_SECTION,
+	OTHER_SECTION,
+	STRUCTURE_SECTION,
+} from '@atlaskit/editor-common/quick-insert/keys';
+import { EXTENSION_ITEM_RANK, MEDIA_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type {
 	CommonComponentProps,
 	RegisterMenuItem,
 } from '@atlaskit/editor-ui-control-model/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type EditorActions from '../../actions';
 import { ExtensionQuickInsertMenuItem } from './ExtensionQuickInsertMenuItem';
@@ -27,26 +32,29 @@ const structureExtensionItemKeyRanks: Readonly<Record<string, number>> = {
 	'cards:quick-insert': 2000,
 	'carousel:quick-insert': 2100,
 	'spotlight:quick-insert': 2200,
-	'com.atlassian.linking-platform.create:linking-platform-create-jira-issue': 2500,
-	'com.atlassian.linking-platform.create:linking-platform-create-confluence-page': 2600,
 	'create-from-template:create-from-template': 2700,
 	'anchor:anchor': 2900,
 	'smart-button:quick-insert': 3000,
 };
-
+const createExtensionItemKeyRanks: Readonly<Record<string, number>> = {
+	'com.atlassian.linking-platform.create:linking-platform-create-jira-issue': 100,
+	'com.atlassian.linking-platform.create:linking-platform-create-confluence-page': 200,
+};
 const UNRECOGNIZED_STRUCTURE_EXTENSION_ITEM_RANK = 3100;
 const APP_DATA_AND_CHARTS_ITEM_RANK = 2700;
 const APP_EMBED_ITEM_RANK = EXTENSION_ITEM_RANK;
+const APP_MEDIA_ITEM_RANK = Math.max(...Object.values(MEDIA_SECTION_RANK)) + 100;
+const APP_OTHER_ITEM_RANK = EXTENSION_ITEM_RANK;
 
 const getStructureExtensionItemRank = (item: MenuItem): number | undefined =>
 	structureExtensionItemKeyRanks[item.key];
 
-const isStructureExtensionItem = (item: MenuItem): boolean =>
+const isExtensionItemInSection = (item: MenuItem, sectionKey: string): boolean =>
 	getQuickInsertMenuItemParents({
 		category: item.category,
 		legacyCategories: item.categories,
 		rank: 0,
-	}).some((parent) => parent.key === STRUCTURE_SECTION.key);
+	}).some((parent) => parent.key === sectionKey);
 
 const compareMenuItemsByTitleAndKey = (firstItem: MenuItem, secondItem: MenuItem): number =>
 	firstItem.title.localeCompare(secondItem.title) || firstItem.key.localeCompare(secondItem.key);
@@ -63,51 +71,63 @@ const getAlphabeticalItemRanks = (
 			.map((item, index): [MenuItem, number] => [item, firstRank + index]),
 	);
 
-const getUnrecognizedStructureItemRanks = (items: MenuItem[]): Map<MenuItem, number> =>
-	isExperimentEnabled('platform_editor_slash_command')
-		? getAlphabeticalItemRanks(
-				items,
-				(item) =>
-					isStructureExtensionItem(item) && getStructureExtensionItemRank(item) === undefined,
-				UNRECOGNIZED_STRUCTURE_EXTENSION_ITEM_RANK,
-			)
-		: new Map();
+const hasNoNegativePriority = (item: MenuItem): boolean =>
+	item.priority === undefined || item.priority >= 0;
 
-const getUnrecognizedDataAndChartsItemRanks = (items: MenuItem[]): Map<MenuItem, number> =>
-	isExperimentEnabled('platform_editor_slash_command')
-		? getAlphabeticalItemRanks(
-				items,
-				(item) => item.category === 'data-and-charts' && item.priority === undefined,
-				APP_DATA_AND_CHARTS_ITEM_RANK,
-			)
-		: new Map();
+const getSectionAlphabeticalItemRanks = (
+	items: MenuItem[],
+	sectionKey: string,
+	firstRank: number,
+	isRankedItem: (item: MenuItem) => boolean = hasNoNegativePriority,
+): Map<MenuItem, number> =>
+	getAlphabeticalItemRanks(
+		items,
+		(item) => isExtensionItemInSection(item, sectionKey) && isRankedItem(item),
+		firstRank,
+	);
 
-const getEmbedAppItemRanks = (items: MenuItem[]): Map<MenuItem, number> =>
-	isExperimentEnabled('platform_editor_slash_command')
-		? getAlphabeticalItemRanks(
-				items,
-				(item) => item.category === 'embed' && (item.priority === undefined || item.priority >= 0),
-				APP_EMBED_ITEM_RANK,
-			)
-		: new Map();
+// Rank each parent section separately so a macro in multiple categories gets the right order in each.
+const createExtensionItemRanker = (items: MenuItem[]) => {
+	const sections: Array<[string, number, ((item: MenuItem) => boolean)?]> = [
+		[EMBED_SECTION.key, APP_EMBED_ITEM_RANK],
+		[MEDIA_SECTION.key, APP_MEDIA_ITEM_RANK],
+		[OTHER_SECTION.key, APP_OTHER_ITEM_RANK],
+		[
+			STRUCTURE_SECTION.key,
+			UNRECOGNIZED_STRUCTURE_EXTENSION_ITEM_RANK,
+			(item) => getStructureExtensionItemRank(item) === undefined,
+		],
+		[
+			DATA_AND_CHARTS_SECTION.key,
+			APP_DATA_AND_CHARTS_ITEM_RANK,
+			(item) => item.priority === undefined,
+		],
+	];
+	const ranksBySection = new Map(
+		sections.map(([sectionKey, firstRank, isRankedItem]): [string, Map<MenuItem, number>] => [
+			sectionKey,
+			getSectionAlphabeticalItemRanks(items, sectionKey, firstRank, isRankedItem),
+		]),
+	);
 
-const getFallbackRank = ({
-	index,
-	embedAppItemRanks,
-	item,
-	unrecognizedDataAndChartsItemRanks,
-	unrecognizedStructureItemRanks,
-}: {
-	index: number;
-	embedAppItemRanks: Map<MenuItem, number>;
-	item: MenuItem;
-	unrecognizedDataAndChartsItemRanks: Map<MenuItem, number>;
-	unrecognizedStructureItemRanks: Map<MenuItem, number>;
-}): number =>
-	embedAppItemRanks.get(item) ??
-	unrecognizedStructureItemRanks.get(item) ??
-	unrecognizedDataAndChartsItemRanks.get(item) ??
-	EXTENSION_ITEM_RANK + (item.priority ?? index);
+	return ({
+		index,
+		knownRank,
+		item,
+		sectionKey,
+	}: {
+		index: number;
+		item: MenuItem;
+		knownRank?: number;
+		sectionKey: string;
+	}): number => {
+		if (knownRank !== undefined) {
+			return knownRank;
+		}
+		const sectionRank = ranksBySection.get(sectionKey)?.get(item);
+		return sectionRank ?? EXTENSION_ITEM_RANK + (item.priority ?? index);
+	};
+};
 
 export const getExtensionQuickInsertComponents = ({
 	apiRef,
@@ -120,30 +140,30 @@ export const getExtensionQuickInsertComponents = ({
 	editorActions: EditorActions;
 	items: MenuItem[];
 }): RegisterMenuItem<ExtensionQuickInsertComponentProps>[] => {
-	const embedAppItemRanks = getEmbedAppItemRanks(items);
-	const unrecognizedStructureItemRanks = getUnrecognizedStructureItemRanks(items);
-	const unrecognizedDataAndChartsItemRanks = getUnrecognizedDataAndChartsItemRanks(items);
+	const getExtensionItemRank = createExtensionItemRanker(items);
 
 	return items.map((item, index) => {
 		const structureRank = getStructureExtensionItemRank(item);
 		const isStructureItem = structureRank !== undefined;
 		const categories = isStructureItem ? ['structure'] : item.categories;
-		const fallbackRank = getFallbackRank({
-			index,
-			embedAppItemRanks,
-			item,
-			unrecognizedDataAndChartsItemRanks,
-			unrecognizedStructureItemRanks,
+		const parents = getQuickInsertMenuItemParents({
+			category: item.category,
+			legacyCategories: categories,
+			rank: 0,
 		});
 
 		return {
 			type: 'menu-item',
 			key: item.key,
-			parents: getQuickInsertMenuItemParents({
-				category: item.category,
-				legacyCategories: categories,
-				rank: structureRank ?? fallbackRank,
-			}),
+			parents: parents.map((parent) => ({
+				...parent,
+				rank: getExtensionItemRank({
+					index,
+					knownRank: createExtensionItemKeyRanks[item.key] ?? structureRank,
+					item,
+					sectionKey: parent.key,
+				}),
+			})),
 			match: createQuickInsertMatcher(() => ({
 				description: item.description,
 				keywords: item.keywords,

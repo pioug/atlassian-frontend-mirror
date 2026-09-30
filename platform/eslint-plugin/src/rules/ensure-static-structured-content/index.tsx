@@ -87,6 +87,52 @@ const reportNodeBuiltin = (context: Rule.RuleContext, node: TSESTree.Node): void
 	});
 };
 
+const hasStructuredContentDefaultExport = (program: TSESTree.Program): boolean => {
+	const structuredContentTypeNames = new Set<string>();
+	for (const statement of program.body) {
+		if (
+			statement.type === 'ImportDeclaration' &&
+			statement.source.value === '@atlassian/structured-docs-types/types'
+		) {
+			for (const specifier of statement.specifiers) {
+				if (
+					specifier.type === 'ImportSpecifier' &&
+					specifier.imported.type === 'Identifier' &&
+					specifier.imported.name === 'StructuredContentSource'
+				) {
+					structuredContentTypeNames.add(specifier.local.name);
+				}
+			}
+		}
+	}
+
+	const defaultExport = program.body.find(
+		(statement): statement is TSESTree.ExportDefaultDeclaration =>
+			statement.type === 'ExportDefaultDeclaration',
+	);
+	if (!defaultExport || defaultExport.declaration.type !== 'Identifier') {
+		return false;
+	}
+	const exportedName = defaultExport.declaration.name;
+
+	return program.body.some(
+		(statement) =>
+			statement.type === 'VariableDeclaration' &&
+			statement.kind === 'const' &&
+			statement.declarations.some((declaration) => {
+				const { id } = declaration;
+				const annotation = id.type === 'Identifier' ? id.typeAnnotation?.typeAnnotation : undefined;
+				return (
+					id.type === 'Identifier' &&
+					id.name === exportedName &&
+					annotation?.type === 'TSTypeReference' &&
+					annotation.typeName.type === 'Identifier' &&
+					structuredContentTypeNames.has(annotation.typeName.name)
+				);
+			}),
+	);
+};
+
 const rule: Rule.RuleModule = {
 	meta: {
 		type: 'problem',
@@ -97,6 +143,8 @@ const rule: Rule.RuleModule = {
 		hasSuggestions: false,
 		schema: [],
 		messages: {
+			structuredContentDefaultExport:
+				'Package structured content must default-export a const typed as StructuredContentSource from @atlassian/structured-docs-types/types.',
 			dynamicStructuredContent:
 				'Structured content files may only contain static declarations. Remove this dynamic {{nodeType}} or use an allowlisted package.json import or array literal join.',
 			nodeBuiltin:
@@ -108,7 +156,24 @@ const rule: Rule.RuleModule = {
 		if (!filename.endsWith('.docs.tsx')) {
 			return {};
 		}
+		let hasStaticContentError = false;
+		const reportDynamic = (node: TSESTree.Node): void => {
+			hasStaticContentError = true;
+			reportMessage(context, node);
+		};
+		const reportBuiltin = (node: TSESTree.Node): void => {
+			hasStaticContentError = true;
+			reportNodeBuiltin(context, node);
+		};
 		const listeners: Rule.RuleListener = {
+			'Program:exit'(node) {
+				if (
+					!hasStaticContentError &&
+					!hasStructuredContentDefaultExport(node as unknown as TSESTree.Program)
+				) {
+					context.report({ node, messageId: 'structuredContentDefaultExport' });
+				}
+			},
 			ImportDeclaration(node) {
 				const importDeclaration = node as unknown as TSESTree.ImportDeclaration;
 				if (!isAllowedImport(importDeclaration)) {
@@ -116,39 +181,39 @@ const rule: Rule.RuleModule = {
 						importDeclaration.source.value === 'path' ||
 						importDeclaration.source.value === 'node:path'
 					) {
-						reportNodeBuiltin(context, importDeclaration);
+						reportBuiltin(importDeclaration);
 						return;
 					}
-					reportMessage(context, importDeclaration);
+					reportDynamic(importDeclaration);
 				}
 			},
 			VariableDeclaration(node) {
 				const variableDeclaration = node as unknown as TSESTree.VariableDeclaration;
 				if (variableDeclaration.kind !== 'const') {
-					reportMessage(context, variableDeclaration);
+					reportDynamic(variableDeclaration);
 				}
 			},
 			CallExpression(node) {
 				const call = node as unknown as TSESTree.CallExpression;
 				if (!isAllowedPackageJsonRequire(call) && !isAllowedLiteralArrayJoin(call)) {
 					if (isPathResolveCall(call)) {
-						reportNodeBuiltin(context, call);
+						reportBuiltin(call);
 						return;
 					}
-					reportMessage(context, call);
+					reportDynamic(call);
 				}
 			},
 			ExportNamedDeclaration(node) {
 				const exportDeclaration = node as unknown as TSESTree.ExportNamedDeclaration;
 				if (exportDeclaration.source) {
-					reportMessage(context, exportDeclaration);
+					reportDynamic(exportDeclaration);
 				}
 			},
 			ExportAllDeclaration(node) {
-				reportMessage(context, node as unknown as TSESTree.ExportAllDeclaration);
+				reportDynamic(node as unknown as TSESTree.ExportAllDeclaration);
 			},
 			[DYNAMIC_NODE_SELECTOR](node: unknown) {
-				reportMessage(context, node as TSESTree.Node);
+				reportDynamic(node as TSESTree.Node);
 			},
 		};
 

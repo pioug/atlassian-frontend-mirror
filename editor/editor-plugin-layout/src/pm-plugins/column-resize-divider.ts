@@ -14,7 +14,6 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { MIN_LAYOUT_COLUMN_WIDTH_PERCENT } from './consts';
 
@@ -309,24 +308,15 @@ const onDragCancel = () => {
 /**
  * Resolves the layout section a divider sits in and which pair of columns it separates.
  *
- * When `getPos` is supplied (under `platform_editor_reduce_event_listener_count`) this is derived
- * from the widget's own live position, which ProseMirror keeps up to date. That is what lets the
- * decoration key omit the section position: the key previously embedded it, so inserting a single
- * character above a layout changed the key of every divider below and forced ProseMirror to destroy
- * and rebuild all of them. Without `getPos` it falls back to the values captured when the widget
- * was created.
+ * This is derived from the widget's own live position, which ProseMirror keeps up to date. That is
+ * what lets the decoration key omit the section position: the key previously embedded it, so
+ * inserting a single character above a layout changed the key of every divider below and forced
+ * ProseMirror to destroy and rebuild all of them.
  */
 const resolveDividerTarget = (
 	view: EditorView,
-	sectionPos: number,
-	columnIndex: number,
-	getPos?: () => number | undefined,
+	getPos: () => number | undefined,
 ): { leftColIndex: number; sectionNode: Node; sectionPos: number } | null => {
-	if (!getPos) {
-		const sectionNode = view.state.doc.nodeAt(sectionPos);
-		return sectionNode ? { sectionNode, sectionPos, leftColIndex: columnIndex - 1 } : null;
-	}
-
 	const pos = getPos();
 	if (pos === undefined) {
 		return null;
@@ -351,11 +341,9 @@ const resolveDividerTarget = (
  */
 const createColumnDividerWidget = (
 	view: EditorView,
-	sectionPos: number,
-	columnIndex: number, // index of the column to the RIGHT of this divider
+	/** See `resolveDividerTarget`. */
+	getPos: () => number | undefined,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
-	/** See `resolveDividerTarget`. Only supplied under the experiment. Added for platform_editor_reduce_event_listener_count*/
-	getPos?: () => number | undefined,
 ): { destroy?: () => void; target: HTMLElement } => {
 	const ownerDoc = view.dom.ownerDocument;
 
@@ -380,7 +368,7 @@ const createColumnDividerWidget = (
 			e.preventDefault();
 			e.stopPropagation();
 
-			const resolved = resolveDividerTarget(view, sectionPos, columnIndex, getPos);
+			const resolved = resolveDividerTarget(view, getPos);
 			if (!resolved) {
 				return;
 			}
@@ -510,10 +498,6 @@ export const getColumnDividerDecorations = (
 	}
 	const { layoutSection, bodiedSyncBlock } = state.schema.nodes;
 
-	// Read once per call: `isExperimentEnabled` fires an exposure event, so checking it per divider
-	// would emit one per divider per `decorations(state)` read.
-	const isScopedWalkEnabled = isExperimentEnabled('platform_editor_reduce_event_listener_count');
-
 	let sectionIndex = 0;
 	state.doc.descendants((node, pos) => {
 		if (node.type === layoutSection) {
@@ -523,62 +507,43 @@ export const getColumnDividerDecorations = (
 			node.forEach((_, offset, index) => {
 				// Add a divider widget BEFORE every column except the first
 				if (index > 0) {
-					const sectionPos = pos;
-					const colIndex = index;
 					const widgetPos = pos + offset + 1; // position at the start of this column
 
-					if (!isScopedWalkEnabled) {
-						decorations.push(
-							Decoration.widget(
-								widgetPos,
-								() =>
-									createColumnDividerWidget(view, sectionPos, colIndex, editorAnalyticsAPI).target,
-								{
-									side: -1, // place before the position
-									key: `layout-col-divider-${pos}-${index}`,
-									ignoreSelection: true,
+					// Keyed by the layout's ordinal rather than its position, so an edit elsewhere in
+					// the document doesn't invalidate it. A position-derived key changed on every
+					// keystroke above a layout, making the regenerated DecorationSet compare unequal
+					// and forcing ProseMirror to destroy and rebuild every divider below the edit. The
+					// widget resolves its own section from `getPos` (see `resolveDividerTarget`), so it
+					// stays correct wherever it ends up.
+					//
+					// `toDOM` must also stay lazy: most of the `Decoration`s returned here are matched
+					// by key against the previous set and discarded without ever being rendered.
+					// Building the widget eagerly would create three elements and bind a `mousedown`
+					// listener per divider per call, and the discarded ones never receive `destroy`.
+					let unbindMouseDown: (() => void) | undefined;
+					decorations.push(
+						Decoration.widget(
+							widgetPos,
+							(widgetView, getPos) => {
+								const { target, destroy } = createColumnDividerWidget(
+									widgetView,
+									getPos,
+									editorAnalyticsAPI,
+								);
+								unbindMouseDown = destroy;
+								return target;
+							},
+							{
+								side: -1, // place before the position
+								key: `layout-col-divider-${sectionOrdinal}-${index}`,
+								ignoreSelection: true,
+								destroy: () => {
+									unbindMouseDown?.();
+									unbindMouseDown = undefined;
 								},
-							),
-						);
-					} else {
-						// Keyed by the layout's ordinal rather than its position, so an edit elsewhere in
-						// the document doesn't invalidate it. A position-derived key changed on every
-						// keystroke above a layout, making the regenerated DecorationSet compare unequal
-						// and forcing ProseMirror to destroy and rebuild every divider below the edit. The
-						// widget resolves its own section from `getPos` (see `resolveDividerTarget`), so it
-						// stays correct wherever it ends up.
-						//
-						// `toDOM` must also stay lazy: most of the `Decoration`s returned here are matched
-						// by key against the previous set and discarded without ever being rendered.
-						// Building the widget eagerly would create three elements and bind a `mousedown`
-						// listener per divider per call, and the discarded ones never receive `destroy`.
-						let unbindMouseDown: (() => void) | undefined;
-						decorations.push(
-							Decoration.widget(
-								widgetPos,
-								(widgetView, getPos) => {
-									const { target, destroy } = createColumnDividerWidget(
-										widgetView,
-										sectionPos,
-										colIndex,
-										editorAnalyticsAPI,
-										getPos,
-									);
-									unbindMouseDown = destroy;
-									return target;
-								},
-								{
-									side: -1, // place before the position
-									key: `layout-col-divider-${sectionOrdinal}-${index}`,
-									ignoreSelection: true,
-									destroy: () => {
-										unbindMouseDown?.();
-										unbindMouseDown = undefined;
-									},
-								},
-							),
-						);
-					}
+							},
+						),
+					);
 				}
 			});
 			return false; // don't descend into children
@@ -586,7 +551,7 @@ export const getColumnDividerDecorations = (
 		// A `layoutSection` is only valid as a direct child of `doc` or `bodiedSyncBlock`, so there
 		// is nothing to find anywhere else. The unrestricted walk visited every node in the
 		// document — every table cell, list item and text node — on every `decorations(state)` read.
-		return isScopedWalkEnabled ? node.type === bodiedSyncBlock : true;
+		return node.type === bodiedSyncBlock;
 	});
 
 	return decorations;

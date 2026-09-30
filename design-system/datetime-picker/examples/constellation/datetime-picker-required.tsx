@@ -4,8 +4,11 @@ import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import Field from '@atlaskit/form/field';
 
 const DateTimePickerRequiredExample = (): React.JSX.Element => (
-	<Field name="datetime" label="Log Entry" isRequired>
-		{({ fieldProps: { ...rest } }) => (
+	<Field
+		name="datetime"
+		label="Log Entry"
+		isRequired
+		component={({ fieldProps: { ...rest } }) => (
 			<DateTimePicker
 				{...rest}
 				clearControlLabel="Clear log entry"
@@ -13,7 +16,7 @@ const DateTimePickerRequiredExample = (): React.JSX.Element => (
 				timePickerProps={{ label: 'Log entry, time' }}
 			/>
 		)}
-	</Field>
+	/>
 );
 
 export default DateTimePickerRequiredExample;

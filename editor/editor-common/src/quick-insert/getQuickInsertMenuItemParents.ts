@@ -1,6 +1,7 @@
 import { getActiveQuickInsertCategories } from './getActiveQuickInsertCategories';
 import {
 	BLOCK_TEMPLATES_SECTION,
+	CREATE_SECTION,
 	DATA_AND_CHARTS_SECTION,
 	EMBED_SECTION,
 	MEDIA_SECTION,
@@ -21,6 +22,7 @@ const categorySections: Record<string, MenuSection> = {
 	'block-templates': BLOCK_TEMPLATES_SECTION,
 	communication: MEDIA_SECTION,
 	'confluence-content': STRUCTURE_SECTION,
+	create: CREATE_SECTION,
 	'data-and-charts': DATA_AND_CHARTS_SECTION,
 	development: DATA_AND_CHARTS_SECTION,
 	embed: EMBED_SECTION,

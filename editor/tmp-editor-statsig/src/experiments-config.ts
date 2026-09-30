@@ -201,13 +201,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-05
-	'company_hub_carousel_thumbnails-refactor': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-05
 	'editor-a11y-fy26-keyboard-move-row-column': {
 		defaultValue: boolean;
@@ -523,13 +516,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open (boolean: isEnabled)
 	platform_sl_3p_post_auth_chat_open_exp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links (boolean: isEnabled)
-	platform_sl_3p_preauth_social_proof_inline_cta: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1025,13 +1011,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-25
-	platform_editor_use_html_plus_streaming_parser: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-05-26
 	platform_editor_wide_slash_trigger: {
 		defaultValue: boolean;
@@ -1304,14 +1283,6 @@ export const editorExperimentsConfig: {
 	platform_renderer_table_sticky_scrollbar: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_renderer_table_sticky_scrollbar',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-05
-	'company_hub_carousel_thumbnails-refactor': createBooleanExperiment({
-		productKeys: {
-			confluence: 'company_hub_carousel_thumbnails-refactor',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1685,15 +1656,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_sl_3p_post_auth_chat_open_exp',
 			jira: 'platform_sl_3p_post_auth_chat_open_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links
-	platform_sl_3p_preauth_social_proof_inline_cta: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_sl_3p_preauth_social_proof_inline_cta',
-			jira: 'platform_sl_3p_preauth_social_proof_inline_cta',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2262,19 +2224,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_a11y_fixes_emoji_title_shortname',
 			jira: 'platform_a11y_fixes_emoji_title_shortname',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-25
-	// HTML+ v2 incremental tool-call streaming contract — gates the new
-	// PartialStreamParserV2 / ToolCallProcessorV2 / AdfChunkStrategyV2 stack
-	// in `@atlassian/editor-rovo-bridge`, the `replaceValue` orchestrator
-	// action, and the `toolCallsStreaming.supportsProvisionalToolCalls`
-	// capability advert on `PageContentCommandResult`.
-	platform_editor_use_html_plus_streaming_parser: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_use_html_plus_streaming_parser',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

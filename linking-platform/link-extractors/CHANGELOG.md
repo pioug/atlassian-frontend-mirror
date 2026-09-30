@@ -1,5 +1,18 @@
 # @atlaskit/link-extractors
 
+## 5.0.1
+
+### Patch Changes
+
+- [`983eed01a5872`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/983eed01a5872) -
+  Clean up `platform_sl_icons_refactor` and `platform_navx_smart_link_icon_label_a11y` as enabled.
+  Smart Links retain the updated icon sizing and semantic icon labels for documents, file formats,
+  and work types.
+
+  In `@atlaskit/smart-card`, also clean up `platform_sl_priority_icon` and
+  `platform_navx_jira_issue_type_icon_label_a11y` as enabled. Priority icons use the current assets
+  without icon tiles, and Jira issue icons retain their resolver-provided subtype labels.
+
 ## 5.0.0
 
 ### Major Changes

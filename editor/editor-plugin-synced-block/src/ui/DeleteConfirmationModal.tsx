@@ -21,7 +21,6 @@ import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 
@@ -128,7 +127,7 @@ export const DeleteConfirmationModal = ({
 			// never fires because clicking Delete closes the menu. It stays for the lifetime of this
 			// modal so the block being deleted remains highlighted, and confirming drops it along
 			// with the node, but cancelling has to clear it or the red highlight is left behind.
-			if (!confirm && editorView && fg('platform_editor_blocks_patch_7')) {
+			if (!confirm && editorView) {
 				api?.decorations?.actions.removeDecoration(editorView.state, editorView.dispatch);
 			}
 		},
@@ -326,8 +325,7 @@ const ModalContent = ({
 	const hasNoReferenceOrFailToFetch = referenceCount === 0;
 	const totalLocationCount =
 		deleteReason === 'source-block-deleted' ? referenceCount + sourceCount : referenceCount;
-	const isReferenceCountDescriptionEnabled =
-		deleteReason === 'source-block-deleted' && fg('platform_editor_blocks_patch_7');
+	const isReferenceCountDescriptionEnabled = deleteReason === 'source-block-deleted';
 	const descriptionLocationCount = isReferenceCountDescriptionEnabled
 		? referenceCount
 		: totalLocationCount;

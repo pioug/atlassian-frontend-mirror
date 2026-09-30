@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 20.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.4
+
+### Patch Changes
+
+- [`feeef61c773db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feeef61c773db) -
+  Clean up feature gate `platform_editor_blocks_patch_7`
+- Updated dependencies
+
+## 20.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.0
+
+### Minor Changes
+
+- [`70b2bc3a11027`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70b2bc3a11027) -
+  [ux] EDITOR-9295 Link the unsaved Jira source from the "Pasted from unsaved item" flag, behind
+  `editor_synced_blocks_jira_custom_rich_text`. Adds optional `resourceId` to `ActiveFlag`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.11
 
 ### Patch Changes

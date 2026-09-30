@@ -12,6 +12,7 @@ import { isFileIdentifier, type Identifier } from '@atlaskit/media-client';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { Shortcut } from '@atlaskit/media-ui/shortcut';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { createModalEvent } from './analytics/events/screen/modal';
 import { createClosedEvent } from './analytics/events/ui/closed';
@@ -22,8 +23,17 @@ import {
 	type MediaViewerNavigationDirection,
 } from './components/types';
 import { Content } from './content';
+import { InsetViewerProvider } from './insetViewerContext';
 import { List } from './list';
-import { Blanket, SidebarWrapper } from './styleWrappers';
+import {
+	Blanket,
+	BlanketCloseButton,
+	InsetViewerLayout,
+	InsetViewerShell,
+	MediaColumn,
+	MediaStage,
+	SidebarWrapper,
+} from './styleWrappers';
 import { type ViewerOptionsProps } from './viewerOptions';
 
 const getIdentifierId = (identifier: Identifier): string | undefined =>
@@ -69,6 +79,10 @@ const MediaViewerComponent = ({
 		: {};
 
 	const [isSidebarVisible, setIsSidebarVisibleState] = useState(defaultSidebarVisible ?? false);
+	// The inset presentation has its own feature gate, separate from the functionality above. The
+	// value flows out through InsetViewerProvider, so with the gate off every downstream
+	// useIsInsetViewer() is false and the full-bleed overlay renders unchanged.
+	const isInsetViewer = fg('cc_comments_inset_media_viewer') && !!extensions?.useInsetViewer;
 	const setIsSidebarVisible = useCallback(
 		(isVisible: boolean) => {
 			setIsSidebarVisibleState(isVisible);
@@ -187,58 +201,76 @@ const MediaViewerComponent = ({
 		}
 	};
 
+	const ConditionalInsetViewerShell = isInsetViewer ? InsetViewerShell : React.Fragment;
+	const ConditionalInsetViewerLayout = isInsetViewer ? InsetViewerLayout : React.Fragment;
+	const ConditionalInsetMediaColumn = isInsetViewer ? MediaColumn : React.Fragment;
+	const ConditionalInsetMediaStage = isInsetViewer ? MediaStage : React.Fragment;
+
 	const content = (
 		<div ref={innerRef}>
-			<Blanket
-				data-testid="media-viewer-popup"
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={mediaViewerPopupClass}
-			>
-				<Shortcut
-					code={'Escape'}
-					handler={() => {
-						handlePreviewClose('escKey');
-					}}
-				/>
-				<Content
-					isSidebarVisible={isSidebarVisible}
-					onClose={(_e?: SyntheticEvent, analyticsEvent?: UIAnalyticsEvent) => {
-						const reason: 'button' | 'other' =
-							analyticsEvent?.payload?.actionSubject === 'button' ? 'button' : 'other';
-						handlePreviewClose(reason);
-					}}
+			<InsetViewerProvider isInsetViewer={isInsetViewer}>
+				<Blanket
+					data-testid="media-viewer-popup"
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={mediaViewerPopupClass}
 				>
-					<List
-						defaultSelectedItem={defaultSelectedItem || items[0]}
-						items={items}
-						// Note: `onClose` here is what the prev/next list passes down for
-						// "close-the-modal" actions. Route through interceptor too.
-						onClose={() => handlePreviewClose('other')}
-						extensions={extensions}
-						// Notification-only: List has already updated its displayed item
-						// by the time this fires. We use it to keep the parent's
-						// `selectedIdentifier` in sync (consumers may key off it).
-						onNavigationChange={(identifier: Identifier) => {
-							setSelectedIdentifier(identifier);
-							onSelectedItemChange?.(identifier);
+					{isInsetViewer ? (
+						<BlanketCloseButton onClick={() => handlePreviewClose('blanket')} />
+					) : null}
+					<Shortcut
+						code={'Escape'}
+						handler={() => {
+							handlePreviewClose('escKey');
 						}}
-						// Pre-commit gate: consumer can swallow or defer the
-						// nav by not calling `commit`. The image only swaps
-						// once `commit` runs.
-						onNavigationRequest={(identifier: Identifier, commit: () => void) => {
-							const direction = computeNavigationDirection(identifier);
-							requestNavigation(direction, commit);
-						}}
-						onSidebarButtonClick={toggleSidebar}
-						isSidebarVisible={isSidebarVisible}
-						contextId={contextId}
-						featureFlags={featureFlags}
-						viewerOptions={viewerOptions}
-						fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 					/>
-				</Content>
-				{renderSidebar()}
-			</Blanket>
+					<ConditionalInsetViewerShell>
+						<ConditionalInsetViewerLayout>
+							<ConditionalInsetMediaColumn>
+								<ConditionalInsetMediaStage>
+									<Content
+										isSidebarVisible={isSidebarVisible}
+										onClose={(_e?: SyntheticEvent, analyticsEvent?: UIAnalyticsEvent) => {
+											const reason: 'button' | 'other' =
+												analyticsEvent?.payload?.actionSubject === 'button' ? 'button' : 'other';
+											handlePreviewClose(reason);
+										}}
+									>
+										<List
+											defaultSelectedItem={defaultSelectedItem || items[0]}
+											items={items}
+											// Note: `onClose` here is what the prev/next list passes down for
+											// "close-the-modal" actions. Route through interceptor too.
+											onClose={() => handlePreviewClose('other')}
+											extensions={extensions}
+											// Notification-only: List has already updated its displayed item
+											// by the time this fires. We use it to keep the parent's
+											// `selectedIdentifier` in sync (consumers may key off it).
+											onNavigationChange={(identifier: Identifier) => {
+												setSelectedIdentifier(identifier);
+												onSelectedItemChange?.(identifier);
+											}}
+											// Pre-commit gate: consumer can swallow or defer the
+											// nav by not calling `commit`. The image only swaps
+											// once `commit` runs.
+											onNavigationRequest={(identifier: Identifier, commit: () => void) => {
+												const direction = computeNavigationDirection(identifier);
+												requestNavigation(direction, commit);
+											}}
+											onSidebarButtonClick={toggleSidebar}
+											isSidebarVisible={isSidebarVisible}
+											contextId={contextId}
+											featureFlags={featureFlags}
+											viewerOptions={viewerOptions}
+											fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+										/>
+									</Content>
+								</ConditionalInsetMediaStage>
+							</ConditionalInsetMediaColumn>
+							{renderSidebar()}
+						</ConditionalInsetViewerLayout>
+					</ConditionalInsetViewerShell>
+				</Blanket>
+			</InsetViewerProvider>
 		</div>
 	);
 

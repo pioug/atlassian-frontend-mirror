@@ -5,11 +5,9 @@
 
 import { useEffect, useState, type ReactNode } from 'react';
 
-import { defineMessages, useIntl } from 'react-intl';
 import ImageLoader from 'react-render-image';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { LoadingSkeleton } from '../loading-skeleton';
@@ -18,15 +16,6 @@ import { type ImageIconProps } from './types';
 const styles = cssMap({
 	roundImg: {
 		borderRadius: token('radius.full'),
-	},
-});
-
-const messages = defineMessages({
-	imageAltText: {
-		id: 'smart-link.image-icon.altText',
-		defaultMessage: 'Link Icon',
-		description:
-			'Alternative text for the link icon image displayed on a flexible smart link card, used by screen readers and when the image cannot be rendered.',
 	},
 });
 
@@ -50,8 +39,6 @@ const ImageIcon = ({
 	| null
 	| undefined => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
-	const { formatMessage } = useIntl();
-
 	// If url changes, reset state
 	useEffect(() => {
 		setHasImageErrored(false);
@@ -66,7 +53,7 @@ const ImageIcon = ({
 			<img
 				src={url}
 				data-testid={`${testId}-image`}
-				alt={fg('platform_navx_smart_link_icon_label_a11y') ? (label?.trim() ?? '') : ''}
+				alt={label?.trim() ?? ''}
 				style={{
 					width,
 					height,
@@ -84,11 +71,7 @@ const ImageIcon = ({
 					<img
 						src={url}
 						data-testid={`${testId}-image`}
-						alt={
-							fg('platform_navx_smart_link_icon_label_a11y')
-								? (label?.trim() ?? '')
-								: formatMessage(messages.imageAltText)
-						}
+						alt={label?.trim() ?? ''}
 						style={{
 							width,
 							height,

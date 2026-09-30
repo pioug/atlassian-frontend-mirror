@@ -13,7 +13,6 @@ import type { UserIntent } from '@atlaskit/editor-plugin-user-intent/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	hasSelectionChanged,
@@ -57,7 +56,6 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 	getCurrentUserIntent,
 	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 }: SelectionToolbarOpenExperienceOptions): SafePlugin<{}> => {
-	const isIntentFixEnabled = fg('platform_editor_toolbar_intent_fix');
 	let editorView: EditorView | undefined;
 	let targetEl: HTMLElement | undefined;
 	let shiftArrowKeyPressed = false;
@@ -87,10 +85,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 			new ExperienceCheckTimeout({
 				durationMs: 1000,
 				onTimeout: () => {
-					if (
-						isIntentFixEnabled &&
-						isCurrentUserIntentSuppressingToolbar(editorView?.state.selection)
-					) {
+					if (isCurrentUserIntentSuppressingToolbar(editorView?.state.selection)) {
 						return { status: 'abort', reason: ABORT_REASON.USER_INTENT_SUPPRESSED };
 					} else if (isBlockMenuWithinNode(getTarget())) {
 						return { status: 'abort', reason: ABORT_REASON.BLOCK_MENU_OPENED };
@@ -119,7 +114,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 		if (
 			isSelectionWithoutTextContent(selection) ||
 			isSelectionWithinCodeBlock(selection) ||
-			(isIntentFixEnabled && isCurrentUserIntentSuppressingToolbar(selection))
+			isCurrentUserIntentSuppressingToolbar(selection)
 		) {
 			return true;
 		}
@@ -158,18 +153,14 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 			handleDOMEvents: {
 				mousedown: (view: EditorView, e: MouseEvent) => {
 					mouseDownPos = { x: e.clientX, y: e.clientY };
-					if (isIntentFixEnabled) {
-						mouseDownSelection = view.state.selection;
-					}
+					mouseDownSelection = view.state.selection;
 				},
 				mouseup: (view: EditorView, e: MouseEvent) => {
 					const initialMouseDownPos = mouseDownPos;
 					const selectionChanged = hasSelectionChanged(mouseDownSelection, view.state.selection);
 
-					if (isIntentFixEnabled) {
-						mouseDownPos = undefined;
-						mouseDownSelection = undefined;
-					}
+					mouseDownPos = undefined;
+					mouseDownSelection = undefined;
 
 					if (!initialMouseDownPos || shouldSkipExperienceStart(view.state.selection)) {
 						return;
@@ -177,7 +168,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 
 					const mouseCoordinatesChanged =
 						e.clientX !== initialMouseDownPos.x || e.clientY !== initialMouseDownPos.y;
-					if (mouseCoordinatesChanged && (!isIntentFixEnabled || selectionChanged)) {
+					if (mouseCoordinatesChanged && selectionChanged) {
 						experience.start({ method: START_METHOD.MOUSE_UP });
 					}
 				},
@@ -190,10 +181,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 				},
 				keydown: (_view: EditorView, event: KeyboardEvent) => {
 					shiftArrowKeyPressed =
-						(isIntentFixEnabled
-							? isPlainShiftArrowKey(event)
-							: event.shiftKey && event.key.includes('Arrow')) &&
-						!isSelectionToolbarWithinNode(getTarget());
+						isPlainShiftArrowKey(event) && !isSelectionToolbarWithinNode(getTarget());
 				},
 				keyup: () => {
 					shiftArrowKeyPressed = false;

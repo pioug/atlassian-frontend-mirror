@@ -44,6 +44,9 @@
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../popup/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../primitives/afm-products/tsconfig.json"
 		},
 		{

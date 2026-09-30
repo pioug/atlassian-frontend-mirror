@@ -1,6 +1,4 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { extractTitle } from '@atlaskit/link-extractors/extract-title';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { IconType } from '../../../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../constants';
@@ -21,73 +19,36 @@ describe('extractJsonldDataIcon', () => {
 		url: 'https://some-url.com',
 	};
 
-	ffTest.on(
-		'platform_navx_smart_link_icon_label_a11y',
-		'icon descriptor includes semantic labels',
-		() => {
-			it.each([
-				['Document', undefined, undefined],
-				['schema:BlogPosting', IconType.Blog, 'blog'],
-				['schema:DigitalDocument', IconType.File, 'file'],
-				['schema:TextDigitalDocument', IconType.Document, 'document'],
-				['schema:PresentationDigitalDocument', IconType.Presentation, 'presentation'],
-				['schema:SpreadsheetDigitalDocument', IconType.Spreadsheet, 'spreadsheet'],
-				['atlassian:Template', IconType.Template, 'template'],
-				['atlassian:UndefinedLink', IconType.Document, 'document'],
-				['atlassian:Task', IconType.Task, 'task'],
-				['atlassian:Project', IconType.Project, 'project'],
-				['atlassian:SourceCodeCommit', IconType.Commit, 'commit'],
-				['atlassian:SourceCodePullRequest', IconType.PullRequest, 'pull request'],
-				['atlassian:SourceCodeReference', IconType.Branch, 'branch'],
-				['atlassian:SourceCodeRepository', IconType.Repo, 'repository'],
-				['unknown-type', undefined, undefined],
-			])('returns icon descriptor for type %s', (type, expectedIconType, expectedLabel) => {
-				const data: JsonLd.Data.BaseData = {
-					...baseData,
-					'@type': type as JsonLd.Primitives.ObjectType,
-				};
-				const { icon, label } = extractJsonldDataIcon(data) || {};
+	describe('icon descriptor includes semantic labels', () => {
+		it.each([
+			['Document', undefined, undefined],
+			['schema:BlogPosting', IconType.Blog, 'blog'],
+			['schema:DigitalDocument', IconType.File, 'file'],
+			['schema:TextDigitalDocument', IconType.Document, 'document'],
+			['schema:PresentationDigitalDocument', IconType.Presentation, 'presentation'],
+			['schema:SpreadsheetDigitalDocument', IconType.Spreadsheet, 'spreadsheet'],
+			['atlassian:Template', IconType.Template, 'template'],
+			['atlassian:UndefinedLink', IconType.Document, 'document'],
+			['atlassian:Task', IconType.Task, 'task'],
+			['atlassian:Project', IconType.Project, 'project'],
+			['atlassian:SourceCodeCommit', IconType.Commit, 'commit'],
+			['atlassian:SourceCodePullRequest', IconType.PullRequest, 'pull request'],
+			['atlassian:SourceCodeReference', IconType.Branch, 'branch'],
+			['atlassian:SourceCodeRepository', IconType.Repo, 'repository'],
+			['unknown-type', undefined, undefined],
+		])('returns icon descriptor for type %s', (type, expectedIconType, expectedLabel) => {
+			const data: JsonLd.Data.BaseData = {
+				...baseData,
+				'@type': type as JsonLd.Primitives.ObjectType,
+			};
+			const { icon, label } = extractJsonldDataIcon(data) || {};
 
-				expect(icon).toBe(expectedIconType);
-				expect(label).toBe(expectedLabel);
-			});
-		},
-	);
+			expect(icon).toBe(expectedIconType);
+			expect(label).toBe(expectedLabel);
+		});
+	});
 
-	ffTest.off(
-		'platform_navx_smart_link_icon_label_a11y',
-		'icon descriptor icon type (legacy)',
-		() => {
-			it.each([
-				['Document', undefined, undefined],
-				['schema:BlogPosting', IconType.Blog, undefined],
-				['schema:DigitalDocument', IconType.File, undefined],
-				['schema:TextDigitalDocument', IconType.Document, undefined],
-				['schema:PresentationDigitalDocument', IconType.Presentation, undefined],
-				['schema:SpreadsheetDigitalDocument', IconType.Spreadsheet, undefined],
-				['atlassian:Template', IconType.Template, undefined],
-				['atlassian:UndefinedLink', IconType.Document, undefined],
-				['atlassian:Task', IconType.Task, 'Task'],
-				['atlassian:Project', IconType.Project, undefined],
-				['atlassian:SourceCodeCommit', IconType.Commit, undefined],
-				['atlassian:SourceCodePullRequest', IconType.PullRequest, undefined],
-				['atlassian:SourceCodeReference', IconType.Branch, undefined],
-				['atlassian:SourceCodeRepository', IconType.Repo, undefined],
-				['unknown-type', undefined, undefined],
-			])('returns icon descriptor for type %s', (type, expectedIconType, expectedLabel) => {
-				const data: JsonLd.Data.BaseData = {
-					...baseData,
-					'@type': type as JsonLd.Primitives.ObjectType,
-				};
-				const { icon, label } = extractJsonldDataIcon(data) || {};
-
-				expect(icon).toBe(expectedIconType);
-				expect(label).toBe(expectedLabel);
-			});
-		},
-	);
-
-	ffTest.both('platform_navx_smart_link_icon_label_a11y', 'priority', () => {
+	describe('priority', () => {
 		describe('priority', () => {
 			it('returns icon for singular type', () => {
 				const data: JsonLd.Data.BaseData = {
@@ -142,7 +103,7 @@ describe('extractJsonldDataIcon', () => {
 		['atlassian:UndefinedLink'],
 	];
 
-	ffTest.both('platform_navx_smart_link_icon_label_a11y', 'document types matrix', () => {
+	describe('document types matrix', () => {
 		describe.each(docTypes)(
 			'when type is %s',
 			(type: JsonLd.Primitives.ObjectType | 'atlassian:Template') => {
@@ -192,8 +153,7 @@ describe('extractJsonldDataIcon', () => {
 							'schema:fileFormat': undefined,
 						} as JsonLd.Data.BaseData;
 						const { icon: iconType } = extractJsonldDataIcon(data) || {};
-						const { icon: documentIconType } =
-							extractDocumentTypeIcon(type, extractTitle(data), provider) || {};
+						const { icon: documentIconType } = extractDocumentTypeIcon(type, provider) || {};
 
 						expect(iconType).toBe(documentIconType);
 					});
@@ -262,8 +222,7 @@ describe('extractJsonldDataIcon', () => {
 						} as JsonLd.Data.BaseData;
 
 						const { icon: iconType } = extractJsonldDataIcon(data) || {};
-						const { icon: documentIconType } =
-							extractDocumentTypeIcon(type, extractTitle(data)) || {};
+						const { icon: documentIconType } = extractDocumentTypeIcon(type) || {};
 
 						expect(iconType).toBe(documentIconType);
 					});
@@ -352,8 +311,7 @@ describe('extractJsonldDataIcon', () => {
 							} as JsonLd.Data.BaseData;
 							const { icon: iconType } = extractJsonldDataIcon(data) || {};
 
-							const { icon: documentIconType } =
-								extractDocumentTypeIcon(type, extractTitle(data)) || {};
+							const { icon: documentIconType } = extractDocumentTypeIcon(type) || {};
 
 							expect(iconType).toBe(documentIconType);
 						},
@@ -407,8 +365,7 @@ describe('extractJsonldDataIcon', () => {
 					} as JsonLd.Data.BaseData;
 
 					const { icon: iconType } = extractJsonldDataIcon(data) || {};
-					const { icon: documentIconType } =
-						extractDocumentTypeIcon(type, extractTitle(data)) || {};
+					const { icon: documentIconType } = extractDocumentTypeIcon(type) || {};
 
 					expect(iconType).toBe(documentIconType);
 				});
@@ -416,7 +373,7 @@ describe('extractJsonldDataIcon', () => {
 		);
 	});
 
-	ffTest.both('platform_navx_smart_link_icon_label_a11y', 'provider-specific JSON-LD icons', () => {
+	describe('provider-specific JSON-LD icons', () => {
 		describe('provider-specific JSON-LD icons', () => {
 			it('returns live document icon for Confluence provider', () => {
 				const data = {
@@ -444,7 +401,7 @@ describe('extractJsonldDataIcon', () => {
 		});
 	});
 
-	ffTest.both('platform_navx_smart_link_icon_label_a11y', 'atlassian:Task and Jira', () => {
+	describe('atlassian:Task and Jira', () => {
 		describe('when type is atlassian:Task and provider is Jira', () => {
 			describe('returns type icon for Task (using default) as no url is supplied', () => {
 				it('returns type icon for Task (using default) as no url is supplied', () => {
@@ -565,7 +522,7 @@ describe('extractJsonldDataIcon', () => {
 		});
 	});
 
-	ffTest.both('platform_navx_smart_link_icon_label_a11y', 'atlassian:Goal and Project', () => {
+	describe('atlassian:Goal and Project', () => {
 		describe('when type is atlassian:Goal', () => {
 			it('returns icon for Goal - with top level icon', () => {
 				const expectUrl = 'https://some-icon-url.com';

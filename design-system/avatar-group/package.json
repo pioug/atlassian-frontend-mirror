@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar-group",
-	"version": "14.4.2",
+	"version": "14.4.3",
 	"description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -87,6 +87,9 @@
 	},
 	"homepage": "https://atlassian.design/components/avatar-group/",
 	"platform-feature-flags": {
+		"platform-dst-avatar-group-overflow-exit": {
+			"type": "boolean"
+		},
 		"platform-dst-top-layer": {
 			"type": "boolean"
 		},

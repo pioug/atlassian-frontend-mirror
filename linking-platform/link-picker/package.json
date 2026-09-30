@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "6.9.2",
+	"version": "6.9.3",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -59,6 +59,9 @@
 			"type": "boolean"
 		},
 		"platform_link_picker_fix_error_state_text_overflow": {
+			"type": "boolean"
+		},
+		"navx-5378-link-picker-tab-roles": {
 			"type": "boolean"
 		}
 	},

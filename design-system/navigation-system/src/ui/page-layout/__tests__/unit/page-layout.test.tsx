@@ -7,6 +7,7 @@ import { screen } from '@atlassian/testing-library/screen';
 
 import { Aside } from '../../aside';
 import { Banner } from '../../banner';
+import { ChatPanel } from '../../chat-panel';
 import { UNSAFE_sideNavLayoutVar } from '../../constants';
 import { Main } from '../../main/main';
 import { Panel } from '../../panel';
@@ -204,10 +205,11 @@ describe('page layout', () => {
 					<Main>main</Main>
 					<Aside>aside</Aside>
 					<Panel>panel</Panel>
+					<ChatPanel onClose={jest.fn()}>chat panel</ChatPanel>
 				</Root>,
 			);
 
-			const slotElementCount = 6;
+			const slotElementCount = 7;
 			// eslint-disable-next-line testing-library/no-node-access
 			expect(document.querySelectorAll('[data-layout-slot]')).toHaveLength(slotElementCount);
 		});
@@ -286,6 +288,9 @@ describe('page layout', () => {
 				<Main testId="main-test-id">main</Main>
 				<Aside testId="aside-test-id">aside</Aside>
 				<Panel testId="panel-test-id">panel</Panel>
+				<ChatPanel onClose={jest.fn()} testId="chat-panel-test-id">
+					chat panel
+				</ChatPanel>
 			</Root>,
 		);
 
@@ -296,5 +301,6 @@ describe('page layout', () => {
 		expect(screen.getByTestId('main-test-id')).toBeInTheDocument();
 		expect(screen.getByTestId('aside-test-id')).toBeInTheDocument();
 		expect(screen.getByTestId('panel-test-id')).toBeInTheDocument();
+		expect(screen.getByTestId('chat-panel-test-id')).toBeInTheDocument();
 	});
 });

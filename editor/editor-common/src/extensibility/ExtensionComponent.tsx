@@ -6,7 +6,7 @@ import memoizeOne from 'memoize-one';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { type Selection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -50,6 +50,8 @@ export interface Props {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	references?: ReferenceEntity[];
 	rendererExtensionHandlers?: ExtensionHandlers;
+	/** Invalidates memoized renders on selection changes; read current state from editorView. */
+	selection?: Selection;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
 	showBodiedExtensionRendererView?: boolean;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
@@ -83,6 +85,7 @@ interface PropsInner {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	references?: ReferenceEntity[];
 	rendererExtensionHandlers?: ExtensionHandlers;
+	selection?: Selection;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
 	showBodiedExtensionRendererView?: boolean;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;

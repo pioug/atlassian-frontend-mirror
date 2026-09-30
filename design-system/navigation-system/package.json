@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "11.0.0",
+	"version": "11.1.1",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"license": "Apache-2.0",
@@ -28,6 +28,8 @@
 		"./top-nav-items": "./src/entry-points/top-nav-items/index.tsx",
 		"./layout/aside": "./src/entry-points/layout/aside.tsx",
 		"./layout/banner": "./src/entry-points/layout/banner.tsx",
+		"./layout/chat-panel": "./src/entry-points/layout/chat-panel.tsx",
+		"./layout/layout-sizing": "./src/entry-points/layout/layout-sizing.tsx",
 		"./layout/main": "./src/entry-points/layout/main.tsx",
 		"./layout/panel-splitter": "./src/entry-points/layout/panel-splitter.tsx",
 		"./layout/panel": "./src/entry-points/layout/panel.tsx",
@@ -149,6 +151,9 @@
 		"@atlaskit/top-layer": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
+		"@atlassian/panel-system": "workspace:^",
+		"@atlassian/react-async": "workspace:^",
+		"@atlassian/react-entrypoint": "workspace:^",
 		"@atlassian/search-dialog": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/test-utils": "workspace:^",
@@ -157,9 +162,14 @@
 		"@axe-core/playwright": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*"
+		"react-dom": "root:*",
+		"react-relay": "root:*",
+		"relay-test-utils": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform-dst-chat-panel-layout": {
+			"type": "boolean"
+		},
 		"platform-dst-tokens-finesse": {
 			"type": "boolean"
 		},

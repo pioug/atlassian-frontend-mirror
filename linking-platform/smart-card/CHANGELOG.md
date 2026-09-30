@@ -1,5 +1,43 @@
 # @atlaskit/smart-card
 
+## 46.1.14
+
+### Patch Changes
+
+- [`983eed01a5872`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/983eed01a5872) -
+  Clean up `platform_sl_icons_refactor` and `platform_navx_smart_link_icon_label_a11y` as enabled.
+  Smart Links retain the updated icon sizing and semantic icon labels for documents, file formats,
+  and work types.
+
+  In `@atlaskit/smart-card`, also clean up `platform_sl_priority_icon` and
+  `platform_navx_jira_issue_type_icon_label_a11y` as enabled. Priority icons use the current assets
+  without icon tiles, and Jira issue icons retain their resolver-provided subtype labels.
+
+- Updated dependencies
+
+## 46.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.1.11
+
+### Patch Changes
+
+- [`4a467a9d5ed8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a467a9d5ed8b) -
+  Clean up experiment `platform_sl_3p_preauth_social_proof_inline_cta` and feature gate
+  `platform_sl_3p_preauth_soc_proof_inline_killswitch`. Inline Smart Links now permanently show the
+  social proof CTA when personalization data is available, retaining the long connect label while
+  data is unavailable. Remove the completed experiment’s analytics metadata. No public API changes.
+- Updated dependencies
+
 ## 46.1.10
 
 ### Patch Changes

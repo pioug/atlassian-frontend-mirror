@@ -1,11 +1,11 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { IconType } from '../../../constants';
 import { type IconDescriptor } from './types';
 
 const extractFileFormatIcon = (fileFormat?: string): IconDescriptor | undefined => {
-	const getIconDescriptor = (icon: IconType, label: string): IconDescriptor =>
-		fg('platform_navx_smart_link_icon_label_a11y') ? { icon, label } : { icon };
+	const getIconDescriptor = (icon: IconType, label: string): IconDescriptor => ({
+		icon,
+		label,
+	});
 
 	switch (fileFormat) {
 		// Generic documents

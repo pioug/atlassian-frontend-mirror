@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 8.1.0
+
+### Minor Changes
+
+- [`f0b2e3b3c48b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b2e3b3c48b2) -
+  Export `TriggerAriaProps` from `@atlaskit/popup/types` for components that accept Popup's trigger
+  ARIA attributes.
+
 ## 8.0.0
 
 ### Major Changes

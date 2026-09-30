@@ -13,9 +13,6 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	platform_sl_3p_preauth_better_hovercard: {
 		isEnabled: true,
 	},
-	platform_sl_3p_preauth_social_proof_inline_cta: {
-		isEnabled: true,
-	},
 	social_proof_3p_unauth_block_exp: {
 		isEnabled: true,
 	},
@@ -27,7 +24,6 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 const enabledGates = [
 	'platform_sl_3p_preauth_better_hovercard_killswitch',
 	'smart-card-inline-resolved-view-refactor',
-	'platform_sl_3p_preauth_soc_proof_inline_killswitch',
 	'social-proof-3p-unauth-block-fg',
 ];
 

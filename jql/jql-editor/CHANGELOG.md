@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 8.0.2
+
+### Patch Changes
+
+- [`17d1bdf45cdc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17d1bdf45cdc0) -
+  Fix the JQL editor search button's focus indicator being clipped by its container, behind the
+  a11y-oct-22nd-batch experiment.
+
 ## 8.0.1
 
 ### Patch Changes

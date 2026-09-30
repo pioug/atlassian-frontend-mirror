@@ -1,11 +1,33 @@
 import React from 'react';
 
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
+import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
+import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { type FileIdentifier } from '@atlaskit/media-client';
 import { KeyboardEventWithKeyCode } from '@atlaskit/media-test-helpers';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
+import { InsetViewerProvider } from '../../../insetViewerContext';
 import { Navigation, NavigationBase, prevNavButtonId, nextNavButtonId } from '../../../navigation';
+
+jest.mock('@atlaskit/icon/core/arrow-left', () => {
+	const original = jest.requireActual('@atlaskit/icon/core/arrow-left');
+	return { __esModule: true, ...original, default: jest.fn(original.default) };
+});
+jest.mock('@atlaskit/icon/core/arrow-right', () => {
+	const original = jest.requireActual('@atlaskit/icon/core/arrow-right');
+	return { __esModule: true, ...original, default: jest.fn(original.default) };
+});
+jest.mock('@atlaskit/icon/core/chevron-left', () => {
+	const original = jest.requireActual('@atlaskit/icon/core/chevron-left');
+	return { __esModule: true, ...original, default: jest.fn(original.default) };
+});
+jest.mock('@atlaskit/icon/core/chevron-right', () => {
+	const original = jest.requireActual('@atlaskit/icon/core/chevron-right');
+	return { __esModule: true, ...original, default: jest.fn(original.default) };
+});
 
 /**
  * Skipped two tests in here that are failing due to an issue with synthetic keyboard events
@@ -145,6 +167,70 @@ describe('Navigation', () => {
 		it('falls back to "Previous" / "Next" labels when the gate is off', () => {
 			failGate('platform_media_a11y_nav_button_labels');
 			render(<Navigation onChange={() => {}} items={items} selectedItem={identifier2} />);
+			expect(screen.getByRole('button', { name: 'Previous' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Next' })).toBeInTheDocument();
+		});
+	});
+
+	describe('Inset viewer arrows', () => {
+		const renderInset = (selectedItem = identifier2, onChange = jest.fn()) => {
+			render(
+				<InsetViewerProvider isInsetViewer>
+					<Navigation onChange={onChange} items={items} selectedItem={selectedItem} />
+				</InsetViewerProvider>,
+			);
+			return { onChange };
+		};
+
+		beforeEach(() => {
+			jest.mocked(ArrowLeftIcon).mockClear();
+			jest.mocked(ArrowRightIcon).mockClear();
+			jest.mocked(ChevronLeftIcon).mockClear();
+			jest.mocked(ChevronRightIcon).mockClear();
+		});
+
+		it('should render the arrow icons in inset mode', () => {
+			renderInset();
+
+			expect(ArrowLeftIcon).toHaveBeenCalled();
+			expect(ArrowRightIcon).toHaveBeenCalled();
+			expect(ChevronLeftIcon).not.toHaveBeenCalled();
+			expect(ChevronRightIcon).not.toHaveBeenCalled();
+		});
+
+		it('should render the chevron icons outside inset mode', () => {
+			render(<Navigation onChange={jest.fn()} items={items} selectedItem={identifier2} />);
+
+			expect(ChevronLeftIcon).toHaveBeenCalled();
+			expect(ChevronRightIcon).toHaveBeenCalled();
+			expect(ArrowLeftIcon).not.toHaveBeenCalled();
+			expect(ArrowRightIcon).not.toHaveBeenCalled();
+		});
+
+		it.each([
+			{ direction: 'next', selectedItem: identifier, testId: nextNavButtonId },
+			{ direction: 'prev', selectedItem: identifier3, testId: prevNavButtonId },
+		])(
+			'should drive navigation from a mouse click on $direction',
+			async ({ selectedItem, testId }) => {
+				const { onChange } = renderInset(selectedItem);
+				await userEvent.click(screen.getByTestId(testId));
+				expect(onChange).toHaveBeenCalledWith(identifier2);
+
+				await expect(document.body).toBeAccessible();
+			},
+		);
+
+		it('should use the same accessible labels as the overlay arrows', () => {
+			passGate('platform_media_a11y_nav_button_labels');
+			renderInset();
+			expect(screen.getByRole('button', { name: 'Previous attachment' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Next attachment' })).toBeInTheDocument();
+		});
+
+		it('should fall back to the short labels when the a11y gate is off', () => {
+			failGate('platform_media_a11y_nav_button_labels');
+			renderInset();
 			expect(screen.getByRole('button', { name: 'Previous' })).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Next' })).toBeInTheDocument();
 		});

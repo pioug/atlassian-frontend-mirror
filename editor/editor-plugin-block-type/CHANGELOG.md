@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-type
 
+## 26.0.10
+
+### Patch Changes
+
+- [`5b1dff8e17b61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b1dff8e17b61) -
+  Clean up feature gate `platform_editor_change_normal_text_icon`
+
+## 26.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.6
 
 ### Patch Changes

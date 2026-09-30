@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::ef3969783036688d6d3fe3b6277c5be7>>
+ * @codegen <<SignedSource::d778b5d26bb868cd7223a1c573ed9be9>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -200,19 +200,18 @@ export const components: ComponentMcpPayload[] = [
 				name: 'aria-controls',
 				type: 'string',
 				description:
-					'Identifies the popup element that the avatar controls.\nUsed when Avatar is a trigger for a popup.',
+					'Identifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.',
 			},
 			{
 				name: 'aria-expanded',
 				type: 'boolean',
 				description:
-					'Announces to assistive technology whether the controlled popup is currently open or closed.',
+					'Announces to assistive technology whether the popup is currently open or closed.',
 			},
 			{
 				name: 'aria-haspopup',
 				type: 'boolean | "dialog"',
-				description:
-					'Informs assistive technology that this element triggers a popup.\nWhen set, Avatar will render as a `<button>` element even without `onClick`.',
+				description: 'Informs assistive technology that this element triggers a popup.',
 			},
 			{
 				name: 'as',
@@ -353,7 +352,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"added" | "default" | "important" | "primary" | "primaryInverted" | "removed" | "warning" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "informationBold" | "successBold" | "dangerBold" | "warningBold" | "discoveryBold"',
+				type: '"warning" | "added" | "default" | "important" | "primary" | "primaryInverted" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "informationBold" | "successBold" | "dangerBold" | "warningBold" | "discoveryBold"',
 				description: 'Affects the visual style of the badge.',
 			},
 			{
@@ -533,7 +532,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"medium" | "small"',
+				type: '"small" | "medium"',
 				description:
 					"The size variant of the breadcrumbs. Use `'small'` for a compact presentation\nwith smaller text (`font.body.small`) and smaller icons.",
 				defaultValue: "'medium'",
@@ -608,7 +607,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'target',
-				type: '"" | "_blank" | "_parent" | "_self" | "_top"',
+				type: '"" | "_blank" | "_self" | "_top" | "_parent"',
 			},
 			{
 				name: 'text',
@@ -718,7 +717,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "danger" | "primary" | "rovo" | "subtle" | "warning" | "discovery"',
+				type: '"warning" | "default" | "primary" | "discovery" | "danger" | "rovo" | "subtle"',
 				description: 'The button style variation.',
 			},
 			{
@@ -734,12 +733,12 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'iconAfter',
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "spacing" | "size">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
 				description: "Places an icon within the button, after the button's text.",
 			},
 			{
 				name: 'iconBefore',
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "spacing" | "size">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
 				description: "Places an icon within the button, before the button's text.",
 			},
 			{
@@ -780,7 +779,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				description: 'Controls the amount of padding in the button.',
 			},
 		],
@@ -814,7 +813,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "primary" | "rovo" | "discovery" | "subtle"',
+				type: '"default" | "primary" | "discovery" | "rovo" | "subtle"',
 				description: 'The button style variation.\nThe button style variation.',
 			},
 			{
@@ -824,7 +823,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'icon',
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "spacing" | "size">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
 				description: 'Places an icon within the button.',
 				isRequired: true,
 			},
@@ -873,7 +872,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'shape',
-				type: '"default" | "circle"',
+				type: '"circle" | "default"',
 				description: 'Set the shape of the icon, defaults to square with rounded corners.',
 			},
 			{
@@ -916,7 +915,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "primary" | "rovo" | "discovery" | "subtle"',
+				type: '"default" | "primary" | "discovery" | "rovo" | "subtle"',
 				description: 'The button style variation.',
 			},
 			{
@@ -983,7 +982,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'shape',
-				type: '"default" | "circle"',
+				type: '"circle" | "default"',
 				description: 'Set the shape of the icon, defaults to square with rounded corners.',
 			},
 			{
@@ -1027,7 +1026,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "danger" | "primary" | "rovo" | "subtle" | "warning" | "discovery"',
+				type: '"warning" | "default" | "primary" | "discovery" | "danger" | "rovo" | "subtle"',
 				description: 'The button style variation.',
 			},
 			{
@@ -1091,7 +1090,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				description: 'Controls the amount of padding in the button.',
 			},
 		],
@@ -1567,7 +1566,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'language',
-				type: '"PHP" | "php" | "php3" | "php4" | "php5" | "Java" | "java" | "CSharp" | "csharp" | "c#" | "Python" | "python" | "py" | "JavaScript" | "javascript" | "js" | "Html" | "html" | "xml" | ... 234 more ... | "markdown"',
+				type: '"html" | "ruby" | "text" | "as" | "css" | "plaintext" | "d" | "r" | "PHP" | "php" | "php3" | "php4" | "php5" | "Java" | "java" | "CSharp" | "csharp" | "c#" | "Python" | "python" | "py" | ... 232 more ... | "markdown"',
 				description:
 					'Language reference designed to be populated from `SUPPORTED_LANGUAGES` in\n`design-system/code`. Run against language grammars from PrismJS (full list\navailable at [PrismJS documentation](https://prismjs.com/#supported-languages)).\n\nWhen set to "text" will not perform highlighting. If unsupported language\nprovided - code will be treated as "text" with no highlighting.',
 				defaultValue: "'text'",
@@ -1679,7 +1678,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'headingLevel',
-				type: '"3" | "1" | "2" | "4" | "5" | "6"',
+				type: '"1" | "3" | "2" | "4" | "5" | "6"',
 				description:
 					'Use this to set the semantic heading level of the comment. The default comment heading has an `h3` tag. Make sure that headings are in the correct order and don’t skip levels.',
 				defaultValue: '"3"',
@@ -1778,7 +1777,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"neutral" | "warning" | "danger"',
+				type: '"warning" | "danger" | "neutral"',
 				description:
 					'Controls the visual style of the date label.\n- `neutral` — default grey border style\n- `warning` — orange border, used for upcoming/near-due dates\n- `danger` — red border, used for overdue dates',
 				defaultValue: '"neutral"',
@@ -1846,7 +1845,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"neutral" | "warning" | "danger"',
+				type: '"warning" | "danger" | "neutral"',
 				description:
 					'Controls the visual style of the trigger.\n- `neutral` — default grey border style\n- `warning` — orange border, used for upcoming/near-due dates\n- `danger` — red border, used for overdue dates',
 				defaultValue: '"neutral"',
@@ -2118,7 +2117,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'selectProps',
-				type: 'Omit<SelectProps<OptionType, false>, "aria-label" | "aria-describedby" | "inputId" | "placeholder"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; } & { ...; }',
+				type: 'Omit<SelectProps<OptionType, false>, "aria-describedby" | "aria-label" | "placeholder" | "inputId"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; } & { ...; }',
 				description: '',
 			},
 			{
@@ -2408,7 +2407,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'selectProps',
-				type: 'Omit<SelectProps<OptionType, false>, "aria-describedby" | "placeholder" | "aria-label" | "inputId"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; }',
+				type: 'Omit<SelectProps<OptionType, false>, "aria-describedby" | "aria-label" | "placeholder" | "inputId"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; }',
 			},
 			{
 				name: 'spacing',
@@ -3022,7 +3021,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'placement',
-				type: '"auto-start" | "auto" | "auto-end" | "top-start" | "top" | "top-end" | "right-start" | "right" | "right-end" | "bottom-end" | "bottom" | "bottom-start" | "left-end" | "left" | "left-start"',
+				type: '"auto" | "auto-start" | "auto-end" | "top" | "bottom" | "right" | "left" | "top-start" | "top-end" | "bottom-start" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end"',
 				description: 'Position of the menu.',
 			},
 			{
@@ -3575,7 +3574,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'appearance',
-				type: '"error" | "info" | "success" | "warning" | "normal"',
+				type: '"warning" | "success" | "error" | "normal" | "info"',
 				description:
 					"Makes the flag appearance bold. Setting this to anything other than 'normal' hides the\ndismiss button.",
 			},
@@ -3932,7 +3931,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['form', 'field', 'input', 'validation'],
 		category: 'form',
 		examples: [
-			'import ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/default/button\';\nimport Field from \'@atlaskit/form/field\';\nimport Form from \'@atlaskit/form/form\';\nimport { FormFooter } from \'@atlaskit/form/form-footer\';\nimport { Flex } from \'@atlaskit/primitives/compiled/flex\';\nimport TextField from \'@atlaskit/textfield/text-field\';\nconst FormFieldExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form onSubmit={(data) => console.log(\'form data\', data)}>\n\t\t\t{({ formProps }) => (\n\t\t\t\t<form {...formProps}>\n\t\t\t\t\t<Field\n\t\t\t\t\t\tname="username"\n\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\tlabel="Username"\n\t\t\t\t\t\tisRequired\n\t\t\t\t\t\thelperMessage="Your username can have up to 16 characters."\n\t\t\t\t\t\tvalidMessage="Username is valid."\n\t\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\t\treturn \'Username is required.\';\n\t\t\t\t\t\t\t} else if (value && value.length > 16) {\n\t\t\t\t\t\t\t\treturn \'Username must be 16 characters or less.\';\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tcomponent={({ fieldProps }) => <TextField {...fieldProps} />}\n\t\t\t\t\t/>\n\t\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\t\tSubmit\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="subtle">Cancel</Button>\n\t\t\t\t\t\t</ButtonGroup>\n\t\t\t\t\t</FormFooter>\n\t\t\t\t</form>\n\t\t\t)}\n\t\t</Form>\n\t</Flex>\n);\nexport default FormFieldExample;',
+			'import ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/default/button\';\nimport Field from \'@atlaskit/form/field\';\nimport Form from \'@atlaskit/form/form\';\nimport { FormFooter } from \'@atlaskit/form/form-footer\';\nimport { Flex } from \'@atlaskit/primitives/compiled/flex\';\nimport TextField from \'@atlaskit/textfield/text-field\';\nconst FormFieldExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form onSubmit={(data) => console.log(\'form data\', data)}>\n\t\t\t<>\n\t\t\t\t<Field\n\t\t\t\t\tname="username"\n\t\t\t\t\tdefaultValue=""\n\t\t\t\t\tlabel="Username"\n\t\t\t\t\tisRequired\n\t\t\t\t\thelperMessage="Your username can have up to 16 characters."\n\t\t\t\t\tvalidMessage="Username is valid."\n\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\treturn \'Username is required.\';\n\t\t\t\t\t\t} else if (value && value.length > 16) {\n\t\t\t\t\t\t\treturn \'Username must be 16 characters or less.\';\n\t\t\t\t\t\t}\n\t\t\t\t\t}}\n\t\t\t\t\tcomponent={({ fieldProps }) => <TextField {...fieldProps} />}\n\t\t\t\t/>\n\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\tSubmit\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<Button appearance="subtle">Cancel</Button>\n\t\t\t\t\t</ButtonGroup>\n\t\t\t\t</FormFooter>\n\t\t\t</>\n\t\t</Form>\n\t</Flex>\n);\nexport default FormFieldExample;',
 		],
 		props: [
 			{
@@ -4096,7 +4095,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'children',
-				type: '(() => void) | React.ReactNode | ((args: FormChildrenArgs<FormValues>) => React.ReactNode)',
+				type: 'React.ReactNode | (() => void) | ((args: FormChildrenArgs<FormValues>) => React.ReactNode)',
 				description:
 					'The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.\nYou can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).\n\nIf you are only spreading `formProps` onto the HTML `<form>` element and not using any of the other props (like `submitting`, etc.), `children` can be plain JSX. All of the children will be wrapped within an HTML `<form>` element that includes all necessary props, including those provided on the form component.',
 				isRequired: true,
@@ -4150,7 +4149,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -4519,7 +4518,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'as',
-				type: '"h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div" | "span"',
+				type: '"div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span"',
 				description:
 					'Allows the component to be rendered as the specified HTML element, overriding a default element set by the `size` prop.',
 			},
@@ -4542,7 +4541,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"xxlarge" | "xlarge" | "large" | "medium" | "small" | "xsmall" | "xxsmall"',
+				type: '"small" | "xxsmall" | "xsmall" | "medium" | "large" | "xlarge" | "xxlarge"',
 				description:
 					'Determines which text styles are applied. A corresponding HTML element is automatically applied from h1 to h6 based on the size.\nThis can be overriden using the `as` prop to allow for more flexibility.',
 				isRequired: true,
@@ -4569,20 +4568,7 @@ export const components: ComponentMcpPayload[] = [
 		examples: [
 			'import Heading from \'@atlaskit/heading/heading\';\nimport HeadingContextProvider from \'@atlaskit/heading/heading-context/default\';\nconst _default_1: React.JSX.Element[] = [\n\t<HeadingContextProvider>\n\t\t<Heading size="xxlarge">h1</Heading>\n\t\t<Heading size="medium">h2</Heading>\n\t\t<Heading size="large">h3</Heading>\n\t</HeadingContextProvider>,\n];\nexport default _default_1;',
 		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
-				description: 'Semantic hierarchy of content below the heading context.',
-				isRequired: true,
-			},
-			{
-				name: 'value',
-				type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9',
-				description:
-					'Optional - only apply this value if the intent is to reset the heading context outside the normal content flow, for example inside a `section`.',
-			},
-		],
+		props: [],
 	},
 	{
 		name: 'Icon',
@@ -4614,36 +4600,7 @@ export const components: ComponentMcpPayload[] = [
 		examples: [
 			"import AddIcon from '@atlaskit/icon/core/add';\nimport DeleteIcon from '@atlaskit/icon/core/delete';\nimport StarIcon from '@atlaskit/icon/core/star-starred';\nimport { token } from '@atlaskit/tokens';\nconst _default_1: React.JSX.Element[] = [\n\t<AddIcon label=\"Add\" />,\n\t<StarIcon label=\"Star\" color=\"currentColor\" />,\n\t<DeleteIcon label=\"Delete\" color={token('color.icon.danger')} />,\n];\nexport default _default_1;",
 		],
-		props: [
-			{
-				name: 'color',
-				type: '"var(--ds-link-pressed)" | "var(--ds-link-visited-pressed)" | "var(--ds-icon)" | "var(--ds-icon-accent-lime)" | "var(--ds-icon-accent-red)" | "var(--ds-icon-accent-orange)" | ... 74 more ... | "currentColor"',
-				description:
-					"Color for the icon. Supports any icon or text design token, or 'currentColor' to inherit the current text color.\nDefaults to `currentColor`, inheriting the current text color.",
-			},
-			{
-				name: 'label',
-				type: 'string',
-				description:
-					'Text used to describe what the icon is in context.\nA label is needed when there is no pairing visible text next to the icon.\nAn empty string marks the icon as presentation only.',
-				isRequired: true,
-			},
-			{
-				name: 'name',
-				type: 'string',
-				description: 'Display name of the icon.',
-			},
-			{
-				name: 'shouldRecommendSmallIcon',
-				type: 'boolean',
-			},
-			{
-				name: 'size',
-				type: 'IconSize | ((iconName: string) => IconSize)',
-				description:
-					"There are two icon sizes available:\n- `medium` - 16px. (default).\n- `small` - 12px.\n\nAlternatively a function can be passed to determine the size\nbased on the icon's name, which can be useful for dynamic rendering.",
-			},
-		],
+		props: [],
 	},
 	{
 		name: 'IconTile',
@@ -4676,7 +4633,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"gray" | "blue" | "teal" | "green" | "lime" | "yellow" | "orange" | "red" | "magenta" | "purple" | "grayBold" | "blueBold" | "tealBold" | "greenBold" | "limeBold" | "yellowBold" | "orangeBold" | "redBold" | "magentaBold" | "purpleBold"',
+				type: '"blue" | "gray" | "green" | "lime" | "magenta" | "orange" | "purple" | "red" | "teal" | "yellow" | "grayBold" | "blueBold" | "tealBold" | "greenBold" | "limeBold" | "yellowBold" | "orangeBold" | "redBold" | "magentaBold" | "purpleBold"',
 				description: 'The appearance of the tile',
 				isRequired: true,
 			},
@@ -4694,7 +4651,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"xsmall" | "small" | "medium" | "large" | "xlarge"',
+				type: '"small" | "xsmall" | "medium" | "large" | "xlarge"',
 				description:
 					'Size of the tile. Defaults to `medium`.\n\nAvailable sizes: `xsmall`, `small`, `medium`, `large`, `xlarge`.',
 			},
@@ -5044,7 +5001,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"connectivity" | "confirmation" | "info" | "warning" | "error"',
+				type: '"warning" | "error" | "info" | "connectivity" | "confirmation"',
 				description:
 					'Set the icon to be used before the title. Options are: connectivity,\nconfirmation, info, warning, and error.',
 				defaultValue: '"connectivity"',
@@ -5075,7 +5032,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"spacious" | "compact"',
+				type: '"compact" | "spacious"',
 				description:
 					'The spacing of the underlying icon button. Options are: spacious and compact.',
 				defaultValue: '"spacious"',
@@ -5153,7 +5110,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "subtle" | "inverse"',
+				type: '"default" | "inverse" | "subtle"',
 				description:
 					'The appearance of the link. Defaults to `default`. A `subtle` appearance will render the link with a lighter color and no underline in resting state. Use `inverse` when rendering on bold backgrounds to ensure that the link is easily visible.',
 			},
@@ -5207,7 +5164,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"brand" | "neutral" | "inverse"',
+				type: '"neutral" | "inverse" | "brand"',
 				description:
 					'Choice of logo appearance between 3 brand-approved color combinations that will be hooked up to design tokens and theming.',
 			},
@@ -5220,7 +5177,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"xxsmall" | "xsmall" | "small" | "medium" | "large" | "xlarge"',
+				type: '"small" | "xxsmall" | "xsmall" | "medium" | "large" | "xlarge"',
 				description: 'The size of the icon. Defaults to "medium".',
 				defaultValue: 'defaultLogoParams.size',
 			},
@@ -5266,21 +5223,46 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: 'ThemeAppearance | "warning" | "danger" | "information" | "neutral" | "discovery" | AccentColor',
+				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inprogress" | "moved" | "new" | AccentColor',
 				description:
-					'The appearance type.\nThe appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
+					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
+				defaultValue: '"neutral"',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description:
-					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.\nElements to be rendered inside the lozenge. This should ideally be just a word or two.',
+					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.',
+			},
+			{
+				name: 'iconBefore',
+				type: 'React.ComponentClass<Omit<NewIconProps, "spacing">, any> | React.FunctionComponent<Omit<NewIconProps, "spacing">>',
+				description: 'Icon to display before the text content. Should be an ADS icon component.',
 			},
 			{
 				name: 'maxWidth',
 				type: 'string | number',
+				description: 'max-width of lozenge container. Default to 200px.',
+				defaultValue: '200',
+			},
+			{
+				name: 'spacing',
+				type: '"default" | "spacious"',
 				description:
-					'max-width of lozenge container. Default to 200px.\nmax-width of lozenge container. Default to 200px.',
+					'Controls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.',
+				defaultValue: '"default"',
+			},
+			{
+				name: 'trailingMetric',
+				type: 'string',
+				description:
+					'Numeric metric displayed at the end of the lozenge as a badge.\nTrailing metric is not supported for accent lozenges.',
+			},
+			{
+				name: 'trailingMetricAppearance',
+				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new"',
+				description:
+					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.\nTrailing metric appearance is not supported for accent lozenges.',
 			},
 		],
 	},
@@ -5312,7 +5294,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "inprogress" | "moved" | "new" | "removed" | "success" | "warning" | "danger" | "information" | "neutral" | "discovery" | AccentColor',
+				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inprogress" | "moved" | "new" | AccentColor',
 				description:
 					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
 			},
@@ -5390,7 +5372,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'trailingMetricAppearance',
-				type: '"default" | "inprogress" | "moved" | "new" | "removed" | "success" | "warning" | "danger" | "information" | "neutral" | "discovery" | "inverse"',
+				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new"',
 				description:
 					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.\nTrailing metric appearance is not supported for accent lozenges.',
 			},
@@ -5787,7 +5769,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"cozy" | "compact"',
+				type: '"compact" | "cozy"',
 				description: 'Configure the density of the menu group content.',
 				defaultValue: '"cozy"',
 			},
@@ -6219,7 +6201,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"danger" | "warning"',
+				type: '"warning" | "danger"',
 				description:
 					'Appearance of the modal that changes the color of the primary action and adds an icon to the title.',
 			},
@@ -6325,45 +6307,7 @@ export const components: ComponentMcpPayload[] = [
 			"import React, { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
 			"import React, { useState } from 'react';\nimport { keyframes } from '@compiled/react';\nimport { cssMap } from '@atlaskit/css';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport { token } from '@atlaskit/tokens';\nconst slideIn = keyframes({\n\t'0%': { transform: 'translateX(-24px)' },\n\t'100%': { transform: 'translateX(0)' },\n});\nconst slideOut = keyframes({\n\t'0%': { transform: 'translateX(0)' },\n\t'100%': { transform: 'translateX(-24px)' },\n});\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomKeyframeExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
 		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
-				description: 'Children to be animated.',
-				isRequired: true,
-			},
-			{
-				name: 'enteringAnimation',
-				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 33 more ... | "var(--ds-spotlight-exit)"',
-				description: 'Motion token for the entering animation.',
-			},
-			{
-				name: 'enteringAnimationXcss',
-				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", DesignTokenStyles, ""> & {} & XCSSPseudo<...> & XCSSMediaQuery<...> & { ...; } & { ...; })',
-				description: 'CSS properties to apply to the entering animation.',
-			},
-			{
-				name: 'exitingAnimation',
-				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 33 more ... | "var(--ds-spotlight-exit)"',
-				description: 'Motion token for the exiting animation.',
-			},
-			{
-				name: 'exitingAnimationXcss',
-				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", DesignTokenStyles, ""> & {} & XCSSPseudo<...> & XCSSMediaQuery<...> & { ...; } & { ...; })',
-				description: 'CSS properties to apply to the exiting animation.',
-			},
-			{
-				name: 'onFinish',
-				type: '(state: Transition) => void',
-				description:
-					'Will callback when the motion has finished in the particular direction.\nIf it finished entering direction will be `entering`.\nAnd vice versa for `exiting`.',
-			},
-			{
-				name: 'xcss',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", object, ""> & ... 4 more ... & { ...; })',
-				description: 'CSS properties to apply to the motion container.',
-			},
-		],
+		props: [],
 	},
 	{
 		name: 'StaggeredEntrance',
@@ -6519,7 +6463,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"xsmall" | "small" | "medium" | "large" | "xlarge"',
+				type: '"small" | "xsmall" | "medium" | "large" | "xlarge"',
 				description:
 					'The size of the tile.\n\nIf you need a smaller size, use a standard Object component instead –\nwhich is available in `12px` or `16px` sizes.\n\n- `xsmall`: 20px\n- `small`: 24px\n- `medium`: 32px\n- `large`: 40px\n- `xlarge`: 48px',
 			},
@@ -6777,7 +6721,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'strategy',
-				type: '"absolute" | "fixed"',
+				type: '"fixed" | "absolute"',
 				description: "Placement strategy used. Can be 'fixed' or 'absolute'",
 			},
 		],
@@ -6925,7 +6869,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "width" | "padding" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"width" | "paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "padding" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description: 'Bounded style overrides.',
 			},
 		],
@@ -7032,7 +6976,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7089,7 +7033,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7120,7 +7064,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'as',
-				type: '"object" | "sub" | "progress" | "ruby" | "table" | "small" | "embed" | "pre" | "caption" | "menu" | "center" | "meter" | "textarea" | "style" | "data" | "abbr" | "address" | "area" | ... 99 more ... | "set"',
+				type: '"object" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | "center" | "cite" | ... 98 more ... | "set"',
 				description:
 					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)",
 				defaultValue: "'div'",
@@ -7132,7 +7076,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					"Apply a subset of permitted styles powered by Atlassian Design System design tokens.\nIt's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.",
 			},
@@ -7162,7 +7106,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignItems',
-				type: '"baseline" | "end" | "start" | "center" | "stretch"',
+				type: '"center" | "baseline" | "end" | "start" | "stretch"',
 				description: 'Used to align children along the cross axis.',
 			},
 			{
@@ -7193,7 +7137,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'justifyContent',
-				type: '"end" | "start" | "center" | "space-around" | "space-between" | "space-evenly" | "stretch"',
+				type: '"center" | "end" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch"',
 				description: 'Used to align children along the main axis.',
 			},
 			{
@@ -7213,7 +7157,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7259,7 +7203,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'as',
-				type: '"symbol" | "object" | "sub" | "progress" | "text" | "ruby" | "table" | "small" | "embed" | "pre" | "caption" | "menu" | "center" | "clipPath" | "filter" | "marker" | "mask" | "meter" | ... 157 more ... | "view"',
+				type: '"symbol" | "object" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | "center" | ... 156 more ... | "view"',
 				description: 'The DOM element to render as the Focusable element.',
 				defaultValue: "'button'",
 			},
@@ -7275,7 +7219,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7305,12 +7249,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignContent',
-				type: '"end" | "start" | "center" | "space-around" | "space-between" | "space-evenly" | "stretch"',
+				type: '"center" | "end" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch"',
 				description: 'Used to align the grid along the block axis.',
 			},
 			{
 				name: 'alignItems',
-				type: '"baseline" | "end" | "start" | "center" | "stretch"',
+				type: '"center" | "baseline" | "end" | "start" | "stretch"',
 				description: 'Used to align children along the block axis.',
 			},
 			{
@@ -7348,7 +7292,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'justifyContent',
-				type: '"end" | "start" | "center" | "space-around" | "space-between" | "space-evenly" | "stretch"',
+				type: '"center" | "end" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch"',
 				description: 'Used to align children along the inline axis.',
 			},
 			{
@@ -7363,7 +7307,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7393,12 +7337,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignBlock',
-				type: '"center" | "start" | "end" | "baseline" | "stretch"',
+				type: '"center" | "baseline" | "end" | "start" | "stretch"',
 				description: 'Used to align children along the block axis (typically vertical).',
 			},
 			{
 				name: 'alignInline',
-				type: '"center" | "start" | "end" | "stretch"',
+				type: '"center" | "end" | "start" | "stretch"',
 				description: 'Used to align children along the inline axis (typically horizontal).',
 			},
 			{
@@ -7414,7 +7358,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'grow',
-				type: '"hug" | "fill"',
+				type: '"fill" | "hug"',
 				description: 'Used to set whether the container should grow to fill the available space.',
 			},
 			{
@@ -7424,7 +7368,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'rowSpace',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description:
 					'Represents the space between rows when content wraps.\nUsed to override the `space` value in between rows.',
 			},
@@ -7442,7 +7386,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'space',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description: 'Represents the space between each child.',
 			},
 			{
@@ -7452,7 +7396,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "fill" | "gap" | "rowGap" | "flex" | "grid" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | ... 484 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7557,7 +7501,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "translate" | "content" | "color" | "grid" | "flex" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7588,12 +7532,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignBlock',
-				type: '"center" | "start" | "end" | "stretch"',
+				type: '"center" | "end" | "start" | "stretch"',
 				description: 'Used to align children along the block axis (typically vertical).',
 			},
 			{
 				name: 'alignInline',
-				type: '"center" | "start" | "end" | "stretch"',
+				type: '"center" | "end" | "start" | "stretch"',
 				description: 'Used to align children along the inline axis (typically horizontal).',
 			},
 			{
@@ -7609,7 +7553,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'grow',
-				type: '"hug" | "fill"',
+				type: '"fill" | "hug"',
 				description: 'Used to set whether the container should grow to fill the available space.',
 			},
 			{
@@ -7619,7 +7563,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'space',
-				type: '"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
 				description: 'Represents the space between each child.',
 			},
 			{
@@ -7629,7 +7573,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "fill" | "gap" | "flex" | "grid" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | ... 484 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7698,7 +7642,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"small" | "large" | "medium"',
+				type: '"small" | "medium" | "large"',
 				description: 'Text size.',
 			},
 			{
@@ -7892,7 +7836,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "help" | "inverted" | "primary"',
+				type: '"default" | "primary" | "help" | "inverted"',
 				description: 'Sets the color of the indicators.',
 				defaultValue: '"default"',
 			},
@@ -7928,13 +7872,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"default" | "large"',
+				type: '"large" | "default"',
 				description: 'Sets the width and height of each indicator.',
 				defaultValue: '"default"',
 			},
 			{
 				name: 'spacing',
-				type: '"comfortable" | "cozy" | "compact"',
+				type: '"compact" | "cozy" | "comfortable"',
 				description: 'Specifies how much of a gutter there is between indicators.',
 			},
 			{
@@ -7999,7 +7943,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"cozy" | "comfortable" | "compact"',
+				type: '"compact" | "cozy" | "comfortable"',
 				description: 'Sets the amount of spacing between the steps.',
 				defaultValue: '"cozy"',
 			},
@@ -8301,7 +8245,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'appearance',
-				type: '"information" | "warning" | "error" | "success" | "discovery"',
+				type: '"warning" | "discovery" | "success" | "information" | "error"',
 				description: 'The appearance styling to use for the section message.',
 			},
 			{
@@ -8319,7 +8263,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'icon',
-				type: '"symbol" | "object" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "title" | "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | ... 156 more ... | ComponentType<...>',
+				type: '"symbol" | "object" | "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "button" | "canvas" | ... 159 more ... | ComponentType<...>',
 				description:
 					'An Icon component to be rendered instead of the default icon for the component.\nThis should only be an `@atlaskit/icon` icon. You can check out [this example](/packages/design-system/section-message/example/custom-icon)\nto see how to provide this icon.',
 			},
@@ -8359,6 +8303,12 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'additionalInsideElementRefs',
+				type: 'readonly React.RefObject<HTMLElement>[]',
+				description:
+					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
+			},
+			{
 				name: 'allowCreateWhileLoading',
 				type: 'any',
 				description:
@@ -8366,7 +8316,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'appearance',
-				type: '"default" | "subtle" | "none"',
+				type: '"none" | "default" | "subtle"',
 			},
 			{
 				name: 'autoFocus',
@@ -8601,7 +8551,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "bottom" | "top"',
+				type: '"auto" | "top" | "bottom"',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
@@ -8613,13 +8563,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPosition',
-				type: '"absolute" | "fixed"',
+				type: '"fixed" | "absolute"',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"popup" | "inline"',
+				type: '"inline" | "popup"',
 				description:
 					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
 			},
@@ -8720,7 +8670,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
@@ -8751,8 +8701,14 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'additionalInsideElementRefs',
+				type: 'readonly React.RefObject<HTMLElement>[]',
+				description:
+					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
+			},
+			{
 				name: 'appearance',
-				type: '"default" | "subtle" | "none"',
+				type: '"none" | "default" | "subtle"',
 			},
 			{
 				name: 'autoFocus',
@@ -8943,7 +8899,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "bottom" | "top"',
+				type: '"auto" | "top" | "bottom"',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
@@ -8955,13 +8911,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPosition',
-				type: '"absolute" | "fixed"',
+				type: '"fixed" | "absolute"',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"popup" | "inline"',
+				type: '"inline" | "popup"',
 				description:
 					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
 			},
@@ -9055,7 +9011,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
@@ -9088,8 +9044,14 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'additionalInsideElementRefs',
+				type: 'readonly React.RefObject<HTMLElement>[]',
+				description:
+					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
+			},
+			{
 				name: 'appearance',
-				type: '"default" | "subtle" | "none"',
+				type: '"none" | "default" | "subtle"',
 			},
 			{
 				name: 'autoFocus',
@@ -9280,7 +9242,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "bottom" | "top"',
+				type: '"auto" | "top" | "bottom"',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
@@ -9292,13 +9254,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPosition',
-				type: '"absolute" | "fixed"',
+				type: '"fixed" | "absolute"',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"popup" | "inline"',
+				type: '"inline" | "popup"',
 				description:
 					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
 			},
@@ -9392,7 +9354,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
@@ -9426,6 +9388,12 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'additionalInsideElementRefs',
+				type: 'readonly React.RefObject<HTMLElement>[]',
+				description:
+					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
+			},
+			{
 				name: 'allowCreateWhileLoading',
 				type: 'any',
 				description:
@@ -9433,7 +9401,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'appearance',
-				type: '"default" | "subtle" | "none"',
+				type: '"none" | "default" | "subtle"',
 			},
 			{
 				name: 'autoFocus',
@@ -9668,7 +9636,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "bottom" | "top"',
+				type: '"auto" | "top" | "bottom"',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
@@ -9680,13 +9648,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPosition',
-				type: '"absolute" | "fixed"',
+				type: '"fixed" | "absolute"',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"popup" | "inline"',
+				type: '"inline" | "popup"',
 				description:
 					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
 			},
@@ -9787,7 +9755,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
@@ -9822,8 +9790,14 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'additionalInsideElementRefs',
+				type: 'readonly RefObject<HTMLElement>[]',
+				description:
+					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
+			},
+			{
 				name: 'appearance',
-				type: '"default" | "subtle" | "none"',
+				type: '"none" | "default" | "subtle"',
 			},
 			{
 				name: 'autoFocus',
@@ -10048,7 +10022,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPosition',
-				type: '"absolute" | "fixed"',
+				type: '"fixed" | "absolute"',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
@@ -10140,7 +10114,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'popperProps',
-				type: '{ innerRef?: Ref<any>; modifiers?: readonly Modifier<Modifiers, object>[]; placement?: Placement; strategy?: PositioningStrategy; referenceElement?: HTMLElement | VirtualElement; onFirstUpdate?: (state: Partial<...>) => void; }',
+				type: '{ strategy?: PositioningStrategy; placement?: Placement; innerRef?: Ref<any>; modifiers?: readonly Modifier<Modifiers, object>[]; referenceElement?: HTMLElement | VirtualElement; onFirstUpdate?: (state: Partial<...>) => void; }',
 				description:
 					'The props passed down to React Popper.\n\nUse these to override the default positioning strategy, behaviour and placement used by this library.\nFor more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).',
 			},
@@ -10205,8 +10179,14 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'additionalInsideElementRefs',
+				type: 'readonly RefObject<HTMLElement>[]',
+				description:
+					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
+			},
+			{
 				name: 'appearance',
-				type: '"default" | "subtle" | "none"',
+				type: '"none" | "default" | "subtle"',
 			},
 			{
 				name: 'autoFocus',
@@ -10397,7 +10377,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "bottom" | "top"',
+				type: '"auto" | "top" | "bottom"',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
@@ -10409,13 +10389,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPosition',
-				type: '"absolute" | "fixed"',
+				type: '"fixed" | "absolute"',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"popup" | "inline"',
+				type: '"inline" | "popup"',
 				description:
 					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
 			},
@@ -10509,7 +10489,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
@@ -10564,6 +10544,12 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'additionalInsideElementRefs',
+				type: 'readonly React.RefObject<HTMLElement>[]',
+				description:
+					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
+			},
+			{
 				name: 'allowCreateWhileLoading',
 				type: 'any',
 				description:
@@ -10571,7 +10557,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'appearance',
-				type: '"default" | "subtle" | "none"',
+				type: '"none" | "default" | "subtle"',
 			},
 			{
 				name: 'autoFocus',
@@ -10806,7 +10792,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "bottom" | "top"',
+				type: '"auto" | "top" | "bottom"',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
@@ -10818,13 +10804,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'menuPosition',
-				type: '"absolute" | "fixed"',
+				type: '"fixed" | "absolute"',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"popup" | "inline"',
+				type: '"inline" | "popup"',
 				description:
 					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
 			},
@@ -10925,7 +10911,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "default"',
+				type: '"default" | "compact"',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
@@ -10977,7 +10963,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'borderRadius',
-				type: '0 | "var(--ds-radius-xsmall)" | "var(--ds-radius-small)" | "var(--ds-radius-medium)" | "var(--ds-radius-large)" | "var(--ds-radius-xlarge)" | "var(--ds-radius-xxlarge)" | "var(--ds-radius-full)" | "var(--ds-radius-tile)" | "0"',
+				type: '0 | "0" | "var(--ds-radius-xsmall)" | "var(--ds-radius-small)" | "var(--ds-radius-medium)" | "var(--ds-radius-large)" | "var(--ds-radius-xlarge)" | "var(--ds-radius-xxlarge)" | "var(--ds-radius-full)" | "var(--ds-radius-tile)"',
 				description: "Controls the border radius, or rounding of the skeleton's corners.",
 				defaultValue: '"var(--ds-radius-small)"',
 			},
@@ -11143,7 +11129,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'placement',
-				type: '"top-start" | "top-center" | "top-end" | "bottom-start" | "bottom-center" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end"',
+				type: '"top-start" | "top-end" | "bottom-start" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end" | "top-center" | "bottom-center"',
 				description:
 					'The position in relation to the target the content should be shown at. Overrides `PopoverContent.placement`',
 			},
@@ -11299,7 +11285,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'placement',
-				type: '"top-start" | "top-center" | "top-end" | "bottom-start" | "bottom-center" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end"',
+				type: '"top-start" | "top-end" | "bottom-start" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end" | "top-center" | "bottom-center"',
 				description: 'The position in relation to the target the content should be shown at.',
 				isRequired: true,
 			},
@@ -11764,7 +11750,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignment',
-				type: '"start" | "end"',
+				type: '"end" | "start"',
 				description:
 					'Sets whether the tags should be aligned to the start or the end of the component.',
 			},
@@ -11893,7 +11879,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'type',
-				type: '"user" | "other" | "agent"',
+				type: '"other" | "user" | "agent"',
 				description:
 					"The type of avatar tag. 'user' uses circular avatars for individuals.\nThe type of avatar tag. 'other' uses square avatars for teams/projects/spaces.\nThe type of avatar tag. 'agent' uses hexagonal avatars for AI agents.",
 				isRequired: true,
@@ -11931,7 +11917,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'color',
-				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "gray" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
+				type: '"blue" | "gray" | "green" | "grey" | "lime" | "magenta" | "orange" | "purple" | "red" | "teal" | "yellow" | "standard" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
 				description: 'The color theme to apply. This sets both the background and text color.',
 			},
 			{
@@ -11992,7 +11978,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'swatchBeforeRole',
-				type: '"alert" | "alertdialog" | "application" | "article" | "banner" | "button" | "cell" | "checkbox" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | ... 56 more ... | (string & {})',
+				type: '"grid" | "article" | "button" | "dialog" | "figure" | "form" | "img" | "link" | "main" | "menu" | "menuitem" | "option" | "search" | "table" | "switch" | "listbox" | "tree" | "status" | ... 51 more ... | "treeitem"',
 				description:
 					'The WAI-ARIA role applied to the tag\'s color swatch element.\nUse when the swatch conveys meaning through color alone (e.g. `role="img"`).',
 			},
@@ -12047,7 +12033,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'color',
-				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "gray" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
+				type: '"blue" | "gray" | "green" | "grey" | "lime" | "magenta" | "orange" | "purple" | "red" | "teal" | "yellow" | "standard" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
 				description: 'The color theme to apply. This sets both the background and text color.',
 			},
 			{
@@ -12108,7 +12094,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'swatchBeforeRole',
-				type: '"alert" | "alertdialog" | "application" | "article" | "banner" | "button" | "cell" | "checkbox" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | ... 56 more ... | (string & {})',
+				type: '"grid" | "article" | "button" | "dialog" | "figure" | "form" | "img" | "link" | "main" | "menu" | "menuitem" | "option" | "search" | "table" | "switch" | "listbox" | "tree" | "status" | ... 51 more ... | "treeitem"',
 				description:
 					'The WAI-ARIA role applied to the tag\'s color swatch element.\nUse when the swatch conveys meaning through color alone (e.g. `role="img"`).',
 			},
@@ -12150,7 +12136,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'color',
-				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "gray" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
+				type: '"blue" | "gray" | "green" | "grey" | "lime" | "magenta" | "orange" | "purple" | "red" | "teal" | "yellow" | "standard" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
 				description: 'The color theme to apply. This sets both the background and text color.',
 			},
 			{
@@ -12183,7 +12169,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'swatchBeforeRole',
-				type: '"alert" | "alertdialog" | "application" | "article" | "banner" | "button" | "cell" | "checkbox" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | ... 56 more ... | (string & {})',
+				type: '"grid" | "article" | "button" | "dialog" | "figure" | "form" | "img" | "link" | "main" | "menu" | "menuitem" | "option" | "search" | "table" | "switch" | "listbox" | "tree" | "status" | ... 51 more ... | "treeitem"',
 				description:
 					'The WAI-ARIA role applied to the tag\'s color swatch element.\nUse when the swatch conveys meaning through color alone (e.g. `role="img"`).',
 			},
@@ -12232,7 +12218,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"standard" | "subtle" | "none"',
+				type: '"none" | "subtle" | "standard"',
 				description:
 					"Controls the appearance of the field.\nSubtle shows styling on hover.\nNone prevents all field styling. Take care when using the none appearance as this doesn't include accessible interactions.",
 			},
@@ -12310,7 +12296,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'resize',
-				type: '"none" | "auto" | "vertical" | "horizontal" | "smart"',
+				type: '"auto" | "none" | "horizontal" | "vertical" | "smart"',
 				description:
 					'Enables resizing of the text area. The default setting is `smart`.\nAuto enables resizing in both directions.\nHorizontal enables resizing only along the X axis.\nVertical enables resizing only along the Y axis.\nSmart vertically grows and shrinks the text area automatically to wrap your input text.\nNone explicitly disallows resizing of the text area.',
 			},
@@ -12369,7 +12355,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"subtle" | "standard" | "none"',
+				type: '"none" | "subtle" | "standard"',
 				description:
 					"Controls the appearance of the field.\nSubtle shows styling on hover.\nNone prevents all field styling. Take care when using the none appearance as this doesn't include accessible interactions.",
 			},
@@ -12459,7 +12445,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'backgroundColor',
-				type: '"color.background.accent.lime.subtlest" | "color.background.accent.lime.subtler" | "color.background.accent.lime.subtle" | "color.background.accent.lime.bolder" | "color.background.accent.red.subtlest" | ... 53 more ... | "black"',
+				type: '"black" | "white" | "transparent" | "color.background.accent.lime.subtlest" | "color.background.accent.lime.subtler" | "color.background.accent.lime.subtle" | "color.background.accent.lime.bolder" | ... 51 more ... | "color.background.information.bold"',
 				description:
 					'The background color of the tile.\n\nAccepts design tokens representing background color.\nDefaults to `color.background.neutral`.',
 			},
@@ -12488,7 +12474,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"xxsmall" | "xsmall" | "small" | "medium" | "large" | "xlarge"',
+				type: '"small" | "xxsmall" | "xsmall" | "medium" | "large" | "xlarge"',
 				description:
 					'The size of the tile.\n\n- `xxsmall`: 16px\n- `xsmall`: 20px\n- `small`: 24px\n- `medium`: 32px\n- `large`: 40px\n- `xlarge`: 48px',
 			},
@@ -12592,7 +12578,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"regular" | "large"',
+				type: '"large" | "regular"',
 				description: 'Toggle size.',
 			},
 			{

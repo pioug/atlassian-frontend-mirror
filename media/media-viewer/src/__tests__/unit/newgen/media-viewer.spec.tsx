@@ -16,6 +16,7 @@ import * as downloadUrlModule from '@atlaskit/media-common/downloadUrl';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { MediaViewer } from '../../../';
 import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
@@ -24,8 +25,32 @@ import {
 	type MediaViewerExtensions,
 	type MediaViewerNavigationDirection,
 } from '../../../components/types';
+import { InsetViewerProvider } from '../../../insetViewerContext';
 import { nextNavButtonId, prevNavButtonId } from '../../../navigation';
+import {
+	BlanketCloseButton,
+	InsetViewerLayout,
+	InsetViewerShell,
+	MediaColumn,
+	MediaStage,
+} from '../../../styleWrappers';
 import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+
+jest.mock('../../../insetViewerContext', () => {
+	const original = jest.requireActual('../../../insetViewerContext');
+	return { ...original, InsetViewerProvider: jest.fn(original.InsetViewerProvider) };
+});
+jest.mock('../../../styleWrappers', () => {
+	const original = jest.requireActual('../../../styleWrappers');
+	return {
+		...original,
+		BlanketCloseButton: jest.fn(original.BlanketCloseButton),
+		InsetViewerLayout: jest.fn(original.InsetViewerLayout),
+		InsetViewerShell: jest.fn(original.InsetViewerShell),
+		MediaColumn: jest.fn(original.MediaColumn),
+		MediaStage: jest.fn(original.MediaStage),
+	};
+});
 
 const fireAnalyticsMock = jest.spyOn(fireAnalyticsModule, 'fireAnalytics');
 const mocksucceedMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'succeedMediaFileUfoExperience');
@@ -415,6 +440,117 @@ describe('<MediaViewer />', () => {
 			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
+	});
+
+	describe('Inset viewer', () => {
+		const insetOnlyComponents = [
+			BlanketCloseButton,
+			InsetViewerLayout,
+			InsetViewerShell,
+			MediaColumn,
+			MediaStage,
+		];
+
+		beforeEach(() => {
+			[...insetOnlyComponents, InsetViewerProvider].forEach((component) =>
+				jest.mocked(component).mockClear(),
+			);
+		});
+
+		const renderViewer = (
+			extensions?: MediaViewerExtensions,
+			onClose?: () => void,
+			generateItem: () => [any, any] = generateSampleFileItem.workingVideo,
+		) => {
+			const [fileItem, identifier] = generateItem();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaViewer
+						selectedItem={identifier}
+						items={[identifier]}
+						extensions={extensions}
+						onClose={onClose}
+						collectionName={identifier.collectionName || ''}
+						mediaClientConfig={fakeMediaClientConfig}
+					/>
+				</MockedMediaClientProvider>,
+			);
+		};
+
+		it.each([
+			{
+				state: 'useInsetViewer is not set',
+				extensions: {},
+				setGate: passGate,
+				isInsetViewer: false,
+			},
+			{
+				state: 'the feature gate is off',
+				extensions: { useInsetViewer: true },
+				setGate: failGate,
+				isInsetViewer: false,
+			},
+			{
+				state: 'useInsetViewer is set with the feature gate on',
+				extensions: { useInsetViewer: true },
+				setGate: passGate,
+				isInsetViewer: true,
+			},
+		])(
+			'should render the inset presentation: $isInsetViewer when $state',
+			async ({ extensions, setGate, isInsetViewer }) => {
+				setGate('cc_comments_inset_media_viewer');
+				renderViewer(extensions);
+
+				expect(InsetViewerProvider).toHaveBeenLastCalledWith(
+					expect.objectContaining({ isInsetViewer }),
+					expect.anything(),
+				);
+				insetOnlyComponents.forEach((component) =>
+					expect(jest.mocked(component).mock.calls.length > 0).toBe(isInsetViewer),
+				);
+
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
+			},
+		);
+
+		it('should close and fire a blanket close event from the blanket close button', () => {
+			passGate('cc_comments_inset_media_viewer');
+			const onClose = jest.fn();
+			renderViewer({ useInsetViewer: true }, onClose);
+
+			act(() => jest.mocked(BlanketCloseButton).mock.lastCall?.[0].onClick());
+
+			expect(onClose).toHaveBeenCalledTimes(1);
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'closed',
+					actionSubject: 'mediaViewer',
+					attributes: expect.objectContaining({ input: 'blanket' }),
+				}),
+				expect.anything(),
+			);
+		});
+
+		it.each([
+			{ presentation: 'overlay', extensions: {}, closes: true },
+			{ presentation: 'inset', extensions: { useInsetViewer: true }, closes: false },
+		])(
+			'should close on an SVG surface click in the $presentation presentation: $closes',
+			async ({ extensions, closes }) => {
+				passGate('cc_comments_inset_media_viewer');
+				const onClose = jest.fn();
+				renderViewer(extensions, onClose, generateSampleFileItem.svg);
+
+				fireEvent.load(await screen.findByTestId('media-viewer-svg'));
+				fireEvent.click(screen.getByTestId('media-viewer-svg-wrapper'));
+
+				expect(onClose.mock.calls.length > 0).toBe(closes);
+			},
+		);
 	});
 
 	describe('SVG Native Rendering', () => {

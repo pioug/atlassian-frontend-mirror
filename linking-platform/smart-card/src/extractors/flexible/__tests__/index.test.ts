@@ -53,7 +53,7 @@ describe('extractFlexibleUiContext', () => {
 			createdBy: 'Angie Mccarthy',
 			createdOn: '2022-07-04T12:04:10.182Z',
 			linkIcon: {
-				label: 'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
+				label: 'pull request',
 				url: 'https://icon-url',
 				render: undefined,
 			},
@@ -130,7 +130,7 @@ describe('extractFlexibleUiContext', () => {
 			dueOn: undefined,
 			latestCommit: undefined,
 			linkIcon: {
-				label: 'Component readiness',
+				label: 'project',
 				render: undefined,
 				url: 'https://compass-ui.prod-east.frontend.public.atl-paas.net/assets/scorecard-icon.svg',
 			},
@@ -220,7 +220,7 @@ describe('extractFlexibleUiContext', () => {
 			ownedBy: 'Angie Mccarthy',
 			linkIcon: {
 				icon: 'FileType:Document',
-				label: 'Everything you need to know about ShipIt53!',
+				label: 'document',
 				render: undefined,
 			},
 			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
@@ -284,7 +284,7 @@ describe('extractFlexibleUiContext', () => {
 			ownedBy: 'Angie Mccarthy',
 			linkIcon: {
 				icon: 'FileType:Blog',
-				label: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
+				label: 'blog',
 				render: undefined,
 			},
 			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
@@ -333,7 +333,7 @@ describe('extractFlexibleUiContext', () => {
 				AISummaryAction: undefined,
 				ViewRelatedLinksAction: undefined,
 			},
-			linkIcon: { label: 'ShipIt', url: 'https://icon-url', render: undefined },
+			linkIcon: { label: 'project', url: 'https://icon-url', render: undefined },
 			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
 			linkTitle: expect.objectContaining({ text: 'ShipIt' }),
 			url: 'https://confluence-url/wiki/spaces/space-id',
@@ -378,7 +378,7 @@ describe('extractFlexibleUiContext', () => {
 			},
 			linkIcon: {
 				icon: 'FileType:Template',
-				label: 'templateName_4815162342',
+				label: 'template',
 				render: undefined,
 			},
 			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
@@ -411,7 +411,7 @@ describe('extractFlexibleUiContext', () => {
 			createdBy: 'Fluffy Fluffington',
 			createdOn: '2021-10-19T11:35:10.027+1100',
 			linkIcon: {
-				label: 'Flexible UI Task',
+				label: 'Task',
 				url: 'https://icon-url',
 				render: undefined,
 			},
@@ -472,7 +472,7 @@ describe('extractFlexibleUiContext', () => {
 				ViewRelatedLinksAction: undefined,
 			},
 			linkIcon: {
-				label: 'Linking Platform',
+				label: 'project',
 				url: 'https://icon-url',
 				render: undefined,
 			},
@@ -529,7 +529,7 @@ describe('extractFlexibleUiContext', () => {
 				ViewRelatedLinksAction: undefined,
 			},
 			linkIcon: {
-				label: 'Linking Platform',
+				label: 'project',
 				url: 'https://icon-url',
 				render: undefined,
 			},
@@ -601,7 +601,7 @@ describe('extractFlexibleUiContext', () => {
 			createdBy: 'Lois Lane',
 			dueOn: '2030-12-31',
 			linkIcon: {
-				label: 'The Superman Project',
+				label: 'project',
 				url: 'https://icon-url',
 				render: undefined,
 			},
@@ -722,7 +722,7 @@ describe('extractFlexibleUiContext', () => {
 				ViewRelatedLinksAction: undefined,
 			},
 			linkIcon: {
-				label: 'The Atlassian Business Model',
+				label: undefined,
 				url: 'https://icon-url',
 				render: undefined,
 			},
@@ -791,7 +791,7 @@ describe('extractFlexibleUiContext', () => {
 				},
 			},
 			linkIcon: {
-				label: 'Happy Guy.gif',
+				label: 'document',
 				url: 'https://icon-url',
 				render: undefined,
 			},

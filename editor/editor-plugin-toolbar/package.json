@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar",
-	"version": "19.0.6",
+	"version": "19.0.11",
 	"description": "Toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,6 @@
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
@@ -48,15 +47,6 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
-	},
-	"platform-feature-flags": {
-		"platform_editor_toolbar_intent_fix": {
-			"type": "boolean"
-		},
-		"platform_editor_blocks_patch_7": {
-			"type": "boolean",
-			"referenceOnly": true
-		}
 	},
 	"devDependencies": {
 		"react": "^19.2.0",

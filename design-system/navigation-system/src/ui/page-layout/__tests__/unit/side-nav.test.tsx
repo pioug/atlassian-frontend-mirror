@@ -2,10 +2,14 @@ import React from 'react';
 
 import { renderToString } from 'react-dom/server';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
+import { Aside } from '../../aside';
+import { ChatPanel } from '../../chat-panel';
 import { Main } from '../../main/main';
+import * as panelSplitterProvider from '../../panel-splitter/provider';
 import { Root } from '../../root';
 import { SetSideNavVisibilityState } from '../../side-nav/set-side-nav-visibility-state';
 import { onPeekStartDelayMs, SideNav } from '../../side-nav/side-nav';
@@ -15,6 +19,7 @@ import type { SideNavState } from '../../side-nav/types';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
 import { TopNav } from '../../top-nav/top-nav';
 import { TopNavStart as RealTopNavStart } from '../../top-nav/top-nav-start';
+import { useLayoutAreaSizing } from '../../use-layout-area-sizing';
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
@@ -38,6 +43,39 @@ const TopNavStart = ({
 	</div>
 );
 
+function LocalPanelSizing() {
+	useLayoutAreaSizing({
+		area: 'panel',
+		config: { isOpen: true, defaultWidth: 400, minWidth: 320 },
+	});
+	return <div data-testid="local-panel">local panel</div>;
+}
+
+function OverlayOrderFixture() {
+	const [chatOpen, setChatOpen] = React.useState(false);
+	return (
+		<Root defaultSideNavCollapsed>
+			<TopNav>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton
+							expandLabel="Expand navigation"
+							collapseLabel="Collapse navigation"
+						/>
+					}
+				>
+					{null}
+				</TopNavStart>
+			</TopNav>
+			<SideNav testId="sidenav">navigation</SideNav>
+			<Main>
+				<button onClick={() => setChatOpen(true)}>Open chat</button>
+			</Main>
+			{chatOpen && <ChatPanel onClose={() => setChatOpen(false)}>chat content</ChatPanel>}
+		</Root>
+	);
+}
+
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Side nav', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
@@ -54,7 +92,102 @@ describe('Side nav', () => {
 	});
 
 	describe('slot size', () => {
+		it.each([true, false])(
+			'dismisses the older overlay (chat opens first: %s)',
+			async (chatFirst) => {
+				passGate('platform-dst-chat-panel-layout');
+				const originalWidth = window.innerWidth;
+				window.innerWidth = 600;
+				const rootWidth = jest
+					.spyOn(HTMLElement.prototype, 'clientWidth', 'get')
+					.mockReturnValue(600);
+				try {
+					render(<OverlayOrderFixture />);
+					const toggleNav = () =>
+						userEvent.click(screen.getByRole('button', { name: /navigation/i }));
+					const openChat = () => userEvent.click(screen.getByRole('button', { name: 'Open chat' }));
+					if (chatFirst) {
+						await openChat();
+						await toggleNav();
+						expect(screen.queryByText('chat content')).not.toBeInTheDocument();
+						expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'small');
+					} else {
+						await toggleNav();
+						await openChat();
+						expect(screen.getByText('chat content')).toBeInTheDocument();
+						expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+					}
+				} finally {
+					window.innerWidth = originalWidth;
+					rootWidth.mockRestore();
+				}
+			},
+		);
+		it('dismisses an expanded desktop nav when occupied slots force both it and chat to overlay', async () => {
+			passGate('platform-dst-chat-panel-layout');
+			const originalWidth = window.innerWidth;
+			window.innerWidth = 1024;
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+			jest.mocked(window.matchMedia).mockReturnValue(window.matchMedia('(min-width: 64rem)'));
+			const rootWidth = jest
+				.spyOn(HTMLElement.prototype, 'clientWidth', 'get')
+				.mockReturnValue(1024);
+			const originalComputedStyle = window.getComputedStyle;
+			const computedStyle = jest.spyOn(window, 'getComputedStyle').mockImplementation((element) => {
+				const style = originalComputedStyle(element);
+				if (element.getAttribute('data-testid') === 'occupied-root') {
+					Object.defineProperty(style, 'gridTemplateAreas', {
+						value: '"ribbon side-nav main aside chat-panel"',
+					});
+				}
+				if (element.getAttribute('data-testid') === 'occupied-aside') {
+					Object.defineProperty(style, 'gridArea', { value: 'aside' });
+				}
+				return style;
+			});
+			const originalRect = HTMLElement.prototype.getBoundingClientRect;
+			const rect = jest
+				.spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+				.mockImplementation(function (this: HTMLElement) {
+					const result = originalRect.call(this);
+					return this.getAttribute('data-testid') === 'occupied-aside'
+						? { ...result, width: 512 }
+						: result;
+				});
+			const onCollapse = jest.fn();
+			const onCloseChat = jest.fn();
+			const fixture = (chatOpen: boolean) => (
+				<Root testId="occupied-root" defaultSideNavCollapsed={false}>
+					<SideNav testId="sidenav" onCollapse={onCollapse}>
+						sidenav
+					</SideNav>
+					<Main>main</Main>
+					<Aside testId="occupied-aside" defaultWidth={512}>
+						aside
+					</Aside>
+					{chatOpen && <ChatPanel onClose={onCloseChat}>chat</ChatPanel>}
+				</Root>
+			);
+			try {
+				const { rerender } = render(fixture(false));
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+				rerender(fixture(true));
+				await waitFor(() =>
+					expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false'),
+				);
+				expect(onCollapse).toHaveBeenCalledTimes(1);
+				expect(onCollapse).toHaveBeenCalledWith({ screen: 'desktop', trigger: 'programmatic' });
+				expect(onCloseChat).not.toHaveBeenCalled();
+			} finally {
+				window.innerWidth = originalWidth;
+				rootWidth.mockRestore();
+				computedStyle.mockRestore();
+				rect.mockRestore();
+			}
+		});
+
 		it('should set the side nav to its default widths', async () => {
+			failGate('platform-dst-chat-panel-layout');
 			render(
 				// Wrapping in Root to provide OpenLayerObserver context
 				<Root>
@@ -73,6 +206,7 @@ describe('Side nav', () => {
 		});
 
 		it('should set the side nav default width to the provided value', () => {
+			failGate('platform-dst-chat-panel-layout');
 			render(
 				// Wrapping in Root to provide OpenLayerObserver context
 				<Root>
@@ -85,6 +219,55 @@ describe('Side nav', () => {
 			expect(screen.getByTestId('sidenav')).toHaveStyle({
 				'--n_sNvw': 'clamp(240px, 450px, 50vw)',
 			});
+		});
+
+		it('should resize until Main reaches its minimum without shrinking the local panel', () => {
+			passGate('platform-dst-chat-panel-layout');
+			const defaultWindowWidth = window.innerWidth;
+			window.innerWidth = 1440;
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+			// Both Root's 40rem chat grid and SideNav's 64rem breakpoint match at this width.
+			jest.mocked(window.matchMedia).mockReturnValue(window.matchMedia('(min-width: 64rem)'));
+			const rootWidth = jest
+				.spyOn(HTMLElement.prototype, 'clientWidth', 'get')
+				.mockReturnValue(1100);
+			const PanelSplitterProvider = jest.spyOn(panelSplitterProvider, 'PanelSplitterProvider');
+
+			render(
+				<Root>
+					<SideNav testId="sidenav">sidenav</SideNav>
+					<Main>
+						<LocalPanelSizing />
+					</Main>
+				</Root>,
+			);
+
+			const rect = (width: number): DOMRect =>
+				({
+					width,
+					height: 0,
+					x: 0,
+					y: 0,
+					top: 0,
+					right: width,
+					bottom: 0,
+					left: 0,
+					toJSON() {},
+				}) as DOMRect;
+			jest.spyOn(screen.getByTestId('sidenav'), 'getBoundingClientRect').mockReturnValue(rect(320));
+			jest.spyOn(screen.getByRole('main'), 'getBoundingClientRect').mockReturnValue(rect(780));
+			jest
+				.spyOn(screen.getByTestId('local-panel'), 'getBoundingClientRect')
+				.mockReturnValue(rect(400));
+
+			const [{ getResizeBounds }] = [...PanelSplitterProvider.mock.calls]
+				.reverse()
+				.find(([props]) => typeof props.getResizeBounds === 'function')!;
+			expect(getResizeBounds()).toEqual({ min: '240px', max: '380px' });
+
+			PanelSplitterProvider.mockRestore();
+			rootWidth.mockRestore();
+			window.innerWidth = defaultWindowWidth;
 		});
 	});
 

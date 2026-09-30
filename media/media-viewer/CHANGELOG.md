@@ -1,5 +1,36 @@
 # @atlaskit/media-viewer
 
+## 54.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.10.0
+
+### Minor Changes
+
+- [`f4b5f17c2d1c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4b5f17c2d1c0) -
+  [ux] Add an opt-in inset Media Viewer presentation behind the new `useInsetViewer` field on
+  `MediaViewerExtensions`, gated at runtime by the `cc_comments_inset_media_viewer` feature gate.
+  When a consumer passes `useInsetViewer` and the feature gate is enabled, the viewer renders as a
+  rounded card on a dimmed blanket instead of the full-bleed overlay: clicking the blanket closes
+  the viewer, clicking the media itself no longer does, the overlay header is not rendered, and
+  prev/next use circular icon buttons. With the feature gate disabled, or with `useInsetViewer`
+  absent or false, the default full-bleed overlay renders unchanged.
+
 ## 54.9.9
 
 ### Patch Changes

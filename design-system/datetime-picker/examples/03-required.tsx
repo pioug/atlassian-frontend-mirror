@@ -9,18 +9,29 @@ import { Box } from '@atlaskit/primitives/compiled';
 export default (): React.JSX.Element => {
 	return (
 		<Box>
-			<Field name="date" label="Date" isRequired>
-				{({ fieldProps: { ...rest } }) => (
+			<Field
+				name="date"
+				label="Date"
+				isRequired
+				component={({ fieldProps: { ...rest } }) => (
 					<DatePicker shouldShowCalendarButton clearControlLabel="Clear date" {...rest} />
 				)}
-			</Field>
+			/>
 
-			<Field name="time" label="Time" isRequired>
-				{({ fieldProps: { ...rest } }) => <TimePicker clearControlLabel="Clear time" {...rest} />}
-			</Field>
+			<Field
+				name="time"
+				label="Time"
+				isRequired
+				component={({ fieldProps: { ...rest } }) => (
+					<TimePicker clearControlLabel="Clear time" {...rest} />
+				)}
+			/>
 
-			<Field name="datetime" label="Datetime" isRequired>
-				{({ fieldProps: { ...rest } }) => (
+			<Field
+				name="datetime"
+				label="Datetime"
+				isRequired
+				component={({ fieldProps: { ...rest } }) => (
 					<DateTimePicker
 						{...rest}
 						clearControlLabel="Clear datetime"
@@ -28,7 +39,7 @@ export default (): React.JSX.Element => {
 						timePickerProps={{ label: 'Datetime, time' }}
 					/>
 				)}
-			</Field>
+			/>
 		</Box>
 	);
 };

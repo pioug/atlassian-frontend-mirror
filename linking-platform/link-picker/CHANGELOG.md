@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 6.9.3
+
+### Patch Changes
+
+- [`45fa1ee658153`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45fa1ee658153) -
+  NAVX-5378 Adding role tabpanel to link picker tab panels
+- Updated dependencies
+
 ## 6.9.2
 
 ### Patch Changes

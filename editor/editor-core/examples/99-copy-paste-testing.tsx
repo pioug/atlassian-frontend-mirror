@@ -261,7 +261,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 		}
 	};
 
-	renderEditor = (collectionName: string, doc: Object | undefined = undefined) => {
+	renderEditor = (collectionName: string, doc: object | undefined = undefined) => {
 		const SaveAndCancelButtons = createSaveAndCancelButtons(collectionName);
 		const { mediaOptions } = this.state;
 		const providers = mediaOptions.get(collectionName);
@@ -272,6 +272,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 		const media: MediaOptions = {
 			provider: providers.mediaProvider,
 			allowMediaSingle: true,
+			allowMediaInlineImages: true,
 			featureFlags: {
 				mediaInline: true,
 			},

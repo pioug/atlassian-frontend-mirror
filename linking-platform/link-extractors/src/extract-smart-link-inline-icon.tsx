@@ -17,7 +17,6 @@ import StoryObject from '@atlaskit/object/story';
 import SubtaskObject from '@atlaskit/object/subtask';
 import TaskObject from '@atlaskit/object/task';
 import WorkItemObject from '@atlaskit/object/work-item';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	CONFLUENCE_GENERATOR_ID,
@@ -36,7 +35,6 @@ import {
 import { extractEntityIcon } from './extract-entity-icon';
 import { extractEntityProvider } from './extract-entity-provider';
 import { extractProvider } from './extract-provider';
-import { extractTitle } from './extract-title';
 import { extractUrlFromIconJsonLd } from './extract-url-from-icon-json-ld';
 import { getIconForFileType } from './get-icon-for-file-type';
 import { isConfluenceGenerator } from './is-confluence-generator';
@@ -53,7 +51,6 @@ interface IconOpts {
 	provider?: LinkProvider;
 	showIconLabel?: boolean;
 	taskType?: LinkTaskType;
-	title?: string;
 }
 
 interface LinkTaskType {
@@ -139,13 +136,6 @@ const extractTaskType = (jsonLd: JsonLd.Data.Task): LinkTaskType | undefined => 
 const extractFileFormat = (jsonLd: JsonLd.Data.Document): string | undefined =>
 	jsonLd['schema:fileFormat'];
 
-const documentLabel = (opts: IconOpts, label: string) => {
-	if (!opts.showIconLabel) {
-		return '';
-	}
-	return fg('platform_navx_smart_link_icon_label_a11y') ? label : opts.title || label;
-};
-
 const getBlogIconWrapped = () => require('./common/ui/icons/blog-icon').default;
 const getDocumentIcon = () => require('./common/ui/icons/page-icon').default;
 const getFileIcon = () => require('./common/ui/icons/file-icon').default;
@@ -158,51 +148,57 @@ const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 		const LiveDocumentIconWrapped = getLiveDocumentIconWrapped();
 		return (
 			<LiveDocumentIconWrapped
-				label={documentLabel(opts, 'live document')}
+				label={opts.showIconLabel ? 'live document' : ''}
 				testId="live-doc-icon"
 			/>
 		);
 	}
 
 	const FileIcon = getFileIcon();
-	return <FileIcon label={documentLabel(opts, 'file')} testId="file-icon" />;
+	return <FileIcon label={opts.showIconLabel ? 'file' : ''} testId="file-icon" />;
 };
 
 const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode | undefined => {
 	switch (type) {
 		case 'schema:BlogPosting': {
 			const BlogIconWrapped = getBlogIconWrapped();
-			return <BlogIconWrapped label={documentLabel(opts, 'blog')} testId="blog-icon" />;
+			return <BlogIconWrapped label={opts.showIconLabel ? 'blog' : ''} testId="blog-icon" />;
 		}
 		case 'schema:DigitalDocument':
 			return digitalDocumentToIcon(opts);
 		case 'schema:TextDigitalDocument': {
 			const DocumentIcon = getDocumentIcon();
-			return <DocumentIcon label={documentLabel(opts, 'document')} testId="document-icon" />;
+			return <DocumentIcon label={opts.showIconLabel ? 'document' : ''} testId="document-icon" />;
 		}
 		case 'schema:PresentationDigitalDocument': {
 			const PresentationIcon = getPresentationIcon();
 			return (
-				<PresentationIcon label={documentLabel(opts, 'presentation')} testId="presentation-icon" />
+				<PresentationIcon
+					label={opts.showIconLabel ? 'presentation' : ''}
+					testId="presentation-icon"
+				/>
 			);
 		}
 		case 'schema:SpreadsheetDigitalDocument': {
 			const SpreadsheetIcon = getSpreadsheetIcon();
 			return (
-				<SpreadsheetIcon label={documentLabel(opts, 'spreadsheet')} testId="spreadsheet-icon" />
+				<SpreadsheetIcon
+					label={opts.showIconLabel ? 'spreadsheet' : ''}
+					testId="spreadsheet-icon"
+				/>
 			);
 		}
 		case 'atlassian:Template':
 			return (
 				<DocumentFilledIcon
 					color="currentColor"
-					label={documentLabel(opts, 'template')}
+					label={opts.showIconLabel ? 'template' : ''}
 					testId="document-filled-icon"
 				/>
 			);
 		case 'atlassian:UndefinedLink': {
 			const DocumentIcon = getDocumentIcon();
-			return <DocumentIcon label={documentLabel(opts, 'document')} testId="document-icon" />;
+			return <DocumentIcon label={opts.showIconLabel ? 'document' : ''} testId="document-icon" />;
 		}
 	}
 };
@@ -213,10 +209,7 @@ const extractIconFromDocument = (
 ): React.ReactNode | undefined => {
 	const iconFromType = documentTypeToIcon(type, opts);
 	const iconFromFileFormat = opts.fileFormat
-		? getIconForFileType(
-				opts.fileFormat,
-				fg('platform_navx_smart_link_icon_label_a11y') ? opts.showIconLabel : undefined,
-			)
+		? getIconForFileType(opts.fileFormat, opts.showIconLabel)
 		: undefined;
 	const iconFromProvider = opts.provider && opts.provider.icon;
 
@@ -230,35 +223,30 @@ const extractIconFromDocument = (
 
 const extractIconFromTask = (opts: IconOpts): React.ReactNode | undefined => {
 	const { taskType, provider } = opts;
-	const legacyTaskLabel = opts.title || 'task';
-	const getLabel = (semantic: string) =>
-		fg('platform_navx_smart_link_icon_label_a11y') ? semantic : legacyTaskLabel;
 
-	const defaultIcon = <TaskObject label={getLabel('Task')} testId="default-task-icon" />;
+	const defaultIcon = <TaskObject label="Task" testId="default-task-icon" />;
 	if (provider && provider.id === JIRA_GENERATOR_ID && taskType && taskType.id) {
 		const taskTypeId = taskType.id;
 		const taskTypeName = taskTypeId.split('#').pop();
 		switch (taskTypeName) {
 			case JIRA_TASK:
-				return <TaskObject label={getLabel('Task')} testId="jira-task-icon" />;
+				return <TaskObject label="Task" testId="jira-task-icon" />;
 			case JIRA_SUB_TASK:
-				return <SubtaskObject label={getLabel('Sub-task')} testId="jira-subtask-icon" />;
+				return <SubtaskObject label="Sub-task" testId="jira-subtask-icon" />;
 			case JIRA_STORY:
-				return <StoryObject label={getLabel('Story')} testId="jira-story-icon" />;
+				return <StoryObject label="Story" testId="jira-story-icon" />;
 			case JIRA_BUG:
-				return <BugObject label={getLabel('Bug')} testId="jira-bug-icon" />;
+				return <BugObject label="Bug" testId="jira-bug-icon" />;
 			case JIRA_EPIC:
-				return <EpicObject label={getLabel('Epic')} testId="jira-epic-icon" />;
+				return <EpicObject label="Epic" testId="jira-epic-icon" />;
 			case JIRA_INCIDENT:
-				return <IncidentObject label={getLabel('Incident')} testId="jira-incident-icon" />;
+				return <IncidentObject label="Incident" testId="jira-incident-icon" />;
 			case JIRA_SERVICE_REQUEST:
-				return (
-					<WorkItemObject label={getLabel('Service request')} testId="jira-service-request-icon" />
-				);
+				return <WorkItemObject label="Service request" testId="jira-service-request-icon" />;
 			case JIRA_CHANGE:
-				return <ChangesObject label={getLabel('Change')} testId="jira-change-icon" />;
+				return <ChangesObject label="Change" testId="jira-change-icon" />;
 			case JIRA_PROBLEM:
-				return <ProblemObject label={getLabel('Problem')} testId="jira-problem-icon" />;
+				return <ProblemObject label="Problem" testId="jira-problem-icon" />;
 			case JIRA_CUSTOM_TASK_TYPE:
 				return taskType.icon || opts.icon || provider.icon || defaultIcon;
 		}
@@ -270,24 +258,19 @@ const typeToIcon = (
 	type: JsonLd.Primitives.ObjectType | 'atlassian:Template',
 	opts: IconOpts,
 ): React.ReactNode | undefined => {
-	const getLabel = (title: string) =>
-		fg('platform_navx_smart_link_icon_label_a11y') ? title : opts.title || title;
-
 	switch (type) {
 		case 'atlassian:SourceCodeCommit':
-			return <CommitObject label={getLabel('commit')} testId="commit-icon" />;
+			return <CommitObject label="commit" testId="commit-icon" />;
 		case 'atlassian:Project':
-			return (
-				<PeopleGroupIcon label={getLabel('project')} testId="project-icon" color="currentColor" />
-			);
+			return <PeopleGroupIcon label="project" testId="project-icon" color="currentColor" />;
 		case 'atlassian:SourceCodePullRequest':
-			return <PullRequestObject label={getLabel('pull request')} testId="pull-request-icon" />;
+			return <PullRequestObject label="pull request" testId="pull-request-icon" />;
 		case 'atlassian:SourceCodeReference':
-			return <BranchObject label={getLabel('reference')} testId="branch-icon" />;
+			return <BranchObject label="reference" testId="branch-icon" />;
 		case 'atlassian:SourceCodeRepository':
-			return <CodeObject label={getLabel('repository')} testId="repo-icon" />;
+			return <CodeObject label="repository" testId="repo-icon" />;
 		case 'atlassian:Goal':
-			return <TaskObject label={getLabel('goal')} testId="task-icon" />;
+			return <TaskObject label="goal" testId="task-icon" />;
 		case 'atlassian:Task':
 			return extractIconFromTask(opts);
 		default:
@@ -301,10 +284,7 @@ const standardisedExtractIcon = (
 ) => {
 	const iconFromType = typeToIcon(type, opts);
 	const iconFromFileFormat = opts.fileFormat
-		? getIconForFileType(
-				opts.fileFormat,
-				fg('platform_navx_smart_link_icon_label_a11y') ? opts.showIconLabel : undefined,
-			)
+		? getIconForFileType(opts.fileFormat, opts.showIconLabel)
 		: undefined;
 	const iconFromProvider = opts.provider && opts.provider.icon;
 
@@ -342,7 +322,6 @@ const extractIcon = (
 ): React.ReactNode | undefined => {
 	const type = jsonLd['@type'];
 	const opts = {
-		...(fg('platform_navx_smart_link_icon_label_a11y') ? {} : { title: extractTitle(jsonLd) }),
 		provider: extractProvider(jsonLd),
 		fileFormat: extractFileFormat(jsonLd as JsonLd.Data.Document),
 		taskType: extractTaskType(jsonLd as JsonLd.Data.Task),

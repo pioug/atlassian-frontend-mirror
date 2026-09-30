@@ -407,6 +407,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 			allowMediaSingle: true,
 			allowResizing: true,
 			allowAltTextOnImages: true,
+			allowMediaInlineImages: true,
 			featureFlags: {
 				mediaInline: true,
 			},

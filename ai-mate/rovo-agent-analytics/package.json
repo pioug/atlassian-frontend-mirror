@@ -14,7 +14,8 @@
 		"team": "Rovo Agents",
 		"website": {
 			"tags": [
-				"platform-labs"
+				"platform-labs",
+				"rovo-components"
 			],
 			"name": "RovoAgentAnalytics",
 			"category": "Layout and structure"

@@ -11,7 +11,6 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -56,9 +55,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	private portalProviderAPI: PortalProviderAPI;
 	private _viewShouldUpdate?: shouldUpdate;
 	/**
-	 * Tracks whether a React portal is currently mounted into `domRef`. Only used under
-	 * `platform_editor_reduce_event_listener_count`, where a node view whose `render()`
-	 * returns `null` does not mount one at all.
+	 * Tracks whether a React portal is currently mounted into `domRef`. A node view whose
+	 * `render()` returns `null` does not mount one at all.
 	 */
 	private hasMountedPortal = false;
 	protected eventDispatcher?: EventDispatcher;
@@ -183,21 +181,18 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		// `render()` runs — the pre-evaluated element is handed to the same render call below.
 		// If a node view starts out empty and later renders something, `update()` calls back into
 		// this method and the portal is mounted at that point.
-		let renderComponent = component;
-		if (isExperimentEnabled('platform_editor_reduce_event_listener_count')) {
-			const element = component();
+		const element = component();
 
-			if (element === null) {
-				if (this.hasMountedPortal) {
-					this.portalProviderAPI.remove(this.key);
-					this.hasMountedPortal = false;
-				}
-				return;
+		if (element === null) {
+			if (this.hasMountedPortal) {
+				this.portalProviderAPI.remove(this.key);
+				this.hasMountedPortal = false;
 			}
-
-			this.hasMountedPortal = true;
-			renderComponent = () => element;
+			return;
 		}
+
+		this.hasMountedPortal = true;
+		const renderComponent = () => element;
 
 		const componentWithErrorBoundary = () => (
 			<ErrorBoundary

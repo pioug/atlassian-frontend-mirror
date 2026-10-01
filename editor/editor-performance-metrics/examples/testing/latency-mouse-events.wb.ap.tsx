@@ -1,6 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import LatencyMouseEventsExample from '../02-latency-mouse-events';
+import { wbWithEditorMetrics } from './wb-with-editor-metrics';
 
-export const LatencyMouseEvents: WorkbenchExample<typeof LatencyMouseEventsExample> =
-	wb(LatencyMouseEventsExample);
+export const LatencyMouseEvents: WorkbenchExample = wbWithEditorMetrics(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-metrics-latency-mouse" */ '../02-latency-mouse-events'
+		),
+);

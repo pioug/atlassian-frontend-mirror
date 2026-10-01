@@ -1,7 +1,27 @@
 import { defineMessages } from 'react-intl';
 
 export const ruleMessages: {
+	boldGrayDividerColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	customDividerColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	dashedDivider: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	defaultDividerColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	dividerColors: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -62,6 +82,26 @@ export const ruleMessages: {
 		id: string;
 	};
 } = defineMessages({
+	customDividerColor: {
+		id: 'editor-common.messages.rule.customDividerColor',
+		defaultMessage: 'Custom',
+		description: 'Label for a selected divider color that is not in the predefined color palette.',
+	},
+	boldGrayDividerColor: {
+		id: 'editor-common.messages.rule.boldGrayDividerColor',
+		defaultMessage: 'Bold gray',
+		description: 'Tooltip label for the bold gray divider color swatch.',
+	},
+	dividerColors: {
+		id: 'fabric.editor.rule.dividerColors',
+		defaultMessage: 'Divider colors',
+		description: 'Label for the color picker in the floating toolbar of a selected divider.',
+	},
+	defaultDividerColor: {
+		id: 'editor-common.messages.rule.defaultDividerColor',
+		defaultMessage: 'Default',
+		description: 'Tooltip label for the default divider color swatch.',
+	},
 	dividerOptions: {
 		id: 'fabric.editor.rule.dividerOptions',
 		defaultMessage: 'Divider options',

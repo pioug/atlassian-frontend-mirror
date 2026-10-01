@@ -1,3 +1,4 @@
+import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -53,36 +54,50 @@ const redirectParagraphToWrappedMedia = (
 	return { position: targetPosition, node };
 };
 
-/** Resolves hover from PM structure so the first hover can create its sparse candidate. */
-export const handleSparseMouseOver = (
+/** Whether hovering must not show block controls under sparse surfaces. */
+export const isSparseHoverSuppressed = (
 	view: EditorView,
-	event: Event,
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 ): boolean => {
-	const controls = api?.blockControls.sharedState.currentState();
 	if (
-		!api ||
-		controls?.isDragging ||
-		!(event.target instanceof Element) ||
-		event.target === view.dom
+		api?.limitedMode?.sharedState.currentState()?.enabled ||
+		getNodeIdProvider(view)?.isLimitedMode()
 	) {
-		return false;
+		return true;
 	}
-
-	const editorDisabled = api.editorDisabled?.sharedState.currentState()?.editorDisabled ?? false;
-	const editorViewMode = api.editorViewMode?.sharedState.currentState()?.mode;
+	const controls = api?.blockControls.sharedState.currentState();
+	if (controls?.isDragging || api?.typeAhead?.sharedState.currentState()?.isOpen) {
+		return true;
+	}
+	const editorDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled ?? false;
+	const editorViewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 	if (editorDisabled && (editorViewMode !== 'view' || !controls?.rightSideControlsEnabled)) {
+		return true;
+	}
+	const isDisplayingDiff = api?.showDiff?.sharedState.currentState()?.isDisplayingChanges ?? false;
+	return (
+		isDisplayingDiff ||
+		api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'reviewing'
+	);
+};
+
+/**
+ * Shows controls for the block that owns `target`, resolved from PM structure so the first hover
+ * can create its sparse candidate. Callers check `isSparseHoverSuppressed` first.
+ */
+export const handleSparseHoverTarget = (
+	view: EditorView,
+	target: Element,
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
+): boolean => {
+	if (!api || target === view.dom) {
 		return false;
 	}
-	const isDisplayingDiff = api.showDiff?.sharedState.currentState()?.isDisplayingChanges ?? false;
-	const currentUserIntent = api.userIntent?.sharedState.currentState()?.currentUserIntent;
-	if (isDisplayingDiff || currentUserIntent === 'reviewing') {
-		return false;
-	}
+	const controls = api.blockControls.sharedState.currentState();
 
 	let position: number;
 	try {
-		position = view.posAtDOM(event.target, 0);
+		position = view.posAtDOM(target, 0);
 	} catch {
 		return false;
 	}
@@ -105,7 +120,7 @@ export const handleSparseMouseOver = (
 		// Browser positions over non-editable node chrome can resolve to the first editable child.
 		// Keep the ancestor unless that child actually owns the hovered DOM target.
 		const nodeAfterDOM = view.nodeDOM(position);
-		if (nodeAfterDOM instanceof Element && nodeAfterDOM.contains(event.target)) {
+		if (nodeAfterDOM instanceof Element && nodeAfterDOM.contains(target)) {
 			targetPosition = position;
 		}
 	}
@@ -117,13 +132,13 @@ export const handleSparseMouseOver = (
 	if (!initialNode) {
 		return false;
 	}
-	const target = redirectParagraphToWrappedMedia(
+	const redirected = redirectParagraphToWrappedMedia(
 		view,
 		view.state.doc.resolve(targetPosition),
 		targetPosition,
 	);
-	targetPosition = target.position;
-	const node = target.node;
+	targetPosition = redirected.position;
+	const node = redirected.node;
 	if (!node || controls?.activeNode?.pos === targetPosition) {
 		return false;
 	}

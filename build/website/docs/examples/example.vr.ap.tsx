@@ -5,8 +5,8 @@
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import Lozenge from '@atlaskit/lozenge';
-import Badge from '@atlaskit/badge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import Badge from '@atlaskit/badge/badge';
 
 import { Example } from '../src/example';
 

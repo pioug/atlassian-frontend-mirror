@@ -1,5 +1,41 @@
 # @atlaskit/native-embeds-common
 
+## 2.6.2
+
+### Patch Changes
+
+- [`ee7d8e25afa75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee7d8e25afa75) -
+  DXAI-1824: Refine AVPViz native embeds with a borderless raised frame, a loading skeleton matching
+  Viz Bifrost (announced as a "Loading chart" progress bar), and a single chart title. Enforce
+  native presentation parameters after Smart Link resolution, including fullscreen. Native URL
+  matching remains behind `platform_avp_viz_confluence_native_embed`.
+
+  Add a Static data / Dynamic data selector to the AVPViz native header. It is lazy-loaded and only
+  appears after the child negotiates `avpviz-data-fetch-v1`, so older children keep their own
+  selector. A local `useNativeEmbedChannel` hook validates state from the experience-scoped
+  child-command subscription and owns feature negotiation, connection sessions, and connection
+  timeouts. The data-fetch hook owns selection rules and pending state; the dropdown renders the
+  reported state and sends selections through it. Export the shared protocol from
+  `@atlassian/native-embeds-avpviz-experience/data-fetch-protocol`. Show the loading label, without
+  a mode icon, when no strategy is displayed. The selector's chunk is only downloaded once the child
+  agrees to the feature. Errors are the trigger's accessible description and appear on the option
+  they affect.
+
+  Core gains an opt-in `frameElevation: 'raised'` UI config and exposes the agreed-features promise
+  and experience-scoped child-command subscription on `ActionContext`. The additional context
+  capabilities and generic child-command events are enabled by
+  `platform_avp_viz_confluence_native_embed`; gate-off preserves the existing manifest dispatch and
+  action context.
+
+  Preserve the raised chart frame shadow in editor mode by allowing its host wrappers to overflow.
+  Keep content clipping inside the frame and preserve the editor selection ring.
+
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.0
 
 ### Minor Changes

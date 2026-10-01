@@ -71,7 +71,6 @@ import {
 } from './decorations-quick-insert-button';
 import { handleMouseDown } from './handle-mouse-down';
 import { handleMouseOver } from './handle-mouse-over';
-import { handleSparseMouseOver } from './handle-sparse-mouse-over';
 import { boundKeydownHandler } from './keymap';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
 import { getMultiSelectAnalyticsAttributes } from './utils/analytics';
@@ -1507,6 +1506,12 @@ export const createPlugin = (
 					}
 				},
 				mouseover: (view: EditorView, event: Event) => {
+					// Sparse surfaces handle all hover in bindSparseGutterHover, which also covers the gutters
+					// outside view.dom.
+					if (isExperimentEnabled('platform_editor_block_control_migration')) {
+						return false;
+					}
+
 					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
 						return;
 					}
@@ -1516,17 +1521,12 @@ export const createPlugin = (
 					// in case there are descripancies between getNodeIdProvider limited mode state
 					if (
 						getNodeIdProvider(view)?.isLimitedMode() &&
-						(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
-							isExperimentEnabled('platform_editor_block_control_migration'))
+						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					) {
 						return;
 					}
 
-					if (isExperimentEnabled('platform_editor_block_control_migration')) {
-						handleSparseMouseOver(view, event, api);
-					} else {
-						handleMouseOver(view, event, api);
-					}
+					handleMouseOver(view, event, api);
 
 					return false;
 				},

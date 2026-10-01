@@ -2,6 +2,7 @@
 
 import React, { type FC, useCallback, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { createTheme, type ThemeProp } from '@atlaskit/theme/create-theme';
 
 interface LocalThemeProps {

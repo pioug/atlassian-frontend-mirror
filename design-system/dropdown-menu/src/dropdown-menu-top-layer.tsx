@@ -263,24 +263,10 @@ function DropdownMenuTopLayer({
 	);
 
 	const ariaAttributes = getAriaForTrigger({
-		// Intentionally fudging the type here to allow the fudged aria-haspopup cast below,
-		// without having to use `as unknown as ...` which would lose even more type safety.
-		role: 'menu' as 'menu' | 'dialog',
+		role: 'menu',
 		isOpen: isLocalOpen,
 		popoverId,
 	});
-
-	// FUDGE(top-layer-api): cast `aria-haspopup` to the narrow shape that adopter
-	// public types expect. `@atlaskit/top-layer` types `aria-haspopup` as the wider
-	// WAI-ARIA union, but the public `CustomTriggerProps` (extending `@atlaskit/popup`
-	// `TriggerProps`) is intentionally kept narrow (`boolean | 'dialog'`) because the
-	// top-layer API surface is not yet settled. The runtime value is unchanged; only
-	// the TypeScript-visible type is narrowed at this boundary.
-	const narrowAriaAttributes = ariaAttributes as {
-		'aria-controls': string | undefined;
-		'aria-expanded': boolean;
-		'aria-haspopup': boolean | 'dialog';
-	};
 
 	/**
 	 * Custom trigger consumers historically receive a callback ref,
@@ -294,7 +280,7 @@ function DropdownMenuTopLayer({
 	const renderTrigger = () => {
 		if (typeof trigger === 'function') {
 			return trigger({
-				...narrowAriaAttributes,
+				...ariaAttributes,
 				onFocus: bindFocus.onFocus,
 				onBlur: bindFocus.onBlur,
 				triggerRef: setTriggerRef,
@@ -309,7 +295,7 @@ function DropdownMenuTopLayer({
 				onFocus={bindFocus.onFocus}
 				onBlur={bindFocus.onBlur}
 				ref={setTriggerRef}
-				{...narrowAriaAttributes}
+				{...ariaAttributes}
 				isSelected={isLocalOpen}
 				iconAfter={(iconProps) => <ExpandIcon {...iconProps} size="small" />}
 				onClick={handleTriggerClicked}

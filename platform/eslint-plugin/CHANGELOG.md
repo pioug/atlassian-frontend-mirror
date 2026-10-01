@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.5.0
+
+### Minor Changes
+
+- [`815de5e445bad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/815de5e445bad) -
+  Add the `@atlaskit/platform/no-inline-images` rule. It reports images inlined into source as an
+  image `data:` URI, in both string and template literals, including inside a CSS `url(...)` string
+  and as a JSX attribute value. Non-image `data:` URIs are not reported, and neither is SVG in any
+  other form — shipping an icon as a JSX element or as an SVG markup string is legitimate; only the
+  data-URI encoding defeats caching and inflates the bundle. The rule self-skips non-shipping code
+  (tests, mocks, fixtures, examples, stories, VR entry points) and codegen artifacts, which cannot
+  carry a disable comment without invalidating their signature.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.8
 
 ### Patch Changes

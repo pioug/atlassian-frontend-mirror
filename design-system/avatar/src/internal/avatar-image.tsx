@@ -121,11 +121,11 @@ const updatedHexagonNestedSvgStylesMap = cssMap({
 	},
 	xlarge: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'& svg': { width: '92.43px', height: '103.02px' },
+		'& svg': { width: '92.44px', height: '103.04px' },
 	},
 	xxlarge: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'& svg': { width: '123.24px', height: '137.36px' },
+		'& svg': { width: '123.25px', height: '137.39px' },
 	},
 });
 

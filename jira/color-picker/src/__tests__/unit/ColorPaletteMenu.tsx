@@ -29,10 +29,7 @@ describe('ColorPaletteMenu', () => {
 
 	describe('All FFs enabled', () => {
 		beforeEach(() => {
-			mockGetBooleanFG.mockImplementation(
-				(flag: string) =>
-					flag !== 'platform-dst-top-layer' && flag !== 'platform-dst-top-layer-tooltip',
-			);
+			mockGetBooleanFG.mockImplementation((flag: string) => flag !== 'platform-dst-top-layer');
 		});
 
 		test('should capture and report a11y violations', async () => {

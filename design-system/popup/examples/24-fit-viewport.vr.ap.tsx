@@ -249,6 +249,7 @@ export function FitViewportDefaultSurface(): ReactNode {
 						</button>
 					)}
 					content={() => <TallContent hasOwnWidth />}
+					shouldRenderToParent
 				/>
 			</div>
 		</div>
@@ -296,6 +297,7 @@ export function FitViewportCustomComponent(): ReactNode {
 						</button>
 					)}
 					content={() => <TallContent hasOwnWidth />}
+					shouldRenderToParent
 				/>
 			</div>
 		</div>
@@ -353,6 +355,7 @@ export function FitContainerAndViewport(): ReactNode {
 						</button>
 					)}
 					content={() => <TallContent hasOwnWidth={false} />}
+					shouldRenderToParent
 				/>
 			</div>
 		</div>
@@ -401,6 +404,7 @@ export function PopupSurfaceXcss(): ReactNode {
 						</button>
 					)}
 					content={() => <div css={styles.xcssInk}>xcss: width 280px + space.200 padding</div>}
+					shouldRenderToParent
 				/>
 			</div>
 		</div>

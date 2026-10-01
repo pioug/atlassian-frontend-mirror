@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/default/button';
 import FocusRing from '@atlaskit/focus-ring/focus-ring';
+import Field from '@atlaskit/form/field';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
@@ -46,15 +47,25 @@ export default (): React.JSX.Element => {
 					Native Button
 				</button>
 			</FocusRing>
-			<Textfield placeholder="AK Textfield" />
+			<Field
+				label="AK Textfield"
+				name="ak-textfield"
+				component={({ fieldProps }) => <Textfield {...fieldProps} />}
+			/>
 			<FocusRing isInset>
-				<input
-					style={{
-						border: `${token('border.width.selected')} solid ${token('color.border')}`,
-					}}
-					data-testid="input"
-					css={baseStyles}
-					placeholder="Native Textfield"
+				<Field
+					label="Native Textfield"
+					name="native-textfield"
+					component={({ fieldProps }) => (
+						<input
+							{...fieldProps}
+							style={{
+								border: `${token('border.width.selected')} solid ${token('color.border')}`,
+							}}
+							data-testid="input"
+							css={baseStyles}
+						/>
+					)}
 				/>
 			</FocusRing>
 		</div>

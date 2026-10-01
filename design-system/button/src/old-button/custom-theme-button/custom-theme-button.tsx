@@ -3,7 +3,9 @@ import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import GlobalTheme from '@atlaskit/theme/theme';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { type ThemeModes } from '@atlaskit/theme/types';
 
 import ButtonBase from '../shared/button-base';

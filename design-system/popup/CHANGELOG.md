@@ -1,5 +1,18 @@
 # @atlaskit/popup
 
+## 9.0.0
+
+### Major Changes
+
+- [`d562a51283c05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d562a51283c05) -
+  Widen Popup and Dropdown Menu trigger `aria-haspopup` types to include valid popup kinds,
+  including `menu`. Consumers with explicitly narrow render-prop annotations may need to accept the
+  additional values.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

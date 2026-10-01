@@ -82,7 +82,6 @@ export default (): React.JSX.Element => {
 									{ label: 'Jira', value: 'jra' },
 									{ label: 'Stride', value: 'stride' },
 								]}
-								placeholder="Choose a project&hellip;"
 								{...rest}
 							/>
 						)}

@@ -3,8 +3,6 @@ import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-test-renderer';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import type { Props } from '../../../../components/picker/CategorySelector';
@@ -27,15 +25,6 @@ describe('<CategorySelector />', () => {
 				<div id={RENDER_EMOJI_PICKER_LIST_TESTID} />
 			</div>,
 		);
-	const enableInitialFocusFix = () => {
-		jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
-		jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((experimentName, _parameterName, defaultValue) =>
-				experimentName === 'tef_fix_a11y_keyboard_control_emoji_picker' ? true : defaultValue,
-			);
-		jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
-	};
 
 	afterEach(() => {
 		jest.restoreAllMocks();
@@ -105,7 +94,7 @@ describe('<CategorySelector />', () => {
 
 	it('active category highlighted', async () => {
 		const activeCategoryId = defaultCategories[3];
-		await setupComponent({
+		await setupComponentWithTabPanel({
 			activeCategoryId,
 		});
 		const categoryButtons = await screen.getAllByRole('tab');
@@ -186,8 +175,7 @@ describe('<CategorySelector />', () => {
 		expectTabIndexFromList(categoryButtons, 0);
 	});
 
-	it('focuses the selected category when the initial focus fix is enabled', async () => {
-		enableInitialFocusFix();
+	it('focuses the selected category', async () => {
 		const activeCategoryId = defaultCategories[0];
 
 		await setupComponentWithTabPanel({ activeCategoryId });
@@ -198,8 +186,6 @@ describe('<CategorySelector />', () => {
 	});
 
 	it('focuses the selected dynamic frequent category', async () => {
-		enableInitialFocusFix();
-
 		await setupComponentWithTabPanel({
 			activeCategoryId: 'FREQUENT',
 			dynamicCategories: ['FREQUENT'],
@@ -211,7 +197,6 @@ describe('<CategorySelector />', () => {
 	});
 
 	it('only sets initial focus once', async () => {
-		enableInitialFocusFix();
 		const initialCategoryId = defaultCategories[0];
 		const laterCategoryId = defaultCategories[2];
 		const { rerender } = await setupComponentWithTabPanel({
@@ -241,7 +226,6 @@ describe('<CategorySelector />', () => {
 	});
 
 	it('does not move focus when the user focuses search before the active category is set', async () => {
-		enableInitialFocusFix();
 		const activeCategoryId = defaultCategories[0];
 		const { rerender } = await setupComponentWithTabPanel();
 		const searchInput = screen.getByRole('textbox', { name: 'Search emojis' });

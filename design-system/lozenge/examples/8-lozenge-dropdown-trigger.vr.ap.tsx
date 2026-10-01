@@ -216,6 +216,7 @@ export default function LozengeDropdownTriggerExample(): JSX.Element {
 						</Button>
 					</Inline>
 					<DropdownMenu
+						shouldRenderToParent
 						trigger={({ triggerRef, ...props }) => (
 							<LozengeDropdownTrigger
 								ref={triggerRef}

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@atlassian/testing-library';
 
+import { waitForTooltipToHide } from '../../testing';
 import Tooltip from '../../tooltip';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
@@ -18,7 +19,7 @@ describe('test nested tooltip', () => {
 		jest.useRealTimers();
 	});
 
-	it('should allow tooltips to be nested', () => {
+	it('should allow tooltips to be nested', async () => {
 		render(
 			<Tooltip content="outer" testId="tooltip--outer">
 				<div data-testid="outer">
@@ -60,16 +61,14 @@ describe('test nested tooltip', () => {
 		act(() => {
 			jest.runOnlyPendingTimers();
 		});
-		// flush motion timeout
-		act(() => {
-			jest.runOnlyPendingTimers();
-		});
+		// flush motion and exit settlement
+		await waitForTooltipToHide();
 
 		expect(screen.queryByTestId('tooltip--inner')).not.toBeInTheDocument();
 		expect(screen.queryByTestId('tooltip--outer')).not.toBeInTheDocument();
 	});
 
-	it('the outer tooltip should not close if the inner tooltip has canAppear: false', () => {
+	it('the outer tooltip should not close if the inner tooltip has canAppear: false', async () => {
 		render(
 			<Tooltip content="outer" testId="tooltip--outer">
 				<div data-testid="outer">
@@ -120,10 +119,8 @@ describe('test nested tooltip', () => {
 		act(() => {
 			jest.runOnlyPendingTimers();
 		});
-		// flush motion timeout
-		act(() => {
-			jest.runOnlyPendingTimers();
-		});
+		// flush motion and exit settlement
+		await waitForTooltipToHide();
 
 		expect(screen.queryByTestId('tooltip--inner')).not.toBeInTheDocument();
 		expect(screen.queryByTestId('tooltip--outer')).not.toBeInTheDocument();

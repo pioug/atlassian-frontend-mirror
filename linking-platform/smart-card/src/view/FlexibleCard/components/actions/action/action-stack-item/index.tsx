@@ -10,6 +10,7 @@ const ActionStackItem = ({
 	tooltipMessage,
 	tooltipOnHide,
 	hideTooltipOnMouseDown,
+	hasNewContentOnTriggerClick,
 	hideTooltip,
 	...props
 }: ActionStackItemProps): React.JSX.Element => {
@@ -20,6 +21,7 @@ const ActionStackItem = ({
 			content={tooltipMessage || content}
 			onHide={tooltipOnHide}
 			hideTooltipOnMouseDown={hideTooltipOnMouseDown}
+			hasNewContentOnTriggerClick={hasNewContentOnTriggerClick}
 		>
 			{(tooltipProps) => <ActionButton {...props} content={content} tooltipProps={tooltipProps} />}
 		</Tooltip>

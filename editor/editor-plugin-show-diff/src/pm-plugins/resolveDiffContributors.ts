@@ -31,10 +31,15 @@ const SHOW_DIFF_AGENT_BRANDS: Readonly<Partial<Record<AgentBrandColorScheme, Dif
 
 /**
  * Brands that prefer the account's real avatar over their fixed glyph when the invoking profile
- * has one. Claude/ChatGPT/Rovo intentionally keep their fixed glyph always (see `AGENT_KIND_ICONS`
- * in `contributorAvatarRenderer.ts`).
+ * has one. Claude/ChatGPT intentionally keep their fixed glyph always (see `AGENT_KIND_ICONS` in
+ * `contributorAvatarRenderer.ts`).
  */
-const AVATAR_ELIGIBLE_BRANDS: ReadonlySet<DiffAgentBrand> = new Set(['figma', 'lovable', 'replit']);
+const AVATAR_ELIGIBLE_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
+	'figma',
+	'lovable',
+	'replit',
+	'rovo',
+]);
 
 /** Known external agent types emitted by Confluence's agent identification service that carry
  * no `@atlaskit/agent-color` brand — a generic labelled fallback. */

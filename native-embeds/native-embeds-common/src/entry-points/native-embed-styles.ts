@@ -199,6 +199,15 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 		float: 'right',
 		margin: `${wrapGap} auto ${wrapGap} ${wrapGap} !important`,
 	},
+	// Raised frames own their shadow and content clipping. The editor overflow wrapper and
+	// left/right alignment containers must let that shadow paint outside the frame bounds.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target host wrappers only when the experience opts into a raised frame
+	'.extension-overflow-wrapper:not(.with-body):has([data-native-embed-frame-elevation="raised"]), .extension-container:has([data-native-embed-frame-elevation="raised"]), .ak-renderer-extension:has([data-native-embed-frame-elevation="raised"])':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Override editor-owned overflow styles regardless of injection order
+			overflow: 'visible !important' as 'visible',
+			borderRadius: token('radius.large'),
+		},
 	// Suppress the hover box-shadow on the extension container for all native embeds.
 	// Native embeds provide their own chrome so the generic extension hover ring is not appropriate.
 	// The selection ring (from .ak-editor-selected-node) is also applied as a box-shadow,

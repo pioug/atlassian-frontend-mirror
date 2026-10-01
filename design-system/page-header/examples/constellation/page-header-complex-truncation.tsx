@@ -40,10 +40,10 @@ const actionsContent = (
 const barContent = (
 	<Inline>
 		<Box xcss={styles.flexBox}>
-			<TextField isCompact placeholder="Filter" aria-label="Filter" />
+			<TextField isCompact aria-label="Filter" />
 		</Box>
 		<Box xcss={styles.selectContainer}>
-			<Select spacing="compact" placeholder="Choose an option" label="Choose an option" />
+			<Select spacing="compact" label="Choose an option" />
 		</Box>
 	</Inline>
 );

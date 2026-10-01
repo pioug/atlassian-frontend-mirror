@@ -4,6 +4,7 @@
  * @jsxFrag jsx
  */
 import { cssMap, cx, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
@@ -34,11 +35,38 @@ export const parseSkillTagTitle = (title: string): ParsedSkillTag | undefined =>
 };
 
 const styles = cssMap({
-	// `display: inline` (not inline-block/flex) lets this element wrap across text lines like
-	// normal inline content; `boxDecorationBreak: 'clone'` then gives each wrapped line fragment
-	// its own independent background/padding, matching the inserted skill chip, instead of one
-	// rectangle spanning every line.
 	tag: {
+		display: 'inline',
+	},
+	// `display: inline` (not inline-block/flex) lets each highlighted segment wrap across text
+	// lines like normal inline content; `boxDecorationBreak: 'clone'` then gives each wrapped line
+	// fragment its own independent background, matching the inserted skill chip, instead of one
+	// rectangle spanning every line.
+	highlight: {
+		display: 'inline',
+		boxDecorationBreak: 'clone',
+		backgroundColor: token('color.background.neutral'),
+	},
+	// Slants the leading/trailing edges of the background so the first and last segments read as a
+	// single slanted tag, matching the inserted skill chip
+	// (rovo-platform-ui-components/skills/skill-tag/SkillTagInternal) instead of a plain rectangle.
+	highlightStart: {
+		display: 'inline',
+		paddingLeft: token('space.050'),
+		clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0 100%)',
+	},
+	highlightEnd: {
+		display: 'inline',
+		paddingRight: token('space.050'),
+		clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0 100%)',
+	},
+	slash: {
+		display: 'inline',
+		paddingRight: token('space.050'),
+	},
+	// Legacy, non-slanted rendering restored when `rovo_skill_tag_slanted_background_killswitch`
+	// is on, matching the inserted skill chip's own killswitch fallback.
+	legacyTag: {
 		display: 'inline',
 		boxDecorationBreak: 'clone',
 		boxSizing: 'border-box',
@@ -48,7 +76,7 @@ const styles = cssMap({
 		borderRadius: token('radius.xsmall'),
 		backgroundColor: token('color.background.neutral'),
 	},
-	slash: {
+	legacySlash: {
 		display: 'inline',
 		marginRight: token('space.050'),
 	},
@@ -90,12 +118,45 @@ export type SkillTagLabelProps = {
  */
 export const SkillTagLabel = ({ color, slug }: SkillTagLabelProps): JSX.Element => {
 	const accentColor = isAccentColor(color) ? color : 'DEFAULT';
-	return (
-		<Box as="span" xcss={styles.tag}>
-			<Box as="span" xcss={cx(styles.slash, accentColorStyles[accentColor])}>
-				/
+
+	if (fg('rovo_skill_tag_slanted_background_killswitch')) {
+		return (
+			<Box as="span" xcss={styles.legacyTag} testId="skill-tag-label-container">
+				<Box as="span" xcss={cx(styles.legacySlash, accentColorStyles[accentColor])}>
+					/
+				</Box>
+				<Text as="span">{slug}</Text>
 			</Box>
-			<Text as="span">{slug}</Text>
+		);
+	}
+
+	const slugBeforeLastCharacter = slug.slice(0, -1);
+	const lastSlugCharacter = slug.slice(-1);
+	return (
+		<Box as="span" xcss={styles.tag} testId="skill-tag-label-container">
+			<Text as="span">
+				<Box
+					as="span"
+					xcss={cx(
+						styles.highlight,
+						styles.highlightStart,
+						styles.slash,
+						accentColorStyles[accentColor],
+					)}
+				>
+					/
+				</Box>
+				{slugBeforeLastCharacter && (
+					<Box as="span" xcss={styles.highlight}>
+						{slugBeforeLastCharacter}
+					</Box>
+				)}
+				{lastSlugCharacter && (
+					<Box as="span" xcss={cx(styles.highlight, styles.highlightEnd)}>
+						{lastSlugCharacter}
+					</Box>
+				)}
+			</Text>
 		</Box>
 	);
 };

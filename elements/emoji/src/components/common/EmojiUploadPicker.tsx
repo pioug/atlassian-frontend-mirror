@@ -33,7 +33,6 @@ import Button from '@atlaskit/button/default/button';
 import AkButton from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 import { Box } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield/text-field';
@@ -609,10 +608,8 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 
 	const cancelUpload = useCallback(
 		(event?: MouseEvent<HTMLElement>) => {
-			if (fg('platform_emoji_keep_picker_open_on_upload') || isRefreshEmojiPickerEnabled()) {
-				event?.preventDefault();
-				event?.stopPropagation();
-			}
+			event?.preventDefault();
+			event?.stopPropagation();
 			clearUploadPicker();
 			onUploadCancelled();
 			onUploadPreviewErrorChange?.(false);

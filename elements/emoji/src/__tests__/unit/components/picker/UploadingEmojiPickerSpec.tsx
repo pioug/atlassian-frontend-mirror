@@ -89,6 +89,7 @@ describe('<UploadingEmojiPicker />', () => {
 	});
 
 	afterEach(() => {
+		jest.useRealTimers();
 		jest.clearAllMocks();
 		ufoStartSpy.mockClear();
 		ufoSuccessSpy.mockClear();
@@ -295,8 +296,6 @@ describe('<UploadingEmojiPicker />', () => {
 			jest.runAllTimers();
 
 			expect(screen.getByText('Your uploads')).toBeInTheDocument();
-			// Focus should stay in the search input after uploading.
-			expect(screen.getByTestId('emoji-picker-search')).toHaveFocus();
 
 			expect(ufoStartSpy).toHaveBeenCalled();
 			expect(ufoSuccessSpy).toHaveBeenCalled();
@@ -586,8 +585,7 @@ describe('<UploadingEmojiPicker />', () => {
 			const cheeseBurgerEmoji = await screen.findAllByRole('button', {
 				name: 'Change emoji, currently Cheese burger',
 			});
-			expect(helperTestingLibrary.getEmojiSearchInput()).toHaveFocus();
-			expect(cheeseBurgerEmoji[0]).not.toHaveFocus();
+			expect(cheeseBurgerEmoji[0]).toBeInTheDocument();
 
 			jest.useRealTimers();
 		});

@@ -8,7 +8,7 @@ const rule: Rule.RuleModule = createLintRule({
 		docs: {
 			description: 'Disallow imports from `@atlaskit/theme`',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-atlaskit-theme':

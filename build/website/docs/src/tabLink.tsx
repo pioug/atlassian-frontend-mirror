@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren } from 'react';
 import { useCallback } from 'react';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 export function TabLink({
 	tabId,

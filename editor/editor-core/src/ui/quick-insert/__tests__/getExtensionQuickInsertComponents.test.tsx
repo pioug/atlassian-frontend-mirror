@@ -108,6 +108,13 @@ describe('getExtensionQuickInsertComponents', () => {
 			items: [
 				'com.atlassian.linking-platform.create:linking-platform-create-jira-issue',
 				'com.atlassian.linking-platform.create:linking-platform-create-confluence-page',
+				'whiteboard-extension:create-whiteboard',
+				'whiteboard-extension:create-diagram',
+				'whiteboard-extension:create-flowchart',
+				'whiteboard-extension:create-brainstorming',
+				'whiteboard-extension:create-retrospective',
+				'whiteboard-extension:create-roadmap',
+				'database-extension:create-database',
 				'z-app:structure',
 			].map((key) => ({
 				category: key === 'z-app:structure' ? 'structure' : 'create',
@@ -119,6 +126,7 @@ describe('getExtensionQuickInsertComponents', () => {
 				key,
 				keywords: [],
 				node: { type: 'extension', attrs: {} },
+				priority: -1000,
 				title: key,
 			})),
 		});
@@ -126,6 +134,13 @@ describe('getExtensionQuickInsertComponents', () => {
 		expect(components.map(({ parents }) => parents)).toEqual([
 			[{ ...CREATE_SECTION, rank: 100 }],
 			[{ ...CREATE_SECTION, rank: 200 }],
+			[{ ...CREATE_SECTION, rank: 500 }],
+			[{ ...CREATE_SECTION, rank: 600 }],
+			[{ ...CREATE_SECTION, rank: 700 }],
+			[{ ...CREATE_SECTION, rank: 800 }],
+			[{ ...CREATE_SECTION, rank: 900 }],
+			[{ ...CREATE_SECTION, rank: 1000 }],
+			[{ ...CREATE_SECTION, rank: 1100 }],
 			[{ ...STRUCTURE_SECTION, rank: 3100 }],
 		]);
 	});

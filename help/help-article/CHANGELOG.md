@@ -1,5 +1,20 @@
 # @atlaskit/help-article
 
+## 7.2.14
+
+### Patch Changes
+
+- [`418a4542e7355`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/418a4542e7355) -
+  Cleanup `feature_gate` `asf-943-in-product-help-dark-mode`. Help article iframes now always
+  inherit the parent document's theme attributes and theme styles, so dark mode renders correctly
+  without the gate.
+
+## 7.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.12
 
 ### Patch Changes

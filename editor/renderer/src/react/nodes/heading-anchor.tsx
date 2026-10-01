@@ -246,6 +246,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 								? true
 								: false
 						}
+						hasNewContentOnTriggerClick
 					>
 						{this.renderAnchorButton()}
 					</Tooltip>

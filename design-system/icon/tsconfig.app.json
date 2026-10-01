@@ -68,6 +68,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../form/tsconfig.app.json"
+		},
+		{
 			"path": "../heading/tsconfig.app.json"
 		},
 		{

@@ -231,6 +231,11 @@ type UpdatedDividerAEP = TrackAEP<
 			inputMethod: INPUT_METHOD.FLOATING_TB;
 			previousWeight: number;
 			weight: number;
+	  }
+	| {
+			color: string | null;
+			inputMethod: INPUT_METHOD.FLOATING_TB;
+			previousColor: string | null;
 	  },
 	undefined
 >;

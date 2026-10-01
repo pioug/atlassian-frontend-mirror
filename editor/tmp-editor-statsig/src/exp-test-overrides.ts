@@ -37,7 +37,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
-	cc_maui_polish_changes_batch_4: false,
 	social_proof_3p_unauth_block_exp: false,
 	platform_sl_3p_preauth_better_hovercard: true,
 	cwr_blank_object_experiment: false,

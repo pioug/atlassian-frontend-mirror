@@ -189,20 +189,20 @@ matching. Playwright covers Escape, focus return, inertness.
 
 **Entry points used:** `Popover`, `useAnchoredPopover`, `slideAndFade`, `fromLegacyPlacement`
 
-| Criterion                       | Status | Details                                                              |
-| ------------------------------- | ------ | -------------------------------------------------------------------- |
-| **role="tooltip"**              | Pass   | Set on Popover element                                               |
-| **aria-describedby** on trigger | Pass   | Points to hidden content span                                        |
-| **No focus trap**               | Pass   | Tooltip is non-interactive                                           |
-| **Escape dismisses**            | Pass   | Native Popover API (top-layer path disables `useCloseOnEscapePress`) |
-| **DOM order**                   | Pass   | No portal                                                            |
+| Criterion                       | Status | Details                                                                                             |
+| ------------------------------- | ------ | --------------------------------------------------------------------------------------------------- |
+| **role="tooltip"**              | Pass   | Set on the Popover host with a mirrored `data-placement`; the content node is `role="presentation"` |
+| **aria-describedby** on trigger | Pass   | Points to hidden content span                                                                       |
+| **No focus trap**               | Pass   | Tooltip is non-interactive                                                                          |
+| **Escape dismisses**            | Pass   | Native Popover API (top-layer path disables `useCloseOnEscapePress`)                                |
+| **DOM order**                   | Pass   | No portal                                                                                           |
 
 **Pre-existing issues (out of scope for top-layer):**
 
-| Issue                                                                                            | Severity | WCAG  | Notes                                                     |
-| ------------------------------------------------------------------------------------------------ | -------- | ----- | --------------------------------------------------------- |
-| Possible double announcement — both visible tooltip content and hidden span expose the same text | Low      | 4.1.3 | Documented in code and migration notes.                   |
-| `role="presentation"` on container — may hide semantics if misapplied                            | Low      | 1.3.1 | Same in both paths — existing @atlaskit/tooltip behavior. |
+| Issue                                                                                            | Severity | WCAG  | Notes                                                                  |
+| ------------------------------------------------------------------------------------------------ | -------- | ----- | ---------------------------------------------------------------------- |
+| Possible double announcement — both visible tooltip content and hidden span expose the same text | Low      | 4.1.3 | Documented in code and migration notes.                                |
+| `role="presentation"` on container — may hide semantics if misapplied                            | Low      | 1.3.1 | Top-layer path only; set through context, so a `role` prop still wins. |
 
 **Test coverage:** Good — top-layer unit tests cover hover/focus show, blur/light-dismiss hide,
 `role="tooltip"`, `aria-describedby`. No dedicated Escape test (relies on native Popover API).

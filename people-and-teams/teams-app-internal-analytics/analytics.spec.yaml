@@ -203,6 +203,80 @@ events:
       description: fired when the member picker error is triggered
       attributes:
         <<: *PackageMetaDataContext
+  - inviteProductSelector viewed:
+      type: screen
+      description: fired when the invite product selector is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        numInvitees:
+          type: number
+          description: the number of people being invited
+        eligibleProducts:
+          type: []
+          description: the products the user is eligible to invite people to
+        numEligibleProducts:
+          type: number
+          description: the number of products the user is eligible to invite people to
+  - option clicked (inviteProductSelection):
+      type: ui
+      description:
+        fired when a product option is selected or deselected in the invite product selector
+      attributes:
+        <<: *PackageMetaDataContext
+        product:
+          type: string
+          description: the product that was selected or deselected
+        isSelected:
+          type: boolean
+          description: whether the product is selected after the interaction
+  - option clicked (userPickerEmail):
+      type: ui
+      description: fired when the entered email option is clicked in the user picker
+      attributes:
+        <<: *PackageMetaDataContext
+  - button clicked (inviteUsersToProducts):
+      type: ui
+      description: fired when the invite button in the invite product selector is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        products:
+          type: []
+          description: the selected products
+        numProducts:
+          type: number
+          description: the number of selected products
+        eligibleProducts:
+          type: []
+          description: the products the user is eligible to invite people to
+        numEligibleProducts:
+          type: number
+          description: the number of products the user is eligible to invite people to
+        numInvitees:
+          type: number
+          description: the number of people being invited
+  - inviteUsersToProducts succeeded:
+      type: track
+      description: fired when all client-side invitations to the selected products succeed
+      attributes:
+        <<: *PackageMetaDataContext
+        products:
+          type: []
+          description: the selected products
+        numProducts:
+          type: number
+          description: the number of selected products
+        numInvitees:
+          type: number
+          description: the number of people invited
+        numDirectInvites:
+          type: number
+          description: the number of direct-access user-product invitations
+        numRequestInvites:
+          type: number
+          description: the number of request-access user-product invitations
+        messageId:
+          type: string
+          description: the identifier for this invite attempt
   - teamCreateDialog viewed:
       type: screen
       description: fired when the team create dialog is viewed

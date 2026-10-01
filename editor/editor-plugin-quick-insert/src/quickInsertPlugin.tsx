@@ -27,7 +27,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { createQuickInsertItemsAnalyticsScheduler } from './app-category-analytics';
 import {
@@ -70,9 +69,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		id: TypeAheadAvailableNodes.QUICK_INSERT,
 		trigger: '/',
 		// Support fullwidth slash (U+FF0F) used by Japanese/CJK keyboards (e.g. typing / on a Japanese keyboard layout)
-		customRegex: expValEquals('platform_editor_wide_slash_trigger', 'isEnabled', true)
-			? '[/／]'
-			: undefined,
+		customRegex: '[/／]',
 		headless: options?.headless,
 		getItems({ query, editorState }) {
 			const quickInsertState = pluginKey.getState(editorState);

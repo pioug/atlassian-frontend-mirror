@@ -1565,6 +1565,36 @@ describe('@atlaskit/editor-core', () => {
 				expect(editor).toBeInTheDocument();
 				expect(editor).not.toBeEmptyDOMElement();
 			});
+
+			it('renders data-gramm and translate without ProseMirror mutating them', () => {
+				mockExpEnabled('platform_editor_reduce_forced_layout');
+
+				const observer = new MutationObserver(() => {});
+				observer.observe(document.body, {
+					attributeOldValue: true,
+					attributes: true,
+					subtree: true,
+				});
+
+				renderWithIntl(<ReactEditorView {...props} />);
+
+				const records = observer.takeRecords();
+				observer.disconnect();
+
+				const editor = screen.getByRole('textbox');
+				const changedAttributes = records
+					.filter(
+						(record) =>
+							record.target === editor &&
+							record.attributeName !== null &&
+							record.oldValue !== editor.getAttribute(record.attributeName),
+					)
+					.map((record) => record.attributeName);
+
+				expect(editor).toHaveAttribute('data-gramm', 'false');
+				expect(editor).toHaveAttribute('translate', 'no');
+				expect(changedAttributes).toEqual(expect.not.arrayContaining(['data-gramm', 'translate']));
+			});
 		});
 	});
 

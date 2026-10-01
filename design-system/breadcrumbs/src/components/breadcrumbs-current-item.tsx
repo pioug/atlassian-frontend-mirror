@@ -312,7 +312,11 @@ const BreadcrumbsCurrentItem: import('react').MemoExoticComponent<
 		};
 
 		const copyButton = (
-			<Tooltip content={copied ? 'Copied!' : 'Copy link'} position="bottom">
+			<Tooltip
+				content={copied ? 'Copied!' : 'Copy link'}
+				position="bottom"
+				hasNewContentOnTriggerClick
+			>
 				{(tooltipProps) => (
 					<span
 						css={unboundedStyles.copyButtonWrapper}

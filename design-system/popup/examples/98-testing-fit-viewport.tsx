@@ -143,6 +143,7 @@ export default function TestingPopupFitViewport(): JSX.Element {
 						</button>
 					</div>
 				)}
+				shouldRenderToParent
 			/>
 		</div>
 	);

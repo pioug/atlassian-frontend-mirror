@@ -33,6 +33,9 @@ const toggleButtonTooltipOptions: IconButtonProps['tooltip'] = {
 	// We're disabling pointer events on the tooltip to prevent it from blocking mouse events, so that the side nav flyout stays open
 	// when moving the mouse from the top bar to the side nav.
 	ignoreTooltipPointerEvents: true,
+	// A press swaps the label between `collapseLabel` and `expandLabel`, so keep the
+	// tooltip open to show the new label.
+	hasNewContentOnTriggerClick: true,
 };
 
 // For duplicate "mouseenter" issue when changing icons (see below)

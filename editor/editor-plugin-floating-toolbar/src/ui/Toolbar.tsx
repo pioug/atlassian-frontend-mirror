@@ -35,6 +35,7 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -231,6 +232,7 @@ const ToolbarItems = React.memo(
 							tooltipContent={item.tooltipContent}
 							testId={item.testId}
 							hideTooltipOnClick={item.hideTooltipOnClick}
+							hasNewContentOnTriggerClick={item.hasNewContentOnTriggerClick}
 							ariaHasPopup={item.ariaHasPopup}
 							tabIndex={item.tabIndex}
 							isRadioButton={item.isRadioButton}
@@ -377,6 +379,7 @@ const ToolbarItems = React.memo(
 								skipFocusButtonAfterPick
 								key={idx}
 								isAriaExpanded={item.isAriaExpanded}
+								hideExpandIcon={item.hideExpandIcon}
 								title={item.title}
 								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onChange={(selected) => {
@@ -388,16 +391,16 @@ const ToolbarItems = React.memo(
 								placement="Panels"
 								mountPoint={emojiAndColourPickerMountPoint}
 								setDisableParentScroll={scrollable ? setDisableScroll : undefined}
-								// Currently in floating toolbar, color picker is only
-								//  used in panel and table cell background color.
-								// Both uses same color palette.
-								// That's why hard-coding hexToEditorBackgroundPaletteColor
-								//  and paletteColorTooltipMessages.
-								// When we need to support different color palette
-								//  in floating toolbar, we need to set hexToPaletteColor
-								//  and paletteColorTooltipMessages in item options.
-								hexToPaletteColor={hexToEditorBackgroundPaletteColor}
-								paletteColorTooltipMessages={backgroundPaletteTooltipMessages}
+								hexToPaletteColor={
+									isExperimentEnabled('platform_editor_lovability_dividers')
+										? (item.hexToPaletteColor ?? hexToEditorBackgroundPaletteColor)
+										: hexToEditorBackgroundPaletteColor
+								}
+								paletteColorTooltipMessages={
+									isExperimentEnabled('platform_editor_lovability_dividers')
+										? (item.paletteColorTooltipMessages ?? backgroundPaletteTooltipMessages)
+										: backgroundPaletteTooltipMessages
+								}
 								returnEscToButton={item.returnEscToButton}
 							/>
 						);

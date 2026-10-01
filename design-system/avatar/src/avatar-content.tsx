@@ -261,8 +261,8 @@ const updatedHexagonDimensionMap = cssMap({
 	small: { width: '23.11px', height: '25.76px' },
 	medium: { width: '30.81px', height: '34.34px' },
 	large: { width: '38.51px', height: '42.93px' },
-	xlarge: { width: '92.43px', height: '103.02px' },
-	xxlarge: { width: '123.24px', height: '137.36px' },
+	xlarge: { width: '92.44px', height: '103.04px' },
+	xxlarge: { width: '123.25px', height: '137.39px' },
 });
 
 type AvatarContentProps = {

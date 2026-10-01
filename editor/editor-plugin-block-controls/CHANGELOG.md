@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 24.0.1
+
+### Patch Changes
+
+- [`6b9023d88752e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b9023d88752e) -
+  Restore left-gutter hover for top-level blocks, nested blocks, layout columns, and tables or media
+  wider than the line length under platform_editor_block_control_migration, matching the legacy
+  hover zone sizes.
+- Updated dependencies
+
+## 24.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.9
 
 ### Patch Changes

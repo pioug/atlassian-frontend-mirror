@@ -1,5 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import BasicReactExample from '../06-basic-react';
+import { wbWithEditorMetrics } from './wb-with-editor-metrics';
 
-export const BasicReact: WorkbenchExample<typeof BasicReactExample> = wb(BasicReactExample);
+export const BasicReact: WorkbenchExample = wbWithEditorMetrics(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-metrics-basic-react" */ '../06-basic-react'
+		),
+);

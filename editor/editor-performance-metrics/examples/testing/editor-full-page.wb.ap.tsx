@@ -1,6 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import EditorFullPageExample from '../05-editor-full-page';
+import { wbWithEditorMetrics } from './wb-with-editor-metrics';
 
-export const EditorFullPage: WorkbenchExample<typeof EditorFullPageExample> =
-	wb(EditorFullPageExample);
+export const EditorFullPage: WorkbenchExample = wbWithEditorMetrics(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-metrics-editor-full-page" */ '../05-editor-full-page'
+		),
+);

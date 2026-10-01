@@ -436,6 +436,21 @@ const applyTextLikeBlockNodeStyles = ({
 /**
  * Creates a content wrapper with deleted styles for a block node
  */
+/**
+ * The element that spans breakout width, for nodes carrying a `breakout` mark. The wrapper divs
+ * stay at editor-column width, so anything that should align to the node's visible edges —
+ * outlines, absolutely positioned lozenges — has to attach here instead.
+ */
+const findBreakoutElement = (targetNode: PMNode, nodeView: Node): HTMLElement | null => {
+	const hasBreakoutMark = targetNode.marks?.some((mark) => mark.type.name === 'breakout');
+	if (!hasBreakoutMark || !(nodeView instanceof HTMLElement)) {
+		return null;
+	}
+	return (
+		nodeView.matches('[data-node-type]') ? nodeView : nodeView.querySelector('[data-node-type]')
+	) as HTMLElement | null;
+};
+
 const createBlockNodeContentWrapper = ({
 	nodeView,
 	targetNode,
@@ -472,7 +487,16 @@ const createBlockNodeContentWrapper = ({
 		? ''
 		: getChangedContentStyle(colorScheme, isActive, isInserted, hideAddedDiffsUnderline);
 
-	contentWrapper.setAttribute('style', `${contentStyle}${nodeStyle || ''}`);
+	// A `breakout` node renders wider than the editor column while the wrapper divs
+	// stay at column width, so paint the outline on the node element that spans that width.
+	const breakoutTarget = nodeStyle ? findBreakoutElement(targetNode, nodeView) : null;
+
+	if (fg('platform_editor_ai_show_diff_patch_2') && breakoutTarget) {
+		appendStyleToElement(breakoutTarget, nodeStyle ?? '');
+		contentWrapper.setAttribute('style', contentStyle || '');
+	} else {
+		contentWrapper.setAttribute('style', `${contentStyle}${nodeStyle || ''}`);
+	}
 	contentWrapper.append(nodeView);
 	return contentWrapper;
 };
@@ -609,7 +633,18 @@ const wrapBlockNode = ({
 			return;
 		}
 
-		blockWrapper.append(lozenge);
+		// `lozenge` is absolutely positioned, so it lands on the nearest positioned ancestor. For a
+		// breakout node that is the column-width wrapper, leaving the pill short of the node's
+		// right edge — host it on the breakout element, which must establish a containing block.
+		const breakoutHost = fg('platform_editor_ai_show_diff_patch_2')
+			? findBreakoutElement(targetNode, nodeView)
+			: null;
+		if (breakoutHost) {
+			appendStyleToElement(breakoutHost, convertToInlineCss({ position: 'relative' }));
+			breakoutHost.append(lozenge);
+		} else {
+			blockWrapper.append(lozenge);
+		}
 	}
 
 	const contentWrapper = createBlockNodeContentWrapper({

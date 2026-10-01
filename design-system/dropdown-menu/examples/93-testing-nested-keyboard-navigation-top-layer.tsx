@@ -10,6 +10,7 @@ import { token } from '@atlaskit/tokens';
 const NestedDropdown = ({ level = 0 }: { level?: number }) => {
 	return (
 		<DropdownMenu
+			shouldRenderToParent
 			placement="right-start"
 			testId={`nested-${level}`}
 			trigger={({ triggerRef, ...triggerProps }) => (
@@ -44,7 +45,7 @@ const NestedDropdown = ({ level = 0 }: { level?: number }) => {
 
 const NestedDropdownMenuExample = ({ level = 0 }: { level?: number }): React.JSX.Element => {
 	return (
-		<DropdownMenu trigger="Nested" testId={`nested-${level}`}>
+		<DropdownMenu shouldRenderToParent trigger="Nested" testId={`nested-${level}`}>
 			<DropdownItemGroup>
 				<NestedDropdown level={level + 1} />
 				<DropdownItem testId={`nested-item1-${level + 1}`}>One of many items</DropdownItem>

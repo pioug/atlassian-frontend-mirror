@@ -25,7 +25,7 @@ Portal (zIndex=tooltip) → Popper (placement, referenceElement, strategy) → E
 **Top-layer path:**
 
 ```
-Popover (mode="hint", role="tooltip", placement, shouldAnimate) → TooltipContainer
+Popover (mode="hint", role="tooltip", data-placement, placement, shouldAnimate) → TooltipContainer (role="presentation")
 ```
 
 `mode="hint"` is the tooltip-shaped popover mode: hints do not participate in the `auto` dismissal
@@ -262,7 +262,8 @@ class and were left alone:
 - Immediate hide during waiting-to-hide
 - Render prop children support
 - `popover="hint"` element rendered
-- `role="tooltip"` set on popover element
+- `role="tooltip"` and `data-placement` set on the popover host; the content element is
+  `role="presentation"`, and custom `component` wrappers still yield one `role="tooltip"`
 - `showPopover()` called when tooltip becomes visible
 - No portal rendering (tooltip is in DOM near trigger)
 - Animation data attribute applied
@@ -319,7 +320,7 @@ All existing legacy tests continue to pass.
 | 2.4.7 Focus Visible          | ✓    | `tooltip.spec.tsx` — `:focus-visible` on trigger; top-layer `accessibility.spec`                                                                                                                                                                                                                                                                                                                                                                                               |
 | 2.4.11 Focus Not Obscured    | ✓    | `tooltip.spec.tsx` — top-layer content not obscured; top-layer `accessibility.spec`                                                                                                                                                                                                                                                                                                                                                                                            |
 | 3.2.1 On Focus               | ✓    | Top-layer `accessibility.spec` validates focus return does not re-open layer                                                                                                                                                                                                                                                                                                                                                                                                   |
-| 4.1.2 Name, Role, Value      | ✓    | Unit: `role="tooltip"` set on popover element; top-layer `accessibility.spec` validates ARIA attributes                                                                                                                                                                                                                                                                                                                                                                        |
+| 4.1.2 Name, Role, Value      | ✓    | Unit: `role="tooltip"` set on the popover host, content is `role="presentation"`; top-layer `accessibility.spec` validates ARIA attributes                                                                                                                                                                                                                                                                                                                                     |
 | 4.1.3 Status Messages        | ✓    | Top-layer `accessibility.spec` validates role-based screen reader announcement                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 > **Note:** Tooltip has dedicated top-layer browser tests in
@@ -363,7 +364,7 @@ The following pre-existing accessibility issues in `@atlaskit/tooltip` are **not
 top-layer migration. They exist in both the legacy and top-layer paths:
 
 - **Potential double-announce with `aria-describedby` + `role="tooltip"` (WCAG 4.1.2):** Tooltip
-  sets `aria-describedby` on the trigger referencing the tooltip content, and the popover has
+  sets `aria-describedby` on the trigger referencing the tooltip content, and the tooltip has
   `role="tooltip"`. Some screen reader/browser combinations may announce the tooltip content twice.
   This is a `@atlaskit/tooltip` concern, not a layering concern.
 
@@ -406,8 +407,22 @@ path. The `role` prop change preserves the default value. All existing legacy te
   initialization logic
 - **Bundle size increase** from importing top-layer modules (unavoidable cost of the feature)
 - **`role` prop change on `tooltip-primitive`** — was hardcoded as `role="tooltip"`, now it's a prop
-  with `role = 'tooltip'` as default. No behavioral change on the legacy path; preserves identical
-  default value
+  that falls back to `'tooltip'` (see the next item). No behavioral change on the legacy path.
+- **Internal `DefaultRoleContext` read by `TooltipPrimitive`** — the role is now
+  `role ?? contextDefault ?? 'tooltip'`, and the primitive resets the context to `undefined` around
+  its children. Only the gated `TopLayerTooltipPopup` provides a value (`'presentation'`), so the
+  legacy path and standalone `TooltipPrimitive` render the same DOM. The top-layer path puts
+  `role="tooltip"` and a mirrored `data-placement` on the `Popover` host. The context stops custom
+  `component` wrappers that don't forward `role` from adding a second `role="tooltip"`. See
+  [tooltip-gate-on-in-tests-report.md](../tooltip-gate-on-in-tests-report.md), cluster 1.
+  - **Why a context, not the gate.** Consumers also render `TooltipPrimitive` and `TooltipContainer`
+    directly, outside `<Tooltip>` (for example
+    `conversation-assistant-preview-card/.../dismissable-tooltip.tsx`). No top-layer host carries a
+    role for them, so a gate-driven `presentation` default would strip their only `role="tooltip"`.
+    The context scopes the default to the top-layer `<Tooltip>` popup.
+  - **Unwinding it.** Move the direct renders onto a top-layer `Popover` with `role="tooltip"`. When
+    no standalone use relies on the `'tooltip'` fallback, make `presentation` the primitive's
+    default and delete the context, together with the gate cleanup.
 
 ### 3. Changes gated behind `platform-dst-top-layer-tooltip`
 

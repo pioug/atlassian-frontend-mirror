@@ -18,6 +18,7 @@ type FocusOptionsWithVisible = NonNullable<Parameters<HTMLElement['focus']>[0]> 
  */
 const triggerTestId = 'default-tooltip--container';
 const popoverTestId = 'default-tooltip--popover';
+const contentTestId = 'default-tooltip';
 const hiddenTestId = 'default-tooltip-hidden';
 
 test.describe('Tooltip top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
@@ -216,7 +217,7 @@ test.describe('Tooltip top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 });
 
 test.describe('Tooltip top-layer — WCAG 4.1.2 Name, Role, Value', () => {
-	test('tooltip has role="tooltip" (sanity check)', async ({ page }) => {
+	test('tooltip has role="tooltip" on the popover host, not the content node', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
@@ -227,12 +228,18 @@ test.describe('Tooltip top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		);
 
 		const trigger = page.getByTestId(triggerTestId);
-		const tooltip = page.getByTestId(popoverTestId);
+		const popover = page.getByTestId(popoverTestId);
+		const tooltip = page.getByTestId(contentTestId);
 
 		await trigger.hover();
-		await expect(tooltip).toBeVisible();
+		await expect(popover).toBeVisible();
 
-		await expect(tooltip).toHaveAttribute('role', 'tooltip');
+		// The host carries the role and mirrors `data-placement`. The content node
+		// is presentational, so there is exactly one role="tooltip".
+		await expect(popover).toHaveAttribute('role', 'tooltip');
+		await expect(popover).toHaveAttribute('data-placement');
+		await expect(tooltip).toHaveAttribute('role', 'presentation');
+		await expect(page.getByRole('tooltip')).toHaveCount(1);
 	});
 
 	test('trigger has aria-describedby referencing tooltip', async ({ page }) => {

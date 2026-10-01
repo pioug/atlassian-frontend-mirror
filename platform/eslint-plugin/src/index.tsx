@@ -44,6 +44,7 @@ import noDirectDocumentUsage from './rules/no-direct-document-usage';
 import noDirectWebStorageUsage from './rules/no-direct-web-storage-usage';
 import noDoubleTypeAssertions from './rules/no-double-type-assertions';
 import noDuplicateDependencies from './rules/no-duplicate-dependencies';
+import noInlineImages from './rules/no-inline-images';
 import noInternalDependenciesInPublicPackages from './rules/no-internal-dependencies-in-public-packages';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
@@ -118,6 +119,7 @@ const rules: {
 	'no-unsafe-no-exposure': Rule.RuleModule;
 	'no-sparse-checkout': Rule.RuleModule;
 	'no-direct-document-usage': Rule.RuleModule;
+	'no-inline-images': Rule.RuleModule;
 	'no-direct-web-storage-usage': Rule.RuleModule;
 	'no-native-embed-bridge-query-param-literals': Rule.RuleModule;
 	'no-set-immediate': Rule.RuleModule;
@@ -171,6 +173,7 @@ const rules: {
 	'no-unsafe-no-exposure': noUnsafeNoExposure,
 	'no-sparse-checkout': noSparseCheckout,
 	'no-direct-document-usage': noDirectDocumentUsage,
+	'no-inline-images': noInlineImages,
 	'no-direct-web-storage-usage': noDirectWebStorageUsage,
 	'no-native-embed-bridge-query-param-literals': noNativeEmbedBridgeQueryParamLiterals,
 	'no-set-immediate': noSetImmediate,
@@ -286,6 +289,7 @@ const plugin: {
 		'valid-gate-name': Rule.RuleModule;
 		'no-unsafe-no-exposure': Rule.RuleModule;
 		'no-sparse-checkout': Rule.RuleModule;
+		'no-inline-images': Rule.RuleModule;
 		'no-direct-document-usage': Rule.RuleModule;
 		'no-direct-web-storage-usage': Rule.RuleModule;
 		'no-native-embed-bridge-query-param-literals': Rule.RuleModule;

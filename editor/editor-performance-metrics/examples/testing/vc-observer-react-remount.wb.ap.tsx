@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import VcObserverReactRemountExample from '../03-vc-observer-react-remount';
+import { wbWithEditorMetrics } from './wb-with-editor-metrics';
 
-export const VcObserverReactRemount: WorkbenchExample<typeof VcObserverReactRemountExample> = wb(
-	VcObserverReactRemountExample,
+export const VcObserverReactRemount: WorkbenchExample = wbWithEditorMetrics(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-metrics-react-remount" */ '../03-vc-observer-react-remount'
+		),
 );

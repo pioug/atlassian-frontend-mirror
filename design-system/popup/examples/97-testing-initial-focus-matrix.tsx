@@ -113,6 +113,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							Open dialog popup
 						</Button>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 
@@ -139,6 +140,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							Open no-role popup
 						</Button>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 
@@ -183,6 +185,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							onFocus={() => setOpenComboboxControls(true)}
 						/>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 
@@ -240,6 +243,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							Open listbox popup
 						</Button>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 
@@ -299,6 +303,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							data-testid="external-combobox-popup-anchor"
 						/>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 
@@ -333,6 +338,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							Open autofocus dialog popup
 						</Button>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 
@@ -374,6 +380,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							Open selected-option listbox popup
 						</Button>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 
@@ -402,6 +409,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							Open autoFocus-disabled popup
 						</Button>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 
@@ -441,6 +449,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							Open setInitialFocusRef popup
 						</Button>
 					)}
+					shouldRenderToParent
 				/>
 			</section>
 		</div>

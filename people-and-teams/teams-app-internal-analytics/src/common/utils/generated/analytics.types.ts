@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::ad9b038032d924c291bde38d0929588c>>
+ * @codegen <<SignedSource::168ad4db8baa9c721d9a3c4a70e4230c>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -34,6 +34,31 @@ export type AssignTeamToASiteConfirmButtonClickedAttributesType = {
 };
 export type AssignTeamToASiteCancelButtonClickedAttributesType = {};
 export type MemberPickerErrorAttributesType = {};
+export type InviteProductSelectorViewedAttributesType = {
+	numInvitees: number;
+	eligibleProducts: unknown[];
+	numEligibleProducts: number;
+};
+export type OptionClickedInviteProductSelectionAttributesType = {
+	product: string;
+	isSelected: boolean;
+};
+export type OptionClickedUserPickerEmailAttributesType = {};
+export type ButtonClickedInviteUsersToProductsAttributesType = {
+	products: unknown[];
+	numProducts: number;
+	eligibleProducts: unknown[];
+	numEligibleProducts: number;
+	numInvitees: number;
+};
+export type InviteUsersToProductsSucceededAttributesType = {
+	products: unknown[];
+	numProducts: number;
+	numInvitees: number;
+	numDirectInvites: number;
+	numRequestInvites: number;
+	messageId: string;
+};
 export type TeamCreateDialogViewedAttributesType = {
 	proposedMembersLength: number;
 };
@@ -1738,6 +1763,21 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the member picker error is triggered */
 	'track.memberPicker.error': MemberPickerErrorAttributesType;
+	/**
+	 * fired when the invite product selector is viewed */
+	'screen.inviteProductSelector.viewed': InviteProductSelectorViewedAttributesType;
+	/**
+	 * fired when a product option is selected or deselected in the invite product selector */
+	'ui.option.clicked.inviteProductSelection': OptionClickedInviteProductSelectionAttributesType;
+	/**
+	 * fired when the entered email option is clicked in the user picker */
+	'ui.option.clicked.userPickerEmail': OptionClickedUserPickerEmailAttributesType;
+	/**
+	 * fired when the invite button in the invite product selector is clicked */
+	'ui.button.clicked.inviteUsersToProducts': ButtonClickedInviteUsersToProductsAttributesType;
+	/**
+	 * fired when all client-side invitations to the selected products succeed */
+	'track.inviteUsersToProducts.succeeded': InviteUsersToProductsSucceededAttributesType;
 	/**
 	 * fired when the team create dialog is viewed */
 	'screen.teamCreateDialog.viewed': TeamCreateDialogViewedAttributesType;

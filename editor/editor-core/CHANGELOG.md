@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 233.0.1
+
+### Patch Changes
+
+- [`c770ec0f70bb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c770ec0f70bb3) -
+  Render `data-gramm="false"` and `translate="no"` on the editor root element directly, instead of
+  leaving ProseMirror to apply them when the `EditorView` is constructed.
+- Updated dependencies
+
+## 233.0.0
+
+### Patch Changes
+
+- [`55e90d4321606`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55e90d4321606) -
+  Clean up experiment platform_editor_sync_block_activation.
+- [`198417f90be8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/198417f90be8b) -
+  Register Loom in the slash menu after successful late initialization when
+  platform_editor_slash_command is enabled, placing it last in Create with its designed image and
+  description preview. Use the shared Create ranks for Confluence and linking-platform extensions.
+- [`281a2188b8d83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/281a2188b8d83) -
+  [ux] [EDITOR-8348] this change adds a color picker to the divider floating toolbar behind
+  `platform_editor_lovability_dividers`. the selected color is applied behind
+  `platform_editor_lovability_dividers_attributes`.
+- Updated dependencies
+
 ## 232.0.11
 
 ### Patch Changes

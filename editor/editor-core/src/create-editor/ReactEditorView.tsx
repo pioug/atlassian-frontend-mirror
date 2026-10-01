@@ -1224,6 +1224,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					data-vc-ignore-if-no-layout-shift={true}
 					data-ssr-placeholder="editor-view"
 					data-ssr-placeholder-replace="editor-view"
+					data-gramm={
+						isExperimentEnabled('platform_editor_reduce_forced_layout') ? 'false' : undefined
+					}
+					translate={isExperimentEnabled('platform_editor_reduce_forced_layout') ? 'no' : undefined}
 					// eslint-disable-next-line react/no-danger -- needed for SSR and hydration so react keeps the HTML untouched
 					dangerouslySetInnerHTML={{ __html: '' }}
 				/>

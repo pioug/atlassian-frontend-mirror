@@ -4,6 +4,12 @@
 - **position** - Tooltip position (top, bottom, left, right)
 - **delay** - Delay before showing tooltip (default 300ms)
 - **testId** - Testing identifier
+- **hasNewContentOnTriggerClick** - Set when a press on the trigger changes the content, for example
+  from "Copy" to "Copied!". The tooltip then stays open. Only has an effect with the
+  `platform-dst-top-layer-tooltip` gate. With the gate, a press closes the tooltip by default.
+- **hideTooltipOnClick**, **hideTooltipOnMouseDown** - Deprecated. Do not use them in new code. With
+  the gate, a press already closes the tooltip. Do not set them together with
+  `hasNewContentOnTriggerClick`: they turn it off.
 
 # Translating from Tailwind
 

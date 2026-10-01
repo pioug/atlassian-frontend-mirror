@@ -16,7 +16,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { createSyncedBlock } from '../editor-commands';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -42,14 +41,10 @@ export const getQuickInsertConfig = (
 			return [];
 		}
 
-		const syncBlockTitle = expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
-			? blockTypeMessages.syncedBlockQuickInsertTitle
-			: blockTypeMessages.syncBlock;
-
 		return [
 			{
 				id: 'syncBlock',
-				title: formatMessage(syncBlockTitle),
+				title: formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle),
 				description: formatMessage(blockTypeMessages.syncedBlockDescription),
 				priority: 400,
 				keywords: [
@@ -77,7 +72,9 @@ export const getQuickInsertConfig = (
 						</Lozenge>
 					</span>
 				),
-				icon: () => <IconSyncBlock label={formatMessage(syncBlockTitle)} />,
+				icon: () => (
+					<IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle)} />
+				),
 				action: (insert: QuickInsertActionInsert, state: EditorState) => {
 					return createSyncedBlock({
 						tr: state.tr,

@@ -11,6 +11,7 @@ import type {
 	FloatingToolbarConfig,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette/text';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -19,20 +20,25 @@ import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import { token } from '@atlaskit/tokens';
 
 import {
 	removeHorizontalRule,
+	updateHorizontalRuleColor,
 	updateHorizontalRuleStyle,
 	updateHorizontalRuleWeight,
 } from '../pm-plugins/commands';
 import type { RulePlugin } from '../rulePluginType';
 import type { DividerStyle, DividerWeight } from './constants';
+import { dividerColorPalette } from './dividerColorPalette';
+import { dividerPaletteTooltipMessages } from './dividerColorPaletteMessages';
 import { DividerOptions } from './DividerOptions';
 
 const getToolbarItems = (
 	formatMessage: IntlShape['formatMessage'],
 	ruleNodeType: NodeType,
 	ruleAttrs: {
+		color?: string;
 		style?: DividerStyle;
 		weight?: DividerWeight;
 	},
@@ -45,6 +51,8 @@ const getToolbarItems = (
 		onFocus: hoverDecoration?.(ruleNodeType, true, className),
 		onBlur: hoverDecoration?.(ruleNodeType, false, className),
 	});
+
+	const currentColor = ruleAttrs.color || token('color.border');
 
 	const items: FloatingToolbarItem<Command>[] = [
 		{
@@ -66,6 +74,25 @@ const getToolbarItems = (
 							dispatchCommand(updateHorizontalRuleWeight(weight, api?.analytics?.actions)),
 					}),
 			},
+		},
+		{
+			id: 'divider-color-picker',
+			type: 'select',
+			selectType: 'color',
+			title: formatMessage(ruleMessages.dividerColors),
+			isAriaExpanded: true,
+			hideExpandIcon: true,
+			defaultValue: dividerColorPalette.find((color) => color.value === currentColor) || {
+				label: formatMessage(ruleMessages.customDividerColor),
+				value: currentColor,
+				border: dividerColorPalette[0].border,
+			},
+			options: dividerColorPalette,
+			cols: 10,
+			hexToPaletteColor: (color) =>
+				color === token('color.border') ? color : hexToEditorTextPaletteColor(color),
+			paletteColorTooltipMessages: dividerPaletteTooltipMessages,
+			onChange: (option) => updateHorizontalRuleColor(option.value, api?.analytics?.actions),
 		},
 		{
 			type: 'separator',

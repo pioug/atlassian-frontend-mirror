@@ -5,13 +5,14 @@
 
 import React, { useCallback, useState } from 'react';
 import { token } from '@atlaskit/tokens';
-import CodeBlock from '@atlaskit/code/block';
-import type { SupportedLanguages } from '@atlaskit/code/types';
+import CodeBlock from '@atlaskit/code/code-block';
+import type { SupportedLanguages } from '@atlaskit/code/constants';
 import ToggleIcon from '@atlaskit/icon/core/angle-brackets';
 import { ErrorBoundary } from './error-boundary';
 import { replaceSrc } from './replace-src';
 import { cssMap, jsx } from '@compiled/react';
-import { Pressable, Text } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const wrapperStyles = cssMap({
 	root: {

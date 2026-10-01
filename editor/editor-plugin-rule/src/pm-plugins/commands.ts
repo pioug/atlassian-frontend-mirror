@@ -7,6 +7,7 @@ import {
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
 import { findSelectedNodeOfType, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
+import { token } from '@atlaskit/tokens';
 
 import {
 	DEFAULT_DIVIDER_STYLE,
@@ -137,6 +138,47 @@ export const updateHorizontalRuleStyle =
 					inputMethod: INPUT_METHOD.FLOATING_TB,
 					previousStyle,
 					style,
+				},
+				eventType: EVENT_TYPE.TRACK,
+			})(updateTr);
+			dispatch(updateTr);
+		}
+
+		return true;
+	};
+
+export const updateHorizontalRuleColor =
+	(color: string, editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(state, dispatch) => {
+		const { rule } = state.schema.nodes;
+		const selectedRule = findSelectedNodeOfType(rule)(state.selection);
+
+		if (!selectedRule) {
+			return false;
+		}
+
+		const defaultColor = token('color.border');
+		const previousColor =
+			typeof selectedRule.node.attrs.color === 'string' ? selectedRule.node.attrs.color : null;
+
+		const updatedColor = color === defaultColor ? null : color;
+		if (previousColor === updatedColor) {
+			return true;
+		}
+
+		if (dispatch) {
+			const updateTr = state.tr.setNodeMarkup(selectedRule.pos, undefined, {
+				...selectedRule.node.attrs,
+				color: updatedColor,
+			});
+
+			editorAnalyticsAPI?.attachAnalyticsEvent({
+				action: ACTION.UPDATED,
+				actionSubject: ACTION_SUBJECT.DIVIDER,
+				attributes: {
+					inputMethod: INPUT_METHOD.FLOATING_TB,
+					previousColor,
+					color: updatedColor,
 				},
 				eventType: EVENT_TYPE.TRACK,
 			})(updateTr);

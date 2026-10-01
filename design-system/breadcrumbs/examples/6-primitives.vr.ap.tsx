@@ -152,6 +152,7 @@ function CustomEllipsis({ collapsedItems }: { collapsedItems: typeof items }): J
 						isTooltipDisabled
 					/>
 				)}
+				shouldRenderToParent
 			>
 				<DropdownItemGroup>
 					{collapsedItems.map((item) => (

@@ -46,6 +46,8 @@ export interface Props {
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
 	selected?: boolean;
+	/** Keep the tooltip open when the button is pressed. Set it when a press changes the tooltip content. */
+	hasNewContentOnTriggerClick?: boolean;
 	tabIndex?: number | null | undefined;
 	target?: string;
 	testId?: string;
@@ -81,6 +83,7 @@ const FloatingToolbarButton = (
 		testId,
 		interactionName,
 		hideTooltipOnClick = true,
+		hasNewContentOnTriggerClick,
 		ariaHasPopup,
 		tabIndex,
 		areaControls,
@@ -121,6 +124,7 @@ const FloatingToolbarButton = (
 				content={tooltipContent || (iconOnly ? title : undefined)}
 				component={tooltipStyle}
 				hideTooltipOnClick={hideTooltipOnClick}
+				hasNewContentOnTriggerClick={hasNewContentOnTriggerClick}
 				position="top"
 			>
 				{/*

@@ -1,5 +1,7 @@
 import React, { act } from 'react';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import { HeadingWithSectionLink } from '../../heading/heading-with-section-link';
 
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -64,7 +66,11 @@ describe('HeadingWithSectionLink', () => {
 			await screen.findByRole('tooltip', { name: 'Copy link to heading' }),
 		).toBeInTheDocument();
 
-		await user.click(screen.getByRole('button', { name: 'Copy link to heading' }));
+		const button = screen.getByRole('button', { name: 'Copy link to heading' });
+		await user.click(button);
+		// Top-layer tooltips stay dismissed after a press until the pointer leaves and re-enters.
+		await user.unhover(button);
+		await user.hover(button);
 
 		expect(await screen.findByRole('tooltip', { name: 'Copied!' })).toBeInTheDocument();
 	});
@@ -73,7 +79,11 @@ describe('HeadingWithSectionLink', () => {
 		const user = createUser();
 		render(<HeadingWithSectionLink level={2}>Test heading</HeadingWithSectionLink>);
 
-		await user.click(screen.getByRole('button', { name: 'Copy link to heading' }));
+		const button = screen.getByRole('button', { name: 'Copy link to heading' });
+		await user.click(button);
+		// Top-layer tooltips stay dismissed after a press until the pointer leaves and re-enters.
+		await user.unhover(button);
+		await user.hover(button);
 
 		expect(await screen.findByRole('tooltip', { name: 'Copied!' })).toBeInTheDocument();
 

@@ -137,7 +137,6 @@ const editorProps: EditorProps = {
 		allowLinking: true,
 		allowAltTextOnImages: true,
 		allowCaptions: true,
-		allowMediaInlineImages: true,
 		featureFlags: {
 			mediaInline: true,
 		},

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 24.0.0
+
+### Patch Changes
+
+- [`2fbfb8385de67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fbfb8385de67) -
+  Updates the Rovo skill tag label in the quick-insert typeahead menu to use slanted
+  leading/trailing background edges, matching the inserted skill chip, with a fallback to the legacy
+  rectangular background behind the `rovo_skill_tag_slanted_background_killswitch` gate.
+- [`c906e2e4ceb34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c906e2e4ceb34) -
+  Clean up experiment `platform_editor_wide_slash_trigger`
+- Updated dependencies
+
 ## 23.0.9
 
 ### Patch Changes

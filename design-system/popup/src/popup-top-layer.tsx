@@ -253,14 +253,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 		'aria-controls': ariaAttributes['aria-controls'],
 		// `aria-expanded` reflects current open state.
 		'aria-expanded': ariaAttributes['aria-expanded'],
-		// FUDGE(top-layer-api): cast to the narrow public TriggerProps['aria-haspopup'] union.
-		// `getAriaForTrigger` derives `aria-haspopup` from the content's role and types it
-		// as the wider WAI-ARIA union (boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid').
-		// We keep the public popup TriggerProps narrow (boolean | 'dialog') because the
-		// top-layer API surface is not yet settled. Widening adopter types now would commit
-		// us to a public surface we may revisit. The runtime value is unchanged; only the
-		// TypeScript-visible type is narrowed at this boundary.
-		'aria-haspopup': ariaAttributes['aria-haspopup'] as TriggerProps['aria-haspopup'],
+		'aria-haspopup': ariaAttributes['aria-haspopup'],
 	};
 
 	return (

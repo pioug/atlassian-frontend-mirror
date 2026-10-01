@@ -68,7 +68,7 @@ function VanillaJSApp() {
 
 	myCustomApp.appendChild(myPlaceholderDiv);
 
-	document.body.appendChild(myCustomApp);
+	document.body.prepend(myCustomApp);
 	(window as any).__editor_metrics_tests_tick?.call();
 
 	setTimeout(() => {

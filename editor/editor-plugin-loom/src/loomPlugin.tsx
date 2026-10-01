@@ -24,8 +24,16 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 		api,
 	);
 	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+	let isLoomMenuItemRegistered = false;
+	const registerLoomMenuItem = () => {
+		if (!isRegisteredSlashCommandEnabled || isLoomMenuItemRegistered || !api?.uiControlRegistry) {
+			return;
+		}
+		api.uiControlRegistry.actions.register(getLoomQuickInsertComponents({ api }));
+		isLoomMenuItemRegistered = true;
+	};
 	if (config.loomProvider && isRegisteredSlashCommandEnabled) {
-		api?.uiControlRegistry?.actions.register(getLoomQuickInsertComponents({ api }));
+		registerLoomMenuItem();
 	}
 	if (isNewToolbarEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(config, api));
@@ -43,8 +51,12 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 			recordVideo,
 			insertLoom: (video, positionType) =>
 				insertLoom(editorViewRef.current, api, video, positionType),
-			initLoom: ({ loomProvider }) => {
-				return setupLoom(loomProvider, api, editorViewRef.current, true);
+			initLoom: async ({ loomProvider }) => {
+				const result = await setupLoom(loomProvider, api, editorViewRef.current, true);
+				if (!result.error) {
+					registerLoomMenuItem();
+				}
+				return result;
 			},
 		},
 

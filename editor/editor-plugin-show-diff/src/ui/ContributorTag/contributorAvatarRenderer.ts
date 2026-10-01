@@ -9,9 +9,9 @@ import type { DiffAgentBrand, TagContributor } from '../../showDiffPluginType';
 import { getContributorTagIcon, type ContributorTagIcon } from './contributorTagIcons';
 
 /**
- * Agent kinds with a custom contributor-tag icon. Figma/Lovable/Replit have no entry here — they
- * always render the real avatar `resolveDiffContributors` supplies, falling back to the generic
- * `aiAgent` glyph (see `showContributorIcon`) on load failure. The declared type stays the wider
+ * Agent kinds with a custom contributor-tag icon, used as a fallback glyph when no `avatarUrl` is
+ * available or its image fails to load (see `showContributorIcon`). Rovo/Figma/Lovable/Replit have
+ * no entry here — they fall back to the generic `aiAgent` glyph. The declared type stays the wider
  * `TagContributor['agentKind']` so indexing below (with `'identified' | 'external'` in play too)
  * stays safely partial.
  */
@@ -20,19 +20,17 @@ const AGENT_KIND_ICONS: Readonly<
 > = {
 	claude: 'claude',
 	chatgpt: 'chatgpt',
-	rovo: 'rovoHex',
 } satisfies Partial<Record<DiffAgentBrand, ContributorTagIcon>>;
 
 /**
  * Brands that always render their fixed glyph, even when the contributor also carries an
- * `avatarUrl`. Figma/Lovable/Replit are excluded here and use the real avatar when
+ * `avatarUrl`. Rovo/Figma/Lovable/Replit are excluded here and use the real avatar when
  * `resolveDiffContributors` supplies one, falling back to the generic `aiAgent` glyph on load
  * failure.
  */
 const FIXED_GLYPH_AGENT_KINDS: ReadonlySet<NonNullable<TagContributor['agentKind']>> = new Set([
 	'claude',
 	'chatgpt',
-	'rovo',
 ]);
 
 /** The size `@atlaskit/avatar`'s `xxsmall` rendered at. */
@@ -154,8 +152,8 @@ export const contributorAvatarRenderer = ({
 	};
 
 	if (contributor.avatarUrl) {
-		// Claude/ChatGPT/Rovo always use their fixed glyph, even when the profile also has an
-		// avatar URL. Other agents (e.g. Figma/Lovable/Replit) and users prefer the real avatar.
+		// Claude/ChatGPT always use their fixed glyph, even when the profile also has an avatar
+		// URL. Other agents (e.g. Rovo/Figma/Lovable/Replit) and users prefer the real avatar.
 		const usesFixedGlyph =
 			isAgent && FIXED_GLYPH_AGENT_KINDS.has(contributor.agentKind ?? 'external');
 

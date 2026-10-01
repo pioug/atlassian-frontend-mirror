@@ -40,7 +40,6 @@ import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provid
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { creationMetaKey, deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
 import {
@@ -512,9 +511,7 @@ export const removeSyncedBlockAtPos = (
 
 		if (node?.type.name === 'syncBlock') {
 			const removeTr = tr.replace(pos, pos + (node?.nodeSize ?? 0));
-			if (expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true)) {
-				removeTr.setMeta(deleteMechanismMetaKey, 'deleteButton');
-			}
+			removeTr.setMeta(deleteMechanismMetaKey, 'deleteButton');
 			return removeTr;
 		}
 		return tr;

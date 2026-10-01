@@ -18,10 +18,8 @@ import { token } from '@atlaskit/tokens';
  * - Border labels can show substantially more reference-title text without
  *   overflowing narrow synced blocks.
  *
- * Kept as the sole export of this file, and separate from
- * syncBlockTextSelectionStyles, so it can be gated behind the
- * platform_editor_sync_block_activation experiment at the call site. The
- * text-selection styles are now always applied.
+ * Kept as the sole export of this file, separate from
+ * syncBlockTextSelectionStyles. The text-selection styles are always applied.
  *
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in

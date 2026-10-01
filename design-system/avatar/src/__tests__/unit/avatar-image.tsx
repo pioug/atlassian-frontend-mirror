@@ -106,8 +106,8 @@ describe('AvatarImage', () => {
 			{ size: 'small', width: 23.11, height: 25.76 },
 			{ size: 'medium', width: 30.81, height: 34.34 },
 			{ size: 'large', width: 38.51, height: 42.93 },
-			{ size: 'xlarge', width: 92.43, height: 103.02 },
-			{ size: 'xxlarge', width: 123.24, height: 137.36 },
+			{ size: 'xlarge', width: 92.44, height: 103.04 },
+			{ size: 'xxlarge', width: 123.25, height: 137.39 },
 		];
 
 		// The compiled CSS pipeline may canonicalize lengths to `pt`/`pc` when shorter than `px`

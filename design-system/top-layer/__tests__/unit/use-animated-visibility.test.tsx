@@ -663,6 +663,32 @@ describe('useAnimatedVisibility', () => {
 			expect(screen.getByTestId('host')).toBeInTheDocument();
 		});
 
+		it('returns to open when natively reopened in the same task as a native dismissal', async () => {
+			const onExitFinish = jest.fn();
+			render(
+				<AnimatedVisibilityHarness
+					isOpen={true}
+					shouldAnimate={true}
+					onExitFinish={onExitFinish}
+				/>,
+			);
+			const host = screen.getByTestId('host');
+			await finishAnimations(getCurrentAnimations(host));
+			flushNativeToggle();
+			expectPhase('open');
+
+			// For example, `@atlaskit/tooltip` re-shows after a light dismiss.
+			act(() => {
+				host.hidePopover();
+				host.showPopover();
+			});
+			flushNativeToggle();
+
+			expectPhase('open');
+			expect(host).not.toHaveAttribute('inert');
+			expect(onExitFinish).not.toHaveBeenCalled();
+		});
+
 		it('does not treat controlled open state as a reopen when a native close begins', async () => {
 			const onExitFinish = jest.fn();
 			const { rerender } = render(

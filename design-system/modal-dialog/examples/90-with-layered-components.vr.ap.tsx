@@ -26,6 +26,7 @@ import { Popup } from '@atlaskit/popup/popup';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select/default';
 import { PopupSelect } from '@atlaskit/select/popup-select';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -123,7 +124,6 @@ export function WithLayeredComponentsExample(): React.JSX.Element {
 							</Tooltip>
 							<Break />
 							<PopupSelect
-								placeholder="PopupSelect"
 								options={selectOptions}
 								target={({ ref }: { ref: React.RefObject<any> }) => (
 									<Fragment>
@@ -209,7 +209,11 @@ export function WithLayeredComponentsExample(): React.JSX.Element {
 							<Break />
 							<DatePicker shouldShowCalendarButton testId="date-picker" />
 							<Break />
-							<DropdownMenu testId="dropdown-menu" trigger="I'm a dropdown menu, click me!">
+							<DropdownMenu
+								testId="dropdown-menu"
+								trigger="I'm a dropdown menu, click me!"
+								shouldRenderToParent
+							>
 								<DropdownItemGroup>
 									<DropdownItem>Edit</DropdownItem>
 									<DropdownItem>Share</DropdownItem>

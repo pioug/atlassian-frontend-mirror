@@ -6,6 +6,7 @@ import { type CSSProperties, type ReactNode, forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

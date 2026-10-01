@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cc3bb00111b60fbcdfa28799aa0671ea>>
+ * @codegen <<SignedSource::ff2cac75bedd9b12fc1c17bc6cf66c5c>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { ESLint } from 'eslint';
@@ -13,7 +13,7 @@ const config: ESLint.ConfigData = {
 		'@atlaskit/ui-styling-standard/enforce-style-prop': 'error',
 		'@atlaskit/ui-styling-standard/local-cx-xcss': 'error',
 		'@atlaskit/ui-styling-standard/no-array-arguments': 'error',
-		'@atlaskit/ui-styling-standard/no-atlaskit-theme': 'warn',
+		'@atlaskit/ui-styling-standard/no-atlaskit-theme': 'error',
 		'@atlaskit/ui-styling-standard/no-classname-prop': 'error',
 		'@atlaskit/ui-styling-standard/no-container-queries': 'error',
 		'@atlaskit/ui-styling-standard/no-dynamic-styles': 'error',

@@ -200,7 +200,7 @@ const SortingIcon = ({
 	};
 
 	return (
-		<Tooltip delay={0} content={content} position="top">
+		<Tooltip delay={0} content={content} position="top" hasNewContentOnTriggerClick>
 			<div
 				css={[
 					buttonStyles,

@@ -65,7 +65,6 @@ const createPreset = () =>
 				},
 				provider: storyMediaProviderFactory(),
 				allowMediaSingle: true,
-				allowMediaInlineImages: true,
 				allowResizing: true,
 				allowLinking: true,
 				allowResizingInTables: true,

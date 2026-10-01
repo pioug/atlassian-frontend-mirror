@@ -233,6 +233,24 @@ describe('Avatar Picker Dialog', () => {
 		expect(onImagePickedDataURI).not.toHaveBeenCalled();
 	});
 
+	it('should keep the footer inside the dialog content when the submit error is shown', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		fireEvent.submit(await screen.findByRole('form'));
+
+		const content = screen.getByTestId('avatar-picker-dialog-content');
+		expect(content).toContainElement(await screen.findByRole('alert'));
+		expect(content).toContainElement(screen.getByTestId('avatar-picker-dialog-footer'));
+	});
+
 	it('should alert when save button is clicked without selected image or selected avatar', async () => {
 		render(
 			<AvatarPickerDialog

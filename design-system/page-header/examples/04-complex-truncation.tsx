@@ -28,11 +28,11 @@ const barContent = (
 	<div style={{ display: 'flex' }}>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<div style={{ flex: '0 0 200px' }}>
-			<TextField isCompact placeholder="Filter" aria-label="Filter" />
+			<TextField isCompact aria-label="Filter" />
 		</div>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<div style={{ flex: '0 0 200px', marginLeft: token('space.100') }}>
-			<Select spacing="compact" placeholder="Choose an option" label="Choose an option" />
+			<Select spacing="compact" label="Choose an option" />
 		</div>
 	</div>
 );

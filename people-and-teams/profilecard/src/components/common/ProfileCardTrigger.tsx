@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 
 import { Popup } from '@atlaskit/popup/popup';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 
 import { PACKAGE_META_DATA } from '../../util/analytics';

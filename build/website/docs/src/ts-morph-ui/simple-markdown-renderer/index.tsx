@@ -2,8 +2,9 @@ import React from 'react';
 
 import Markdown, { type Components } from 'react-markdown';
 
-import { Code, CodeBlock } from '@atlaskit/code';
-import Link from '@atlaskit/link';
+import Code from '@atlaskit/code/code';
+import CodeBlock from '@atlaskit/code/code-block';
+import Link from '@atlaskit/link/link';
 
 const components: Components = {
 	a: ({ children, href }) => <Link href={href!}>{children}</Link>,

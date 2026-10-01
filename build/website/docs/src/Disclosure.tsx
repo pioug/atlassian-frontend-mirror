@@ -9,7 +9,8 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Focusable, Text } from '@atlaskit/primitives/compiled';
+import { Focusable } from '@atlaskit/primitives/compiled/focusable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const wrapperStyles = cssMap({
 	root: {

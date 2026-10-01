@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 28.3.5
+
+### Patch Changes
+
+- [`db4ffeaeaec78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db4ffeaeaec78) -
+  Avatar picker dialog now keeps its 470px preferred height as a minimum and grows to fit the submit
+  error flag, so the Save and Cancel buttons stay within the modal.
+
 ## 28.3.4
 
 ### Patch Changes

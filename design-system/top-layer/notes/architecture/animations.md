@@ -278,6 +278,13 @@ The native event ordering is significant:
   animation promises as settled. One cancelled animation cannot strand the lifecycle.
 - **No active animations or no `getAnimations` support:** the captured list is empty and settles in
   a microtask. The native closed `toggle` is still required before exit settlement begins.
+  - **Testing in jsdom:** that microtask is a native promise job (`Promise.allSettled([])`), which
+    Jest fake timers do not drain. After the polyfill's task-queued `toggle` has fired, a
+    synchronous `act(() => jest.runOnlyPendingTimers())` returns before `onExitFinish` runs and
+    before `closed` unmounts the host. Use `flushPopoverExit()` from
+    `@atlaskit/top-layer/testing/flush-popover-exit` (or `waitForTooltipToHide()` from
+    `@atlaskit/tooltip/testing`) to run the pending timers and yield once inside an async `act`.
+    Browsers are not affected.
 - **Animation preference changes:** reduced motion is treated as animation disabled. If animation
   becomes disabled before the closed `toggle`, that toggle settles the exit without creating an
   animation snapshot.

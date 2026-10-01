@@ -33,8 +33,87 @@ tester.run('no-restricted-pseudos', rule, {
 		});
 	  `,
 		},
+		{
+			name: 'range vendor pseudo-elements',
+			code: `
+		import { css } from '@compiled/react';
+
+		css({
+		  '&::-webkit-slider-thumb': {},
+		  '&:disabled::-moz-range-thumb': {},
+		  '&::-moz-focus-inner': {},
+		});
+	  `,
+		},
+		{
+			name: '&:focus:not(:focus-visible) chained pseudo',
+			code: `
+		import { css } from '@compiled/react';
+
+		css({
+		  '&:focus:not(:focus-visible)': {}
+		});
+	  `,
+		},
 	],
 	invalid: [
+		{
+			name: 'vendor pseudo-element outside the allowlist',
+			code: `
+        import { css } from '@compiled/react';
+
+        css({
+          '&::-webkit-scrollbar': {},
+        });
+      `,
+			errors: [
+				{
+					messageId: 'no-restricted-pseudos',
+					line: 5,
+					column: 13,
+					endColumn: 32,
+					data: { pseudo: '::-webkit-scrollbar' },
+				},
+			],
+		},
+		{
+			name: ':not() outside an allowlisted chain',
+			code: `
+        import { css } from '@compiled/react';
+
+        css({
+          '&:hover:not(:focus-visible)': {},
+        });
+      `,
+			errors: [
+				{
+					messageId: 'no-restricted-pseudos',
+					line: 5,
+					column: 19,
+					endColumn: 23,
+					data: { pseudo: ':not' },
+				},
+			],
+		},
+		{
+			name: 'partial chain :not(:focus-visible) without :focus',
+			code: `
+        import { css } from '@compiled/react';
+
+        css({
+          '&:not(:focus-visible)': {},
+        });
+      `,
+			errors: [
+				{
+					messageId: 'no-restricted-pseudos',
+					line: 5,
+					column: 13,
+					endColumn: 17,
+					data: { pseudo: ':not' },
+				},
+			],
+		},
 		{
 			name: ':has()',
 			code: `

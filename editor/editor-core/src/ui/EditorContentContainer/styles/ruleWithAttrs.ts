@@ -29,6 +29,10 @@ const sketchStrokeMaskLarge = `url("data:image/svg+xml,%3Csvg xmlns='http://www.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const ruleWithAttrsStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror hr[data-color]': {
+		backgroundColor: 'var(--custom-palette-color)',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror hr[data-style="dashed"]': {
 		maskImage: dashedStrokeMask,
 		maskRepeat: 'repeat-x',

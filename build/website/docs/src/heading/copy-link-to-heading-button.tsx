@@ -4,8 +4,8 @@
  */
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { Pressable } from '@atlaskit/primitives/compiled';
-import Tooltip from '@atlaskit/tooltip';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import LinkIcon from '@atlaskit/icon/core/link';
@@ -90,6 +90,7 @@ export function CopyLinkToHeadingButton({ headingId }: { headingId: string }): J
 				return isCopied ? 'Copied!' : 'Copy link to heading';
 			}}
 			position="top"
+			hasNewContentOnTriggerClick
 		>
 			{(tooltipProps) => (
 				<Pressable

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.10.10
+
+### Patch Changes
+
+- [`6d159b586a213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d159b586a213) -
+  Refresh AI offering catalogs from structured docs
+
 ## 1.10.9
 
 ### Patch Changes

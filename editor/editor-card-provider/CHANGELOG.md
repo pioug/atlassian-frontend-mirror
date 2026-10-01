@@ -1,5 +1,20 @@
 # @atlaskit/editor-card-provider
 
+## 8.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.4
+
+### Patch Changes
+
+- [`04378f6eea483`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04378f6eea483) -
+  Keep Smart Link responses within the current document instead of restoring session storage, behind
+  platform_smartlink_document_cache. Use explicit gate branches to separate document caching from
+  the existing session-storage cache.
+
 ## 8.1.3
 
 ### Patch Changes

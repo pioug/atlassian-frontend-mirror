@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 2.4.2
+
+### Patch Changes
+
+- [`264d6290c933a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/264d6290c933a) -
+  Instrument invite-from-anywhere analytics for twcg-448-invite-from-anywhere-experiment and
+  twcg-448-invite-from-anywhere-killswitch.
+
 ## 2.4.1
 
 ### Patch Changes

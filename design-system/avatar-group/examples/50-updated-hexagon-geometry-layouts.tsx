@@ -22,11 +22,11 @@ const variants: Array<{ label: string; UNSAFE_isUpdatedGeometry?: boolean }> = [
 ];
 
 const sizes = [
-	{ label: 'small', legacySize: '24 x 24', size: 'small', v2Size: '23.25 x 25.875' },
-	{ label: 'medium', legacySize: '32 x 32', size: 'medium', v2Size: '31 x 34.5' },
-	{ label: 'large', legacySize: '40 x 40', size: 'large', v2Size: '38.75 x 43.125' },
-	{ label: 'xlarge', legacySize: '96 x 96', size: 'xlarge', v2Size: '93 x 103.5' },
-	{ label: 'xxlarge', legacySize: '128 x 128', size: 'xxlarge', v2Size: '124 x 138' },
+	{ label: 'small', legacySize: '24 x 24', size: 'small', v2Size: '23.11 x 25.76' },
+	{ label: 'medium', legacySize: '32 x 32', size: 'medium', v2Size: '30.81 x 34.34' },
+	{ label: 'large', legacySize: '40 x 40', size: 'large', v2Size: '38.51 x 42.93' },
+	{ label: 'xlarge', legacySize: '96 x 96', size: 'xlarge', v2Size: '92.44 x 103.04' },
+	{ label: 'xxlarge', legacySize: '128 x 128', size: 'xxlarge', v2Size: '123.25 x 137.39' },
 ] as const;
 
 const styles = cssMap({

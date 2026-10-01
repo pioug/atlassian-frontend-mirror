@@ -1,6 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import VcObserverNextExample from '../01-vc-observer-next';
+import { wbWithEditorMetrics } from './wb-with-editor-metrics';
 
-export const VcObserverNext: WorkbenchExample<typeof VcObserverNextExample> =
-	wb(VcObserverNextExample);
+export const VcObserverNext: WorkbenchExample = wbWithEditorMetrics(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-metrics-vc-observer" */ '../01-vc-observer-next'
+		),
+);

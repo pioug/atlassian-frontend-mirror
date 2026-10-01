@@ -11,7 +11,11 @@ import {
 	OTHER_SECTION,
 	STRUCTURE_SECTION,
 } from '@atlaskit/editor-common/quick-insert/keys';
-import { EXTENSION_ITEM_RANK, MEDIA_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
+import {
+	CREATE_SECTION_RANK,
+	EXTENSION_ITEM_RANK,
+	MEDIA_SECTION_RANK,
+} from '@atlaskit/editor-common/quick-insert/rank';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type {
@@ -35,10 +39,6 @@ const structureExtensionItemKeyRanks: Readonly<Record<string, number>> = {
 	'create-from-template:create-from-template': 2700,
 	'anchor:anchor': 2900,
 	'smart-button:quick-insert': 3000,
-};
-const createExtensionItemKeyRanks: Readonly<Record<string, number>> = {
-	'com.atlassian.linking-platform.create:linking-platform-create-jira-issue': 100,
-	'com.atlassian.linking-platform.create:linking-platform-create-confluence-page': 200,
 };
 const UNRECOGNIZED_STRUCTURE_EXTENSION_ITEM_RANK = 3100;
 const APP_DATA_AND_CHARTS_ITEM_RANK = 2700;
@@ -159,7 +159,7 @@ export const getExtensionQuickInsertComponents = ({
 				...parent,
 				rank: getExtensionItemRank({
 					index,
-					knownRank: createExtensionItemKeyRanks[item.key] ?? structureRank,
+					knownRank: CREATE_SECTION_RANK[item.key] ?? structureRank,
 					item,
 					sectionKey: parent.key,
 				}),

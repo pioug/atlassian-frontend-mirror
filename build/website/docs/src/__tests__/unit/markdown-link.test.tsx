@@ -1,6 +1,7 @@
 import React from 'react';
 import { MarkdownLink } from '../../markdown-link';
-import { render, screen } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { screen } from '@atlassian/testing-library/screen';
 
 describe('MarkdownLink', () => {
 	it('should capture and report a11y violations', async () => {

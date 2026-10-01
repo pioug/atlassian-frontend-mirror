@@ -28,7 +28,6 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	copySyncedBlockReferenceToClipboard,
@@ -39,7 +38,7 @@ import {
 import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
 import type { SyncedBlockFeedbackContext, SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
-import { SyncedLocationDropdown, SyncedLocationDropdownWithCount } from './SyncedLocationDropdown';
+import { SyncedLocationDropdownWithCount } from './SyncedLocationDropdown';
 
 export const getToolbarConfig = (
 	state: EditorState,
@@ -57,12 +56,6 @@ export const getToolbarConfig = (
 	if (syncBlockStore.sourceManager.isPendingCreation(syncBlockObject.node.attrs.resourceId)) {
 		return;
 	}
-
-	const isSyncBlockActivationEnabled = expValEquals(
-		'platform_editor_sync_block_activation',
-		'isEnabled',
-		true,
-	);
 
 	const syncBlockInstance = syncBlockStore.referenceManager.getFromCache(
 		syncBlockObject.node.attrs.resourceId,
@@ -102,25 +95,14 @@ export const getToolbarConfig = (
 
 		items.push(deleteButton);
 	} else {
-		// When the synced block activation experiment is enabled, the copy action is
-		// re-framed as the primary "Copy to sync" action: it shows a visible label and
-		// is moved to the first toolbar position (before the synced-location info). See
-		// EDITOR-8060.
 		const copyButton: FloatingToolbarItem<Command> = {
 			id: 'editor.syncedBlock.copy',
 			type: 'button',
 			appearance: 'subtle',
 			icon: CopyIcon,
-			title: isSyncBlockActivationEnabled
-				? formatMessage(messages.copyToSyncLabel)
-				: formatMessage(messages.copySyncBlockLabel),
-			showTitle: isSyncBlockActivationEnabled,
-			tooltipContent: isSyncBlockActivationEnabled
-				? undefined
-				: formatMessage(messages.copySyncedBlockTooltip),
-			testId: isSyncBlockActivationEnabled
-				? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarCopy
-				: undefined,
+			title: formatMessage(messages.copyToSyncLabel),
+			showTitle: true,
+			testId: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarCopy,
 			onClick: copySyncedBlockReferenceToClipboard(
 				syncBlockStore,
 				INPUT_METHOD.SYNCED_BLOCK_TB,
@@ -130,11 +112,7 @@ export const getToolbarConfig = (
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};
 
-		// In the activation experience the primary "Copy to sync" action leads the
-		// toolbar, ahead of the informational synced-location dropdown.
-		if (isSyncBlockActivationEnabled) {
-			items.push(copyButton);
-		}
+		items.push(copyButton);
 
 		if (!isErroredBlock) {
 			const syncedLocation: FloatingToolbarItem<Command> = {
@@ -146,23 +124,9 @@ export const getToolbarConfig = (
 					_dispatchAnalyticsEvent,
 					floatingToolbarRenderContext?: FloatingToolbarCustomRenderContext,
 				) => {
-					if (isSyncBlockActivationEnabled) {
-						return (
-							<SyncedLocationDropdownWithCount
-								key={`${resourceId}:${localId}:${isBodiedSyncBlock}`}
-								syncBlockStore={syncBlockStore}
-								resourceId={resourceId}
-								localId={localId}
-								intl={intl}
-								isSource={isBodiedSyncBlock}
-								api={api}
-								floatingToolbarRenderContext={floatingToolbarRenderContext}
-							/>
-						);
-					}
-
 					return (
-						<SyncedLocationDropdown
+						<SyncedLocationDropdownWithCount
+							key={`${resourceId}:${localId}:${isBodiedSyncBlock}`}
 							syncBlockStore={syncBlockStore}
 							resourceId={resourceId}
 							localId={localId}
@@ -199,12 +163,6 @@ export const getToolbarConfig = (
 			items.push(syncedLocation, unsyncButton);
 		}
 
-		// Outside the activation experience the copy button keeps its original
-		// (icon-only, secondary) position after the synced-location info.
-		if (!isSyncBlockActivationEnabled) {
-			items.push(copyButton);
-		}
-
 		const disabled = !syncBlockStore.referenceManager.getSyncBlockURL(
 			syncBlockObject.node.attrs.resourceId,
 		);
@@ -227,75 +185,53 @@ export const getToolbarConfig = (
 			items.push(editSourceButton);
 		}
 
-		if (!isSyncBlockActivationEnabled) {
-			const separator: FloatingToolbarItem<Command> = {
-				type: 'separator',
-			};
+		// testId is required to show focus on trigger button on ESC key press
+		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+		const testId = isBodiedSyncBlock
+			? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceOverflowTrigger
+			: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceOverflowTrigger;
 
-			const deleteButton: FloatingToolbarItem<Command> = {
-				id: 'editor.syncedBlock.delete',
-				type: 'button',
-				appearance: 'danger',
-				title: formatMessage(commonMessages.delete),
-				showTitle: false,
-				tooltipContent: formatMessage(commonMessages.delete),
-				onClick: removeSyncedBlock(api),
-				icon: DeleteIcon,
-				testId: isBodiedSyncBlock
-					? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
-					: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete,
-				...hoverDecorationProps(nodeType),
-			};
-			items.push(separator, deleteButton);
-		} else {
-			// testId is required to show focus on trigger button on ESC key press
-			// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-			const testId = isBodiedSyncBlock
-				? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceOverflowTrigger
-				: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceOverflowTrigger;
-
-			const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-				{
-					type: 'overflow-dropdown',
-					testId,
-					options: [
-						...(isSyncBlockActivationEnabled && onGiveFeedback
-							? [
-									{
-										title: formatMessage(toolbarInsertBlockMessages.feedbackDialog),
-										icon: <MegaphoneIcon label="" />,
-										onClick: () => {
-											api?.core.actions.execute(({ tr }) =>
-												tr.setSelection(
-													new GapCursorSelection(
-														tr.doc.resolve(syncBlockObject.pos + syncBlockObject.node.nodeSize),
-														Side.RIGHT,
-													),
+		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+			{
+				type: 'overflow-dropdown',
+				testId,
+				options: [
+					...(onGiveFeedback
+						? [
+								{
+									title: formatMessage(toolbarInsertBlockMessages.feedbackDialog),
+									icon: <MegaphoneIcon label="" />,
+									onClick: () => {
+										api?.core.actions.execute(({ tr }) =>
+											tr.setSelection(
+												new GapCursorSelection(
+													tr.doc.resolve(syncBlockObject.pos + syncBlockObject.node.nodeSize),
+													Side.RIGHT,
 												),
-											);
-											onGiveFeedback({
-												blockType: isBodiedSyncBlock ? 'source' : 'reference',
-												entryPoint: 'overflow-menu',
-											});
-											return true;
-										},
+											),
+										);
+										onGiveFeedback({
+											blockType: isBodiedSyncBlock ? 'source' : 'reference',
+											entryPoint: 'overflow-menu',
+										});
+										return true;
 									},
-								]
-							: []),
-						{
-							title: formatMessage(commonMessages.delete),
-							onClick: removeSyncedBlock(api),
-							icon: <DeleteIcon label="" />,
-							testId: isBodiedSyncBlock
-								? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
-								: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete,
-							...hoverDecorationProps(nodeType),
-						},
-					],
-				},
-			];
-			items.push(...overflowMenuConfig);
-		}
+								},
+							]
+						: []),
+					{
+						title: formatMessage(commonMessages.delete),
+						onClick: removeSyncedBlock(api),
+						icon: <DeleteIcon label="" />,
+						testId: isBodiedSyncBlock
+							? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
+							: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete,
+						...hoverDecorationProps(nodeType),
+					},
+				],
+			},
+		];
+		items.push(...overflowMenuConfig);
 	}
 
 	const getDomRef = (editorView: EditorView) => {

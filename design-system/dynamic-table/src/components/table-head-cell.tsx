@@ -184,7 +184,10 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 			onFocus={handleFocus}
 			onBlur={handleBlur}
 		>
-			<Tooltip content={sortOrder === 'ASC' ? ascendingSortTooltip : descendingSortTooltip}>
+			<Tooltip
+				content={sortOrder === 'ASC' ? ascendingSortTooltip : descendingSortTooltip}
+				hasNewContentOnTriggerClick
+			>
 				{(tooltipProps) => (
 					<Box
 						role="presentation"

@@ -85,6 +85,7 @@ type Props = WithAnalyticsEventsProps & {
 	cols?: number;
 	currentColor?: string;
 	hexToPaletteColor?: (hexColor: string) => string | undefined;
+	hideExpandIcon?: boolean;
 	isAriaExpanded?: boolean;
 	mountPoint?: HTMLElement;
 	onChange?: (color: PaletteColor) => void;
@@ -198,8 +199,14 @@ const ColorPickerButton = (props: Props) => {
 		return position;
 	}, []);
 
-	const { onChange, createAnalyticsEvent, colorPalette, placement, skipFocusButtonAfterPick } =
-		props;
+	const {
+		onChange,
+		createAnalyticsEvent,
+		colorPalette,
+		placement,
+		skipFocusButtonAfterPick,
+		hideExpandIcon = false,
+	} = props;
 
 	const onColorSelected = React.useCallback(
 		(color: string, label: string) => {
@@ -340,14 +347,16 @@ const ColorPickerButton = (props: Props) => {
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 								css={buttonStyleVisualRefresh}
 							/>
-							<Box xcss={colorPickerExpandContainerVisualRefresh}>
-								<ChevronDownIcon
-									color="currentColor"
-									spacing="spacious"
-									label="color-picker-chevron-down"
-									size="small"
-								/>
-							</Box>
+							{!hideExpandIcon && (
+								<Box xcss={colorPickerExpandContainerVisualRefresh}>
+									<ChevronDownIcon
+										color="currentColor"
+										spacing="spacious"
+										label="color-picker-chevron-down"
+										size="small"
+									/>
+								</Box>
+							)}
 						</Inline>
 					</Button>
 				</div>
@@ -367,6 +376,7 @@ const _default_1: React.ForwardRefExoticComponent<
 				cols?: number;
 				currentColor?: string;
 				hexToPaletteColor?: (hexColor: string) => string | undefined;
+				hideExpandIcon?: boolean;
 				isAriaExpanded?: boolean;
 				mountPoint?: HTMLElement;
 				onChange?: (color: PaletteColor) => void;

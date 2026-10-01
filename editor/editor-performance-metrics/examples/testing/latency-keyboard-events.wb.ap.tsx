@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import LatencyKeyboardEventsExample from '../04-latency-keyboard-events';
+import { wbWithEditorMetrics } from './wb-with-editor-metrics';
 
-export const LatencyKeyboardEvents: WorkbenchExample<typeof LatencyKeyboardEventsExample> = wb(
-	LatencyKeyboardEventsExample,
+export const LatencyKeyboardEvents: WorkbenchExample = wbWithEditorMetrics(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-metrics-latency-keyboard" */ '../04-latency-keyboard-events'
+		),
 );

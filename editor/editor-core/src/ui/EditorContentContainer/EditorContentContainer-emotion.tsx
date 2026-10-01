@@ -503,14 +503,6 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';
 
-	// Evaluated unconditionally so the experiment exposure is tracked correctly
-	// (must not be preconditioned by other gates in the style expression below).
-	const isSyncBlockActivationEnabled = expValEquals(
-		'platform_editor_sync_block_activation',
-		'isEnabled',
-		true,
-	);
-
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 
 	// Under the static-CSS experiment, --ak-editor-base-font-size is set earlier on the
@@ -793,9 +785,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				syncBlockOverflowStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				syncBlockTextSelectionStyles,
-				isSyncBlockActivationEnabled &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					syncBlockInteractiveCursorStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				syncBlockInteractiveCursorStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				syncBlockFirstNodeStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

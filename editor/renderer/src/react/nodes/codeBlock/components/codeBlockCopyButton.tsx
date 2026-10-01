@@ -39,7 +39,12 @@ const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
 		<AnalyticsContext.Consumer>
 			{({ fireAnalyticsEvent }) => (
 				<span>
-					<Tooltip content={tooltip} hideTooltipOnClick={false} position="top">
+					<Tooltip
+						content={tooltip}
+						hideTooltipOnClick={false}
+						position="top"
+						hasNewContentOnTriggerClick
+					>
 						<div onMouseLeave={onMouseLeave} onBlur={onMouseLeave}>
 							<Button
 								appearance="subtle"

@@ -13,6 +13,7 @@ import type { Theme } from '@emotion/react';
 import styled, { type StyledComponent } from '@emotion/styled';
 
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

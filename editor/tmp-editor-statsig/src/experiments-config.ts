@@ -535,13 +535,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-09
-	platform_editor_sync_block_activation: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-10-10
 	platform_use_llm_space_recommendations: {
 		defaultValue: boolean;
@@ -649,13 +642,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-07-13
 	confluence_native_tabs_experiment: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-07-29
-	cc_maui_polish_changes_batch_4: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1006,13 +992,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-07-16
 	platform_a11y_fixes_emoji_title_shortname: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-26
-	platform_editor_wide_slash_trigger: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1757,14 +1736,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-07-29
-	cc_maui_polish_changes_batch_4: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_maui_polish_changes_batch_4',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-05
 	'cc-mui-slides-experiment': createBooleanExperiment({
 		productKeys: {
@@ -2117,14 +2088,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-07-09
-	platform_editor_sync_block_activation: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_sync_block_activation',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	platform_editor_paste_actions_menu_v2: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_paste_actions_menu_v2',
@@ -2224,13 +2187,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_a11y_fixes_emoji_title_shortname',
 			jira: 'platform_a11y_fixes_emoji_title_shortname',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_wide_slash_trigger: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_wide_slash_trigger',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -41,7 +41,7 @@
 		}
 	},
 	"scripts": {
-		"ak-postbuild": "yarn run -T run-ts ./build/ts-to-css.ts"
+		"ak-postbuild": "run-ts ./build/ts-to-css.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
@@ -54,6 +54,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/ts-loader": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"mkdirp": "root:*",
 		"mockdate": "root:*",

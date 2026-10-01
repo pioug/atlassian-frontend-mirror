@@ -25,7 +25,7 @@ export interface TriggerAriaProps {
 	/**
 	 * Informs assistive technology that this element triggers a popup.
 	 */
-	'aria-haspopup': boolean | 'dialog';
+	'aria-haspopup': boolean | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
 }
 
 export interface TriggerProps extends TriggerAriaProps {

@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 25.4.4
+
+### Patch Changes
+
+- [`457c77d8f6992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457c77d8f6992) -
+  `IconButton` and icon `LinkButton` pass `hasNewContentOnTriggerClick` through to their tooltip.
+- Updated dependencies
+
 ## 25.4.3
 
 ### Patch Changes

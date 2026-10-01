@@ -50,12 +50,12 @@ type SuggestionRemixAttributes = {
 	remixType?: string;
 };
 
-type SuggestionAgeAttribute = {
-	suggestionAgeMs?: number;
+type TimeSinceGenerationAttribute = {
+	timeSinceGenerationMs?: number;
 };
 
 type RegenerationSuggestionDetails = SuggestionRemixAttributes &
-	SuggestionAgeAttribute & {
+	TimeSinceGenerationAttribute & {
 		actionKind: string;
 		outcome?: AiSuggestionsRegenerationOutcome;
 		suggestionId: string;
@@ -158,7 +158,7 @@ type EntryPointExposureAEP = TrackAEP<
 >;
 
 type SuggestionLifecycleAttributes = SuggestionRemixAttributes &
-	SuggestionAgeAttribute & {
+	TimeSinceGenerationAttribute & {
 		actionKind: string;
 		affectedBlocks: number;
 		agentId?: string;
@@ -176,6 +176,18 @@ type AcceptSuggestionAEP = TrackAEP<
 		charactersAdded?: number;
 		charactersRemoved?: number;
 		isDiffHidden: boolean;
+	},
+	undefined
+>;
+
+type UndoAcceptedSuggestionAEP = TrackAEP<
+	ACTION.UNDO_PERFORMED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	TimeSinceGenerationAttribute & {
+		actionKind: string;
+		suggestionId: string;
+		suggestionType: string;
 	},
 	undefined
 >;
@@ -241,7 +253,7 @@ type RightRailViewedAEP = TrackAEP<
 		numberOfSuggestions: number;
 		suggestionDetails: Array<
 			SuggestionRemixAttributes &
-				SuggestionAgeAttribute & {
+				TimeSinceGenerationAttribute & {
 					actionKind: string;
 					affectedBlocks: number;
 					suggestionType: string;
@@ -264,7 +276,7 @@ type ViewSuggestionReasoningAEP = TrackAEP<
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
 	SuggestionRemixAttributes &
-		SuggestionAgeAttribute & {
+		TimeSinceGenerationAttribute & {
 			actionKind: string;
 			affectedBlocks: number;
 			agentId?: string;
@@ -320,6 +332,7 @@ export type AiSuggestionsEventPayload =
 	| EntryPointExposureAEP
 	| CancelSuggestionsAEP
 	| AcceptSuggestionAEP
+	| UndoAcceptedSuggestionAEP
 	| DiscardSuggestionAEP
 	| DiscardAllSuggestionsAEP
 	| DismissSuggestionAEP

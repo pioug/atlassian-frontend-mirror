@@ -144,12 +144,9 @@ const STATUS_PICKER_FIT_HEIGHT = 236;
 // Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`.
 const STATUS_PICKER_FIT_HEIGHT_OLD = 288;
 const STATUS_PICKER_TEN_COLOR_FIT_HEIGHT = 268;
-// Seven suggestions fit below the color palette before the content starts scrolling.
-const MAX_SUGGESTIONS_WITHOUT_SCROLLBAR = 7;
 // ColorPalette: swatches per row * 32px slot + 16px inline margin.
 const STATUS_PICKER_CONTENT_WIDTH = 208; // 6 * 32 + 16
 const STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH = 176; // 5 * 32 + 16
-const STATUS_PICKER_SCROLLBAR_WIDTH = 16;
 
 const statusPickerWidthStylesOld = css({
 	width: `${STATUS_PICKER_CONTENT_WIDTH}px`,
@@ -157,11 +154,6 @@ const statusPickerWidthStylesOld = css({
 
 const statusPickerWidthStyles = css({
 	width: `${STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH}px`,
-});
-
-const statusPickerWithScrollbarWidthStylesOld = css({
-	// Reserve space for the native scrollbar without reducing the picker content width.
-	width: `${STATUS_PICKER_CONTENT_WIDTH + STATUS_PICKER_SCROLLBAR_WIDTH}px`,
 });
 
 // When cleaning up `platform_editor_status_popup_suggestions_patch_1`, merge this into
@@ -512,12 +504,6 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 							: undefined,
 						suggestionsPatchEnabled && !isUpdateStatusColorsEnabled
 							? statusPickerWidthStylesOld
-							: undefined,
-						suggestionsPatchEnabled &&
-						!fg('platform_editor_status_popup_suggestions_patch_2') &&
-						!isUpdateStatusColorsEnabled &&
-						(suggestedStatuses?.length ?? 0) > MAX_SUGGESTIONS_WITHOUT_SCROLLBAR
-							? statusPickerWithScrollbarWidthStylesOld
 							: undefined,
 						suggestionsPatchEnabled &&
 						!!suggestedStatusList &&

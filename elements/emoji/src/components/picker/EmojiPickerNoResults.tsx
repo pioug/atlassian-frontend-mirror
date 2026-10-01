@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import AkButton from '@atlaskit/button/standard-button';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
@@ -42,10 +41,8 @@ const EmojiPickerNoResults = ({ onOpenUpload, uploadEnabled }: Props): JSX.Eleme
 	const { colorMode } = useThemeObserver();
 	const handleOpenUpload = useCallback(
 		(event: MouseEvent<HTMLElement>) => {
-			if (fg('platform_emoji_keep_picker_open_on_upload')) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
+			event.preventDefault();
+			event.stopPropagation();
 			onOpenUpload();
 		},
 		[onOpenUpload],

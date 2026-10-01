@@ -139,7 +139,6 @@ function ControlledStatePopupSelect() {
 					Controlled popup select
 				</Button>
 			)}
-			placeholder="Select labels"
 		/>
 	);
 }
@@ -156,7 +155,6 @@ function ControlledStateCheckboxSelect() {
 			onChange={(option) => setSelectedOptions(option)}
 			value={selectedOptions}
 			options={selectOptions}
-			placeholder="Select labels"
 			label="Controlled checkbox select"
 		/>
 	);
@@ -343,14 +341,9 @@ export function ResizableSlots(): JSX.Element {
 									Uncontrolled popup select
 								</Button>
 							)}
-							placeholder="Select labels"
 						/>
 						<ControlledStatePopupSelect />
-						<CheckboxSelect
-							options={selectOptions}
-							placeholder="Checkbox select"
-							label="Uncontrolled checkbox select"
-						/>
+						<CheckboxSelect options={selectOptions} label="Uncontrolled checkbox select" />
 						<ControlledStateCheckboxSelect />
 						<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
 					</Stack>

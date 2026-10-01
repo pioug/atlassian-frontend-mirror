@@ -9,7 +9,6 @@ import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { createEmojiWithRovoTestId } from '../../../../components/common/CreateEmojiWithRovo';
 import EmojiActions, { emojiActionsTestId } from '../../../../components/common/EmojiActions';
@@ -56,7 +55,6 @@ const props = {
 	onToneSelected: jest.fn(),
 };
 
-const keepPickerOpenOnUploadGate = 'platform_emoji_keep_picker_open_on_upload';
 const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
 
@@ -830,30 +828,7 @@ describe('<EmojiActions />', () => {
 				expect(await screen.queryByText('Add your own emoji')).toBeInTheDocument();
 			});
 
-			it('should bubble the add custom emoji click to parent containers when the gate is off', async () => {
-				failGate(keepPickerOpenOnUploadGate);
-				const onOpenUpload = jest.fn();
-				const onParentClick = jest.fn();
-
-				await renderWithIntl(
-					<div onClick={onParentClick}>
-						<EmojiActions
-							{...props}
-							toneEmoji={toneEmoji}
-							uploadEnabled
-							onOpenUpload={onOpenUpload}
-						/>
-					</div>,
-				);
-
-				await userEvent.click(screen.getByRole('button', { name: 'Add your own emoji' }));
-
-				expect(onOpenUpload).toHaveBeenCalledTimes(1);
-				expect(onParentClick).toHaveBeenCalledTimes(1);
-			});
-
-			it('should not bubble the add custom emoji click to parent containers when the gate is on', async () => {
-				passGate(keepPickerOpenOnUploadGate);
+			it('should not bubble the add custom emoji click to parent containers', async () => {
 				const onOpenUpload = jest.fn();
 				const onParentClick = jest.fn();
 
@@ -874,9 +849,7 @@ describe('<EmojiActions />', () => {
 				expect(onParentClick).not.toHaveBeenCalled();
 			});
 
-			it('should not bubble the upload cancel click to parent containers when the teamoji refresh experiment is on', async () => {
-				failGate(keepPickerOpenOnUploadGate);
-				setTeamojiExperimentEnabled(true);
+			it('should not bubble the upload cancel click to parent containers', async () => {
 				const onUploadCancelled = jest.fn();
 				const onParentClick = jest.fn();
 

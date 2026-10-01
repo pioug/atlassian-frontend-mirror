@@ -6,11 +6,12 @@ import { useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
+import Field from '@atlaskit/form/field';
 import { Label } from '@atlaskit/form/label/default';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { createLocalizationProvider } from '@atlaskit/locale/localization-provider';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield/text-field';
 
 const wrapperStyles = xcss({ marginInlineStart: 'space.250' });
@@ -66,14 +67,17 @@ const _default: () => JSX.Element = () => {
 		<Box xcss={wrapperStyles}>
 			<Label htmlFor="locale">Locale</Label>
 			<LocaleSelect id="locale" onLocaleChange={onLocaleChange} />
-			<Label htmlFor="date">Try your date</Label>
-			<TextField
-				id="date"
-				onChange={onInputChange}
-				placeholder={'format: 2020-07-13T14:36:25'}
-				width="medium"
+			<Field
+				label="Try your date"
+				name="date"
+				helperMessage="Use format: 2020-07-13T14:36:25"
+				component={({ fieldProps }) => (
+					<TextField {...fieldProps} onChange={onInputChange} width="medium" />
+				)}
 			/>
-			{'If you are in Safari, you will see your date converted to your current timezone'}
+			<Text as="p">
+				If you are in Safari, you will see your date converted to your current timezone
+			</Text>
 			<h2>Date Parts</h2>
 			<h3>24-hour format</h3>
 			<pre>{JSON.stringify(l10n.formatToParts(now), undefined, 2)}</pre>

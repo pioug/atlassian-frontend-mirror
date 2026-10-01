@@ -1,5 +1,25 @@
 # @atlaskit/top-layer
 
+## 6.1.0
+
+### Minor Changes
+
+- [`457c77d8f6992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457c77d8f6992) -
+  Adds a `@atlaskit/top-layer/testing/flush-popover-exit` entrypoint exporting `flushPopoverExit()`,
+  a Jest helper for jsdom. Top-layer settles a `Popover` exit in a native promise microtask after
+  the closed `toggle`, which Jest fake timers do not drain, so a synchronous
+  `act(() => jest.runOnlyPendingTimers())` returns before `onExitFinish` fires and the host
+  unmounts. `await flushPopoverExit()` runs the pending fake timers and yields once inside an async
+  `act` (or waits one real task when fake timers are off) so tests can assert the closed state.
+  Requires React 18.3 or newer. Browser behaviour is unchanged.
+
+### Patch Changes
+
+- [`457c77d8f6992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457c77d8f6992) -
+  `Popover` and `Dialog` no longer keep their exit styles when they reopen straight after a browser
+  dismiss, or when React StrictMode runs effects twice.
+- Updated dependencies
+
 ## 6.0.0
 
 ### Major Changes

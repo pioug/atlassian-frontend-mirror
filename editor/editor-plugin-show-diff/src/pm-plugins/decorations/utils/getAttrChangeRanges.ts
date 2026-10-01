@@ -140,6 +140,15 @@ export const getAttrChangeRanges = (
 				const nodeAtPos = doc.nodeAt(finalPos);
 				const originalNodeAtPos =
 					originalPos === undefined ? null : originalDoc.nodeAt(originalPos);
+				const hasChangedAttr = (watchedAttrs: readonly string[]): boolean =>
+					attrsToCheck.some(
+						(attr) =>
+							watchedAttrs.includes(attr) &&
+							(!fg('confluence_ncs_step_diffing_version_history') ||
+								!originalNodeAtPos ||
+								originalNodeAtPos.type !== nodeAtPos?.type ||
+								!isEqual(originalNodeAtPos.attrs[attr], nodeAtPos?.attrs[attr])),
+					);
 
 				// The changeset path (createDecorationsForChange) handles the deletion widget via
 				// prosemirror-changeset; we only need to add the inline insertion highlight here.
@@ -147,7 +156,7 @@ export const getAttrChangeRanges = (
 					const nodeName = nodeAtPos.type.name;
 					if (isInlineAttrChangeNodeName(nodeName)) {
 						const watchedAttrs = inlineNodeAttrMap[nodeName];
-						if (attrsToCheck.some((v) => watchedAttrs.includes(v))) {
+						if (hasChangedAttr(watchedAttrs)) {
 							return {
 								...(attributionKey ? { attributionKey } : {}),
 								fromB: finalPos,
@@ -181,7 +190,7 @@ export const getAttrChangeRanges = (
 				// is resolvable, expose its range (fromA/toA) so the caller can render the old
 				// panel as a "deleted" widget for a before/after comparison.
 				if (
-					attrsToCheck.some((v) => panelAttrs.includes(v)) &&
+					hasChangedAttr(panelAttrs) &&
 					nodeAtPos &&
 					getBaseNodeTypeName(nodeAtPos.type) === 'panel'
 				) {
@@ -241,7 +250,11 @@ export const getAttrChangeRanges = (
 			// Deduplicate by node position: multiple AttrSteps on the same node
 			// (e.g. setNodeAttribute(pos, 'text', ...) + setNodeAttribute(pos, 'color', ...))
 			// should produce only one decoration, not one per step.
-			.filter((range, i, arr) => arr.findIndex((r) => r.fromB === range.fromB) === i)
+			.filter((range, i, arr) =>
+				fg('confluence_ncs_step_diffing_version_history')
+					? !arr.some((r, nextIndex) => nextIndex > i && r.fromB === range.fromB)
+					: arr.findIndex((r) => r.fromB === range.fromB) === i,
+			)
 	);
 };
 

@@ -6,6 +6,7 @@ import { Inline } from '@atlaskit/primitives/compiled';
 import { components } from '@atlaskit/react-select/components';
 import AkSelect from '@atlaskit/select/default';
 import type { OptionProps, OptionType, SingleValueProps } from '@atlaskit/select/types';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 
 import { UrlIcon } from '../../../common/ui/icon';

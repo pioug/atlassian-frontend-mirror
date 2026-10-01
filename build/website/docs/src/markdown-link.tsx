@@ -1,5 +1,5 @@
 import React from 'react';
-import Link, { type LinkProps } from '@atlaskit/link';
+import Link, { type LinkProps } from '@atlaskit/link/link';
 
 function isRelativePath(path: string): boolean {
 	return path?.startsWith('./') || path?.startsWith('/') || path?.startsWith('#');

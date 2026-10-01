@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-loom
 
+## 25.0.0
+
+### Patch Changes
+
+- [`198417f90be8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/198417f90be8b) -
+  Register Loom in the slash menu after successful late initialization when
+  platform_editor_slash_command is enabled, placing it last in Create with its designed image and
+  description preview. Use the shared Create ranks for Confluence and linking-platform extensions.
+- Updated dependencies
+
 ## 24.0.0
 
 ### Patch Changes

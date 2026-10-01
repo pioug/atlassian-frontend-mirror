@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -9,6 +9,7 @@ import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import VideoIcon from '@atlaskit/icon/core/video';
@@ -18,6 +19,11 @@ import type { LoomPlugin } from '../../loomPluginType';
 import { recordVideo, recordVideoFailed } from '../../pm-plugins/commands';
 import { loomPluginKey } from '../../pm-plugins/main';
 
+const previewImageUrls = {
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVM4.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVIR.png',
+};
+
 export const LoomQuickInsertMenuItem = ({
 	api,
 }: {
@@ -25,6 +31,13 @@ export const LoomQuickInsertMenuItem = ({
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { isOffline } = useQuickInsertContext();
+	const preview = useMemo(
+		() => ({
+			image: previewImageUrls,
+			attribution: { name: formatMessage(quickInsertMessages.previewAttributionAtlassian) },
+		}),
+		[formatMessage],
+	);
 	const onSelect = useCallback(
 		({ editorView, insert }: OnSelectContext) => {
 			const tr = insert(undefined);
@@ -54,9 +67,11 @@ export const LoomQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(messages.recordVideoDescription)}
 			iconBefore={<VideoIcon label="" color={token('color.icon.subtle')} spacing="spacious" />}
 			isDisabled={isOffline}
 			onSelect={onSelect}
+			preview={preview}
 			title={formatMessage(messages.recordVideo)}
 		/>
 	);

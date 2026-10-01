@@ -5,6 +5,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popper as ReactPopper } from '@atlaskit/popper/main';
 import type { PopperChildrenProps, Placement } from '@atlaskit/popper/main';
 import Portal from '@atlaskit/portal/portal';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 

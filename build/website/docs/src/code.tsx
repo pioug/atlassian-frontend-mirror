@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import CodeBlock from '@atlaskit/code/block';
+import CodeBlock from '@atlaskit/code/code-block';
 import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 

@@ -519,6 +519,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 			<Tooltip
 				content={formatMessage(this.isPlaying ? messages.pause : messages.play)}
 				position="top"
+				hasNewContentOnTriggerClick
 			>
 				<MediaButton
 					testId="custom-media-player-play-toggle-button"

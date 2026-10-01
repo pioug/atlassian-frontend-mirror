@@ -1,5 +1,35 @@
 # @atlaskit/tooltip
 
+## 24.4.0
+
+### Minor Changes
+
+- [`457c77d8f6992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457c77d8f6992) -
+  Adds `hasNewContentOnTriggerClick`, which keeps the tooltip open when its trigger is pressed so
+  new content (for example "Copied!") shows. Deprecates `hideTooltipOnClick` and
+  `hideTooltipOnMouseDown`. Both changes only affect behaviour with
+  `platform-dst-top-layer-tooltip`.
+- [`457c77d8f6992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457c77d8f6992) -
+  Adds a `@atlaskit/tooltip/testing` entrypoint exporting `waitForTooltipToHide()`. With
+  `platform-dst-top-layer-tooltip` on, the tooltip renders through a top-layer `Popover`, and in
+  jsdom the exit settles in a native promise microtask that Jest fake timers do not drain. After
+  flushing the hide delay, `await waitForTooltipToHide()` runs the pending fake timers and yields
+  once inside an async `act`, so `onHide` has fired and the tooltip has left the document before the
+  test asserts. Requires React 18.3 or newer.
+
+### Patch Changes
+
+- [`457c77d8f6992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457c77d8f6992) -
+  Behind `platform-dst-top-layer-tooltip`: the top-layer tooltip sets `role="tooltip"` and
+  `data-placement` on the Popover host. Inside it, `TooltipPrimitive` now defaults to
+  `role="presentation"` through an internal context, so custom `component` wrappers that do not
+  forward `role` no longer produce two `role="tooltip"` nodes. An explicit `role` prop still wins,
+  and a `TooltipPrimitive` rendered inside tooltip content keeps the `role="tooltip"` default when
+  the tooltip's `component` is built on `TooltipPrimitive`. The `component` now always receives a
+  `ref`, so wrappers that render nothing without one now render their content. The legacy path and
+  standalone `TooltipPrimitive` and `TooltipContainer` usage are unchanged.
+- Updated dependencies
+
 ## 24.3.6
 
 ### Patch Changes

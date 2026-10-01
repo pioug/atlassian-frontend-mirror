@@ -44,6 +44,7 @@ const CopyLinkAction = ({
 			testId="smart-action-copy-link-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}
 			tooltipOnHide={() => setTooltipMessage(messages.copy_url_to_clipboard)}
+			hasNewContentOnTriggerClick
 			{...data}
 			{...props}
 		/>

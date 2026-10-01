@@ -27,6 +27,7 @@ const Action = ({
 	tooltipOnHide,
 	hideTooltip,
 	hideTooltipOnMouseDown,
+	hasNewContentOnTriggerClick,
 	style,
 	asDropDownItem,
 	className,
@@ -62,6 +63,7 @@ const Action = ({
 				style={style}
 				tooltipOnHide={tooltipOnHide}
 				hideTooltipOnMouseDown={hideTooltipOnMouseDown}
+				hasNewContentOnTriggerClick={hasNewContentOnTriggerClick}
 				hideTooltip={hideTooltip}
 				ariaLabel={ariaLabel}
 			/>

@@ -239,6 +239,9 @@ describe('AISummaryAction', () => {
 			const element = getByTestId(`${testId}-copy-summary-action`);
 
 			await userEvent.click(element);
+			// Top-layer tooltips stay dismissed after a press until the pointer leaves and re-enters.
+			await userEvent.unhover(element);
+			await userEvent.hover(element);
 			await findAllByText('Copied summary to clipboard');
 
 			await userEvent.unhover(element);

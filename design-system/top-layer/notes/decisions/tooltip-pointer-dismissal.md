@@ -19,9 +19,12 @@ click-opened, focus-holding surfaces whose triggers are logically associated wit
 click on the trigger must toggle rather than dismiss.
 
 A tooltip has neither property. It is hover and focus driven, holds no focus, and there is no
-interaction where a press on the trigger should leave the tooltip up. Native dismissal produces
-exactly the outcome the component already wanted, and `hideTooltipOnClick` was the bespoke
-approximation of it (311 call sites in this monorepo, all of which get the same outcome for free).
+interaction where a press on the trigger should leave the tooltip up. (The exception is a press that
+changes the content. It is opt-in, through `hasNewContentOnTriggerClick`. See
+[Content changes after a press](#content-changes-after-a-press-decided-2026-09-21).) Native
+dismissal produces exactly the outcome the component already wanted, and `hideTooltipOnClick` was
+the bespoke approximation of it (311 call sites in this monorepo, all of which get the same outcome
+for free).
 
 ## Why it needed work first
 
@@ -82,6 +85,84 @@ over content the press has already changed. That is the case `hideTooltipOnMouse
 The top-layer path therefore cancels a pending show on `mousedown` regardless of the prop. This is a
 behaviour change on the top-layer path for triggers that do not set `hideTooltipOnMouseDown`, and it
 is the reason the prop can eventually be retired for most of its call sites.
+
+## Content changes after a press (decided 2026-09-21)
+
+A common consumer pattern swaps the tooltip's content in response to the click it just received:
+click "Copy", and the tooltip reads "Copied!" while the pointer still rests on the button. Legacy
+kept the tooltip open through the click and simply re-rendered the new content. On the top-layer
+path the press light-dismisses the tooltip on pointerup and the latch above blocks every re-show
+until the pointer leaves and re-enters, so the new content is never seen while the pointer rests.
+
+A carve-out was prototyped: clear the latch and re-show when `content` changes while the latch is
+set and the pointer is still inside the trigger. It passed the affected consumer tests and kept the
+pointer-dismissal contract tests green. It was rejected anyway:
+
+- `content` is a `ReactNode`. Strings can be compared by value, but inline JSX
+  (`<FormattedMessage>`, fragments, render functions) changes identity on every render, so the
+  carve-out would re-show after any unrelated re-render while latched. That is the stale-tooltip
+  hole the pending-show rule closes, reopened by another route.
+- Comparing elements by `type` and shallow props narrows the hole without closing it, and puts a
+  content-equality heuristic in the show path that consumers cannot reason about.
+- One rule is easier to hold: after a press, the tooltip does not show again until the pointer
+  re-enters the trigger, whatever the content does.
+
+**Consequence.** Roughly 65 call sites across platform and jira use the "Copied!" swap. Under the
+top-layer path they show the new content only after the pointer leaves and re-enters. Tests that
+asserted the swap now `unhover()` then `hover()` before asserting the new content.
+
+**Recommended consumer pattern (revised 2026-09-28).** Set `hasNewContentOnTriggerClick` on the
+`Tooltip`. The press still light-dismisses the tooltip, but the tooltip shows itself again from the
+trigger's `pointerup`, in the same task. No closed frame is painted, and the tooltip shows the new
+content while the pointer rests. The rule above still holds: without the prop, a press closes the
+tooltip until the pointer re-enters the trigger. The prop is an explicit opt-in, not a content
+heuristic. Why this design was chosen, the options it replaced, and the browser event order it
+depends on are in
+[`tooltip-stay-open-on-trigger-click.md`](./tooltip-stay-open-on-trigger-click.md).
+
+**Earlier pattern (2026-09-21 to 2026-09-28).** Before the prop, the recommendation was to put the
+feedback outside the tooltip: a click-triggered `Popover` anchored to the trigger, with the
+announcement in a persistent visually-hidden `role="status"` region, and the popup itself left
+roleless. Three consumers used it:
+`jira/src/packages/servicedesk/insight-common-cmdb-shared-copy-button/src/CopyButton.tsx`,
+`jira/src/packages/assets-app/field-copy-text/src/FieldCopyTextStateless.tsx` and
+`platform/packages/design-system/design-system-docs-ui/src/example/actions/copy.tsx`. On 2026-09-28
+all three went back to the tooltip content swap and set `hasNewContentOnTriggerClick`. The popups
+are gone. One trade-off remains: the popup's live region gave a reliable announcement, and the prop
+adds none. The popup's lifetime rules are in
+[`copied-popup-lifetime.md`](./copied-popup-lifetime.md).
+
+### Swaps that still work: `key` remounts (probed 2026-09-24)
+
+Some swaps do show the new content while the pointer rests, under the gate. The Jira issue view
+copy-link button (`jira/src/packages/issue/permalink-button/src/PermalinkButton.tsx`) is one. It
+goes through `jira/src/packages/platform/field-copy-text` with `remountOnChange`, which puts
+`key={actualTooltipLabel}` on the `Tooltip`. That does not contradict the rule above.
+
+A probe in real Chrome 153 separated the two mechanisms that consumer has:
+
+| Variant                            | Gate on: new content while pointer rests | Gate off |
+| ---------------------------------- | ---------------------------------------- | -------- |
+| `key` remount + refocus the button | yes                                      | yes      |
+| `key` remount only                 | yes                                      | yes      |
+| refocus only                       | no                                       | yes      |
+| neither                            | no                                       | yes      |
+
+- **The remount is what works.** A new `key` mounts a new `Tooltip`, whose latch starts clear.
+  Chrome then sends `mouseover` to the new trigger node without the pointer moving, with
+  `relatedTarget` set to an ancestor because the old node is gone. The new tooltip treats that as
+  re-entry.
+- **The refocus does not.** Focus matches `:focus-visible`, but on the same instance the latch is
+  still set, and only `blur` clears it.
+
+This works by accident. It depends on the engine sending boundary events when the node under the
+pointer is replaced, it fails if the two labels are ever the same string, and the `aria-live` span
+mounts with its text already present, so it may not be announced. Do not copy it as a pattern.
+
+Consequence for `field-copy-text`: of its 16 non-test consumers (2026-09-24), only 5 pass
+`remountOnChange`. The other 11, mostly servicedesk, never show "Copied" to a pointer user under the
+gate. The follow-up is one change in `field-copy-text/src/ExportedComponent.tsx` to the recommended
+pattern above (now `hasNewContentOnTriggerClick`), in its own PR, not a change per consumer.
 
 ## The `auto` fallback is not a rollout concern
 

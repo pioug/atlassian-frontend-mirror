@@ -13,7 +13,7 @@ import { useLayering } from '@atlaskit/layering/use-layering';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import type { TriggerProps } from '@atlaskit/popup/types';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports, @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 
 import DropdownMenuTopLayer from './dropdown-menu-top-layer';

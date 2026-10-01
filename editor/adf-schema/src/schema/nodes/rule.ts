@@ -1,6 +1,7 @@
 import type { DOMOutputSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 import { rule as ruleFactory } from '../../next-schema/generated/nodeTypes';
+import { hexToEditorTextPaletteColor } from '../../utils/hex-to-editor-text-palette-color';
 import { uuid } from '../../utils/uuid';
 import type { BreakoutMarkDefinition } from '../marks';
 import type { MarksObject } from './types/mark';
@@ -80,6 +81,7 @@ export const ruleWithAttrs: NodeSpec = {
 	parseDOM: [{ tag: 'hr', getAttrs }],
 	toDOM(node) {
 		const { color, localId, style, weight } = node.attrs;
+		const paletteColorValue = color && (hexToEditorTextPaletteColor(color) ?? color);
 		return [
 			'hr',
 			{
@@ -87,6 +89,7 @@ export const ruleWithAttrs: NodeSpec = {
 				'data-local-id': localId || undefined,
 				'data-style': style || undefined,
 				'data-weight': weight ?? undefined,
+				style: paletteColorValue ? `--custom-palette-color: ${paletteColorValue}` : undefined,
 			},
 		];
 	},

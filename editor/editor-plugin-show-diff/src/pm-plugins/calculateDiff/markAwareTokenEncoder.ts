@@ -20,7 +20,8 @@ const typeID = (type: PMNode['type']): number => {
  *
  * Deliberately narrower than `attrAwareTokenEncoder`: node-start tokens keep the library default
  * and do not fold in diffable attributes, which `getAttrChangeRanges` already reports for every
- * diff type.
+ * diff type. The NCS version-history path also uses `attrAwareTokenEncoder` so main diff calculation
+ * detects attribute-only node replacements.
  */
 export const markAwareTokenEncoder: TokenEncoder<string | number> = {
 	encodeCharacter: (char: number, marks: readonly Mark[]) => encodeCharacterWithMarks(char, marks),

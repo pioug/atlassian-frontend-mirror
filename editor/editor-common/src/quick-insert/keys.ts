@@ -165,6 +165,51 @@ export const LOOM_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+export const JIRA_ISSUE_MENU_ITEM = {
+	key: 'com.atlassian.linking-platform.create:linking-platform-create-jira-issue',
+	type: 'menu-item',
+} as const;
+
+export const CONFLUENCE_PAGE_MENU_ITEM = {
+	key: 'com.atlassian.linking-platform.create:linking-platform-create-confluence-page',
+	type: 'menu-item',
+} as const;
+
+export const WHITEBOARD_MENU_ITEM = {
+	key: 'whiteboard-extension:create-whiteboard',
+	type: 'menu-item',
+} as const;
+
+export const DIAGRAM_MENU_ITEM = {
+	key: 'whiteboard-extension:create-diagram',
+	type: 'menu-item',
+} as const;
+
+export const FLOWCHART_MENU_ITEM = {
+	key: 'whiteboard-extension:create-flowchart',
+	type: 'menu-item',
+} as const;
+
+export const BRAINSTORMING_MENU_ITEM = {
+	key: 'whiteboard-extension:create-brainstorming',
+	type: 'menu-item',
+} as const;
+
+export const RETROSPECTIVE_MENU_ITEM = {
+	key: 'whiteboard-extension:create-retrospective',
+	type: 'menu-item',
+} as const;
+
+export const ROADMAP_MENU_ITEM = {
+	key: 'whiteboard-extension:create-roadmap',
+	type: 'menu-item',
+} as const;
+
+export const DATABASE_MENU_ITEM = {
+	key: 'database-extension:create-database',
+	type: 'menu-item',
+} as const;
+
 export const MENTION_MENU_ITEM = {
 	key: 'quick-insert-mention-menu-item',
 	type: 'menu-item',

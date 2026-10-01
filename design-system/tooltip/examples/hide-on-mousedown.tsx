@@ -3,6 +3,10 @@ import React from 'react';
 import Button from '@atlaskit/button/default/button';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
+/**
+ * `hideTooltipOnMouseDown` is deprecated. With `platform-dst-top-layer-tooltip`,
+ * a press on the trigger closes the tooltip by default.
+ */
 export default function HideOnMouseDownExample(): React.JSX.Element {
 	return (
 		<React.Fragment>

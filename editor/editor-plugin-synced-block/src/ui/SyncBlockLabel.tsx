@@ -7,7 +7,6 @@ import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages'
 import { SyncBlockLabelSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
@@ -146,13 +145,7 @@ const SyncBlockLabelComponent = ({
 			return renderPlainLabel(formatMessage(messages.unsyncedBlockLabel));
 		}
 		if (isSource) {
-			return renderPlainLabel(
-				formatMessage(
-					expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
-						? messages.sourceSyncedBlockLabel
-						: messages.syncedBlockLabel,
-				),
-			);
+			return renderPlainLabel(formatMessage(messages.sourceSyncedBlockLabel));
 		}
 		if (!title) {
 			return renderPlainLabel(formatMessage(messages.syncedBlockLabel));
@@ -182,11 +175,7 @@ const SyncBlockLabelComponent = ({
 	);
 
 	const referenceDescription = !isSource && !isUnsyncedBlock && (
-		<VisuallyHidden id={ariaDescribedById}>
-			{expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
-				? tooltipMessage
-				: tooltipContent}
-		</VisuallyHidden>
+		<VisuallyHidden id={ariaDescribedById}>{tooltipMessage}</VisuallyHidden>
 	);
 
 	if (unpublishedTooltipLabel) {

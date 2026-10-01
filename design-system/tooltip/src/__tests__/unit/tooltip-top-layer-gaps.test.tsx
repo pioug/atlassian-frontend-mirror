@@ -468,9 +468,8 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer coverage gaps', (
 		await user.hover(screen.getByTestId('trigger'));
 		runAllTimers();
 
-		const popover = screen.getByTestId('tooltip--popover');
-		expect(popover).toHaveAttribute('role', 'tooltip');
-		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
+		expect(screen.getByRole('tooltip')).toBe(screen.getByTestId('tooltip--popover'));
+		expect(screen.getByTestId('tooltip')).toHaveTextContent('Save');
 	});
 
 	// ── Shortcut hidden text should not contain shortcut keys ──

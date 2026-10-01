@@ -272,7 +272,6 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 		const media: MediaOptions = {
 			provider: providers.mediaProvider,
 			allowMediaSingle: true,
-			allowMediaInlineImages: true,
 			featureFlags: {
 				mediaInline: true,
 			},

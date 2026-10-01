@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 6.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.9
 
 ### Patch Changes

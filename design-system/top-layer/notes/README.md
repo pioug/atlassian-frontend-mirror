@@ -75,6 +75,19 @@ Architectural decisions, design rationale, and decision logs.
   leans into `popover="hint"` light dismiss instead of `mode="manual"`; a press dismisses the
   tooltip until the trigger is re-entered. Read before citing the `mode="manual"` precedent for a
   hover-driven surface
+- **[tooltip-stay-open-on-trigger-click.md](./decisions/tooltip-stay-open-on-trigger-click.md)** —
+  Decision: `hasNewContentOnTriggerClick` keeps the tooltip a hint popover and re-shows it from the
+  trigger's `pointerup`, so a press never paints it closed. The rejected options, and the browser
+  event order it depends on
+- **[copied-popup-lifetime.md](./decisions/copied-popup-lifetime.md)** — Decision: the
+  click-feedback popup that replaced the "Copied!" tooltip swap stays until dismissed. Superseded by
+  `hasNewContentOnTriggerClick`; no component uses the popup now. Why pointer exit, focus exit and a
+  timer were all rejected, why `mode="auto"` forces the key-remount on re-press, and the staleness
+  it accepts
+- **[tooltip-inside-composite-roles.md](./decisions/tooltip-inside-composite-roles.md)** — Decision:
+  an open tooltip inside `role="menu"` / `role="tablist"` is an accepted transient
+  `aria-required-children` violation; no portal, no `aria-hidden` codemod. Spec, browser, axe and
+  peer evidence, the rejected options, revisit triggers, and the per-file exemption recipe
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
 - **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why an
@@ -153,3 +166,21 @@ actually happened.
 - **[follow-ups/tooltip-triggers-discarding-render-prop-props.md](./follow-ups/tooltip-triggers-discarding-render-prop-props.md)**
   — 14 consumer call sites whose trigger drops the whole tooltip render-prop object, so the tooltip
   never renders on either side of the flag (as distinct from the ref-only drops, which were fixed)
+
+### Reports
+
+Point-in-time investigations and verification runs.
+
+- **[tooltip-gate-on-in-tests-report.md](./tooltip-gate-on-in-tests-report.md)** — **in flight.**
+  Status of the branch that forces `platform-dst-top-layer-tooltip` on across the monorepo's test
+  baselines, and the six clusters that keep it red: the `role="tooltip"` / `data-placement` DOM
+  split plus a duplicate-role bug from `TooltipPrimitive`'s default (now fixed with the role on the
+  host, a mirrored `data-placement` and a `'presentation'` context default), exit never settling
+  without animations, the copy-button gap in the pointer-dismissal contract, inline rendering
+  inheriting hidden or illegal-ARIA parents, and an unreproducible axe `aria-tooltip-name`. Includes
+  the A/B method that separated our failures from a merge-base 1121 commits behind green master
+- **[pointerdown-open-light-dismiss-report.md](./pointerdown-open-light-dismiss-report.md)**
+- **[react-19-verification-report.md](./react-19-verification-report.md)**
+- **[safari-firefox-focus-verification-report.md](./safari-firefox-focus-verification-report.md)**
+- **[direct-popperjs-callers-migration-report.md](./direct-popperjs-callers-migration-report.md)**
+- **[direct-popperjs-migration-plan-tiers-3-4-5.md](./direct-popperjs-migration-plan-tiers-3-4-5.md)**

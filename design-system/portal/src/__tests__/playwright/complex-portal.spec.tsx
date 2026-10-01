@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 
 const tooltipZIndex = layers.tooltip();

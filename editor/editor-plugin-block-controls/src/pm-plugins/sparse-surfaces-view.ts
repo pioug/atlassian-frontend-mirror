@@ -8,12 +8,13 @@ import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state'
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { resolveSurface } from '@atlaskit/editor-ui-control-model/surface-renderer';
 
-import type { ActiveNode, BlockControlsPlugin } from '../../blockControlsPluginType';
-import { createSurfaceAnchorDecorations } from '../decorations-surface-anchor';
-import { key as blockControlsKey } from '../main';
-import { reconcileSparseSurfaceCandidates } from './sparse-surface-candidates';
-import type { SparseSurfacesMeta, SparseSurfacesState } from './sparse-surfaces-state';
-import { observeSurfaceViewport, type SurfaceViewportPositions } from './surface-viewport';
+import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
+import { createSurfaceAnchorDecorations } from './decorations-surface-anchor';
+import { key as blockControlsKey } from './main';
+import { bindSparseGutterHover } from './sparse-gutter-hover';
+import { reconcileSparseSurfaceCandidates } from './utils/sparse-surface-candidates';
+import type { SparseSurfacesMeta, SparseSurfacesState } from './utils/sparse-surfaces-state';
+import { observeSurfaceViewport, type SurfaceViewportPositions } from './utils/surface-viewport';
 
 type SparseSurfacesPluginView = {
 	destroy: () => void;
@@ -125,6 +126,7 @@ export const createSparseSurfacesView = ({
 		schedule();
 	};
 	const unsubscribe = api?.uiControlRegistry?.actions.subscribe(invalidate);
+	const unbindGutterHover = bindSparseGutterHover({ api, view });
 	const unsubscribers = [
 		api?.editorDisabled?.sharedState.onChange(invalidate),
 		api?.editorViewMode?.sharedState.onChange(invalidate),
@@ -160,6 +162,7 @@ export const createSparseSurfacesView = ({
 				win?.cancelAnimationFrame(frame);
 			}
 			observer.destroy();
+			unbindGutterHover?.();
 			unsubscribe?.();
 			unsubscribers.forEach((unsubscribe) => unsubscribe?.());
 		},

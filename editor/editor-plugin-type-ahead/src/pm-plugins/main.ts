@@ -10,7 +10,6 @@ import { closest } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { PopupMountPointReference, TypeAheadHandler, TypeAheadPluginState } from '../types';
@@ -161,31 +160,29 @@ export function createPlugin({
 
 			handleDOMEvents: {
 				compositionupdate: (view, event) => {
-					// When the experiment is on, track whether the current composition
-					// exactly matches a wide-char trigger (e.g. ／ from Japanese keyboard).
+					// Track whether the current composition exactly matches a wide-char
+					// trigger (e.g. ／ from Japanese keyboard).
 					// We can't open the typeahead yet because composition is still active,
 					// but we record the matching handler so the next keydown (Enter) can use it.
-					if (expValEquals('platform_editor_wide_slash_trigger', 'isEnabled', true)) {
-						const pendingData = event.data ?? '';
-						pendingWideSlashHandler =
-							typeAheadHandlers.find((handler) => {
-								if (!handler.customRegex) {
-									return false;
-								}
-								// Only match if the composition is a NON-ASCII trigger character.
-								// ASCII triggers (e.g. '/') are handled by the normal input rule
-								// path and must NOT be intercepted here — otherwise typing '/' on
-								// a macOS Japanese IME (which briefly fires compositionupdate with
-								// data='/') would cause the Enter-confirm to open the typeahead.
-								// Matches any single ASCII character (U+0000–U+007F).
-								// No 'u' flag needed for ASCII-only ranges.
-								if (ASCII_CHAR_REGEX.test(pendingData)) {
-									return false;
-								}
-								const pattern = new RegExp(`^(${handler.customRegex})$`, 'u');
-								return pattern.test(pendingData);
-							}) ?? null;
-					}
+					const pendingData = event.data ?? '';
+					pendingWideSlashHandler =
+						typeAheadHandlers.find((handler) => {
+							if (!handler.customRegex) {
+								return false;
+							}
+							// Only match if the composition is a NON-ASCII trigger character.
+							// ASCII triggers (e.g. '/') are handled by the normal input rule
+							// path and must NOT be intercepted here — otherwise typing '/' on
+							// a macOS Japanese IME (which briefly fires compositionupdate with
+							// data='/') would cause the Enter-confirm to open the typeahead.
+							// Matches any single ASCII character (U+0000–U+007F).
+							// No 'u' flag needed for ASCII-only ranges.
+							if (ASCII_CHAR_REGEX.test(pendingData)) {
+								return false;
+							}
+							const pattern = new RegExp(`^(${handler.customRegex})$`, 'u');
+							return pattern.test(pendingData);
+						}) ?? null;
 					return false;
 				},
 				compositionend: (view, event) => {

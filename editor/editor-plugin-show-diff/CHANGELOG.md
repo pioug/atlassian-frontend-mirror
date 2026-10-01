@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 21.0.2
+
+### Patch Changes
+
+- [`1647c1098fca5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1647c1098fca5) -
+  Highlight changed inline nodes and the edited portion of link display text
+
+## 21.0.1
+
+### Patch Changes
+
+- [`df1aa098e75d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df1aa098e75d3) -
+  Contributor tags now always render Rovo's real avatar URL when available, instead of the hardcoded
+  Rovo glyph. The glyph was removed; the generic agent fallback is used when no URL is supplied or
+  it fails to load, matching Figma/Lovable/Replit.
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- [`a302d2ba96967`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a302d2ba96967) -
+  Fix contributor tag placement so it no longer overflows onto the next line when a change wraps.
+- [`6563a0ae0eb6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6563a0ae0eb6f) -
+  [EDITOR-9212] Fix AI Suggested Edits diff rendering for a table nested inside an expand. Behind
+  `platform_editor_ai_show_diff_patch_2`, the diff preview now keeps the node's `breakout` mark, and
+  renders against its own document so node positions are resolved within the preview instead of the
+  live document — nested tables are no longer sized as top-level and pushed out of their cell, and a
+  preview can no longer write to the live document. The changed-node outline and the "Removed"
+  lozenge are both placed at the breakout width rather than the content column. Selecting a
+  suggestion that targets a collapsed expand now opens it in both the live document and the diff
+  preview, so the change is visible instead of hidden behind a title bar.
+- Updated dependencies
+
 ## 20.0.11
 
 ### Patch Changes

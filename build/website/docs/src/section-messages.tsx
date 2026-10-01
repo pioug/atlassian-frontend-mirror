@@ -2,10 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const wrapperStyles = cssMap({
 	root: {

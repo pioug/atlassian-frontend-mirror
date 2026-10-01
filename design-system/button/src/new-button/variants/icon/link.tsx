@@ -305,6 +305,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 				component={tooltip?.component}
 				hideTooltipOnClick={tooltip?.hideTooltipOnClick}
 				hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
+				hasNewContentOnTriggerClick={tooltip?.hasNewContentOnTriggerClick}
 				ignoreTooltipPointerEvents={tooltip?.ignoreTooltipPointerEvents}
 			>
 				{(triggerProps) => (

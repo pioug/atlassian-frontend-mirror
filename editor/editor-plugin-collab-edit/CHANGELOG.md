@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 24.0.0
+
+### Minor Changes
+
+- [`24d07fc254d9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24d07fc254d9d) -
+  Expose a monotonic count of direct local human body edits, excluding remote, agent, and
+  comment-only transactions, so draft sync can attribute contributors without changing content
+  syncing.
+
+  Enabled behind `confluence_ncs_step_diffing_version_history`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.9
 
 ### Patch Changes

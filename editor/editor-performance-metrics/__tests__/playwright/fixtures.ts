@@ -11,6 +11,7 @@ import type {
 } from 'playwright/test';
 
 import {
+	attachFixtureToPage,
 	expect as baseExpect,
 	test as base,
 	type Expect,
@@ -25,45 +26,6 @@ import type { Timeline, TimelineEvent } from '@atlaskit/editor-performance-metri
 import type { WindowWithEditorPerformanceGlobals } from './window-type';
 
 type TimelineEvents = Array<TimelineEvent>;
-const prepareParams = (params?: { [key: string]: string | boolean }) => {
-	if (!params) {
-		return { urlParams: {}, featureFlags: '' };
-	}
-
-	const { featureFlag, ...rest } = params;
-
-	// url param in string format: '&featureFlag=feature-flag-key&featureFlag=feature-flag-key'
-	const featureFlags =
-		typeof params.featureFlag === 'string'
-			? // Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				`&featureFlag=${params.featureFlag.split(/[ ,;]+/).join('&featureFlag=')}`
-			: '';
-
-	return { urlParams: rest, featureFlags };
-};
-
-const getExampleURL = (props: {
-	baseURL: string | undefined;
-	exampleId: string | undefined;
-	groupId: string;
-	packageId: string;
-	params: Record<string, string | boolean> | undefined;
-}) => {
-	const { baseURL, groupId, packageId, exampleId, params } = props;
-	const { urlParams, featureFlags } = prepareParams(params);
-	const searchParams = new URLSearchParams({
-		groupId,
-		packageId,
-		isTestRunner: 'true',
-		...(exampleId ? { exampleId } : {}),
-		mode: 'light',
-		...urlParams,
-	});
-
-	const url = `${baseURL}/examples.html?${searchParams.toString()}${featureFlags}`;
-	return url;
-};
 
 export const test: TestType<
 	PlaywrightTestArgs &
@@ -181,47 +143,25 @@ export const test: TestType<
 			});
 
 			window.addEventListener('load', () => {
-				const divExamples = document.querySelector('#examples');
-				if (divExamples) {
-					observer.observe(divExamples, {
-						childList: true,
-						subtree: true,
-					});
-				}
+				const exampleRoot = document.querySelector('#examples') ?? document.body;
+				observer.observe(exampleRoot, {
+					childList: true,
+					subtree: true,
+				});
 			});
 		});
 
 		//page.on('console', (msg) => console.log(msg.text()));
 
-		(page as unknown as Page).visitExample = (
-			groupId: string,
-			packageId: string,
-			exampleId?: string,
-			params?: Record<string, string | boolean>,
-		) => {
-			const url = getExampleURL({
-				groupId,
-				packageId,
-				exampleId,
-				params,
-				baseURL,
-			});
-
-			return page.goto(url, {
-				waitUntil: 'domcontentloaded',
-			});
-		};
+		const testPage = page as unknown as Page;
+		attachFixtureToPage(testPage, baseURL);
 
 		await page.setViewportSize({
 			width: viewport.width,
 			height: viewport.height,
 		});
 
-		((await page) as unknown as Page).visitExample(
-			'editor',
-			'editor-performance-metrics',
-			examplePage,
-		);
+		await testPage.visitExample('editor', 'editor-performance-metrics', examplePage);
 
 		await page.waitForFunction(() => {
 			return Boolean(
@@ -462,8 +402,8 @@ const customMatchers = {
 		timestampReceived: DOMHighResTimeStamp | undefined | null,
 		timestampExpected: DOMHighResTimeStamp | undefined | null,
 	): {
-		pass: boolean;
 		message: () => any;
+		pass: boolean;
 	} {
 		const receivedInSeconds = Math.round(timestampReceived!) / 1000;
 		const expectedInSeconds = Math.round(timestampExpected!) / 1000;

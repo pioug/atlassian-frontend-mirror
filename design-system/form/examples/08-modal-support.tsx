@@ -51,13 +51,7 @@ export default function ModalDialogForm(): React.JSX.Element {
 									label="Email"
 									name="my-email"
 									defaultValue=""
-									component={({ fieldProps }) => (
-										<Textfield
-											autoComplete="email"
-											placeholder="charlie@atlassian.com"
-											{...fieldProps}
-										/>
-									)}
+									component={({ fieldProps }) => <Textfield autoComplete="email" {...fieldProps} />}
 								/>
 
 								<CheckboxField name="remember" defaultIsChecked>

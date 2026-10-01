@@ -13,7 +13,6 @@ import {
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 import { getUnpublishedSourceType } from './getUnpublishedSourceType';
@@ -75,14 +74,6 @@ const SyncBlockRendererWrapperComponent = ({
 		(isUnpublishedBlock && !localSameDocumentSource) ||
 		syncBlockFetchResult?.syncBlockInstance?.error?.type === SyncBlockError.NotFound;
 
-	// Evaluated unconditionally so the experiment exposure is tracked correctly
-	// (recorded on every render, not lazily on first click).
-	const isSyncBlockActivationEnabled = expValEquals(
-		'platform_editor_sync_block_activation',
-		'isEnabled',
-		true,
-	);
-
 	// Prevent editing in the contentEditable renderer wrapper. We set
 	// contentEditable="true" to enable text selection (creating an editable
 	// island inside ProseMirror's contentEditable="false" nodeview wrapper),
@@ -101,7 +92,7 @@ const SyncBlockRendererWrapperComponent = ({
 
 	useEffect(() => {
 		const containerEl = rendererRef.current;
-		if (!containerEl || !isSyncBlockActivationEnabled) {
+		if (!containerEl) {
 			return;
 		}
 		const unbind = bind(containerEl, {
@@ -125,7 +116,7 @@ const SyncBlockRendererWrapperComponent = ({
 			},
 		});
 		return unbind;
-	}, [isSyncBlockActivationEnabled]);
+	}, []);
 
 	return (
 		<div>

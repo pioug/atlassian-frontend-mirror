@@ -1,5 +1,19 @@
 # @atlaskit/avatar
 
+## 30.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.2
+
+### Patch Changes
+
+- [`2135c166f4159`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2135c166f4159) -
+  Very minor adjustments to Avatar sizing to align exactly with Figma. Updated labels in Avatar
+  examples to display the correct size.
+
 ## 30.0.1
 
 ### Patch Changes

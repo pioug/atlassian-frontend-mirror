@@ -10,13 +10,11 @@ import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/core/add';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../i18n';
 import { type Props as EmojiActionsProps, uploadEmojiTestId } from './EmojiActions';
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 import { emojiPickerAddEmoji } from './styles';
 
 const styles = cssMap({
@@ -41,10 +39,8 @@ export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 	const { onOpenUpload, uploadEnabled } = props;
 	const handleOpenUpload = useCallback(
 		(event: MouseEvent<HTMLElement>) => {
-			if (fg('platform_emoji_keep_picker_open_on_upload') || isRefreshEmojiPickerEnabled()) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
+			event.preventDefault();
+			event.stopPropagation();
 			onOpenUpload();
 		},
 		[onOpenUpload],

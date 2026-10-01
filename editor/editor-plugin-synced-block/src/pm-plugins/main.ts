@@ -32,7 +32,6 @@ import type {
 } from '@atlaskit/editor-synced-block-provider/common/types';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { bodiedSyncBlockNodeView } from '../nodeviews/bodiedSyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
@@ -258,17 +257,9 @@ const isHistoryMeta = (meta: unknown): meta is { redo: boolean } =>
  * selected when the edit was made.
  */
 export const getDeleteMechanism = (tr: Transaction, state: EditorState): DeletionMechanism => {
-	// Keep the legacy analytics classification unchanged while activation is off.
-	// The stricter history, structural-step, and reference-selection handling is
-	// only needed by the prompted feedback rollout.
-	const isSyncBlockActivationEnabled = expValEqualsNoExposure(
-		'platform_editor_sync_block_activation',
-		'isEnabled',
-		true,
-	);
 	const historyMeta = tr.getMeta(pmHistoryPluginKey);
 	if (historyMeta) {
-		if (isSyncBlockActivationEnabled && !isHistoryMeta(historyMeta)) {
+		if (!isHistoryMeta(historyMeta)) {
 			return 'other';
 		}
 		return isHistoryMeta(historyMeta) && historyMeta.redo ? 'redo' : 'undo';
@@ -280,8 +271,7 @@ export const getDeleteMechanism = (tr: Transaction, state: EditorState): Deletio
 		return 'deleteButton';
 	}
 
-	const hasStructuralStep =
-		isSyncBlockActivationEnabled && tr.steps.some((step) => step instanceof ReplaceAroundStep);
+	const hasStructuralStep = tr.steps.some((step) => step instanceof ReplaceAroundStep);
 	const hasReplaceStep = tr.steps.some((step) => step instanceof ReplaceStep);
 	if (hasStructuralStep || !hasReplaceStep) {
 		return 'other';
@@ -290,8 +280,7 @@ export const getDeleteMechanism = (tr: Transaction, state: EditorState): Deletio
 	const { selection } = state;
 	const isNodeSelected =
 		selection instanceof NodeSelection &&
-		(selection.node?.type.name === 'bodiedSyncBlock' ||
-			(isSyncBlockActivationEnabled && selection.node?.type.name === 'syncBlock'));
+		(selection.node?.type.name === 'bodiedSyncBlock' || selection.node?.type.name === 'syncBlock');
 	return isNodeSelected ? 'selectionReplaced' : 'keyboardDelete';
 };
 
@@ -416,11 +405,7 @@ const filterTransactionOnline = ({
 	const promptedFeedbackEntryPoint = canPromptForRemoval
 		? getPromptedFeedbackEntryPoint(getDeleteMechanism(tr, state))
 		: undefined;
-	const entryPoint =
-		promptedFeedbackEntryPoint &&
-		expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true)
-			? promptedFeedbackEntryPoint
-			: undefined;
+	const entryPoint = promptedFeedbackEntryPoint;
 
 	if (entryPoint && syncBlockRemoved.length > 0 && bodiedSyncBlockRemoved.length === 0) {
 		tr.setMeta(syncedBlockPromptedFeedbackMetaKey, {
@@ -1210,9 +1195,7 @@ export const createPlugin = (
 				const isCopy = ctx.consumeCopyEvent();
 				const isCut = ctx.consumeCutEvent();
 				// A prompted feedback cut is always a cut, so the two never need combining.
-				const isPromptedFeedbackCut =
-					Boolean(syncBlockStore && options?.onGiveFeedback && isCut) &&
-					expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true);
+				const isPromptedFeedbackCut = Boolean(syncBlockStore && options?.onGiveFeedback && isCut);
 
 				if (!syncBlockStore || (!isCopy && !isCut)) {
 					return slice;
@@ -1401,10 +1384,7 @@ export const createPlugin = (
 					return feedbackContext ? [feedbackContext] : [];
 				});
 
-				if (
-					feedbackContexts.length > 0 &&
-					expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true)
-				) {
+				if (feedbackContexts.length > 0) {
 					feedbackContexts.forEach((feedbackContext) => {
 						ctx.handleAppliedFeedback(feedbackContext);
 					});

@@ -15,7 +15,7 @@ export type TokenEncoderSelection = {
  * `computeDiffChanges` so the two cannot drift.
  *
  * @param useAttrAwareEncoder Caller is running the smart classifier, which needs node attrs folded
- * into the token.
+ * into the token. Also used by the NCS version-history path to detect attribute-only node changes.
  */
 export const selectTokenEncoder = (useAttrAwareEncoder: boolean): TokenEncoderSelection => {
 	if (useAttrAwareEncoder) {

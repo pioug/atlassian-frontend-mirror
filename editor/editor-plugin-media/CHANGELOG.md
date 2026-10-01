@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 25.0.1
+
+### Patch Changes
+
+- [`e9abdca4bf1d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9abdca4bf1d7) -
+  Restore legacy inline media configuration behind platform_editor_remove_media_inline_feature_flag
+  to fix inline attachment insertion and upload completion in Jira.
+- Updated dependencies
+
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.1.0
 
 ### Minor Changes

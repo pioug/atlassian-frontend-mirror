@@ -120,6 +120,7 @@ type TUseAnimatedVisibilityResult = {
  *   interrupts:     entering → exiting (close mid-entry)
  *                   exiting  → entering (reopen mid-exit, animated)
  *                   exiting  → open     (reopen mid-handshake, non-animated)
+ *                   exiting  → open     (native reopen while controlled intent is open)
  * ```
  */
 export type TPhase = 'closed' | 'entering' | 'open' | 'exiting';
@@ -128,6 +129,10 @@ type TVisibilityAction =
 	| { type: 'open-requested'; willAnimate: boolean }
 	| { type: 'close-requested' }
 	| { type: 'exit-started' }
+	// The element is being shown natively (`beforetoggle` to `open`). The
+	// reducer uses it to undo a browser dismiss that `isOpen` never agreed with,
+	// such as the tooltip re-showing on `pointerup` after a press light-dismisses it.
+	| { type: 'native-open-started' }
 	| { type: 'entry-settled' }
 	| { type: 'exit-settled' };
 
@@ -192,6 +197,18 @@ function getNextVisibilityState(
 		}
 
 		return { ...state, phase: 'exiting' };
+	}
+
+	// A browser dismiss started the exit, and something showed the element
+	// again before the exit settled, while controlled intent stayed open. For
+	// example, `@atlaskit/tooltip` re-shows after a light dismiss in the same
+	// task. The element never painted closed, so go back to `open`.
+	if (action.type === 'native-open-started') {
+		if (state.phase !== 'exiting' || state.controlledIntent !== 'open') {
+			return state;
+		}
+
+		return { ...state, phase: 'open' };
 	}
 
 	if (action.type === 'entry-settled') {
@@ -306,9 +323,14 @@ export function useAnimatedVisibility({
 		// Snapshot currentTarget because the DOM clears it after event dispatch.
 		const element = event.currentTarget;
 
-		if (event.newState === 'open' && element instanceof HTMLElement) {
-			element.removeAttribute('inert');
-			element.removeAttribute('aria-hidden');
+		if (event.newState === 'open') {
+			if (element instanceof HTMLElement) {
+				element.removeAttribute('inert');
+				element.removeAttribute('aria-hidden');
+			}
+			// Dispatched on every native open. The reducer only acts when a browser
+			// dismiss left the host `exiting` while `isOpen` stayed `true`.
+			dispatch({ type: 'native-open-started' });
 		}
 
 		if (event.newState === 'closed') {

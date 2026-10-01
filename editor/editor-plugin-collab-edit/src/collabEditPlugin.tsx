@@ -107,6 +107,9 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			if (!state) {
 				return {
 					initialised: {
+						...(fg('confluence_ncs_step_diffing_version_history') && {
+							localHumanBodyChangeCount: 0,
+						}),
 						collabInitialisedAt: null,
 						firstChangeAfterInitAt: null,
 						firstContentBodyChangeAfterInitAt: null,
@@ -130,6 +133,9 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				activeParticipants: collabPluginState?.activeParticipants,
 				sessionId: collabPluginState?.sessionId,
 				initialised: {
+					...(fg('confluence_ncs_step_diffing_version_history') && {
+						localHumanBodyChangeCount: lastOrganicChangeState?.localHumanBodyChangeCount ?? 0,
+					}),
 					collabInitialisedAt: metadata?.collabInitialisedAt || null,
 					firstChangeAfterInitAt: metadata?.firstChangeAfterInitAt || null,
 					firstContentBodyChangeAfterInitAt: metadata?.firstContentBodyChangeAfterInitAt || null,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "72.4.32",
+	"version": "72.4.34",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -166,9 +166,6 @@
 		"platform_suppression_removal_fix_reactions": {
 			"type": "boolean"
 		},
-		"platform_emoji_keep_picker_open_on_upload": {
-			"type": "boolean"
-		},
 		"platform_bitbucket_fix_shortname_and_ordering": {
 			"type": "boolean"
 		},
@@ -183,10 +180,6 @@
 		}
 	},
 	"platform-experiments": {
-		"tef_fix_a11y_keyboard_control_emoji_picker": {
-			"param": "isEnabled",
-			"defaultValue": false
-		},
 		"platform_teamoji_26_refresh_emoji_picker": {
 			"param": "isEnabled",
 			"defaultValue": false

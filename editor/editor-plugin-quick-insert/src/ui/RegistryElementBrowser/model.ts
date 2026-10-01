@@ -161,6 +161,7 @@ export const getRegistryElementBrowserItems = ({
 		})
 		.sort(
 			(left, right) =>
+				(left.ranks[0] ?? 0) - (right.ranks[0] ?? 0) ||
 				left.score - right.score ||
 				compareRanks(left.ranks, right.ranks) ||
 				left.registration.key.localeCompare(right.registration.key),

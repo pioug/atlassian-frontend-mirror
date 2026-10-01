@@ -1383,6 +1383,9 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	ruleWithAttrsStyles: {
+		'.ProseMirror hr[data-color]': {
+			backgroundColor: 'var(--custom-palette-color)',
+		},
 		'.ProseMirror hr[data-style="dashed"]': {
 			maskImage: 'linear-gradient(to right, black 0, black 4px, transparent 4px, transparent 10px)',
 			maskRepeat: 'repeat-x',
@@ -8432,14 +8435,6 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';
 
-	// Evaluated unconditionally so the experiment exposure is tracked correctly
-	// (must not be preconditioned by other gates in the style expression below).
-	const isSyncBlockActivationEnabled = expValEquals(
-		'platform_editor_sync_block_activation',
-		'isEnabled',
-		true,
-	);
-
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 	const isDense = !!baseFontSize && baseFontSize !== akEditorFullPageDefaultFontSize;
 
@@ -8619,7 +8614,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.syncBlockOverflowStyles,
 				editorContentStyles.syncBlockFirstNodeStyles,
 				editorContentStyles.syncBlockTextSelectionStyles,
-				isSyncBlockActivationEnabled && editorContentStyles.syncBlockInteractiveCursorStyles,
+				editorContentStyles.syncBlockInteractiveCursorStyles,
 				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutBaseStylesAdvanced,
 				editorExperiment('advanced_layouts', true)
 					? editorContentStyles.layoutSectionStylesAdvanced

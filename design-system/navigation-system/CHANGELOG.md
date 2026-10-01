@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 11.1.2
+
+### Patch Changes
+
+- [`457c77d8f6992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457c77d8f6992) -
+  Behind `platform-dst-top-layer-tooltip`: the side nav toggle tooltip stays open when pressed and
+  shows its new label.
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

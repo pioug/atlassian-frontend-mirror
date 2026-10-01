@@ -12,7 +12,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	flushBodiedSyncBlocks,
@@ -224,9 +223,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 
 			return (
 				<>
-					{expValEquals('platform_editor_sync_block_activation', 'isEnabled', true) && (
-						<SourceSyncBlockPlaceholder />
-					)}
+					<SourceSyncBlockPlaceholder />
 					<LazySyncedBlockUI
 						syncBlockStore={syncBlockStore}
 						api={api}

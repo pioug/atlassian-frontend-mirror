@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 219.0.0
+
+### Major Changes
+
+- [`55e90d4321606`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55e90d4321606) -
+  Clean up experiment platform_editor_sync_block_activation.
+- [`6a8d8bda53f36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a8d8bda53f36) -
+  Remove `cc_maui_polish_changes_batch_4` from the editor experiment config after cleanup.
+- [`c906e2e4ceb34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c906e2e4ceb34) -
+  Clean up experiment `platform_editor_wide_slash_trigger`
+
 ## 218.0.0
 
 ### Major Changes

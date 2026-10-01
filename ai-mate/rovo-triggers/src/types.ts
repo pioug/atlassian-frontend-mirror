@@ -918,6 +918,26 @@ export type CustomSkillUpdatePayload = PayloadCore<
 	}
 >;
 
+/**
+ * Published once a Rovo agent draft has been created (e.g. by Smart Create or the inline
+ * create-agent card). Lets hosts such as the Studio Agents landing page add the draft to
+ * their cached lists without refetching.
+ */
+export type RovoAgentDraftCreatedPayload = PayloadCore<
+	'rovo-agent-draft-created',
+	{ agentAri: string; cloudId: string }
+>;
+
+/**
+ * Published once a Rovo agent has been published from a Rovo surface (e.g. the Smart Create
+ * modal or the inline create-agent card). Lets hosts such as the Studio Agents landing page
+ * move the agent into their published lists without refetching.
+ */
+export type RovoAgentPublishedPayload = PayloadCore<
+	'rovo-agent-published',
+	{ agentAri: string; cloudId: string }
+>;
+
 export type RecommendedSpacesSelectedPayload = PayloadCore<'recommended-spaces-selected'>;
 export type RecommendedSpacesFirstTimeSelectedPayload =
 	PayloadCore<'recommended-spaces-first-time-selected'>;
@@ -997,6 +1017,8 @@ export type Payload =
 	| RecommendedSpacesSelectedPayload
 	| RecommendedSpacesFirstTimeSelectedPayload
 	| CustomSkillUpdatePayload
+	| RovoAgentDraftCreatedPayload
+	| RovoAgentPublishedPayload
 	| TaskPlanConfirmedPayload
 	| TaskAskQuestionRenderedPayload
 	| TaskPlanRenderedPayload

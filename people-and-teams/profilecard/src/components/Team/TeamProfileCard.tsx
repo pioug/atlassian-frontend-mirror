@@ -14,6 +14,7 @@ import MenuGroup from '@atlaskit/menu/menu-group';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
 import { Popup } from '@atlaskit/popup/popup';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

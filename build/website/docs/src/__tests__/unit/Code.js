@@ -1,4 +1,5 @@
-import { render, screen } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { screen } from '@atlassian/testing-library/screen';
 import code from '../../code';
 
 describe('code string literal', () => {

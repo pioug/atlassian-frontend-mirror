@@ -31,8 +31,8 @@ const getRank = (component: RegisterComponent, parentKey: string): number =>
 	component.parents?.find((parent) => parent.key === parentKey)?.rank ?? Number.MAX_SAFE_INTEGER;
 
 const compareMatchedItems = (a: MatchedItem, b: MatchedItem): number =>
-	a.score - b.score ||
 	a.sectionRank - b.sectionRank ||
+	a.score - b.score ||
 	a.itemRank - b.itemRank ||
 	a.identity.localeCompare(b.identity);
 

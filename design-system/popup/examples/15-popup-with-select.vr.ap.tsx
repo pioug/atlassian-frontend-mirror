@@ -44,7 +44,6 @@ export default (): JSX.Element => {
 							]}
 							isMulti
 							isSearchable={false}
-							placeholder="Choose a City"
 						/>
 					</div>
 				)}

@@ -55,8 +55,8 @@ const updatedHexagonNegativeMarginMap = unboundCssMap({
 	small: { marginBlockEnd: '-0.88px', marginBlockStart: '-0.88px' },
 	medium: { marginBlockEnd: '-1.17px', marginBlockStart: '-1.17px' },
 	large: { marginBlockEnd: '-1.465px', marginBlockStart: '-1.465px' },
-	xlarge: { marginBlockEnd: '-3.51px', marginBlockStart: '-3.51px' },
-	xxlarge: { marginBlockEnd: '-4.68px', marginBlockStart: '-4.68px' },
+	xlarge: { marginBlockEnd: '-3.52px', marginBlockStart: '-3.52px' },
+	xxlarge: { marginBlockEnd: '-4.695px', marginBlockStart: '-4.695px' },
 });
 
 const normalizeAvatarSize = (size: SizeType): SizeType =>

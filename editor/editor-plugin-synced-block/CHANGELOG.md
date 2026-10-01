@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 21.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- [`55e90d4321606`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55e90d4321606) -
+  Clean up experiment platform_editor_sync_block_activation.
+- Updated dependencies
+
 ## 20.1.5
 
 ### Patch Changes

@@ -21,7 +21,7 @@
 	},
 	"scripts": {
 		"ak-postbuild": "cd ../../../ && yarn build --includeDependencies @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
-		"codegen-styles": "yarn run -T run-ts ./scripts/codegen-styles",
+		"codegen-styles": "run-ts ./scripts/codegen-styles",
 		"prepare": "yarn ak-postbuild"
 	},
 	"dependencies": {
@@ -42,6 +42,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
+		"@atlassian/ts-loader": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",

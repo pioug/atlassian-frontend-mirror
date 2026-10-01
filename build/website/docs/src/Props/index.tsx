@@ -7,9 +7,10 @@ import PrettyProps, { PropsTable as PT } from '../pretty-proptypes';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Pressable, Text } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 

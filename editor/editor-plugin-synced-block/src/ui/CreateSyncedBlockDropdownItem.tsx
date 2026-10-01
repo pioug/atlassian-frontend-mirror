@@ -10,7 +10,6 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { SyncBlocksIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -113,10 +112,6 @@ const CopySyncedBlockDropdownItem = ({
 	};
 
 	const lozenge = <SyncedBlockNewLozenge label={formatMessage(blockMenuMessages.newLozenge)} />;
-	const copyLabel = expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
-		? syncBlockMessages.copyToSyncLabel
-		: blockMenuMessages.copySyncedBlock;
-
 	return (
 		<ToolbarDropdownItem
 			elemBefore={<SyncBlocksIcon label="" size="small" />}
@@ -124,7 +119,7 @@ const CopySyncedBlockDropdownItem = ({
 			isDisabled={isOfflineMode(mode)}
 			elemAfterText={lozenge}
 		>
-			{formatMessage(copyLabel)}
+			{formatMessage(syncBlockMessages.copyToSyncLabel)}
 		</ToolbarDropdownItem>
 	);
 };

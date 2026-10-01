@@ -3,13 +3,12 @@
  * @jsx jsx
  */
 
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import SearchIcon from '@atlaskit/icon/core/search';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
@@ -19,19 +18,6 @@ import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
 import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 import { messages } from '../i18n';
-
-const isEmojiPickerInitialFocusFixEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	return FeatureGates.getExperimentValue(
-		'tef_fix_a11y_keyboard_control_emoji_picker',
-		'isEnabled',
-		false,
-	);
-};
 
 const input = css({
 	boxSizing: 'border-box',
@@ -141,18 +127,6 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 	const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		debouncedSearch(e.target.value);
 	};
-
-	useLayoutEffect(() => {
-		if (isEmojiPickerInitialFocusFixEnabled()) {
-			return;
-		}
-
-		requestAnimationFrame(() => {
-			if (textRef) {
-				textRef.current?.focus();
-			}
-		});
-	}, []);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

@@ -49,8 +49,6 @@ import Lozenge from '@atlaskit/lozenge/lozenge';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -121,10 +119,6 @@ const styles = cssMap({
 	lozenge: {
 		marginInlineStart: token('space.075'),
 		minWidth: '60px',
-	},
-	noResultsContainer: {
-		width: '235px',
-		textAlign: 'center',
 	},
 	activationDropdownContent: {
 		width: '400px',
@@ -996,13 +990,8 @@ const DropdownContentWithReferenceData = ({
 		<Box
 			xcss={cx(
 				styles.dropdownContent,
-				// Read off the discriminant rather than the experiment, so the control cohort
-				// cannot reach this width and no second exposure is fired for a style.
 				locations.kind === 'field-aware' && styles.fieldAwareDropdownContent,
-				expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true) &&
-					fetchStatus === 'success' &&
-					locationCount === 0 &&
-					styles.activationDropdownContent,
+				fetchStatus === 'success' && locationCount === 0 && styles.activationDropdownContent,
 				shouldApplyMinHeight(fetchStatus, locationCount) && styles.containerWithMinHeight,
 			)}
 		>
@@ -1181,7 +1170,7 @@ const ErrorScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMessag
 };
 
 const NoResultScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMessage'] }) => {
-	return expValEquals('platform_editor_sync_block_activation', 'isEnabled', true) ? (
+	return (
 		<Box
 			xcss={styles.activationNoResultsContainer}
 			testId="synced-locations-dropdown-content-no-results"
@@ -1201,23 +1190,5 @@ const NoResultScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMes
 				</Text>
 			</Stack>
 		</Box>
-	) : (
-		<Stack
-			xcss={styles.noResultsContainer}
-			space="space.100"
-			testId="synced-locations-dropdown-content-no-results"
-		>
-			<Text as="p">{formatMessage(messages.syncedLocationDropdownNoResults)}</Text>
-			<Text as="p">
-				<Anchor
-					href={SYNCED_BLOCKS_DOCUMENTATION_URL}
-					target="_blank"
-					rel="noopener noreferrer"
-					xcss={styles.learnMoreLink}
-				>
-					{formatMessage(messages.syncedLocationDropdownLearnMoreLink)}
-				</Anchor>
-			</Text>
-		</Stack>
 	);
 };

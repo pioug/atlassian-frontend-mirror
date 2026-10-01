@@ -9,7 +9,6 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -28,19 +27,6 @@ import { categorySelectorCategoryTestId } from './categorySelectorCategoryTestId
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
 import { sortCategories } from './sortCategories';
 import { sortCategoriesNew } from './sortCategoriesNew';
-
-const isEmojiPickerInitialFocusFixEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	return FeatureGates.getExperimentValue(
-		'tef_fix_a11y_keyboard_control_emoji_picker',
-		'isEnabled',
-		false,
-	);
-};
 
 const styles = cssMap({
 	commonCategory: {
@@ -226,7 +212,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 	);
 
 	useEffect(() => {
-		if (hasSetInitialFocus.current || !isEmojiPickerInitialFocusFixEnabled() || !activeCategoryId) {
+		if (hasSetInitialFocus.current || !activeCategoryId) {
 			return;
 		}
 

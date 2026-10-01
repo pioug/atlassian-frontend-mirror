@@ -21,10 +21,11 @@
 	},
 	"devDependencies": {
 		"@atlassian/codegen": "workspace:^",
+		"@atlassian/ts-loader": "workspace:^",
 		"typescript": "root:*"
 	},
 	"scripts": {
-		"codegen": "yarn run -T run-ts ./scripts/codegen.tsx"
+		"codegen": "run-ts ./scripts/codegen.tsx"
 	},
 	"exports": {
 		".": "./src/entry-points.codegen.tsx",

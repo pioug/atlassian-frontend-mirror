@@ -4,6 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import Field from '@atlaskit/form/field';
 import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading/heading';
 import HeadingContextProvider from '@atlaskit/heading/heading-context/default';
@@ -69,10 +70,12 @@ const JSMGrid: () => JSX.Element = () => {
 								<Heading size="large" color="color.text.inverse">
 									Welcome to the Internal Help Center
 								</Heading>
-								<Textfield
-									css={responsiveWidthSearchStyles}
-									placeholder="Find help and services"
-									type="search"
+								<Field
+									label="Find help and services"
+									name="help-center-search"
+									component={({ fieldProps }) => (
+										<Textfield {...fieldProps} css={responsiveWidthSearchStyles} type="search" />
+									)}
 								/>
 							</Stack>
 						</GridItem>

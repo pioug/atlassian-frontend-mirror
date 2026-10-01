@@ -39,7 +39,6 @@ const FormLayoutExample = (): React.JSX.Element => {
 					<Field<ValueType<OptionType>> label="Owner" name="owner" id="owner">
 						{({ fieldProps: { id, ...rest } }) => (
 							<Select
-								placeholder=""
 								id={`${id}-select`}
 								isSearchable={false}
 								options={[
@@ -59,7 +58,6 @@ const FormLayoutExample = (): React.JSX.Element => {
 						isRequired
 						component={({ fieldProps: { id, ...rest } }) => (
 							<Select
-								placeholder=""
 								id={`${id}-select`}
 								options={[
 									{ label: 'Atlaskit', value: 'atlaskit' },

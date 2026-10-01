@@ -1,7 +1,7 @@
 import type { Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl';
 
-import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, ResolvedPos, Slice } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
@@ -11,7 +11,11 @@ import type { NodeViewSerializer } from '../NodeViewSerializer';
 import { countEmptyTextBlockOnlySlice } from '../utils/emptyTextBlocks';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 import type { ColorScheme } from './colorSchemes/types';
-import { clampAnchorPosIntoCell, createLeftAnchorWidget } from './createAnchorDecorationWidgets';
+import {
+	clampAnchorPosIntoCell,
+	createAnchorNameSpan,
+	createLeftAnchorWidget,
+} from './createAnchorDecorationWidgets';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
 import {
 	type ContributorTagMount,
@@ -40,6 +44,27 @@ import {
 	injectInnerWrapper,
 	createContentWrapper,
 } from './utils/wrapBlockNodeView';
+
+/**
+ * Where a slice's `index`th child sits in `doc`: the children belong to the ancestor `openStart`
+ * levels above the change. `null` if out of range — `posAtIndex` throws past the last child.
+ */
+const getSourcePos = (
+	doc: PMNode,
+	$changeFrom: ResolvedPos | null,
+	openStart: number,
+	index: number,
+): ResolvedPos | null => {
+	const depth = $changeFrom ? $changeFrom.depth - openStart : -1;
+	if (!$changeFrom || depth < 0) {
+		return null;
+	}
+	const childIndex = $changeFrom.index(depth) + index;
+	if (childIndex >= $changeFrom.node(depth).childCount) {
+		return null;
+	}
+	return safeResolve(doc, $changeFrom.posAtIndex(childIndex, depth));
+};
 
 const isHeadingLevel = (level: unknown): level is 1 | 2 | 3 | 4 | 5 | 6 =>
 	typeof level === 'number' && level >= 1 && level <= 6;
@@ -369,7 +394,7 @@ export const createNodeChangedDecorationWidget = ({
 	 * and if it's the first or last content, we go in however many the sliced Open
 	 * or sliced End depth is and match only the entire node.
 	 */
-	slice.content.forEach((node) => {
+	slice.content.forEach((node, _offset, index) => {
 		const isFirst = firstReplacedNode === node;
 		const isLast = lastReplacedNode === node;
 		const isOpenAtSliceBoundary = (isFirst && slice.openStart > 0) || (isLast && slice.openEnd > 0);
@@ -454,7 +479,10 @@ export const createNodeChangedDecorationWidget = ({
 		}
 
 		// Try to create node view, fallback to serialization
-		const nodeView = serializer.tryCreateNodeView(node);
+		const $sourcePos = fg('platform_editor_ai_show_diff_patch_2')
+			? getSourcePos(doc, $changeFromA, slice.openStart, index)
+			: null;
+		const nodeView = serializer.tryCreateNodeView(node, 0, $sourcePos ?? undefined);
 		if (nodeView) {
 			if (node.isInline) {
 				const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);
@@ -559,14 +587,25 @@ export const createNodeChangedDecorationWidget = ({
 		absorbFirstChildMarginReset({ dom, testId: 'show-diff-widget-margin-absorber' });
 	}
 
-	// Needed even when the indicator bar is off, because a contributor tag also anchors against the
-	// widget.
+	// Needed even with the indicator bar off, since it anchors its top/bottom to the widget.
 	if (showIndicators || showContributorTags) {
 		dom.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
-		// The tag built below only anchors via `anchor()` if `contributorTagAnchorName` is set; without
-		// it the tag falls back to a non-anchored position (EDITOR-9045).
-		if (fg('confluence_ncs_step_diffing_version_history')) {
-			contributorTagAnchorName ??= buildAnchorDecorationKey({ diffId });
+		// `dom` is inline, so its box fragments across a line wrap and `anchor()` resolves to the
+		// wrong edge. The tag anchors to its own point marker instead (EDITOR-9286).
+		if (fg('confluence_ncs_step_diffing_version_history') && !contributorTagAnchorName) {
+			const tagPointAnchorName = buildAnchorDecorationKey({
+				diffId,
+				anchorType: AnchorTypeKey.tag,
+			});
+			contributorTagAnchorName = tagPointAnchorName;
+			decorations.push(
+				Decoration.widget(safeInsertPos, () => createAnchorNameSpan(tagPointAnchorName), {
+					key: `contributor-tag-anchor-${diffId}`,
+					side: -1,
+					marks: [],
+					ignoreSelection: true,
+				}),
+			);
 		}
 	}
 
@@ -607,8 +646,7 @@ export const createNodeChangedDecorationWidget = ({
 				),
 			);
 		} else {
-			// Hosted at the start of the deleted run rather than on `dom` itself: `dom` is inline, so once
-			// the deleted content wraps its box is the union of its line fragments.
+			// Anchored to the point marker pushed above, not to `dom` (EDITOR-9286).
 			const tagHost = createContributorTagHost({
 				anchorName: contributorTagAnchorName,
 				diffId,

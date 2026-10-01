@@ -117,6 +117,7 @@ const IconButton: React.MemoExoticComponent<
 				component={tooltip?.component}
 				hideTooltipOnClick={tooltip?.hideTooltipOnClick}
 				hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
+				hasNewContentOnTriggerClick={tooltip?.hasNewContentOnTriggerClick}
 				ignoreTooltipPointerEvents={tooltip?.ignoreTooltipPointerEvents}
 				shortcut={tooltip?.shortcut}
 			>

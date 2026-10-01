@@ -36,7 +36,7 @@ export default function TestingTopLayerFocus(): React.ReactNode {
 	return (
 		<Box padding="space.200">
 			<Stack space="space.200">
-				<DropdownMenu trigger="Open menu" testId="dropdown">
+				<DropdownMenu shouldRenderToParent trigger="Open menu" testId="dropdown">
 					<DropdownItemGroup>
 						<DropdownItem testId="dropdown-item-1">Move</DropdownItem>
 						<DropdownItem testId="dropdown-item-2">Clone</DropdownItem>
@@ -44,7 +44,12 @@ export default function TestingTopLayerFocus(): React.ReactNode {
 					</DropdownItemGroup>
 				</DropdownMenu>
 
-				<DropdownMenu trigger="Open menu (autoFocus)" testId="dropdown-autofocus" autoFocus>
+				<DropdownMenu
+					shouldRenderToParent
+					trigger="Open menu (autoFocus)"
+					testId="dropdown-autofocus"
+					autoFocus
+				>
 					<DropdownItemGroup>
 						<DropdownItem testId="dropdown-autofocus-item-1">Move</DropdownItem>
 						<DropdownItem testId="dropdown-autofocus-item-2">Clone</DropdownItem>
@@ -53,6 +58,7 @@ export default function TestingTopLayerFocus(): React.ReactNode {
 				</DropdownMenu>
 
 				<DropdownMenu
+					shouldRenderToParent
 					trigger="Open menu (returnFocusRef)"
 					testId="dropdown-return-focus-ref"
 					returnFocusRef={returnFocusTargetRef}
@@ -67,7 +73,12 @@ export default function TestingTopLayerFocus(): React.ReactNode {
 					Return focus target
 				</Button>
 
-				<DropdownMenu trigger="Open menu (defaultOpen)" testId="dropdown-default-open" defaultOpen>
+				<DropdownMenu
+					shouldRenderToParent
+					trigger="Open menu (defaultOpen)"
+					testId="dropdown-default-open"
+					defaultOpen
+				>
 					<DropdownItemGroup>
 						<DropdownItem testId="dropdown-default-open-item-1">Move</DropdownItem>
 						<DropdownItem testId="dropdown-default-open-item-2">Clone</DropdownItem>

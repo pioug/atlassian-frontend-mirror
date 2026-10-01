@@ -1,3 +1,4 @@
+import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import { isInEmptyLine } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -34,9 +35,22 @@ export const getMediaNodeInsertionType = (
 		(!isInsidePotentialEmptyParagraph(state) || isInSupportedInlineImageParent(state)) &&
 		canInsertMediaInline(state);
 
-	if (mediaOptions?.allowMediaInlineImages) {
-		if (canInsertInlineNode && !isVideo(fileMimeType)) {
-			return 'inline';
+	if (fg('platform_editor_remove_media_inline_feature_flag')) {
+		if (mediaOptions?.allowMediaInlineImages) {
+			if (canInsertInlineNode && !isVideo(fileMimeType)) {
+				return 'inline';
+			}
+		}
+	} else {
+		if (
+			mediaInlineImagesEnabled(
+				getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags),
+				mediaOptions?.allowMediaInlineImages,
+			)
+		) {
+			if (canInsertInlineNode && !isVideo(fileMimeType)) {
+				return 'inline';
+			}
 		}
 	}
 

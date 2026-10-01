@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 /**
  * Single source of truth for which attributes of a node type represent a
  * meaningful change. Shared by `attrAwareTokenEncoder` (changeset detection)
@@ -72,10 +74,17 @@ export const getDiffableAttrNames = (
 	nodeTypeName: string,
 	attrs: Record<string, unknown>,
 ): readonly string[] | undefined => {
+	// Adding a column updates existing widths, ignore this attribute change. Move this into
+	// DIFFABLE_ATTRS_BY_NODE_TYPE when cleaning up confluence_ncs_step_diffing_version_history
+	const ignoreColumnWidth =
+		nodeTypeName === 'layoutColumn' && fg('confluence_ncs_step_diffing_version_history');
 	const rule = DIFFABLE_ATTRS_BY_NODE_TYPE[nodeTypeName];
 	if (!rule) {
 		return Object.keys(attrs)
-			.filter((name) => !DEFAULT_EXCLUDED_ATTRS.includes(name))
+			.filter(
+				(name) =>
+					!DEFAULT_EXCLUDED_ATTRS.includes(name) && !(ignoreColumnWidth && name === 'width'),
+			)
 			.sort();
 	}
 	if ('include' in rule) {

@@ -40,6 +40,8 @@ export type LastOrganicChangeMetadata = {
 	lastLocalOrganicChangeAt: null | number;
 	lastRemoteOrganicBodyChangeAt: null | number;
 	lastRemoteOrganicChangeAt: null | number;
+	/** Monotonic count of direct local human body edits, excluding agents and comments. */
+	localHumanBodyChangeCount?: number;
 };
 
 export type TrackSpammingStepsMetadata = {

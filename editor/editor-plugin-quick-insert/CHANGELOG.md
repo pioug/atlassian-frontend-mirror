@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 23.0.0
+
+### Patch Changes
+
+- [`9bc88d7233d4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bc88d7233d4c) -
+  Order platform_editor_slash_command search results by category before match score.
+- [`c906e2e4ceb34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c906e2e4ceb34) -
+  Clean up experiment `platform_editor_wide_slash_trigger`
+- Updated dependencies
+
 ## 22.0.11
 
 ### Patch Changes

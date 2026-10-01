@@ -258,7 +258,6 @@ export default function LayersInMain({
 						<PopupSelect
 							isOpen={shouldForceOpenLayers || undefined}
 							popperProps={{ strategy: 'fixed' }}
-							placeholder="Search labels..."
 							menuPlacement="bottom"
 							options={options}
 							target={({ isOpen: _isOpen, ...triggerProps }) => (

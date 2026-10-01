@@ -8,10 +8,11 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { ShowDiffPlugin } from '../../showDiffPluginType';
 import { ContributorTagController } from '../../ui/ContributorTag/contributorTagController';
 import { buildCharsByOffset, isWhitespaceChar } from '../utils/charsByOffset';
-import { clampAnchorPosIntoCell } from './createAnchorDecorationWidgets';
+import { clampAnchorPosIntoCell, createAnchorNameSpan } from './createAnchorDecorationWidgets';
 import {
 	AnchorTypeKey,
 	buildAnchorDecorationKey,
+	buildAnchorDecorationSpec,
 	buildContributorTagDecorationSpec,
 } from './decorationKeys';
 
@@ -241,7 +242,8 @@ export const resolveHoistedCodeBlockAnchor = (
  * highlights — or, with `anchorAtRangeStart`, at `from` itself. A host inside a code block is
  * hoisted in front of it instead, anchored via `resolveHoistedCodeBlockAnchor` (EDITOR-9045).
  *
- * Returns one decoration normally, two (marker + tag) when hoisted out of a code block.
+ * Returns one decoration when a caller-supplied `anchorName` is used, two (marker + tag)
+ * otherwise — hoisted out of a code block, or anchored to its own point marker.
  *
  * The tag is mounted in `toDOM` and taken down in `destroy`, so it lives exactly as long as the host
  * element ProseMirror drew it into — see `mountContributorTag`.
@@ -284,20 +286,32 @@ export const createContributorTagWidget = ({
 	// A change inside a code block is hoisted out of it, anchored to its own marker; anything else
 	// keeps its own anchor.
 	const hoisted = resolveHoistedCodeBlockAnchor(doc, anchorPos, diffId);
+	// Keep the host out of the table row's grid (EDITOR-8442).
+	const hostPos = clampAnchorPosIntoCell(doc, hoisted?.codeBlockStart ?? anchorPos, 1);
 
-	const effectiveAnchorName = hoisted?.anchorName ?? anchorName;
+	// Inline diffs pass no anchorName. Give them their own point anchor instead of the
+	// `position: relative` fallback, which drifts left once the range wraps a line (EDITOR-9286).
+	const ownAnchorName = buildAnchorDecorationKey({ diffId, anchorType: AnchorTypeKey.tag });
+	const effectiveAnchorName = hoisted?.anchorName ?? anchorName ?? ownAnchorName;
 	const tagAnchorName =
 		effectiveAnchorName && supportsAnchorPositioning() ? effectiveAnchorName : undefined;
 
 	const decorations: Decoration[] = [];
 	if (hoisted) {
 		decorations.push(hoisted.marker);
+	} else if (!anchorName && tagAnchorName) {
+		decorations.push(
+			Decoration.widget(hostPos, () => createAnchorNameSpan(ownAnchorName), {
+				...buildAnchorDecorationSpec({ diffId, anchorType: AnchorTypeKey.tag, side: -1 }),
+				marks: [],
+				ignoreSelection: true,
+			}),
+		);
 	}
 
 	decorations.push(
 		Decoration.widget(
-			// Keep the host out of the table row's grid (EDITOR-8442).
-			clampAnchorPosIntoCell(doc, hoisted?.codeBlockStart ?? anchorPos, 1),
+			hostPos,
 			() => {
 				const host = buildContributorTagHost(diffId, tagAnchorName);
 				mount = mountContributorTag({ anchorName: tagAnchorName, diffId, host, mountContext });

@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 127.1.0
+
+### Minor Changes
+
+- [`457c77d8f6992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/457c77d8f6992) -
+  Behind `platform-dst-top-layer-tooltip`: tooltips whose content changes on press (for example
+  "Copy" to "Copied!") stay open to show the new content. `@atlaskit/editor-common` floating toolbar
+  buttons and `@atlaskit/smart-card` stack-item actions add an optional
+  `hasNewContentOnTriggerClick` prop.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 127.0.0
+
+### Major Changes
+
+- [`4313c39b533f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4313c39b533f4) -
+  Add a typed analytics event for undoing an accepted AI suggestion, track accepted-suggestion undo,
+  and correct regeneration analytics. Rename the AI suggestions payload attribute `suggestionAgeMs`
+  to `timeSinceGenerationMs`; analytics consumers should migrate to the new field name.
+
+### Minor Changes
+
+- [`198417f90be8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/198417f90be8b) -
+  Centralize Create slash-menu ranks for linking-platform, Confluence extensions, and Loom under
+  platform_editor_slash_command.
+
+### Patch Changes
+
+- [`9bc88d7233d4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bc88d7233d4c) -
+  Order platform_editor_slash_command search results by category before match score.
+- [`281a2188b8d83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/281a2188b8d83) -
+  [ux] [EDITOR-8348] this change adds a color picker to the divider floating toolbar behind
+  `platform_editor_lovability_dividers`. the selected color is applied behind
+  `platform_editor_lovability_dividers_attributes`.
+- Updated dependencies
+
 ## 126.4.4
 
 ### Patch Changes

@@ -46,6 +46,7 @@ export function CopySummaryAction({
 			testId={`${testId}-copy-summary-action`}
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}
 			tooltipOnHide={() => setTooltipMessage(messages.copy_summary_action_description)}
+			hasNewContentOnTriggerClick
 			{...props}
 		/>
 	);

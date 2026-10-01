@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import type { Layers } from '@atlaskit/theme/types';
 /**
  * Named layers of all z-index used in the Atlassian Design System.

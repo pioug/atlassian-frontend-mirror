@@ -28,7 +28,7 @@ import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
@@ -38,7 +38,7 @@ import { type LoadParameters } from '../image-navigator/index';
 import { PredefinedAvatarList } from '../predefined-avatar-list';
 import { PredefinedAvatarView } from '../predefined-avatar-view';
 import { DEFAULT_VISIBLE_PREDEFINED_AVATARS } from './layout-const';
-import { AVATAR_DIALOG_WIDTH, AVATAR_DIALOG_HEIGHT, CONTAINER_INNER_SIZE } from './layout-const';
+import { AVATAR_DIALOG_WIDTH, CONTAINER_INNER_SIZE } from './layout-const';
 import { SRLiveTitle } from './SRLiveTitle';
 import { SubmitErrorDialog } from './SubmitErrorDialog';
 import { type AvatarPickerDialogProps, type AvatarPickerDialogState, Mode } from './types';
@@ -66,8 +66,20 @@ export const fixedCrop = {
 export type AvatarPickerDialogWithIntlProps = AvatarPickerDialogProps &
 	Partial<WrappedComponentProps>;
 
+// Preferred dialog height (470px); grows beyond this so the submit error flag cannot push the footer outside the modal.
+const AVATAR_DIALOG_HEIGHT = 470;
+
+const dialogContentStyles = cssMap({
+	root: {
+		minHeight: `${AVATAR_DIALOG_HEIGHT}px`,
+	},
+});
+
 const formStyles = css({
 	margin: 0,
+	display: 'flex',
+	flexDirection: 'column',
+	flexGrow: 1,
 });
 
 const avatarPickerViewWrapperStyles = css({
@@ -257,28 +269,29 @@ export class AvatarPickerDialog extends PureComponent<
 	render(): JSX.Element {
 		const content = (
 			<ModalDialog
-				height={`${AVATAR_DIALOG_HEIGHT}px`}
 				width={`${AVATAR_DIALOG_WIDTH}px`}
 				shouldScrollInViewport
 				onClose={this.props.onCancel}
 			>
-				{this.props.avatars.length > 0 && <SRLiveTitle mode={this.state.mode} />}
+				<Stack xcss={dialogContentStyles.root} testId="avatar-picker-dialog-content">
+					{this.props.avatars.length > 0 && <SRLiveTitle mode={this.state.mode} />}
 
-				<ModalHeader testId="modal-header" hasCloseButton>
-					<ModalTitle>
-						{this.props.title || <FormattedMessage {...messages.upload_an_avatar} />}
-					</ModalTitle>
-				</ModalHeader>
+					<ModalHeader testId="modal-header" hasCloseButton>
+						<ModalTitle>
+							{this.props.title || <FormattedMessage {...messages.upload_an_avatar} />}
+						</ModalTitle>
+					</ModalHeader>
 
-				{this.state.isSubmitted && <SubmitErrorDialog />}
+					{this.state.isSubmitted && <SubmitErrorDialog />}
 
-				{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-				<form aria-label="form" onSubmit={this.onSave} css={formStyles}>
-					<ModalBody>
-						<div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
-					</ModalBody>
-					{this.footerContent()}
-				</form>
+					{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
+					<form aria-label="form" onSubmit={this.onSave} css={formStyles}>
+						<ModalBody>
+							<div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
+						</ModalBody>
+						{this.footerContent()}
+					</form>
+				</Stack>
 			</ModalDialog>
 		);
 

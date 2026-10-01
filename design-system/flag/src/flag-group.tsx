@@ -19,6 +19,7 @@ import SlideIn from '@atlaskit/motion/slide-in';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Portal from '@atlaskit/portal/portal';
 import { Box } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';

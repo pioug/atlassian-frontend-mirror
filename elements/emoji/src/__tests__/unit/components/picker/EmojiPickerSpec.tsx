@@ -7,7 +7,6 @@ import fetchMock from 'fetch-mock/cjs/client';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
@@ -162,25 +161,6 @@ describe('<EmojiPicker />', () => {
 	const withRefreshEmojiPicker = async (test: () => Promise<void>) => {
 		mockExpEnabled(teamojiRefreshExperimentName);
 		await test();
-	};
-	const withInitialFocusFix = async (test: () => Promise<void>) => {
-		const initializeCompletedSpy = jest
-			.spyOn(FeatureGates, 'initializeCompleted')
-			.mockReturnValue(true);
-		const getExperimentValueSpy = jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((experimentName, _parameterName, defaultValue) =>
-				experimentName === 'tef_fix_a11y_keyboard_control_emoji_picker' ? true : defaultValue,
-			);
-		const checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
-
-		try {
-			await test();
-		} finally {
-			checkGateSpy.mockRestore();
-			getExperimentValueSpy.mockRestore();
-			initializeCompletedSpy.mockRestore();
-		}
 	};
 
 	describe('analytics for component lifecycle', () => {
@@ -1076,45 +1056,16 @@ describe('<EmojiPicker />', () => {
 	});
 
 	describe('Accessibility', () => {
-		it('focuses the selected People category instead of search when the fix is enabled', async () => {
-			await withInitialFocusFix(async () => {
-				await helper.setupPicker();
-				const peopleCategory = await screen.findByRole('tab', {
-					name: messages.peopleCategory.defaultMessage,
-				});
-
-				await waitFor(() => {
-					expect(peopleCategory).toHaveFocus();
-					expect(helperTestingLibrary.getEmojiSearchInput()).not.toHaveFocus();
-				});
+		it('focuses the selected People category instead of search', async () => {
+			await helper.setupPicker();
+			const peopleCategory = await screen.findByRole('tab', {
+				name: messages.peopleCategory.defaultMessage,
 			});
-		});
 
-		it('preserves search autofocus when the fix is disabled', async () => {
-			const initializeCompletedSpy = jest
-				.spyOn(FeatureGates, 'initializeCompleted')
-				.mockReturnValue(true);
-			const getExperimentValueSpy = jest
-				.spyOn(FeatureGates, 'getExperimentValue')
-				.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
-			const checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
-			const requestAnimationFrameSpy = jest
-				.spyOn(window, 'requestAnimationFrame')
-				.mockImplementation((callback) => {
-					callback(0);
-					return 0;
-				});
-
-			try {
-				await helper.setupPicker();
-
-				expect(helperTestingLibrary.getEmojiSearchInput()).toHaveFocus();
-			} finally {
-				requestAnimationFrameSpy.mockRestore();
-				checkGateSpy.mockRestore();
-				getExperimentValueSpy.mockRestore();
-				initializeCompletedSpy.mockRestore();
-			}
+			await waitFor(() => {
+				expect(peopleCategory).toHaveFocus();
+				expect(helperTestingLibrary.getEmojiSearchInput()).not.toHaveFocus();
+			});
 		});
 
 		it('should have no accessibility violations', async () => {

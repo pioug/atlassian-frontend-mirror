@@ -10,6 +10,7 @@ import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/vie
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { key as blockControlsKey } from './main';
+import { createSparseSurfacesView } from './sparse-surfaces-view';
 import { emptySparseSurfaceCandidateState } from './utils/sparse-surface-candidates';
 import {
 	applySparseSurfacesTransaction,
@@ -17,7 +18,6 @@ import {
 	type SparseSurfacesMeta,
 	type SparseSurfacesState,
 } from './utils/sparse-surfaces-state';
-import { createSparseSurfacesView } from './utils/sparse-surfaces-view';
 
 export const sparseSurfacesKey: PluginKey<SparseSurfacesState> = new PluginKey<SparseSurfacesState>(
 	'blockControlsSparseSurfaces',

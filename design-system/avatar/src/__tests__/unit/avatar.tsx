@@ -529,8 +529,8 @@ describe('Avatar', () => {
 			{ size: 'small' as const, width: 23.11, height: 25.76 },
 			{ size: 'medium' as const, width: 30.81, height: 34.34 },
 			{ size: 'large' as const, width: 38.51, height: 42.93 },
-			{ size: 'xlarge' as const, width: 92.43, height: 103.02 },
-			{ size: 'xxlarge' as const, width: 123.24, height: 137.36 },
+			{ size: 'xlarge' as const, width: 92.44, height: 103.04 },
+			{ size: 'xxlarge' as const, width: 123.25, height: 137.39 },
 		];
 
 		// Mirrors the literal `widthHeightMap` (legacy square size) in `../../avatar-content.tsx` —

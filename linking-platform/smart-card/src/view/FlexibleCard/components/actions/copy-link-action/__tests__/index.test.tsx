@@ -74,6 +74,9 @@ describe('CopyLinkAction', () => {
 
 			const element = await screen.findByTestId(testId);
 			await user.click(element);
+			// Top-layer tooltips stay dismissed after a press until the pointer leaves and re-enters.
+			await user.unhover(element);
+			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip).toHaveTextContent('Copied!');
@@ -86,6 +89,9 @@ describe('CopyLinkAction', () => {
 			const element = await screen.findByTestId(testId);
 
 			await user.click(element);
+			// Top-layer tooltips stay dismissed after a press until the pointer leaves and re-enters.
+			await user.unhover(element);
+			await user.hover(element);
 			await screen.findAllByText('Copied!');
 
 			await user.unhover(element);

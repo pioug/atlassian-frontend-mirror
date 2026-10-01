@@ -1,5 +1,23 @@
 # @atlaskit/emoji
 
+## 72.4.34
+
+### Patch Changes
+
+- [`b94ae37dcc0f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b94ae37dcc0f8) -
+  Cleanup `experiment` `tef_fix_a11y_keyboard_control_emoji_picker`. The emoji picker now always
+  moves initial keyboard focus to the active category instead of autofocusing the search field.
+- Updated dependencies
+
+## 72.4.33
+
+### Patch Changes
+
+- [`8883a41b1e85a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8883a41b1e85a) -
+  Remove the `platform_emoji_keep_picker_open_on_upload` gate. Keep the emoji picker open during
+  upload actions.
+- Updated dependencies
+
 ## 72.4.32
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import React from 'react';
 
 // @ts-ignore - missing types for react-markings
 import defaultMD from 'react-markings';
-import Code from '@atlaskit/code/inline';
+import Code from '@atlaskit/code/code';
 
 import { HeadingWithSectionLink } from './heading/heading-with-section-link';
 import { Paragraph } from './paragraph';

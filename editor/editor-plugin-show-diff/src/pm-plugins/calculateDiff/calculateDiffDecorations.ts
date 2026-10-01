@@ -581,11 +581,15 @@ const calculateDiffDecorationsInner = ({
 			return { contributorTags: [], decorations: DecorationSet.empty, diffDescriptors: [] };
 		}
 	}
-	// The attribute-aware encoder is only needed by the smart classifier and is gated with it.
+	// The attribute-aware encoder is needed by the smart classifier and is gated with it.
+	// The NCS version-history path also uses it so the main diff calculation detects attribute-only
+	// node replacements, e.g. changing an emoji or mention without changing the node type.
 	const { tokenEncoder, shouldHideMarkOnlyDeletions } = selectTokenEncoder(
-		diffType === 'smart' && fg('platform_editor_ai_smart_diff'),
+		(diffType === 'smart' && fg('platform_editor_ai_smart_diff')) ||
+			fg('confluence_ncs_step_diffing_version_history'),
 	);
 	let changes: AttributedColumnAwareChange[];
+	let contentChanges: readonly Change[];
 	let attributedChanges: Change[] = [];
 	let attributionColors: ReturnType<typeof createAttributionColorMap> | undefined;
 
@@ -609,6 +613,7 @@ const calculateDiffDecorationsInner = ({
 				stepIndex,
 			})),
 		);
+		contentChanges = changeset.changes;
 		attributedChanges =
 			diffType === 'step'
 				? diffBySteps(originalDoc, simplifiedSteps, simplifiedStepAttributions)
@@ -635,6 +640,7 @@ const calculateDiffDecorationsInner = ({
 			stepMaps,
 			tr.doc,
 		);
+		contentChanges = changeset.changes;
 		changes = getChanges({
 			changeset,
 			originalDoc,
@@ -907,10 +913,34 @@ const calculateDiffDecorationsInner = ({
 	changes.forEach((change) => {
 		createDecorationsForChange(change);
 	});
+	// Compare the content outside replacement ranges at matching positions in both documents.
+	// This preserves real formatting edits without highlighting an unchanged link mark reapplied
+	// while editing its display text.
+	const hasUnhighlightedMarkChanges = ({ fromB, toB }: { fromB: number; toB: number }): boolean => {
+		let from = fromB;
+		let offset = 0;
+		const differs = (to: number) =>
+			from < to &&
+			!originalDoc.slice(from + offset, to + offset).content.eq(tr.doc.slice(from, to).content);
+
+		for (const change of contentChanges) {
+			if (change.fromB >= toB) {
+				break;
+			}
+			if (change.toB > from) {
+				if (differs(change.fromB)) {
+					return true;
+				}
+				from = change.toB;
+			}
+			offset = change.toA - change.toB;
+		}
+		return differs(toB);
+	};
+
 	// The attribute-aware token encoder already reports mark-only changes as regular changes in the
-	// smart path. Only add the legacy step-range decoration when no equivalent changeset range was
-	// produced; otherwise the same content receives two inline decorations (and two navigation
-	// changes), usually one attribution colour and one default purple decoration.
+	// smart path and the NCS version-history path. For NCS version history, only skip the step-range
+	// highlight if the main diff covers it or the remaining content has unchanged formatting.
 	getMarkChangeRanges(
 		simplifiedSteps,
 		simplifiedStepAttributions,
@@ -918,9 +948,10 @@ const calculateDiffDecorationsInner = ({
 	)
 		.filter(({ fromB, toB }) => !isHandledByTable(fromB, toB))
 		.filter(
-			({ fromB, toB }) =>
+			(range) =>
 				!fg('confluence_ncs_step_diffing_version_history') ||
-				!changes.some((change) => change.fromB === fromB && change.toB === toB),
+				(!changes.some((change) => change.fromB <= range.fromB && change.toB >= range.toB) &&
+					hasUnhighlightedMarkChanges(range)),
 		)
 		.forEach((change) => {
 			const changeColorScheme = change.attributionKey
@@ -945,8 +976,9 @@ const calculateDiffDecorationsInner = ({
 	getAttrChangeRanges(tr.doc, attrStepContexts, originalDoc)
 		.filter(({ fromB, toB }) => !isHandledByTable(fromB, toB))
 		.filter(
-			({ fromB, toB }) =>
+			({ fromB, toB, isInline }) =>
 				!fg('confluence_ncs_step_diffing_version_history') ||
+				!isInline ||
 				!changes.some((change) => change.fromB === fromB && change.toB === toB),
 		)
 		.forEach((change) => {

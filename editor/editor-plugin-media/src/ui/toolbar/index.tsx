@@ -18,6 +18,7 @@ import {
 	wrappingIcons,
 } from '@atlaskit/editor-common/card';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import commonMessages, {
 	cardMessages,
 	mediaAndEmbedToolbarMessages,
@@ -360,6 +361,7 @@ const generateMediaSingleFloatingToolbar = (
 		allowCommentsOnMedia,
 		allowResizingInTables,
 		allowAltTextOnImages,
+		allowMediaInline,
 		allowMediaInlineImages,
 		allowImageEditing,
 		allowImagePreview,
@@ -497,13 +499,25 @@ const generateMediaSingleFloatingToolbar = (
 			}
 		};
 
-		if (allowMediaInlineImages && selectedNode) {
-			addLayoutDropdownToToolbar();
-		} else {
-			toolbarButtons = [...toolbarButtons, ...layoutButtons];
+		if (fg('platform_editor_remove_media_inline_feature_flag')) {
+			if (allowMediaInlineImages && selectedNode) {
+				addLayoutDropdownToToolbar();
+			} else {
+				toolbarButtons = [...toolbarButtons, ...layoutButtons];
 
-			if (layoutButtons.length && !mauiToolbarSeparatorsUpdateEnabled) {
-				toolbarButtons.push({ type: 'separator' });
+				if (layoutButtons.length && !mauiToolbarSeparatorsUpdateEnabled) {
+					toolbarButtons.push({ type: 'separator' });
+				}
+			}
+		} else {
+			if (mediaInlineImagesEnabled(allowMediaInline, allowMediaInlineImages) && selectedNode) {
+				addLayoutDropdownToToolbar();
+			} else {
+				toolbarButtons = [...toolbarButtons, ...layoutButtons];
+
+				if (layoutButtons.length && !areAnyNewToolbarFlagsEnabled) {
+					toolbarButtons.push({ type: 'separator' });
+				}
 			}
 		}
 
@@ -992,7 +1006,11 @@ export const floatingToolbar = (
 		allowPixelResizing,
 	} = options;
 
-	const allowMediaInline = allowMediaInlineImages;
+	let { allowMediaInline } = options;
+
+	allowMediaInline = fg('platform_editor_remove_media_inline_feature_flag')
+		? allowMediaInlineImages
+		: allowMediaInline;
 
 	const mediaPluginState: MediaPluginState | undefined = stateKey.getState(state);
 

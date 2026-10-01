@@ -37,7 +37,7 @@
 		"prebuilt": "yes | cp -R $(npx repo-root)/packages/design-system/tokens/dist/cjs/* $(npx repo-root)/packages/design-system/tokens/prebuilt/",
 		"ak-postbuild": "yarn prebuilt && afm workspace @atlaskit/tokens codegen-tokens && afm workspace @atlaskit/tokens check-clean-git",
 		"check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
-		"codegen-tokens": "yarn run -T run-ts ./scripts/style-dictionary/build.tsx && yarn run -T run-ts ./scripts/style-dictionary/build-plugin-token-map.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles"
+		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && run-ts ./scripts/style-dictionary/build-plugin-token-map.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles"
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
@@ -82,6 +82,7 @@
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/ts-loader": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@babel/core": "root:*",
 		"@compiled/react": "root:*",

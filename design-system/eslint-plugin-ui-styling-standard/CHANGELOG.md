@@ -1,5 +1,25 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.4.0
+
+### Minor Changes
+
+- [`187f8c82f1f1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/187f8c82f1f1e) -
+  Raise `no-atlaskit-theme` from a warning to an error in the recommended config. Imports from
+  `@atlaskit/theme` now fail lint unless they are removed or disabled.
+
+### Patch Changes
+
+- [`9ca54438f46bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ca54438f46bf) -
+  `no-unsafe-selectors` now honours chained pseudos in its allowlist. `&:focus:not(:focus-visible)`
+  was allowlisted but still reported, because each pseudo was checked on its own and `:not` is not
+  allowed alone. Other uses of `:not`, such as `&:hover:not(:focus-visible)`, are still reported.
+- [`9ca54438f46bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ca54438f46bf) -
+  `no-unsafe-selectors` now allows the vendor pseudo-elements that have no standard equivalent:
+  `::-moz-focus-inner`, `::-moz-focus-outer`, `::-moz-range-progress`, `::-moz-range-thumb`,
+  `::-moz-range-track`, `::-webkit-slider-runnable-track`, and `::-webkit-slider-thumb`. Other
+  vendor pseudos, such as `::-webkit-scrollbar` and `::-ms-clear`, are still reported.
+
 ## 2.3.0
 
 ### Minor Changes

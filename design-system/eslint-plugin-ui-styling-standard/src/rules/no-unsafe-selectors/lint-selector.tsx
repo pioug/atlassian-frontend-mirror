@@ -91,7 +91,7 @@ function checkNoAmbiguousPseudos({ context, sourceNode, selector, config, isXcss
 
 function checkNoRestrictedPseudos({ context, sourceNode }: CheckArgs, pseudos: readonly Pseudo[]) {
 	for (const pseudo of pseudos) {
-		if (allowedPseudos.has(pseudo.value)) {
+		if (allowedPseudos.has(pseudo.value) || isInAllowedPseudoChain(pseudo)) {
 			continue;
 		}
 
@@ -118,6 +118,34 @@ function checkNoRestrictedPseudos({ context, sourceNode }: CheckArgs, pseudos: r
 			});
 		}
 	}
+}
+
+/**
+ * The allowlist includes chained pseudos such as `:focus:not(:focus-visible)` whose parts are not
+ * all allowed on their own, so a pseudo is also allowed when a run of adjacent pseudos containing
+ * it matches an allowlisted chain.
+ */
+function isInAllowedPseudoChain(pseudo: Pseudo): boolean {
+	const chain: Pseudo[] = [pseudo];
+	for (let node = pseudo.prev(); isPseudo(node); node = node.prev()) {
+		chain.unshift(node);
+	}
+	for (let node = pseudo.next(); isPseudo(node); node = node.next()) {
+		chain.push(node);
+	}
+	const index = chain.indexOf(pseudo);
+	for (let start = 0; start <= index; start++) {
+		for (let end = index + 1; end <= chain.length; end++) {
+			const text = chain
+				.slice(start, end)
+				.map((node) => String(node).replace(/\s+/g, ''))
+				.join('');
+			if (allowedPseudos.has(text)) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 /**

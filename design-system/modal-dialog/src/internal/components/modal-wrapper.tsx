@@ -24,6 +24,7 @@ import FadeIn from '@atlaskit/motion/fade-in';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Portal from '@atlaskit/portal/portal';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
@@ -343,15 +344,16 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 	// Native <dialog> ref - needed for ExitingPersistence to call dialog.close().
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
 
+	const hasProvidedOnClose = Boolean(providedOnClose);
 	const modalDialogContext = useMemo(
 		() => ({
 			testId: defaultTestId,
 			titleId,
 			onClose: onCloseHandler,
-			hasProvidedOnClose: Boolean(providedOnClose),
+			hasProvidedOnClose,
 			isFullScreen: isFullScreen ?? false,
 		}),
-		[defaultTestId, titleId, onCloseHandler, providedOnClose, isFullScreen],
+		[defaultTestId, titleId, onCloseHandler, hasProvidedOnClose, isFullScreen],
 	);
 
 	// Dialog has already applied the close behavior configured by `dismissedBy`.

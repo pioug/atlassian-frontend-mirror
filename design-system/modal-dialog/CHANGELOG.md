@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 17.0.1
+
+### Patch Changes
+
+- [`9fce890f9df21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fce890f9df21) -
+  Keep modal context stable when its close callback changes.
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

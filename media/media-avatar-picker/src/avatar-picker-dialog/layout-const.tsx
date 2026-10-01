@@ -2,7 +2,6 @@ import { Rectangle } from '@atlaskit/media-ui/rectangle';
 
 export const DEFAULT_VISIBLE_PREDEFINED_AVATARS = 5;
 export const AVATAR_DIALOG_WIDTH = 375;
-export const AVATAR_DIALOG_HEIGHT = 470;
 export const PREDEFINED_AVATARS_VIEW_WIDTH = 343;
 export const PREDEFINED_AVATARS_VIEW_HEIGHT = 290;
 

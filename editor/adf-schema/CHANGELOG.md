@@ -1,5 +1,15 @@
 # @atlaskit/adf-schema
 
+## 57.6.19
+
+### Patch Changes
+
+- [`281a2188b8d83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/281a2188b8d83) -
+  [ux] [EDITOR-8348] this change adds a color picker to the divider floating toolbar behind
+  `platform_editor_lovability_dividers`. the selected color is applied behind
+  `platform_editor_lovability_dividers_attributes`.
+- Updated dependencies
+
 ## 57.6.18
 
 ### Patch Changes

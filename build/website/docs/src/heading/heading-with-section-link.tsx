@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-import Heading, { type HeadingProps } from '@atlaskit/heading';
+import Heading, { type HeadingProps } from '@atlaskit/heading/heading';
 import { cssMap, jsx } from '@compiled/react';
 import { CopyLinkToHeadingButton } from './copy-link-to-heading-button';
 import { token } from '@atlaskit/tokens';

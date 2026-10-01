@@ -475,7 +475,11 @@ export class CustomMediaPlayerBase extends Component<
 		);
 
 		return (
-			<Tooltip content={formatMessage(isPlaying ? messages.pause : messages.play)} position="top">
+			<Tooltip
+				content={formatMessage(isPlaying ? messages.pause : messages.play)}
+				position="top"
+				hasNewContentOnTriggerClick
+			>
 				<MediaButton
 					testId="custom-media-player-play-toggle-button"
 					data-test-is-playing={isPlaying}

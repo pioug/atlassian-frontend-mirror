@@ -28,6 +28,7 @@ const _default: () => JSX.Element = () => {
 
 	return (
 		<DropdownMenu
+			shouldRenderToParent
 			trigger={({ triggerRef, ...props }) => (
 				<LozengeDropdownTrigger
 					ref={triggerRef}

@@ -6,6 +6,7 @@ import { type CSSProperties, type ReactNode, forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { DefaultRoleContext, useDefaultRole } from './internal/default-role-context';
 import { TooltipShortcut } from './tooltip-shortcut';
 import { type PositionType } from './types';
 
@@ -35,25 +36,16 @@ const primitiveStyles = css({
 const TooltipPrimitive: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function TooltipPrimitive(
-	{
-		style,
-		className,
-		children,
-		placement,
-		testId,
-		onMouseOut,
-		onMouseOver,
-		id,
-		shortcut,
-		role = 'tooltip',
-	},
+	{ style, className, children, placement, testId, onMouseOut, onMouseOver, id, shortcut, role },
 	ref,
 ) {
+	const defaultRole = useDefaultRole();
+
 	return (
 		<div ref={ref} style={style} data-testid={testId ? `${testId}--wrapper` : undefined}>
 			{/* Re: non-interactive element interactions: Because we are creating a tooltip, we *need* these mouse handlers. */}
 			<div
-				role={role}
+				role={role ?? defaultRole ?? 'tooltip'}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
 				// Because the tooltip should not be focusable, there is no reason to have key events.
@@ -66,7 +58,8 @@ const TooltipPrimitive: React.ForwardRefExoticComponent<
 				data-testid={testId}
 				id={id}
 			>
-				{children}
+				{/* Reset the default so a primitive inside tooltip content keeps role="tooltip". */}
+				<DefaultRoleContext.Provider value={undefined}>{children}</DefaultRoleContext.Provider>
 				{shortcut && <TooltipShortcut shortcut={shortcut} />}
 			</div>
 		</div>

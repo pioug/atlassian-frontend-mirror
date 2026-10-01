@@ -8,11 +8,9 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../i18n';
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 export const emojiActionsTestId = 'emoji-actions';
 export const uploadEmojiTestId = 'upload-emoji';
@@ -38,10 +36,8 @@ export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 	const { onOpenUpload, uploadEnabled } = props;
 	const handleOpenUpload = useCallback(
 		(event: MouseEvent<HTMLElement>) => {
-			if (fg('platform_emoji_keep_picker_open_on_upload') || isRefreshEmojiPickerEnabled()) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
+			event.preventDefault();
+			event.stopPropagation();
 			onOpenUpload();
 		},
 		[onOpenUpload],

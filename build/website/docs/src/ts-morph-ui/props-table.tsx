@@ -10,12 +10,14 @@ import { jsx, keyframes } from '@compiled/react';
 
 import { LayoutRenderer } from '../pretty-proptypes';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import SimpleMarkdownRenderer from './simple-markdown-renderer';
-import { Code } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
 import { cssMap, cx } from '@atlaskit/css';
-import Lozenge from '@atlaskit/lozenge';
-import { Inline, Pressable, Text } from '@atlaskit/primitives';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { Inline } from '@atlaskit/primitives/inline';
+import { Pressable } from '@atlaskit/primitives/pressable';
+import { Text } from '@atlaskit/primitives/text';
 import { token } from '@atlaskit/tokens';
 
 const highlight = keyframes({

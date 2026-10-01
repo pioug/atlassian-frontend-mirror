@@ -22,7 +22,6 @@ import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
@@ -224,8 +223,7 @@ export const Flag = ({
 	const isCopiedDescriptionEnabled =
 		isCopiedFlag &&
 		(isExperimentEnabled('platform_editor_blocks_patch_11') ||
-			(activeFlag.sourceProduct === 'confluence-page' &&
-				expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)));
+			activeFlag.sourceProduct === 'confluence-page');
 	const copiedDescription = getSyncBlockCopiedDescription(activeFlag, isCopiedDescriptionEnabled);
 	const title = isJiraUnpublishedPaste
 		? messages.unpublishedSyncBlockPastedTitleJiraWorkItem

@@ -67,7 +67,6 @@ const _default: () => JSX.Element = () => {
 						{ label: 'Friday', value: 5 },
 						{ label: 'Saturday', value: 6 },
 					]}
-					placeholder="Choose start day of the week"
 					onChange={handleWeekStartDayChange}
 				/>
 			</Box>

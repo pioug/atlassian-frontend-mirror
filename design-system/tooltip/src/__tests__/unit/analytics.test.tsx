@@ -4,6 +4,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { act, fireEvent, render, screen } from '@atlassian/testing-library';
 
+import { waitForTooltipToHide } from '../../testing';
 import Tooltip from '../../tooltip';
 
 const analyticsAttributes = {
@@ -31,7 +32,7 @@ describe('test analytics', () => {
 	afterEach(() => {
 		jest.useRealTimers();
 	});
-	it('should fire event on the public channel and the internal channel', () => {
+	it('should fire event on the public channel and the internal channel', async () => {
 		const onPublicEvent = jest.fn();
 		const onAtlaskitEvent = jest.fn();
 		function WithBoth() {
@@ -86,10 +87,8 @@ describe('test analytics', () => {
 		act(() => {
 			jest.runOnlyPendingTimers();
 		});
-		// flush motion
-		act(() => {
-			jest.runOnlyPendingTimers();
-		});
+		// flush motion and exit settlement
+		await waitForTooltipToHide();
 
 		const expectedHide: UIAnalyticsEvent = new UIAnalyticsEvent({
 			payload: {

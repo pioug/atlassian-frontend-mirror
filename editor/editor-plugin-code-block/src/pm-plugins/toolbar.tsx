@@ -287,6 +287,7 @@ export const getToolbarConfig = (
 						onFocus: provideVisualFeedbackForCopyButton,
 						onBlur: removeVisualFeedbackForCopyButton,
 						hideTooltipOnClick: false,
+						hasNewContentOnTriggerClick: true,
 						disabled: codeBlockState.isNodeSelected,
 						tabIndex: null,
 					},

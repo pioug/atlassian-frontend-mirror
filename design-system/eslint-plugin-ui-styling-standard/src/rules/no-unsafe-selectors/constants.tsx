@@ -89,6 +89,15 @@ const cssPseudos = [
 	'&:visited:focus',
 	'&:visited:focus-visible',
 	'&:visited:focus-within',
+	// Vendor pseudo-elements with no standard equivalent. These are not part of CSSPseudos, so the
+	// typed @atlaskit/css and xcss APIs still reject them.
+	'&::-moz-focus-inner',
+	'&::-moz-focus-outer',
+	'&::-moz-range-progress',
+	'&::-moz-range-thumb',
+	'&::-moz-range-track',
+	'&::-webkit-slider-runnable-track',
+	'&::-webkit-slider-thumb',
 ] as const;
 
 export const allowedPseudos: Set<string> = new Set(

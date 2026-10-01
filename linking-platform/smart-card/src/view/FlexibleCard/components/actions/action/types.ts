@@ -106,6 +106,12 @@ export type ActionProps = {
 	onLoadingChange?: (isLoading: boolean) => void;
 
 	/**
+	 * Keeps the tooltip open when the action is pressed. Set it when a press changes
+	 * `tooltipMessage`. Only used when `as` is `stack-item`.
+	 */
+	hasNewContentOnTriggerClick?: boolean;
+
+	/**
 	 * Determines the size of the Action. Corresponds to an Action appearance.
 	 */
 	size?: SmartLinkSize;

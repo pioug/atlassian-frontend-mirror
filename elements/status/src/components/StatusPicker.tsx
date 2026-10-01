@@ -45,12 +45,6 @@ const paletteWrapperStyles = css({
 });
 
 const scrollHeightStylesOld = cssMap({
-	// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_2`.
-	scrolling: {
-		marginTop: token('space.050'),
-		maxHeight: '232px',
-		paddingTop: token('space.050'),
-	},
 	default: { maxHeight: '204px' },
 	extended: { maxHeight: '176px' },
 });
@@ -113,34 +107,20 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 						aria-label={intl.formatMessage(messages.statusInputLabel)}
 					/>
 				</div>
-				{fg('platform_editor_status_popup_suggestions_patch_2') ? (
-					<React.Fragment>
-						<div css={paletteWrapperStyles}>{colorPalette}</div>
-						{scrollableContent ? (
-							<div
-								css={[
-									scrollContainerStyles,
-									palette === 'extended' || fg('platform_editor_status_popup_suggestions_patch_3')
-										? scrollHeightStyles
-										: scrollHeightStylesOld[palette ?? 'default'],
-								]}
-								data-status-picker-scroll-container
-							>
-								{scrollableContent}
-							</div>
-						) : null}
-					</React.Fragment>
-				) : scrollableContent ? (
+				<div css={paletteWrapperStyles}>{colorPalette}</div>
+				{scrollableContent ? (
 					<div
-						css={[scrollContainerStyles, scrollHeightStylesOld.scrolling]}
+						css={[
+							scrollContainerStyles,
+							palette === 'extended' || fg('platform_editor_status_popup_suggestions_patch_3')
+								? scrollHeightStyles
+								: scrollHeightStylesOld[palette ?? 'default'],
+						]}
 						data-status-picker-scroll-container
 					>
-						{colorPalette}
 						{scrollableContent}
 					</div>
-				) : (
-					colorPalette
-				)}
+				) : null}
 			</React.Fragment>
 		);
 	}

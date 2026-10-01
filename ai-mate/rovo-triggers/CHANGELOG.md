@@ -1,5 +1,18 @@
 # @atlaskit/rovo-triggers
 
+## 11.8.0
+
+### Minor Changes
+
+- [`3958e1faeb4f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3958e1faeb4f6) -
+  Add `rovo-agent-draft-created` and `rovo-agent-published` rovo-triggers events, published behind
+  `sltns-1529-draft-agent-non-consequential` when Rovo agents are created or published from Smart
+  Create or the inline create-agent card.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.7.0
 
 ### Minor Changes

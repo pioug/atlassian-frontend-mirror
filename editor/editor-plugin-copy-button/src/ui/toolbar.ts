@@ -113,6 +113,7 @@ export function getCopyButtonConfig(
 		),
 		...buttonActionHandlers,
 		hideTooltipOnClick: false,
+		hasNewContentOnTriggerClick: true,
 		tabIndex: null,
 	};
 }

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { act } from '@atlassian/testing-library/act';
+import { fireEvent } from '@atlassian/testing-library/fire-event';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import Tooltip from '../../tooltip';
+import TooltipPrimitive, { type TooltipPrimitiveProps } from '../../tooltip-primitive';
 
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
@@ -444,7 +450,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		expect(popover).toHaveAttribute('popover', 'hint');
 	});
 
-	it('should set role="tooltip" on the popover element only', async () => {
+	it('should put role="tooltip" and data-placement on the popover host', async () => {
 		const user = createUser();
 
 		render(
@@ -459,9 +465,207 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		await runAllTimers();
 
 		const popover = screen.getByTestId('tooltip--popover');
-		expect(popover).toHaveAttribute('role', 'tooltip');
-		// Single tooltip role in the tree: the popover root, no nested role="tooltip".
+		expect(screen.getByRole('tooltip')).toBe(popover);
+		expect(popover).toHaveAttribute('data-placement', 'bottom');
+		expect(popover).toHaveTextContent('hello world');
 		expect(screen.getAllByRole('tooltip')).toHaveLength(1);
+
+		const content = screen.getByTestId('tooltip');
+		expect(content).toHaveAttribute('role', 'presentation');
+		expect(content).toHaveClass('Tooltip');
+		expect(content).toHaveTextContent('hello world');
+	});
+
+	it('should not duplicate role="tooltip" when a custom component drops the role prop', async () => {
+		const user = createUser();
+
+		// Mirrors consumer wrappers that destructure named props and never forward `role`, so
+		// `TooltipPrimitive` falls back to the context default ('presentation' under the host).
+		const DroppingRoleContainer = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
+			function DroppingRoleContainer(
+				{ children, className, style, placement, testId, onMouseOut, onMouseOver, id, shortcut },
+				ref,
+			) {
+				return (
+					<TooltipPrimitive
+						ref={ref}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						className={className}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						style={style}
+						placement={placement}
+						testId={testId}
+						onMouseOut={onMouseOut}
+						onMouseOver={onMouseOver}
+						id={id}
+						shortcut={shortcut}
+					>
+						{children}
+					</TooltipPrimitive>
+				);
+			},
+		);
+
+		render(
+			<Tooltip testId="tooltip" content="hello world" component={DroppingRoleContainer}>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+
+		expect(screen.getAllByRole('tooltip')).toHaveLength(1);
+		expect(screen.getByRole('tooltip')).toBe(screen.getByTestId('tooltip--popover'));
+		expect(screen.getByRole('tooltip')).toHaveTextContent('hello world');
+	});
+
+	it('should render a custom component that renders nothing without a ref', async () => {
+		const user = createUser();
+
+		const RefRequiredContainer = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
+			function RefRequiredContainer(props, ref) {
+				if (ref == null) {
+					return null;
+				}
+				return <TooltipPrimitive {...props} ref={ref} />;
+			},
+		);
+
+		render(
+			<Tooltip testId="tooltip" content="hello world" component={RefRequiredContainer}>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+
+		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
+		expect(screen.getAllByRole('tooltip')).toHaveLength(1);
+	});
+
+	it('should keep an explicit role passed to TooltipPrimitive', async () => {
+		const user = createUser();
+
+		const StatusContainer = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
+			function StatusContainer(props, ref) {
+				return <TooltipPrimitive {...props} ref={ref} role="status" />;
+			},
+		);
+
+		render(
+			<Tooltip testId="tooltip" content="hello world" component={StatusContainer}>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+
+		expect(screen.getByTestId('tooltip')).toHaveAttribute('role', 'status');
+	});
+
+	it('should keep role="tooltip" on a TooltipPrimitive rendered inside content', async () => {
+		const user = createUser();
+
+		render(
+			<Tooltip
+				testId="tooltip"
+				content={
+					<TooltipPrimitive testId="nested" placement="top">
+						nested
+					</TooltipPrimitive>
+				}
+			>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+
+		// Scope to the visible content: the hidden describedby copy also renders `nested`.
+		expect(within(screen.getByTestId('tooltip')).getByTestId('nested')).toHaveAttribute(
+			'role',
+			'tooltip',
+		);
+	});
+
+	it('should update data-placement on the host when the position changes', async () => {
+		const user = createUser();
+
+		const { rerender } = render(
+			<Tooltip testId="tooltip" content="hello world" position="left">
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+		expect(screen.getByTestId('tooltip--popover')).toHaveAttribute('data-placement', 'left');
+
+		rerender(
+			<Tooltip testId="tooltip" content="hello world" position="right">
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		expect(screen.getByTestId('tooltip--popover')).toHaveAttribute('data-placement', 'right');
+	});
+
+	it('should use mousePosition for data-placement on the host when position is mouse', async () => {
+		const user = createUser();
+
+		render(
+			<Tooltip testId="tooltip" content="hello world" position="mouse" mousePosition="left">
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+
+		expect(screen.getByTestId('tooltip--popover')).toHaveAttribute('data-placement', 'left');
+	});
+
+	it('should set data-placement on the host again after close and reopen', async () => {
+		const user = createUser();
+
+		render(
+			<Tooltip testId="tooltip" content="hello world" position="top">
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+		await user.unhover(screen.getByTestId('trigger'));
+		await runAllTimers();
+		await runAllTimers();
+		expect(screen.queryByTestId('tooltip--popover')).not.toBeInTheDocument();
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+
+		expect(screen.getByTestId('tooltip--popover')).toHaveAttribute('data-placement', 'top');
+		expect(screen.getByRole('tooltip')).toBe(screen.getByTestId('tooltip--popover'));
 	});
 
 	it('should open the popover when tooltip becomes visible', async () => {
@@ -622,5 +826,36 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Still exactly one tooltip popover
 		expect(screen.getAllByTestId('tooltip--popover')).toHaveLength(1);
+	});
+});
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+ffTest.off('platform-dst-top-layer-tooltip', 'Tooltip legacy role', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
+	it('should keep role="tooltip" and data-placement on the content element', async () => {
+		const user = createUser();
+
+		render(
+			<Tooltip testId="tooltip" content="hello world">
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>,
+		);
+
+		await user.hover(screen.getByTestId('trigger'));
+		await runAllTimers();
+
+		const tooltip = screen.getByTestId('tooltip');
+		expect(screen.getByRole('tooltip')).toBe(tooltip);
+		expect(tooltip).toHaveAttribute('data-placement', 'bottom');
+		expect(screen.queryByTestId('tooltip--popover')).not.toBeInTheDocument();
 	});
 });

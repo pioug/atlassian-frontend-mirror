@@ -6,6 +6,7 @@ import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { Popup } from '@atlaskit/popup/popup';
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

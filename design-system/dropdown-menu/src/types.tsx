@@ -13,7 +13,7 @@ import type {
 	MenuGroupProps,
 	SectionProps,
 } from '@atlaskit/menu/types';
-import type { ContentProps, TriggerAriaProps, TriggerProps } from '@atlaskit/popup/types';
+import type { ContentProps, TriggerProps } from '@atlaskit/popup/types';
 
 export type FocusableElementRef = RefObject<HTMLAnchorElement | HTMLButtonElement>;
 export type Action = 'next' | 'prev' | 'first' | 'last' | 'tab';
@@ -402,7 +402,7 @@ export interface DropdownItemProps {
 	/**
 	 * An optional boolean value used to indicate if the dropdown item has popup or not.
 	 */
-	'aria-haspopup'?: TriggerAriaProps['aria-haspopup'];
+	'aria-haspopup'?: TriggerProps['aria-haspopup'];
 	/**
 	 * An optional string value that specifies the role of the dropdown item.
 	 * Use this to indicate whether the item is

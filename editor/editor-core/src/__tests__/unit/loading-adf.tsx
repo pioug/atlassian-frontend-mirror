@@ -53,7 +53,6 @@ function mountEditorWithAdfDoc({ adfDoc }: { adfDoc: any }) {
 				media={{
 					provider: mediaProvider,
 					allowMediaSingle: true,
-					allowMediaInlineImages: true,
 					featureFlags: { mediaInline: true },
 					allowMediaGroup: true,
 					allowCaptions: true,

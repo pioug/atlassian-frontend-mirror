@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 23.0.0
+
+### Patch Changes
+
+- [`55e90d4321606`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55e90d4321606) -
+  Clean up experiment platform_editor_sync_block_activation.
+- Updated dependencies
+
 ## 22.1.8
 
 ### Patch Changes

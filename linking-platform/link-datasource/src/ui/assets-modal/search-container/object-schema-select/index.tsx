@@ -14,6 +14,7 @@ import Field from '@atlaskit/form/field';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { PopupSelect } from '@atlaskit/select/popup-select';
 import type { InputActionMeta } from '@atlaskit/select/types';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import Theme from '@atlaskit/theme/theme';
 
 export default (): React.JSX.Element => (

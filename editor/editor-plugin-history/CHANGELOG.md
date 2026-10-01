@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-history
 
+## 23.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.1.0
 
 ### Minor Changes

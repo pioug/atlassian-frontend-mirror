@@ -2,6 +2,7 @@ import React from 'react';
 
 import color from 'color';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { createTheme } from '@atlaskit/theme/create-theme';
 
 interface ThemeTokens {

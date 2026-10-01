@@ -6,6 +6,7 @@
 import { css, jsx } from '@compiled/react';
 
 import Spinner from '@atlaskit/spinner/spinner';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 
 const blanketStyles = css({

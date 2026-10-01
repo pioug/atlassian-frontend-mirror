@@ -1,5 +1,4 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	bracketTyped,
 	hasDocAsParent,
@@ -17,11 +16,7 @@ import {
 	createLongEmptyNodePlaceholderADF,
 	createShortEmptyNodePlaceholderADF,
 } from './adf-builders';
-import {
-	nodeTypesWithLongPlaceholderText,
-	nodeTypesWithShortPlaceholderText,
-	nodeTypesWithSyncBlockPlaceholderText,
-} from './constants';
+import { nodeTypesWithLongPlaceholderText, nodeTypesWithShortPlaceholderText } from './constants';
 import type { CreatePlaceholderStateProps, PlaceHolderState, UserInteractionState } from './types';
 
 export function getPlaceholderState(editorState: EditorState): PlaceHolderState {
@@ -240,20 +235,6 @@ export function createPlaceHolderStateFrom({
 			return setPlaceHolderState({
 				placeholderText: undefined,
 				contextPlaceholderADF: createLongEmptyNodePlaceholderADF(intl),
-				pos: $from.pos,
-				placeholderPrompts,
-				typedAndDeleted,
-				userHadTyped,
-			});
-		}
-
-		if (
-			nodeTypesWithSyncBlockPlaceholderText.includes(parentType) &&
-			isEmptyNode &&
-			!expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
-		) {
-			return setPlaceHolderState({
-				placeholderText: intl.formatMessage(messages.sourceSyncBlockPlaceholderText),
 				pos: $from.pos,
 				placeholderPrompts,
 				typedAndDeleted,

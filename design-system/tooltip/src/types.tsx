@@ -15,15 +15,18 @@ export interface TriggerProps {
 	onMouseOut: (event: React.MouseEvent<HTMLElement>) => void;
 	onMouseMove: ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
 	/**
-	 * Drives `hideTooltipOnMouseDown`. With `platform-dst-top-layer-tooltip` it
-	 * also records the press, which is what keeps the tooltip hidden after native
-	 * light dismiss. Must be spread onto the trigger, or a pointer move inside the
-	 * trigger re-shows a tooltip the browser just dismissed.
+	 * Drives the deprecated `hideTooltipOnMouseDown`. With
+	 * `platform-dst-top-layer-tooltip` it also records the press, which is what
+	 * keeps the tooltip hidden after native light dismiss. Must be spread onto the
+	 * trigger, or a pointer move inside the trigger re-shows a tooltip the browser
+	 * just dismissed.
 	 */
 	onMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
 	/**
-	 * Drives `hideTooltipOnClick`. Inert with `platform-dst-top-layer-tooltip`:
-	 * native light dismiss has already hidden the tooltip by the time `click` fires.
+	 * Drives the deprecated `hideTooltipOnClick`. With
+	 * `platform-dst-top-layer-tooltip`, a pointer press has already hidden the
+	 * tooltip (native light dismiss) by the time `click` fires. It still hides the
+	 * tooltip on a click with no pointer press, for example Enter or Space.
 	 */
 	onClick: (event: React.MouseEvent<HTMLElement>) => void;
 	onFocus: (event: React.FocusEvent<HTMLElement>) => void;
@@ -59,6 +62,13 @@ export interface TooltipProps {
 
 	/**
 	 * Extend `TooltipPrimitive` to create your own tooltip and pass it as component.
+	 *
+	 * Build it on `TooltipPrimitive` and forward the `ref`. With `platform-dst-top-layer-tooltip`
+	 * on, the tooltip's top-layer host carries `role="tooltip"` and `TooltipPrimitive` defaults to
+	 * `role="presentation"`, so:
+	 * - don't set `role="tooltip"` on your own element, or the tooltip gets two tooltip roles
+	 * - don't hide the content (for example `display: none`), or the host has a tooltip role with
+	 *   no visible name. To hide the tooltip, don't pass `content`.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	component?:
@@ -82,9 +92,17 @@ export interface TooltipProps {
 	 * Hide the tooltip when the click event is triggered. Use this when the tooltip should be hidden if `onClick` react synthetic event
 	 * is triggered, which happens after `onMouseDown` event.
 	 *
-	 * **With `platform-dst-top-layer-tooltip` this has no observable effect:**
-	 * native `popover="hint"` light dismiss already hid the tooltip on pointerup,
-	 * before `click` fires.
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-TODO Internal documentation for deprecation (no external access)}
+	 * TODO: replace ENGHEALTH-TODO with the real ticket.
+	 * With `platform-dst-top-layer-tooltip`, a pointer press on the
+	 * trigger closes the tooltip by default. Native `popover="hint"` light dismiss
+	 * closes it on pointerup, before `click` fires. This prop then only has an
+	 * effect on a click with no pointer press, for example Enter or Space on a
+	 * focused trigger. Without the gate it still works as before.
+	 *
+	 * To keep the tooltip open on a press, use `hasNewContentOnTriggerClick`
+	 * instead. Do not set both: this prop turns `hasNewContentOnTriggerClick`
+	 * off. This prop will be removed in a future release.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideTooltipOnClick?: boolean;
@@ -94,13 +112,38 @@ export interface TooltipProps {
 	 * used when tooltip should be hidden if `onMouseDown` react synthetic event
 	 * is triggered, which happens before `onClick` event.
 	 *
-	 * **With `platform-dst-top-layer-tooltip` this is still honoured**, and is the
-	 * only way to hide before the press completes. Without it, native
-	 * `popover="hint"` light dismiss hides on pointerup instead. Either way the
-	 * tooltip stays hidden until the trigger is re-entered or blurred.
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-TODO Internal documentation for deprecation (no external access)}
+	 * TODO: replace ENGHEALTH-TODO with the real ticket.
+	 * With `platform-dst-top-layer-tooltip`, a press on the trigger
+	 * closes the tooltip by default. Native `popover="hint"` light dismiss closes
+	 * it on pointerup. This prop still works with the gate, but it only changes
+	 * the timing: the tooltip closes on mousedown, so it does not show while the
+	 * press is held. Either way the tooltip stays hidden until the trigger is
+	 * re-entered or blurred. Without the gate it still works as before.
+	 *
+	 * To keep the tooltip open on a press, use `hasNewContentOnTriggerClick`
+	 * instead. Do not set both: this prop turns `hasNewContentOnTriggerClick`
+	 * off. This prop will be removed in a future release.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideTooltipOnMouseDown?: boolean;
+
+	/**
+	 * Set this when a press on the trigger changes `content`, for example "Copy"
+	 * to "Copied!". The tooltip then stays open when the trigger is pressed, so
+	 * the new content is visible.
+	 *
+	 * Only has an effect with `platform-dst-top-layer-tooltip`. Without the gate
+	 * the tooltip already stays open on a press. With the gate, a press normally
+	 * closes the tooltip until the pointer re-enters the trigger.
+	 *
+	 * The tooltip still closes on pointer leave, blur, scroll and Escape.
+	 *
+	 * Do not use it with the deprecated `hideTooltipOnClick` or
+	 * `hideTooltipOnMouseDown`. If you set one of them, it wins and this prop has
+	 * no effect.
+	 */
+	hasNewContentOnTriggerClick?: boolean;
 
 	/**
 	 * Where the tooltip should appear relative to the mouse pointer.

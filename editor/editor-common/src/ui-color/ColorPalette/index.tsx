@@ -10,6 +10,7 @@ import chromatism from 'chromatism';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
@@ -102,6 +103,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 
 	const { colorMode: tokenTheme } = useThemeObserver();
 	const useIconToken = !!hexToPaletteColor;
+	const isDividerExperimentEnabled = isExperimentEnabled('platform_editor_lovability_dividers');
 
 	const colorsPerRow = React.useMemo(() => {
 		return getColorsPerRowFromPalette(palette, cols);
@@ -137,7 +139,9 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 								onClick={onClick}
 								onKeyDown={onKeyDown}
 								isSelected={value === selectedColor}
-								checkMarkColor={getCheckMarkColor(value, useIconToken)}
+								checkMarkColor={
+									isDividerExperimentEnabled ? getCheckMarkColor(value, useIconToken) : undefined
+								}
 								hexToPaletteColor={hexToPaletteColor}
 								decorator={decorator}
 							/>

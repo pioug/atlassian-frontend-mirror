@@ -8,6 +8,7 @@ import { Fragment, type SyntheticEvent, useCallback, useEffect, useState } from 
 import { css, jsx } from '@compiled/react';
 
 import Code from '@atlaskit/code/code';
+import Field from '@atlaskit/form/field';
 import Heading from '@atlaskit/heading/heading';
 import metadata from '@atlaskit/icon-lab/metadata';
 import FlaskIcon from '@atlaskit/icon/core/flask';
@@ -118,13 +119,19 @@ const IconAllExample = (): JSX.Element => {
 	return (
 		<Box padding="space.200">
 			<Stack space="space.300">
-				<Textfield
-					value={query}
-					placeholder="Search for an icon..."
-					key="Icon search"
-					onChange={(event: SyntheticEvent<HTMLInputElement>) =>
-						updateQuery(event.currentTarget.value)
-					}
+				<Field
+					label="Search for an icon"
+					name="icon-search"
+					component={({ fieldProps }) => (
+						<Textfield
+							{...fieldProps}
+							value={query}
+							key="Icon search"
+							onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+								updateQuery(event.currentTarget.value)
+							}
+						/>
+					)}
 				/>
 				<Inline alignBlock="center" space="space.100">
 					<IconTile size="small" appearance="green" label="" icon={FlaskIcon} />

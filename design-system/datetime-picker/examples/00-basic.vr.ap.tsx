@@ -6,7 +6,7 @@ import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import TimePicker from '@atlaskit/datetime-picker/time-picker';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 interface ControlledProps {
 	initialValue?: string;

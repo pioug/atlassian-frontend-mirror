@@ -4,11 +4,11 @@
  */
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
-import { useMotion } from '@atlaskit/motion/use-motion';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

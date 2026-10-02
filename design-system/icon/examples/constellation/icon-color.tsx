@@ -6,7 +6,10 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import WhiteboardIcon from '@atlaskit/icon/core/whiteboard';
 import ButtonItem from '@atlaskit/menu/button-item';
-import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

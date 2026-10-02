@@ -39,6 +39,10 @@ const tooltipStyle = css({
 	},
 });
 
+const wideTooltipStyle = css({
+	maxWidth: '320px',
+});
+
 const emojiNameStyle = css({
 	textTransform: 'capitalize',
 	color: token('color.text.inverse'),
@@ -113,6 +117,7 @@ export type ReactionTooltipProps = PropsWithChildren<{
 	 * Info on the emoji reaction to render
 	 */
 	reaction: ReactionSummary;
+	wideTooltip?: boolean;
 }>;
 
 export const ReactionTooltip = ({
@@ -124,6 +129,7 @@ export const ReactionTooltip = ({
 	allowUserDialog,
 	handleOpenReactionsDialog,
 	dismissTooltip,
+	wideTooltip = false,
 }: ReactionTooltipProps): JSX.Element => {
 	const handleClick = () => {
 		if (allowUserDialog && handleOpenReactionsDialog) {
@@ -136,7 +142,7 @@ export const ReactionTooltip = ({
 		!users || users.length === 0 || !isEnabled ? null : (
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 			<div
-				css={tooltipStyle}
+				css={[tooltipStyle, wideTooltip && wideTooltipStyle]}
 				tabIndex={fg('platform_suppression_removal_fix_reactions') ? undefined : 0}
 			>
 				<ul>

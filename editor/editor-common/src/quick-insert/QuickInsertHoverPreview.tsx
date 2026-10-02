@@ -7,6 +7,7 @@ import { createPortal } from 'react-dom';
 
 // Viewport calculations and multiline clamping require styles outside @atlaskit/css's schema.
 import { cssMap, jsx } from '@compiled/react';
+import { bind } from 'bind-event-listener';
 import { useIntl } from 'react-intl';
 
 // Viewport clamping requires modifiers, which the top-layer adapter does not support.
@@ -125,12 +126,14 @@ export const QuickInsertHoverPreview = ({
 	description,
 	id,
 	preview,
+	popupsMountPoint,
 	referenceElement,
 	title,
 }: {
 	description?: string;
 	id: string;
 	preview: QuickInsertPreview;
+	popupsMountPoint?: HTMLElement;
 	referenceElement: HTMLElement;
 	title: string;
 }): React.JSX.Element => {
@@ -141,12 +144,13 @@ export const QuickInsertHoverPreview = ({
 			: preview.image.light
 		: undefined;
 	const hasAccessibleContent = Boolean(description || preview.attribution);
+	const portalTarget = popupsMountPoint ?? referenceElement.ownerDocument.body;
 
 	return createPortal(
 		<Popper
 			placement="right-start"
 			referenceElement={referenceElement}
-			strategy="fixed"
+			strategy={popupsMountPoint ? 'absolute' : 'fixed'}
 			modifiers={PREVIEW_MODIFIERS}
 		>
 			{({ ref, style, update }) => (
@@ -156,6 +160,7 @@ export const QuickInsertHoverPreview = ({
 						id={hasAccessibleContent ? id : undefined}
 						imageUrl={imageUrl}
 						preview={preview}
+						popupsMountPoint={popupsMountPoint}
 						referenceElement={referenceElement}
 						title={title}
 						update={update}
@@ -163,7 +168,7 @@ export const QuickInsertHoverPreview = ({
 				</div>
 			)}
 		</Popper>,
-		referenceElement.ownerDocument.body,
+		portalTarget,
 	);
 };
 
@@ -172,6 +177,7 @@ const QuickInsertPreviewPanel = ({
 	id,
 	imageUrl,
 	preview,
+	popupsMountPoint,
 	referenceElement,
 	title,
 	update,
@@ -180,6 +186,7 @@ const QuickInsertPreviewPanel = ({
 	id?: string;
 	imageUrl?: string;
 	preview: QuickInsertPreview;
+	popupsMountPoint?: HTMLElement;
 	referenceElement: HTMLElement;
 	title: string;
 	update: PopperChildrenProps['update'];
@@ -197,15 +204,30 @@ const QuickInsertPreviewPanel = ({
 
 	useLayoutEffect(() => {
 		void update();
-		const ResizeObserverConstructor = referenceElement.ownerDocument.defaultView?.ResizeObserver;
+		const { ownerDocument } = referenceElement;
+		const onScroll = () => void update();
+		const unbindScrollListener = bind(ownerDocument, {
+			type: 'scroll',
+			listener: onScroll,
+			options: true,
+		});
+
+		const ResizeObserverConstructor = ownerDocument.defaultView?.ResizeObserver;
 		if (!panelElement || !ResizeObserverConstructor) {
-			return;
+			return unbindScrollListener;
 		}
 
 		const observer = new ResizeObserverConstructor(() => void update());
 		observer.observe(panelElement);
-		return () => observer.disconnect();
-	}, [panelElement, referenceElement, update]);
+		observer.observe(referenceElement);
+		if (popupsMountPoint) {
+			observer.observe(popupsMountPoint);
+		}
+		return () => {
+			unbindScrollListener();
+			observer.disconnect();
+		};
+	}, [panelElement, popupsMountPoint, referenceElement, update]);
 
 	return (
 		<div

@@ -13,7 +13,9 @@ import MenuIcon from '@atlaskit/icon/core/menu';
 import ButtonItem from '@atlaskit/menu/button-item';
 import Section from '@atlaskit/menu/section';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Flex, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

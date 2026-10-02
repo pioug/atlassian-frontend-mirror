@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'Popper',
-				package: '@atlaskit/popper/popper',
+				package: '@atlaskit/popper/main',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),

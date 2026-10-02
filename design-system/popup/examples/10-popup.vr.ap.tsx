@@ -13,7 +13,7 @@ import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link/link';
 import type { Placement } from '@atlaskit/popper/main';
 import { Popup } from '@atlaskit/popup/popup';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

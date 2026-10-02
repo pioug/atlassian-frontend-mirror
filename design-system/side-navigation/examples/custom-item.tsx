@@ -4,7 +4,8 @@ import { cssMap } from '@atlaskit/css';
 import AddItemIcon from '@atlaskit/icon/core/shortcut';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { CustomItem } from '@atlaskit/side-navigation/custom-item';
 import { token } from '@atlaskit/tokens';

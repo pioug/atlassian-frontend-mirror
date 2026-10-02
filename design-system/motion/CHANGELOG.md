@@ -1,5 +1,23 @@
 # @atlaskit/motion
 
+## 9.2.0
+
+### Minor Changes
+
+- [`4db7ef3df906c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4db7ef3df906c) -
+  Added an optional `onStartMotion` callback to `useResizing`, consistent with the `onStart`
+  callback on `useMotion`. It fires immediately before a resize animation starts, while the element
+  is at its natural layout with no transition styles applied yet - the only point in an update where
+  measurements reflect the size the element will settle at rather than an intermediate animation
+  frame. Consumers can use it to detect things like whether a child's text will truncate without the
+  in-flight animation distorting the result. It takes no arguments and adds no layout reads of its
+  own, and is not called on the initial render, under reduced motion, or when the dimension(s) did
+  not change, because in all of those cases no motion starts.
+
+  `onFinishMotion` is now also called immediately when the user prefers reduced motion. Previously
+  it never fired for those users, leaving consumers that use it to clear an "animating" state stuck
+  in that state indefinitely.
+
 ## 9.1.0
 
 ### Minor Changes

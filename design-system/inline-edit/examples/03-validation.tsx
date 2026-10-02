@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { ErrorMessage } from '@atlaskit/form/error-message';
 import InlineEdit from '@atlaskit/inline-edit/inline-edit';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

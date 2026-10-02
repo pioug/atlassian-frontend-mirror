@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Code from '@atlaskit/code/code';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const CodeDefaultExample = (): React.JSX.Element => {
 	return (

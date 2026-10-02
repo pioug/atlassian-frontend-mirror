@@ -96,13 +96,5 @@ snapshot(VaryingPaddingsExample);
 /** Custom empty state */
 snapshot(CustomEmptyStateExample);
 snapshot(CustomEmptyStateWithAdaptiveHeightExample);
-snapshot(VrWithoutEmptyResultsIllustrationExample, {
-	featureFlags: {
-		aifc_create_enabled: true,
-	},
-});
-snapshot(VrWithLimitedRecentSearchesExample, {
-	featureFlags: {
-		aifc_create_enabled: true,
-	},
-});
+snapshot(VrWithoutEmptyResultsIllustrationExample);
+snapshot(VrWithLimitedRecentSearchesExample);

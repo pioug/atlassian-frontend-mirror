@@ -14,7 +14,9 @@ import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
 import IconTile from '@atlaskit/icon/icon-tile';
 import coreIconMetadata from '@atlaskit/icon/metadata-core';
 // Legacy metadata / migration map removed - DSP-24516
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

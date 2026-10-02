@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 export default function TooltipKeyboardShortcutExample(): React.JSX.Element {

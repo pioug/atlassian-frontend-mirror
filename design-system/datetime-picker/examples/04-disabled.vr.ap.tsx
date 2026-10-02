@@ -5,7 +5,7 @@ import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import TimePicker from '@atlaskit/datetime-picker/time-picker';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default function DisabledExample(): React.JSX.Element {
 	return (

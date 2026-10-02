@@ -9,7 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import NestIcon from '@atlaskit/icon/core/list-numbered';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { GoBackItem } from '@atlaskit/side-navigation/go-back-item';

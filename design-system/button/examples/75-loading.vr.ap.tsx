@@ -10,7 +10,8 @@ import capitalize from 'lodash/capitalize';
 
 import type { Appearance, Spacing } from '@atlaskit/button/variants/types';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants, { type Variant } from '../src/utils/variants';

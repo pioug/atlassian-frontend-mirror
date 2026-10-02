@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 import Blanket from '@atlaskit/blanket/blanket';
 import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const BlanketBasicExample = (): JSX.Element => {
 	const [isBlanketVisible, setIsBlanketVisible] = useState(false);

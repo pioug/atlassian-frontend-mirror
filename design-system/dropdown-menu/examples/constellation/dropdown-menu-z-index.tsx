@@ -7,7 +7,7 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

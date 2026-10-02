@@ -14,9 +14,7 @@ import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
 import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { IconButton } from '../../top-nav-items/themed/icon-button';
 import { SideNavToggleButtonAttachRef } from './side-nav-toggle-button-attach-ref';
 import { sideNavToggleTooltipKeyboardShortcut } from './side-nav-toggle-tooltip-keyboard-shortcut';
@@ -148,8 +146,6 @@ export const SideNavToggleButton: ({
 		attributes?: SideNavVisibilityChangeAnalyticsAttributes,
 	) => void;
 }) => {
-	const isFhsEnabled = useIsFhsEnabled();
-
 	const {
 		isExpandedOnDesktop: isSideNavExpandedOnDesktop,
 		isExpandedOnMobile: isSideNavExpandedOnMobile,
@@ -207,11 +203,9 @@ export const SideNavToggleButton: ({
 
 			toggleVisibility();
 
-			if (isFhsEnabled || fg('platform-dst-keep-desired-fhs-features')) {
-				openLayerObserver?.closeLayers();
-			}
+			openLayerObserver?.closeLayers();
 		},
-		[isFhsEnabled, isSideNavExpanded, onClick, openLayerObserver, toggleVisibility],
+		[isSideNavExpanded, onClick, openLayerObserver, toggleVisibility],
 	);
 
 	const handlePointerEnter = useCallback(() => {
@@ -258,16 +252,13 @@ export const SideNavToggleButton: ({
 
 	const isShortcutEnabled = useIsSideNavShortcutEnabled();
 
-	const tooltipProps = useMemo(() => {
-		if (isFhsEnabled || fg('platform-dst-keep-desired-fhs-features')) {
-			return {
-				...toggleButtonTooltipOptions,
-				shortcut: isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined,
-			};
-		}
-
-		return toggleButtonTooltipOptions;
-	}, [isFhsEnabled, isShortcutEnabled]);
+	const tooltipProps = useMemo(
+		() => ({
+			...toggleButtonTooltipOptions,
+			shortcut: isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined,
+		}),
+		[isShortcutEnabled],
+	);
 
 	return (
 		<IconButton

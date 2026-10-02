@@ -6,7 +6,9 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import Heading from '@atlaskit/heading/heading';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);

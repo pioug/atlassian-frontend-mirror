@@ -2,7 +2,7 @@ import React from 'react';
 
 import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { appearances } from '../../examples-util/appearances';
 import { RANDOM_USERS } from '../../examples-util/random-users';

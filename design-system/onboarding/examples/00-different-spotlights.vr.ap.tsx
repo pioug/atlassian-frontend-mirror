@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/default/button';
 import UndoIcon from '@atlaskit/icon/core/undo';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightCard } from '@atlaskit/onboarding';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import welcomeImage from './assets/this-is-new-jira.png';

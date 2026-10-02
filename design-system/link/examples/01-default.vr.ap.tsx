@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Link from '@atlaskit/link/link';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import GlobalStyleSimulator from './utils/global-style-simulator';
 

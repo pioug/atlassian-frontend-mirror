@@ -1,5 +1,14 @@
 # @atlaskit/inline-dialog
 
+## 20.3.6
+
+### Patch Changes
+
+- [`f2a3deeedfd75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2a3deeedfd75) -
+  On the top-layer path (`platform-dst-top-layer`), apply popup ARIA attributes when the trigger is
+  a button or contains exactly one button. Skip the attributes when there are no buttons or multiple
+  buttons.
+
 ## 20.3.5
 
 ### Patch Changes

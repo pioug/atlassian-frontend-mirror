@@ -6,7 +6,9 @@ import Heading from '@atlaskit/heading/heading';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const iconContainerStyles = cssMap({

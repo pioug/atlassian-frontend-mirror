@@ -53,6 +53,17 @@ const boxStyle = convertToInlineCss({
 	height: `${AVATAR_BOX_SIZE}px`,
 });
 
+/** Agents get a drop shadow instead of a ring, so their box skips the ring's padding. */
+const agentBoxStyle = convertToInlineCss({
+	display: 'inline-flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flexShrink: 0,
+	boxSizing: 'border-box',
+	width: `${AVATAR_SIZE}px`,
+	height: `${AVATAR_SIZE}px`,
+});
+
 const shapeStyle = convertToInlineCss({
 	display: 'flex',
 	alignItems: 'center',
@@ -62,6 +73,11 @@ const shapeStyle = convertToInlineCss({
 	height: `${AVATAR_SIZE}px`,
 	aspectRatio: '1/1',
 	overflow: 'hidden',
+});
+
+const agentShadowStyle = convertToInlineCss({
+	// No clip-path on `element`, so the blur isn't cut off.
+	filter: `drop-shadow(0 5px 5px ${token('elevation.shadow.overflow.perimeter')}) drop-shadow(0 1px 2px ${token('elevation.shadow.overflow.perimeter')}) drop-shadow(0 0 2px ${token('elevation.shadow.overflow.perimeter')})`,
 });
 
 const imageStyle = convertToInlineCss({
@@ -111,7 +127,7 @@ export const contributorAvatarRenderer = ({
 }): ContributorAvatar => {
 	const isAgent = contributor.kind === 'agent';
 	const element = doc.createElement('span');
-	element.setAttribute('style', boxStyle);
+	element.setAttribute('style', isAgent ? `${agentBoxStyle} ${agentShadowStyle}` : boxStyle);
 	// Decorative: the tag names its contributors in the visually hidden label its screen-reader
 	// announcement comes from.
 	element.setAttribute('aria-hidden', 'true');
@@ -124,7 +140,6 @@ export const contributorAvatarRenderer = ({
 	element.appendChild(shape);
 
 	if (isAgent) {
-		element.style.setProperty('clip-path', HEXAGON_CLIP_PATH);
 		shape.style.setProperty('clip-path', HEXAGON_CLIP_PATH);
 	} else {
 		shape.style.setProperty('border-radius', token('radius.full'));
@@ -176,8 +191,7 @@ export const contributorAvatarRenderer = ({
 
 	const setRingColor = (nextRingColor: string) => {
 		if (isAgent) {
-			element.style.setProperty('background', nextRingColor);
-			// Shows through wherever the artwork is transparent, as the avatar background did.
+			// No ring; shows through wherever the artwork is transparent, as before.
 			shape.style.setProperty('background', nextRingColor);
 			return;
 		}

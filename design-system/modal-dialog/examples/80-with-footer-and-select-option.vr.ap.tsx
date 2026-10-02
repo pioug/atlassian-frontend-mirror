@@ -8,7 +8,7 @@ import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Select from '@atlaskit/select/default';
 
 export function WithFooterAndSelectOptionExample(): React.JSX.Element {

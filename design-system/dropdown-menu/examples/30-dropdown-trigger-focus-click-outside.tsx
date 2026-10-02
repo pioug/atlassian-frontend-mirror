@@ -5,7 +5,8 @@ import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { Label } from '@atlaskit/form/label/default';
-import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Textfield from '@atlaskit/textfield/text-field';
 
 const DropdownMenuDefaultExample = (): React.JSX.Element => {

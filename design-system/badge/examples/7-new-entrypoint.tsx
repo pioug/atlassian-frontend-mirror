@@ -9,7 +9,10 @@ import Badge from '@atlaskit/badge/badge-new';
 import type { BadgeNewProps } from '@atlaskit/badge/types';
 import Code from '@atlaskit/code/code';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -69,7 +72,7 @@ const appearances: BadgeNewProps['appearance'][] = [
  * Example using the new `/new` entrypoint which exports the new Badge component
  * directly.
  *
- * Usage: `import Badge from '@atlaskit/badge/new';`
+ * Usage: `import Badge from '@atlaskit/badge/badge-new';`
  */
 export default function NewEntrypointBadgeExample(): JSX.Element {
 	return (

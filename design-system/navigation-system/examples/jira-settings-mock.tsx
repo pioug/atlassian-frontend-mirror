@@ -42,7 +42,9 @@ import {
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';

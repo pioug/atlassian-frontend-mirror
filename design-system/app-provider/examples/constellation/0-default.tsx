@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const AppProviderThemeCodeBlock = `import React from 'react';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import AppProvider from '@atlaskit/app-provider';
 
 function ThemedComponent() {

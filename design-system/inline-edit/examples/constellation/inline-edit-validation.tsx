@@ -5,7 +5,7 @@ import { cssMap } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 import InlineEdit from '@atlaskit/inline-edit/inline-edit';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

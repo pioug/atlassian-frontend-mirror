@@ -52,13 +52,13 @@ const leadsReplacement = (widget: TaggableDecoration): boolean =>
 
 /**
  * Whether `inner` captions the same change as the block decoration `block`, in which case only the
- * block keeps the tag — one tag per block. Containment counts in either direction: a leaf block's
- * highlight spans the wrapper the block sits in. Merely adjacent ranges keep a tag each.
+ * block keeps the tag — one tag per block. Only when the block fully covers `inner`; a wider
+ * inline/widget range that merely overlaps the block is a separate change (EDITOR-9473).
  */
 const isSameBlockChange = (inner: TaggableDecoration, block: TaggableDecoration): boolean =>
 	inner.spec.attributionKey === block.spec.attributionKey &&
-	((block.from <= inner.from && inner.to <= block.to) ||
-		(inner.from <= block.from && block.to <= inner.to));
+	block.from <= inner.from &&
+	inner.to <= block.to;
 
 /**
  * Whether `outer` is the box `inner` sits in, for one contributor. Nested blocks they inserted read

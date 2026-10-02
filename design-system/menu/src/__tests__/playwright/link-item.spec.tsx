@@ -1,6 +1,6 @@
 import { expect, test } from '@af/integration-testing';
 
-const getLinkSelector = (position: number) => `#examples a[href="#link-item${position}"]`;
+const getLinkSelector = (position: number) => `a[href="#link-item${position}"]`;
 
 test('Selected nav items should have aria-current="page" attribute', async ({ page }) => {
 	await page.visitExample<typeof import('../../../examples/link-item.vr.ap.tsx')>(

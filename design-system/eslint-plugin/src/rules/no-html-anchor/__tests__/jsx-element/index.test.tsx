@@ -37,10 +37,10 @@ ruleTester.run('no-html-anchor', rule, {
               `,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
 				// JSX Element > reports for an anchor element and shows correct message
-                import { LinkButton } from '@atlaskit/button/new';
+                import LinkButton from '@atlaskit/button/link';
                 <LinkButton>Hello, World!</LinkButton>
               `,
 						},
@@ -66,10 +66,10 @@ ruleTester.run('no-html-anchor', rule, {
               `,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
                 // JSX Element > reports for an anchor with href
-                import { LinkButton } from '@atlaskit/button/new';
+                import LinkButton from '@atlaskit/button/link';
                 <LinkButton href="/">Hello, World!</LinkButton>
               `,
 						},
@@ -95,10 +95,10 @@ ruleTester.run('no-html-anchor', rule, {
               `,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
 				// JSX Element > reports for a self-closing anchor
-                import { LinkButton } from '@atlaskit/button/new';
+                import LinkButton from '@atlaskit/button/link';
                 <LinkButton />
               `,
 						},
@@ -125,10 +125,10 @@ ruleTester.run('no-html-anchor', rule, {
               `,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
                 // JSX Element > existing Link subpath import with different name
-                import { LinkButton } from '@atlaskit/button/new';
+                import LinkButton from '@atlaskit/button/link';
                 import CustomLink from '@atlaskit/link/link';
                 <LinkButton href="/">Hello, World!</LinkButton>
               `,
@@ -156,10 +156,10 @@ ruleTester.run('no-html-anchor', rule, {
               `,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
 				// JSX Element > existing Link import with different name
-                import { LinkButton } from '@atlaskit/button/new';
+                import LinkButton from '@atlaskit/button/link';
                 import CustomLink from '@atlaskit/link';
                 <LinkButton href="/">Hello, World!</LinkButton>
               `,
@@ -171,7 +171,7 @@ ruleTester.run('no-html-anchor', rule, {
 		{
 			code: linesOnly`
 			// JSX Element > existing LinkButton import with different name
-			import { LinkButton as CustomLinkButton } from '@atlaskit/button/new';
+			import CustomLinkButton from '@atlaskit/button/link';
 			<a href="/">Hello, World!</a>
 		  `,
 			errors: [
@@ -183,15 +183,15 @@ ruleTester.run('no-html-anchor', rule, {
 							output: linesOnly`
 				  // JSX Element > existing LinkButton import with different name
 				  import Link from '@atlaskit/link/link';
-				  import { LinkButton as CustomLinkButton } from '@atlaskit/button/new';
+				  import CustomLinkButton from '@atlaskit/button/link';
 				  <Link href="/">Hello, World!</Link>
 				`,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
 				  // JSX Element > existing LinkButton import with different name
-				  import { LinkButton as CustomLinkButton } from '@atlaskit/button/new';
+				  import CustomLinkButton from '@atlaskit/button/link';
 				  <CustomLinkButton href="/">Hello, World!</CustomLinkButton>
 				`,
 						},
@@ -219,10 +219,10 @@ ruleTester.run('no-html-anchor', rule, {
 					`,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
 					  // Existing Link import with same name from another package
-					  import { LinkButton } from '@atlaskit/button/new';
+					  import LinkButton from '@atlaskit/button/link';
 					  import Link from 'another-package';
 					  <LinkButton href="/">Hello, World!</LinkButton>
 					`,
@@ -251,10 +251,10 @@ ruleTester.run('no-html-anchor', rule, {
 					`,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
 					  // Existing LinkButton import with same name from another package
-					  import { LinkButton1 } from '@atlaskit/button/new';
+					  import LinkButton1 from '@atlaskit/button/link';
 					  import { LinkButton } from 'another-package';
 					  <LinkButton1 href="/">Hello, World!</LinkButton1>
 					`,
@@ -287,10 +287,10 @@ ruleTester.run('no-html-anchor', rule, {
 					`,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
 					  // Existing Link, Link1, and Link2 imports
-					  import { LinkButton } from '@atlaskit/button/new';
+					  import LinkButton from '@atlaskit/button/link';
 					  import Link from 'another-package';
 					  import Link1 from 'yet-another-package';
 					  import Link2 from '@some/package';
@@ -325,10 +325,10 @@ ruleTester.run('no-html-anchor', rule, {
 					`,
 						},
 						{
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 							output: linesOnly`
 					  // Existing LinkButton, LinkButton1, and LinkButton2 imports
-					  import { LinkButton3 } from '@atlaskit/button/new';
+					  import LinkButton3 from '@atlaskit/button/link';
 					  import { LinkButton } from 'another-package';
 					  import { LinkButton as LinkButton1 } from 'yet-another-package';
 					  import { LinkButton as LinkButton2 } from '@some/package';
@@ -359,10 +359,10 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
                                 // JSX Element > reports for a self-closing div with role="link"
-                                import { LinkButton } from '@atlaskit/button/new';
+                                import LinkButton from '@atlaskit/button/link';
                                 <LinkButton role="link" />
 							`,
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 						},
 					],
 				},
@@ -388,10 +388,10 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
                                 // JSX Element > reports for a div with role="link"
-                                import { LinkButton } from '@atlaskit/button/new';
+                                import LinkButton from '@atlaskit/button/link';
                                 <LinkButton role="link">Hello, World!</LinkButton>
 							`,
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 						},
 					],
 				},
@@ -417,10 +417,10 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
                                 // JSX Element > reports for a span with role="link"
-                                import { LinkButton } from '@atlaskit/button/new';
+                                import LinkButton from '@atlaskit/button/link';
                                 <LinkButton role="link">Hello, World!</LinkButton>
 							`,
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 						},
 					],
 				},
@@ -446,10 +446,10 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
                                 // JSX Element > reports for a button with role="link"
-                                import { LinkButton } from '@atlaskit/button/new';
+                                import LinkButton from '@atlaskit/button/link';
                                 <LinkButton role="link">Hello, World!</LinkButton>
 							`,
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 						},
 					],
 				},
@@ -475,10 +475,10 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
 							// JSX Element > reports for a main with role="link"
-							import { LinkButton } from '@atlaskit/button/new';
+							import LinkButton from '@atlaskit/button/link';
 							<LinkButton role="link">Hello, World!</LinkButton>
 						`,
-							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							desc: 'Replace with LinkButton component from @atlaskit/button/link',
 						},
 					],
 				},

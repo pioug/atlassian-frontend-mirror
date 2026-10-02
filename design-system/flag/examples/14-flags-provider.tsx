@@ -8,7 +8,7 @@ import type { CreateFlagArgs } from '@atlaskit/flag/flag-provider';
 import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { useFlags } from '@atlaskit/flag/use-flags';
 import Info from '@atlaskit/icon/core/status-information';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

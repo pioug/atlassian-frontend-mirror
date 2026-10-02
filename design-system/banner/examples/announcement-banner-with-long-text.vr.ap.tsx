@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 export default (): React.JSX.Element => (
 	<>

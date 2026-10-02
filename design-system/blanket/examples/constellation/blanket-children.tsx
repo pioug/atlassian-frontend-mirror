@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 import Blanket from '@atlaskit/blanket/blanket';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const blanketChildStyles = cssMap({

@@ -1,7 +1,9 @@
 import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 import SectionMessageAction from '@atlaskit/section-message/message-action';
 

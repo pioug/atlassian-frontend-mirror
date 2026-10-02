@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import RightArrow from '@atlaskit/icon/core/arrow-right';
 import ButtonItem from '@atlaskit/menu/button-item';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import ImgIcon from './common/img-icon';

@@ -6,7 +6,9 @@ import { css, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar/avatar';
 import Heading from '@atlaskit/heading/heading';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import AvatarTag from '@atlaskit/tag/avatar-tag';
 import Tag from '@atlaskit/tag/removable-tag';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';

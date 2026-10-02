@@ -34,7 +34,9 @@ import {
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Show, Text, UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
+import { Show } from '@atlaskit/primitives/compiled/show';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled/use-media-query';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';

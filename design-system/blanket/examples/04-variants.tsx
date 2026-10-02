@@ -11,7 +11,9 @@ import Button from '@atlaskit/button/default/button';
 import { css, cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 

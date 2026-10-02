@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.0
+
+### Minor Changes
+
+- [`a71ad686528a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a71ad686528a4) -
+  Behind `platform_editor_slash_command`: add `isRecommendedItem` and `maxRecommendedItems` plugin
+  options for curating the Recommended section of the `/` menu; provider and extension items are
+  matched by their source key.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

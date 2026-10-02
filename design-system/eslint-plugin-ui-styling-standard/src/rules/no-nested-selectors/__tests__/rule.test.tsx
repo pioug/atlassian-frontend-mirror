@@ -97,6 +97,30 @@ typescriptEslintTester.run(
           });
         `,
 			},
+			{
+				name: 'Pseudo selector wrapped in satisfies',
+				code: `
+          import { styled } from '@compiled/react';
+          type HOVER = 'hover';
+          const Component = styled.div({
+            ['&:hover' satisfies \`&:\${HOVER}\`]: {
+              color: 'red',
+            },
+          });
+        `,
+			},
+			{
+				name: 'At-rule wrapped in satisfies',
+				code: `
+          import { css } from '@compiled/react';
+          import type media from '@atlaskit/css/at-rules/media-above-md';
+          const styles = css({
+            ['@media (min-width: 64rem)' satisfies media]: {
+              fontSize: '1.5rem',
+            },
+          });
+        `,
+			},
 		],
 		invalid: [
 			{
@@ -356,6 +380,46 @@ typescriptEslintTester.run(
             }
           });
 				`,
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Nested class selector wrapped in satisfies',
+				code: `
+          import { styled } from '@compiled/react';
+          import type { FOO_CLASS } from './constants';
+          const Component = styled.div({
+            ['.foo' satisfies \`.\${typeof FOO_CLASS}\`]: {
+              color: 'red',
+            },
+          });
+        `,
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Nested id selector wrapped in satisfies inside a nested block',
+				code: `
+          import { css } from '@compiled/react';
+          import type { FOO_ID } from './constants';
+          const styles = css({
+            '&:hover': {
+              ['#foo' satisfies \`#\${typeof FOO_ID}\`]: {
+                display: 'none',
+              },
+            },
+          });
+        `,
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Nested selector wrapped in chained satisfies and as',
+				code: `
+          import { css } from '@compiled/react';
+          const styles = css({
+            [('div' as 'div') satisfies string]: {
+              color: 'red',
+            },
+          });
+        `,
 				errors: [{ messageId: 'no-nested-selectors' }],
 			},
 		],

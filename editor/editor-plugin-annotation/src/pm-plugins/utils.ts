@@ -383,7 +383,18 @@ export const isSelectionValid = (
 		return AnnotationSelectionType.DISABLED;
 	}
 
-	if (disallowOnWhitespace && hasInvalidWhitespaceNode(selection, state.schema)) {
+	// Extension content lives outside the editor document, so an eligible whole-block
+	// selection must not be rejected for having no commentable text descendants.
+	const isSupportedExtensionSelection =
+		fg('cc_maui_annotations_on_extensions') &&
+		isSupportedBlockNodeSelection &&
+		selection instanceof NodeSelection &&
+		selection.node.type.name === 'extension';
+	if (
+		disallowOnWhitespace &&
+		!isSupportedExtensionSelection &&
+		hasInvalidWhitespaceNode(selection, state.schema)
+	) {
 		return AnnotationSelectionType.INVALID;
 	}
 

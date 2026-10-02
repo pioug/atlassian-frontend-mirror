@@ -6,7 +6,7 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import Arrow from '@atlaskit/icon/core/arrow-right';
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const styles = cssMap({
 	item: {

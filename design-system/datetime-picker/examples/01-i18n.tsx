@@ -14,7 +14,7 @@ import type { DatePickerBaseProps as DatePickerProps } from '@atlaskit/datetime-
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { components } from '@atlaskit/react-select/components';
 import Select from '@atlaskit/select/default';
 import type { ValueType } from '@atlaskit/select/types';

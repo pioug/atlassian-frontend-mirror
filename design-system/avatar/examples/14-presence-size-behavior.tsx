@@ -2,7 +2,8 @@ import React, { type FC, useState } from 'react';
 
 import Presence from '@atlaskit/avatar/presence';
 import { Label } from '@atlaskit/form/label/default';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 

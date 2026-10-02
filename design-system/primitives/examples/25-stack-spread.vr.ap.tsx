@@ -5,7 +5,7 @@ import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives/stack';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss';
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 const flexStyles = xcss({ display: 'flex' });

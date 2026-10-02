@@ -2,8 +2,6 @@ import React from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { EmptyState } from '../../../../../common/ui/empty-state';
 import { NoResultsSVG } from './no-results-svg';
 
@@ -47,9 +45,7 @@ export const NoResults = ({
 			testId={testIds.emptyResultPage}
 			header={intl.formatMessage(messages.noResults)}
 			description={intl.formatMessage(messages.noResultsDescription)}
-			renderImage={
-				!shouldRenderImage && fg('aifc_create_enabled') ? undefined : () => <NoResultsSVG />
-			}
+			renderImage={!shouldRenderImage ? undefined : () => <NoResultsSVG />}
 		/>
 	);
 };

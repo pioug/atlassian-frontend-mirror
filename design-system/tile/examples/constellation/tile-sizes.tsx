@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Tile from '@atlaskit/tile/tile';
 
 export default function TileSizes(): React.JSX.Element {

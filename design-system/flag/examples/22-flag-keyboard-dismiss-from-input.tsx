@@ -2,10 +2,12 @@ import React, { type ChangeEvent, type KeyboardEvent, type SyntheticEvent, useSt
 
 import Button from '@atlaskit/button/default/button';
 import Flag from '@atlaskit/flag/flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import Heading from '@atlaskit/heading/heading';
 import InfoIcon from '@atlaskit/icon/core/status-information';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import SectionMessage from '@atlaskit/section-message/message';
 import Textfield from '@atlaskit/textfield/text-field';

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-layout
 
+## 25.0.1
+
+### Patch Changes
+
+- [`6e187a17c0713`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e187a17c0713) -
+  Fix inner layout resize handles appearing when editor is in view mode despite not being able to
+  resize anything. Behind experiment `platform_editor_disable_view_layout_resize`
+- Updated dependencies
+
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.0
 
 ### Patch Changes

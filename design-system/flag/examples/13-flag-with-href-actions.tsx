@@ -7,7 +7,8 @@ import Error from '@atlaskit/icon/core/status-error';
 import Info from '@atlaskit/icon/core/status-information';
 import Tick from '@atlaskit/icon/core/status-success';
 import Warning from '@atlaskit/icon/core/status-warning';
-import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

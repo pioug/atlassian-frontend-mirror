@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 import SectionMessageAction from '@atlaskit/section-message/message-action';
 

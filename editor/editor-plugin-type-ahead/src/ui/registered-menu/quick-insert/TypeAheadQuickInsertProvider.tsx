@@ -12,11 +12,13 @@ export const TypeAheadQuickInsertProvider = ({
 	children,
 }: React.PropsWithChildren): React.JSX.Element => {
 	const {
+		activePreviewItemKey,
 		api,
 		editorView,
 		inputMethod,
 		menuOpenId,
 		onClose,
+		popupsMountPoint,
 		query,
 		surfaceContext,
 		triggerHandler,
@@ -42,15 +44,25 @@ export const TypeAheadQuickInsertProvider = ({
 	);
 	const contextValue = useMemo(
 		() => ({
+			activePreviewItemKey,
 			editorView,
 			isOffline,
 			menuOpenId,
-			item: { id: 'typeahead-quick-insert', isSelected: false },
+			popupsMountPoint,
+			item: { id: 'typeahead-quick-insert', isPreviewActive: false, isSelected: false },
 			surface: 'typeahead' as const,
 			select,
 			surfaceContext,
 		}),
-		[editorView, isOffline, menuOpenId, select, surfaceContext],
+		[
+			activePreviewItemKey,
+			editorView,
+			isOffline,
+			menuOpenId,
+			popupsMountPoint,
+			select,
+			surfaceContext,
+		],
 	);
 
 	return <QuickInsertProvider value={contextValue}>{children}</QuickInsertProvider>;

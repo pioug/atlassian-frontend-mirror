@@ -8,7 +8,7 @@ import Button from '@atlaskit/button/button';
 import { css, cssMap, jsx } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightCard } from '@atlaskit/onboarding';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import { token } from '@atlaskit/tokens';
 

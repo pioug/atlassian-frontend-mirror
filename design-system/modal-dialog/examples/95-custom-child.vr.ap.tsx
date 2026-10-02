@@ -13,7 +13,8 @@ import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import { token } from '@atlaskit/tokens';
 

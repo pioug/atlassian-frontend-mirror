@@ -184,7 +184,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Label',
-				package: '@atlaskit/form/label',
+				package: '@atlaskit/form/label/default',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -211,7 +211,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Legend',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/legend',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -237,7 +237,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'HelperMessage',
-				package: '@atlaskit/form/messages',
+				package: '@atlaskit/form/helper-message',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -264,7 +264,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ErrorMessage',
-				package: '@atlaskit/form/messages',
+				package: '@atlaskit/form/error-message',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -291,7 +291,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ValidMessage',
-				package: '@atlaskit/form/messages',
+				package: '@atlaskit/form/valid-message',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -319,7 +319,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'MessageWrapper',
-				package: '@atlaskit/form/messages',
+				package: '@atlaskit/form/message-wrapper',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),

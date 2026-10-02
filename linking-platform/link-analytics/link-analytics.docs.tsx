@@ -18,7 +18,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useSmartLinkLifecycleAnalytics',
-				package: '@atlaskit/link-analytics',
+				package: '@atlaskit/link-analytics/use-smart-link-lifecycle-analytics',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -46,7 +46,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useDatasourceLifecycleAnalytics',
-				package: '@atlaskit/link-analytics',
+				package: '@atlaskit/link-analytics/use-datasource-lifecycle-analytics',
 				type: 'named',
 				packagePath,
 				packageJson,

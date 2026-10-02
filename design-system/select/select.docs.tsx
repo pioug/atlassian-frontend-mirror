@@ -9,7 +9,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Select',
-				package: '@atlaskit/select/select',
+				package: '@atlaskit/select/default',
 				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),

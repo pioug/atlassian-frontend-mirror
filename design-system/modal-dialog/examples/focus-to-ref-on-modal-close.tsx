@@ -6,7 +6,9 @@ import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 export default function ReturnFocusToElement(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);

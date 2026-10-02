@@ -4,7 +4,7 @@ import AttachmentIcon from '@atlaskit/icon/core/attachment';
 import ImageIcon from '@atlaskit/icon/core/image';
 import OfficeBuildingIcon from '@atlaskit/icon/core/office-building';
 import StopwatchIcon from '@atlaskit/icon/core/stopwatch';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 const IconDefaultNewExample = (): React.JSX.Element => {
 	return (

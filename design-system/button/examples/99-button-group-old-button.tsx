@@ -10,7 +10,7 @@ import Button from '@atlaskit/button/button';
 import ButtonGroup from '@atlaskit/button/button-group';
 import { cssMap } from '@atlaskit/css';
 import AudioIcon from '@atlaskit/icon/core/audio';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

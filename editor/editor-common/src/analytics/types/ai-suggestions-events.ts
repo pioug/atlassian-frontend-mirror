@@ -1,32 +1,33 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { OperationalAEP, TrackAEP } from './utils';
 
-export type AiSuggestionsEntryPoint =
-	| 'primaryToolbar'
+export enum AiSuggestionsEntryPointValue {
+	PRIMARY_TOOLBAR = 'primaryToolbar',
 	/**
 	 * @private
 	 * @deprecated Legacy entry point retained for backwards compatibility.
-	 * Use `suggestionsPanelEmptyState` for the standalone suggestions panel.
+	 * Use `SUGGESTIONS_PANEL_EMPTY_STATE` for the standalone suggestions panel.
 	 */
-	| 'commentsEmptyState'
-	| 'suggestionsPanelEmptyState'
-	| 'suggestionsPanelHeader'
-	| 'objectSidebarControl'
+	COMMENTS_EMPTY_STATE = 'commentsEmptyState',
+	SUGGESTIONS_PANEL_EMPTY_STATE = 'suggestionsPanelEmptyState',
+	SUGGESTIONS_PANEL_HEADER = 'suggestionsPanelHeader',
+	OBJECT_SIDEBAR_CONTROL = 'objectSidebarControl',
 	/**
 	 * @private
 	 * @deprecated Legacy automatic-generation entry point retained for backwards compatibility.
 	 */
-	| 'suggestionsPanelMount'
-	/**
-	 * The "Review" button on the follow-up card shown in place of the suggestion card
-	 * once the last inline comment suggestion has been actioned.
-	 */
-	| 'followUpCard';
+	SUGGESTIONS_PANEL_MOUNT = 'suggestionsPanelMount',
+	/** The "Review" button on the follow-up card after the last suggestion is actioned. */
+	FOLLOW_UP_CARD = 'followUpCard',
+}
+export type AiSuggestionsEntryPoint = `${AiSuggestionsEntryPointValue}`;
 export type AiSuggestionInteractionPoint = 'sidebar' | 'card' | 'statusBar';
-export type AiSuggestionsRightRailEntryPoint =
-	| 'suggestionsPanel'
-	| 'suggestionsTab'
-	| 'suggestionCard'; // 'suggestionsTab' will be deprecated;
+export enum AiSuggestionsRightRailEntryPointValue {
+	SUGGESTIONS_PANEL = 'suggestionsPanel',
+	SUGGESTIONS_TAB = 'suggestionsTab', // Will be deprecated.
+	SUGGESTION_CARD = 'suggestionCard',
+}
+export type AiSuggestionsRightRailEntryPoint = `${AiSuggestionsRightRailEntryPointValue}`;
 export type AiSuggestionsEmptyStateType = 'initial' | 'noSuggestionsFound' | 'suggestionsResolved';
 export type AiSuggestionsConversationErrorReason =
 	| 'agentDeactivated'
@@ -37,13 +38,21 @@ export type AiSuggestionsConversationErrorReason =
 	| 'conversationSetup'
 	| 'streamError';
 
-export type AiSuggestionsRegenerationTrigger =
-	| 'panelOpen'
-	| 'reviewCompleted'
-	| 'suggestionSelected'
-	| 'suggestionsUpdated';
+export enum AiSuggestionsRegenerationTriggerValue {
+	PANEL_OPEN = 'panelOpen',
+	REVIEW_COMPLETED = 'reviewCompleted',
+	SUGGESTION_SELECTED = 'suggestionSelected',
+	SUGGESTIONS_UPDATED = 'suggestionsUpdated',
+}
 
-export type AiSuggestionsRegenerationOutcome = 'removed' | 'stillStale' | 'updated';
+export enum AiSuggestionsRegenerationOutcomeValue {
+	REMOVED = 'removed',
+	STILL_STALE = 'stillStale',
+	UPDATED = 'updated',
+}
+
+export type AiSuggestionsRegenerationTrigger = `${AiSuggestionsRegenerationTriggerValue}`;
+export type AiSuggestionsRegenerationOutcome = `${AiSuggestionsRegenerationOutcomeValue}`;
 
 type SuggestionRemixAttributes = {
 	remixSubtype?: string;
@@ -155,7 +164,9 @@ type EntryPointExposureAEP = TrackAEP<
 		entryPoint: AiSuggestionsEntryPoint;
 	},
 	undefined
->;
+> & {
+	source?: 'objectSidebar';
+};
 
 type SuggestionLifecycleAttributes = SuggestionRemixAttributes &
 	TimeSinceGenerationAttribute & {

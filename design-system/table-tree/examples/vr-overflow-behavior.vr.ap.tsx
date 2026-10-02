@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import TableTree from '@atlaskit/table-tree';
 
 type Content = { title: string; description: string };

@@ -5,7 +5,8 @@
 import { type ReactNode, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';
 import { SpotlightBody } from '@atlaskit/spotlight/body';
 import { SpotlightCard } from '@atlaskit/spotlight/card';

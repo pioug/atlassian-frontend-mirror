@@ -6,7 +6,7 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import Code from '@atlaskit/code/code';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

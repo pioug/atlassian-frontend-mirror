@@ -3,20 +3,19 @@ import React from 'react';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import { token } from '@atlaskit/tokens';
 
 import { Card } from '../../src';
 
-const headingBoxStyles = xcss({
-	marginBottom: 'space.100',
-});
-
-const stackBoxStyles = xcss({
-	marginTop: 'space.100',
+const styles = cssMap({
+	heading: { marginBottom: token('space.100') },
+	stack: { marginTop: token('space.100') },
 });
 
 type ExampleComponentProps = {
@@ -73,11 +72,11 @@ export default (): React.JSX.Element => {
 
 	return (
 		<Box>
-			<Box xcss={headingBoxStyles}>
+			<Box xcss={styles.heading}>
 				<Heading size="medium">Interact with the link below and see events being fired</Heading>
 			</Box>
 			<ExampleComponent setRecentEvents={setRecentEvents} />
-			<Box xcss={stackBoxStyles}>
+			<Box xcss={styles.stack}>
 				<Heading size="small">The 10 Most Recent Events Fired</Heading>
 				<ol>
 					{mostRecent10Events.map((event, index) => {

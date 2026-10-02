@@ -8,7 +8,9 @@ import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import PlaceholderContent from './placeholder-content';

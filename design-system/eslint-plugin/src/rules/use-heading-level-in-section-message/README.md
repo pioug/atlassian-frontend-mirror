@@ -10,9 +10,9 @@ For more information on proper heading flow, consider this
 ### Incorrect
 
 ```tsx
-import Heading from '@atlaskit/heading';
-import { Text } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import Heading from '@atlaskit/heading/heading';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import SectionMessage from '@atlaskit/section-message/message';
 
 <Heading as="h1">Jira</Heading>
 <SectionMessage title="Editing is restricted">
@@ -24,9 +24,9 @@ import SectionMessage from '@atlaskit/section-message';
 ### Correct
 
 ```tsx
-import Heading from '@atlaskit/heading';
-import { Text } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import Heading from '@atlaskit/heading/heading';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import SectionMessage from '@atlaskit/section-message/message';
 
 <Heading as="h1">Jira</Heading>
 <SectionMessage title="Editing is restricted" headingLevel="h2">

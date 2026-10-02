@@ -3,7 +3,7 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import OpenIcon from '@atlaskit/icon/core/arrow-up-right';
 import AddItemIcon from '@atlaskit/icon/core/shortcut';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { token } from '@atlaskit/tokens';

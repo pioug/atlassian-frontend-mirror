@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import Button from '@atlaskit/button/default/button';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const BreadcrumbsControlledExample = (): React.JSX.Element => {
 	const [isExpanded, setExpanse] = useState(false);

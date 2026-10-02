@@ -16,7 +16,7 @@ import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import SectionMessage from '@atlaskit/section-message/message';
 import Select from '@atlaskit/select/default';
 import type { Operation } from '@atlaskit/side-nav-items/drag-and-drop/hitbox';

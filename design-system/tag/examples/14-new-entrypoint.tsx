@@ -6,7 +6,9 @@ import { css, jsx } from '@compiled/react';
 
 import Code from '@atlaskit/code/code';
 import Heading from '@atlaskit/heading/heading';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Tag from '@atlaskit/tag/tag-new';
 // oxlint-disable-next-line no-duplicate-imports
 import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
@@ -52,7 +54,7 @@ const colors: NewTagColor[] = [
  * callsites (updating import paths back to `@atlaskit/tag`).
  * If your app has access to feature flags, please use the default entrypoint instead.
  *
- * Usage: `import Tag from '@atlaskit/tag/new';`
+ * Usage: `import Tag from '@atlaskit/tag/tag-new';`
  */
 export default function NewEntrypointTagExample(): JSX.Element {
 	return (

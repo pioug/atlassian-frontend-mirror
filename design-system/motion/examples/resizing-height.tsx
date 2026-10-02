@@ -13,7 +13,7 @@ import { BitbucketIcon, ConfluenceIcon, OpsgenieIcon, StatuspageIcon } from '@at
 import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import FadeIn from '@atlaskit/motion/fade-in';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
-import { useResizingHeight } from '@atlaskit/motion/use-resizing-height';
+import { useResizing } from '@atlaskit/motion/use-resizing';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
@@ -63,7 +63,11 @@ const searchTerm: { [key: string]: string } = {
 
 export default (): JSX.Element => {
 	const [num, setNum] = useState(1);
-	const resizingHeightProps = useResizingHeight();
+	const resizingHeightProps = useResizing({
+		dimension: 'height',
+		duration: token('motion.duration.medium'),
+		easing: token('motion.easing.inout.bold'),
+	});
 
 	return (
 		<div>

@@ -8,6 +8,9 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { createEditorProxy } from './createEditorProxy';
+import type { ColorScheme } from './decorations/colorSchemes/types';
+import { getAtomicInlineChangedAttrs } from './decorations/createInlineChangedDecoration';
+import { isInlineAttrChangeNodeName } from './decorations/utils/getAttrChangeRanges';
 import { wrapInMarkViews } from './markViews';
 
 /**
@@ -42,6 +45,13 @@ export function isEditorViewWithNodeViews(view: EditorView): view is EditorViewW
 
 /** Expand-family nodes whose expanded state lives in a node-keyed WeakMap. */
 const EXPAND_TYPES = new Set(['expand', 'nestedExpand']);
+
+/** Merges an inline style string onto an element's existing `style` attribute. */
+const appendInlineStyle = (element: HTMLElement, style: string): void => {
+	const currentStyle = element.getAttribute('style') ?? '';
+	const separator = currentStyle && style && !currentStyle.trimEnd().endsWith(';') ? '; ' : '';
+	element.setAttribute('style', `${currentStyle}${separator}${style}`);
+};
 
 /** Tables are the only node views that read and write positions, so only they need a preview. */
 const containsTable = (node: PMNode): boolean => {
@@ -95,6 +105,8 @@ export class NodeViewSerializer {
 		contentDOM: HTMLElement | null | undefined,
 		basePos: number = 0,
 		editorProxy?: EditorView,
+		isInserted?: boolean,
+		colorScheme?: ColorScheme,
 	) {
 		// A node's first child sits one position inside it, and each subsequent
 		// child is offset by the previous child's `nodeSize`. Tracking this lets nested node
@@ -102,8 +114,30 @@ export class NodeViewSerializer {
 		let childPos = basePos + 1;
 		children.forEach((child) => {
 			const childNode =
-				this.tryCreateNodeViewInner(child, childPos, editorProxy) || this.serializeNode(child);
+				this.tryCreateNodeViewInner(child, childPos, editorProxy, isInserted, colorScheme) ||
+				this.serializeNode(child);
 			if (childNode) {
+				// Give inserted atomic children the same box-shadow
+				// highlight an in-place attribute change already gets (`getAtomicInlineChangedAttrs`).
+				if (
+					isInserted &&
+					isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') &&
+					isInlineAttrChangeNodeName(child.type.name) &&
+					childNode instanceof HTMLElement
+				) {
+					const { className, styleSuffix } = getAtomicInlineChangedAttrs(
+						child.type.name,
+						colorScheme,
+					);
+					const existingClassName = childNode.getAttribute('class') ?? '';
+					childNode.setAttribute(
+						'class',
+						existingClassName ? `${existingClassName} ${className}` : className,
+					);
+					if (styleSuffix) {
+						appendInlineStyle(childNode, styleSuffix);
+					}
+				}
 				contentDOM?.append(childNode);
 			}
 			childPos += child.nodeSize;
@@ -122,6 +156,8 @@ export class NodeViewSerializer {
 		targetNode: PMNode,
 		basePos: number = 0,
 		$sourcePos?: ResolvedPos,
+		isInserted?: boolean,
+		colorScheme?: ColorScheme,
 	): Node | null {
 		if (!this.editorView) {
 			return null;
@@ -136,6 +172,8 @@ export class NodeViewSerializer {
 			targetNode,
 			preview?.rootPos ?? basePos,
 			preview?.editorProxy,
+			isInserted,
+			colorScheme,
 		);
 	}
 
@@ -143,6 +181,8 @@ export class NodeViewSerializer {
 		targetNode: PMNode,
 		basePos: number = 0,
 		editorProxy?: EditorView,
+		isInserted?: boolean,
+		colorScheme?: ColorScheme,
 	): Node | null {
 		if (!this.editorView) {
 			return null;
@@ -198,7 +238,14 @@ export class NodeViewSerializer {
 					) {
 						return this.serializeFragment(targetNode.content);
 					}
-					this.appendChildNodes(targetNode.children, contentDOM, basePos, editorProxy);
+					this.appendChildNodes(
+						targetNode.children,
+						contentDOM,
+						basePos,
+						editorProxy,
+						isInserted,
+						colorScheme,
+					);
 				}
 				return this.withMarkViews(targetNode, dom, editorProxy);
 			}
@@ -229,7 +276,14 @@ export class NodeViewSerializer {
 				{} as DecorationSource,
 			);
 			// Iteratively populate children
-			this.appendChildNodes(targetNode.children, contentDOM, basePos, editorProxy);
+			this.appendChildNodes(
+				targetNode.children,
+				contentDOM,
+				basePos,
+				editorProxy,
+				isInserted,
+				colorScheme,
+			);
 
 			return this.withMarkViews(targetNode, dom, editorProxy);
 		} catch {

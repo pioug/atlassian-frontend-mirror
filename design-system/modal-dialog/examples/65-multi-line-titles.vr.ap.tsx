@@ -11,7 +11,7 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import type { Appearance } from '@atlaskit/modal-dialog/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import RadioGroup from '@atlaskit/radio/radio-group';
 
 import PlaceholderContent from './placeholder-content';

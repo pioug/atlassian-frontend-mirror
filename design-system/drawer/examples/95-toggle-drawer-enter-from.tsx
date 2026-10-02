@@ -8,7 +8,8 @@ import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import { Label } from '@atlaskit/form/label/default';
 import type { Direction } from '@atlaskit/motion/entering/types';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 const DrawersExample = (): React.JSX.Element => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);

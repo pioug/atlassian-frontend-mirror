@@ -1,7 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { withTheme } from '@emotion/react';
 import classnames from 'classnames';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
@@ -19,8 +17,6 @@ import {
 	akEditorFullPageMaxWidth,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { GridPlugin } from './gridPluginType';
 import type { CreateDisplayGrid, GridPluginOptions, GridPluginState, Highlights } from './types';
@@ -144,45 +140,7 @@ type Props = {
 	overlayWidth: number;
 
 	shouldCalcBreakoutGridLines?: boolean;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	theme?: any;
 	visible: boolean;
-};
-
-const GridLegacy = ({
-	highlight,
-	shouldCalcBreakoutGridLines,
-	theme,
-	containerElement,
-	editorWidth,
-	gridType,
-	overlayWidth,
-	visible,
-}: Props) => {
-	const editorMaxWidth = theme.layoutMaxWidth;
-	const gridLines = [
-		...lineLengthGridLines(highlight),
-		...gutterGridLines(editorMaxWidth, editorWidth, highlight, shouldCalcBreakoutGridLines),
-	];
-
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<div className="gridParent">
-			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={classnames('gridContainer', gridType)}
-				style={{
-					height: `${containerElement.scrollHeight}px`,
-					display: visible ? 'block' : 'none',
-					width: `${overlayWidth}px`,
-				}}
-				data-testid="gridContainer"
-			>
-				{gridLines}
-			</div>
-		</div>
-	);
 };
 
 const GridNext = ({
@@ -218,16 +176,6 @@ const GridNext = ({
 	);
 };
 
-const ThemedGridLegacy = withTheme(GridLegacy);
-
-const ThemedGrid = componentWithCondition(
-	() =>
-		expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true) ||
-		expValEquals('platform_editor_core_static_css', 'isEnabled', true),
-	GridNext,
-	ThemedGridLegacy,
-);
-
 const selector = (
 	states: NamedPluginStatesFromInjectionAPI<
 		ExtractInjectionAPI<typeof gridPlugin>,
@@ -262,7 +210,7 @@ const ContentComponent = ({ api, editorView, options }: ContentComponentProps) =
 	}
 
 	return (
-		<ThemedGrid
+		<GridNext
 			shouldCalcBreakoutGridLines={options && options.shouldCalcBreakoutGridLines}
 			editorWidth={width ?? akEditorFullPageMaxWidth}
 			// Ignored via go/ees005

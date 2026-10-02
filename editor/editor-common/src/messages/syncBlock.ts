@@ -436,6 +436,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	syncedLocationDropdownRestrictedContent: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	syncedLocationDropdownSamePage: {
 		defaultMessage: string;
 		description: string;
@@ -1052,6 +1057,12 @@ export const syncBlockMessages: {
 		defaultMessage: 'Request access',
 		description:
 			'Label shown in the synced location dropdown option when the sync block is not accessible to the user',
+	},
+	syncedLocationDropdownRestrictedContent: {
+		id: 'fabric.editor.syncedLocationDropdownRestrictedContent',
+		defaultMessage: 'Restricted content',
+		description:
+			'Title shown in the synced location dropdown in place of a page or work item the user does not have permission to view',
 	},
 	syncedLocationDropdownUntitledPage: {
 		id: 'fabric.editor.syncedLocationDropdownUntitledPage',

@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl';
 
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button/default/button';
+import { cssMap } from '@atlaskit/css';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { EditorActions } from '@atlaskit/editor-core';
@@ -46,14 +47,13 @@ import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-c
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 import { getLoomProvider } from './utils/provider/loom-provider';
 
-const styles = xcss({ height: '100%' });
+const styles = cssMap({ root: { height: '100%' } });
 const smartCardClient = new ConfluenceCardClient('stg');
 
 function OfflineIndicator({
@@ -161,7 +161,7 @@ function Editor() {
 	}, []);
 
 	return (
-		<Box xcss={styles}>
+		<Box xcss={styles.root}>
 			<SimulateMode />
 			<DevTools editorView={editorView} />
 			<OfflineIndicator editorApi={editorApi} />

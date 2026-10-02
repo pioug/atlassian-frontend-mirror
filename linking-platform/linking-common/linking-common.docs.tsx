@@ -40,8 +40,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Pulse',
-				package: '@atlaskit/linking-common',
-				type: 'named',
+				package: '@atlaskit/linking-common/pulse',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -65,7 +65,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Skeleton',
-				package: '@atlaskit/linking-common',
+				package: '@atlaskit/linking-common/skeleton',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -108,6 +108,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'function',
 			name: 'request',
+			import: {
+				name: 'request',
+				package: '@atlaskit/linking-common/api',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Thin `fetch` wrapper that talks to the linking resolver / ORS. Sets the standard JSON headers, `credentials: "include"`, and only accepts responses whose status is OK or appears in the `statuses` allow-list (default `[200, 401, 404]`). Other statuses cause the raw `Response` to be thrown; string errors and `TypeError`s from the network layer are normalised into a `NetworkError`. Caller is responsible for building the full URL (typically via `getResolverUrl`).',
 			status: 'general-availability',
@@ -157,6 +164,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'function',
 			name: 'promiseDebounce',
+			import: {
+				name: 'promiseDebounce',
+				package: '@atlaskit/linking-common/utils/promise-debounce',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Higher-order helper that returns a debounced wrapper around an async function. Each call cancels the previous pending timeout, so only the final invocation within `time` ms actually runs `cb`. Earlier callers receive promises that remain **pending forever** — they are never rejected.',
 			status: 'general-availability',
@@ -179,6 +193,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'function',
 			name: 'getStatus',
+			import: {
+				name: 'getStatus',
+				package: '@atlaskit/linking-common/utils/get-status',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Derives a `CardType` (Smart Card lifecycle status) from the JSON-LD response meta returned by the resolver. Maps `access: "forbidden"` + `visibility: "not_found"` to either `"not_found"` or `"forbidden"` based on the `requestAccess.accessType`, `access: "unauthorized"` to `"unauthorized"`, and everything else to `"resolved"`.',
 			status: 'general-availability',
@@ -243,6 +264,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'function',
 			name: 'filterSiteProducts',
+			import: {
+				name: 'filterSiteProducts',
+				package: '@atlaskit/linking-common/utils/filter-site-products',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Curried predicate factory. Given a list of products to require, returns a `(site: AvailableSite) => boolean` that keeps sites whose `products` overlap with the required list. Used by the link picker to limit results to sites the user can actually use for the target product.',
 			status: 'general-availability',
@@ -266,6 +294,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'function',
 			name: 'withFeatureFlaggedComponent',
+			import: {
+				name: 'withFeatureFlaggedComponent',
+				package: '@atlaskit/linking-common/utils/with-feature-flagged-component',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Higher-order component that swaps between two implementations based on a feature-gate function. Lets a package ship a new component behind a gate without forking the consuming call sites. The gate function is invoked per render — pass `() => fg("my_gate_name")`.',
 			status: 'general-availability',
@@ -294,6 +329,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'function',
 			name: 'cardAction',
+			import: {
+				name: 'cardAction',
+				package: '@atlaskit/linking-common/actions',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Action creator for the Smart Card Redux store. Builds a `CardAction<T>` from an action type and a `{ url }` params object, plus optional payload, error, metadata status, and an `ignoreStatusCheck` flag that forces the reducer to apply the action regardless of the current/next status. Use the exported `ACTION_*` constants for the `type` argument.',
 			status: 'general-availability',
@@ -330,6 +372,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'function',
 			name: 'getUrl',
+			import: {
+				name: 'getUrl',
+				package: '@atlaskit/linking-common/store',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Selector that pulls the `CardState` for a given URL out of the Smart Card Redux store. Returns `{ status: "pending" }` as a default when no entry exists yet, so consumers can render their pending UI without an explicit null check.',
 			status: 'general-availability',
@@ -346,6 +395,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'constant',
 			name: 'BaseUrls',
+			import: {
+				name: 'BaseUrls',
+				package: '@atlaskit/linking-common/client',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Record of resolver environments to Stargate base URLs. Three production aliases (`prd`, `prod`, `production`) all map to the same host; the same goes for `dev` / `development` and `stg` / `staging`. Underlying source of truth for `getBaseUrl`; exported for tests and downstream packages that need to match on the host.',
 			status: 'general-availability',
@@ -360,6 +416,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'constant',
 			name: 'DATASOURCE_DEFAULT_LAYOUT',
+			import: {
+				name: 'DATASOURCE_DEFAULT_LAYOUT',
+				package: '@atlaskit/linking-common/constants',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Default ADF layout applied to a Datasource node when no explicit layout is provided. Pinned constant so Confluence, Jira, and the editor render identical defaults.',
 			status: 'general-availability',
@@ -398,6 +461,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'type',
 			name: 'CardAppearance',
+			import: {
+				name: 'CardAppearance',
+				package: '@atlaskit/linking-common/types',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Discriminator for how a Smart Link should render: `inline` (chip inside text), `block` (single-line block card), or `embed` (rich preview embed). Used by ADF and by consumer props.',
 			status: 'general-availability',
@@ -409,6 +479,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'type',
 			name: 'CardType',
+			import: {
+				name: 'CardType',
+				package: '@atlaskit/linking-common/types',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Lifecycle status of a Smart Card store entry. Returned by `getStatus` and stored on `CardState.status`. Drives the choice between skeleton, content, error, fallback, unauthorised, forbidden, and not-found renderings.',
 			status: 'general-availability',
@@ -421,6 +498,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'type',
 			name: 'CardAction',
+			import: {
+				name: 'CardAction',
+				package: '@atlaskit/linking-common/types',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Redux action shape for the Smart Card store. Extends `AnyAction` with `type: CardActionType`, the card key `url`, an optional response `payload`, and an optional `metadataStatus`. Use the `cardAction` action creator to construct values rather than building this type by hand.',
 			status: 'general-availability',
@@ -433,6 +517,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'type',
 			name: 'InlineCardAdf',
+			import: {
+				name: 'InlineCardAdf',
+				package: '@atlaskit/linking-common/types',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'ADF node shape for inline Smart Links. Sister types `BlockCardAdf`, `EmbedCardAdf`, and `DatasourceAdf` cover the other appearances. Together `InlineCardAdf | BlockCardAdf | EmbedCardAdf` form `CardAdf`, the union accepted by `@atlaskit/editor-common-types` for Smart Link nodes.',
 			status: 'general-availability',
@@ -448,6 +539,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'type',
 			name: 'Datasource',
+			import: {
+				name: 'Datasource',
+				package: '@atlaskit/linking-common/types',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'Public contract for a Datasource node — id, parameters bag (generic, defaults to `Record<string, unknown>`), and the view configs that describe how the resolved rows should render. Exchanged between the editor, Confluence/Jira renderers, and the resolver.',
 			status: 'general-availability',
@@ -460,6 +558,13 @@ const documentation: StructuredContentSource = {
 		{
 			kind: 'type',
 			name: 'EnvironmentsKeys',
+			import: {
+				name: 'EnvironmentsKeys',
+				package: '@atlaskit/linking-common/types',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
 			description:
 				'String union of the resolver environments understood by `getBaseUrl` / `getResolverUrl`. Three environments with two-or-three aliases each (`dev` / `development`, `stg` / `staging`, `prd` / `prod` / `production`), plus a special `custom` value that pairs with the `baseUrlOverride` arg for SSR / non-standard hosts.',
 			status: 'general-availability',

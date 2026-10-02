@@ -36,6 +36,7 @@ import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import BugIcon from '@atlaskit/icon/core/bug';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import EpicIcon from '@atlaskit/icon/core/epic';
+import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import PageIcon from '@atlaskit/icon/core/page';
 import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
@@ -99,6 +100,17 @@ const logoTileStyles = css({
 	height: '20px',
 	borderRadius: token('radius.tile'),
 	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+});
+
+// Breadcrumbs and smart links draw the work item avatar without a tile. The 20px box keeps
+// Jira rows aligned with the tiled Confluence rows.
+const issueTypeAvatarStyles = css({
+	width: '20px',
+	height: '20px',
+	display: 'flex',
+	flexShrink: 0,
 	alignItems: 'center',
 	justifyContent: 'center',
 });
@@ -185,7 +197,28 @@ const styles = cssMap({
 		marginInlineStart: token('space.075'),
 		color: token('color.text.subtlest'),
 	},
+	restrictedIcon: {
+		display: 'flex',
+		alignItems: 'center',
+		alignSelf: 'center',
+		marginInlineStart: token('space.050'),
+	},
 });
+
+const isRestrictedLocation = (reference: SyncBlockSourceInfo): boolean =>
+	!reference.hasAccess && isExperimentEnabled('platform_editor_blocks_patch_11');
+
+/** The user requests access on the location itself, so a restricted row only shows a lock. */
+const NoAccessIndicator = ({ formatMessage }: { formatMessage: IntlShape['formatMessage'] }) =>
+	isExperimentEnabled('platform_editor_blocks_patch_11') ? (
+		<Box as="span" xcss={styles.restrictedIcon}>
+			<LockLockedIcon label="" size="small" color={token('color.icon.danger')} />
+		</Box>
+	) : (
+		<Box as="span" xcss={styles.requestAccess}>
+			{formatMessage(messages.syncedLocationDropdownRequestAccess)}
+		</Box>
+	);
 
 type FetchStatus = 'none' | 'loading' | 'success' | 'error';
 
@@ -263,11 +296,7 @@ const ItemTitle = ({
 					<Lozenge>{formatMessage(messages.syncedLocationDropdownSourceLozenge)}</Lozenge>
 				</Box>
 			)}
-			{!hasAccess && (
-				<Box as="span" xcss={styles.requestAccess}>
-					{formatMessage(messages.syncedLocationDropdownRequestAccess)}
-				</Box>
-			)}
+			{!hasAccess && <NoAccessIndicator formatMessage={formatMessage} />}
 		</Inline>
 	);
 };
@@ -308,8 +337,8 @@ const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
 };
 
 // Map AGG issue-type names to ADS icons. The mapping is by the English `name` returned
-// from AGG because Jira's REST/GraphQL API does not localise it at this layer. Custom
-// (non-default) issue types fall through to the AGG `iconUrl`.
+// from AGG because Jira's REST/GraphQL API does not localise it at this layer. With
+// `platform_editor_blocks_patch_11` the AGG `iconUrl` wins and these icons are the fallback.
 //
 // Type the icons as the same shape as `TaskIcon` so we don't import `NewCoreIconProps`
 // from a private icon entrypoint.
@@ -363,8 +392,19 @@ const renderJiraIssueTypeIcon = (
 	intl: IntlShape,
 ): ReactNode | null => {
 	const mapped = jiraIssueTypeIconMap[issueType.name];
+	const label = intl.formatMessage(
+		mapped ? messages[mapped.messageKey] : messages.syncedLocationDropdownIssueTypeGeneric,
+	);
+
+	if (issueType.iconUrl && isExperimentEnabled('platform_editor_blocks_patch_11')) {
+		return (
+			<span css={issueTypeAvatarStyles}>
+				<img src={issueType.iconUrl} alt={label} width="16" height="16" />
+			</span>
+		);
+	}
+
 	if (mapped) {
-		const label = intl.formatMessage(messages[mapped.messageKey]);
 		return <IconTile icon={mapped.icon} label={label} appearance={'gray'} size="xsmall" />;
 	}
 
@@ -372,7 +412,6 @@ const renderJiraIssueTypeIcon = (
 	// icon gets the same tile background, border-radius, and sizing as known issue types.
 	if (issueType.iconUrl) {
 		const CustomIcon = createCustomIssueTypeIcon(issueType.iconUrl);
-		const label = intl.formatMessage(messages.syncedLocationDropdownIssueTypeGeneric);
 		return <IconTile icon={CustomIcon} label={label} appearance={'gray'} size="xsmall" />;
 	}
 
@@ -504,6 +543,10 @@ const getBaseTitle = ({
 	formatMessage: IntlShape['formatMessage'];
 	reference: SyncBlockSourceInfo;
 }): string => {
+	if (isRestrictedLocation(reference)) {
+		return formatMessage(messages.syncedLocationDropdownRestrictedContent);
+	}
+
 	const title =
 		reference.title === '' && reference.hasAccess
 			? formatMessage(messages.syncedLocationDropdownUntitledPage)
@@ -1015,14 +1058,22 @@ const ControlLocationRows = ({
 
 	return (
 		<Fragment>
-			{referenceData.map((reference) => {
-				const title =
-					reference.title === '' && reference.hasAccess
+			{referenceData.map((reference, index) => {
+				const title = isRestrictedLocation(reference)
+					? formatMessage(messages.syncedLocationDropdownRestrictedContent)
+					: reference.title === '' && reference.hasAccess
 						? formatMessage(messages.syncedLocationDropdownUntitledPage)
 						: reference.title || reference.url || '';
 
 				return (
-					<div key={reference.title} css={dropdownItemStyles}>
+					<div
+						key={
+							isExperimentEnabled('platform_editor_blocks_patch_11')
+								? `${reference.sourceAri}#${index}`
+								: reference.title
+						}
+						css={dropdownItemStyles}
+					>
 						<Tooltip content={title}>
 							<DropdownItem
 								elemBefore={<ItemIcon reference={reference} intl={intl} />}
@@ -1072,11 +1123,7 @@ const FieldAwareItemTitle = ({
 					<Lozenge>{formatMessage(messages.syncedLocationDropdownSourceLozenge)}</Lozenge>
 				</Box>
 			)}
-			{!reference.hasAccess && (
-				<Box as="span" xcss={styles.requestAccess}>
-					{formatMessage(messages.syncedLocationDropdownRequestAccess)}
-				</Box>
-			)}
+			{!reference.hasAccess && <NoAccessIndicator formatMessage={formatMessage} />}
 		</Inline>
 	);
 

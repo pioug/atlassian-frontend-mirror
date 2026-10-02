@@ -4,13 +4,19 @@ import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
 import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import { useSetColorMode } from '@atlaskit/app-provider/use-set-color-mode';
 import Button from '@atlaskit/button/default/button';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import type { ThemeColorModes } from '@atlaskit/tokens/theme-color-modes';
 
 const code = `import React, { useEffect } from 'react';
 import AppProvider, { ThemeProvider, useColorMode, useSetColorMode } from '@atlaskit/app-provider';
-import Button from '@atlaskit/button/new';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import Button from '@atlaskit/button/default/button';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import type { ThemeColorModes } from '@atlaskit/tokens';
 
 function InvertedPanelContent({ parentColorMode }: { parentColorMode: ThemeColorModes }) {

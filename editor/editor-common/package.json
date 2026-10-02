@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "127.1.0",
+	"version": "128.1.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,6 +30,8 @@
 	"exports": {
 		"./ai-messages": "./src/ai-messages/index.ts",
 		"./analytics": "./src/analytics/index.ts",
+		"./analytics/ai-suggestions-regeneration": "./src/analytics/types/ai-suggestions-events.ts",
+		"./analytics/ai-suggestions-entry-points": "./src/analytics/types/ai-suggestions-events.ts",
 		"./annotation": "./src/annotation/index.ts",
 		"./block-controls-suppression": "./src/block-controls-suppression.ts",
 		"./block-controls/block-control-ui-context": "./src/block-controls/block-control-ui-context.ts",

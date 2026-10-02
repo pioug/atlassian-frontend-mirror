@@ -34,6 +34,41 @@ typescriptEslintTester.run(
 				`,
 			},
 			{
+				name: 'Qualified typeof query in satisfies property values is not a style value',
+				code: `
+          import { cssMap } from '@compiled/react';
+          import type { Tokens } from './constants';
+
+          const styles = cssMap({
+            root: {
+              color: 'var(--project-color-text)' satisfies typeof Tokens.COLOR_TEXT,
+            },
+          });
+        `,
+			},
+			{
+				name: 'Deeply qualified typeof query in satisfies property values is not a style value',
+				code: `
+          import { css } from '@compiled/react';
+          import type { theme } from './constants';
+
+          const styles = css({
+            color: 'red' satisfies typeof theme.colors.primary,
+          });
+        `,
+			},
+			{
+				name: 'Qualified type reference in satisfies property values is not a style value',
+				code: `
+          import { css } from '@compiled/react';
+          import type * as Theme from './theme';
+
+          const styles = css({
+            color: 'red' satisfies Theme.Color,
+          });
+        `,
+			},
+			{
 				name: 'Local literal constrained by an imported type is not a style value',
 				code: `
           import { cssMap } from '@atlaskit/css';
@@ -287,6 +322,20 @@ typescriptEslintTester.run(
 			},
 		],
 		invalid: [
+			{
+				name: 'Runtime imported value constrained by a qualified typeof query is still reported',
+				code: `
+          import { cssMap } from '@compiled/react';
+          import { Tokens } from './constants';
+
+          const styles = cssMap({
+            root: {
+              color: Tokens.COLOR_TEXT satisfies typeof Tokens.COLOR_TEXT,
+            },
+          });
+        `,
+				errors: [{ messageId: 'no-imported-style-values', line: 7, column: 22 }],
+			},
 			{
 				name: 'Importing spreadElement',
 				code: `

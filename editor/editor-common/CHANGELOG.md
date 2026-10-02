@@ -1,5 +1,83 @@
 # @atlaskit/editor-common
 
+## 128.1.0
+
+### Minor Changes
+
+- [`a5e4fa298e7ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5e4fa298e7ad) -
+  [EDITOR-8408] Add the syncedLocationDropdownRestrictedContent message for synced locations the
+  viewer cannot access.
+- [`b31a1d76b3076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b31a1d76b3076) -
+  Restore the optional `FeatureFlags.lcmPreventRenderTracking` field to preserve the legacy content
+  macro opt-out when the `platform_editor_enable_rerender_tracking` experiment enables tracking.
+
+### Patch Changes
+
+- [`2f527121e0516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f527121e0516) -
+  Require deliberate pointer or keyboard activation before displaying registered slash-command
+  previews under `platform_editor_slash_command`. Avoid redundant menu renders when the pointer
+  moves within the active preview row.
+- [`2f527121e0516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f527121e0516) -
+  Keep active slash-command previews positioned with custom popup hosts such as Whiteboards.
+- Updated dependencies
+
+## 128.0.1
+
+### Patch Changes
+
+- [`668acb672d91e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/668acb672d91e) -
+  The generated content reveal opens in 150ms and the embed's fade, also 150ms, follows it after the
+  same 150ms, so the whole entrance takes 300ms.
+- [`5a55f9e71b685`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a55f9e71b685) -
+  Reorder the Create category in the editor slash command menu: Jira work item, Loom video,
+  Confluence page, Database, Whiteboard, Diagram, Flowchart, Brainstorm session, Retrospective,
+  Roadmap. Applies when the platform_editor_slash_command experiment is enabled.
+- Updated dependencies
+
+## 128.0.0
+
+### Major Changes
+
+- [`a71ad686528a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a71ad686528a4) -
+  Breaking changes
+
+  QuickInsertPluginOptions (deprecated, from @atlaskit/editor-common/types) no longer has
+  isRecommendedItem. Use the isRecommendedItem option on @atlaskit/editor-plugin-quick-insert
+  instead. IsRecommendedItemResult changed from number | null to { rank: number } | null. Custom
+  isRecommendedItem functions must return { rank } instead of a number.
+
+  Additions
+
+  createIsRecommendedItem(orderedKeys) builds an isRecommendedItem from an ordered list of keys.
+  quickInsertProviderMenuItemKey.getSourceKey returns a provider item's source key
+  (manifestKey:moduleKey). New TABS_MENU_ITEM and ADD_SUGGESTIONS_TO_CONTENT_SKILL_MENU_ITEM quick
+  insert keys.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 127.2.0
+
+### Minor Changes
+
+- [`823f26ef0b0ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/823f26ef0b0ba) -
+  Add uppercase named enum values for Suggested Edits regeneration and entry-point analytics, and
+  use them at production call sites while preserving existing string types and emitted values.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 127.1.1
+
+### Patch Changes
+
+- [`4b7d3cc53594a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b7d3cc53594a) -
+  Enable avatar mentions for the person and all cohorts of convo_ai_entity_hover_cards_non_hello_exp
+  alongside the existing editor avatar experiments. Make the avatar provider available in Chat for
+  these cohorts, regardless of mention source. Other cohorts retain the existing rollout checks.
+
 ## 127.1.0
 
 ### Minor Changes

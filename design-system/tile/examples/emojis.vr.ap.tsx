@@ -4,10 +4,11 @@
  */
 
 import { css, jsx } from '@atlaskit/css';
-import { Emoji } from '@atlaskit/emoji/element';
+import { Emoji } from '@atlaskit/emoji/emoji';
 import type { EmojiDescription } from '@atlaskit/emoji/types';
 import Heading from '@atlaskit/heading/heading';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Tile from '@atlaskit/tile/tile';
 
 import blueStarImage from './images/blue_star_64.png';

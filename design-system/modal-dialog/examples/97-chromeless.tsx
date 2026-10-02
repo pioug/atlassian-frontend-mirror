@@ -3,7 +3,10 @@ import React from 'react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Flex, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

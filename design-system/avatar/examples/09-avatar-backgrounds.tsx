@@ -15,7 +15,9 @@ import Code from '@atlaskit/code/code';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Grid, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import loomCircleImage from '../examples-util/loom-circle.svg';

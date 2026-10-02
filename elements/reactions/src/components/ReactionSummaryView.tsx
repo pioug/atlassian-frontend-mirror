@@ -62,6 +62,7 @@ interface ReactionSummaryViewProps
 			| 'emojiPickerSize'
 			| 'useButtonAlignmentStyling'
 			| 'reactionPickerTriggerText'
+			| 'wideReactionTooltip'
 		>,
 		Pick<TriggerProps, 'tooltipContent' | 'reactionPickerTriggerIcon' | 'disabled'> {
 	/**
@@ -161,6 +162,7 @@ export const ReactionSummaryView = ({
 	summaryGetOptimisticImageURL,
 	summaryButtonIconAfter,
 	summaryViewParticleEffectEmojiId,
+	wideReactionTooltip,
 }: ReactionSummaryViewProps): JSX.Element => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useDelayedState<boolean>(
 		false,
@@ -348,6 +350,7 @@ export const ReactionSummaryView = ({
 							{reactions.map((reaction) => {
 								return (
 									<Reaction
+										wideTooltip={wideReactionTooltip}
 										key={reaction.emojiId}
 										rootElement="li"
 										reaction={reaction}

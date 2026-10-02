@@ -3,7 +3,7 @@ import React from 'react';
 import CodeBlock from '@atlaskit/code/code-block';
 
 const exampleCodeBlock = `class HelloMessage extends React.Component {
-  import { Box } from '@atlaskit/primitives/compiled'
+  import { Box } from '@atlaskit/primitives/compiled/box';
 
   render() {
     return (

@@ -12,7 +12,10 @@ import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

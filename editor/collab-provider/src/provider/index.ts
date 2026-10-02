@@ -281,14 +281,6 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 						},
 						this.sessionId,
 					);
-				} else if (isExperimentEnabled('platform_editor_early_exit_return_draft')) {
-					// Conditionally run catchup based on CollabDraftMetadata.relevance
-					// Only catch up when relevance is 'STALE' or absent
-					// Skip catchup when relevance is 'LATEST' (draft is up-to-date)
-					const relevance = this.initialDraft?.metadata?.relevance;
-					if (relevance === 'STALE' || relevance === undefined) {
-						this.documentService.throttledCatchupv2(CatchupEventReason.PROCESS_STEPS);
-					}
 				}
 
 				this.participantsService.startInactiveRemover(this.sessionId);

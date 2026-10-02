@@ -5,7 +5,7 @@ import { cssMap } from '@atlaskit/css';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

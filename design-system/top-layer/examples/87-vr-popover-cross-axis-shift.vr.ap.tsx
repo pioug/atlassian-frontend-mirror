@@ -31,7 +31,8 @@ import { Fragment, type ReactNode, useRef, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { Popover } from '@atlaskit/top-layer/popover/popover';

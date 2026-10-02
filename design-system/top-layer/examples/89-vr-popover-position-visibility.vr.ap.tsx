@@ -23,7 +23,7 @@ import { type ReactNode, type RefObject, useRef, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { type TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';

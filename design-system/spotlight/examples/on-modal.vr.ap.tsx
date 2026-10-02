@@ -10,7 +10,7 @@ import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';
 import { SpotlightBody } from '@atlaskit/spotlight/body';
 import { SpotlightCard } from '@atlaskit/spotlight/card';

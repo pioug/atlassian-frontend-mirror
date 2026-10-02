@@ -13,7 +13,8 @@ import MenuIcon from '@atlaskit/icon/core/menu';
 import ButtonItem from '@atlaskit/menu/button-item';
 import Section from '@atlaskit/menu/section';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const nestedPopupStyles = cssMap({
 	root: {

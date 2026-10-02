@@ -2,7 +2,9 @@ import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import InlineMessage from '@atlaskit/inline-message';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 /**
  * Test fixture for the `InlineMessage` top-layer focus contract.

@@ -9,7 +9,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'IconNew',
-				package: '@atlaskit/icon/icon-new',
+				package: '@atlaskit/icon/components/icon-new',
 				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),

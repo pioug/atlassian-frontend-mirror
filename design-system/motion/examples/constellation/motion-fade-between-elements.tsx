@@ -12,7 +12,9 @@ import Heading from '@atlaskit/heading/heading';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 import Motion from '@atlaskit/motion/entering/motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Radio from '@atlaskit/radio/radio';
 import { token } from '@atlaskit/tokens';
 

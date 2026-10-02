@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::75b18fe1e3e0e0eeeb87a8dd4ed975ae>>
+ * @codegen <<SignedSource::4d0de15d2213df65666693ea490b4cce>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { Linter } from 'eslint';
@@ -27,7 +27,6 @@ const config: Linter.FlatConfig = {
 		'@atlaskit/ui-styling-standard/no-imported-style-values': 'error',
 		'@atlaskit/ui-styling-standard/no-nested-selectors': 'error',
 		'@atlaskit/ui-styling-standard/no-styled': 'error',
-		'@atlaskit/ui-styling-standard/no-top-layer-unsafe-selectors': 'error',
 		'@atlaskit/ui-styling-standard/no-unsafe-selectors': 'error',
 		'@atlaskit/ui-styling-standard/no-unsafe-values': 'error',
 		'@atlaskit/ui-styling-standard/no-unused-cssmap-properties': 'warn',

@@ -61,6 +61,23 @@ type TAriaAttributes = {
 };
 
 /**
+ * Returns the trigger button when the element is a button, or its first descendant button.
+ * InlineDialog accepts arbitrary child markup, so the first button is used as the pragmatic target
+ * when a wrapper contains multiple buttons.
+ */
+function getTriggerElement(trigger: HTMLElement | null): HTMLButtonElement | null {
+	if (!trigger) {
+		return null;
+	}
+
+	if (trigger instanceof HTMLButtonElement) {
+		return trigger;
+	}
+
+	return trigger.querySelector('button');
+}
+
+/**
  * Applies ARIA attributes to the child trigger element via an effect,
  * keeping them in sync with popup state.
  */
@@ -74,7 +91,7 @@ function TriggerWrapper({
 	ariaAttributes: TAriaAttributes;
 }) {
 	useEffect(() => {
-		const trigger = triggerRef.current;
+		const trigger = getTriggerElement(triggerRef.current);
 		if (!trigger) {
 			return;
 		}
@@ -99,8 +116,17 @@ function TriggerWrapper({
 		<div
 			css={displayContentsStyles.root}
 			ref={(node: HTMLDivElement | null) => {
-				const firstElementChild = (node?.firstElementChild ?? null) as HTMLElement | null;
-				triggerRef.current = firstElementChild;
+				if (!node) {
+					triggerRef.current = null;
+					return;
+				}
+
+				// CSS-in-JS may inject <style> elements into this wrapper; they are not trigger elements.
+				const triggerElement = Array.from(node.children).find(
+					(child): child is HTMLElement =>
+						child instanceof HTMLElement && !(child instanceof HTMLStyleElement),
+				);
+				triggerRef.current = triggerElement ?? null;
 			}}
 		>
 			{children}

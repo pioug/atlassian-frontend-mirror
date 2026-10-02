@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 // Previously, there was a bug in the date picker that caused empty space to be
 // present when the value provided to the date picker was hanged. This example

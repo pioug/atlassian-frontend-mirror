@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 23.0.1
+
+### Patch Changes
+
+- [`d341ec6f79916`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d341ec6f79916) -
+  Restrict block menu target visibility handling to editors with an external popup mount point under
+  platform_editor_popup_target_visibility.
+- Updated dependencies
+
+## 23.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.0
 
 ### Patch Changes

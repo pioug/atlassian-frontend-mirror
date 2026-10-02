@@ -7,7 +7,8 @@ import Heading from '@atlaskit/heading/heading';
 import GlobeIcon from '@atlaskit/icon/core/globe';
 import IconTile from '@atlaskit/icon/icon-tile';
 import { type IconTileProps } from '@atlaskit/icon/types';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

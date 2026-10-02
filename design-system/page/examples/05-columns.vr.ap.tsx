@@ -6,7 +6,7 @@ import { cssMap } from '@atlaskit/css';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link/link';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { Dummy } from './common/dummy';

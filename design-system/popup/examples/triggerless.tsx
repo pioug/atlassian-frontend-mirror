@@ -11,7 +11,7 @@ import AddCommentIcon from '@atlaskit/icon/core/comment-add';
 import FocusAreaIcon from '@atlaskit/icon/core/focus-area';
 import AddItemIcon from '@atlaskit/icon/core/shortcut';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const triggerStyles = css({

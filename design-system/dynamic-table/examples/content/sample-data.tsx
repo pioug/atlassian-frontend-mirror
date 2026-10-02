@@ -13,7 +13,7 @@ import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group'
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import Link from '@atlaskit/link/link';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { lorem } from './lorem';

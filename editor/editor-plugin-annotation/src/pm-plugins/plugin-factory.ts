@@ -11,7 +11,6 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import reducer from './reducer';
 import type { InlineCommentPluginState, InlineCommentMap, InlineCommentAction } from './types';
@@ -22,17 +21,6 @@ import {
 	isBlockNodeAnnotationsSelected,
 	isSelectedAnnotationsChanged,
 } from './utils';
-
-const handleDocChanged = (
-	tr: ReadonlyTransaction,
-	prevPluginState: InlineCommentPluginState,
-): InlineCommentPluginState => {
-	if (!tr.getMeta('replaceDocument')) {
-		return getSelectionChangedHandler(false)(tr, prevPluginState);
-	}
-
-	return { ...prevPluginState, dirtyAnnotations: true };
-};
 
 /**
  * Creates a handleDocChanged function with its own deleted annotations cache.
@@ -249,20 +237,9 @@ const getSelectionChangedHandler =
 // Create the handler with cache once at module level
 const handleDocChangedWithSync = createHandleDocChanged();
 
-const getDocChangedHandler = (
-	tr: ReadonlyTransaction,
-	prevPluginState: InlineCommentPluginState,
-): InlineCommentPluginState => {
-	// Check feature flag at runtime to support test variants
-	if (expValEquals('platform_editor_annotations_sync_on_docchange', 'isEnabled', true)) {
-		return handleDocChangedWithSync(tr, prevPluginState);
-	}
-	return handleDocChanged(tr, prevPluginState);
-};
-
 const dest = pluginFactory(inlineCommentPluginKey, reducer, {
 	onSelectionChanged: getSelectionChangedHandler(true),
-	onDocChanged: getDocChangedHandler,
+	onDocChanged: handleDocChangedWithSync,
 
 	mapping: (tr, pluginState, editorState) => {
 		const { draftDecorationSet, bookmark } = pluginState;

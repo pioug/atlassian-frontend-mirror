@@ -18,14 +18,17 @@ export type QuickInsertSelectionHandler = (context: {
 }) => Transaction | false | void;
 
 export type QuickInsertContextValue = {
+	activePreviewItemKey?: string;
 	editorView: EditorView;
 	isOffline: boolean;
 	item?: {
 		description?: string;
 		id: string;
+		isPreviewActive?: boolean;
 		isSelected: boolean;
 	};
 	menuOpenId?: symbol;
+	popupsMountPoint?: HTMLElement;
 	select: (selectionHandler: QuickInsertSelectionHandler) => void;
 	surface: 'typeahead' | 'toolbar' | 'element-browser';
 	surfaceContext?: SurfaceContext;

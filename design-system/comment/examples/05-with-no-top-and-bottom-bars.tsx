@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
 import Comment from '@atlaskit/comment';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import avatarImg from './images/avatar_400x400.jpg';
 

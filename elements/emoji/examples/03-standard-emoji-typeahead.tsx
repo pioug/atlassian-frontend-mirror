@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+// Legacy demo layering: layers is deprecated. Use an ADS popup or overlay component
+// to manage layering in application code rather than copying this z-index override.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling

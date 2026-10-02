@@ -1,5 +1,28 @@
 # @atlaskit/editor-synced-block-provider
 
+## 20.0.1
+
+### Patch Changes
+
+- [`a5e4fa298e7ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5e4fa298e7ad) -
+  [EDITOR-8408] Synced locations that the viewer cannot access now show as 'Restricted content' with
+  a lock icon, link to the restricted page, and never expose the current page's title. They still
+  count in the synced locations total and the delete warning. Behind the
+  platform_editor_blocks_patch_11 experiment.
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.0
 
 ### Patch Changes

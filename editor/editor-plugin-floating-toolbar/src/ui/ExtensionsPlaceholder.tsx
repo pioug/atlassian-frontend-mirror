@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Loadable from 'react-loadable';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
-import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -64,7 +64,7 @@ type ExtensionIconProps = {
 
 const noop = () => null;
 
-const isDefaultExport = <T extends Object>(mod: T | { default: T }): mod is { default: T } => {
+const isDefaultExport = <T extends object>(mod: T | { default: T }): mod is { default: T } => {
 	return mod.hasOwnProperty('default');
 };
 
@@ -77,7 +77,7 @@ const resolveExtensionIcon = async (getIcon: ExtensionIconModule) => {
 };
 
 const ButtonIconLazy = ({ icon, label }: ExtensionIconProps) => {
-	const Icon = React.useMemo(() => lazyForPaint(() => resolveExtensionIcon(icon)), [icon]);
+	const Icon = React.useMemo(() => lazy(() => resolveExtensionIcon(icon)), [icon]);
 
 	return (
 		<LazySuspense fallback={null}>

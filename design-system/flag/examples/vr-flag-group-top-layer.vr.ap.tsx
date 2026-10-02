@@ -2,7 +2,7 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag/flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';

@@ -7,7 +7,7 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Popup } from '@atlaskit/popup/popup';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
@@ -507,7 +507,6 @@ describe('Side nav keyboard shortcut', () => {
 
 	it('should toggle with the built-in shortcut when desired FHS features are enabled', async () => {
 		failGate('navx-full-height-sidebar');
-		passGate('platform-dst-keep-desired-fhs-features');
 		const user = userEvent.setup();
 		setMediaQuery('(min-width: 64rem)', { initial: true });
 

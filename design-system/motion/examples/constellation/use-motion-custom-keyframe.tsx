@@ -6,10 +6,10 @@ import { useState } from 'react';
 
 import { keyframes } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { useMotion } from '@atlaskit/motion/use-motion';
 import { token } from '@atlaskit/tokens';
 
 import { Block, Centered, RetryContainer } from '../utils';

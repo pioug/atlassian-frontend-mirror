@@ -4,7 +4,7 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import { Bleed } from '@atlaskit/primitives/compiled';
+import { Bleed } from '@atlaskit/primitives/compiled/bleed';
 import { token } from '@atlaskit/tokens';
 
 const TokenNegativeSpaceCodeBlock = `

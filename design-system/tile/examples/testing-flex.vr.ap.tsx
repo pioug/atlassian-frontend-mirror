@@ -5,7 +5,7 @@
 
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Text from '@atlaskit/primitives/text';
 import Tile from '@atlaskit/tile/tile';

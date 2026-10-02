@@ -3,7 +3,9 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import Image from '@atlaskit/image';
 import { rawIcons } from '@atlaskit/logo/raw-icons';
-import { Box, Grid, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const styles = cssMap({
 	grid: {

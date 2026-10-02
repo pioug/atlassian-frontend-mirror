@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 import SectionMessageAction from '@atlaskit/section-message/message-action';
 import { token } from '@atlaskit/tokens';

@@ -10,7 +10,7 @@ import NumberListIcon from '@atlaskit/icon/core/list-numbered';
 import BoldIcon from '@atlaskit/icon/core/text-bold';
 import ItalicIcon from '@atlaskit/icon/core/text-italic';
 import TextUnderlineIcon from '@atlaskit/icon/core/text-underline';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

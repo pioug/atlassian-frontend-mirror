@@ -28,7 +28,7 @@ export type ToolResult = {
 /**
  * Any ADS MCP tool handler: takes an optional arguments object and resolves to a
  * {@link ToolResult}. Kept intentionally loose (`unknown` args) because each tool has its
- * own zod input schema; the registry is responsible for building well-formed args.
+ * own input type and schema; the registry is responsible for building well-formed args.
  */
 export type ToolHandler = (args?: unknown) => Promise<ToolResult>;
 

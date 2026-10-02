@@ -4,7 +4,7 @@ import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

@@ -5,7 +5,7 @@
 import { type SyntheticEvent, useCallback, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Radio from '@atlaskit/radio/radio';
 import { token } from '@atlaskit/tokens';
 

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form/label/default';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 

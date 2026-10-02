@@ -7,11 +7,12 @@ import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
 import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import Flag from '@atlaskit/flag/flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { useFlags } from '@atlaskit/flag/use-flags';
 import Info from '@atlaskit/icon/core/status-information';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

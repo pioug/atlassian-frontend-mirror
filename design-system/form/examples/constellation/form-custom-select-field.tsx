@@ -9,7 +9,7 @@ import { jsx } from '@atlaskit/css';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Select from '@atlaskit/select/default';
 import type { ValueType } from '@atlaskit/select/types';
 

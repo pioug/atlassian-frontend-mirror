@@ -7,7 +7,7 @@ import { Fragment, type ReactNode, useState } from 'react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import Flag from '@atlaskit/flag/flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';

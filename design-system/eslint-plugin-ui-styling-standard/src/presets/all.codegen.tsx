@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ff2cac75bedd9b12fc1c17bc6cf66c5c>>
+ * @codegen <<SignedSource::56ecb290562bdf88a8a5b5388a39e5f9>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { ESLint } from 'eslint';
@@ -23,7 +23,6 @@ const config: ESLint.ConfigData = {
 		'@atlaskit/ui-styling-standard/no-imported-style-values': 'error',
 		'@atlaskit/ui-styling-standard/no-nested-selectors': 'error',
 		'@atlaskit/ui-styling-standard/no-styled': 'error',
-		'@atlaskit/ui-styling-standard/no-top-layer-unsafe-selectors': 'error',
 		'@atlaskit/ui-styling-standard/no-unsafe-selectors': 'error',
 		'@atlaskit/ui-styling-standard/no-unsafe-values': 'error',
 		'@atlaskit/ui-styling-standard/no-unused-cssmap-properties': 'warn',

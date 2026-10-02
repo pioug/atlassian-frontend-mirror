@@ -4,11 +4,16 @@
  * @jsx jsx
  */
 
-import { forwardRef, type HTMLProps } from 'react';
+import { forwardRef, type HTMLProps, version as reactVersion } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
+
+// React 18 doesn't know `inert` and only forwards it as a string attribute (`inert=""`).
+// React 19 treats `inert` as a boolean, so `''` is falsy and the attribute is dropped.
+const isReact19OrLater = parseInt(reactVersion, 10) >= 19;
+const inertValue = isReact19OrLater ? true : '';
 
 const fixedSizeTableStyles = css({
 	tableLayout: 'fixed',
@@ -36,8 +41,8 @@ export const Table: import('react').ForwardRefExoticComponent<
 	({ isFixedSize, hasDataRow, children, testId, isLoading, ...rest }, ref) => {
 		return (
 			<table
-				// React and Typescript do not yet support the inert attribute https://github.com/facebook/react/pull/24730
-				{...{ inert: isLoading ? '' : undefined }}
+				// Spread so it type-checks against React 18 types, which don't include `inert`
+				{...{ inert: isLoading ? inertValue : undefined }}
 				style={
 					{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

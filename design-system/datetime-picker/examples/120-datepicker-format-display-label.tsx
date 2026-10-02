@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import { Label } from '@atlaskit/form/label/default';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const logValue = (value: string) => console.log(value);
 

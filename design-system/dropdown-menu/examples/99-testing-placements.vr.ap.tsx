@@ -5,7 +5,9 @@ import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { type Placement } from '@atlaskit/dropdown-menu/types';
-import { Box, Grid, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const styles = cssMap({
 	grid: {

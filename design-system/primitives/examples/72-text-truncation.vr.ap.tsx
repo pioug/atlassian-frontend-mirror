@@ -9,7 +9,7 @@ import { Stack } from '@atlaskit/primitives/stack';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss';
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 const labelWidthStyles = xcss({
 	width: '160px',

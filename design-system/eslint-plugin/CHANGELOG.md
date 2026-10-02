@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.13.4
+
+### Patch Changes
+
+- [`7d0e2b88c17cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d0e2b88c17cb) -
+  Use current public entrypoints in example guidance and generated Link imports.
+
 ## 16.13.3
 
 ### Patch Changes

@@ -6,7 +6,8 @@
 import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Tile from '@atlaskit/tile/tile';
 
 const containerStyles = css({

@@ -15,7 +15,9 @@ import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const styles = cssMap({
 	footer: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },

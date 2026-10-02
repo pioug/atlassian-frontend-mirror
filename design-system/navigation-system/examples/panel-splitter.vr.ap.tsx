@@ -12,7 +12,7 @@ import {
 	PanelSplitterProvider,
 	type ResizeBounds,
 } from '@atlaskit/navigation-system/layout/panel-splitter';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 const widthVar = '--panel-width';

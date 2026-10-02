@@ -18,8 +18,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'LinkPicker',
-				package: '@atlaskit/link-picker',
-				type: 'named',
+				package: '@atlaskit/link-picker/link-picker',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},

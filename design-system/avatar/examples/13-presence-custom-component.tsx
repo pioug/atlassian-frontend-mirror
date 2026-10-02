@@ -5,7 +5,8 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading/heading';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import tickInlineSvg from '../examples-util/tick.svg';

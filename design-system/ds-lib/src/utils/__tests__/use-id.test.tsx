@@ -5,7 +5,8 @@ import { useId } from '../use-id';
 describe('useId', () => {
 	it('returns a unique selector-safe identifier', () => {
 		const { result: useIdResult } = renderHook(() => useId());
-		expect(useIdResult.current).toMatch(/^_r[\d]+_$/);
+		// React 18 produces `:r0:` (-> `_r0_`); React 19 produces `_r_0_`.
+		expect(useIdResult.current).toMatch(/^_r_?[\da-z]+_$/);
 	});
 
 	it('returns selector-safe id when React.useId is available', () => {

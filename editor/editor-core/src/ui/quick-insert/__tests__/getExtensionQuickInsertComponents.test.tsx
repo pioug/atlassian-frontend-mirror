@@ -133,14 +133,14 @@ describe('getExtensionQuickInsertComponents', () => {
 
 		expect(components.map(({ parents }) => parents)).toEqual([
 			[{ ...CREATE_SECTION, rank: 100 }],
-			[{ ...CREATE_SECTION, rank: 200 }],
+			[{ ...CREATE_SECTION, rank: 300 }],
 			[{ ...CREATE_SECTION, rank: 500 }],
 			[{ ...CREATE_SECTION, rank: 600 }],
 			[{ ...CREATE_SECTION, rank: 700 }],
 			[{ ...CREATE_SECTION, rank: 800 }],
 			[{ ...CREATE_SECTION, rank: 900 }],
 			[{ ...CREATE_SECTION, rank: 1000 }],
-			[{ ...CREATE_SECTION, rank: 1100 }],
+			[{ ...CREATE_SECTION, rank: 400 }],
 			[{ ...STRUCTURE_SECTION, rank: 3100 }],
 		]);
 	});

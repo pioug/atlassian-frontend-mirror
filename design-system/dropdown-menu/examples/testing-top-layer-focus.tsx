@@ -4,7 +4,8 @@ import Button from '@atlaskit/button/default/button';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 /**
  * Test fixture for the `DropdownMenu` top-layer focus contract.

@@ -119,7 +119,13 @@ const createTableCellContentWidgets = ({
 		// A cell contains block content (paragraphs); serialize the cell's content
 		// so every block inside the cell is rendered.
 		cellNode.content.forEach((blockNode) => {
-			const nodeView = nodeViewSerializer.tryCreateNodeView(blockNode);
+			const nodeView = nodeViewSerializer.tryCreateNodeView(
+				blockNode,
+				0,
+				undefined,
+				isInserted,
+				colorScheme,
+			);
 			const wrapper = createContentWrapper(colorScheme, false, isInserted);
 			if (nodeView) {
 				wrapper.append(nodeView);
@@ -425,7 +431,13 @@ export const createNodeChangedDecorationWidget = ({
 				node.type.inlineContent
 			) {
 				node.content.forEach((childNode) => {
-					const childNodeView = serializer.tryCreateNodeView(childNode);
+					const childNodeView = serializer.tryCreateNodeView(
+						childNode,
+						0,
+						undefined,
+						isInserted,
+						colorScheme,
+					);
 					if (childNodeView) {
 						const lineBreak = document.createElement('br');
 						dom.append(lineBreak);
@@ -482,7 +494,13 @@ export const createNodeChangedDecorationWidget = ({
 		const $sourcePos = fg('platform_editor_ai_show_diff_patch_2')
 			? getSourcePos(doc, $changeFromA, slice.openStart, index)
 			: null;
-		const nodeView = serializer.tryCreateNodeView(node, 0, $sourcePos ?? undefined);
+		const nodeView = serializer.tryCreateNodeView(
+			node,
+			0,
+			$sourcePos ?? undefined,
+			isInserted,
+			colorScheme,
+		);
 		if (nodeView) {
 			if (node.isInline) {
 				const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);

@@ -1,5 +1,23 @@
 # @atlaskit/link-picker
 
+## 6.11.1
+
+### Patch Changes
+
+- [`a2aa20fe5fe06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2aa20fe5fe06) -
+  Remove the fully shipped aifc_create_enabled feature gate, keeping creation behavior enabled.
+
+## 6.11.0
+
+### Minor Changes
+
+- [`a30367ae14f98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a30367ae14f98) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.10.0
 
 ### Minor Changes

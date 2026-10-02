@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
 import Tabs from '@atlaskit/tabs/tabs';

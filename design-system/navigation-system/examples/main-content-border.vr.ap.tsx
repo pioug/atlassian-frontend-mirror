@@ -24,7 +24,8 @@ import {
 	Help,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';

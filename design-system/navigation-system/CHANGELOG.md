@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 11.1.3
+
+### Patch Changes
+
+- [`dc134f854c5c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc134f854c5c0) -
+  Remove the platform-dst-keep-desired-fhs-features gate and enable the desired FHS behavior by
+  default.
+- Updated dependencies
+
 ## 11.1.2
 
 ### Patch Changes

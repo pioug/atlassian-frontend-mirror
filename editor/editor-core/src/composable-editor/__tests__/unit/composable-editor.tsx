@@ -5,9 +5,16 @@ import { render } from '@testing-library/react';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import createUniversalPreset from '../../../presets/universal';
+import { RenderTracking } from '../../../utils/performance/components/RenderTracking';
 import { ComposableEditor } from '../../composable-editor';
+
+jest.mock('../../../utils/performance/components/RenderTracking', () => {
+	return { RenderTracking: jest.fn(() => null) };
+});
 
 describe('ComposableEditor', () => {
 	afterEach(jest.clearAllMocks);
@@ -41,6 +48,37 @@ describe('ComposableEditor', () => {
 				render(<ComposableEditor preset={preset} />);
 			}).not.toThrow();
 		});
+	});
+
+	it('should not render RenderTracking when platform_editor_enable_rerender_tracking is disabled', () => {
+		mockExpDisabled('platform_editor_enable_rerender_tracking');
+		const preset = createUniversalPreset({
+			appearance: 'full-page',
+			props: { paste: {} },
+			featureFlags: {},
+		});
+
+		render(<ComposableEditor preset={preset} />);
+
+		expect(RenderTracking).toHaveBeenCalledTimes(0);
+		expect(RenderTracking).not.toHaveBeenCalledWith(
+			expect.objectContaining({
+				actionSubject: 'editor',
+			}),
+		);
+	});
+
+	it('should render RenderTracking when platform_editor_enable_rerender_tracking is enabled', () => {
+		mockExpEnabled('platform_editor_enable_rerender_tracking');
+		const preset = createUniversalPreset({
+			appearance: 'full-page',
+			props: { paste: {} },
+			featureFlags: {},
+		});
+
+		render(<ComposableEditor preset={preset} />);
+
+		expect(RenderTracking).toHaveBeenCalled();
 	});
 });
 

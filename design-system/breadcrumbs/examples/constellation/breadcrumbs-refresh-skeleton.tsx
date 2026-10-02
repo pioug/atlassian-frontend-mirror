@@ -5,7 +5,7 @@ import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-curren
 import { BreadcrumbsSkeleton } from '@atlaskit/breadcrumbs/breadcrumbs-skeleton';
 import { BreadcrumbsSkeletonItem } from '@atlaskit/breadcrumbs/breadcrumbs-skeleton-item';
 import Button from '@atlaskit/button/default/button';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const BreadcrumbsRefreshSkeletonExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);

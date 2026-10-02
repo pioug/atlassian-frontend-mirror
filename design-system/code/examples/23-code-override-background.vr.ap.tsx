@@ -7,7 +7,7 @@ import { css, jsx } from '@compiled/react';
 
 import Code from '@atlaskit/code/code';
 import CodeBlock from '@atlaskit/code/code-block';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const backgroundColorOverride = css({

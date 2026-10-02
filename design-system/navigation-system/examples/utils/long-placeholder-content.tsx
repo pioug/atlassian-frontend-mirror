@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 /**
  * Long placeholder content for showcasing how the layout areas behave when overflowing.

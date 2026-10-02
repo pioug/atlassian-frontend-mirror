@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 export default function AutoFocusExample(): React.JSX.Element {

@@ -118,6 +118,12 @@ const isMultiContainerBlockNode = (nodeName: string): boolean => {
 };
 
 const isTextLikeBlockNode = (nodeName: string): boolean => {
+	// `paragraph` only reaches this classification via patch_2's `shouldRenderAsBlockNode` routing
+	// (createNodeChangedDecorationWidget.ts), which fully replaced paragraphs never hit otherwise —
+	// gating it here keeps that dependency explicit rather than implicit.
+	if (nodeName === 'paragraph') {
+		return fg('platform_editor_ai_show_diff_patch_2');
+	}
 	return ['heading', 'bulletList', 'orderedList', 'listItem', 'taskList', 'blockquote'].includes(
 		nodeName,
 	);

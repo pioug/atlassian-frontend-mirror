@@ -11,7 +11,9 @@ import IconButton from '@atlaskit/button/icon/button';
 import CheckIcon from '@atlaskit/icon/core/check-mark';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import EditIcon from '@atlaskit/icon/core/edit';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

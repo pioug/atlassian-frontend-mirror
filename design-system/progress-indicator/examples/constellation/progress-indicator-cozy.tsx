@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const CozyExample = (): React.JSX.Element => {

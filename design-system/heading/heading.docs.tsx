@@ -64,7 +64,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'HeadingContextProvider',
-				package: '@atlaskit/heading/heading-context',
+				package: '@atlaskit/heading/heading-context/default',
 				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),

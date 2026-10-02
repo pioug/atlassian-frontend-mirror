@@ -92,7 +92,6 @@ import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-co
 import { userIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -362,7 +361,7 @@ export function confluenceFullPageBasePreset(
 			[metricsPlugin, metricsPluginOptions({ options: pluginOptions.metrics })],
 			enabledOptionalPlugins.metrics,
 		)
-		.maybeAdd(interactivityPlugin, isExperimentEnabled('platform_editor_editor_interactivity'))
+		.add(interactivityPlugin)
 		.add([
 			contentFormatPlugin,
 			contentFormatPluginOptions({ options: pluginOptions.contentFormat }),

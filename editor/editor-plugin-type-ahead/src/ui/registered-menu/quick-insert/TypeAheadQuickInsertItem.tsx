@@ -15,18 +15,21 @@ export const TypeAheadQuickInsertItem = ({
 	const Component = registration.component ?? PassThrough;
 	const contextValue = useMemo(
 		() => ({
+			activePreviewItemKey: quickInsertContext.activePreviewItemKey,
 			editorView: quickInsertContext.editorView,
 			isOffline: quickInsertContext.isOffline,
 			menuOpenId: quickInsertContext.menuOpenId,
+			popupsMountPoint: quickInsertContext.popupsMountPoint,
 			surfaceContext: quickInsertContext.surfaceContext,
 			surface: 'typeahead' as const,
 			item: {
 				id,
+				isPreviewActive: quickInsertContext.activePreviewItemKey === registration.key,
 				isSelected,
 			},
 			select: quickInsertContext.select,
 		}),
-		[id, isSelected, quickInsertContext],
+		[id, isSelected, quickInsertContext, registration.key],
 	);
 
 	return (

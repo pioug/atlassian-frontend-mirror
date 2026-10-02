@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LoomBlurpleIcon, LoomBlurpleLogo, LoomIcon, LoomLogo } from '@atlaskit/logo';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import LogoTable from '../utils/logo-table';
 

@@ -1,7 +1,7 @@
 import React, { type MouseEvent } from 'react';
 
 import ProjectIcon from '@atlaskit/icon/core/project';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Header } from '@atlaskit/side-navigation/header';
 import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';

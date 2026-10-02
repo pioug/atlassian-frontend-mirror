@@ -40,6 +40,15 @@ export interface ResizingOpts {
 	 * or immediately if the dimension(s) did not change (no animation was needed).
 	 */
 	onFinishMotion?: () => void;
+	/**
+	 * Callback fired immediately before a resize animation starts, while the element is still at
+	 * its natural layout with no transition styles applied. Measurements taken here reflect the
+	 * size the element will settle at, rather than an intermediate animation frame.
+	 *
+	 * Not called on the initial render, under reduced motion, or when the dimension(s) did not
+	 * change (no animation was needed) - in all of those cases no motion starts.
+	 */
+	onStartMotion?: () => void;
 }
 
 interface Dimensions {
@@ -106,6 +115,7 @@ export const useResizing = ({
 	duration,
 	easing,
 	onFinishMotion,
+	onStartMotion,
 }: ResizingOpts): {
 	ref: CallbackRef;
 } => {
@@ -124,7 +134,17 @@ export const useResizing = ({
 	});
 
 	useLayoutEffect(() => {
-		if (isReducedMotion() || !element || !prevDimensions.current) {
+		if (!element) {
+			return;
+		}
+
+		if (isReducedMotion()) {
+			// No motion will ever run, so the element is already at its final dimensions.
+			onFinishMotion?.();
+			return;
+		}
+
+		if (!prevDimensions.current) {
 			return;
 		}
 
@@ -139,6 +159,10 @@ export const useResizing = ({
 			onFinishMotion?.();
 			return;
 		}
+
+		// Any in-flight transition styles have been cleared and the next ones haven't been applied
+		// yet, so the element is at the natural layout it will settle at.
+		onStartMotion?.();
 
 		const propertyList = getDimensionPropertyList(dimension);
 		const newStyles: React.CSSProperties = {

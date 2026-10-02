@@ -28,6 +28,7 @@ import {
 	MentionNameStatus,
 	type MentionNameDetails,
 } from '@atlaskit/mention/types';
+import { expVal as platformExpVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
@@ -242,11 +243,18 @@ export class MentionNodeView implements NodeView {
 		const hasProvider = Boolean(options?.mentionNodeDataProvider);
 		const canReportMissingProvider =
 			!hasProvider && fg('platform_editor_mention_avatar_observability');
+		const cohort = platformExpVal<string>(
+			'convo_ai_entity_hover_cards_non_hello_exp',
+			'hover_card_cohort',
+			'control',
+		);
 		const isAvatarEnabled =
 			(hasProvider || canReportMissingProvider) &&
 			node.attrs.userType !== 'SPECIAL' &&
 			!genericMentionIds.includes(node.attrs.id) &&
-			(isExperimentEnabled('platform_editor_mention_node_avatar') ||
+			(cohort === 'person' ||
+				cohort === 'all' ||
+				isExperimentEnabled('platform_editor_mention_node_avatar') ||
 				isExperimentEnabled('platform_editor_mention_node_graphql_provider'));
 
 		this.hasAvatarSlot = hasProvider && isAvatarEnabled;

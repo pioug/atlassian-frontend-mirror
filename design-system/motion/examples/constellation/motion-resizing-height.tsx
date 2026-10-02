@@ -12,7 +12,7 @@ import { BitbucketIcon, ConfluenceIcon, OpsgenieIcon, StatuspageIcon } from '@at
 import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import FadeIn from '@atlaskit/motion/fade-in';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
-import { useResizingHeight } from '@atlaskit/motion/use-resizing-height';
+import { useResizing } from '@atlaskit/motion/use-resizing';
 import { token } from '@atlaskit/tokens';
 
 import { Centered } from '../utils/containers';
@@ -98,7 +98,15 @@ const MotionResizeHeightExample = (): JSX.Element => {
 			</div>
 
 			<Centered>
-				<div data-testid="menu" {...useResizingHeight()} css={containerStyles}>
+				<div
+					data-testid="menu"
+					{...useResizing({
+						dimension: 'height',
+						duration: token('motion.duration.medium'),
+						easing: token('motion.easing.inout.bold'),
+					})}
+					css={containerStyles}
+				>
 					<div css={inputContainerStyles}>
 						<Label htmlFor="input-options">Motion options</Label>
 						<input

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default (): React.JSX.Element => (
 	<Stack>

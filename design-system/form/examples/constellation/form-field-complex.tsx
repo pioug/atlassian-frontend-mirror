@@ -11,7 +11,7 @@ import { FormSection } from '@atlaskit/form/form-section';
 import { HelperMessage } from '@atlaskit/form/helper-message';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import { ValidMessage } from '@atlaskit/form/valid-message';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import TextField from '@atlaskit/textfield/text-field';
 
 const FormFieldExample = (): React.JSX.Element => (

@@ -11,7 +11,8 @@ import { jsx } from '@atlaskit/css';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 interface ColorButtonProps {
 	backgroundColor: string;

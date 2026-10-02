@@ -18,7 +18,7 @@ import {
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
+import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive/constants';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 

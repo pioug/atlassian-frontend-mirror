@@ -10,7 +10,7 @@ import { cssMap, jsx } from '@compiled/react';
 import UnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import LinkItem from '@atlaskit/menu/link-item';
 import type { LinkItemProps } from '@atlaskit/menu/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import ImgIcon from './common/img-icon';
 import koala from './icons/koala.png';

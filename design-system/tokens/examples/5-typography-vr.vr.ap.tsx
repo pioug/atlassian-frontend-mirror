@@ -4,7 +4,7 @@
  */
 import { jsx } from '@compiled/react';
 
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';

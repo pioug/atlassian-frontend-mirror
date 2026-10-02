@@ -3,7 +3,8 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar/avatar';
 import { AvatarContext } from '@atlaskit/avatar/avatar-context';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const CustomSVG = (): React.JSX.Element => (
 	<Stack space="space.400">

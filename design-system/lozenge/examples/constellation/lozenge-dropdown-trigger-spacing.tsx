@@ -2,7 +2,7 @@ import React from 'react';
 
 import ImageIcon from '@atlaskit/icon/core/image';
 import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default (): React.JSX.Element => (
 	<Stack>

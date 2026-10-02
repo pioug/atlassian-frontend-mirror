@@ -92,10 +92,19 @@ const checkIdentifier = (
 	// Type references and `typeof` queries are erased at runtime and are not
 	// imported style values. Runtime expressions wrapped by `as` or `satisfies`
 	// must still be checked.
+	// Qualified names (e.g. `typeof Tokens.COLOR_TEXT` or `Theme.Colors`) nest the
+	// identifier inside one or more `TSQualifiedName` nodes, so walk up through them
+	// to find the enclosing type node.
+	let typeContext: { type?: string; parent?: unknown } | undefined = parent as {
+		type?: string;
+		parent?: unknown;
+	};
+	while (typeContext && typeContext.type === 'TSQualifiedName') {
+		typeContext = typeContext.parent as { type?: string; parent?: unknown } | undefined;
+	}
 	if (
-		parent &&
-		((parent as { type?: string }).type === 'TSTypeReference' ||
-			(parent as { type?: string }).type === 'TSTypeQuery')
+		typeContext &&
+		(typeContext.type === 'TSTypeReference' || typeContext.type === 'TSTypeQuery')
 	) {
 		return;
 	}

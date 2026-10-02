@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';
 

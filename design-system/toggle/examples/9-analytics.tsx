@@ -3,7 +3,7 @@ import React from 'react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { Label } from '@atlaskit/form/label/default';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Toggle from '@atlaskit/toggle';
 
 const sendAnalytics = (analytic: UIAnalyticsEvent) => console.log('analytic: ', analytic.payload);

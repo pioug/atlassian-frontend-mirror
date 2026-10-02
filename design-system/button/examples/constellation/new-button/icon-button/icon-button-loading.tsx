@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react';
 
 import IconButton from '@atlaskit/button/icon/button';
 import EditIcon from '@atlaskit/icon/core/edit';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Toggle from '@atlaskit/toggle';
 
 const IconButtonLoadingExample = (): React.JSX.Element => {

@@ -1,5 +1,31 @@
 # @atlaskit/collab-provider
 
+## 33.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.1
+
+### Patch Changes
+
+- [`61e11fcb85fe8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61e11fcb85fe8) -
+  Remove the abandoned platform_editor_early_exit_return_draft experiment, preserving its disabled
+  behavior.
+
 ## 32.0.0
 
 ### Patch Changes

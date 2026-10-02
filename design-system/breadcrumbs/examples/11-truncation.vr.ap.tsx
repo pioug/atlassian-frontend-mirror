@@ -4,7 +4,8 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import ImageIcon from '@atlaskit/icon/core/image';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const TestIcon = <AtlassianIcon label="" size="small" />;
 

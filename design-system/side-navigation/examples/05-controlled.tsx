@@ -13,7 +13,8 @@ import LanguageIcon from '@atlaskit/icon/core/globe';
 import QueueIcon from '@atlaskit/icon/core/pages';
 import CustomerIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Select from '@atlaskit/select/default';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';

@@ -36,9 +36,11 @@ import type { LEFT_SIDEBAR_WIDTH as LEFT_SIDEBAR_WIDTH_TYPE } from '@atlaskit/na
 import type { RIGHT_PANEL_WIDTH as RIGHT_PANEL_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
 import type { RIGHT_SIDEBAR_WIDTH as RIGHT_SIDEBAR_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
 import { Help } from '@atlaskit/navigation-system/top-nav-items';
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { Hide } from '@atlaskit/primitives/responsive';
+import { Hide } from '@atlaskit/primitives/compiled/hide';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	FlyoutMenuItem,

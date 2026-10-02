@@ -5,7 +5,8 @@ import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-curren
 import { cssMap } from '@atlaskit/css';
 import ImageIcon from '@atlaskit/icon/core/image';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

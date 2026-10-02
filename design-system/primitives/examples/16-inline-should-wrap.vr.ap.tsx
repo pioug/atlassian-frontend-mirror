@@ -12,7 +12,7 @@ import { Inline } from '@atlaskit/primitives/inline';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives/stack';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss';
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 const fixedSizeContainerStyles = css({ maxWidth: '300px' });
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });

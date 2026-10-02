@@ -1,7 +1,9 @@
 import React from 'react';
 
 import Badge from '@atlaskit/badge/badge';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const BadgeNewInverseExample = (): React.JSX.Element => {
 	return (

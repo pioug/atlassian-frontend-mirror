@@ -11,7 +11,10 @@ import ImageIcon from '@atlaskit/icon/core/image';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
 // oxlint-disable-next-line no-duplicate-imports
 import type { AccentColor, SemanticColor } from '@atlaskit/lozenge/types';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -68,7 +71,7 @@ const accentColors: AccentColor[] = [
  * callsites (updating import paths back to `@atlaskit/lozenge`).
  * If your app has access to feature flags, please use the default entrypoint instead.
  *
- * Usage: `import Lozenge from '@atlaskit/lozenge/new';`
+ * Usage: `import Lozenge from '@atlaskit/lozenge/lozenge';`
  */
 export default function NewEntrypointLozengeExample(): JSX.Element {
 	return (

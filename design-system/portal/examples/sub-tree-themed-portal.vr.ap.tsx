@@ -5,12 +5,14 @@
  */
 import { cx, jsx } from '@compiled/react';
 
-import AppProvider from '@atlaskit/app-provider/app-provider';
+import { AppProvider } from '@atlaskit/app-provider/app-provider';
 import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import Portal from '@atlaskit/portal/portal';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const contentStyles = cssMap({

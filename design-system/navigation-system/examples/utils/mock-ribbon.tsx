@@ -9,7 +9,8 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import { ConfluenceIcon, CustomerServiceManagementIcon, JiraIcon, LoomIcon } from '@atlaskit/logo';
 import type { LogoProps } from '@atlaskit/logo/types';
-import { Pressable, Text } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const ribbonStyles = cssMap({

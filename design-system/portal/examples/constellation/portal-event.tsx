@@ -12,7 +12,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '@atlaskit/portal/constants';
 import Portal from '@atlaskit/portal/portal';
 import type { PortalEvent } from '@atlaskit/portal/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 

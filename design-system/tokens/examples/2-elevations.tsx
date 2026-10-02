@@ -6,7 +6,7 @@
 import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';

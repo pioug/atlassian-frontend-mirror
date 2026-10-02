@@ -1,4 +1,5 @@
 import { tester } from '../../__tests__/utils/_tester';
+import { typescriptEslintTester } from '../../__tests__/utils/_ts-tester';
 import rule from '../index';
 
 tester.run('no-important-styles', rule, {
@@ -199,3 +200,87 @@ tester.run('no-important-styles', rule, {
 		},
 	],
 });
+
+/**
+ * TypeScript wrappers (`as`, `satisfies`) leave the runtime style value untouched, so the rule
+ * must look through them at every level.
+ */
+typescriptEslintTester.run(
+	'no-important-styles',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [
+			{
+				name: 'a wrapped !important value outside a style call',
+				code: `
+        const notStyles = { color: 'red !important' as const };
+      `,
+			},
+			{
+				name: 'a style object wrapped in as const without !important',
+				code: `
+        import { css } from '@compiled/react';
+
+        const styles = css({ color: 'red' } as const);
+      `,
+			},
+		],
+		invalid: [
+			{
+				name: 'value wrapped in as const',
+				code: `
+        import { css } from '@compiled/react';
+
+        const styles = css({ color: 'red !important' as const });
+      `,
+				errors: [{ messageId: 'no-important-styles' }],
+			},
+			{
+				name: 'value wrapped in satisfies',
+				code: `
+        import { css } from '@compiled/react';
+
+        const styles = css({ color: 'red !important' satisfies string });
+      `,
+				errors: [{ messageId: 'no-important-styles' }],
+			},
+			{
+				name: 'value wrapped in chained as and satisfies',
+				code: `
+        import { css } from '@compiled/react';
+
+        const styles = css({ color: ('red !important' as const) satisfies string });
+      `,
+				errors: [{ messageId: 'no-important-styles' }],
+			},
+			{
+				name: 'nested block wrapped in as const',
+				code: `
+        import { css } from '@compiled/react';
+
+        const styles = css({ '&:hover': { color: 'red !important' } as const });
+      `,
+				errors: [{ messageId: 'no-important-styles' }],
+			},
+			{
+				name: 'style object wrapped in as const',
+				code: `
+        import { css } from '@compiled/react';
+
+        const styles = css({ color: 'red !important' } as const);
+      `,
+				errors: [{ messageId: 'no-important-styles' }],
+			},
+			{
+				name: 'arrow function body wrapped in as',
+				code: `
+        import { styled } from '@compiled/react';
+
+        const Component = styled.div(() => ({ color: 'red !important' }) as object);
+      `,
+				errors: [{ messageId: 'no-important-styles' }],
+			},
+		],
+	},
+);

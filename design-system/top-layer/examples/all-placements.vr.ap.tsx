@@ -7,7 +7,9 @@ import { type CSSProperties, type ReactNode, useCallback, useRef, useState } fro
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';

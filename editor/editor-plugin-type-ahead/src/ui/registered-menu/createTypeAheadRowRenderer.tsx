@@ -24,6 +24,8 @@ export const createTypeAheadRowRenderer =
 		Item,
 		listId,
 		onItemHover,
+		onItemLeave,
+		onItemVisibilityChange,
 		rows,
 		selectedItemIndex,
 	}: {
@@ -31,7 +33,9 @@ export const createTypeAheadRowRenderer =
 		Item: TypeAheadItemComponent;
 		itemIndexByRowIndex: Map<number, number>;
 		listId: string;
-		onItemHover: (itemIndex: number) => void;
+		onItemHover: (itemIndex: number, itemKey: string) => void;
+		onItemLeave: (itemKey: string) => void;
+		onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
 		onMeasured: () => void;
 		rows: Array<RegisterMenuItem | RegisterMenuSection>;
 		selectedItemIndex: number;
@@ -66,6 +70,9 @@ export const createTypeAheadRowRenderer =
 								itemIndex={itemIndex ?? 0}
 								listId={listId}
 								onItemHover={onItemHover}
+								onItemLeave={onItemLeave}
+								onItemVisibilityChange={onItemVisibilityChange}
+								isVisible={isVisible}
 								registration={registration}
 								rowIndex={index}
 							/>

@@ -5,7 +5,10 @@ import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import { token } from '@atlaskit/tokens';
 const styles = cssMap({

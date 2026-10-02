@@ -153,10 +153,11 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 		},
 
 		pmPlugins() {
+			const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 			const plugins = [
 				{
 					name: 'layout',
-					plugin: () => createLayoutPlugin(options, api?.analytics?.actions),
+					plugin: () => createLayoutPlugin(options, api?.analytics?.actions, isViewMode),
 				},
 			] as Array<PMPlugin>;
 

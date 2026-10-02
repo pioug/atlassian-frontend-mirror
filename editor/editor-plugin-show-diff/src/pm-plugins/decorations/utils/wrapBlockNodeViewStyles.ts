@@ -64,6 +64,10 @@ export const isMultiContainerBlockNode = (nodeName: string): boolean => {
 };
 
 export const isTextLikeBlockNode = (nodeName: string): boolean => {
+	// When cleaning up platform_editor_ai_show_diff_patch_2 just put paragraph into the list
+	if (nodeName === 'paragraph') {
+		return fg('platform_editor_ai_show_diff_patch_2');
+	}
 	return ['heading', 'bulletList', 'orderedList', 'listItem', 'taskList', 'blockquote'].includes(
 		nodeName,
 	);

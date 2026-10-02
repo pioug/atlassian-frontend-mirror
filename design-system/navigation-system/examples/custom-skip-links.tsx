@@ -39,7 +39,7 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';

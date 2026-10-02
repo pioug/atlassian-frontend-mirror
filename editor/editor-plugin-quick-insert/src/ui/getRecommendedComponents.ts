@@ -1,4 +1,5 @@
 import { logException } from '@atlaskit/editor-common/monitoring';
+import { quickInsertProviderMenuItemKey } from '@atlaskit/editor-common/quick-insert/get-provider-menu-item-key';
 import {
 	defaultIsRecommendedItem,
 	type IsRecommendedItem,
@@ -29,23 +30,41 @@ const isRecommendationCandidate = (component: RegisterComponent): component is R
 	!isSectionOverflowItemKey(component.key) &&
 	!component.parents.some((parent) => isMenuFooterSectionKey(parent.key));
 
+/** Normalises a consumer-supplied limit to the number of available recommended slots. */
+export const resolveMaxRecommendedItems = (maxRecommendedItems?: number): number => {
+	if (maxRecommendedItems === undefined || !Number.isFinite(maxRecommendedItems)) {
+		return MAX_RECOMMENDED_ITEMS;
+	}
+	if (maxRecommendedItems > MAX_RECOMMENDED_ITEMS) {
+		void logException(new Error('Quick Insert maxRecommendedItems exceeds the available slots'), {
+			location: 'editor-plugin-quick-insert/getRecommendedComponents',
+		});
+	}
+	return Math.min(Math.max(Math.floor(maxRecommendedItems), 1), MAX_RECOMMENDED_ITEMS);
+};
+
 export const getRecommendedComponents = ({
 	components,
 	context,
 	isRecommendedItem = defaultIsRecommendedItem,
+	maxRecommendedItems,
 }: {
 	components: RegisterComponent[];
 	context: SurfaceContext;
 	isRecommendedItem?: IsRecommendedItem;
+	maxRecommendedItems?: number;
 }): RegisterMenuItem[] => {
 	return components
 		.filter(isRecommendationCandidate)
 		.flatMap((component, index) => {
-			const result: IsRecommendedItemResult = isRecommendedItem({ itemKey: component.key });
+			// Provider items are namespaced in the registry; consumers rank them by their source key.
+			const result: IsRecommendedItemResult = isRecommendedItem({
+				itemKey: quickInsertProviderMenuItemKey.getSourceKey(component.key),
+			});
 			if (result === null) {
 				return [];
 			}
-			if (Number.isNaN(result)) {
+			if (Number.isNaN(result.rank)) {
 				void logException(new Error('Invalid Quick Insert recommended item rank'), {
 					location: 'editor-plugin-quick-insert/getRecommendedComponents',
 				});
@@ -55,12 +74,12 @@ export const getRecommendedComponents = ({
 				return [];
 			}
 
-			return [{ component, index, rank: result }];
+			return [{ component, index, rank: result.rank }];
 		})
 		.sort((first, second) =>
 			first.rank === second.rank ? first.index - second.index : first.rank - second.rank,
 		)
-		.slice(0, MAX_RECOMMENDED_ITEMS)
+		.slice(0, resolveMaxRecommendedItems(maxRecommendedItems))
 		.map(({ component }) => component);
 };
 
@@ -72,9 +91,11 @@ type RecommendedSnapshotCache = {
 export const createRecommendedSnapshotCache = ({
 	api,
 	isRecommendedItem,
+	maxRecommendedItems,
 }: {
 	api: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
 	isRecommendedItem?: IsRecommendedItem;
+	maxRecommendedItems?: number;
 }): RecommendedSnapshotCache => {
 	let snapshot: { id: symbol; items: RegisterMenuItem[] } | undefined;
 
@@ -90,6 +111,7 @@ export const createRecommendedSnapshotCache = ({
 					components: api?.uiControlRegistry?.actions.getComponents(MENU.key) ?? [],
 					context: surfaceContext,
 					isRecommendedItem,
+					maxRecommendedItems,
 				}),
 			};
 		}

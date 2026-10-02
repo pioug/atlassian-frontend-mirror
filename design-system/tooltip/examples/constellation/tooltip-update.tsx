@@ -1,7 +1,7 @@
 import React, { type ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 /**

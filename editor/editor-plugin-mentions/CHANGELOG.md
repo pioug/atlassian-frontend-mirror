@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-mentions
 
+## 26.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- [`4b7d3cc53594a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b7d3cc53594a) -
+  Enable avatar mentions for the person and all cohorts of convo_ai_entity_hover_cards_non_hello_exp
+  alongside the existing editor avatar experiments. Make the avatar provider available in Chat for
+  these cohorts, regardless of mention source. Other cohorts retain the existing rollout checks.
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

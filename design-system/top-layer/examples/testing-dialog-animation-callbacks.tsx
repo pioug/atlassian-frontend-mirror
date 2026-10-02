@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import { Dialog } from '@atlaskit/top-layer/dialog-content';
 

@@ -2,7 +2,8 @@ import React from 'react';
 
 import EditionsIcon from '@atlaskit/icon-lab/core/editions';
 import IconTile from '@atlaskit/icon/icon-tile';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';

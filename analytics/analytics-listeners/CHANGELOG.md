@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 11.4.1
+
+### Patch Changes
+
+- [`c5faf76304464`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5faf76304464) -
+  Emit atlassianVisualizationPlatform as the first tag for platform product attribution, followed by
+  the legacy avp tag and any other existing tags, without duplicates.
+
 ## 11.4.0
 
 ### Minor Changes

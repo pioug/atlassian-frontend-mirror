@@ -3,7 +3,7 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import Flag from '@atlaskit/flag/flag';
 import InfoIcon from '@atlaskit/icon/core/status-information';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

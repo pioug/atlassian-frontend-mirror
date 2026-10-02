@@ -4,7 +4,7 @@
  */
 import { cssMap, jsx } from '@atlaskit/css';
 import Link from '@atlaskit/link/link';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const styles = cssMap({
 	container: {

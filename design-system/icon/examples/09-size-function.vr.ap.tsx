@@ -2,7 +2,7 @@ import React from 'react';
 
 import AddIcon from '@atlaskit/icon/core/add';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const icons = [AddIcon, ChevronDownIcon];
 

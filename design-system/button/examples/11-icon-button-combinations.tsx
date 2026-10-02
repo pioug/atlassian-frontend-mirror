@@ -6,7 +6,8 @@ import LegacyButton from '@atlaskit/button/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { type IconSize } from '@atlaskit/icon/types';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { iconButtonShapes } from '../src/utils/icon-button-shapes';

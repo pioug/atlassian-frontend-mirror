@@ -136,6 +136,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 				api,
 				includeElementBrowserItems: options?.enableElementBrowser === true,
 				isRecommendedItem: options?.isRecommendedItem,
+				maxRecommendedItems: options?.maxRecommendedItems,
 			}),
 		);
 	}

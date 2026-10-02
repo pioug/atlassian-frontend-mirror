@@ -60,7 +60,10 @@ import {
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	ExpandableMenuItem,

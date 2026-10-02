@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-grid
 
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

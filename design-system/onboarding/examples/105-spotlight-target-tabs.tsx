@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { Spotlight, SpotlightManager, SpotlightTarget } from '@atlaskit/onboarding';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';

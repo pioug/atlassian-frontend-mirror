@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
 import Presence from '@atlaskit/avatar/presence';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { Block } from '../examples-util/block';
 import { ShrinkWrap } from '../examples-util/shrink-wrap';

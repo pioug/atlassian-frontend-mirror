@@ -449,13 +449,27 @@ const LozengeBase: import('react').MemoExoticComponent<
 			},
 			ref,
 		) => {
+			const enableTruncationFixFG = fg('platform-dst-motion-lozenge-truncation-fix');
+
 			const [resizing, setResizing] = useState<boolean>(false);
+			const [isTruncated, setIsTruncated] = useState<boolean>(false);
+			const textRef = useRef<HTMLSpanElement>(null);
 			const onFinishMotion = () => setResizing(false);
+			// `onStartMotion` fires while the element is at its natural layout, just before the resize
+			// animation starts, this allows us to calculate whether the text will be truncated at its
+			// final state
+			const onStartMotion = () => {
+				const textElement = textRef.current;
+				if (textElement) {
+					setIsTruncated(textElement.scrollWidth > textElement.clientWidth);
+				}
+			};
 			const resizingWidth = useResizing({
 				dimension: 'width',
 				duration: token('motion.duration.medium'),
 				easing: token('motion.easing.inout.bold'),
 				onFinishMotion,
+				onStartMotion: enableTruncationFixFG ? onStartMotion : undefined,
 			});
 			const isInitialRender = useRef<boolean>(true);
 
@@ -555,10 +569,19 @@ const LozengeBase: import('react').MemoExoticComponent<
 						/>
 					)}
 					<span
+						ref={textRef}
 						css={[
 							styles.text,
-							// Clip during animating width changes, but not when a maxWidth is specified
-							enableMotionFG && resizing && !maxWidth ? styles.textClip : styles.textEllipsis,
+							// Clip while the width animates, otherwise an ellipsis flickers in for text
+							// that fits. Text that genuinely truncates at the settled width keeps its ellipsis.
+							enableMotionFG &&
+							resizing &&
+							(enableTruncationFixFG
+								? !isTruncated
+								: // Clip during animating width changes, but not when a maxWidth is specified
+									!maxWidth)
+								? styles.textClip
+								: styles.textEllipsis,
 							spacing === 'spacious' && styles.textSpacious,
 						]}
 						style={{

@@ -9,7 +9,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Badge from '@atlaskit/badge/badge';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import BadgeNew from '../src/badge-new';

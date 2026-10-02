@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 19.3.8
+
+### Patch Changes
+
+- [`9c21867737632`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c21867737632) -
+  Fix React 19 support: the loading table now gets the `inert` attribute under React 19, and
+  row/cell `key`s are no longer spread into JSX (which React 19 warns about and SSR checks flag).
+
 ## 19.3.7
 
 ### Patch Changes

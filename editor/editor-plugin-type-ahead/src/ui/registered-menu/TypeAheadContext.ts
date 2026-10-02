@@ -9,11 +9,13 @@ import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 
 export type TypeAheadContextValue = {
+	activePreviewItemKey?: string;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 	editorView: EditorView;
 	inputMethod: INPUT_METHOD.QUICK_INSERT;
 	menuOpenId: symbol;
 	onClose: () => void;
+	popupsMountPoint?: HTMLElement;
 	query: string;
 	surfaceContext: SurfaceContext;
 	triggerHandler: TypeAheadHandler;

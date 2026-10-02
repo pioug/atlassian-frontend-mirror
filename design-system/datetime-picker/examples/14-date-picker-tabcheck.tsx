@@ -9,7 +9,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import { Label } from '@atlaskit/form/label/default';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const styles = cssMap({
 	root: {

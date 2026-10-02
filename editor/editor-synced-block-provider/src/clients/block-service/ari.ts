@@ -1,5 +1,7 @@
 /* eslint-disable require-unicode-regexp */
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import type { SyncBlockLocationScope, SyncBlockProduct } from '../../common/types';
 import { parseJiraFieldLocation } from '../jira/ari';
 
@@ -90,6 +92,9 @@ export const getLocationScope = ({
 };
 
 export const getProductFromSourceAri = (ari?: string): SyncBlockProduct | undefined => {
+	if (!ari && isExperimentEnabled('platform_editor_blocks_patch_11')) {
+		return undefined;
+	}
 	const jiraMatch = ari?.search(JIRA_SOURCE_ARI_REGEX);
 	if (jiraMatch !== -1) {
 		return 'jira-work-item';

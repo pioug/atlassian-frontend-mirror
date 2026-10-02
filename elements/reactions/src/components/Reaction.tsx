@@ -126,6 +126,7 @@ export interface ReactionProps {
 	 * Optional prop for controlling if the reaction displayed is a default one and should not have a border
 	 */
 	showSubtleStyle?: boolean;
+	wideTooltip?: boolean;
 }
 
 /**
@@ -146,6 +147,7 @@ export const Reaction = ({
 	showSubtleStyle,
 	optimisticImageURL,
 	rootElement,
+	wideTooltip,
 }: ReactionProps): JSX.Element => {
 	const intl = useIntl();
 	const hoverStart = useRef<number>();
@@ -255,6 +257,7 @@ export const Reaction = ({
 				/>
 			)}
 			<ReactionTooltip
+				wideTooltip={wideTooltip}
 				emojiName={emojiName}
 				reaction={reaction}
 				isEnabled={isTooltipEnabled}

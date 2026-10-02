@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import Portal from '@atlaskit/portal/portal';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 export default function BasicPortalExample(): React.JSX.Element {

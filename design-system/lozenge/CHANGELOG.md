@@ -1,5 +1,16 @@
 # @atlaskit/lozenge
 
+## 17.0.3
+
+### Patch Changes
+
+- [`4db7ef3df906c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4db7ef3df906c) -
+  Fixed an ellipsis briefly appearing on lozenge text that does not truncate while the lozenge
+  animates its width, behind the `platform-dst-motion-lozenge-truncation-fix` feature gate (which
+  only takes effect when `platform-dst-motion-uplift` is also enabled). Text that truncates at the
+  settled width keeps its ellipsis throughout the animation.
+- Updated dependencies
+
 ## 17.0.2
 
 ### Patch Changes

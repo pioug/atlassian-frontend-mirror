@@ -9,7 +9,7 @@ import IconButton from '@atlaskit/button/icon/button';
 import { css, cssMap, jsx } from '@atlaskit/css';
 import EditIcon from '@atlaskit/icon/core/edit';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

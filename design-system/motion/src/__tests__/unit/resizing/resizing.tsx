@@ -51,6 +51,7 @@ const TestComponent = (props: {
 	width: number;
 	height: number;
 	onFinishMotion?: () => void;
+	onStartMotion?: () => void;
 }) => (
 	<Container
 		{...useResizing({
@@ -58,6 +59,7 @@ const TestComponent = (props: {
 			duration: token('motion.duration.medium'),
 			easing: token('motion.easing.inout.bold'),
 			onFinishMotion: props.onFinishMotion,
+			onStartMotion: props.onStartMotion,
 		})}
 		width={props.width}
 		height={props.height}
@@ -169,7 +171,7 @@ describe('useResizing', () => {
 			jest.useRealTimers();
 		});
 
-		it('should not call onFinishMotion when reduced motion is enabled', () => {
+		it('should call onFinishMotion immediately when reduced motion is enabled', () => {
 			(isReducedMotion as jest.Mock).mockReturnValue(true);
 			const onFinishMotion = jest.fn();
 			const { rerender } = render(
@@ -180,7 +182,8 @@ describe('useResizing', () => {
 				<TestComponent dimension="width" width={500} height={50} onFinishMotion={onFinishMotion} />,
 			);
 
-			expect(onFinishMotion).not.toHaveBeenCalled();
+			// No motion runs, so consumers shouldn't be left waiting on a transition that never happens.
+			expect(onFinishMotion).toHaveBeenCalledTimes(1);
 		});
 
 		it('should call onFinishMotion immediately if width did not change', () => {
@@ -200,6 +203,43 @@ describe('useResizing', () => {
 
 			// Width didn't change, even though height did - should short-circuit.
 			expect(onFinishMotion).toHaveBeenCalledTimes(1);
+		});
+
+		it('should call onFinishMotion on each update where no motion was needed', () => {
+			const onFinishMotion = jest.fn();
+			const { rerender } = render(
+				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
+			);
+
+			rerender(
+				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
+			);
+			rerender(
+				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
+			);
+
+			// There is nothing to wait on, so every update resolves - consumers must treat this as
+			// idempotent.
+			expect(onFinishMotion).toHaveBeenCalledTimes(2);
+		});
+
+		it('should call onFinishMotion on each update when reduced motion is enabled', () => {
+			(isReducedMotion as jest.Mock).mockReturnValue(true);
+			const onFinishMotion = jest.fn();
+			const { rerender } = render(
+				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
+			);
+
+			rerender(
+				<TestComponent dimension="width" width={500} height={50} onFinishMotion={onFinishMotion} />,
+			);
+			rerender(
+				<TestComponent dimension="width" width={800} height={50} onFinishMotion={onFinishMotion} />,
+			);
+
+			// Same contract as the no-motion-needed case above: motion never runs, so each update
+			// resolves immediately.
+			expect(onFinishMotion).toHaveBeenCalledTimes(2);
 		});
 
 		it('should cleanup when unmounting and not throw an error', () => {
@@ -365,6 +405,85 @@ describe('useResizing', () => {
 			);
 
 			expect(onFinishMotion).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('onStartMotion', () => {
+		it('should not be called on the initial render', () => {
+			const onStartMotion = jest.fn();
+			render(
+				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			expect(onStartMotion).not.toHaveBeenCalled();
+		});
+
+		it('should be called once per update', () => {
+			const onStartMotion = jest.fn();
+			const { rerender } = render(
+				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			rerender(
+				<TestComponent dimension="width" width={500} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			expect(onStartMotion).toHaveBeenCalledTimes(1);
+
+			rerender(
+				<TestComponent dimension="width" width={800} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			expect(onStartMotion).toHaveBeenCalledTimes(2);
+		});
+
+		it('should be called before any transition styles are applied so consumers measure natural layout', () => {
+			const styleWhenMeasured: (string | null)[] = [];
+			const onStartMotion = jest.fn(() => {
+				styleWhenMeasured.push(screen.getByTestId('element').getAttribute('style'));
+			});
+			const { rerender } = render(
+				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			rerender(
+				<TestComponent dimension="width" width={500} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			expect(styleWhenMeasured).toEqual(['']);
+			// The transition styles land after the measurement.
+			expect(screen.getByTestId('element').style).toMatchObject({ width: '100px' });
+		});
+
+		it('should not be called when no motion is needed', () => {
+			const onStartMotion = jest.fn();
+			const { rerender } = render(
+				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			rerender(
+				<TestComponent dimension="width" width={100} height={500} onStartMotion={onStartMotion} />,
+			);
+
+			// Width didn't change, so no animation runs - and therefore no motion ever starts.
+			expect(onStartMotion).not.toHaveBeenCalled();
+		});
+
+		it('should not be called when reduced motion is enabled', () => {
+			(isReducedMotion as jest.Mock).mockReturnValue(true);
+			const onStartMotion = jest.fn();
+			const { rerender } = render(
+				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			rerender(
+				<TestComponent dimension="width" width={500} height={50} onStartMotion={onStartMotion} />,
+			);
+
+			// No animation distorts layout, so there's no measurement window to hand out - and no
+			// reason to force a layout read.
+			expect(onStartMotion).not.toHaveBeenCalled();
+			expect(screen.getByTestId('element')).not.toHaveAttribute('style');
 		});
 	});
 });

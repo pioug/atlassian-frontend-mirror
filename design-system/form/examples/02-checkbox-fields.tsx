@@ -7,7 +7,7 @@ import Field from '@atlaskit/form/field';
 import { Fieldset } from '@atlaskit/form/fieldset';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import RadioGroup from '@atlaskit/radio/radio-group';
 
 export default (): React.JSX.Element => (

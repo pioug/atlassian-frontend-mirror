@@ -5,7 +5,7 @@
  */
 import { useEffect } from 'react';
 
-import AppProvider from '@atlaskit/app-provider/app-provider';
+import { AppProvider } from '@atlaskit/app-provider/app-provider';
 import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
 import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import { useSetColorMode } from '@atlaskit/app-provider/use-set-color-mode';
@@ -19,7 +19,10 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Select from '@atlaskit/select/default';
 import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';

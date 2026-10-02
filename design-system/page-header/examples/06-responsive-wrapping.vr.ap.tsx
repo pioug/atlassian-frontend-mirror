@@ -6,7 +6,8 @@ import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import PageHeader from '@atlaskit/page-header';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const styles = cssMap({
 	container400: {

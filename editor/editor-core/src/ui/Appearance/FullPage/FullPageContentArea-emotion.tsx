@@ -6,8 +6,7 @@ import type { ReactElement } from 'react';
 import React, { useImperativeHandle, useRef } from 'react';
 
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
-import { css, jsx, useTheme } from '@emotion/react';
-import type { Theme } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
@@ -40,7 +39,6 @@ import {
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
@@ -364,7 +362,6 @@ const Content = React.forwardRef<
 	ScrollContainerRefs,
 	FullPageEditorContentAreaProps & WrappedComponentProps
 >((props, ref) => {
-	const theme: Theme = useTheme();
 	const fullWidthMode = props.appearance === 'full-width';
 	const maxWidthMode = props.appearance === 'max';
 	const scrollContainerRef = useRef(null);
@@ -376,10 +373,7 @@ const Content = React.forwardRef<
 		(!fullWidthMode
 			? maxWidthMode
 				? akEditorUltraWideLayoutWidth
-				: expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true) ||
-					  expValEquals('platform_editor_core_static_css', 'isEnabled', true)
-					? akEditorDefaultLayoutWidth
-					: theme.layoutMaxWidth
+				: akEditorDefaultLayoutWidth
 			: akEditorFullWidthLayoutWidth);
 
 	// Get useStandardNodeWidth from block menu plugin shared state

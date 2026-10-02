@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Tag from '@atlaskit/tag/removable-tag';
 
 export default (): React.JSX.Element => (

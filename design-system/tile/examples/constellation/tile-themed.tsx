@@ -4,7 +4,7 @@ import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import Code from '@atlaskit/code/code';
 import Heading from '@atlaskit/heading/heading';
 import Image from '@atlaskit/image';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Tile from '@atlaskit/tile/tile';
 
 import cloudDark from '../images/cloud-dark.svg';

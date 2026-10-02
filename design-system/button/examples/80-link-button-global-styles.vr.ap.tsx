@@ -12,7 +12,8 @@ import {
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

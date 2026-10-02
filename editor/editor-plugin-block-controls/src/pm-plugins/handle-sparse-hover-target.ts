@@ -9,7 +9,6 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from './decorations-common';
 
 const OPAQUE_BLOCKS = new Set([
-	'table',
 	'bulletList',
 	'orderedList',
 	'taskList',
@@ -17,6 +16,7 @@ const OPAQUE_BLOCKS = new Set([
 	'mediaSingle',
 ]);
 const EXCLUDED_BLOCKS = new Set(['listItem', 'tableRow', 'tableCell', 'tableHeader', 'caption']);
+const TABLE_CELLS = new Set(['tableCell', 'tableHeader']);
 
 const isPanelNodeTypeName = (nodeTypeName: string | null | undefined): boolean =>
 	nodeTypeName === 'panel' ||
@@ -110,13 +110,21 @@ export const handleSparseHoverTarget = (
 		if (!node.isBlock || EXCLUDED_BLOCKS.has(node.type.name)) {
 			continue;
 		}
-		targetPosition = $pos.before(depth);
+		// Legacy hover excludes direct cell children, but can target deeper blocks inside them.
+		if (!TABLE_CELLS.has($pos.node(depth - 1).type.name)) {
+			targetPosition = $pos.before(depth);
+		}
 		if (OPAQUE_BLOCKS.has(node.type.name)) {
 			opaque = true;
 			break;
 		}
 	}
-	if (!opaque && $pos.nodeAfter?.isBlock && !EXCLUDED_BLOCKS.has($pos.nodeAfter.type.name)) {
+	if (
+		!opaque &&
+		$pos.nodeAfter?.isBlock &&
+		!EXCLUDED_BLOCKS.has($pos.nodeAfter.type.name) &&
+		!TABLE_CELLS.has($pos.parent.type.name)
+	) {
 		// Browser positions over non-editable node chrome can resolve to the first editable child.
 		// Keep the ancestor unless that child actually owns the hovered DOM target.
 		const nodeAfterDOM = view.nodeDOM(position);

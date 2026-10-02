@@ -1,30 +1,35 @@
-# Does the in-argument `:has()` guard hold? — browser verification of the 282-line claim
+# Does a guard inside a `:has()` argument hold? — Chromium truth table
 
-**Status:** closed question, answered by measurement in real Chromium 143.0.7499.4. **Verdict:** the
-claim **partly holds**. The descendant case — the one flagged as most likely to break it — **is**
-handled, because §0.2's guard set already contains the ancestor-form terms `[popover] *`,
-`dialog *`, and Chromium confirms they work. But three shapes the classifier treats as
-`codemod-able` are **not** fixable in-argument, and one of them is a real population: **rows
-carrying a propagating state pseudo (`:hover` / `:focus-within` / `:active`) inside the `:has()`
-argument**, where the guard target is a real ancestor of the host, not the host. That is a **hazard
-class the plan has not named anywhere** (§4.2 below). A counter-correction runs the other way (21
-rows the classifier over-counted as judgement), so the net movement on the headline number is small:
+**Status:** closed question, answered by measurement in Chromium 143.0.7499.4. This is the evidence
+behind the `:has()` rows of
+[`../../decisions/top-layer-unsafe-selectors.md`](../../decisions/top-layer-unsafe-selectors.md),
+which owns the guard strings. The fixture below spells the guards with the withdrawn `of S` term
+list (`style`, `script` and so on); those terms do not change any `:has()` result here. The `§`
+references and the row counts are from the cancelled blanket-migration plan; read them as history.
 
-> **505 + 15 + 1 − 21 = 500.** Not 787, and not 520 either — see the ledger in §5.0.
+**Findings:**
+
+- The **wide** guard (`[popover] *`, `dialog *` terms) holds on every descendant shape. The narrow
+  guard fails on all of them (C4 to C8).
+- A propagating state pseudo (`:hover`, `:focus-within`, `:active`) inside the argument flips a real
+  ancestor of the host, so no guard can fix it (section 4.2). It is visible only during interaction.
+- Every top-level comma branch needs its own guard (C18 against C19), and the `:not()` nesting
+  direction matters both ways (C15, C16).
+- A nested `:has()` inside a `:has()` argument makes Chromium reject the whole selector (C17).
+- The wide guard is not a flag-off no-op (section 4.4).
 
 ---
 
 ## 1. The claim under test
 
-From [`residue-classification.md`](./residue-classification.md), the `:has()` rewrite table:
+From the residue classification of the cancelled blanket migration, the `:has()` rewrite table:
 
 > | descendant-reaching `A` | append `:not(:where([popover], dialog, [popover] *, dialog *, …))` to
 > the rightmost compound of every top-level branch — §0.2 already specifies this descendant form |
 > 282 |
 
-The referenced guard-form rule — Step 1 of
-[`../unsafe-selectors-plan.md`](../unsafe-selectors-plan.md) — is: _"Descendant rules must also
-exclude the subtree: `[popover] *`, `dialog *`."_
+The guard-form rule it cited was: _"Descendant rules must also exclude the subtree: `[popover] *`,
+`dialog *`."_
 
 Two things follow, and the distinction is the whole result:
 
@@ -66,7 +71,7 @@ Two environment notes for anyone re-running this:
   AppKit appearance resources under `/System`, which the sandbox deny-lists, and aborts with
   `NSInternalInconsistencyException … required built-in appearance SystemAppearance not found`.
 - `OPENSSL_CONF=/dev/null` is needed for the same reason (node tries to read
-  `/System/Library/OpenSSL/openssl.cnf`). This also applies to `classify-residue.mjs`.
+  `/System/Library/OpenSSL/openssl.cnf`).
 
 ### Fixture
 
@@ -318,10 +323,9 @@ halves of it:
   five. `[popover] *` correctly excludes a match at **any** depth inside the host, whether or not
   the popover has been shown, and `dialog *` does the same for the `<dialog>` host.
 
-So `descendantCaseHandled = true`: the classifier's rule cites the subtree terms explicitly
-(`classify-residue.mjs:689-692`, "§0.2's descendant guard (`[popover] *`, `dialog *`)"), the doc's
-rewrite table names them, and §0.2 mandates them. The hypothesised failure mode is real but already
-covered — the 282 rows are descendant-argument cases by construction, and the guard they are
+So `descendantCaseHandled = true`: the classifier's rule cited the subtree terms explicitly, the
+doc's rewrite table names them, and §0.2 mandated them. The hypothesised failure mode is real but
+already covered — the 282 rows are descendant-argument cases by construction, and the guard they are
 promised is the wide one.
 
 ### 4.1 The damage mode the taxonomy is missing
@@ -473,180 +477,3 @@ nothing to do with the top-layer migration:
 The base `S` guard is a defensible no-op-modulo-enumerated-diffs; the subtree terms are not, and
 gate 3's expected-diff set has to absorb that. This is a **cost** finding, not a correctness finding
 about the residue count.
-
----
-
-## 5. Corrected numbers
-
-Three corrections, in **both** directions. All were applied to a patched copy of
-`classify-residue.mjs` and re-run over the full corpus, so the totals below are measured, not
-arithmetic layered on the published ones. The baseline reproduces exactly first
-(`1149 / 293 / 344 / 7 / 505`).
-
-### 5.0 Ledger — and why it is not 520
-
-The corrected total is **lower** than 505, which looks wrong if you only see Correction A. The
-signed ledger:
-
-```
-  505   published needs-judgement
-+  15   A.  claim failures: rows of the 282 the guard does NOT fix
-             (propagating dynamic pseudo in the :has() argument)   codemod-able  → judgement
-+   1   A'. `root-scoped-has-is-invariant` is unsound for state pseudos
-             (body:has([role=slider]:hover))                       det-safe      → judgement
-−  21   B.  leading-`~` arguments over-counted as judgement
-             (`:has(~ X)` needs no adjacency — browser-verified)    judgement    → codemod-able
-= 500   corrected needs-judgement
-```
-
-`Y = 21`, and it is **not** part of the 282 under test. It is an **independent** finding about a
-different bucket — the 49 `needs-judgement/sibling-combinator-in-argument` rows — that fell out of
-the same fixture run (D2/D3/D4). The classifier lumps `+` and `~` together; the browser shows `~`
-does not break. So the number moves down even though the claim under test lost ground.
-
-**If you want the claim-only number, it is 520** (`505 + 15`). Use 520 to price _"what does
-rejecting part of the descendant-guard claim cost"_ in isolation; use **500** as the residue's
-actual size, since Correction B is just as measured as Correction A and there is no principled
-reason to bank one and not the other. Either way the answer to the sequencing question is unchanged:
-it is nowhere near 787.
-
-Bucket totals must still sum to 1,149, and they do: `299 + 343 + 7 + 500`.
-
-### 5.1 What `rowsSurviving = 267` counts
-
-Rows of the 282 for which the guard claim **holds** — i.e. still legitimately `codemod-able`
-(`282 − 15 = 267`, 94.7%). It is a measure of the _claim_, not of the residue, and it moves in the
-opposite direction to the residue total by construction: every row that stops surviving _adds_ to
-judgement. The descendant-guard bucket itself ends up at **288**, larger than 282, because it loses
-the 15 and absorbs the 21 from Correction B.
-
-### 5.2 Correction A — `+15` to judgement
-
-New rule `needs-judgement/propagating-state-pseudo-in-argument`: any `:has()` argument containing
-`:hover`, `:focus-within` or `:active` (`/:(?:hover|focus-within|active)\b/`), placed immediately
-after the existing `UNGUARDABLE_POSITIONAL` gate so it cannot steal comment / root-scoped /
-not-a-selector rows. **15 of the 282** fire, in 10 files:
-
-| site                                                                                            | argument(s)                                                                                      |
-| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `platform/packages/editor/editor-common/src/extensibility/ExtensionNodeWrapper.tsx:33,39,60,66` | `.extension-label:hover`, `.extension-container:hover`, `.extension-edit-toggle-container:hover` |
-| `platform/packages/editor/editor-toolbar/src/ui/ToolbarButtonGroup.tsx:20,30`                   | `[data-toolbar-component="button"]:not(…):hover`                                                 |
-| `jira/…/calendar-view/src/ui/calendar-renderer/CalendarRenderer.tsx:1742`                       | `.fc-event-main:hover, .fc-event-resizer…:hover`                                                 |
-| `jira/…/calendar-renderer/add-icon-button/AddIconButton.tsx:63`                                 | `.fc-event-main:hover, …`                                                                        |
-| `wac/…/customer-stat/src/customer-stat.tsx:147`                                                 | `.full-card:hover`                                                                               |
-| `wac/…/customer-quote/src/customer-quote.tsx:98,210`                                            | `.full-card:hover`                                                                               |
-| `wac/…/card/src/card.tsx:394,399`                                                               | `.full-card:hover`                                                                               |
-| `avp/…/spreadsheet-table/spreadsheet-table.tsx:51`                                              | `[role="slider"]…:hover`, `…:active`                                                             |
-| `adminhub/…/identity-providers-card/identity-providers-card.tsx:50`                             | `button:hover`                                                                                   |
-
-These are the plausible ones, not exotica: `button:hover`, `.extension-container:hover` and
-`[data-toolbar-component="button"]:hover` are exactly the compounds a migrated tooltip or popup gets
-inserted underneath.
-
-### 5.3 Correction A′ — `+1` to judgement
-
-`deterministically-safe/root-scoped-has-is-invariant` is sound for existence and unsound for state
-(§4.2). The rule now runs **after** the dynamic-pseudo check, moving
-`avp/…/spreadsheet-table/spreadsheet-table.tsx:83` out of `deterministically-safe`. That bucket goes
-`26 → 25` for this reason and `344 → 343` overall.
-
-Together A and A′ make the live `propagating-state-pseudo-in-argument` bucket **17** rows: 15 from
-the 282, 1 from root-scope, and 1 whose reason was previously attributed to `interpolated-argument`
-(already judgement, so no total change — `interpolated-argument` goes `49 → 48`).
-
-### 5.4 Correction B — `−21` from judgement
-
-The classifier lumps `+` and `~` into one `sibling-combinator-in-argument` bucket. D3/D4 show that
-is too strict: a **leading `~`** requires no adjacency, so a host inserted between `E` and the
-sibling leaves the match untouched, and the only exposure is the descendant tail — which the wide
-guard fixes (D2). Rule change: strip a leading `~` from a branch when it carries no other top-level
-`+`/`~`, then classify the remainder normally. **21 of the 49** move to `codemod-able`, and none of
-them is held in judgement by a second residue signal on the same line (checked against all six other
-patterns):
-
-- `platform/packages/editor/editor-plugin-block-controls/src/ui/quick-insert-button.tsx` — 10 rows
-- `platform/packages/confluence/editor-plugin-malleable-ui/src/ui/components/RemixButtonDecoration.tsx`
-  — 10 rows
-- `platform/packages/editor/editor-toolbar/src/ui/Toolbar.tsx:66` — 1 row
-
-### 5.5 Corrected table
-
-| bucket                 | published | corrected |  delta |
-| ---------------------- | --------: | --------: | -----: |
-| codemod-able           |       293 |   **299** |     +6 |
-| deterministically-safe |       344 |   **343** |     −1 |
-| unreachable            |         7 |     **7** |      0 |
-| **needs-judgement**    |   **505** |   **500** | **−5** |
-| total                  |     1,149 |     1,149 |      0 |
-
-`:has()` sub-buckets, corrected:
-
-| reason                                                 | published | corrected |
-| ------------------------------------------------------ | --------: | --------: |
-| `codemod-able/guard-subtree-in-descendant-argument`    |       282 |   **288** |
-| `needs-judgement/sibling-combinator-in-argument`       |        49 |    **28** |
-| `needs-judgement/propagating-state-pseudo-in-argument` |         — |    **17** |
-| `needs-judgement/interpolated-argument`                |        49 |    **48** |
-| `deterministically-safe/root-scoped-has-is-invariant`  |        26 |    **25** |
-| `:has()` needs-judgement, total                        |       133 |   **128** |
-
-**Of the 282, 267 survive** as validly `codemod-able` (94.7%); 15 return to the residue. The
-descendant-guard bucket then _grows_ to 288 because it absorbs the 21 leading-`~` rows.
-
-`judgementRows` is now **500 rows across 289 files** (was 505 across 283). The file count rises
-while the row count falls: the 21 rows removed are concentrated in 3 files, the 16 added are spread
-over 11.
-
-Re-run (needs `--repo` / `--scope` when the patched copy lives outside the repo):
-
-```bash
-OPENSSL_CONF=/dev/null node classify-residue-corrected.mjs \
-  --repo <afm-root> --scope <prework>/filter1-scope.json --out /tmp/residue-corrected.json
-# → DEDUPED TOTAL 1149: codemod-able 299, deterministically-safe 343, unreachable 7, needs-judgement 500
-```
-
-### 5.6 Sensitivities
-
-- **`+15 / +1` is deliberately conservative.** The rule is arg-wide, like the existing
-  `UNGUARDABLE_POSITIONAL` gate, so it fires even where no real ancestor can plausibly become the
-  host's parent. A per-site pass would likely clear some of the 16 — but that pass _is_ judgement
-  work, so counting them in is the right call for a judgement budget.
-- **`−21` rests on one unverified premise:** that no adopter _wraps pre-existing DOM_ in a host. The
-  in-place adopters render their own content (previously portalled), and anchored hosts are inserted
-  beside the trigger — neither wraps a subtree. If some adopter does wrap, `~` breaks the same way
-  `+` does and this correction is void, giving **521**.
-- **Claim-only figure: 520.** `505 + 15` — Correction A alone, banking neither A′ nor B. See §5.0.
-- **Three rows are a self-inconsistency, not a guard failure.** The doc's measurement caveats say
-  "Playwright / `querySelector` selector strings are counted **conservatively as judgement**, not
-  pruned", yet 3 rows inside the 282 are runtime DOM locators:
-  `jira/src/packages/board/page-objects/integration-tests/InlineCreate.page-object.tsx:16`,
-  `jira/src/packages/admin-pages/labs/integration-tests/BetaFeatures.page-object.tsx:37`,
-  `platform/packages/design-system/modal-dialog/src/__tests__/playwright/accessibility.spec.tsx:39`.
-  Applying that caveat consistently gives **503**. (The other 26 test-file rows in the 282 are
-  `expect(styles).toContain('…')`-style assertions over emitted CSS — those must be updated in
-  lockstep by the codemod, so `codemod-able` is the right owner for them.)
-- **Unchanged:** the `:nth-of-type`, `:empty`, `only-child`, `& +` / `& ~` and reachability
-  findings. Nothing here touches them.
-
-### Bottom line
-
-The 282-line row is **not** the load-bearing weakness the doc feared. The descendant guard is real,
-it is specified correctly in §0.2 (`[popover] *`, `dialog *`), and Chromium confirms it on every
-descendant shape tested. `505 → 787` does not happen; the residue's headline number should be **~500
-rows in 289 files**.
-
-The count is the least interesting output. Three findings matter more:
-
-1. **A hazard class nobody has named** (§4.2) — interaction-only `:has()` flips via propagating
-   dynamic pseudos. 17 live rows, 39 including subject-side, structurally invisible to static VR and
-   to unit tests, and it needs interaction-driven tests to observe at all.
-2. **The wide guard is not a flag-off no-op** (§4.4) — all 288 rewrites have to land in gate 3's
-   expected-diff set, and `shouldRenderToParent` sites can regress with the flag _off_.
-3. **Two transform spec lines with test cases** (§4.3) — per-comma-branch append, and `:not()`
-   nesting direction. C18 is the bug an implementation that appends once will ship.
-
-Residual uncertainty has moved from "is the guard real" (settled: yes, for descendants) to "does any
-adopter wrap existing DOM" (worth ±21).
-
-**Confidence: high** for the mechanism findings — every one is a direct browser measurement,
-reproducible with the fixture above; **medium** for the row deltas, for the reasons in §5.6.

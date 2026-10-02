@@ -21,19 +21,21 @@ The rule does not infer semantics, follow imported or dynamic styles, or overwri
 
 ```tsx
 import { token } from '@atlaskit/tokens';
-import { Pressable } from '@atlaskit/primitives/compiled';
-import { xcss } from '@atlaskit/primitives/xcss';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { cssMap } from '@atlaskit/css';
 
-const styles = xcss({
-	transition: token('motion.button.hovered'),
-	':hover': { backgroundColor: 'color.background.neutral.hovered' },
-	':active': {
-		backgroundColor: 'color.background.neutral.pressed',
-		transition: token('motion.button.pressed'),
+const styles = cssMap({
+	root: {
+		transition: token('motion.button.hovered'),
+		'&:hover': { backgroundColor: token('color.background.neutral.hovered') },
+		'&:active': {
+			backgroundColor: token('color.background.neutral.pressed'),
+			transition: token('motion.button.pressed'),
+		},
 	},
 });
 
-<Pressable xcss={styles} />;
+<Pressable xcss={styles.root} />;
 ```
 
 ## Native button example

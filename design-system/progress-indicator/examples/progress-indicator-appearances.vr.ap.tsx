@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const Wrapper = ({ children, isInverted }: { children: React.ReactNode; isInverted?: boolean }) => {

@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import Loadable from 'react-loadable';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
-import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import type {
 	ExtensionManifest,
@@ -48,7 +48,7 @@ const getExtensionIconComponents = (icon: ExtensionIconLoader): ExtensionIconCom
 	}
 
 	const components = {
-		lazy: lazyForPaint(icon),
+		lazy: lazy(icon),
 		loadable: Loadable<{ label: string }, never>({
 			loader: icon,
 			loading: () => null,

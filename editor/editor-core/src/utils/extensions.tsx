@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
-import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
@@ -96,12 +96,12 @@ const dummyExtensionAPI: ExtensionAPI = {
 
 type IconLoader = NonNullable<MenuItem['icon']>;
 // Keep lazy icon component identities stable across menu unmounts and remounts.
-const lazyExtensionIconCache = new WeakMap<IconLoader, ReturnType<typeof lazyForPaint>>();
+const lazyExtensionIconCache = new WeakMap<IconLoader, ReturnType<typeof lazy>>();
 
 const LazyExtensionIcon = ({ iconLoader }: { iconLoader: IconLoader }) => {
 	let Icon = lazyExtensionIconCache.get(iconLoader);
 	if (!Icon) {
-		Icon = lazyForPaint(() => iconLoader());
+		Icon = lazy(() => iconLoader());
 		lazyExtensionIconCache.set(iconLoader, Icon);
 	}
 

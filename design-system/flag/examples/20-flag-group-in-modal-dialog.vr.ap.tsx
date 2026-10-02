@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import Flag from '@atlaskit/flag/flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { useFlags } from '@atlaskit/flag/use-flags';
 import Heading from '@atlaskit/heading/heading';

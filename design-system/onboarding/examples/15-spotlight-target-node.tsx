@@ -8,7 +8,7 @@ import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { Spotlight, SpotlightManager, SpotlightTransition } from '@atlaskit/onboarding';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { Highlight } from './styled';
 

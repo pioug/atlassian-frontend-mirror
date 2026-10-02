@@ -7,7 +7,7 @@ import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
 import GlobeIcon from '@atlaskit/icon/core/globe';
 import { type NewGlyphColorProps } from '@atlaskit/icon/types';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

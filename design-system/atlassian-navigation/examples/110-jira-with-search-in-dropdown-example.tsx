@@ -33,7 +33,7 @@ import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 import { Popup } from '@atlaskit/popup/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Textfield from '@atlaskit/textfield/text-field';
 
 import { DefaultCreate } from './shared/create';

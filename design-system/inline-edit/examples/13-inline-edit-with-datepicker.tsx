@@ -5,7 +5,8 @@ import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import TimePicker from '@atlaskit/datetime-picker/time-picker';
 import Heading from '@atlaskit/heading/heading';
 import InlineEdit from '@atlaskit/inline-edit/inline-edit';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const ReadView = ({ data, placeholder }: { data: string; placeholder: string }) => (
 	<Box padding="space.100" testId="readview">

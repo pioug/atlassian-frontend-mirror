@@ -6,7 +6,7 @@
 import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { css, cssMap, jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const iframeStyles = css({

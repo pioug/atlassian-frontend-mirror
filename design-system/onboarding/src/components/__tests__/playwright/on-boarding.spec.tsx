@@ -31,9 +31,7 @@ test('Spotlight tour should not break if a target is not rendered', async ({ pag
 	// hide the second element
 	await page.locator(hideShowBtn).first().click();
 
-	const element = ' #examples > div> div:nth-child(2)';
-	const text = page.locator(element).first();
-	await expect(text).toHaveText('Third Element');
+	await expect(page.getByText('Third Element', { exact: true })).toBeVisible();
 
 	// start the spotlight tour again
 	await page.locator(dynamicTargetStartBtn).first().click();

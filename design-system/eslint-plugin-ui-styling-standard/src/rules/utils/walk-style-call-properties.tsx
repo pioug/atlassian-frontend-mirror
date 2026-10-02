@@ -1,30 +1,45 @@
 import type * as ESTree from 'eslint-codemod-utils';
 
 import type { StyleCall } from './style-calls';
-import { walkStyleObjectProperties } from './walk-style-object-properties';
 
 export function walkStyleCallProperties(
 	styleCall: StyleCall,
 	visitor: (property: ESTree.Property) => void,
-	options?: {
-		includeTopLevel?: boolean;
-		skipSubtree?: (property: ESTree.Property) => boolean;
-	},
+	options?: { includeTopLevel?: boolean },
 ): void {
 	const skipTopLevel =
 		!options?.includeTopLevel &&
 		(styleCall.styleFunction === 'cssMap' || styleCall.styleFunction === 'keyframes');
-	const { skipSubtree } = options ?? {};
 
 	for (const argument of styleCall.node.arguments) {
 		if (argument.type === 'ObjectExpression') {
-			walkStyleObjectProperties(argument, visitor, { skipTopLevel, skipSubtree });
+			walkStyleObject(argument, visitor, skipTopLevel);
 		} else if (
 			argument.type === 'ArrowFunctionExpression' &&
 			argument.expression &&
 			argument.body.type === 'ObjectExpression'
 		) {
-			walkStyleObjectProperties(argument.body, visitor, { skipTopLevel, skipSubtree });
+			walkStyleObject(argument.body, visitor, skipTopLevel);
+		}
+	}
+}
+
+function walkStyleObject(
+	object: ESTree.ObjectExpression,
+	visitor: (property: ESTree.Property) => void,
+	skipVisitor: boolean,
+): void {
+	for (const property of object.properties) {
+		if (property.type !== 'Property') {
+			continue;
+		}
+
+		if (!skipVisitor) {
+			visitor(property);
+		}
+
+		if (property.value.type === 'ObjectExpression') {
+			walkStyleObject(property.value, visitor, false);
 		}
 	}
 }

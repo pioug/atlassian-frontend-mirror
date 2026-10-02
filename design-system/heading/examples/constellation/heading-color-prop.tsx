@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const containerStylesBrandBoldest = css({

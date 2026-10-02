@@ -80,6 +80,7 @@ import { getNodesCountWithExtensionKeys } from '../utils/getNodesCountWithExtens
 import { getNodesVisibleInViewport } from '../utils/getNodesVisibleInViewport';
 import { isChromeless } from '../utils/is-chromeless';
 import { isFullPage } from '../utils/is-full-page';
+import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import measurements from '../utils/performance/measure-enum';
 import {
 	PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
@@ -1494,6 +1495,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		[props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy, ssrEditor],
 	);
 
+	const renderTrackingEnabled =
+		isExperimentEnabled('platform_editor_enable_rerender_tracking') &&
+		!featureFlags.lcmPreventRenderTracking;
+
 	return (
 		<SSRRenderMeasure
 			segmentName={SSR_TRACE_SEGMENT_NAME}
@@ -1501,6 +1506,15 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			onSSRMeasure={onSSRMeasure}
 		>
 			<ReactEditorViewContext.Provider value={reactEditorViewContext}>
+				{renderTrackingEnabled && (
+					<RenderTracking
+						componentProps={props}
+						action={ACTION.RE_RENDERED}
+						actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+						handleAnalyticsEvent={handleAnalyticsEvent}
+						useShallow={true}
+					/>
+				)}
 				{props.render
 					? (props.render?.({
 							editor,

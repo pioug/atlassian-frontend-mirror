@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.5.1
+
+### Patch Changes
+
+- [`7d0e2b88c17cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d0e2b88c17cb) -
+  Use current public entrypoints in example guidance and generated Link imports.
+- Updated dependencies
+
 ## 4.5.0
 
 ### Minor Changes

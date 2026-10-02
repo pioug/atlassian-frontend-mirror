@@ -7,7 +7,7 @@ const nonExampleFilename = 'packages/design-system/button/scripts/my-script.tsx'
 tester.run('use-entrypoints-in-examples', rule, {
 	valid: [
 		{
-			code: `import Button from '@atlaskit/button';`,
+			code: `import Button from '@atlaskit/button/default/button';`,
 			filename: exampleFilename,
 		},
 		{

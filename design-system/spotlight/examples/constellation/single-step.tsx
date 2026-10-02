@@ -6,7 +6,8 @@ import { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
-import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';
 import { SpotlightBody } from '@atlaskit/spotlight/body';
 import { SpotlightCard } from '@atlaskit/spotlight/card';

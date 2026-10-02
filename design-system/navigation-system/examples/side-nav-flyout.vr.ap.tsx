@@ -47,7 +47,8 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	FlyoutMenuItem,

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import InlineEdit from '@atlaskit/inline-edit/inline-edit';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

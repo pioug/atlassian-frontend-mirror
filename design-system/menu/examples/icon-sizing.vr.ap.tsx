@@ -6,7 +6,7 @@ import HeartIcon from '@atlaskit/icon/core/heart';
 import ButtonItem from '@atlaskit/menu/button-item';
 import HeadingItem from '@atlaskit/menu/heading-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

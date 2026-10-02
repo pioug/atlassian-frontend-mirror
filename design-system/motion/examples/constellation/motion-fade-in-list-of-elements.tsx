@@ -17,7 +17,9 @@ import {
 } from '@atlaskit/logo';
 import Motion from '@atlaskit/motion/entering/motion';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { RetryContainer } from '../utils/containers';

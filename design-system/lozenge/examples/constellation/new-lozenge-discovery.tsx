@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 export default (): React.JSX.Element => (
 	<Inline space="space.100">

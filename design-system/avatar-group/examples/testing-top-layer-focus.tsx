@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const data = [
 	{ key: 'user-1', name: 'User One' },

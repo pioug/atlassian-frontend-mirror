@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/default/button';
 import ButtonItem from '@atlaskit/menu/button-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import ImgIcon from './common/img-icon';
 import MenuGroupContainer from './common/menu-group-container';

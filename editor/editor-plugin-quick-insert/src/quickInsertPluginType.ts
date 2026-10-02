@@ -1,5 +1,6 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
 import type {
 	Command,
 	QuickInsertPluginOptions as CommonQuickInsertPluginOptions,
@@ -30,6 +31,20 @@ export type QuickInsertPluginOptions = CommonQuickInsertPluginOptions & {
 	 * and is only available when `platform_editor_block_control_migration` experiment is enabled.
 	 */
 	blockControlButtonEnabled?: boolean;
+	/**
+	 * Selects and ranks the items shown in the Recommended section of the `/` menu.
+	 * Items that are not registered or are hidden are skipped, so lower-ranked items act as fallbacks.
+	 * Defaults to `defaultIsRecommendedItem`.
+	 *
+	 * Only applies when the `platform_editor_slash_command` experiment is enabled.
+	 */
+	isRecommendedItem?: IsRecommendedItem;
+	/**
+	 * Maximum number of items shown in the Recommended section, between 1 and 5. Defaults to 5.
+	 *
+	 * Only applies when the `platform_editor_slash_command` experiment is enabled.
+	 */
+	maxRecommendedItems?: number;
 };
 
 export type OpenElementBrowserOptions = {

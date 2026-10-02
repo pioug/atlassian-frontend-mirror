@@ -1,12 +1,12 @@
 # Phase 0b rung 2 — blast radius of `!important` host geometry
 
-Gating survey for the host-hardening option in
-[`../unsafe-selectors-plan.md`](../unsafe-selectors-plan.md) → Step 6, _Inheritance bleed_. **This
-survey is why the plan rejects `!important` outright.** The proposal was that `@atlaskit/top-layer`
-declare the following **at the host element** with `!important`, so hostile product CSS that reaches
-the host — the `<div popover>` rendered at
-`packages/design-system/top-layer/src/popover/popover.tsx:401` or the `<dialog>` rendered at
-`packages/design-system/top-layer/src/dialog/dialog-content.tsx:273` — cannot move or resize it:
+Survey of the option to harden the top-layer host with `!important`. **This survey is why the host
+defence in [`../unsafe-selectors-plan.md`](../unsafe-selectors-plan.md) uses a specificity boost and
+not `!important`.** The proposal was that `@atlaskit/top-layer` declare the following **at the host
+element** with `!important`, so hostile product CSS that reaches the host — the `<div popover>`
+rendered at `packages/design-system/top-layer/src/popover/popover.tsx:401` or the `<dialog>`
+rendered at `packages/design-system/top-layer/src/dialog/dialog-content.tsx:273` — cannot move or
+resize it:
 
 | Group      | Properties                                                                          |
 | ---------- | ----------------------------------------------------------------------------------- |
@@ -213,12 +213,13 @@ from an atomic class.
 
 ## Required VR coverage
 
-The hosts only exist in the DOM **while open or exit-animating** (see
-`unsafe-selectors-prework/insertion-positions-anchored.md`), so every fixture below must be a
-`snapshotInformational` with a `prepare: async (page) => { await page.getByRole(…).click() }` that
-opens the surface. Static closed-state `snapshot()` calls prove nothing about this change. Run both
-suites (`yarn test:vr:aggregate <path> --update`) — regular and informational baselines live in
-separate `__snapshots__` folders.
+The hosts only exist in the DOM **while open or exit-animating** (see the new-adopter checklist in
+[`../../decisions/top-layer-unsafe-selectors.md`](../../decisions/top-layer-unsafe-selectors.md#new-adopter-checklist)),
+so every fixture below must be a `snapshotInformational` with a
+`prepare: async (page) => { await page.getByRole(…).click() }` that opens the surface. Static
+closed-state `snapshot()` calls prove nothing about this change. Run both suites
+(`yarn test:vr:aggregate <path> --update`) — regular and informational baselines live in separate
+`__snapshots__` folders.
 
 **Existing suites that are already the regression oracle for rung 2** (run with the gate on, before
 and after):
@@ -268,6 +269,6 @@ and after):
    and open (rows 44, 45) — this is the fixture that catches a forced `display` turning a closed
    host into an implicit grid track.
 
-Per the plan, VR is only half of the verification: re-run the Phase 1b runtime detector with the
-hardening on and diff host computed styles against a portalled baseline. Rows 17, 37, 38 and 48 are
-the four `unknown`s that only a real browser can close.
+VR is only half of the verification: run the plan's runtime detector with the hardening on and diff
+host computed styles against a portalled baseline. Rows 17, 37, 38 and 48 are the four `unknown`s
+that only a real browser can close.

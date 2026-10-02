@@ -1,7 +1,10 @@
 import React from 'react';
 
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge/lozenge';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 	{ label: 'Default', value: 'default' },

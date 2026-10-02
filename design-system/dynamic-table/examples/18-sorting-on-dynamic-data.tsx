@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import DynamicTable from '@atlaskit/dynamic-table';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import SectionMessage from '@atlaskit/section-message/message';
 
 const caption = 'Hello';

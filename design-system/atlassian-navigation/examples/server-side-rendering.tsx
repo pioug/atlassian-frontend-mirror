@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReactDOMServer from 'react-dom/server';
 
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import AuthenticatedExample from './10-authenticated-example';
 

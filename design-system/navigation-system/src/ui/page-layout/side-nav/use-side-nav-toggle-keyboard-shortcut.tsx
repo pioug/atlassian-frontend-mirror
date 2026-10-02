@@ -4,9 +4,7 @@ import { bind } from 'bind-event-listener';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useIsSideNavShortcutEnabled } from './use-is-side-nav-shortcut-enabled';
 import { useToggleSideNav } from './use-toggle-side-nav';
 
@@ -18,7 +16,6 @@ export function useSideNavToggleKeyboardShortcut({
 }: {
 	canToggleWithShortcut?: () => boolean;
 }): void {
-	const isFhsEnabled = useIsFhsEnabled();
 	const openLayerObserver = useOpenLayerObserver();
 	const toggleVisibilityByShortcut = useToggleSideNav({ trigger: 'keyboard' });
 
@@ -26,10 +23,6 @@ export function useSideNavToggleKeyboardShortcut({
 	const isSideNavShortcutEnabled = useIsSideNavShortcutEnabled();
 
 	useEffect(() => {
-		if (!isFhsEnabled && !fg('platform-dst-keep-desired-fhs-features')) {
-			return;
-		}
-
 		if (!isSideNavShortcutEnabled) {
 			return;
 		}
@@ -62,7 +55,6 @@ export function useSideNavToggleKeyboardShortcut({
 		});
 	}, [
 		canToggleWithShortcutStableRef,
-		isFhsEnabled,
 		isSideNavShortcutEnabled,
 		openLayerObserver,
 		toggleVisibilityByShortcut,

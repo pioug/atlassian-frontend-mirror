@@ -1,5 +1,17 @@
 # @atlaskit/mention
 
+## 30.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.16
 
 ### Patch Changes

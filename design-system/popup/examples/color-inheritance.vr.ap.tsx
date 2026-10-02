@@ -9,7 +9,9 @@ import { jsx } from '@compiled/react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({

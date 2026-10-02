@@ -26,7 +26,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Card',
-				package: '@atlaskit/smart-card',
+				package: '@atlaskit/smart-card/card/lazy',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -76,7 +76,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'HoverCard',
-				package: '@atlaskit/smart-card/hover-card',
+				package: '@atlaskit/smart-card/hover',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -108,7 +108,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'LinkUrl',
-				package: '@atlaskit/smart-card/link-url',
+				package: '@atlaskit/smart-card/link',
 				type: 'default',
 				packagePath,
 				packageJson,
@@ -139,7 +139,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'TitleBlock',
-				package: '@atlaskit/smart-card',
+				package: '@atlaskit/smart-card/title-block',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -178,7 +178,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'TitleBlock',
-				package: '@atlaskit/smart-card',
+				package: '@atlaskit/smart-card/title-block',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -209,7 +209,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'MetadataBlock',
-				package: '@atlaskit/smart-card',
+				package: '@atlaskit/smart-card/metadata-block',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -239,7 +239,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'PreviewBlock',
-				package: '@atlaskit/smart-card',
+				package: '@atlaskit/smart-card/preview-block',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -269,7 +269,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'FooterBlock',
-				package: '@atlaskit/smart-card',
+				package: '@atlaskit/smart-card/footer-block',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -302,7 +302,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useSmartLinkEvents',
-				package: '@atlaskit/smart-card',
+				package: '@atlaskit/smart-card/hook/use-smart-link-events',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -331,7 +331,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useSmartLinkActions',
-				package: '@atlaskit/smart-card/hooks',
+				package: '@atlaskit/smart-card/hook/use-smart-link-actions',
 				type: 'named',
 				packagePath,
 				packageJson,

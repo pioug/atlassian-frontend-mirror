@@ -94,7 +94,7 @@ type SideNavPanelSplitterProps = Omit<
 	 *
 	 * If the `isSideNavShortcutEnabled` prop is enabled on `<Root />`, the built-in keyboard shortcut will be displayed with the tooltip.
 	 *
-	 * Only used if `platform-dst-keep-desired-fhs-features` or `useIsFhsEnabled` is enabled.
+	 * Used when the panel splitter tooltip is enabled.
 	 */
 	tooltipContent?: PanelSplitterProps['tooltipContent'];
 };

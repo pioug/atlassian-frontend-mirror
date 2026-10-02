@@ -38,7 +38,7 @@ import Link from '@atlaskit/link';
 
 <Link href="/">Hello, World!</Link>;
 
-import { LinkButton } from '@atlaskit/button/new';
+import LinkButton from '@atlaskit/button/link';
 
 <LinkButton href="/">Hello, World!</LinkButton>;
 ```

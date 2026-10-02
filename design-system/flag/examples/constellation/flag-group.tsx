@@ -3,12 +3,12 @@ import React, { type ReactElement, type ReactNode, useCallback, useState } from 
 import Button from '@atlaskit/button/default/button';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag/flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 type flagData = {

@@ -90,7 +90,8 @@ const documentation: StructuredContentSource = {
 			examples: [
 				{
 					name: 'Standard emoji typeahead',
-					description: 'Basic usage of EmojiTypeAhead.',
+					description:
+						'Legacy demo using deprecated layer constants and local helpers. Use an ADS popup or overlay to manage application layering.',
 					source: `${packagePath}/examples/03-standard-emoji-typeahead.tsx`,
 				},
 			],

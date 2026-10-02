@@ -4,7 +4,8 @@ import Heading from '@atlaskit/heading/heading';
 import ChangesObjectTile from '@atlaskit/object/tile/changes';
 import IncidentObjectTile from '@atlaskit/object/tile/incident';
 import PageLiveDocObjectTile from '@atlaskit/object/tile/page-live-doc';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default function ObjectTileBold(): React.JSX.Element {
 	return (

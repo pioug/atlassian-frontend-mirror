@@ -9,7 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import Button from '@atlaskit/button/default/button';
 import { Popup } from '@atlaskit/popup/popup';
 import type { ContentProps, TriggerProps } from '@atlaskit/popup/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

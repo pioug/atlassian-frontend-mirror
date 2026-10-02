@@ -115,6 +115,6 @@ export function releaseSpotlight(owner: symbol): void {
 	}
 }
 
-export function isSpotlightActive(owner: symbol): boolean {
+export function isSpotlightActive(owner?: symbol): boolean {
 	return activeSpotlight !== undefined && activeSpotlight !== owner;
 }

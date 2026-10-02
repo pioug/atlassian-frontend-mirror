@@ -70,6 +70,7 @@ type Params = {
 	api: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
 	includeElementBrowserItems: boolean;
 	isRecommendedItem?: IsRecommendedItem;
+	maxRecommendedItems?: number;
 };
 
 export const getQuickInsertComponents = <
@@ -78,10 +79,12 @@ export const getQuickInsertComponents = <
 	api,
 	includeElementBrowserItems,
 	isRecommendedItem,
+	maxRecommendedItems,
 }: Params): RegisterComponent<TProps>[] => {
 	const recommendedSnapshot = createRecommendedSnapshotCache({
 		api,
 		isRecommendedItem,
+		maxRecommendedItems,
 	});
 	const recommendedSlots: RegisterComponent<TProps>[] = Array.from(
 		{ length: MAX_RECOMMENDED_ITEMS },

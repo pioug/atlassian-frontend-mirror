@@ -11,26 +11,10 @@ import {
 } from '../../examples.vr.ap';
 
 snapshot(LazyLoadingWithDisplayTextExample);
-snapshot(LazyLoadingWithDisplayTextWithOnePluginExample, {
-	featureFlags: {
-		aifc_create_enabled: true,
-	},
-});
-snapshot(LazyLoadingWithDisplayTextWithPluginsExample, {
-	featureFlags: {
-		aifc_create_enabled: true,
-	},
-});
+snapshot(LazyLoadingWithDisplayTextWithOnePluginExample);
+snapshot(LazyLoadingWithDisplayTextWithPluginsExample);
 
 snapshot(LazyLoadingWithoutDisplayTextExample);
-snapshot(LazyLoadingWithoutDisplayTextWithOnePluginExample, {
-	featureFlags: {
-		aifc_create_enabled: true,
-	},
-});
-snapshot(LazyLoadingWithoutDisplayTextWithPluginsExample, {
-	featureFlags: {
-		aifc_create_enabled: true,
-	},
-});
+snapshot(LazyLoadingWithoutDisplayTextWithOnePluginExample);
+snapshot(LazyLoadingWithoutDisplayTextWithPluginsExample);
 snapshot(LazyLoadingEditModeWithDisplayTextWithPluginsExample);

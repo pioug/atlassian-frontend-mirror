@@ -3,7 +3,10 @@ import React from 'react';
 import Banner from '@atlaskit/banner';
 import { cssMap } from '@atlaskit/css';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

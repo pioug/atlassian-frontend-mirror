@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
-import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import { date, dateWithLocalId } from '@atlaskit/adf-schema/date';
 import type { WeekDay } from '@atlaskit/calendar/types';
@@ -50,7 +50,7 @@ const loadDatePicker = () =>
 		(mod) => mod.default,
 	) as Promise<React.ComponentType<React.PropsWithChildren<DatePickerProps>>>;
 
-const DatePickerLazy = lazyForPaint(
+const DatePickerLazy = lazy(
 	() =>
 		import(/* webpackChunkName: "@atlaskit-internal_editor-datepicker" */ './ui/DatePicker').then(
 			(mod) => mod.default,

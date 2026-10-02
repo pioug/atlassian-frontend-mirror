@@ -216,9 +216,7 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
  * A wrapper component that renders a tooltip if the tooltipContent or shortcut is provided.
  */
 const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeTooltipProps) => {
-	const isFhsEnabled = useIsFhsEnabled();
-
-	if (tooltipContent && (isFhsEnabled || fg('platform-dst-keep-desired-fhs-features'))) {
+	if (tooltipContent) {
 		return (
 			<Tooltip
 				testId={testId}

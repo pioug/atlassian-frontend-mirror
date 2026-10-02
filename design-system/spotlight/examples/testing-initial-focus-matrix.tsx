@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';
 import { SpotlightBody } from '@atlaskit/spotlight/body';
 import { SpotlightCard } from '@atlaskit/spotlight/card';

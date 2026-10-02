@@ -34,7 +34,9 @@ import {
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
-import { Box, Flex, Grid } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';

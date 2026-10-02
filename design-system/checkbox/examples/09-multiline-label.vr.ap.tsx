@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { cssMap } from '@atlaskit/css';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const styles = cssMap({
 	root: { alignItems: 'center' },

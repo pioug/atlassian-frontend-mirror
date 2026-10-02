@@ -9,7 +9,29 @@ import { parseSelector } from '../utils/parse-selector';
 import { getStyleCalls } from '../utils/style-calls';
 import { walkStyleCallProperties } from '../utils/walk-style-call-properties';
 
-const getCssSelector = (key: Property['key']): string | null => {
+type TypeScriptExpression = { type: string; expression?: TypeScriptExpression };
+
+/**
+ * Strip TypeScript-only wrappers from a computed key so the selector inside is still linted,
+ * for example `['.foo' satisfies `.${typeof FOO_CLASS}`]` is checked as `'.foo'`.
+ */
+const unwrapTypeScriptExpression = (key: Property['key']): Property['key'] => {
+	let expression = key as unknown as TypeScriptExpression;
+	while (
+		(expression.type === 'TSAsExpression' ||
+			expression.type === 'TSTypeAssertion' ||
+			expression.type === 'TSNonNullExpression' ||
+			expression.type === 'TSSatisfiesExpression') &&
+		expression.expression
+	) {
+		expression = expression.expression;
+	}
+	return expression as unknown as Property['key'];
+};
+
+const getCssSelector = (rawKey: Property['key']): string | null => {
+	const key = unwrapTypeScriptExpression(rawKey);
+
 	if (key.type === 'Literal' && typeof key.value === 'string') {
 		return key.value;
 	}

@@ -5,7 +5,10 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import { cx } from '@atlaskit/css';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import type { CSSToken } from '@atlaskit/tokens/token-names';
 

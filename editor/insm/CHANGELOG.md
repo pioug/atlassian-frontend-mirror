@@ -1,5 +1,19 @@
 # @atlaskit/insm
 
+## 3.0.60
+
+### Patch Changes
+
+- [`68e6f0b30d852`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68e6f0b30d852) -
+  Clean up experiment `cc_editor_fix_insm_inp_buffer`
+- Updated dependencies
+
+## 3.0.59
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.58
 
 ### Patch Changes

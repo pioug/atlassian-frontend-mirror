@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { appearances } from '../../examples-util/appearances';
 import { RANDOM_USERS } from '../../examples-util/random-users';

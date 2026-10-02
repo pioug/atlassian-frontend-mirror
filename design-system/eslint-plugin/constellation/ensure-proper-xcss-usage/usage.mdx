@@ -6,7 +6,7 @@ This ESLint rule enforces proper usage of the `xcss` prop with compiled Primitiv
 ### Incorrect
 
 ```tsx
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { xcss } from '@atlaskit/primitives';
 import { cssMap } from '@atlaskit/css';
 
@@ -28,8 +28,9 @@ const styles = cssMap({
 ### Correct
 
 ```tsx
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { cssMap } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: { color: token('color.text.subtle') },
@@ -41,16 +42,10 @@ const styles = cssMap({
 
 ### Alternative Correct Usage
 
+Use the component's built-in styling props when no style override is needed.
+
 ```tsx
-// ✅ Using inline styles (when cssMap is not needed)
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
-<Box xcss={{ color: 'red' }} />;
-
-// ✅ Or continue using old primitives (but migration is recommended)
-import { Box, xcss } from '@atlaskit/primitives';
-
-const oldStyles = xcss({ color: 'red' });
-
-<Box xcss={oldStyles} />;
+<Box padding="space.100" backgroundColor="color.background.neutral" />;
 ```

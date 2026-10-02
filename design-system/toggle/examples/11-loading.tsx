@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { Label } from '@atlaskit/form/label/default';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Toggle from '@atlaskit/toggle';
 
 const LoadingExample = (): React.JSX.Element => {

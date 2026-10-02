@@ -9,7 +9,7 @@ import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import QueueIcon from '@atlaskit/icon/core/pages';
 import CustomerIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { LinkItem } from '@atlaskit/side-navigation/link-item';

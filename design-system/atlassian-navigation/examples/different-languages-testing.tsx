@@ -2,7 +2,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { JapaneseCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';

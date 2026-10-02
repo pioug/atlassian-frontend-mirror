@@ -9,6 +9,7 @@ import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
@@ -34,6 +35,7 @@ export type LayoutPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<WidthPlugin>,
 	OptionalPlugin<EditorDisabledPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
 	OptionalPlugin<GuidelinePlugin>,
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<BlockControlsPlugin>,

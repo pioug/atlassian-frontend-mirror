@@ -13,8 +13,11 @@ duplicated copies — `platform/packages/design-system/top-layer/src/popover/pop
 The proposal is to split the reset by kind:
 
 - **Mechanical / defensive** (`pointer-events`, `white-space`, `overflow-wrap`, `text-align`,
-  `text-indent`, `text-transform`, `line-height`, `visibility`) stays at the host — single correct
-  value at a boundary.
+  `text-indent`, `text-transform`, `visibility`) stays at the host: a single correct value at a
+  boundary. (`line-height` was on this list. The plan has since dropped it from the host reset: it
+  is a component of the `font` shorthand, which the reset leaves to theming, and pinning it while
+  `font-size` inherits breaks scaled regions. See
+  [`phase0b-rung1-surface-reset-gaps.md`](./phase0b-rung1-surface-reset-gaps.md#status-since-this-audit).)
 - **Opinionated typography** (`font-weight`, `font-style`, `letter-spacing`, `word-spacing`,
   `text-shadow`, `cursor`) moves down to the surface / component layer — no single value is right
   for a tooltip, a modal body and a dropdown item alike.

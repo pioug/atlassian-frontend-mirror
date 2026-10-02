@@ -8,7 +8,8 @@ import { cssMap, jsx } from '@compiled/react';
 import Heading from '@atlaskit/heading/heading';
 import InlineMessage from '@atlaskit/inline-message';
 import Link from '@atlaskit/link/link';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

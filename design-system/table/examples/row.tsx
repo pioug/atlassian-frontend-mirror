@@ -6,7 +6,7 @@ import { cssMap } from '@atlaskit/css';
 import { Date as AKDate } from '@atlaskit/date';
 import Icon from '@atlaskit/icon/core/archive-box';
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Table, { Cell, Row, TBody } from '@atlaskit/table';
 import { token } from '@atlaskit/tokens';
 

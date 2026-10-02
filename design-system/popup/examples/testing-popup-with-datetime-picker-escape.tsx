@@ -6,7 +6,9 @@ import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import { Label } from '@atlaskit/form/label/default';
 import Link from '@atlaskit/link/link';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const contentStyles = cssMap({
 	root: {

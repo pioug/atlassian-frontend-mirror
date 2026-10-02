@@ -127,13 +127,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-26
-	cc_editor_fix_insm_inp_buffer: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-18
 	editor_a11y_7152_profile_card_tab_order: {
 		defaultValue: boolean;
@@ -293,13 +286,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
-	};
-	// Added 2025-11-20
-	platform_editor_annotations_sync_on_docchange: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
 	};
 	// Added 2025-08-05
 	platform_editor_august_a11y: {
@@ -605,13 +591,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-09
-	cc_fix_ephemeral_preview_staging_area_registration: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-08
 	cc_fd_wb_jira_quick_insert_experiment: {
 		defaultValue: boolean;
@@ -852,13 +831,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-31
 	platform_editor_dnd_accessibility_fixes_expand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-01
-	platform_editor_core_static_css: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1156,14 +1128,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-26
-	cc_editor_fix_insm_inp_buffer: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_fix_insm_inp_buffer',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	cwr_blank_object_experiment: createBooleanExperiment({
 		productKeys: {
@@ -1210,15 +1174,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_media_external_badge_bbc_fix',
 			bitbucket: 'platform_editor_media_external_badge_bbc_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
-	// Added 2025-11-20
-	platform_editor_annotations_sync_on_docchange: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_annotations_sync_on_docchange',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2015,14 +1970,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-07-09
-	cc_fix_ephemeral_preview_staging_area_registration: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_fix_ephemeral_preview_staging_area_registration',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-28
 	platform_editor_use_markdown_plus_parser: createBooleanExperiment({
 		productKeys: {
@@ -2035,14 +1982,6 @@ export const editorExperimentsConfig: {
 	platform_editor_use_html_plus_parser: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_use_html_plus_parser',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-01
-	platform_editor_core_static_css: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_core_static_css',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

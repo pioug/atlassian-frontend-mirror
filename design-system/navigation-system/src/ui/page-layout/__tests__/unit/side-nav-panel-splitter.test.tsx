@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Popup } from '@atlaskit/popup/popup';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
@@ -138,7 +138,6 @@ describe('SideNavPanelSplitter', () => {
 
 	it('should display the tooltip with the built-in shortcut when desired FHS features are enabled', async () => {
 		failGate('navx-full-height-sidebar');
-		passGate('platform-dst-keep-desired-fhs-features');
 		const user = createUser();
 		setMediaQuery('(min-width: 64rem)', { initial: true });
 

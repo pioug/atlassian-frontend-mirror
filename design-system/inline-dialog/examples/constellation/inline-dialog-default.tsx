@@ -7,7 +7,7 @@ import { Component } from 'react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const styles = cssMap({
 	container: {

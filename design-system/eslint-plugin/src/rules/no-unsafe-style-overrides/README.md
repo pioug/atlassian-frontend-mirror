@@ -10,7 +10,7 @@ where component authors declare what styles they want to support.
 ### Incorrect
 
 ```tsx
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/default/button';
 
 <Button css={{ fontWeight: 500 }}>foo</Button>;
         ^^^

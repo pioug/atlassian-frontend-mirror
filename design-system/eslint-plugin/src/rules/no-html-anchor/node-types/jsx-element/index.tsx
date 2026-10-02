@@ -13,7 +13,7 @@ interface MetaData {
 
 const LINK_PACKAGE = '@atlaskit/link';
 const LINK_IMPORT_SOURCE = '@atlaskit/link/link';
-const LINK_BUTTON_PACKAGE = '@atlaskit/button/new';
+const LINK_BUTTON_PACKAGE = '@atlaskit/button/link';
 
 function isImportDeclaration(node: any): node is ImportDeclaration {
 	return node.type === 'ImportDeclaration';
@@ -50,14 +50,11 @@ export const JSXElement = {
 				typeof declaration.source.value === 'string' &&
 				declaration.source.value === LINK_BUTTON_PACKAGE
 			) {
-				const namedSpecifier = declaration.specifiers.find(
-					(specifier) =>
-						specifier.type === 'ImportSpecifier' &&
-						specifier.imported.type === 'Identifier' &&
-						specifier.imported.name === 'LinkButton',
+				const defaultSpecifier = declaration.specifiers.find(
+					(specifier) => specifier.type === 'ImportDefaultSpecifier',
 				);
-				if (namedSpecifier) {
-					existingLinkButtonName = namedSpecifier.local.name;
+				if (defaultSpecifier) {
+					existingLinkButtonName = defaultSpecifier.local.name;
 				}
 			}
 		}
@@ -127,7 +124,7 @@ export const JSXElement = {
 					},
 				},
 				{
-					desc: 'Replace with LinkButton component from @atlaskit/button/new',
+					desc: 'Replace with LinkButton component from @atlaskit/button/link',
 					fix(fixer) {
 						const openingTagRange = node.openingElement.range;
 						const closingTagRange = node.closingElement?.range;
@@ -166,7 +163,7 @@ export const JSXElement = {
 
 						// Add import if not present
 						if (!existingLinkButtonName) {
-							const importStatement = `import { ${linkButtonName} } from '@atlaskit/button/new';\n`;
+							const importStatement = `import ${linkButtonName} from '${LINK_BUTTON_PACKAGE}';\n`;
 							fixers.push(fixer.insertTextBefore(sourceCode.ast, importStatement));
 						}
 

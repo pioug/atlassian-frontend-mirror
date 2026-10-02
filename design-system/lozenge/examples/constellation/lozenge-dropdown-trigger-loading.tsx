@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default function LozengeDropdownTriggerLoadingExample(): React.JSX.Element {
 	const [isLoading, setIsLoading] = useState(false);

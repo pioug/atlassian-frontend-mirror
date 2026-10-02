@@ -19,7 +19,7 @@ import { getInteractionTrackingState } from './interaction-tracking/pm-plugin';
 import { getVisibleBox } from './utils/visible-box';
 
 const BLOCK_SELECTOR = '[data-prosemirror-node-block="true"]';
-const TABLE_SELECTOR = '[data-prosemirror-node-name="table"]';
+const TABLE_STRUCTURE_NODES = new Set(['table', 'tableRow', 'tableCell', 'tableHeader']);
 const LAYOUT_SECTION_SELECTOR = '[data-prosemirror-node-name="layoutSection"]';
 const LAYOUT_COLUMN_SELECTOR = '[data-prosemirror-node-name="layoutColumn"]';
 
@@ -43,9 +43,9 @@ const getVisibleLeft = (block: Element): number =>
 /**
  * Whether the element under the pointer can be part of a block's left gutter: a container block's
  * own padding (panel, layout, list…) or an editor wrapper around the content. Text and leaf blocks
- * have no gutter inside them, and neither do tables: like the legacy hover zones, anywhere inside a
- * table, including cell padding, shows the table's controls. Elements rendered beside the editor
- * (title, popups, toolbars) cover any gutter beneath them.
+ * have no gutter inside them. Table and cell padding shows the table's controls, but containers
+ * nested inside cells can own gutters for their children, as in the legacy hover zones. Elements
+ * rendered beside the editor (title, popups, toolbars) cover any gutter beneath them.
  */
 export const isPossibleGutterElement = (
 	view: EditorView,
@@ -59,7 +59,7 @@ export const isPossibleGutterElement = (
 		return false;
 	}
 	if (owner && view.dom.contains(owner)) {
-		if (owner.closest(TABLE_SELECTOR)) {
+		if (TABLE_STRUCTURE_NODES.has(owner.getAttribute('data-prosemirror-node-name') ?? '')) {
 			return false;
 		}
 		const nodeType =

@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 221.0.0
+
+### Major Changes
+
+- [`68e6f0b30d852`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68e6f0b30d852) -
+  Clean up experiment `cc_editor_fix_insm_inp_buffer`
+
+## 220.0.0
+
+### Major Changes
+
+- [`d61565965ce82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d61565965ce82) -
+  Clean up experiment `platform_editor_annotations_sync_on_docchange`
+
+## 219.0.1
+
+### Patch Changes
+
+- [`93c9ce83eaf6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93c9ce83eaf6a) -
+  Cleanup `experiment` `cc_fix_ephemeral_preview_staging_area_registration`. The staging-area
+  context target is now always scoped to open ephemeral previews, so the legacy unconditional
+  staging-area target registration has been removed.
+
 ## 219.0.0
 
 ### Major Changes

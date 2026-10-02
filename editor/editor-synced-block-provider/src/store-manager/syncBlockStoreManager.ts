@@ -5,6 +5,7 @@ import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { SyncBlockError } from '../common/types';
@@ -106,6 +107,10 @@ export class SyncBlockStoreManager {
 			this.fetchReferencesExperience?.success();
 
 			const sourceInfoPromises = (response.references ?? []).map(async (reference) => {
+				if (!reference.hasAccess && isExperimentEnabled('platform_editor_blocks_patch_11')) {
+					return this.fetchRestrictedReferenceInfo(reference.documentAri);
+				}
+
 				this.fetchSourceInfoExperience?.start();
 				const sourceInfo = await this.dataProvider?.fetchSyncBlockSourceInfo(
 					reference.blockInstanceId || '',
@@ -185,6 +190,37 @@ export class SyncBlockStoreManager {
 
 		this.fetchReferencesExperience?.abort({ reason: 'editorDestroyed' });
 		this.fetchSourceInfoExperience?.abort({ reason: 'editorDestroyed' });
+	}
+
+	/**
+	 * Keeps only the link of a location the user cannot read, so its title never reaches the UI.
+	 * The location still counts when the link cannot be resolved or there is no document to link to.
+	 */
+	private async fetchRestrictedReferenceInfo(
+		documentAri: string | undefined,
+	): Promise<SyncBlockSourceInfo> {
+		if (!documentAri) {
+			return { sourceAri: '', hasAccess: false, onSameDocument: false };
+		}
+
+		const productType = getProductFromSourceAri(documentAri);
+		let url: string | undefined;
+
+		this.fetchSourceInfoExperience?.start();
+		try {
+			const sourceInfo = await this.dataProvider?.fetchSyncBlockSourceInfo(
+				undefined,
+				documentAri,
+				productType,
+				false,
+			);
+			url = sourceInfo?.url;
+			this.fetchSourceInfoExperience?.success();
+		} catch (error) {
+			this.fetchSourceInfoExperience?.failure({ reason: (error as Error).message });
+		}
+
+		return { sourceAri: documentAri, productType, url, hasAccess: false, onSameDocument: false };
 	}
 
 	private async getUnregisteredReferences(

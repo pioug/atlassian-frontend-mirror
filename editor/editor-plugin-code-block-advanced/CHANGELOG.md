@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.0
+
+### Patch Changes
+
+- [`e7cc9c65c49ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7cc9c65c49ee) -
+  Updated codeblock cleanup hook to also call destroy method of the codemirror instance. This
+  reduces the event listener and dom element count which increases each time a code block is added
+  and removed
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

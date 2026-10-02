@@ -22,19 +22,19 @@ tester.run('no-emotion-primitives', rule, {
 			code: `import { Box } from '@atlaskit/primitives';`,
 			options: [{ autofix: true }],
 			errors: [{ messageId: 'no-emotion-primitives' }],
-			output: `import { Box } from '@atlaskit/primitives/compiled';`,
+			output: `import { Box } from '@atlaskit/primitives/compiled/box';`,
 		},
 		{
 			code: `import { Stack } from '@atlaskit/primitives';`,
 			options: [{ autofix: true }],
 			errors: [{ messageId: 'no-emotion-primitives' }],
-			output: `import { Stack } from '@atlaskit/primitives/compiled';`,
+			output: `import { Stack } from '@atlaskit/primitives/compiled/stack';`,
 		},
 		{
 			code: `import { Box, Stack } from '@atlaskit/primitives';`,
 			options: [{ autofix: true }],
 			errors: [{ messageId: 'no-emotion-primitives' }],
-			output: `import { Box, Stack } from '@atlaskit/primitives/compiled';`,
+			output: `import { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';`,
 		},
 		// Emotion entrypoint imports are violations and are autofixed to their compiled equivalent.
 		{

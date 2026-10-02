@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import { Label } from '@atlaskit/form/label/default';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 export default (): React.JSX.Element => {
 	const [value, setValue] = useState('2020-06-02T09:30+1000');

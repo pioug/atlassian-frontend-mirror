@@ -2,7 +2,9 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { Popover } from '@atlaskit/top-layer/popover/popover';

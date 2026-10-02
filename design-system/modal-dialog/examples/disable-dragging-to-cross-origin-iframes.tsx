@@ -15,7 +15,10 @@ import {
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
-import { Box, Flex, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

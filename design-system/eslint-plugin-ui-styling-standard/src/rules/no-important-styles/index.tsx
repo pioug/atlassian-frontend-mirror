@@ -5,6 +5,7 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { importSources } from '@atlaskit/eslint-utils/schema';
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
+import { isTypeWrapper } from '../utils/is-type-wrapper';
 import { getStyleCalls } from '../utils/style-calls';
 
 const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
@@ -98,9 +99,30 @@ function isInSupportedStyleCall(
 	);
 }
 
+/**
+ * Step up from `node` past any TypeScript wrappers (`as`, `satisfies`, `<T>`, `!`). Returns the
+ * outermost wrapper, which is what the next parent refers to, and that parent.
+ */
+function climbTypeWrappers(node: NodeWithParent): {
+	node: NodeWithParent;
+	parent: NodeWithParent | null;
+} {
+	let current = node;
+	let parent = current.parent as NodeWithParent | null;
+	while (parent && isTypeWrapper(parent)) {
+		current = parent;
+		parent = current.parent as NodeWithParent | null;
+	}
+	return { node: current, parent };
+}
+
+/**
+ * Find the style call a value belongs to, looking through TypeScript wrappers at every level:
+ * `color: 'red !important' as const`, `'&:hover': {…} as const` and `css({…} as const)`.
+ */
 function findContainingCall(value: NodeWithParent): ESTree.CallExpression | null {
-	let property = value.parent as NodeWithParent | null;
-	if (property?.type !== 'Property' || property.value !== value) {
+	const { node: wrappedValue, parent: property } = climbTypeWrappers(value);
+	if (property?.type !== 'Property' || property.value !== wrappedValue) {
 		return null;
 	}
 
@@ -110,23 +132,25 @@ function findContainingCall(value: NodeWithParent): ESTree.CallExpression | null
 	}
 
 	while (object) {
-		const parent = object.parent as NodeWithParent | null;
-		if (parent?.type === 'Property' && parent.value === object) {
-			property = parent;
-			object = property.parent as NodeWithParent | null;
+		const { node: wrappedObject, parent } = climbTypeWrappers(object);
+		if (parent?.type === 'Property' && parent.value === wrappedObject) {
+			object = parent.parent as NodeWithParent | null;
 			if (object?.type !== 'ObjectExpression') {
 				return null;
 			}
 			continue;
 		}
 
-		if (parent?.type === 'CallExpression' && parent.arguments.includes(object)) {
+		if (
+			parent?.type === 'CallExpression' &&
+			(parent.arguments as readonly ESTree.Node[]).includes(wrappedObject)
+		) {
 			return parent;
 		}
 
 		if (
 			parent?.type === 'ArrowFunctionExpression' &&
-			parent.body === object &&
+			parent.body === wrappedObject &&
 			parent.parent?.type === 'CallExpression' &&
 			parent.parent.arguments.includes(parent)
 		) {

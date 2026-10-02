@@ -10,6 +10,7 @@ import {
 	MEDIA_SECTION,
 	OTHER_SECTION,
 	STRUCTURE_SECTION,
+	TABS_MENU_ITEM,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import {
 	CREATE_SECTION_RANK,
@@ -32,7 +33,7 @@ type ExtensionQuickInsertComponentProps = CommonComponentProps & {
 
 const structureExtensionItemKeyRanks: Readonly<Record<string, number>> = {
 	'toc:toc': 600,
-	'native-tabs:native-tabs': 1900,
+	[TABS_MENU_ITEM.key]: 1900,
 	'cards:quick-insert': 2000,
 	'carousel:quick-insert': 2100,
 	'spotlight:quick-insert': 2200,

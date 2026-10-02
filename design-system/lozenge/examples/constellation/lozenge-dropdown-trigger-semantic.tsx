@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 export default (): React.JSX.Element => (
 	<Inline space="space.100">

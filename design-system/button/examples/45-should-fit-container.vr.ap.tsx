@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';

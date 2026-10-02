@@ -8,7 +8,8 @@ import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import type { DrawerWidth } from '@atlaskit/drawer/types';
 import { Label } from '@atlaskit/form/label/default';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 const widths: DrawerWidth[] = ['narrow', 'medium', 'wide', 'extended', 'full'];
 

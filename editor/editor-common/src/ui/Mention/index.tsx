@@ -3,6 +3,7 @@
 import React, { PureComponent } from 'react';
 
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -71,11 +72,18 @@ export default class Mention extends PureComponent<MentionProps, object> {
 		const hasProvider = Boolean(mentionNodeDataProvider);
 		const canReportMissingProvider =
 			!hasProvider && fg('platform_editor_mention_avatar_observability');
+		const cohort = expVal<string>(
+			'convo_ai_entity_hover_cards_non_hello_exp',
+			'hover_card_cohort',
+			'control',
+		);
 		const isAvatarEnabled =
 			(hasProvider || canReportMissingProvider) &&
 			userType !== 'SPECIAL' &&
 			!GENERIC_MENTION_IDS.includes(id) &&
-			(isExperimentEnabled('platform_editor_mention_node_avatar') ||
+			(cohort === 'person' ||
+				cohort === 'all' ||
+				isExperimentEnabled('platform_editor_mention_node_avatar') ||
 				isExperimentEnabled('platform_editor_mention_node_graphql_provider'));
 
 		if (isAvatarEnabled && mentionNodeDataProvider) {

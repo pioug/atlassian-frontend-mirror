@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import { Label } from '@atlaskit/form/label/default';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 // 8 AM in GMT+8
 const jiraServerValueConvertedToHKTime = '2018-05-02T08:00:00.000+0800';

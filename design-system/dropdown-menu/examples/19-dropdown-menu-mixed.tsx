@@ -14,7 +14,8 @@ import HeadingItem from '@atlaskit/menu/heading-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import { Popup } from '@atlaskit/popup/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

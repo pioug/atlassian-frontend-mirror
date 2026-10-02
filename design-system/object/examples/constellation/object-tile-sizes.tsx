@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TaskObjectTile from '@atlaskit/object/tile/task';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 export default function ObjectTileSizes(): React.JSX.Element {
 	return (

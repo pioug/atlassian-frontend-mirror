@@ -26,9 +26,10 @@ import {
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { annotationPlugin } from '../annotationPlugin';
 import type { AnnotationPlugin } from '../annotationPluginType';
@@ -118,14 +119,38 @@ export function InlineCommentView({
 
 	const selection = getSelectionPositions(state, bookmark);
 	const position = findPosForDOM(selection);
+	const isExtensionSelection =
+		selection instanceof NodeSelection && selection.node.type.name === 'extension';
 	let dom: HTMLElement | undefined;
+	let domLookupError: unknown;
 	try {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		dom = findDomRefAtPos(position, editorView.domAtPos.bind(editorView)) as HTMLElement;
+		const domRef = findDomRefAtPos(position, editorView.domAtPos.bind(editorView));
+		if (fg('cc_maui_annotations_on_extensions') && isExtensionSelection) {
+			if (domRef instanceof HTMLElement) {
+				dom = domRef;
+			}
+		} else {
+			// Preserve the existing text/media and gate-off anchor lookup.
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			dom = domRef as HTMLElement;
+		}
 	} catch (error) {
+		domLookupError = error;
+	}
+
+	// Native embed extension nodes are rendered by a node view. Depending on
+	// the wrapper, domAtPos can return no element (or throw) even though
+	// EditorView.nodeDOM can. Use that direct lookup as a block-comment anchor.
+	if (fg('cc_maui_annotations_on_extensions') && !dom && isExtensionSelection) {
+		const nodeDom = editorView.nodeDOM(selection.from);
+		if (nodeDom instanceof HTMLElement) {
+			dom = nodeDom;
+		}
+	}
+
+	if (!dom && domLookupError) {
 		// eslint-disable-next-line no-console
-		console.warn(error);
+		console.warn(domLookupError);
 		if (dispatchAnalyticsEvent) {
 			const payload: AnalyticsEventPayload = {
 				action: ACTION.ERRORED,
@@ -136,7 +161,7 @@ export function InlineCommentView({
 					selection: selection.toJSON(),
 					position,
 					docSize: editorView.state.doc.nodeSize,
-					error: (error as Error).toString(),
+					error: (domLookupError as Error).toString(),
 				},
 			};
 			dispatchAnalyticsEvent(payload);

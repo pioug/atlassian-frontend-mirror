@@ -8,7 +8,8 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form/label/default';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { useResizing } from '@atlaskit/motion/use-resizing';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 

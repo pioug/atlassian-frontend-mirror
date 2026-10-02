@@ -4,7 +4,9 @@ import { cssMap } from '@atlaskit/css';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 import Link from '@atlaskit/link/link';
-import { Box, Grid, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import SectionMessage from '@atlaskit/section-message/message';
 
 import { Card } from '../../src';

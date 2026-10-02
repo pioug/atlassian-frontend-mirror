@@ -57,7 +57,7 @@ const getTextBlocks = (result: ToolResult): string[] =>
  * Invoke an ADS MCP tool handler and unwrap its result into plain data.
  *
  * @param handler - The tool function (e.g. `searchComponentsTool`).
- * @param args - The arguments object matching the tool's zod input schema, or `undefined`
+ * @param args - The arguments object matching the tool's input shape, or `undefined`
  *   for zero-argument tools such as `getAllComponentsTool`.
  */
 export const runTool = async ({

@@ -2,7 +2,7 @@ import React, { forwardRef, type Ref } from 'react';
 
 import { Link, type LinkProps, RouteComponent, Router } from 'react-resource-router';
 
-import AppProvider from '@atlaskit/app-provider/app-provider';
+import { AppProvider } from '@atlaskit/app-provider/app-provider';
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 

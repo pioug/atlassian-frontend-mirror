@@ -8,7 +8,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form/label/default';
 import AsyncIcon from '@atlaskit/icon/core/clock';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Select from '@atlaskit/select/default';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { HeadingItem } from '@atlaskit/side-navigation/heading-item';

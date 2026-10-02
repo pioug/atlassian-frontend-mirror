@@ -26,8 +26,9 @@ import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group'
 import AddIcon from '@atlaskit/icon/core/add';
 import ImageIcon from '@atlaskit/icon/core/image';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
 import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 type BreadcrumbsExampleSize = 'medium' | 'small';

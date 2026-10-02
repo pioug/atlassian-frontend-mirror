@@ -2,7 +2,8 @@ import React from 'react';
 
 import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import { Label } from '@atlaskit/form/label/default';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 /**
  * Test fixture for the `DatePicker` top-layer focus contract.

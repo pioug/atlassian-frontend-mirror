@@ -11,7 +11,7 @@ import type { WeekDay } from '@atlaskit/calendar/types';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form/label/default';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Select from '@atlaskit/select/default';
 import type { ValueType } from '@atlaskit/select/types';
 

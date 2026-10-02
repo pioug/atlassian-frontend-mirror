@@ -4,7 +4,8 @@
  */
 import Skeleton from '@atlaskit/avatar/skeleton';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from '../examples-util/block';

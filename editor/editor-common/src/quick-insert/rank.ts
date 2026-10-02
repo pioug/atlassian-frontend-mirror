@@ -107,15 +107,15 @@ export const MEDIA_SECTION_RANK: Readonly<Record<string, number>> = {
 
 export const CREATE_SECTION_RANK: Readonly<Record<string, number>> = {
 	[JIRA_ISSUE_MENU_ITEM.key]: 100,
-	[CONFLUENCE_PAGE_MENU_ITEM.key]: 200,
+	[LOOM_MENU_ITEM.key]: 200,
+	[CONFLUENCE_PAGE_MENU_ITEM.key]: 300,
+	[DATABASE_MENU_ITEM.key]: 400,
 	[WHITEBOARD_MENU_ITEM.key]: 500,
 	[DIAGRAM_MENU_ITEM.key]: 600,
 	[FLOWCHART_MENU_ITEM.key]: 700,
 	[BRAINSTORMING_MENU_ITEM.key]: 800,
 	[RETROSPECTIVE_MENU_ITEM.key]: 900,
 	[ROADMAP_MENU_ITEM.key]: 1000,
-	[DATABASE_MENU_ITEM.key]: 1100,
-	[LOOM_MENU_ITEM.key]: 1200,
 } as const;
 
 export const TEXT_FORMATTING_SECTION_RANK: Readonly<Record<string, number>> = {

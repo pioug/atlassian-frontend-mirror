@@ -8,7 +8,7 @@ import Error from '@atlaskit/icon/core/status-error';
 import Info from '@atlaskit/icon/core/status-information';
 import Tick from '@atlaskit/icon/core/status-success';
 import Warning from '@atlaskit/icon/core/status-warning';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 import { token } from '@atlaskit/tokens';

@@ -104,7 +104,7 @@ const constraintStyle = convertToInlineCss({
 const tagStyle = convertToInlineCss({
 	display: 'inline-flex',
 	alignItems: 'center',
-	gap: token('space.050'),
+	gap: token('space.025'),
 	// Never wider than `MAX_TAG_WIDTH` on the root; overflow is ellipsised on the name below.
 	maxWidth: '100%',
 	minWidth: 0,

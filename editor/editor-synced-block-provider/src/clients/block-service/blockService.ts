@@ -1,3 +1,5 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import type {
 	ReferenceSyncBlockResponse,
 	SyncBlockProduct,
@@ -500,7 +502,7 @@ const buildGetBlockReferencesQuery = (blockAri: string) => {
 		}
 		errors {
 			blockAri
-			code
+			code${isExperimentEnabled('platform_editor_blocks_patch_11') ? '\n\t\t\tdocumentAri' : ''}
 			reason
 		}
 	}

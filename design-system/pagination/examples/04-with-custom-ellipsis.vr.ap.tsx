@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import Pagination from '@atlaskit/pagination';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 

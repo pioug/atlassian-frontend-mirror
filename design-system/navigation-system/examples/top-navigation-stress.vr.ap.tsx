@@ -37,7 +37,9 @@ import {
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 import { token } from '@atlaskit/tokens';
 

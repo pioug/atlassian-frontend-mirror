@@ -84,15 +84,16 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'SimpleTag',
 			description: 'A tag is a subtle, compact label used to categorize and organize content.',
-			status: 'open-beta',
+			status: 'deprecated',
 			import: {
 				name: 'SimpleTag',
-				package: '@atlaskit/tag/simple-tag',
+				package: '@atlaskit/tag/tag/simple',
 				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
+				'For new code, import Tag from @atlaskit/tag/removable-tag and set isRemovable={false}.',
 				'Use for non-interactive categorization and labelling',
 				'Use for object-related content; for people/teams use AvatarTag',
 				"Don't use for status—use lozenge instead",
@@ -106,7 +107,7 @@ const documentation: StructuredContentSource = {
 			examples: [
 				{
 					name: 'Simple Tag',
-					description: 'SimpleTag example',
+					description: 'Replacement Tag with removal disabled',
 					source: `${__dirname}/examples/9-simple-tag.tsx`,
 				},
 			],

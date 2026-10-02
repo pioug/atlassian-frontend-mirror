@@ -54,9 +54,58 @@ const AUTOFIXABLE_ENTRYPOINTS = new Set([
 	'pressable',
 	'show',
 	'stack',
-	'surface-provider',
 	'text',
 ]);
+
+/**
+ * Named exports with a supported dedicated Compiled component entrypoint.
+ */
+const COMPILED_COMPONENT_ENTRYPOINTS: Record<string, string> = {
+	Anchor: 'anchor',
+	Bleed: 'bleed',
+	Box: 'box',
+	Flex: 'flex',
+	Grid: 'grid',
+	Inline: 'inline',
+	MetricText: 'metric-text',
+	Pressable: 'pressable',
+	Stack: 'stack',
+	Text: 'text',
+};
+
+function getCompiledRootImports(
+	node: ESTree.ImportDeclaration,
+	context: Rule.RuleContext,
+): string | null {
+	const sourceCode = context.getSourceCode();
+	const isTypeImport = /^import\s+type\b/.test(sourceCode.getText(node));
+	if (sourceCode.getCommentsInside(node).length) {
+		return null;
+	}
+	const imports = new Map<string, string[]>();
+	for (const specifier of node.specifiers) {
+		if (specifier.type !== 'ImportSpecifier' || specifier.imported.type !== 'Identifier') {
+			return null;
+		}
+		const name = specifier.imported.name;
+		const componentName = name.endsWith('Props') ? name.slice(0, -5) : name;
+		const subpath = COMPILED_COMPONENT_ENTRYPOINTS[componentName];
+		// Legacy styling APIs have no equivalent Compiled export. Leave them for manual migration.
+		if (!subpath) {
+			return null;
+		}
+		const bindings = imports.get(subpath) ?? [];
+		bindings.push(sourceCode.getText(specifier));
+		imports.set(subpath, bindings);
+	}
+	return imports.size
+		? Array.from(
+				imports,
+				([subpath, bindings]) =>
+					`import ${isTypeImport ? 'type ' : ''}{ ${bindings.join(', ')} } from '${COMPILED_PACKAGE_NAME}/${subpath}';`,
+			).join('\n')
+		: null;
+}
 
 /**
  * Determines whether an import source points at an Emotion `@atlaskit/primitives` entrypoint
@@ -112,7 +161,7 @@ export const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-emotion-primitives':
-				'Use @atlaskit/primitives/compiled instead of @atlaskit/primitives. Refer to go/akcss for more information.',
+				'Use a dedicated @atlaskit/primitives/compiled/<component> entrypoint instead of @atlaskit/primitives. Refer to go/akcss for more information.',
 		},
 		schema,
 	},
@@ -135,6 +184,11 @@ export const rule: Rule.RuleModule = createLintRule({
 						// No safe autofix when there is no Compiled equivalent for this entrypoint.
 						if (!config.autofix || compiledSource === importSource) {
 							return null;
+						}
+
+						if (importSource === PACKAGE_NAME) {
+							const imports = getCompiledRootImports(node, context);
+							return imports ? fixer.replaceText(node, imports) : null;
 						}
 
 						const newSource = literal(compiledSource);

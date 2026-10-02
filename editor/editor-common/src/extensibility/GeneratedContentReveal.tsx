@@ -17,8 +17,8 @@ import { ExtensionSSRReactContextsProvider } from './ExtensionSSRReactContextsPr
  * 1. `collapsed` — clipped to zero height and `inert`. The embed loads behind it, full size but
  *    unseen, with its own loading overlay hidden.
  * 2. The extension reports its content ready through `contentReady`.
- * 3. `revealing` — the node animates open to its content height (400ms).
- * 4. The embed fades in (200ms), delayed so it follows the opening instead of overlapping it.
+ * 3. `revealing` — the node animates open to its content height (150ms).
+ * 4. The embed fades in (150ms), delayed so it follows the opening instead of overlapping it.
  * 5. `open` — on `animationend`, when the content first becomes visible, `inert` is dropped.
  *
  * Failure paths: never settles → `READY_TIMEOUT_MS` opens it and the embed's overlay reappears;
@@ -111,7 +111,7 @@ const revealingStyles = css({
 	interpolateSize: 'allow-keywords',
 	animationName: openHeight,
 	// Must match the fade's `animationDelay` below, or they stop being sequential.
-	animationDuration: token('motion.duration.xlong'),
+	animationDuration: token('motion.duration.short'),
 	animationTimingFunction: token('motion.easing.out.practical'),
 	// Zero-length, so `animationend` still fires and the sequence completes.
 	'@media (prefers-reduced-motion: reduce)': {
@@ -126,10 +126,10 @@ const embedContentEnteringStyles = css({
 	'& [data-native-embed-card-wrapper="true"], & iframe:not([data-native-embed-card-wrapper="true"] iframe)':
 		{
 			animationName: token('motion.keyframe.fade.in'),
-			animationDuration: token('motion.duration.medium'),
+			animationDuration: token('motion.duration.short'),
 			animationTimingFunction: token('motion.easing.out.practical'),
 			// Held until the opening finishes; must match `revealingStyles` above.
-			animationDelay: token('motion.duration.xlong'),
+			animationDelay: token('motion.duration.short'),
 			animationFillMode: 'both',
 			'@media (prefers-reduced-motion: reduce)': {
 				animationDuration: '0s',

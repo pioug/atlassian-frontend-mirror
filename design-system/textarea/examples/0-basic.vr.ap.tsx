@@ -3,7 +3,8 @@ import React from 'react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { Label } from '@atlaskit/form/label/default';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 

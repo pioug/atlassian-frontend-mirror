@@ -8,7 +8,10 @@ import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import ArrowLeftCircleIcon from '@atlaskit/icon/core/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/core/arrow-right';
-import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { ProgressTracker, type Stages } from '@atlaskit/progress-tracker';
 import { token } from '@atlaskit/tokens';
 

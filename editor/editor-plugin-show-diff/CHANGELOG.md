@@ -1,5 +1,47 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 22.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.1
+
+### Patch Changes
+
+- [`6b392a68c0802`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b392a68c0802) -
+  Improve the visibility of agent contributor-tag icons with an icon-shaped drop shadow.
+- Updated dependencies
+
+## 22.0.0
+
+### Patch Changes
+
+- [`a99760331343b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a99760331343b) -
+  Fix contributor tag ordering: a wide inline/widget change that merely overlapped a block's range
+  (rather than being contained by it) was wrongly folded into the block's tag, hiding its own
+  attribution.
+- Updated dependencies
+
+## 21.0.3
+
+### Patch Changes
+
+- [`bb99ff596a192`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb99ff596a192) -
+  Fix show-diff rendering a bordered box around fully-replaced paragraphs, a
+  platform_editor_ai_show_diff_patch_2 regression caused by paragraph falling through to the generic
+  block-container border treatment intended for real block containers (panels, blockquotes). Gated
+  behind platform_editor_ai_show_diff_patch_2, the same gate that caused the regression.
+
+  Also give an inserted atomic inline leaf (date/emoji/mention/status) the same box-shadow highlight
+  an in-place attribute change already gets, when it renders through `NodeViewSerializer`'s
+  blocklisted-container recursion under platform_editor_show_diff_deleted_nodeview_content — that
+  recursion gives the node its real node view instead of a lossy `toDOM()`, but previously carried
+  no diff styling of its own.
+
+- Updated dependencies
+
 ## 21.0.2
 
 ### Patch Changes

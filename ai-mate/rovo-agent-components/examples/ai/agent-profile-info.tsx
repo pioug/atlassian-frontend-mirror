@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { AgentProfileInfo } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 
 export default function AgentProfileInfoExample(): React.JSX.Element {

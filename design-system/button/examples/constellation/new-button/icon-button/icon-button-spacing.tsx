@@ -2,7 +2,7 @@ import React from 'react';
 
 import IconButton from '@atlaskit/button/icon/button';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 const IconButtonSpacingExample = (): React.JSX.Element => {
 	return (

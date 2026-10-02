@@ -12,7 +12,7 @@ import { Root } from '@atlaskit/navigation-system/layout/root';
 import { TopNav, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import { AppLogo } from '@atlaskit/navigation-system/top-nav-items';
 import PageHeader from '@atlaskit/page-header';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const advancedLayoutStyles = cssMap({

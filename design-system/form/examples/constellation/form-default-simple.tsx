@@ -10,7 +10,7 @@ import { FormFooter } from '@atlaskit/form/form-footer';
 import { FormHeader } from '@atlaskit/form/form-header';
 import { FormSection } from '@atlaskit/form/form-section';
 import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import TextField from '@atlaskit/textfield/text-field';
 
 const FormDefaultExample = (): React.JSX.Element => (

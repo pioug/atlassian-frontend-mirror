@@ -10,7 +10,7 @@ import Button from '@atlaskit/button/default/button';
 import { Popup } from '@atlaskit/popup/compositional/popup';
 import { PopupContent } from '@atlaskit/popup/compositional/popup-content';
 import { PopupTrigger } from '@atlaskit/popup/compositional/popup-trigger';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const popupContentStyles = cssMap({

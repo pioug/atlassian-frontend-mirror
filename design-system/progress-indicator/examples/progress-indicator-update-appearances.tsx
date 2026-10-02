@@ -1,7 +1,8 @@
 import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { type ProgressDotsProps, ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {

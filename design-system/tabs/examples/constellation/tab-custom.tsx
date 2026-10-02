@@ -7,7 +7,7 @@ import { type ReactNode } from 'react';
 import { css } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';
 import Tabs from '@atlaskit/tabs/tabs';

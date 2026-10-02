@@ -27,7 +27,9 @@ type Props = {
 	listLabel: MessageDescriptor;
 	maxHeight: number;
 	model: TypeAheadMenuModel;
-	onItemHover: (itemIndex: number) => void;
+	onItemHover: (itemIndex: number, itemKey?: string) => void;
+	onItemLeave: (itemKey: string) => void;
+	onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
 	selectedItemIndex: number;
 };
 
@@ -38,6 +40,8 @@ export const TypeAheadMenuRenderer = ({
 	maxHeight,
 	model,
 	onItemHover,
+	onItemLeave,
+	onItemVisibilityChange,
 	selectedItemIndex,
 }: Props): React.JSX.Element | null => {
 	const intl = useIntl();
@@ -101,6 +105,8 @@ export const TypeAheadMenuRenderer = ({
 		Item,
 		listId,
 		onItemHover,
+		onItemLeave,
+		onItemVisibilityChange,
 		rows,
 		selectedItemIndex,
 	});

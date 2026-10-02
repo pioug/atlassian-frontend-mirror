@@ -51,7 +51,9 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { PopupSelect } from '@atlaskit/select/popup-select';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {

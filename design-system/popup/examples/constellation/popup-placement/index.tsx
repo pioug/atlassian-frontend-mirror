@@ -10,7 +10,7 @@ import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { type Placement, placements } from '@atlaskit/popper/main';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const placementGridPositions = cssMap({

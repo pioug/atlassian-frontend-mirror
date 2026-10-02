@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-annotation
 
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- [`d61565965ce82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d61565965ce82) -
+  Clean up experiment `platform_editor_annotations_sync_on_docchange`
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- [`45cf8c5ab1b31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45cf8c5ab1b31) -
+  Enable gated comments on MAUI charts in the Confluence editor, including the editor draft flow for
+  native-embed extension nodes. With `cc_maui_annotations_on_extensions` enabled, eligible extension
+  block selections can start a draft even when whitespace-only text comments are disallowed. The
+  extension-only DOM anchor fallback also requires this gate; existing text/media and gate-off
+  anchor behavior is preserved. The native-embed toolbar uses the same gate for its block-comment
+  opening hint.
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

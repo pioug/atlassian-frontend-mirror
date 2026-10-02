@@ -30,6 +30,7 @@ import type {
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -239,6 +240,9 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.cleanupBorderAreaClick?.();
 		this.cleanupDisabledState?.();
 		this.unsubscribeContentFormat?.();
+		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+			this.cm.destroy();
+		}
 	}
 
 	forwardUpdate(update: ViewUpdate): void {

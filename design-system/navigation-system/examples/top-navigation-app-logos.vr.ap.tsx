@@ -33,7 +33,7 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import placeholder200x200 from './images/200x200.png';
 import { WithResponsiveViewport } from './utils/example-utils';

@@ -28,7 +28,7 @@ import {
 	draggable,
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';

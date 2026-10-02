@@ -13,7 +13,7 @@ import React from 'react';
 
 import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const contentStyles = cssMap({

@@ -17,7 +17,7 @@ import Section from '@atlaskit/menu/section';
 import SkeletonHeadingItem from '@atlaskit/menu/skeleton-heading-item';
 import SkeletonItem from '@atlaskit/menu/skeleton-item';
 import BlogObjectTile from '@atlaskit/object/tile/blog';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

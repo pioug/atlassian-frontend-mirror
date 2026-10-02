@@ -4,7 +4,9 @@ import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
 import Heading from '@atlaskit/heading/heading';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import SplitButtonWithSlots from '../src/new-button/containers/split-button/split-button-with-slots';

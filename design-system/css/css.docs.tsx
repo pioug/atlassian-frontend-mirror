@@ -20,9 +20,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaAboveXxs query',
+					description: 'Validate a MediaAboveXxs key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-above-xxs.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-above-xxs'],
@@ -46,9 +46,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaAboveXs query',
+					description: 'Validate a MediaAboveXs key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-above-xs.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-above-xs'],
@@ -72,9 +72,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaAboveSm query',
+					description: 'Validate a MediaAboveSm key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-above-sm.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-above-sm'],
@@ -98,9 +98,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaAboveMd query',
+					description: 'Validate a MediaAboveMd key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-above-md.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-above-md'],
@@ -124,9 +124,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaAboveLg query',
+					description: 'Validate a MediaAboveLg key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-above-lg.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-above-lg'],
@@ -150,9 +150,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaAboveXl query',
+					description: 'Validate a MediaAboveXl key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-above-xl.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-above-xl'],
@@ -176,9 +176,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaBelowXs query',
+					description: 'Validate a MediaBelowXs key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-below-xs.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-below-xs'],
@@ -202,9 +202,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaBelowSm query',
+					description: 'Validate a MediaBelowSm key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-below-sm.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-below-sm'],
@@ -228,9 +228,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaBelowMd query',
+					description: 'Validate a MediaBelowMd key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-below-md.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-below-md'],
@@ -254,9 +254,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaBelowLg query',
+					description: 'Validate a MediaBelowLg key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-below-lg.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-below-lg'],
@@ -280,9 +280,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaBelowXl query',
+					description: 'Validate a MediaBelowXl key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-below-xl.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-below-xl'],
@@ -306,9 +306,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaOnlyXxs query',
+					description: 'Validate a MediaOnlyXxs key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-only-xxs.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-only-xxs'],
@@ -332,9 +332,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaOnlyXs query',
+					description: 'Validate a MediaOnlyXs key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-only-xs.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-only-xs'],
@@ -358,9 +358,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaOnlySm query',
+					description: 'Validate a MediaOnlySm key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-only-sm.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-only-sm'],
@@ -384,9 +384,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaOnlyMd query',
+					description: 'Validate a MediaOnlyMd key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-only-md.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-only-md'],
@@ -410,9 +410,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaOnlyLg query',
+					description: 'Validate a MediaOnlyLg key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-only-lg.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-only-lg'],
@@ -436,9 +436,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaOnlyXl query',
+					description: 'Validate a MediaOnlyXl key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-only-xl.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-only-xl'],
@@ -462,9 +462,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaDarkMode query',
+					description: 'Validate a MediaDarkMode key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-dark-mode.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-dark-mode'],
@@ -488,9 +488,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaLightMode query',
+					description: 'Validate a MediaLightMode key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-light-mode.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-light-mode'],
@@ -514,9 +514,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaReducedMotion query',
+					description: 'Validate a MediaReducedMotion key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-reduced-motion.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-reduced-motion'],
@@ -540,9 +540,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaReducedTransparency query',
+					description: 'Validate a MediaReducedTransparency key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-reduced-transparency.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-reduced-transparency'],
@@ -566,9 +566,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaForcedColorsActive query',
+					description: 'Validate a MediaForcedColorsActive key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-forced-colors-active.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-forced-colors-active'],
@@ -592,9 +592,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaLegacyHighContrast query',
+					description: 'Validate a MediaLegacyHighContrast key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-legacy-high-contrast.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-legacy-high-contrast'],
@@ -620,9 +620,10 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'MediaForcedColorsOrLegacyHighContrast query',
+					description:
+						'Validate a MediaForcedColorsOrLegacyHighContrast key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/media-forced-colors-or-legacy-high-contrast.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'media-forced-colors-or-legacy-high-contrast'],
@@ -646,9 +647,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'ContainerQuery query',
+					description: 'Validate a ContainerQuery key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/container.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'container'],
@@ -672,9 +673,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'SupportsAtRule query',
+					description: 'Validate a SupportsAtRule key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/supports.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'supports'],
@@ -698,9 +699,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'PropertyAtRule query',
+					description: 'Validate a PropertyAtRule key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/property.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'property'],
@@ -722,9 +723,9 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: ['Use LayerAtRule when placing styles in an explicit CSS cascade layer.'],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'LayerAtRule query',
+					description: 'Validate a LayerAtRule key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/layer.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'layer'],
@@ -746,9 +747,9 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: ['Use ScopeAtRule when limiting styles to a defined DOM subtree.'],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'ScopeAtRule query',
+					description: 'Validate a ScopeAtRule key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/scope.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'scope'],
@@ -772,9 +773,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'KeyframesAtRule query',
+					description: 'Validate a KeyframesAtRule key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/keyframes.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'keyframes'],
@@ -798,9 +799,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'StartingStyleAtRule query',
+					description: 'Validate a StartingStyleAtRule key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/starting-style.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'starting-style'],
@@ -824,9 +825,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Canonical at-rules',
-					description: 'Use the published at-rule types to keep style keys canonical.',
-					source: `${__dirname}/examples/ai/at-rules.tsx`,
+					name: 'ViewTransitionAtRule query',
+					description: 'Validate a ViewTransitionAtRule key with its public at-rule type.',
+					source: `${__dirname}/docs/snippets/at-rules/view-transition.tsx`,
 				},
 			],
 			keywords: ['css', 'styles', 'at-rule', 'view-transition'],

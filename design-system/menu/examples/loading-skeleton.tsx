@@ -10,7 +10,7 @@ import Section from '@atlaskit/menu/section';
 import SkeletonHeadingItem from '@atlaskit/menu/skeleton-heading-item';
 import SkeletonItem from '@atlaskit/menu/skeleton-item';
 import type { ButtonItemProps } from '@atlaskit/menu/types';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import MenuGroupContainer from './common/menu-group-container';

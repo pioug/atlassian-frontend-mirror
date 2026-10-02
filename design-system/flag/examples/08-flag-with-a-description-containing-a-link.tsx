@@ -2,10 +2,11 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import Flag from '@atlaskit/flag/flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import Link from '@atlaskit/link/link';
-import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

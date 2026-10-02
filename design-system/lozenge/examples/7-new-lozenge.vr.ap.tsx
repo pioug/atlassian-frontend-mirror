@@ -9,7 +9,8 @@ import Heading from '@atlaskit/heading/heading';
 import ImageIcon from '@atlaskit/icon/core/image';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge/lozenge';
 import type { LozengeColor as NewLozengeColor, SemanticColor } from '@atlaskit/lozenge/types';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

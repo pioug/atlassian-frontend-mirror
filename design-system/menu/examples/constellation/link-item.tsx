@@ -1,6 +1,8 @@
 import React, { type MouseEvent, useState } from 'react';
 
 import LinkItem from '@atlaskit/menu/link-item';
+// Legacy example: this prop type is deprecated with @atlaskit/side-navigation.
+// Use @atlaskit/navigation-system for new side navigation.
 import { type LinkItemProps } from '@atlaskit/menu/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 

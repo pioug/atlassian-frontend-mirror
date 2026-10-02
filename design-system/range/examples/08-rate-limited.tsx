@@ -9,7 +9,8 @@ import throttle from 'lodash/throttle';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form/label/default';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 

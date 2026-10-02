@@ -7,10 +7,10 @@ import { useTheme } from '@atlaskit/app-provider/use-theme';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const AppProviderThemeCodeBlock = `import React from 'react';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import AppProvider from '@atlaskit/app-provider';
 
 function ColorModeSwitcher() {

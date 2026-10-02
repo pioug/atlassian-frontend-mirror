@@ -38,7 +38,10 @@ import {
 	Notifications,
 	Profile,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 import { token } from '@atlaskit/tokens';
 

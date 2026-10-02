@@ -210,6 +210,16 @@ export const DATABASE_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+export const TABS_MENU_ITEM = {
+	key: 'native-tabs:native-tabs',
+	type: 'menu-item',
+} as const;
+
+export const ADD_SUGGESTIONS_TO_CONTENT_SKILL_MENU_ITEM = {
+	key: 'skill:add-suggestions-to-content',
+	type: 'menu-item',
+} as const;
+
 export const MENTION_MENU_ITEM = {
 	key: 'quick-insert-mention-menu-item',
 	type: 'menu-item',

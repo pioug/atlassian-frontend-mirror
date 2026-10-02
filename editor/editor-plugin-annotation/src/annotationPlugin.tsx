@@ -96,11 +96,13 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 					annotationId,
 					AnnotationTypes.INLINE_COMMENT,
 					annotationProviders?.inlineComment.supportedBlockNodes,
+					annotationProviders?.inlineComment.isBlockNodeSupported,
 				),
 			removeInlineCommentAnnotation: (annotationId: string) =>
 				removeInlineCommentFromDoc(api?.analytics?.actions)(
 					annotationId,
 					annotationProviders?.inlineComment.supportedBlockNodes ?? [],
+					annotationProviders?.inlineComment.isBlockNodeSupported,
 				),
 			setInlineCommentDraftState: setInlineCommentDraftState(
 				api?.analytics?.actions,

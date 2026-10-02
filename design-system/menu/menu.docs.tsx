@@ -96,7 +96,8 @@ const documentation: StructuredContentSource = {
 			examples: [
 				{
 					name: 'Link Item',
-					description: 'LinkItem example',
+					description:
+						'Legacy menu example using deprecated @atlaskit/menu/types APIs. For new side navigation, use @atlaskit/navigation-system instead.',
 					source: `${__dirname}/examples/constellation/link-item.tsx`,
 				},
 			],
@@ -126,7 +127,8 @@ const documentation: StructuredContentSource = {
 			examples: [
 				{
 					name: 'Custom Item',
-					description: 'CustomItem example',
+					description:
+						'Legacy menu example using deprecated @atlaskit/menu/types APIs. For new side navigation, use @atlaskit/navigation-system instead.',
 					source: `${__dirname}/examples/constellation/custom-item.tsx`,
 				},
 			],
@@ -226,7 +228,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Skeleton Item',
 					description: 'SkeletonItem example',
-					source: `${__dirname}/examples/constellation/menu-loading.tsx`,
+					source: `${__dirname}/examples/skeleton-item.tsx`,
 				},
 			],
 			keywords: ['menu', 'skeleton', 'loading', 'placeholder'],
@@ -248,7 +250,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Skeleton Heading Item',
 					description: 'SkeletonHeadingItem example',
-					source: `${__dirname}/examples/constellation/menu-loading.tsx`,
+					source: `${__dirname}/examples/skeleton-heading-item.tsx`,
 				},
 			],
 			keywords: ['menu', 'skeleton', 'heading', 'loading'],

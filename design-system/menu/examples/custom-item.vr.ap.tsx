@@ -6,7 +6,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import CustomItem from '@atlaskit/menu/custom-item';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import Slack from './icons/slack';
 

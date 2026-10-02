@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TaskObject from '@atlaskit/object/task';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 export default function ObjectSizes(): React.JSX.Element {
 	return (

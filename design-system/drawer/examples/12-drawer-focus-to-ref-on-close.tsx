@@ -11,7 +11,8 @@ import { Drawer } from '@atlaskit/drawer/drawer';
 import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
 import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({

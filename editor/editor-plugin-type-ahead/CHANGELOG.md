@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 25.0.1
+
+### Patch Changes
+
+- [`2f527121e0516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f527121e0516) -
+  Require deliberate pointer or keyboard activation before displaying registered slash-command
+  previews under `platform_editor_slash_command`. Avoid redundant menu renders when the pointer
+  moves within the active preview row.
+- [`2f527121e0516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f527121e0516) -
+  Keep active slash-command previews positioned with custom popup hosts such as Whiteboards.
+- Updated dependencies
+
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.1
+
+### Patch Changes
+
+- [`5418de25e5bdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5418de25e5bdb) -
+  Restore pointer interaction for registered slash command typeahead menus behind
+  platform_editor_slash_command.
+
 ## 24.0.0
 
 ### Patch Changes

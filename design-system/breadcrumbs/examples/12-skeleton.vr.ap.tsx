@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BreadcrumbsSkeleton } from '@atlaskit/breadcrumbs/breadcrumbs-skeleton';
 import { BreadcrumbsSkeletonItem } from '@atlaskit/breadcrumbs/breadcrumbs-skeleton-item';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default function BreadcrumbsSkeletonExample(): React.JSX.Element {
 	return (

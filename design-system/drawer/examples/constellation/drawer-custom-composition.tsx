@@ -10,7 +10,8 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { Drawer } from '@atlaskit/drawer/drawer';
 import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
 import { DrawerContent } from '@atlaskit/drawer/drawer-content';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { Lorem } from '../lorem';

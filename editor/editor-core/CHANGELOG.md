@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 234.1.0
+
+### Minor Changes
+
+- [`efadf6d4a1214`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efadf6d4a1214) -
+  The universal preset's initialPluginConfiguration.quickInsertPlugin now accepts isRecommendedItem,
+  so consumers can curate or hide the Recommended section of the slash command menu (behind
+  platform_editor_slash_command).
+
+## 234.0.1
+
+### Patch Changes
+
+- [`b31a1d76b3076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b31a1d76b3076) -
+  Restore render tracking behind the opt-in platform_editor_enable_rerender_tracking experiment.
+- Updated dependencies
+
+## 234.0.0
+
+### Patch Changes
+
+- [`3a3e46e16b55c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a3e46e16b55c) -
+  Use the shared `TABS_MENU_ITEM` key when ranking Tabs in the Structure section of the `/` menu.
+- Updated dependencies
+
+## 233.0.2
+
+### Patch Changes
+
+- [`01a66c61973bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01a66c61973bc) -
+  Remove lazy-loaded components from SSR bundle.
+- Updated dependencies
+
 ## 233.0.1
 
 ### Patch Changes

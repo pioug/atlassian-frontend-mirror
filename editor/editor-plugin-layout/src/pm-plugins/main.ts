@@ -24,6 +24,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { LayoutPluginOptions } from '../types';
@@ -287,6 +288,7 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 export default (
 	options: LayoutPluginOptions,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
+	isViewMode: () => boolean = () => false,
 ): SafePlugin<LayoutState> => {
 	// Store a reference to the EditorView so widget decorations can dispatch transactions
 	let editorViewRef: EditorView | undefined;
@@ -369,7 +371,11 @@ export default (
 
 				const isLayoutResizingPluginAvailable = layoutResizingPluginKey.get(state) !== undefined;
 
-				if (editorExperiment('advanced_layouts', true) && isLayoutResizingPluginAvailable) {
+				if (
+					editorExperiment('advanced_layouts', true) &&
+					isLayoutResizingPluginAvailable &&
+					!(isViewMode() && isExperimentEnabled('platform_editor_disable_view_layout_resize'))
+				) {
 					const dividerDecorations = getColumnDividerDecorations(
 						state,
 						editorViewRef,

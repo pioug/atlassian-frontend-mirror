@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/default/button';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Select from '@atlaskit/select/default';
 import type { ValueType as Value } from '@atlaskit/select/types';
 

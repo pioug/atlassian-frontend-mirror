@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Toggle from '@atlaskit/toggle';
 
 const ButtonLoadingExample = (): React.JSX.Element => {

@@ -6,6 +6,7 @@ import { Popup } from '@atlaskit/popup/popup';
 
 import { ActionName, CardDisplay } from '../../../constants';
 import { useSmartCardActions } from '../../../state/actions';
+import { isSpotlightActive } from '../../../state/hooks/use-one-click-chat-spotlight-eligibility/suppression';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
@@ -182,6 +183,13 @@ export const HoverCardComponent = ({
 
 	const initShowCard = useCallback(
 		(event: any) => {
+			// Popup events bubble through the enclosing Smart Link, including portals.
+			// A second top-layer popup can light-dismiss the spotlight before its click runs.
+			if (fg('platform_sl_one_click_chat_spotlight_v2_fg') && isSpotlightActive()) {
+				initHideCard();
+				hideCard();
+				return;
+			}
 			// clearing out fadeOutTimeoutId in case it's already counting down to hide the card
 			if (fadeOutTimeoutId.current) {
 				clearTimeout(fadeOutTimeoutId.current);
@@ -203,6 +211,11 @@ export const HoverCardComponent = ({
 					}
 				} else {
 					fadeInTimeoutId.current = setTimeout(() => {
+						// The spotlight may mount while this hover delay is pending.
+						if (fg('platform_sl_one_click_chat_spotlight_v2_fg') && isSpotlightActive()) {
+							fadeInTimeoutId.current = undefined;
+							return;
+						}
 						if (handleSetIsOpen) {
 							handleSetIsOpen(true);
 						} else {
@@ -212,7 +225,16 @@ export const HoverCardComponent = ({
 				}
 			}
 		},
-		[initResolve, isOpen, setMousePosition, noFadeDelay, fadeInDelay, handleSetIsOpen],
+		[
+			initResolve,
+			isOpen,
+			setMousePosition,
+			noFadeDelay,
+			fadeInDelay,
+			handleSetIsOpen,
+			initHideCard,
+			hideCard,
+		],
 	);
 
 	const onActionClick = useCallback(

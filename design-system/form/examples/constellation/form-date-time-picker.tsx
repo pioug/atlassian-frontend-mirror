@@ -8,7 +8,7 @@ import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 interface FormData {
 	DOB: string;

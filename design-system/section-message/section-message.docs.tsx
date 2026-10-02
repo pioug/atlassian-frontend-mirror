@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'SectionMessage',
-				package: '@atlaskit/section-message/section-message',
+				package: '@atlaskit/section-message/message',
 				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),

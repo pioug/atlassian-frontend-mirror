@@ -2,7 +2,7 @@ import React from 'react';
 
 import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
 import { cssMap, cx } from '@atlaskit/css';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { appearances } from '../examples-util/appearances';

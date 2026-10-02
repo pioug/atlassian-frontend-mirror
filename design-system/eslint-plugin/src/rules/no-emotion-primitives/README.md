@@ -16,12 +16,14 @@ import { Stack } from '@atlaskit/primitives';
 ### Correct
 
 ```jsx
-import { Box } from '@atlaskit/primitives/compiled';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 ```
 
 The rule will detect any imports from `@atlaskit/primitives` and suggest replacing them with the
-compiled version.
+dedicated compiled entrypoint. Root component and prop-type imports are split into dedicated
+imports; legacy styling APIs, namespace imports, and bindings without a safe equivalent require
+manual migration.
 
 ## Options
 

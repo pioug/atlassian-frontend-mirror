@@ -1,3 +1,7 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, {
 	useCallback,
 	useId,
@@ -10,7 +14,7 @@ import React, {
 
 import { useIntl } from 'react-intl';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import {
 	buildQuickInsertMenuModel,
 	getMatchingQuickInsertComponents,
@@ -30,7 +34,6 @@ import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/con
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { CloseSelectionOptions } from '../../pm-plugins/constants';
@@ -45,6 +48,8 @@ import type { TypeAheadSurface } from './typeAheadSurfaces';
 const styles = cssMap({
 	menu: {
 		backgroundColor: token('elevation.surface.overlay'),
+		appearance: 'none',
+		border: 'none',
 		borderRadius: token('radius.large'),
 		boxSizing: 'border-box',
 		boxShadow: token('elevation.shadow.overlay'),
@@ -122,6 +127,7 @@ export const RegisteredTypeAheadMenu = ({
 		[typeAheadSurfaceContext],
 	);
 	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+	const selectedItemIndexRef = useRef(selectedItemIndex);
 	const getComponents = useCallback(() => {
 		const components = api?.uiControlRegistry?.actions.getComponents(surface.root.key);
 		return components?.length ? components : EMPTY_COMPONENTS;
@@ -168,6 +174,16 @@ export const RegisteredTypeAheadMenu = ({
 		() => [...menuModel.sections.flat(), ...(menuModel.fallbackItems ?? [])],
 		[menuModel.fallbackItems, menuModel.sections],
 	);
+	const [previewActivation, setPreviewActivation] = useState<
+		| {
+				itemKey: string;
+				menuModel: typeof menuModel;
+				source: 'keyboard' | 'pointer';
+		  }
+		| undefined
+	>();
+	const activePreviewItemKey =
+		previewActivation?.menuModel === menuModel ? previewActivation.itemKey : undefined;
 	const selectableRowIndexes = useMemo(
 		() =>
 			rows.flatMap((registration, rowIndex) =>
@@ -178,8 +194,13 @@ export const RegisteredTypeAheadMenu = ({
 	const selectableRowKeys = selectableRowIndexes.map((index) => rows[index]?.key).join(',');
 	const selectableItemCount = selectableRowIndexes.length + (menuModel.footer ? 1 : 0);
 	useLayoutEffect(() => {
-		setSelectedItemIndex(selectableItemCount > 0 ? 0 : -1);
+		const initialItemIndex = selectableItemCount > 0 ? 0 : -1;
+		selectedItemIndexRef.current = initialItemIndex;
+		setSelectedItemIndex(initialItemIndex);
 	}, [query, selectableItemCount, selectableRowKeys]);
+	useLayoutEffect(() => {
+		setPreviewActivation(undefined);
+	}, [menuModel, query]);
 
 	const selectActiveItem = useCallback(
 		(_mode: SelectItemMode) => {
@@ -197,39 +218,92 @@ export const RegisteredTypeAheadMenu = ({
 		},
 		[listId, menuModel.footer, selectableRowIndexes, selectedItemIndex],
 	);
+	const setKeyboardPreview = useCallback(
+		(itemIndex: number) => {
+			const rowIndex = selectableRowIndexes[itemIndex];
+			const registration = rowIndex === undefined ? undefined : rows[rowIndex];
+
+			setPreviewActivation(
+				registration?.type === 'menu-item'
+					? { itemKey: registration.key, menuModel, source: 'keyboard' }
+					: undefined,
+			);
+		},
+		[menuModel, rows, selectableRowIndexes],
+	);
 	const selectNextItem = useCallback(() => {
-		setSelectedItemIndex((currentIndex) => {
-			if (selectableItemCount === 0) {
-				return -1;
-			}
-
-			return currentIndex < 0 || currentIndex === selectableItemCount - 1 ? 0 : currentIndex + 1;
-		});
-	}, [selectableItemCount]);
+		const currentIndex = selectedItemIndexRef.current;
+		const nextIndex =
+			selectableItemCount === 0
+				? -1
+				: currentIndex < 0 || currentIndex === selectableItemCount - 1
+					? 0
+					: currentIndex + 1;
+		selectedItemIndexRef.current = nextIndex;
+		setSelectedItemIndex(nextIndex);
+		setKeyboardPreview(nextIndex);
+	}, [selectableItemCount, setKeyboardPreview]);
 	const selectPreviousItem = useCallback(() => {
-		setSelectedItemIndex((currentIndex) => {
-			if (selectableItemCount === 0) {
-				return -1;
-			}
+		const currentIndex = selectedItemIndexRef.current;
+		const previousIndex =
+			selectableItemCount === 0
+				? -1
+				: currentIndex <= 0
+					? selectableItemCount - 1
+					: currentIndex - 1;
+		selectedItemIndexRef.current = previousIndex;
+		setSelectedItemIndex(previousIndex);
+		setKeyboardPreview(previousIndex);
+	}, [selectableItemCount, setKeyboardPreview]);
+	const onItemHover = useCallback(
+		(itemIndex: number, itemKey?: string) => {
+			selectedItemIndexRef.current = itemIndex;
+			setSelectedItemIndex(itemIndex);
+			setPreviewActivation((current) => {
+				if (
+					current?.itemKey === itemKey &&
+					current?.menuModel === menuModel &&
+					current?.source === 'pointer'
+				) {
+					return current;
+				}
 
-			return currentIndex <= 0 ? selectableItemCount - 1 : currentIndex - 1;
-		});
-	}, [selectableItemCount]);
+				return itemKey ? { itemKey, menuModel, source: 'pointer' } : undefined;
+			});
+		},
+		[menuModel],
+	);
+	const onItemLeave = useCallback((itemKey: string) => {
+		setPreviewActivation((current) =>
+			current?.source === 'pointer' && current.itemKey === itemKey ? undefined : current,
+		);
+	}, []);
+	const onItemVisibilityChange = useCallback((itemKey: string, isVisible: boolean) => {
+		if (!isVisible) {
+			setPreviewActivation((current) =>
+				current?.source === 'pointer' && current.itemKey === itemKey ? undefined : current,
+			);
+		}
+	}, []);
 	const typeAheadContextValue = useMemo(
 		() => ({
+			activePreviewItemKey,
 			api,
 			editorView,
 			inputMethod: surface.inputMethod,
 			menuOpenId: typeAheadSurfaceContext.menuOpenId,
 			onClose,
+			popupsMountPoint,
 			query,
 			surfaceContext,
 			triggerHandler,
 		}),
 		[
+			activePreviewItemKey,
 			api,
 			editorView,
 			onClose,
+			popupsMountPoint,
 			query,
 			surface.inputMethod,
 			surfaceContext,
@@ -241,7 +315,7 @@ export const RegisteredTypeAheadMenu = ({
 	const SurfaceProvider = surface.Provider;
 
 	return (
-		<>
+		<React.Fragment>
 			<InputQuery
 				activeDescendantId={
 					selectableRowIndexes[selectedItemIndex] !== undefined
@@ -277,11 +351,13 @@ export const RegisteredTypeAheadMenu = ({
 				target={anchorElement}
 				zIndex={akEditorFloatingDialogZIndex}
 			>
-				<Box
+				<div
 					ref={menuRef}
+					css={styles.menu}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Parent overlays use this class to restore pointer interaction.
+					className="fabric-editor-typeahead"
 					data-registered-type-ahead-menu=""
-					testId="registered-type-ahead-menu"
-					xcss={styles.menu}
+					data-testid="registered-type-ahead-menu"
 				>
 					<TypeAheadProvider value={typeAheadContextValue}>
 						<SurfaceProvider>
@@ -291,13 +367,15 @@ export const RegisteredTypeAheadMenu = ({
 								listId={listId}
 								maxHeight={Math.max(0, menuHeight - MENU_VERTICAL_PADDING)}
 								model={menuModel}
-								onItemHover={setSelectedItemIndex}
+								onItemHover={onItemHover}
+								onItemLeave={onItemLeave}
+								onItemVisibilityChange={onItemVisibilityChange}
 								selectedItemIndex={selectedItemIndex}
 							/>
 						</SurfaceProvider>
 					</TypeAheadProvider>
-				</Box>
+				</div>
 			</Popup>
-		</>
+		</React.Fragment>
 	);
 };

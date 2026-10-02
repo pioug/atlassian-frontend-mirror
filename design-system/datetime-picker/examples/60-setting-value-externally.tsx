@@ -5,7 +5,8 @@ import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import TimePicker from '@atlaskit/datetime-picker/time-picker';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 
 const dateId = 'datepicker-input';

@@ -5,7 +5,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import PageHeader from '@atlaskit/page-header';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Select from '@atlaskit/select/default';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';

@@ -1,7 +1,9 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 /**

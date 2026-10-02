@@ -4,7 +4,7 @@ import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 export default (): React.JSX.Element => (
 	<Inline space="space.600">

@@ -17,7 +17,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 // eslint-disable-next-line import/order
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 import AiAgentAddIcon from '../../../../core/ai-agent-add';
 import AiBotIcon from '../../../../core/ai-bot';

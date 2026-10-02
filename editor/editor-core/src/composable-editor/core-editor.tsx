@@ -6,7 +6,8 @@ import { v4 as uuid } from 'uuid';
 
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
+import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Transformer } from '@atlaskit/editor-common/types';
@@ -44,6 +45,13 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	const editorActionsPlaceholderInstance = useMemo(() => new EditorActions(), []);
 	const editorActions = editorContext.editorActions || editorActionsPlaceholderInstance;
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+
+	const handleAnalyticsEvent: FireAnalyticsCallback = useCallback(
+		(data) => {
+			fireAnalyticsEvent(createAnalyticsEvent)(data);
+		},
+		[createAnalyticsEvent],
+	);
 
 	const getFeatureFlagsFromRef = useCallback(() => {
 		return {
@@ -121,6 +129,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	return (
 		<EditorInternal
 			props={props}
+			handleAnalyticsEvent={handleAnalyticsEvent}
 			createAnalyticsEvent={createAnalyticsEvent}
 			preset={props.preset}
 			handleSave={handleSave}

@@ -1,5 +1,46 @@
 # @atlaskit/smart-card
 
+## 46.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.4.0
+
+### Minor Changes
+
+- [`a30367ae14f98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a30367ae14f98) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+## 46.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.3.1
+
+### Patch Changes
+
+- [`f78306fac0d2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f78306fac0d2b) -
+  Add the contextual inline One Click Chat Spotlight V2 UI, existing Rovo action integration and
+  safe analytics under platform_sl_one_click_chat_spotlight_v2_fg. Only show the spotlight when its
+  Rovo action is available, and prevent popup clicks from navigating the enclosing Smart Link.
+
+  Load the optional spotlight asynchronously after mount, preserving the inline action while loading
+  or if the chunk fails.
+
+  Preserve the original inline Rovo action implementation when the gate is off; isolate spotlight
+  refactoring in the gate-on component.
+
+  Match the project poster's compact dark spotlight with a caret, provider-specific message,
+  outlined Try Now action and accessible close control. Keep the existing gate, invocation,
+  analytics and dismissal cooldown behavior.
+
+  While Spotlight V2 is active, suppress competing hover previews (including pending hover timers)
+  so top-layer light dismissal cannot consume Try Now before the Rovo action runs.
+
 ## 46.3.0
 
 ### Minor Changes

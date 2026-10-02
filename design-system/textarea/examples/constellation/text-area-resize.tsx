@@ -5,7 +5,7 @@
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form/label/default';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import TextArea from '@atlaskit/textarea/text-area';
 
 const wrapperStyles = cssMap({

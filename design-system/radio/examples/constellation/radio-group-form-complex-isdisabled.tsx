@@ -5,7 +5,7 @@ import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import Field, { type FieldProps } from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 

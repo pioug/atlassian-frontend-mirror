@@ -25,8 +25,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ConfluenceSearchConfigModal',
-				package: '@atlaskit/link-datasource',
-				type: 'named',
+				package: '@atlaskit/link-datasource/confluence-search-modal',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -55,8 +55,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'JiraIssuesConfigModal',
-				package: '@atlaskit/link-datasource',
-				type: 'named',
+				package: '@atlaskit/link-datasource/jira-issues-modal',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -89,8 +89,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AssetsConfigModal',
-				package: '@atlaskit/link-datasource',
-				type: 'named',
+				package: '@atlaskit/link-datasource/assets-modal',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -118,8 +118,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DatasourceTableView',
-				package: '@atlaskit/link-datasource',
-				type: 'named',
+				package: '@atlaskit/link-datasource/datasource-table-view',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},

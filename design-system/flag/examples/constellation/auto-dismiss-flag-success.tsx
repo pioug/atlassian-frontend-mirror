@@ -2,9 +2,9 @@ import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
-import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const AutoDismissFlagSuccessExample = (): React.JSX.Element => {

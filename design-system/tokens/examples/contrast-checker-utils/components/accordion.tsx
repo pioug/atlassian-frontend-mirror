@@ -9,7 +9,8 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import Heading from '@atlaskit/heading/heading';
 import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

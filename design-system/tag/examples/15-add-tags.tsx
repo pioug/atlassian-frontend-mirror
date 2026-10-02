@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Tag from '@atlaskit/tag/tag-new';
 
 const tagNames = [

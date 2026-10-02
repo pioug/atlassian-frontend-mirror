@@ -188,8 +188,7 @@ export function Root({
 	 * is pressed, before the SideNav is toggled. You can use this to conditionally disable the shortcut based on your
 	 * your own custom checks, e.g. if there is a legacy dialog open.
 	 *
-	 * Note: The built-in keyboard shortcut is behind the `platform-dst-keep-desired-fhs-features`
-	 * feature gate, or `useIsFhsEnabled` for backwards compatibility.
+	 * The built-in keyboard shortcut is available whenever this prop is enabled.
 	 */
 	isSideNavShortcutEnabled?: boolean;
 }): JSX.Element {

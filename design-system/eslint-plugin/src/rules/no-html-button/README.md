@@ -44,7 +44,7 @@ import Pressable from '@atlaskit/primitives/pressable';
 
 <Pressable>Hello, World!</Pressable>;
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 <Button>Hello, World!</Button>;
 ```

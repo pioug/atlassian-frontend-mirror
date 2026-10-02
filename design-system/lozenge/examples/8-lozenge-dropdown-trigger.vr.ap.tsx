@@ -16,7 +16,10 @@ import ImageIcon from '@atlaskit/icon/core/image';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
 import type { LozengeColor as NewLozengeColor, SemanticColor } from '@atlaskit/lozenge/types';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

@@ -286,6 +286,7 @@ export interface ReactionsProps
 	 * Optional prop to change the style of the summary view
 	 */
 	useButtonAlignmentStyling?: boolean;
+	wideReactionTooltip?: boolean;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -349,6 +350,7 @@ export const Reactions: React.MemoExoticComponent<
 		showAddReactionText,
 		hideDefaultReactions,
 		ProfileCardWrapper,
+		wideReactionTooltip,
 		onlyRenderPicker,
 		isViewOnly,
 		noWrap,
@@ -399,6 +401,7 @@ export const Reactions: React.MemoExoticComponent<
 		showAddReactionText = false,
 		hideDefaultReactions = false,
 		ProfileCardWrapper,
+		wideReactionTooltip,
 		onlyRenderPicker = false,
 		isViewOnly = false,
 		noWrap = false,
@@ -637,6 +640,7 @@ export const Reactions: React.MemoExoticComponent<
 
 		const renderReactionItem = (reaction: ReactionSummary, rootElement?: 'div' | 'li') => (
 			<Reaction
+				wideTooltip={wideReactionTooltip}
 				key={reaction.emojiId}
 				rootElement={rootElement}
 				reaction={reaction}
@@ -706,6 +710,7 @@ export const Reactions: React.MemoExoticComponent<
 									onReactionMouseEnter={handleReactionMouseEnter}
 									placement={summaryViewPlacement}
 									showOpaqueBackground={showOpaqueBackground}
+									wideReactionTooltip={wideReactionTooltip}
 									subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 									handleOpenReactionsDialog={() =>
 										handleOpenReactionsDialog({ source: 'summaryView' })

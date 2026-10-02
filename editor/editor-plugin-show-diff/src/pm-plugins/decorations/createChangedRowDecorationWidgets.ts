@@ -264,7 +264,13 @@ const createChangedRowDOM = ({
 	let cellIndex = 0;
 	rowNode.content.forEach((cellNode) => {
 		if (cellNode.type.name === 'tableCell' || cellNode.type.name === 'tableHeader') {
-			const nodeView = nodeViewSerializer.tryCreateNodeView(cellNode);
+			const nodeView = nodeViewSerializer.tryCreateNodeView(
+				cellNode,
+				0,
+				undefined,
+				isInserted,
+				colorScheme,
+			);
 			if (nodeView) {
 				if (nodeView instanceof HTMLElement) {
 					applyCellEdgeAttrs(nodeView, cellEdgeAttrs?.[cellIndex]);

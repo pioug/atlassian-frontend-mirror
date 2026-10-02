@@ -9,7 +9,9 @@ import EpicIcon from '@atlaskit/icon/core/epic';
 import FiltersIcon from '@atlaskit/icon/core/filter';
 import MergeSuccessIcon from '@atlaskit/icon/core/merge-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const IconLabelExample = (): React.JSX.Element => {

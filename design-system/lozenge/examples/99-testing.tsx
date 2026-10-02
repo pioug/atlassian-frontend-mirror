@@ -1,7 +1,9 @@
 import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 export default function Example(): React.JSX.Element {

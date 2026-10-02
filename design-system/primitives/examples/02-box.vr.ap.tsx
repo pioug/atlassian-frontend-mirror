@@ -10,7 +10,7 @@ import { Inline } from '@atlaskit/primitives/inline';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives
 import { Stack } from '@atlaskit/primitives/stack';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives
-import { xcss } from '@atlaskit/primitives/xcss';
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 const spacingValues: Space[] = [
 	'space.0',

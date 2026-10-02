@@ -13,7 +13,7 @@ import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { type IconSize } from '@atlaskit/icon/types';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

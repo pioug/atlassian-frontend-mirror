@@ -9,7 +9,8 @@ import { css, jsx } from '@compiled/react';
 import Button from '@atlaskit/button/default/button';
 import type { Placement } from '@atlaskit/popper/main';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 type PopupProps = {

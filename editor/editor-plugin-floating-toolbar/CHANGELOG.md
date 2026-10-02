@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 26.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- [`01a66c61973bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01a66c61973bc) -
+  Remove lazy-loaded components from SSR bundle.
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

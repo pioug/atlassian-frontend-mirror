@@ -21,7 +21,7 @@ import { IconButton } from '../../../src/new';
 ### Correct
 
 ```js
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/default/button';
 
 import { ExampleHelper } from '../not-src';
 ```

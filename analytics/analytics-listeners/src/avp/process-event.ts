@@ -24,6 +24,7 @@ import { getSources } from '../helpers/get-sources';
 import type Logger from '../helpers/logger';
 
 const AVP_TAG = 'avp';
+const AVP_PLATFORM_TAG = 'atlassianVisualizationPlatform';
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 
 /**
@@ -85,9 +86,8 @@ export default (
 		...merge(extraAttributes, payloadAttributes),
 		...merge({}, ...event.context),
 	};
-	// Ensure navigation tag is not duplicated by using Set
-	const tags: Set<string> = new Set(event.payload.tags || []);
-	tags.add(AVP_TAG);
+	// Put the registered platform tag first for product attribution, retaining the legacy tag.
+	const tags: Set<string> = new Set([AVP_PLATFORM_TAG, AVP_TAG, ...(event.payload.tags || [])]);
 
 	if (event.payload) {
 		switch (eventType) {

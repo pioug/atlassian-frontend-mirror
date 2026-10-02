@@ -14,7 +14,8 @@ import { HelperMessage } from '@atlaskit/form/helper-message';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { ValidMessage } from '@atlaskit/form/valid-message';
-import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 
 export default (): React.JSX.Element => (

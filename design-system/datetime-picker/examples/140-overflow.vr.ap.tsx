@@ -4,7 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import DatePicker from '@atlaskit/datetime-picker/date-picker';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const styles = cssMap({
 	containerStyles: { maxWidth: '175px' },

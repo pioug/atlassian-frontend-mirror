@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 import CodeBlock from '@atlaskit/code/code-block';
 import { Label } from '@atlaskit/form/label/default';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Range from '@atlaskit/range/range';
 import SectionMessage from '@atlaskit/section-message/message';
 import SectionMessageAction from '@atlaskit/section-message/message-action';

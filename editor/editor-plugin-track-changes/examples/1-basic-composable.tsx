@@ -45,7 +45,7 @@ import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 

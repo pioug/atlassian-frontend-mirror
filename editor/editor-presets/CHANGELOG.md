@@ -1,5 +1,32 @@
 # @atlaskit/editor-presets
 
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- [`5631a646dd1de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5631a646dd1de) -
+  Remove the platform_editor_editor_interactivity experiment; the interactivity plugin is always
+  added.
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.0
 
 ### Patch Changes

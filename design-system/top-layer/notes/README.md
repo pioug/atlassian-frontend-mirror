@@ -104,10 +104,10 @@ Architectural decisions, design rationale, and decision logs.
 - **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Current matrix: which packages ship
   a top-layer code path, partial migrations, test-only coverage, and skipped packages
 - **[top-layer-unsafe-selectors.md](./decisions/top-layer-unsafe-selectors.md)** — **The single
-  source of guard strings** for making AFM-authored selectors top-layer safe: the `L` / `S` / `Lw` /
-  `Sw` term lists, the rewrite forms, the six verified traps, the patterns with no guard form (and
-  the search behind each claim), and the new-adopter checklist. Read this before rewriting any
-  selector for top layer
+  source of guard strings** for hand-fixing AFM-authored selectors for top layer: the `G` / `Gi` /
+  `Gw` guards, the withdrawn `of S` forms and why, the six verified traps, the patterns with no
+  guard form (and the search behind each claim), and the new-adopter checklist. Read this before you
+  guard any selector for top layer
 - **[accessibility-audit-report.md](./decisions/accessibility-audit-report.md)** — Per-component
   a11y audit of primitives and all adopters (WCAG compliance, findings, justifications)
 - **[safari-escape-nested-popover-in-dialog.md](./decisions/safari-escape-nested-popover-in-dialog.md)**
@@ -155,6 +155,11 @@ actually happened.
   four problems the split caused, and where the shipped API diverged from the plan
 - **[plans/should-fit-viewport.md](./plans/should-fit-viewport.md)** — **executed.** The original
   `shouldFitViewport` investigation and its measurements
+- **[plans/unsafe-selectors-plan.md](./plans/unsafe-selectors-plan.md)** — how AFM styles are made
+  safe for top layer: host specificity defence, a runtime detector, and hand-fixes. Records why the
+  blanket migration and its ESLint rule were removed
+- **[follow-ups/compiled-transform-quirks-found-by-guard-probes.md](./follow-ups/compiled-transform-quirks-found-by-guard-probes.md)**
+  — three Atlaspack Rust Compiled transform bugs found by the guard probes, for the AFB team
 - **[follow-ups/custom-popup-component-contract.md](./follow-ups/custom-popup-component-contract.md)**
   — the six-point contract a custom `popupComponent` has to meet for a size cap to reach its
   content: stated in the `PopupComponentProps` docblock, unenforced, and broken by six in-tree

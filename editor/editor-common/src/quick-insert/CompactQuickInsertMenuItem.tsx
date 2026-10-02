@@ -118,8 +118,12 @@ export const CompactQuickInsertMenuItem = ({
 	shouldWrapIcon = true,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
-	const { item } = useQuickInsertContext();
-	const { id, isSelected } = item ?? { id: undefined, isSelected: false };
+	const { item, popupsMountPoint } = useQuickInsertContext();
+	const { id, isPreviewActive, isSelected } = item ?? {
+		id: undefined,
+		isPreviewActive: undefined,
+		isSelected: false,
+	};
 	const resolvedDescription = description ?? item?.description;
 	const previewId = useId();
 	const handleClick = useQuickInsertMenuItemSelection(onSelect);
@@ -128,7 +132,7 @@ export const CompactQuickInsertMenuItem = ({
 		() => preview ?? (previewImageUrls ? { image: previewImageUrls } : {}),
 		[preview, previewImageUrls],
 	);
-	const shouldRenderPreview = shouldShowPreview && isSelected && !isDisabled;
+	const shouldRenderPreview = shouldShowPreview && (isPreviewActive ?? isSelected) && !isDisabled;
 	const hasAccessiblePreview = Boolean(resolvedDescription || resolvedPreview?.attribution);
 	const previewAttributionName = resolvedPreview.attribution?.name;
 	const previewAttributionKey =
@@ -168,6 +172,7 @@ export const CompactQuickInsertMenuItem = ({
 					id={previewId}
 					description={resolvedDescription}
 					preview={resolvedPreview}
+					popupsMountPoint={popupsMountPoint}
 					referenceElement={referenceElement}
 					title={title}
 				/>

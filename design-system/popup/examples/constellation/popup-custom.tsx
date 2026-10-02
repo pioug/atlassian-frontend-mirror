@@ -10,7 +10,7 @@ import IconButton from '@atlaskit/button/icon/button';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { Popup } from '@atlaskit/popup/popup';
 import type { PopupComponentProps } from '@atlaskit/popup/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({

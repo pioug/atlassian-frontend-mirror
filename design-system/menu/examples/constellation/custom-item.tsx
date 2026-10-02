@@ -5,6 +5,8 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import CustomItem from '@atlaskit/menu/custom-item';
+// Legacy example: this prop type is deprecated with @atlaskit/side-navigation.
+// Use @atlaskit/navigation-system for new side navigation.
 import { type CustomItemComponentProps } from '@atlaskit/menu/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 

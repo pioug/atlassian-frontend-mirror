@@ -13,7 +13,7 @@ import {
 import { cssMap } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ButtonItem from '@atlaskit/menu/button-item';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

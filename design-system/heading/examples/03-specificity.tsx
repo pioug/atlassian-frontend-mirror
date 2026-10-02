@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading/heading';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const styles = `
 .wiki-content h1 {

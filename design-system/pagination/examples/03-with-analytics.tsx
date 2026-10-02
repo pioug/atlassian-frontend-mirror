@@ -4,7 +4,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Code from '@atlaskit/code/code';
 import Heading from '@atlaskit/heading/heading';
 import Pagination from '@atlaskit/pagination';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default function AnalyticsExample(): React.JSX.Element {
 	const [analyticEventContext, setAnalyticEventContext] = useState({});

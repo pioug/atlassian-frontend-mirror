@@ -2,7 +2,7 @@ import React from 'react';
 
 import TimePicker from '@atlaskit/datetime-picker/time-picker';
 import { Label } from '@atlaskit/form/label/default';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 export default (): React.JSX.Element => {
 	return (

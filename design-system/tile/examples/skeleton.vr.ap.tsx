@@ -5,7 +5,8 @@
 
 import { jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Skeleton from '@atlaskit/tile/tile-skeleton';
 import { token } from '@atlaskit/tokens';
 

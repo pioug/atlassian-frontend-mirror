@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 25.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- [`834a52c0cc828`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/834a52c0cc828) -
+  Allow sparse gutter hover to target blocks nested inside table cells, matching legacy hover zone
+  behaviour
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

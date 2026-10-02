@@ -4,7 +4,7 @@ import { tableBackgroundColorNameByHex } from '@atlaskit/adf-schema/tableNodes';
 import { tableCellBackgroundColorVariablesForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
 import { render } from '@atlassian/testing-library';
 
-import { EditorContentContainerCompiled } from '../../../ui/EditorContentContainer/EditorContentContainer-compiled';
+import EditorContentContainerCompiled from '../../../ui/EditorContentContainer/EditorContentContainer';
 
 /**
  * `tableCellBackgroundColorOverrides` hand-maintains one rule per table cell background colour.

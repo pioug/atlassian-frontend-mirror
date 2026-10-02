@@ -3,6 +3,7 @@ import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
 import type { ToolbarInsertBlockButtonsConfig } from '@atlaskit/editor-plugin-insert-block';
+import type { QuickInsertPluginOptions } from '@atlaskit/editor-plugin-quick-insert/quick-insert-plugin-type';
 import { accessibilityUtilsPlugin } from '@atlaskit/editor-plugins/accessibility-utils';
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
@@ -117,9 +118,10 @@ export type InitialPluginConfiguration = {
 			}[],
 		) => void;
 	};
-	quickInsertPlugin?: {
-		blockControlButtonEnabled?: boolean;
-	};
+	quickInsertPlugin?: Pick<
+		QuickInsertPluginOptions,
+		'blockControlButtonEnabled' | 'isRecommendedItem'
+	>;
 	tasksAndDecisionsPlugin?: {
 		allowBlockTaskItem?: boolean;
 		hasEditPermission?: boolean;

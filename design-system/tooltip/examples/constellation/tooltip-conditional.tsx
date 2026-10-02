@@ -9,7 +9,9 @@ import { jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

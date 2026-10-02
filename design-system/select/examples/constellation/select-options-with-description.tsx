@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Select from '@atlaskit/select/default';
 import type { FormatOptionLabelMeta, OptionType } from '@atlaskit/select/types';
 

@@ -267,9 +267,8 @@ const BlockMenu = ({
 	boundariesElement,
 	scrollableElement,
 }: BlockMenuProps & WrappedComponentProps) => {
-	const isPopupTargetVisibilityEnabled = isExperimentEnabled(
-		'platform_editor_popup_target_visibility',
-	);
+	const isPopupTargetVisibilityEnabled =
+		Boolean(mountTo) && isExperimentEnabled('platform_editor_popup_target_visibility');
 	const {
 		menuTriggerBy,
 		menuTriggerByNode,

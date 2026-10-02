@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Link from '@atlaskit/link/link';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 export default function InlineTextExample(): React.JSX.Element {
 	return (

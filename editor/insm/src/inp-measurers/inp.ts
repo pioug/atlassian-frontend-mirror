@@ -1,5 +1,3 @@
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import type { Measure, PeriodMeasurer } from '../types';
 
 interface PerformanceEventTiming extends PerformanceEntry {
@@ -148,7 +146,7 @@ class InteractionTracker {
 		if (PerformanceObserver.supportedEntryTypes.includes('event')) {
 			this.performanceObserver.observe({
 				type: 'event',
-				buffered: expValEquals('cc_editor_fix_insm_inp_buffer', 'isEnabled', true) ? false : true,
+				buffered: false,
 				durationThreshold: 40,
 			} as PerformanceObserverInit);
 		}

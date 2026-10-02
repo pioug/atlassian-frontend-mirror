@@ -16,7 +16,9 @@ export interface RankableTableCellProps extends WithDimensionsProps {
 export class RankableTableCell extends React.Component<RankableTableCellProps, {}> {
 	render(): React.JSX.Element {
 		const { cell, head, isFixedSize, isRanking, refWidth, innerRef, testId } = this.props;
-		const { content, testId: cellTestId, ...restCellProps } = cell;
+		// `key` is pulled out so it isn't spread into JSX (React 19 warns about that). The parent
+		// row already applies it to this cell.
+		const { content, testId: cellTestId, key: _cellKey, ...restCellProps } = cell;
 		const { shouldTruncate, width }: HeadCellType = head || ({} as HeadCellType);
 		const inlineStyles = inlineStylesIfRanking(isRanking, refWidth);
 

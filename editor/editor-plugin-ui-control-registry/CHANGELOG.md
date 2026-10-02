@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-ui-control-registry
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.0
 
 ### Patch Changes

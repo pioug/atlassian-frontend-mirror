@@ -8,7 +8,8 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import RetryIcon from '@atlaskit/icon/core/retry';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Text from '@atlaskit/primitives/text';
 import Range from '@atlaskit/range/range';

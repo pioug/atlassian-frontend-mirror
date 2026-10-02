@@ -78,8 +78,6 @@ import { default as RovodevExample } from './99-rovodev';
 import { default as TestingExample } from './99-testing';
 import { default as VrTestingExample } from './99-vr-testing';
 import { default as EditorCommentInModalExample } from './999-editor-comment-in-modal';
-import { default as ResizerBasicExample } from './1000-resizer-basic';
-import { default as ResizerStickyScrollExample } from './1000-resizer-sticky-scroll';
 
 export const KitchenSink: WorkbenchExample<typeof KitchenSinkExample> = wb(KitchenSinkExample);
 export const BasicComposableEditor: WorkbenchExample<typeof BasicComposableEditorExample> = wb(
@@ -109,10 +107,6 @@ export const LegacyEditorMigrator: WorkbenchExample<typeof LegacyEditorMigratorE
 export const LiveViewComposableEditor: WorkbenchExample<typeof LiveViewComposableEditorExample> =
 	wb(LiveViewComposableEditorExample);
 export const Chromeless: WorkbenchExample<typeof ChromelessExample> = wb(ChromelessExample);
-export const ResizerBasic: WorkbenchExample<typeof ResizerBasicExample> = wb(ResizerBasicExample);
-export const ResizerStickyScroll: WorkbenchExample<typeof ResizerStickyScrollExample> = wb(
-	ResizerStickyScrollExample,
-);
 export const CustomDropzone: WorkbenchExample<typeof CustomDropzoneExample> =
 	wb(CustomDropzoneExample);
 export const Popups: WorkbenchExample<typeof PopupsExample> = wb(PopupsExample);

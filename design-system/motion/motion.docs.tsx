@@ -16,7 +16,7 @@ const documentation: StructuredContentSource = {
 			status: 'early-access',
 			import: {
 				name: 'Motion',
-				package: '@atlaskit/motion/motion',
+				package: '@atlaskit/motion/entering/motion',
 				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -128,7 +128,7 @@ const documentation: StructuredContentSource = {
 			status: 'early-access',
 			import: {
 				name: 'useMotion',
-				package: '@atlaskit/motion/use-motion',
+				package: '@atlaskit/motion/entering/use-motion',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),

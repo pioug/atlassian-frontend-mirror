@@ -8,7 +8,7 @@ import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { FormHeader } from '@atlaskit/form/form-header';
 import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 interface FormData {
 	[key: string]: string;

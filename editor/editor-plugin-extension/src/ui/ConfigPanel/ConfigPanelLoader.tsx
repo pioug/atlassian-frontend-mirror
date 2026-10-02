@@ -2,7 +2,7 @@ import React, { type ComponentType } from 'react';
 
 import Loadable from 'react-loadable';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
-import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
@@ -15,7 +15,7 @@ const loadConfigPanel = () =>
 		'./ConfigPanelFieldsLoader'
 	).then((module) => module.default);
 
-const ConfigPanelLazy = lazyForPaint(() =>
+const ConfigPanelLazy = lazy(() =>
 	import(
 		/* webpackChunkName: "@atlaskit-internal_editor-core-config-panel" */
 		'./ConfigPanelFieldsLoader'

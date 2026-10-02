@@ -13,7 +13,9 @@ import Motion, { type MotionRef } from '@atlaskit/motion/entering/motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Reanimate } from '@atlaskit/motion/reanimate';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from './utils/blocks';

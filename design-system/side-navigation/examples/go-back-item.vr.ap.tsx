@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import PipelineIcon from '@atlaskit/icon-lab/core/pipeline';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { GoBackItem } from '@atlaskit/side-navigation/go-back-item';
 import { token } from '@atlaskit/tokens';

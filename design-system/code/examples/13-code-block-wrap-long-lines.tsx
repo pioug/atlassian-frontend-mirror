@@ -2,7 +2,8 @@ import React from 'react';
 
 import Code from '@atlaskit/code/code';
 import CodeBlock from '@atlaskit/code/code-block';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const exampleCodeBlock = `// src/packages/routes/[my-route]/resources/my-relay-resource/index.js - resource definition can be found here
 import { createAri } from '@atlassian/jira-platform-ari';

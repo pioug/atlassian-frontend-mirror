@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import InlineEdit from '@atlaskit/inline-edit/inline-edit';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Select from '@atlaskit/select/default';
 import type { OptionType, ValueType } from '@atlaskit/select/types';
 import Group from '@atlaskit/tag-group/tag-group';

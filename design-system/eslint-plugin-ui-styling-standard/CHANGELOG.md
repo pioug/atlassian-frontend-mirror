@@ -1,5 +1,37 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 3.0.1
+
+### Patch Changes
+
+- [`2a6c8a9e812fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a6c8a9e812fc) -
+  `no-important-styles` now reports `!important` values wrapped in TypeScript expressions, e.g.
+  `color: 'red !important' as const`, and values inside wrapped style objects such as
+  `css({…} as const)` or `'&:hover': {…} as const`. Previously these were skipped.
+
+## 3.0.0
+
+### Major Changes
+
+- [`947cd9330812c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/947cd9330812c) -
+  Remove the `no-top-layer-unsafe-selectors` rule from the plugin. It was in the `all` and
+  `all-flat` presets only, not in `recommended`. ESLint reports an unknown rule for any config entry
+  or `eslint-disable` comment that names
+  `@atlaskit/ui-styling-standard/no-top-layer-unsafe-selectors`, so delete those references.
+
+## 2.4.1
+
+### Patch Changes
+
+- [`3e2e34bcc2601`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e2e34bcc2601) -
+  `no-imported-style-values`: no longer reports imported identifiers used in qualified type
+  positions, such as `'value' satisfies typeof Tokens.COLOR_TEXT` or
+  `'value' satisfies Theme.Color`. These are erased at runtime and are not imported style values.
+- [`a5979af0b9045`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5979af0b9045) -
+  `no-nested-selectors` now lints computed keys wrapped in TypeScript expressions (`satisfies`,
+  `as`, type assertions, non-null), e.g. `['.foo' satisfies \`.${typeof FOO_CLASS}\`]`. Previously
+  these keys were silently skipped.
+
 ## 2.4.0
 
 ### Minor Changes

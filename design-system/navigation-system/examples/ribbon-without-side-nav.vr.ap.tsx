@@ -27,7 +27,8 @@ import {
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Show, Text } from '@atlaskit/primitives/compiled';
+import { Show } from '@atlaskit/primitives/compiled/show';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';

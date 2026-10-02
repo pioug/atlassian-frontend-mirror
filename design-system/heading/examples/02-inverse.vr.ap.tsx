@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading/heading';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default (): React.JSX.Element => {
 	return (

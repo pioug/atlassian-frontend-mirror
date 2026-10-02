@@ -1,5 +1,22 @@
 # @atlaskit/reactions
 
+## 36.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.4.0
+
+### Minor Changes
+
+- [`8913b07c9f7a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8913b07c9f7a0) -
+  Add a wider reaction tooltip for agentic_reactions_master_gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.3.36
 
 ### Patch Changes

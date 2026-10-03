@@ -6,12 +6,13 @@ import { IntlProvider } from 'react-intl';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
 
 import Header from '../../../headerWithIntl';
 import { InsetViewerProvider } from '../../../insetViewerContext';
-import { List } from '../../../list';
+import { List, type Props as ListProps } from '../../../list';
 import { nextNavButtonId } from '../../../navigation';
-import { ItemStage } from '../../../styleWrappers';
+import { HeaderWrapper, ItemStage } from '../../../styleWrappers';
 
 jest.mock('../../../headerWithIntl', () => {
 	const original = jest.requireActual('../../../headerWithIntl');
@@ -19,7 +20,11 @@ jest.mock('../../../headerWithIntl', () => {
 });
 jest.mock('../../../styleWrappers', () => {
 	const original = jest.requireActual('../../../styleWrappers');
-	return { ...original, ItemStage: jest.fn(({ children }) => children) };
+	return {
+		...original,
+		HeaderWrapper: jest.fn(original.HeaderWrapper),
+		ItemStage: jest.fn(({ children }) => children),
+	};
 });
 
 describe('<List />', () => {
@@ -101,7 +106,7 @@ describe('<List />', () => {
 	});
 
 	describe('inset viewer', () => {
-		const renderList = (isInsetViewer: boolean) => {
+		const renderList = (isInsetViewer: boolean, props: Partial<ListProps> = {}) => {
 			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
@@ -109,7 +114,7 @@ describe('<List />', () => {
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<InsetViewerProvider isInsetViewer={isInsetViewer}>
-							<List items={[identifier]} defaultSelectedItem={identifier} />
+							<List items={[identifier]} defaultSelectedItem={identifier} {...props} />
 						</InsetViewerProvider>
 					</MockedMediaClientProvider>
 				</IntlProvider>,
@@ -118,21 +123,53 @@ describe('<List />', () => {
 
 		beforeEach(() => {
 			jest.mocked(Header).mockClear();
+			jest.mocked(HeaderWrapper).mockClear();
 			jest.mocked(ItemStage).mockClear();
 		});
 
-		it('should render the overlay header outside inset mode', () => {
-			renderList(false);
+		it.each([
+			{
+				presentation: 'overlay',
+				isInsetViewer: false,
+				className: hideControlsClassName,
+				staged: false,
+			},
+			{ presentation: 'inset', isInsetViewer: true, className: undefined, staged: true },
+		])(
+			'should render the header in the $presentation viewer',
+			({ isInsetViewer, className, staged }) => {
+				renderList(isInsetViewer);
 
-			expect(Header).toHaveBeenCalled();
-			expect(ItemStage).not.toHaveBeenCalled();
+				expect(Header).toHaveBeenCalled();
+				// The overlay header auto-hides with the other controls; the inset header stays visible.
+				expect(HeaderWrapper).toHaveBeenLastCalledWith(
+					expect.objectContaining({ className }),
+					expect.anything(),
+				);
+				expect(jest.mocked(ItemStage).mock.calls.length > 0).toBe(staged);
+			},
+		);
+
+		it('should give the header the inset close handler and sidebar toggle ref', () => {
+			const onClose = jest.fn();
+			const onHeaderClose = jest.fn();
+			const sidebarToggleRef = React.createRef<HTMLButtonElement>();
+			renderList(true, { onClose, onHeaderClose, sidebarToggleRef });
+
+			expect(Header).toHaveBeenLastCalledWith(
+				expect.objectContaining({ onClose: onHeaderClose, sidebarToggleRef }),
+				expect.anything(),
+			);
 		});
 
-		it('should drop the overlay header and stage the item in inset mode', () => {
-			renderList(true);
+		it('should give the header the list close handler without an inset one', () => {
+			const onClose = jest.fn();
+			renderList(false, { onClose });
 
-			expect(Header).not.toHaveBeenCalled();
-			expect(ItemStage).toHaveBeenCalled();
+			expect(Header).toHaveBeenLastCalledWith(
+				expect.objectContaining({ onClose }),
+				expect.anything(),
+			);
 		});
 	});
 });

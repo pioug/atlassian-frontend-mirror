@@ -60,6 +60,7 @@ class AsyncCreatableExample extends Component<{}, State> {
 		return (
 			<>
 				<Label htmlFor="async-createable-select-example">What city do you live in?</Label>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 				<AsyncCreatable
 					inputId="async-createable-select-example"
 					loadOptions={this.loadOptions}

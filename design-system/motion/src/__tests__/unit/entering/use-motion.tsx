@@ -315,6 +315,28 @@ describe('useMotion()', () => {
 		expect(onFinish).toHaveBeenCalledWith('exiting');
 	});
 
+	it('keeps the active timer and calls the latest onFinish after a parent rerender', () => {
+		const initialOnFinish = jest.fn<void, [Transition]>();
+		const updatedOnFinish = jest.fn<void, [Transition]>();
+		const renderMotion = (onFinish: (state: Transition) => void) => (
+			<ExitingPersistence appear>
+				<MotionSection enteringAnimation={ENTERING_ANIMATION} onFinish={onFinish} />
+			</ExitingPersistence>
+		);
+		const { rerender } = renderWithMotionStyles(renderMotion(initialOnFinish));
+
+		act(() => {
+			jest.advanceTimersByTime(50);
+		});
+		rerender(renderMotion(updatedOnFinish));
+		act(() => {
+			jest.advanceTimersByTime(MOTION_DURATION - 50);
+		});
+
+		expect(initialOnFinish).not.toHaveBeenCalled();
+		expect(updatedOnFinish).toHaveBeenCalledWith('entering');
+	});
+
 	it('waits for the longest computed animation when multiple animations run concurrently', () => {
 		jest.spyOn(window, 'getComputedStyle').mockReturnValue({
 			animationDelay: '0s, 0s',

@@ -25,20 +25,32 @@ import {
 	type MediaViewerExtensions,
 	type MediaViewerNavigationDirection,
 } from '../../../components/types';
+import { InsetSidebarHeader } from '../../../inset-sidebar-header';
 import { InsetViewerProvider } from '../../../insetViewerContext';
+import { List } from '../../../list';
 import { nextNavButtonId, prevNavButtonId } from '../../../navigation';
 import {
 	BlanketCloseButton,
 	InsetViewerLayout,
 	InsetViewerShell,
 	MediaColumn,
+	MediaFooterBar,
 	MediaStage,
+	SidebarColumn,
 } from '../../../styleWrappers';
 import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 
+jest.mock('../../../list', () => {
+	const original = jest.requireActual('../../../list');
+	return { ...original, List: jest.fn(original.List) };
+});
 jest.mock('../../../insetViewerContext', () => {
 	const original = jest.requireActual('../../../insetViewerContext');
 	return { ...original, InsetViewerProvider: jest.fn(original.InsetViewerProvider) };
+});
+jest.mock('../../../inset-sidebar-header', () => {
+	const original = jest.requireActual('../../../inset-sidebar-header');
+	return { ...original, InsetSidebarHeader: jest.fn(original.InsetSidebarHeader) };
 });
 jest.mock('../../../styleWrappers', () => {
 	const original = jest.requireActual('../../../styleWrappers');
@@ -48,7 +60,9 @@ jest.mock('../../../styleWrappers', () => {
 		InsetViewerLayout: jest.fn(original.InsetViewerLayout),
 		InsetViewerShell: jest.fn(original.InsetViewerShell),
 		MediaColumn: jest.fn(original.MediaColumn),
+		MediaFooterBar: jest.fn(original.MediaFooterBar),
 		MediaStage: jest.fn(original.MediaStage),
+		SidebarColumn: jest.fn(original.SidebarColumn),
 	};
 });
 
@@ -551,6 +565,168 @@ describe('<MediaViewer />', () => {
 				expect(onClose.mock.calls.length > 0).toBe(closes);
 			},
 		);
+	});
+
+	describe('Inset viewer header, footer and sidebar column', () => {
+		beforeEach(() => {
+			[List, MediaFooterBar, SidebarColumn, InsetSidebarHeader].forEach((component) =>
+				jest.mocked(component).mockClear(),
+			);
+		});
+
+		const renderViewer = (extensions: MediaViewerExtensions, onClose?: () => void) => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaViewer
+						selectedItem={identifier}
+						items={[identifier]}
+						extensions={{
+							sidebar: {
+								icon: <EditorPanelIcon label="sidebar" />,
+								renderer: () => <div>Sidebar Content</div>,
+							},
+							...extensions,
+						}}
+						onClose={onClose}
+						collectionName={identifier.collectionName || ''}
+						mediaClientConfig={fakeMediaClientConfig}
+					/>
+				</MockedMediaClientProvider>,
+			);
+			return { identifier };
+		};
+
+		it('should give List the inset header handlers and render the footer and a closed sidebar column', () => {
+			passGate('cc_comments_inset_media_viewer');
+			renderViewer({ useInsetViewer: true });
+
+			expect(List).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					isSidebarVisible: false,
+					onHeaderClose: expect.any(Function),
+					sidebarToggleRef: expect.any(Object),
+				}),
+				expect.anything(),
+			);
+			expect(MediaFooterBar).toHaveBeenCalled();
+			expect(SidebarColumn).toHaveBeenLastCalledWith(
+				expect.objectContaining({ isOpen: false }),
+				expect.anything(),
+			);
+		});
+
+		it.each([
+			{ state: 'useInsetViewer is not set', extensions: {}, setGate: passGate },
+			{ state: 'the feature gate is off', extensions: { useInsetViewer: true }, setGate: failGate },
+		])('should keep the overlay layout when $state', ({ extensions, setGate }) => {
+			setGate('cc_comments_inset_media_viewer');
+			renderViewer(extensions);
+
+			expect(List).toHaveBeenLastCalledWith(
+				expect.objectContaining({ onHeaderClose: undefined, sidebarToggleRef: undefined }),
+				expect.anything(),
+			);
+			expect(MediaFooterBar).not.toHaveBeenCalled();
+			expect(SidebarColumn).not.toHaveBeenCalled();
+		});
+
+		it('should close and fire a button close event from the inset header', () => {
+			passGate('cc_comments_inset_media_viewer');
+			const onClose = jest.fn();
+			renderViewer({ useInsetViewer: true }, onClose);
+
+			act(() => jest.mocked(List).mock.lastCall?.[0].onHeaderClose?.());
+
+			expect(onClose).toHaveBeenCalledTimes(1);
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'closed',
+					actionSubject: 'mediaViewer',
+					attributes: expect.objectContaining({ input: 'button' }),
+				}),
+				expect.anything(),
+			);
+		});
+
+		it('should open and close the sidebar column from the inset header toggle', () => {
+			passGate('cc_comments_inset_media_viewer');
+			renderViewer({ useInsetViewer: true });
+
+			act(() => jest.mocked(List).mock.lastCall?.[0].onSidebarButtonClick?.());
+
+			expect(List).toHaveBeenLastCalledWith(
+				expect.objectContaining({ isSidebarVisible: true }),
+				expect.anything(),
+			);
+			expect(SidebarColumn).toHaveBeenLastCalledWith(
+				expect.objectContaining({ isOpen: true }),
+				expect.anything(),
+			);
+
+			act(() => jest.mocked(List).mock.lastCall?.[0].onSidebarButtonClick?.());
+
+			expect(SidebarColumn).toHaveBeenLastCalledWith(
+				expect.objectContaining({ isOpen: false }),
+				expect.anything(),
+			);
+		});
+
+		it('should expose the open sidebar column', async () => {
+			passGate('cc_comments_inset_media_viewer');
+			renderViewer({ useInsetViewer: true });
+			act(() => jest.mocked(List).mock.lastCall?.[0].onSidebarButtonClick?.());
+
+			expect(SidebarColumn).toHaveBeenLastCalledWith(
+				expect.objectContaining({ isOpen: true }),
+				expect.anything(),
+			);
+			expect(screen.getByText('Sidebar Content')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should give the open sidebar column its own header', () => {
+			passGate('cc_comments_inset_media_viewer');
+			const onClose = jest.fn();
+			const { identifier } = renderViewer(
+				{
+					useInsetViewer: true,
+					sidebar: {
+						icon: <EditorPanelIcon label="" />,
+						title: 'Comments',
+						renderer: () => <div>Sidebar Content</div>,
+					},
+				},
+				onClose,
+			);
+			act(() => jest.mocked(List).mock.lastCall?.[0].onSidebarButtonClick?.());
+
+			expect(InsetSidebarHeader).toHaveBeenLastCalledWith(
+				expect.objectContaining({ identifier, title: 'Comments' }),
+				expect.anything(),
+			);
+
+			act(() => jest.mocked(InsetSidebarHeader).mock.lastCall?.[0].onClose());
+			expect(onClose).toHaveBeenCalledTimes(1);
+		});
+
+		it('should keep focus on the sidebar toggle as it moves between the headers', async () => {
+			passGate('cc_comments_inset_media_viewer');
+			renderViewer({ useInsetViewer: true });
+
+			fireEvent.click(await screen.findByRole('button', { name: /Show sidebar/ }));
+			await waitFor(() =>
+				expect(screen.getByRole('button', { name: /Hide sidebar/ })).toHaveFocus(),
+			);
+
+			fireEvent.click(screen.getByRole('button', { name: /Hide sidebar/ }));
+			await waitFor(() =>
+				expect(screen.getByRole('button', { name: /Show sidebar/ })).toHaveFocus(),
+			);
+		});
 	});
 
 	describe('SVG Native Rendering', () => {

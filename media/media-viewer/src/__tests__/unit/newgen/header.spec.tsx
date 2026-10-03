@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, createIntl } from 'react-intl';
 
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import { type Identifier } from '@atlaskit/media-client';
@@ -11,7 +11,22 @@ import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
-import { Header } from '../../../header';
+import { Header, type Props as HeaderProps } from '../../../header';
+import { InsetViewerProvider } from '../../../insetViewerContext';
+import { Header as HeaderWrapper } from '../../../styleWrappers';
+import { ViewerIconButton } from '../../../viewer-icon-button';
+
+jest.mock('../../../styleWrappers', () => {
+	const original = jest.requireActual('../../../styleWrappers');
+	return {
+		...original,
+		Header: jest.fn(original.Header),
+	};
+});
+jest.mock('../../../viewer-icon-button', () => {
+	const original = jest.requireActual('../../../viewer-icon-button');
+	return { ...original, ViewerIconButton: jest.fn(original.ViewerIconButton) };
+});
 
 const externalIdentifierWithName: Identifier = {
 	dataURI: 'some-external-src',
@@ -594,6 +609,175 @@ describe('<Header />', () => {
 
 			const downloadButton = await screen.findByTestId('media-viewer-download-button');
 			expect(downloadButton).toBeInTheDocument();
+		});
+	});
+
+	describe('in inset mode', () => {
+		const intl = createIntl({ locale: 'en' });
+		const sidebar = {
+			icon: <EditorPanelIcon label="sidebar" />,
+			renderer: () => null,
+		};
+
+		beforeEach(() => {
+			jest.mocked(HeaderWrapper).mockClear();
+			jest.mocked(ViewerIconButton).mockClear();
+		});
+
+		const renderInsetHeader = (
+			props: Partial<HeaderProps> = {},
+			[fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview(),
+		) => {
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InsetViewerProvider isInsetViewer>
+							<Header
+								intl={intl}
+								identifier={identifier}
+								traceContext={traceContext}
+								extensions={{ sidebar }}
+								{...props}
+							/>
+						</InsetViewerProvider>
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+		};
+
+		it('should show the file name and size on one line', async () => {
+			renderInsetHeader();
+
+			expect(await screen.findByTestId('media-viewer-file-name')).toHaveTextContent(
+				/^img\.png · \S+/,
+			);
+			expect(screen.queryByTestId('media-viewer-file-metadata-text')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should stay visible when the other controls auto-hide', async () => {
+			renderInsetHeader();
+
+			await screen.findByTestId('media-viewer-file-name');
+			expect(HeaderWrapper).toHaveBeenCalledWith(
+				expect.objectContaining({ className: '' }),
+				expect.anything(),
+			);
+		});
+
+		it('should show a fallback name and a disabled download button when the file fails to load', async () => {
+			const [, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const [otherFileItem] = generateSampleFileItem.workingVideo();
+			renderInsetHeader({}, [otherFileItem, identifier]);
+
+			await waitFor(() =>
+				expect(screen.getByTestId('media-viewer-file-name')).toHaveTextContent('unknown'),
+			);
+			expect(screen.getByRole('button', { name: 'Download' })).toBeDisabled();
+		});
+
+		it('should order the actions download, sidebar toggle and close', async () => {
+			renderInsetHeader();
+
+			await waitFor(() => expect(screen.getByRole('button', { name: 'Download' })).toBeEnabled());
+			expect(screen.getAllByRole('button')).toEqual([
+				screen.getByRole('button', { name: 'Download' }),
+				screen.getByRole('button', { name: /Show sidebar/ }),
+				screen.getByRole('button', { name: 'Close' }),
+			]);
+		});
+
+		it('should call onSidebarButtonClick and onClose from the header actions', () => {
+			const onSidebarButtonClick = jest.fn();
+			const onClose = jest.fn();
+			renderInsetHeader({ onSidebarButtonClick, onClose });
+
+			fireEvent.click(screen.getByRole('button', { name: /Show sidebar/ }));
+			fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+
+			expect(onSidebarButtonClick).toHaveBeenCalledTimes(1);
+			expect(onClose).toHaveBeenCalledTimes(1);
+		});
+
+		it('should label the sidebar toggle and give it the viewer ref', () => {
+			const sidebarToggleRef = React.createRef<HTMLButtonElement>();
+			renderInsetHeader({ sidebarToggleRef });
+
+			expect(ViewerIconButton).toHaveBeenCalledWith(
+				expect.objectContaining({
+					testId: 'media-viewer-sidebar-button',
+					label: 'Show sidebar',
+					buttonRef: sidebarToggleRef,
+				}),
+				expect.anything(),
+			);
+		});
+
+		it('should prefer the consumer label for the sidebar toggle', () => {
+			renderInsetHeader({ extensions: { sidebar: { ...sidebar, label: 'Comments' } } });
+
+			expect(screen.getByRole('button', { name: /Comments/ })).toBeInTheDocument();
+		});
+
+		it('should render consumer header actions as inset icon buttons', () => {
+			const onClick = jest.fn();
+			const onClose = jest.fn();
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const icon = <EditorPanelIcon label="" />;
+			renderInsetHeader(
+				{
+					onClose,
+					extensions: {
+						sidebar,
+						headerActions: [
+							{ icon, label: 'Action', onClick },
+							{ icon, label: 'Hidden action', onClick: jest.fn(), isVisible: () => false },
+						],
+					},
+				},
+				[fileItem, identifier],
+			);
+
+			expect(ViewerIconButton).toHaveBeenCalledWith(
+				expect.objectContaining({
+					testId: 'media-viewer-header-action-0',
+					label: 'Action',
+					iconBefore: icon,
+				}),
+				expect.anything(),
+			);
+			expect(ViewerIconButton).not.toHaveBeenCalledWith(
+				expect.objectContaining({ label: 'Hidden action' }),
+				expect.anything(),
+			);
+
+			fireEvent.click(screen.getByRole('button', { name: 'Action' }));
+			expect(onClick).toHaveBeenCalledWith(identifier, { close: onClose });
+		});
+
+		it('should keep only the consumer header actions while the sidebar is open', () => {
+			renderInsetHeader({
+				isSidebarVisible: true,
+				extensions: {
+					sidebar,
+					headerActions: [
+						{ icon: <EditorPanelIcon label="" />, label: 'Action', onClick: jest.fn() },
+					],
+				},
+			});
+
+			// Download, the sidebar toggle and close move into the sidebar's own header.
+			expect(screen.getAllByRole('button')).toEqual([
+				screen.getByRole('button', { name: 'Action' }),
+			]);
+		});
+
+		it('should not render a sidebar toggle without a sidebar', () => {
+			renderInsetHeader({ extensions: {} });
+
+			expect(screen.queryByTestId('media-viewer-sidebar-button')).not.toBeInTheDocument();
 		});
 	});
 });

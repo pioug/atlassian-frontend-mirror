@@ -42,6 +42,7 @@ export default function ControlledExample(): JSX.Element {
 				{({ formProps }: { formProps: object }) => {
 					return (
 						<form {...formProps} name="form-example">
+							{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 							<Field
 								name="color2"
 								label="Pick a color (Checked state is duplicated between Form and Component):"

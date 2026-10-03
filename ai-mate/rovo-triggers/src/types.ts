@@ -24,6 +24,7 @@ export const Topics = {
 	AI_MATE_AIFC: 'ai-mate-aifc',
 	ROVO_REMIX_LAUNCH: 'rovo-remix-launch',
 	ROVO_REMIX: 'rovo-remix',
+	ROVO_SKILLS: 'rovo-skills',
 	AVP: 'avp',
 } as const;
 export type Topic = (typeof Topics)[keyof typeof Topics];
@@ -938,6 +939,14 @@ export type RovoAgentPublishedPayload = PayloadCore<
 	{ agentAri: string; cloudId: string }
 >;
 
+export const CUSTOM_SKILL_DELETED_EVENT = 'custom-skill-deleted' as const;
+
+/** Published only after a custom skill has been successfully deleted. */
+export type CustomSkillDeletedPayload = PayloadCore<
+	typeof CUSTOM_SKILL_DELETED_EVENT,
+	{ cloudId: string; skillAri: string }
+> & { openChat: false };
+
 export type RecommendedSpacesSelectedPayload = PayloadCore<'recommended-spaces-selected'>;
 export type RecommendedSpacesFirstTimeSelectedPayload =
 	PayloadCore<'recommended-spaces-first-time-selected'>;
@@ -1019,6 +1028,7 @@ export type Payload =
 	| CustomSkillUpdatePayload
 	| RovoAgentDraftCreatedPayload
 	| RovoAgentPublishedPayload
+	| CustomSkillDeletedPayload
 	| TaskPlanConfirmedPayload
 	| TaskAskQuestionRenderedPayload
 	| TaskPlanRenderedPayload

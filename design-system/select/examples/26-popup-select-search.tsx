@@ -43,6 +43,7 @@ const SelectPopupSearchExample = (): React.JSX.Element => {
 				onChange={(e) => setIsSearchable(e.currentTarget.checked)}
 				label={<code>isSearchable</code>}
 			/>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<PopupSelect
 				options={cities}
 				searchThreshold={parseInt(searchThreshold)}

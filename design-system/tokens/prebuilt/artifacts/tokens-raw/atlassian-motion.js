@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0b141dce37160ccd39dfbd2646ff6805>>
+ * @codegen <<SignedSource::b53296820dc9bb4c480c02ca711476d9>>
  * @codegenCommand yarn build tokens
  */
 
@@ -608,6 +608,70 @@ var tokens = [{
   "name": "motion.flag.reposition",
   "path": ["motion", "flag", "reposition"],
   "cleanName": "motion.flag.reposition"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "20.1.0",
+    "description": "Use when a form message enters."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "keyframes": ["SlideInBottom2px", "FadeIn0to100"],
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "20.1.0",
+      "description": "Use when a form message enters."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EasePracticalOut",
+      "keyframes": ["SlideInBottom2px", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.form.message.enter",
+  "path": ["motion", "form", "message", "enter"],
+  "cleanName": "motion.form.message.enter"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "20.1.0",
+    "description": "Use when a form message exits."
+  },
+  "value": {
+    "duration": 100,
+    "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+    "keyframes": ["SlideOutBottom2px", "FadeOut100to0"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "20.1.0",
+      "description": "Use when a form message exits."
+    },
+    "value": {
+      "duration": "Duration100",
+      "curve": "EasePracticalIn",
+      "keyframes": ["SlideOutBottom2px", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.form.message.exit",
+  "path": ["motion", "form", "message", "exit"],
+  "cleanName": "motion.form.message.exit"
 }, {
   "attributes": {
     "group": "motion",

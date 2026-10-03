@@ -21,6 +21,7 @@ export default function FormExampleSimple(): React.JSX.Element {
 			{({ formProps }: { formProps: object }) => {
 				return (
 					<form {...formProps} name="form-example">
+						{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 						<Field label="Regular radio group" name="fruit" defaultValue="peach">
 							{({ fieldProps }: { fieldProps: FieldProps<string> }) => (
 								<RadioGroup {...fieldProps} options={options} />

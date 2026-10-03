@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c7bf23ec9330aefbe8dbb595dde9d1c3>>
+ * @codegen <<SignedSource::90e7adfbe89fb1ca6c195eb010eb7040>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -27,6 +27,8 @@ const tokens = {
 	'motion.flag.enter': '--ds-flag-enter',
 	'motion.flag.exit': '--ds-flag-exit',
 	'motion.flag.reposition': '--ds-flag-reposition',
+	'motion.form.message.enter': '--ds-form-message-enter',
+	'motion.form.message.exit': '--ds-form-message-exit',
 	'motion.input': '--ds-input',
 	'motion.keyframe.fade.in': '--ds-keyframe-fade-in',
 	'motion.keyframe.fade.out': '--ds-keyframe-fade-out',
@@ -640,6 +642,8 @@ export type CSSTokenMap = {
 	'motion.flag.enter': 'var(--ds-flag-enter)';
 	'motion.flag.exit': 'var(--ds-flag-exit)';
 	'motion.flag.reposition': 'var(--ds-flag-reposition)';
+	'motion.form.message.enter': 'var(--ds-form-message-enter)';
+	'motion.form.message.exit': 'var(--ds-form-message-exit)';
 	'motion.input': 'var(--ds-input)';
 	'motion.keyframe.fade.in': 'var(--ds-keyframe-fade-in)';
 	'motion.keyframe.fade.out': 'var(--ds-keyframe-fade-out)';

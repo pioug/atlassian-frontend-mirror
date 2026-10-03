@@ -6,7 +6,10 @@ import { screen } from '@atlassian/testing-library/screen';
 import {
 	InsetViewerProvider,
 	useIsInsetViewer,
+	useSetMediaFooterControls,
 	withInsetViewer,
+	withInsetViewerFooter,
+	type WithInsetViewerFooterProps,
 	type WithInsetViewerProps,
 } from '../../../insetViewerContext';
 
@@ -99,6 +102,91 @@ describe('insetViewerContext', () => {
 			},
 		])('should name the wrapper from $source', ({ component, expected }) => {
 			expect(withInsetViewer(component as React.ComponentType).displayName).toBe(expected);
+		});
+	});
+
+	describe('media footer', () => {
+		class FooterProbe extends React.Component<WithInsetViewerFooterProps> {
+			static displayName = 'FooterProbe';
+			render() {
+				const { isInsetViewer, mediaFooterControls } = this.props;
+				return (
+					<div>
+						<span data-testid="footer-flag">{String(isInsetViewer)}</span>
+						<span data-testid="footer-controls">
+							{mediaFooterControls?.dataset.testid ?? 'none'}
+						</span>
+					</div>
+				);
+			}
+		}
+
+		const WrappedFooter = withInsetViewerFooter(FooterProbe);
+
+		const FooterHost = () => {
+			const setControls = useSetMediaFooterControls();
+			return <div data-testid="the-footer" ref={setControls} />;
+		};
+
+		it('should supply the inset flag and no footer element before one is registered', () => {
+			render(
+				<InsetViewerProvider isInsetViewer>
+					<WrappedFooter />
+				</InsetViewerProvider>,
+			);
+
+			expect(screen.getByTestId('footer-flag')).toHaveTextContent('true');
+			expect(screen.getByTestId('footer-controls')).toHaveTextContent('none');
+		});
+
+		it('should supply the registered footer element to the wrapped component', () => {
+			render(
+				<InsetViewerProvider isInsetViewer>
+					<FooterHost />
+					<WrappedFooter />
+				</InsetViewerProvider>,
+			);
+
+			expect(screen.getByTestId('footer-controls')).toHaveTextContent('the-footer');
+		});
+
+		it('should fall back to a no-op setter without a provider', () => {
+			render(
+				<>
+					<FooterHost />
+					<WrappedFooter />
+				</>,
+			);
+
+			expect(screen.getByTestId('footer-controls')).toHaveTextContent('none');
+		});
+
+		it('should forward a ref to the wrapped component', () => {
+			const ref = React.createRef<FooterProbe>();
+			render(<WrappedFooter ref={ref} />);
+			expect(ref.current).toBeInstanceOf(FooterProbe);
+		});
+
+		it.each([
+			{
+				source: 'its displayName',
+				component: FooterProbe,
+				expected: 'WithInsetViewerFooter(FooterProbe)',
+			},
+			{
+				source: 'its function name',
+				component: function NamedFooter() {
+					return null;
+				},
+				expected: 'WithInsetViewerFooter(NamedFooter)',
+			},
+			{
+				source: 'a generic name when it has neither',
+				component: Object.defineProperty(() => null, 'name', { value: '' }),
+				expected: 'WithInsetViewerFooter(Component)',
+			},
+		])('should name the wrapper from $source', ({ component, expected }) => {
+			expect(withInsetViewerFooter(component as React.ComponentType).displayName).toBe(expected);
 		});
 	});
 });

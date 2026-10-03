@@ -6,6 +6,7 @@ import Select from '@atlaskit/select/default';
 const SelectSingleClearable = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="single-select-example-clearable">What city do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="single-select-example-clearable"
 			testId="react-select"

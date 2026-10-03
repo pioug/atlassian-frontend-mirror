@@ -65,6 +65,7 @@ export default (): JSX.Element => {
 				placement="bottom"
 				autoFocus={false}
 			/>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<input data-testid="focused-input" placeholder="This should keep focus" />
 		</div>
 	);

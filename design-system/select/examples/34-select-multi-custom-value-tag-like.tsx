@@ -59,6 +59,7 @@ const plainFormatOptionLabel = (option: OptionType) => option.label;
 const SelectMultiCustomValueTagLikeExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="multi-select-custom-value">Multi select with custom value (icon + label)</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="multi-select-custom-value"
 			formatOptionLabel={formatOptionLabel}
@@ -68,6 +69,7 @@ const SelectMultiCustomValueTagLikeExample = (): React.JSX.Element => (
 		/>
 
 		<Label htmlFor="multi-select-colors">Multi select with colored tags</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="multi-select-colors"
 			formatOptionLabel={plainFormatOptionLabel}

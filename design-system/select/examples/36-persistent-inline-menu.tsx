@@ -73,6 +73,7 @@ function SelectPopupExample({
 	};
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent
 		<Popup
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
@@ -85,6 +86,7 @@ function SelectPopupExample({
 						<MenuGroup>
 							<Section>
 								<div css={styles.content}>
+									{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 									<Select
 										autoFocus
 										menuRenderMode="inline"

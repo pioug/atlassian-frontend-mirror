@@ -6,6 +6,7 @@ import Select from '@atlaskit/select/default';
 const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="max-height-example">Which city do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="max-height-example"
 			options={[

@@ -4,7 +4,9 @@ import TextField from '@atlaskit/textfield/text-field';
 
 const Examples = (): React.JSX.Element => (
 	<>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<TextField label="Name" placeholder="Enter your name" />
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<TextField
 			label="Email"
 			type="email"
@@ -12,6 +14,7 @@ const Examples = (): React.JSX.Element => (
 			isRequired
 			autoComplete="email"
 		/>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<TextField label="Password" type="password" placeholder="Enter your password" isRequired />
 	</>
 );

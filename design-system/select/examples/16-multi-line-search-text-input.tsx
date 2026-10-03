@@ -65,6 +65,7 @@ class MultiLineSearchInput extends Component<{}, State> {
 		return (
 			<>
 				<Label htmlFor="multi-line-search-example">Which city do you live in?</Label>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 				<CreatableSelect
 					inputId="multi-line-search-example"
 					components={components}

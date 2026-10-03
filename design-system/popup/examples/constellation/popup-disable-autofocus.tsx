@@ -37,6 +37,7 @@ const PopupDisableAutofocusExample = (): JSX.Element => {
 
 	return (
 		<Box xcss={wrapperStyles.root}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<Textfield placeholder="This should stay focused when the popup opens" />
 			<Popup
 				shouldRenderToParent

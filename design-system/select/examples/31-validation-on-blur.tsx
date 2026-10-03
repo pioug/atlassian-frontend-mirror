@@ -58,6 +58,7 @@ export default function OnBlurValidationExample(): React.JSX.Element {
 			}}
 		>
 			<Form onSubmit={handleSubmit}>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 				<Field<ValueType<Option>>
 					name="colors"
 					label="Select a color"

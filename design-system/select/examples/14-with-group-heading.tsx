@@ -23,6 +23,7 @@ const GROUP_OPTIONS = [
 const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="group-example">Which city do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select inputId="group-example" options={GROUP_OPTIONS} placeholder="" />
 	</>
 );

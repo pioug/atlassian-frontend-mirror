@@ -95,6 +95,15 @@ const baseKeyframeTokens = {
 			group: 'motionKeyframe',
 		},
 	},
+	SlideInBottom2px: {
+		value: {
+			'0%': { transform: 'translateY(-2px)' },
+			'100%': { transform: 'translateY(0px)' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
 	SlideInLeft8px: {
 		value: {
 			'0%': { transform: 'translateX(8px)' },
@@ -126,6 +135,15 @@ const baseKeyframeTokens = {
 		value: {
 			'0%': { transform: 'translateY(0px)' },
 			'100%': { transform: 'translateY(-4px)' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideOutBottom2px: {
+		value: {
+			'0%': { transform: 'translateY(0px)' },
+			'100%': { transform: 'translateY(-2px)' },
 		},
 		attributes: {
 			group: 'motionKeyframe',

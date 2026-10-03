@@ -96,6 +96,7 @@ export default (): JSX.Element => {
 				Focusable Span
 			</Focusable>
 
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<Textfield placeholder="AK Textfield (No focus ring)" />
 
 			<Focusable

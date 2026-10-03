@@ -495,6 +495,7 @@ function RovoChatMock({ onClose }: { onClose: () => void }): JSX.Element {
 						</div>
 					)}
 					<div css={chatStyles.composer}>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 						<TextArea
 							appearance="none"
 							id="rovo-prompt"

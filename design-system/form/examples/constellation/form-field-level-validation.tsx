@@ -31,7 +31,7 @@ const members = [
 const userNameData = ['jsmith', 'mchan'];
 
 const errorMessages = {
-	shortUsername: 'Enter a team name longer than 4 characters.',
+	shortUsername: 'Enter a team name with at least 5 characters.',
 	usernameInUse: 'This team name is already taken. Use a different name',
 	usernameIsRequired: 'A team name is required.',
 	selectError: 'Select at least one team member.',
@@ -62,7 +62,7 @@ export default function FieldLevelValidationExample(): React.JSX.Element {
 					validate={(value) => {
 						if (!value) {
 							return errorMessages.usernameIsRequired;
-						} else if (value.length <= 5) {
+						} else if (value.length < 5) {
 							return errorMessages.shortUsername;
 						} else if (checkUserName(value)) {
 							return errorMessages.usernameInUse;

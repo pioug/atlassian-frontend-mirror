@@ -23,6 +23,7 @@ export default function FormExampleSingleDisabled(): React.JSX.Element {
 				{({ formProps }: { formProps: object }) => {
 					return (
 						<form {...formProps} name="form-example">
+							{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 							<Field
 								label="Radio group with a single radio item disabled"
 								name="city"

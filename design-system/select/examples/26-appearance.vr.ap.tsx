@@ -6,6 +6,7 @@ import Select from '@atlaskit/select/default';
 const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="default">Default</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="default"
 			testId="react-select"
@@ -22,6 +23,7 @@ const SingleExample = (): React.JSX.Element => (
 			placeholder=""
 		/>
 		<Label htmlFor="subtle">Subtle</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="subtle"
 			testId="react-select"
@@ -39,6 +41,7 @@ const SingleExample = (): React.JSX.Element => (
 			appearance="subtle"
 		/>
 		<Label htmlFor="none">None</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="none"
 			testId="react-select"

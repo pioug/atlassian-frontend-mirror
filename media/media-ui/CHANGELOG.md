@@ -1,5 +1,31 @@
 # @atlaskit/media-ui
 
+## 31.1.0
+
+### Minor Changes
+
+- [`f103450203050`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f103450203050) -
+  [ux] Add the header, download button, footer zoom controls and sidebar column to the inset Media
+  Viewer, gated by the `cc_comments_inset_media_viewer` feature gate and reached through the
+  `useInsetViewer` field on `MediaViewerExtensions`. When both are on, the inset header shows the
+  filename and size on one line with download, show or hide sidebar, and close buttons; those
+  buttons move over the sidebar column, beside the `extensions.sidebar.title`, while the sidebar is
+  open, and focus follows the sidebar toggle when it moves; the sidebar renders as a column that
+  animates open and closed, and while closed is hidden from assistive technology with its content
+  unmounted; the image, SVG and document zoom controls move into a footer bar below the media, where
+  clicking the zoom percentage resets the zoom to the viewer's starting level (fit to screen for
+  images and SVGs); and the overlay close button is not rendered. `ZoomControls` gains an optional
+  `onResetZoom` prop. `@atlaskit/media-ui` adds the `zoom_to_fit`, `zoom_to_fit_with_level`,
+  `hide_sidebar` and `show_sidebar` messages used by these controls. `@atlaskit/media-client` adds
+  an `is-external-image-identifier` subpath export for `isExternalImageIdentifier`. Adds
+  `@atlaskit/motion` as a dependency for the sidebar column animation and declares `react-dom` as a
+  peer dependency for the footer portal. With the gate off, or `useInsetViewer` absent or false, the
+  viewer renders unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.2
 
 ### Patch Changes

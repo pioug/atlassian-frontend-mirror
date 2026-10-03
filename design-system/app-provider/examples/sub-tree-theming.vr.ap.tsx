@@ -94,7 +94,7 @@ export function SubTreeThemingExample(): JSX.Element {
 							</Text>
 							<Inline space="space.100">
 								<Button>Hello World</Button>
-								<DropdownMenu trigger="Dropdown menu">
+								<DropdownMenu trigger="Dropdown menu" shouldRenderToParent>
 									<DropdownItemGroup>
 										<DropdownItem>Edit</DropdownItem>
 										<DropdownItem>Share</DropdownItem>
@@ -132,7 +132,7 @@ export function SubTreeThemingExample(): JSX.Element {
 										</Text>
 										<Inline space="space.100">
 											<Button>Hello World</Button>
-											<DropdownMenu trigger="Dropdown menu">
+											<DropdownMenu trigger="Dropdown menu" shouldRenderToParent>
 												<DropdownItemGroup>
 													<DropdownItem>Edit</DropdownItem>
 													<DropdownItem>Share</DropdownItem>
@@ -194,7 +194,7 @@ const InvertedColorModeContent = ({ parentColorMode }: { parentColorMode: ThemeC
 				</Text>
 				<Inline space="space.100">
 					<Button>Hello World</Button>
-					<DropdownMenu trigger="Dropdown menu">
+					<DropdownMenu trigger="Dropdown menu" shouldRenderToParent>
 						<DropdownItemGroup>
 							<DropdownItem>Edit</DropdownItem>
 							<DropdownItem>Share</DropdownItem>

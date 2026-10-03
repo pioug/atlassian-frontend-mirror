@@ -1,5 +1,18 @@
 # @atlaskit/form
 
+## 18.1.0
+
+### Minor Changes
+
+- [`21a9d9cb1639b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21a9d9cb1639b) -
+  Add enter and exit motion to shared form messages, including CharacterCounterField count errors,
+  behind `platform-dst-motion-uplift-input`. Message swaps and messages shown on form submission
+  switch instantly.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.0
 
 ### Major Changes

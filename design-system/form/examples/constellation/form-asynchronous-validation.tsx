@@ -16,41 +16,39 @@ import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 
+const memoizeByValue = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
+	const results = new Map<T, U>();
+	return (arg: T): U => {
+		if (!results.has(arg)) {
+			results.set(arg, fn(arg));
+		}
+		return results.get(arg) as U;
+	};
+};
+
+const validateName = (value: string = '') => {
+	if (!value) {
+		return 'A name is required.';
+	}
+	if (value.length < 6) {
+		return 'The name must have at least 6 characters.';
+	}
+	return undefined;
+};
+
+const validateDescription = memoizeByValue((value: string = '') => {
+	if (!value) {
+		return 'A description is required.';
+	}
+	if (value.length < 8) {
+		return new Promise((resolve) => setTimeout(resolve, 300)).then(
+			() => 'The description must have at least 8 characters.',
+		);
+	}
+	return undefined;
+});
+
 export default (): React.JSX.Element => {
-	const simpleMemoize = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
-		let lastArg: T;
-		let lastResult: U;
-		return (arg: T): U => {
-			if (arg !== lastArg) {
-				lastArg = arg;
-				lastResult = fn(arg);
-			}
-			return lastResult;
-		};
-	};
-
-	const validateName = (value: string = '') => {
-		if (!value) {
-			return 'A name is required.';
-		}
-		if (value.length < 6) {
-			return 'The name must be longer than 5 characters.';
-		}
-		return undefined;
-	};
-
-	const validateDescription = simpleMemoize((value: string = '') => {
-		if (!value) {
-			return 'A description is required.';
-		}
-		if (value.length < 8) {
-			return new Promise((resolve) => setTimeout(resolve, 300)).then(
-				() => 'The description must be longer than 7 characters.',
-			);
-		}
-		return undefined;
-	});
-
 	return (
 		<Flex direction="column">
 			<Form<{ name: string; description: string; remember: boolean }>
@@ -74,7 +72,7 @@ export default (): React.JSX.Element => {
 							label="Name"
 							isRequired
 							defaultValue=""
-							helperMessage="Must be 5 or more characters."
+							helperMessage="Must be 6 or more characters."
 							validate={validateName}
 							component={({ fieldProps }) => <TextField autoComplete="name" {...fieldProps} />}
 						/>

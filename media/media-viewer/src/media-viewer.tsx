@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import { type SyntheticEvent } from 'react';
 
 import { start } from 'perf-marks';
@@ -23,6 +23,7 @@ import {
 	type MediaViewerNavigationDirection,
 } from './components/types';
 import { Content } from './content';
+import { InsetSidebarHeader } from './inset-sidebar-header';
 import { InsetViewerProvider } from './insetViewerContext';
 import { List } from './list';
 import {
@@ -31,7 +32,9 @@ import {
 	InsetViewerLayout,
 	InsetViewerShell,
 	MediaColumn,
+	MediaFooterBar,
 	MediaStage,
+	SidebarColumn,
 	SidebarWrapper,
 } from './styleWrappers';
 import { type ViewerOptionsProps } from './viewerOptions';
@@ -138,6 +141,7 @@ const MediaViewerComponent = ({
 	}, []);
 
 	const defaultSelectedItem: Identifier | undefined = selectedItem || items[0];
+	const currentIdentifier = selectedIdentifier || defaultSelectedItem;
 
 	// Toggling the sidebar: opening is unconditional; closing goes through the
 	// optional onSidebarClose interceptor.
@@ -148,6 +152,23 @@ const MediaViewerComponent = ({
 			setIsSidebarVisible(true);
 		}
 	}, [isSidebarVisible, requestSidebarClose, setIsSidebarVisible]);
+
+	// In inset mode the sidebar toggle is in the media header while the sidebar is closed and in the
+	// sidebar's own header while it's open, so a toggle click unmounts the focused button. Move focus
+	// to the toggle that's now showing, only after a toggle click.
+	const showSidebarButtonRef = useRef<HTMLButtonElement>(null);
+	const hideSidebarButtonRef = useRef<HTMLButtonElement>(null);
+	const shouldFocusSidebarToggle = useRef(false);
+	useEffect(() => {
+		if (shouldFocusSidebarToggle.current) {
+			shouldFocusSidebarToggle.current = false;
+			(isSidebarVisible ? hideSidebarButtonRef : showSidebarButtonRef).current?.focus();
+		}
+	}, [isSidebarVisible]);
+	const onInsetSidebarButtonClick = useCallback(() => {
+		shouldFocusSidebarToggle.current = true;
+		toggleSidebar();
+	}, [toggleSidebar]);
 
 	// The full modal close — used by ESC, the close button, and click-outside.
 	// Always passed through requestPreviewClose so the consumer can intercept.
@@ -168,8 +189,7 @@ const MediaViewerComponent = ({
 	// 'next' if we can't determine direction (e.g. random jump from a list).
 	const computeNavigationDirection = useCallback(
 		(nextIdentifier: Identifier): MediaViewerNavigationDirection => {
-			const current = selectedIdentifier || defaultSelectedItem;
-			const currentId = current && getIdentifierId(current);
+			const currentId = currentIdentifier && getIdentifierId(currentIdentifier);
 			const nextId = getIdentifierId(nextIdentifier);
 			if (!currentId || !nextId) {
 				return 'next';
@@ -181,16 +201,14 @@ const MediaViewerComponent = ({
 			}
 			return nextIndex < currentIndex ? 'prev' : 'next';
 		},
-		[items, selectedIdentifier, defaultSelectedItem],
+		[items, currentIdentifier],
 	);
 
 	const renderSidebar = () => {
-		const sidebarSelectedIdentifier = selectedIdentifier || defaultSelectedItem;
-
-		if (sidebarSelectedIdentifier && isSidebarVisible && extensions?.sidebar) {
+		if (currentIdentifier && isSidebarVisible && extensions?.sidebar) {
 			return (
 				<SidebarWrapper data-testid="media-viewer-sidebar-content">
-					{extensions.sidebar.renderer(sidebarSelectedIdentifier, {
+					{extensions.sidebar.renderer(currentIdentifier, {
 						// `close` is what the sidebar renderer calls to dismiss itself.
 						// Route it through the same interceptor so confluence's
 						// unsaved-comment guard runs here too.
@@ -236,7 +254,7 @@ const MediaViewerComponent = ({
 										}}
 									>
 										<List
-											defaultSelectedItem={defaultSelectedItem || items[0]}
+											defaultSelectedItem={defaultSelectedItem}
 											items={items}
 											// Note: `onClose` here is what the prev/next list passes down for
 											// "close-the-modal" actions. Route through interceptor too.
@@ -256,8 +274,12 @@ const MediaViewerComponent = ({
 												const direction = computeNavigationDirection(identifier);
 												requestNavigation(direction, commit);
 											}}
-											onSidebarButtonClick={toggleSidebar}
+											onSidebarButtonClick={
+												isInsetViewer ? onInsetSidebarButtonClick : toggleSidebar
+											}
 											isSidebarVisible={isSidebarVisible}
+											onHeaderClose={isInsetViewer ? () => handlePreviewClose('button') : undefined}
+											sidebarToggleRef={isInsetViewer ? showSidebarButtonRef : undefined}
 											contextId={contextId}
 											featureFlags={featureFlags}
 											viewerOptions={viewerOptions}
@@ -265,8 +287,26 @@ const MediaViewerComponent = ({
 										/>
 									</Content>
 								</ConditionalInsetMediaStage>
+								{isInsetViewer ? <MediaFooterBar /> : null}
 							</ConditionalInsetMediaColumn>
-							{renderSidebar()}
+							{isInsetViewer ? (
+								<SidebarColumn isOpen={isSidebarVisible}>
+									{currentIdentifier && extensions?.sidebar ? (
+										<InsetSidebarHeader
+											identifier={currentIdentifier}
+											title={extensions.sidebar.title}
+											label={extensions.sidebar.label}
+											onHideSidebar={onInsetSidebarButtonClick}
+											onClose={() => handlePreviewClose('button')}
+											hideSidebarButtonRef={hideSidebarButtonRef}
+											fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+										/>
+									) : null}
+									{renderSidebar()}
+								</SidebarColumn>
+							) : (
+								renderSidebar()
+							)}
 						</ConditionalInsetViewerLayout>
 					</ConditionalInsetViewerShell>
 				</Blanket>

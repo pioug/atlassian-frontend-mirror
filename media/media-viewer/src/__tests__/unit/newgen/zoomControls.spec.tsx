@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { createIntl } from 'react-intl';
+
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
@@ -95,6 +97,109 @@ describe('Zooming', () => {
 						zoomScale: 1.5,
 					},
 				});
+			});
+		});
+
+		describe('in inset mode', () => {
+			let footer: HTMLDivElement;
+
+			afterEach(() => {
+				footer?.remove();
+			});
+
+			const setupInset = (props?: Partial<ZoomControlsProps>) => {
+				footer = document.createElement('div');
+				document.body.appendChild(footer);
+				const onChange = jest.fn();
+
+				render(
+					<ZoomControlsBase
+						createAnalyticsEvent={jest.fn().mockReturnValue({ fire: jest.fn() })}
+						zoomLevel={new ZoomLevel(1)}
+						onChange={onChange}
+						intl={fakeIntl}
+						isInsetViewer
+						mediaFooterControls={footer}
+						{...props}
+					/>,
+				);
+
+				return { footer, onChange };
+			};
+
+			it('should render nothing until the media footer is available', () => {
+				render(
+					<ZoomControlsBase
+						zoomLevel={new ZoomLevel(1)}
+						onChange={jest.fn()}
+						intl={fakeIntl}
+						isInsetViewer
+						mediaFooterControls={null}
+					/>,
+				);
+
+				expect(screen.queryByRole('button')).not.toBeInTheDocument();
+			});
+
+			it('should render the controls and their children into the media footer', async () => {
+				const { footer } = setupInset({ children: <span>HD</span> });
+
+				expect(footer).toContainElement(screen.getByTestId('zoom-level-indicator'));
+				expect(footer).toContainElement(screen.getByText('HD'));
+				expect(screen.getByTestId('zoom-level-indicator')).toHaveTextContent('100%');
+
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should name the zoom level button with the current zoom', () => {
+				render(
+					<ZoomControlsBase
+						createAnalyticsEvent={jest.fn().mockReturnValue({ fire: jest.fn() })}
+						zoomLevel={new ZoomLevel(1)}
+						onChange={jest.fn()}
+						intl={createIntl({ locale: 'en' })}
+						isInsetViewer
+						mediaFooterControls={document.body}
+					/>,
+				);
+
+				expect(
+					screen.getByRole('button', { name: '100% zoom, fit to screen' }),
+				).toBeInTheDocument();
+			});
+
+			it('should zoom in and out from the footer controls', async () => {
+				const { onChange } = setupInset();
+				const zoomLevel = new ZoomLevel(1);
+
+				await userEvent.click(screen.getByRole('button', { name: 'fakeIntl["zoom out"]' }));
+				expect(onChange).toHaveBeenLastCalledWith(zoomLevel.zoomOut());
+				await userEvent.click(screen.getByRole('button', { name: 'fakeIntl["zoom in"]' }));
+				expect(onChange).toHaveBeenLastCalledWith(zoomLevel.zoomIn());
+			});
+
+			it('should disable zoom in at the upper limit', () => {
+				setupInset({ zoomLevel: new ZoomLevel(1).fullyZoomIn() });
+
+				expect(screen.getByRole('button', { name: 'fakeIntl["zoom in"]' })).toBeDisabled();
+			});
+
+			it('should fit the media to the screen from the zoom percentage', async () => {
+				const { onChange } = setupInset({ zoomLevel: new ZoomLevel(0.5).zoomIn() });
+
+				await userEvent.click(screen.getByTestId('zoom-level-indicator'));
+
+				expect(onChange).toHaveBeenCalledWith(new ZoomLevel(0.5));
+			});
+
+			it('should call onResetZoom instead of onChange when it is provided', async () => {
+				const onResetZoom = jest.fn();
+				const { onChange } = setupInset({ onResetZoom });
+
+				await userEvent.click(screen.getByTestId('zoom-level-indicator'));
+
+				expect(onResetZoom).toHaveBeenCalledTimes(1);
+				expect(onChange).not.toHaveBeenCalled();
 			});
 		});
 	});

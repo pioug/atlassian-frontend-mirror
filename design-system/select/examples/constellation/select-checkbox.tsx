@@ -8,6 +8,7 @@ import { cities } from '../common/data';
 const SelectCheckboxExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="checkbox-select-example">What cities have you lived in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<CheckboxSelect
 			inputId="checkbox-select-example"
 			testId="select"

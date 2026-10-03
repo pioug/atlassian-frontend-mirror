@@ -117,6 +117,7 @@ export default (): React.JSX.Element => (
 			This example was created due to an issue that appeared that caused hot-111305. The structure
 			of this component repeats the implementation on the product where the problem occurred.
 		</Heading>
+		{/* eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent */}
 		<DropdownMenu trigger="Page actions" testId="dropdown">
 			<DropdownItemGroup>
 				<DropdownItem>Clone</DropdownItem>

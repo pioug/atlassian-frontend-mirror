@@ -6,6 +6,7 @@ import Select from '@atlaskit/select/default';
 const SelectGroupedOptionsExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="grouped-options-example">What city do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="grouped-options-example"
 			options={[

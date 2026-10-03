@@ -34,7 +34,7 @@ const colors = [
 const userNameData = ['jsmith', 'mchan'];
 
 const errorMessages = {
-	shortUsername: 'Please enter a username longer than 4 characters',
+	shortUsername: 'Please enter a username with at least 5 characters',
 	validUsername: 'Nice one, this username is available',
 	usernameInUse: 'This username is already taken, try entering another one',
 	usernameIsRequired: 'A username is required.',
@@ -66,7 +66,7 @@ export default function FieldLevelValidationExample(): React.JSX.Element {
 					validate={(value) => {
 						if (!value) {
 							return errorMessages.usernameIsRequired;
-						} else if (value.length <= 5) {
+						} else if (value.length < 5) {
 							return errorMessages.shortUsername;
 						} else if (checkUserName(value)) {
 							return errorMessages.usernameInUse;

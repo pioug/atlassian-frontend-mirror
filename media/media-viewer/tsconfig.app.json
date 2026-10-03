@@ -116,6 +116,9 @@
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/motion/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{

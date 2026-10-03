@@ -107,6 +107,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 							);
 						})}
 					</Stack>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-readonly-or-disabled-inputs */}
 					<Textfield
 						isReadOnly
 						value={importStatement}

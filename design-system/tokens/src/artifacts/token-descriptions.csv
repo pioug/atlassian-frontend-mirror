@@ -21,6 +21,8 @@ motion.easing.spring, "A spring curve that overshoots slightly before settling. 
 motion.flag.enter, "Use for flag enter transitions."
 motion.flag.exit, "Use for flag exit transitions."
 motion.flag.reposition, "Use for repositioning flag elements."
+motion.form.message.enter, "Use when a form message enters."
+motion.form.message.exit, "Use when a form message exits."
 motion.input, "Use for input hover, focus, and error state transitions."
 motion.keyframe.fade.in, "Use for fade-in transitions where an element goes from fully transparent to fully opaque."
 motion.keyframe.fade.out, "Use for fade-out transitions where an element goes from fully opaque to fully transparent."

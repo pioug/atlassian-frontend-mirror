@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7f65f5d92f74bd1c2ebd4f7d4b55bbdd>>
+ * @codegen <<SignedSource::8d10e1ed23a4336f1a8559e94d0e7153>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -15,6 +15,14 @@ export default `
 @keyframes SlideInBottom8px {
   0% {
     transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@keyframes SlideInBottom2px {
+  0% {
+    transform: translateY(-2px);
   }
   100% {
     transform: translateY(0px);
@@ -50,6 +58,14 @@ export default `
   }
   100% {
     transform: translateY(-4px);
+  }
+}
+@keyframes SlideOutBottom2px {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-2px);
   }
 }
 @keyframes SlideOutLeft4px {
@@ -248,6 +264,8 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-flag-enter: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn50PercentLeft backwards, 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards;
   --ds-flag-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-flag-reposition: transform 250ms cubic-bezier(0.4, 0, 0, 1);
+  --ds-form-message-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom2px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
+  --ds-form-message-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-input: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-keyframe-fade-in: FadeIn0to100;
   --ds-keyframe-fade-out: FadeOut100to0;

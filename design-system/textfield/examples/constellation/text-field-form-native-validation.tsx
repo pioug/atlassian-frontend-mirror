@@ -12,6 +12,7 @@ export default function TextFieldFormNativeValidationExample(): React.JSX.Elemen
 			onSubmit={(formData) => console.log('form data', formData)}
 			name="native-validation-example"
 		>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 			<Field
 				label="Input must contain less than 20 characters"
 				name="command"
@@ -24,6 +25,7 @@ export default function TextFieldFormNativeValidationExample(): React.JSX.Elemen
 					</Fragment>
 				)}
 			</Field>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 			<Field label="Input must be numeric" name="number" isRequired defaultValue="">
 				{({ fieldProps }: any) => (
 					<Fragment>
@@ -31,6 +33,7 @@ export default function TextFieldFormNativeValidationExample(): React.JSX.Elemen
 					</Fragment>
 				)}
 			</Field>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 			<Field label="Input must be an email" name="email" isRequired defaultValue="">
 				{({ fieldProps }: any) => (
 					<Fragment>
@@ -43,6 +46,7 @@ export default function TextFieldFormNativeValidationExample(): React.JSX.Elemen
 					</Fragment>
 				)}
 			</Field>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 			<Field label="Password must not be empty" name="password" isRequired defaultValue="">
 				{({ fieldProps }: any) => (
 					<Fragment>

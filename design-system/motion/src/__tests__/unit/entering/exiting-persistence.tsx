@@ -85,6 +85,27 @@ describe('<ExitingPersistence />', () => {
 		expect(screen.getByTestId('remaining')).toBeInTheDocument();
 	});
 
+	it('preserves exiting children across parent rerenders when the input motion gate is on', () => {
+		passGate('platform-dst-motion-uplift-input');
+		jest.useFakeTimers();
+		const renderMotions = (showRemoved: boolean) => (
+			<ExitingPersistence>
+				{showRemoved && <Motion key="removed" id="removed" />}
+				<Motion key="remaining" id="remaining" />
+			</ExitingPersistence>
+		);
+		const { rerender } = render(renderMotions(true));
+
+		rerender(renderMotions(false));
+		expect(screen.getByTestId('removed')).toBeInTheDocument();
+		rerender(renderMotions(false));
+		expect(screen.getByTestId('removed')).toBeInTheDocument();
+
+		act(() => jest.runAllTimers());
+		expect(screen.queryByTestId('removed')).not.toBeInTheDocument();
+		expect(screen.getByTestId('remaining')).toBeInTheDocument();
+	});
+
 	it('keeps sibling context stable while another tag exits through parent rerenders', () => {
 		passGate('platform-dst-motion-uplift-labels');
 		jest.useFakeTimers();

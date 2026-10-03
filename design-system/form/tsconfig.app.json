@@ -94,6 +94,12 @@
 			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../motion/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{
@@ -125,6 +131,9 @@
 		},
 		{
 			"path": "../visually-hidden/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"

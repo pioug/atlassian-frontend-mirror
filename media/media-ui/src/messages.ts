@@ -111,6 +111,10 @@ export type MessageKey =
 	| 'insert_files'
 	| 'zoom_out'
 	| 'zoom_in'
+	| 'zoom_to_fit'
+	| 'zoom_to_fit_with_level'
+	| 'hide_sidebar'
+	| 'show_sidebar'
 	| 'remove_image'
 	| 'play'
 	| 'pause'
@@ -783,6 +787,30 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'zoom in',
 		description:
 			'The text is shown as the accessible label for the zoom-in button in the media viewer toolbar, allowing the user to increase the zoom level of the currently displayed file.',
+	},
+	zoom_to_fit: {
+		id: 'fabric.media.zoom_to_fit',
+		defaultMessage: 'Fit to screen',
+		description:
+			'The text is shown as the tooltip on the zoom level button in the media viewer footer. Clicking the button resets the zoom so the current file fills the available viewing area.',
+	},
+	zoom_to_fit_with_level: {
+		id: 'fabric.media.zoom_to_fit_with_level',
+		defaultMessage: '{zoomLevel} zoom, fit to screen',
+		description:
+			'The text is the accessible label for the zoom level button in the media viewer footer. {zoomLevel} is the current zoom percentage, for example "150%". Clicking the button resets the zoom so the current file fills the available viewing area.',
+	},
+	hide_sidebar: {
+		id: 'fabric.media.viewer.hide_sidebar',
+		defaultMessage: 'Hide sidebar',
+		description:
+			'The text is shown as the accessible label for the button that hides the sidebar next to the file in the media viewer.',
+	},
+	show_sidebar: {
+		id: 'fabric.media.viewer.show_sidebar',
+		defaultMessage: 'Show sidebar',
+		description:
+			'The text is shown as the accessible label for the button that shows the sidebar next to the file in the media viewer.',
 	},
 	remove_image: {
 		id: 'fabric.media.remove_image',

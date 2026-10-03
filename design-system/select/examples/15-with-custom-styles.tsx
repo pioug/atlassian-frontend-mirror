@@ -11,6 +11,7 @@ const customStyles: StylesConfig = {
 const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="custom-example">Which city do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select<OptionType>
 			inputId="custom-example"
 			options={[

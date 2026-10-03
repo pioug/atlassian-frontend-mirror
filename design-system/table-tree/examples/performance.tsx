@@ -167,6 +167,7 @@ export default class extends PureComponent {
 								margin: `0 ${token('space.250')} 0 10px`,
 							}}
 						>
+							{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 							<Select
 								inputId="select"
 								menuPosition="fixed"

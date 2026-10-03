@@ -63,9 +63,7 @@ export default (): React.JSX.Element => (
 										Use 8 or more characters with a mix of letters, numbers & symbols.
 									</HelperMessage>
 								)}
-								{error && (
-									<ErrorMessage>Enter a password that's longer than 8 characters.</ErrorMessage>
-								)}
+								{error && <ErrorMessage>Enter a password with at least 8 characters.</ErrorMessage>}
 								{valid && meta.dirty ? <ValidMessage>Awesome password!</ValidMessage> : null}
 							</MessageWrapper>
 						</Fragment>

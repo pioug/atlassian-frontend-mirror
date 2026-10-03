@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 7.2.1
+
+### Patch Changes
+
+- [`3b17b7d2bfdf9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b17b7d2bfdf9) -
+  Cleanup `feature_gate` `platform_lp_sllv_richtext_margin_reset`. Rich text cells in the issue-like
+  table (SLLV) now always align to the top of the cell.
+
 ## 7.2.0
 
 ### Minor Changes

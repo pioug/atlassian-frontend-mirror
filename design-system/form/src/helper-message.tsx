@@ -2,6 +2,7 @@ import React from 'react';
 
 import { FieldId } from './field-id-context';
 import Message, { type MessageProps } from './message';
+import messageMotion from './message-motion-capability';
 
 /**
  * __Helper message__
@@ -22,3 +23,5 @@ export const HelperMessage: ({ children, testId }: MessageProps) => JSX.Element 
 		)}
 	</FieldId.Consumer>
 );
+
+messageMotion.mark(HelperMessage);

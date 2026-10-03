@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::313f34bf4f2e51c91acc2c8be8372e64>>
+ * @codegen <<SignedSource::6aae61452b94dca3eb5f997bd4fd990c>>
  * @codegenCommand yarn build tokens
  */
 
@@ -791,6 +791,40 @@ const tokens: Token[] = [
   {
     "value": {
       "0%": {
+        "transform": "translateY(-2px)"
+      },
+      "100%": {
+        "transform": "translateY(0px)"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateY(-2px)"
+        },
+        "100%": {
+          "transform": "translateY(0px)"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideInBottom2px",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideInBottom2px"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
         "transform": "translateY(-8px)"
       },
       "100%": {
@@ -1036,6 +1070,40 @@ const tokens: Token[] = [
       "motion",
       "keyframe",
       "SlideOut15PercentLeft"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "translateY(0px)"
+      },
+      "100%": {
+        "transform": "translateY(-2px)"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateY(0px)"
+        },
+        "100%": {
+          "transform": "translateY(-2px)"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideOutBottom2px",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideOutBottom2px"
     ]
   },
   {

@@ -17,6 +17,7 @@ const colorItems: OptionsPropType = [
 export default function RadioRequired(): React.JSX.Element {
 	return (
 		<Form<FormData> onSubmit={(formData) => console.log('form data', formData)}>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 			<Field label="Required radio group" name="color" defaultValue="" isRequired>
 				{({ fieldProps }) => <RadioGroup {...fieldProps} options={colorItems} />}
 			</Field>

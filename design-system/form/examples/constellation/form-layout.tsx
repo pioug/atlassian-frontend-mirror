@@ -36,6 +36,7 @@ const FormLayoutExample = (): React.JSX.Element => {
 				</FormHeader>
 
 				<FormSection>
+					{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 					<Field<ValueType<OptionType>> label="Owner" name="owner" id="owner">
 						{({ fieldProps: { id, ...rest } }) => (
 							<Select

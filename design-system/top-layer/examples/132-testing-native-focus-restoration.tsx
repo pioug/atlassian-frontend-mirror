@@ -23,6 +23,7 @@ export default function TestingNativeFocusRestoration(): React.ReactNode {
 			<PopoverAutoDialog />
 			<PopoverAutoMenu />
 			<ProgrammaticClose />
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<input data-testid="external-input" placeholder="External focusable element" />
 		</div>
 	);

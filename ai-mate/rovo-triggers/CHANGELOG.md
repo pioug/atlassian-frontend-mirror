@@ -1,5 +1,21 @@
 # @atlaskit/rovo-triggers
 
+## 11.9.0
+
+### Minor Changes
+
+- [`650cddbcd2b17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/650cddbcd2b17) -
+  Synchronize custom skill deletion across Studio and Chat using site-scoped rovo-triggers events.
+  Gate both publishing and subscriber mounting behind rovo_chat_custom_skill_actions, and export
+  CUSTOM_SKILL_DELETED_EVENT for shared usage.
+
+  Update Studio Relay connections directly and retain deletion markers to prevent delayed search or
+  pagination responses from restoring removed skills. Show generic deletion errors without internal
+  identifiers.
+
+  Support an optional inherited cloudId in RovoSkillsConfigProvider so Chat invalidates its skill
+  library and insert-menu cache only for matching sites.
+
 ## 11.8.0
 
 ### Minor Changes

@@ -20,6 +20,7 @@ const _default: () => JSX.Element = () => {
 		<div id="analytics" css={wrapperStyles}>
 			<label htmlFor="log">Log onFocus & onBlur analytics</label>
 			<AnalyticsListener onEvent={sendAnalytics} channel="atlaskit">
+				{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 				<TextArea
 					name="log"
 					id="log"

@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { CharacterCounter } from './character-counter';
+import { CharacterCounter, CharacterCounterMotionContext } from './character-counter';
 import { ErrorMessage } from './error-message';
 import Field, { type FieldComponentProps, type FieldProps, type Meta } from './field';
 import { HelperMessage } from './helper-message';
@@ -205,16 +205,18 @@ export function CharacterCounterField<
 							</MessageWrapper>
 							{/* CharacterCounter has its own debounced aria-live announcements */}
 							{showCharacterCounter && (
-								<CharacterCounter
-									maxCharacters={maxCharacters}
-									minCharacters={minCharacters}
-									currentValue={String(extendedFieldProps.value || '')}
-									shouldShowAsError={isCharacterCountViolation}
-									overMaximumMessage={overMaximumMessage}
-									underMaximumMessage={underMaximumMessage}
-									underMinimumMessage={underMinimumMessage}
-									testId={`${testId}-character-counter`}
-								/>
+								<CharacterCounterMotionContext.Provider value>
+									<CharacterCounter
+										maxCharacters={maxCharacters}
+										minCharacters={minCharacters}
+										currentValue={String(extendedFieldProps.value || '')}
+										shouldShowAsError={isCharacterCountViolation}
+										overMaximumMessage={overMaximumMessage}
+										underMaximumMessage={underMaximumMessage}
+										underMinimumMessage={underMinimumMessage}
+										testId={`${testId}-character-counter`}
+									/>
+								</CharacterCounterMotionContext.Provider>
 							)}
 						</Fragment>
 					);

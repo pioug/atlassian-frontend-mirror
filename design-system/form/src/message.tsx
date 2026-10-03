@@ -8,9 +8,12 @@ import { type ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { css, cssMap, jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { MessageWrapperContext } from './message-context';
+import MessageTrack from './message-track';
 
 type MessageAppearance = 'default' | 'error' | 'valid';
 
@@ -76,17 +79,17 @@ const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 	valid: <SuccessIcon color="currentColor" label="success" size="small" />,
 };
 
-/**
- * __Message__
- *
- * A message component for displaying messages in a form.
- */
-const Message = ({
+interface MessageRowProps extends InternalMessageProps {
+	isExiting?: boolean;
+}
+
+const MessageRow = ({
 	children,
 	appearance = 'default',
 	fieldId,
+	isExiting = false,
 	testId,
-}: InternalMessageProps): React.ReactNode => {
+}: MessageRowProps): React.ReactNode => {
 	const icon = messageIcons[appearance];
 	const messageRef = useRef<HTMLDivElement>(null);
 	const [hasMessageWrapper, setHasMessageWrapper] = useState(false);
@@ -112,14 +115,70 @@ const Message = ({
 		<div
 			css={[messageStyles, messageAppearanceStyles[appearance]]}
 			data-testid={testId}
-			id={fieldId}
+			id={isExiting ? undefined : fieldId}
 			ref={messageRef}
 			// For backwards compatability, if there is a wrapper, aria-live is not needed
 			aria-live={!hasMessageWrapper ? 'polite' : undefined}
+			aria-hidden={isExiting ? true : undefined}
 		>
 			{icon && <IconWrapper>{icon}</IconWrapper>}
 			{content}
 		</div>
+	);
+};
+
+const MotionMessage = (props: InternalMessageProps): React.ReactNode => {
+	const isErrorMessage = props.appearance === 'error';
+	const { hasMotionBoundary, transition } = useContext(MessageWrapperContext);
+	const shouldAnimate = isErrorMessage || hasMotionBoundary;
+	const { ref, state } = useMotion<HTMLDivElement>({
+		initialState: shouldAnimate && transition !== 'instant' ? undefined : 'visible',
+	});
+	const row = (
+		<MessageRow
+			appearance={props.appearance}
+			fieldId={props.fieldId}
+			isExiting={state === 'exiting'}
+			testId={props.testId}
+		>
+			{props.children}
+		</MessageRow>
+	);
+
+	if (!shouldAnimate) {
+		return row;
+	}
+
+	return (
+		<MessageTrack
+			state={state}
+			transition={transition}
+			motionRef={ref}
+			testId={props.testId && `${props.testId}-motion`}
+		>
+			{row}
+		</MessageTrack>
+	);
+};
+
+/**
+ * __Message__
+ *
+ * A message component for displaying messages in a form.
+ */
+const Message = (props: InternalMessageProps): React.ReactNode => {
+	if (!fg('platform-dst-motion-uplift-input')) {
+		return (
+			<MessageRow appearance={props.appearance} fieldId={props.fieldId} testId={props.testId}>
+				{props.children}
+			</MessageRow>
+		);
+	}
+
+	return (
+		<MotionMessage appearance={props.appearance} fieldId={props.fieldId} testId={props.testId}>
+			{props.children}
+		</MotionMessage>
 	);
 };
 

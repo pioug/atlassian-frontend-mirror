@@ -7,6 +7,7 @@ export default function TextAreaAppearanceSubtle(): React.JSX.Element {
 	return (
 		<>
 			<Label htmlFor="appearance-subtle">Subtle appearance</Label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<TextArea
 				appearance="subtle"
 				id="appearance-subtle"

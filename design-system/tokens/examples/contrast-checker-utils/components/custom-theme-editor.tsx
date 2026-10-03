@@ -154,6 +154,7 @@ const TokenSelect = ({
 
 	return (
 		<Inline space="space.100" grow="fill">
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<Select<{ label: TokenName; value: TokenName }>
 				options={TokenNameOptions}
 				value={{ label: selectedToken, value: selectedToken }}
@@ -169,6 +170,7 @@ const TokenSelect = ({
 				css={styles.select}
 			/>
 			<Stack space="space.025" grow="fill">
+				{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 				<Select<{ label: string; value: string }>
 					options={baseTokenNameOptionsWithCustom}
 					value={currentBaseTokenValue}
@@ -194,6 +196,7 @@ const TokenSelect = ({
 								debouncedOnChange(e.target.value);
 							}}
 						/>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 						<TextField
 							value={colorFieldValue}
 							isCompact={true}

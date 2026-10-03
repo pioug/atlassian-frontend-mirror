@@ -7,12 +7,14 @@ import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import noop from '@atlaskit/ds-lib/noop';
 import Range from '@atlaskit/range/range';
 import TextField from '@atlaskit/textfield/text-field';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { CharacterCounterField } from '../../character-counter-field';
 import { CheckboxField } from '../../checkbox-field';
 import { ErrorMessage } from '../../error-message';
 import Field from '../../field';
+import { FieldId } from '../../field-id-context';
 import { Fieldset } from '../../fieldset';
 import Form from '../../form';
 import { FormFooter } from '../../form-footer';
@@ -21,6 +23,7 @@ import { FormSection } from '../../form-section';
 import { HelperMessage } from '../../helper-message';
 import { Label } from '../../label';
 import { Legend } from '../../legend';
+import { MessageWrapper } from '../../message-wrapper';
 import { RangeField } from '../../range-field';
 import { RequiredAsterisk } from '../../required-asterisk';
 import { ValidMessage } from '../../valid-message';
@@ -44,6 +47,28 @@ describe('should pass axe accessibility testing', () => {
 			{ name: 'FormSection', jsx: <FormSection>Test</FormSection> },
 		],
 	);
+
+	it('gated ErrorMessage motion preserves the live region and accessible field relationship', async () => {
+		passGate('platform-dst-motion-uplift-input');
+		const { container } = render(
+			<FieldId.Provider value="project">
+				<Label htmlFor="project">Project</Label>
+				<TextField id="project" aria-describedby="project-error" testId="project-field" />
+				<MessageWrapper>
+					<ErrorMessage testId="error-message">Choose a project</ErrorMessage>
+				</MessageWrapper>
+			</FieldId.Provider>,
+		);
+
+		expect(screen.getByTestId('project-field')).toHaveAttribute(
+			'aria-describedby',
+			'project-error',
+		);
+		expect(screen.getByTestId('message-wrapper')).toHaveAttribute('aria-live', 'polite');
+		expect(screen.getByTestId('error-message')).toHaveAttribute('id', 'project-error');
+		expect(screen.getByTestId('error-message')).not.toHaveAttribute('aria-live');
+		await axe(container);
+	});
 
 	cases(
 		'Messages',
@@ -197,6 +222,7 @@ describe('should pass axe accessibility testing', () => {
 			});
 
 			it('over maximum characters', async () => {
+				passGate('platform-dst-motion-uplift-input');
 				const { container } = render(
 					<Form onSubmit={noop}>
 						<CharacterCounterField

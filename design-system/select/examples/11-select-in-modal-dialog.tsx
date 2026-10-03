@@ -48,6 +48,7 @@ class SelectInModal extends Component<{}, State> {
 							</ModalHeader>
 							<ModalBody>
 								<Label htmlFor="modal-select-example">Which city do you live in?</Label>
+								{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 								<Select
 									inputId="modal-select-example"
 									defaultValue={options.slice(3)}

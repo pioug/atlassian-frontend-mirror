@@ -6,6 +6,7 @@ import Select from '@atlaskit/select/default';
 const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="single-select-example">What city do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="single-select-example"
 			testId="react-select"

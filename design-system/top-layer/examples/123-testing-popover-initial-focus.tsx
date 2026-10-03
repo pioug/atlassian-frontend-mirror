@@ -279,6 +279,7 @@ function TooltipPopup() {
 export default function TestingPopoverInitialFocus(): React.ReactNode {
 	return (
 		<div>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<input data-testid="external-input" placeholder="External focusable element" />
 			<DialogPopup />
 			<DialogWithAutofocusPopup />

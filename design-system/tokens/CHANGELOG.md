@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 20.2.0
+
+### Minor Changes
+
+- [`21a9d9cb1639b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21a9d9cb1639b) -
+  Add `motion.form.message.enter` and `motion.form.message.exit` for shared form message motion.
+
 ## 20.1.0
 
 ### Minor Changes

@@ -7,6 +7,7 @@ import { InactivityDetector } from '@atlaskit/media-ui/inactivityDetector';
 import MediaButton from '@atlaskit/media-ui/MediaButton';
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 
+import { withInsetViewer, type WithInsetViewerProps } from './insetViewerContext';
 import { CloseButtonWrapper, ContentWrapper } from './styleWrappers';
 
 export interface ContentProps {
@@ -15,13 +16,13 @@ export interface ContentProps {
 	isSidebarVisible?: boolean;
 }
 
-export class Content extends Component<ContentProps> {
+class ContentBase extends Component<ContentProps & WithInsetViewerProps> {
 	/*
 	 * Here we get called by InactivityDetector and given a function we
 	 * pass down as "showControls" to out children.
 	 */
 	render(): React.JSX.Element {
-		const { onClose, isSidebarVisible } = this.props;
+		const { onClose, isSidebarVisible, isInsetViewer } = this.props;
 
 		return (
 			<ContentWrapper isSidebarVisible={isSidebarVisible}>
@@ -32,14 +33,19 @@ export class Content extends Component<ContentProps> {
 						});
 						return (
 							<>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-								<CloseButtonWrapper className={hideControlsClassName}>
-									<MediaButton
-										testId="media-viewer-close-button"
-										onClick={onClose}
-										iconBefore={<CrossIcon color="currentColor" spacing="spacious" label="Close" />}
-									/>
-								</CloseButtonWrapper>
+								{/* The inset header has its own close button. */}
+								{!isInsetViewer && (
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+									<CloseButtonWrapper className={hideControlsClassName}>
+										<MediaButton
+											testId="media-viewer-close-button"
+											onClick={onClose}
+											iconBefore={
+												<CrossIcon color="currentColor" spacing="spacious" label="Close" />
+											}
+										/>
+									</CloseButtonWrapper>
+								)}
 								{children}
 							</>
 						);
@@ -49,3 +55,6 @@ export class Content extends Component<ContentProps> {
 		);
 	}
 }
+
+export const Content: React.ForwardRefExoticComponent<ContentProps & React.RefAttributes<any>> =
+	withInsetViewer(ContentBase);

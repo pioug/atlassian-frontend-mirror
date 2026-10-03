@@ -32,6 +32,7 @@ export default (): React.JSX.Element => (
 				label="Last name"
 				isRequired
 				component={({ fieldProps: { isRequired, isDisabled, ...others } }) => (
+					// eslint-disable-next-line @atlaskit/design-system/no-readonly-or-disabled-inputs
 					<TextField
 						isDisabled={isDisabled}
 						isRequired={isRequired}

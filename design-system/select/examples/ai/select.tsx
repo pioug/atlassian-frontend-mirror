@@ -16,7 +16,9 @@ const colorOptions = [
 
 const Examples = (): React.JSX.Element => (
 	<>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select options={colorOptions} isMulti placeholder="" />
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select options={cityOptions} isSearchable placeholder="" />
 	</>
 );

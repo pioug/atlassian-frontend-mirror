@@ -26,6 +26,7 @@ export default function TestingPopupFocusRestore(): React.ReactNode {
 			<MenuPopup />
 			<ListboxPopup />
 			<TooltipPopup />
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<input data-testid="external-input" placeholder="External focusable element" />
 		</div>
 	);

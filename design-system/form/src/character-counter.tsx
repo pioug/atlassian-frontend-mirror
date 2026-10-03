@@ -3,15 +3,20 @@
  * @jsx jsx
  */
 
-import { useContext, useEffect, useRef, useState } from 'react';
+import { type Context, createContext, useContext, useEffect, useRef, useState } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { FieldId } from './field-id-context';
+import { type MessageTransition } from './message-context';
+import MessageTrack from './message-track';
 
 // Extracted styles for character counter message container
 const messageContainerStyles = cssMap({
@@ -98,6 +103,56 @@ export interface CharacterCounterProps {
 // Helper to pluralise "character(s)"
 const pluralize = (count: number) => `character${count !== 1 ? 's' : ''}`;
 
+export const CharacterCounterMotionContext: Context<boolean> = createContext(false);
+
+interface CounterVisualProps {
+	shouldDisplayAsError: boolean;
+	displayText: string;
+	isExiting?: boolean;
+	resolvedFieldId?: string;
+}
+
+const CounterVisual = ({
+	shouldDisplayAsError,
+	displayText,
+	isExiting = false,
+	resolvedFieldId,
+}: CounterVisualProps) => (
+	<Flex gap="space.075" xcss={messageContainerStyles.root}>
+		{shouldDisplayAsError && <ErrorIconWithWrapper />}
+		<Text
+			color={shouldDisplayAsError ? 'color.text.danger' : 'color.text.subtlest'}
+			size="small"
+			id={resolvedFieldId && !isExiting ? `${resolvedFieldId}-character-counter` : undefined}
+		>
+			{displayText}
+		</Text>
+	</Flex>
+);
+
+const AnimatedCounterVisual = ({
+	shouldDisplayAsError,
+	displayText,
+	transition,
+	resolvedFieldId,
+	testId,
+}: CounterVisualProps & { transition: MessageTransition; testId?: string }) => {
+	const { ref, state } = useMotion<HTMLDivElement>({
+		initialState: transition === 'instant' ? 'visible' : undefined,
+	});
+
+	return (
+		<MessageTrack motionRef={ref} state={state} transition={transition} testId={testId}>
+			<CounterVisual
+				shouldDisplayAsError={shouldDisplayAsError}
+				displayText={displayText}
+				isExiting={state === 'exiting'}
+				resolvedFieldId={resolvedFieldId}
+			/>
+		</MessageTrack>
+	);
+};
+
 /**
  * __Character Counter__
  *
@@ -117,6 +172,8 @@ export const CharacterCounter = ({
 }: CharacterCounterProps): JSX.Element | null => {
 	const [announcementText, setAnnouncementText] = useState('');
 	const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const isMotionEnabled =
+		useContext(CharacterCounterMotionContext) && fg('platform-dst-motion-uplift-input');
 
 	// Resolve the field ID from context (form use) or inputId prop (standalone use)
 	const contextFieldId = useContext(FieldId);
@@ -171,25 +228,40 @@ export const CharacterCounter = ({
 	}, [displayText]);
 
 	// Don't render if there's no message to display (min only limit satisfied)
-	if (!displayText) {
+	if (!displayText && !isMotionEnabled) {
 		return null;
 	}
 
 	return (
 		<Flex testId={testId}>
-			<Flex gap="space.075" xcss={messageContainerStyles.root}>
-				{displayAsError && <ErrorIconWithWrapper />}
-				<Text
-					color={displayAsError ? 'color.text.danger' : 'color.text.subtlest'}
-					size="small"
-					id={resolvedFieldId ? `${resolvedFieldId}-character-counter` : undefined}
-				>
-					{displayText}
-				</Text>
-			</Flex>
+			{isMotionEnabled ? (
+				<ExitingPersistence appear>
+					{displayText && (
+						<AnimatedCounterVisual
+							key={displayAsError ? 'error' : 'default'}
+							shouldDisplayAsError={displayAsError}
+							displayText={displayText}
+							transition={maxCharacters !== undefined ? 'instant' : 'row'}
+							resolvedFieldId={resolvedFieldId}
+							testId={testId && `${testId}-motion`}
+						/>
+					)}
+				</ExitingPersistence>
+			) : (
+				<CounterVisual
+					shouldDisplayAsError={displayAsError}
+					displayText={displayText!}
+					resolvedFieldId={resolvedFieldId}
+				/>
+			)}
 			{/* Screen reader announcements with debounced updates */}
 			<VisuallyHidden>
-				<div aria-live="polite">{announcementText}</div>
+				<div
+					aria-live="polite"
+					data-testid={isMotionEnabled && testId ? `${testId}-announcer` : undefined}
+				>
+					{announcementText}
+				</div>
 			</VisuallyHidden>
 		</Flex>
 	);

@@ -19,6 +19,7 @@ const options = [
 
 const PopupSelectExample = (): React.JSX.Element => {
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-placeholder
 		<PopupSelect
 			placeholder=""
 			options={options}

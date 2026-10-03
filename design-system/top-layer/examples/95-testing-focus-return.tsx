@@ -14,6 +14,7 @@ export default function TestingFocusReturn(): React.ReactNode {
 			<button type="button" data-testid="dialog-trigger" onClick={() => setIsOpen(true)}>
 				Open dialog
 			</button>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<input data-testid="other-input" placeholder="Other focusable element" />
 			<Dialog onClose={handleClose} isOpen={isOpen} label="Focus return test" testId="dialog">
 				<button type="button" aria-label="Close" onClick={() => setIsOpen(false)}>

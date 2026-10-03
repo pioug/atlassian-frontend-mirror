@@ -4,6 +4,7 @@ import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 import { render, screen } from '@atlassian/testing-library';
 
 import { Content } from '../../../content';
+import { InsetViewerProvider } from '../../../insetViewerContext';
 
 let receivedShowControls: (() => void) | undefined;
 
@@ -41,5 +42,17 @@ describe('<Content />', () => {
 		expect(receivedShowControls).toBeDefined();
 		expect(typeof receivedShowControls).toBe('function');
 		expect(() => receivedShowControls!()).not.toThrow();
+	});
+
+	it('should not render the close button in the inset viewer', () => {
+		render(
+			<InsetViewerProvider isInsetViewer>
+				<Content>
+					<DummyChild />
+				</Content>
+			</InsetViewerProvider>,
+		);
+		expect(screen.getByTestId('dummy-child')).toBeInTheDocument();
+		expect(screen.queryByTestId('media-viewer-close-button')).not.toBeInTheDocument();
 	});
 });

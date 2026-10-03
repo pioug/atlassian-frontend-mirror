@@ -31,6 +31,7 @@ class WithCustomGetOptionLabel extends Component<{}, State> {
 			<>
 				<Label htmlFor="custom-opt-label-example">Which city do you live in?</Label>
 				{this.state.useCustomOptionLabel ? (
+					// eslint-disable-next-line @atlaskit/design-system/no-placeholder
 					<CheckboxSelect
 						inputId="custom-opt-label-example"
 						options={[
@@ -43,6 +44,7 @@ class WithCustomGetOptionLabel extends Component<{}, State> {
 						getOptionLabel={customGetOptionLabel}
 					/>
 				) : (
+					// eslint-disable-next-line @atlaskit/design-system/no-placeholder
 					<CheckboxSelect
 						inputId="custom-opt-label-example"
 						options={[

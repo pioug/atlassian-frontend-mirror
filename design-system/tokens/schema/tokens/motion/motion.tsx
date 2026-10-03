@@ -55,6 +55,26 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				description: 'Use for input hover, focus, and error state transitions.',
 			},
 		},
+		form: {
+			message: {
+				enter: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '20.1.0',
+						description: 'Use when a form message enters.',
+					},
+				},
+				exit: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '20.1.0',
+						description: 'Use when a form message exits.',
+					},
+				},
+			},
+		},
 		listitem: {
 			hovered: {
 				attributes: {

@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::e70fa534c5916cef7086b540bbeb81c8>>
+ * @codegen <<SignedSource::90cb230b21b560f12106de779139c84b>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -185,6 +185,22 @@ export const tokens: Token[] = [
 		path: ['motion', 'flag', 'reposition'],
 		description: 'Use for repositioning flag elements.',
 		exampleValue: 'transform 250ms cubic-bezier(0.4, 0, 0, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.form.message.enter',
+		path: ['motion', 'form', 'message', 'enter'],
+		description: 'Use when a form message enters.',
+		exampleValue:
+			'150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom2px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.form.message.exit',
+		path: ['motion', 'form', 'message', 'exit'],
+		description: 'Use when a form message exits.',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{

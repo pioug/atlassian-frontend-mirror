@@ -1,5 +1,18 @@
 # @atlaskit/motion
 
+## 9.3.0
+
+### Minor Changes
+
+- [`21a9d9cb1639b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21a9d9cb1639b) -
+  Keep exiting `ExitingPersistence` children mounted across parent rerenders behind
+  `platform-dst-motion-uplift-input`, and keep the `useMotion` exit timer running and call the
+  latest `onFinish` when a parent rerenders.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.0
 
 ### Minor Changes

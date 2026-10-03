@@ -76,14 +76,14 @@ export default (): React.JSX.Element => {
 									<TextField autoComplete="username" {...fieldProps} />
 									<MessageWrapper>
 										{!error && !valid && (
-											<HelperMessage>Should be more than 4 characters</HelperMessage>
+											<HelperMessage>Should be at least 5 characters</HelperMessage>
 										)}
 										{!error && valid && (
 											<ValidMessage>Nice one, this username is available</ValidMessage>
 										)}
 										{error === 'TOO_SHORT' && (
 											<ErrorMessage>
-												Please enter a username that's longer than 4 characters.
+												Please enter a username with at least 5 characters.
 											</ErrorMessage>
 										)}
 										{error === 'IN_USE' && (

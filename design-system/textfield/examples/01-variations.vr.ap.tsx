@@ -49,6 +49,7 @@ export default function VariationsExample(): React.JSX.Element {
 			<Textfield testId="default-value" defaultValue="candy" id="default-value" />
 
 			<label htmlFor="disabled">Disabled</label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-readonly-or-disabled-inputs */}
 			<Textfield testId="disabled" isDisabled defaultValue="can't touch this..." id="disabled" />
 
 			<label htmlFor="required">Required</label>
@@ -59,12 +60,15 @@ export default function VariationsExample(): React.JSX.Element {
 			<ErrorMessage>Invalid</ErrorMessage>
 
 			<label htmlFor="read-only">Read Only</label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-readonly-or-disabled-inputs */}
 			<Textfield testId="read-only" id="read-only" isReadOnly defaultValue="Is read only." />
 
 			<label htmlFor="placeholder">Placeholder</label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<Textfield testId="placeholder" id="placeholder" placeholder="Click here to input..." />
 
 			<label htmlFor="placeholder-disabled">Placeholder disabled</label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder, @atlaskit/design-system/no-readonly-or-disabled-inputs */}
 			<Textfield
 				testId="placeholder-disabled"
 				isDisabled
@@ -91,6 +95,7 @@ export default function VariationsExample(): React.JSX.Element {
 			<Textfield testId="subtle" id="subtle" appearance="subtle" />
 
 			<label htmlFor="subtle-disabled">Subtle, disabled</label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-readonly-or-disabled-inputs */}
 			<Textfield testId="subtle-disabled" id="subtle-disabled" appearance="subtle" isDisabled />
 
 			<label htmlFor="subtle-error">Subtle error</label>
@@ -100,6 +105,7 @@ export default function VariationsExample(): React.JSX.Element {
 			<Textfield testId="none" id="none" appearance="none" />
 
 			<label htmlFor="none-disabled">None, disabled</label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-readonly-or-disabled-inputs */}
 			<Textfield testId="none-disabled" id="none-disabled" appearance="none" isDisabled />
 		</div>
 	);

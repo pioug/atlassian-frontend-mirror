@@ -55,6 +55,26 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
 			},
 		},
+		form: {
+			message: {
+				enter: {
+					value: {
+						duration: 'Duration150',
+						curve: 'EasePracticalOut',
+						keyframes: ['SlideInBottom2px', 'FadeIn0to100'],
+						fill: 'AnimationFillModeBackwards',
+					},
+				},
+				exit: {
+					value: {
+						duration: 'Duration100',
+						curve: 'EasePracticalIn',
+						keyframes: ['SlideOutBottom2px', 'FadeOut100to0'],
+						fill: 'AnimationFillModeForwards',
+					},
+				},
+			},
+		},
 		listitem: {
 			hovered: {
 				value: {

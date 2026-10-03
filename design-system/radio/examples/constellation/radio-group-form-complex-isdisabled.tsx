@@ -27,6 +27,7 @@ export default function FormExample(): React.JSX.Element {
 				{({ formProps }: { formProps: object }) => {
 					return (
 						<form {...formProps} name="form-example">
+							{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 							<Field
 								label="Radio group which can be dynamically disabled, with a single radio item disabled"
 								name="weather"

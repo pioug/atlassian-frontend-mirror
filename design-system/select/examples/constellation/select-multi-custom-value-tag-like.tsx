@@ -52,6 +52,7 @@ const SelectMultiCustomValueTagLikeExample = (): React.JSX.Element => (
 		<Label htmlFor="multi-select-custom-value-tag-like">
 			Multi select with custom value (icon + label)
 		</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="multi-select-custom-value-tag-like"
 			formatOptionLabel={formatOptionLabel}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { type Ref, useState, useRef } from 'react';
 
 import { type Identifier } from '@atlaskit/media-client';
 import {
@@ -39,6 +39,9 @@ export type Props = Readonly<
 		featureFlags?: MediaFeatureFlags;
 		viewerOptions?: ViewerOptionsProps;
 		fallbackMediaNameFetcher?: (id: string) => Promise<string>;
+		// Inset viewer only: the header's close button, and its sidebar toggle for focus handling.
+		onHeaderClose?: () => void;
+		sidebarToggleRef?: Ref<HTMLButtonElement>;
 	} & WithShowControlMethodProp
 >;
 
@@ -62,6 +65,8 @@ export const List = ({
 	items,
 	viewerOptions,
 	fallbackMediaNameFetcher,
+	onHeaderClose,
+	sidebarToggleRef,
 }: Props): React.JSX.Element => {
 	const [selectedItem, setSelectedItem] = useState(defaultSelectedItem);
 	const [previewCount, setPreviewCount] = useState(0);
@@ -74,26 +79,26 @@ export const List = ({
 
 	return (
 		<ListWrapper>
-			{!isInsetViewer && (
-				<HeaderWrapper
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={hideControlsClassName}
+			<HeaderWrapper
+				// The inset header stays visible, so it doesn't auto-hide with the other controls.
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={isInsetViewer ? undefined : hideControlsClassName}
+				isArchiveSideBarVisible={isArchiveSideBarVisible}
+			>
+				<Header
+					identifier={selectedItem}
+					onClose={onHeaderClose ?? onClose}
+					extensions={extensions}
+					onSidebarButtonClick={onSidebarButtonClick}
+					isSidebarVisible={isSidebarVisible}
 					isArchiveSideBarVisible={isArchiveSideBarVisible}
-				>
-					<Header
-						identifier={selectedItem}
-						onClose={onClose}
-						extensions={extensions}
-						onSidebarButtonClick={onSidebarButtonClick}
-						isSidebarVisible={isSidebarVisible}
-						isArchiveSideBarVisible={isArchiveSideBarVisible}
-						featureFlags={featureFlags}
-						onSetArchiveSideBarVisible={setIsArchiveSideBarVisible}
-						traceContext={traceContext.current}
-						fallbackMediaNameFetcher={fallbackMediaNameFetcher}
-					/>
-				</HeaderWrapper>
-			)}
+					featureFlags={featureFlags}
+					onSetArchiveSideBarVisible={setIsArchiveSideBarVisible}
+					traceContext={traceContext.current}
+					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+					sidebarToggleRef={sidebarToggleRef}
+				/>
+			</HeaderWrapper>
 			<ViewerWrapper>
 				<ItemViewer
 					identifier={selectedItem}

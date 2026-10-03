@@ -25,6 +25,7 @@ const ariaLiveMessages: AriaLiveMessages<Option, boolean, GroupBase<Option>> = {
 const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="is-searchable-false-example">Which city do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="is-searchable-false-example"
 			options={[

@@ -17,35 +17,34 @@ import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 
-const TOO_SHORT = `Please enter a username that's longer than 4 characters.`;
+const USERNAME_TOO_SHORT = `Please enter a username with at least 5 characters.`;
+const PASSWORD_TOO_SHORT = `Enter a password with at least 8 characters.`;
+
+const memoizeByValue = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
+	const results = new Map<T, U>();
+	return (arg: T): U => {
+		if (!results.has(arg)) {
+			results.set(arg, fn(arg));
+		}
+		return results.get(arg) as U;
+	};
+};
+
+const validateUsername = (value: string = '') => {
+	if (value.length < 5) {
+		return USERNAME_TOO_SHORT;
+	}
+	return undefined;
+};
+
+const validatePassword = memoizeByValue((value: string = '') => {
+	if (value.length < 8) {
+		return new Promise((resolve) => setTimeout(resolve, 300)).then(() => PASSWORD_TOO_SHORT);
+	}
+	return undefined;
+});
 
 export default (): React.JSX.Element => {
-	const simpleMemoize = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
-		let lastArg: T;
-		let lastResult: U;
-		return (arg: T): U => {
-			if (arg !== lastArg) {
-				lastArg = arg;
-				lastResult = fn(arg);
-			}
-			return lastResult;
-		};
-	};
-
-	const validateUsername = (value: string = '') => {
-		if (value.length < 5) {
-			return TOO_SHORT;
-		}
-		return undefined;
-	};
-
-	const validatePassword = simpleMemoize((value: string = '') => {
-		if (value.length < 8) {
-			return new Promise((resolve) => setTimeout(resolve, 300)).then(() => TOO_SHORT);
-		}
-		return undefined;
-	});
-
 	return (
 		<Flex direction="column">
 			<Form<{ username: string; password: string; remember: boolean }>

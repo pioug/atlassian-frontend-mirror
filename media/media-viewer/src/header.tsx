@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { type ReactNode, type ReactChild } from 'react';
+import { type ReactNode, type ReactChild, type Ref } from 'react';
 
 import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 
+import CrossIcon from '@atlaskit/icon/core/cross';
 import {
 	type FileState,
 	type ProcessingFileState,
@@ -30,6 +31,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type MediaViewerExtensions } from './components/types';
 import { Outcome } from './domain/outcome';
 import { DisabledToolbarDownloadButton } from './download';
+import { useIsInsetViewer } from './insetViewerContext';
 import { MediaViewerError } from './MediaViewerError';
 import {
 	Header as HeaderWrapper,
@@ -43,6 +45,7 @@ import {
 	FormattedMessageWrapper,
 } from './styleWrappers';
 import { ToolbarDownloadButton } from './ToolbarDownloadButton';
+import { ViewerIconButton } from './viewer-icon-button';
 import { getFormat } from './viewers/codeViewer/getFormat';
 
 export type Props = {
@@ -56,6 +59,8 @@ export type Props = {
 	readonly isArchiveSideBarVisible?: boolean;
 	traceContext: MediaTraceContext;
 	readonly fallbackMediaNameFetcher?: (id: string) => Promise<string>;
+	// Inset viewer only: lets the viewer return focus to the sidebar toggle when the sidebar closes.
+	readonly sidebarToggleRef?: Ref<HTMLButtonElement>;
 };
 
 export const Header = ({
@@ -68,6 +73,8 @@ export const Header = ({
 	onSetArchiveSideBarVisible,
 	traceContext,
 	fallbackMediaNameFetcher,
+	sidebarToggleRef,
+	intl: { formatMessage },
 }: Props & WrappedComponentProps): React.JSX.Element => {
 	// States
 	const [item, setItem] = useState<Outcome<FileState, MediaViewerError>>(Outcome.pending());
@@ -195,77 +202,153 @@ export const Header = ({
 		return <FormattedMessage {...(message || messages.unknown)} />;
 	};
 
+	const isInsetViewer = useIsInsetViewer();
+	const hideControlsClass = isInsetViewer ? undefined : hideControlsClassName;
+	const renderInsetFileName = (name?: string, size?: number) => (
+		<MetadataWrapper>
+			<MedatadataTextWrapper>
+				<MetadataFileName data-testid="media-viewer-file-name">
+					{name || fallbackMediaName || <FormattedMessage {...messages.unknown} />}
+					{size ? ` · ${toHumanReadableMediaSize(size)}` : ''}
+				</MetadataFileName>
+			</MedatadataTextWrapper>
+		</MetadataWrapper>
+	);
+
+	const downloadButton = item.match({
+		pending: () => <DisabledToolbarDownloadButton />,
+		failed: () => <DisabledToolbarDownloadButton />,
+		successful: (item) => (
+			<ToolbarDownloadButton
+				state={item}
+				identifier={identifier}
+				mediaClient={mediaClient}
+				traceContext={traceContext}
+				fallbackMediaName={fallbackMediaName}
+			/>
+		),
+	});
+
+	const sidebarToggleButton = extensions?.sidebar ? (
+		isInsetViewer ? (
+			<ViewerIconButton
+				testId="media-viewer-sidebar-button"
+				onClick={onSidebarButtonClick}
+				buttonRef={sidebarToggleRef}
+				iconBefore={extensions.sidebar.icon as ReactChild}
+				label={extensions.sidebar.label || formatMessage(messages.show_sidebar)}
+			/>
+		) : (
+			<MediaButton
+				isSelected={isSidebarVisible}
+				testId="media-viewer-sidebar-button"
+				onClick={onSidebarButtonClick}
+				iconBefore={extensions.sidebar.icon as ReactChild}
+			/>
+		)
+	) : null;
+
+	const extraHeaderActions = extensions?.headerActions?.map((action, index) => {
+		if (action.isVisible && !action.isVisible(identifier)) {
+			return null;
+		}
+		return isInsetViewer ? (
+			<ViewerIconButton
+				key={index}
+				testId={`media-viewer-header-action-${index}`}
+				onClick={() => action.onClick(identifier, { close: onClose || (() => {}) })}
+				iconBefore={action.icon as ReactChild}
+				label={action.label}
+			/>
+		) : (
+			<MediaButton
+				key={index}
+				testId={`media-viewer-header-action-${index}`}
+				onClick={() => action.onClick(identifier, { close: onClose || (() => {}) })}
+				iconBefore={action.icon as ReactChild}
+				aria-label={action.label}
+			/>
+		);
+	});
+
+	const closeButton = (
+		<ViewerIconButton
+			testId="media-viewer-close-button"
+			onClick={onClose}
+			icon={CrossIcon}
+			label={formatMessage(messages.close)}
+		/>
+	);
+
+	// In inset mode, download, the sidebar toggle and close move into the sidebar's own header while
+	// it's open; the consumer's extra actions always stay here.
+	const actionButtons = isInsetViewer ? (
+		<>
+			{extraHeaderActions}
+			{isSidebarVisible ? null : (
+				<>
+					{downloadButton}
+					{sidebarToggleButton}
+					{closeButton}
+				</>
+			)}
+		</>
+	) : (
+		<>
+			{extraHeaderActions}
+			{sidebarToggleButton}
+			{downloadButton}
+		</>
+	);
+
 	return (
 		<HeaderWrapper
 			isArchiveSideBarVisible={isArchiveSideBarVisible}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={hideControlsClassName}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Existing Media Viewer control visibility is class-based.
+			className={hideControlsClass ?? ''}
 		>
 			<LeftHeader>
-				{item.match({
-					successful: (item) =>
-						!isErrorFileState(item) && (
-							<MetadataWrapper>
-								<MetadataIconWrapper>
-									<MimeTypeIcon
-										testId={'media-viewer-file-type-icon'}
-										mediaType={item.mediaType}
-										mimeType={item.mimeType}
-										name={item.name}
-									/>
-								</MetadataIconWrapper>
-								<MedatadataTextWrapper>
-									<MetadataFileName data-testid="media-viewer-file-name">
-										{item.name || fallbackMediaName || <FormattedMessage {...messages.unknown} />}
-									</MetadataFileName>
-									<MetadataSubText data-testid="media-viewer-file-metadata-text">
-										<FormattedMessageWrapper>{renderFileTypeText(item)}</FormattedMessageWrapper>
-										{item.size ? ' · ' + toHumanReadableMediaSize(item.size) : ''}
-									</MetadataSubText>
-								</MedatadataTextWrapper>
-							</MetadataWrapper>
-						),
-					pending: () => null,
-					failed: () => null,
-				})}
-			</LeftHeader>
-			<RightHeader>
-				{extensions?.headerActions?.map((action, index) => {
-					if (action.isVisible && !action.isVisible(identifier)) {
-						return null;
-					}
-					return (
-						<MediaButton
-							key={index}
-							testId={`media-viewer-header-action-${index}`}
-							onClick={() => action.onClick(identifier, { close: onClose || (() => {}) })}
-							iconBefore={action.icon as ReactChild}
-							aria-label={action.label}
-						/>
-					);
-				})}
-				{extensions?.sidebar && (
-					<MediaButton
-						isSelected={isSidebarVisible}
-						testId="media-viewer-sidebar-button"
-						onClick={onSidebarButtonClick}
-						iconBefore={extensions.sidebar.icon as ReactChild}
-					/>
+				{item.match(
+					isInsetViewer
+						? {
+								successful: (item) =>
+									!isErrorFileState(item) && renderInsetFileName(item.name, item.size),
+								pending: () => renderInsetFileName(),
+								failed: () => renderInsetFileName(),
+							}
+						: {
+								successful: (item) =>
+									!isErrorFileState(item) && (
+										<MetadataWrapper>
+											<MetadataIconWrapper>
+												<MimeTypeIcon
+													testId={'media-viewer-file-type-icon'}
+													mediaType={item.mediaType}
+													mimeType={item.mimeType}
+													name={item.name}
+												/>
+											</MetadataIconWrapper>
+											<MedatadataTextWrapper>
+												<MetadataFileName data-testid="media-viewer-file-name">
+													{item.name || fallbackMediaName || (
+														<FormattedMessage {...messages.unknown} />
+													)}
+												</MetadataFileName>
+												<MetadataSubText data-testid="media-viewer-file-metadata-text">
+													<FormattedMessageWrapper>
+														{renderFileTypeText(item)}
+													</FormattedMessageWrapper>
+													{item.size ? ' · ' + toHumanReadableMediaSize(item.size) : ''}
+												</MetadataSubText>
+											</MedatadataTextWrapper>
+										</MetadataWrapper>
+									),
+								pending: () => null,
+								failed: () => null,
+							},
 				)}
-				{item.match({
-					pending: () => DisabledToolbarDownloadButton,
-					failed: () => DisabledToolbarDownloadButton,
-					successful: (item) => (
-						<ToolbarDownloadButton
-							state={item}
-							identifier={identifier}
-							mediaClient={mediaClient}
-							traceContext={traceContext}
-							fallbackMediaName={fallbackMediaName}
-						/>
-					),
-				})}
-			</RightHeader>
+			</LeftHeader>
+			<RightHeader>{actionButtons}</RightHeader>
 		</HeaderWrapper>
 	);
 };

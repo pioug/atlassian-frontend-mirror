@@ -51,16 +51,19 @@ export default function FormExample(): React.JSX.Element {
 									<Radio {...fieldProps} label="standalone radio" testId="standalone" />
 								)}
 							</CheckboxField>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 							<Field label="Required radio group" name="color" defaultValue="blue" isRequired>
 								{({ fieldProps }: { fieldProps: object }) => (
 									<RadioGroup {...fieldProps} options={colorItems} />
 								)}
 							</Field>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 							<Field label="Regular radio group" name="fruit" defaultValue="peach">
 								{({ fieldProps }: { fieldProps: object }) => (
 									<RadioGroup {...fieldProps} options={fruitItems} />
 								)}
 							</Field>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 							<Field
 								label="Radio group with individual field disabled"
 								name="city"
@@ -70,6 +73,7 @@ export default function FormExample(): React.JSX.Element {
 									<RadioGroup {...fieldProps} isDisabled={undefined} options={cityItems} />
 								)}
 							</Field>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 							<Field
 								label="Radio group with individual field enabled"
 								name="weather"

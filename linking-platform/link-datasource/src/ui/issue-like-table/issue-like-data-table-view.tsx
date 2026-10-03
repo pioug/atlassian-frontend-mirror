@@ -972,9 +972,7 @@ export const IssueLikeDataTableView = ({
 										style={loadingRowStyle}
 										css={[
 											wrappedColumnKeys?.includes(cellKey) ? wrappedStyles : truncateStyles,
-											cellType === 'richtext' &&
-												fg('platform_lp_sllv_richtext_margin_reset') &&
-												richTextCellStyles,
+											cellType === 'richtext' && richTextCellStyles,
 										]}
 									>
 										{content}

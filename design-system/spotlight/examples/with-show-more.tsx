@@ -80,6 +80,7 @@ export default (): JSX.Element => {
 										trigger={({ triggerRef, onClick }) => (
 											<SpotlightShowMoreControl ref={triggerRef} onClick={onClick} />
 										)}
+										// eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent
 										shouldRenderToParent={false}
 									>
 										<DropdownItemGroup>

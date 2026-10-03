@@ -90,8 +90,12 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 	const motionState: MotionState = isExiting ? 'exiting' : state;
 
 	const elementRef = useRef<T | null>(null);
+	const onFinishMotionRef = useRef(onFinishMotion);
+	onFinishMotionRef.current = onFinishMotion;
 	const onStartMotionRef = useRef(onStartMotion);
 	onStartMotionRef.current = onStartMotion;
+	const onExitFinishedRef = useRef(onExitFinished);
+	onExitFinishedRef.current = onExitFinished;
 	const reanimateRef = useRef<Reanimate>();
 	const animationRef = useRef<ReturnType<typeof setTimeout>>();
 	const staggeredEntryRef = useRef<ReturnType<typeof setTimeout>>();
@@ -116,12 +120,12 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 			if (currentState === 'exiting') {
 				if (!reanimateRef.current) {
 					// Updates the `ExitingPersistence` to remove this child
-					onExitFinished?.();
+					onExitFinishedRef.current?.();
 				}
-				onFinishMotion?.('exiting');
+				onFinishMotionRef.current?.('exiting');
 			}
 			if (currentState === 'entering') {
-				onFinishMotion?.('entering');
+				onFinishMotionRef.current?.('entering');
 			}
 
 			if (reanimateRef.current === Reanimate.exit_then_enter) {
@@ -146,7 +150,7 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 			// We want to make it easier for consumers so we go down this path unfortunately.
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[onExitFinished],
+		[],
 	);
 
 	// Handles staggered entry

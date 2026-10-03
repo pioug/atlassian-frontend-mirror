@@ -25,6 +25,7 @@ const TestInput = ({ onCancel }: { onCancel: () => void }) => {
 		[onCancel],
 	);
 
+	// eslint-disable-next-line @atlaskit/design-system/no-placeholder
 	return <input ref={ref} onKeyDown={onKeyDown} placeholder="Input" />;
 };
 

@@ -30,6 +30,7 @@ export default (): React.JSX.Element => {
 							<Heading as="h2" size="xsmall">
 								Popup content
 							</Heading>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent */}
 							<DropdownMenu trigger="Open dropdown" testId="dropdown">
 								<DropdownItemGroup>
 									<DropdownItem>Clone</DropdownItem>

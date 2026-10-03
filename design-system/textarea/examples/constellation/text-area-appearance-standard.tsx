@@ -7,6 +7,7 @@ export default function TextAreaAppearanceStandard(): React.JSX.Element {
 	return (
 		<>
 			<Label htmlFor="standard-appearance">Standard appearance</Label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 			<TextArea
 				appearance="standard"
 				id="standard-appearance"

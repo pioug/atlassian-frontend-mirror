@@ -19,6 +19,7 @@ const options = [
 
 const PopupSelectWithoutPortalExample = (): React.JSX.Element => {
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-placeholder
 		<PopupSelect
 			placeholder=""
 			searchThreshold={10}

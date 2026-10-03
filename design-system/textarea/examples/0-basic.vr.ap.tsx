@@ -30,6 +30,7 @@ export default (): React.JSX.Element => {
 	return (
 		<Stack xcss={wrapperStyles.root} space="space.100">
 			<Label htmlFor="disabled">Disabled</Label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-readonly-or-disabled-inputs */}
 			<TextArea
 				id="disabled"
 				value="hello"
@@ -62,6 +63,7 @@ export default (): React.JSX.Element => {
 			/>
 
 			<Label htmlFor="autoResizeTextArea">Resize: auto, MaxHeight: 20vh & ReadOnly</Label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-readonly-or-disabled-inputs */}
 			<TextArea
 				id="autoResizeTextArea"
 				resize="auto"

@@ -6,6 +6,7 @@ import { CountrySelect } from '@atlaskit/select/country-select';
 const CountrySelectExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="country-select-example">What country do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<CountrySelect inputId="country-select-example" placeholder="" />
 	</>
 );

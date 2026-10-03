@@ -3,7 +3,9 @@ import React from 'react';
 import Button from '@atlaskit/button/default/button';
 import TextArea from '@atlaskit/textarea/text-area';
 import TextField from '@atlaskit/textfield/text-field';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { act } from '@atlassian/testing-library/act';
 
 import { CharacterCounterField } from '../../character-counter-field';
 import Form from '../../form';
@@ -571,6 +573,152 @@ describe('CharacterCounterField', () => {
 			// Character counter error should be shown
 			expect(screen.getByTestId('character-field-character-counter')).toBeInTheDocument();
 			expect(screen.getByText(/too many/)).toBeInTheDocument();
+		});
+	});
+
+	describe('count error motion', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
+		});
+
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.useRealTimers();
+		});
+
+		const renderCounter = () => {
+			render(
+				<Form onSubmit={jest.fn()}>
+					<CharacterCounterField<string, HTMLTextAreaElement>
+						name="description"
+						label="Description"
+						id="description-field"
+						defaultValue="abc"
+						maxCharacters={3}
+						testId="character-field"
+					>
+						{({ fieldProps }) => <TextArea {...fieldProps} testId="text-area" />}
+					</CharacterCounterField>
+				</Form>,
+			);
+		};
+
+		it('preserves immediate count-error replacement when the input gate is off', async () => {
+			failGate('platform-dst-motion-uplift-input');
+			renderCounter();
+
+			const motionUser = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			await motionUser.type(screen.getByTestId('text-area'), 'd');
+
+			expect(screen.getByText('1 character too many')).toBeInTheDocument();
+			expect(screen.queryByText('0 characters remaining')).not.toBeInTheDocument();
+		});
+
+		it('switches threshold changes instantly without duplicating the live region or counter ID', async () => {
+			passGate('platform-dst-motion-uplift-input');
+			jest.spyOn(window, 'getComputedStyle').mockImplementation(
+				(element) =>
+					({
+						animationDelay: '0s',
+						animationDuration: element.getAttribute('aria-hidden') === 'true' ? '0.1s' : '0.15s',
+						animationName: 'FormErrorMotion',
+					}) as CSSStyleDeclaration,
+			);
+			renderCounter();
+
+			const motionUser = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const input = screen.getByTestId('text-area');
+			const counter = screen.getByTestId('character-field-character-counter');
+			const liveRegion = screen.getByTestId('character-field-character-counter-announcer');
+			expect(input).toHaveAttribute(
+				'aria-describedby',
+				expect.stringContaining('description-field-character-counter'),
+			);
+
+			act(() => {
+				jest.advanceTimersByTime(150);
+			});
+			await motionUser.type(input, 'd');
+
+			const [exitingTrack, enteringTrack] = screen.getAllByTestId(
+				'character-field-character-counter-motion',
+			);
+			expect(exitingTrack).toHaveAttribute('aria-hidden', 'true');
+			expect(exitingTrack).toHaveTextContent('0 characters remaining');
+			expect(enteringTrack).not.toHaveAttribute('aria-hidden');
+			expect(screen.getByText('1 character too many')).toHaveAttribute(
+				'id',
+				'description-field-character-counter',
+			);
+			expect(screen.getByText('0 characters remaining')).not.toHaveAttribute('id');
+			expect(screen.getAllByTestId('character-field-character-counter-announcer')).toHaveLength(1);
+
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
+			expect(screen.queryByText('0 characters remaining')).not.toBeInTheDocument();
+			expect(screen.getByLabelText('error')).toBeInTheDocument();
+
+			await motionUser.type(input, '{backspace}');
+			expect(screen.getByText('0 characters remaining')).toHaveAttribute(
+				'id',
+				'description-field-character-counter',
+			);
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
+
+			expect(screen.queryByText('1 character too many')).not.toBeInTheDocument();
+			expect(screen.getByTestId('character-field-character-counter')).toBe(counter);
+			expect(screen.getByTestId('character-field-character-counter-announcer')).toBe(liveRegion);
+		});
+
+		it('animates a minimum-only textarea counter out and back in', async () => {
+			passGate('platform-dst-motion-uplift-input');
+			jest.spyOn(window, 'getComputedStyle').mockImplementation(
+				(element) =>
+					({
+						animationDelay: '0s',
+						animationDuration: element.getAttribute('aria-hidden') === 'true' ? '0.1s' : '0.15s',
+						animationName: 'FormErrorMotion',
+					}) as CSSStyleDeclaration,
+			);
+			render(
+				<Form onSubmit={jest.fn()}>
+					<CharacterCounterField<string, HTMLTextAreaElement>
+						name="tagline"
+						label="Tagline"
+						defaultValue="123456789"
+						minCharacters={10}
+						testId="minimum-field"
+					>
+						{({ fieldProps }) => <TextArea {...fieldProps} testId="text-area" />}
+					</CharacterCounterField>
+				</Form>,
+			);
+
+			const motionUser = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			const input = screen.getByTestId('text-area');
+			expect(screen.getByText('1 more character needed')).toBeInTheDocument();
+			act(() => {
+				jest.advanceTimersByTime(150);
+			});
+			await motionUser.type(input, '0');
+
+			expect(screen.getByTestId('minimum-field-character-counter-motion')).toHaveAttribute(
+				'aria-hidden',
+				'true',
+			);
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
+			expect(screen.queryByText('1 more character needed')).not.toBeInTheDocument();
+
+			await motionUser.type(input, '{backspace}');
+			expect(screen.getByText('1 more character needed')).toBeInTheDocument();
+			expect(screen.getByTestId('minimum-field-character-counter-motion')).not.toHaveAttribute(
+				'aria-hidden',
+			);
 		});
 	});
 });

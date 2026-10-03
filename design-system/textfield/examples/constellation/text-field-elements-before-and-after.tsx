@@ -28,6 +28,7 @@ export default function TextFieldElementsBeforeAndAfterExample(): JSX.Element {
 			onSubmit={(formData) => console.log('form data', formData)}
 			name="elements-before-and-after-example"
 		>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 			<Field label="After input" name="after-input" defaultValue="">
 				{({ fieldProps }: any) => (
 					<Fragment>
@@ -42,6 +43,7 @@ export default function TextFieldElementsBeforeAndAfterExample(): JSX.Element {
 					</Fragment>
 				)}
 			</Field>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-simple-field */}
 			<Field label="Before input" name="before-input" defaultValue="">
 				{({ fieldProps }: any) => (
 					<Fragment>

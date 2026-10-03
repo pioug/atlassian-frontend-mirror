@@ -54,9 +54,23 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 ## Development notes
 
 - React Compiler is enabled for this package
-- Peer dependencies: `@emotion/react`, `react`, `react-intl`
+- Peer dependencies: `@emotion/react`, `react`, `react-dom`, `react-intl`
 - Export subpaths: `.`, `./classnames`, `./media-viewer-loader`, `./types`, `./viewer-options`
 - Supports custom viewer via `CustomRendererConfig`
+- Inset presentation: when `extensions.useInsetViewer` is set and the
+  `cc_comments_inset_media_viewer` gate is on, `media-viewer.tsx` computes `isInsetViewer` once and
+  provides it through `InsetViewerProvider` (`src/insetViewerContext.tsx`). Components read it with
+  `useIsInsetViewer()` or, for class components, `withInsetViewer`; don't re-derive it from
+  `extensions`.
+  - Media header (`src/header.tsx`, rendered by `List` as in the overlay viewer): one-line file name
+    and size, the consumer's extra actions, and, while the sidebar is closed, download, the sidebar
+    toggle and close.
+  - Sidebar column (`SidebarColumn` in `src/styleWrappers.tsx`): holds `extensions.sidebar` next to
+    the media, with its own header row (`src/inset-sidebar-header.tsx`: title, download, sidebar
+    toggle and close) above the body, in one width animation and one enter/exit motion; when closed
+    it stays mounted but is `aria-hidden`.
+  - Media footer (`MediaFooterBar`): registers its element through the footer context; zoom controls
+    render into it with a portal (`withInsetViewerFooter`).
 - Large test suite: 50+ test files under `src/__tests__/`
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)

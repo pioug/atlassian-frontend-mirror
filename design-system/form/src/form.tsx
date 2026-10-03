@@ -7,8 +7,10 @@ import set from 'lodash/set';
 import type { StrictXCSSProp, XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { FormContext } from './form-context';
+import { FormSubmitContext } from './form-submit-context';
 import { IsDisabledContext } from './is-disabled-context';
 import {
 	type DefaultValue,
@@ -169,6 +171,7 @@ const FormBase = <FormValues extends Record<string, any>>(
 		dirty: false,
 		submitting: false,
 	});
+	const [submitCount, setSubmitCount] = useState(0);
 
 	useEffect(() => {
 		const unsubscribe = form.subscribe(
@@ -202,6 +205,9 @@ const FormBase = <FormValues extends Record<string, any>>(
 	) => {
 		if (e) {
 			e.preventDefault();
+		}
+		if (fg('platform-dst-motion-uplift-input')) {
+			setSubmitCount((count) => count + 1);
 		}
 		form.submit();
 	};
@@ -294,7 +300,11 @@ const FormBase = <FormValues extends Record<string, any>>(
 
 	return (
 		<FormContext.Provider value={FormContextValue}>
-			<IsDisabledContext.Provider value={isDisabled}>{childrenContent}</IsDisabledContext.Provider>
+			<FormSubmitContext.Provider value={submitCount}>
+				<IsDisabledContext.Provider value={isDisabled}>
+					{childrenContent}
+				</IsDisabledContext.Provider>
+			</FormSubmitContext.Provider>
 		</FormContext.Provider>
 	);
 };

@@ -4,7 +4,7 @@ set -uxo pipefail
 
 # Build the package and retain its exit code so codegen failures are not hidden by the diff check.
 BUILD_EXIT_CODE=0
-yarn build @atlaskit/tokens --skip-cache || BUILD_EXIT_CODE=$?
+afm run build @atlaskit/tokens --skip-cache || BUILD_EXIT_CODE=$?
 
 # Check every generated artifact written by the tokens postbuild.
 GENERATED_PATHS=(
@@ -20,7 +20,7 @@ DIFF_EXIT_CODE=0
 git diff --name-only --exit-code -- "${GENERATED_PATHS[@]}" || DIFF_EXIT_CODE=$?
 
 if [ "$BUILD_EXIT_CODE" != "0" ] || [ "$DIFF_EXIT_CODE" != "0" ]; then
-    echo "ADS token codegen is out of date or failed. Run 'yarn build @atlaskit/tokens' and commit the generated changes."
+    echo "ADS token codegen is out of date or failed. Run 'afm run build @atlaskit/tokens' and commit the generated changes."
 fi
 
 if [ "$BUILD_EXIT_CODE" != "0" ]; then

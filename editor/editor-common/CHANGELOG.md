@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 128.2.0
+
+### Minor Changes
+
+- [`ef6d325af58d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef6d325af58d6) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+- [`375d0ca074591`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/375d0ca074591) -
+  Unify Rovo Skill quick-insert construction across product Editors and AI Chat behind
+  `platform_editor_slash_command`. Add shared menu title and preview presentation options, and reuse
+  existing extension metadata for Skill icons, descriptions, attribution and Beta labels. Export the
+  shared Editor SkillTag for reuse across menus. Preserve shared insertion and Chat-specific
+  behavior.
+
+### Patch Changes
+
+- [`bf2f598c788f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf2f598c788f8) -
+  clean up feature flag platform_editor_core_static_css
+- Updated dependencies
+
 ## 128.1.0
 
 ### Minor Changes

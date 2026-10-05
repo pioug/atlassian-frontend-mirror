@@ -7,7 +7,6 @@ import { type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 import { cssMap as cssMapUnbounded } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import NewLozenge from './new/lozenge';
@@ -177,11 +176,7 @@ const LegacyLozenge = memo(
 				data-testid={testId}
 			>
 				<span
-					css={[
-						styles.text,
-						fg('platform-lozenge-custom-letterspacing') && styles.customLetterspacing,
-						styles[`text.${appearanceStyle}`],
-					]}
+					css={[styles.text, styles.customLetterspacing, styles[`text.${appearanceStyle}`]]}
 					style={{
 						color: style?.color,
 						// to negate paddingInline specified on Box above

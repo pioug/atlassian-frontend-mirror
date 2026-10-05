@@ -48,7 +48,6 @@ const legacyCases: Array<{
 ];
 
 const setAdsAvatarGates = () => {
-	failGate('avatar-custom-border');
 	failGate('platform_editor_agent_mentions_drop_one_fixes');
 };
 

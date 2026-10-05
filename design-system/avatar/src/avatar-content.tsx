@@ -83,14 +83,11 @@ const styles = cssMap({
 });
 
 const unboundStyles = unboundCssMap({
-	rootCustomBorder: {
-		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `background` shorthand must override `backgroundColor` in `root` when avatar-custom-border is enabled
-		background: `var(${bgColorCssVar})`,
-	},
 	root: {
 		boxSizing: 'content-box',
-		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `backgroundColor` in root, overridden by `background` in rootCustomBorder when avatar-custom-border is enabled
-		backgroundColor: `var(${bgColorCssVar})`,
+		// NOTE: The `background` shorthand (rather than `background-color`) is intentional so that
+		// `borderColor` can be any background value, including gradients, patterns, and images.
+		background: `var(${bgColorCssVar})`,
 		boxShadow: `var(${boxShadowCssVar})`,
 	},
 	hexagonFocusContainer: {
@@ -115,13 +112,10 @@ const unboundStyles = unboundCssMap({
 		clipPath:
 			'polygon(43.61555% 1.47441%, 46.08136% 0.49147%, 48.67910% 0.00000%, 51.32080% 0.00000%, 53.91847% 0.49147%, 56.38412% 1.47441%, 93.61555% 20.77327%, 95.79666% 22.19894%, 97.56964% 23.97299%, 98.89052% 26.02699%, 99.71530% 28.29251%, 100.00000% 30.70112%, 100.00000% 69.29883%, 99.71530% 71.70746%, 98.89052% 73.97300%, 97.56964% 76.02700%, 95.79666% 77.80100%, 93.61555% 79.22654%, 56.38412% 98.52540%, 53.91847% 99.50837%, 51.32080% 99.99991%, 48.67910% 100.00000%, 46.08136% 99.50860%, 43.61555% 98.52569%, 6.38428% 79.22654%, 4.20328% 77.80100%, 2.43035% 76.02700%, 1.10949% 73.97300%, 0.28471% 71.70746%, 0.00000% 69.29883%, 0.00000% 30.70112%, 0.28471% 28.29251%, 1.10949% 26.02699%, 2.43035% 23.97299%, 4.20328% 22.19894%, 6.38428% 20.77327%)',
 	},
-	hexagonBorderContainerCustomBorder: {
-		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `background` shorthand must override `backgroundColor` in `hexagonBorderContainer` when avatar-custom-border is enabled
-		background: `var(${bgColorCssVar})`,
-	},
 	hexagonBorderContainer: {
-		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `backgroundColor` in hexagonBorderContainer, overridden by `background` in hexagonBorderContainerCustomBorder when avatar-custom-border is enabled
-		backgroundColor: `var(${bgColorCssVar})`,
+		// NOTE: The `background` shorthand (rather than `background-color`) is intentional so that
+		// `borderColor` can be any background value, including gradients, patterns, and images.
+		background: `var(${bgColorCssVar})`,
 		clipPath: 'inherit',
 		// NOTE: The `clip-path` and `background` overflows padding in an unexpected way, so
 		// `0.5` and `0.4` are relatively magic numbers, but the ratio between block and inline is consistent.
@@ -310,7 +304,6 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		<Container
 			css={[
 				unboundStyles.root,
-				fg('avatar-custom-border') && unboundStyles.rootCustomBorder,
 				styles.root,
 				appearance === 'square' && styles.square,
 				appearance === 'circle' && styles.circle,
@@ -388,7 +381,6 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 			<div
 				css={[
 					unboundStyles.hexagonBorderContainer,
-					fg('avatar-custom-border') && unboundStyles.hexagonBorderContainerCustomBorder,
 					UNSAFE_isUpdatedGeometry && updatedHexagonBorderFixStyles.hexagonBorderContainer,
 					fg('platform_editor_agent_mentions_drop_one_fixes') &&
 						!UNSAFE_isUpdatedGeometry &&

@@ -16,6 +16,11 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	agentWithPerson: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	closeReactionsDialog: {
 		defaultMessage: string;
 		description: string;
@@ -93,6 +98,11 @@ export const messages: {
 		id: string;
 	};
 } = defineMessages({
+	agentWithPerson: {
+		id: 'fabric.reactions.agent.with.person',
+		defaultMessage: '{agentName} with {personName}',
+		description: 'Name of an agent that reacted on behalf of a person.',
+	},
 	addReaction: {
 		id: 'fabric.reactions.add',
 		defaultMessage: 'Add reaction',

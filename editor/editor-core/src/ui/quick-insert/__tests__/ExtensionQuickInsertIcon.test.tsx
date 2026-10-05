@@ -19,4 +19,37 @@ describe('ExtensionQuickInsertIcon', () => {
 		expect(await screen.findByRole('img', { name: 'Extension' })).toBeInTheDocument();
 		await expect(container).toBeAccessible();
 	});
+
+	it('forwards a requested small size to the asynchronously loaded extension icon', async () => {
+		const ExtensionIcon = ({ size }: { label: string; size?: string }) => (
+			<span data-testid="extension-icon" data-size={size} />
+		);
+
+		render(
+			<ExtensionQuickInsertIcon
+				getIcon={() => Promise.resolve({ default: ExtensionIcon })}
+				itemKey="skill:research"
+				label=""
+				size="small"
+			/>,
+		);
+
+		expect(await screen.findByTestId('extension-icon')).toHaveAttribute('data-size', 'small');
+	});
+
+	it('leaves the size unspecified when no size is requested', async () => {
+		const ExtensionIcon = ({ size }: { label: string; size?: string }) => (
+			<span data-testid="extension-icon" data-size={size} />
+		);
+
+		render(
+			<ExtensionQuickInsertIcon
+				getIcon={() => Promise.resolve({ default: ExtensionIcon })}
+				itemKey="skill:research"
+				label=""
+			/>,
+		);
+
+		expect(await screen.findByTestId('extension-icon')).not.toHaveAttribute('data-size');
+	});
 });

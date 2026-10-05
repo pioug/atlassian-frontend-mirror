@@ -28,13 +28,19 @@ export type QuickInsertMenuItemProps = {
 	onSelect: (context: OnSelectContext) => Transaction | false | void;
 	/** Structured preview content for the selected item. */
 	preview?: QuickInsertPreview;
+	/** Icon displayed beside the preview title. */
+	previewIcon?: React.ReactNode;
 	/** Retained for existing callers; new callers should pass `preview.image`. */
 	previewImageUrls?: { dark?: string; light: string } | null;
 	shortcut?: string;
+	/** Whether preview title and description are clamped to a fixed number of lines. */
+	shouldClampPreview?: boolean;
 	/** Disable previews for navigation actions rather than insertable items. */
 	shouldShowPreview?: boolean;
 	shouldWrapIcon?: boolean;
 	title: string;
+	/** Rich title content rendered in place of the menu item title. */
+	titleContent?: React.ReactNode;
 };
 
 export const QuickInsertMenuItem = ({
@@ -44,9 +50,12 @@ export const QuickInsertMenuItem = ({
 	isDisabled,
 	onSelect,
 	preview,
+	previewIcon,
 	previewImageUrls,
 	shortcut,
+	titleContent,
 	shouldShowPreview,
+	shouldClampPreview,
 	shouldWrapIcon,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
@@ -60,6 +69,7 @@ export const QuickInsertMenuItem = ({
 			isDisabled={isDisabled}
 			onSelect={onSelect}
 			shortcut={shortcut}
+			titleContent={titleContent}
 			shouldWrapIcon={shouldWrapIcon}
 			title={title}
 		/>
@@ -71,9 +81,12 @@ export const QuickInsertMenuItem = ({
 			isDisabled={isDisabled}
 			onSelect={onSelect}
 			preview={preview}
+			previewIcon={previewIcon}
 			previewImageUrls={previewImageUrls}
 			shortcut={shortcut}
+			titleContent={titleContent}
 			shouldShowPreview={shouldShowPreview}
+			shouldClampPreview={shouldClampPreview}
 			shouldWrapIcon={shouldWrapIcon}
 			title={title}
 		/>

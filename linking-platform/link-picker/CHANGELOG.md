@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 6.11.2
+
+### Patch Changes
+
+- [`391d4ae6b157c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/391d4ae6b157c) -
+  Cleanup platform_link_picker_fix_error_state_text_overflow
+
 ## 6.11.1
 
 ### Patch Changes

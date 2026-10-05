@@ -48,12 +48,10 @@ const firstNodeWithNotMarginTop = () =>
  *
  * If you are updating this, please also update the above files.
  *
- * @deprecated This Emotion-based style function is being phased out as part of the
- * `platform_editor_core_static_css` experiment migration to Compiled CSS. While the experiment
- * is running, any changes here MUST also be reflected in `EditorContentContainer-compiled.tsx`
+ * @deprecated This Emotion-based style function is being phased out in favor of Compiled CSS.
+ * Any changes here MUST also be reflected in `EditorContentContainer-compiled.tsx`
  * (look for `tableSharedStyle`, `tableSharedStyle_with_*`, `tableSharedStyle_without_*` entries
- * in the `editorContentStyles` cssMap). Failure to do so will cause visual regressions when the
- * compiled version is active.
+ * in the `editorContentStyles` cssMap) to keep the shared styles consistent.
  */
 const tableSharedStyle = (): SerializedStyles => {
 	const browser = getBrowserInfo();

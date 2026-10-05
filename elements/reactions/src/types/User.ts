@@ -1,5 +1,11 @@
 export interface User {
 	accountId?: string;
+	/** Agent identity for a reaction made with a person. */
+	agent?: {
+		name: string;
+		avatarUrl?: string;
+		identityAccountId?: string;
+	};
 	/**
 	 * name of user clicked on the reaction
 	 */

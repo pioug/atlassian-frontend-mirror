@@ -4,9 +4,19 @@ description: Checkbox select allows users to make multiple selections from a lis
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import SelectCheckbox from '../../examples/constellation/select-checkbox';
+
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Checkbox Select and is in Early Access. The motion updates are
+	currently behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
 
 Use the checkbox select component for dropdown options displayed as checkboxes. People can use the
 checkbox select to choose multiple options at once.
 
-<Example Component={SelectCheckbox} packageName="@atlaskit/select" />
+<Example
+	Component={SelectCheckbox}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>

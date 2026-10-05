@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 147.1.0
+
+### Minor Changes
+
+- [`ef6d325af58d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef6d325af58d6) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 147.0.2
+
+### Patch Changes
+
+- [`cb80fed094a5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb80fed094a5f) -
+  Use the platform_editor_collapsible_headings experiment for renderer collapsible headings.
+
 ## 147.0.1
 
 ### Patch Changes

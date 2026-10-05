@@ -4,9 +4,19 @@ description: Creatable select allows users to create new options.
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import SelectCreatable from '../../examples/constellation/select-creatable';
+
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Creatable Select and is in Early Access. The motion updates are
+	currently behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
 
 Creatable select introduces the `onCreateOption` prop that you can use to let people create new
 options that are not yet available.
 
-<Example Component={SelectCreatable} packageName="@atlaskit/select" />
+<Example
+	Component={SelectCreatable}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>

@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 21.12.0
+
+### Minor Changes
+
+- [`ef6d325af58d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef6d325af58d6) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
 ## 21.11.12
 
 ### Patch Changes

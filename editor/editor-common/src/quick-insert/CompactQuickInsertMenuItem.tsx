@@ -112,9 +112,12 @@ export const CompactQuickInsertMenuItem = ({
 	isDisabled,
 	onSelect,
 	preview,
+	previewIcon,
 	previewImageUrls,
 	shortcut,
+	titleContent,
 	shouldShowPreview = true,
+	shouldClampPreview,
 	shouldWrapIcon = true,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
@@ -158,7 +161,7 @@ export const CompactQuickInsertMenuItem = ({
 			>
 				{wrappedIcon && <Box xcss={styles.iconContainer}>{wrappedIcon}</Box>}
 				<Inline alignBlock="center" spread="space-between" xcss={styles.content}>
-					<Text>{title}</Text>
+					{titleContent ?? <Text>{title}</Text>}
 					{shortcut && (
 						<Box as="span" xcss={styles.shortcut}>
 							{shortcut}
@@ -175,6 +178,8 @@ export const CompactQuickInsertMenuItem = ({
 					popupsMountPoint={popupsMountPoint}
 					referenceElement={referenceElement}
 					title={title}
+					icon={previewIcon}
+					shouldClampText={shouldClampPreview}
 				/>
 			)}
 		</>

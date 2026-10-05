@@ -1,5 +1,32 @@
 # @atlaskit/reactions
 
+## 36.7.0
+
+### Minor Changes
+
+- [`7fc9148294cc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fc9148294cc8) -
+  Render agent and person avatars in the reaction dialog when the actor has agent data.
+
+## 36.6.0
+
+### Minor Changes
+
+- [`ef6d325af58d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef6d325af58d6) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.5.0
+
+### Minor Changes
+
+- [`6680b6edfb038`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6680b6edfb038) -
+  Format agent reactions with the agent name and the person's display name in the tooltip and
+  reaction dialog.
+
 ## 36.4.1
 
 ### Patch Changes

@@ -4,7 +4,13 @@ description: Radio select allows users to make a single selection from a list of
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import SelectRadio from '../../examples/constellation/select-radio';
+
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Radio Select and is in Early Access. The motion updates are currently
+	behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
 
 Use the radio select component for dropdown options displayed with radio buttons.
 
@@ -12,4 +18,8 @@ Radio buttons can be used for a list of options where only one choice can be sel
 to have multiple selectable options, use [multi select](/components/select/examples#multi-select) or
 [checkbox select](/components/select/checkbox-select) instead.
 
-<Example Component={SelectRadio} packageName="@atlaskit/select" />
+<Example
+	Component={SelectRadio}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>

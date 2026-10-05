@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "128.1.0",
+	"version": "128.2.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -127,6 +127,7 @@
 		"./quick-insert/is-recommended-item": "./src/quick-insert/is-recommended-item.ts",
 		"./quick-insert/create-quick-insert-matcher": "./src/quick-insert/createQuickInsertMatcher.ts",
 		"./quick-insert/menu-item": "./src/quick-insert/QuickInsertMenuItem.tsx",
+		"./quick-insert/skill-tag": "./src/quick-insert/SkillTag.tsx",
 		"./quick-insert/preview": "./src/quick-insert/preview.ts",
 		"./quick-insert/confluence-attribution-icon": "./src/quick-insert/confluence-attribution-icon.tsx",
 		"./quick-insert/jira-attribution-icon": "./src/quick-insert/jira-attribution-icon.tsx",

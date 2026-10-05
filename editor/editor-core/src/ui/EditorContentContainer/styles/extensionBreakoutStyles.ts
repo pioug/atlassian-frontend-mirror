@@ -9,7 +9,7 @@ import type { SerializedStyles } from '@emotion/react';
 const blockNodesVerticalMargin = '0.75rem';
 
 /**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * @deprecated This style has been migrated to Compiled CSS.
  * If you need to make changes here, also update the corresponding style in
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600

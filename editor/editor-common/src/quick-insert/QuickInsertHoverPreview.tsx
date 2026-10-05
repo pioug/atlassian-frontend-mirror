@@ -1,8 +1,9 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag React.Fragment
  */
-import { useLayoutEffect, useState } from 'react';
+import React, { type ReactNode, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 // Viewport calculations and multiline clamping require styles outside @atlaskit/css's schema.
@@ -10,8 +11,11 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 import { useIntl } from 'react-intl';
 
+import { cssMap as layoutCssMap } from '@atlaskit/css';
 // Viewport clamping requires modifiers, which the top-layer adapter does not support.
 import { Popper, type PopperChildrenProps } from '@atlaskit/popper/react-popper';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
@@ -43,6 +47,23 @@ const PREVIEW_MODIFIERS = [
 	},
 ];
 
+const layoutStyles = layoutCssMap({
+	titleRow: {
+		minWidth: 0,
+	},
+	titleIcon: {
+		alignItems: 'center',
+		display: 'flex',
+		flexShrink: 0,
+		justifyContent: 'center',
+	},
+	attributionText: {
+		flex: '1 1 auto',
+		minWidth: 0,
+		overflowWrap: 'anywhere',
+	},
+});
+
 const styles = cssMap({
 	positioner: {
 		maxHeight: 'calc(100vh - 16px)',
@@ -70,11 +91,21 @@ const styles = cssMap({
 	title: {
 		color: token('color.text.subtle'),
 		font: token('font.heading.xsmall'),
+		flex: '1 1 auto',
+		minWidth: 0,
 		overflow: 'hidden',
 		overflowWrap: 'anywhere',
 		display: '-webkit-box',
 		WebkitBoxOrient: 'vertical',
 		WebkitLineClamp: 2,
+	},
+	unclampedTitle: {
+		color: token('color.text'),
+		font: token('font.body'),
+		fontWeight: token('font.weight.bold'),
+		flex: '1 1 auto',
+		minWidth: 0,
+		overflowWrap: 'anywhere',
 	},
 	description: {
 		color: token('color.text'),
@@ -84,6 +115,11 @@ const styles = cssMap({
 		overflowWrap: 'anywhere',
 		WebkitBoxOrient: 'vertical',
 		WebkitLineClamp: 4,
+	},
+	unclampedDescription: {
+		color: token('color.text'),
+		font: token('font.body'),
+		overflowWrap: 'anywhere',
 	},
 	imageArea: {
 		backgroundColor: token('elevation.surface.sunken'),
@@ -107,9 +143,11 @@ const styles = cssMap({
 		alignItems: 'center',
 		color: token('color.text.subtle'),
 		display: 'flex',
-		font: token('font.body.small'),
 		gap: token('space.050'),
 		overflowWrap: 'anywhere',
+	},
+	compactAttribution: {
+		font: token('font.body.small'),
 	},
 	attributionIcon: {
 		alignItems: 'center',
@@ -124,17 +162,21 @@ const styles = cssMap({
 /** The selected item's description and attribution are announced through its aria-describedby. */
 export const QuickInsertHoverPreview = ({
 	description,
+	icon,
 	id,
 	preview,
 	popupsMountPoint,
 	referenceElement,
+	shouldClampText = true,
 	title,
 }: {
 	description?: string;
+	icon?: ReactNode;
 	id: string;
 	preview: QuickInsertPreview;
 	popupsMountPoint?: HTMLElement;
 	referenceElement: HTMLElement;
+	shouldClampText?: boolean;
 	title: string;
 }): React.JSX.Element => {
 	const { colorMode } = useThemeObserver();
@@ -157,11 +199,13 @@ export const QuickInsertHoverPreview = ({
 				<div ref={ref} css={styles.positioner} style={style}>
 					<QuickInsertPreviewPanel
 						description={description}
+						icon={icon}
 						id={hasAccessibleContent ? id : undefined}
 						imageUrl={imageUrl}
 						preview={preview}
 						popupsMountPoint={popupsMountPoint}
 						referenceElement={referenceElement}
+						shouldClampText={shouldClampText}
 						title={title}
 						update={update}
 					/>
@@ -174,20 +218,24 @@ export const QuickInsertHoverPreview = ({
 
 const QuickInsertPreviewPanel = ({
 	description,
+	icon,
 	id,
 	imageUrl,
 	preview,
 	popupsMountPoint,
 	referenceElement,
+	shouldClampText,
 	title,
 	update,
 }: {
 	description?: string;
+	icon?: ReactNode;
 	id?: string;
 	imageUrl?: string;
 	preview: QuickInsertPreview;
 	popupsMountPoint?: HTMLElement;
 	referenceElement: HTMLElement;
+	shouldClampText: boolean;
 	title: string;
 	update: PopperChildrenProps['update'];
 }): React.JSX.Element => {
@@ -237,27 +285,56 @@ const QuickInsertPreviewPanel = ({
 			css={styles.panel}
 			data-testid="quick-insert-preview-panel"
 		>
-			{imageUrl && <PreviewImage key={imageUrl} imageUrl={imageUrl} />}
-			<div css={styles.content}>
-				<div aria-hidden="true" css={styles.title}>
-					{title}
-				</div>
-				{description && <div css={styles.description}>{description}</div>}
-				{preview.attribution && (
-					<div css={styles.attribution}>
-						{AttributionIcon && (
-							<span aria-hidden="true" css={styles.attributionIcon}>
-								<AttributionIcon />
-							</span>
+			<>
+				{imageUrl && <PreviewImage key={imageUrl} imageUrl={imageUrl} />}
+				<div css={styles.content}>
+					<Inline
+						alignBlock="center"
+						space="space.100"
+						xcss={layoutStyles.titleRow}
+						aria-hidden="true"
+					>
+						{icon && (
+							<Box as="span" aria-hidden="true" xcss={layoutStyles.titleIcon}>
+								{icon}
+							</Box>
 						)}
-						<Text size="small" color="color.text.subtle">
-							{AttributionIcon
-								? formattedAttributionName
-								: formatMessage(messages.previewAttributionBy, { name: formattedAttributionName })}
-						</Text>
-					</div>
-				)}
-			</div>
+						<span
+							css={[shouldClampText && styles.title, !shouldClampText && styles.unclampedTitle]}
+						>
+							{title}
+						</span>
+					</Inline>
+					{description && (
+						<div
+							css={[
+								shouldClampText && styles.description,
+								!shouldClampText && styles.unclampedDescription,
+							]}
+						>
+							{description}
+						</div>
+					)}
+					{preview.attribution && (
+						<div css={[styles.attribution, shouldClampText && styles.compactAttribution]}>
+							{AttributionIcon && (
+								<span aria-hidden="true" css={styles.attributionIcon}>
+									<AttributionIcon />
+								</span>
+							)}
+							<span css={layoutStyles.attributionText}>
+								<Text size="small" color="color.text.subtle">
+									{AttributionIcon
+										? formattedAttributionName
+										: formatMessage(messages.previewAttributionBy, {
+												name: formattedAttributionName,
+											})}
+								</Text>
+							</span>
+						</div>
+					)}
+				</div>
+			</>
 		</div>
 	);
 };

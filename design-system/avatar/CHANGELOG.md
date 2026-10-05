@@ -1,5 +1,14 @@
 # @atlaskit/avatar
 
+## 30.0.4
+
+### Patch Changes
+
+- [`a542d01add347`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a542d01add347) -
+  Cleanup `feature_gate` `avatar-custom-border`. Avatar now always applies `borderColor` using the
+  `background` shorthand, so non-colour borders such as gradients, patterns, and images are
+  supported by default on every appearance, including `hexagon`.
+
 ## 30.0.3
 
 ### Patch Changes

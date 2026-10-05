@@ -4,6 +4,7 @@ description: Popup select lets people filter through a list of options.
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import SelectPopup from '../../examples/constellation/select-popup';
 import SelectPopupNoSearch from '../../examples/constellation/select-popup-no-search';
 import SelectPopupPlacement from '../../examples/constellation/select-popup-placement';
@@ -11,12 +12,21 @@ import SelectPopupModalExample from '../../examples/constellation/select-popup-i
 import SelectPopupCheckbox from '../../examples/constellation/select-popup-checkbox';
 import SelectPopupWithoutPortalExample from '../../examples/constellation/select-popup-without-portal';
 
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in the Popup Select search input and is in Early Access. The motion
+	updates are currently behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
+
 ## Default
 
 Use popup select to let people filter through a list of actions where limited space is a concern for
 the trigger.
 
-<Example Component={SelectPopup} packageName="@atlaskit/select" />
+<Example
+	Component={SelectPopup}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Hidden search input
 
@@ -28,13 +38,21 @@ Use the `searchThreshold` prop to hide the search input.
 
 Enable checkbox options and multi select using the checkbox option component and `isMulti` prop.
 
-<Example Component={SelectPopupCheckbox} packageName="@atlaskit/select" />
+<Example
+	Component={SelectPopupCheckbox}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Placement
 
 Use `placement` to position the popup relative to the trigger.
 
-<Example Component={SelectPopupPlacement} packageName="@atlaskit/select" />
+<Example
+	Component={SelectPopupPlacement}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Layering
 
@@ -43,11 +61,19 @@ together without extra effort. Use the `offset` and `preventOverflow` props from
 [popper](https://atlaskit.atlassian.com/packages/design-system/popper) to keep them in view as a
 stop-gap.
 
-<Example Component={SelectPopupModalExample} packageName="@atlaskit/select" />
+<Example
+	Component={SelectPopupModalExample}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>
 
 ## Content without portal
 
 By default, the PopupSelect content is rendered inside `React.Portal`. Use
 `popperProps={{ strategy: 'fixed' }}` prop to render the content directly after the trigger element.
 
-<Example Component={SelectPopupWithoutPortalExample} packageName="@atlaskit/select" />
+<Example
+	Component={SelectPopupWithoutPortalExample}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>

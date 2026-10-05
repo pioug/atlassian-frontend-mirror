@@ -173,6 +173,23 @@ it('should alphabetically sort users for the selected reaction', async () => {
 	expect(names[4].textContent).toBe('Zebra Zebra-test');
 });
 
+it('shows the agent and person names in the reaction dialog', async () => {
+	await renderReactionsDialog({
+		reactions: [
+			{
+				...reactionsData[0],
+				users: [
+					{ id: 'agent-1', displayName: 'Leon Zolati', agent: { name: 'Bing Bong Bot' } },
+					{ id: 'person-1', displayName: 'Joshua Dubar' },
+				],
+			},
+		],
+	});
+
+	expect(await findByText('Bing Bong Bot with Leon Zolati')).toBeInTheDocument();
+	expect(await findByText('Joshua Dubar')).toBeInTheDocument();
+});
+
 it('should fire handleSelectReaction when a reaction is selected', async () => {
 	const spy = jest.fn();
 	await renderReactionsDialog({
@@ -287,6 +304,39 @@ it('should render user profile card', async () => {
 
 	const profileCards = await screen.findAllByText('ProfileCard');
 	expect(profileCards).toHaveLength(5);
+});
+
+it('renders agent and person avatars while keeping human profile cards', async () => {
+	const reactions = reactionsData.map((reaction) => ({
+		...reaction,
+		users: reaction.users.map((user) => {
+			if (user.id !== 'test-0') {
+				return user;
+			}
+			return {
+				...user,
+				agent: {
+					name: 'Studio Agent',
+					avatarUrl: '/agent.png',
+					identityAccountId: 'agent0',
+				},
+			};
+		}),
+	}));
+	await renderReactionsDialog({
+		reactions,
+		ProfileCardWrapper: ({ children }) => (
+			<div>
+				ProfileCard
+				{children}
+			</div>
+		),
+	});
+
+	expect(await screen.findByText('Studio Agent with Bette Davis-test')).toBeInTheDocument();
+	expect(screen.getByTestId('agent-profile')).toHaveAttribute('aria-labelledby');
+	expect(screen.getByTestId('agent-person-profile')).toHaveAttribute('aria-labelledby');
+	expect(screen.getAllByText('ProfileCard')).toHaveLength(6);
 });
 
 it('should not render profile card there is no profile card wrapper', async () => {

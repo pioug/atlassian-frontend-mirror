@@ -24,6 +24,7 @@ export type MenuItem = {
 	key: string;
 	keywords: string[];
 	lozenge?: ReactNode;
+	moduleKey?: string;
 	node: ADFEntity | ExtensionModuleActionHandler;
 	preview?: QuickInsertPreview;
 	priority?: number;

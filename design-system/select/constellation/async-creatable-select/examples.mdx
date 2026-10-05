@@ -6,7 +6,13 @@ description:
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import SelectAsyncCreatable from '../../examples/constellation/select-async-creatable';
+
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Async Creatable Select and is in Early Access. The motion updates are
+	currently behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
 
 Async creatable select introduces a `loadOptions` prop that can be given a promise or callback that
 will eventually resolve to its list of options.
@@ -14,4 +20,8 @@ will eventually resolve to its list of options.
 It also introduces the `onCreateOption` prop that you can use to let people create new options that
 are not yet available.
 
-<Example Component={SelectAsyncCreatable} packageName="@atlaskit/select" />
+<Example
+	Component={SelectAsyncCreatable}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>

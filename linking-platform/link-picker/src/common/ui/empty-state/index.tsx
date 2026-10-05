@@ -4,7 +4,6 @@
  */
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -43,10 +42,7 @@ export const EmptyState = ({
 }: EmptyStateProps): JSX.Element => {
 	return (
 		<Flex
-			xcss={cx(
-				styles.containerV2,
-				fg('platform_link_picker_fix_error_state_text_overflow') && styles.whiteSpaceNormal,
-			)}
+			xcss={cx(styles.containerV2, styles.whiteSpaceNormal)}
 			testId={testId}
 			direction="column"
 			alignItems="center"

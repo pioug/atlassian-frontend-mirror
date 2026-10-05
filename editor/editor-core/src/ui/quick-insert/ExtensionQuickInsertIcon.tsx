@@ -8,7 +8,7 @@ import AppsIcon from '@atlaskit/icon/core/apps';
 import CardIcon from '@atlaskit/icon/core/card';
 import WhiteboardIcon from '@atlaskit/icon/core/whiteboard';
 
-type ExtensionIcon = React.ComponentType<{ label: string }>;
+type ExtensionIcon = React.ComponentType<{ label: string; size?: 'small' | 'medium' }>;
 
 const lazyExtensionIconCache = new WeakMap<NonNullable<MenuItem['icon']>, ExtensionIcon>();
 
@@ -54,9 +54,9 @@ const createLazyExtensionIcon = (getIcon: NonNullable<MenuItem['icon']>): Extens
 	) as React.NamedExoticComponent<React.ComponentProps<ExtensionIcon>>;
 	LazyIcon.displayName = 'lazy(ExtensionIcon)';
 
-	const Icon: ExtensionIcon = (props) => (
-		<React.Suspense fallback={<AppsIcon label={props.label} />}>
-			<LazyIcon label={props.label} />
+	const Icon: ExtensionIcon = ({ label, size }) => (
+		<React.Suspense fallback={<AppsIcon label={label} size={size} />}>
+			<LazyIcon label={label} size={size} />
 		</React.Suspense>
 	);
 
@@ -68,10 +68,12 @@ export const ExtensionQuickInsertIcon = ({
 	getIcon,
 	itemKey,
 	label,
+	size,
 }: {
 	getIcon?: MenuItem['icon'];
 	itemKey: string;
 	label: string;
+	size?: 'small' | 'medium';
 }): React.JSX.Element => {
 	const Icon = React.useMemo(() => {
 		const quickInsertItemIcon = quickInsertItemIcons[itemKey];
@@ -86,5 +88,5 @@ export const ExtensionQuickInsertIcon = ({
 		return getIcon ? createLazyExtensionIcon(getIcon) : AppsIcon;
 	}, [getIcon, itemKey]);
 
-	return <Icon label={label} />;
+	return <Icon label={label} size={size} />;
 };

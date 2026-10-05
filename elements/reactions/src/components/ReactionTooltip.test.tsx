@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
@@ -130,6 +130,23 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 		expect(items[0].textContent).toEqual('emoji name');
 		expect(items[1].textContent).toEqual('User 1');
 		expect(items[2].textContent).toEqual('User 2');
+	});
+
+	it('shows the agent and person names when an agent reacted', async () => {
+		renderReactionTooltip({
+			reactionSummary: {
+				...demoReaction,
+				users: [
+					{ id: 'agent-1', displayName: 'Leon Zolati', agent: { name: 'Bing Bong Bot' } },
+					{ id: 'person-1', displayName: 'Joshua Dubar' },
+				],
+			},
+		});
+
+		await userEvent.hover(await screen.findByTestId(RENDER_CONTENT_TESTID));
+		const tooltip = await screen.findByRole('tooltip');
+		expect(within(tooltip).getByText('Bing Bong Bot with Leon Zolati')).toBeInTheDocument();
+		expect(within(tooltip).getByText('Joshua Dubar')).toBeInTheDocument();
 	});
 
 	it('test maximum reacted users list', async () => {

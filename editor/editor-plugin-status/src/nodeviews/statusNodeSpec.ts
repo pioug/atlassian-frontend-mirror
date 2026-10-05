@@ -49,12 +49,8 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 	const lozengeTextAttrs = {
 		class: 'lozenge-text',
 		style: convertToInlineCss({
-			...(fg('platform-lozenge-custom-letterspacing')
-				? {
-						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-						letterSpacing: '0.165px',
-					}
-				: {}),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			letterSpacing: '0.165px',
 			...(style !== 'mixedCase' && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 				? {
 						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography

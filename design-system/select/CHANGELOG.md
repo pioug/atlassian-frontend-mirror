@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 23.1.1
+
+### Patch Changes
+
+- [`1f977e39e116e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f977e39e116e) -
+  [ux] Add Select control hover, focus, blur, and invalid-state motion behind the
+  `platform-dst-motion-uplift-input` feature gate.
+- Updated dependencies
+
 ## 23.1.0
 
 ### Minor Changes

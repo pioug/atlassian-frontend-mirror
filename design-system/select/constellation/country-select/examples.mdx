@@ -4,8 +4,18 @@ description: Country select allows users to make a single selection from a list 
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import SelectCountry from '../../examples/constellation/select-country';
+
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Country Select and is in Early Access. The motion updates are currently
+	behind the feature flag: platform-dst-motion-uplift-input.
+</SectionMessage>
 
 Use country select to let people select a single country from a list of countries.
 
-<Example Component={SelectCountry} packageName="@atlaskit/select" />
+<Example
+	Component={SelectCountry}
+	packageName="@atlaskit/select"
+	featureFlagSwitchers={['motionInput']}
+/>

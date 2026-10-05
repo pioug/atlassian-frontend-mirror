@@ -1532,8 +1532,10 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${fg('platform-dst-tokens-finesse') ? selectedCellBorderStyles() : ''}
 `;
 
-// TODO: EDITOR-7593 - No usage found accross AFM, deprecate when EditorContentContainer in editor-core has finished compiled css migration under experiment 'platform_editor_core_static_css'
-// re-exporting these styles to use in Gemini test when table node view is rendered outside of PM
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ * @deprecated Legacy Emotion table styles. See EDITOR-7593.
+ */
 export const baseTableStyles = (props: {
 	featureFlags?: FeatureFlags;
 	isDragAndDropEnabled?: boolean;

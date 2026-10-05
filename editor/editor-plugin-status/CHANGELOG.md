@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 25.0.2
+
+### Patch Changes
+
+- [`7638998d2fd2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7638998d2fd2c) -
+  Apply the custom letter spacing to lozenges and editor statuses by default after removing the
+  obsolete feature gate.
+
 ## 25.0.1
 
 ### Patch Changes

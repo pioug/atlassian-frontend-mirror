@@ -21,7 +21,6 @@ snapshot(SimpleStatus, {
 	featureFlags: {
 		...statusColorsEnabled,
 		'platform-component-visual-refresh': true,
-		'platform-lozenge-custom-letterspacing': true,
 	},
 });
 snapshot(NeutralStatus, { featureFlags: statusColorsEnabled });
@@ -30,7 +29,6 @@ snapshot(RedStatus, { featureFlags: statusColorsEnabled });
 snapshot(SimpleBoldStatus, {
 	featureFlags: {
 		'platform-component-visual-refresh': false,
-		'platform-lozenge-custom-letterspacing': true,
 	},
 });
 snapshot(PurpleStatus);

@@ -8,11 +8,7 @@ import LozengeContainers from '../../../examples/6-containers.vr.ap';
 import NewLozenge from '../../../examples/7-new-lozenge.vr.ap';
 import LozengeDropdownTrigger from '../../../examples/8-lozenge-dropdown-trigger.vr.ap';
 
-snapshot(Basic, {
-	featureFlags: {
-		'platform-lozenge-custom-letterspacing': [true, false],
-	},
-});
+snapshot(Basic);
 
 snapshot(BaselineAlignment);
 snapshot(CustomColor);

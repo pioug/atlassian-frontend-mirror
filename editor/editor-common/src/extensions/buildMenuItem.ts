@@ -25,6 +25,7 @@ export function buildMenuItem<T extends Parameters>(
 			? { app: extensionModule.app ?? manifest.app ?? { key: manifest.key } }
 			: {}),
 		key,
+		moduleKey: extensionModule.key,
 		title,
 		extensionType: manifest.type,
 		extensionKey: manifest.key,

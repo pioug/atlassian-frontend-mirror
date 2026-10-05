@@ -11,10 +11,91 @@ import {
 } from '@atlaskit/editor-common/quick-insert/keys';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
+import { ExtensionQuickInsertMenuItem } from '../ExtensionQuickInsertMenuItem';
 import { getExtensionQuickInsertComponents } from '../getExtensionQuickInsertComponents';
+import { QuickInsertSkillMenuItem } from '../QuickInsertSkillMenuItem';
 
 describe('getExtensionQuickInsertComponents', () => {
 	const editorActions = { replaceSelection: jest.fn() } as never;
+
+	it('registers a Skill component based on its extension type', () => {
+		const items: MenuItem[] = [
+			{
+				categories: ['other'],
+				extensionKey: 'skill',
+				extensionType: 'com.atlassian.rovo.skill',
+				featured: false,
+				icon: () => Promise.resolve({ default: () => <span /> }),
+				key: 'skill:research',
+				keywords: [],
+				node: { type: 'inlineExtension', attrs: {} },
+				lozenge: 'Beta',
+				moduleKey: 'research',
+				title: 'Research',
+			},
+			{
+				categories: ['other'],
+				extensionKey: 'other',
+				extensionType: 'com.atlassian.forge',
+				featured: false,
+				icon: () => Promise.resolve({ default: () => <span /> }),
+				key: 'other:item',
+				keywords: [],
+				node: { type: 'extension', attrs: {} },
+				title: 'Other',
+			},
+		];
+
+		const components = getExtensionQuickInsertComponents({
+			apiRef: { current: undefined },
+			editorActions,
+			items,
+		});
+
+		expect(components).toHaveLength(items.length);
+		expect(components.map((component) => component.key)).toEqual(items.map((item) => item.key));
+
+		const skillComponent = components[0]?.component?.({});
+		expect(React.isValidElement(skillComponent)).toBe(true);
+		if (!React.isValidElement(skillComponent)) {
+			throw new Error('Expected the Skill registration to render a React element');
+		}
+		expect(skillComponent.type).toBe(QuickInsertSkillMenuItem);
+
+		const extensionComponent = components[1]?.component?.({});
+		expect(React.isValidElement(extensionComponent)).toBe(true);
+		if (!React.isValidElement(extensionComponent)) {
+			throw new Error('Expected the extension registration to render a React element');
+		}
+		expect(extensionComponent.type).toBe(ExtensionQuickInsertMenuItem);
+	});
+
+	it('always selects the Skill renderer for Skill extension items', () => {
+		const item: MenuItem = {
+			categories: [],
+			extensionKey: 'skill',
+			extensionType: 'com.atlassian.rovo.skill',
+			featured: false,
+			icon: () => Promise.resolve({ default: () => <span /> }),
+			key: 'skill:research',
+			keywords: [],
+			node: { type: 'inlineExtension', attrs: {} },
+			title: 'Research',
+		};
+
+		const [component] = getExtensionQuickInsertComponents({
+			apiRef: { current: undefined },
+			editorActions,
+			items: [item],
+		});
+
+		const renderedComponent = component?.component?.({});
+		expect(React.isValidElement(renderedComponent)).toBe(true);
+		if (!React.isValidElement(renderedComponent)) {
+			throw new Error('Expected the extension registration to render a React element');
+		}
+		expect(renderedComponent.type).toBe(QuickInsertSkillMenuItem);
+	});
 
 	it('matches extension descriptions', () => {
 		const components = getExtensionQuickInsertComponents({

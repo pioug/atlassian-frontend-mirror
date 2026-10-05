@@ -8,7 +8,6 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import Avatar from '../../avatar';
@@ -773,18 +772,12 @@ describe('Avatar', () => {
 		});
 	});
 
-	ffTest.on(
-		'avatar-custom-border',
-		'should apply borderColor as background (not backgroundColor) to support gradients',
-		() => {
-			it('should use background shorthand when avatar-custom-border is enabled', () => {
-				render(<Avatar testId={testId} borderColor="foo-bar" />);
-				const element = screen.getByTestId(`${testId}--inner`);
+	it('should apply borderColor as background (not backgroundColor) to support gradients', () => {
+		render(<Avatar testId={testId} borderColor="foo-bar" />);
+		const element = screen.getByTestId(`${testId}--inner`);
 
-				expect(element).toHaveCompiledCss({ background: 'foo-bar' });
-			});
-		},
-	);
+		expect(element).toHaveCompiledCss({ background: 'foo-bar' });
+	});
 
 	describe('AvatarContent composition', () => {
 		it('should render custom avatar content when composed with AvatarContent', () => {

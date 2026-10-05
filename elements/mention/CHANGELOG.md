@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 30.1.0
+
+### Minor Changes
+
+- [`ef6d325af58d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef6d325af58d6) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
 ## 30.0.18
 
 ### Patch Changes

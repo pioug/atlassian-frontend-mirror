@@ -26,6 +26,7 @@ import type {
 
 import type EditorActions from '../../actions';
 import { ExtensionQuickInsertMenuItem } from './ExtensionQuickInsertMenuItem';
+import { QuickInsertSkillMenuItem } from './QuickInsertSkillMenuItem';
 
 type ExtensionQuickInsertComponentProps = CommonComponentProps & {
 	onInsert?: () => void;
@@ -171,8 +172,13 @@ export const getExtensionQuickInsertComponents = ({
 				title: item.title,
 			})),
 			component: (props) => {
+				const Component =
+					item.extensionType === 'com.atlassian.rovo.skill'
+						? QuickInsertSkillMenuItem
+						: ExtensionQuickInsertMenuItem;
+
 				return (
-					<ExtensionQuickInsertMenuItem
+					<Component
 						apiRef={apiRef}
 						createAnalyticsEvent={createAnalyticsEvent}
 						editorActions={editorActions}

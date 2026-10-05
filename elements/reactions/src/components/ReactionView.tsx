@@ -5,6 +5,7 @@
 import { useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
+import { FormattedMessage } from 'react-intl';
 
 import Avatar from '@atlaskit/avatar/Avatar';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
@@ -12,7 +13,9 @@ import Spinner from '@atlaskit/spinner/spinner';
 import TabPanel from '@atlaskit/tabs/tab-panel';
 import { token } from '@atlaskit/tokens';
 
+import { messages } from '../shared/i18n';
 import { type ReactionSummary, type ProfileCardWrapper } from '../types';
+import { AgentReactionAvatar } from './AgentReactionAvatar';
 
 const userListStyle = css({
 	listStyle: 'none',
@@ -78,7 +81,13 @@ export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps
 	const alphabeticalNames = useMemo(() => {
 		const reactionObj = reaction;
 
-		return reactionObj.users?.sort((a, b) => a.displayName.localeCompare(b.displayName)) || [];
+		return (
+			reactionObj.users
+				?.slice()
+				.sort((a, b) =>
+					(a.agent?.name ?? a.displayName).localeCompare(b.agent?.name ?? b.displayName),
+				) || []
+		);
 	}, [reaction]);
 
 	return (
@@ -94,7 +103,13 @@ export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps
 							const profile = user.profilePicture?.path;
 							return (
 								<li css={userStyle} key={user.id}>
-									{ProfileCardWrapper && user.accountId ? (
+									{user.agent ? (
+										<AgentReactionAvatar
+											user={user}
+											agent={user.agent}
+											ProfileCardWrapper={ProfileCardWrapper}
+										/>
+									) : ProfileCardWrapper && user.accountId ? (
 										<Box xcss={styles.profileWrapperStyle}>
 											<ProfileCardWrapper
 												userId={user.accountId}
@@ -109,7 +124,16 @@ export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps
 										<Avatar size="medium" src={profile} testId="profile" />
 									)}
 									<Flex xcss={styles.userDescriptionStyle}>
-										<div>{user.displayName}</div>
+										<div>
+											{user.agent ? (
+												<FormattedMessage
+													{...messages.agentWithPerson}
+													values={{ agentName: user.agent.name, personName: user.displayName }}
+												/>
+											) : (
+												user.displayName
+											)}
+										</div>
 									</Flex>
 								</li>
 							);

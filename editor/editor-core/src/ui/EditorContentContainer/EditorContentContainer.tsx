@@ -6,9 +6,7 @@ import {
 } from './EditorContentContainer-compiled';
 
 /**
- * The emotion implementation has been removed as part of the
- * platform_editor_core_static_css cleanup — the compiled implementation is now
- * the only one. This module stays as the entry point so consumers keep
+ * This module exposes the Compiled implementation as the entry point so consumers keep
  * importing from `./EditorContentContainer`.
  */
 const EditorContentContainer: React.ForwardRefExoticComponent<

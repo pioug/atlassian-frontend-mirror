@@ -124,6 +124,7 @@ export const ElementBrowserQuickInsertMenuItem = ({
 	isDisabled,
 	onSelect,
 	shortcut,
+	titleContent,
 	shouldWrapIcon = true,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
@@ -169,9 +170,11 @@ export const ElementBrowserQuickInsertMenuItem = ({
 			) : null}
 			<Stack space="space.050" grow="fill">
 				<Inline alignBlock="center" spread="space-between" space="space.100">
-					<Text color="color.text" maxLines={1} size="medium" weight="medium">
-						{title}
-					</Text>
+					{titleContent ?? (
+						<Text color="color.text" maxLines={1} size="medium" weight="medium">
+							{title}
+						</Text>
+					)}
 					{shortcut && (
 						<Box as="span" xcss={shortcutStyles}>
 							{shortcut}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "4.12.1",
+	"version": "4.12.2",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -130,6 +130,10 @@
 		},
 		"platform-dst-motion-uplift-list-item": {
 			"type": "boolean"
+		},
+		"platform-dst-motion-uplift-input": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"homepage": "https://atlassian.design/components"

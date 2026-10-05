@@ -74,8 +74,6 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.0'),
 		paddingBlockEnd: token('space.0'),
 		paddingInlineStart: token('space.0'),
-		transition: `background-color 200ms ease-in-out,
-border-color 200ms ease-in-out`,
 		'&::-webkit-scrollbar': {
 			height: 8,
 			width: 8,
@@ -156,6 +154,16 @@ border-color 200ms ease-in-out`,
 	},
 });
 
+const inputMotionStyles = cssMap({
+	legacy: {
+		transition: `background-color 200ms ease-in-out,
+border-color 200ms ease-in-out`,
+	},
+	base: {
+		transition: token('motion.input'),
+	},
+});
+
 const Control: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ControlProps<Option, IsMulti, Group>,
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -179,11 +187,14 @@ const Control: <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 		'control--is-focused': isFocused,
 		'control--menu-is-open': menuIsOpen,
 	});
+	const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
 
 	return (
 		<div
 			css={[
 				styles.default,
+				!isInputMotionEnabled && inputMotionStyles.legacy,
+				isInputMotionEnabled && !isDisabled && inputMotionStyles.base,
 				isDisabled && styles.disabled,
 				isInvalid && styles.invalid,
 				isCompact && styles.compact,

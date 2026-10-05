@@ -573,7 +573,7 @@ export const RendererFunctionalComponent = (
 		props.allowCollapsibleHeadings === true &&
 		['full-page', 'full-width', 'max'].includes(props.appearance || '') &&
 		rendererContext.isTopLevelRenderer &&
-		isExperimentEnabled('platform_renderer_collapsible_headings');
+		isExperimentEnabled('platform_editor_collapsible_headings');
 
 	useScrollToBlock(editorRef, props.document, props.scrollToBlock);
 

@@ -6,7 +6,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * Compiled migration: platform_editor_core_static_css
  */
 import React from 'react';
 
@@ -484,12 +483,8 @@ const overflowShadowStyles = css({
 });
 
 /**
- * editorContentStyles migrated styles from EditorContentContainer/styles,
- * the styles migration is under `platform_editor_core_static_css`,
- * this FF has a global tests override atm, while waiting for some fixes from compiled and atlaspack,
- * if you are making changes, please do VR/Integration test locally and individually by temporarily removing FF overrides from
- * packages/editor/editor-test-overrides/src/gemini-platform-feature-gate-overrides.ts, and
- * packages/editor/tmp-editor-statsig/src/exp-test-overrides.ts.
+ * editorContentStyles contains the Compiled CSS styles migrated from EditorContentContainer/styles.
+ * Validate style changes with local VR and integration tests.
  *
  * If you are not sure, please contact #proj-cc-editor-full-compiled-css-migration
  */

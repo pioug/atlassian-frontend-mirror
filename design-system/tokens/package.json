@@ -35,9 +35,9 @@
 	},
 	"scripts": {
 		"prebuilt": "yes | cp -R $(npx repo-root)/packages/design-system/tokens/dist/cjs/* $(npx repo-root)/packages/design-system/tokens/prebuilt/",
-		"ak-postbuild": "yarn prebuilt && afm workspace @atlaskit/tokens codegen-tokens && afm workspace @atlaskit/tokens check-clean-git",
-		"check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
-		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && run-ts ./scripts/style-dictionary/build-plugin-token-map.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles"
+		"ak-postbuild": "afm run prebuilt && afm workspace @atlaskit/tokens codegen-tokens && afm workspace @atlaskit/tokens check-clean-git",
+		"check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run afm run build tokens' && false)",
+		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && run-ts ./scripts/style-dictionary/build-plugin-token-map.tsx && cd $(npx repo-root)/packages/design-system/primitives && afm run codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && afm run codegen-styles"
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",

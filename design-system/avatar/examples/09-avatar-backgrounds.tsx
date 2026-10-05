@@ -3,8 +3,6 @@
  * @jsx jsx
  */
 
-import React from 'react';
-
 import Avatar from '@atlaskit/avatar/avatar';
 import type {
 	AppearanceType,
@@ -14,7 +12,6 @@ import type {
 import Code from '@atlaskit/code/code';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Grid } from '@atlaskit/primitives/compiled/grid';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
@@ -143,44 +140,40 @@ const _default: () => JSX.Element = () => (
 			</Grid>
 		</Grid>
 
-		{fg('avatar-custom-border') && (
-			<React.Fragment>
-				<Heading as="h2" size="large">
-					Custom Borders
-				</Heading>
+		<Heading as="h2" size="large">
+			Custom Borders
+		</Heading>
 
-				<Text size="large" color="color.text.subtlest">
-					<Text as="p">
-						For borders beyond a single colour (e.g. gradients, patterns, or images), wrap the
-						Avatar in a container with the desired <Code>background</Code> and set{' '}
-						<Code>{'borderColor="transparent"'}</Code> to remove the default border.
-					</Text>
-				</Text>
+		<Text size="large" color="color.text.subtlest">
+			<Text as="p">
+				For borders beyond a single colour (e.g. gradients, patterns, or images), wrap the Avatar in
+				a container with the desired <Code>background</Code> and set{' '}
+				<Code>{'borderColor="transparent"'}</Code> to remove the default border.
+			</Text>
+		</Text>
 
-				<Grid testId="grid-gradient" gap="space.200" xcss={styles.grid} alignItems="center">
-					{gradientBorders.map((gradient, index) => (
-						<Stack key={index} alignBlock="center" alignInline="center" space="space.200">
-							<div css={styles.gradientCircle} style={{ background: gradient }}>
-								<Avatar
-									src={ExampleImg}
-									borderColor="transparent"
-									size="xlarge"
-									name="Gradient border circle"
-								/>
-							</div>
-							<div css={styles.gradientSquare} style={{ background: gradient }}>
-								<Avatar
-									src={ExampleImg}
-									borderColor="transparent"
-									appearance="square"
-									name="Gradient border square"
-								/>
-							</div>
-						</Stack>
-					))}
-				</Grid>
-			</React.Fragment>
-		)}
+		<Grid testId="grid-gradient" gap="space.200" xcss={styles.grid} alignItems="center">
+			{gradientBorders.map((gradient, index) => (
+				<Stack key={index} alignBlock="center" alignInline="center" space="space.200">
+					<div css={styles.gradientCircle} style={{ background: gradient }}>
+						<Avatar
+							src={ExampleImg}
+							borderColor="transparent"
+							size="xlarge"
+							name="Gradient border circle"
+						/>
+					</div>
+					<div css={styles.gradientSquare} style={{ background: gradient }}>
+						<Avatar
+							src={ExampleImg}
+							borderColor="transparent"
+							appearance="square"
+							name="Gradient border square"
+						/>
+					</div>
+				</Stack>
+			))}
+		</Grid>
 	</Stack>
 );
 export default _default;

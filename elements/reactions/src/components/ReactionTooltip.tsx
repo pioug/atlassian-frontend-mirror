@@ -147,9 +147,18 @@ export const ReactionTooltip = ({
 			>
 				<ul>
 					{emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
-					{users.slice(0, maxReactions).map((user) => {
-						return <li key={user.id}>{user.displayName}</li>;
-					})}
+					{users.slice(0, maxReactions).map((user) => (
+						<li key={user.id}>
+							{user.agent ? (
+								<FormattedMessage
+									{...messages.agentWithPerson}
+									values={{ agentName: user.agent.name, personName: user.displayName }}
+								/>
+							) : (
+								user.displayName
+							)}
+						</li>
+					))}
 					{/* If count of reactions higher than given threshold then render custom message */}
 					<li css={footerStyle}>
 						{users.length > maxReactions &&

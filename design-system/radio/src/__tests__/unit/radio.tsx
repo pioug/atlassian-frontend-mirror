@@ -3,10 +3,24 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import Radio from '../../radio';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-describe('Radio', () => {
+describe.each([false, true])('Radio (cross-fade: %s)', (enabled) => {
+	it('preserves accessible selection semantics', async () => {
+		const { container } = render(<Radio label="Selection" />);
+		await expect(container).toBeAccessible();
+	});
+
+	beforeEach(() => {
+		if (enabled) {
+			passGate('platform_design_system_selection_radial_fade');
+		} else {
+			failGate('platform_design_system_selection_radial_fade');
+		}
+	});
 	const user = userEvent.setup();
 
 	it('should render an input and the content', () => {

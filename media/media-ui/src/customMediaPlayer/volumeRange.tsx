@@ -153,6 +153,7 @@ const VolumeRange = (props: VolumeRangeProps): React.JSX.Element => {
 
 	return (
 		<CompiledTimeRangeWrapper
+			isVolumeRange
 			onMouseDown={onThumbMouseDown}
 			onKeyDown={onThumbKeyDown}
 			ref={wrapperElement}

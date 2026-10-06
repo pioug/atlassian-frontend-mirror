@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 46.5.1
+
+### Patch Changes
+
+- [`c2a714462c2d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2a714462c2d1) -
+  Update One Click Chat Spotlight V2 body and CTA copy behind
+  platform_sl_one_click_chat_spotlight_v2_fg.
+- Updated dependencies
+
+## 46.5.0
+
+### Minor Changes
+
+- [`725211e3dd6b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/725211e3dd6b0) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.4.1
 
 ### Patch Changes

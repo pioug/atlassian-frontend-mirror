@@ -293,14 +293,15 @@ export const Popover: React.ForwardRefExoticComponent<
 
 	// Register with open layer observer so `closeLayers()` and open-count
 	// subscriptions work. Only popup-like roles register as `popup`; passive
-	// roles (tooltip, status, etc.) leave `type` undefined.
+	// roles (tooltip, status, etc.) leave `type` undefined. Without `onClose`
+	// the layer cannot be closed, so it does not register.
 	const handleObserverClose = useCallback(() => {
 		onCloseRef.current?.({ reason: 'programmatic' });
 	}, []);
 
 	useNotifyOpenLayerObserver({
 		type: role && POPUP_ROLES.has(role) ? 'popup' : undefined,
-		isOpen,
+		isOpen: isOpen && Boolean(onClose),
 		onClose: handleObserverClose,
 	});
 

@@ -148,7 +148,7 @@ function getInitialFocusTarget({
 		// type-ahead, Enter/Space, submenu coordination) is the responsibility
 		// of the consumer component (e.g. dropdown-menu), because menu keyboard
 		// behavior varies by context (orientation, nesting, item type, control
-		// pattern). See: notes/outputs/menu-keyboard-decision.md
+		// pattern). See: notes/decisions/menu-keyboard.md
 		return getFirstFocusable({ container });
 	}
 

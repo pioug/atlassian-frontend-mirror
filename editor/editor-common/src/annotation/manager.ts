@@ -11,6 +11,8 @@ import type {
 	ApplyDraftResult,
 	ClearAnnotationResult,
 	ClearDraftResult,
+	ClearHoveredAnnotationResult,
+	ClearSelectedAnnotationResult,
 	GetDraftResult,
 	HoverAnnotationResult,
 	SelectAnnotationResult,
@@ -82,6 +84,15 @@ export class SharedAnnotationManager implements AnnotationManager {
 		return this as AnnotationManager;
 	}
 
+	onDraftAnnotationCleared(handler: () => void): AnnotationManager {
+		this.emitter.on('draftAnnotationCleared', handler);
+		return this as AnnotationManager;
+	}
+	offDraftAnnotationCleared(handler: () => void): AnnotationManager {
+		this.emitter.off('draftAnnotationCleared', handler);
+		return this as AnnotationManager;
+	}
+
 	emit(event: AnnotationManagerEvents): AnnotationManager {
 		this.emitter.emit(event.name, 'data' in event ? event.data : undefined);
 		return this as AnnotationManager;
@@ -120,7 +131,7 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 	}
 
-	startDraft(): StartDraftResult {
+	startDraft(localId?: string): StartDraftResult {
 		const fn = this.hooks.get('startDraft') as AnnotationManagerMethods['startDraft'];
 
 		if (!fn) {
@@ -128,7 +139,7 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 
 		try {
-			return fn();
+			return fn(localId);
 		} catch {
 			return { success: false, reason: 'hook-execution-error' };
 		}
@@ -212,6 +223,34 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 		try {
 			return fn(id);
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
+	}
+
+	clearSelectedAnnotation(): ClearSelectedAnnotationResult {
+		const fn = this.hooks.get(
+			'clearSelectedAnnotation',
+		) as AnnotationManagerMethods['clearSelectedAnnotation'];
+		if (!fn) {
+			return { success: false, reason: 'manager-not-initialized' };
+		}
+		try {
+			return fn();
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
+	}
+
+	clearHoveredAnnotation(): ClearHoveredAnnotationResult {
+		const fn = this.hooks.get(
+			'clearHoveredAnnotation',
+		) as AnnotationManagerMethods['clearHoveredAnnotation'];
+		if (!fn) {
+			return { success: false, reason: 'manager-not-initialized' };
+		}
+		try {
+			return fn();
 		} catch {
 			return { success: false, reason: 'hook-execution-error' };
 		}

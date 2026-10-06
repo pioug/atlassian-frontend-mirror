@@ -12,6 +12,12 @@ const isESLintV9 = (tester as unknown as { linter: { version: string } }).linter
 
 const colorTests: Tests = {
 	valid: [
+		{
+			code: `const CUSTOMER_INSIGHT_BLUE_AVATAR_ID = '3'; <AgentAvatar agentIdentityAccountId={CUSTOMER_INSIGHT_BLUE_AVATAR_ID} />`,
+		},
+		{
+			code: `const RED_COUNT = 3; <Counter count={RED_COUNT} />`,
+		},
 		// Using config -> shouldEnforceFallbacks: false
 		{
 			code: `token('shadow.card')`,
@@ -416,6 +422,20 @@ const colorTests: Tests = {
 		},
 	],
 	invalid: [
+		{
+			code: `const BLUE_BACKGROUND = '#0052CC'; <Icon fill={BLUE_BACKGROUND} />`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `const BLUE_BACKGROUND = '#0052CC'; <Icon fill={token('')} />`,
+						},
+					],
+				},
+			],
+		},
 		{
 			code: `
           css\`

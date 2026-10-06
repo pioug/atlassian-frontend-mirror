@@ -1,5 +1,12 @@
 # @atlaskit/analytics-listeners
 
+## 11.4.2
+
+### Patch Changes
+
+- [`8ae9ae4b724dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ae9ae4b724dd) -
+  Correct the AVP GASv3 platform tag to `analyticsVisualizationPlatform`.
+
 ## 11.4.1
 
 ### Patch Changes

@@ -4,13 +4,26 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import __noop from '@atlaskit/ds-lib/noop';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { Checkbox } from '../../checkbox';
 
 declare var global: any;
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-describe('@atlaskit/checkbox', () => {
+describe.each([false, true])('@atlaskit/checkbox (cross-fade: %s)', (enabled) => {
+	it('preserves accessible selection semantics', async () => {
+		const { container } = render(<Checkbox label="Selection" />);
+		await expect(container).toBeAccessible();
+	});
+
+	beforeEach(() => {
+		if (enabled) {
+			passGate('platform_design_system_selection_radial_fade');
+		} else {
+			failGate('platform_design_system_selection_radial_fade');
+		}
+	});
 	const renderCheckbox = (overridingProps: any) =>
 		render(
 			<Checkbox

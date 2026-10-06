@@ -18,11 +18,7 @@
 			"subPages": [
 				{
 					"title": "Date label dropdown trigger",
-					"id": "date-label-dropdown-trigger",
-					"status": {
-						"type": "beta",
-						"description": "New and ready to use. We'll provide comms and support for any major changes."
-					}
+					"id": "date-label-dropdown-trigger"
 				}
 			]
 		}

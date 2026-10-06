@@ -4,7 +4,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { DocumentViewer, type DocumentViewerProps } from './documentViewer';
 import {
@@ -555,23 +554,10 @@ describe('DocumentViewer', () => {
 			});
 		});
 
-		// Pixelated rendering keeps pages crisp at 100% zoom but produces blurry, misaligned
-		// sub-pixel output at non-integer browser/OS zoom levels (HOT-306523). The gate lets us
-		// trade a little crispness at 100% for correctness everywhere else.
-		it('should use pixelated image rendering when the smooth render gate is off', async () => {
-			failGate('platform_media_doc_viewer_smooth_render');
-
-			const props = createMockProps();
-			render(<DocumentViewer {...props} />);
-			await waitFor(async () => await makeAllIntersectionObserversVisible());
-
-			const image = await screen.findByTestId('page-0-image');
-			expect(image).toHaveStyle('image-rendering: pixelated');
-		});
-
-		it('should not use pixelated image rendering when the smooth render gate is on', async () => {
-			passGate('platform_media_doc_viewer_smooth_render');
-
+		// Pixelated rendering is crisper at 100% zoom, but produces blurry, misaligned sub-pixel
+		// output at non-integer browser/OS zoom levels (HOT-306523). We deliberately trade that
+		// crispness for correctness everywhere else, so pages must never be pixelated.
+		it('should not use pixelated image rendering', async () => {
 			const props = createMockProps();
 			render(<DocumentViewer {...props} />);
 			await waitFor(async () => await makeAllIntersectionObserversVisible());

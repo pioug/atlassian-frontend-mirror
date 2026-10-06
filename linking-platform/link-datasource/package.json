@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "7.2.1",
+	"version": "7.3.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -184,17 +184,11 @@
 		"lp_enable_datasource-table-view_height_override": {
 			"type": "boolean"
 		},
-		"platform_lp_jira_sllv_renderer_column_sorting": {
-			"type": "boolean"
-		},
 		"cc-units-ga": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"linking_platform_link_datasource_unit_compliant": {
-			"type": "boolean"
-		},
-		"platform_lp_sllv_ux_improvements": {
 			"type": "boolean"
 		},
 		"platform_lp_sllv_preserve_assets_columns": {

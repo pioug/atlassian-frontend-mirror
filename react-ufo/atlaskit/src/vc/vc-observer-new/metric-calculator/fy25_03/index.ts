@@ -122,8 +122,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				attributeName.startsWith('data-test') ||
 				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName) ||
 				DARK_READER_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) ||
-				(MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES.includes(attributeName) &&
-					fg('platform_ufo_exclude_fdprocessedid_attribute'))
+				MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES.includes(attributeName)
 			) {
 				return false;
 			}

@@ -49,7 +49,9 @@ import type {
 	WithPlaybackProps,
 } from './analytics/utils/playbackAttributes';
 import { CurrentTime } from './CurrentTime-2';
+import { ExternalControlsLayout } from './ExternalControlsLayout';
 import { getFullscreenElement } from './getFullscreenElement';
+import { type WithInsetViewerProps } from './insetViewerContext/withInsetViewer';
 import { LeftControls } from './LeftControls-2';
 import { MutedIndicator } from './MutedIndicator-2';
 import PlaybackSpeedControls from './playbackSpeedControls';
@@ -89,6 +91,8 @@ export interface CustomMediaPlayerProps extends WithPlaybackProps, WithShowContr
 	readonly featureFlags?: MediaFeatureFlags;
 	readonly poster?: string;
 	readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
+	readonly controlsPortalElement?: HTMLElement | null;
+	readonly onVideoElementChange?: (video: HTMLVideoElement | null) => void;
 }
 
 export interface CustomMediaPlayerState extends WithMediaPlayerState {}
@@ -114,6 +118,19 @@ const customVideoWrapperStyles = cssMap({
 	root: {
 		width: '100%',
 		height: '100%',
+		userSelect: 'none',
+	},
+	insetViewer: {
+		width: '100%',
+		height: '100%',
+		maxWidth: '100%',
+		maxHeight: '100%',
+		minWidth: 0,
+		minHeight: 0,
+		flex: '1 1 auto',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
 		userSelect: 'none',
 	},
 });
@@ -144,7 +161,7 @@ const spinnerWrapperStyles = cssMap({
 });
 
 export class CustomMediaPlayerBase extends Component<
-	CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,
+	CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps & WithInsetViewerProps,
 	CustomMediaPlayerState
 > {
 	videoWrapperRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
@@ -714,12 +731,22 @@ export class CustomMediaPlayerBase extends Component<
 	private pausePlayByButtonClick = this.getMediaButtonClickHandler(this.pause, 'pauseButton');
 
 	render(): React.JSX.Element {
-		const { type, src, isAutoPlay, onCanPlay, onError, poster, videoControlsWrapperRef } =
-			this.props;
+		const {
+			type,
+			src,
+			isAutoPlay,
+			onCanPlay,
+			onError,
+			poster,
+			videoControlsWrapperRef,
+			isInsetViewer,
+			controlsPortalElement,
+			onVideoElementChange,
+		} = this.props;
 
 		return (
 			<Box
-				xcss={customVideoWrapperStyles.root}
+				xcss={isInsetViewer ? customVideoWrapperStyles.insetViewer : customVideoWrapperStyles.root}
 				ref={this.videoWrapperRef}
 				testId="custom-media-player"
 			>
@@ -733,6 +760,7 @@ export class CustomMediaPlayerBase extends Component<
 					onTimeChange={this.onCurrentTimeChange}
 					onError={(event) => onError?.(event?.currentTarget?.error)}
 					poster={poster}
+					onVideoElementChange={onVideoElementChange}
 				>
 					{(video, videoState, actions) => {
 						this.onViewed(videoState);
@@ -769,6 +797,35 @@ export class CustomMediaPlayerBase extends Component<
 							skipBackward,
 							skipForward,
 						});
+						const timeline = (
+							<TimeRange
+								currentTime={currentTime}
+								bufferedTime={buffered}
+								duration={duration}
+								onChange={actions.navigate}
+								onChanged={this.onTimeChanged}
+								disableThumbTooltip={true}
+								skipBackward={skipBackward}
+								skipForward={skipForward}
+								isAlwaysActive={false}
+							/>
+						);
+						const left = (
+							<LeftControls>
+								{this.renderPlayPauseButton(isPlaying)}
+								{isLargePlayer && this.renderSkipBackwardButton(skipBackward)}
+								{isLargePlayer && this.renderSkipForwardButton(skipForward)}
+								{this.renderVolume(videoState, actions, isLargePlayer)}
+							</LeftControls>
+						);
+						const right = (
+							<RightControls>
+								{(isMediumPlayer || isLargePlayer) && this.renderCurrentTime(videoState)}
+								{isLargePlayer && this.renderSpeedControls()}
+								{!isInsetViewer && this.renderFullScreenButton()}
+								{isLargePlayer && this.renderDownloadButton()}
+							</RightControls>
+						);
 						return (
 							<Flex direction="column" xcss={videoWrapperStyles.root}>
 								<WidthObserver setWidth={this.onResize} />
@@ -781,39 +838,30 @@ export class CustomMediaPlayerBase extends Component<
 								>
 									{video}
 								</PlayPauseBlanket>
-								<ControlsWrapper ref={videoControlsWrapperRef} controlsHidden={this.wasPlayedOnce}>
-									<Box xcss={timeWrapperStyles.root}>
-										<TimeRange
-											currentTime={currentTime}
-											bufferedTime={buffered}
-											duration={duration}
-											onChange={actions.navigate}
-											onChanged={this.onTimeChanged}
-											disableThumbTooltip={true}
-											skipBackward={skipBackward}
-											skipForward={skipForward}
-											isAlwaysActive={false}
-										/>
-									</Box>
-									<Flex
-										alignItems="center"
-										justifyContent="space-between"
-										xcss={timebarWrapperStyles.root}
+								{isInsetViewer ? (
+									<ExternalControlsLayout
+										videoControlsWrapperRef={videoControlsWrapperRef}
+										controlsPortalElement={controlsPortalElement}
+										timeline={timeline}
+										left={left}
+										right={right}
+									/>
+								) : (
+									<ControlsWrapper
+										ref={videoControlsWrapperRef}
+										controlsHidden={this.wasPlayedOnce}
 									>
-										<LeftControls>
-											{this.renderPlayPauseButton(isPlaying)}
-											{isLargePlayer && this.renderSkipBackwardButton(skipBackward)}
-											{isLargePlayer && this.renderSkipForwardButton(skipForward)}
-											{this.renderVolume(videoState, actions, isLargePlayer)}
-										</LeftControls>
-										<RightControls>
-											{(isMediumPlayer || isLargePlayer) && this.renderCurrentTime(videoState)}
-											{isLargePlayer && this.renderSpeedControls()}
-											{this.renderFullScreenButton()}
-											{isLargePlayer && this.renderDownloadButton()}
-										</RightControls>
-									</Flex>
-								</ControlsWrapper>
+										<Box xcss={timeWrapperStyles.root}>{timeline}</Box>
+										<Flex
+											alignItems="center"
+											justifyContent="space-between"
+											xcss={timebarWrapperStyles.root}
+										>
+											{left}
+											{right}
+										</Flex>
+									</ControlsWrapper>
+								)}
 							</Flex>
 						);
 					}}

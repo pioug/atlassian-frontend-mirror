@@ -15,7 +15,7 @@ function ControlledModal({
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (
-		<div>
+		<div data-testid="controlled-modal" data-is-open={String(isOpen)}>
 			<button data-testid="open-trigger" type="button" onClick={() => setIsOpen(true)}>
 				Open
 			</button>
@@ -82,7 +82,12 @@ it('should call onOpenComplete when re-opened before exit settles', async () => 
 
 		animations.current = [exitAnimation];
 		simulateDialogCancel(dialog);
-		await waitFor(() => expect(getAnimations).toHaveBeenCalledTimes(1));
+		// `onClose` runs in the task-queued close `toggle`, outside `act`, so wait for `isOpen=false` to commit; else the reopen click batches with it.
+		await waitFor(() =>
+			expect(screen.getByTestId('controlled-modal')).toHaveAttribute('data-is-open', 'false'),
+		);
+		// One snapshot for the entry and one for the exit.
+		expect(getAnimations).toHaveBeenCalledTimes(2);
 
 		animations.current = [];
 		fireEvent.click(screen.getByTestId('open-trigger'));

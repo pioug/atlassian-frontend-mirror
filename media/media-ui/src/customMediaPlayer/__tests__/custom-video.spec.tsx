@@ -9,6 +9,10 @@ jest.mock('../getFullscreenElement', () => ({
 }));
 
 jest.mock('../simultaneousPlayManager');
+jest.mock('../ExternalControlsLayout', () => ({
+	...jest.requireActual('../ExternalControlsLayout'),
+	ExternalControlsLayout: (props: { right: React.ReactNode }) => mockExternalControlsLayout(props),
+}));
 import React from 'react';
 import { act } from 'react';
 
@@ -19,13 +23,16 @@ import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
 import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { CustomMediaPlayerBase, type CustomMediaPlayerProps } from '..';
+import { CustomMediaPlayer, CustomMediaPlayerBase, type CustomMediaPlayerProps } from '..';
 import { keyCodes } from '../../shortcut';
 import { fakeIntl } from '../../test-helpers/fakeI18n';
 import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
 import { getFullscreenElement } from '../getFullscreenElement';
+import { InsetViewerProvider } from '../insetViewerContext/insetViewerProvider';
 import simultaneousPlayManager from '../simultaneousPlayManager';
 import { toggleFullscreen } from '../toggleFullscreen';
+
+const mockExternalControlsLayout = jest.fn(({ right }: { right: React.ReactNode }) => right);
 
 const getControlsWrapperClassName = jest.spyOn(
 	getControlsWrapperClassNameModule,
@@ -1698,6 +1705,60 @@ describe('<CustomMediaPlayer />', () => {
 
 		await waitFor(() => {
 			expect(getControlsWrapperClassName).toHaveBeenLastCalledWith(true);
+		});
+	});
+
+	describe('inset viewer', () => {
+		const controlsPortalElement = document.createElement('div');
+
+		const renderPlayer = ({
+			isInsetViewer,
+			...props
+		}: Partial<CustomMediaPlayerProps> & { isInsetViewer: boolean }) =>
+			render(
+				<IntlProvider locale="en">
+					<InsetViewerProvider isInsetViewer={isInsetViewer}>
+						<CustomMediaPlayer
+							type="video"
+							fileId="some-file-id"
+							isAutoPlay={true}
+							isHDAvailable={false}
+							src="video-src"
+							{...props}
+						/>
+					</InsetViewerProvider>
+				</IntlProvider>,
+			);
+
+		beforeEach(() => {
+			mockExternalControlsLayout.mockClear();
+		});
+
+		it('should render ExternalControlsLayout with the portal element and the control groups', () => {
+			const videoControlsWrapperRef = React.createRef<HTMLDivElement>();
+			renderPlayer({ isInsetViewer: true, controlsPortalElement, videoControlsWrapperRef });
+
+			expect(mockExternalControlsLayout.mock.lastCall![0]).toEqual(
+				expect.objectContaining({
+					controlsPortalElement,
+					videoControlsWrapperRef,
+					timeline: expect.anything(),
+					left: expect.anything(),
+					right: expect.anything(),
+				}),
+			);
+		});
+
+		it('should not render ExternalControlsLayout outside the inset viewer', () => {
+			renderPlayer({ isInsetViewer: false, controlsPortalElement });
+
+			expect(mockExternalControlsLayout).not.toHaveBeenCalled();
+		});
+
+		it('should leave the fullscreen button out of the control groups', () => {
+			renderPlayer({ isInsetViewer: true, controlsPortalElement });
+
+			expect(screen.queryByTestId('custom-media-player-fullscreen-button')).not.toBeInTheDocument();
 		});
 	});
 });

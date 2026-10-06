@@ -13,7 +13,6 @@ export const ROVO_VALID_PARAMS: ValidParam[] = [
 	'messageIdSelectedForPreview',
 	'invocationIdSelectedForPreview',
 	'promptLibraryOpen',
-	'openChatMode',
 	'rovoJourneyId',
 	'searchQuery',
 ];

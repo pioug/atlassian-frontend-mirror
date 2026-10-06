@@ -23,6 +23,10 @@ function noop() {}
  * - reopening produces a fresh host element with a stable id,
  * - `aria-controls` returned by `getAriaForTrigger` mirrors the host
  *   lifecycle so triggers never point at a missing id.
+ *
+ * To check that a Popover host has unmounted, wait on the host element itself,
+ * not on `queryByRole`. During the exit the host stays mounted with
+ * `aria-hidden="true"`, so `queryByRole` stops finding it before it unmounts.
  */
 describe('top-layer unmount-when-hidden contract', () => {
 	describe('Popover', () => {
@@ -60,7 +64,8 @@ describe('top-layer unmount-when-hidden contract', () => {
 					content
 				</Popover>,
 			);
-			expect(screen.getByRole('dialog', { name: 'lifecycle' })).toBeVisible();
+			const host = screen.getByRole('dialog', { name: 'lifecycle' });
+			expect(host).toBeVisible();
 
 			rerender(
 				<Popover isOpen={false} onClose={noop} role="dialog" label="lifecycle">
@@ -68,9 +73,8 @@ describe('top-layer unmount-when-hidden contract', () => {
 				</Popover>,
 			);
 
-			await waitFor(() =>
-				expect(screen.queryByRole('dialog', { name: 'lifecycle' })).not.toBeInTheDocument(),
-			);
+			// Wait on the host itself: `queryByRole` skips the `aria-hidden` exiting host.
+			await waitFor(() => expect(host).not.toBeInTheDocument());
 		});
 
 		it('remounts a fresh host element on reopen with the same generated id', async () => {
@@ -88,9 +92,8 @@ describe('top-layer unmount-when-hidden contract', () => {
 					content
 				</Popover>,
 			);
-			await waitFor(() =>
-				expect(screen.queryByRole('dialog', { name: 'id-stable' })).not.toBeInTheDocument(),
-			);
+			// Wait on the host itself: `queryByRole` skips the `aria-hidden` exiting host.
+			await waitFor(() => expect(firstHost).not.toBeInTheDocument());
 
 			rerender(
 				<Popover isOpen={true} onClose={noop} role="dialog" label="id-stable">
@@ -281,9 +284,8 @@ describe('top-layer unmount-when-hidden contract', () => {
 
 			rerender(<TriggerAndPopover isOpen={false} onClose={noop} />);
 
-			await waitFor(() =>
-				expect(screen.queryByRole('dialog', { name: 'end-to-end' })).not.toBeInTheDocument(),
-			);
+			// Wait on the host itself: `queryByRole` skips the `aria-hidden` exiting host.
+			await waitFor(() => expect(popoverHost).not.toBeInTheDocument());
 			expect(trigger).not.toHaveAttribute('aria-controls');
 			expect(trigger).toHaveAttribute('aria-expanded', 'false');
 

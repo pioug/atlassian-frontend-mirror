@@ -62,6 +62,18 @@ const baseTransitionPropertyTokens = {
 			group: 'motionProperty',
 		},
 	},
+	Fill: {
+		value: 'fill',
+		attributes: {
+			group: 'motionProperty',
+		},
+	},
+	Stroke: {
+		value: 'stroke',
+		attributes: {
+			group: 'motionProperty',
+		},
+	},
 	Opacity: {
 		value: 'opacity',
 		attributes: {

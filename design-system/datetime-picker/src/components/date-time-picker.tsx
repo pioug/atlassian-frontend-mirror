@@ -1,7 +1,16 @@
 /// <reference types="node" />
 // for typing `process`
 
-import React, { forwardRef, useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import React, {
+	type CSSProperties,
+	forwardRef,
+	useCallback,
+	useEffect,
+	useMemo,
+	useReducer,
+	useRef,
+	useState,
+} from 'react';
 
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format, isValid, parseISO } from 'date-fns';
@@ -10,6 +19,7 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import IconButton from '@atlaskit/button/icon/button';
 import { cssMap } from '@atlaskit/css';
 import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { mergeStyles } from '@atlaskit/react-select/styles';
 import type { StylesConfig } from '@atlaskit/select/types';
@@ -50,20 +60,48 @@ const compiledStyles = cssMap({
 	},
 });
 
+const innerCornerRadius = `calc(${token('radius.medium')} - ${token('border.width')})`;
+
+type RoundedCorners = 'start' | 'end' | 'none';
+
+const cornerRadiusStyles: Record<RoundedCorners, CSSProperties> = {
+	start: {
+		borderStartStartRadius: innerCornerRadius,
+		borderEndStartRadius: innerCornerRadius,
+	},
+	end: {
+		borderStartEndRadius: innerCornerRadius,
+		borderEndEndRadius: innerCornerRadius,
+	},
+	none: {},
+};
+
 // react-select overrides (via @atlaskit/select).
-const styles: StylesConfig = {
-	control: (style) => ({
+const getStyles = (
+	isInputMotionEnabled: boolean,
+	roundedCorners: RoundedCorners,
+): StylesConfig => ({
+	control: (style, { isDisabled, isFocused }) => ({
 		...style,
+		...(isInputMotionEnabled && !isDisabled ? { transition: token('motion.input') } : {}),
 		backgroundColor: 'transparent',
 		border: 2,
 		borderRadius: 0,
+		...(isInputMotionEnabled
+			? {
+					...cornerRadiusStyles[roundedCorners],
+					boxShadow: isFocused
+						? `0 0 0 ${token('border.width')} ${token('color.border.focused')}, inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`
+						: 'none',
+				}
+			: {}),
 		paddingLeft: 0,
 		':hover': {
 			backgroundColor: 'transparent',
 			cursor: 'inherit',
 		},
 	}),
-};
+});
 
 type DateTimeState = {
 	value: string;
@@ -133,6 +171,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 		ref,
 	) => {
 		const [isFocused, setIsFocused] = useState<boolean>(false);
+		const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
 
 		/**
 		 * Defined inside the component so the reducer closes over `providedParseValue`
@@ -438,6 +477,20 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 			}
 		};
 
+		// Render DateTimePicker's IconContainer when a value has been filled
+		// Don't use Date or TimePicker's because they can't be customised
+		const isClearable = Boolean(dtState.dateValue || dtState.timeValue);
+		const hasClearButton = isClearable && !isDisabled;
+
+		const dateStyles = useMemo(
+			() => getStyles(isInputMotionEnabled, 'start'),
+			[isInputMotionEnabled],
+		);
+		const timeStyles = useMemo(
+			() => getStyles(isInputMotionEnabled, hasClearButton ? 'none' : 'end'),
+			[isInputMotionEnabled, hasClearButton],
+		);
+
 		const { selectProps: datePickerSelectProps, ...datePickerProps } =
 			datePickerPropsWithSelectProps;
 
@@ -446,7 +499,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 
 		const mergedDatePickerSelectProps = {
 			...datePickerSelectProps,
-			styles: mergeStyles(styles, datePickerSelectProps?.styles),
+			styles: mergeStyles(dateStyles, datePickerSelectProps?.styles),
 		};
 
 		const { selectProps: timePickerSelectProps, ...timePickerProps } =
@@ -457,12 +510,8 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 
 		const mergedTimePickerSelectProps = {
 			...timePickerSelectProps,
-			styles: mergeStyles(styles, timePickerSelectProps?.styles),
+			styles: mergeStyles(timeStyles, timePickerSelectProps?.styles),
 		};
-
-		// Render DateTimePicker's IconContainer when a value has been filled
-		// Don't use Date or TimePicker's because they can't be customised
-		const isClearable = Boolean(dtState.dateValue || dtState.timeValue);
 
 		return (
 			<DateTimePickerContainer
@@ -555,7 +604,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 						value={dtState.timeValue}
 					/>
 				</Box>
-				{isClearable && !isDisabled ? (
+				{hasClearButton ? (
 					<Inline xcss={compiledStyles.iconContainerStyles}>
 						<IconButton
 							appearance="subtle"

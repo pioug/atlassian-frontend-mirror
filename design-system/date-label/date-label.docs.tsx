@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'DateLabel',
 			description:
 				'A date label displays a date as a label, with an optional appearance to communicate a meaningful condition such as a due or overdue date.',
-			status: 'open-beta',
+			status: 'general-availability',
 			import: {
 				name: 'DateLabel',
 				package: '@atlaskit/date-label/date-label',
@@ -46,7 +46,7 @@ const documentation: StructuredContentSource = {
 			name: 'DateLabelDropdownTrigger',
 			description:
 				'Date label dropdown trigger displays a date as a label and enables changing the date through a menu or popup.',
-			status: 'open-beta',
+			status: 'general-availability',
 			import: {
 				name: 'DateLabelDropdownTrigger',
 				package: '@atlaskit/date-label/date-label-dropdown-trigger',

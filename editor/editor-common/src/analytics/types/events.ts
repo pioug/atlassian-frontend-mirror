@@ -123,7 +123,6 @@ export type AnalyticsEventPayload<T = void> =
 	| HighlightActionsEventPayload
 	| UnsupportedContentPayload
 	| ExtensionEventPayload
-	| TransactionEventPayload
 	| TypeAheadPayload
 	| UnlinkToolbarAEP
 	| EditLinkToolbarAEP
@@ -247,13 +246,6 @@ type InvalidTransactionErrorAEP = OperationalAEP<
 	}
 >;
 
-type DispatchedValidTransactionAEP = OperationalAEP<
-	ACTION.DISPATCHED_VALID_TRANSACTION,
-	ACTION_SUBJECT.EDITOR,
-	undefined,
-	undefined
->;
-
 type InvalidTransactionStepErrorAEP = OperationalAEP<
 	ACTION.DISCARDED_INVALID_STEPS_FROM_TRANSACTION,
 	ACTION_SUBJECT.EDITOR,
@@ -262,8 +254,6 @@ type InvalidTransactionStepErrorAEP = OperationalAEP<
 		analyticsEventPayloads: AnalyticsEventPayloadWithChannel[];
 	}
 >;
-
-export type TransactionEventPayload = DispatchedValidTransactionAEP;
 
 type FailedToUnmountErrorAEP = OperationalAEP<
 	ACTION.FAILED_TO_UNMOUNT,

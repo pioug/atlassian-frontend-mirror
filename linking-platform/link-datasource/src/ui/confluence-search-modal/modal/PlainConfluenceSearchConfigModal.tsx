@@ -11,7 +11,6 @@ import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -194,8 +193,7 @@ export const PlainConfluenceSearchConfigModal = (
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
 	// With columns available the table can keep its headers and show the empty state in place of
 	// the rows, instead of replacing the whole table with it.
-	const shouldRenderTableWithNoResults =
-		resolvedWithNoResults && !!columns.length && fg('platform_lp_sllv_ux_improvements');
+	const shouldRenderTableWithNoResults = resolvedWithNoResults && !!columns.length;
 
 	const hasConfluenceSearchParams = selectedConfluenceSite && parameters?.searchString;
 

@@ -27,6 +27,8 @@ export interface MediaPlayerProps extends WithPlaybackProps, WithShowControlMeth
 	readonly poster?: string;
 	readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
 	readonly areControlsVisible?: boolean;
+	readonly controlsPortalElement?: HTMLElement | null;
+	readonly onVideoElementChange?: (video: HTMLVideoElement | null) => void;
 }
 
 export interface MediaPlayerBaseProps extends MediaPlayerProps {

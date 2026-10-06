@@ -3,8 +3,13 @@ import React from 'react';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
-import { InsetViewerProvider, useMediaFooterControls } from '../../../insetViewerContext';
+import {
+	InsetViewerProvider,
+	useMediaFooterControls,
+	withInsetViewerFooter,
+} from '../../../insetViewerContext';
 import { InsetSidebarHeaderRow, MediaFooterBar, SidebarColumn } from '../../../styleWrappers';
 
 describe('styleWrappers', () => {
@@ -99,6 +104,35 @@ describe('styleWrappers', () => {
 			);
 
 			expect(screen.getByText('registered')).toBeInTheDocument();
+		});
+
+		it('should use different footer styles once video controls are registered', async () => {
+			class Setter extends React.Component<{
+				setHasVideoControls?: (hasVideoControls: boolean) => void;
+			}> {
+				render() {
+					return (
+						<button type="button" onClick={() => this.props.setHasVideoControls?.(true)}>
+							register video controls
+						</button>
+					);
+				}
+			}
+			const WrappedSetter = withInsetViewerFooter(Setter);
+
+			render(
+				<InsetViewerProvider isInsetViewer>
+					<MediaFooterBar />
+					<WrappedSetter />
+				</InsetViewerProvider>,
+			);
+			const classesBefore = screen.getByTestId('media-viewer-media-footer').getAttribute('class');
+
+			await userEvent.click(screen.getByRole('button', { name: 'register video controls' }));
+
+			expect(screen.getByTestId('media-viewer-media-footer').getAttribute('class')).not.toEqual(
+				classesBefore,
+			);
 		});
 	});
 });

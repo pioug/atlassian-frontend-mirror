@@ -1,26 +1,19 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView, { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';
-import { BreakoutResizer, ignoreResizerMutations } from '@atlaskit/editor-common/resizer';
+import { ignoreResizerMutations } from '@atlaskit/editor-common/resizer';
 import type { ExtractInjectionAPI, getPosHandlerNode } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
-import type { Schema, DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LayoutPlugin } from '../layoutPluginType';
-import { selectIntoLayout } from '../pm-plugins/utils';
 import type { LayoutPluginOptions } from '../types';
 import { LayoutSSRReactContextsProvider } from '../ui/LayoutSSRReactContextsProvider';
 import { isEmptyLayout } from './utils';
@@ -34,106 +27,6 @@ type LayoutSectionViewProps = {
 	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
 	portalProviderAPI: PortalProviderAPI;
 	view: EditorView;
-};
-
-const layoutDynamicFullWidthGuidelineOffset = 16;
-
-const isBreakoutAvailable = (schema: Schema) => {
-	return Boolean(schema.marks.breakout);
-};
-
-const selector = (
-	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<LayoutPlugin>, 'editorDisabled'>,
-) => {
-	return {
-		editorDisabled: states.editorDisabledState?.editorDisabled,
-	};
-};
-
-const LayoutBreakoutResizer = ({
-	pluginInjectionApi,
-	forwardRef,
-	getPos,
-	view,
-	parentRef,
-}: {
-	forwardRef: ForwardRef;
-	getPos: getPosHandlerNode;
-	parentRef?: HTMLElement;
-	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
-	view: EditorView;
-}) => {
-	const { editorDisabled } = useSharedPluginStateWithSelector(
-		pluginInjectionApi,
-		['editorDisabled'],
-		selector,
-	);
-	const interactionState = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'interaction.interactionState',
-	);
-
-	const getEditorWidth = () => {
-		return pluginInjectionApi?.width?.sharedState.currentState();
-	};
-
-	const displayGapCursor = useCallback(
-		(toggle: boolean) => {
-			return (
-				pluginInjectionApi?.core?.actions.execute(
-					pluginInjectionApi?.selection?.commands.displayGapCursor(toggle),
-				) ?? false
-			);
-		},
-		[pluginInjectionApi],
-	);
-
-	const displayGuidelines = useCallback(
-		(guidelines: GuidelineConfig[]) => {
-			pluginInjectionApi?.guideline?.actions?.displayGuideline(view)({
-				guidelines,
-			});
-		},
-		[pluginInjectionApi, view],
-	);
-
-	// we want to hide the floating toolbar for other nodes.
-	// e.g. info panel inside the current layout section
-	const selectIntoCurrentLayout = useCallback(() => {
-		const pos = getPos();
-		if (pos === undefined) {
-			return;
-		}
-		// put the selection into the first column of the layout
-		selectIntoLayout(view, pos, 0);
-	}, [getPos, view]);
-
-	return (
-		<BreakoutResizer
-			getRef={forwardRef}
-			getPos={getPos}
-			editorView={view}
-			nodeType="layoutSection"
-			getEditorWidth={getEditorWidth}
-			disabled={
-				editorExperiment('platform_editor_breakout_resizing', true)
-					? true
-					: editorDisabled === true || !isBreakoutAvailable(view.state.schema)
-			}
-			hidden={interactionState === 'hasNotHadInteraction'}
-			parentRef={parentRef}
-			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
-			displayGuidelines={
-				editorExperiment('single_column_layouts', true) ? displayGuidelines : undefined
-			}
-			displayGapCursor={displayGapCursor}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			onResizeStart={() => {
-				selectIntoCurrentLayout();
-			}}
-			dynamicFullWidthGuidelineOffset={layoutDynamicFullWidthGuidelineOffset}
-		/>
-	);
 };
 
 type ForwardRef = (ref: HTMLElement | null) => void;
@@ -291,19 +184,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 			);
 		}
 
-		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
-			return null;
-		}
-
-		return (
-			<LayoutBreakoutResizer
-				pluginInjectionApi={props.pluginInjectionApi}
-				forwardRef={forwardRef}
-				getPos={props.getPos}
-				view={props.view}
-				parentRef={this.layoutDOM}
-			/>
-		);
+		return null;
 	}
 
 	/**

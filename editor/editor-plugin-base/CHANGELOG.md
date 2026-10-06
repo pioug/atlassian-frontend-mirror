@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-base
 
+## 25.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.1.0
+
+### Minor Changes
+
+- [`d3bd4926ec829`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3bd4926ec829) -
+  Add experiment platform_editor_remove_legacy_perf_events; when enabled, skip the frozenEditor
+  plugin so browserFreeze, slowInput, inputPerfSampling and inputPerfSamplingAvg analytics events
+  are no longer fired. Adds `@atlaskit/platform-feature-experiments` dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

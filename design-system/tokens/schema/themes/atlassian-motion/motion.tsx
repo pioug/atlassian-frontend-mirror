@@ -49,10 +49,19 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			},
 		},
 		input: {
-			value: {
-				duration: 'Duration150',
-				curve: 'EasePracticalOut',
-				properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
+			'[default]': {
+				value: {
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
+				},
+			},
+			selection: {
+				value: {
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor', 'BorderColor', 'Color', 'Fill', 'Stroke', 'Opacity'],
+				},
 			},
 		},
 		form: {

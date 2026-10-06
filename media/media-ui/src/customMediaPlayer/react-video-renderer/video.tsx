@@ -12,11 +12,31 @@ import {
 	type MediaHTMLAttributes,
 } from 'react';
 
-import { jsx } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 
+import { type WithInsetViewerProps, withInsetViewer } from '../insetViewerContext/withInsetViewer';
 import { type VideoTextTracks, type VideoTextTrackKind, getVideoTextTrackId } from './text';
 import { TextTracks } from './track';
 import { requestFullScreen } from './utils';
+
+const videoElementStyles = cssMap({
+	insetViewer: {
+		display: 'block',
+		flex: 'none',
+		alignSelf: 'center',
+		justifySelf: 'center',
+		width: 'auto',
+		height: '100%',
+		maxWidth: '100%',
+		maxHeight: '100%',
+		minWidth: 0,
+		minHeight: 0,
+		objectFit: 'contain',
+		borderRadius: token('radius.large'),
+		overflow: 'hidden',
+	},
+});
 
 export type VideoStatus = 'playing' | 'paused' | 'errored';
 export type VideoError = MediaError | null;
@@ -76,6 +96,7 @@ export interface VideoProps {
 	crossOrigin?: MediaHTMLAttributes<HTMLVideoElement & HTMLAudioElement>['crossOrigin'];
 	textTracks?: VideoTextTracks;
 	textTracksPosition?: number;
+	onVideoElementChange?: (video: HTMLVideoElement | null) => void;
 	onTextTrackLoaded?: () => void;
 	onTextTrackError?: (artifactName: string, lang: string, label: string) => void;
 	onCanPlay?: (event: SyntheticEvent<SourceElement>) => void;
@@ -110,7 +131,7 @@ const isSafari =
 		? /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
 		: false;
 
-export class Video extends Component<VideoProps, VideoComponentState> {
+class _Video extends Component<VideoProps & WithInsetViewerProps, VideoComponentState> {
 	previousVolume: number = 1;
 	previousTime: number = -1;
 	videoRef: RefObject<HTMLVideoElement> = React.createRef();
@@ -129,7 +150,7 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 
 	static defaultProps: {
 		defaultTime: () => number;
-		sourceType: string;
+		sourceType: 'video' | 'audio';
 		autoPlay: boolean;
 		controls: boolean;
 		preload: string;
@@ -148,10 +169,28 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 		}
 	};
 
+	componentDidMount(): void {
+		if (this.props.sourceType === 'video') {
+			this.props.onVideoElementChange?.(this.videoRef.current);
+		}
+	}
+
 	componentDidUpdate(prevProps: VideoProps): void {
-		const { src } = this.props;
+		const { onVideoElementChange, sourceType, src } = this.props;
 		const { currentTime, status } = this.state;
 		const hasSrcChanged = prevProps.src !== src;
+
+		if (
+			prevProps.onVideoElementChange !== onVideoElementChange ||
+			prevProps.sourceType !== sourceType
+		) {
+			if (prevProps.sourceType === 'video') {
+				prevProps.onVideoElementChange?.(null);
+			}
+			if (sourceType === 'video') {
+				onVideoElementChange?.(this.videoRef.current);
+			}
+		}
 
 		if (hasSrcChanged) {
 			this.hasCanPlayTriggered = false;
@@ -161,6 +200,12 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 			}
 
 			this.navigate(currentTime);
+		}
+	}
+
+	componentWillUnmount(): void {
+		if (this.props.sourceType === 'video') {
+			this.props.onVideoElementChange?.(null);
 		}
 	}
 
@@ -370,6 +415,7 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 			crossOrigin,
 			textTracks,
 			textTracksPosition,
+			isInsetViewer,
 			onTextTrackLoaded,
 			onTextTrackError,
 		} = this.props;
@@ -394,7 +440,13 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 		if (sourceType === 'video') {
 			return children(
 				// eslint-disable-next-line @atlassian/a11y/media-has-caption
-				<video data-testid="media-video-element" ref={this.videoRef} poster={poster} {...props}>
+				<video
+					data-testid="media-video-element"
+					ref={this.videoRef}
+					poster={poster}
+					css={[isInsetViewer && videoElementStyles.insetViewer]}
+					{...props}
+				>
 					{textTracks && (
 						<TextTracks
 							videoTextTracks={textTracks}
@@ -414,3 +466,8 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 		}
 	}
 }
+
+export const Video: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<JSX.LibraryManagedAttributes<typeof _Video, VideoProps>> &
+		React.RefAttributes<any>
+> = withInsetViewer(_Video);

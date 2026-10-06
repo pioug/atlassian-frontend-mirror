@@ -1,5 +1,26 @@
 # @atlaskit/editor-synced-block-provider
 
+## 20.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- [`c239b60db852a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c239b60db852a) -
+  Flush removed references that disappear before the first save under
+  platform_editor_blocks_patch_11
+- Updated dependencies
+
 ## 20.0.1
 
 ### Patch Changes

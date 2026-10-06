@@ -49,14 +49,12 @@ export enum ACTION {
 	DISPLAYED = 'displayed',
 	DIVERGED = 'diverged',
 	DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
-	DISPATCHED_VALID_TRANSACTION = 'dispatchedValidTransaction',
 	DOUBLE_CLICKED = 'doubleClicked',
 	DRAGGED = 'dragged',
 	EDITED = 'edited',
 	EDITOR_CRASHED = 'unhandledErrorCaught',
 	EDITOR_CRASHED_ADDITIONAL_INFORMATION = 'unhandledErrorCaughtAdditionalInfov2',
 	EDITOR_MOUNTED = 'mounted',
-	EDITOR_CONTENT_RETRIEVAL_PERFORMED = 'contentRetrievalPerformed',
 	RE_RENDERED = 'reRendered',
 	ENDED = 'ended',
 	ENTERED = 'entered',
@@ -115,7 +113,6 @@ export enum ACTION {
 	PRESSED = 'pressed',
 	QUICK_INSERT_INFORMATION = 'quickInsertInformation',
 	PROSEMIRROR_RENDERED = 'proseMirrorRendered',
-	REACT_NODEVIEW_RENDERED = 'reactNodeViewRendered',
 	REFERENCE_SYNCED_BLOCK_DELETE = 'referenceSyncedBlockDelete',
 	REFERENCE_SYNCED_BLOCK_UPDATE = 'referenceSyncedBlockUpdate',
 	REFERENCE_SYNCED_BLOCK_UNSYNC = 'referenceSyncedBlockUnsync',
@@ -171,18 +168,9 @@ export enum ACTION {
 	UPLOAD_EXTERNAL_FAIL = 'uploadExternalFailed',
 	VIEWED = 'viewed',
 	VISITED = 'visited',
-	WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
 	RENDERED = 'rendered',
-	RENDERED_SAMPLED = 'renderedSampled',
 	REASONING_VIEWED = 'reasoningViewed',
 	ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
-	/**
-	 * @private
-	 * @deprecated
-	 *
-	 * This is no longer used and can be removed at a later date
-	 */
-	ON_CHANGE_CALLBACK = 'onChangeCalled',
 	NESTED_TABLE_TRANSFORMED = 'nestedTableTransformed',
 	CONTAINER_NODE_TRANSFORMED = 'containerNodeTransformed',
 	NATIVE_EMBEDS_TRANSFORMED = 'nativeEmbedsTransformed',

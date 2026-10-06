@@ -250,6 +250,22 @@ describe('React 19 readiness (top-layer)', () => {
 			expect(screen.getByRole('menuitem', { name: 'item' })).toBeInTheDocument();
 		});
 
+		it('does not close a container with no parent menu on ArrowLeft', () => {
+			const onNestedClose = jest.fn();
+			const container = document.createElement('div');
+			const containerRef = { current: container };
+
+			function DetachedMenuHarness() {
+				useArrowNavigation({ containerRef, onClose: noop, onNestedClose });
+				return null;
+			}
+
+			render(<DetachedMenuHarness />);
+			fireEvent.keyDown(container, { key: 'ArrowLeft' });
+
+			expect(onNestedClose).not.toHaveBeenCalled();
+		});
+
 		it('isAtCurrentMenuLevel returns true for a direct menuitem', () => {
 			render(
 				<div role="menu" data-testid="menu">

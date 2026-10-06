@@ -7,7 +7,6 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownMenu, ToolbarTooltip, TextIcon } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import { toolbarBlockTypesWithRank } from '../../block-types';
@@ -87,7 +86,7 @@ export const TextStylesMenuButton = ({
 			label={formatMessage(toolbarMessages.textStyles, {
 				blockTypeName: currentBlockType?.name,
 			})}
-			shouldRenderToParent={fg('platform_editor_return_focus_after_text_styles_2')}
+			shouldRenderToParent
 		>
 			{children}
 		</ToolbarDropdownMenu>

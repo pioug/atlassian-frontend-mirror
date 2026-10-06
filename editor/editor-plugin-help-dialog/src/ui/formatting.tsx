@@ -70,7 +70,6 @@ import {
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -724,19 +723,6 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => {
 	];
 };
 
-const resizeInformationFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
-	{
-		name: formatMessage(messages.increaseSize),
-		type: 'media',
-		keymap: () => increaseMediaSize,
-	},
-	{
-		name: formatMessage(messages.decreaseSize),
-		type: 'media',
-		keymap: () => decreaseMediaSize,
-	},
-];
-
 const newResizeInformationFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 	{
 		name: formatMessage(messages.increaseElementSize),
@@ -870,9 +856,7 @@ export const getSupportedFormatting = (
 		...(imageEnabled ? [imageAutoFormat] : []),
 		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
 		...focusTableResizeHandleFormatting(intl),
-		...(editorExperiment('platform_editor_breakout_resizing', true)
-			? newResizeInformationFormatting(intl)
-			: resizeInformationFormatting(intl)),
+		...newResizeInformationFormatting(intl),
 		...openCellOptionsFormattingtoFormat(intl),
 		...(expValEquals('editor-a11y-fy26-keyboard-move-row-column', 'isEnabled', true)
 			? moveTableRowColumnFormatting(intl)

@@ -104,7 +104,7 @@ export default function useGetWeeks({
 				week = weeks[weeks.length - 1];
 			}
 
-			const weekDayOffset = ((date.weekDay as WeekDay) - weekStartDay) % 7;
+			const weekDayOffset = ((date.weekDay as WeekDay) - weekStartDay + 7) % 7;
 
 			// Define a bunch of `const`s
 			const weekDayName = daysLong[weekDayOffset];

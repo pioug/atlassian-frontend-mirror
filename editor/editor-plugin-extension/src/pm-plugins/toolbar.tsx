@@ -344,9 +344,7 @@ const editButton = (
 			tabIndex: null,
 			focusEditoronEnter: true,
 			disabled: isDisabled,
-			isRadioButton: expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-				? false
-				: undefined,
+			isRadioButton: false,
 		},
 	];
 

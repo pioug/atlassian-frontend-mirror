@@ -493,18 +493,7 @@ describe('AssetsConfigModal', () => {
 				});
 			});
 
-			it('should replace the whole table with the no results screen when the feature gate is off', async () => {
-				failGate('platform_lp_sllv_ux_improvements');
-				const { queryByTestId } = await setupWithNoAssets();
-
-				await waitFor(() => {
-					expect(queryByTestId('datasource-modal--no-results')).toBeInTheDocument();
-				});
-				expect(queryByTestId('asset-datasource-table--head')).not.toBeInTheDocument();
-			});
-
-			it('should keep the table headers and show the no results screen in place of the rows when the feature gate is on', async () => {
-				passGate('platform_lp_sllv_ux_improvements');
+			it('should keep the table headers and show the no results screen in place of the rows', async () => {
 				const { getByTestId, getByText } = await setupWithNoAssets();
 
 				await waitFor(() => {
@@ -912,9 +901,7 @@ describe('AssetsConfigModal', () => {
 			});
 		});
 
-		// PCS-3839755: the zero-result search is the path the escalated customer actually hit, and it
-		// behaves differently depending on platform_lp_sllv_ux_improvements, which decides whether the
-		// hook applies the schema when there are no items.
+		// PCS-3839755: a zero-result search still applies the schema and must preserve selected columns.
 		describe('when a search within the same object schema returns no results', () => {
 			const macroColumnKeys = ['myColumn', 'otherColumn'];
 
@@ -956,7 +943,6 @@ describe('AssetsConfigModal', () => {
 
 			it('should keep the selected columns when the schema is applied without items', async () => {
 				passGate('platform_lp_sllv_preserve_assets_columns');
-				passGate('platform_lp_sllv_ux_improvements');
 
 				// The request still asks for the selection, so the schema comes back narrowed to it
 				await expect(searchToNoResultsAndInsert(macroColumnKeys)).resolves.toEqual(macroColumnKeys);

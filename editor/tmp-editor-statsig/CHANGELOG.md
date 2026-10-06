@@ -1,5 +1,42 @@
 # @atlaskit/editor-statsig-tmp
 
+## 224.0.0
+
+### Major Changes
+
+- [`0a81f6fa7cbf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a81f6fa7cbf8) -
+  Clean up experiment `platform_editor_breakout_resizing`. Behind the
+  `platform_editor_list_join_strip_breakout` experiment, strip the breakout mark from a code block
+  before nesting it into a list item when joining from a gap cursor. Behind the
+  `platform_editor_resizer_selector_jsdom_fix` experiment, make the panel and rule breakout resizer
+  selectors parseable by jsdom (`> *[data-prosemirror-node-name=…]`).
+- [`042fa402a6460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/042fa402a6460) -
+  Clean up experiment `platform_editor_august_a11y`
+
+## 223.0.0
+
+### Major Changes
+
+- [`76b3320456e72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76b3320456e72) -
+  Clean up experiment `platform_editor_layout_column_selection_fix`
+
+## 222.0.0
+
+### Major Changes
+
+- [`87f9b3351bb45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87f9b3351bb45) -
+  Clean up the fully-released `cc-disambiguation-in-cwr` and
+  `rovo-include-full-context-on-confirmed-tools` experiments, keeping the treatment behavior and
+  removing the associated tests. Background confirmed-tools requests from the bridge handlers now
+  always send the full chat-mode context. `@atlaskit/tmp-editor-statsig` also removes the
+  `cc-disambiguation-in-cwr` entry from `editorExperimentsConfig` and `exp-test-overrides`; per that
+  package's own PR checklist, experiment removal is a MAJOR change since any TypeScript consumer
+  indexing the removed key would see a compile error.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.0.0
 
 ### Major Changes

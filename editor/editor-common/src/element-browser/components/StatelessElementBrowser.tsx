@@ -442,11 +442,7 @@ function MobileBrowser({
 						searchTerm={searchTerm}
 						items={items}
 						selectedItemIndex={selectedItemIndex}
-						ariaControlsId={
-							expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-								? ELEMENT_BROWSER_LIST_ID
-								: undefined
-						}
+						ariaControlsId={ELEMENT_BROWSER_LIST_ID}
 					/>
 				)}
 				{showCategories && (
@@ -463,14 +459,7 @@ function MobileBrowser({
 					</nav>
 				)}
 			</div>
-			<div
-				css={mobileMainContent}
-				id={
-					expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-						? ELEMENT_BROWSER_LIST_ID
-						: undefined
-				}
-			>
+			<div css={mobileMainContent} id={ELEMENT_BROWSER_LIST_ID}>
 				<ElementList
 					items={items}
 					mode={mode}

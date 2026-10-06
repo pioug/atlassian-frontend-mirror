@@ -18,7 +18,6 @@ import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-cont
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EVENT_CHANNEL } from '../../analytics/constants';
 import { Store } from '../../state';
@@ -331,18 +330,7 @@ describe('useDatasourceTableState', () => {
 				return setup();
 			};
 
-			it('should not populate columns when the feature gate is off', async () => {
-				failGate('platform_lp_sllv_ux_improvements');
-				const { result } = setupWithNoItems();
-
-				await waitFor(() => {
-					expect(result.current.columns.length).toEqual(0);
-					expect(result.current.defaultVisibleColumnKeys.length).toEqual(0);
-				});
-			});
-
-			it('should populate columns so the table can keep its headers when the feature gate is on', async () => {
-				passGate('platform_lp_sllv_ux_improvements');
+			it('should populate columns so the table can keep its headers', async () => {
 				const expectedProperties = mockDatasourceDataResponseWithSchema.data.schema?.properties;
 				const { result } = setupWithNoItems();
 

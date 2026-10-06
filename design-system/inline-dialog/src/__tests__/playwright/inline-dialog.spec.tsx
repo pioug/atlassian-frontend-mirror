@@ -95,7 +95,10 @@ test('InlineDialog should close correctly after modal is closed', async ({ page 
 	await page.locator(openModalBtn).first().click();
 	await expect(page.locator(modalTestId).first()).toBeVisible();
 	await page.locator("[data-testid='modal--blanket']").first().click();
-	await page.locator('#examples').first().click();
+	await page
+		.locator(process.env.INTEGRATION_BUNDLER === 'ap' ? '#root' : '#examples')
+		.first()
+		.click();
 	await expect(page.locator(inlineDialogBtn).first()).toBeVisible();
 
 	expect(await page.webdriverCompatUtils.isDetached(modalTestId)).toBe(true);

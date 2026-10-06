@@ -28,13 +28,13 @@
 		"./plugin": "./src/plugin/index.ts"
 	},
 	"scripts": {
-		"lint": "(cd ../../.. && yarn eslint 'packages/connect/simple-xdm/**/*.{ts,tsx}')",
-		"test": "(cd ../../.. && yarn test 'packages/connect/simple-xdm')",
-		"test:watch": "(cd ../../.. && yarn test 'packages/connect/simple-xdm' --watch)",
+		"lint": "(cd ../../.. && eslint 'packages/connect/simple-xdm/**/*.{ts,tsx}')",
+		"test": "(cd ../../.. && afm run test -- 'packages/connect/simple-xdm')",
+		"test:watch": "(cd ../../.. && afm run test -- 'packages/connect/simple-xdm' --watch)",
 		"typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json",
-		"format:prettier": "(cd ../../.. && yarn run prettier --write --no-editorconfig 'packages/connect/simple-xdm/**/*.{js,ts,tsx,md,mdx}')",
-		"eslint:fix": "(cd ../../.. && yarn eslint --fix 'packages/connect/simple-xdm/**/*.{ts,tsx}')",
-		"lint:fix": "yarn eslint:fix && yarn format:prettier"
+		"format:prettier": "(cd ../../.. && prettier --write --no-editorconfig 'packages/connect/simple-xdm/**/*.{js,ts,tsx,md,mdx}')",
+		"eslint:fix": "(cd ../../.. && eslint --fix 'packages/connect/simple-xdm/**/*.{ts,tsx}')",
+		"lint:fix": "afm run eslint:fix && afm run format:prettier"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",

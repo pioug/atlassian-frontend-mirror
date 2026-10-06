@@ -34,6 +34,7 @@ import {
 	findPositionOfNodeBefore,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -439,9 +440,15 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
 				if (typeof nodeBeforePos !== 'number') {
 					return false;
 				}
+				// breakout marks are not valid inside a listItem
+				const { breakout } = state.schema.marks;
+				const nodeToNest =
+					breakout && isExperimentEnabled('platform_editor_list_join_strip_breakout')
+						? $cut.nodeAfter.mark(breakout.removeFromSet($cut.nodeAfter.marks))
+						: $cut.nodeAfter;
 				// append the codeblock to the list node
 				const list = $cut.nodeBefore.copy(
-					$cut.nodeBefore.content.append(Fragment.from(listItem.createChecked({}, $cut.nodeAfter))),
+					$cut.nodeBefore.content.append(Fragment.from(listItem.createChecked({}, nodeToNest))),
 				);
 				tr.replaceWith(nodeBeforePos, $from.pos + $cut.nodeAfter.nodeSize, list);
 			} else {

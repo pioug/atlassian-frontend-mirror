@@ -73,12 +73,18 @@ export type AnnotationDraftStartedData = {
 	 */
 	inlineNodeTypes: string[];
 	targetElement: HTMLElement | undefined;
+	/** The type of the node the draft targets, e.g. `'media'`. Undefined for an inline text draft. */
+	targetNodeType?: string;
 };
 
 export type AnnotationSelectedChangeData = {
 	annotationId: AnnotationId;
 	inlineNodeTypes: string[];
 	isSelected: boolean;
+	/** The type of the node the annotation is on, e.g. `'media'`. Undefined for inline text. */
+	targetNodeType?: string;
+	/** How the annotation came to be selected, for analytics parity with the surface events. */
+	viewMethod?: string;
 };
 
 export type AnnotationManagerEvents =
@@ -98,7 +104,10 @@ export type AnnotationManagerEvents =
 export type ManagerFailureReasons = 'manager-not-initialized' | 'hook-execution-error';
 
 export type StartDraftResult =
-	| { reason: ManagerFailureReasons | 'invalid-range' | 'draft-in-progress'; success: false }
+	| {
+			reason: ManagerFailureReasons | 'invalid-range' | 'draft-in-progress' | 'invalid-localId';
+			success: false;
+	  }
 	| ({ success: true } & AnnotationDraftStartedData);
 
 export type ClearDraftResult =
@@ -146,6 +155,14 @@ export type HoverAnnotationResult =
 			success: true;
 	  };
 
+export type ClearSelectedAnnotationResult =
+	| { reason: ManagerFailureReasons | 'draft-in-progress'; success: false }
+	| { annotationId: AnnotationId | undefined; success: true };
+
+export type ClearHoveredAnnotationResult =
+	| { reason: ManagerFailureReasons; success: false }
+	| { annotationId: AnnotationId | undefined; success: true };
+
 /**
  * This is the list of methods which exist on the Manager interface. These are the methods that can be hooked into.
  */
@@ -167,6 +184,19 @@ export type AnnotationManagerMethods = {
 	clearDraft: () => ClearDraftResult;
 
 	/**
+	 * Clears the hover state without needing to know which annotation is hovered.
+	 * @returns The annotation that was hovered, or undefined when nothing was.
+	 */
+	clearHoveredAnnotation: () => ClearHoveredAnnotationResult;
+
+	/**
+	 * Deselects the selected annotation without needing to know which one it is, for surfaces
+	 * outside the document (the comments panel, the comment button) that only want to clear it.
+	 * @returns The annotation that was selected, or undefined when nothing was.
+	 */
+	clearSelectedAnnotation: () => ClearSelectedAnnotationResult;
+
+	/**
 	 * This can be used to inspect the current active draft.
 	 * @returns The current draft data. If the draft is not started, it will return an error.
 	 */
@@ -174,7 +204,14 @@ export type AnnotationManagerMethods = {
 
 	setIsAnnotationHovered: (id: AnnotationId, isHovered: boolean) => HoverAnnotationResult;
 	setIsAnnotationSelected: (id: AnnotationId, isSelected: boolean) => SelectAnnotationResult;
-	startDraft: () => StartDraftResult;
+	/**
+	 * Starts a draft annotation.
+	 *
+	 * @param localId Targets the block node with this `localId`, resolving to its closest
+	 * annotatable ancestor when the node itself does not accept annotations. Without it the draft
+	 * targets the current text selection.
+	 */
+	startDraft: (localId?: string) => StartDraftResult;
 };
 
 /*
@@ -221,12 +258,17 @@ export type AnnotationManager = AnnotationManagerMethods & {
 		handler: (data: AnnotationSelectedChangeData) => void,
 	) => AnnotationManager;
 
+	offDraftAnnotationCleared: (handler: () => void) => AnnotationManager;
+
 	offDraftAnnotationStarted: (
 		handler: (data: AnnotationDraftStartedData) => void,
 	) => AnnotationManager;
 	onAnnotationSelectionChange: (
 		handler: (data: AnnotationSelectedChangeData) => void,
 	) => AnnotationManager;
+
+	/** Subscribe to `draftAnnotationCleared`, fired when an in-progress draft is discarded. */
+	onDraftAnnotationCleared: (handler: () => void) => AnnotationManager;
 
 	onDraftAnnotationStarted: (
 		handler: (data: AnnotationDraftStartedData) => void,

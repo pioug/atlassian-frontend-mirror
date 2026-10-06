@@ -198,18 +198,24 @@ Dialog                = <dialog> element + isOpen + shouldAnimate + onExitFinish
 
 ### Entry points
 
-| Entry Point                                    | Purpose                                             |
-| ---------------------------------------------- | --------------------------------------------------- |
-| `@atlaskit/top-layer/popover`                  | Top-layer primitive and legacy `onClose` bridge     |
-| `@atlaskit/top-layer/popover-surface`          | Presentational surface (background, radius, shadow) |
-| `@atlaskit/top-layer/dialog`                   | Modal dialog and legacy `onClose` bridge            |
-| `@atlaskit/top-layer/use-anchored-popover`     | Anchor positioning and anchor-relative sizing       |
-| `@atlaskit/top-layer/resolve-placement`        | `TPlacementOptions` and `resolvePlacement`          |
-| `@atlaskit/top-layer/use-arrow-navigation`     | Arrow key navigation hook for composite widgets     |
-| `@atlaskit/top-layer/use-simple-light-dismiss` | Light dismiss for manual popovers                   |
-| `@atlaskit/top-layer/placement-map`            | Legacy placement string conversion                  |
-| `@atlaskit/top-layer/dialog-scroll-lock`       | Background scroll prevention for modals             |
-| `@atlaskit/top-layer/focus`                    | Focus utilities (focus wrapping, initial focus)     |
+The clean subpaths (`/popover`, `/dialog`, `/placement-map`, `/use-arrow-navigation`) are deprecated
+re-export shims. Use the per-export subpaths below.
+
+| Entry Point                                                        | Purpose                                             |
+| ------------------------------------------------------------------ | --------------------------------------------------- |
+| `@atlaskit/top-layer/popover/popover`                              | Top-layer primitive                                 |
+| `@atlaskit/top-layer/popover/create-close-event`                   | Legacy `onClose` bridge for `Popover`               |
+| `@atlaskit/top-layer/popover-surface`                              | Presentational surface (background, radius, shadow) |
+| `@atlaskit/top-layer/dialog-content`                               | Modal dialog                                        |
+| `@atlaskit/top-layer/create-close-event`                           | Legacy `onClose` bridge for `Dialog`                |
+| `@atlaskit/top-layer/use-anchored-popover`                         | Anchor positioning and anchor-relative sizing       |
+| `@atlaskit/top-layer/use-anchored-popover-at-point`                | Anchor positioning at a point                       |
+| `@atlaskit/top-layer/resolve-placement`                            | `TPlacementOptions` and `resolvePlacement`          |
+| `@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation`    | Arrow key navigation hook for composite widgets     |
+| `@atlaskit/top-layer/use-simple-light-dismiss`                     | Light dismiss for manual popovers                   |
+| `@atlaskit/top-layer/placement-map/index`                          | Legacy placement string conversion                  |
+| `@atlaskit/top-layer/dialog-scroll-lock`                           | Background scroll prevention for modals             |
+| `@atlaskit/top-layer/get-first-focusable` (and `-last-`, `-next-`) | Focusable element queries                           |
 
 ### Focus management
 

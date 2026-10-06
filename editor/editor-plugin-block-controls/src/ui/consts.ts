@@ -84,10 +84,7 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string): number
 			: breakoutResizableNodesNew;
 	}
 
-	if (
-		editorExperiment('platform_editor_breakout_resizing', true) &&
-		breakoutResizableNodesList.includes(nodeType)
-	) {
+	if (breakoutResizableNodesList.includes(nodeType)) {
 		if (nodeType === 'layoutSection') {
 			return DRAG_HANDLE_MAX_GAP + 20;
 		} else {
@@ -120,11 +117,7 @@ export const rootElementGap = (nodeType: string): number => {
 			: breakoutResizableNodesNew;
 	}
 
-	if (
-		nodeTypeExcludeList.includes(nodeType) ||
-		(editorExperiment('platform_editor_breakout_resizing', true) &&
-			breakoutResizableNodesList.includes(nodeType))
-	) {
+	if (nodeTypeExcludeList.includes(nodeType) || breakoutResizableNodesList.includes(nodeType)) {
 		if (nodeType === 'layoutSection') {
 			return DRAG_HANDLE_MAX_GAP + 20;
 		} else {

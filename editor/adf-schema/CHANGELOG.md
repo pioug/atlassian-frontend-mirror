@@ -1,5 +1,23 @@
 # @atlaskit/adf-schema
 
+## 57.6.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.6.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.6.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 57.6.21
 
 ### Patch Changes

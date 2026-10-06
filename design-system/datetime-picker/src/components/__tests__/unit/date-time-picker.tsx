@@ -5,9 +5,18 @@ import userEvent, { type UserEvent } from '@testing-library/user-event';
 
 import Select from '@atlaskit/select/default';
 import type { OptionsType } from '@atlaskit/select/types';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { type DateTimePickerBaseProps } from '../../../types';
 import DateTimePicker from '../../date-time-picker';
+
+const inputMotionGate = 'platform-dst-motion-uplift-input';
+const inputTransition =
+	'var(--ds-input,background-color border-color box-shadow .15s cubic-bezier(.4,1,.6,1))';
+const legacyTransition = 'background-color .2s ease-in-out,border-color .2s ease-in-out';
+const focusedShadow = 'inset 0 0 0 var(--ds-border-width,1px) var(--ds-border-focused,#4688ec)';
+const invalidShadow = 'inset 0 0 0 var(--ds-border-width,1px) var(--ds-border-danger,#e2483d)';
+const focusRing = /^0 0 0 .*--ds-border-focused.*, inset 0 0 0 .*--ds-border-focused/;
 
 jest.mock('@atlaskit/select/default', () => ({
 	...jest.requireActual('@atlaskit/select/default'),
@@ -572,6 +581,134 @@ describe('DateTimePicker', () => {
 			await user.tab();
 
 			expect(calendarButton).toHaveFocus();
+		});
+	});
+
+	describe('motion', () => {
+		it('uses the input motion token for rest, focus, and blur when the input motion gate is on', () => {
+			passGate(inputMotionGate);
+			render(createDateTimePicker());
+
+			const container = screen.getByTestId(testId);
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+			expect(container).toHaveCompiledCss(
+				'border',
+				'var(--ds-border-width,1px) solid var(--ds-border-input,#8c8f97)',
+			);
+
+			firePickerEvent.focusDate();
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+
+			firePickerEvent.blurDate();
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+		});
+
+		const getControlStyles = (pickerTestId: string, state: { isFocused: boolean }) => {
+			const calls = (Select as unknown as jest.Mock).mock.calls.filter(
+				([props]) => props.testId === pickerTestId,
+			);
+			const { styles } = calls[calls.length - 1][0];
+			return styles.control({}, { isDisabled: false, ...state });
+		};
+
+		it('draws the focus ring on the focused input only when the input motion gate is on', () => {
+			passGate(inputMotionGate);
+			render(createDateTimePicker());
+
+			firePickerEvent.focusDate();
+			expect(screen.getByTestId(testId)).not.toHaveCompiledCss('box-shadow', focusedShadow);
+
+			const focusedDate = getControlStyles(`${testId}--datepicker`, { isFocused: true });
+			expect(focusedDate.boxShadow).toMatch(focusRing);
+			expect(focusedDate.borderStartStartRadius).toBeDefined();
+			expect(focusedDate.borderEndStartRadius).toBeDefined();
+			expect(focusedDate.borderStartEndRadius).toBeUndefined();
+
+			expect(getControlStyles(`${testId}--datepicker`, { isFocused: false }).boxShadow).toBe(
+				'none',
+			);
+
+			const focusedTime = getControlStyles(`${testId}--timepicker`, { isFocused: true });
+			expect(focusedTime.boxShadow).toMatch(focusRing);
+			expect(focusedTime.borderStartEndRadius).toBeDefined();
+			expect(focusedTime.borderEndEndRadius).toBeDefined();
+			expect(focusedTime.borderStartStartRadius).toBeUndefined();
+		});
+
+		it('keeps the time input corners square when the clear button follows it', () => {
+			passGate(inputMotionGate);
+			render(createDateTimePicker({ value: todayISO }));
+
+			const focusedTime = getControlStyles(`${testId}--timepicker`, { isFocused: true });
+			expect(focusedTime.boxShadow).toMatch(focusRing);
+			expect(focusedTime.borderStartEndRadius).toBeUndefined();
+			expect(focusedTime.borderEndEndRadius).toBeUndefined();
+		});
+
+		it('keeps the legacy inner focus treatment when the input motion gate is off', () => {
+			failGate(inputMotionGate);
+			render(createDateTimePicker());
+
+			const focusedDate = getControlStyles(`${testId}--datepicker`, { isFocused: true });
+			expect(focusedDate.boxShadow).toBeUndefined();
+			expect(focusedDate.borderStartStartRadius).toBeUndefined();
+			expect(focusedDate.borderRadius).toBe(0);
+		});
+
+		it('matches the invalid treatment of the other pickers when the input motion gate is on', () => {
+			passGate(inputMotionGate);
+			render(createDateTimePicker({ isInvalid: true }));
+
+			const container = screen.getByTestId(testId);
+			expect(container).toHaveCompiledCss('box-shadow', invalidShadow);
+			expect(container).toHaveCompiledCss('border-color', 'var(--ds-border-danger,#e2483d)');
+		});
+
+		it('uses the input motion token when the input becomes invalid', () => {
+			passGate(inputMotionGate);
+			const { rerender } = render(createDateTimePicker());
+
+			const container = screen.getByTestId(testId);
+			rerender(createDateTimePicker({ isInvalid: true }));
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+			expect(container).toHaveCompiledCss('border-color', 'var(--ds-border-danger,#e2483d)');
+
+			rerender(createDateTimePicker());
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+		});
+
+		it('preserves the legacy transition when the input motion gate is off', () => {
+			failGate(inputMotionGate);
+			render(createDateTimePicker());
+
+			const container = screen.getByTestId(testId);
+			expect(container).toHaveCompiledCss('transition', legacyTransition);
+
+			firePickerEvent.focusDate();
+			expect(container).toHaveCompiledCss('transition', legacyTransition);
+		});
+
+		it('retains non-spatial input transitions under reduced motion', () => {
+			passGate(inputMotionGate);
+			render(createDateTimePicker());
+
+			const container = screen.getByTestId(testId);
+			expect(container).toHaveCompiledCss('transition', inputTransition);
+			expect(container).not.toHaveCompiledCss('transition', 'none', {
+				media: '(prefers-reduced-motion: reduce)',
+			});
+			expect(container).not.toHaveCompiledCss('transition-duration', '0s', {
+				media: '(prefers-reduced-motion: reduce)',
+			});
+		});
+
+		it('does not apply interactive motion to disabled inputs', () => {
+			passGate(inputMotionGate);
+			render(createDateTimePicker({ isDisabled: true }));
+
+			const container = screen.getByTestId(testId);
+			expect(container).not.toHaveCompiledCss('transition', inputTransition);
+			expect(container).not.toHaveCompiledCss('transition', legacyTransition);
 		});
 	});
 });

@@ -28,7 +28,7 @@
 		"team": "Design System Team"
 	},
 	"scripts": {
-		"prestart": "cd ../../ && yarn build @atlaskit/codemod-utils tokens",
+		"prestart": "cd ../../ && afm run build -- @atlaskit/codemod-utils tokens",
 		"start": "./bin/codemod-cli.js"
 	},
 	"bin": "./bin/codemod-cli.js",

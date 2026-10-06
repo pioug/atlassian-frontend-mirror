@@ -580,9 +580,14 @@ const DatePicker: React.ForwardRefExoticComponent<
 		menuInnerWrapper: props?.menuInnerWrapper,
 	};
 
+	const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
+
 	const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 		control: (base: any) => ({
 			...base,
+			...(isInputMotionEnabled && !isDisabled
+				? { transition: base.transition ?? token('motion.input') }
+				: {}),
 			...disabledStyle,
 		}),
 		indicatorsContainer: (base) => ({

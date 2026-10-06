@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d10e1ed23a4336f1a8559e94d0e7153>>
+ * @codegen <<SignedSource::da60c3a2026429deb1b6ff29f115684e>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -267,6 +267,7 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-form-message-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom2px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
   --ds-form-message-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-input: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1);
+  --ds-input-selection: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), fill 150ms cubic-bezier(0.4, 1, 0.6, 1), stroke 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-keyframe-fade-in: FadeIn0to100;
   --ds-keyframe-fade-out: FadeOut100to0;
   --ds-keyframe-grid-column-in: GridColumnIn80to100;

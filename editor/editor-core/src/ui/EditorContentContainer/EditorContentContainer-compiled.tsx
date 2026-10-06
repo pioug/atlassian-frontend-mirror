@@ -5128,7 +5128,7 @@ const editorContentStyles = cssMapScoped({
 	},
 	pragmaticResizerStylesCodeBlockSyncedBlockPatch: {
 		'.fabric-editor-breakout-mark': {
-			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="codeBlock"])': {
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="codeBlock"])': {
 				'> .pm-breakout-resize-handle-container--left': {
 					left: '-5px',
 				},
@@ -5235,6 +5235,41 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"].first-node-in-document)':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						transform: 'translateY(-14px)',
+					},
+				},
+		},
+	},
+	pragmaticResizerStylesPanelAndRuleJsdomFix: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="panel"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="panel_c1"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="rule"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					alignSelf: 'center',
+					height: '40px',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="rule"].first-node-in-document)':
 				{
 					'> .pm-breakout-resize-handle-container': {
 						transform: 'translateY(-14px)',
@@ -8643,28 +8678,28 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.linkStyles,
 				browser.safari && editorContentStyles.listsStylesSafariFix,
 				editorContentStyles.pragmaticResizerStylesSyncedBlock,
-				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					editorContentStyles.pragmaticResizerStyles,
-				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					expValEqualsNoExposure(
-						'platform_editor_lovability_resize_dividers_panels',
-						'isEnabled',
-						true,
-					) &&
+				editorContentStyles.pragmaticResizerStyles,
+				expValEqualsNoExposure(
+					'platform_editor_lovability_resize_dividers_panels',
+					'isEnabled',
+					true,
+				) &&
+					isExperimentEnabled('platform_editor_resizer_selector_jsdom_fix') &&
+					editorContentStyles.pragmaticResizerStylesPanelAndRuleJsdomFix,
+				expValEqualsNoExposure(
+					'platform_editor_lovability_resize_dividers_panels',
+					'isEnabled',
+					true,
+				) &&
+					!isExperimentEnabled('platform_editor_resizer_selector_jsdom_fix') &&
 					editorContentStyles.pragmaticResizerStylesPanelAndRule,
-				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
+				isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
 					editorContentStyles.pragmaticResizerStylesExtensions,
-				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch,
+				editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch,
 				editorExperiment('advanced_layouts', true) &&
-					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
 					editorContentStyles.pragmaticStylesLayoutFirstNodeResizeHandleFix,
-				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					editorContentStyles.pragmaticResizerStylesForTooltip,
+				editorContentStyles.pragmaticResizerStylesForTooltip,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
-					(editorExperiment('advanced_layouts', true) ||
-						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)) &&
 					editorContentStyles.pragmaticResizerStylesWithReducedEditorGutter,
 				editorContentStyles.aiPanelBaseStyles,
 				isFirefox && editorContentStyles.aiPanelBaseFirefoxStyles,

@@ -19,11 +19,6 @@ import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
 import type { PortalProviderAPI } from '../portal';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
-import {
-	getPerformanceOptions,
-	startMeasureReactNodeViewRendered,
-	stopMeasureReactNodeViewRendered,
-} from '../utils';
 import { analyticsEventKey } from '../utils/analytics';
 import { generateUniqueNodeKey } from './generateUniqueNodeKey';
 import type {
@@ -127,10 +122,6 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		// difference between them and it kills the nodeView
 		this.domRef.classList.add(`${this.node.type.name}View-content-wrap`);
 
-		const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(this.view);
-
-		trackingEnabled && startMeasureReactNodeViewRendered({ nodeTypeName: this.node.type.name });
-
 		if (!shouldSkipInitRender) {
 			this.renderReactComponent(() => this.render(this.reactComponentProps, this.handleRef));
 
@@ -149,14 +140,6 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 				}
 			}
 		}
-
-		trackingEnabled &&
-			stopMeasureReactNodeViewRendered({
-				nodeTypeName: this.node.type.name,
-				dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-				samplingRate,
-				slowThreshold,
-			});
 
 		return this;
 	}

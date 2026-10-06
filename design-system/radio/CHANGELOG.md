@@ -1,5 +1,13 @@
 # @atlaskit/radio
 
+## 10.2.5
+
+### Patch Changes
+
+- [`40a0bb1e41cf6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40a0bb1e41cf6) -
+  Add 150ms cross-fades for interaction states behind platform_design_system_selection_radial_fade.
+- Updated dependencies
+
 ## 10.2.4
 
 ### Patch Changes

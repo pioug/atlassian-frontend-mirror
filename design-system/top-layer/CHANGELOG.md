@@ -1,5 +1,28 @@
 # @atlaskit/top-layer
 
+## 6.2.1
+
+### Patch Changes
+
+- [`26ee4b1f57a30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26ee4b1f57a30) -
+  Fix nested-menu detection and read arrow-navigation focus from the container's document.
+
+## 6.2.0
+
+### Minor Changes
+
+- [`fd59fcdb03cf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd59fcdb03cf1) -
+  `Popover` registers with the open layer observer only when it has an `onClose`, and manual popover
+  props now accept `onClose`.
+
+## 6.1.1
+
+### Patch Changes
+
+- [`1849f66e0bf17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1849f66e0bf17) -
+  Remove an unused internal focus helper and fix stale README examples and import paths.
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @atlaskit/rovo-triggers
 
+## 11.10.0
+
+### Minor Changes
+
+- [`f19e4de2c0467`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f19e4de2c0467) -
+  [ux] clean up rovo_chat_openchatmode_query_param
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.9.0
 
 ### Minor Changes

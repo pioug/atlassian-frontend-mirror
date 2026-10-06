@@ -15,6 +15,17 @@
 - Maintain consistent color usage across components
 - Test color contrast for accessibility
 
+## Interaction state colors
+
+- Use `color.background.selected`, `color.text.selected`, `color.icon.selected`, or
+  `color.border.selected` to communicate a persistent selection.
+- Use `color.border.focused` only to show current keyboard or input focus.
+- Do not use link, brand, or focused tokens to communicate selection.
+- When an element is both selected and focused, preserve its selected treatment and add the focus
+  indicator.
+- Hovered and pressed states are temporary. Apply the matching `hovered` or `pressed` token for the
+  element's current state, and keep a selected element recognizable during interaction.
+
 # Translation from Tailwind
 
 ## To convert

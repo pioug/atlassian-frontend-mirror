@@ -59,23 +59,6 @@ type RendererRenderedAEP = AEP<
 	EVENT_TYPE.OPERATIONAL
 >;
 
-type RendererRenderedSampledAEP = AEP<
-	ACTION.RENDERED_SAMPLED,
-	ACTION_SUBJECT.RENDERER,
-	undefined,
-	{
-		distortedDuration: boolean;
-		duration: number;
-		// the type of nested renderer it is (if it is one) e.g. syncBlock
-		nestedRendererType?: NestedRendererType;
-		nodes: Record<string, number>;
-		platform: PLATFORM.WEB;
-		severity?: SEVERITY;
-		ttfb?: number;
-	},
-	EVENT_TYPE.OPERATIONAL
->;
-
 export type ComponentCrashErrorAEP = OperationalAEP<
 	ACTION.CRASHED,
 	ACTION_SUBJECT.RENDERER,
@@ -429,7 +412,6 @@ export type MBEChangeActiveAnalyticsEvent = AEP<
 export type AnalyticsEventPayload<_T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
-	| RendererRenderedSampledAEP
 	| ComponentCrashErrorAEP
 	| RendererUnsupportedContentLevelsTrackingSucceeded
 	| RendererUnsupportedContentLevelsTrackingErrored

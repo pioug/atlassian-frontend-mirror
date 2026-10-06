@@ -155,7 +155,10 @@ const destroyFn = (
 				if (isHTMLElement(scrollable)) {
 					scrollable.style.setProperty('scroll-behavior', null);
 				}
-				if (fg('platform_editor_drag_and_drop_perf_analytics')) {
+				const shouldMeasureDrop =
+					fg('platform_editor_drag_and_drop_perf_analytics') &&
+					!isExperimentEnabled('platform_editor_remove_legacy_perf_events');
+				if (shouldMeasureDrop) {
 					startMeasure(EDITOR_BLOCKS_DROP_INIT);
 				}
 
@@ -224,7 +227,7 @@ const destroyFn = (
 					});
 				});
 
-				if (fg('platform_editor_drag_and_drop_perf_analytics')) {
+				if (shouldMeasureDrop) {
 					// wait for the idle callback to ensure that the drag operation has completed
 					scheduleCallback(() => {
 						if (isMeasuring(EDITOR_BLOCKS_DROP_INIT)) {
@@ -576,10 +579,7 @@ export const apply = (
 
 	// Re-create node decorations
 	const isDecSetEmpty = decorations === DecorationSet.empty;
-	const isNodeDecsMissing =
-		isDecSetEmpty ||
-		maybeNodeCountChanged ||
-		(editorExperiment('platform_editor_breakout_resizing', true) && hasJustFinishedResizing);
+	const isNodeDecsMissing = isDecSetEmpty || maybeNodeCountChanged || hasJustFinishedResizing;
 	const shouldRedrawNodeDecs =
 		!isResizerResizing &&
 		(isNodeDecsMissing || meta?.isDragging) &&
@@ -1474,7 +1474,9 @@ export const createPlugin = (
 						return;
 					}
 
-					startMeasure(EDITOR_BLOCKS_DRAG_INIT);
+					if (!isExperimentEnabled('platform_editor_remove_legacy_perf_events')) {
+						startMeasure(EDITOR_BLOCKS_DRAG_INIT);
+					}
 
 					if (isAdvancedLayoutEnabled) {
 						defaultActiveAnchorTracker.reset();

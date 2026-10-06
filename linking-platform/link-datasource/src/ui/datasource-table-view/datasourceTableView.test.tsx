@@ -503,123 +503,94 @@ describe('DatasourceTableView', () => {
 		});
 	});
 
-	ffTest.off('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
-		it('does not pass sorting props to IssueLikeDataTableView when gate is off', () => {
-			const issueLikeDataTableViewConstructorSpy = jest.spyOn(
-				issueLikeModule,
-				'IssueLikeDataTableView',
-			);
+	it('passes sorting callback to IssueLikeDataTableView for read-only Jira table', () => {
+		const issueLikeDataTableViewConstructorSpy = jest.spyOn(
+			issueLikeModule,
+			'IssueLikeDataTableView',
+		);
 
-			setup(
-				{
-					onVisibleColumnKeysChange: null,
-					visibleColumnKeys: ['myColumn'],
-					responseItems: defaultMockResponseItems,
+		setup(
+			{
+				onVisibleColumnKeysChange: null,
+				visibleColumnKeys: ['myColumn'],
+				responseItems: defaultMockResponseItems,
+			},
+			{
+				datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+			},
+		);
+
+		expect(issueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+		const issueLikeDataTableViewProps = issueLikeDataTableViewConstructorSpy.mock
+			.calls[0][0] as IssueLikeDataTableViewProps;
+
+		expect(issueLikeDataTableViewProps).toEqual(
+			expect.objectContaining({
+				onColumnSort: expect.any(Function),
+				sortState: undefined,
+			}),
+		);
+	});
+
+	it('updates datasource parameters when sorting a jira column', async () => {
+		const { getByTestId } = setup(
+			{
+				onVisibleColumnKeysChange: null,
+				visibleColumnKeys: ['myColumn'],
+				responseItems: defaultMockResponseItems,
+			},
+			{
+				datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+				parameters: {
+					cloudId: 'some-cloud-id',
+					jql: 'project = TEST',
 				},
-				{
-					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+			},
+		);
+
+		getByTestId('myColumn-column-sort-button').click();
+
+		await waitFor(() => {
+			expect(useDatasourceTableState).toHaveBeenLastCalledWith({
+				datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+				parameters: {
+					cloudId: 'some-cloud-id',
+					jql: 'project = TEST ORDER BY myColumn ASC',
 				},
-			);
-
-			expect(issueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
-			const issueLikeDataTableViewProps = issueLikeDataTableViewConstructorSpy.mock
-				.calls[0][0] as IssueLikeDataTableViewProps;
-
-			expect(issueLikeDataTableViewProps).not.toHaveProperty('onColumnSort');
-			expect(issueLikeDataTableViewProps).not.toHaveProperty('sortState');
+				fieldKeys: ['myColumn'],
+			});
 		});
 	});
 
-	ffTest.on('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
-		it('passes sorting callback to IssueLikeDataTableView for read-only Jira table', () => {
-			const issueLikeDataTableViewConstructorSpy = jest.spyOn(
-				issueLikeModule,
-				'IssueLikeDataTableView',
-			);
-
-			setup(
-				{
-					onVisibleColumnKeysChange: null,
-					visibleColumnKeys: ['myColumn'],
-					responseItems: defaultMockResponseItems,
+	it('restores original parameters after cycling ASC -> DESC -> default', async () => {
+		const { getByTestId } = setup(
+			{
+				onVisibleColumnKeysChange: null,
+				visibleColumnKeys: ['myColumn'],
+				responseItems: defaultMockResponseItems,
+			},
+			{
+				datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+				parameters: {
+					cloudId: 'some-cloud-id',
+					jql: 'project = TEST ORDER BY priority ASC',
 				},
-				{
-					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+			},
+		);
+
+		const sortButton = getByTestId('myColumn-column-sort-button');
+		sortButton.click();
+		sortButton.click();
+		sortButton.click();
+
+		await waitFor(() => {
+			expect(useDatasourceTableState).toHaveBeenLastCalledWith({
+				datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+				parameters: {
+					cloudId: 'some-cloud-id',
+					jql: 'project = TEST ORDER BY priority ASC',
 				},
-			);
-
-			expect(issueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
-			const issueLikeDataTableViewProps = issueLikeDataTableViewConstructorSpy.mock
-				.calls[0][0] as IssueLikeDataTableViewProps;
-
-			expect(issueLikeDataTableViewProps).toEqual(
-				expect.objectContaining({
-					onColumnSort: expect.any(Function),
-					sortState: undefined,
-				}),
-			);
-		});
-
-		it('updates datasource parameters when sorting a jira column', async () => {
-			const { getByTestId } = setup(
-				{
-					onVisibleColumnKeysChange: null,
-					visibleColumnKeys: ['myColumn'],
-					responseItems: defaultMockResponseItems,
-				},
-				{
-					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
-					parameters: {
-						cloudId: 'some-cloud-id',
-						jql: 'project = TEST',
-					},
-				},
-			);
-
-			getByTestId('myColumn-column-sort-button').click();
-
-			await waitFor(() => {
-				expect(useDatasourceTableState).toHaveBeenLastCalledWith({
-					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
-					parameters: {
-						cloudId: 'some-cloud-id',
-						jql: 'project = TEST ORDER BY myColumn ASC',
-					},
-					fieldKeys: ['myColumn'],
-				});
-			});
-		});
-
-		it('restores original parameters after cycling ASC -> DESC -> default', async () => {
-			const { getByTestId } = setup(
-				{
-					onVisibleColumnKeysChange: null,
-					visibleColumnKeys: ['myColumn'],
-					responseItems: defaultMockResponseItems,
-				},
-				{
-					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
-					parameters: {
-						cloudId: 'some-cloud-id',
-						jql: 'project = TEST ORDER BY priority ASC',
-					},
-				},
-			);
-
-			const sortButton = getByTestId('myColumn-column-sort-button');
-			sortButton.click();
-			sortButton.click();
-			sortButton.click();
-
-			await waitFor(() => {
-				expect(useDatasourceTableState).toHaveBeenLastCalledWith({
-					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
-					parameters: {
-						cloudId: 'some-cloud-id',
-						jql: 'project = TEST ORDER BY priority ASC',
-					},
-					fieldKeys: ['myColumn'],
-				});
+				fieldKeys: ['myColumn'],
 			});
 		});
 	});
@@ -920,31 +891,19 @@ describe('DatasourceTableView', () => {
 				totalCount: 0,
 			});
 
-		ffTest.off('platform_lp_sllv_ux_improvements', '', () => {
-			it('should replace the whole table with the no results view', () => {
-				const { getByText, queryByTestId } = setupWithNoItems();
+		it('should keep the table headers and footer and show the no results view in place of the rows', () => {
+			const { getByText, getByTestId } = setupWithNoItems();
 
-				expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
-				expect(queryByTestId('datasource-table-view--head')).not.toBeInTheDocument();
-				expect(queryByTestId('table-footer')).not.toBeInTheDocument();
-			});
+			expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
+			expect(getByTestId('datasource-table-view--head')).toBeInTheDocument();
+			expect(getByTestId('datasource-table-view--no-results-row')).toBeInTheDocument();
+			expect(getByTestId('table-footer')).toBeInTheDocument();
 		});
 
-		ffTest.on('platform_lp_sllv_ux_improvements', '', () => {
-			it('should keep the table headers and footer and show the no results view in place of the rows', () => {
-				const { getByText, getByTestId } = setupWithNoItems();
+		it('should show a zero item count in the footer', () => {
+			const { getByTestId } = setupWithNoItems();
 
-				expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
-				expect(getByTestId('datasource-table-view--head')).toBeInTheDocument();
-				expect(getByTestId('datasource-table-view--no-results-row')).toBeInTheDocument();
-				expect(getByTestId('table-footer')).toBeInTheDocument();
-			});
-
-			it('should show a zero item count in the footer', () => {
-				const { getByTestId } = setupWithNoItems();
-
-				expect(getByTestId('item-count').textContent).toEqual('0 items');
-			});
+			expect(getByTestId('item-count').textContent).toEqual('0 items');
 		});
 
 		it('should replace the whole table with the no results view when there are no columns', () => {
@@ -1387,14 +1346,24 @@ describe('UFO metrics: DatasourceTableView', () => {
 			expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
 		});
 
-		it('should abort the experience when DatasourceTableView results are empty', async () => {
+		it('should mark the experience successful when results and columns are empty', () => {
 			setup({
+				responseItems: [],
+				columns: [],
+			});
+
+			expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
+			expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
+		});
+
+		it('should mark the experience successful from the empty-results hook and rendered table', () => {
+			const { getByTestId } = setup({
 				responseItems: [],
 			});
 
-			expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
-			expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
-
+			expect(getByTestId('datasource-table-view--no-results-row')).toBeInTheDocument();
+			// Both the empty-results hook and the retained table report successful rendering.
+			expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(2);
 			expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
 		});
 	});

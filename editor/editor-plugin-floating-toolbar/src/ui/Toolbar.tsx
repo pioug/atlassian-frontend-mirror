@@ -36,7 +36,6 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { FloatingToolbarPlugin } from '../floatingToolbarPluginType';
@@ -96,9 +95,7 @@ export function groupItems(items: Item[], areAnyNewToolbarFlagsEnabled: boolean)
 				const shouldBeRadioButton = (notLastItem && nextItemIsButton) || wasPreviousButton;
 
 				// Only group as radio button if not explicitly set to false
-				const isRadioButton = !expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-					? shouldBeRadioButton
-					: shouldBeRadioButton && item.isRadioButton !== false;
+				const isRadioButton = shouldBeRadioButton && item.isRadioButton !== false;
 
 				if (isRadioButton) {
 					item.isRadioButton = true;

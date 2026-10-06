@@ -464,7 +464,7 @@ nested restoration, and focus transfers before and during close.
 
 - `src/internal/use-focus-wrap.tsx` — focus wrapping hook
 - `src/internal/use-initial-focus.tsx` — initial focus hook
-- `src/internal/role-types.tsx` — `shouldFocusIntoPopover` role predicate
+- `src/internal/role-types.tsx` — role types
 - `src/popover/popover.tsx` — Popover primitive (owns nested-popover focus restoration fallback via
   `beforetoggle` snapshot)
 - `examples/130-testing-native-focus-restoration.tsx` — outermost native restoration fixture

@@ -168,7 +168,9 @@ export const useBlockControlsSurfaceDragSource = ({
 				}
 
 				// This handle is outside ProseMirror, so it owns the side effects normally started by PM.
-				startMeasure(EDITOR_BLOCKS_DRAG_INIT);
+				if (!isExperimentEnabled('platform_editor_remove_legacy_perf_events')) {
+					startMeasure(EDITOR_BLOCKS_DRAG_INIT);
+				}
 				defaultActiveAnchorTracker.reset();
 
 				api?.core?.actions.execute(({ tr }) => {

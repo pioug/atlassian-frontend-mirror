@@ -23,8 +23,7 @@ import {
 // WCAG 2.4.3 Focus Order
 
 // Roles whose `useInitialFocus` implementation actually moves focus into
-// the popover on open. `shouldFocusIntoPopover` also returns true for `tree`
-// and `grid`, but `getInitialFocusTarget` does not yet implement those roles
+// the popover on open. `tree` and `grid` are not implemented yet
 // (see src/internal/use-initial-focus.tsx). Without focus moving into the
 // popover, the restoration check `element.contains(document.activeElement)`
 // is false and the snapshot path is a no-op for those roles. The tree/grid

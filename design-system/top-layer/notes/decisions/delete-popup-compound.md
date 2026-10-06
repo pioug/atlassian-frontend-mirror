@@ -27,7 +27,7 @@
 
 - `Popover` accepts optional `triggerRef: RefObject<HTMLElement | null>`. When supplied, focus is
   restored to the trigger on close if focus is still inside the closing popover (the browser only
-  restores focus for the outermost `popover="auto"`). Fallback gated by `shouldFocusIntoPopover`.
+  restores focus for the outermost `popover="auto"`).
 - Re-exports `TPlacementOptions` from `popover/index.tsx` and `./popover`.
 - New `PopoverSurface` primitive at `src/popover-surface/popover-surface.tsx` with a
   `./popover-surface` entry point. `PopupSurface` and `./popup-surface` deleted in Phase 2 with no

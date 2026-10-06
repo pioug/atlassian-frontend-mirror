@@ -11,7 +11,7 @@ import type { EditorViewModeEffectsPlugin } from '@atlaskit/editor-plugin-editor
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-import type { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Node, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { showInlineCommentForBlockNode } from './editor-commands';
@@ -53,6 +53,8 @@ export type AnnotationPlugin = NextEditorPlugin<
 			 */
 			applyInlineCommentDraft: (annotationId: string) => Command;
 			hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
+			/** Whether the configured provider supports block comments on this node. */
+			isBlockNodeSupported: (node: Node) => boolean;
 			/**
 			 * Removes an inline-comment annotation mark from the document by id.
 			 * @returns A command that returns true when the remove transaction is dispatched.

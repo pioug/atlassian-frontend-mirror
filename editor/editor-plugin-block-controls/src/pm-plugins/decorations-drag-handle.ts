@@ -96,32 +96,21 @@ export const dragHandleDecoration = ({
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 
-	const widgetSpec = editorExperiment('platform_editor_breakout_resizing', true)
-		? {
-				side: -1,
-				type: TYPE_HANDLE_DEC,
-				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-				/**
-				 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
-				 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
-				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
-				 */
-				marks: getMatchingBlockMarks(editorState, pos, [
-					editorState.schema.marks.alignment,
-					editorState.schema.marks.fontSize,
-				]),
-			}
-		: {
-				side: -1,
-				type: TYPE_HANDLE_DEC,
-				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-				marks: getMatchingBlockMarks(editorState, pos, [
-					editorState.schema.marks.alignment,
-					editorState.schema.marks.fontSize,
-				]),
-			};
+	const widgetSpec = {
+		side: -1,
+		type: TYPE_HANDLE_DEC,
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+		testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
+		/**
+		 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
+		 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
+		 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
+		 */
+		marks: getMatchingBlockMarks(editorState, pos, [
+			editorState.schema.marks.alignment,
+			editorState.schema.marks.fontSize,
+		]),
+	};
 
 	return Decoration.widget(
 		pos,

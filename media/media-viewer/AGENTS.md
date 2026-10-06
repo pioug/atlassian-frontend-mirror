@@ -71,6 +71,10 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
     it stays mounted but is `aria-hidden`.
   - Media footer (`MediaFooterBar`): registers its element through the footer context; zoom controls
     render into it with a portal (`withInsetViewerFooter`).
+  - Video (`src/viewers/video.tsx`): fits the video into the media stage by aspect ratio
+    (`FittedVideoFrame`, refit by a `ResizeObserver` as the sidebar changes the available width),
+    and wraps the player in media-ui's `InsetViewerProvider` so the player portals its controls into
+    the media footer. The archive viewer's video does not opt in yet.
 - Large test suite: 50+ test files under `src/__tests__/`
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type { CSSProperties } from 'react';
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -26,6 +26,7 @@ import { overflowShadow } from '../../../ui';
 import { calculateBreakoutStyles } from '../../../utils';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import { shouldExtensionBreakout } from '../../utils/should-extension-breakout';
+import { ExtensionCommentBadge } from '../ExtensionCommentBadge';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
 import { isEmptyBodiedMacro } from './extension-utils';
@@ -95,6 +96,16 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		isLivePageViewMode,
 		hideConfigureLabel,
 	} = props;
+	const [container, setContainer] = useState<HTMLElement | null>(null);
+	const handleContainerRef = useCallback(
+		(element: HTMLDivElement | null) => {
+			handleRef?.(element);
+			if (fg('cc_maui_annotations_on_extensions')) {
+				setContainer(element);
+			}
+		},
+		[handleRef],
+	);
 
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 
@@ -223,7 +234,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 			)}
 			<div
 				data-testid="extension-container"
-				ref={handleRef}
+				ref={handleContainerRef}
 				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}
@@ -302,6 +313,18 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 						</div>
 					)}
 				</div>
+				{fg('cc_maui_annotations_on_extensions') &&
+					node.type.name === 'extension' &&
+					container &&
+					pluginInjectionApi?.annotation && (
+						<ExtensionCommentBadge
+							api={pluginInjectionApi}
+							node={node}
+							getPos={getPos}
+							editorView={view}
+							container={container}
+						/>
+					)}
 			</div>
 		</Fragment>
 	);

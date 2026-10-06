@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as SearchPageWithSlowerSmartAnswersClassChangeExample } from '../35-search-page-with-slower-smart-answers-class-change';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const SearchPageWithSlowerSmartAnswersClassChange: WorkbenchExample<
-	typeof SearchPageWithSlowerSmartAnswersClassChangeExample
-> = wb(SearchPageWithSlowerSmartAnswersClassChangeExample);
+export const SearchPageWithSlowerSmartAnswersClassChange: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-search-page-with-slower-smart-answers-class-change" */ '../35-search-page-with-slower-smart-answers-class-change'
+		),
+);

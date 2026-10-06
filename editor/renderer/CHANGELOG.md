@@ -1,5 +1,34 @@
 # @atlaskit/renderer
 
+## 147.1.4
+
+### Patch Changes
+
+- [`be603fee7766f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be603fee7766f) -
+  Remove unused internal performance analytics code (plugin performance report/observer and the
+  renderedSampled payload type)
+- Updated dependencies
+
+## 147.1.3
+
+### Patch Changes
+
+- [`7690092b13a84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7690092b13a84) -
+  Clean up the fully rolled out nested MultiBodiedExtension frame styling feature gate.
+- Updated dependencies
+
+## 147.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 147.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 147.1.0
 
 ### Minor Changes

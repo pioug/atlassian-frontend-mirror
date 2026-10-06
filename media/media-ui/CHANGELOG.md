@@ -1,5 +1,28 @@
 # @atlaskit/media-ui
 
+## 31.3.0
+
+### Minor Changes
+
+- [`09f2cc67f5d47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09f2cc67f5d47) -
+  [ux] Add opt-in inset-viewer video behaviour. `@atlaskit/media-ui` adds two optional props to
+  `CustomMediaPlayer` and `MediaPlayer` — `controlsPortalElement` and `onVideoElementChange`, plus
+  an `InsetViewerProvider` export (`@atlaskit/media-ui/insetViewerProvider`). Inside an
+  `InsetViewerProvider` with `isInsetViewer` set, the player portals its timeline and left/right
+  control groups into `controlsPortalElement` instead of rendering them in `ControlsWrapper` over
+  the video, and omits the fullscreen button; `onVideoElementChange` reports the `<video>` element
+  so a host can measure it. `@atlaskit/media-viewer` uses these to fit video to the inset media
+  stage by aspect ratio, refitting via a `ResizeObserver` as the comment sidebar changes the
+  available width, and to move the playback controls into the shared media footer. Outside an
+  `InsetViewerProvider`, or with `isInsetViewer` false, the player renders exactly as before —
+  controls on the video, fullscreen button present, no `ResizeObserver` and no portal. Rollout of
+  the inset Media Viewer is controlled by the consumer opting in through
+  `MediaViewerExtensions.useInsetViewer`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.2.0
 
 ### Minor Changes

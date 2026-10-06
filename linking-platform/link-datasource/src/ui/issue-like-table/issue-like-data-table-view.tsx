@@ -566,7 +566,7 @@ export const IssueLikeDataTableView = ({
 
 	// A resolved response with no items still carries column metadata, so the table can keep its
 	// headers and render the empty state where the rows would normally be.
-	const hasNoResults = status === 'resolved' && !hasData && fg('platform_lp_sllv_ux_improvements');
+	const hasNoResults = status === 'resolved' && !hasData;
 
 	const [noResultsWidth, setNoResultsWidth] = useState<number>();
 	useEffect(() => {
@@ -702,16 +702,10 @@ export const IssueLikeDataTableView = ({
 	}, [tableRows.length]);
 
 	const rows = useMemo(() => {
-		if (fg('platform_lp_jira_sllv_renderer_column_sorting')) {
-			const hasPreviousRealRows = !!previousRealRowsCountRef.current;
-			const isLoadingState = status === 'loading' || (status === 'empty' && hasPreviousRealRows);
-			if (!isLoadingState) {
-				return tableRows;
-			}
-		} else {
-			if (status !== 'loading') {
-				return tableRows;
-			}
+		const hasPreviousRealRows = !!previousRealRowsCountRef.current;
+		const isLoadingState = status === 'loading' || (status === 'empty' && hasPreviousRealRows);
+		if (!isLoadingState) {
+			return tableRows;
 		}
 
 		// if there are table rows, only add 1 loading row
@@ -720,14 +714,11 @@ export const IssueLikeDataTableView = ({
 		}
 		// if there are no table rows add 14 rows if it is compact (has scrollableContainerHeight or non-modal)
 		// add 10 rows if it is modal (no scrollableContainerHeight)
-		let loadingRowsCount = scrollableContainerHeight ? 14 : 10;
-		if (fg('platform_lp_jira_sllv_renderer_column_sorting')) {
-			const defaultLoadingRowsCount = scrollableContainerHeight ? 14 : 10;
-			const previousRealRowsCount = previousRealRowsCountRef.current;
-			loadingRowsCount = defaultLoadingRowsCount;
-			if (previousRealRowsCount && previousRealRowsCount < defaultLoadingRowsCount) {
-				loadingRowsCount = previousRealRowsCount;
-			}
+		const defaultLoadingRowsCount = scrollableContainerHeight ? 14 : 10;
+		const previousRealRowsCount = previousRealRowsCountRef.current;
+		let loadingRowsCount = defaultLoadingRowsCount;
+		if (previousRealRowsCount && previousRealRowsCount < defaultLoadingRowsCount) {
+			loadingRowsCount = previousRealRowsCount;
 		}
 
 		return [...Array(loadingRowsCount)].map((_, index) => ({
@@ -896,16 +887,13 @@ export const IssueLikeDataTableView = ({
 									<TableHeading
 										key={key}
 										data-testid={`${key}-column-heading`}
-										{...(fg('platform_lp_jira_sllv_renderer_column_sorting')
-											? {
-													'aria-sort':
-														sortState?.key === key && sortState.direction === 'ASC'
-															? 'ascending'
-															: sortState?.key === key && sortState.direction === 'DESC'
-																? 'descending'
-																: undefined,
-												}
-											: {})}
+										aria-sort={
+											sortState?.key === key && sortState.direction === 'ASC'
+												? 'ascending'
+												: sortState?.key === key && sortState.direction === 'DESC'
+													? 'descending'
+													: undefined
+										}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										style={getWidthCss({ shouldUseWidth, width })}
 									>

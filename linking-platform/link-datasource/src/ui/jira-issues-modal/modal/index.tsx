@@ -156,8 +156,7 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
 	// With columns available the table can keep its headers and show the empty state in place of
 	// the rows, instead of replacing the whole table with it.
-	const shouldRenderTableWithNoResults =
-		resolvedWithNoResults && !!columns.length && fg('platform_lp_sllv_ux_improvements');
+	const shouldRenderTableWithNoResults = resolvedWithNoResults && !!columns.length;
 	const jqlUrlUnwrapped =
 		selectedJiraSite && jql && `${selectedJiraSite.url}/issues/?jql=${encodeURI(jql)}`;
 	const jqlUrl =

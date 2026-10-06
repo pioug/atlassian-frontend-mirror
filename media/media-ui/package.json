@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "31.2.0",
+	"version": "31.3.0",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -148,6 +148,7 @@
 		"./imageMetaData/types": "./src/imageMetaData/types.ts",
 		"./inactivityDetector": "./src/inactivityDetector/inactivityDetector.tsx",
 		"./index-compiled": "./src/customMediaPlayer/index-compiled.tsx",
+		"./insetViewerProvider": "./src/customMediaPlayer/insetViewerContext/insetViewerProvider.tsx",
 		"./intersectionObserver": "./src/intersectionObserver.ts",
 		"./isCodeViewerItem": "./src/isCodeViewerItem.ts",
 		"./isInvalidInput": "./src/isInvalidInput.ts",

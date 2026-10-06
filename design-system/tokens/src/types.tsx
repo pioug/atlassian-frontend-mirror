@@ -1406,7 +1406,10 @@ export interface MotionTokenSchema<BaseToken> {
 			hovered: MotionToken<BaseToken>;
 			pressed: MotionToken<BaseToken>;
 		};
-		input: MotionToken<BaseToken>;
+		input: {
+			'[default]': MotionToken<BaseToken>;
+			selection: MotionToken<BaseToken>;
+		};
 		form: {
 			message: {
 				enter: MotionToken<BaseToken>;

@@ -6,6 +6,7 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactory } from '@atlaskit/editor-common/types';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { history } from '@atlaskit/prosemirror-history/history';
 
 import type { BasePlugin, Callback } from './basePluginType';
@@ -130,6 +131,9 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 				{
 					name: 'frozenEditor',
 					plugin: ({ dispatchAnalyticsEvent }) => {
+						if (isExperimentEnabled('platform_editor_remove_legacy_perf_events')) {
+							return undefined;
+						}
 						return frozenEditor(api?.contextIdentifier)(
 							dispatchAnalyticsEvent,
 							inputTracking,

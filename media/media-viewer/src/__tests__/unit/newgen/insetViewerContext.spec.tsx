@@ -2,9 +2,11 @@ import React from 'react';
 
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import {
 	InsetViewerProvider,
+	useHasMediaFooterVideoControls,
 	useIsInsetViewer,
 	useSetMediaFooterControls,
 	withInsetViewer,
@@ -187,6 +189,52 @@ describe('insetViewerContext', () => {
 			},
 		])('should name the wrapper from $source', ({ component, expected }) => {
 			expect(withInsetViewerFooter(component as React.ComponentType).displayName).toBe(expected);
+		});
+	});
+	describe('media footer video controls', () => {
+		const VideoControlsProbe = () => (
+			<span data-testid="has-video">{String(useHasMediaFooterVideoControls())}</span>
+		);
+
+		class Setter extends React.Component<WithInsetViewerFooterProps> {
+			render() {
+				return (
+					<button type="button" onClick={() => this.props.setHasVideoControls?.(true)}>
+						register video controls
+					</button>
+				);
+			}
+		}
+		const WrappedSetter = withInsetViewerFooter(Setter);
+
+		it('should default to false', () => {
+			render(
+				<InsetViewerProvider isInsetViewer>
+					<VideoControlsProbe />
+				</InsetViewerProvider>,
+			);
+			expect(screen.getByTestId('has-video')).toHaveTextContent('false');
+		});
+
+		it('should become true once a viewer registers video controls', async () => {
+			render(
+				<InsetViewerProvider isInsetViewer>
+					<WrappedSetter />
+					<VideoControlsProbe />
+				</InsetViewerProvider>,
+			);
+
+			await userEvent.click(screen.getByRole('button', { name: 'register video controls' }));
+
+			expect(screen.getByTestId('has-video')).toHaveTextContent('true');
+		});
+
+		it('should tolerate registering video controls without a provider', async () => {
+			render(<WrappedSetter />);
+
+			await userEvent.click(screen.getByRole('button', { name: 'register video controls' }));
+
+			expect(screen.getByRole('button', { name: 'register video controls' })).toBeInTheDocument();
 		});
 	});
 });

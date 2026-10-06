@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
@@ -1390,15 +1389,7 @@ describe('ConfluenceSearchConfigModal', () => {
 			totalCount: 0,
 		});
 
-		it('should replace the whole table with the no results screen when the feature gate is off', async () => {
-			failGate('platform_lp_sllv_ux_improvements');
-			await setup({ hookState: getNoResultsHookState() });
-
-			expect(await screen.findByTestId(testIds.noResults)).toBeInTheDocument();
-		});
-
-		it('should keep rendering the table so it can show the no results screen in place of the rows when the feature gate is on', async () => {
-			passGate('platform_lp_sllv_ux_improvements');
+		it('should keep rendering the table so it can show the no results screen in place of the rows', async () => {
 			const { getLatestIssueLikeTableProps } = await setup({
 				hookState: getNoResultsHookState(),
 			});
@@ -1409,9 +1400,9 @@ describe('ConfluenceSearchConfigModal', () => {
 			);
 		});
 
-		it('should show no results screen in table view mode', async () => {
+		it('should show no results screen in table view mode when no columns are available', async () => {
 			await setup({
-				hookState: { ...getDefaultHookState(), responseItems: [] },
+				hookState: { ...getNoResultsHookState(), columns: [] },
 			});
 
 			expect(

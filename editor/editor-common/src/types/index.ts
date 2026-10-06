@@ -154,7 +154,6 @@ export type {
 	TransactionTracking,
 	UITracking,
 	CatchAllTracking,
-	NodeViewTracking,
 	BrowserFreezetracking,
 	ProseMirrorRenderedTracking,
 	InputTracking,

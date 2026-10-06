@@ -1,6 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as RllSimulationExample } from '../22-rll-simulation';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const RllSimulation: WorkbenchExample<typeof RllSimulationExample> =
-	wb(RllSimulationExample);
+export const RllSimulation: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-rll-simulation" */ '../22-rll-simulation'
+		),
+);

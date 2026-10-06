@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as BasicWithTransitionExample } from '../17-basic-with-transition';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const BasicWithTransition: WorkbenchExample<typeof BasicWithTransitionExample> = wb(
-	BasicWithTransitionExample,
+export const BasicWithTransition: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-basic-with-transition" */ '../17-basic-with-transition'
+		),
 );

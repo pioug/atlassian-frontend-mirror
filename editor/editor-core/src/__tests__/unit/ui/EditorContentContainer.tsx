@@ -19,6 +19,10 @@ const fgMock = fg as jest.Mock;
 
 import EditorContentContainer from '../../../ui/EditorContentContainer/EditorContentContainer';
 
+beforeEach(() => {
+	mockExpEnabled('platform_editor_resizer_selector_jsdom_fix');
+});
+
 // this test is mainly to check if dev only updated legacy styles, and forget to update in the new styles
 // if the new styles are not updated, we will see a difference in the snapshot
 // and dev should update the new styles, and then update the snapshot

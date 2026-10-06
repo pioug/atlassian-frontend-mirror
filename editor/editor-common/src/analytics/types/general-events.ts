@@ -85,10 +85,7 @@ type EditorStartAEP = UIAEP<
 >;
 
 type EditorPerfAEP = OperationalAEPWithObjectId<
-	| ACTION.EDITOR_MOUNTED
-	| ACTION.PROSEMIRROR_RENDERED
-	| ACTION.ON_EDITOR_READY_CALLBACK
-	| ACTION.ON_CHANGE_CALLBACK,
+	ACTION.EDITOR_MOUNTED | ACTION.PROSEMIRROR_RENDERED | ACTION.ON_EDITOR_READY_CALLBACK,
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
@@ -103,17 +100,6 @@ type EditorPerfAEP = OperationalAEPWithObjectId<
 		startTime: number;
 		totalNodes?: number;
 		ttfb?: number;
-	}
->;
-
-type EditorContentRetrievalPerformedAEP = OperationalAEP<
-	ACTION.EDITOR_CONTENT_RETRIEVAL_PERFORMED,
-	ACTION_SUBJECT.EDITOR,
-	undefined,
-	{
-		errorInfo?: string;
-		errorStack?: string;
-		success: boolean;
 	}
 >;
 
@@ -241,26 +227,6 @@ type TransactionMutatedAEP = OperationalAEP<
 	undefined,
 	{
 		pluginKey: string;
-	}
->;
-
-type WithPluginStateCalledAEP = OperationalAEP<
-	ACTION.WITH_PLUGIN_STATE_CALLED,
-	ACTION_SUBJECT.EDITOR,
-	undefined,
-	{
-		duration: number;
-		plugin: string;
-	}
->;
-
-type ReactNodeViewRenderedAEP = OperationalAEP<
-	ACTION.REACT_NODEVIEW_RENDERED,
-	ACTION_SUBJECT.EDITOR,
-	undefined,
-	{
-		duration: number;
-		node: string;
 	}
 >;
 
@@ -734,18 +700,15 @@ export type GeneralEventPayload<T = void> =
 	| PickerMediaInsertImageGenerationSubmittedAEP
 	| PickerMediaInsertClosedAEP
 	| PickerMediaInsertCancelledAEP
-	| ReactNodeViewRenderedAEP
 	| RichMediaLayoutAEP
 	| SelectionAEP
 	| SlowInputAEP
 	| TransactionMutatedAEP
 	| UploadExternalFailedAEP
-	| WithPluginStateCalledAEP
 	| CodeBlockLanguageAutoDetectedAEP
 	| CodeBlockLanguageSelectedAEP
 	| CodeBlockFormatCodeSuccessAEP
 	| CodeBlockFormatCodeFailedAEP
-	| EditorContentRetrievalPerformedAEP
 	| MediaLinkTransformedAEP
 	| TextLinkCodeMarkTransformedAEP
 	| DedupeMarksTransformedAEP

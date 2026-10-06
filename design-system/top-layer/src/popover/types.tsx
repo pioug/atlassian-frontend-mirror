@@ -29,6 +29,12 @@ export type TPopoverCloseReason = 'escape' | 'light-dismiss' | 'programmatic';
  */
 export type TPopoverForwardedProps = TPopoverBaseProps & {
 	mode?: 'auto' | 'hint' | 'manual';
+	/**
+	 * Called when the popover asks to close. See `TPopoverProps` for each `reason`.
+	 *
+	 * Also opts the popover into the open layer observer: only a popover with
+	 * `onClose` registers, so only it can be closed by `closeLayers()`.
+	 */
 	onClose?: (args: { reason: TPopoverCloseReason }) => void;
 	role?: TRoleRequiringAccessibleName | TRoleWithImplicitName;
 	label?: string;
@@ -184,14 +190,27 @@ export type TPopoverProps = TPopoverBaseProps &
 				 * controlled intent after native dismissal. If `isOpen` remains `true`,
 				 * the Popover remains natively closed until the prop changes.
 				 *
-				 * The `reason` field indicates how the dismiss occurred:
+				 * The `reason` field indicates how the close was requested:
 				 * - `'escape'`: the user pressed the Escape key.
 				 * - `'light-dismiss'`: the user clicked outside (or another auto-dismiss).
+				 * - `'programmatic'`: the open layer observer's `closeLayers()` asked
+				 *   every open layer to close (for example, the side navigation toggle).
+				 *   The popover stays open until the consumer sets `isOpen` to `false`.
 				 */
 				onClose: (args: { reason: TPopoverCloseReason }) => void;
 		  }
 		| {
 				mode: 'manual';
-				onClose?: never;
+				/**
+				 * Enables programmatic close through the open layer observer. When
+				 * provided, the popover registers as an open layer, and `closeLayers()`
+				 * calls this with `reason: 'programmatic'`. Set `isOpen` to `false` in
+				 * response. Without it, the popover does not register, so `closeLayers()`
+				 * cannot close it and it is not counted as an open layer.
+				 *
+				 * Manual popovers have no light dismiss, so this is the only reason
+				 * they receive.
+				 */
+				onClose?: (args: { reason: TPopoverCloseReason }) => void;
 		  }
 	);

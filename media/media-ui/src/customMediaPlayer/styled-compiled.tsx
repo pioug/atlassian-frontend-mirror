@@ -11,6 +11,7 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import { getControlsWrapperClassName } from './getControlsWrapperClassName';
+import { useIsInsetViewer } from './insetViewerContext/useIsInsetViewer';
 
 const timelineStyles = css({
 	width: '100%',
@@ -174,20 +175,50 @@ const timeRangeWrapperStyles = css({
 	},
 });
 
+const insetViewerTimeRangeWrapperStyles = css({
+	display: 'flex',
+	alignItems: 'flex-start',
+	height: '22px',
+	cursor: 'pointer',
+	width: '100%',
+});
+
+// `@atlaskit/range` draws its track and end dot 2px below the center of its 40px container, so the
+// wrapper is lifted by that amount to put the track on the center line.
+const insetViewerVolumeRangeWrapperStyles = css({
+	alignItems: 'center',
+	position: 'relative',
+	insetBlockStart: token('space.negative.025'),
+});
+
 export const TimeRangeWrapper: React.ForwardRefExoticComponent<
-	Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, 'ref'> &
+	Omit<
+		React.ClassAttributes<HTMLDivElement> &
+			React.HTMLAttributes<HTMLDivElement> & { isVolumeRange?: boolean },
+		'ref'
+	> &
 		React.RefAttributes<unknown>
 > = forwardRef(
 	(
 		{
 			children,
+			isVolumeRange,
 			...props
 		}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
-			React.ClassAttributes<HTMLDivElement>,
+			React.ClassAttributes<HTMLDivElement> & { isVolumeRange?: boolean },
 		ref,
 	) => {
+		const isInsetViewer = useIsInsetViewer();
 		return (
-			<div css={timeRangeWrapperStyles} ref={ref as React.RefObject<HTMLDivElement>} {...props}>
+			<div
+				css={[
+					!isInsetViewer && timeRangeWrapperStyles,
+					isInsetViewer && insetViewerTimeRangeWrapperStyles,
+					isInsetViewer && isVolumeRange && insetViewerVolumeRangeWrapperStyles,
+				]}
+				ref={ref as React.RefObject<HTMLDivElement>}
+				{...props}
+			>
 				{children}
 			</div>
 		);

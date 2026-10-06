@@ -8,7 +8,6 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const getMaybeLayoutSection = (state: EditorState): ContentNodeWithPos | undefined => {
 	const {
@@ -168,13 +167,7 @@ export const getGapCursorTargetForBlankSpaceClick = (
 	// so the above/below checks never fired.
 	if (columnNode.childCount === 1) {
 		const onlyChild = columnNode.firstChild;
-		const shouldHandleAtomicChild = expValEquals(
-			'platform_editor_layout_column_selection_fix',
-			'isEnabled',
-			true,
-		)
-			? supportsBlankSpaceGapCursorFallback(onlyChild)
-			: onlyChild?.type.name !== 'paragraph' && onlyChild?.type.name !== 'panel';
+		const shouldHandleAtomicChild = supportsBlankSpaceGapCursorFallback(onlyChild);
 		if (onlyChild && shouldHandleAtomicChild) {
 			// A caption is editable content inside a mediaSingle, not blank layout space. The
 			// image bounds below intentionally exclude the caption so clicks beside the image

@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.8.16",
+	"version": "2.8.19",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"website": {
@@ -176,7 +176,7 @@
 		"platform_editor_a11y_color_palette_radiogroup": {
 			"type": "boolean"
 		},
-		"platform_editor_return_focus_after_text_styles_2": {
+		"platform_editor_fix_text_styles_width": {
 			"type": "boolean"
 		}
 	}

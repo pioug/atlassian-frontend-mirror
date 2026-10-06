@@ -1012,9 +1012,8 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	// Preconditioned on the affected population - full page, non nested editors - so that experiment
 	// exposure is not diluted by editors which never run the scroll restoration code below.
 	const scrollRestorePerfEnabled =
-		!isNestedEditor.current &&
-		isFullPage(props.editorProps.appearance) &&
-		isExperimentEnabled('cc_editor_scroll_restore_perf_improvements');
+		(!isNestedEditor.current && isFullPage(props.editorProps.appearance)) ||
+		isExperimentEnabled('platform_editor_reduce_forced_layout');
 
 	const originalScrollToRestore = React.useRef(
 		// Reading scrollTop forces a synchronous layout, and this expression is re-evaluated on every

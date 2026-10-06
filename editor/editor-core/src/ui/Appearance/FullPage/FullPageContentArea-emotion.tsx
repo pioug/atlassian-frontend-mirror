@@ -203,30 +203,6 @@ const editorContentAreaContainerStyleExcludeCodeBlockNew = css({
 	},
 });
 
-/* Prevent horizontal scroll on page in full width mode */
-const editorContentAreaContainerStyleNew = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.fabric-editor--full-width-mode': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.code-block, .extension-container, .multiBodiedExtension--container': {
-			maxWidth: `calc(100% - ${tableMarginFullWidthMode * 2}px)`,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.extension-container.inline': {
-			maxWidth: '100%',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'td .extension-container.inline': {
-			maxWidth: 'inherit',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'[data-layout-section]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			maxWidth: `calc(100% + ${akLayoutGutterOffset * 2}px)`,
-		},
-	},
-});
-
 const editorContentGutterStyleFG = css({
 	padding: '0 72px',
 });
@@ -454,9 +430,7 @@ const Content = React.forwardRef<
 						tableFullPageEditorStylesNew,
 						fullWidthNonChromelessBreakoutBlockTableStyle,
 						// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
-						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
-							? editorContentAreaContainerStyleExcludeCodeBlockNew
-							: editorContentAreaContainerStyleNew,
+						editorContentAreaContainerStyleExcludeCodeBlockNew,
 						editorContentAreaContainerNestedDndStyle,
 					]}
 					style={

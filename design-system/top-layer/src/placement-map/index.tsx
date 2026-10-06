@@ -35,7 +35,7 @@ import { placementMapping } from './placement-mapping';
  *
  * @example
  * ```ts
- * import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
+ * import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
  *
  * // In a migration from @atlaskit/popup:
  * const oldPlacement: TLegacyPlacement = 'bottom-start';

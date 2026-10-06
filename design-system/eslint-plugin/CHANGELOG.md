@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.13.5
+
+### Patch Changes
+
+- [`8d2f8aade6cf9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d2f8aade6cf9) -
+  Avoid treating non-color constant values as colors based on identifier names.
+- Updated dependencies
+
 ## 16.13.4
 
 ### Patch Changes

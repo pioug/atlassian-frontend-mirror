@@ -34,7 +34,6 @@ import type { Input } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id/datasource-experience-id-provider';
@@ -949,106 +948,86 @@ describe('IssueLikeDataTableView', () => {
 			expect(queryByTestId('sometable--row-loading-14')).toBeNull();
 		});
 
-		ffTest.off('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
-			it('does not treat empty status as loading in legacy mode', () => {
-				const items: DatasourceDataResponseItem[] = [];
-				const itemIds = setupItemIds(items);
-				const columns: DatasourceResponseSchemaProperty[] = [];
+		it('does not treat empty status as loading when there were no previous real rows', () => {
+			const items: DatasourceDataResponseItem[] = [];
+			const itemIds = setupItemIds(items);
+			const columns: DatasourceResponseSchemaProperty[] = [];
 
-				const { queryByTestId } = setup({
-					items,
-					itemIds,
-					columns,
-					status: 'empty',
-					hasNextPage: false,
-				});
-
-				expect(queryByTestId('sometable--row-loading-0')).toBeNull();
+			const { queryByTestId } = setup({
+				items,
+				itemIds,
+				columns,
+				status: 'empty',
+				hasNextPage: false,
 			});
+
+			expect(queryByTestId('sometable--row-loading-0')).toBeNull();
 		});
 
-		ffTest.on('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
-			it('does not treat empty status as loading when there were no previous real rows', () => {
-				const items: DatasourceDataResponseItem[] = [];
-				const itemIds = setupItemIds(items);
-				const columns: DatasourceResponseSchemaProperty[] = [];
+		it('treats empty status as loading when there were previous real rows and reuses smaller row count', async () => {
+			const initialItems = getSimpleItems(3);
+			const initialItemIds = setupItemIds(initialItems);
+			const columns = getSimpleColumns();
+			const onAnalyticsEvent = jest.fn();
+			const onNextPage = jest.fn(() => {});
+			const onLoadDatasourceDetails = jest.fn(() => Promise.resolve());
+			const onVisibleColumnKeysChange = jest.fn(() => {});
+			const onColumnResize = jest.fn(() => {});
+			const onWrappedColumnChange = jest.fn(() => {});
+			const smartLinkClient = new SmartLinkClient();
 
-				const { queryByTestId } = setup({
-					items,
-					itemIds,
+			const renderTable = (props: Partial<IssueLikeDataTableViewProps>) => (
+				<AnalyticsListener channel="media" onEvent={onAnalyticsEvent}>
+					<DatasourceExperienceIdProvider>
+						<IntlProvider locale="en">
+							<SmartCardProvider client={smartLinkClient}>
+								<IssueLikeDataTableView
+									testId="sometable"
+									status={'resolved'}
+									onNextPage={onNextPage}
+									onLoadDatasourceDetails={onLoadDatasourceDetails}
+									hasNextPage={false}
+									onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+									onColumnResize={onColumnResize}
+									onWrappedColumnChange={onWrappedColumnChange}
+									items={[]}
+									itemIds={[]}
+									columns={[]}
+									visibleColumnKeys={['id']}
+									{...props}
+								/>
+							</SmartCardProvider>
+						</IntlProvider>
+					</DatasourceExperienceIdProvider>
+				</AnalyticsListener>
+			);
+
+			const { rerender, findByTestId, getByTestId, queryByTestId } = render(
+				renderTable({
+					status: 'resolved',
+					items: initialItems,
+					itemIds: initialItemIds,
 					columns,
+					visibleColumnKeys: ['id'],
+				}),
+			);
+
+			await findByTestId(`sometable--row-${initialItemIds[0]}`);
+
+			rerender(
+				renderTable({
 					status: 'empty',
-					hasNextPage: false,
-				});
+					items: [],
+					itemIds: [],
+					columns,
+					visibleColumnKeys: ['id'],
+				}),
+			);
 
-				expect(queryByTestId('sometable--row-loading-0')).toBeNull();
-			});
-
-			it('treats empty status as loading when there were previous real rows and reuses smaller row count', async () => {
-				const initialItems = getSimpleItems(3);
-				const initialItemIds = setupItemIds(initialItems);
-				const columns = getSimpleColumns();
-				const onAnalyticsEvent = jest.fn();
-				const onNextPage = jest.fn(() => {});
-				const onLoadDatasourceDetails = jest.fn(() => Promise.resolve());
-				const onVisibleColumnKeysChange = jest.fn(() => {});
-				const onColumnResize = jest.fn(() => {});
-				const onWrappedColumnChange = jest.fn(() => {});
-				const smartLinkClient = new SmartLinkClient();
-
-				const renderTable = (props: Partial<IssueLikeDataTableViewProps>) => (
-					<AnalyticsListener channel="media" onEvent={onAnalyticsEvent}>
-						<DatasourceExperienceIdProvider>
-							<IntlProvider locale="en">
-								<SmartCardProvider client={smartLinkClient}>
-									<IssueLikeDataTableView
-										testId="sometable"
-										status={'resolved'}
-										onNextPage={onNextPage}
-										onLoadDatasourceDetails={onLoadDatasourceDetails}
-										hasNextPage={false}
-										onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-										onColumnResize={onColumnResize}
-										onWrappedColumnChange={onWrappedColumnChange}
-										items={[]}
-										itemIds={[]}
-										columns={[]}
-										visibleColumnKeys={['id']}
-										{...props}
-									/>
-								</SmartCardProvider>
-							</IntlProvider>
-						</DatasourceExperienceIdProvider>
-					</AnalyticsListener>
-				);
-
-				const { rerender, findByTestId, getByTestId, queryByTestId } = render(
-					renderTable({
-						status: 'resolved',
-						items: initialItems,
-						itemIds: initialItemIds,
-						columns,
-						visibleColumnKeys: ['id'],
-					}),
-				);
-
-				await findByTestId(`sometable--row-${initialItemIds[0]}`);
-
-				rerender(
-					renderTable({
-						status: 'empty',
-						items: [],
-						itemIds: [],
-						columns,
-						visibleColumnKeys: ['id'],
-					}),
-				);
-
-				expect(getByTestId('sometable--row-loading-0')).toBeInTheDocument();
-				expect(getByTestId('sometable--row-loading-1')).toBeInTheDocument();
-				expect(getByTestId('sometable--row-loading-2')).toBeInTheDocument();
-				expect(queryByTestId('sometable--row-loading-3')).toBeNull();
-			});
+			expect(getByTestId('sometable--row-loading-0')).toBeInTheDocument();
+			expect(getByTestId('sometable--row-loading-1')).toBeInTheDocument();
+			expect(getByTestId('sometable--row-loading-2')).toBeInTheDocument();
+			expect(queryByTestId('sometable--row-loading-3')).toBeNull();
 		});
 
 		it('should show 1 loading row when new page is loading', async () => {
@@ -1252,34 +1231,22 @@ describe('IssueLikeDataTableView', () => {
 					status: 'resolved',
 				});
 
-			ffTest.off('platform_lp_sllv_ux_improvements', '', () => {
-				it('should render an empty table body', () => {
-					const { queryByTestId, queryByText } = setupWithNoItems();
+			it('should render the no results view in the table body while keeping the headers', () => {
+				const { getByTestId, getByText } = setupWithNoItems();
 
-					expect(queryByTestId('sometable--no-results-row')).not.toBeInTheDocument();
-					expect(
-						queryByText("We couldn't find anything matching your search"),
-					).not.toBeInTheDocument();
-				});
+				expect(getByTestId('sometable--head')).toBeInTheDocument();
+				expect(getByTestId('id-column-heading')).toBeInTheDocument();
+				expect(getByTestId('sometable--no-results-row')).toBeInTheDocument();
+				expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
 			});
 
-			ffTest.on('platform_lp_sllv_ux_improvements', '', () => {
-				it('should render the no results view in the table body while keeping the headers', () => {
-					const { getByTestId, getByText } = setupWithNoItems();
+			it('should span the no results cell across every column including the column picker', () => {
+				const { getByTestId } = setupWithNoItems();
 
-					expect(getByTestId('sometable--head')).toBeInTheDocument();
-					expect(getByTestId('id-column-heading')).toBeInTheDocument();
-					expect(getByTestId('sometable--no-results-row')).toBeInTheDocument();
-					expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
-				});
-
-				it('should span the no results cell across every column including the column picker', () => {
-					const { getByTestId } = setupWithNoItems();
-
-					expect(
-						within(getByTestId('sometable--no-results-row')).getByRole('cell'),
-					).toHaveAttribute('colspan', '2');
-				});
+				expect(within(getByTestId('sometable--no-results-row')).getByRole('cell')).toHaveAttribute(
+					'colspan',
+					'2',
+				);
 			});
 		});
 
@@ -1839,31 +1806,29 @@ describe('IssueLikeDataTableView', () => {
 				await assertColumnTitles(undefined);
 			});
 
-			ffTest.on('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
-				it('adds aria-sort and accessible sort labels in readonly sortable mode', async () => {
-					const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
-					const onColumnSort = jest.fn();
+			it('adds aria-sort and accessible sort labels in readonly sortable mode', async () => {
+				const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
+				const onColumnSort = jest.fn();
 
-					const { getByTestId } = setup({
-						items,
-						itemIds,
-						columns,
-						visibleColumnKeys,
-						hasNextPage: false,
-						onVisibleColumnKeysChange: undefined,
-						onColumnResize: undefined,
-						onWrappedColumnChange: undefined,
-						onColumnSort,
-						sortState: { key: 'task', direction: 'ASC' },
-					});
-
-					expect(getByTestId('task-column-heading')).toHaveAttribute('aria-sort', 'ascending');
-					expect(getByTestId('id-column-heading')).not.toHaveAttribute('aria-sort');
-					expect(getByTestId('task-column-sort-button')).toHaveAttribute(
-						'aria-label',
-						'Sort by task descending.',
-					);
+				const { getByTestId } = setup({
+					items,
+					itemIds,
+					columns,
+					visibleColumnKeys,
+					hasNextPage: false,
+					onVisibleColumnKeysChange: undefined,
+					onColumnResize: undefined,
+					onWrappedColumnChange: undefined,
+					onColumnSort,
+					sortState: { key: 'task', direction: 'ASC' },
 				});
+
+				expect(getByTestId('task-column-heading')).toHaveAttribute('aria-sort', 'ascending');
+				expect(getByTestId('id-column-heading')).not.toHaveAttribute('aria-sort');
+				expect(getByTestId('task-column-sort-button')).toHaveAttribute(
+					'aria-label',
+					'Sort by task descending.',
+				);
 			});
 		});
 
@@ -2949,9 +2914,7 @@ describe('IssueLikeDataTableView', () => {
 					});
 
 					// Check the error flag also displays!
-					await waitFor(() => {
-						expect(findByText("We're having trouble fetching options")).resolves.toBeDefined();
-					});
+					expect(await findByText('We’re having trouble fetching options')).toBeInTheDocument();
 				});
 
 				it('does not allow allows selecting option if it does not have an id', async () => {
@@ -3006,10 +2969,8 @@ describe('IssueLikeDataTableView', () => {
 						fireEvent.click(priorityCell);
 					});
 
-					await waitFor(() => {
-						expect(findByText('PriorityWithoutId')).rejects.toThrow();
-						expect(findByText('PriorityWithId')).resolves.toBeTruthy();
-					});
+					expect(await findByText('PriorityWithId')).toBeInTheDocument();
+					expect(screen.queryByText('PriorityWithoutId')).not.toBeInTheDocument();
 				});
 			});
 

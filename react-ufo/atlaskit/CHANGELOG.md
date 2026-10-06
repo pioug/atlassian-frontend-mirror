@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.0.1
+
+### Patch Changes
+
+- [`65107aee198df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65107aee198df) -
+  Cleanup `feature_gate` `platform_ufo_exclude_fdprocessedid_attribute`. The `fdprocessedid` and
+  `data-dashlane-classification` third party browser extension attributes are now always excluded
+  from the VC observer.
+
 ## 8.0.0
 
 ### Major Changes

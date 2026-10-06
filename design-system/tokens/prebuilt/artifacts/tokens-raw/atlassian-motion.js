@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b53296820dc9bb4c480c02ca711476d9>>
+ * @codegen <<SignedSource::1e9531e0638e6567913fff0efed33e0a>>
  * @codegenCommand yarn build tokens
  */
 
@@ -699,9 +699,39 @@ var tokens = [{
       "properties": ["BackgroundColor", "BorderColor", "BoxShadow"]
     }
   },
-  "name": "motion.input",
-  "path": ["motion", "input"],
+  "name": "motion.input.[default]",
+  "path": ["motion", "input", "[default]"],
   "cleanName": "motion.input"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "20.2.0",
+    "description": "Use for checkbox and radio surface, border and indicator state cross-fades."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "properties": ["background-color", "border-color", "color", "fill", "stroke", "opacity"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "20.2.0",
+      "description": "Use for checkbox and radio surface, border and indicator state cross-fades."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EasePracticalOut",
+      "properties": ["BackgroundColor", "BorderColor", "Color", "Fill", "Stroke", "Opacity"]
+    }
+  },
+  "name": "motion.input.selection",
+  "path": ["motion", "input", "selection"],
+  "cleanName": "motion.input.selection"
 }, {
   "attributes": {
     "group": "motionKeyframe",

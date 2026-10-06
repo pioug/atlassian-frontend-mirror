@@ -322,11 +322,7 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 								focus={focusedItemIndex === index}
 								setFocusedItemIndex={setFocusedItemIndex}
 								onInsertItem={onInsertItem}
-								role={
-									expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-										? 'option'
-										: undefined
-								}
+								role="option"
 							/>
 						</div>
 					</CellMeasurer>
@@ -584,12 +580,7 @@ export function ElementItem({
 				onClick={onClick}
 				iconBefore={<ElementBefore icon={icon} title={title} />}
 				isSelected={selected}
-				aria-describedby={
-					expValEquals('platform_editor_august_a11y', 'isEnabled', true) ? undefined : title
-				}
-				aria-label={
-					expValEquals('platform_editor_august_a11y', 'isEnabled', true) ? title : undefined
-				}
+				aria-label={title}
 				ref={ref}
 				testId={`element-item-${index}`}
 				id={`searched-item-${index}`}

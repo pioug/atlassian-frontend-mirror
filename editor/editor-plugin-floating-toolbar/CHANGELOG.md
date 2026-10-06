@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 26.0.4
+
+### Patch Changes
+
+- [`042fa402a6460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/042fa402a6460) -
+  Clean up experiment `platform_editor_august_a11y`
+- Updated dependencies
+
+## 26.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.1
 
 ### Patch Changes

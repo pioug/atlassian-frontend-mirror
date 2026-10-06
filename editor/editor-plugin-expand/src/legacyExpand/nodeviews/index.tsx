@@ -495,22 +495,20 @@ export class ExpandNodeView implements NodeView {
 			return;
 		}
 
-		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
-			if (
-				(event.ctrlKey || event.metaKey) &&
-				event.altKey &&
-				(event.code === 'BracketLeft' || event.code === 'BracketRight')
-			) {
-				this.view.dispatchEvent(
-					new KeyboardEvent('keydown', {
-						key: event.key,
-						code: event.code,
-						metaKey: event.metaKey,
-						ctrlKey: event.ctrlKey,
-						altKey: event.altKey,
-					}),
-				);
-			}
+		if (
+			(event.ctrlKey || event.metaKey) &&
+			event.altKey &&
+			(event.code === 'BracketLeft' || event.code === 'BracketRight')
+		) {
+			this.view.dispatchEvent(
+				new KeyboardEvent('keydown', {
+					key: event.key,
+					code: event.code,
+					metaKey: event.metaKey,
+					ctrlKey: event.ctrlKey,
+					altKey: event.altKey,
+				}),
+			);
 		}
 	};
 

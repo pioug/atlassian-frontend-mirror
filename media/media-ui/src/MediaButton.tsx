@@ -10,6 +10,9 @@ import type {
 } from '@atlaskit/button/custom-theme-button-types';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import type { Appearance } from '@atlaskit/button/old-button/types';
+import { token } from '@atlaskit/tokens';
+
+import { useIsInsetViewer } from './customMediaPlayer/insetViewerContext/useIsInsetViewer';
 
 type MediaButtonAppearance = Appearance;
 
@@ -96,6 +99,7 @@ export default function MediaButton({
 	buttonRef,
 	...rest
 }: Props): React.JSX.Element {
+	const isInsetViewer = useIsInsetViewer();
 	return (
 		<Button
 			{...rest}
@@ -109,6 +113,7 @@ export default function MediaButton({
 						...buttonStyles,
 						// giving our extract function the real appearance value
 						...extract(buttonTheme, { ...themeProps, appearance }),
+						...(isInsetViewer ? { color: token('color.text') } : {}),
 					},
 					...rest,
 				};

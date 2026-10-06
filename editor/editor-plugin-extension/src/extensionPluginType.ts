@@ -1,6 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+import type { ExtensionAnnotationPlugin } from '@atlaskit/editor-common/extensibility/types';
 import type {
 	ExtensionAPI,
 	ExtensionHandlers,
@@ -143,6 +144,7 @@ type InsertOrReplaceExtensionAction = ({
 }: InsertOrReplaceExtensionType) => Transaction;
 
 export type ExtensionPluginDependencies = [
+	OptionalPlugin<ExtensionAnnotationPlugin>,
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	WidthPlugin,

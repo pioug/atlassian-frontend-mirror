@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as FinishInteractionTransitionExample } from '../34-finish-interaction-transition';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const FinishInteractionTransition: WorkbenchExample<
-	typeof FinishInteractionTransitionExample
-> = wb(FinishInteractionTransitionExample);
+export const FinishInteractionTransition: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-finish-interaction-transition" */ '../34-finish-interaction-transition'
+		),
+);

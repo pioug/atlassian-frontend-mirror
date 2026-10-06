@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 11.2.0
+
+### Minor Changes
+
+- [`b536adef43f98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b536adef43f98) -
+  Add a self-hiding Chat action with focus restoration and persistent TopNavEnd items behind
+  platform-dst-chat-panel-layout.
+
+  Persistent groups retain popup-layer protection and hide their complete accessible group when
+  inactive.
+
+  Persistent actions render last, after the other top-nav actions or their overflow button.
+
 ## 11.1.3
 
 ### Patch Changes

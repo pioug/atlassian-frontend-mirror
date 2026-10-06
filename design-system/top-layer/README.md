@@ -12,14 +12,15 @@ placement or size — compose it with the `useAnchoredPopover` hook when you nee
 content.
 
 ```tsx
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
-function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function MyPopup() {
+	const [isOpen, setIsOpen] = useState(false);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popoverId = usePopoverId();
@@ -35,7 +36,7 @@ function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
 		<>
 			<button
 				ref={triggerRef}
-				onClick={() => popoverRef.current?.togglePopover()}
+				onClick={() => setIsOpen((value) => !value)}
 				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId })}
 			>
 				Open
@@ -47,7 +48,7 @@ function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
 				label="Settings"
 				isOpen={isOpen}
 				shouldAnimate
-				onClose={onClose}
+				onClose={() => setIsOpen(false)}
 			>
 				<PopoverSurface>Content here</PopoverSurface>
 			</Popover>
@@ -72,26 +73,23 @@ function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
 
 ## Dialog
 
-Compound component for modal dialogs using the native `<dialog>` element with `.showModal()`.
+A modal dialog on the native `<dialog>` element. `isOpen` calls `showModal()` and `close()`. It has
+no visual opinions (no width, surface or layout); consumers such as `@atlaskit/modal-dialog` add
+their own. A `label` or `labelledBy` is required.
 
 ```tsx
-{
-	isOpen && (
-		<Dialog onClose={handleClose} width="medium">
-			<Dialog.Content>
-				<Dialog.Surface>
-					<Dialog.Header>
-						<Dialog.Title>Heading</Dialog.Title>
-						<Dialog.CloseButton />
-					</Dialog.Header>
-					<Dialog.Body>Content</Dialog.Body>
-					<Dialog.Footer>Actions</Dialog.Footer>
-				</Dialog.Surface>
-			</Dialog.Content>
-		</Dialog>
-	);
-}
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
+
+<Dialog isOpen={isOpen} onClose={() => setIsOpen(false)} labelledBy={titleId}>
+	<h2 id={titleId}>Heading</h2>
+	Content
+</Dialog>;
 ```
+
+- `onClose({ reason })` fires after an allowed Escape (`'escape'`) or backdrop click
+  (`'overlay-click'`). Set `isOpen={false}` in response.
+- `dismissedBy` limits user dismissal: `'escape-and-outside-click'` (default), `'escape'` or
+  `'none'`.
 
 ## Animations
 
@@ -106,9 +104,9 @@ for entry and
 Pass `shouldAnimate` to enable the default popover entry and exit animation:
 
 ```tsx
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 
-<Popover shouldAnimate role="dialog" label="My popover" isOpen={isOpen}>
+<Popover shouldAnimate role="dialog" label="My popover" isOpen={isOpen} onClose={onClose}>
 	Content
 </Popover>;
 ```
@@ -124,7 +122,7 @@ the phase-specific animation styles.
 Pass `shouldAnimate` to enable the default dialog entry and exit animation:
 
 ```tsx
-import { Dialog } from '@atlaskit/top-layer/dialog';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
 
 <Dialog shouldAnimate isOpen={isOpen} onClose={onClose} label="My dialog">
 	Content

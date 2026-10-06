@@ -13,7 +13,7 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::7809b8f1fbe9fc7282253148b6baedd9>>
+ * @codegen <<SignedSource::ed76cc68c8d5d0d0b4e0d24d0787a0c4>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {
@@ -43,6 +43,7 @@ var defaultTokenValues = {
   'motion.form.message.enter': '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom2px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   'motion.form.message.exit': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   'motion.input': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+  'motion.input.selection': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), fill 150ms cubic-bezier(0.4, 1, 0.6, 1), stroke 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',
   'motion.keyframe.fade.in': 'FadeIn0to100',
   'motion.keyframe.fade.out': 'FadeOut100to0',
   'motion.keyframe.grid.column.in': 'GridColumnIn80to100',

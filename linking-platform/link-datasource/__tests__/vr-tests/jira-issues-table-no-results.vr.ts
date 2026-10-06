@@ -4,7 +4,4 @@ import { JiraIssuesTableNoResults } from '../../examples/vr/jira-issues-table-vr
 
 snapshot(JiraIssuesTableNoResults, {
 	description: 'Jira Issues Table No Results',
-	featureFlags: {
-		platform_lp_sllv_ux_improvements: [true],
-	},
 });

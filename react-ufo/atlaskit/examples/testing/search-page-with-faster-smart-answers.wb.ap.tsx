@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as SearchPageWithFasterSmartAnswersExample } from '../36-search-page-with-faster-smart-answers';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const SearchPageWithFasterSmartAnswers: WorkbenchExample<
-	typeof SearchPageWithFasterSmartAnswersExample
-> = wb(SearchPageWithFasterSmartAnswersExample);
+export const SearchPageWithFasterSmartAnswers: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-search-page-with-faster-smart-answers" */ '../36-search-page-with-faster-smart-answers'
+		),
+);

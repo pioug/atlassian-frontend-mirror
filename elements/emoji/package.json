@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "72.5.0",
+	"version": "72.5.3",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -190,13 +190,13 @@
 		}
 	},
 	"scripts": {
-		"setup-first-time": "yarn run setup-local-config; yarn run setup-env",
+		"setup-first-time": "afm run setup-local-config; afm run setup-env",
 		"setup-local-config": "cp -nv local-config-template.ts local-config.ts",
 		"setup-env": "cp -nv .env-template .env",
-		"start": "cd ../../ && yarn start emoji",
-		"test": "cd ../../ && yarn test emoji",
-		"typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/emoji",
-		"start:dev": "cd ../../ && yarn start:webpack emoji --proxy ./packages/elements/emoji/proxy.ts",
-		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start:webpack emoji --proxy ./packages/elements/emoji/proxy.ts"
+		"start": "cd ../../ && afm run start -- emoji",
+		"test": "cd ../../ && afm run test -- emoji",
+		"typecheck": "cd ../../ && afm run typecheck:package -- ./packages/elements/emoji",
+		"start:dev": "cd ../../ && afm run start:webpack -- emoji --proxy ./packages/elements/emoji/proxy.ts",
+		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge afm run start:webpack -- emoji --proxy ./packages/elements/emoji/proxy.ts"
 	}
 }

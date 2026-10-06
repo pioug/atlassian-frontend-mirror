@@ -8,7 +8,6 @@ import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -17,11 +16,6 @@ import { displayViewDropDownMessages } from './messages';
 
 const styles = cssMap({
 	dropDownItemGroupStyles: {
-		width: '420px',
-		height: '116px',
-		borderRadius: token('radius.small'),
-	},
-	dropDownItemGroupStylesWithoutFixedHeight: {
 		width: '420px',
 		borderRadius: token('radius.small'),
 	},
@@ -77,13 +71,7 @@ export const DisplayViewDropDown = ({
 			)}
 			testId="datasource-modal--view-drop-down"
 		>
-			<Box
-				xcss={
-					fg('platform_lp_sllv_ux_improvements')
-						? styles.dropDownItemGroupStylesWithoutFixedHeight
-						: styles.dropDownItemGroupStyles
-				}
-			>
+			<Box xcss={styles.dropDownItemGroupStyles}>
 				<DropdownItemGroup>
 					<DropdownItem
 						testId="dropdown-item-table"

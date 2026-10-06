@@ -2,19 +2,9 @@
 
 ## Context
 
-`shouldFocusIntoPopover` (in `src/internal/role-types.tsx`) returns `true` for the following
-focus-capturing roles:
-
-- `dialog`
-- `alertdialog`
-- `menu`
-- `listbox`
-- `tree`
-- `grid`
-
-`useInitialFocus` (in `src/internal/use-initial-focus.tsx`) currently only implements focus movement
-for the first four. `tree` and `grid` fall through to a no-op: focus is never moved into the popover
-on open.
+`useInitialFocus` (in `src/internal/use-initial-focus.tsx`) moves focus into the popover for
+`dialog`, `alertdialog`, `menu` and `listbox`. `tree` and `grid` fall through to a no-op: focus is
+never moved into the popover on open.
 
 ## Consequence
 
@@ -54,8 +44,7 @@ currently does not include these roles because `getAriaForTrigger` would need up
 ## Related code
 
 - `src/internal/use-initial-focus.tsx` — where the implementation goes
-- `src/internal/role-types.tsx` — `shouldFocusIntoPopover` (already includes tree/grid)
-- `src/popover/popover.tsx` — restoration code that depends on `shouldFocusIntoPopover`
+- `src/popover/popover.tsx` — nested-popover focus restoration
 - `notes/architecture/focus.md` — role-to-behavior summary table (update the "Initial Focus" cell
   for `tree`/`grid` once implemented)
 - `examples/140-testing-nested-focus-restoration.tsx` — fixture to extend

@@ -20,9 +20,9 @@
 		"team": "Design System Team"
 	},
 	"scripts": {
-		"ak-postbuild": "cd ../../../ && yarn build --includeDependencies @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
+		"ak-postbuild": "cd ../../../ && afm run build -- --includeDependencies @atlaskit/tokens && cd packages/design-system/ds-explorations && afm run codegen-styles",
 		"codegen-styles": "run-ts ./scripts/codegen-styles",
-		"prepare": "yarn ak-postbuild"
+		"prepare": "afm run ak-postbuild"
 	},
 	"dependencies": {
 		"@atlaskit/tokens": "workspace:^",

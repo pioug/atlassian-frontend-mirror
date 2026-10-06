@@ -10,6 +10,7 @@ import { css, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type RadioProps } from './types';
@@ -146,6 +147,23 @@ const radioInvalidStyles = css({
 	},
 });
 
+// Preserve the input's zoom correction and focus outline while cross-fading states.
+const crossFadeStyles = css({
+	transition: token('motion.input.selection'),
+	'&::after': {
+		pointerEvents: 'none',
+		transition: token('motion.input.selection'),
+		'@media (prefers-reduced-motion: reduce)': {
+			transition: 'none',
+		},
+		'@media (forced-colors: active)': {
+			transition: 'none',
+		},
+	},
+	'@media (prefers-reduced-motion: reduce)': { transition: 'none' },
+	'@media (forced-colors: active)': { transition: 'none' },
+});
+
 const InnerRadio: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<RadioProps> & React.RefAttributes<HTMLInputElement>
 > = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
@@ -203,6 +221,7 @@ const InnerRadio: React.ForwardRefExoticComponent<
 				data-invalid={isInvalid ? 'true' : undefined}
 				css={[
 					radioBaseStyles,
+					fg('platform_design_system_selection_radial_fade') && crossFadeStyles,
 					!isDisabled && radioInteractiveStyles,
 					isDisabled && radioDisabledStyles,
 					isDisabled && isChecked && radioDisabledCheckedStyles,

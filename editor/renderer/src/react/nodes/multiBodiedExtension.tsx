@@ -14,7 +14,6 @@ import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions'
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import AnalyticsContext from '../../analytics/analyticsContext';
@@ -65,28 +64,11 @@ const containerStyles = css({
 });
 
 const getFramesActiveFrameStyles = (activeChildIndex: number) => {
-	if (!fg('platform_editor_nested_mbe_frames')) {
-		return undefined;
-	}
-
 	// Apply the active-frame rule on the frames article itself so nested MBEs
 	// only target their own direct frames.
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 	return css`
 		& > [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
-			display: block;
-		}
-	`;
-};
-
-const getContainerActiveFrameStyles = (activeChildIndex: number) => {
-	if (fg('platform_editor_nested_mbe_frames')) {
-		return undefined;
-	}
-
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-	return css`
-		& [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
 			display: block;
 		}
 	`;
@@ -246,9 +228,6 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 		children,
 	]);
 
-	// make the frame visible
-	const containerActiveFrameStyles = getContainerActiveFrameStyles(activeChildIndex);
-
 	const isTopLevel = path.length < 1;
 	const useCenterWrapper = isTopLevel && ['wide', 'full-width'].includes(layout);
 	const wrapper = (
@@ -262,7 +241,7 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 	);
 	return (
 		<section
-			css={[containerStyles, containerActiveFrameStyles]}
+			css={containerStyles}
 			data-testid="multiBodiedExtension--container"
 			data-multiBodiedExtension-container
 			data-active-child-index={activeChildIndex}

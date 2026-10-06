@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-expand
 
+## 25.0.4
+
+### Patch Changes
+
+- [`0a81f6fa7cbf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a81f6fa7cbf8) -
+  Clean up experiment `platform_editor_breakout_resizing`. Behind the
+  `platform_editor_list_join_strip_breakout` experiment, strip the breakout mark from a code block
+  before nesting it into a list item when joining from a gap cursor. Behind the
+  `platform_editor_resizer_selector_jsdom_fix` experiment, make the panel and rule breakout resizer
+  selectors parseable by jsdom (`> *[data-prosemirror-node-name=…]`).
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

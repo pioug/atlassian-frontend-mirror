@@ -63,7 +63,9 @@ export const THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES: string[] = [
 	'data-gr-aaa-loaded',
 ];
 
-// TODO Merge with THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES on platform_ufo_exclude_fdprocessedid_attribute cleanup
+// Additional third party browser extension attributes.
+// TODO Consider merging into THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES. Kept separate for now because
+// FY25.03 only excludes this list, so merging would also change which attributes FY25.03 ignores.
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES: string[] = [
 	'fdprocessedid',

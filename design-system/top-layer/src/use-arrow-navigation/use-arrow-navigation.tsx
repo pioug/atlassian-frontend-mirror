@@ -2,7 +2,6 @@ import { type RefObject, useCallback, useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { getDocument } from '@atlaskit/browser-apis';
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_TAB, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 
 import { getFirstFocusable } from '../focus/get-first-focusable';
@@ -105,7 +104,8 @@ export type TUseArrowNavigationArgs = {
  *
  * @example With nested menu filter
  * ```tsx
- * import { useArrowNavigation, isAtCurrentMenuLevel } from '@atlaskit/top-layer/use-arrow-navigation';
+ * import { isAtCurrentMenuLevel } from '@atlaskit/top-layer/is-at-current-menu-level';
+ * import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
  *
  * useArrowNavigation({
  *   containerRef: menuRef,
@@ -135,7 +135,7 @@ export function useArrowNavigation({
 			// [role="menu"] must be this container (not a nested sub-menu).
 			// When no filter is provided, fall back to the closest-menu check
 			// if the container has role="menu".
-			const focused = getDocument()?.activeElement;
+			const focused = container.ownerDocument.activeElement;
 			if (focused instanceof HTMLElement) {
 				if (filter) {
 					if (!filter(focused, container)) {
@@ -204,7 +204,7 @@ export function useArrowNavigation({
 					// Only close if this container is inside another role="menu"
 					// (i.e. it is a submenu, not the top-level menu).
 					// Walk up from the parent to avoid matching the container itself.
-					const isNested = container.parentElement?.closest(menuScope) !== null;
+					const isNested = Boolean(container.parentElement?.closest(menuScope));
 					if (isNested) {
 						event.preventDefault();
 						onNestedClose();

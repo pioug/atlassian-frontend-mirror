@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6aae61452b94dca3eb5f997bd4fd990c>>
+ * @codegen <<SignedSource::161b7dccc4d5ca4e7c03e0d9d9f305c0>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1391,6 +1391,26 @@ const tokens: Token[] = [
     ]
   },
   {
+    "value": "fill",
+    "attributes": {
+      "group": "motionProperty"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "fill",
+      "attributes": {
+        "group": "motionProperty"
+      }
+    },
+    "name": "motion.properties.Fill",
+    "path": [
+      "motion",
+      "properties",
+      "Fill"
+    ]
+  },
+  {
     "value": "opacity",
     "attributes": {
       "group": "motionProperty"
@@ -1408,6 +1428,26 @@ const tokens: Token[] = [
       "motion",
       "properties",
       "Opacity"
+    ]
+  },
+  {
+    "value": "stroke",
+    "attributes": {
+      "group": "motionProperty"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "stroke",
+      "attributes": {
+        "group": "motionProperty"
+      }
+    },
+    "name": "motion.properties.Stroke",
+    "path": [
+      "motion",
+      "properties",
+      "Stroke"
     ]
   },
   {

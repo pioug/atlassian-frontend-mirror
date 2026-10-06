@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as FrameworkRoutingDisplayNoneExample } from '../38-framework-routing-display-none';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const FrameworkRoutingDisplayNone: WorkbenchExample<
-	typeof FrameworkRoutingDisplayNoneExample
-> = wb(FrameworkRoutingDisplayNoneExample);
+export const FrameworkRoutingDisplayNone: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-framework-routing-display-none" */ '../38-framework-routing-display-none'
+		),
+);

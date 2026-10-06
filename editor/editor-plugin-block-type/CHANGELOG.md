@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-type
 
+## 28.0.4
+
+### Patch Changes
+
+- [`79892d462c5d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79892d462c5d8) -
+  Use the normal text icon in the change format menu behind the
+  platform_editor_block_menu_small_text experiment.
+- Updated dependencies
+
+## 28.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.2
+
+### Patch Changes
+
+- [`3902a8eba8344`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3902a8eba8344) -
+  Clean up feature gate `platform_editor_return_focus_after_text_styles_2`. Size inline-rendered
+  toolbar dropdown menus to their content so Text styles items no longer wrap.
+- Updated dependencies
+
 ## 28.0.1
 
 ### Patch Changes

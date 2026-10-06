@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 25.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- [`395ccdc5786c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/395ccdc5786c2) -
+  Clean up experiment `cc_fd_db_quick_insert_options`
+
 ## 25.0.1
 
 ### Patch Changes

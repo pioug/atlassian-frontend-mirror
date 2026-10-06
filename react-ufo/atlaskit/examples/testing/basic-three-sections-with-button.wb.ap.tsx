@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as BasicThreeSectionsWithButtonExample } from '../14-basic-three-sections-with-button';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const BasicThreeSectionsWithButton: WorkbenchExample<
-	typeof BasicThreeSectionsWithButtonExample
-> = wb(BasicThreeSectionsWithButtonExample);
+export const BasicThreeSectionsWithButton: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-basic-three-sections-with-button" */ '../14-basic-three-sections-with-button'
+		),
+);

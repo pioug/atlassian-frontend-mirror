@@ -87,7 +87,7 @@ jest.mock('@atlaskit/react-ufo/add-ufo-custom-data', () => ({
 
 import React from 'react';
 
-import { act, fireEvent, screen, cleanup, waitFor } from '@testing-library/react';
+import { act, screen, cleanup, waitFor } from '@testing-library/react';
 import { createIntl } from 'react-intl';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
@@ -228,46 +228,6 @@ describe('@atlaskit/editor-core', () => {
 				querySelectorSpy.mockRestore();
 			});
 
-			it(`When the event occurs during the page load - any active ufo experience should be aborted, and the event listeners cleaned up`, () => {
-				const mockElement = document.createElement('div');
-				const querySelectorSpy = jest.spyOn(document, 'querySelector');
-				querySelectorSpy.mockImplementation(() => mockElement);
-				const mockElementSpy = jest.spyOn(mockElement, 'removeEventListener');
-				(getActiveInteraction as jest.Mock).mockReturnValueOnce({ ufoName: 'edit-page' });
-
-				renderWithIntl(
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
-				);
-
-				// @ts-ignore
-				fireEvent[event]?.(mockElement);
-
-				expect(abortAll).toHaveBeenCalledWith('new_interaction', `${event}-on-editor-element`);
-				expect(mockElementSpy).toHaveBeenNthCalledWith(1, 'wheel', expect.any(Function));
-				expect(mockElementSpy).toHaveBeenNthCalledWith(2, 'scroll', expect.any(Function));
-			});
-
-			it(`When the event occurs after the page load - no active ufo experience should be aborted, and the event listeners cleaned up`, () => {
-				const mockElement = document.createElement('div');
-				const querySelectorSpy = jest.spyOn(document, 'querySelector');
-				querySelectorSpy.mockImplementation(() => mockElement);
-				const mockElementSpy = jest.spyOn(mockElement, 'removeEventListener');
-				(getActiveInteraction as jest.Mock).mockReturnValueOnce(undefined);
-
-				renderWithIntl(
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
-				);
-
-				// @ts-ignore
-				fireEvent[event]?.(mockElement);
-
-				expect(abortAll).not.toHaveBeenCalled();
-				expect(mockElementSpy).toHaveBeenNthCalledWith(1, 'wheel', expect.any(Function));
-				expect(mockElementSpy).toHaveBeenNthCalledWith(2, 'scroll', expect.any(Function));
-			});
-
 			it(`When no event before page unload - the event listeners are cleaned up on dismount`, () => {
 				const mockElement = document.createElement('div');
 				const querySelectorSpy = jest.spyOn(document, 'querySelector');
@@ -342,25 +302,6 @@ describe('@atlaskit/editor-core', () => {
 			querySelectorSpy.mockRestore();
 		});
 
-		it('When the editor has already been scrolled, ReactEditorView persists the scroll on load', async () => {
-			const mockElement = {
-				scrollTop: 9001,
-				scrollTo: jest.fn(),
-				addEventListener: () => {},
-				removeEventListener: () => {},
-			};
-			const querySelectorSpy = jest.spyOn(document, 'querySelector');
-			// @ts-expect-error	mock implementation
-			querySelectorSpy.mockImplementation(() => mockElement);
-
-			renderWithIntl(
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
-			);
-
-			expect(mockElement.scrollTo).toHaveBeenCalledWith({ behavior: 'instant', top: 9001 });
-		});
-
 		it('When the editor has not already been scrolled, ReactEditorView does not attempt to scroll on load', async () => {
 			const mockElement = {
 				scrollTop: 0,
@@ -380,45 +321,7 @@ describe('@atlaskit/editor-core', () => {
 			expect(mockElement.scrollTo).not.toHaveBeenCalled();
 		});
 
-		describe('LCE scrollTop mitigation', () => {
-			const ExtensionWrappedEditorView = () => {
-				// Use a state to force re-render after mount so editorRef is set
-				const [, forceUpdate] = React.useState({});
-				React.useEffect(() => {
-					forceUpdate({});
-				}, []);
-
-				return (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-					<div className="extension-editable-area">
-						<ReactEditorView
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }}
-							render={({ editorRef }) => <div ref={editorRef}>editor</div>}
-						/>
-						,
-					</div>
-				);
-			};
-
-			it('does not call scrollTop for editors nested inside Legacy Content Extension', async () => {
-				const mockElement = {
-					get scrollTop() {
-						return 9001;
-					},
-					scrollTo: jest.fn(),
-				};
-				const querySelectorSpy = jest.spyOn(document, 'querySelector');
-				const scrollTopSpy = jest.spyOn(mockElement, 'scrollTop', 'get');
-				// @ts-expect-error	mock implementation
-				querySelectorSpy.mockImplementation(() => mockElement);
-				renderWithIntl(<ExtensionWrappedEditorView />);
-
-				expect(scrollTopSpy).toHaveBeenCalledTimes(1);
-			});
-		});
-
-		describe('cc_editor_scroll_restore_perf_improvements', () => {
+		describe('disable scroll restoration', () => {
 			const renderWithScrolledContainer = () => {
 				const mockElement = {
 					get scrollTop() {
@@ -442,88 +345,62 @@ describe('@atlaskit/editor-core', () => {
 			};
 
 			it('does not read scrollTop or restore the scroll position when enabled', () => {
-				mockExpEnabled('cc_editor_scroll_restore_perf_improvements');
-
 				const { mockElement, scrollTopSpy } = renderWithScrolledContainer();
 
 				expect(scrollTopSpy).not.toHaveBeenCalled();
 				expect(mockElement.scrollTo).not.toHaveBeenCalled();
 			});
-
-			it('restores the scroll position when disabled', () => {
-				mockExpDisabled('cc_editor_scroll_restore_perf_improvements');
-
-				const { mockElement } = renderWithScrolledContainer();
-
-				expect(mockElement.scrollTo).toHaveBeenCalledWith({ behavior: 'instant', top: 9001 });
-			});
 		});
 	});
 
-	describe.each([['scroll'], ['wheel']])(
-		'UFO abort firing for programmatic %s events with cc_editor_scroll_restore_perf_improvements',
-		(event) => {
-			beforeEach(() => {
-				(getActiveInteraction as jest.Mock).mockReset();
-			});
-			afterEach(() => {
-				const querySelectorSpy = jest.spyOn(document, 'querySelector');
-				querySelectorSpy.mockRestore();
-			});
+	describe.each([['scroll'], ['wheel']])('UFO abort firing for programmatic %s events', (event) => {
+		beforeEach(() => {
+			(getActiveInteraction as jest.Mock).mockReset();
+		});
+		afterEach(() => {
+			const querySelectorSpy = jest.spyOn(document, 'querySelector');
+			querySelectorSpy.mockRestore();
+		});
 
-			// jsdom does not allow `isTrusted` to be redefined on a dispatched event, so the listeners
-			// are captured and invoked directly.
-			const renderAndCaptureListeners = () => {
-				const listeners: Record<string, (event: Event) => void> = {};
-				const mockElement = {
-					scrollTop: 0,
-					scrollTo: jest.fn(),
-					addEventListener: (type: string, handler: (event: Event) => void) => {
-						listeners[type] = handler;
-					},
-					removeEventListener: () => {},
-				};
-				const querySelectorSpy = jest.spyOn(document, 'querySelector');
-				// @ts-expect-error	mock implementation
-				querySelectorSpy.mockImplementation(() => mockElement);
-				(getActiveInteraction as jest.Mock).mockReturnValue({ ufoName: 'edit-page' });
-
-				renderWithIntl(
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
-				);
-
-				return listeners;
+		// jsdom does not allow `isTrusted` to be redefined on a dispatched event, so the listeners
+		// are captured and invoked directly.
+		const renderAndCaptureListeners = () => {
+			const listeners: Record<string, (event: Event) => void> = {};
+			const mockElement = {
+				scrollTop: 0,
+				scrollTo: jest.fn(),
+				addEventListener: (type: string, handler: (event: Event) => void) => {
+					listeners[type] = handler;
+				},
+				removeEventListener: () => {},
 			};
+			const querySelectorSpy = jest.spyOn(document, 'querySelector');
+			// @ts-expect-error	mock implementation
+			querySelectorSpy.mockImplementation(() => mockElement);
+			(getActiveInteraction as jest.Mock).mockReturnValue({ ufoName: 'edit-page' });
 
-			it('does not abort when the event was not triggered by the user', () => {
-				mockExpEnabled('cc_editor_scroll_restore_perf_improvements');
+			renderWithIntl(
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
+			);
 
-				const listeners = renderAndCaptureListeners();
-				listeners[event]({ isTrusted: false } as Event);
+			return listeners;
+		};
 
-				expect(abortAll).not.toHaveBeenCalled();
-			});
+		it('does not abort when the event was not triggered by the user', () => {
+			const listeners = renderAndCaptureListeners();
+			listeners[event]({ isTrusted: false } as Event);
 
-			it('still aborts when the event was triggered by the user', () => {
-				mockExpEnabled('cc_editor_scroll_restore_perf_improvements');
+			expect(abortAll).not.toHaveBeenCalled();
+		});
 
-				const listeners = renderAndCaptureListeners();
-				listeners[event]({ isTrusted: true } as Event);
+		it('still aborts when the event was triggered by the user', () => {
+			const listeners = renderAndCaptureListeners();
+			listeners[event]({ isTrusted: true } as Event);
 
-				expect(abortAll).toHaveBeenCalledWith('new_interaction', `${event}-on-editor-element`);
-			});
-
-			it('aborts on events not triggered by the user when disabled', () => {
-				mockExpDisabled('cc_editor_scroll_restore_perf_improvements');
-
-				const listeners = renderAndCaptureListeners();
-				listeners[event]({ isTrusted: false } as Event);
-
-				expect(abortAll).toHaveBeenCalledWith('new_interaction', `${event}-on-editor-element`);
-			});
-		},
-	);
+			expect(abortAll).toHaveBeenCalledWith('new_interaction', `${event}-on-editor-element`);
+		});
+	});
 
 	describe('sanitize private content', () => {
 		const document = doc(p('hello', mention({ id: '1', text: '@cheese' })(), '{endPos}'))(

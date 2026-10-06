@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 20.3.0
+
+### Minor Changes
+
+- [`40a0bb1e41cf6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40a0bb1e41cf6) -
+  Add `motion.input.selection` for shared checkbox and radio surface, border and indicator
+  cross-fades with 150ms practical ease-out. Preserve the existing `motion.input` token.
+
 ## 20.2.0
 
 ### Minor Changes

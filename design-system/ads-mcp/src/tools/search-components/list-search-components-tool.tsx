@@ -7,7 +7,7 @@ import { searchComponentsInputSchema } from './search-components-input-schema';
 
 export const listSearchComponentsTool: Tool = {
 	name: 'ads_search_components',
-	description: `Searches the bundled Atlassian Design System (ADS) component catalog. Returns JSON objects with **name**, **package**, **examples**, and **props** for each match (trimmed payload).
+	description: `Searches the bundled Atlassian Design System (ADS) component catalog. Returns JSON objects with **name**, **package**, **examples**, **props**, and optional **designSource.figmaUrl** for each match (trimmed payload). When \`designSource.figmaUrl\` is present, inspect the canonical Figma source before building or implementing the component. Reuse library instances/variables, verify Figma properties against code props, and report unresolved mappings or access; do not infer a missing source.
 
 WHEN TO USE:
 **Selecting which canonical ADS component to use**—package name, examples, and props—before implementation. Use when composing a new view or swapping a primitive. Prefer \`ads_plan\` when you also need token and icon discovery in one shot.

@@ -7,6 +7,7 @@ import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import TextNormalIcon from '@atlaskit/icon-lab/core/text-normal';
 import TextParagraphIcon from '@atlaskit/icon-lab/core/text-paragraph';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
@@ -45,7 +46,13 @@ const ParagraphBlockMenuItem = ({ api, isSuggested }: ParagraphBlockMenuItemProp
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
-			elemBefore={<TextParagraphIcon label="" size="small" />}
+			elemBefore={
+				isNormalTextLabelEnabled ? (
+					<TextNormalIcon label="" size="small" />
+				) : (
+					<TextParagraphIcon label="" size="small" />
+				)
+			}
 		>
 			{formatMessage(
 				isNormalTextLabelEnabled ? blockMenuMessages.normalText : blockMenuMessages.paragraph,

@@ -3,7 +3,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const injectNodeViewNodeTypeList: readonly string[] = [
 	'paragraph',
@@ -16,11 +15,6 @@ const injectNodeViewNodeTypeList: readonly string[] = [
 	'taskList',
 	'layoutColumn',
 	'hardBreak',
-] as const;
-
-const injectNodeViewNodeTypeConditionalList: readonly string[] = [
-	...injectNodeViewNodeTypeList,
-	// nodes that have custom nodeView behind experiment/FG
 	'layoutSection',
 ] as const;
 
@@ -32,14 +26,8 @@ const key = new PluginKey('editorNativeAnchorSupportPlugin');
 export const createEditorNativeAnchorSupportPlugin = (schema: Schema): SafePlugin => {
 	const nodeViewEntries: [string, NodeViewConstructor][] = [];
 
-	const injectList =
-		expValEquals('advanced_layouts', 'isEnabled', true) &&
-		!expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)
-			? injectNodeViewNodeTypeList
-			: injectNodeViewNodeTypeConditionalList;
-
 	schema.spec.nodes.forEach((nodeName, nodeSpec) => {
-		if (injectList.includes(nodeName)) {
+		if (injectNodeViewNodeTypeList.includes(nodeName)) {
 			if (nodeSpec.toDOM && typeof nodeSpec.toDOM === 'function') {
 				const toDOM = nodeSpec.toDOM.bind(nodeSpec);
 				nodeViewEntries.push([

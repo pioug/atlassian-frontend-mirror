@@ -114,27 +114,6 @@ export type CatchAllTracking = {
 	enabled: boolean;
 };
 
-export type NodeViewTracking = {
-	/**
-   * @description Control whether
-    NodeView performance is tracked. When this is false no measurements are taken and no events are sent.
-   * @default false
-   */
-	enabled: boolean;
-
-	/**
-	 * @description The nth re-render of NodeView after which an analytics event is sent. Depends on enabled being true.
-	 * @default false
-	 */
-	samplingRate?: 100;
-
-	/**
-	 * @description NodeView render that exceeds the threshold generate analytics event. Depends on enabled being true.
-	 * @default 7
-	 */
-	slowThreshold?: number;
-};
-
 export type BrowserFreezetracking = {
 	enabled?: boolean; // not implemented
 
@@ -350,11 +329,6 @@ export type PerformanceTracking = {
 	 * @description Control whether transactions are tracked
 	 */
 	inputTracking?: InputTracking;
-
-	/**
-	 * @description Control whether nodeviews are tracked
-	 */
-	nodeViewTracking?: NodeViewTracking;
 
 	/**
 	 * @description Control whether browser freezes / long tasks are tracked

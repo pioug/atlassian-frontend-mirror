@@ -225,13 +225,12 @@ The text below records the earlier "no role on host" fix.
 passes `role="tooltip"` to the `Popover` and no longer passes `role="presentation"` to the
 container. `TooltipPrimitive`'s existing `'tooltip'` default puts the role back on the node that
 carries `data-placement`, `class="Tooltip"` and the text, which is the legacy DOM. `Popover`'s
-`role` is optional, tooltip is not in its `POPUP_ROLES` set, and `shouldFocusIntoPopover` returns
-`false` for `undefined`, so nothing in top-layer changes. Verified locally: `StatGridView` (the
-duplicate-role case) and `elements/reactions` (a `data-placement` case) pass, and
-`tooltip-top-layer.test.tsx` now asserts the role sits on the content node and that a `component`
-wrapper that drops `role` yields exactly one `role="tooltip"`. None of the red that remained after
-this fix was role-related; cluster 2 below has the current, per-test classification of what is still
-failing in `tooltip.test.tsx`.
+`role` is optional, tooltip is not in its `POPUP_ROLES` set, and `useInitialFocus` does nothing for
+`undefined`, so nothing in top-layer changes. Verified locally: `StatGridView` (the duplicate-role
+case) and `elements/reactions` (a `data-placement` case) pass, and `tooltip-top-layer.test.tsx` now
+asserts the role sits on the content node and that a `component` wrapper that drops `role` yields
+exactly one `role="tooltip"`. None of the red that remained after this fix was role-related; cluster
+2 below has the current, per-test classification of what is still failing in `tooltip.test.tsx`.
 
 **Why not default `TooltipPrimitive`'s `role` to `'presentation'`, as first suggested below?** The
 legacy render at `tooltip.tsx:723` passes no `role`, so it relies on the `'tooltip'` default. Eight

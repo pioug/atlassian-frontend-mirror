@@ -34,9 +34,7 @@ const toDOM = (node: PMNode, isEmpty?: boolean): DOMOutputSpec => {
 };
 
 /**
- * Requires `platform_editor_breakout_resizing` as well as
- * `platform_editor_vanilla_node_views_phase1`, because it cannot render the
- * React `<BreakoutResizer>` the old view mounts when that experiment is off.
+ * Requires `platform_editor_vanilla_node_views_phase1`.
  *
  * Also used for SSR, where it needs no `NodeViewContentHole` /
  * `data-ssr-content-dom-ref` handling — that exists only because the React

@@ -22,11 +22,6 @@ jest.mock('react-intl', () => {
 	};
 });
 
-jest.mock('@atlaskit/editor-common/performance/measure-tti', () => ({
-	...jest.requireActual<object>('@atlaskit/editor-common/performance/measure-tti'),
-	measureTTI: jest.fn(),
-}));
-
 import React from 'react';
 
 import { render, waitFor } from '@testing-library/react';

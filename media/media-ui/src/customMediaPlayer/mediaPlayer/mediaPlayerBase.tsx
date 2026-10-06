@@ -51,7 +51,9 @@ import type {
 import { fireAnalyticsEvent } from '../analytics/utils/fireAnalyticsEvent';
 import type { PlaybackState } from '../analytics/utils/playbackAttributes';
 import { CurrentTime } from '../CurrentTime-2';
+import { ExternalControlsLayout } from '../ExternalControlsLayout';
 import { getFullscreenElement } from '../getFullscreenElement';
+import { withInsetViewer, type WithInsetViewerProps } from '../insetViewerContext/withInsetViewer';
 import { LeftControls } from '../LeftControls-2';
 import { MutedIndicator } from '../MutedIndicator-2';
 import PlaybackSpeedControls from '../playbackSpeedControls';
@@ -138,6 +140,19 @@ const customVideoWrapperStyles = cssMap({
 		height: '100%',
 		userSelect: 'none',
 	},
+	insetViewer: {
+		width: '100%',
+		height: '100%',
+		maxWidth: '100%',
+		maxHeight: '100%',
+		minWidth: 0,
+		minHeight: 0,
+		flex: '1 1 auto',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		userSelect: 'none',
+	},
 });
 
 const videoWrapperStyles = cssMap({
@@ -167,7 +182,8 @@ const spinnerWrapperStyles = cssMap({
 
 type MediaPlayerBaseOwnProps = MediaPlayerBaseProps &
 	WrappedComponentProps &
-	WithAnalyticsEventsProps;
+	WithAnalyticsEventsProps &
+	WithInsetViewerProps;
 
 class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPlayerState> {
 	videoWrapperRef = React.createRef<HTMLDivElement>();
@@ -990,11 +1006,14 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 			videoControlsWrapperRef,
 			areControlsVisible,
 			textTracks,
+			isInsetViewer,
+			controlsPortalElement,
+			onVideoElementChange,
 		} = this.props;
 
 		return (
 			<Box
-				xcss={customVideoWrapperStyles.root}
+				xcss={isInsetViewer ? customVideoWrapperStyles.insetViewer : customVideoWrapperStyles.root}
 				ref={this.videoWrapperRef}
 				testId="custom-media-player"
 			>
@@ -1009,6 +1028,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					poster={poster}
 					textTracks={textTracks}
 					textTracksPosition={areControlsVisible ? -3.7 : undefined}
+					onVideoElementChange={onVideoElementChange}
 					onTextTrackLoaded={this.onTextTrackLoaded}
 					onTextTrackError={this.onTextTrackError}
 				>
@@ -1025,6 +1045,38 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 							skipBackward: this.skipBackward,
 							skipForward: this.skipForward,
 						});
+						const timeline = (
+							<TimeRange
+								currentTime={currentTime}
+								bufferedTime={buffered}
+								duration={duration}
+								onChange={actions.navigate}
+								onChanged={this.onTimeChanged}
+								disableThumbTooltip={true}
+								skipBackward={this.skipBackward}
+								skipForward={this.skipForward}
+								isAlwaysActive={false}
+							/>
+						);
+						const left = (
+							<LeftControls>
+								{this.shouldRenderPlayPauseButton() && this.renderPlayPauseButton()}
+								{this.shouldRenderSkipButtons() && this.renderSkipButtons()}
+								{this.shouldRenderVolume() && this.renderVolume()}
+							</LeftControls>
+						);
+						const right = (
+							<RightControls>
+								{this.shouldRenderCurrentTime() && this.renderCurrentTime()}
+								{this.shouldRenderCaptionsControls() && this.renderCaptionsControls()}
+								{this.shouldRenderSpeedControls() && this.renderSpeedControls()}
+								{this.shouldRenderDownloadButton() && this.renderDownloadButton()}
+								{!isInsetViewer &&
+									this.shouldRenderFullScreenButton() &&
+									this.renderFullScreenButton()}
+								{this.shouldRenderCaptionsAdminControls() && this.renderCaptionsAdminControls()}
+							</RightControls>
+						);
 						return (
 							<Flex direction="column" xcss={videoWrapperStyles.root}>
 								<WidthObserver setWidth={this.onResize} />
@@ -1039,41 +1091,30 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 								>
 									{video}
 								</PlayPauseBlanket>
-								<ControlsWrapper ref={videoControlsWrapperRef} controlsHidden={this.wasPlayedOnce}>
-									<Box xcss={timeWrapperStyles.root}>
-										<TimeRange
-											currentTime={currentTime}
-											bufferedTime={buffered}
-											duration={duration}
-											onChange={actions.navigate}
-											onChanged={this.onTimeChanged}
-											disableThumbTooltip={true}
-											skipBackward={this.skipBackward}
-											skipForward={this.skipForward}
-											isAlwaysActive={false}
-										/>
-									</Box>
-									<Flex
-										alignItems="center"
-										justifyContent="space-between"
-										xcss={timebarWrapperStyles.root}
+								{isInsetViewer ? (
+									<ExternalControlsLayout
+										videoControlsWrapperRef={videoControlsWrapperRef}
+										controlsPortalElement={controlsPortalElement}
+										timeline={timeline}
+										left={left}
+										right={right}
+									/>
+								) : (
+									<ControlsWrapper
+										ref={videoControlsWrapperRef}
+										controlsHidden={this.wasPlayedOnce}
 									>
-										<LeftControls>
-											{this.shouldRenderPlayPauseButton() && this.renderPlayPauseButton()}
-											{this.shouldRenderSkipButtons() && this.renderSkipButtons()}
-											{this.shouldRenderVolume() && this.renderVolume()}
-										</LeftControls>
-										<RightControls>
-											{this.shouldRenderCurrentTime() && this.renderCurrentTime()}
-											{this.shouldRenderCaptionsControls() && this.renderCaptionsControls()}
-											{this.shouldRenderSpeedControls() && this.renderSpeedControls()}
-											{this.shouldRenderDownloadButton() && this.renderDownloadButton()}
-											{this.shouldRenderFullScreenButton() && this.renderFullScreenButton()}
-											{this.shouldRenderCaptionsAdminControls() &&
-												this.renderCaptionsAdminControls()}
-										</RightControls>
-									</Flex>
-								</ControlsWrapper>
+										<Box xcss={timeWrapperStyles.root}>{timeline}</Box>
+										<Flex
+											alignItems="center"
+											justifyContent="space-between"
+											xcss={timebarWrapperStyles.root}
+										>
+											{left}
+											{right}
+										</Flex>
+									</ControlsWrapper>
+								)}
 							</Flex>
 						);
 					}}
@@ -1083,6 +1124,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	}
 }
 
-export const MediaPlayerBase: React.FC<WithIntlProps<MediaPlayerBaseOwnProps>> & {
-	WrappedComponent: React.ComponentType<MediaPlayerBaseOwnProps>;
-} = injectIntl(_MediaPlayerBase);
+export const MediaPlayerBase: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<Omit<WithIntlProps<MediaPlayerBaseOwnProps>, keyof WithInsetViewerProps>> &
+		React.RefAttributes<any>
+> = withInsetViewer(injectIntl(_MediaPlayerBase));

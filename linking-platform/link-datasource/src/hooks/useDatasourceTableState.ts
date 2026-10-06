@@ -16,7 +16,6 @@ import type {
 	DatasourceResponseSchemaProperty,
 	DatasourceTableStatusType,
 } from '@atlaskit/linking-types/datasource';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
@@ -323,13 +322,7 @@ export const useDatasourceTableState = ({
 
 				// A response with no items still describes its columns, so the schema is worth applying
 				// to let the table keep its headers while showing the empty state.
-				const shouldApplySchemaWithoutItems =
-					items.length === 0 && fg('platform_lp_sllv_ux_improvements');
-
-				if (
-					((isSchemaFromData && schema) || fullSchema.properties.length > 0) &&
-					(items.length > 0 || shouldApplySchemaWithoutItems)
-				) {
+				if ((isSchemaFromData && schema) || fullSchema.properties.length > 0) {
 					applySchemaProperties(schema || fullSchema, fieldKeys);
 				}
 

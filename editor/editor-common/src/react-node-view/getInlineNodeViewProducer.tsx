@@ -10,12 +10,7 @@ import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
 import { isSSR } from '../core-utils/is-ssr';
 import type { PMPluginFactoryParams } from '../types';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
-import {
-	analyticsEventKey,
-	getPerformanceOptions,
-	startMeasureReactNodeViewRendered,
-	stopMeasureReactNodeViewRendered,
-} from '../utils';
+import { analyticsEventKey } from '../utils';
 import { getBrowserInfo } from '../utils/browser';
 import { ZERO_WIDTH_SPACE } from '../whitespace';
 import { generateUniqueNodeKey } from './generateUniqueNodeKey';
@@ -108,22 +103,8 @@ function createNodeView<ExtraComponentProps>({
 		);
 	}
 
-	const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(
-		nodeViewParams.view,
-	);
-
-	trackingEnabled && startMeasureReactNodeViewRendered({ nodeTypeName: currentNode.type.name });
-
 	// We render the component while creating the node view
 	renderComponent();
-
-	trackingEnabled &&
-		stopMeasureReactNodeViewRendered({
-			nodeTypeName: currentNode.type.name,
-			dispatchAnalyticsEvent,
-			samplingRate,
-			slowThreshold,
-		});
 
 	const extraNodeViewPropsWithStopEvent = {
 		...extraNodeViewProps,

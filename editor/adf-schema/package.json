@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "57.6.21",
+	"version": "57.6.24",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,22 +19,22 @@
 	"atlaskit:src": "src/index.ts",
 	"scripts": {
 		"clean:build": "rm -rf dist",
-		"ak-postbuild": "yarn build:move:json-schema",
-		"test": "yarn test:unit",
+		"ak-postbuild": "afm run build:move:json-schema",
+		"test": "afm run test:unit",
 		"test:unit": "afm workspace @atlaskit/editor-prosemirror build && jest --testPathPattern=packages/adf-schema/ --config=../../jest.config.js",
-		"test:json-schema": "yarn run jest --expand --testPathPattern=packages/adf-schema/schema-generators/__tests__/unit/json-full-schema.unit.ts --config=../../jest.config.js",
+		"test:json-schema": "jest --expand --testPathPattern=packages/adf-schema/schema-generators/__tests__/unit/json-full-schema.unit.ts --config=../../jest.config.js",
 		"build:cjs": "NODE_ENV=production BABEL_ENV=production:node-cjs babel --config-file ./babel.config.js src --out-dir dist/cjs -x .ts,.tsx",
 		"build:esm": "NODE_ENV=production BABEL_ENV=production:esm babel --config-file ./babel.config.js src -d dist/esm -x .ts,.tsx",
 		"build:es2019": "NODE_ENV=production BABEL_ENV=production:es2019 babel --config-file ./babel.config.js src -d dist/es2019 -x .ts,.tsx",
-		"build:types": "NODE_ENV=production yarn tsc --project ./build/tsconfig.json --emitDeclarationOnly --outDir ./dist/types --rootDir ./src && yarn build:jsontypes",
+		"build:types": "NODE_ENV=production tsc --project ./build/tsconfig.json --emitDeclarationOnly --outDir ./dist/types --rootDir ./src && afm run build:jsontypes",
 		"build:jsontypes": "mkdir -p dist/types/json-schema && cp src/json-schema/index.ts dist/types/json-schema/index.d.ts",
-		"build:all": "yarn build:cjs && yarn build:esm && yarn build:es2019 && yarn build:types",
-		"build": "yarn clean:build && afm workspace @atlaskit/editor-prosemirror build && afm workspace @atlaskit/adf-schema-generator build && yarn run build:all && yarn run build:schema:all",
+		"build:all": "afm run build:cjs && afm run build:esm && afm run build:es2019 && afm run build:types",
+		"build": "afm run clean:build && afm workspace @atlaskit/editor-prosemirror build && afm workspace @atlaskit/adf-schema-generator build && afm run build:all && afm run build:schema:all",
 		"build:move:json-schema": "mkdir -p dist && cp -r json-schema dist",
 		"build:schema:pm": "run-ts ./schema-generators/pm-full-schema.ts && prettier --write --no-editorconfig './src/next-schema/generated/**/*.ts'",
-		"build:schema:json": "mkdir -p json-schema/v1/ && run-ts ./schema-generators/json-full-schema.ts && prettier --write --no-editorconfig './json-schema/v1/*.json' && yarn run build:move:json-schema",
+		"build:schema:json": "mkdir -p json-schema/v1/ && run-ts ./schema-generators/json-full-schema.ts && prettier --write --no-editorconfig './json-schema/v1/*.json' && afm run build:move:json-schema",
 		"build:schema:validator": "run-ts ./schema-generators/validator-full-schema.ts && prettier --write --no-editorconfig './src/validator-schema/generated/**/*.ts'",
-		"build:schema:all": "yarn build:schema:pm && yarn build:schema:json && yarn build:schema:validator"
+		"build:schema:all": "afm run build:schema:pm && afm run build:schema:json && afm run build:schema:validator"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema-generator": "workspace:^",

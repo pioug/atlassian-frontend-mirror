@@ -1,5 +1,17 @@
 # @atlaskit/checkbox
 
+## 19.3.0
+
+### Minor Changes
+
+- [`40a0bb1e41cf6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40a0bb1e41cf6) -
+  Add 150ms cross-fades for interaction states behind platform_design_system_selection_radial_fade,
+  with a feature flag runtime dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.2.4
 
 ### Patch Changes

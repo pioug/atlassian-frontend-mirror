@@ -7,7 +7,7 @@ import { planInputSchema } from './plan-input-schema';
 
 export const listPlanTool: Tool = {
 	name: 'ads_plan',
-	description: `Runs **ads_search_tokens**, **ads_search_icons**, **ads_search_components**, and optionally **atlaskit_search_components** in one call and returns a single JSON payload (each section only if that list was non-empty). Use this as the default way to discover ADS **tokens**, **icons**, and **components** for a UI task.
+	description: `Runs **ads_search_tokens**, **ads_search_icons**, **ads_search_components**, and optionally **atlaskit_search_components** in one call and returns a single JSON payload (each section only if that list was non-empty). Use this as the default way to discover ADS **tokens**, **icons**, and **components** for a UI task. Component results preserve optional \`designSource.figmaUrl\`; for Figma work, follow the canonical-source and property-verification guidance in \`ads_search_components\`.
 
 WHEN TO USE:
 **Implementing or iterating on a UI**—new screen, feature, or polish—and you need candidate **token** names, **icon** imports, and **ADS component** packages/props in one pass. Also use when exploring ADS building blocks before you write code.

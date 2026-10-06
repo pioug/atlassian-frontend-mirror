@@ -27,6 +27,7 @@ import type {
 	SelectComponentsConfig,
 	ValueType,
 } from '@atlaskit/select/types';
+import { token } from '@atlaskit/tokens';
 
 import { defaultTimes } from '../internal/default-times';
 import { EmptyComponent } from '../internal/empty-component';
@@ -297,9 +298,14 @@ const TimePicker: React.ForwardRefExoticComponent<
 
 		const renderIconContainer = Boolean(!hideIcon && value);
 
+		const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
+
 		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 			control: (base) => ({
 				...base,
+				...(isInputMotionEnabled && !isDisabled
+					? { transition: base.transition ?? token('motion.input') }
+					: {}),
 			}),
 			menu: (base: any) => ({
 				...base,

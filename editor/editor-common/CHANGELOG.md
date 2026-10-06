@@ -1,5 +1,75 @@
 # @atlaskit/editor-common
 
+## 128.4.0
+
+### Minor Changes
+
+- [`950fcabdaee51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/950fcabdaee51) -
+  Show comment markers for eligible Remix extension nodes in the editor behind
+  `cc_maui_annotations_on_extensions`. Highlight an open draft or selected unresolved thread, open
+  existing comments from the marker, and preserve the embedded iframe and unsaved drafts when
+  switching threads.
+
+  Render each badge from its extension node view, using its node and current position instead of
+  scanning the document. Both standard and referentiality extension node views render the shared
+  badge directly, using annotation state and logic-only actions. Expose the reusable badge container
+  as BlockNodeBadges, retaining MediaBadges as a compatibility wrapper for existing media consumers.
+
+  Preserve the existing Emotion styling for the shared badge container; defer its Compiled migration
+  with a file-scoped ratcheting exception.
+
+- [`be603fee7766f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be603fee7766f) -
+  Remove unused performance analytics code: ACTION enum members WITH_PLUGIN_STATE_CALLED,
+  DISPATCHED_VALID_TRANSACTION, EDITOR_CONTENT_RETRIEVAL_PERFORMED, ON_CHANGE_CALLBACK,
+  RENDERED_SAMPLED and REACT_NODEVIEW_RENDERED with their payload types, TransactionEventPayload,
+  PluginPerformanceReportData types, measureTTI / getTTISeverity and TTI threshold defaults,
+  reactNodeViewRendered tracking (getPerformanceOptions, start/stopMeasureReactNodeViewRendered,
+  PerformanceTracking.nodeViewTracking), and the `./performance/measure-tti`,
+  `./utils/get-performance-options` and `./analytics/types/performance-report` entry points
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.3.2
+
+### Patch Changes
+
+- [`7690092b13a84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7690092b13a84) -
+  Clean up the fully rolled out nested MultiBodiedExtension frame styling feature gate.
+- [`042fa402a6460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/042fa402a6460) -
+  Clean up experiment `platform_editor_august_a11y`
+- Updated dependencies
+
+## 128.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.3.0
+
+### Minor Changes
+
+- [`faf42b91fb5b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/faf42b91fb5b1) -
+  Extend the `AnnotationManager` API ahead of media (block node) annotation support and the
+  Confluence comments migration. Types and manager plumbing only — the hooks behind these methods
+  land with the editor and renderer changes.
+  - `startDraft` takes an optional `localId`, so a draft can target a block node instead of the
+    current text selection. `StartDraftResult` gains an `invalid-localId` failure reason.
+  - New `clearSelectedAnnotation()` and `clearHoveredAnnotation()`: clear the selection or hover
+    without the caller having to track which annotation id is active. Both return the id they
+    cleared (`undefined` when nothing was active); `clearSelectedAnnotation` fails with
+    `draft-in-progress` while a draft is open.
+  - `AnnotationDraftStartedData` gains `targetNodeType`, and `AnnotationSelectedChangeData` gains
+    `targetNodeType` and `viewMethod`.
+  - `draftAnnotationCleared` is now subscribable via `onDraftAnnotationCleared` /
+    `offDraftAnnotationCleared`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 128.2.0
 
 ### Minor Changes

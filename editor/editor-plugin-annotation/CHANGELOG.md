@@ -1,5 +1,45 @@
 # @atlaskit/editor-plugin-annotation
 
+## 24.1.0
+
+### Minor Changes
+
+- [`950fcabdaee51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/950fcabdaee51) -
+  Show comment markers for eligible Remix extension nodes in the editor behind
+  `cc_maui_annotations_on_extensions`. Highlight an open draft or selected unresolved thread, open
+  existing comments from the marker, and preserve the embedded iframe and unsaved drafts when
+  switching threads.
+
+  Render each badge from its extension node view, using its node and current position instead of
+  scanning the document. Both standard and referentiality extension node views render the shared
+  badge directly, using annotation state and logic-only actions. Expose the reusable badge container
+  as BlockNodeBadges, retaining MediaBadges as a compatibility wrapper for existing media consumers.
+
+  Preserve the existing Emotion styling for the shared badge container; defer its Compiled migration
+  with a file-scoped ratcheting exception.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

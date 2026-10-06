@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent, type RenderResult, act } from '@testing-library/react';
+import { render, fireEvent, screen, type RenderResult, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import {
@@ -18,7 +18,6 @@ type RenderVideoReturn = RenderResult & {
 	actions: VideoActions;
 	state: () => Parameters<RenderCallback>[1];
 	ref: () => Parameters<RenderCallback>[3];
-	reactElem: () => Parameters<RenderCallback>[0];
 };
 
 const setup = (props: Partial<VideoProps> = {}): RenderVideoReturn => {
@@ -43,10 +42,9 @@ const setup = (props: Partial<VideoProps> = {}): RenderVideoReturn => {
 	const latestChild = () => children.mock.calls[children.mock.calls.length - 1];
 	const state = () => latestChild()[1];
 	const ref = () => latestChild()[3];
-	const reactElem = () => latestChild()[0];
 	const actions = children.mock.calls[0][2];
 
-	return { ...utils, children, elem, actions, state, ref, reactElem };
+	return { ...utils, children, elem, actions, state, ref };
 };
 
 describe('VideoRenderer', () => {
@@ -64,27 +62,27 @@ describe('VideoRenderer', () => {
 		it.each(['video', 'audio'] as const)(
 			'should create a %s element with the right properties',
 			(sourceType) => {
-				const { reactElem: reactElem1 } = setup({ sourceType, src: 'first-url' });
-				expect(reactElem1().props).toEqual(
+				const { elem: elem1 } = setup({ sourceType, src: 'first-url' });
+				expect(elem1).toEqual(
 					expect.objectContaining({
-						src: 'first-url',
+						src: expect.stringContaining('first-url'),
 						preload: 'metadata',
-						autoPlay: false,
+						autoplay: false,
 						controls: false,
 					}),
 				);
 
-				const { reactElem: reactElem2, ref } = setup({
+				const { elem: elem2, ref } = setup({
 					src: 'some-src',
 					preload: 'none',
 					autoPlay: true,
 					controls: true,
 				});
-				expect(reactElem2().props).toEqual(
+				expect(elem2).toEqual(
 					expect.objectContaining({
-						src: 'some-src',
+						src: expect.stringContaining('some-src'),
 						preload: 'none',
-						autoPlay: true,
+						autoplay: true,
 						controls: true,
 					}),
 				);
@@ -575,6 +573,85 @@ describe('VideoRenderer', () => {
 			expect(onCanPlay).toHaveBeenCalledTimes(2);
 
 			await expect(document.body).toBeAccessible();
+		});
+	});
+
+	describe('onVideoElementChange', () => {
+		const renderVideo = (props: Partial<VideoProps>) =>
+			render(
+				<Video src="video-url" {...props}>
+					{(videoEl) => videoEl}
+				</Video>,
+			);
+
+		it('should notify with the video element on mount and with null on unmount', () => {
+			const onVideoElementChange = jest.fn();
+
+			const { elem, unmount } = setup({ onVideoElementChange });
+
+			expect(onVideoElementChange).toHaveBeenCalledTimes(1);
+			expect(onVideoElementChange).toHaveBeenLastCalledWith(elem);
+
+			unmount();
+			expect(onVideoElementChange).toHaveBeenCalledTimes(2);
+			expect(onVideoElementChange).toHaveBeenLastCalledWith(null);
+		});
+
+		it('should hand over to the new callback when it changes', () => {
+			const onVideoElementChange = jest.fn();
+			const nextOnVideoElementChange = jest.fn();
+
+			const { elem, rerender } = setup({ onVideoElementChange });
+			onVideoElementChange.mockClear();
+
+			rerender(
+				<Video src="video-url" onVideoElementChange={nextOnVideoElementChange}>
+					{(videoEl) => videoEl}
+				</Video>,
+			);
+
+			expect(onVideoElementChange).toHaveBeenCalledWith(null);
+			expect(nextOnVideoElementChange).toHaveBeenCalledWith(elem);
+		});
+
+		it('should not notify for audio sources, on mount or unmount', () => {
+			const onVideoElementChange = jest.fn();
+
+			const { unmount } = renderVideo({ onVideoElementChange, sourceType: 'audio' });
+			expect(onVideoElementChange).not.toHaveBeenCalled();
+
+			unmount();
+			expect(onVideoElementChange).not.toHaveBeenCalled();
+		});
+
+		it('should notify with null when the source switches from video to audio', () => {
+			const onVideoElementChange = jest.fn();
+
+			const { rerender } = renderVideo({ onVideoElementChange });
+			onVideoElementChange.mockClear();
+
+			rerender(
+				<Video src="video-url" sourceType="audio" onVideoElementChange={onVideoElementChange}>
+					{(videoEl) => videoEl}
+				</Video>,
+			);
+
+			expect(onVideoElementChange).toHaveBeenCalledTimes(1);
+			expect(onVideoElementChange).toHaveBeenCalledWith(null);
+		});
+
+		it('should notify with the video element when the source switches from audio to video', () => {
+			const onVideoElementChange = jest.fn();
+
+			const { rerender } = renderVideo({ onVideoElementChange, sourceType: 'audio' });
+
+			rerender(
+				<Video src="video-url" sourceType="video" onVideoElementChange={onVideoElementChange}>
+					{(videoEl) => videoEl}
+				</Video>,
+			);
+
+			expect(onVideoElementChange).toHaveBeenCalledWith(screen.getByTestId('media-video-element'));
 		});
 	});
 });

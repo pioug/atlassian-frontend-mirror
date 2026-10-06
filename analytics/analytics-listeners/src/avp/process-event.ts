@@ -24,7 +24,7 @@ import { getSources } from '../helpers/get-sources';
 import type Logger from '../helpers/logger';
 
 const AVP_TAG = 'avp';
-const AVP_PLATFORM_TAG = 'atlassianVisualizationPlatform';
+const AVP_PLATFORM_TAG = 'analyticsVisualizationPlatform';
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 
 /**

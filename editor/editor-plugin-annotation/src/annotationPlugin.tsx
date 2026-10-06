@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AnnotationPlugin } from './annotationPluginType';
@@ -88,6 +89,9 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 		},
 
 		actions: {
+			isBlockNodeSupported: (node) =>
+				fg('cc_maui_annotations_on_extensions') &&
+				annotationProviders?.inlineComment.isBlockNodeSupported?.(node) === true,
 			hasAnyUnResolvedAnnotationInPage,
 			requestCloseInlineComment,
 			stripNonExistingAnnotations,

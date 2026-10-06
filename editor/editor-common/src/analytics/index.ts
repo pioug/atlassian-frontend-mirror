@@ -13,7 +13,6 @@ export type {
 	FireAnalyticsEvent,
 	FireAnalyticsEventPayload,
 	SimplifiedNode,
-	TransactionEventPayload,
 } from './types/events';
 
 export type { FormatEventPayload } from './types/format-events';
@@ -174,13 +173,6 @@ export type { TypeAheadPayload } from './types/type-ahead';
 export { SELECTION_POSITION, SELECTION_TYPE } from './types/utils';
 
 export type { OperationalAEP } from './types/utils';
-
-export type {
-	PluginMethodReport,
-	PluginsReport,
-	NodeCount,
-	PluginPerformanceReportData,
-} from './types/performance-report';
 
 export type {
 	InitialiseFragmentMarksAEP,

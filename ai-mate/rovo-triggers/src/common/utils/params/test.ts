@@ -151,7 +151,6 @@ describe('Rovo Query', () => {
 				'rovoChatMessageIdSelectedForPreview',
 				'rovoChatInvocationIdSelectedForPreview',
 				'rovoChatPromptLibraryOpen',
-				'rovoChatOpenChatMode',
 				'rovoChatRovoJourneyId',
 				'rovoChatSearchQuery',
 			]);
@@ -171,7 +170,6 @@ describe('Rovo Query', () => {
 				'rovoChatMessageIdSelectedForPreview!=false',
 				'rovoChatInvocationIdSelectedForPreview!=false',
 				'rovoChatPromptLibraryOpen!=false',
-				'rovoChatOpenChatMode!=false',
 				'rovoChatRovoJourneyId!=false',
 				'rovoChatSearchQuery!=false',
 			]);

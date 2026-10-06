@@ -5,14 +5,19 @@
 
 import { forwardRef } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type Appearance } from '../types';
 
 const isInvalidBorderStyles = css({
 	borderColor: token('color.border.danger'),
+});
+const isInvalidBorderWithShadowStyles = css({
+	borderColor: token('color.border.danger'),
+	boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
 });
 
 const isFocusedBorderStyles = css({
@@ -64,9 +69,16 @@ const baseContainerStyles = css({
 	display: 'flex',
 	backgroundColor: token('color.background.input'),
 	borderRadius: token('radius.medium'),
-	transition: 'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
 	'&:hover': {
 		cursor: 'pointer',
+	},
+});
+const inputMotionStyles = cssMap({
+	legacy: {
+		transition: 'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
+	},
+	base: {
+		transition: token('motion.input'),
 	},
 });
 
@@ -88,19 +100,23 @@ export const DateTimePickerContainer: React.ForwardRefExoticComponent<
 > = forwardRef<HTMLDivElement, DateTimePickerContainerProps>(
 	({ children, isDisabled, isFocused, appearance, isInvalid, innerProps, testId }, ref) => {
 		const notFocusedOrIsDisabled = !(isFocused || isDisabled);
+		const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
 
 		// we cannot use Box or Flex primitives because these do not allow ...innerProps to be passed
 		return (
 			<div
 				css={[
 					baseContainerStyles,
+					!isInputMotionEnabled && inputMotionStyles.legacy,
+					isInputMotionEnabled && !isDisabled && inputMotionStyles.base,
 					newBorderStyles,
 					isDisabled && isDisabledStyles,
 					isFocused && isFocusedStyles,
 					appearance === 'subtle' && isFocused && subtleFocusedBgStyles,
 					appearance === 'subtle' && !isFocused && subtleBgStyles,
 					isFocused && isFocusedBorderStyles,
-					isInvalid && isInvalidBorderStyles,
+					!isInputMotionEnabled && isInvalid && isInvalidBorderStyles,
+					isInputMotionEnabled && isInvalid && isInvalidBorderWithShadowStyles,
 					notFocusedOrIsDisabled && isInvalid && isInvalidHoverStyles,
 					notFocusedOrIsDisabled && !isInvalid && hoverStyles,
 					appearance === 'none' && noBgStyles,

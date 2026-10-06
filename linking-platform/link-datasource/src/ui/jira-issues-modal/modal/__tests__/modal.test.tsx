@@ -1206,15 +1206,7 @@ describe('JiraIssuesConfigModal', () => {
 			totalCount: 0,
 		});
 
-		it('should replace the whole table with the no results screen when the feature gate is off', async () => {
-			failGate('platform_lp_sllv_ux_improvements');
-			await setup({ hookState: getNoResultsHookState() });
-
-			expect(screen.getByTestId('datasource-modal--no-results')).toBeInTheDocument();
-		});
-
-		it('should keep rendering the table so it can show the no results screen in place of the rows when the feature gate is on', async () => {
-			passGate('platform_lp_sllv_ux_improvements');
+		it('should keep rendering the table so it can show the no results screen in place of the rows', async () => {
 			const { getLatestIssueLikeTableProps } = await setup({
 				hookState: getNoResultsHookState(),
 			});
@@ -1225,9 +1217,9 @@ describe('JiraIssuesConfigModal', () => {
 			);
 		});
 
-		it('should show no results screen in issue view mode', async () => {
+		it('should show no results screen in issue view mode when no columns are available', async () => {
 			const { onInsert } = await setup({
-				hookState: { ...getDefaultHookState(), responseItems: [] },
+				hookState: { ...getNoResultsHookState(), columns: [] },
 			});
 
 			expect(

@@ -12,7 +12,12 @@ import type {
 	TestInfo,
 } from 'playwright/test';
 
-import { test as base, expect as baseExpect, type Expect } from '@af/integration-testing';
+import {
+	attachFixtureToPage,
+	test as base,
+	expect as baseExpect,
+	type Expect,
+} from '@af/integration-testing';
 import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 
 // Extend the Page interface to include visitExample for TypeScript
@@ -45,46 +50,6 @@ export const getClientCalculatedVCRevisions = (
 	revisions?.filter(
 		(revision) => revision.revision !== 'raw-handler' && revision.revision >= minRevision,
 	) ?? [];
-
-const prepareParams = (params?: { [key: string]: string | boolean }) => {
-	if (!params) {
-		return { urlParams: {}, featureFlags: '' };
-	}
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const { featureFlag, ...rest } = params;
-
-	// url param in string format: '&featureFlag=feature-flag-key&featureFlag=feature-flag-key'
-	const featureFlags =
-		typeof params.featureFlag === 'string'
-			? // Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				`&featureFlag=${params.featureFlag.split(/[ ,;]+/).join('&featureFlag=')}`
-			: '';
-
-	return { urlParams: rest, featureFlags };
-};
-
-const getExampleURL = (props: {
-	baseURL: string | undefined;
-	groupId: string;
-	packageId: string;
-	exampleId: string | undefined;
-	params: Record<string, string | boolean> | undefined;
-}) => {
-	const { baseURL, groupId, packageId, exampleId, params } = props;
-	const { urlParams, featureFlags } = prepareParams(params);
-	const searchParams = new URLSearchParams({
-		groupId,
-		packageId,
-		isTestRunner: 'true',
-		...(exampleId ? { exampleId } : {}),
-		mode: 'light',
-		...urlParams,
-	});
-
-	const url = `${baseURL}/examples.html?${searchParams.toString()}${featureFlags}`;
-	return url;
-};
 
 export const test: TestType<
 	PlaywrightTestArgs &
@@ -289,36 +254,36 @@ export const test: TestType<
 				}
 			});
 
-			window.addEventListener('load', () => {
-				const divExamples = document.querySelector('#examples');
-				if (divExamples) {
-					observer.observe(divExamples, {
-						childList: true,
-						subtree: true,
-						attributes: true,
-					});
+			const observeExamplesRoot = (): boolean => {
+				const examplesRoot = document.querySelector('#examples');
+				if (!(examplesRoot instanceof Element)) {
+					return false;
 				}
-			});
+
+				recordNodeAdded(examplesRoot);
+				examplesRoot.querySelectorAll('*').forEach(recordNodeAdded);
+				observer.observe(examplesRoot, {
+					childList: true,
+					subtree: true,
+					attributes: true,
+				});
+				return true;
+			};
+
+			if (!observeExamplesRoot()) {
+				const rootObserver = new MutationObserver(() => {
+					if (observeExamplesRoot()) {
+						rootObserver.disconnect();
+					}
+				});
+				rootObserver.observe(document, {
+					childList: true,
+					subtree: true,
+				});
+			}
 		});
 
-		(page as any).visitExample = (
-			groupId: string,
-			packageId: string,
-			exampleId?: string,
-			params?: Record<string, string | boolean>,
-		) => {
-			const url = getExampleURL({
-				groupId,
-				packageId,
-				exampleId,
-				params,
-				baseURL,
-			});
-
-			return page.goto(url, {
-				waitUntil: 'domcontentloaded',
-			});
-		};
+		attachFixtureToPage(page, baseURL);
 
 		await page.setViewportSize({
 			width: viewport.width,
@@ -821,24 +786,15 @@ export const testWithBackgroundTab: TestType<
 			});
 		}
 
-		// Build URL with feature flags
-		const params: Record<string, string> = {
-			groupId: 'react-ufo',
-			packageId: 'atlaskit',
-			exampleId: 'basic',
-			isTestRunner: 'true',
-			mode: 'light',
-		};
+		attachFixtureToPage(page, baseURL);
 
-		const searchParams = new URLSearchParams(params);
-		let url = `${baseURL}/examples.html?${searchParams.toString()}`;
-
+		const params: Record<string, string | boolean> = {};
 		if (featureFlags.length > 0) {
-			url += `&featureFlag=${featureFlags.join('&featureFlag=')}`;
+			params.featureFlag = featureFlags.join(';');
 		}
 
 		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.goto(url, { waitUntil: 'domcontentloaded' });
+		await page.visitExample('react-ufo', 'atlaskit', 'basic', params);
 
 		await use(page);
 	},

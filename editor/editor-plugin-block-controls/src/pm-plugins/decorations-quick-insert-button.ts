@@ -10,7 +10,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { ACTIVE_QUICK_INSERT_ATTR } from '../ui/consts';
@@ -78,37 +77,26 @@ export const quickInsertButtonDecoration = ({
 	const key = uuid();
 	const cleanupCallbacks: (() => void)[] = [];
 
-	const widgetSpec = editorExperiment('platform_editor_breakout_resizing', true)
-		? {
-				side: -2,
-				type: TYPE_QUICK_INSERT,
-				/**
-				 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
-				 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
-				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
-				 */
+	const widgetSpec = {
+		side: -2,
+		type: TYPE_QUICK_INSERT,
+		/**
+		 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
+		 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
+		 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
+		 */
 
-				marks: getMatchingBlockMarks(editorState, rootPos, [
-					editorState.schema.marks.alignment,
-					editorState.schema.marks.fontSize,
-				]),
-				destroy: (_: Node) => {
-					nodeViewPortalProviderAPI.remove(key);
-					cleanupCallbacks.forEach((cb) => {
-						cb();
-					});
-				},
-			}
-		: {
-				side: -2,
-				type: TYPE_QUICK_INSERT,
-				destroy: (_: Node) => {
-					nodeViewPortalProviderAPI.remove(key);
-					cleanupCallbacks.forEach((cb) => {
-						cb();
-					});
-				},
-			};
+		marks: getMatchingBlockMarks(editorState, rootPos, [
+			editorState.schema.marks.alignment,
+			editorState.schema.marks.fontSize,
+		]),
+		destroy: (_: Node) => {
+			nodeViewPortalProviderAPI.remove(key);
+			cleanupCallbacks.forEach((cb) => {
+				cb();
+			});
+		},
+	};
 
 	return Decoration.widget(
 		rootPos,

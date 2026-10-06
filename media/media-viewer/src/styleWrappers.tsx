@@ -26,7 +26,11 @@ import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { useIsInsetViewer, useSetMediaFooterControls } from './insetViewerContext';
+import {
+	useHasMediaFooterVideoControls,
+	useIsInsetViewer,
+	useSetMediaFooterControls,
+} from './insetViewerContext';
 
 const INSET_HEADER_HEIGHT = token('space.800');
 const INSET_SIDEBAR_WIDTH = '400px';
@@ -253,6 +257,11 @@ const insetViewerMediaFooterBarStyles = css({
 	pointerEvents: 'all',
 });
 
+const insetViewerVideoMediaFooterBarStyles = css({
+	height: `calc(${INSET_HEADER_HEIGHT} + ${token('space.050')})`,
+	paddingTop: token('space.250'),
+});
+
 const listWrapperStyles = css({
 	width: '100%',
 	height: '100%',
@@ -410,6 +419,20 @@ const errorImageStyles = css({
 const videoStyles = css({
 	width: '100vw',
 	height: '100vh',
+});
+
+const insetViewerVideoStyles = css({
+	display: 'block',
+	flex: 'none',
+	width: '100%',
+	height: '100%',
+	maxWidth: '100%',
+	maxHeight: '100%',
+	minWidth: 0,
+	minHeight: 0,
+	objectFit: 'contain',
+	borderRadius: token('radius.large', '8px'),
+	overflow: 'hidden',
 });
 
 const pdfWrapperStyles = css({
@@ -705,6 +728,33 @@ const customVideoPlayerWrapperStyles = css({
 	},
 });
 
+const insetViewerCustomVideoPlayerWrapperStyles = css({
+	width: '100%',
+	height: '100%',
+	maxWidth: '100%',
+	maxHeight: '100%',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	overflow: 'hidden',
+	boxSizing: 'border-box',
+});
+
+const insetViewerFittedVideoFrameStyles = css({
+	width: '100%',
+	height: '100%',
+	maxWidth: '100%',
+	maxHeight: '100%',
+	minWidth: 0,
+	minHeight: 0,
+	flex: 'none',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	overflow: 'hidden',
+	borderRadius: token('radius.large', '8px'),
+});
+
 const sidebarWrapperStyles = css({
 	top: 0,
 	right: 0,
@@ -892,10 +942,14 @@ export const MediaStage = ({ children }: Children): JSX.Element => (
 
 export const MediaFooterBar = (): JSX.Element => {
 	const setMediaFooterControls = useSetMediaFooterControls();
+	const hasVideoControls = useHasMediaFooterVideoControls();
 	return (
 		<div
 			ref={setMediaFooterControls}
-			css={insetViewerMediaFooterBarStyles}
+			css={[
+				insetViewerMediaFooterBarStyles,
+				hasVideoControls && insetViewerVideoMediaFooterBarStyles,
+			]}
 			data-testid="media-viewer-media-footer"
 		/>
 	);
@@ -1019,12 +1073,27 @@ type VideoProps = {
 	controls: boolean;
 	src: string;
 	autoPlay: boolean;
+	onVideoElementChange?: (video: HTMLVideoElement | null) => void;
 };
 
-export const Video = ({ autoPlay, controls, src }: VideoProps): JSX.Element => (
-	// eslint-disable-next-line @atlassian/a11y/media-has-caption
-	<video css={videoStyles} autoPlay={autoPlay} controls={controls} src={src} />
-);
+export const Video = ({
+	autoPlay,
+	controls,
+	src,
+	onVideoElementChange,
+}: VideoProps): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		// eslint-disable-next-line @atlassian/a11y/media-has-caption
+		<video
+			ref={onVideoElementChange}
+			css={[!isInsetViewer && videoStyles, isInsetViewer && insetViewerVideoStyles]}
+			autoPlay={autoPlay}
+			controls={controls}
+			src={src}
+		/>
+	);
+};
 
 const PDFWrapperBody = forwardRef<
 	HTMLDivElement,
@@ -1335,14 +1404,32 @@ export const DownloadButtonWrapper = ({ children }: Children): JSX.Element => (
 
 type CustomVideoPlayerWrapperProps = DataTestID & Children;
 
-export const CustomVideoPlayerWrapper = ({
-	'data-testid': datatestId,
-	children,
-}: CustomVideoPlayerWrapperProps): JSX.Element => (
-	<div css={customVideoPlayerWrapperStyles} data-testid={datatestId}>
-		{children}
-	</div>
+export const CustomVideoPlayerWrapper: ForwardRefExoticComponent<
+	CustomVideoPlayerWrapperProps & RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, CustomVideoPlayerWrapperProps>(
+	({ 'data-testid': datatestId, children }, ref) => {
+		const isInsetViewer = useIsInsetViewer();
+		return (
+			<div
+				ref={ref}
+				css={[
+					!isInsetViewer && customVideoPlayerWrapperStyles,
+					isInsetViewer && insetViewerCustomVideoPlayerWrapperStyles,
+				]}
+				data-testid={datatestId}
+			>
+				{children}
+			</div>
+		);
+	},
 );
+
+export const FittedVideoFrame: ForwardRefExoticComponent<Children & RefAttributes<HTMLDivElement>> =
+	forwardRef<HTMLDivElement, Children>(({ children }, ref) => (
+		<div ref={ref} css={insetViewerFittedVideoFrameStyles}>
+			{children}
+		</div>
+	));
 
 type SidebarWrapperProps = DataTestID & Children;
 

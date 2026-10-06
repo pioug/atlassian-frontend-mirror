@@ -94,6 +94,44 @@ describe('Popover primitive - open layer observer', () => {
 		expect(screen.getByTestId('popup-count')).toHaveTextContent('0');
 	});
 
+	it('does not register with the observer without onClose', () => {
+		render(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Popover isOpen={true} mode="manual" role="dialog" label="Test popover">
+					Popover content
+				</Popover>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('total-count')).toHaveTextContent('0');
+		expect(screen.getByTestId('popup-count')).toHaveTextContent('0');
+	});
+
+	it('registers once onClose is provided', () => {
+		const { rerender } = render(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Popover isOpen={true} mode="manual" role="dialog" label="Test popover">
+					Popover content
+				</Popover>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('popup-count')).toHaveTextContent('0');
+
+		rerender(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Popover isOpen={true} mode="manual" role="dialog" label="Test popover" onClose={() => {}}>
+					Popover content
+				</Popover>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('popup-count')).toHaveTextContent('1');
+	});
+
 	it('does not register with the observer when closed', () => {
 		render(
 			<OpenLayerObserver>

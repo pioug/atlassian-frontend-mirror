@@ -85,9 +85,15 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
 		});
 	});
 
-	it('should fire "ui.emptyResult.shown.datasource" when datasource results are empty', async () => {
+	it('should fire "ui.emptyResult.shown.datasource" when datasource results and columns are empty', async () => {
 		const { onAnalyticFireEvent } = await setup({
-			hookState: { ...getDefaultHookState(), responseItems: [] },
+			hookState: {
+				...getDefaultHookState(),
+				responseItems: [],
+				responseItemIds: [],
+				totalCount: 0,
+				columns: [],
+			},
 		});
 
 		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(

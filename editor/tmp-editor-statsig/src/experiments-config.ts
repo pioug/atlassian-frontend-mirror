@@ -287,13 +287,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
-	// Added 2025-08-05
-	platform_editor_august_a11y: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-06-05
 	platform_editor_block_controls_perf_optimization: {
 		defaultValue: boolean;
@@ -310,13 +303,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-07-30
 	platform_editor_blocktaskitem_node_tenantid: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-05-15
-	platform_editor_breakout_resizing: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -598,13 +584,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-29
-	platform_editor_layout_column_selection_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: {
 		defaultValue: boolean;
@@ -656,13 +635,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-24
 	'cwr-modal-ui-refresh': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-08
-	'cc-disambiguation-in-cwr': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1374,14 +1346,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-15
-	platform_editor_breakout_resizing: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_breakout_resizing',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-05
 	platform_editor_block_controls_perf_optimization: createBooleanExperiment({
 		productKeys: {
@@ -1471,14 +1435,6 @@ export const editorExperimentsConfig: {
 	editor_enable_image_alignment_in_expand: createBooleanExperiment({
 		productKeys: {
 			confluence: 'editor_enable_image_alignment_in_expand',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-08-05
-	platform_editor_august_a11y: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_august_a11y',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1731,14 +1687,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-06-08
-	'cc-disambiguation-in-cwr': createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc-disambiguation-in-cwr',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-06-11
 	'cwr-reduce-prompt-suggestion-max-chars': createBooleanExperiment({
 		productKeys: {
@@ -1941,15 +1889,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_no_stream_skip_pacer: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_no_stream_skip_pacer',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-07-29
-	platform_editor_layout_column_selection_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_layout_column_selection_fix',
-			jira: 'platform_editor_layout_column_selection_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

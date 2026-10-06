@@ -3,7 +3,6 @@ import React from 'react';
 import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common/ui';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { imageFileId } from '@atlaskit/media-test-helpers';
-import { skipAutoA11y } from '@atlassian/a11y-jest-testing';
 
 import Caption from '../../../../react/nodes/caption';
 import type { MediaProps } from '../../../../react/nodes/media';
@@ -138,26 +137,17 @@ describe('MediaSingle', () => {
 				},
 			);
 
-		// The link wraps a media card that never resolves in jsdom, so the anchor has no discernible
-		// text and trips `link-name`. That is a limitation of the fixture, not of the link mark, so
-		// the automatic a11y pass is opted out for these two tests.
-		it(
-			'renders media with link correctly',
-			skipAutoA11y(() => {
-				const { container } = renderWithLinkMark();
+		it('renders media with link correctly', () => {
+			const { container } = renderWithLinkMark();
 
-				expect(container.querySelectorAll('a[href="http://atlassian.com"]')).toHaveLength(1);
-			}),
-		);
+			expect(container.querySelectorAll('a[href="http://atlassian.com"]')).toHaveLength(1);
+		});
 
-		it(
-			'override shouldOpenMediaViewer to be falsy',
-			skipAutoA11y(() => {
-				renderWithLinkMark();
+		it('override shouldOpenMediaViewer to be falsy', () => {
+			renderWithLinkMark();
 
-				expect(lastMediaProps().shouldOpenMediaViewer).toBeFalsy();
-			}),
-		);
+			expect(lastMediaProps().shouldOpenMediaViewer).toBeFalsy();
+		});
 	});
 
 	it('does not override media props when there is not link', () => {

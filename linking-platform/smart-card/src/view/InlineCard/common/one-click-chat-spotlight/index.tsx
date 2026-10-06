@@ -43,17 +43,11 @@ const messages = defineMessages({
 		description:
 			'Accessible name of a spotlight introducing the Rovo action beside a resolved Smart Link.',
 	},
-	drive: {
-		id: 'smart-card.one-click-chat-spotlight-v2.drive.ai-non-final',
-		defaultMessage: 'Discover insights from your Google Drive Smart Link using Rovo',
+	body: {
+		id: 'smart-card.one-click-chat-spotlight-v2.takeaways-body.ai-non-final',
+		defaultMessage: 'Get key decisions and next steps from this link',
 		description:
-			'Spotlight text explaining that the inline action summarizes the linked Google Drive content.',
-	},
-	github: {
-		id: 'smart-card.one-click-chat-spotlight-v2.github.ai-non-final',
-		defaultMessage: 'Discover insights from your GitHub Smart Link using Rovo',
-		description:
-			'Spotlight text explaining that the inline action explains the linked GitHub code.',
+			'Spotlight body inviting users to get key decisions and next steps from a linked document or code using Rovo.',
 	},
 	dismiss: {
 		id: 'smart-card.one-click-chat-spotlight-v2.dismiss.ai-non-final',
@@ -61,8 +55,8 @@ const messages = defineMessages({
 		description: 'Dismiss button in the Smart Link spotlight. Hides this spotlight for seven days.',
 	},
 	action: {
-		id: 'smart-card.one-click-chat-spotlight-v2.action.ai-non-final',
-		defaultMessage: 'Try Now',
+		id: 'smart-card.one-click-chat-spotlight-v2.see-takeaways.ai-non-final',
+		defaultMessage: 'See takeaways',
 		description:
 			'Button in the spotlight that invokes the same Rovo action as the highlighted inline button.',
 	},
@@ -348,9 +342,7 @@ export function OneClickChatSpotlight({
 					content={() => (
 						<VisibleSpotlightCard
 							onShown={spotlight.onShown}
-							body={intl.formatMessage(
-								provider === 'google-object-provider' ? messages.drive : messages.github,
-							)}
+							body={intl.formatMessage(messages.body)}
 							dismissLabel={intl.formatMessage(messages.dismiss)}
 							actionLabel={intl.formatMessage(messages.action)}
 							onDismiss={spotlight.onDismiss}

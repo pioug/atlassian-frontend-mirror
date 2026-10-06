@@ -7,7 +7,6 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import {
@@ -220,10 +219,8 @@ const removeBreakoutMarks = (tr: Transaction, $from: ResolvedPos, to: number): F
 
 	tr.doc.nodesBetween($from.pos, to, (node, pos, parent) => {
 		// should never remove breakout from previous layoutSection
-		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
-			if (node.type.name === 'layoutSection') {
-				return false;
-			}
+		if (node.type.name === 'layoutSection') {
+			return false;
 		}
 
 		// breakout doesn't exist on nested nodes
@@ -237,25 +234,6 @@ const removeBreakoutMarks = (tr: Transaction, $from: ResolvedPos, to: number): F
 	// resolve again the source content after node updated (remove breakout marks)
 	fromContentWithoutBreakout = tr.doc.slice($from.pos, to).content;
 	return fromContentWithoutBreakout;
-};
-
-const getBreakoutMode = (content: PMNode | Fragment, breakout: MarkType) => {
-	if (content instanceof PMNode) {
-		return content.marks.find((m) => m.type === breakout)?.attrs.mode;
-	} else if (content instanceof Fragment) {
-		// Find the first breakout mode in the fragment
-		let firstBreakoutMode;
-		for (let i = 0; i < content.childCount; i++) {
-			const child = content.child(i);
-			const breakoutMark = child.marks.find((m) => m.type === breakout);
-			if (breakoutMark) {
-				firstBreakoutMode = breakoutMark.attrs.mode;
-				break;
-			}
-		}
-
-		return firstBreakoutMode;
-	}
 };
 
 const getBreakoutModeAndWidth = (content: PMNode | Fragment, breakout: MarkType) => {
@@ -307,16 +285,10 @@ export const moveToLayout =
 
 		// get breakout mode from destination node,
 		// if not found, get from source node,
-		let breakoutMode;
-		let breakoutWidth;
-		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
-			({ breakoutMode, breakoutWidth } =
-				getBreakoutModeAndWidth(toNode, breakout) ||
-				getBreakoutModeAndWidth(sourceContent, breakout) ||
-				{});
-		} else {
-			breakoutMode = getBreakoutMode(toNode, breakout) || getBreakoutMode(sourceContent, breakout);
-		}
+		const { breakoutMode, breakoutWidth } =
+			getBreakoutModeAndWidth(toNode, breakout) ||
+			getBreakoutModeAndWidth(sourceContent, breakout) ||
+			{};
 
 		// we don't want to remove marks when moving/re-ordering layoutSection
 		const shouldRemoveMarks = $sourceFrom.node().type !== layoutSection;
@@ -399,17 +371,10 @@ export const moveToLayout =
 
 				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize).insert(mappedTo, newLayout);
 
-				if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
-					breakoutMode &&
-						tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
-							breakout.create({ mode: breakoutMode, width: breakoutWidth }),
-						]);
-				} else {
-					breakoutMode &&
-						tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
-							breakout.create({ mode: breakoutMode }),
-						]);
-				}
+				breakoutMode &&
+					tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
+						breakout.create({ mode: breakoutMode, width: breakoutWidth }),
+					]);
 
 				if (fg('platform_editor_column_count_analytics')) {
 					// layout created via drag and drop will always be 2 columns

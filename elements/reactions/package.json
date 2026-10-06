@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "36.7.0",
+	"version": "36.7.3",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -121,14 +121,14 @@
 		"./useCloseManager": "./src/hooks/useCloseManager.ts"
 	},
 	"scripts": {
-		"setup-first-time": "yarn run setup-local-config; yarn run setup-env",
+		"setup-first-time": "afm run setup-local-config; afm run setup-env",
 		"setup-local-config": "cp -nv local-config-template.ts local-config.ts",
 		"setup-env": "cp -nv .env-template .env",
-		"start": "cd ../../ && yarn start reactions",
-		"test": "cd ../../ && yarn test reactions",
-		"typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/reactions",
-		"start:dev": "cd ../../ && yarn start:webpack reactions --proxy ./packages/elements/reactions/proxy.ts",
-		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start:webpack reactions --proxy ./packages/elements/reactions/proxy.ts"
+		"start": "cd ../../ && afm run start -- reactions",
+		"test": "cd ../../ && afm run test -- reactions",
+		"typecheck": "cd ../../ && afm run typecheck:package -- ./packages/elements/reactions",
+		"start:dev": "cd ../../ && afm run start:webpack -- reactions --proxy ./packages/elements/reactions/proxy.ts",
+		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge afm run start:webpack -- reactions --proxy ./packages/elements/reactions/proxy.ts"
 	},
 	"platform-feature-flags": {
 		"platform_reactions_optimistic_url": {

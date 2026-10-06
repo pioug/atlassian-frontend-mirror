@@ -11,9 +11,13 @@ import {
 	CustomMediaPlayerBase as CompiledCustomMediaPlayerBase,
 	type CustomMediaPlayerProps,
 } from './index-compiled';
+import { type WithInsetViewerProps, withInsetViewer } from './insetViewerContext/withInsetViewer';
 
 export const CustomMediaPlayerBase = (
-	props: CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,
+	props: CustomMediaPlayerProps &
+		WrappedComponentProps &
+		WithAnalyticsEventsProps &
+		WithInsetViewerProps,
 ): React.JSX.Element => <CompiledCustomMediaPlayerBase {...props} />;
 
 const packageName = process.env._PACKAGE_NAME_ as string;
@@ -27,7 +31,7 @@ export const CustomMediaPlayer: React.ComponentType<
 	packageName,
 	componentName: 'customMediaPlayer',
 	component: 'customMediaPlayer',
-})(withAnalyticsEvents()(injectIntl(CustomMediaPlayerBase)));
+})(withAnalyticsEvents()(withInsetViewer(injectIntl(CustomMediaPlayerBase))));
 
 export { type CustomMediaPlayerProps } from './index-compiled';
 export type { CustomMediaPlayerState, Action } from './index-compiled';

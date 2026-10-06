@@ -1,5 +1,26 @@
 # @atlaskit/editor-toolbar
 
+## 2.8.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.17
+
+### Patch Changes
+
+- [`3902a8eba8344`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3902a8eba8344) -
+  Clean up feature gate `platform_editor_return_focus_after_text_styles_2`. Size inline-rendered
+  toolbar dropdown menus to their content so Text styles items no longer wrap.
+- Updated dependencies
+
 ## 2.8.16
 
 ### Patch Changes

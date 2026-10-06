@@ -10,6 +10,8 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { useIsInsetViewer } from './insetViewerContext/useIsInsetViewer';
+
 const currentTimeStyles = css({
 	color: '#c7d1db',
 	userSelect: 'none',
@@ -17,14 +19,21 @@ const currentTimeStyles = css({
 	whiteSpace: 'nowrap',
 });
 
+const insetViewerCurrentTimeStyles = css({
+	color: token('color.text'),
+});
+
 export const CurrentTime = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
-	<div css={currentTimeStyles} {...props}>
-		{children}
-	</div>
-);
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div css={[currentTimeStyles, isInsetViewer && insetViewerCurrentTimeStyles]} {...props}>
+			{children}
+		</div>
+	);
+};
 export interface CurrentTimeTooltipProps {
 	isDragging: boolean;
 	timeLineThumbIsHover: boolean;

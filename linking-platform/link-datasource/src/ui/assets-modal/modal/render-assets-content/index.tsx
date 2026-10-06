@@ -12,7 +12,6 @@ import type {
 	DatasourceResponseSchemaProperty,
 	DatasourceTableStatusType,
 } from '@atlaskit/linking-types/datasource';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { AccessRequired } from '../../../common/error-state/access-required';
@@ -130,8 +129,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps): JSX.Elemen
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
 	// With columns available the table can keep its headers and show the empty state in place of
 	// the rows, instead of replacing the whole table with it.
-	const shouldRenderTableWithNoResults =
-		resolvedWithNoResults && !!columns.length && fg('platform_lp_sllv_ux_improvements');
+	const shouldRenderTableWithNoResults = resolvedWithNoResults && !!columns.length;
 
 	const issueLikeDataTableView = useMemo(
 		() => (

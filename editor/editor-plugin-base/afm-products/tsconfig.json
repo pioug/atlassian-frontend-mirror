@@ -38,6 +38,9 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../prosemirror-history/afm-products/tsconfig.json"
 		},
 		{

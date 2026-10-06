@@ -78,9 +78,7 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 		const thirdPartyAttributes = [
 			...THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
 			...DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
-			...(fg('platform_ufo_exclude_fdprocessedid_attribute')
-				? MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES
-				: []),
+			...MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES,
 		];
 
 		if (entryData.type === 'mutation:display-contents-children-attribute') {

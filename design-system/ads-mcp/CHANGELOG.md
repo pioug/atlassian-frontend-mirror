@@ -1,5 +1,15 @@
 # @atlaskit/ads-mcp
 
+## 1.10.11
+
+### Patch Changes
+
+- [`be9d6ed7167a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be9d6ed7167a7) -
+  Add semantic guidance for selected, focused, hovered, and pressed states.
+- [`894cb86918ab5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/894cb86918ab5) -
+  Document canonical Figma design sources in ADS component discovery and planning guidance.
+- Updated dependencies
+
 ## 1.10.10
 
 ### Patch Changes

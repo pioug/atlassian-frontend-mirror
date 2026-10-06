@@ -115,7 +115,7 @@ describe('AVPAnalyticsListener', () => {
 						packageVersion: undefined,
 					},
 					source: 'avp',
-					tags: ['atlassianVisualizationPlatform', 'avp'],
+					tags: ['analyticsVisualizationPlatform', 'avp'],
 				},
 			},
 			{
@@ -127,9 +127,9 @@ describe('AVPAnalyticsListener', () => {
 					tags: [
 						'somethingInteresting',
 						'avp',
-						'atlassianVisualizationPlatform',
+						'analyticsVisualizationPlatform',
 						'avp',
-						'atlassianVisualizationPlatform',
+						'analyticsVisualizationPlatform',
 					],
 					eventType: UI_EVENT_TYPE,
 				},
@@ -146,7 +146,7 @@ describe('AVPAnalyticsListener', () => {
 						packageVersion: undefined,
 					},
 					source: 'avp',
-					tags: ['atlassianVisualizationPlatform', 'avp', 'somethingInteresting'],
+					tags: ['analyticsVisualizationPlatform', 'avp', 'somethingInteresting'],
 				},
 			},
 			{
@@ -169,7 +169,7 @@ describe('AVPAnalyticsListener', () => {
 						packageVersion: undefined,
 					},
 					source: 'avp',
-					tags: ['atlassianVisualizationPlatform', 'avp'],
+					tags: ['analyticsVisualizationPlatform', 'avp'],
 				},
 			},
 
@@ -193,7 +193,7 @@ describe('AVPAnalyticsListener', () => {
 						packageVersion: undefined,
 					},
 					source: 'avp',
-					tags: ['atlassianVisualizationPlatform', 'avp'],
+					tags: ['analyticsVisualizationPlatform', 'avp'],
 				},
 			},
 			{
@@ -216,7 +216,7 @@ describe('AVPAnalyticsListener', () => {
 						packageVersion: undefined,
 					},
 					source: 'avp',
-					tags: ['atlassianVisualizationPlatform', 'avp'],
+					tags: ['analyticsVisualizationPlatform', 'avp'],
 				},
 			},
 		],

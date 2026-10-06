@@ -197,9 +197,6 @@ describe('AssetsConfigModal with the real useDatasourceTableState', () => {
 	describe('when the edited query reports none of the requested fields', () => {
 		it('should fall back to the defaults when the edited query also returns no items', async () => {
 			passGate('platform_lp_sllv_preserve_assets_columns');
-			// platform_lp_sllv_ux_improvements is what makes the hook apply a schema that came back
-			// with no items, which is the path the escalated customer hit
-			passGate('platform_lp_sllv_ux_improvements');
 
 			const noResultsResponse = dataResponse({
 				properties: ['brandNewColumn', 'myId'],

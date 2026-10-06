@@ -1,5 +1,34 @@
 # @atlaskit/link-datasource
 
+## 7.3.1
+
+### Patch Changes
+
+- [`de0d7314fd206`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de0d7314fd206) -
+  Clean up feature gate `platform_lp_sllv_ux_improvements`. Smart Link list views retain table
+  headers and show empty results within the table, and view-mode dropdowns size to their content. No
+  public API changes.
+
+## 7.3.0
+
+### Minor Changes
+
+- [`725211e3dd6b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/725211e3dd6b0) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.2
+
+### Patch Changes
+
+- [`e2b29ef6280bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2b29ef6280bc) -
+  Clean up feature gate `platform_lp_jira_sllv_renderer_column_sorting`. Read-only Jira list views
+  permanently support session-local column sorting without persisting the sort direction.
+- Updated dependencies
+
 ## 7.2.1
 
 ### Patch Changes

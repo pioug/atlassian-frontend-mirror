@@ -21,7 +21,6 @@ export interface BaseRovoChatParams {
 	messageIdSelectedForPreview: string;
 	invocationIdSelectedForPreview: string;
 	promptLibraryOpen: boolean;
-	openChatMode: RovoChatOpenMode;
 	rovoJourneyId: string;
 	searchQuery: string;
 }

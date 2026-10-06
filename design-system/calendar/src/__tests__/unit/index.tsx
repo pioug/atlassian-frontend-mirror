@@ -291,6 +291,49 @@ describe('Calendar', () => {
 			expect(calendarGrid).toHaveAttribute('aria-labelledby', headingId);
 		});
 
+		it('should use the correct weekday in date labels when the locale week starts on Monday', () => {
+			passGate('platform-dst-locale-week-start-day');
+			setup({
+				defaultMonth: 10,
+				defaultYear: 2026,
+				locale: 'en-GB',
+			});
+
+			expect(screen.getByLabelText('4, Sunday October 2026')).toBeInTheDocument();
+		});
+
+		cases(
+			'should use correct weekday labels for every #weekStartDay',
+			({ weekStartDay }: { weekStartDay: WeekDay }) => {
+				setup({
+					defaultMonth: 10,
+					defaultYear: 2026,
+					weekStartDay,
+				});
+
+				[
+					[4, 'Sunday'],
+					[5, 'Monday'],
+					[6, 'Tuesday'],
+					[7, 'Wednesday'],
+					[8, 'Thursday'],
+					[9, 'Friday'],
+					[10, 'Saturday'],
+				].forEach(([day, weekday]) => {
+					expect(screen.getByLabelText(`${day}, ${weekday} October 2026`)).toBeInTheDocument();
+				});
+			},
+			{
+				sunday: { weekStartDay: 0 },
+				monday: { weekStartDay: 1 },
+				tuesday: { weekStartDay: 2 },
+				wednesday: { weekStartDay: 3 },
+				thursday: { weekStartDay: 4 },
+				friday: { weekStartDay: 5 },
+				saturday: { weekStartDay: 6 },
+			},
+		);
+
 		it('should render default selected day', () => {
 			setup();
 

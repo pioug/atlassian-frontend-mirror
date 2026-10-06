@@ -17,7 +17,6 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorFileIcon from '@atlaskit/icon/core/file';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -44,38 +43,10 @@ import {
 	overlayStylesOld,
 } from './styles';
 
-const getContainerCssExtendedStyles = (
-	activeChildIndex: number,
-	showMacroInteractionDesignUpdates?: boolean,
-) => {
-	if (fg('platform_editor_nested_mbe_frames')) {
-		return sharedMultiBodiedExtensionStyles.mbeExtensionContainer;
-	}
-
-	const activeFrameSelector = `.multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true']:nth-of-type(${
-		activeChildIndex + 1
-	})`;
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	return css(sharedMultiBodiedExtensionStyles.mbeExtensionContainer, {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[activeFrameSelector]: css(
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			sharedMultiBodiedExtensionStyles.extensionFrameContent,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			showMacroInteractionDesignUpdates && removeMarginsAndBorder,
-		),
-	});
-};
-
 const getFramesActiveFrameStyles = (
 	activeChildIndex: number,
 	showMacroInteractionDesignUpdates?: boolean,
 ) => {
-	if (!fg('platform_editor_nested_mbe_frames')) {
-		return undefined;
-	}
-
 	const activeFrameSelector = `& > .multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true']:nth-of-type(${
 		activeChildIndex + 1
 	})`;
@@ -551,11 +522,8 @@ const MultiBodiedExtensionWithWidth = ({
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={containerClassNames}
-					css={[
-						/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
-						getContainerCssExtendedStyles(activeChildIndex, showMacroInteractionDesignUpdates),
-						/* eslint-enable @atlaskit/design-system/consistent-css-prop-usage */
-					]}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					css={sharedMultiBodiedExtensionStyles.mbeExtensionContainer}
 					data-testid="multiBodiedExtension--container"
 					data-multiBodiedExtension-container
 					data-active-child-index={activeChildIndex}

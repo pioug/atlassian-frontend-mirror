@@ -1,5 +1,48 @@
 # @atlaskit/editor-core
 
+## 234.3.2
+
+### Patch Changes
+
+- [`be603fee7766f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be603fee7766f) -
+  Remove unused internal performance analytics code (plugin performance report/observer and the
+  renderedSampled payload type)
+- Updated dependencies
+
+## 234.3.1
+
+### Patch Changes
+
+- [`0a81f6fa7cbf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a81f6fa7cbf8) -
+  Clean up experiment `platform_editor_breakout_resizing`. Behind the
+  `platform_editor_list_join_strip_breakout` experiment, strip the breakout mark from a code block
+  before nesting it into a list item when joining from a gap cursor. Behind the
+  `platform_editor_resizer_selector_jsdom_fix` experiment, make the panel and rule breakout resizer
+  selectors parseable by jsdom (`> *[data-prosemirror-node-name=…]`).
+- Updated dependencies
+
+## 234.3.0
+
+### Minor Changes
+
+- [`458d73f9ce64a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/458d73f9ce64a) -
+  Behind `platform_editor_slash_command`: the universal preset's
+  `initialPluginConfiguration.quickInsertPlugin` now also accepts `maxRecommendedItems`, so
+  consumers such as Jira can limit the size of the Recommended section of the `/` menu per editor
+  surface.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 234.2.1
+
+### Patch Changes
+
+- [`9474d3d4a1282`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9474d3d4a1282) -
+  Disable Editor scroll restoration behind `platform_editor_reduce_forced_layout`.
+- Updated dependencies
+
 ## 234.2.0
 
 ### Minor Changes

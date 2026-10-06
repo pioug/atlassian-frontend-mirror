@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as ClassAttributeMutationExample } from '../13-class-attribute-mutation';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const ClassAttributeMutation: WorkbenchExample<typeof ClassAttributeMutationExample> = wb(
-	ClassAttributeMutationExample,
+export const ClassAttributeMutation: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-class-attribute-mutation" */ '../13-class-attribute-mutation'
+		),
 );

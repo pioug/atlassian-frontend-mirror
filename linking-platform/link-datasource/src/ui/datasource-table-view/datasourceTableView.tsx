@@ -77,11 +77,8 @@ const DatasourceTableViewWithoutAnalytics = ({
 	// Sorting is only owned by this view when parent callbacks are absent (read-only rendering mode).
 	const isReadOnlyDatasourceTable =
 		!onVisibleColumnKeysChange && !onColumnResize && !onWrappedColumnChange;
-	// Keep sort UI hidden unless datasource + ownership + feature gate all allow it.
-	const shouldEnableColumnSort =
-		!!columnSortGetter &&
-		isReadOnlyDatasourceTable &&
-		fg('platform_lp_jira_sllv_renderer_column_sorting');
+	// Keep sort UI hidden unless the datasource supports sorting and the table is read-only.
+	const shouldEnableColumnSort = !!columnSortGetter && isReadOnlyDatasourceTable;
 
 	useDeepEffect(() => {
 		// External parameter updates should always reset local sort/session state back to source-of-truth.
@@ -93,10 +90,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	const isSessionBasedOnCurrentParameters = isEqual(sessionBaseParametersRef.current, parameters);
 	// Use session parameters only when they are known to be based on the current external parameters.
 	// This avoids a one-render stale read during the deep-effect update cycle above.
-	const activeParameters =
-		isSessionBasedOnCurrentParameters && fg('platform_lp_jira_sllv_renderer_column_sorting')
-			? sessionParameters
-			: parameters;
+	const activeParameters = isSessionBasedOnCurrentParameters ? sessionParameters : parameters;
 
 	const {
 		reset,
@@ -236,8 +230,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	const isResolvedWithNoResults = status === 'resolved' && !responseItems.length;
 	// With columns available the table can keep its headers and footer and show the empty state
 	// in place of the rows, instead of replacing the whole view with it.
-	const shouldRenderTableWithNoResults =
-		isResolvedWithNoResults && hasColumns && fg('platform_lp_sllv_ux_improvements');
+	const shouldRenderTableWithNoResults = isResolvedWithNoResults && hasColumns;
 
 	if ((isResolvedWithNoResults && !shouldRenderTableWithNoResults) || status === 'forbidden') {
 		return <NoResults />;
@@ -300,9 +293,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 							onVisibleColumnKeysChange={onVisibleColumnKeysChange}
 							columnCustomSizes={columnCustomSizes}
 							onColumnResize={onColumnResize}
-							{...(shouldEnableColumnSort && fg('platform_lp_jira_sllv_renderer_column_sorting')
-								? { onColumnSort, sortState }
-								: {})}
+							{...(shouldEnableColumnSort ? { onColumnSort, sortState } : {})}
 							wrappedColumnKeys={wrappedColumnKeys}
 							onWrappedColumnChange={onWrappedColumnChange}
 							{...(onWrappedColumnsChange && fg('platform_lp_sllv_table_settings_menu')

@@ -54,7 +54,6 @@ import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
 import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	BeforeAndAfterToolbarComponents,
@@ -120,7 +119,7 @@ export type InitialPluginConfiguration = {
 	};
 	quickInsertPlugin?: Pick<
 		QuickInsertPluginOptions,
-		'blockControlButtonEnabled' | 'isRecommendedItem'
+		'blockControlButtonEnabled' | 'isRecommendedItem' | 'maxRecommendedItems'
 	>;
 	tasksAndDecisionsPlugin?: {
 		allowBlockTaskItem?: boolean;
@@ -275,8 +274,9 @@ export default function createUniversalPresetInternal({
 			guidelinePlugin,
 			Boolean(
 				(!isComment && !isChromeless && (props.media || props.allowTables)) ||
-				(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
-					(props.allowExpand || props.allowLayouts || props.codeBlock)),
+				props.allowExpand ||
+				props.allowLayouts ||
+				props.codeBlock,
 			),
 		)
 		.maybeAdd([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }], Boolean(props.media))

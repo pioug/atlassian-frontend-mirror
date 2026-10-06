@@ -1,5 +1,15 @@
 # @atlaskit/media-document-viewer
 
+## 2.2.3
+
+### Patch Changes
+
+- [`5c099e23ea6c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c099e23ea6c3) -
+  Clean up feature gate platform_media_doc_viewer_smooth_render. Document page images no longer set
+  `image-rendering: pixelated`, which fixes blurry, misaligned sub-pixel rendering at non-integer
+  browser/OS zoom levels (HOT-306523). The gate rolled out to 100% on Confluence; smooth rendering
+  is now the permanent behaviour for every consumer of this package.
+
 ## 2.2.2
 
 ### Patch Changes

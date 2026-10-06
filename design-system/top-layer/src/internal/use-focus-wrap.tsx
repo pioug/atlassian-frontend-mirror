@@ -25,7 +25,7 @@ import { type TPhase } from './use-animated-visibility';
  * impossible to implement generically here. The consumer component
  * (e.g. `dropdown-menu`) owns all menu keyboard navigation.
  *
- * See: notes/outputs/menu-keyboard-decision.md
+ * See: notes/decisions/menu-keyboard.md
  */
 function roleRequiresFocusWrap(role: string | undefined): boolean {
 	return role === 'dialog' || role === 'alertdialog';

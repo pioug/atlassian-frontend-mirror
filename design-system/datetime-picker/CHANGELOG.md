@@ -1,5 +1,16 @@
 # @atlaskit/datetime-picker
 
+## 19.0.1
+
+### Patch Changes
+
+- [`164b63cff3429`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/164b63cff3429) -
+  [ux] Add input hover, focus, blur, and invalid-state motion to Date Picker, Time Picker, and
+  DateTime Picker input surfaces behind the `platform-dst-motion-uplift-input` feature gate. Behind
+  the same gate, the focused DateTime Picker date or time input shows a 2px focus ring that covers
+  the outer border and rounds its outer corners, and the invalid state matches the other pickers.
+- Updated dependencies
+
 ## 19.0.0
 
 ### Major Changes

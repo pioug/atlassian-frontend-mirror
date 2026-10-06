@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import BasicAnyNumberSectionsExample from '../03-basic-any-number-sections';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const BasicAnyNumberSections: WorkbenchExample<typeof BasicAnyNumberSectionsExample> = wb(
-	BasicAnyNumberSectionsExample,
+export const BasicAnyNumberSections: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-basic-any-number-sections" */ '../03-basic-any-number-sections'
+		),
 );

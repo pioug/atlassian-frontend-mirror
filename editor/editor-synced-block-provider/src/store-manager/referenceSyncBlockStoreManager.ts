@@ -85,6 +85,7 @@ export class ReferenceSyncBlockStoreManager {
 	private newlyAddedSyncBlocks: Set<ResourceId>;
 	// Keep track of the last flushed subscriptions to optimize cache flushing on document save
 	private lastFlushedSyncedBlocks: Record<string, Record<string, boolean>> = {};
+	private subscribedSinceLastFlush: boolean = false;
 	// Callback to notify when an unpublished sync block is detected
 	private onUnpublishedSyncBlockDetected?: (resourceId: ResourceId) => void;
 	// Track if a flush operation is currently in progress
@@ -1017,6 +1018,9 @@ export class ReferenceSyncBlockStoreManager {
 		localId: string,
 		callback: SubscriptionCallback,
 	): () => void {
+		if (isExperimentEnabled('platform_editor_blocks_patch_11')) {
+			this.subscribedSinceLastFlush = true;
+		}
 		const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
 		const sameDocumentParts = isSamePageSyncEnabled
 			? this.getSameDocumentReferenceParts(resourceId)
@@ -1158,6 +1162,9 @@ export class ReferenceSyncBlockStoreManager {
 		} else {
 			this.isFlushInProgress = true;
 		}
+		const subscribedSinceLastFlushToFlush =
+			isExperimentEnabled('platform_editor_blocks_patch_11') && this.subscribedSinceLastFlush;
+		this.subscribedSinceLastFlush = false;
 
 		let success = true;
 		// a copy of the subscriptions STRUCTURE (without the callbacks)
@@ -1188,9 +1195,11 @@ export class ReferenceSyncBlockStoreManager {
 
 			// Then, compare with the last flushed structure to detect changes
 			// We check against the last flushed structure to prevent unnecessary flushes
-			// Note that we will always flush at least once when editor starts
-			// This is useful for eventual consistency between the editor and the BE.
-			if (isEqual(syncedBlocksToFlush, this.lastFlushedSyncedBlocks)) {
+			// A reference can subscribe and disappear before the first flush, leaving both structures empty.
+			if (
+				!subscribedSinceLastFlushToFlush &&
+				isEqual(syncedBlocksToFlush, this.lastFlushedSyncedBlocks)
+			) {
 				this.isCacheDirty = false; // Reset since we're considering this a successful no-op flush
 				return true;
 			}
@@ -1240,6 +1249,7 @@ export class ReferenceSyncBlockStoreManager {
 			if (!success) {
 				// set isCacheDirty back to true for cases where it failed to update the reference synced blocks on the BE
 				this.isCacheDirty = true;
+				this.subscribedSinceLastFlush ||= subscribedSinceLastFlushToFlush;
 			} else {
 				this.lastFlushedSyncedBlocks = syncedBlocksToFlush;
 				this.saveExperience?.success();

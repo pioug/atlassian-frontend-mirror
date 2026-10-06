@@ -1,5 +1,8 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as MovingNodeExample } from '../06-moving-node';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const MovingNode: WorkbenchExample<typeof MovingNodeExample> = wb(MovingNodeExample);
+export const MovingNode: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-internal_react-ufo-moving-node" */ '../06-moving-node'),
+);

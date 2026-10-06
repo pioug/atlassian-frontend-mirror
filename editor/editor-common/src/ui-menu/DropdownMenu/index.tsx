@@ -17,7 +17,6 @@ import Section from '@atlaskit/menu/section';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { PositionType } from '@atlaskit/tooltip/types';
@@ -421,33 +420,17 @@ export function DropdownMenuItem({
 	const dropListItem = (
 		<div
 			css={() => buttonStyles(item.isActive, submenuActive)}
-			role={
-				expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-					? shouldUseDefaultRole
-						? undefined
-						: 'menuitem'
-					: undefined
-			}
+			role={shouldUseDefaultRole ? undefined : 'menuitem'}
 			tabIndex={tabIndex}
 			aria-disabled={item.isDisabled ? 'true' : 'false'}
-			aria-expanded={
-				expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-					? item['aria-expanded']
-					: undefined
-			}
+			aria-expanded={item['aria-expanded']}
 			onMouseDown={_handleSubmenuActive}
 		>
 			<CustomItem
 				item={item}
 				key={item.key ?? String(item.content)}
 				testId={testId}
-				role={
-					shouldUseDefaultRole
-						? 'button'
-						: expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-							? undefined
-							: 'menuitem'
-				}
+				role={shouldUseDefaultRole ? 'button' : undefined}
 				iconBefore={item.elemBefore}
 				iconAfter={item.elemAfter}
 				isDisabled={item.isDisabled}
@@ -459,11 +442,6 @@ export function DropdownMenuItem({
 				component={DropdownMenuItemCustomComponent}
 				onMouseEnter={onMouseEnterHandler}
 				onMouseLeave={onMouseLeaveHandler}
-				aria-expanded={
-					expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-						? undefined
-						: item['aria-expanded']
-				}
 			>
 				{item.content}
 			</CustomItem>

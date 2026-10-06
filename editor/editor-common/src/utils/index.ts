@@ -151,9 +151,6 @@ export {
 	measureRender,
 } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
-export { TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS } from './performance/TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS';
-export { TTI_SEVERITY_THRESHOLD_DEFAULTS } from './performance/TTI_SEVERITY_THRESHOLD_DEFAULTS';
-export { measureTTI, getTTISeverity } from './performance/measure-tti';
 /**
  * @private
  * @deprecated
@@ -188,8 +185,6 @@ export { ZERO_WIDTH_SPACE, ZERO_WIDTH_JOINER } from '../whitespace';
 export type { Diff } from './types';
 export { shouldForceTracking } from './should-force-tracking';
 export { getModeFromTheme } from './getModeFromTheme';
-export { getPerformanceOptions, stopMeasureReactNodeViewRendered } from './get-performance-options';
-export { startMeasureReactNodeViewRendered } from './startMeasureReactNodeViewRendered';
 export type { UserBrowserExtensionResults } from './browser-extensions';
 export { sniffUserBrowserExtensions } from './browser-extensions';
 export { RenderCountProfiler, PROFILER_KEY } from './profiler/render-count';

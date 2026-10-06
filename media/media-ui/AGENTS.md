@@ -52,6 +52,13 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
   `@atlaskit/media-client-react`, `@atlaskit/media-common`, `@atlaskit/media-state`
 - 2 feature flags: `platform_media_resume_video_on_token_expiry`,
   `should-render-to-parent-should-be-true-media-exif`
+- Inset viewer player: the host (media-viewer) wraps the player in `InsetViewerProvider`
+  (`@atlaskit/media-ui/insetViewerProvider`). Function components read the flag with
+  `useIsInsetViewer()`, `Video` through `contextType`, and the player classes
+  (`CustomMediaPlayerBase`, `MediaPlayerBase`) through `withInsetViewer`; never pass it as a prop.
+  When it is set, the player portals its controls into `controlsPortalElement` instead of overlaying
+  them on the video, and omits the fullscreen button. `onVideoElementChange` reports the `<video>`
+  element so the host can measure it.
 - 41 export subpaths — always use subpath imports; `./i18n/*` is restricted (publish: null)
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)

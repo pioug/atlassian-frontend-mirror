@@ -1,7 +1,10 @@
-import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import type { WorkbenchExample } from '@atlassian/workbench';
 
-import { default as BasicWithChangedTimeoutExample } from '../16-basic-with-changed-timeout';
+import { wbWithReactUFO } from './wb-with-react-ufo';
 
-export const BasicWithChangedTimeout: WorkbenchExample<typeof BasicWithChangedTimeoutExample> = wb(
-	BasicWithChangedTimeoutExample,
+export const BasicWithChangedTimeout: WorkbenchExample = wbWithReactUFO(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_react-ufo-basic-with-changed-timeout" */ '../16-basic-with-changed-timeout'
+		),
 );

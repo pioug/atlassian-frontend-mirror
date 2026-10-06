@@ -125,15 +125,11 @@ it.each([
 		expect(screen.getByRole('dialog', { name: 'Explore this link with Rovo' })).toBeInTheDocument();
 		expect(screen.queryByRole('heading')).not.toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Dismiss spotlight' })).toBeInTheDocument();
-		expect(
-			screen.getByText(
-				`Discover insights from your ${provider === 'google-object-provider' ? 'Google Drive' : 'GitHub'} Smart Link using Rovo`,
-			),
-		).toBeInTheDocument();
+		expect(screen.getByText('Get key decisions and next steps from this link')).toBeInTheDocument();
 		await waitFor(() =>
 			expect(mockCreateEvent).toHaveBeenCalledWith(expect.objectContaining({ action: 'viewed' })),
 		);
-		fireEvent.click(screen.getByRole('button', { name: 'Try Now' }));
+		fireEvent.click(screen.getByRole('button', { name: 'See takeaways' }));
 		expect(mockInvoke).toHaveBeenCalledTimes(1);
 		expect(mockInvoke).toHaveBeenCalledWith(
 			expect.objectContaining({ prompt, actionSubjectId: 'rovoChatPrompt' }),
@@ -245,7 +241,7 @@ it('keeps the visible spotlight accessible', async () => {
 	await expect(document.body).toBeAccessible();
 });
 
-it.each(['Try Now', 'Dismiss spotlight', 'Escape'] as const)(
+it.each(['See takeaways', 'Dismiss spotlight', 'Escape'] as const)(
 	'keeps %s working for the same delivery across midnight without another impression',
 	async (interaction) => {
 		jest.useFakeTimers();
@@ -281,12 +277,12 @@ it.each(['Try Now', 'Dismiss spotlight', 'Escape'] as const)(
 			expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument();
 			expect(spotlightEvents().map((event) => event.action)).toEqual([
 				'viewed',
-				interaction === 'Try Now' ? 'clicked' : 'dismissed',
+				interaction === 'See takeaways' ? 'clicked' : 'dismissed',
 			]);
-			expect(mockInvoke).toHaveBeenCalledTimes(interaction === 'Try Now' ? 1 : 0);
+			expect(mockInvoke).toHaveBeenCalledTimes(interaction === 'See takeaways' ? 1 : 0);
 			expect(store.read()).toEqual({
 				impressions,
-				...(interaction === 'Try Now' ? {} : { dismissedAt: Date.now() }),
+				...(interaction === 'See takeaways' ? {} : { dismissedAt: Date.now() }),
 			});
 		} finally {
 			view.unmount();
@@ -320,18 +316,14 @@ it.each([false, true])(
 		mockExp(experiment, { isEnabled: true });
 		renderAction('google-object-provider', 'CONFLUENCE', undefined, true);
 		await screen.findByTestId('one-click-chat-spotlight-v2');
-		const heading = screen.getByText(
-			'Discover insights from your Google Drive Smart Link using Rovo',
-		);
+		const heading = screen.getByText('Get key decisions and next steps from this link');
 		if (topLayer) {
 			expect(heading.closest('a')).toHaveAttribute('href', url);
 		}
 		// A cancelled native click cannot activate the enclosing hyperlink.
 		expect(fireEvent.click(heading)).toBe(false);
 		expect(
-			fireEvent.click(
-				screen.getByText('Discover insights from your Google Drive Smart Link using Rovo'),
-			),
+			fireEvent.click(screen.getByText('Get key decisions and next steps from this link')),
 		).toBe(false);
 		expect(mockNavigate).not.toHaveBeenCalled();
 		expect(mockInvoke).not.toHaveBeenCalled();
@@ -362,13 +354,13 @@ it.each([false, true])(
 );
 
 it.each([false, true])(
-	'keeps Try Now actionable inside a hover preview with top layer %s',
+	'keeps See takeaways actionable inside a hover preview with top layer %s',
 	async (topLayer) => {
 		passGate(gate);
 		(topLayer ? passGate : failGate)('platform-dst-top-layer');
 		mockExp(experiment, { isEnabled: true });
 		renderAction('google-object-provider', 'CONFLUENCE', undefined, true, true);
-		const button = await screen.findByRole('button', { name: 'Try Now' });
+		const button = await screen.findByRole('button', { name: 'See takeaways' });
 		const user = userEvent.setup();
 		await user.hover(button);
 		await act(async () => {

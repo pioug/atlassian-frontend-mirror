@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "128.2.0",
+	"version": "128.4.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,6 +34,7 @@
 		"./analytics/ai-suggestions-entry-points": "./src/analytics/types/ai-suggestions-events.ts",
 		"./annotation": "./src/annotation/index.ts",
 		"./block-controls-suppression": "./src/block-controls-suppression.ts",
+		"./block-node-badges": "./src/block-node-badges.tsx",
 		"./block-controls/block-control-ui-context": "./src/block-controls/block-control-ui-context.ts",
 		"./block-controls/surface-drag-handle-element": "./src/block-controls/surface-drag-handle-element.ts",
 		"./block-controls/surface-keys": "./src/block-controls/surface-keys.ts",
@@ -110,7 +111,6 @@
 		"./paste": "./src/paste/index.ts",
 		"./performance-measures": "./src/performance-measures/index.ts",
 		"./performance/measure-render": "./src/utils/performance/measure-render.ts",
-		"./performance/measure-tti": "./src/utils/performance/measure-tti.ts",
 		"./performance/navigation": "./src/utils/performance/navigation.ts",
 		"./performance/ssr-measures": "./src/performance-ssr-measures/index.ts",
 		"./portal": "./src/portal/index.ts",
@@ -366,7 +366,6 @@
 		"./selection/gap-cursor/styles": "./src/selection/gap-cursor/styles.ts",
 		"./analytics/types/general-events": "./src/analytics/types/general-events.ts",
 		"./get-editor-ugc-token": "./src/ugc-tokens/get-editor-ugc-token.tsx",
-		"./utils/get-performance-options": "./src/utils/get-performance-options.ts",
 		"./utils/get-performance-timing": "./src/utils/performance/get-performance-timing.ts",
 		"./utils/get-unsupported-content-level-data": "./src/utils/unsupportedContent/get-unsupported-content-level-data.ts",
 		"./getInlineNodeViewProducer": "./src/react-node-view/getInlineNodeViewProducer.tsx",
@@ -504,7 +503,6 @@
 		"./analytics/types/paste-events": "./src/analytics/types/paste-events.ts",
 		"./messages/paste-options-toolbar": "./src/messages/paste-options-toolbar.tsx",
 		"./paste/clipboard": "./src/paste/clipboard.ts",
-		"./analytics/types/performance-report": "./src/analytics/types/performance-report.ts",
 		"./types/performance-tracking": "./src/types/performance-tracking.ts",
 		"./persistence-api": "./src/user-preferences/persistence-api.ts",
 		"./media/pixelEntry": "./src/media/messages/pixelEntry.ts",
@@ -828,6 +826,10 @@
 		"sinon": "root:*"
 	},
 	"platform-feature-flags": {
+		"cc_maui_annotations_on_extensions": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_mention_avatar_observability": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -840,9 +842,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_show_diff_patch_2": {
-			"type": "boolean"
-		},
-		"platform_editor_nested_mbe_frames": {
 			"type": "boolean"
 		},
 		"platform_editor_hide_configure_lozenge_non_configurable": {

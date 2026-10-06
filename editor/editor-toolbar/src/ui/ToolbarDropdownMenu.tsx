@@ -33,6 +33,11 @@ const styles = cssMap({
 		maxHeight: '320px',
 		overflowY: 'auto',
 	},
+	// When rendered inline with an absolute strategy, the popup's available width is constrained by
+	// the (narrow) toolbar, so size the menu to its content to prevent item text from wrapping.
+	renderToParent: {
+		width: 'max-content',
+	},
 });
 
 type ToolbarDropdownMenuProps = {
@@ -134,11 +139,7 @@ const ToolbarDropdownMenuContent = ({
 			onOpenChange={handleOpenChange}
 			isOpen={menuContext?.isOpen}
 			shouldRenderToParent={shouldRenderToParent ? true : undefined}
-			strategy={
-				shouldRenderToParent && fg('platform_editor_return_focus_after_text_styles_2')
-					? 'absolute'
-					: undefined
-			}
+			strategy={shouldRenderToParent ? 'absolute' : undefined}
 		>
 			{children}
 		</DropdownMenu>
@@ -173,6 +174,9 @@ export const ToolbarDropdownMenu = ({
 				xcss={cx(
 					hasSectionMargin && styles.sectionMargin,
 					enableMaxHeight && styles.scrollContainer,
+					shouldRenderToParent &&
+						fg('platform_editor_fix_text_styles_width') &&
+						styles.renderToParent,
 					styles.firstSectionSeparator,
 				)}
 				data-toolbar-component="menu"

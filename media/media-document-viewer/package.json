@@ -57,13 +57,8 @@
 		"react": "root:*",
 		"react-dom": "root:*"
 	},
-	"platform-feature-flags": {
-		"platform_media_doc_viewer_smooth_render": {
-			"type": "boolean"
-		}
-	},
 	"name": "@atlaskit/media-document-viewer",
-	"version": "2.2.2",
+	"version": "2.2.3",
 	"description": "Modern and fast document viewer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

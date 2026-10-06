@@ -2,7 +2,6 @@ import type { Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 /**
  * Keeps 'first-node-in-document' class if it was added to a codeBlock by
@@ -13,10 +12,7 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
  * @example
  */
 export const firstCodeBlockInDocument = (getPos: () => number | undefined): Extension => {
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
-	) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		return CodeMirror.editorAttributes.of({
 			class: getPos?.() === 0 ? 'first-node-in-document' : '',
 		});

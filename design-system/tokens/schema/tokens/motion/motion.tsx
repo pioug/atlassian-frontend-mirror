@@ -48,11 +48,22 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			},
 		},
 		input: {
-			attributes: {
-				group: 'motion',
-				state: 'active',
-				introduced: '19.0.0',
-				description: 'Use for input hover, focus, and error state transitions.',
+			'[default]': {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '19.0.0',
+					description: 'Use for input hover, focus, and error state transitions.',
+				},
+			},
+			selection: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '20.2.0',
+					description:
+						'Use for checkbox and radio surface, border and indicator state cross-fades.',
+				},
 			},
 		},
 		form: {

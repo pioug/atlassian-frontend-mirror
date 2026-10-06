@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::90cb230b21b560f12106de779139c84b>>
+ * @codegen <<SignedSource::dbedcfb3842d35975fed7e6c224d691e>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -205,10 +205,18 @@ export const tokens: Token[] = [
 	},
 	{
 		name: 'motion.input',
-		path: ['motion', 'input'],
+		path: ['motion', 'input', '[default]'],
 		description: 'Use for input hover, focus, and error state transitions.',
 		exampleValue:
 			'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.input.selection',
+		path: ['motion', 'input', 'selection'],
+		description: 'Use for checkbox and radio surface, border and indicator state cross-fades.',
+		exampleValue:
+			'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), fill 150ms cubic-bezier(0.4, 1, 0.6, 1), stroke 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{

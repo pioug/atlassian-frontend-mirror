@@ -47,14 +47,13 @@ test.describe('DatasourceTableView', () => {
 
 		const headerContentBeforeNextPageCall = header;
 
+		const rows = page.locator('[data-testid="link-datasource--body"] tr');
+
 		// confirming first page has loaded
-		const totalRowsAfterInitialLoad = await page
-			.locator('[data-testid="link-datasource--body"] tr')
-			.all();
-		expect(totalRowsAfterInitialLoad.length).toEqual(21);
+		await expect(rows).toHaveCount(21);
 
 		const lastRow = page.locator('[data-testid="link-datasource--body"] tr:last-of-type');
-		lastRow.scrollIntoViewIfNeeded();
+		await lastRow.scrollIntoViewIfNeeded();
 
 		// waiting for loading to be complete
 		const tableLastRow = await page
@@ -65,10 +64,7 @@ test.describe('DatasourceTableView', () => {
 		await tableLastRow?.waitForElementState('stable');
 
 		// confirming second page has loaded
-		const totalRowsAfterSecondPageLoad = await page
-			.locator('[data-testid="link-datasource--body"] tr')
-			.all();
-		expect(totalRowsAfterSecondPageLoad.length).toEqual(42);
+		await expect(rows).toHaveCount(42);
 
 		const headerContentAfterNextPageCall = await header.textContent();
 

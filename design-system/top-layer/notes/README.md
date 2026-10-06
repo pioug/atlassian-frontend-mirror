@@ -15,16 +15,16 @@ roadmap):
 
 | Package                     | Role                                                       |
 | --------------------------- | ---------------------------------------------------------- |
-| `@atlaskit/popup`           | `Popup` compound                                           |
-| `@atlaskit/dropdown-menu`   | `Popup` + `useArrowNavigation`                             |
+| `@atlaskit/popup`           | `Popover` + `useAnchoredPopover`                           |
+| `@atlaskit/dropdown-menu`   | `Popover` + `useArrowNavigation`                           |
 | `@atlaskit/tooltip`         | `Popover` + `useAnchoredPopover`                           |
 | `@atlaskit/modal-dialog`    | `Dialog` + `DialogScrollLock` + `createCloseEvent`         |
 | `@atlaskit/flag`            | `Popover` (`manual`) for stacking                          |
 | `@atlaskit/spotlight`       | `Popover` + `useAnchoredPopover` + `useSimpleLightDismiss` |
-| `@atlaskit/select`          | `Popup` for `PopupSelect`                                  |
-| `@atlaskit/datetime-picker` | `Popup` for calendar / menu surfaces                       |
-| `@atlaskit/inline-dialog`   | `Popup` compound                                           |
-| `@atlaskit/avatar-group`    | `Popup` + `useArrowNavigation` (overflow menu)             |
+| `@atlaskit/select`          | `Popover` for `PopupSelect`                                |
+| `@atlaskit/datetime-picker` | `Popover` for calendar / menu surfaces                     |
+| `@atlaskit/inline-dialog`   | `Popover` + `useAnchoredPopover`                           |
+| `@atlaskit/avatar-group`    | `Popover` + `useArrowNavigation` (overflow menu)           |
 
 Some packages run **Playwright / VR examples with the flag** for regression coverage without owning
 `@atlaskit/top-layer` directly (e.g. `@atlaskit/menu`, `@atlaskit/inline-message`).

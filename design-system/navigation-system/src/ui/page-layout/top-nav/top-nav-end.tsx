@@ -10,6 +10,7 @@ import { cssMap } from '@atlaskit/css';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -60,6 +61,10 @@ const containerStyles = cssMap({
 			justifySelf: 'end',
 		},
 	},
+	withPersistentItems: {
+		alignItems: 'center',
+		gap: token('space.050'),
+	},
 	fullHeightSidebar: {
 		paddingInlineEnd: token('space.150'),
 	},
@@ -96,6 +101,7 @@ const listStyles = cssMap({
  */
 export function TopNavEnd({
 	children,
+	persistentItems,
 	label = 'Actions',
 	showMoreButtonLabel = 'Show more',
 }: {
@@ -106,6 +112,16 @@ export function TopNavEnd({
 	 */
 	children: React.ReactNode;
 	/**
+	 * Actions at the inline end, after the other actions or their overflow button,
+	 * that stay in the top nav at every viewport size outside the overflow popup.
+	 * Items stay mounted when the viewport changes. Consumers must ensure
+	 * that this content fits on small screens. Supply complete accessible groups
+	 * (lists containing list items), and hide each group at its outermost element
+	 * so hidden or absent actions do not leave empty lists or spacing behind.
+	 * Enabled behind `platform-dst-chat-panel-layout`.
+	 */
+	persistentItems?: React.ReactNode;
+	/**
 	 * Provide an accessible label, often used by screen readers.
 	 */
 	label?: string;
@@ -114,6 +130,7 @@ export function TopNavEnd({
 	 */
 	showMoreButtonLabel?: string;
 }): JSX.Element {
+	const hasPersistentItems = fg('platform-dst-chat-panel-layout') && persistentItems != null;
 	const isFhsEnabled = useIsFhsEnabled();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	// Always setting to `false` for the initial render (will flip in an effect for mobile)
@@ -135,7 +152,11 @@ export function TopNavEnd({
 	return (
 		<nav
 			aria-label={label}
-			css={[containerStyles.root, isFhsEnabled && containerStyles.fullHeightSidebar]}
+			css={[
+				containerStyles.root,
+				hasPersistentItems && containerStyles.withPersistentItems,
+				isFhsEnabled && containerStyles.fullHeightSidebar,
+			]}
 		>
 			{isMobile ? (
 				<Popup
@@ -169,6 +190,11 @@ export function TopNavEnd({
 						{children}
 					</OpenLayerObserverNamespaceProvider>
 				</List>
+			)}
+			{hasPersistentItems && (
+				<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
+					{persistentItems}
+				</OpenLayerObserverNamespaceProvider>
 			)}
 		</nav>
 	);

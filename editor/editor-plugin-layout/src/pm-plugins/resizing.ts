@@ -10,7 +10,6 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LayoutPlugin } from '../layoutPluginType';
 import { LayoutSectionView } from '../nodeviews';
@@ -114,17 +113,11 @@ export default (
 		props: {
 			nodeViews: {
 				layoutSection: (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
-					// Both experiments are required: the vanilla view renders no React, so it
-					// cannot mount the <LayoutBreakoutResizer> that LayoutSectionView.render()
-					// returns. That resizer is only redundant once
-					// `platform_editor_breakout_resizing` is on (render() returns null and
-					// breakout resizing is handled by the pragmatic resizer in
-					// editor-plugin-breakout). Taking the vanilla path while that experiment is
-					// off would silently remove the breakout drag handles.
-					if (
-						expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
-						isExperimentEnabled('platform_editor_vanilla_node_views_phase1')
-					) {
+					// The vanilla view renders no React, so it cannot mount the
+					// <LayoutBreakoutResizer> that LayoutSectionView.render() used to return.
+					// That resizer is redundant now that breakout resizing is handled by the
+					// pragmatic resizer in editor-plugin-breakout.
+					if (isExperimentEnabled('platform_editor_vanilla_node_views_phase1')) {
 						return new LayoutSectionViewVanilla(node);
 					}
 					return new LayoutSectionView({

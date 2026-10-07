@@ -75,7 +75,7 @@ export interface TagNewProps {
 	 */
 	removeButtonLabel?: string;
 	/**
-	 * EXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.
+	 * Leading color swatch (12×12px), rendered before `elemBefore`.
 	 * - `true`: uses `color.background.accent.<color>.subtle` for swatch color
 	 * - Pass a design token (e.g. `token('color.background.accent.red.subtle')`)
 	 */

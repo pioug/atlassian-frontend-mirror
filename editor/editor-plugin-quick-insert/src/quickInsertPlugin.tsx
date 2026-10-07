@@ -12,7 +12,6 @@ import type {
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { memoProcessQuickInsertItems } from '@atlaskit/editor-common/quick-insert';
-import { getActiveQuickInsertCategories } from '@atlaskit/editor-common/quick-insert/get-active-quick-insert-categories';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
@@ -86,28 +85,6 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			);
 
 			return Promise.resolve(items);
-		},
-
-		getEmptyItem({ editorState }) {
-			if (!isExperimentEnabled('platform_editor_insert_menu_ai')) {
-				return undefined;
-			}
-
-			const quickInsertState = pluginKey.getState(editorState);
-
-			const matches = getQuickInsertSuggestions(
-				{
-					query: '',
-					disableDefaultItems: options?.disableDefaultItems,
-					prioritySortingFn: options?.prioritySortingFn,
-					itemFilter: (item) =>
-						getActiveQuickInsertCategories(item.category, item.categories).includes('AI'),
-				},
-				quickInsertState?.lazyDefaultItems,
-				quickInsertState?.providedItems,
-			);
-
-			return matches[0];
 		},
 		selectItem: (state, item, insert) => {
 			const quickInsertItem = item as QuickInsertItem;

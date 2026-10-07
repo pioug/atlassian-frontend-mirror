@@ -1,5 +1,15 @@
 # @atlaskit/profilecard
 
+## 27.1.15
+
+### Patch Changes
+
+- [`62b2e4f1ae2e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62b2e4f1ae2e8) -
+  Cleanup `experiment` `platform_editor_reduced_agent_profile_cards`. Reduced agent profile cards
+  (forbidden-agent fallback, current-node mention text and selection handling) are now always
+  enabled.
+- Updated dependencies
+
 ## 27.1.14
 
 ### Patch Changes

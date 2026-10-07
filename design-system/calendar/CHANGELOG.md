@@ -1,5 +1,12 @@
 # @atlaskit/calendar
 
+## 19.4.0
+
+### Minor Changes
+
+- [`4da700505d9ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4da700505d9ab) -
+  Add a `label` prop for custom calendar accessible labels.
+
 ## 19.3.4
 
 ### Patch Changes

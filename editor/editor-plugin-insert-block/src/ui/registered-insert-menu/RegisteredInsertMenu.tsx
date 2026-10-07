@@ -9,6 +9,7 @@ import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import {
 	buildQuickInsertMenuModel,
 	getMatchingQuickInsertComponents,
+	getQuickInsertMenuRows,
 	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
@@ -16,7 +17,7 @@ import { TYPE_AHEAD_SURFACE_CONTEXT } from '@atlaskit/editor-common/type-ahead-s
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
+import type { RegisterComponent, RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
@@ -100,24 +101,18 @@ export const RegisteredInsertMenu = ({
 					}),
 		[components, formatMessage, hasSectionOverflowItems, query, surfaceContext],
 	);
-	const itemCount = useMemo(
+	const selectableItems = useMemo(
 		() =>
-			model.sections.reduce((count, [, ...items]) => count + items.length, 0) +
-			(model.fallbackItems?.length ?? 0) +
-			(model.footer ? 1 : 0),
-		[model.fallbackItems, model.footer, model.sections],
+			getQuickInsertMenuRows(model).filter(
+				(row): row is RegisterMenuItem => row.type === 'menu-item',
+			),
+		[model],
 	);
+	const itemCount = selectableItems.length + (model.footer ? 1 : 0);
 	const selectableItemKeys = useMemo(
 		() =>
-			[
-				...model.sections.flatMap(([, ...items]) => items),
-				...(model.fallbackItems ?? []),
-				model.footer,
-			]
-				.filter((item): item is NonNullable<typeof item> => Boolean(item))
-				.map(({ key }) => key)
-				.join(','),
-		[model.fallbackItems, model.footer, model.sections],
+			[...selectableItems, ...(model.footer ? [model.footer] : [])].map(({ key }) => key).join(','),
+		[model.footer, selectableItems],
 	);
 	useLayoutEffect(() => {
 		setSelectedItemIndex(itemCount > 0 ? 0 : -1);

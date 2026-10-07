@@ -208,11 +208,7 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 					};
 
 					let cardComponent;
-					if (
-						smartLinks?.ssr &&
-						url &&
-						(fg('platform_ssr_smartlink_embeds') || fg('jfp-magma-ssr-iv-editor-links'))
-					) {
+					if (smartLinks?.ssr && url && fg('platform_ssr_smartlink_embeds')) {
 						const ssrCardProps = {
 							url,
 							onClick,

@@ -11,6 +11,8 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer';
 import { Card } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmbedCard from '../../../../react/nodes/embedCard';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
@@ -36,6 +38,42 @@ jest.mock('@atlaskit/tmp-editor-statsig/editor-experiment', () => ({
 describe('Renderer - React/Nodes/EmbedCard', () => {
 	const url =
 		'https://pug.jira-dev.com/wiki/spaces/CE/blog/2017/08/18/3105751050/A+better+REST+API+for+Confluence+Cloud+via+Swagger';
+
+	it.each([
+		{ ssr: true, gateEnabled: true, rendersSSR: true },
+		{ ssr: true, gateEnabled: false, rendersSSR: false },
+	])(
+		'renders SSR=$rendersSSR with ssr=$ssr and platform gate=$gateEnabled',
+		({ ssr, gateEnabled, rendersSSR }) => {
+			jest.clearAllMocks();
+			if (gateEnabled) {
+				passGate('platform_ssr_smartlink_embeds');
+			} else {
+				failGate('platform_ssr_smartlink_embeds');
+			}
+
+			render(
+				<Provider client={new Client('staging')}>
+					<EmbedCard url={url} layout="full-width" smartLinks={{ ssr }} />
+				</Provider>,
+			);
+
+			expect(CardSSR).toHaveBeenCalledTimes(rendersSSR ? 1 : 0);
+			expect(Card).toHaveBeenCalledTimes(rendersSSR ? 0 : 1);
+		},
+	);
+
+	it('renders a client card when SSR is disabled', () => {
+		jest.clearAllMocks();
+		render(
+			<Provider client={new Client('staging')}>
+				<EmbedCard url={url} layout="full-width" smartLinks={{ ssr: false }} />
+			</Provider>,
+		);
+
+		expect(CardSSR).not.toHaveBeenCalled();
+		expect(Card).toHaveBeenCalledTimes(1);
+	});
 
 	it('should call consumer onClick with destinationUrl from Card when provided', () => {
 		const mockedOnClick = jest.fn();

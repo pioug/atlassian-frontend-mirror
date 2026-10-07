@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
+import { fetchIsUnitsEnabledForAssets } from '../services/fetchIsUnitsEnabledForAssets';
 import { fetchObjectSchema } from '../services/fetchObjectSchema';
 import { fetchObjectSchemas } from '../services/fetchObjectSchemas';
 import { getMeta } from '../services/getMeta';
@@ -59,10 +60,14 @@ export const useAssetsClient = (
 			setLoading(true);
 			setWorkspaceError(undefined);
 			try {
-				// When the gate is on and a cloudId is present, resolve the primary Unit
-				// workspace; on any failure fall back to the legacy current-site lookup.
+				// When the gate is on, a cloudId is present and Units is enabled for Assets, resolve
+				// the primary Unit workspace; on any failure fall back to the legacy current-site lookup.
 				let workspaceId: string;
-				if (cloudId && fg('astral_units_workspace_host_resolver')) {
+				const isUnitsEnabledForAssets =
+					fg('astral_units_workspace_host_resolver') &&
+					!!cloudId &&
+					(await fetchIsUnitsEnabledForAssets(cloudId));
+				if (isUnitsEnabledForAssets) {
 					try {
 						({ workspaceId } = await resolvePrimaryWorkspace(cloudId));
 					} catch (resolvePrimaryWorkspaceError) {

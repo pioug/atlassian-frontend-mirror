@@ -25,6 +25,7 @@ import type { EditorAppearance } from '../types';
 import { Extension } from './Extension';
 import { ExtensionNodeWrapper } from './ExtensionNodeWrapper';
 import { isNativeEmbedExtension } from './nativeEmbedExtension';
+import { preserveRemixNodeView } from './preserveRemixNodeView';
 import type {
 	ExtensionsPluginInjectionAPI,
 	MacroInteractionDesignFeatureFlags,
@@ -461,7 +462,7 @@ export default function ExtensionNodeView(
 	intl?: IntlShape,
 ) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
-		return new ExtensionNode(node, view, getPos, portalProviderAPI, eventDispatcher, {
+		const renderProps = {
 			providerFactory,
 			extensionHandlers,
 			extensionLoadingHandlers,
@@ -472,6 +473,20 @@ export default function ExtensionNodeView(
 			showUpdatedLivePages1PBodiedExtensionUI,
 			rendererExtensionHandlers,
 			intl,
-		}).init();
+		};
+		const createExtensionNode = (currentNode: PmNode) =>
+			new ExtensionNode(currentNode, view, getPos, portalProviderAPI, eventDispatcher, renderProps);
+
+		if (!isSSR() && fg('cc_maui_annotations_on_extensions')) {
+			return preserveRemixNodeView({
+				node,
+				view,
+				getPos,
+				renderProps,
+				rendererKind: ExtensionNode,
+				createExtensionNode,
+			});
+		}
+		return createExtensionNode(node).init();
 	};
 }

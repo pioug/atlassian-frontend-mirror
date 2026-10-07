@@ -38,6 +38,7 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<CalendarProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(
 	{
+		label = 'calendar',
 		day,
 		defaultDay = 0,
 		defaultMonth = 0,
@@ -205,7 +206,7 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 			<Box
 				xcss={styles.box}
 				padding="space.200"
-				aria-label="calendar"
+				aria-label={label}
 				testId={testId && `${testId}--calendar`}
 			>
 				<Stack space="space.150">

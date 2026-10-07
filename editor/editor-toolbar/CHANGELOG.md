@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 2.8.20
+
+### Patch Changes
+
+- [`2ef58c778ed65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ef58c778ed65) -
+  [ux] Keep full-page Review visible and switch from its label to an accessible icon below the 900px
+  viewport boundary (876px toolbar container) under platform_editor_ai_content_suggested_edits,
+  preserving visibility-only exposure analytics. Update the gated full-page medium breakpoint while
+  preserving the experiment control values.
+- Updated dependencies
+
 ## 2.8.19
 
 ### Patch Changes

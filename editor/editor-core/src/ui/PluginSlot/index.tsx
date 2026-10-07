@@ -12,20 +12,12 @@ import type {
 	UIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { MountPluginHooks } from './mount-plugin-hooks';
 import { PluginsComponentsWrapperCompiled } from './PluginSlot-compiled';
-import { PluginsComponentsWrapperEmotion } from './PluginSlot-emotion';
-
-const PluginsComponentsWrapperMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	PluginsComponentsWrapperCompiled,
-	PluginsComponentsWrapperEmotion,
-);
 
 export interface Props {
 	appearance?: EditorAppearance;
@@ -128,7 +120,7 @@ const PluginSlot = ({
 				containerElement={containerElement}
 				wrapperElement={wrapperElement}
 			/>
-			<PluginsComponentsWrapperMigration data-testid="plugins-components-wrapper">
+			<PluginsComponentsWrapperCompiled data-testid="plugins-components-wrapper">
 				{/**
 				 * Why don't we do this as:
 				 * ```tsx
@@ -192,7 +184,7 @@ const PluginSlot = ({
 					});
 					return element && React.cloneElement(element, props);
 				})}
-			</PluginsComponentsWrapperMigration>
+			</PluginsComponentsWrapperCompiled>
 		</ErrorBoundary>
 	);
 };

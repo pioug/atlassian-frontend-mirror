@@ -29,7 +29,7 @@
 		"./utils/teams-app-navigation/to-teams-app-url": "./src/utils/teams-app-navigation/toTeamsAppURL.ts"
 	},
 	"scripts": {
-		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-app-config/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-app-config/src/**\", \"!packages/people-and-teams/teams-app-config/src/**/**/types.ts\", \"!packages/people-and-teams/teams-app-config/src/ui/**/styled.tsx\"]')"
+		"test:coverage": "(cd ../../.. && afm run test -- 'packages/people-and-teams/teams-app-config/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-app-config/src/**\", \"!packages/people-and-teams/teams-app-config/src/**/**/types.ts\", \"!packages/people-and-teams/teams-app-config/src/ui/**/styled.tsx\"]')"
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",

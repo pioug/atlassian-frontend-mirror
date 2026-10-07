@@ -376,10 +376,10 @@ because it hardcodes `shouldAnimate={false} mode="manual"`; both `@atlaskit/popu
 `shouldAnimate` unconditionally, so wiring them up would have shipped it.
 
 Inline styles cannot be scoped to a pseudo-class, so **`display` cannot be owned by a style-writing
-hook.** It is declared in `Popover`'s `cssMap` as `&:popover-open { display: flex }`. That is an
-architectural constraint, not a preference. Pinned by the "a closed fitting popover is not left
-displayed" test, which calls `hidePopover()` directly so the element is still mounted when it is
-measured.
+hook.** It is declared in `Popover`'s `cssMap` under `&:popover-open:popover-open:popover-open`,
+never under the always-on `[popover]` boost. That is an architectural constraint, not a preference.
+Pinned by the "a closed fitting popover is not left displayed" test, which calls `hidePopover()`
+directly so the element is still mounted when it is measured.
 
 **The child `min-*-size: 0` reset is needed, and dropping it was a regression.** Per css-flexbox-1
 §4.5 a flex item's automatic minimum size is

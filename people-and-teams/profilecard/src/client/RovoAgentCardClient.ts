@@ -1,4 +1,3 @@
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 
 import type {
@@ -202,14 +201,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 					headers,
 				}),
 			).then((response) => {
-				if (
-					response.status === 403 &&
-					FeatureGates.getExperimentValue(
-						'platform_editor_reduced_agent_profile_cards',
-						'isEnabled',
-						false,
-					)
-				) {
+				if (response.status === 403) {
 					throw new AgentForbiddenError();
 				}
 				return response.json();
@@ -223,14 +215,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 					headers,
 				}),
 			).then((response) => {
-				if (
-					response.status === 403 &&
-					FeatureGates.getExperimentValue(
-						'platform_editor_reduced_agent_profile_cards',
-						'isEnabled',
-						false,
-					)
-				) {
+				if (response.status === 403) {
 					throw new AgentForbiddenError();
 				}
 				return response.json();

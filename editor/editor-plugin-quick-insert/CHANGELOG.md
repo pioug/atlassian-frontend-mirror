@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 25.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.0
+
+### Patch Changes
+
+- [`1cb97ba88fb58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cb97ba88fb58) -
+  Clean up experiment `platform_editor_insert_menu_ai` (keep control).
+
+  Breaking changes (`@atlaskit/editor-common`): removed `getEmptyItem` from `TypeAheadHandler`, and
+  removed the unused messages `typeAheadListMessages.emptySearchResultsSuggestionNew`,
+  `typeAheadListMessages.emptySearchResultsSuggestionAskRovoOnly` and
+  `toolbarInsertBlockMessages.askRovo`.
+
+- Updated dependencies
+
 ## 24.0.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 17.0.3
+
+### Patch Changes
+
+- [`7757d30f5a510`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7757d30f5a510) -
+  The `swatchBefore` prop is now generally available. Removed experimental, internal-only, and
+  early-access notices from its API documentation and usage guidance.
+
 ## 17.0.2
 
 ### Patch Changes

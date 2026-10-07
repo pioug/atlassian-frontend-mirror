@@ -60,7 +60,7 @@
 		}
 	},
 	"scripts": {
-		"codegen-analytics": "yarn run ts-analytics-codegen --command='afm workspace @atlaskit/link-picker codegen-analytics'"
+		"codegen-analytics": "ts-analytics-codegen --command='afm workspace @atlaskit/link-picker codegen-analytics'"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-linking-platform-link-picker": "root:*",

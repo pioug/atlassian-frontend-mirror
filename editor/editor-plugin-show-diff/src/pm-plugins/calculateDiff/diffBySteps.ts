@@ -5,6 +5,7 @@ import { Mark } from '@atlaskit/editor-prosemirror/model';
 import { Mapping, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DiffStepAttribution } from '../../showDiffPluginType';
 import {
@@ -18,6 +19,15 @@ import { optimizeChanges } from './optimizeChanges';
 const WORD_CHAR_REGEX = /[\p{L}\p{N}_]/u;
 const PUNCTUATION_REGEX = /\p{P}/u;
 const WHITESPACE_REGEX = /\s/u;
+
+/**
+ * Whether a same-type replacement of `node` is diffed granularly rather than as a whole node.
+ * `isolating` nodes (table cells, layout columns, expands, bodied extensions, …) keep edits inside
+ * their boundary, so replacing one wholesale is an edit of its content, not a new node. Tables are
+ * excluded: `groupDeletedColumnChanges` relies on a replaced table being one whole-table change.
+ */
+const isGranularIsolatingNode = (node: PMNode): boolean =>
+	!!node.type.spec.isolating && node.type.spec.tableRole !== 'table';
 
 const mapPosition = (mapping: Mapping, pos: number): number => mapping.map(pos);
 
@@ -217,6 +227,8 @@ const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {
  * - The replaced slice is not open
  * - The replaced slice has only one child
  * - The replacing slice has only one child
+ * - Both children are the same textblock type, or (behind `platform_editor_ai_show_diff_patch_2`)
+ *   the same isolating, non-table node type whose text content differs
  * - The replaced slice and replacing slice have the same text content
  * - The replaced slice and replacing slice have the same child marks (if text content is equal)
  */
@@ -248,7 +260,19 @@ const shouldCheckGranularDiff = (
 	const replacedNode = replacedSlice.content.firstChild;
 	const replacingNode = replacingSlice.content.firstChild;
 
-	if (replacedNode?.type.name !== replacingNode?.type.name || !replacedNode?.type.isTextblock) {
+	if (replacedNode?.type.name !== replacingNode?.type.name) {
+		return false;
+	}
+
+	// Replacing a whole isolating node (e.g. an AI `replaceNode` on a table cell) would otherwise
+	// report the entire node as changed, painting a cell overlay over content that was only
+	// edited inside it. Diff its content granularly instead, so only the inner edits are decorated.
+	const isIsolatingNode =
+		fg('platform_editor_ai_show_diff_patch_2') &&
+		replacedNode !== null &&
+		isGranularIsolatingNode(replacedNode);
+
+	if (!replacedNode?.type.isTextblock && !isIsolatingNode) {
 		return false;
 	}
 
@@ -257,6 +281,12 @@ const shouldCheckGranularDiff = (
 	}
 
 	const isTextContentEqual = replacedNode?.textContent === replacingNode?.textContent;
+
+	// `hasSameChildMarks` only compares an isolating node's direct (block) children, so it cannot
+	// vouch for one with unchanged text. Keep the existing whole-node fallback for that case.
+	if (isIsolatingNode) {
+		return !isTextContentEqual;
+	}
 
 	return (
 		!isTextContentEqual || (isTextContentEqual && hasSameChildMarks(replacedNode, replacingNode))

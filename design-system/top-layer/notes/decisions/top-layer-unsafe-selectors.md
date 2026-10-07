@@ -170,7 +170,12 @@ constant (`of ${GUARD}`) hides which terms a site carries, and AFM already ships
 
 ### Two damage modes, needing different fixes
 
-- **`popover-receives`** — a declaration lands on the host. A `:not()` guard fixes it.
+- **`popover-receives`** — a declaration lands on the host. A `:not()` guard fixes it. The `Popover`
+  and `Dialog` hosts now also defend themselves: their own styles are declared at (0,4,0), under
+  `:defined:defined:defined`, and the open-state `display` under a tripled `:popover-open` or
+  `[open]`, so a class-level consumer rule loses on the properties they declare, during the exit
+  too. A guard is still needed for any other property, for `display` on a closed host, and for a
+  rule with an ID. See [`host-specificity-boost.md`](./host-specificity-boost.md).
 - **`real-element-loses`** — the host takes a positional slot, so a **real** element stops matching.
   **Only `of S` fixes this**; a `:not()` guard cannot. And `of S` does not survive the build, so
   **`real-element-loses` currently has no guard fix at all**. Fix such a site by naming the element

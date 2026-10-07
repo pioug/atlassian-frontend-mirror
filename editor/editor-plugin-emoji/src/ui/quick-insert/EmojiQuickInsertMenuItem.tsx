@@ -8,15 +8,19 @@ import {
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
+import type { TypeAheadInsert } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
-
-import { setInlineEmojiPopupOpen } from '../../pm-plugins/actions';
 
 const previewImageUrls = {
 	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVH4.png',
 	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKH.png',
 };
-export const EmojiQuickInsertMenuItem = (): React.JSX.Element => {
+export const EmojiQuickInsertMenuItem = ({
+	selectEmojiFromQuickInsert,
+}: {
+	selectEmojiFromQuickInsert: (insert: TypeAheadInsert) => Transaction;
+}): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const preview = useMemo(
 		() => ({
@@ -26,8 +30,8 @@ export const EmojiQuickInsertMenuItem = (): React.JSX.Element => {
 		[formatMessage],
 	);
 	const onSelect = useCallback(
-		({ insert }: OnSelectContext) => setInlineEmojiPopupOpen(true)(insert('')),
-		[],
+		({ insert }: OnSelectContext) => selectEmojiFromQuickInsert(insert),
+		[selectEmojiFromQuickInsert],
 	);
 
 	return (

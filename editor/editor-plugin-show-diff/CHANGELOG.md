@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 23.0.1
+
+### Patch Changes
+
+- [`608de54a73de3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/608de54a73de3) -
+  Behind platform_editor_ai_show_diff_patch_2, the step diff now diffs a replaced isolating node
+  (table cell or header, layout column, expand, bodied extension, …; tables excluded) granularly
+  instead of marking the whole node as changed, so a replaceNode suggestion on a cell no longer
+  shows a cell overlay on top of its inline changes. Block decorations now only apply to blocks
+  fully inside a change, so hiding deleted diffs no longer hides a block the change only starts
+  inside (along with its unchanged text and the suggested content).
+- Updated dependencies
+
+## 23.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.6
+
+### Patch Changes
+
+- [`3f41dc18d7b3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f41dc18d7b3e) -
+  EDITOR-9252 Align show diff indicators in Firefox without transformed anchors, disable
+  anchor-based hiding so indicators remain visible when the optional left-offset decoration is
+  absent, and size list replacement widgets to their content under
+  platform_editor_ai_show_diff_patch_2.
+- Updated dependencies
+
 ## 22.0.5
 
 ### Patch Changes

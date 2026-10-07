@@ -99,9 +99,10 @@ type TPopoverBaseProps = {
 	 * phase can temporarily differ from this value while a close settles.
 	 *
 	 * - **`true`:** show the popover (calls `showPopover()`). When `shouldAnimate`
-	 *   is `true`, the entry animation plays via `@starting-style`.
+	 *   is `true`, the entry animation plays as a keyframe animation.
 	 * - **`false`:** hide the popover. When `shouldAnimate` is `true`, the exit
-	 *   animation plays via `allow-discrete` while the lifecycle phase is `exiting`.
+	 *   animation plays as a keyframe animation while the lifecycle phase is `exiting`,
+	 *   kept visible by an `allow-discrete` transition.
 	 *   Otherwise it hides visually without animation, while lifecycle settlement still
 	 *   waits for the native closed `toggle`.
 	 *

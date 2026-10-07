@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 export { buildQuickInsertMenuModel } from './build-quick-insert-menu-model';
+export { getQuickInsertMenuRows } from './getQuickInsertMenuRows';
 export { quickInsertProviderMenuItemKey } from './getQuickInsertProviderMenuItemKey';
 export { selectQuickInsertCategoryItems } from './selectQuickInsertCategoryItems';
 export { getMatchingQuickInsertComponents } from './get-matching-quick-insert-components';

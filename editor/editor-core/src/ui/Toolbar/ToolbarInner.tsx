@@ -3,19 +3,10 @@ import React from 'react';
 import isEqual from 'lodash/isEqual';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
 import type { ToolbarInnerProps } from './toolbar-types';
 import { ToolbarComponentsWrapperCompiled } from './ToolbarComponentsWrapper-compiled';
-import { ToolbarComponentsWrapperEmotion } from './ToolbarComponentsWrapper-emotion';
-
-const ToolbarComponentsWrapperMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	ToolbarComponentsWrapperCompiled,
-	ToolbarComponentsWrapperEmotion,
-);
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -52,7 +43,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 		}
 
 		return (
-			<ToolbarComponentsWrapperMigration data-vc="toolbar-inner">
+			<ToolbarComponentsWrapperCompiled data-vc="toolbar-inner">
 				{items.map((component, key) => {
 					const element = component({
 						editorView,
@@ -76,7 +67,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 					// oxlint-disable-next-line react/no-array-index-key
 					return element && React.cloneElement(element, { key });
 				})}
-			</ToolbarComponentsWrapperMigration>
+			</ToolbarComponentsWrapperCompiled>
 		);
 	}
 }

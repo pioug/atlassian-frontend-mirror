@@ -26,7 +26,7 @@
 		}
 	},
 	"scripts": {
-		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/focused-task-close-account/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/focused-task-close-account/src/**\", \"!packages/people-and-teams/focused-task-close-account/src/**/**/types.ts\", \"!packages/people-and-teams/focused-task-close-account/src/ui/**/styled.tsx\"]')"
+		"test:coverage": "(cd ../../.. && afm run test -- 'packages/people-and-teams/focused-task-close-account/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/focused-task-close-account/src/**\", \"!packages/people-and-teams/focused-task-close-account/src/**/**/types.ts\", \"!packages/people-and-teams/focused-task-close-account/src/ui/**/styled.tsx\"]')"
 	},
 	"atlassian": {
 		"react-compiler": {

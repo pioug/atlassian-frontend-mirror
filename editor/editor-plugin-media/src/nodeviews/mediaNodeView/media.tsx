@@ -141,9 +141,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	}
 
 	private getDataConsumerMark = () =>
-		fg('cc-maui-add-mark-for-remix-generated-images')
-			? this.props.node.marks.find((m) => m.type.name === 'dataConsumer')
-			: undefined;
+		this.props.node.marks.find((m) => m.type.name === 'dataConsumer');
 
 	private getDataConsumerSource = (props: MediaNodeProps = this.props): string | undefined =>
 		props.node.marks.find((mark) => mark.type.name === 'dataConsumer')?.attrs.sources?.[0];

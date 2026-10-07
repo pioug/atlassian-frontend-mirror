@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 26.0.1
+
+### Patch Changes
+
+- [`5351e01090c9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5351e01090c9c) -
+  Show the five strongest matches first, then remaining matches in category order without category
+  titles, in slash-command and toolbar insert search. Share the row projection across rendering and
+  keyboard selection under the platform_editor_slash_command experiment.
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.4
 
 ### Patch Changes

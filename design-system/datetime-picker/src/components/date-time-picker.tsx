@@ -535,6 +535,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 						appearance={appearance}
 						aria-describedby={datePickerAriaDescribedBy}
 						autoFocus={datePickerProps.autoFocus || autoFocus}
+						calendarLabel={datePickerProps.calendarLabel}
 						dateFormat={datePickerProps.dateFormat}
 						defaultIsOpen={datePickerProps.defaultIsOpen}
 						defaultValue={datePickerProps.defaultValue}

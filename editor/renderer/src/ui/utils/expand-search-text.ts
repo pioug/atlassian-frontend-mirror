@@ -122,6 +122,16 @@ const searchTextCache = new WeakMap<PMNode, string | null>();
  * Cached on the node. ProseMirror nodes never change, and the serializer reuses the same instances
  * across renders, so the text only has to be worked out once per block.
  *
+ * Browser find cannot reach extension output while the expand is collapsed. The ADF does not
+ * contain what a table of contents, Jira issues or Table Filter macro shows, so the extension adds
+ * no text here and does not render until the expand opens. Extensions that keep ADF in
+ * `nestedContent` are the exception.
+ *
+ * This is deliberate. Loading those macros only when the expand opens is the fix for HOT-121622,
+ * where pages with many of them inside expands loaded slowly. To make them findable, return `null`
+ * for any block that holds an extension, as for inline comments. Every such macro would then load
+ * with the page.
+ *
  * @returns the text, or `undefined` if this block has to be rendered instead.
  */
 export const getBlockSearchText = (node: PMNode): string | undefined => {

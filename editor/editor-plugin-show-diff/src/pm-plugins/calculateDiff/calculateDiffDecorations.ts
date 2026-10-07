@@ -251,7 +251,27 @@ const tableRanges = (
 const isInsideTable = (tables: Array<[number, number]>, pos: number): boolean =>
 	tables.some(([tFrom, tTo]) => pos >= tFrom && pos < tTo);
 
+/**
+ * Where a block's content ends, excluding the run of close tokens that ends it: the block's own,
+ * then its last child's, and so on down to the last textblock. A change that keeps those trailing
+ * close tokens unchanged (because the other side ends in the same structure, e.g.
+ * `…</p></li></ul>`) still covers all of the block's content.
+ */
+const endBeforeTrailingCloseTokens = (node: PMNode, pos: number): number => {
+	let end = pos + node.nodeSize;
+	let current: PMNode | null = node;
+	while (current && !current.isLeaf) {
+		end -= 1;
+		if (current.isTextblock) {
+			break;
+		}
+		current = current.lastChild;
+	}
+	return end;
+};
+
 const calculateNodesForBlockDecoration = ({
+	allowTrailingCloseTokens = false,
 	attributionKey,
 	doc,
 	from,
@@ -268,6 +288,12 @@ const calculateNodesForBlockDecoration = ({
 	nodeRanges,
 }: {
 	activeIndexPos?: ActiveIndexPos;
+	/**
+	 * Also treat a block as contained when it starts inside the change and only its trailing close
+	 * tokens fall outside it. Callers must not set this when a deleted-content widget is anchored at
+	 * the change's end: that widget sits inside such a block, and hiding the block would hide it.
+	 */
+	allowTrailingCloseTokens?: boolean;
 	attributionKey?: string;
 	coarseTableCellsOnly?: boolean;
 	colorScheme?: DecorationColorScheme;
@@ -323,9 +349,26 @@ const calculateNodesForBlockDecoration = ({
 	// re-render. Blocks outside the table keep their normal decorations.
 	const coarseTables = coarseTableCellsOnly ? tableRanges(doc, from, to) : [];
 	// nodesBetween visits ancestors that start before the changed range.
-	// Only fully contained blocks should mark existing list bullets as new.
+	// Only fully contained blocks should mark existing list bullets as new. Under patch 2 this also
+	// keeps the clean view from hiding a block the change only starts inside: that block holds
+	// unchanged text and the deleted-content widget, so `display: none` on it hid the whole diff.
 	const requireContainedBlocks =
-		UNSAFE_expValNoExposure('platform_editor_ai_review_moment', 'isEnabled', false) === true;
+		UNSAFE_expValNoExposure('platform_editor_ai_review_moment', 'isEnabled', false) === true ||
+		fg('platform_editor_ai_show_diff_patch_2');
+	// Under patch 2, a block whose content the change covers but whose trailing close tokens it does
+	// not (e.g. the last list item when both sides end in a list) is decorated like its siblings.
+	// Otherwise the clean view hides its text but leaves the block, e.g. an empty bullet.
+	const relaxTrailingCloseTokens =
+		allowTrailingCloseTokens && fg('platform_editor_ai_show_diff_patch_2');
+	const isContained = (node: PMNode, pos: number): boolean => {
+		if (requireContainedBlocks && pos < from) {
+			return false;
+		}
+		if (pos + node.nodeSize <= to) {
+			return true;
+		}
+		return relaxTrailingCloseTokens && pos >= from && endBeforeTrailingCloseTokens(node, pos) <= to;
+	};
 	// Iterate over the document nodes within the range
 	doc.nodesBetween(from, to, (node, pos) => {
 		if (coarseTableCellsOnly && isInsideTable(coarseTables, pos)) {
@@ -334,7 +377,7 @@ const calculateNodesForBlockDecoration = ({
 				return;
 			}
 		}
-		if (node.isBlock && (!requireContainedBlocks || pos >= from) && pos + node.nodeSize <= to) {
+		if (node.isBlock && isContained(node, pos)) {
 			const nodeEnd = pos + node.nodeSize;
 			const isActive = isRangeActive(activeIndexPos, pos, nodeEnd, attributionKey);
 
@@ -858,6 +901,9 @@ const calculateDiffDecorationsInner = ({
 
 			decorations.push(
 				...calculateNodesForBlockDecoration({
+					// A deleted widget placed below anchors at the change's end, inside the very block
+					// this would let the decoration claim.
+					allowTrailingCloseTokens: !isDeletedWidgetBelow,
 					attributionKey,
 					doc: tr.doc,
 					from: change.fromB,

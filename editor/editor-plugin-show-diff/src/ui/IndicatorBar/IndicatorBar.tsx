@@ -5,6 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getAccentBorderColor } from '../../pm-plugins/decorations/colorSchemes/factory';
@@ -26,6 +27,12 @@ const barStyles = css({
 	 */
 	marginTop: token('space.negative.075'),
 	marginBottom: token('space.negative.075'),
+});
+
+const barAlwaysVisibleStyles = css({
+	// positionVisibility anchors-valid hides the indicator when the optional left-offset decoration is
+	// absent. It still has a valid position because it falls back to the doc margin anchor
+	positionVisibility: 'always',
 });
 
 const getIndicatorColor = (
@@ -68,7 +75,7 @@ export function IndicatorBar({
 	return (
 		<span
 			data-testid="diff-indicator-bar"
-			css={barStyles}
+			css={[barStyles, fg('platform_editor_ai_show_diff_patch_2') && barAlwaysVisibleStyles]}
 			style={{
 				backgroundColor: getIndicatorColor(colorScheme, isInserted),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

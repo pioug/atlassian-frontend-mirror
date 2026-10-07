@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl';
 
@@ -68,6 +68,7 @@ export const TeamContainers = ({
 	} = useTeamLinksAndContainers(teamId, true);
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
+	const firstShowMoreItemRef = useRef<HTMLDivElement>(null);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
 	const [selectedContainerDetails, setSelectedContainerDetails] = useState<
 		SelectedContainerDetails | undefined
@@ -182,6 +183,12 @@ export const TeamContainers = ({
 			}
 		}
 	}, [hasError, unlinkError, onError]);
+
+	useEffect(() => {
+		if (fg('teams_a11y_20261005') && showMore && firstShowMoreItemRef.current) {
+			firstShowMoreItemRef.current.focus({ preventScroll: false });
+		}
+	}, [showMore]);
 
 	const handleShowMore = () => {
 		setShowMore(!showMore);
@@ -358,7 +365,7 @@ export const TeamContainers = ({
 							})}
 
 							{showMore &&
-								filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
+								filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container, index) => {
 									const card = (
 										<LinkedContainerCardComponent
 											key={container.id}
@@ -381,7 +388,12 @@ export const TeamContainers = ({
 										/>
 									);
 									return (
-										<Box key={container.id} role="listitem">
+										<Box
+											key={container.id}
+											role="listitem"
+											ref={index === 0 ? firstShowMoreItemRef : undefined}
+											tabIndex={index === 0 && fg('teams_a11y_20261005') ? -1 : undefined}
+										>
 											{card}
 										</Box>
 									);

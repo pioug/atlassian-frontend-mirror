@@ -18,6 +18,8 @@ import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey
 import type { QuickInsertMenuModel, QuickInsertMenuSection } from './build-quick-insert-menu-model';
 import { ASK_ROVO_MENU_ITEM } from './keys';
 
+const SEARCH_TOP_MATCH_LIMIT = 5;
+
 type MatchedItem = {
 	identity: string;
 	item: RegisterMenuItem;
@@ -25,6 +27,7 @@ type MatchedItem = {
 	score: number;
 	section: RegisterMenuSection;
 	sectionRank: number;
+	sourceIndex: number;
 };
 
 const getRank = (component: RegisterComponent, parentKey: string): number =>
@@ -34,7 +37,25 @@ const compareMatchedItems = (a: MatchedItem, b: MatchedItem): number =>
 	a.sectionRank - b.sectionRank ||
 	a.score - b.score ||
 	a.itemRank - b.itemRank ||
+	a.sourceIndex - b.sourceIndex ||
 	a.identity.localeCompare(b.identity);
+
+const compareSearchResults = (a: MatchedItem, b: MatchedItem): number =>
+	a.score - b.score ||
+	a.sectionRank - b.sectionRank ||
+	a.itemRank - b.itemRank ||
+	a.sourceIndex - b.sourceIndex ||
+	a.identity.localeCompare(b.identity);
+
+const getSearchResults = (matches: MatchedItem[]): RegisterMenuItem[] => {
+	const topMatches = Array.from(matches)
+		.sort(compareSearchResults)
+		.slice(0, SEARCH_TOP_MATCH_LIMIT);
+	const topMatchIdentities = new Set(topMatches.map(({ identity }) => identity));
+	const tailMatches = matches.filter(({ identity }) => !topMatchIdentities.has(identity));
+
+	return [...topMatches, ...tailMatches].map(({ item }) => item);
+};
 
 /**
  * Resolves registered menu items for a non-empty query. This intentionally has
@@ -59,6 +80,7 @@ export const getMatchingQuickInsertComponents = ({
 	}
 
 	const matches = new Map<string, MatchedItem>();
+	const sourceIndexByComponent = new Map(components.map((component, index) => [component, index]));
 
 	for (const section of topLevelChildren) {
 		if (
@@ -88,6 +110,7 @@ export const getMatchingQuickInsertComponents = ({
 				item,
 				itemRank: getRank(item, section.key),
 				score: Math.min(1, Math.max(0, match?.score ?? 0)),
+				sourceIndex: sourceIndexByComponent.get(item) ?? Number.MAX_SAFE_INTEGER,
 				section,
 				sectionRank: getRank(section, root.key),
 			};
@@ -98,8 +121,10 @@ export const getMatchingQuickInsertComponents = ({
 		}
 	}
 
+	const uniqueMatches = Array.from(matches.values()).sort(compareMatchedItems);
+	const searchResults = query !== '' ? getSearchResults(uniqueMatches) : undefined;
 	const sectionsByKey = new Map<string, QuickInsertMenuSection>();
-	for (const match of Array.from(matches.values()).sort(compareMatchedItems)) {
+	for (const match of uniqueMatches) {
 		const existing = sectionsByKey.get(match.section.key);
 		if (existing) {
 			existing.push(match.item);
@@ -110,7 +135,12 @@ export const getMatchingQuickInsertComponents = ({
 
 	const sections = Array.from(sectionsByKey.values());
 	if (sections.length > 0 || query === '') {
-		return { footer: undefined, root, sections };
+		return {
+			footer: undefined,
+			root,
+			searchResults,
+			sections,
+		};
 	}
 
 	const fallbackItem = topLevelChildren
@@ -141,5 +171,11 @@ export const getMatchingQuickInsertComponents = ({
 			)
 		: undefined;
 
-	return { fallbackItems, footer, root, sections };
+	return {
+		fallbackItems,
+		footer,
+		root,
+		searchResults,
+		sections,
+	};
 };

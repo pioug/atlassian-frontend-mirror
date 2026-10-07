@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { MenuItem } from '@atlaskit/editor-common/extensions';
 import {
+	BLOCK_TEMPLATES_SECTION,
 	CREATE_SECTION,
 	DATA_AND_CHARTS_SECTION,
 	EMBED_SECTION,
@@ -223,6 +224,35 @@ describe('getExtensionQuickInsertComponents', () => {
 			[{ ...CREATE_SECTION, rank: 1000 }],
 			[{ ...CREATE_SECTION, rank: 400 }],
 			[{ ...STRUCTURE_SECTION, rank: 3100 }],
+		]);
+	});
+
+	it('uses Block templates priorities directly', () => {
+		mockExpEnabled('platform_editor_slash_command');
+		const components = getExtensionQuickInsertComponents({
+			apiRef: { current: undefined },
+			editorActions,
+			items: [
+				{ key: 'block-template', title: 'Gallery', priority: 0 },
+				{ key: 'snippet-curated', title: 'Curated', priority: 1 },
+			].map(({ key, title, priority }) => ({
+				category: 'block-templates',
+				categories: ['block-templates'],
+				extensionKey: 'snippet-extension',
+				extensionType: 'com.atlassian.confluence.macro.core',
+				featured: false,
+				icon: () => Promise.resolve({ default: () => <span /> }),
+				key,
+				keywords: [],
+				node: { type: 'extension', attrs: {} },
+				priority,
+				title,
+			})),
+		});
+
+		expect(components.map(({ parents }) => parents)).toEqual([
+			[{ key: BLOCK_TEMPLATES_SECTION.key, type: BLOCK_TEMPLATES_SECTION.type, rank: 0 }],
+			[{ key: BLOCK_TEMPLATES_SECTION.key, type: BLOCK_TEMPLATES_SECTION.type, rank: 1 }],
 		]);
 	});
 

@@ -4,7 +4,7 @@ import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { render } from '@atlassian/testing-library/render';
 
-import { ReactSerializer } from '../../../index';
+import { ReactSerializer } from '../../../entry-points/serializer-default';
 import * as MarkUtil from '../../marks';
 import * as NodeUtil from '../../nodes';
 import { complexDocument as doc } from './__fixtures__/documents';

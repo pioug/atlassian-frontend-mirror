@@ -12,7 +12,6 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-tool
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -20,7 +19,6 @@ import type { EditorAppearanceComponentProps } from '../../../types/editor-appea
 import type { PrimaryToolbarComponents } from '../../../types/editor-props';
 import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
 import { FullPageEditorWrapperCompiled } from './FullPage-compiled';
-import { FullPageEditorWrapperEmotion } from './FullPage-emotion';
 import { FullPageContentArea } from './FullPageContentArea';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { FullPageToolbar } from './FullPageToolbar';
@@ -28,12 +26,6 @@ import { FullPageToolbarNext } from './FullPageToolbarNext';
 import type { ScrollContainerRefs } from './types';
 
 const SSR_TRACE_SEGMENT_NAME = 'reactEditorView/fullPageAppearance';
-
-const FullPageEditorWrapperMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	FullPageEditorWrapperCompiled,
-	FullPageEditorWrapperEmotion,
-);
 
 const useShowKeyline = (contentAreaRef: React.MutableRefObject<ScrollContainerRefs | null>) => {
 	const [showKeyline, setShowKeyline] = useState<boolean>(false);
@@ -179,7 +171,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 			onSSRMeasure={props.onSSRMeasure}
 		>
 			<ContextPanelWidthProvider>
-				<FullPageEditorWrapperMigration
+				<FullPageEditorWrapperCompiled
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="akEditor"
 					ref={wrapperElementRef}
@@ -270,7 +262,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 						contentMode={props.contentMode}
 						UNSAFE_containLayout={props.UNSAFE_containLayout}
 					/>
-				</FullPageEditorWrapperMigration>
+				</FullPageEditorWrapperCompiled>
 			</ContextPanelWidthProvider>
 		</SSRRenderMeasure>
 	);

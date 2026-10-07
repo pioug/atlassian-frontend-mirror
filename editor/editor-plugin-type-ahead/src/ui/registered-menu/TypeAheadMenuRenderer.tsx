@@ -5,6 +5,7 @@ import type { MessageDescriptor } from 'react-intl';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
+import { getQuickInsertMenuRows } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
 import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import { Box, Text } from '@atlaskit/primitives/compiled';
@@ -46,10 +47,7 @@ export const TypeAheadMenuRenderer = ({
 }: Props): React.JSX.Element | null => {
 	const intl = useIntl();
 	const listRef = useRef<List | null>(null);
-	const rows = useMemo(
-		() => [...model.sections.flat(), ...(model.fallbackItems ?? [])],
-		[model.fallbackItems, model.sections],
-	);
+	const rows = useMemo(() => getQuickInsertMenuRows(model), [model]);
 	const cache = useMemo(
 		() => new CellMeasurerCache({ defaultHeight: ESTIMATED_ROW_HEIGHT, fixedWidth: true }),
 		[],

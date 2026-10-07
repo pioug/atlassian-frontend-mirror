@@ -4,6 +4,12 @@ import {
 	BackgroundColorDefinedColors,
 	BackgroundColorOverlapped,
 	BackgroundColorCustomColors,
+	BackgroundColorOverlappedReactRenderer,
+	BackgroundColorOverlappedRootRendererWithAnalytics,
+	BackgroundColorOverlappedRendererWithAnnotationSelection,
+	BackgroundColorOverlappedRenderer,
+	BackgroundColorOverlappedRendererFunctionalComponent,
+	BackgroundColorOverlappedRendererWithAnalytics,
 } from './highlight.fixture.vr.ap';
 
 const featureFlags = {
@@ -59,4 +65,33 @@ snapshot(BackgroundColorCustomColors, {
 		},
 	],
 	featureFlags,
+});
+
+// Legacy endpoint migration tests; remove after migration (projected end Dec 2026).
+snapshot(BackgroundColorOverlappedReactRenderer, {
+	description: 'legacy ReactRenderer should render overlapped highlight with inline comments',
+});
+
+snapshot(BackgroundColorOverlappedRenderer, {
+	description: 'legacy Renderer should NOT render overlapped highlight with inline comments',
+});
+
+snapshot(BackgroundColorOverlappedRendererFunctionalComponent, {
+	description:
+		'legacy RendererFunctionalComponent should NOT render overlapped highlight with inline comments',
+});
+
+snapshot(BackgroundColorOverlappedRendererWithAnalytics, {
+	description:
+		'legacy RendererWithAnalytics should NOT render overlapped highlight with inline comments',
+});
+
+snapshot(BackgroundColorOverlappedRendererWithAnnotationSelection, {
+	description:
+		'legacy RendererWithAnnotationSelection should render overlapped highlight with inline comments',
+});
+
+snapshot(BackgroundColorOverlappedRootRendererWithAnalytics, {
+	description:
+		'legacy root RendererWithAnalytics should NOT render overlapped highlight with inline comments',
 });

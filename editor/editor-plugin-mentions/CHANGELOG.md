@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-mentions
 
+## 27.0.1
+
+### Patch Changes
+
+- [`62b2e4f1ae2e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62b2e4f1ae2e8) -
+  Cleanup `experiment` `platform_editor_reduced_agent_profile_cards`. Reduced agent profile cards
+  (forbidden-agent fallback, current-node mention text and selection handling) are now always
+  enabled.
+- Updated dependencies
+
+## 27.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.5
+
+### Patch Changes
+
+- [`ec8f6864239eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec8f6864239eb) -
+  Clean up experiment `platform_editor_mention_search_order`
+- Updated dependencies
+
 ## 26.0.4
 
 ### Patch Changes

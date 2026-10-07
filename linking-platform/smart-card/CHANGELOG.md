@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 46.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.5.2
+
+### Patch Changes
+
+- [`6bab83f8b76de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bab83f8b76de) -
+  Remove the unused `jpx-1074-smart-links-iframe` feature gate, preserving the existing
+  document-based iframe focus handling.
+
 ## 46.5.1
 
 ### Patch Changes

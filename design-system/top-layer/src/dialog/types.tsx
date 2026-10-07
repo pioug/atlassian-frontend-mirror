@@ -34,9 +34,10 @@ type TDialogBaseProps = {
 	 * phase can temporarily differ from this value while a close settles.
 	 *
 	 * - `true`: calls `showModal()`. When `shouldAnimate` is `true`, the entry
-	 *   animation plays via `@starting-style`.
+	 *   animation plays as a keyframe animation.
 	 * - `false`: calls `close()`. When `shouldAnimate` is `true`, the exit
-	 *   animation plays via `allow-discrete` while the lifecycle phase is `exiting`.
+	 *   animation plays as a keyframe animation while the lifecycle phase is `exiting`,
+	 *   kept visible by an `allow-discrete` transition.
 	 *
 	 * **Lifecycle observable to consumers:**
 	 *

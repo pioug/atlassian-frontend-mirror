@@ -12,18 +12,22 @@ import { getActions } from './utils';
 
 const buttonStyles = cssMap({
 	primaryButton: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'button,a': {
-			borderEndEndRadius: 0,
-			borderStartEndRadius: 0,
-		},
+		// Skips top-layer surfaces. See top-layer/notes/decisions/top-layer-unsafe-selectors.md
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& button:not(:where([popover], dialog, & :is([popover], dialog) *)), & a:not(:where([popover], dialog, & :is([popover], dialog) *))':
+			{
+				borderEndEndRadius: 0,
+				borderStartEndRadius: 0,
+			},
 	},
 	secondaryButton: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'button,a': {
-			borderEndStartRadius: 0,
-			borderStartStartRadius: 0,
-		},
+		// Skips top-layer surfaces. See top-layer/notes/decisions/top-layer-unsafe-selectors.md
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& button:not(:where([popover], dialog, & :is([popover], dialog) *)), & a:not(:where([popover], dialog, & :is([popover], dialog) *))':
+			{
+				borderEndStartRadius: 0,
+				borderStartStartRadius: 0,
+			},
 	},
 });
 

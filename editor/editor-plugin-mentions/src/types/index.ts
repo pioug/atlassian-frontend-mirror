@@ -54,8 +54,7 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	 *
 	 * Consumers own the rollout decision for their editor surface; the shared
 	 * mentions plugin only applies the resulting presentation option.
-	 * Search-time ordering of agents above bots/teams is gated by
-	 * `platform_editor_mention_search_order`.
+	 * Search-time ordering places agents above bots/teams.
 	 */
 	enableAgentSectioning?: boolean;
 	/**

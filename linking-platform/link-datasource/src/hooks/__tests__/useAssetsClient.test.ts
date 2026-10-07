@@ -1,8 +1,9 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import { fetchIsUnitsEnabledForAssets } from '../../services/fetchIsUnitsEnabledForAssets';
 import { fetchObjectSchema } from '../../services/fetchObjectSchema';
 import { fetchObjectSchemas } from '../../services/fetchObjectSchemas';
 import { getMeta } from '../../services/getMeta';
@@ -12,6 +13,7 @@ import { type ObjectSchema } from '../../types/assets/types';
 import { useAssetsClient } from '../useAssetsClient';
 
 jest.mock('../../services/cmdbService');
+jest.mock('../../services/fetchIsUnitsEnabledForAssets');
 jest.mock('../../services/fetchObjectSchema');
 jest.mock('../../services/fetchObjectSchemas');
 jest.mock('../../services/getWorkspaceId');
@@ -19,7 +21,6 @@ jest.mock('../../services/resolvePrimaryWorkspace');
 jest.mock('../../services/validateAql');
 jest.mock('../../services/__clearMetaCacheForTests');
 jest.mock('../../services/getMeta');
-jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const mockFetchObjectSchemasResponse = {
 	startAt: 0,
@@ -38,6 +39,8 @@ const mockFetchObjectSchemasResponse = {
 	isLast: true,
 };
 
+const UNITS_GATE = 'astral_units_workspace_host_resolver';
+
 describe('useAssetsClient', () => {
 	const workspaceId = 'workspaceId';
 	const schemaName = 'schemaName';
@@ -49,10 +52,10 @@ describe('useAssetsClient', () => {
 	};
 	const mockGetWorkspaceId = asMock(getWorkspaceId);
 	const mockResolvePrimaryWorkspace = asMock(resolvePrimaryWorkspace);
+	const mockFetchIsUnitsEnabledForAssets = asMock(fetchIsUnitsEnabledForAssets);
 	const mockFetchObjectSchema = asMock(fetchObjectSchema);
 	const mockFetchObjectSchemas = asMock(fetchObjectSchemas);
 	const mockGetMeta = asMock(getMeta);
-	const mockFg = asMock(fg);
 	const mockFetchEvent = expect.any(Function);
 	const cloudId = 'cloud-id-123';
 	const primaryWorkspaceId = 'primary-workspace-id';
@@ -61,11 +64,11 @@ describe('useAssetsClient', () => {
 		jest.resetAllMocks();
 		mockGetWorkspaceId.mockResolvedValue(workspaceId);
 		mockResolvePrimaryWorkspace.mockResolvedValue({ workspaceId: primaryWorkspaceId });
+		mockFetchIsUnitsEnabledForAssets.mockResolvedValue(true);
 		mockFetchObjectSchema.mockResolvedValue({ name: schemaName, id: schemaId });
 		mockFetchObjectSchemas.mockResolvedValue(mockFetchObjectSchemasResponse);
-		// Default: gate off, no cloudId meta tag → legacy behaviour.
+		// Default: no cloudId meta tag → legacy behaviour; tests set the gate explicitly.
 		mockGetMeta.mockReturnValue(undefined);
-		mockFg.mockReturnValue(false);
 	});
 
 	it('should fetch workspaceId and object schemas when mounted', async () => {
@@ -193,7 +196,7 @@ describe('useAssetsClient', () => {
 
 	describe('Units primary-workspace resolver (astral_units_workspace_host_resolver)', () => {
 		it('should resolve the primary workspace when the gate is on and a cloudId is present', async () => {
-			mockFg.mockReturnValue(true);
+			passGate(UNITS_GATE);
 			mockGetMeta.mockReturnValue(cloudId);
 
 			const { result } = renderHook(() => useAssetsClient(initialParameters));
@@ -217,8 +220,23 @@ describe('useAssetsClient', () => {
 			);
 		});
 
+		it('should use legacy getWorkspaceId and skip the resolver when Units is not enabled for Assets', async () => {
+			passGate(UNITS_GATE);
+			mockGetMeta.mockReturnValue(cloudId);
+			mockFetchIsUnitsEnabledForAssets.mockResolvedValue(false);
+
+			const { result } = renderHook(() => useAssetsClient());
+
+			await waitFor(() => {
+				expect(result.current.workspaceId).toEqual(workspaceId);
+			});
+			expect(mockFetchIsUnitsEnabledForAssets).toHaveBeenCalledWith(cloudId);
+			expect(mockResolvePrimaryWorkspace).not.toHaveBeenCalled();
+			expect(mockGetWorkspaceId).toHaveBeenCalled();
+		});
+
 		it('should fall back to legacy getWorkspaceId when the gate is on but no cloudId is present', async () => {
-			mockFg.mockReturnValue(true);
+			passGate(UNITS_GATE);
 			mockGetMeta.mockReturnValue(undefined);
 
 			const { result } = renderHook(() => useAssetsClient());
@@ -226,12 +244,13 @@ describe('useAssetsClient', () => {
 			await waitFor(() => {
 				expect(result.current.workspaceId).toEqual(workspaceId);
 			});
+			expect(mockFetchIsUnitsEnabledForAssets).not.toHaveBeenCalled();
 			expect(mockResolvePrimaryWorkspace).not.toHaveBeenCalled();
 			expect(mockGetWorkspaceId).toHaveBeenCalled();
 		});
 
 		it('should use legacy getWorkspaceId when the gate is off even if a cloudId is present', async () => {
-			mockFg.mockReturnValue(false);
+			failGate(UNITS_GATE);
 			mockGetMeta.mockReturnValue(cloudId);
 
 			const { result } = renderHook(() => useAssetsClient());
@@ -239,12 +258,13 @@ describe('useAssetsClient', () => {
 			await waitFor(() => {
 				expect(result.current.workspaceId).toEqual(workspaceId);
 			});
+			expect(mockFetchIsUnitsEnabledForAssets).not.toHaveBeenCalled();
 			expect(mockResolvePrimaryWorkspace).not.toHaveBeenCalled();
 			expect(mockGetWorkspaceId).toHaveBeenCalled();
 		});
 
 		it('should fall back to legacy getWorkspaceId when resolvePrimaryWorkspace fails', async () => {
-			mockFg.mockReturnValue(true);
+			passGate(UNITS_GATE);
 			mockGetMeta.mockReturnValue(cloudId);
 			mockResolvePrimaryWorkspace.mockRejectedValue(new Error('resolver exploded'));
 
@@ -261,7 +281,7 @@ describe('useAssetsClient', () => {
 
 		it('should surface a workspaceError when both the resolver and legacy fallback fail', async () => {
 			const mockError = new Error('both failed');
-			mockFg.mockReturnValue(true);
+			passGate(UNITS_GATE);
 			mockGetMeta.mockReturnValue(cloudId);
 			mockResolvePrimaryWorkspace.mockRejectedValue(new Error('resolver exploded'));
 			mockGetWorkspaceId.mockRejectedValue(mockError);

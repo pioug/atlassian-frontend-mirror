@@ -38,7 +38,7 @@
 		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
 	},
 	"scripts": {
-		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/people-teams-ui-public/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/people-teams-ui-public/src/**\", \"!packages/people-and-teams/people-teams-ui-public/src/**/**/types.ts\", \"!packages/people-and-teams/people-teams-ui-public/src/ui/**/styled.tsx\"]')"
+		"test:coverage": "(cd ../../.. && afm run test -- 'packages/people-and-teams/people-teams-ui-public/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/people-teams-ui-public/src/**\", \"!packages/people-and-teams/people-teams-ui-public/src/**/**/types.ts\", \"!packages/people-and-teams/people-teams-ui-public/src/ui/**/styled.tsx\"]')"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-namespaced-context": "workspace:^",

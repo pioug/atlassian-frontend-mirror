@@ -12,7 +12,6 @@ import {
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 import { getUnpublishedSourceType } from './getUnpublishedSourceType';
@@ -37,7 +36,6 @@ const SyncBlockRendererWrapperComponent = ({
 	localId,
 	api,
 }: Props): React.JSX.Element => {
-	const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
 	const syncBlockFetchResult = useFetchSyncBlockData(
 		syncBlockStore,
 		resourceId,
@@ -48,9 +46,7 @@ const SyncBlockRendererWrapperComponent = ({
 
 	const contentUpdatedAt = syncBlockFetchResult?.syncBlockInstance?.data?.contentUpdatedAt;
 	const isUnpublishedBlock = syncBlockFetchResult.syncBlockInstance?.data?.status === 'unpublished';
-	const localSameDocumentSource = isSamePageSyncEnabled
-		? syncBlockFetchResult.syncBlockInstance?.localSameDocumentSource
-		: undefined;
+	const localSameDocumentSource = syncBlockFetchResult.syncBlockInstance?.localSameDocumentSource;
 	const localSourceBlockInstanceId = localSameDocumentSource?.sourceBlockInstanceId;
 	const [localSourceInfo, setLocalSourceInfo] = useState<SyncBlockSourceInfo>();
 	useEffect(() => {

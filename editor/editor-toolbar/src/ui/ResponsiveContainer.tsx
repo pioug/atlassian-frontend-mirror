@@ -108,7 +108,7 @@ const styles = cssMap({
 			},
 		},
 	},
-	// Preset: fullpage updated (410, 476, 1035, 1130)
+	// Preset: fullpage updated (422, 876, 1035, 1130)
 	// Gated behind platform_editor_ai_content_suggested_edits experiment
 	fullpageUpdated: {
 		// @ts-expect-error - container queries are not typed in cssMap
@@ -120,12 +120,12 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (min-width: 422px) and (max-width: 721px)': {
+		'@container toolbar-container (min-width: 422px) and (max-width: 875px)': {
 			'.show-only-sm': {
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (max-width: 721px)': {
+		'@container toolbar-container (max-width: 875px)': {
 			'.show-above-md': {
 				display: 'none',
 			},
@@ -133,7 +133,7 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (min-width: 722px) and (max-width: 1034px)': {
+		'@container toolbar-container (min-width: 876px) and (max-width: 1034px)': {
 			'.show-only-md': {
 				display: 'block',
 			},
@@ -615,7 +615,7 @@ export type ResponsiveContainerProps = {
 	 * Selects the breakpoint preset for the responsive container.
 	 *
 	 * Available presets:
-	 * - 'fullpage': (410, 476, 768, 1024) - Editor full-page experiences (updated to 410, 476, 1035, 1130 when platform_editor_ai_content_suggested_edits is enabled)
+	 * - 'fullpage': (410, 476, 768, 1024) - Editor full-page experiences (updated to 422, 876, 1035, 1130 when platform_editor_ai_content_suggested_edits is enabled)
 	 * - 'reduced': (210, 408, 575, 1024) - Default compact toolbars, constrained layouts
 	 * - 'jira-issue': (280, 420, 650, 1024) - Jira issue view and similar contexts
 	 * - 'jsm-comment': (365, 500, 630, 1024) - JSM comment editor with canned responses button

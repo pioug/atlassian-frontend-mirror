@@ -405,13 +405,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-09
-	platform_editor_reduced_agent_profile_cards: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-06-30
 	platform_editor_fix_link_paste_menu: {
 		defaultValue: boolean;
@@ -803,13 +796,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-31
 	platform_editor_dnd_accessibility_fixes_expand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-15
-	platform_editor_core_non_ecc_static_css: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1275,15 +1261,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_agent_mentions',
 			jira: 'platform_editor_agent_mentions',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-07-09
-	platform_editor_reduced_agent_profile_cards: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_reduced_agent_profile_cards',
-			jira: 'platform_editor_reduced_agent_profile_cards',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1921,14 +1898,6 @@ export const editorExperimentsConfig: {
 	platform_editor_use_html_plus_parser: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_use_html_plus_parser',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-15
-	platform_editor_core_non_ecc_static_css: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_core_non_ecc_static_css',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -18,6 +18,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import {
 	buildQuickInsertMenuModel,
 	getMatchingQuickInsertComponents,
+	getQuickInsertMenuRows,
 	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { useMenuPopupSizing } from '@atlaskit/editor-common/quick-insert/use-menu-popup-sizing';
@@ -170,10 +171,7 @@ export const RegisteredTypeAheadMenu = ({
 			surface.root,
 		],
 	);
-	const rows = useMemo(
-		() => [...menuModel.sections.flat(), ...(menuModel.fallbackItems ?? [])],
-		[menuModel.fallbackItems, menuModel.sections],
-	);
+	const rows = useMemo(() => getQuickInsertMenuRows(menuModel), [menuModel]);
 	const [previewActivation, setPreviewActivation] = useState<
 		| {
 				itemKey: string;

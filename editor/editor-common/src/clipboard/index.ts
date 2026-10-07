@@ -63,8 +63,16 @@ export const copyToClipboard = async (textToCopy: string): Promise<void> => {
 	}
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const copyHTMLToClipboard = async (
+// EDF-2436: the copy helpers below are called fire-and-forget from click handlers, so a
+// late rejection (eg. the polyfill's DOM fallback running after the document is gone)
+// becomes an unhandled rejection and takes down the whole process. Attaching a no-op
+// handler marks it handled; callers that await still receive the error.
+const markRejectionHandled = <T>(promise: Promise<T>): Promise<T> => {
+	promise.catch(() => {});
+	return promise;
+};
+
+const writeHTMLToClipboard = async (
 	elementToCopy: HTMLElement,
 	plainTextToCopy?: string,
 ): Promise<void> => {
@@ -86,7 +94,8 @@ export const copyHTMLToClipboard = async (
 		try {
 			// ED-17083 extension copy seems have issue with ClipboardItem API
 			// Hence of use of this polyfill
-			copyHTMLToClipboardPolyfill(elementToCopy, plainTextToCopy);
+			// Awaited so the polyfill's async failures land in the catch below.
+			await copyHTMLToClipboardPolyfill(elementToCopy, plainTextToCopy);
 		} catch (error) {
 			// eslint-disable-next-line no-console
 			console.log(error);
@@ -94,10 +103,13 @@ export const copyHTMLToClipboard = async (
 	}
 };
 
-// At the time of development, Firefox doesn't support ClipboardItem API
-// Hence of use of this polyfill
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const copyHTMLToClipboardPolyfill = async (
+export const copyHTMLToClipboard = (
+	elementToCopy: HTMLElement,
+	plainTextToCopy?: string,
+): Promise<void> => markRejectionHandled(writeHTMLToClipboard(elementToCopy, plainTextToCopy));
+
+const writeHTMLToClipboardPolyfill = async (
 	elementToCopy: HTMLElement,
 	plainTextToCopy?: string,
 ): Promise<void> => {
@@ -107,6 +119,15 @@ export const copyHTMLToClipboardPolyfill = async (
 	});
 	await clipboard.write([dt]);
 };
+
+// At the time of development, Firefox doesn't support ClipboardItem API
+// Hence of use of this polyfill
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export const copyHTMLToClipboardPolyfill = (
+	elementToCopy: HTMLElement,
+	plainTextToCopy?: string,
+): Promise<void> =>
+	markRejectionHandled(writeHTMLToClipboardPolyfill(elementToCopy, plainTextToCopy));
 
 // Safari can revoke transient user activation before asynchronous clipboard writes complete.
 // Keep this helper synchronous so callers can invoke it directly from a click handler.

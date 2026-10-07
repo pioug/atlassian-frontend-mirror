@@ -12,7 +12,7 @@ import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
-import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled/responsive/index';
 import { token } from '@atlaskit/tokens';
 
 import { List } from '../../../components/list';
@@ -149,7 +149,17 @@ export function TopNavEnd({
 		setIsMobile(query?.matches ?? false);
 	}, [query]);
 
-	return (
+	// The shared provider also covers the mobile overflow popup itself. Keep the
+	// previous content-only namespace coverage when the layout gate is disabled.
+	const actions = fg('platform-dst-chat-panel-layout') ? (
+		children
+	) : (
+		<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
+			{children}
+		</OpenLayerObserverNamespaceProvider>
+	);
+
+	const content = (
 		<nav
 			aria-label={label}
 			css={[
@@ -162,15 +172,14 @@ export function TopNavEnd({
 				<Popup
 					isOpen={isOpen}
 					onClose={() => setIsOpen(false)}
+					// Top-layer popups need a role to register as a popup with the layer observer.
+					role={fg('platform-dst-chat-panel-layout') ? 'dialog' : undefined}
+					label={fg('platform-dst-chat-panel-layout') ? label : undefined}
 					placement="bottom-start"
 					shouldRenderToParent
 					content={() => (
 						<HasCustomThemeContext.Provider value={false}>
-							<List xcss={cx(listStyles.root, listStyles.popupContainer)}>
-								<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
-									{children}
-								</OpenLayerObserverNamespaceProvider>
-							</List>
+							<List xcss={cx(listStyles.root, listStyles.popupContainer)}>{actions}</List>
 						</HasCustomThemeContext.Provider>
 					)}
 					trigger={(triggerProps) => (
@@ -185,17 +194,17 @@ export function TopNavEnd({
 					)}
 				/>
 			) : (
-				<List xcss={cx(listStyles.root, listStyles.hideOnSmallViewport)}>
-					<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
-						{children}
-					</OpenLayerObserverNamespaceProvider>
-				</List>
+				<List xcss={cx(listStyles.root, listStyles.hideOnSmallViewport)}>{actions}</List>
 			)}
-			{hasPersistentItems && (
-				<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
-					{persistentItems}
-				</OpenLayerObserverNamespaceProvider>
-			)}
+			{hasPersistentItems && persistentItems}
 		</nav>
+	);
+
+	return fg('platform-dst-chat-panel-layout') ? (
+		<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
+			{content}
+		</OpenLayerObserverNamespaceProvider>
+	) : (
+		content
 	);
 }

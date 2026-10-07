@@ -15,6 +15,8 @@ import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-car
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { Card } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import BlockCard from '../../../../react/nodes/blockCard';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
@@ -47,12 +49,50 @@ jest.mock('@atlaskit/smart-card', () => {
 	};
 });
 
+jest.mock('@atlaskit/smart-card/ssr', () => ({
+	CardSSR: jest.fn(() => <div data-testid="smart-card-ssr" />),
+}));
+
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/BlockCard', () => {
 	const url = 'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
 
 	beforeEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it.each([
+		{ ssr: true, gateEnabled: true, rendersSSR: true },
+		{ ssr: true, gateEnabled: false, rendersSSR: false },
+	])(
+		'renders SSR=$rendersSSR with ssr=$ssr and platform gate=$gateEnabled',
+		({ ssr, gateEnabled, rendersSSR }) => {
+			if (gateEnabled) {
+				passGate('platform_ssr_smartlink_cards');
+			} else {
+				failGate('platform_ssr_smartlink_cards');
+			}
+
+			render(
+				<Provider client={new Client('staging')}>
+					<BlockCard url={url} smartLinks={{ ssr }} />
+				</Provider>,
+			);
+
+			expect(CardSSR).toHaveBeenCalledTimes(rendersSSR ? 1 : 0);
+			expect(Card).toHaveBeenCalledTimes(rendersSSR ? 0 : 1);
+		},
+	);
+
+	it('renders a client card when SSR is disabled', () => {
+		render(
+			<Provider client={new Client('staging')}>
+				<BlockCard url={url} smartLinks={{ ssr: false }} />
+			</Provider>,
+		);
+
+		expect(CardSSR).not.toHaveBeenCalled();
+		expect(Card).toHaveBeenCalledTimes(1);
 	});
 
 	it('should render a <div>-tag', () => {

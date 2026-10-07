@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import { FetchError } from '../FetchError';
+import { fetchIsUnitsEnabledForAssets } from '../fetchIsUnitsEnabledForAssets';
 import { fetchObjectSchema } from '../fetchObjectSchema';
 import { fetchObjectSchemas } from '../fetchObjectSchemas';
 import { getStatusCodeGroup } from '../getStatusCodeGroup';
@@ -127,6 +128,93 @@ describe('cmdbService', () => {
 
 				await expect(resolvePrimaryWorkspace(cloudId)).rejects.toBeDefined();
 				expect(mock.done()).toBe(true);
+			},
+		);
+	});
+
+	describe('fetchIsUnitsEnabledForAssets', () => {
+		// Unique per test, as results are cached per cloudId.
+		let cloudId: string;
+		let cloudIdCounter = 0;
+		const url = '/assets/is-multi-site';
+
+		beforeEach(() => {
+			cloudId = `cloud-id-${++cloudIdCounter}`;
+		});
+
+		it('should return true and send the cloudId header when Units is enabled', async () => {
+			const mock = fetchMock.get({
+				url,
+				response: { multiSite: true, isUnitsEnabledForAssets: true },
+			});
+
+			await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(true);
+
+			expect(mock.done()).toBe(true);
+			const [, requestInit] = mock.lastCall() ?? [];
+			expect(new Headers(requestInit?.headers).get('x-atlassian-cloud-id')).toBe(cloudId);
+		});
+
+		it('should return false when Units is not enabled', async () => {
+			fetchMock.get({ url, response: { multiSite: false, isUnitsEnabledForAssets: false } });
+
+			await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(false);
+		});
+
+		it('should share one request between concurrent callers and cache the answer', async () => {
+			const mock = fetchMock.get({
+				url,
+				response: { multiSite: true, isUnitsEnabledForAssets: true },
+			});
+
+			await expect(
+				Promise.all([fetchIsUnitsEnabledForAssets(cloudId), fetchIsUnitsEnabledForAssets(cloudId)]),
+			).resolves.toEqual([true, true]);
+			await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(true);
+
+			expect(mock.calls()).toHaveLength(1);
+		});
+
+		it('should cache a failure briefly and retry once its TTL expires', async () => {
+			const now = jest.spyOn(Date, 'now');
+			now.mockReturnValue(1_000);
+			fetchMock.get({ url, response: 500 });
+			await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(false);
+
+			fetchMock.reset();
+			const mock = fetchMock.get({
+				url,
+				response: { multiSite: true, isUnitsEnabledForAssets: true },
+			});
+			now.mockReturnValue(1_000 + 59_000);
+			await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(false);
+			expect(mock.calls()).toHaveLength(0);
+
+			now.mockReturnValue(1_000 + 61_000);
+			await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(true);
+			expect(mock.calls()).toHaveLength(1);
+
+			now.mockRestore();
+		});
+
+		it('should return false on a network error', async () => {
+			fetchMock.get({ url, response: { throws: new TypeError('Failed to fetch') } });
+
+			await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(false);
+		});
+
+		it('should return false when isUnitsEnabledForAssets is absent', async () => {
+			fetchMock.get({ url, response: { multiSite: true } });
+
+			await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(false);
+		});
+
+		it.each([[404], [403], [500]])(
+			'should return false when the endpoint responds with status %s',
+			async (statusCode: number) => {
+				fetchMock.get({ url, response: statusCode });
+
+				await expect(fetchIsUnitsEnabledForAssets(cloudId)).resolves.toBe(false);
 			},
 		);
 	});

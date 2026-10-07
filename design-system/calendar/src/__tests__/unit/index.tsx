@@ -283,6 +283,14 @@ describe('Calendar', () => {
 	});
 
 	describe('Date', () => {
+		it('uses the default calendar label and supports a custom label', () => {
+			setup();
+			expect(screen.getByLabelText('calendar')).toBeInTheDocument();
+
+			setup({ label: 'appointment calendar' });
+			expect(screen.getByLabelText('appointment calendar')).toBeInTheDocument();
+		});
+
 		it('should be labelled by month/year header', () => {
 			setup();
 			const heading = screen.getByRole('heading');

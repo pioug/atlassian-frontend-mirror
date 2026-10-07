@@ -81,6 +81,7 @@ export const Menu: ({ selectProps, innerProps }: MenuProps<any>) => JSX.Element 
 					<div css={[menuStyles]} {...innerProps} onMouseDown={onMenuMouseDown}>
 						<Wrapper>
 							<Calendar
+								label={selectProps.calendarLabel}
 								day={day}
 								month={month}
 								year={year}

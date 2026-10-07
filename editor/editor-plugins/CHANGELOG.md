@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugins
 
+## 16.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.0
+
+### Minor Changes
+
+- [`3a77f9a4e4d20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a77f9a4e4d20) -
+  Include intended generated entrypoints in published packages
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.215
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.214
 
 ### Patch Changes

@@ -21,6 +21,7 @@ export type QuickInsertMenuModel = {
 	fallbackItems?: RegisterMenuItem[];
 	footer: RegisterMenuItem | undefined;
 	root: RegisterComponent | undefined;
+	searchResults?: RegisterMenuItem[];
 	sections: QuickInsertMenuSection[];
 };
 

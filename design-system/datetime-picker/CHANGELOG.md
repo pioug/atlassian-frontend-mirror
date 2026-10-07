@@ -1,5 +1,16 @@
 # @atlaskit/datetime-picker
 
+## 19.1.0
+
+### Minor Changes
+
+- [`4da700505d9ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4da700505d9ab) -
+  Add a `calendarLabel` prop for custom calendar accessible labels.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.1
 
 ### Patch Changes

@@ -2,11 +2,8 @@ import Fuse from 'fuse.js';
 import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl';
 
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-
 import type { QuickInsertItem } from '../provider-factory';
 import type { QuickInsertHandler, QuickInsertHandlerFn } from '../types';
-import { boostNativeResultsAboveSkills } from './boost-native-results-above-skills';
 
 const processQuickInsertItems = (
 	items: Array<QuickInsertHandler>,
@@ -97,18 +94,13 @@ export function find(
 	const fuse = new Fuse(items, fuseOptions);
 	const results = fuse.search(query);
 
-	// platform_editor_insert_menu_ai: boost native editor elements above skills
-	const rerankedResults = isExperimentEnabled('platform_editor_insert_menu_ai')
-		? boostNativeResultsAboveSkills(results)
-		: results;
-
 	// searching for jira work items macro first
-	const datasourceIndex = rerankedResults.findIndex(
+	const datasourceIndex = results.findIndex(
 		(r) => r.item.id === 'datasource' && r.item.keywords?.includes('jira'),
 	);
 
 	//  then searching for the legacy jira macro
-	const legacyIndex = rerankedResults.findIndex(
+	const legacyIndex = results.findIndex(
 		(r) => typeof r.item.key === 'string' && r.item.key.endsWith(':jira'),
 	);
 
@@ -117,13 +109,11 @@ export function find(
 		datasourceIndex > 0 &&
 		legacyIndex >= 0 &&
 		legacyIndex < datasourceIndex &&
-		Math.abs(
-			(rerankedResults[datasourceIndex].score ?? 0) - (rerankedResults[legacyIndex].score ?? 0),
-		) < 0.2
+		Math.abs((results[datasourceIndex].score ?? 0) - (results[legacyIndex].score ?? 0)) < 0.2
 	) {
-		const [datasource] = rerankedResults.splice(datasourceIndex, 1);
-		rerankedResults.splice(legacyIndex, 0, datasource);
+		const [datasource] = results.splice(datasourceIndex, 1);
+		results.splice(legacyIndex, 0, datasource);
 	}
 
-	return rerankedResults.map((result) => result.item);
+	return results.map((result) => result.item);
 }

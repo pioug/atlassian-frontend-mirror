@@ -1,5 +1,12 @@
 # @atlaskit/top-layer
 
+## 6.2.2
+
+### Patch Changes
+
+- [`481f10d4007ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/481f10d4007ce) -
+  Popover and Dialog surfaces are now protected from most consumer styles that target them.
+
 ## 6.2.1
 
 ### Patch Changes

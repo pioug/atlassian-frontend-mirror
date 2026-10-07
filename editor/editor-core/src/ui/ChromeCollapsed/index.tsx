@@ -3,18 +3,8 @@ import React, { PureComponent } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { ChromeCollapsedCompiled } from './ChromeCollapsed-compiled';
-import { ChromeCollapsedEmotion } from './ChromeCollapsed-emotion';
 import { messages } from './messages';
-
-const InputMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	ChromeCollapsedCompiled,
-	ChromeCollapsedEmotion,
-);
 
 export interface Props {
 	label?: string;
@@ -52,7 +42,7 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, Objec
 			this.props.text || this.props.intl.formatMessage(messages.chromeCollapsedPlaceholder);
 
 		return (
-			<InputMigration
+			<ChromeCollapsedCompiled
 				data-testid="chrome-collapsed"
 				ref={this.handleInputRef}
 				onFocus={this.focusHandler}

@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 235.0.2
+
+### Patch Changes
+
+- [`481f10d4007ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/481f10d4007ce) -
+  Editor list indent styles no longer leak into popups rendered inside the editor.
+- Updated dependencies
+
+## 235.0.1
+
+### Patch Changes
+
+- [`6dcb10d6bbfd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dcb10d6bbfd4) -
+  Clean up experiment `platform_editor_core_non_ecc_static_css`. The Compiled CSS branch has
+  shipped, so the Emotion fallback components in `@atlaskit/editor-core` have been removed.
+- Updated dependencies
+
+## 235.0.0
+
+### Patch Changes
+
+- [`7609e9d6f1431`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7609e9d6f1431) -
+  Use Block templates item priorities as menu ranks under platform_editor_slash_command
+- Updated dependencies
+
 ## 234.3.2
 
 ### Patch Changes

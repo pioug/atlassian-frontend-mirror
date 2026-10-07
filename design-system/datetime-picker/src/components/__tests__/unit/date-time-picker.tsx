@@ -512,6 +512,19 @@ describe('DateTimePicker', () => {
 		expect(calendarButton).toBeInTheDocument();
 	});
 
+	it('passes calendarLabel through datePickerProps', () => {
+		render(
+			createDateTimePicker({
+				datePickerProps: { calendarLabel: 'appointment calendar', defaultIsOpen: true },
+			}),
+		);
+
+		expect(screen.getByTestId(`${testId}--datepicker--select`)).toHaveAttribute(
+			'calendarlabel',
+			'appointment calendar',
+		);
+	});
+
 	describe('Calendar button', () => {
 		const openCalendarLabel = 'openCalendarLabel';
 		const getDateInput = () =>

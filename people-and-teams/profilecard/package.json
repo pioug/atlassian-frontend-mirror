@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "27.1.14",
+	"version": "27.1.15",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -70,10 +70,10 @@
 	},
 	"scripts": {
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V 'src/**/*.svg'",
-		"lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
-		"test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
-		"test:watch": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard' --watch)",
-		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
+		"lint": "(cd ../../.. && eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
+		"test": "(cd ../../.. && afm run test -- 'packages/people-and-teams/profilecard')",
+		"test:watch": "(cd ../../.. && afm run test -- 'packages/people-and-teams/profilecard' --watch)",
+		"test:coverage": "(cd ../../.. && afm run test -- 'packages/people-and-teams/profilecard/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
 		"typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
 	},
 	"config": {

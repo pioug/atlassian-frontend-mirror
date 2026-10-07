@@ -44,7 +44,6 @@ import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-cl
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { sleep, nextTick, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Media from '../../../../react/nodes/media';
 import type { MediaSSR } from '../../../../types/mediaOptions';
@@ -399,7 +398,6 @@ describe('Media', () => {
 		});
 
 		it('media node with dataConsumer mark - fires a rendered track event with infographicType and renderer context on mount', () => {
-			passGate('cc-maui-add-mark-for-remix-generated-images');
 			const fireAnalyticsEvent = jest.fn();
 			const onMediaRenderEvent = jest.fn();
 			renderWithIntl(
@@ -436,35 +434,7 @@ describe('Media', () => {
 			});
 		});
 
-		it('media node with dataConsumer mark (gate OFF) - does not fire a rendered event on mount', () => {
-			failGate('cc-maui-add-mark-for-remix-generated-images');
-			const fireAnalyticsEvent = jest.fn();
-			const onMediaRenderEvent = jest.fn();
-			renderWithIntl(
-				<Media
-					type={mediaNode.attrs.type as MediaType}
-					id={mediaNode.attrs.id}
-					collection={mediaNode.attrs.collection}
-					marks={[dataConsumerMark]}
-					isLinkMark={() => false}
-					isBorderMark={() => false}
-					fireAnalyticsEvent={fireAnalyticsEvent}
-					onMediaRenderEvent={onMediaRenderEvent}
-					isDrafting={false}
-				/>,
-			);
-
-			expect(fireAnalyticsEvent).not.toHaveBeenCalled();
-			expect(onMediaRenderEvent).toHaveBeenCalledWith({
-				dataConsumerSource: 'remix:infographic:charlie',
-				mediaId: mediaNode.attrs.id,
-				mediaInstance: expect.any(Object),
-				type: 'mounted',
-			});
-		});
-
 		it('media node without dataConsumer mark - does not fire a rendered event on mount', () => {
-			passGate('cc-maui-add-mark-for-remix-generated-images');
 			const fireAnalyticsEvent = jest.fn();
 			renderWithIntl(
 				<Media
@@ -483,7 +453,6 @@ describe('Media', () => {
 		});
 
 		it('media node with dataConsumer mark with empty sources - does not fire a rendered event on mount', () => {
-			passGate('cc-maui-add-mark-for-remix-generated-images');
 			const fireAnalyticsEvent = jest.fn();
 			const emptySourcesMark = {
 				type: 'dataConsumer',

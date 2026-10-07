@@ -5,6 +5,7 @@ import type { MenuItem } from '@atlaskit/editor-common/extensions';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import { getQuickInsertMenuItemParents } from '@atlaskit/editor-common/quick-insert/get-menu-item-parents';
 import {
+	BLOCK_TEMPLATES_SECTION,
 	DATA_AND_CHARTS_SECTION,
 	EMBED_SECTION,
 	MEDIA_SECTION,
@@ -126,6 +127,9 @@ const createExtensionItemRanker = (items: MenuItem[]) => {
 		if (knownRank !== undefined) {
 			return knownRank;
 		}
+		if (sectionKey === BLOCK_TEMPLATES_SECTION.key && item.priority !== undefined) {
+			return item.priority;
+		}
 		const sectionRank = ranksBySection.get(sectionKey)?.get(item);
 		return sectionRank ?? EXTENSION_ITEM_RANK + (item.priority ?? index);
 	};
@@ -158,7 +162,8 @@ export const getExtensionQuickInsertComponents = ({
 			type: 'menu-item',
 			key: item.key,
 			parents: parents.map((parent) => ({
-				...parent,
+				key: parent.key,
+				type: parent.type,
 				rank: getExtensionItemRank({
 					index,
 					knownRank: CREATE_SECTION_RANK[item.key] ?? structureRank,

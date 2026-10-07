@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.1.0
+
+### Minor Changes
+
+- [`1cb267715f21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cb267715f21d) -
+  startDataFetchHold accepts an optional interactionTypes list, and Relay network holds now apply
+  only to press and typing interactions. Jira enables these holds with
+  platform_ufo_relay_operation_holds.
+
 ## 8.0.1
 
 ### Patch Changes

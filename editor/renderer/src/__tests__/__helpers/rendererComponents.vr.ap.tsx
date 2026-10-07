@@ -51,6 +51,11 @@ export const generateRendererComponent = (
 	options?: {
 		mockDatasources?: boolean;
 		mockRelayEnvironment?: boolean;
+		rendererComponent?: ComponentType<RendererProps>;
+		rendererWrapper?: (
+			renderer: React.ReactElement,
+			context: { rendererRef: React.RefObject<HTMLDivElement>; renderProps: RendererProps },
+		) => React.ReactNode;
 		viewport?: { height?: number; width?: number };
 	},
 ): ComponentType<React.PropsWithChildren<any>> => {
@@ -62,6 +67,7 @@ export const generateRendererComponent = (
 
 	const mockDatasources = options?.mockDatasources ?? false;
 	const mockRelayEnvironment = options?.mockRelayEnvironment ?? false;
+	const RendererComponent = options?.rendererComponent ?? Renderer;
 
 	return () => {
 		const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
@@ -74,6 +80,15 @@ export const generateRendererComponent = (
 			});
 		}
 
+		const rendererRef = React.useRef<HTMLDivElement>(null);
+
+		const renderer = (
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			<RendererComponent {...renderProps} innerRef={rendererRef} />
+		);
+		const wrappedRenderer = options?.rendererWrapper
+			? options.rendererWrapper(renderer, { rendererRef, renderProps })
+			: renderer;
 		const rendererContent = (
 			<div
 				style={{
@@ -83,9 +98,7 @@ export const generateRendererComponent = (
 			>
 				<IntlProvider locale="en">
 					<SmartCardProvider client={smartCardClient}>
-						<MockMediaClientProvider>
-							<Renderer {...renderProps} />
-						</MockMediaClientProvider>
+						<MockMediaClientProvider>{wrappedRenderer}</MockMediaClientProvider>
 					</SmartCardProvider>
 				</IntlProvider>
 			</div>

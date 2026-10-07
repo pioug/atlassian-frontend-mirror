@@ -8,7 +8,7 @@ import type { EmojiId } from '@atlaskit/emoji';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 
-import { ReactSerializer } from '../../../index';
+import { ReactSerializer } from '../../../entry-points/serializer-default';
 import Emoji from '../../../react/nodes/emoji';
 import { emojiList } from './__fixtures__/emoji';
 

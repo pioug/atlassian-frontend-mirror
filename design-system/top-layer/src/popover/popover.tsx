@@ -30,7 +30,7 @@ import {
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
 } from '../internal/role-types';
-import type { TSurfaceResetCheck } from '../internal/surface-reset';
+import type { TBoostedSurfaceResetCheck } from '../internal/surface-reset';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useInitialFocus } from '../internal/use-initial-focus';
@@ -75,65 +75,93 @@ const supportsPopoverHint = once((): boolean => {
 	return element.popover === 'hint';
 });
 
-// Surface reset — neutralises inherited interaction and text-layout properties
-// (e.g. `pointer-events: none` from an overlaid controls container and
-// `white-space: nowrap` from an `@atlaskit/select` option) that leak into a
-// top-layer element because, for CSS inheritance, it is still a DOM child of its
-// trigger (top-layer promotion is paint/stacking only; the legacy portal path
-// avoided this by rendering at `<body>`). Excludes `color`/`font` (theming) and
-// `direction`/`unicode-bidi` (RTL must inherit).
-//
-// Not `all: initial`: the target is what `<body>` gave the portal path, not the
-// spec initial values (UA serif, black, `color-scheme: normal`), and as an author
-// declaration it would also override the UA `[popover]` rules (`position: fixed`,
-// `display: none` when closed).
-//
-// KEEP IN SYNC with the identical `surfaceResetStyles` in `dialog/dialog-content.tsx`.
-// ADS forbids sharing styles across files (`no-exported-styles` /
-// `no-imported-style-values` — Compiled styles are null at runtime), so the reset is
-// co-located and duplicated deliberately. The `satisfies` check below fails the
-// build if either copy drifts.
+/**
+ * **Surface reset**
+ *
+ * The host is still a DOM child of its trigger for inheritance, so it inherits
+ * values like `pointer-events: none` or `white-space: nowrap`. Resets them to
+ * what `<body>` gave the portal path. `color`, `font` and direction still inherit.
+ * Not `all: initial`: that would also override the UA `[popover]` rules.
+ *
+ * KEEP IN SYNC with `dialog/dialog-content.tsx` (ADS forbids shared styles).
+ * The `satisfies` check below catches drift.
+ */
 const surfaceResetStyles = cssMap({
 	root: {
-		pointerEvents: 'auto',
-		whiteSpace: 'normal',
-		wordBreak: 'normal',
-		overflowWrap: 'normal',
-		textAlign: 'start',
-		textIndent: '0',
-		textTransform: 'none',
+		// Host boost, see `styles.root`.
+		'&:defined:defined:defined': {
+			pointerEvents: 'auto',
+			whiteSpace: 'normal',
+			wordBreak: 'normal',
+			overflowWrap: 'normal',
+			textAlign: 'start',
+			textIndent: '0',
+			textTransform: 'none',
+		},
 	},
 });
 
-true satisfies TSurfaceResetCheck<typeof surfaceResetStyles.root>;
+true satisfies TBoostedSurfaceResetCheck<
+	typeof surfaceResetStyles.root,
+	'&:defined:defined:defined'
+>;
 
 const styles = cssMap({
 	root: {
-		border: 'none',
-		padding: 0,
-		margin: 0,
-		inset: 'auto',
-		overflow: 'visible',
-		// Override the UA default `height: fit-content` to prevent a WebKit flex
-		// collapse. Width is left as the UA default for anchor-width matching.
-		// See notes/decisions/safari-popover-flex-collapse.md
-		height: 'auto',
-		// Unstyled; consumers apply their own surface.
-		background: 'transparent',
-		// Lets a size cap on this host reach the popover's content: without a
-		// formatting context, percentage resolution uses the parent's COMPUTED size
-		// (`auto`), so the child lays out at its intrinsic size and spills out. `row`
-		// (the default) is required, because `flex-shrink` applies only to the main
-		// axis.
-		//
-		// Must be scoped to `:popover-open`, so it can be neither an inline style nor
-		// a hook: an author `display` beats the UA
-		// `[popover]:not(:popover-open) { display: none }` rule, leaving a closed
-		// popover laid out at full size as a hit-testable ghost.
-		//
-		// See notes/decisions/fit-available-space.md.
-		'&:popover-open': {
+		/**
+		 * **Host specificity boost**
+		 *
+		 * The host renders inline, so consumer rules like `.toolbar > div` can land on
+		 * it. Tripling the selector makes it (0,4,0): one class level above the most
+		 * specific such rule in AFM (0,3,1), but below IDs, so consumers can still opt
+		 * out. Not `!important`, which breaks 33 of 48 measured sites. Values match the
+		 * unstyled host, so nothing changes until a rule competes. Inline styles and
+		 * animations still win. `display` is keyed on `:popover-open`; the rest on
+		 * `:defined`, which always matches a built-in element, so it holds during the
+		 * exit. Not `[popover]`, for consistency with `Dialog`, which has no
+		 * always-present attribute. Not `&&&&`, which needs a `no-unsafe-selectors`
+		 * disable that the ratchet counts.
+		 * See `notes/decisions/host-specificity-boost.md`.
+		 */
+		'&:popover-open:popover-open:popover-open': {
+			/**
+			 * Lets a size cap on the host reach the child. Only while open: an author
+			 * `display` beats the UA closed `display: none`.
+			 * See notes/decisions/fit-available-space.md
+			 */
 			display: 'flex',
+		},
+		'&:defined:defined:defined': {
+			// The child fill below needs a single row: `flex-shrink` is main-axis only.
+			flexDirection: 'row',
+			flexWrap: 'nowrap',
+			alignItems: 'normal',
+			justifyContent: 'normal',
+			// The JavaScript fallback writes viewport coordinates.
+			position: 'fixed',
+			border: 'none',
+			padding: 0,
+			margin: 0,
+			inset: 'auto',
+			// For anchor-width matching. See notes/decisions/width-from-anchor-floors.md
+			width: 'fit-content',
+			// Prevents a WebKit flex collapse. See notes/decisions/safari-popover-flex-collapse.md
+			height: 'auto',
+			minWidth: 'auto',
+			maxWidth: 'none',
+			minHeight: 'auto',
+			maxHeight: 'none',
+			// `position-area` resolves `normal` to its implied alignment.
+			alignSelf: 'normal',
+			justifySelf: 'normal',
+			transform: 'none',
+			translate: 'none',
+			scale: 'none',
+			rotate: 'none',
+			opacity: 1,
+			overflow: 'visible',
+			// Unstyled; consumers apply their own surface.
+			background: 'transparent',
 		},
 		// `flex-grow` makes the single child fill the host on the main axis, which
 		// block flow did for free and a flex item does not.
@@ -229,8 +257,9 @@ const POPUP_ROLES: Set<TRoleRequiringAccessibleName | TRoleWithImplicitName> = n
  *
  * ### 🔌 Visibility
  *
- * - `isOpen={true}` calls `showPopover()` (entry via `@starting-style`).
- * - `isOpen={false}` calls `hidePopover()` (exit via `allow-discrete`).
+ * - `isOpen={true}` calls `showPopover()` (entry via a keyframe animation).
+ * - `isOpen={false}` calls `hidePopover()` (exit via a keyframe animation, kept
+ *   visible by an `allow-discrete` transition).
  *
  * ### 📜 Browser dismiss is non-cancellable
  *

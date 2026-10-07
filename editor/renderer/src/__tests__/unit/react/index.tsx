@@ -17,9 +17,9 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
-import { ReactSerializer } from '../../../index';
+import { nodes } from '../../../entry-points/nodes-default';
+import { ReactSerializer } from '../../../entry-points/serializer-default';
 import { Link } from '../../../react/marks';
-import { Expand, Emoji } from '../../../react/nodes';
 import type { MediaSSR } from '../../../types/mediaOptions';
 import {
 	ExpandBodyBlock,
@@ -54,6 +54,7 @@ const nestedHeadingsWithPanelLayoutTableDocFromSchema = schema.nodeFromJSON(
 	nestedHeadingsWithPanelLayoutTableDoc,
 );
 const linksDocFromSchema = schema.nodeFromJSON(linkDoc);
+const { expand: Expand } = nodes;
 
 /**
  * `serializeFragment` is a pure `Fragment -> ReactElement` function, and some of what it decides
@@ -92,14 +93,6 @@ const propsOfNodeType = (node: React.ReactNode, nodeType: string) =>
 	onlyElement(elementsOfNodeType(node, nodeType), `an element with nodeType "${nodeType}"`);
 
 describe('Renderer - ReactSerializer', () => {
-	beforeAll(async () => {
-		/*
-      Async nodes used need to be preloaded before testing, otherwise the first mount
-      will have the loading component and not the actual node.
-    */
-		await Promise.all([Emoji.preload()]);
-	});
-
 	describe('serializeFragment', () => {
 		describe('with varied data consumer marks on extension nodes', () => {
 			/**
@@ -1032,8 +1025,8 @@ describe('Renderer - ReactSerializer', () => {
 
 			const output = new ReactSerializer({}).serializeFragment(docNode.content);
 
-			// One block holding the text of all four paragraphs, rather than four blocks. Asserted on
-			// the element tree because `Expand` is loadable, so the DOM holds a placeholder here.
+			// One block holding the text of all four paragraphs, rather than four blocks. Assert on the
+			// serialized element tree before mounting the renderer output.
 			const blocks = elementsOfType(output, ExpandBodyBlock);
 			expect(blocks).toHaveLength(1);
 			expect((blocks[0].props as any).searchText).toBe('first second third fourth');

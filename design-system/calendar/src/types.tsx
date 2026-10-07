@@ -20,6 +20,12 @@ export type SelectEvent = {
 
 export interface CalendarProps extends WithAnalyticsEventsProps {
 	/**
+	 * The accessible label for the calendar.
+	 *
+	 * @default 'calendar'
+	 */
+	label?: string;
+	/**
 	 * The number of the day currently focused. Places border around the date. Enter `0` to highlight no date.
 	 */
 	day?: number;

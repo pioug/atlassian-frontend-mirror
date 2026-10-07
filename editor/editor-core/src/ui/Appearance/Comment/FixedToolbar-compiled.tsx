@@ -2,12 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/**
- * Compiled branch of the `platform_editor_core_non_ecc_static_css` experiment.
- * Used via `componentWithCondition` in `Toolbar.tsx`.
- *
- * Cleanup: delete this file once the experiment has shipped.
- */
 import type { ReactNode } from 'react';
 import React from 'react';
 

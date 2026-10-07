@@ -74,7 +74,11 @@ const documentation: StructuredContentSource = {
 				'Mount at the extension boundary with a trusted transport and allowed origins.',
 			],
 			examples: [
-				// TODO: Add AI-first example(s); see `afm-platform-documentation` skill
+				{
+					name: 'Use ExtensionContextBridgeClient',
+					description: 'Render the documented export in a focused, package-owned example.',
+					source: `${packagePath}/examples/preview/extension-context-bridge-client.tsx`,
+				},
 			],
 			keywords: ['rovo', 'extension', 'context', 'bridge'],
 			categories: ['rovo', 'events'],
@@ -95,7 +99,11 @@ const documentation: StructuredContentSource = {
 				'Mount once at a product root that exposes context to the Rovo extension bridge.',
 			],
 			examples: [
-				// TODO: Add AI-first example(s); see `afm-platform-documentation` skill
+				{
+					name: 'Use ExtensionContextBridgeHost',
+					description: 'Render the documented export in a focused, package-owned example.',
+					source: `${packagePath}/examples/preview/extension-context-bridge-host.tsx`,
+				},
 			],
 			keywords: ['rovo', 'extension', 'context', 'host'],
 			categories: ['rovo', 'events'],

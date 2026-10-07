@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 25.4.5
+
+### Patch Changes
+
+- [`481f10d4007ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/481f10d4007ce) -
+  Split button styles no longer leak into popups rendered inside it.
+
 ## 25.4.4
 
 ### Patch Changes

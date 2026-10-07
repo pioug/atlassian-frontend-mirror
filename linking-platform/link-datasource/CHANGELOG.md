@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 7.3.3
+
+### Patch Changes
+
+- [`481f10d4007ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/481f10d4007ce) -
+  Column header styles no longer leak into the column dropdown menu.
+- Updated dependencies
+
+## 7.3.2
+
+### Patch Changes
+
+- [`44b6d3bdeba9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44b6d3bdeba9d) -
+  Assets modal now resolves the primary Unit workspace only when `/assets/is-multi-site` reports
+  Units enabled for Assets, otherwise it uses the legacy current-site workspace lookup (behind
+  `astral_units_workspace_host_resolver`).
+- Updated dependencies
+
 ## 7.3.1
 
 ### Patch Changes

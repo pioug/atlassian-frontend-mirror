@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { render } from '@atlassian/testing-library/render';
 
-import { ReactSerializer } from '../../../index';
+import { ReactSerializer } from '../../../entry-points/serializer-default';
 import { mediaInlineWithAnnotation } from './__fixtures__/media-inline';
 
 const ANNOTATION_ID = 'fde624ce-7528-4100-a3e8-0bf15e2577c9';

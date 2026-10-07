@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 225.0.0
+
+### Major Changes
+
+- [`6dcb10d6bbfd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dcb10d6bbfd4) -
+  Clean up experiment `platform_editor_core_non_ecc_static_css`. The Compiled CSS branch has
+  shipped, so the Emotion fallback components in `@atlaskit/editor-core` have been removed.
+
+### Patch Changes
+
+- [`62b2e4f1ae2e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62b2e4f1ae2e8) -
+  Cleanup `experiment` `platform_editor_reduced_agent_profile_cards`. Reduced agent profile cards
+  (forbidden-agent fallback, current-node mention text and selection handling) are now always
+  enabled.
+
 ## 224.0.0
 
 ### Major Changes

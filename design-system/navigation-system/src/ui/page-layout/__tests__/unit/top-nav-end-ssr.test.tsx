@@ -9,8 +9,8 @@ import { within } from '@atlassian/testing-library/within';
 
 import { TopNavEnd } from '../../top-nav/top-nav-end';
 
-jest.mock('@atlaskit/primitives/compiled', () => ({
-	...jest.requireActual('@atlaskit/primitives/compiled'),
+jest.mock('@atlaskit/primitives/compiled/responsive/index', () => ({
+	...jest.requireActual('@atlaskit/primitives/compiled/responsive/index'),
 	UNSAFE_useMediaQuery: () => ({ matches: true }),
 }));
 

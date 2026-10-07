@@ -73,13 +73,7 @@ export const profileCardRenderer = ({
 		portalProviderAPI.render(() => renderProfileCard(referenceElement), referenceElement, key);
 		cleanupSelection = api?.selection?.sharedState.onChange(({ nextSharedState }) => {
 			const selection = nextSharedState?.selection;
-			if (
-				selection instanceof NodeSelection
-					? expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
-						? selection.node.sameMarkup(currentNode)
-						: selection.node === node
-					: false
-			) {
+			if (selection instanceof NodeSelection ? selection.node.sameMarkup(currentNode) : false) {
 				return;
 			}
 			removeProfileCard?.();
@@ -87,37 +81,28 @@ export const profileCardRenderer = ({
 	};
 
 	const renderEditorProfileCard = (): void => {
-		const isReducedProfileCards = expVal(
-			'platform_editor_reduced_agent_profile_cards',
-			'isEnabled',
-			false,
-		);
-		const clickedNode = isReducedProfileCards ? currentNode : node;
+		const clickedNode = currentNode;
 
-		const activeMention = isReducedProfileCards
-			? (() => {
-					// Avatar mentions keep their resolved display name in the nested text span.
-					// Control mentions preserve the legacy attrs-first fallback.
-					const mentionTextElement =
-						dom instanceof HTMLElement ? dom.querySelector('.editor-mention-text') : undefined;
-					const primitiveText = (
-						mentionTextElement ??
-						(dom instanceof HTMLElement
-							? dom.querySelector('.editor-mention-primitive')
-							: undefined)
-					)?.textContent?.trim();
-					const resolvedText =
-						primitiveText && !primitiveText.startsWith('@') ? `@${primitiveText}` : primitiveText;
-					return {
-						attrs: {
-							...currentNode?.attrs,
-							text: mentionTextElement
-								? resolvedText || currentNode?.attrs?.text || undefined
-								: currentNode?.attrs?.text || primitiveText || undefined,
-						} as MentionAttributes,
-					};
-				})()
-			: { attrs: node.attrs as MentionAttributes };
+		const activeMention = (() => {
+			// Avatar mentions keep their resolved display name in the nested text span.
+			// Control mentions preserve the legacy attrs-first fallback.
+			const mentionTextElement =
+				dom instanceof HTMLElement ? dom.querySelector('.editor-mention-text') : undefined;
+			const primitiveText = (
+				mentionTextElement ??
+				(dom instanceof HTMLElement ? dom.querySelector('.editor-mention-primitive') : undefined)
+			)?.textContent?.trim();
+			const resolvedText =
+				primitiveText && !primitiveText.startsWith('@') ? `@${primitiveText}` : primitiveText;
+			return {
+				attrs: {
+					...currentNode?.attrs,
+					text: mentionTextElement
+						? resolvedText || currentNode?.attrs?.text || undefined
+						: currentNode?.attrs?.text || primitiveText || undefined,
+				} as MentionAttributes,
+			};
+		})();
 
 		// Build agent mention context at click time by finding the parent block of this mention
 		// in the live document.
@@ -219,9 +204,7 @@ export const profileCardRenderer = ({
 				fg('people-teams_migrate-user-profile-card') ||
 				isExperimentEnabled('pt_user_profile_card_migration_exp')
 			) {
-				const userId = expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
-					? currentNode.attrs?.id
-					: node.attrs?.id;
+				const userId = currentNode.attrs?.id;
 				if (!userId) {
 					return;
 				}
@@ -233,13 +216,7 @@ export const profileCardRenderer = ({
 						return;
 					}
 
-					if (
-						isAgentMentionType(
-							expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
-								? currentNode.attrs?.userType
-								: node.attrs?.userType,
-						)
-					) {
+					if (isAgentMentionType(currentNode.attrs?.userType)) {
 						renderEditorProfileCard();
 					} else {
 						renderDefaultProfileCard(userId, provider);

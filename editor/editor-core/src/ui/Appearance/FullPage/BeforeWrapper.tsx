@@ -1,19 +1,31 @@
-import type { FC, ReactElement } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import type { ReactElement } from 'react';
 
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { cssMap, jsx } from '@compiled/react';
 
-import { BeforePrimaryToolbarWrapperCompiled } from './BeforeWrapper-compiled';
-import { BeforePrimaryToolbarWrapperEmotion } from './BeforeWrapper-emotion';
+const styles = cssMap({
+	beforePrimaryToolbarPluginWrapper: {
+		display: 'flex',
+		flexGrow: 1,
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+	},
+});
 
 type ReactComponents = ReactElement | ReactElement[];
 
 // Duplicate of the wrapper from `editor-plugins/before-primary-toolbar` used
 // only in `FullPageToolbar` to decouple the plugin from the main toolbar
-export const BeforePrimaryToolbarWrapper: FC<{
+export const BeforePrimaryToolbarWrapper = (props: {
 	beforePrimaryToolbarComponents: ReactComponents | undefined;
-}> = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	BeforePrimaryToolbarWrapperCompiled,
-	BeforePrimaryToolbarWrapperEmotion,
+}): React.JSX.Element => (
+	<div
+		css={styles.beforePrimaryToolbarPluginWrapper}
+		data-testid={'before-primary-toolbar-components-plugin'}
+	>
+		{props.beforePrimaryToolbarComponents}
+	</div>
 );

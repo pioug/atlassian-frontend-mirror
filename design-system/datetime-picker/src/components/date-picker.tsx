@@ -161,6 +161,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 		formatDisplayLabel,
 		testId,
 		'aria-describedby': ariaDescribedBy,
+		calendarLabel,
 		placeholder,
 		nextMonthLabel,
 		previousMonthLabel,
@@ -559,6 +560,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 
 	const calendarProps = {
 		calendarContainerRef: containerRef.current,
+		calendarLabel,
 		calendarDisabled: disabled,
 		calendarDisabledDateFilter: disabledDateFilter,
 		calendarMaxDate: maxDate,
@@ -695,6 +697,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 				testId={testId}
 				// These aren't part of `Select`'s API, but we're using them here.
 				calendarContainerRef={calendarProps.calendarContainerRef}
+				calendarLabel={calendarProps.calendarLabel}
 				calendarDisabled={calendarProps.calendarDisabled}
 				calendarDisabledDateFilter={calendarProps.calendarDisabledDateFilter}
 				calendarLocale={calendarProps.calendarLocale}

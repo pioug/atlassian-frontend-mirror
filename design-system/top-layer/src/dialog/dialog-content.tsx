@@ -12,57 +12,76 @@ import noop from '@atlaskit/ds-lib/noop';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
-import type { TSurfaceResetCheck } from '../internal/surface-reset';
+import type { TBoostedSurfaceResetCheck } from '../internal/surface-reset';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useSafariEscapeFix } from '../internal/use-safari-escape-fix';
 import { type TDialogCloseReason, type TDialogProps } from './types';
 
-// Surface reset — see the rationale on `surfaceResetStyles` in `popover/popover.tsx`.
-// Neutralises inherited interaction and text-layout properties (e.g.
-// `pointer-events: none` and `white-space: nowrap`) that leak into the top-layer
-// surface. Excludes `color`/`font` (theming) and `direction`/`unicode-bidi` (RTL
-// must inherit). The reset has no box side-effects, so it does not reintroduce
-// the `margin: auto` centering problem that kept `height: auto` off `Dialog`.
-//
-// KEEP IN SYNC with the identical `surfaceResetStyles` in `popover/popover.tsx`
-// (ADS forbids sharing styles across files, so it is co-located and duplicated).
-// The `satisfies` check below fails the build if either copy drifts.
+// Surface reset. KEEP IN SYNC with `surfaceResetStyles` in `popover/popover.tsx`.
 const surfaceResetStyles = cssMap({
 	root: {
-		pointerEvents: 'auto',
-		whiteSpace: 'normal',
-		wordBreak: 'normal',
-		overflowWrap: 'normal',
-		textAlign: 'start',
-		textIndent: '0',
-		textTransform: 'none',
+		// Host boost, see `dialogStyles.root`.
+		'&:defined:defined:defined': {
+			pointerEvents: 'auto',
+			whiteSpace: 'normal',
+			wordBreak: 'normal',
+			overflowWrap: 'normal',
+			textAlign: 'start',
+			textIndent: '0',
+			textTransform: 'none',
+		},
 	},
 });
 
-true satisfies TSurfaceResetCheck<typeof surfaceResetStyles.root>;
+true satisfies TBoostedSurfaceResetCheck<
+	typeof surfaceResetStyles.root,
+	'&:defined:defined:defined'
+>;
 
 const dialogStyles = cssMap({
 	root: {
-		// Reset browser defaults
-		paddingBlockStart: token('space.0'),
-		paddingInlineEnd: token('space.0'),
-		paddingBlockEnd: token('space.0'),
-		paddingInlineStart: token('space.0'),
-		border: 'none',
-		maxWidth: 'none',
-		maxHeight: 'none',
-		// Unlike `Popover`, the `Dialog` reset deliberately omits the WebKit
-		// flex-collapse fix (`height: auto`): a modal `<dialog>` has UA `inset: 0`,
-		// so `height: auto` would stretch it to the viewport and break `margin: auto`
-		// centering — a layout opinion this primitive should not impose. The collapse
-		// (a `max-height: 100%` flex column in a bare `<dialog>`) is the consumer's to
-		// handle. See notes/decisions/safari-popover-flex-collapse.md
-		// Positioning
+		// In the `xcss` union, so left unboosted. No `height: auto` (unlike `Popover`):
+		// with UA `inset: 0` it stretches the dialog. See notes/decisions/safari-popover-flex-collapse.md
 		margin: 'auto',
-		// Override UA background: canvas. The dialog primitive is unopinionated;
-		// consumers provide their own background on a child element.
-		backgroundColor: 'transparent',
+		maxWidth: 'none',
+		/**
+		 * **Host specificity boost**
+		 *
+		 * (0,4,0), so consumer rules like `.page > dialog` lose. The 9 `xcss`
+		 * properties (see `types.tsx`) stay unboosted so `xcss` still wins.
+		 * `:defined` always matches a built-in element, so the boost holds in every
+		 * state. `<dialog>` has no always-present attribute (`[open]` drops on close).
+		 * A rendered `[data-*]` attribute would also work, if we want one.
+		 * See `styles.root` in `popover/popover.tsx`.
+		 */
+		'&:defined:defined:defined': {
+			paddingBlockStart: token('space.0'),
+			paddingInlineEnd: token('space.0'),
+			paddingBlockEnd: token('space.0'),
+			paddingInlineStart: token('space.0'),
+			border: 'none',
+			minWidth: 'auto',
+			minHeight: 'auto',
+			maxHeight: 'none',
+			alignSelf: 'normal',
+			justifySelf: 'normal',
+			transform: 'none',
+			translate: 'none',
+			scale: 'none',
+			rotate: 'none',
+			opacity: 1,
+			// UA modal values, which Chromium keeps during the exit.
+			position: 'fixed',
+			insetBlockEnd: 0,
+			// Unstyled; consumers apply their own surface.
+			backgroundColor: 'transparent',
+		},
+		// Keyed on `[open]` so it never beats the UA closed `display: none`.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- host boost, see above
+		'&[open][open][open]': {
+			display: 'block',
+		},
 	},
 	motion: {
 		// This transition keeps the element visible and in the top layer while the
@@ -113,8 +132,9 @@ const backdropStyles = cssMap({
  * background, border-radius, or layout. Consumers provide their own styling.
  *
  * Visibility is controlled declaratively via `isOpen`:
- * - `isOpen={true}` calls `.showModal()` (entry animation via `@starting-style`)
- * - `isOpen={false}` calls `.close()` (exit animation via `allow-discrete`)
+ * - `isOpen={true}` calls `.showModal()` (entry via a keyframe animation)
+ * - `isOpen={false}` calls `.close()` (exit via a keyframe animation, kept visible
+ *   by an `allow-discrete` transition)
  *
  * Handles native `cancel` event (Escape) and backdrop click detection.
  *

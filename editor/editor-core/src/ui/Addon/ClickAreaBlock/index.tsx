@@ -1,18 +1,9 @@
 import React from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clickAreaClickHandler } from '../click-area-helper';
 import { ClickAreaBlockContainerCompiled } from './clickAreaBlock-compiled';
-import { ClickAreaBlockContainerEmotion } from './clickAreaBlock-emotion';
-
-const ClickAreaBlockContainerMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	ClickAreaBlockContainerCompiled,
-	ClickAreaBlockContainerEmotion,
-);
 
 export interface Props {
 	children?: React.ReactNode;
@@ -39,7 +30,7 @@ export const ClickAreaBlock = ({
 	);
 
 	return (
-		<ClickAreaBlockContainerMigration
+		<ClickAreaBlockContainerCompiled
 			data-editor-click-wrapper
 			data-testid="click-wrapper"
 			onMouseDown={handleMouseDown}
@@ -48,7 +39,7 @@ export const ClickAreaBlock = ({
 			role="presentation"
 		>
 			{children}
-		</ClickAreaBlockContainerMigration>
+		</ClickAreaBlockContainerCompiled>
 	);
 };
 

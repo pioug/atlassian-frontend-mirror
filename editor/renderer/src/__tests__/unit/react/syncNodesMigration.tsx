@@ -10,9 +10,19 @@ import { screen } from '@atlassian/testing-library/screen';
 
 import { nodeToReact as looselyLazyNodeToReact } from '../../../entry-points/loosely-lazy';
 import { nodes as newNodeToReact } from '../../../entry-points/nodes-default';
-import { Renderer as RendererLegacy } from '../../../entry-points/renderer';
+import RendererEntryPointReactSerializerLegacy from '../../../entry-points/react';
+import RendererWithAnnotationSelectionLegacy, {
+	Renderer as RendererLegacy,
+	RendererFunctionalComponent as RendererFunctionalComponentLegacy,
+	RendererWithAnalytics as RendererWithAnalyticsLegacy,
+} from '../../../entry-points/renderer';
 import { Renderer as RendererSync } from '../../../entry-points/renderer-default';
-import ReactSerializer from '../../../react';
+import {
+	ReactRenderer as ReactRendererLegacy,
+	ReactSerializer as RootReactSerializerLegacy,
+	RendererWithAnalytics as RootRendererWithAnalyticsLegacy,
+} from '../../../index';
+import ReactSerializerCore from '../../../react';
 import { nodeToReact as legacyNodeToReact } from '../../../react/nodes';
 import type { RendererProps } from '../../../ui/renderer-props';
 
@@ -31,14 +41,14 @@ const getDateComponent = (
 	Renderer: ComponentType<RendererProps>,
 	nodeComponents?: RendererProps['nodeComponents'],
 ) => {
-	let reactSerializer: ReactSerializer | undefined;
+	let reactSerializer: ReactSerializerCore | undefined;
 
 	renderWithIntl(
 		<Renderer
 			document={dateDoc.toJSON()}
 			nodeComponents={nodeComponents}
 			createSerializer={(init) => {
-				reactSerializer = new ReactSerializer(init);
+				reactSerializer = new ReactSerializerCore(init);
 				return reactSerializer;
 			}}
 		/>,
@@ -52,16 +62,48 @@ const getDateComponent = (
 	return renderedDocument?.props.children[0].props.children[0].type;
 };
 
+const getDateComponentFromSerializer = (Serializer: typeof ReactSerializerCore) => {
+	const reactSerializer = new Serializer({});
+	const renderedDocument = reactSerializer.serializeFragment(dateDoc.content);
+	return renderedDocument?.props.children[0].props.children[0].type;
+};
+
+const legacyRenderers: Array<[string, ComponentType<RendererProps>]> = [
+	// src/index.ts
+	['ReactRenderer', ReactRendererLegacy],
+	['RootRendererWithAnalytics', RootRendererWithAnalyticsLegacy],
+	// src/entry-points/renderer.tsx
+	['RendererWithAnnotationSelection', RendererWithAnnotationSelectionLegacy], // Default export
+	['Renderer', RendererLegacy],
+	['RendererFunctionalComponent', RendererFunctionalComponentLegacy],
+	['RendererWithAnalytics', RendererWithAnalyticsLegacy],
+];
+
+const legacySerializers: Array<[string, typeof ReactSerializerCore]> = [
+	// src/index.ts
+	['ReactSerializer', RootReactSerializerLegacy],
+	// src/entry-points/react.tsx
+	['ReactSerializer /react', RendererEntryPointReactSerializerLegacy], // Default export
+];
+
 describe('ReactSerializer synchronous node import migration', () => {
 	it('uses the synchronous nodeToReact registry for the sync renderer', () => {
 		expect(getDateComponent(RendererSync)).toBe(newNodeToReact.date);
 		expect(getDateComponent(RendererSync)).not.toBe(legacyNodeToReact.date);
 	});
 
-	it('uses the legacy react-loadable registry for the normal renderer', () => {
-		expect(getDateComponent(RendererLegacy)).not.toBe(newNodeToReact.date);
-		expect(getDateComponent(RendererLegacy)).toBe(legacyNodeToReact.date);
+	it.each(legacyRenderers)('uses the legacy react-loadable registry for %s', (_name, Renderer) => {
+		expect(getDateComponent(Renderer)).not.toBe(newNodeToReact.date);
+		expect(getDateComponent(Renderer)).toBe(legacyNodeToReact.date);
 	});
+
+	it.each(legacySerializers)(
+		'uses the legacy react-loadable registry for %s',
+		(_name, Serializer) => {
+			expect(getDateComponentFromSerializer(Serializer)).not.toBe(newNodeToReact.date);
+			expect(getDateComponentFromSerializer(Serializer)).toBe(legacyNodeToReact.date);
+		},
+	);
 
 	it('contains every node from the legacy react-loadable registry', () => {
 		const newNodeNames = new Set(Object.keys(newNodeToReact));

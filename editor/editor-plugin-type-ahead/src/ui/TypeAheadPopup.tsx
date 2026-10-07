@@ -89,7 +89,6 @@ type TypeAheadPopupProps = {
 	}) => void;
 	decorationSet: DecorationSet;
 	editorView: EditorView;
-	emptyItem?: TypeAheadItem;
 	errorInfo: TypeAheadErrorInfo;
 	isEmptyQuery: boolean;
 	items: Array<TypeAheadItem>;
@@ -130,7 +129,6 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 		popupsScrollableElement,
 		items,
 		sections = [],
-		emptyItem,
 		errorInfo,
 		selectedIndex,
 		onItemInsert,
@@ -459,7 +457,6 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 							items={items}
 							isEmptyQuery={isEmptyQuery}
 							sections={sections}
-							emptyItem={emptyItem}
 							selectedIndex={selectedIndex}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onItemClick={(mode: SelectItemMode, index: number, inputMethod) => {

@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 26.0.1
+
+### Patch Changes
+
+- [`5351e01090c9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5351e01090c9c) -
+  Show the five strongest matches first, then remaining matches in category order without category
+  titles, in slash-command and toolbar insert search. Share the row projection across rendering and
+  keyboard selection under the platform_editor_slash_command experiment.
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- [`1cb97ba88fb58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cb97ba88fb58) -
+  Clean up experiment `platform_editor_insert_menu_ai` (keep control).
+
+  Breaking changes (`@atlaskit/editor-common`): removed `getEmptyItem` from `TypeAheadHandler`, and
+  removed the unused messages `typeAheadListMessages.emptySearchResultsSuggestionNew`,
+  `typeAheadListMessages.emptySearchResultsSuggestionAskRovoOnly` and
+  `toolbarInsertBlockMessages.askRovo`.
+
+- Updated dependencies
+
+## 25.0.6
+
+### Patch Changes
+
+- [`ec8f6864239eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec8f6864239eb) -
+  Clean up experiment `platform_editor_mention_search_order`
+
 ## 25.0.5
 
 ### Patch Changes

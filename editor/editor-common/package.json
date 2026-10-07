@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "128.4.0",
+	"version": "129.1.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -133,6 +133,7 @@
 		"./quick-insert/jira-attribution-icon": "./src/quick-insert/jira-attribution-icon.tsx",
 		"./quick-insert/jira-service-management-attribution-icon": "./src/quick-insert/jira-service-management-attribution-icon.tsx",
 		"./quick-insert/snippet-preview-image-urls": "./src/quick-insert/snippetPreviewImageUrls.ts",
+		"./quick-insert/snippet-menu-rank": "./src/quick-insert/snippetMenuRank.ts",
 		"./quick-insert/use-menu-list-height": "./src/quick-insert/use-menu-list-height.ts",
 		"./quick-insert/use-menu-popup-sizing": "./src/quick-insert/use-menu-popup-sizing.ts",
 		"./quick-insert/registered-menu-model": "./src/quick-insert/registered-menu-model.ts",
@@ -347,6 +348,7 @@
 		"./extensions/extension-provider": "./src/extensions/types/extension-provider.ts",
 		"./ExtensionComponent": "./src/extensibility/ExtensionComponent.tsx",
 		"./extensionNodeView": "./src/extensibility/extensionNodeView.tsx",
+		"./extensibility/preserve-remix-node-view": "./src/extensibility/preserveRemixNodeView.ts",
 		"./ExtensionNodeWrapper": "./src/extensibility/ExtensionNodeWrapper.tsx",
 		"./extensions/messages": "./src/extensions/messages.ts",
 		"./media-single/ExternalImageBadge": "./src/media-single/ExternalImageBadge.tsx",
@@ -431,6 +433,7 @@
 		"./utils/macro": "./src/utils/macro.ts",
 		"./provider-factory/macro-provider": "./src/provider-factory/macro-provider.ts",
 		"./extensions/manifest-helpers": "./src/extensions/manifest-helpers.ts",
+		"./extensions/native-embed-maui-extension-key": "./src/extensions/native-embed-maui-extension-key.ts",
 		"./mark/commands": "./src/mark/commands.ts",
 		"./mark/text-formatting": "./src/mark/text-formatting.ts",
 		"./messages/markdown-mode": "./src/messages/markdown-mode.ts",

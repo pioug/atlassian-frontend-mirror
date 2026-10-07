@@ -1,13 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * Compiled migration: platform_editor_core_non_ecc_static_css
- */
-/**
- * Compiled branch of the `platform_editor_core_non_ecc_static_css` experiment.
- * Used via `componentWithCondition` in `index.tsx`.
- *
- * Cleanup: delete this file once the `platform_editor_core_non_ecc_static_css` experiment has shipped.
  */
 import { useMemo } from 'react';
 import type { CSSProperties, HTMLAttributes } from 'react';

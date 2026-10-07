@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "147.1.4",
+	"version": "148.0.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -203,9 +203,6 @@
 		"platform_editor_numbered_column_in_include": {
 			"type": "boolean"
 		},
-		"jfp-magma-ssr-iv-editor-links": {
-			"type": "boolean"
-		},
 		"media-perf-uplift-mutation-fix": {
 			"type": "boolean"
 		},
@@ -228,10 +225,6 @@
 		"platform_nested_table_style_override_2": {
 			"type": "boolean"
 		},
-		"cc-maui-add-mark-for-remix-generated-images": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_forge_inline_bodied_macro": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -249,6 +242,7 @@
 		"./actions": "./src/actions/index.ts",
 		"./annotations": "./src/entry-points/annotations.tsx",
 		"./consts": "./src/entry-points/consts.ts",
+		"./core": "./src/entry-points/renderer-core.tsx",
 		"./custom-nodes/loosely-lazy": "./src/entry-points/custom-nodes-loosely-lazy.ts",
 		"./custom-nodes": "./src/custom-nodes.ts",
 		"./default": "./src/entry-points/renderer-default.tsx",
@@ -278,6 +272,9 @@
 		"./renderer-props": "./src/entry-points/renderer-props.ts",
 		"./renderer-actions-context": "./src/entry-points/renderer-actions-context.tsx",
 		"./serializer": "./src/entry-points/serializer.ts",
+		"./serializer/core": "./src/entry-points/serializer-core.ts",
+		"./serializer/default": "./src/entry-points/serializer-default.ts",
+		"./serializer/text": "./src/entry-points/serializer-text.ts",
 		"./text": "./src/entry-points/text.ts",
 		"./text-serializer/text": "./src/entry-points/text-serializer-text.ts",
 		"./text-serializer": "./src/text-serializer.ts",

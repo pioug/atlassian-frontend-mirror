@@ -27,8 +27,7 @@ export const isAgentMention = (
 /**
  * True when the mention is explicitly an agent, not a generic APP/bot.
  * Prefer this over `isAgentMention` when ordering the search display
- * list behind `platform_editor_mention_search_order` — bare `userType: 'APP'`
- * is a bot unless `appType === 'agent'`.
+ * list — bare `userType: 'APP'` is a bot unless `appType === 'agent'`.
  */
 export const isExplicitAgentMention = (
 	mention: Pick<MentionDescription, 'appType' | 'userType'>,

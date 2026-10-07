@@ -12,7 +12,7 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
-import { ReactSerializer } from '../../../index';
+import { ReactSerializer } from '../../../entry-points/serializer-default';
 import TextWrapperComponent from '../../nodes/text-wrapper';
 import { complexDocument as doc } from './__fixtures__/documents';
 

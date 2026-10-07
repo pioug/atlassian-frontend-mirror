@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 2.4.3
+
+### Patch Changes
+
+- [`b02571dac4475`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b02571dac4475) -
+  Cleaned up FG ptc-enable-team-profilecard-package
+
 ## 2.4.2
 
 ### Patch Changes

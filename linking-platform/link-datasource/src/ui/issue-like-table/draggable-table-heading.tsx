@@ -115,8 +115,9 @@ const DropdownParent = styled.div({
 	display: 'flex',
 	alignItems: 'center',
 	whiteSpace: 'nowrap',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& button': {
+	// Skips top-layer surfaces. See top-layer/notes/decisions/top-layer-unsafe-selectors.md
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'& button:not(:where([popover], dialog, & :is([popover], dialog) *))': {
 		textAlign: 'left' /* By default button center in the middle without props to control it */,
 		height: 'auto' /* By default button is not happy with tall (up to lines in our case) content */,
 		paddingBlock: token('space.0'),

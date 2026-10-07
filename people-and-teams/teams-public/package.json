@@ -119,7 +119,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "3.1.3",
+	"version": "3.1.4",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -128,7 +128,7 @@
 	},
 	"scripts": {
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V 'src/**/*.svg'",
-		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-public/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-public/src/**\", \"!packages/people-and-teams/teams-public/src/**/**/types.ts\", \"!packages/people-and-teams/teams-public/src/ui/**/styled.tsx\"]')"
+		"test:coverage": "(cd ../../.. && afm run test -- 'packages/people-and-teams/teams-public/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-public/src/**\", \"!packages/people-and-teams/teams-public/src/**/**/types.ts\", \"!packages/people-and-teams/teams-public/src/ui/**/styled.tsx\"]')"
 	},
 	"platform-feature-flags": {
 		"migrate-product-permissions": {
@@ -144,6 +144,9 @@
 			"type": "boolean"
 		},
 		"enable_teams_t26_design_drop_core_experiences": {
+			"type": "boolean"
+		},
+		"teams_a11y_20261005": {
 			"type": "boolean"
 		}
 	}

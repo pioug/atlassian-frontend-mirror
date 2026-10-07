@@ -45,16 +45,19 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
-import type { MediaSSR, RendererContext, RenderOutputStat } from '../../';
-import { ReactSerializer, renderDocument } from '../../';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import type { AnalyticsEventPayload, FireAnalyticsCallback } from '../../analytics/events';
 import { MODE, PLATFORM } from '../../analytics/events';
+import { default as ReactSerializer } from '../../react';
 import type { ReactSerializerInit } from '../../react';
+import type { RendererContext } from '../../react/types';
 import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
 import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/utils/links';
+import type { RenderOutputStat } from '../../render-document';
+import { renderDocument } from '../../render-document';
 import { RendererContextProvider, useRendererContext } from '../../renderer-context';
 import type { Serializer } from '../../serializer';
+import type { MediaSSR } from '../../types/mediaOptions';
 import { findInTree } from '../../utils';
 import { ActiveHeaderIdProvider } from '../active-header-id-provider';
 import { AnnotationsPositionContext, AnnotationsWrapper } from '../annotations';

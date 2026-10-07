@@ -43,8 +43,8 @@
 		"./is-trusted-origin": "./src/ui/GiveKudosLauncher/isTrustedOrigin.tsx"
 	},
 	"scripts": {
-		"lint": "(cd ../../.. && yarn eslint 'packages/team-central/give-kudos/**/*.{ts,tsx}')",
-		"test": "(cd ../../.. && yarn test 'packages/team-central/give-kudos')",
+		"lint": "(cd ../../.. && eslint 'packages/team-central/give-kudos/**/*.{ts,tsx}')",
+		"test": "(cd ../../.. && afm run test -- 'packages/team-central/give-kudos')",
 		"typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
 	},
 	"dependencies": {

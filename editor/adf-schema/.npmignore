@@ -1,4 +1,6 @@
-src/
+src/**/*
+!src/schema/nodes/index/package.json
+!src/schema/marks/index/package.json
 babel.config.js
 build/
 tsconfig.json

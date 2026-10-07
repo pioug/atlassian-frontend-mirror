@@ -20,6 +20,11 @@ jest.mock('uuid', () => ({
 
 jest.mock('@atlaskit/editor-common/provider-factory');
 
+jest.mock('@compiled/react/runtime', () => ({
+	...jest.requireActual('@compiled/react/runtime'),
+	CC: ({ children }: { children: React.ReactNode }) => children,
+}));
+
 // Use fake timers otherwise `setInterval` called from ComposableEditor is an open handle that prevents
 // the test from closing.
 // Invoked here: packages/editor/editor-common/src/utils/browser-extensions.ts
@@ -31,7 +36,6 @@ const { ActivityResource } = jest.createMockFromModule<typeof ActivityProviderMo
 
 import React from 'react';
 
-import { matchers } from '@emotion/jest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
@@ -57,8 +61,6 @@ import { EditorActions } from '../../index';
 import * as featureFlagsFromProps from '../../utils/feature-flags-from-props';
 import measurements from '../../utils/performance/measure-enum';
 import { name as packageName, version as packageVersion } from '../../version-wrapper';
-
-expect.extend(matchers);
 
 describe(`Editor`, () => {
 	describe('errors', () => {
@@ -128,7 +130,7 @@ describe(`Editor`, () => {
 				const editorElement = container.getElementsByClassName('akEditor');
 
 				expect(editorElement.length).toBe(1);
-				expect(editorElement[0]).toHaveStyleRule('min-height', '150px');
+				expect(editorElement[0]).toHaveStyle('min-height: 150px');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -139,7 +141,7 @@ describe(`Editor`, () => {
 				const editorElement = container.getElementsByClassName('akEditor');
 
 				expect(editorElement.length).toBe(1);
-				expect(editorElement[0]).toHaveStyleRule('min-height', '250px');
+				expect(editorElement[0]).toHaveStyle('min-height: 250px');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -194,7 +196,7 @@ describe(`Editor`, () => {
 				const editorElement = container.getElementsByClassName('ak-editor-content-area');
 
 				expect(editorElement.length).toBe(1);
-				expect(editorElement[0]).toHaveStyleRule('overflow-y', 'auto');
+				expect(editorElement[0]).toHaveCompiledCss({ overflowY: 'auto' });
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -449,20 +451,22 @@ describe(`Editor`, () => {
 		it('should call setProvider with providers', async () => {
 			const setProviderSpy = jest.spyOn(ProviderFactory.prototype, 'setProvider');
 			setProviderSpy.mockClear();
-			// These `any` is not a problem. We later assert by using `toBe` method
-			const activityProvider = new ActivityResource('some-url', 'some-cloud-id');
-			const mentionProvider = {} as any;
-			const contextIdentifierProvider = {} as any;
-			const collabEditProvider = {} as any;
-			const presenceProvider = {} as any;
-			const macroProvider = {} as any;
-			const legacyImageUploadProvider = {} as any;
-			const mediaProvider = {} as any;
+			const activityProviderPromise = Promise.resolve(
+				new ActivityResource('some-url', 'some-cloud-id'),
+			);
+			// These fixtures only need to preserve provider identity.
+			const mentionProviderPromise = Promise.resolve({} as any);
+			const contextIdentifierProviderPromise = Promise.resolve({} as any);
+			const collabEditProviderPromise = Promise.resolve({} as any);
+			const presenceProviderPromise = Promise.resolve({} as any);
+			const macroProviderPromise = Promise.resolve({} as any);
+			const legacyImageUploadProviderPromise = Promise.resolve({} as any);
 			const mediaOptions: MediaOptions = {
-				provider: Promise.resolve(mediaProvider),
+				provider: Promise.resolve({} as any),
 			};
+			const getQuickInsertItems = jest.fn().mockResolvedValue([]);
 			const quickInsertProvider: QuickInsertProvider = {
-				getItems: () => Promise.resolve([]),
+				getItems: getQuickInsertItems,
 			};
 			const quickInsert: QuickInsertOptions = {
 				provider: Promise.resolve(quickInsertProvider),
@@ -477,13 +481,13 @@ describe(`Editor`, () => {
 
 			render(
 				<Editor
-					activityProvider={Promise.resolve(activityProvider)}
-					mentionProvider={Promise.resolve(mentionProvider)}
-					contextIdentifierProvider={Promise.resolve(contextIdentifierProvider)}
-					collabEditProvider={Promise.resolve(collabEditProvider)}
-					presenceProvider={Promise.resolve(presenceProvider)}
-					macroProvider={Promise.resolve(macroProvider)}
-					legacyImageUploadProvider={Promise.resolve(legacyImageUploadProvider)}
+					activityProvider={activityProviderPromise}
+					mentionProvider={mentionProviderPromise}
+					contextIdentifierProvider={contextIdentifierProviderPromise}
+					collabEditProvider={collabEditProviderPromise}
+					presenceProvider={presenceProviderPromise}
+					macroProvider={macroProviderPromise}
+					legacyImageUploadProvider={legacyImageUploadProviderPromise}
 					media={mediaOptions}
 					quickInsert={quickInsert}
 					extensionProviders={[extensionProviderProps]}
@@ -491,41 +495,33 @@ describe(`Editor`, () => {
 			);
 
 			expect(setProviderSpy).toHaveBeenCalledTimes(10);
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				1,
-				'mentionProvider',
-				Promise.resolve(mentionProvider),
-			);
+			expect(setProviderSpy).toHaveBeenNthCalledWith(1, 'mentionProvider', mentionProviderPromise);
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				2,
 				'contextIdentifierProvider',
-				Promise.resolve(contextIdentifierProvider),
+				contextIdentifierProviderPromise,
 			);
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				3,
 				'imageUploadProvider',
-				Promise.resolve(legacyImageUploadProvider),
+				legacyImageUploadProviderPromise,
 			);
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				4,
 				'collabEditProvider',
-				Promise.resolve(collabEditProvider),
+				collabEditProviderPromise,
 			);
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				5,
 				'activityProvider',
-				Promise.resolve(activityProvider),
+				activityProviderPromise,
 			);
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				7,
 				'presenceProvider',
-				Promise.resolve(presenceProvider),
+				presenceProviderPromise,
 			);
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				8,
-				'macroProvider',
-				Promise.resolve(macroProvider),
-			);
+			expect(setProviderSpy).toHaveBeenNthCalledWith(8, 'macroProvider', macroProviderPromise);
 
 			// extensionProvider is going to be a generated in packages/editor/editor-common/src/extensions/combine-extension-providers.ts
 			// and there is nothing to compare it with
@@ -533,8 +529,18 @@ describe(`Editor`, () => {
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				10,
 				'quickInsertProvider',
-				Promise.resolve(quickInsertProvider),
+				expect.any(Promise),
 			);
+
+			// The combined provider must still delegate to the supplied quick-insert provider.
+			const registeredQuickInsertPromise = setProviderSpy.mock.calls.find(
+				([name]) => name === 'quickInsertProvider',
+			)?.[1];
+			const combinedQuickInsertProvider =
+				(await registeredQuickInsertPromise) as QuickInsertProvider;
+
+			await combinedQuickInsertProvider.getItems();
+			expect(getQuickInsertItems).toHaveBeenCalled();
 
 			setProviderSpy.mockRestore();
 

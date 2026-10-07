@@ -124,6 +124,12 @@ describe('DatePicker', () => {
 		expect(menu).toBeInTheDocument();
 	});
 
+	it('passes calendarLabel to the calendar', () => {
+		render(createDatePicker({ calendarLabel: 'appointment calendar', defaultIsOpen: true }));
+
+		expect(screen.getByLabelText('appointment calendar')).toBeInTheDocument();
+	});
+
 	it('should handle a controlled isOpen', () => {
 		const { rerender } = render(createDatePicker({ isOpen: false }));
 		let menu = queryMenu();

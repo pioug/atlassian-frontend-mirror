@@ -113,6 +113,7 @@ const _default: () => JSX.Element = () => {
 					Select date (default)
 				</Label>
 				<DatePicker
+					calendarLabel="calendar"
 					id="react-select-datepicker-1--input"
 					clearControlLabel="Clear select date (default)"
 					onChange={onChange}
@@ -147,6 +148,7 @@ const _default: () => JSX.Element = () => {
 					testId={'datetime-picker'}
 					defaultValue="2021-01-01"
 					datePickerProps={{
+						calendarLabel: 'calendar',
 						weekStartDay,
 						label: 'Date / time picker (default), date',
 						shouldShowCalendarButton: true,

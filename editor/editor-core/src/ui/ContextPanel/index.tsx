@@ -15,11 +15,8 @@ import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel'
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ContextPanelContentCompiled, ContextPanelWrapperCompiled } from './index-compiled';
-import { ContextPanelContentEmotion, ContextPanelWrapperEmotion } from './index-emotion';
 
 export type Props = {
 	children?: React.ReactElement;
@@ -28,18 +25,6 @@ export type Props = {
 	hasPadding?: boolean;
 	visible: boolean;
 };
-
-const ContextPanelWrapperMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	ContextPanelWrapperCompiled,
-	ContextPanelWrapperEmotion,
-);
-
-const ContextPanelContentMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	ContextPanelContentCompiled,
-	ContextPanelContentEmotion,
-);
 
 type SwappableContentAreaProps = {
 	editorView?: EditorView;
@@ -165,7 +150,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 					broadcastWidth(contextPanelWidth);
 
 					return (
-						<ContextPanelWrapperMigration
+						<ContextPanelWrapperCompiled
 							customWidth={this.props.customWidth}
 							visible={visible}
 							data-testid="context-panel-panel"
@@ -174,7 +159,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 							aria-modal="false"
 							role="dialog"
 						>
-							<ContextPanelContentMigration
+							<ContextPanelContentCompiled
 								customWidth={this.props.customWidth}
 								visible={visible}
 								hasPadding={hasPadding}
@@ -185,8 +170,8 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 								aria-label={this.props.intl?.formatMessage(contextPanelMessages.panelContentLabel)}
 							>
 								{this.showPluginContent() || this.showProvidedContent(userVisible)}
-							</ContextPanelContentMigration>
-						</ContextPanelWrapperMigration>
+							</ContextPanelContentCompiled>
+						</ContextPanelWrapperCompiled>
 					);
 				}}
 			</ContextPanelConsumer>

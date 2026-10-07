@@ -187,7 +187,7 @@ export function MentionItemWithProfileCard({
 		return [0, CARD_GAP_PX + getScrollbarWidth(referenceElement)];
 	}, [referenceElement]);
 
-	if (mention.isPlaceholder && isExperimentEnabled('platform_editor_mention_search_order')) {
+	if (mention.isPlaceholder) {
 		return (
 			<Box testId="mention-item-with-profile-card" xcss={styles.placeholderContainer}>
 				<Box xcss={styles.placeholderContent}>

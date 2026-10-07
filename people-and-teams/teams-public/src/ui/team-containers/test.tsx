@@ -530,6 +530,55 @@ describe('TeamContainers', () => {
 
 		await expect(container).toBeAccessible();
 	});
+
+	describe('teams_a11y_20261005 - show more focus management', () => {
+		const teamContainers = Array.from({ length: 5 }, (_, index) => ({
+			id: index.toString(),
+			type: 'ConfluenceSpace',
+			name: `Confluence Space Name ${index}`,
+			icon: 'icon',
+			link: 'link',
+		}));
+
+		it('should move focus to first new item when Show more is clicked and gate is on', async () => {
+			mockFg.mockImplementation((flag: string) => flag === 'teams_a11y_20261005');
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: teamContainers,
+			});
+			renderTeamContainers(teamId);
+
+			const showMoreButton = screen.getByText('Show more');
+			await userEvent.click(showMoreButton);
+
+			const fifthContainer = await screen.findByText('Confluence Space Name 4');
+			expect(fifthContainer).toBeInTheDocument();
+
+			// The first newly revealed listitem should have tabIndex -1 (focusable)
+			const listItems = document.querySelectorAll('[role="listitem"]');
+			// The 5th listitem (index 4, first from the "show more" slice) should have tabIndex -1
+			expect(listItems[4]).toHaveAttribute('tabindex', '-1');
+			// Focus should have moved to the first newly revealed item
+			expect(document.activeElement).toBe(listItems[4]);
+		});
+
+		it('should not set tabIndex on show more items when gate is off', async () => {
+			mockFg.mockImplementation(() => false);
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: teamContainers,
+			});
+			renderTeamContainers(teamId);
+
+			const showMoreButton = screen.getByText('Show more');
+			await userEvent.click(showMoreButton);
+
+			const fifthContainer = await screen.findByText('Confluence Space Name 4');
+			expect(fifthContainer).toBeInTheDocument();
+
+			// No show-more listitem should have tabIndex -1 when gate is off
+			const listItems = document.querySelectorAll('[role="listitem"]');
+			expect(listItems[4]).not.toHaveAttribute('tabindex', '-1');
+		});
+	});
 });
 
 describe('TeamLinks', () => {

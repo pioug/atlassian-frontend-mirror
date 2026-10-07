@@ -41,6 +41,7 @@ const resolveDocLevelNode = (
 
 type MeasuredTarget = {
 	element: HTMLElement;
+	leftOffset?: number;
 	measureLeft?: boolean;
 };
 
@@ -270,7 +271,10 @@ export const createLeftAnchorWidget = ({
 			anchor.style.setProperty('anchor-name', `--${leftAnchorKey}`);
 			anchor.style.setProperty('position', 'absolute');
 			anchor.style.setProperty('left', `calc(50% - ${edgeCase?.leftOffset || 0}px)`);
-			anchor.style.setProperty('transform', 'translateX(-50%)');
+			// transforms on anchors have limited browser support
+			if (!fg('platform_editor_ai_show_diff_patch_2')) {
+				anchor.style.setProperty('transform', 'translateX(-50%)');
+			}
 
 			wrapper.appendChild(anchor);
 
@@ -284,6 +288,7 @@ export const createLeftAnchorWidget = ({
 					}
 					const measuredElements = widthMeasureTargets.flatMap<MeasuredTarget>(
 						({
+							leftOffset,
 							measureElement: targetMeasureElement,
 							measureLeft,
 							measurePos,
@@ -299,7 +304,7 @@ export const createLeftAnchorWidget = ({
 										? Array.from(nodeDOM.querySelectorAll<HTMLElement>(measureSelector))
 										: [nodeDOM]
 									: [];
-							return elements.map((element) => ({ element, measureLeft }));
+							return elements.map((element) => ({ element, leftOffset, measureLeft }));
 						},
 					);
 
@@ -321,7 +326,11 @@ export const createLeftAnchorWidget = ({
 									widest.element.getBoundingClientRect().left -
 									wrapper.getBoundingClientRect().left;
 								anchor.style.setProperty('left', `${left}px`);
-								anchor.style.setProperty('transform', 'none');
+							} else {
+								anchor.style.setProperty(
+									'left',
+									`calc(50% - ${widest.leftOffset ?? 0}px - ${widest.element.offsetWidth / 2}px)`,
+								);
 							}
 							anchor.style.setProperty('width', `${widest.element.offsetWidth}px`);
 						};

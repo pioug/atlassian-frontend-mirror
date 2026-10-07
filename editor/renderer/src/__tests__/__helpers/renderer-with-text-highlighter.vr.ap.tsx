@@ -17,7 +17,7 @@ import {
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { token } from '@atlaskit/tokens';
 
-import { RendererWithAnalytics } from '../../entry-points/renderer-default';
+import { Renderer } from '../../entry-points/renderer-default';
 import { AnnotationsWrapper } from '../../ui/annotations';
 import * as docWithMultipleMarksAndAnnotations from '../__fixtures__/annotation-over-marks.adf.json';
 
@@ -171,7 +171,7 @@ function FilteredTextHighliterComponent({ match, marks }: { marks: Set<string>; 
 
 export function RendererWithTextHighlighter(): jsx.JSX.Element {
 	return (
-		<RendererWithAnalytics
+		<Renderer
 			appearance="full-page"
 			document={doc as DocNode}
 			textHighlighter={{
@@ -187,7 +187,7 @@ export function RendererWithTextHighlighter(): jsx.JSX.Element {
 
 export function RendererWithFilteredTextHighlighter(): jsx.JSX.Element {
 	return (
-		<RendererWithAnalytics
+		<Renderer
 			appearance="full-page"
 			document={doc as DocNode}
 			textHighlighter={{
@@ -216,7 +216,7 @@ function RendererWithAnnotationsOverMarks() {
 					annotationProviders={annotationProviders}
 					invisibleViewComponent
 				/>
-				<RendererWithAnalytics
+				<Renderer
 					innerRef={rendererRef}
 					document={docWithMultipleMarksAndAnnotations as unknown as DocNode}
 					appearance="full-page"

@@ -744,7 +744,7 @@ const editorContentStyles = cssMapScoped({
 			'--ak-editor-max-container-width': '100%',
 		},
 
-		/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts */
+		/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/FullPageContentArea.tsx */
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		[editorAreaNonSmallDeviceContainerQuery]: {
 			'.ProseMirror': {
@@ -3857,13 +3857,15 @@ const editorContentStyles = cssMapScoped({
 			},
 	},
 	listsStyles: {
-		'.ProseMirror': {
+		'& .ProseMirror': {
 			/* =============== INDENTATION SPACING ========= */
 
-			'ul, ol': {
-				boxSizing: 'border-box',
-				paddingLeft: `var(--ed--list--item-counter--padding, 24px)`,
-			},
+			// Skips top-layer surfaces. See top-layer/notes/decisions/top-layer-unsafe-selectors.md
+			'& ul:not(:where([popover], dialog, & :is([popover], dialog) *)), & ol:not(:where([popover], dialog, & :is([popover], dialog) *))':
+				{
+					boxSizing: 'border-box',
+					paddingLeft: `var(--ed--list--item-counter--padding, 24px)`,
+				},
 
 			// Firefox does not handle empty block element inside li tag.
 			// If there is not block element inside li tag,	then firefox sets inherited height to li

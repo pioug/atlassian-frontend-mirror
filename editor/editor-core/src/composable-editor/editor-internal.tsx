@@ -15,8 +15,6 @@ import type { Transformer } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorFontSize } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
@@ -27,16 +25,8 @@ import EditorContext from '../ui/EditorContext';
 import { IntlProviderIfMissingWrapper } from '../ui/IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
-import { BaseThemeWrapper } from './BaseThemeWrapper';
 import { EditorInternalContainerCompiled } from './editor-internal-compiled';
-import { EditorInternalContainerEmotion } from './editor-internal-emotion';
 import { getBaseFontSize } from './utils/getBaseFontSize';
-
-const EditorInternalContainerMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	EditorInternalContainerCompiled,
-	EditorInternalContainerEmotion,
-);
 
 interface InternalProps {
 	AppearanceComponent: React.ComponentType<
@@ -117,7 +107,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}
 				>
-					<EditorInternalContainerMigration fontSize={fontSize}>
+					<EditorInternalContainerCompiled fontSize={fontSize}>
 						<EditorContext editorActions={editorActions}>
 							<IntlProviderIfMissingWrapper>
 								<Fragment>
@@ -141,53 +131,51 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 											editorRef,
 											editorAPI,
 										}) => (
-											<BaseThemeWrapper baseFontSize={baseFontSize}>
-												<AppearanceComponent
-													innerRef={editorRef}
-													editorAPI={editorAPI}
-													// Ignored via go/ees005
-													// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-													appearance={props.appearance!}
-													disabled={props.disabled}
-													editorActions={editorActions}
-													editorDOMElement={editor}
-													editorView={view}
-													providerFactory={providerFactory}
-													eventDispatcher={eventDispatcher}
-													dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-													maxHeight={props.maxHeight}
-													minHeight={props.minHeight}
-													onSave={props.onSave ? handleSave : undefined}
-													onCancel={props.onCancel}
-													onSSRMeasure={props.onSSRMeasure}
-													popupsMountPoint={props.popupsMountPoint}
-													popupsBoundariesElement={props.popupsBoundariesElement}
-													popupsScrollableElement={props.popupsScrollableElement}
-													contentComponents={config.contentComponents}
-													contentMode={props.contentMode}
-													primaryToolbarComponents={config.primaryToolbarComponents}
-													primaryToolbarIconBefore={props.primaryToolbarIconBefore}
-													secondaryToolbarComponents={config.secondaryToolbarComponents}
-													customContentComponents={props.contentComponents}
-													customPrimaryToolbarComponents={props.primaryToolbarComponents}
-													customSecondaryToolbarComponents={props.secondaryToolbarComponents}
-													contextPanel={props.contextPanel}
-													collabEdit={props.collabEdit}
-													persistScrollGutter={props.persistScrollGutter}
-													enableToolbarMinWidth={
-														props.featureFlags?.toolbarMinWidthOverflow != null
-															? !!props.featureFlags?.toolbarMinWidthOverflow
-															: props.allowUndoRedoButtons
-													}
-													isEditorModernisationEnabled={props.isEditorModernisationEnabled}
-													useStickyToolbar={props.useStickyToolbar}
-													featureFlags={featureFlags}
-													pluginHooks={config.pluginHooks}
-													__livePage={props.__livePage}
-													preset={preset}
-													UNSAFE_containLayout={props.UNSAFE_containLayout}
-												/>
-											</BaseThemeWrapper>
+											<AppearanceComponent
+												innerRef={editorRef}
+												editorAPI={editorAPI}
+												// Ignored via go/ees005
+												// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+												appearance={props.appearance!}
+												disabled={props.disabled}
+												editorActions={editorActions}
+												editorDOMElement={editor}
+												editorView={view}
+												providerFactory={providerFactory}
+												eventDispatcher={eventDispatcher}
+												dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+												maxHeight={props.maxHeight}
+												minHeight={props.minHeight}
+												onSave={props.onSave ? handleSave : undefined}
+												onCancel={props.onCancel}
+												onSSRMeasure={props.onSSRMeasure}
+												popupsMountPoint={props.popupsMountPoint}
+												popupsBoundariesElement={props.popupsBoundariesElement}
+												popupsScrollableElement={props.popupsScrollableElement}
+												contentComponents={config.contentComponents}
+												contentMode={props.contentMode}
+												primaryToolbarComponents={config.primaryToolbarComponents}
+												primaryToolbarIconBefore={props.primaryToolbarIconBefore}
+												secondaryToolbarComponents={config.secondaryToolbarComponents}
+												customContentComponents={props.contentComponents}
+												customPrimaryToolbarComponents={props.primaryToolbarComponents}
+												customSecondaryToolbarComponents={props.secondaryToolbarComponents}
+												contextPanel={props.contextPanel}
+												collabEdit={props.collabEdit}
+												persistScrollGutter={props.persistScrollGutter}
+												enableToolbarMinWidth={
+													props.featureFlags?.toolbarMinWidthOverflow != null
+														? !!props.featureFlags?.toolbarMinWidthOverflow
+														: props.allowUndoRedoButtons
+												}
+												isEditorModernisationEnabled={props.isEditorModernisationEnabled}
+												useStickyToolbar={props.useStickyToolbar}
+												featureFlags={featureFlags}
+												pluginHooks={config.pluginHooks}
+												__livePage={props.__livePage}
+												preset={preset}
+												UNSAFE_containLayout={props.UNSAFE_containLayout}
+											/>
 										)}
 									/>
 									<PortalRenderer />
@@ -195,7 +183,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 								</Fragment>
 							</IntlProviderIfMissingWrapper>
 						</EditorContext>
-					</EditorInternalContainerMigration>
+					</EditorInternalContainerCompiled>
 				</ErrorBoundary>
 			</Fragment>
 		);

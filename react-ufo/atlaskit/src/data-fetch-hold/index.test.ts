@@ -64,6 +64,38 @@ describe('startDataFetchHold', () => {
 		},
 	);
 
+	it.each(['press', 'typing'] as const)(
+		'starts a hold for an active %s interaction when its type is allowed',
+		(type) => {
+			mockGetActiveInteraction.mockReturnValue({
+				id: 'interaction-id',
+				end: 0,
+				type,
+			} as NonNullable<ReturnType<typeof getActiveInteraction>>);
+
+			expect(startDataFetchHold({ ...options, interactionTypes: ['press', 'typing'] })).toEqual(
+				expect.any(Function),
+			);
+			expect(mockAddHold).toHaveBeenCalledTimes(1);
+		},
+	);
+
+	it.each(['page_load', 'transition', 'segment'] as const)(
+		'does not start a hold for an active %s interaction when its type is not allowed',
+		(type) => {
+			mockGetActiveInteraction.mockReturnValue({
+				id: 'interaction-id',
+				end: 0,
+				type,
+			} as NonNullable<ReturnType<typeof getActiveInteraction>>);
+
+			expect(
+				startDataFetchHold({ ...options, interactionTypes: ['press', 'typing'] }),
+			).toBeUndefined();
+			expect(mockAddHold).not.toHaveBeenCalled();
+		},
+	);
+
 	it('releases after paint, completes the captured interaction, and is idempotent', () => {
 		mockGetActiveInteraction.mockReturnValue({
 			id: 'interaction-id',

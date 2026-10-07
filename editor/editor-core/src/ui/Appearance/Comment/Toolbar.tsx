@@ -1,25 +1,9 @@
 import React from 'react';
 
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FixedToolbarCompiled } from './FixedToolbar-compiled';
-import { FixedToolbarEmotion } from './FixedToolbar-emotion';
 import { StickyToolbarCompiled } from './StickyToolbar-compiled';
-import { StickyToolbarEmotion } from './StickyToolbar-emotion';
-
-const StickyToolbarMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	StickyToolbarCompiled,
-	StickyToolbarEmotion,
-);
-
-const FixedToolbarMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	FixedToolbarCompiled,
-	FixedToolbarEmotion,
-);
 
 /**
  * ED-15802: Scenarios when a sticky bar is used:
@@ -62,7 +46,7 @@ export const MainToolbar = ({
 }: MainToolbarProps): React.JSX.Element => {
 	if (useStickyToolbar) {
 		return (
-			<StickyToolbarMigration
+			<StickyToolbarCompiled
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getStickyParameters(useStickyToolbar)}
@@ -71,16 +55,16 @@ export const MainToolbar = ({
 				isNewToolbarEnabled={isNewToolbarEnabled}
 			>
 				{children}
-			</StickyToolbarMigration>
+			</StickyToolbarCompiled>
 		);
 	}
 	return (
-		<FixedToolbarMigration
+		<FixedToolbarCompiled
 			isEditorModernisationEnabled={isEditorModernisationEnabled}
 			twoLineEditorToolbar={twoLineEditorToolbar}
 			isNewToolbarEnabled={isNewToolbarEnabled}
 		>
 			{children}
-		</FixedToolbarMigration>
+		</FixedToolbarCompiled>
 	);
 };

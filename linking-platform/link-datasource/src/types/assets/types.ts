@@ -16,6 +16,12 @@ export type ResolvePrimaryWorkspaceResponse = {
 	siteWithJiraUrl?: string;
 };
 
+/** Wire shape of the `/assets/is-multi-site` response. */
+export type AssetsMultiSiteResponse = {
+	isUnitsEnabledForAssets?: boolean;
+	multiSite?: boolean;
+};
+
 export type ObjectSchema = {
 	id: string;
 	name: string;

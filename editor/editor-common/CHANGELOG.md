@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 129.1.0
+
+### Minor Changes
+
+- [`5351e01090c9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5351e01090c9c) -
+  Show the five strongest matches first, then remaining matches in category order without category
+  titles, in slash-command and toolbar insert search. Share the row projection across rendering and
+  keyboard selection under the platform_editor_slash_command experiment.
+- [`f2970988c7e5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2970988c7e5b) -
+  MAUI-1306: add a gated Remix NodeView lifecycle handoff that retains its React portal during
+  annotation wrapper replacement using cc_maui_annotations_on_extensions. Expose a shared MAUI
+  native-embed extension key through extensions/native-embed-maui-extension-key. Expose the lazy
+  preservation wrapper through extensibility/preserve-remix-node-view so both extension NodeView
+  factories can reclaim an existing instance without constructing a replacement. Clean up and
+  replace a reclaimed NodeView if its update rejects the node.
+
+### Patch Changes
+
+- [`c889a6f17321a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c889a6f17321a) -
+  `copyHTMLToClipboard` and `copyHTMLToClipboardPolyfill` no longer leak an unhandled rejection when
+  called fire-and-forget (EDF-2436). `copyHTMLToClipboard` now awaits the polyfill so its existing
+  `try/catch` applies. Callers that await still receive the error.
+- Updated dependencies
+
+## 129.0.0
+
+### Major Changes
+
+- [`1cb97ba88fb58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cb97ba88fb58) -
+  Clean up experiment `platform_editor_insert_menu_ai` (keep control).
+
+  Breaking changes (`@atlaskit/editor-common`): removed `getEmptyItem` from `TypeAheadHandler`, and
+  removed the unused messages `typeAheadListMessages.emptySearchResultsSuggestionNew`,
+  `typeAheadListMessages.emptySearchResultsSuggestionAskRovoOnly` and
+  `toolbarInsertBlockMessages.askRovo`.
+
+### Minor Changes
+
+- [`7609e9d6f1431`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7609e9d6f1431) -
+  Add the quick-insert/snippet-menu-rank entry point with getSnippetMenuRank and
+  TEMPLATE_GALLERY_MENU_RANK for ordering Block templates in the Insert menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 128.4.0
 
 ### Minor Changes

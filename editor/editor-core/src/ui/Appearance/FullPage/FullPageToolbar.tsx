@@ -36,11 +36,13 @@ import {
 	MainToolbarForFirstChildWrapper,
 	MainToolbarForSecondChildWrapper,
 } from './CustomToolbarWrapper';
-import { CustomToolbarWrapperMigration } from './CustomToolbarWrapperMigration';
 import { MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT } from './MainToolbar';
-import { MainToolbarIconBeforeMigration } from './MainToolbarIconBeforeMigration';
+import {
+	CustomToolbarWrapperCompiled,
+	MainToolbarIconBeforeCompiled,
+	NonCustomToolbarWrapperCompiled,
+} from './MainToolbar-compiled';
 import { MainToolbarWrapper } from './MainToolbarWrapper';
-import { NonCustomToolbarWrapperMigration } from './NonCustomToolbarWrapperMigration';
 
 export type ToolbarEditorPlugins = [
 	OptionalPlugin<AnalyticsPlugin>,
@@ -93,9 +95,9 @@ export const EditorToolbar: React.MemoExoticComponent<
 	const popupsMountPoint = hasToolbarPortal ? undefined : props.popupsMountPoint;
 
 	const nonCustomToolbar = (
-		<NonCustomToolbarWrapperMigration>
+		<NonCustomToolbarWrapperCompiled>
 			{props.beforeIcon && (
-				<MainToolbarIconBeforeMigration>{props.beforeIcon}</MainToolbarIconBeforeMigration>
+				<MainToolbarIconBeforeCompiled>{props.beforeIcon}</MainToolbarIconBeforeCompiled>
 			)}
 			<Toolbar
 				editorView={props.editorView}
@@ -113,11 +115,11 @@ export const EditorToolbar: React.MemoExoticComponent<
 				hasMinWidth={props.hasMinWidth}
 				twoLineEditorToolbar={twoLineEditorToolbar}
 			/>
-		</NonCustomToolbarWrapperMigration>
+		</NonCustomToolbarWrapperCompiled>
 	);
 
 	const customToolbar = (
-		<CustomToolbarWrapperMigration>
+		<CustomToolbarWrapperCompiled>
 			{!!props.customPrimaryToolbarComponents &&
 			'before' in props.customPrimaryToolbarComponents ? (
 				<BeforePrimaryToolbarWrapper
@@ -139,7 +141,7 @@ export const EditorToolbar: React.MemoExoticComponent<
 			{!!props.customPrimaryToolbarComponents && 'after' in props.customPrimaryToolbarComponents
 				? props.customPrimaryToolbarComponents.after
 				: props.customPrimaryToolbarComponents}
-		</CustomToolbarWrapperMigration>
+		</CustomToolbarWrapperCompiled>
 	);
 
 	useEffect(() => {

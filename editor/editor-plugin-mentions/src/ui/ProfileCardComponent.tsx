@@ -219,11 +219,7 @@ export function ProfileCardComponent({
 					accountId={id}
 					provider={provider}
 					hideActions={hideActions}
-					text={
-						expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
-							? text
-							: undefined
-					}
+					text={text}
 					onChatClick={
 						onAgentMentionChatClick && fg('platform_editor_agent_mentions_drop_one_fixes')
 							? (event: React.MouseEvent, agentStudioId?: string) => {
@@ -326,24 +322,12 @@ const AgentProfileCardContent = ({
 			onChatClick,
 		});
 	}
-	return expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false) ? (
+	return (
 		<AgentProfileCardResourced
 			accountId={accountId}
 			cloudId={provider.cloudId}
 			resourceClient={provider.resourceClient}
 			agentName={agentName}
-			onChatClick={onChatClick}
-			hideAgentActions={hideActions}
-			hideConversationStarters={hideActions}
-			hideStarButton={hideActions}
-			hideAiDisclaimer={hideActions}
-			showCreatorNameWithoutLink={hideActions}
-		/>
-	) : (
-		<AgentProfileCardResourced
-			accountId={accountId}
-			cloudId={provider.cloudId}
-			resourceClient={provider.resourceClient}
 			onChatClick={onChatClick}
 			hideAgentActions={hideActions}
 			hideConversationStarters={hideActions}

@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 3.1.4
+
+### Patch Changes
+
+- [`6f3ca06c05ce4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f3ca06c05ce4) -
+  A11Y: Fix focus management when activating the Show more button in TeamContainers — focus now
+  moves to the first newly revealed container item (gated behind `teams_a11y_20261005`)
+
 ## 3.1.3
 
 ### Patch Changes

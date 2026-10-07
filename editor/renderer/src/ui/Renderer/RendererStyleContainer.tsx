@@ -884,10 +884,12 @@ const paragraphStylesUGCScaledMargin = css({
 
 const listsSharedStyles = css({
 	/* =============== INDENTATION SPACING ========= */
-	'ul, ol': {
-		boxSizing: 'border-box',
-		paddingLeft: `var(--ed--list--item-counter--padding, ${listItemCounterPadding}px)`,
-	},
+	// Skips top-layer surfaces. See top-layer/notes/decisions/top-layer-unsafe-selectors.md
+	'& ul:not(:where([popover], dialog, & :is([popover], dialog) *)), & ol:not(:where([popover], dialog, & :is([popover], dialog) *))':
+		{
+			boxSizing: 'border-box',
+			paddingLeft: `var(--ed--list--item-counter--padding, ${listItemCounterPadding}px)`,
+		},
 
 	[`${orderedListSelector}, ${bulletListSelector}`]: {
 		/*
@@ -2112,7 +2114,8 @@ const tableSharedStyle = css({
 			width: 'auto',
 		},
 
-		'*': {
+		// Skips top-layer surfaces. See top-layer/notes/decisions/top-layer-unsafe-selectors.md
+		'& *:not(:where([popover], dialog, & :is([popover], dialog) *))': {
 			boxSizing: 'border-box',
 		},
 		hr: {

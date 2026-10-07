@@ -1,5 +1,50 @@
 # @atlaskit/renderer
 
+## 148.0.2
+
+### Patch Changes
+
+- [`481f10d4007ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/481f10d4007ce) -
+  Renderer list and table styles no longer leak into popups rendered inside it.
+- Updated dependencies
+
+## 148.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 148.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 147.2.0
+
+### Minor Changes
+
+- [`bd330447f78f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd330447f78f2) -
+  Add `@atlaskit/renderer/core`, `@atlaskit/renderer/serializer/core`,
+  `@atlaskit/renderer/serializer/default`, and `@atlaskit/renderer/serializer/text` as entrypoints.
+  Deprecate legacy renderer entrypoints - only `@atlaskit/renderer/core` and
+  `@atlaskit/renderer/default` (and serializer equivalents) should be used going into the future.
+
+### Patch Changes
+
+- [`cb9c13def05eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb9c13def05eb) -
+  Clean up jfp-magma-ssr-iv-editor-links to its false path, preserving the separate platform smart
+  link SSR gates.
+- Updated dependencies
+
+## 147.1.5
+
+### Patch Changes
+
+- [`678cc32521fe1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/678cc32521fe1) -
+  Remove the cc-maui-add-mark-for-remix-generated-images gate and keep Remix image source marks
+  enabled.
+
 ## 147.1.4
 
 ### Patch Changes

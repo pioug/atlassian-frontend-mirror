@@ -2,9 +2,7 @@ import React, { useMemo } from 'react';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import { isFullPage } from '../../utils/is-full-page';
@@ -13,13 +11,6 @@ import { Toolbar } from './Toolbar';
 import { toolbarSizeToWidth, widthToToolbarSize } from './toolbar-size';
 import type { ToolbarWithSizeDetectorProps } from './toolbar-types';
 import { ToolbarSizeDetectorWrapperCompiled } from './ToolbarSizeDetectorWrapper-compiled';
-import { ToolbarSizeDetectorWrapperEmotion } from './ToolbarSizeDetectorWrapper-emotion';
-
-const ToolbarSizeDetectorWrapperMigration = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	ToolbarSizeDetectorWrapperCompiled,
-	ToolbarSizeDetectorWrapperEmotion,
-);
 
 export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): React.JSX.Element => {
 	const ref = React.useRef<HTMLDivElement>(null);
@@ -53,13 +44,10 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): Re
 		}
 	}, [props.appearance, props.hasMinWidth, props.twoLineEditorToolbar]);
 
-	const memoizedWrapperStyle = useMemo(() => ({ minWidth: minWidthValue }), [minWidthValue]);
-	const wrapperStyle = expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true)
-		? memoizedWrapperStyle
-		: { minWidth: minWidthValue };
+	const wrapperStyle = useMemo(() => ({ minWidth: minWidthValue }), [minWidthValue]);
 
 	return (
-		<ToolbarSizeDetectorWrapperMigration
+		<ToolbarSizeDetectorWrapperCompiled
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- minWidth is computed dynamically from props.hasMinWidth, props.appearance, props.twoLineEditorToolbar, and the platform_editor_preview_panel_responsiveness experiment, so it cannot be expressed as a static css value.
 			style={wrapperStyle}
 		>
@@ -85,6 +73,6 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): Re
 			) : (
 				<div ref={ref} />
 			)}
-		</ToolbarSizeDetectorWrapperMigration>
+		</ToolbarSizeDetectorWrapperCompiled>
 	);
 };

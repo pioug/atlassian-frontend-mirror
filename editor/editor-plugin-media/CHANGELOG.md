@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media
 
+## 27.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.5
+
+### Patch Changes
+
+- [`678cc32521fe1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/678cc32521fe1) -
+  Remove the cc-maui-add-mark-for-remix-generated-images gate and keep Remix image source marks
+  enabled.
+
 ## 26.0.4
 
 ### Patch Changes

@@ -19,15 +19,19 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use AgentAvatar to identify a Rovo agent visually.',
-				"Supports displaying a custom image or a generated avatar based on the agent's identity.",
+				'Use AgentAvatar wherever a Rovo agent identity needs to be shown alongside chat or agent content.',
+				'Pass the agent identifiers and identity account data available to the host; the component selects the appropriate custom or generated avatar.',
 			],
 			examples: [
 				{
 					name: 'Render an agent avatar',
-					description:
-						'Uses the built-in Rovo identity to label an agent in a conversation surface. (AI-generated — please review)',
-					source: `${packagePath}/examples/ai/agent-avatar.tsx`,
+					description: 'Shows the standard agent avatar treatment used in Rovo surfaces.',
+					source: `${packagePath}/examples/02-agent-avatar.vr.ap.tsx`,
+				},
+				{
+					name: 'Render a generated agent avatar',
+					description: 'Shows the generated avatar treatment for an agent without a custom image.',
+					source: `${packagePath}/examples/03-agent-avatar-generated.vr.ap.tsx`,
 				},
 			],
 			keywords: ['rovo', 'agent', 'avatar', 'identity', 'ai'],
@@ -40,7 +44,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AgentProfileInfo',
-				package: '@atlaskit/rovo-agent-components/ui/AgentProfileInfo',
+				package: '@atlaskit/rovo-agent-components',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -51,10 +55,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Show an agent profile summary',
-					description:
-						'Composes an agent name, creator, description, and host-controlled star state for a profile surface. (AI-generated — please review)',
-					source: `${packagePath}/examples/ai/agent-profile-info.tsx`,
+					name: 'Profile Info',
+					description: 'Standard agent profile information display.',
+					source: `${packagePath}/examples/01-agent-profile-info.vr.ap.tsx`,
 				},
 			],
 			keywords: ['rovo', 'agent', 'profile', 'info', 'ai'],

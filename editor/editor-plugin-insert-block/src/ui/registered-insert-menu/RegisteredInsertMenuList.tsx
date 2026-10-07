@@ -5,15 +5,14 @@ import { List } from 'react-virtualized/dist/commonjs/List';
 import type { ListRowRenderer, ListProps } from 'react-virtualized/dist/commonjs/List';
 
 import { cssMap } from '@atlaskit/css';
-import type { QuickInsertMenuModel } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
+import {
+	getQuickInsertMenuRows,
+	type QuickInsertMenuModel,
+} from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type {
-	RegisterMenuItem,
-	RegisterMenuSection,
-	SurfaceContext,
-} from '@atlaskit/editor-ui-control-model/types';
+import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -87,10 +86,7 @@ export const RegisteredInsertMenuList = ({
 	const setListRef = useCallback((list: List | null) => {
 		listRef.current = list;
 	}, []);
-	const rows = useMemo<Array<RegisterMenuItem | RegisterMenuSection>>(
-		() => [...model.sections.flat(), ...(model.fallbackItems ?? [])],
-		[model.fallbackItems, model.sections],
-	);
+	const rows = useMemo(() => getQuickInsertMenuRows(model), [model]);
 	const cache = useMemo(
 		() => new CellMeasurerCache({ defaultHeight: ESTIMATED_ROW_HEIGHT, fixedWidth: true }),
 		[],

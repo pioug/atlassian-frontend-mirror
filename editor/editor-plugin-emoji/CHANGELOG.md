@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-emoji
 
+## 26.0.1
+
+### Patch Changes
+
+- [`b7e558430d632`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7e558430d632) -
+  Use legacy emoji quick-insert selection for registered menus under platform_editor_slash_command.
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.4
 
 ### Patch Changes

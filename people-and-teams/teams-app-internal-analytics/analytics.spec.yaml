@@ -2243,23 +2243,6 @@ events:
         duration:
           type: number
           description: the duration
-        numActions:
-          type: number
-          description: the number of actions
-        memberCount:
-          type: number
-          required: false
-          description: the number of members
-        includingYou:
-          type: boolean
-          required: false
-          description: whether the team includes the current user
-        descriptionLength:
-          type: number
-          description: the length of the team description
-        titleLength:
-          type: number
-          description: the length of the team title
   - button clicked (deleteAgentButton):
       type: ui
       description: fired when the delete agent button is clicked
@@ -2515,12 +2498,6 @@ events:
         duration:
           type: number
           description: the duration
-        hasHref:
-          type: boolean
-          description: whether the action has href
-        hasOnClick:
-          type: boolean
-          description: whether the action has onClick
         index:
           type: number
           description: the index

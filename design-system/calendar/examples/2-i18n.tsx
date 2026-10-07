@@ -41,6 +41,7 @@ export default (): React.JSX.Element => {
 	return (
 		<React.Fragment>
 			<Calendar
+				label="Calendar"
 				disabled={['2020-12-04']}
 				defaultPreviouslySelected={['2020-12-06']}
 				defaultSelected={['2020-12-08']}

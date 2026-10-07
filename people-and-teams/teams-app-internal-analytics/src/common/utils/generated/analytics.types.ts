@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::168ad4db8baa9c721d9a3c4a70e4230c>>
+ * @codegen <<SignedSource::e099f8f594d92fe919ced88786e8e290>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -953,11 +953,6 @@ export type RovoAgentProfilecardRenderedContentAttributesType = {
 export type TeamProfileCardRenderedContentAttributesType = {
 	firedAt: number;
 	duration: number;
-	numActions: number;
-	memberCount?: number | null;
-	includingYou?: boolean | null;
-	descriptionLength: number;
-	titleLength: number;
 };
 export type ButtonClickedDeleteAgentButtonAttributesType = {
 	agentId: string;
@@ -1150,8 +1145,6 @@ export type TeamProfileCardClickedAvatarAttributesType = {
 export type TeamProfileCardClickedActionAttributesType = {
 	firedAt: number;
 	duration: number;
-	hasHref: boolean;
-	hasOnClick: boolean;
 	index: number;
 	actionId: string;
 };

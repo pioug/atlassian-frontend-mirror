@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"**/*.test.*"
-	],
+	"include": ["./src/**/*.ts", "**/*.test.*"],
 	"exclude": [],
 	"compilerOptions": {
 		"composite": true,
@@ -13,6 +10,9 @@
 	"references": [
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		}
 	]
 }

@@ -80,6 +80,7 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 		<div {...innerProps} onMouseDown={onMenuMouseDown} role="presentation" css={styles.root}>
 			<Wrapper>
 				<Calendar
+					label={selectProps.calendarLabel}
 					day={day}
 					month={month}
 					year={year}

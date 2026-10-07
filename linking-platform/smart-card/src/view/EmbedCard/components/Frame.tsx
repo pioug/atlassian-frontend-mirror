@@ -15,8 +15,6 @@ import React, {
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { getDocument } from '@atlaskit/browser-apis';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getIframeSandboxAttribute } from '../../../utils/get-iframe-sandbox-attribute';
@@ -89,7 +87,6 @@ export const Frame: React.ForwardRefExoticComponent<
 		iframeRef,
 	) => {
 		di(IFrame);
-		const doc = getDocument();
 		const [isIframeLoaded, setIframeLoaded] = useState(false);
 		const [isMouseOver, setMouseOver] = useState(false);
 		// Accessing the document here for SSR where document.hasFocus may be absent breaks SSR
@@ -98,11 +95,8 @@ export const Frame: React.ForwardRefExoticComponent<
 		// _or_
 		// we can default to false, and set this state once the frame ref is available in a useEffect (safer IMO)
 		// which already seems to be existing behavior in a useEffect below.
-		const [isWindowFocused, setWindowFocused] = useState(
-			// The below will be removed as part of FG cleanup
-			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-			fg('jpx-1074-smart-links-iframe') ? (doc?.hasFocus() ?? false) : document.hasFocus(),
-		);
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+		const [isWindowFocused, setWindowFocused] = useState(document.hasFocus());
 
 		// Use prop if provided (from wrapper), otherwise use local state (for backward compatibility)
 		const effectiveMouseOver = isMouseOverProp !== undefined ? isMouseOverProp : isMouseOver;
@@ -141,24 +135,14 @@ export const Frame: React.ForwardRefExoticComponent<
 
 		useEffect(() => {
 			// Initialize with current focus state
-			// The below will be removed as part of FG cleanup
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-			setWindowFocused(
-				fg('jpx-1074-smart-links-iframe') ? (doc?.hasFocus() ?? false) : document.hasFocus(),
-			);
+			setWindowFocused(document.hasFocus());
 
 			const onBlur = () => {
 				setWindowFocused(false);
-				if (fg('jpx-1074-smart-links-iframe')) {
-					if (doc?.activeElement === ref.current) {
-						onIframeFocus && onIframeFocus();
-					}
-				} else {
-					// The below will be removed as part of FG cleanup
-					// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-					if (document.activeElement === ref.current) {
-						onIframeFocus && onIframeFocus();
-					}
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+				if (document.activeElement === ref.current) {
+					onIframeFocus && onIframeFocus();
 				}
 			};
 
@@ -172,7 +156,7 @@ export const Frame: React.ForwardRefExoticComponent<
 				window.removeEventListener('blur', onBlur);
 				window.removeEventListener('focus', onFocus);
 			};
-		}, [ref, onIframeFocus, doc]);
+		}, [ref, onIframeFocus]);
 
 		if (!url) {
 			return null;

@@ -8,7 +8,6 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { clearListError } from '../../pm-plugins/commands/clear-list-error';
 import { updateListError } from '../../pm-plugins/commands/update-list-error';
@@ -57,20 +56,14 @@ export const useLoadItems = (
 		 * Promise path and the opt-in multi-emit `subscribeToItemsUpdates`
 		 * path. Renders the dropdown with whatever items it is given.
 		 *
-		 * Both paths share the empty-state injection, section-building
-		 * and "View more" placeholder logic — extracting this helper
+		 * Both paths share the section-building and "View more"
+		 * placeholder logic — extracting this helper
 		 * avoids any chance the two paths drift in subtle rendering
 		 * behaviour.
 		 */
 		const renderResult = (result: Array<TypeAheadItem>) => {
-			const emptyItem =
-				result.length === 0 && isExperimentEnabled('platform_editor_insert_menu_ai')
-					? triggerHandler.getEmptyItem?.({ editorState: editorView.state })
-					: undefined;
-
-			const rawList = result.length > 0 ? result : emptyItem ? [emptyItem] : EMPTY_LIST_ITEM;
 			const { items: list, sections } = buildSectionedResult({
-				items: rawList,
+				items: result.length > 0 ? result : EMPTY_LIST_ITEM,
 				triggerHandler,
 				intl: intl ?? null,
 			});

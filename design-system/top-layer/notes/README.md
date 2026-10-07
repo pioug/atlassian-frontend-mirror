@@ -103,6 +103,9 @@ Architectural decisions, design rationale, and decision logs.
   popover whose anchor is fully clipped or `visibility: hidden`, invisibly to geometry-based tests
 - **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Current matrix: which packages ship
   a top-layer code path, partial migrations, test-only coverage, and skipped packages
+- **[host-specificity-boost.md](./decisions/host-specificity-boost.md)** — Decision: why the
+  `Popover` and `Dialog` hosts declare their own styles at (0,4,0) under `:defined:defined:defined`,
+  what that covers, and its limits
 - **[top-layer-unsafe-selectors.md](./decisions/top-layer-unsafe-selectors.md)** — **The single
   source of guard strings** for hand-fixing AFM-authored selectors for top layer: the `G` / `Gi` /
   `Gw` guards, the withdrawn `of S` forms and why, the six verified traps, the patterns with no

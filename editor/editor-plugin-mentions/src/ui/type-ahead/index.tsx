@@ -83,8 +83,7 @@ const isSearchOrderedPersonTypeAheadItem = (item: TypeAheadItem): boolean =>
 	!isExplicitAgentMention(item.mention) &&
 	!isBotOrTeamMention(item.mention);
 
-const shouldApplyMentionSearchOrder = (query: string): boolean =>
-	isExperimentEnabled('platform_editor_mention_search_order') && query.trim().length > 0;
+const shouldApplyMentionSearchOrder = (query: string): boolean => query.trim().length > 0;
 
 // A non-selectable loading placeholder injected by the provider (e.g.
 // `RovoChatMentionResource`) while the slower agent source resolves. It
@@ -196,10 +195,7 @@ const makeMentionToTypeaheadItem =
 			};
 		}
 
-		if (
-			isLoadingPlaceholder(mention) &&
-			isExperimentEnabled('platform_editor_mention_search_order')
-		) {
+		if (isLoadingPlaceholder(mention)) {
 			return {
 				title: mention.id,
 				isNonInteractive: true,
@@ -978,11 +974,7 @@ export const createTypeAheadConfig = ({
 			if (!initialResolved) {
 				initialResolved = true;
 				initialResolve?.(items);
-			} else if (
-				enableAgentSectioning &&
-				isExperimentEnabled('platform_editor_mention_search_order') &&
-				!updateCallback
-			) {
+			} else if (enableAgentSectioning && !updateCallback) {
 				// Agent Studio can resolve before the typeahead installs its update subscriber.
 				pendingUpdate = items;
 			} else {
@@ -1012,11 +1004,7 @@ export const createTypeAheadConfig = ({
 					throw new Error('TypeAhead mention updates support only one subscriber');
 				}
 				updateCallback = update;
-				if (
-					enableAgentSectioning &&
-					isExperimentEnabled('platform_editor_mention_search_order') &&
-					pendingUpdate
-				) {
+				if (enableAgentSectioning && pendingUpdate) {
 					updateCallback(pendingUpdate);
 					pendingUpdate = null;
 				}
@@ -1038,7 +1026,7 @@ export const createTypeAheadConfig = ({
 		};
 	};
 
-	if (enableAgentSectioning && isExperimentEnabled('platform_editor_mention_search_order')) {
+	if (enableAgentSectioning) {
 		typeAhead.subscribeToItemsUpdates = subscribeToItemsUpdates;
 	}
 

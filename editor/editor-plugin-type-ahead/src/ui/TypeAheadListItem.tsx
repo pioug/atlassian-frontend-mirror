@@ -265,10 +265,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 		);
 		const isItemDisabled = (item: TypeAheadItem | undefined) =>
 			isOfflineMode(connectivityMode) && (item?.isDisabledOffline ?? false);
-		const itemIsDisabled =
-			(isExperimentEnabled('platform_editor_mention_search_order') &&
-				item?.isNonInteractive === true) ||
-			isItemDisabled(item);
+		const itemIsDisabled = item?.isNonInteractive === true || isItemDisabled(item);
 		const isFirstEnabledIndex =
 			isOfflineMode(connectivityMode) &&
 			itemIndex === firstOnlineSupportedIndex &&
@@ -322,12 +319,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 		const customItemRef = React.useRef<HTMLDivElement>(null);
 		const buttonItemRef = React.useRef<HTMLDivElement>(null);
 		const shouldUpdateFocus =
-			selectedIndex === itemIndex &&
-			!isFirstEnabledIndex &&
-			!(
-				isExperimentEnabled('platform_editor_mention_search_order') &&
-				item?.isNonInteractive === true
-			);
+			selectedIndex === itemIndex && !isFirstEnabledIndex && item?.isNonInteractive !== true;
 		const listItemClasses = useMemo(() => {
 			return [selectionFrame, isSelected && !itemIsDisabled && selectedStyle];
 		}, [isSelected, itemIsDisabled]);

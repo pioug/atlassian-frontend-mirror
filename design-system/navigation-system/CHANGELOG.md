@@ -1,5 +1,12 @@
 # @atlassian/navigation-system
 
+## 11.2.1
+
+### Patch Changes
+
+- [`6af127aa0b583`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6af127aa0b583) -
+  Consolidate the open-layer observer providers in `TopNavEnd`.
+
 ## 11.2.0
 
 ### Minor Changes

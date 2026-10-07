@@ -2,12 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/**
- * Compiled branch of the `platform_editor_core_non_ecc_static_css` experiment.
- * Used via `componentWithCondition` in `index.tsx`.
- *
- * Cleanup: delete this file once the experiment has shipped.
- */
 import React, { forwardRef } from 'react';
 import type { InputHTMLAttributes } from 'react';
 

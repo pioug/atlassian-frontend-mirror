@@ -38,7 +38,6 @@ import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
@@ -90,9 +89,6 @@ const getDataConsumerMark = (marks: MediaProps['marks']): DataConsumerDefinition
 			mark.type === 'dataConsumer' ||
 			(mark.type as unknown as { name: string })?.name === 'dataConsumer',
 	) as DataConsumerDefinition | undefined;
-
-const getRemixDataConsumerMark = (marks: MediaProps['marks']): DataConsumerDefinition | undefined =>
-	fg('cc-maui-add-mark-for-remix-generated-images') ? getDataConsumerMark(marks) : undefined;
 
 const linkStyle = css({
 	position: 'absolute',
@@ -331,7 +327,7 @@ class Media extends PureComponent<MediaProps, object> {
 	private handleMediaLinkClickFn;
 
 	private getDataConsumerMark = (): DataConsumerDefinition | undefined =>
-		getRemixDataConsumerMark(this.props.marks);
+		getDataConsumerMark(this.props.marks);
 
 	private getDataConsumerSource = (props: MediaProps = this.props): string | undefined =>
 		getDataConsumerMark(props.marks)?.attrs.sources?.[0];

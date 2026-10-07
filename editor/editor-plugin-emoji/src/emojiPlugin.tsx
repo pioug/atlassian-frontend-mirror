@@ -21,6 +21,7 @@ import type {
 	FloatingToolbarItem,
 	PMPluginFactoryParams,
 	TypeAheadHandler,
+	TypeAheadInsert,
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
@@ -224,9 +225,25 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			return tr;
 		},
 	};
+	const selectEmojiFromQuickInsert = (insert: TypeAheadInsert) => {
+		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+			return setInlineEmojiPopupOpen(true)(insert(''));
+		}
+
+		const tr = insert(undefined);
+		api?.typeAhead?.actions.openAtTransaction({
+			triggerHandler: typeAhead,
+			inputMethod: INPUT_METHOD.QUICK_INSERT,
+		})(tr);
+
+		return tr;
+	};
+
 	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	if (isRegisteredSlashCommandEnabled) {
-		api?.uiControlRegistry?.actions.register(getEmojiQuickInsertComponents());
+		api?.uiControlRegistry?.actions.register(
+			getEmojiQuickInsertComponents({ selectEmojiFromQuickInsert }),
+		);
 	}
 
 	api?.base?.actions.registerMarks(({ tr, node, pos }) => {
@@ -347,24 +364,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 								keyshortcut: ':',
 								isDisabledOffline: false,
 								icon: () => <IconEmoji />,
-								action(insert) {
-									if (
-										editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-									) {
-										// Clear slash
-										let tr = insert('');
-										tr = setInlineEmojiPopupOpen(true)(tr);
-										return tr;
-									}
-
-									const tr = insert(undefined);
-									api?.typeAhead?.actions.openAtTransaction({
-										triggerHandler: typeAhead,
-										inputMethod: INPUT_METHOD.QUICK_INSERT,
-									})(tr);
-
-									return tr;
-								},
+								action: selectEmojiFromQuickInsert,
 							},
 						],
 					}),

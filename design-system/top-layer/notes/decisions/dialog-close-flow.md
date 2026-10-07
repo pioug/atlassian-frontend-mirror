@@ -1,102 +1,90 @@
 # Dialog close flow
 
-How closing works for `@atlaskit/top-layer` Dialog: who triggers it, who actually closes the
-`<dialog>`, and how consumers can keep the dialog open (e.g. modal-dialog with
+How closing works for `@atlaskit/top-layer` Dialog: who triggers it, who closes the `<dialog>`, and
+how consumers limit which user actions can dismiss it (e.g. modal-dialog with
 `shouldCloseOnEscapePress` / `shouldCloseOnOverlayClick`).
 
 ---
 
 ## Summary
 
-This document covers Dialog-specific close triggers and consumer gating. The shared terminology,
+This document covers Dialog-specific close triggers and dismissal control. The shared terminology,
 state machine, native event ordering, and host mounting behavior are defined by the
 [canonical visibility lifecycle contract](../architecture/animations.md#canonical-visibility-lifecycle-contract).
 
-The dialog **does not close itself**. The browser does not close it on Escape (we call
-`preventDefault()`), and there is no native "close on backdrop click" for `<dialog>`. The dialog
-closes when the consumer changes controlled intent by setting **`isOpen={false}`**, which causes
-`Dialog` to call `dialog.close()` internally. The consumer does not unmount the `Dialog` to close
-it. The primitive owns lifecycle phase and host mounting; see `host-element-unmount-when-hidden.md`
-for the mounting decision.
+User dismissal follows Popover behavior: **the dialog closes first, then the consumer is told why.**
+An allowed Escape or backdrop click closes the native `<dialog>`, and the closed `toggle` event
+calls `onClose({ reason })`. The consumer cannot reject the dismissal from `onClose`; it must set
+`isOpen={false}` to keep its controlled state in sync with the native dialog.
 
-Top-layer **always** calls `onClose({ reason })` when Escape or backdrop click happens. The consumer
-decides whether to set `isOpen={false}` in response. So "closing" is: **trigger → top-layer calls
-`onClose` → consumer sets `isOpen={false}` → `Dialog` calls `dialog.close()` → exit animation plays
-(if animated) → `onExitFinish` fires → children unmount → dialog element stays in DOM but hidden**.
-If the consumer does not update `isOpen` (e.g. it ignores that reason), the dialog stays open.
+Which user actions may dismiss the dialog is decided **before** the event, through the `dismissedBy`
+prop:
 
-When `isOpen` transitions back to `true`, `showModal()` is called again and the entry animation
-plays.
+| `dismissedBy`                          | Escape  | Backdrop click |
+| -------------------------------------- | ------- | -------------- |
+| `'escape-and-outside-click'` (default) | closes  | closes         |
+| `'escape'`                             | closes  | ignored        |
+| `'none'`                               | ignored | ignored        |
+
+A consumer-initiated close is not a reason the primitive produces. The consumer sets
+`isOpen={false}`, and `Dialog` calls `dialog.close()` without calling `onClose`.
 
 ---
 
 ## Escape key
 
-1. User presses Escape → the native **`cancel`** event fires on the `<dialog>`.
-2. We call **`event.preventDefault()`** so the browser does **not** close the dialog. The element
-   stays open.
-3. We call **`onClose({ reason: 'escape' })`** so the consumer can react.
-4. If the consumer wants to close, it sets **`isOpen={false}`**.
-5. `Dialog` detects the `isOpen` change and calls **`dialog.close()`**. The exit animation plays (if
-   animated), then `onExitFinish` fires, children unmount, and the dialog element stays in the DOM
-   but hidden.
-
-If the consumer **does not** set `isOpen={false}` (e.g. it ignores `reason === 'escape'` when its
-own `shouldCloseOnEscapePress` is false), the dialog stays open. Top-layer has no close flags;
-gating is done in the consumer’s `onClose` handler.
+1. The user presses Escape and the native **`cancel`** event fires on the `<dialog>`.
+2. `handleCancel` ignores a `cancel` that targets a nested dialog, and a spurious Safari `cancel`
+   that belongs to an open child popover (see `safari-escape-nested-popover-in-dialog.md`). In the
+   Safari case it calls `preventDefault()` so the dialog stays open.
+3. If `dismissedBy` is `'none'`, it calls **`event.preventDefault()`**, so the dialog stays open.
+4. Otherwise it records the reason `'escape'` and lets the browser close the dialog.
+5. The closed **`toggle`** event calls **`onClose({ reason: 'escape' })`**.
+6. The consumer sets **`isOpen={false}`**. The exit animation plays (if animated), then
+   `onExitFinish` fires and the `<dialog>` unmounts.
 
 ---
 
 ## Backdrop (overlay) click
 
-1. User clicks the backdrop (click target is the `<dialog>` element itself, not a child).
-2. There is **no** native close-on-backdrop for `<dialog>`; we detect this in our `onClick` handler.
-3. We call **`onClose({ reason: 'overlay-click' })`** so the consumer can react.
-4. Same as Escape: the dialog only closes when the consumer sets `isOpen={false}`, which causes
-   `Dialog` to call `dialog.close()`.
-
-If the consumer does not set `isOpen={false}` (e.g. it ignores overlay-click when
-`shouldCloseOnOverlayClick` is false), the dialog stays open.
-
----
-
-## Programmatic close
-
-Close button or other explicit close calls **`onClose({ reason: 'programmatic' })`**. Again, the
-dialog closes only when the consumer sets `isOpen={false}` in response.
+1. The user clicks the backdrop. Browsers retarget clicks on `::backdrop` to the `<dialog>` element,
+   so the click target is the dialog itself, not a child.
+2. There is no native close-on-backdrop for a modal `<dialog>`, so the `click` listener handles it.
+   If `dismissedBy` is `'escape-and-outside-click'`, it records the reason `'overlay-click'` and
+   calls **`dialog.close()`**. Otherwise the click is ignored.
+3. The closed **`toggle`** event calls **`onClose({ reason: 'overlay-click' })`**.
+4. The consumer sets **`isOpen={false}`**, as for Escape.
 
 ---
 
 ## Consumer gating (e.g. modal-dialog)
 
-Top-layer Dialog does **not** accept `shouldCloseOnEscapePress` or `shouldCloseOnOverlayClick`. It
-always calls `onClose({ reason })` for escape and overlay click.
+Consumers gate dismissal by choosing `dismissedBy`, not by ignoring `onClose`. modal-dialog maps its
+props in `getDialogDismissedBy` (`modal-wrapper.tsx`):
 
-Consumers that need to gate closing (e.g. `@atlaskit/modal-dialog`) do so in their **`onClose`**
-handler: they receive the reason and only set `isOpen={false}` when the reason is allowed. For
-example, modal-dialog only forwards to `onCloseHandler()` when
-`(reason === 'escape' && shouldCloseOnEscapePress) || (reason === 'overlay-click' && shouldCloseOnOverlayClick) || reason === 'programmatic'`.
-When it does not forward, `isOpen` remains `true`, so the dialog stays open.
+- both `shouldCloseOnEscapePress` and `shouldCloseOnOverlayClick` → `'escape-and-outside-click'`
+- only `shouldCloseOnEscapePress` → `'escape'`
+- otherwise → `'none'`
+
+`dismissedBy` has no "outside click without Escape" option, because that is a poor pattern.
+modal-dialog shims that one combination with its own backdrop listener until
+`shouldCloseOnEscapePress` is removed.
 
 ---
 
-## Order of operations: onClose before close
+## Order of operations
 
-`onClose` is always invoked **before** the dialog closes. We never call `dialog.close()` from the
-event handlers; we only call `onClose`. The dialog closes later when `isOpen` becomes `false`. So
-the order is:
-
-1. **Trigger** (escape / backdrop click / programmatic) → `onClose({ reason })` runs
-2. **Consumer updates state** → sets `isOpen={false}` (or ignores, keeping the dialog open)
-3. **`Dialog` reacts to `isOpen={false}`** → calls `dialog.close()`
-4. **Native closed `toggle` fires** → if animation is enabled, all captured host animations settle
-5. **`onExitFinish` fires** → consumer can coordinate external lifecycle (e.g. `onCloseComplete`)
-6. **Children unmount and then the `<dialog>` host element unmounts** — see
-   `host-element-unmount-when-hidden.md`. Non-animated closes defer the host unmount via the
-   toggle/close event so the close-reason and native focus restoration paths run against the
+1. **Trigger:** an allowed Escape or backdrop click closes the native dialog.
+2. **Native closed `toggle` fires:** `onClose({ reason })` runs.
+3. **The consumer updates state:** it sets `isOpen={false}`.
+4. **Exit:** if animation is enabled, the captured host animations settle.
+5. **`onExitFinish` fires:** the consumer can coordinate external lifecycle (e.g.
+   `onCloseComplete`).
+6. **Children unmount, then the `<dialog>` host element unmounts.** See
+   `host-element-unmount-when-hidden.md`. Non-animated closes defer the host unmount through the
+   `toggle`/`close` event, so the close-reason and native focus restoration paths run against the
    still-attached element.
 
-When `isOpen` transitions back to `true`, children re-mount, `showModal()` is called, and the entry
-animation plays. The consumer never unmounts the `Dialog` React component to close the dialog — the
-primitive owns the lifecycle of the underlying `<dialog>` DOM node and unmounts it once exit
-completes.
+When `isOpen` becomes `true` again, a fresh `<dialog>` mounts, `showModal()` is called, and the
+entry animation plays. The consumer never unmounts the `Dialog` React component to close the dialog;
+the primitive owns the lifecycle of the `<dialog>` DOM node.

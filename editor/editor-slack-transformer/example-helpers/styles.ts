@@ -22,13 +22,13 @@ export const content: SerializedStyles = css({
 		'& button': {
 			margin: `${token('space.050')} 0`,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& input': {
+			fontSize: '13px',
+		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& legend': {
 		margin: `${token('space.100')} 0`,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& input': {
-		fontSize: '13px',
 	},
 });
